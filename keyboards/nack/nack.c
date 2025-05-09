@@ -1,4 +1,4 @@
-/* Copyright 2020 pastapojken <pastapojken@gmail.com>
+/* Copyright 2020 farfalleflickan <farfalleflickan@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
     led_config_t g_led_config = { {
@@ -37,4 +37,3 @@
       4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
     } };
 #endif
-

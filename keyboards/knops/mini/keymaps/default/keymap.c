@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		LT(3, KC_1), KC_2, KC_3, KC_4, M_TGLHF, M_TGG),
 
 	LAYOUT(
-		KC_TRNS, KC_TRNS, RESET, TO(0), TO(1), TO(2)),
+		KC_TRNS, KC_TRNS, QK_BOOT, TO(0), TO(1), TO(2)),
 
 	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
@@ -61,51 +61,51 @@ void set_switch_led(int ledId, bool state) {
 	if(state) {
 		switch(ledId) {
 			case 1:
-				PORTD |= (1<<7);
+				gpio_write_pin_high(D7);
 				break;
 			case 2:
-				if((PINB & (1 << 7)) != 0) {
-					PORTC |= (1<<6);
+				if(gpio_read_pin(B7)) {
+					gpio_write_pin_high(C6);
 				} else {
-					PORTC |= (1<<7);
+					gpio_write_pin_high(C7);
 				}
 				break;
 			case 3:
-				PORTD |= (1<<4);
+				gpio_write_pin_high(D4);
 				break;
 			case 4:
-				PORTE |= (1<<6);
+				gpio_write_pin_high(E6);
 				break;
 			case 5:
-				PORTB |= (1<<4);
+				gpio_write_pin_high(B4);
 				break;
 			case 6:
-				PORTD |= (1<<6);
+				gpio_write_pin_high(D6);
 				break;
 		}
 	} else {
 		switch(ledId) {
 			case 1:
-				PORTD &= ~(1<<7);
+				gpio_write_pin_low(D7);
 				break;
 			case 2:
-				if((PINB & (1 << 7)) != 0) {
-					PORTC &= ~(1<<6);
+				if(gpio_read_pin(B7)) {
+					gpio_write_pin_low(C6);
 				} else {
-					PORTC &= ~(1<<7);
+					gpio_write_pin_low(C7);
 				}
 				break;
 			case 3:
-				PORTD &= ~(1<<4);
+				gpio_write_pin_low(D4);
 				break;
 			case 4:
-				PORTE &= ~(1<<6);
+				gpio_write_pin_low(E6);
 				break;
 			case 5:
-				PORTB &= ~(1<<4);
+				gpio_write_pin_low(B4);
 				break;
 			case 6:
-				PORTD &= ~(1<<6);
+				gpio_write_pin_low(D6);
 				break;
 		}
 	}
@@ -113,131 +113,93 @@ void set_switch_led(int ledId, bool state) {
 
 
 void set_layer_led(int layerId) {
-	PORTD |= (1<<5);
-	PORTB &= ~(1<<6);
-	PORTB |= (1<<0);
+	gpio_write_pin_high(D5);
+	gpio_write_pin_low(B6);
+	gpio_write_pin_high(B0);
 	switch(layerId) {
 		case 0:
-			PORTD &= ~(1<<5);
+			gpio_write_pin_low(D5);
 			break;
 		case 1:
-			PORTB |= (1<<6);
+			gpio_write_pin_high(B6);
 			break;
 		case 2:
-			PORTB &= ~(1<<0);
+			gpio_write_pin_low(B0);
 			break;
 	}
 }
 
-void matrix_init_user(void) {
-	led_init_ports();
-	
-	PORTB |= (1 << 7);
-	DDRB &= ~(1<<7);
-	
-	PORTD |= (1<<7);
-	PORTC |= (1<<6);
-	PORTC |= (1<<7);
-	PORTD |= (1<<4);
-	PORTE |= (1<<6);
-	PORTB |= (1<<4);
-	PORTD |= (1<<6);
-	
-	set_layer_led(0);
-}
-
-void matrix_scan_user(void) {
-}
-
-void led_init_ports() {
+void led_init_ports_user(void) {
   // led voor switch #1
-	DDRD |= (1<<7);
-	PORTD &= ~(1<<7);
-	
-  // led voor switch #2
-	DDRC |= (1<<6);
-	DDRC |= (1<<7);
-	PORTC &= ~(1<<6);
-	PORTC &= ~(1<<7);
-	
-  // led voor switch #3
-	DDRD |= (1<<4);
-	PORTD &= ~(1<<4);
-	
-  // led voor switch #4
-	DDRE |= (1<<6);
-	PORTE &= ~(1<<6);
-	
-  // led voor switch #5
-	DDRB |= (1<<4);
-	PORTB &= ~(1<<4);
-	
-  // led voor switch #6
-	DDRD |= (1<<6);
-	PORTD &= ~(1<<6);
-	
-	/*
-	DDRD |= (1<<7);
-	PORTD |= (1<<7);
-	
-	DDRC |= (1<<6);
-	PORTC |= (1<<6);
-	
-	DDRD |= (1<<4);
-	PORTD |= (1<<4);
-	
-	DDRE |= (1<<6);
-	PORTE |= (1<<6);
-	
-	DDRB |= (1<<4);
-	PORTB |= (1<<4);
-	
-	DDRD |= (1<<6);
-	PORTD |= (1<<6);
-	// */	
+	gpio_set_pin_output(D7);
+	gpio_write_pin_low(D7);
 
-	DDRD |= (1<<5);
-	DDRB |= (1<<6);
-	DDRB |= (1<<0);
+  // led voor switch #2
+	gpio_set_pin_output(C6);
+	gpio_set_pin_output(C7);
+	gpio_write_pin_low(C6);
+	gpio_write_pin_low(C7);
+
+  // led voor switch #3
+	gpio_set_pin_output(D4);
+	gpio_write_pin_low(D4);
+
+  // led voor switch #4
+	gpio_set_pin_output(E6);
+	gpio_write_pin_low(E6);
+
+  // led voor switch #5
+	gpio_set_pin_output(B4);
+	gpio_write_pin_low(B4);
+
+  // led voor switch #6
+	gpio_set_pin_output(D6);
+	gpio_write_pin_low(D6);
+
+	/*
+	gpio_set_pin_output(D7);
+	gpio_write_pin_high(D7);
+
+	gpio_set_pin_output(C6);
+	gpio_write_pin_high(C6);
+
+	gpio_set_pin_output(D4);
+	gpio_write_pin_high(D4);
+
+	gpio_set_pin_output(E6);
+	gpio_write_pin_high(E6);
+
+	gpio_set_pin_output(B4);
+	gpio_write_pin_high(B4);
+
+	gpio_set_pin_output(D6);
+	gpio_write_pin_high(D6);
+	// */
+
+	gpio_set_pin_output(D5);
+	gpio_set_pin_output(B6);
+	gpio_set_pin_output(B0);
 	//led_set_layer(0);
 }
 
-void led_set_user(uint8_t usb_led) {
+void matrix_init_user(void) {
+	led_init_ports_user();
 
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		
-	} else {
-		
-	}
+	gpio_write_pin_high(B7);
+	gpio_set_pin_input(B7);
 
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		
-	} else {
-		
-	}
+	gpio_write_pin_high(D7);
+	gpio_write_pin_high(C6);
+	gpio_write_pin_high(C7);
+	gpio_write_pin_high(D4);
+	gpio_write_pin_high(E6);
+	gpio_write_pin_high(B4);
+	gpio_write_pin_high(D6);
 
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-		
-	} else {
-		
-	}
-
-	if (usb_led & (1 << USB_LED_KANA)) {
-		
-	} else {
-		
-	}
-
+	set_layer_led(0);
 }
 
-
-/*  
+/*
 *   NOTE:
 *
 *   In case you don't understand this coding stuff, please
@@ -257,11 +219,11 @@ void led_set_user(uint8_t usb_led) {
 *	| 	  | | 	  | | 	  |       |	  set_switch_led( [1-6], [true/false]);
 *	|  4  | |  5  | |  6  |    <---
 *	|_____| |_____| |_____|
-*	
+*
 *	 < 0 >   < 1 >   < 2 >     <---      These front-LEDs are called 'Layer LEDs'
 *							             To turn one of them on, use:
 *										 set_layer_led( [0-2] );
-*										 
+*
 */
 
 /*
@@ -272,14 +234,14 @@ void led_set_user(uint8_t usb_led) {
 */
 void led_set_layer(int layer) {
 	switch(layer) {
-			
+
 			/**
 			*   Here is an example to turn LEDs on and of. By default:
 			*   - the LEDs are turned on in layer 0
 			*   - the LEDs are turned off in layer 1
 			*   - the LEDs don't change from state for layer 2
-			*/			
-			
+			*/
+
 		case 0:
 			set_layer_led(0); // Turn on only the first/left layer indicator
 			set_switch_led(1, true);
@@ -289,7 +251,7 @@ void led_set_layer(int layer) {
 			set_switch_led(5, true);
 			set_switch_led(6, true);
 			break;
-			
+
 		case 1:
 			set_layer_led(1); // Turn on only the second/middle layer indicator
 			set_switch_led(1, false);
@@ -299,12 +261,12 @@ void led_set_layer(int layer) {
 			set_switch_led(5, false);
 			set_switch_led(6, false);
 			break;
-			
+
 		case 2:
 			set_layer_led(2); // Turn on only the third/right layer indicator
-			
+
 			// Keep leds for layer two in their current state, since we don't use set_switch_led(SWITCH_ID, TRUE_OR_FALSE)
-			
+
 			break;
 	}
 }

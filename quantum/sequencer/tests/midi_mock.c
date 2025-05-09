@@ -19,8 +19,14 @@
 uint16_t last_noteon  = 0;
 uint16_t last_noteoff = 0;
 
-uint16_t midi_compute_note(uint16_t keycode) { return keycode; }
+uint16_t midi_compute_note(uint16_t keycode) {
+    return keycode;
+}
 
-void process_midi_basic_noteon(uint16_t note) { last_noteon = note; }
+void process_midi_basic_noteon(uint16_t note) {
+    last_noteon = note;
+}
 
-void process_midi_basic_noteoff(uint16_t note) { last_noteoff = note; }
+void process_midi_basic_noteoff(uint16_t note) {
+    last_noteoff = note;
+}

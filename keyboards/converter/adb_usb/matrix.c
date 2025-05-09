@@ -31,6 +31,10 @@ Ported to QMK by Peter Roe <pete@13bit.me>
 #include "led.h"
 #include "timer.h"
 
+#ifndef ADB_MOUSE_MAXACC
+#    define ADB_MOUSE_MAXACC 8
+#endif
+
 static bool is_iso_layout = false;
 
 // matrix state buffer(1:on, 0:off)
@@ -72,7 +76,7 @@ void matrix_init(void)
     // debug_mouse = true;
     // print("debug enabled.\n");
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 #ifdef ADB_MOUSE_ENABLE
@@ -83,6 +87,10 @@ void matrix_init(void)
 #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
 
 static report_mouse_t mouse_report = {};
+
+void housekeeping_task_kb(void) {
+    adb_mouse_task();
+}
 
 void adb_mouse_task(void)
 {
@@ -233,7 +241,7 @@ uint8_t matrix_scan(void)
             extra_key = key1<<8 | 0xFF; // process in a separate call
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
     return 1;
 }
 

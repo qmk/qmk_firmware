@@ -1,0 +1,51 @@
+{
+  "keyboard_name": "10k",
+  "maintainer": "Nabos",
+  "manufacturer": "Nabos",
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+    "cols": ["C6", "D7", "E6", "B4", "B5"],
+    "rows": ["B6"]
+  },
+  "build": {
+    "lto": true
+  },
+  "features": {
+    "bootmagic": false,
+    "command": false,
+    "console": false,
+    "extrakey": false,
+    "mousekey": false,
+    "nkro": false
+  },
+  "split": {
+    "enabled": true
+  },
+  "usb": {
+    "vid": "0x6869",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "layout_aliases": {
+    "LAYOUT": "LAYOUT_split_1x5"
+  },
+  "layouts": {
+    "LAYOUT_split_1x5": {
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0.25},
+        {"matrix": [0, 1], "x": 1, "y": 0.125},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+        {"matrix": [0, 3], "x": 3, "y": 0.5},
+        {"matrix": [0, 4], "x": 3.75, "y": 2.75},
+
+        {"matrix": [1, 0], "x": 5.75, "y": 2.75},
+        {"matrix": [1, 1], "x": 6.5, "y": 0.5},
+        {"matrix": [1, 2], "x": 7.5, "y": 0},
+        {"matrix": [1, 3], "x": 8.5, "y": 0.125},
+        {"matrix": [1, 4], "x": 9.5, "y": 0.25}
+      ]
+    }
+  }
+}

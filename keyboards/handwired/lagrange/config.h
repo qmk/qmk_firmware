@@ -16,33 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x2718
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Dimitris Papavasiliou
-#define PRODUCT         Lagrange
 
 #define EE_HANDS
 #define SPLIT_USB_DETECT
-
-/* key matrix size */
-#define MATRIX_ROWS 14
-#define MATRIX_COLS 6
-
-/* pin-out */
-#define MATRIX_ROW_PINS { E6, F1, F0, F4, F5, F6, F7 }
-#define MATRIX_COL_PINS { B4, B5, D7, B6, C6, D6 }
-#define MATRIX_ROW_PINS_RIGHT { B5, B4, D7, B6, C6, D6, D4 }
-#define MATRIX_COL_PINS_RIGHT { C7, F7, F6, F5, F4, F1 }
-#define UNUSED_PINS
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
-
-#define DEBOUNCE 5
-
-#define LED_CAPS_LOCK_PIN D1
-#define LED_SCROLL_LOCK_PIN D2

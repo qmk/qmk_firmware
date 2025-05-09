@@ -1,0 +1,175 @@
+{
+    "keycodes": {
+        "0x7800": {
+            "group": "backlight",
+            "key": "QK_BACKLIGHT_ON",
+            "aliases": [
+                "BL_ON"
+            ]
+        },
+        "0x7801": {
+            "group": "backlight",
+            "key": "QK_BACKLIGHT_OFF",
+            "aliases": [
+                "BL_OFF"
+            ]
+        },
+        "0x7802": {
+            "group": "backlight",
+            "key": "QK_BACKLIGHT_TOGGLE",
+            "aliases": [
+                "BL_TOGG"
+            ]
+        },
+        "0x7803": {
+            "group": "backlight",
+            "key": "QK_BACKLIGHT_DOWN",
+            "aliases": [
+                "BL_DOWN"
+            ]
+        },
+        "0x7804": {
+            "group": "backlight",
+            "key": "QK_BACKLIGHT_UP",
+            "aliases": [
+                "BL_UP"
+            ]
+        },
+        "0x7805": {
+            "group": "backlight",
+            "key": "QK_BACKLIGHT_STEP",
+            "aliases": [
+                "BL_STEP"
+            ]
+        },
+        "0x7806": {
+            "group": "backlight",
+            "key": "QK_BACKLIGHT_TOGGLE_BREATHING",
+            "aliases": [
+                "BL_BRTG"
+            ]
+        },
+
+        "0x7820": {
+            "group": "rgb",
+            "key": "RGB_TOG"
+        },
+        "0x7821": {
+            "group": "rgb",
+            "key": "RGB_MODE_FORWARD",
+            "aliases": [
+                "RGB_MOD"
+            ]
+        },
+        "0x7822": {
+            "group": "rgb",
+            "key": "RGB_MODE_REVERSE",
+            "aliases": [
+                "RGB_RMOD"
+            ]
+        },
+        "0x7823": {
+            "group": "rgb",
+            "key": "RGB_HUI"
+        },
+        "0x7824": {
+            "group": "rgb",
+            "key": "RGB_HUD"
+        },
+        "0x7825": {
+            "group": "rgb",
+            "key": "RGB_SAI"
+        },
+        "0x7826": {
+            "group": "rgb",
+            "key": "RGB_SAD"
+        },
+        "0x7827": {
+            "group": "rgb",
+            "key": "RGB_VAI"
+        },
+        "0x7828": {
+            "group": "rgb",
+            "key": "RGB_VAD"
+        },
+        "0x7829": {
+            "group": "rgb",
+            "key": "RGB_SPI"
+        },
+        "0x782A": {
+            "group": "rgb",
+            "key": "RGB_SPD"
+        },
+
+        "0x782B": {
+            "group": "rgb",
+            "key": "RGB_MODE_PLAIN",
+            "aliases": [
+                "RGB_M_P"
+            ]
+        },
+        "0x782C": {
+            "group": "rgb",
+            "key": "RGB_MODE_BREATHE",
+            "aliases": [
+                "RGB_M_B"
+            ]
+        },
+        "0x782D": {
+            "group": "rgb",
+            "key": "RGB_MODE_RAINBOW",
+            "aliases": [
+                "RGB_M_R"
+            ]
+        },
+        "0x782E": {
+            "group": "rgb",
+            "key": "RGB_MODE_SWIRL",
+            "aliases": [
+                "RGB_M_SW"
+            ]
+        },
+        "0x782F": {
+            "group": "rgb",
+            "key": "RGB_MODE_SNAKE",
+            "aliases": [
+                "RGB_M_SN"
+            ]
+        },
+        "0x7830": {
+            "group": "rgb",
+            "key": "RGB_MODE_KNIGHT",
+            "aliases": [
+                "RGB_M_K"
+            ]
+        },
+        "0x7831": {
+            "group": "rgb",
+            "key": "RGB_MODE_XMAS",
+            "aliases": [
+                "RGB_M_X"
+            ]
+        },
+        "0x7832": {
+            "group": "rgb",
+            "key": "RGB_MODE_GRADIENT",
+            "aliases": [
+                "RGB_M_G"
+            ]
+        },
+        "0x7833": {
+            "group": "rgb",
+            "key": "RGB_MODE_RGBTEST",
+            "aliases": [
+                "RGB_M_T"
+            ]
+        },
+        "0x7834": {
+            "group": "rgb",
+            "key": "RGB_MODE_TWINKLE",
+            "aliases": [
+                "RGB_M_TW"
+            ]
+        }
+    }
+}

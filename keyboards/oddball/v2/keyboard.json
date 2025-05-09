@@ -1,0 +1,8 @@
+{
+    "matrix_pins": {
+        "cols": ["B7", "B5", "B4", "F5", "F6", "F7"],
+        "rows": ["D4", "E6", "D7", "C6"]
+    },
+    "diode_direction": "COL2ROW",
+    "bootloader": "qmk-dfu"
+}

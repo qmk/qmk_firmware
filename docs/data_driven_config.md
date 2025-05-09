@@ -4,7 +4,7 @@ This page describes how QMK's data driven JSON configuration system works. It is
 
 ## History
 
-Historically QMK has been configured through a combination of two mechanisms- `rules.mk` and `config.h`. While this worked well when QMK was only a handful of keyboards we've grown to encompass nearly 1500 supported keyboards. That extrapolates out to 6000 configuration files under `keyboards/` alone! The freeform nature of these files and the unique patterns people have used to avoid duplication have made ongoing maintenance a challenge, and a large number of our keyboards follow patterns that are outdated and sometimes harder to understand.
+Historically QMK has been configured through a combination of two mechanisms- `rules.mk` and `config.h`. While this worked well when QMK was only a handful of keyboards we've grown to encompass nearly 4000 supported keyboards. That extrapolates out to 6000 configuration files under `keyboards/` alone! The freeform nature of these files and the unique patterns people have used to avoid duplication have made ongoing maintenance a challenge, and a large number of our keyboards follow patterns that are outdated and sometimes harder to understand.
 
 We have also been working on bringing the power of QMK to people who aren't comformable with a CLI, and other projects such as VIA are working to make using QMK as easy as installing a program. These tools need information about how a keyboard is laid out or what pins and features are available so that users can take full advantage of QMK. We introduced `info.json` as a first step towards this. The QMK API is an effort to combine these 3 sources of information- `config.h`, `rules.mk`, and `info.json`- into a single source of truth that end-user tools can use.
 
@@ -22,7 +22,7 @@ You will then need to add support for your new configuration to `info.json`. The
 
 1. Add it to the schema in `data/schemas/keyboards.jsonschema`
 1. Add a mapping in `data/maps`
-1. (optional and discoraged) Add code to extract/generate it to:
+1. (optional and discouraged) Add code to extract/generate it to:
   * `lib/python/qmk/info.py`
   * `lib/python/qmk/cli/generate/config_h.py`
   * `lib/python/qmk/cli/generate/rules_mk.py`
@@ -41,10 +41,10 @@ In other cases you should group like options together in an `object`. This is pa
 
 ### Add a mapping
 
-In most cases you can add a simple mapping. These are maintained as JSON files in `data/mappings/info_config.json` and `data/mappings/info_rules.json`, and control mapping for `config.h` and `rules.mk`, respectively. Each mapping is keyed by the `config.h` or `rules.mk` variable, and the value is a hash with the following keys:
+In most cases you can add a simple mapping. These are maintained as JSON files in `data/mappings/info_config.hjson` and `data/mappings/info_rules.hjson`, and control mapping for `config.h` and `rules.mk`, respectively. Each mapping is keyed by the `config.h` or `rules.mk` variable, and the value is a hash with the following keys:
 
 * `info_key`: (required) The location within `info.json` for this value. See below.
-* `value_type`: (optional) Default `str`. The format for this variable's value. See below.
+* `value_type`: (optional) Default `raw`. The format for this variable's value. See below.
 * `to_json`: (optional) Default `true`. Set to `false` to exclude this mapping from info.json
 * `to_c`: (optional) Default `true`. Set to `false` to exclude this mapping from config.h
 * `warn_duplicate`: (optional) Default `true`. Set to `false` to turn off warning when a value exists in both places
@@ -57,7 +57,7 @@ Under the hood we use [Dotty Dict](https://dotty-dict.readthedocs.io/en/latest/)
 
 #### Value Types
 
-By default we treat all values as simple strings. If your value is more complex you can use one of these types to intelligently parse the data:
+By default we treat all values as unquoted "raw" data. If your value is more complex you can use one of these types to intelligently parse the data:
 
 * `array`: A comma separated array of strings
 * `array.int`: A comma separated array of integers
@@ -65,6 +65,7 @@ By default we treat all values as simple strings. If your value is more complex 
 * `hex`: A number formatted as hex
 * `list`: A space separate array of strings
 * `mapping`: A hash of key/value pairs
+* `str`: A quoted string literal
 
 ### Add code to extract it
 
@@ -74,12 +75,12 @@ Whenever QMK generates a complete `info.json` it extracts information from `conf
 
 If you are not sure how to edit this file or are not comfortable with Python [open an issue](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=) or [join #cli on Discord](https://discord.gg/heQPAgy) and someone can help you with this part.
 
-### Add code to generate it
+### Add code to generate it {#add-code-to-generate-it}
 
 The final piece of the puzzle is providing your new option to the build system. This is done by generating two files:
 
-* `.build/obj_<keyboard>/src/info_config.h`
-* `.build/obj_<keyboard>/src/rules.mk`
+* `.build/obj_<keyboard>_<keymap>/src/info_config.h`
+* `.build/obj_<keyboard>_<keymap>/src/rules.mk`
 
 These two files are generated by the code here:
 

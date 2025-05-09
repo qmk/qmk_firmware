@@ -1,11 +1,5 @@
 #pragma once
 
-#include "config_common.h"
-
-/* Backlight configuration
- */
-#define BACKLIGHT_LEVELS 1
-
 /* Underlight configuration
  */
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1

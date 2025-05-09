@@ -33,8 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------'
      */
   [_BL] = LAYOUT( /* Base */
-    MO(_FN), KC_VOLD, KC_VOLU, \
-    KC_MPRV, KC_MPLY, KC_MNXT  \
+    MO(_FN), KC_VOLD, KC_VOLU,
+    KC_MPRV, KC_MPLY, KC_MNXT
   ),
     /* FN Layer: LED control
      * ,-----------.
@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------'
      */
   [_FN] = LAYOUT(
-    KC_TRNS, SS_LON, SS_LOFF, \
+    KC_TRNS, SS_LON, SS_LOFF,
     KC_NO,   KC_NO,  KC_NO
   ),
 };

@@ -17,15 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-
-/*
- * Encoder Assignments
- */
-#define ENCODERS_PAD_A { A5, A4, A2, A1 }
-#define ENCODERS_PAD_B { A6, A7, A3, A0 }
-#define ENCODER_RESOLUTION 4
-
 /* audio support */
 #define AUDIO_PIN_ALT B7
 #define AUDIO_PIN C4

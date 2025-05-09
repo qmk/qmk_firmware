@@ -2,16 +2,14 @@
  * matrix.c
  */
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include <hal.h>
-#include "quantum.h"
+#include "matrix.h"
 #include "timer.h"
 #include "wait.h"
 #include "print.h"
-#include "matrix.h"
+
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
 
 /**
  *
@@ -26,6 +24,17 @@ static matrix_row_t matrix_debouncing[MATRIX_COLS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
 
+// user-defined overridable functions
+
+__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+
+__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+
+__attribute__((weak)) void matrix_init_user(void) {}
+
+__attribute__((weak)) void matrix_scan_user(void) {}
+
+// helper functions
 void matrix_init(void)
 {
     //debug_enable = true;
@@ -70,7 +79,7 @@ void matrix_init(void)
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -141,7 +150,7 @@ uint8_t matrix_scan(void)
         debouncing = false;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
 }
@@ -152,16 +161,16 @@ matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
 
 void matrix_print(void)
 {
-    printf("\nr/c 01234567\n");
+    xprintf("\nr/c 01234567\n");
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        printf("%X0: ", row);
+        xprintf("%X0: ", row);
         matrix_row_t data = matrix_get_row(row);
         for (int col = 0; col < MATRIX_COLS; col++) {
             if (data & (1<<col))
-                printf("1");
+                xprintf("1");
             else
-                printf("0");
+                xprintf("0");
         }
-        printf("\n");
+        xprintf("\n");
     }
 }

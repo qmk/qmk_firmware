@@ -14,18 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
   #include <string.h>
   #include "lib/oled_helper.h"
 #endif
 
-enum custom_keycode {
-  Mac_CS = SAFE_RANGE,
-  Mac_PS,
-  Win_CS,
-  Win_PS,
-  IOS_CS,
-};
 enum layerID {
   MAC_CS_1 = 0,
   MAC_CS_2,
@@ -39,6 +32,12 @@ enum layerID {
   IOS_CS_2,
   SETTING,
 };
+
+#define Mac_CS PDF(MAC_CS_1)
+#define Mac_PS PDF(MAC_PS_1)
+#define Win_CS PDF(WIN_CS_1)
+#define Win_PS PDF(WIN_PS_1)
+#define IOS_CS PDF(IOS_CS_1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mac
@@ -70,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_CS_1] = LAYOUT(
       KC_TAB,       LCTL(KC_A), KC_E,         KC_P,          LCTL(KC_0),
       MO(WIN_CS_2), KC_M,       KC_BSPC,      KC_B,          KC_HYPR,
-                    KC_LSFT,    KC_LCTRL,     LCTL(KC_Z),    KC_SPC
+                    KC_LSFT,    KC_LCTL,      LCTL(KC_Z),    KC_SPC
     ),
     [WIN_CS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LCTL(KC_GRV),
@@ -81,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [WIN_PS_1] = LAYOUT(
       KC_TAB,       LCTL(KC_A), KC_E,         KC_B,          LCTL(KC_1),
       MO(WIN_PS_2), KC_L,       LCTL(KC_DEL), LCTL(KC_QUOT), KC_MEH,
-                    KC_LSFT,    KC_LCTRL,     LCTL(KC_Z),    KC_SPC
+                    KC_LSFT,    KC_LCTL,      LCTL(KC_Z),    KC_SPC
     ),
     [WIN_PS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          KC_ESC,
@@ -107,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void encoder_update_user(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
   uint8_t currentDefault = get_highest_layer(default_layer_state);
   uint8_t currentLayer = get_highest_layer(layer_state);
   if (index == 0) { /* the upper encoder */
@@ -159,7 +158,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       case IOS_CS_1:
         if (currentLayer % 2 == 0) {
           // default layer
-          // Zoom 
+          // Zoom
           tap_code16(!clockwise ? G(KC_MINS) : G(KC_SCLN));
         } else {
           // Fn Layer
@@ -170,7 +169,7 @@ void encoder_update_user(uint8_t index, bool clockwise) {
       default:
         break;
     }
-  } else if (index == 1) { /* the lower encoder */ 
+  } else if (index == 1) { /* the lower encoder */
     switch (currentDefault) {
       case MAC_CS_1:
         if (currentLayer % 2 == 0) {
@@ -231,49 +230,12 @@ void encoder_update_user(uint8_t index, bool clockwise) {
         break;
     }
   }
-}
-
-// custom keycode
-// switch default layer
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case Mac_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(MAC_CS_1);
-      }
-      return false;
-      break;
-    case Mac_PS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(MAC_PS_1);
-      }
-      return false;
-      break;
-    case Win_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(WIN_CS_1);
-      }
-      return false;
-      break;
-    case Win_PS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(WIN_PS_1);
-      }
-      return false;
-      break;
-    case IOS_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(IOS_CS_1);
-      }
-      return false;
-      break;
-  }
-  return true;
+    return true;
 }
 
 // OLED Display
-#ifdef OLED_DRIVER_ENABLE
-void oled_task_user(void) {
+#ifdef OLED_ENABLE
+bool oled_task_user(void) {
   // get layer Number
   uint8_t currentDefault = get_highest_layer(default_layer_state);
   uint8_t currentLayer = get_highest_layer(layer_state);
@@ -325,5 +287,6 @@ void oled_task_user(void) {
     // pressed key / 4th line of the logo
     render_row(3, "    ");
   }
+    return false;
 }
-#endif // #ifdef OLED_DRIVER_ENABLE
+#endif // #ifdef OLED_ENABLE

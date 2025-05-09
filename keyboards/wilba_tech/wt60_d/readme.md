@@ -6,9 +6,9 @@ WT60-D is a keyboard PCB supporting 60% layout. [More info at wilba.tech](https:
 
 First produced as WT60-D MEKANISK for Mekanisk.
 
-Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: wilba.tech WT60-D  
-Hardware Availability: Custom keyboard group buys
+* Keyboard Maintainer: [Wilba](https://github.com/Wilba)
+* Hardware Supported: wilba.tech WT60-D
+* Hardware Availability: Custom keyboard group buys
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -17,6 +17,9 @@
 
 #pragma once
 
+#include <stdbool.h>
+#include <stdint.h>
+
 #define IODIRA 0x00
 #define IODIRB 0x01
 #define GPPUA 0x0C

@@ -1,7 +1,9 @@
-#ifdef OLED_DRIVER_ENABLE
-#include QMK_KEYBOARD_H
+#include "oled_helper.h"
+#include "oled_driver.h"
 #include <stdio.h>
 #include <string.h>
+
+#ifdef OLED_ENABLE
 
 // returns character cord of the logo by line number
 char *read_logo(int row) {

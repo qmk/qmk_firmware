@@ -2,8 +2,6 @@
     "keyboard_name": "3x5+3 split layout",
     "url": "",
     "maintainer": "qmk",
-    "width": 12,
-    "height": 4.75,
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

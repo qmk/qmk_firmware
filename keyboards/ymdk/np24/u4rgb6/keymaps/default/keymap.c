@@ -24,7 +24,7 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_NUM] = LAYOUT_ortho_6x4(
         KC_ESC,  KC_CALC, MO(L_BL),MO(L_RGB),
-        KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,
+        KC_NUM,  KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,   KC_P8,   KC_P9,   KC_PPLS,
         KC_P4,   KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,   KC_P2,   KC_P3,   KC_PENT,
@@ -33,17 +33,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_BL] = LAYOUT_ortho_6x4(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, BL_ON,   _______, BL_INC,
-        _______, BL_TOGG, _______, BL_INC,
-        _______, BL_OFF,  _______, BL_DEC,
-        BL_BRTG, _______, _______, BL_DEC
+        _______, BL_ON,   _______, BL_UP, 
+        _______, BL_TOGG, _______, BL_UP, 
+        _______, BL_OFF,  _______, BL_DOWN,
+        BL_BRTG, _______, _______, BL_DOWN
     ),
     [L_RGB] = LAYOUT_ortho_6x4(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, RGB_MOD, _______, RGB_VAI,
-        _______, RGB_TOG, _______, RGB_VAI,
-        _______, RGB_RMOD,_______, RGB_VAD,
-        RGB_M_R, _______, _______, RGB_VAD
+        _______, UG_NEXT, _______, UG_VALU,
+        _______, UG_TOGG, _______, UG_VALU,
+        _______, UG_PREV, _______, UG_VALD,
+        RGB_M_R, _______, _______, UG_VALD
     )
 };

@@ -25,8 +25,8 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [DEF] = LAYOUT(
-  RESET  , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                      KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , TG(NUM),
-  KC_GRV , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , RGB_MOD,    _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL ,
+  QK_BOOT  , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                      KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , TG(NUM),
+  KC_GRV , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , RM_NEXT,    _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL ,
   KC_PGUP, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_TAB ,    KC_ENT , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
   KC_PGDN, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_ESC ,    _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_MINS,
                                          KC_LCTL,                                 KC_RCTL,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 [FUN] = LAYOUT(
   _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                      KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
-  KC_TAB , _______, KC_MS_U, _______, KC_BTN3, _______, RGB_TOG,    KC_MPRV, KC_MNXT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_F12 ,
+  KC_TAB , _______, KC_MS_U, _______, KC_BTN3, _______, RM_TOGG,    KC_MPRV, KC_MNXT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_F12 ,
   KC_HOME, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, _______, _______,    KC_MPLY, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
   KC_END , KC_PSCR, KC_INS , _______, KC_BTN2, _______, _______,    _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
                                          _______,                                 _______,
@@ -103,10 +103,11 @@ static void set_numpad_colours(int on, void (*write)(int, uint8_t, uint8_t, uint
 /* the RGB matrix effects will overwrite the numpad indicator.
  * this handy mechanism allows to override the matrix effects.
  */
-void rgb_matrix_indicators_user(void) {
-  if (layer_state & (1<<NUM)) {
-    set_numpad_colours(1, &rgb_matrix_set_color);
-  }
+bool rgb_matrix_indicators_user(void) {
+    if (layer_state & (1 << NUM)) {
+        set_numpad_colours(1, &rgb_matrix_set_color);
+    }
+    return false;
 }
 #else   /* no RGB matrix support */
 

@@ -12,17 +12,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN] = LAYOUT_ortho_2x4(
-     RGB_TOG, RGB_MOD, RGB_M_R, RGB_M_SN,
+     UG_TOGG, UG_NEXT, RGB_M_R, RGB_M_SN,
      BL_TOGG, BL_STEP, BL_BRTG, _______
   )
 };
 
-#ifdef OLED_DRIVER_ENABLE
+#ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_180;  // flips the display 180 degrees if offhand
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_ln_P(PSTR("ANAVI Macro Pad 8"), false);
   oled_write_P(PSTR("Active layer: "), false);
@@ -57,5 +57,6 @@ void oled_task_user(void) {
   snprintf(rgbStatusLine2, sizeof(rgbStatusLine2), "h:%d s:%d v:%d", rgblight_get_hue(), rgblight_get_sat(), rgblight_get_val());
   oled_write_ln(rgbStatusLine2, false);
 #endif
+    return false;
 }
 #endif

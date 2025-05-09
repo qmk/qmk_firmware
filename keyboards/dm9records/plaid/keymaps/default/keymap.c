@@ -28,10 +28,7 @@ enum plaid_layers {
 };
 
 enum plaid_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
+  PLOVER = SAFE_RANGE,
   EXT_PLV,
   LED_1,
   LED_2,
@@ -47,6 +44,10 @@ enum plaid_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 // array of keys considered modifiers for led purposes
 const uint16_t modifiers[] = {
@@ -83,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | RAlt | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_QWERTY] = LAYOUT_plaid_grid(
+[_QWERTY] = LAYOUT_ortho_4x12(
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
@@ -101,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | RAlt | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_COLEMAK] = LAYOUT_plaid_grid(
+[_COLEMAK] = LAYOUT_ortho_4x12(
     KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC,
     KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT ,
@@ -119,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl | RAlt | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_DVORAK] = LAYOUT_plaid_grid(
+[_DVORAK] = LAYOUT_ortho_4x12(
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
     KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH,
     KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT ,
@@ -137,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_LOWER] = LAYOUT_plaid_grid(
+[_LOWER] = LAYOUT_ortho_4x12(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE,
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______,
@@ -155,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_plaid_grid(
+[_RAISE] = LAYOUT_ortho_4x12(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
     KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______,
@@ -174,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 
-[_PLOVER] = LAYOUT_plaid_grid(
+[_PLOVER] = LAYOUT_ortho_4x12(
     KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   ,
     XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
     XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
@@ -192,10 +193,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_plaid_grid(
-    RESET,LED_1, LED_2, LED_3, LED_4, LED_5,LED_6, LED_7, LED_8, LED_9, LED_0,KC_DEL ,
-    _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
-    _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______,
+[_ADJUST] = LAYOUT_ortho_4x12(
+    QK_BOOT,LED_1, LED_2, LED_3, LED_4, LED_5,LED_6, LED_7, LED_8, LED_9, LED_0,KC_DEL ,
+    _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  PLOVER,  _______,
+    _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 
@@ -215,18 +216,18 @@ led_config_t led_config;
 //Set leds to saved state during powerup
 void keyboard_post_init_user(void) {
   // set LED pin modes
-  setPinOutput(LED_RED);
-  setPinOutput(LED_GREEN);
+  gpio_set_pin_output(LED_RED);
+  gpio_set_pin_output(LED_GREEN);
 
   // Call the post init code.
   led_config.raw = eeconfig_read_user();
 
   if(led_config.red_mode == LEDMODE_ON) {
-      writePinHigh(LED_RED);
+      gpio_write_pin_high(LED_RED);
   }
 
   if(led_config.green_mode == LEDMODE_ON) {
-      writePinHigh(LED_GREEN);
+      gpio_write_pin_high(LED_GREEN);
   }
 }
 
@@ -245,13 +246,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 void led_keypress_update(uint8_t led, uint8_t led_mode, uint16_t keycode, keyrecord_t *record) {
     switch (led_mode) {
       case LEDMODE_MODS:
-        for (int i=0;i<sizeof(modifiers) / sizeof(modifiers[0]);i++) {
+        for (int i=0;i<ARRAY_SIZE(modifiers);i++) {
           if(keycode==modifiers[i]) {
             if (record->event.pressed) {
-              writePinHigh(led);
+              gpio_write_pin_high(led);
             }
             else {
-              writePinLow(led);
+              gpio_write_pin_low(led);
             }
           }
         }
@@ -260,30 +261,30 @@ void led_keypress_update(uint8_t led, uint8_t led_mode, uint16_t keycode, keyrec
         if (record->event.pressed) {
           if(rand() % 2 == 1) {
             if(rand() % 2 == 0) {
-              writePinLow(led);
+              gpio_write_pin_low(led);
             }
             else {
-              writePinHigh(led);
+              gpio_write_pin_high(led);
             }
           }
         }
         break;
       case LEDMODE_KEY:
         if (record->event.pressed) {
-          writePinHigh(led);
+          gpio_write_pin_high(led);
           return;
         }
         else {
-          writePinLow(led);
+          gpio_write_pin_low(led);
           return;
         }
         break;
       case LEDMODE_ENTER:
         if (keycode==KC_ENT) {
-          writePinHigh(led);
+          gpio_write_pin_high(led);
         }
         else {
-          writePinLow(led);
+          gpio_write_pin_low(led);
         }
         break;
 
@@ -301,25 +302,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       led_keypress_update(LED_GREEN, led_config.green_mode, keycode, record);
   }
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
     case PLOVER:
       if (record->event.pressed) {
         layer_off(_RAISE);
@@ -345,11 +327,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (led_config.red_mode==LEDMODE_ON) {
             led_config.red_mode=LEDMODE_OFF;
-            writePinLow(LED_RED);
+            gpio_write_pin_low(LED_RED);
         }
         else {
             led_config.red_mode=LEDMODE_ON;
-            writePinHigh(LED_RED);
+            gpio_write_pin_high(LED_RED);
         }
       }
       eeconfig_update_user(led_config.raw);
@@ -359,11 +341,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         if (led_config.green_mode==LEDMODE_ON) {
             led_config.green_mode=LEDMODE_OFF;
-            writePinLow(LED_GREEN);
+            gpio_write_pin_low(LED_GREEN);
         }
         else {
             led_config.green_mode=LEDMODE_ON;
-            writePinHigh(LED_GREEN);
+            gpio_write_pin_high(LED_GREEN);
         }
       }
       eeconfig_update_user(led_config.raw);
