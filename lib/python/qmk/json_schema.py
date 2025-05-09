@@ -78,6 +78,11 @@ def compile_schema_store():
             continue
         schema_store[schema_data['$id']] = schema_data
 
+        # Additional paths for relative checking
+        schema_store[Path(schema_file).name] = schema_data
+        schema_store['./' + Path(schema_file).name] = schema_data
+        schema_store['/schemas/' + Path(schema_file).name] = schema_data
+
     return schema_store
 
 
