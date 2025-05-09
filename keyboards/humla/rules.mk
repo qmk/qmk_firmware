@@ -1,9 +1,0 @@
-#MCU settings
-MCU = RP2040
-BOOTLOADER = rp2040
-
-# Build Options
-BOOTMAGIC_ENABLE = yes
-CONSOLE_ENABLE = no
-COMMAND_ENABLE = no
-MKRO_ENABLE = yes

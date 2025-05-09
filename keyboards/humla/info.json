@@ -1,8 +1,0 @@
-{
-    "keyboard_name": "Humla",
-    "url": "https://github.com/jimmerricks/humla",
-    "maintainer": "jmnw",
-    "processor": "RP2040",
-    "bootloader": "rp2040"
-
-  }
