@@ -10,6 +10,13 @@
         "**/*.uf2": true
     },
     "files.associations": {
+        // QMK Filetypes
+        "keyboard.json": "jsonc",
+        "info.json": "jsonc",
+        "keymap.json": "jsonc",
+        "qmk.json": "jsonc",
+        "qmk_module.json": "jsonc",
+        // Standard filetypes
         "*.h": "c",
         "*.c": "c",
         "*.inc": "c",
