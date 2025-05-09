@@ -267,18 +267,22 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
     ifeq ($(strip $(WEAR_LEVELING_DRIVER)), embedded_flash)
       OPT_DEFS += -DHAL_USE_EFL
       SRC += wear_leveling_efl.c
-      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_efl_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling_efl.o: FILE_SPECIFIC_CFLAGS += -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_efl_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling.o: FILE_SPECIFIC_CFLAGS += -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_efl_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), spi_flash)
       FLASH_DRIVER := spi
       SRC += wear_leveling_flash_spi.c
-      POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling_flash_spi.o: FILE_SPECIFIC_CFLAGS += -include $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling.o: FILE_SPECIFIC_CFLAGS += -include $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), rp2040_flash)
       SRC += wear_leveling_rp2040_flash.c
-      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling_rp2040_flash.o: FILE_SPECIFIC_CFLAGS += -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling.o: FILE_SPECIFIC_CFLAGS += -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
       SRC += legacy_flash_ops.c wear_leveling_legacy.c
-      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling_legacy.o: FILE_SPECIFIC_CFLAGS += -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_legacy_config.h
+      $(INTERMEDIATE_OUTPUT)/wear_leveling.o: FILE_SPECIFIC_CFLAGS += -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_legacy_config.h
     endif
   endif
 endif
@@ -894,16 +898,17 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     NO_USB_STARTUP_CHECK := yes
     CONNECTION_ENABLE := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
+    SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
         SPI_DRIVER_REQUIRED = yes
-        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
+        SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
         UART_DRIVER_REQUIRED = yes
-        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
+        SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
     endif
 endif

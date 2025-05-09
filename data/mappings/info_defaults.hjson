@@ -10,6 +10,7 @@
         "levels": 3,
         "on_state": 1
     },
+    "debounce": 5,
     "features": {
         "command": false,
         "console": false
