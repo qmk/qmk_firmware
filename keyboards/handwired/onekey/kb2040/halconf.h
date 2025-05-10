@@ -13,15 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
-#include_next <mcuconf.h>
+#define HAL_USE_SPI TRUE
+#define SPI_USE_WAIT TRUE
 
-#undef RP_I2C_USE_I2C0
-#define RP_I2C_USE_I2C0 TRUE
-
-#undef RP_I2C_USE_I2C1
-#define RP_I2C_USE_I2C1 TRUE
-
-#undef RP_SPI_USE_SPI0
-#define RP_SPI_USE_SPI0 TRUE
+#include_next <halconf.h>
