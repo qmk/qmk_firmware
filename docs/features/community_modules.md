@@ -123,6 +123,14 @@ The source file may provide functions which allow access to information specifie
 Introspection is a relatively advanced topic within QMK, and existing patterns should be followed. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/qmk).
 :::
 
+### `led_matrix_module.inc`
+
+This file defines LED matrix effects in the same form as used with `led_matrix_kb.inc` and `led_matrix_user.inc` (see [Custom LED Matrix Effects](led_matrix#custom-led-matrix-effects)). Effect mode names are prepended with `LED_MATRIX_COMMUNITY_MODULE_`.
+
+### `rgb_matrix_module.inc`
+
+This file defines RGB matrix effects in the same form as used with `rgb_matrix_kb.inc` and `rgb_matrix_user.inc` (see [Custom RGB Matrix Effects](rgb_matrix#custom-rgb-matrix-effects)). Effect mode names are prepended with `RGB_MATRIX_COMMUNITY_MODULE_`.
+
 ### Compatible APIs
 
 Community Modules may provide specializations for the following APIs:
