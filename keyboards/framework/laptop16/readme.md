@@ -3,8 +3,12 @@
 Keyboard input modules for the Framework Laptop 16.
 
 * Keyboard Maintainer: [Daniel Schaefer](https://github.com/JohnAZoidberg)
-* Hardware Supported: Framework Laptop 16 Keyboard, Numpad and Macropad
-* Hardware Availability: Soon available at https://frame.work/marketplace
+* Hardware Supported: Framework Laptop 16 Keyboard, soon: Numpad and Macropad
+* Hardware Availability: Available at https://frame.work/marketplace
+
+
+## Vendor specific
+On framework 16, KC_MSEL launches the framework website
 
 ## Variants
 
