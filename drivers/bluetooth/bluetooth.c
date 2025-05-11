@@ -28,3 +28,5 @@ __attribute__((weak)) void bluetooth_send_mouse(report_mouse_t *report) {}
 __attribute__((weak)) void bluetooth_send_consumer(uint16_t usage) {}
 
 __attribute__((weak)) void bluetooth_send_system(uint16_t usage) {}
+
+__attribute__((weak)) void bluetooth_send_raw_hid(uint8_t *data, uint8_t length) {}

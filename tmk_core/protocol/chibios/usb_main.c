@@ -32,6 +32,10 @@
 #include "usb_driver.h"
 #include "usb_types.h"
 
+#ifdef RAW_ENABLE
+#    include "raw_hid.h"
+#endif
+
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 
@@ -515,17 +519,11 @@ void console_task(void) {
 #endif /* CONSOLE_ENABLE */
 
 #ifdef RAW_ENABLE
-void raw_hid_send(uint8_t *data, uint8_t length) {
+void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) {
         return;
     }
     send_report(USB_ENDPOINT_IN_RAW, data, length);
-}
-
-__attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Users should #include "raw_hid.h" in their own code
-    // and implement this function there. Leave this as weak linkage
-    // so users can opt to not handle data coming in.
 }
 
 void raw_hid_task(void) {

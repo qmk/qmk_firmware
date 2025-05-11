@@ -643,6 +643,11 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     TRI_LAYER_ENABLE := yes
 endif
 
+ifeq ($(strip $(RAW_ENABLE)), yes)
+    OPT_DEFS += -DRAW_ENABLE
+    SRC += raw_hid.c
+endif
+
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     SEND_STRING_ENABLE := yes
 endif
