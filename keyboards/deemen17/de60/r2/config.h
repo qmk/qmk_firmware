@@ -16,5 +16,4 @@
 
 #pragma once
 
-#define WS2812_SPI_DRIVER SPID1 // default: SPID1
-#define WS2812_SPI_MOSI_PAL_MODE 6 // MOSI pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
+#define WS2812_SPI_MOSI_PAL_MODE 6 
