@@ -26,5 +26,17 @@
                 {"x": 0, "y": 0, "matrix": [0, 0]}
             ]
         }
+    },
+    "led_matrix": {
+        "driver": "snled27351",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1}
+        ]
+    },
+    "rgb_matrix": {
+        "driver": "snled27351",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1}
+        ]
     }
 }

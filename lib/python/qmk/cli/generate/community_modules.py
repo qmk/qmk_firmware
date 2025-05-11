@@ -278,33 +278,32 @@ def generate_community_modules_c(cli):
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
 
+def _generate_include_per_module(cli, include_file_name):
+    """Generates C code to include "<module_path>/include_file_name" for each module."""
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE]
+
+    for module in get_modules(cli.args.keyboard, cli.args.filename):
+        full_path = f'{find_module_path(module)}/{include_file_name}'
+        lines.append('')
+        lines.append(f'#if __has_include("{full_path}")')
+        lines.append(f'#include "{full_path}"')
+        lines.append(f'#endif  // __has_include("{full_path}")')
+
+    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules_introspection.h for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules_introspection.h from a keymap.json file.')
 def generate_community_modules_introspection_h(cli):
     """Creates a community_modules_introspection.h from a keymap.json file
     """
-    if cli.args.output and cli.args.output.name == '-':
-        cli.args.output = None
-
-    lines = [
-        GPL2_HEADER_C_LIKE,
-        GENERATED_HEADER_C_LIKE,
-        '',
-    ]
-
-    modules = get_modules(cli.args.keyboard, cli.args.filename)
-    if len(modules) > 0:
-        for module in modules:
-            module_path = find_module_path(module)
-            lines.append(f'#if __has_include("{module_path}/introspection.h")')
-            lines.append(f'#include "{module_path}/introspection.h"')
-            lines.append(f'#endif  // __has_include("{module_path}/introspection.h")')
-            lines.append('')
-
-    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+    _generate_include_per_module(cli, 'introspection.h')
 
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
@@ -315,22 +314,26 @@ def generate_community_modules_introspection_h(cli):
 def generate_community_modules_introspection_c(cli):
     """Creates a community_modules_introspection.c from a keymap.json file
     """
-    if cli.args.output and cli.args.output.name == '-':
-        cli.args.output = None
+    _generate_include_per_module(cli, 'introspection.c')
 
-    lines = [
-        GPL2_HEADER_C_LIKE,
-        GENERATED_HEADER_C_LIKE,
-        '',
-    ]
 
-    modules = get_modules(cli.args.keyboard, cli.args.filename)
-    if len(modules) > 0:
-        for module in modules:
-            module_path = find_module_path(module)
-            lines.append(f'#if __has_include("{module_path}/introspection.c")')
-            lines.append(f'#include "{module_path}/introspection.c"')
-            lines.append(f'#endif  // __has_include("{module_path}/introspection.c")')
-            lines.append('')
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate led_matrix_community_modules.inc for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates an led_matrix_community_modules.inc from a keymap.json file.')
+def generate_led_matrix_community_modules_inc(cli):
+    """Creates an led_matrix_community_modules.inc from a keymap.json file
+    """
+    _generate_include_per_module(cli, 'led_matrix_module.inc')
 
-    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate rgb_matrix_community_modules.inc for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates an rgb_matrix_community_modules.inc from a keymap.json file.')
+def generate_rgb_matrix_community_modules_inc(cli):
+    """Creates an rgb_matrix_community_modules.inc from a keymap.json file
+    """
+    _generate_include_per_module(cli, 'rgb_matrix_module.inc')

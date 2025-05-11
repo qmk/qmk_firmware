@@ -1,0 +1,8 @@
+{
+    "module_name": "Flow LED matrix effect",
+    "maintainer": "QMK Maintainers",
+    "license": "Apache-2.0",
+    "features": {
+        "led_matrix": true
+    }
+}
