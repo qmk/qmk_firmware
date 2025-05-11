@@ -33,10 +33,6 @@ ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
     SHARED_EP_ENABLE = yes
 endif
 
-ifeq ($(strip $(RAW_ENABLE)), yes)
-    OPT_DEFS += -DRAW_ENABLE
-endif
-
 ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     OPT_DEFS += -DCONSOLE_ENABLE
 else
