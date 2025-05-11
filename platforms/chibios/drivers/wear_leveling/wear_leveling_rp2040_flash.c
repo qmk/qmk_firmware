@@ -15,6 +15,7 @@
 #include <stdbool.h>
 #include "timer.h"
 #include "wear_leveling.h"
+#include "wear_leveling_rp2040_flash_config.h"
 #include "wear_leveling_internal.h"
 
 #ifndef WEAR_LEVELING_RP2040_FLASH_BULK_COUNT

@@ -5,6 +5,7 @@
 #include "util.h"
 #include "timer.h"
 #include "wear_leveling.h"
+#include "wear_leveling_flash_spi_config.h"
 #include "wear_leveling_internal.h"
 
 #ifndef WEAR_LEVELING_EXTERNAL_FLASH_BULK_COUNT

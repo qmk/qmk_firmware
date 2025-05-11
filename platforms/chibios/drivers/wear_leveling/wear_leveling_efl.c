@@ -4,6 +4,7 @@
 #include <hal.h>
 #include "timer.h"
 #include "wear_leveling.h"
+#include "wear_leveling_efl_config.h"
 #include "wear_leveling_internal.h"
 
 static flash_offset_t base_offset = UINT32_MAX;
