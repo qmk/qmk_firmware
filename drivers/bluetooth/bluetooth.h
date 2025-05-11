@@ -88,4 +88,4 @@ void bluetooth_send_system(uint16_t usage);
  * \param data A pointer to the buffer to be sent. Always 32 bytes in length.
  * \param length The length of the buffer. Always 32.
  */
-void bluetooth_send_raw_hid(uint8_t *data, uint8_t length)
+void bluetooth_send_raw_hid(uint8_t *data, uint8_t length);
