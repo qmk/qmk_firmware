@@ -70,11 +70,11 @@ static volatile struct usb_device_state maxprev_usb_device_state = {.configure_s
 
 // to reset the keyboard on USB state change
 #ifdef OS_DETECTION_KEYBOARD_RESET
-#   ifndef OS_DETECTION_RESET_DEBOUNCE
-#   define OS_DETECTION_RESET_DEBOUNCE OS_DETECTION_DEBOUNCE
-#   endif
+#    ifndef OS_DETECTION_RESET_DEBOUNCE
+#        define OS_DETECTION_RESET_DEBOUNCE OS_DETECTION_DEBOUNCE
+#    endif
 static volatile fast_timer_t configured_since = 0;
-static volatile bool         reset_pending = false;
+static volatile bool         reset_pending    = false;
 #endif
 
 // the OS detection might be unstable for a while, "debounce" it
