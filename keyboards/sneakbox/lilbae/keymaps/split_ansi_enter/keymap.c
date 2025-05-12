@@ -24,13 +24,13 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_all(
+    [_BASE] = LAYOUT_split_ansi_enter(
               KC_BSLS,
-    KC_UNDO, KC_ENT, KC_LGUI),
+    KC_UNDO,  KC_LGUI),
 
-    [_FN] = LAYOUT_all(
+    [_FN] = LAYOUT_split_ansi_enter(
               KC_TRNS,
-    KC_TRNS, KC_TRNS, KC_TRNS),
+    KC_TRNS,  KC_TRNS),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
