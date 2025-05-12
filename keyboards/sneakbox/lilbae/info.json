@@ -1,27 +1,61 @@
-﻿{
-  "keyboard_name": "Lil BAE",
+{
   "manufacturer": "Sneakbox",
-  "processor":"atmega32u2",
-  "bootloader":"caterina",
-  "pid":"0x0012",
-  "vid":"0x5342",
   "maintainer": "mujimanic",
-  "url": "https://sneakbox.com",
-  "width": 4,
-  "height": 1,
+  "bootloader":"caterina",
+  "build": {
+    "lto": true
+  },
+  "diode_direction": "COL2ROW",
+  "features": {
+    "bootmagic": true,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true}
   "encoder": {
     "rotary": [
       {"pin_a": "D2", "pin_b": "D3"}
      ]
   },
+  "matrix_pins": {
+    "cols": ["B7", "D6", "D5", "D4"]
+    "rows": ["B4"]
+  },
+  "processor":"atmega32u2",
   "layouts": {
-    "LAYOUT": {
+    "LAYOUT_split_ansi_enter": {
       "layout": [
-          { "matrix": [0, 0], "x": 1, "y": 1 }, 
-          { "matrix": [0, 1], "x": 1.625, "y": 1 },
-          { "matrix": [0, 2], "x": 0, "y": 1 },
-          { "matrix": [0, 3], "x": 0.75, "y": 0 }         
+          { "matrix": [0, 0], "x": 0.75, "y": 0, "w":1.5 }, 
+          { "matrix": [0, 1], "x": 1, "y": 1, "w":1.25},
+          { "matrix": [0, 3], "x": 0, "y": 0 }         
       ]
+  },
+  "LAYOUT_iso": {
+    "layout": [
+         { "matrix": [0, 0], "x": 0.75, "y": 0,  "w": 1.25, "h": 2}, 
+         { "matrix": [0, 3], "x": 0, "y": 0 }            
+    ]
+  },
+  "LAYOUT_bae": {
+  "layout": [
+       { "matrix": [0, 0], "x": 0.75, "y": 0, "w":1.5 }, 
+       { "matrix": [0, 1], "x": 1, "y": 1, "w":1.25},
+       { "matrix": [0, 2], "x": 0, "y": 1 , "w":2.25},
+       { "matrix": [0, 3], "x": 0, "y": 0 }             
+    ]
+  },
+  "LAYOUT_ansi_enter": {
+    "layout": [
+         { "matrix": [0, 0], "x": 0.75, "y": 0, "w":1.5 }, 
+         { "matrix": [0, 2], "x": 0, "y": 1 , "w":2.25}
+    ]
   }
+  }
+  "usb": {
+      "device_version": "0.0.1",
+      "shared_endpoint": {
+          "keyboard": true
+      },
+      "vid":"0x5342"
   }
 }
