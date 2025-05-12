@@ -7,103 +7,48 @@
  * it assumes the matrix is always COL2ROW and that the KB has BOTH
  * matrix and direct pins.
 
- * For direct pins define
+ * For direct pins define:
  *   `DIRECT_PINS_CUSTOM`
- * This stucture must exactly match the MATRIX_ROWS / MATRIX_COLS matrix.
+ * This stucture must match exactly the MATRIX_ROWS / MATRIX_COLS matrix.
  *
  * NB!!: The ROW that supports direct pins **must** have the row set
  *   to NO_PIN in the matrix array.
 */
 
+#include "quantum.h"
 #include "matrix.h"
-#include "debounce.h"
 #include "atomic_util.h"
-#include <string.h>
-#include "wait.h"
-#include "print.h"
 
-#ifndef DEBOUNCE
-#    define DEBOUNCE 5
-#endif
+// ---------- Interal defs and vars ----------
 
 #ifndef MATRIX_INPUT_PRESSED_STATE
 #    define MATRIX_INPUT_PRESSED_STATE 0
 #endif
 
-#ifndef MATRIX_IO_DELAY
-#    define MATRIX_IO_DELAY 30
-#endif
-
-static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-
-// define DIRECT_PINS_CUSTOM in `config.h`
-// ** NB: ** must match the MATRIX_ROWS / MATRIX_COLS matrix structure
+static pin_t row_pins[MATRIX_ROWS]                 = MATRIX_ROW_PINS;
+static pin_t col_pins[MATRIX_COLS]                 = MATRIX_COL_PINS;
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS_CUSTOM;
 
-/* matrix state(1:on, 0:off) */
-matrix_row_t raw_matrix[MATRIX_ROWS];
-matrix_row_t matrix[MATRIX_ROWS];
+// ---------- Interal functions ----------
+// .......... Helpers ..........
 
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_init_kb(void) {
-    matrix_init_user();
-}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
-__attribute__((weak)) void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
-#define print_matrix_header() print("\nr/c 01234567\n")
-#define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
-
-__attribute__((weak)) void matrix_output_select_delay(void) {
-    waitInputPinDelay();
-}
-
-__attribute__((weak)) void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
-    wait_us(MATRIX_IO_DELAY);
-}
-
-static inline void setPinOutput_writeLow(pin_t pin) {
+static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     }
 }
 
-static inline void setPinInputHigh_atomic(pin_t pin) {
+static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {
-        setPinInputHigh(pin);
-    }
-}
-
-static inline uint8_t readMatrixPin(pin_t pin) {
-    if (pin != NO_PIN) {
-        return (readPin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
-    } else {
-        return 1;
-    }
-}
-
-void matrix_print(void) {
-    print_matrix_header();
-
-    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        print_hex8(row);
-        print(": ");
-        print_matrix_row(row);
-        print("\n");
+        gpio_set_pin_input_high(pin);
     }
 }
 
 static bool select_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinOutput_writeLow(pin);
+        gpio_atomic_set_pin_output_low(pin);
         return true;
     }
     return false;
@@ -112,7 +57,7 @@ static bool select_row(uint8_t row) {
 static void unselect_row(uint8_t row) {
     pin_t pin = row_pins[row];
     if (pin != NO_PIN) {
-        setPinInputHigh_atomic(pin);
+        gpio_atomic_set_pin_input_high(pin);
     }
 }
 
@@ -122,118 +67,96 @@ static void unselect_rows(void) {
     }
 }
 
-void matrix_init_pins__matrix(void) {
+// .......... Inits ..........
+
+void matrix_init_matrix_pins(void) {
     unselect_rows();
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
         if (col_pins[x] != NO_PIN) {
-            setPinInputHigh_atomic(col_pins[x]);
+            gpio_atomic_set_pin_input_high(col_pins[x]);
         }
     }
 }
 
-void matrix_init_pins__direct(void) {
+void matrix_init_direct_pins(void) {
     for (int row = 0; row < MATRIX_ROWS; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             pin_t pin = direct_pins[row][col];
             if (pin != NO_PIN) {
-                setPinInputHigh(pin);
+                gpio_atomic_set_pin_input_high(pin);
             }
         }
     }
 }
 
-inline uint8_t matrix_rows(void) {
-    return MATRIX_ROWS;
+// .......... Scanners ..........
+
+static inline uint8_t readMatrixPin(pin_t pin) {
+    if (pin != NO_PIN) {
+        return (gpio_read_pin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
+    } else {
+        return 1;
+    }
 }
 
-inline uint8_t matrix_cols(void) {
-    return MATRIX_COLS;
-}
+void matrix_scan_matrix_row(matrix_row_t row_buffer[], uint8_t row_to_scan) {
+    matrix_row_t scan_row_value = 0;
 
-void matrix_init(void) {
-    // initialize key pins
-    matrix_init_pins__matrix();
-    matrix_init_pins__direct();
-
-    // initialize matrix state: all keys off
-    memset(raw_matrix, 0, sizeof(raw_matrix));
-    memset(matrix, 0, sizeof(matrix));
-
-    // Unless hardware debouncing - Init the configured debounce routine
-    debounce_init(MATRIX_ROWS);
-
-    // This *must* be called for correct keyboard behavior
-    matrix_init_kb();
-}
-
-inline bool matrix_is_on(uint8_t row, uint8_t col) {
-    return (matrix[row] & ((matrix_row_t)1 << col));
-}
-
-inline matrix_row_t matrix_get_row(uint8_t row) {
-    return matrix[row];
-}
-
-void matrix_read_cols_on_row__matrix(matrix_row_t current_matrix[], uint8_t current_row) {
-    // Start with a clear matrix row
-    matrix_row_t current_row_value = 0;
-
-    if (!select_row(current_row)) { // Select row
-        return;                     // skip NO_PIN row
+    if (!select_row(row_to_scan)) {
+        return;
     }
     matrix_output_select_delay();
 
-    // For each col...
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
-        uint8_t pin_state = readMatrixPin(col_pins[col_index]);
+    for (uint8_t col_to_scan = 0; col_to_scan < MATRIX_COLS; col_to_scan++, row_shifter <<= 1) {
+        uint8_t pin_state = readMatrixPin(col_pins[col_to_scan]);
 
         // Populate the matrix row with the state of the col pin
-        current_row_value |= pin_state ? 0 : row_shifter;
+        scan_row_value |= pin_state ? 0 : row_shifter;
     }
 
-    // Unselect row
-    unselect_row(current_row);
-    matrix_output_unselect_delay(current_row, current_row_value != 0); // wait for all Col signals to go HIGH
+    unselect_row(row_to_scan);
+    matrix_output_unselect_delay(row_to_scan, scan_row_value != 0);
 
-    // Update the matrix
-    current_matrix[current_row] = current_row_value;
+    row_buffer[row_to_scan] = scan_row_value;
 }
 
-void matrix_read_cols_on_row__direct(matrix_row_t current_matrix[], uint8_t current_row) {
-    // Start with a clear matrix row
-    matrix_row_t current_row_value = 0;
+void matrix_scan_direct_row(matrix_row_t row_buffer[], uint8_t row_to_scan) {
+    matrix_row_t scan_row_value = 0;
 
     matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
-    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
-        pin_t pin = direct_pins[current_row][col_index];
-        if (NO_PIN != pin) {
-            current_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
+    for (uint8_t col_to_scan = 0; col_to_scan < MATRIX_COLS; col_to_scan++, row_shifter <<= 1) {
+        pin_t pin = direct_pins[row_to_scan][col_to_scan];
+        if (pin != NO_PIN) {
+            scan_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
         }
     }
 
-    // Update the matrix
-    current_matrix[current_row] = current_row_value;
+    row_buffer[row_to_scan] = scan_row_value;
 }
 
-uint8_t matrix_scan(void) {
-    matrix_row_t curr_matrix[MATRIX_ROWS] = {0};
+// ========== Core functions required by lite matrix driver ==========
 
-    // Matrix keys: Set row, read cols
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+void matrix_init_custom(void) {
+    matrix_init_matrix_pins();
+    matrix_init_direct_pins();
+}
+
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    matrix_row_t buff_matrix[MATRIX_ROWS] = {0};
+
+    for (uint8_t scan_row = 0; scan_row < MATRIX_ROWS; scan_row++) {
         // if the row is a NO_PIN then assume it's on a direct pins matrix, else assume COL2ROW matrix
-        if (NO_PIN != row_pins[current_row]) {
-            matrix_read_cols_on_row__matrix(curr_matrix, current_row);
+        if (row_pins[scan_row] == NO_PIN) {
+            matrix_scan_direct_row(buff_matrix, scan_row);
         } else {
-            matrix_read_cols_on_row__direct(curr_matrix, current_row);
+            matrix_scan_matrix_row(buff_matrix, scan_row);
         }
     }
 
-    bool changed = memcmp(raw_matrix, curr_matrix, sizeof(curr_matrix)) != 0;
-    if (changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
-
-    changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_kb();
-
-    return (uint8_t)changed;
+    bool matrix_has_changed = memcmp(current_matrix, buff_matrix, sizeof(buff_matrix)) != 0;
+    if (matrix_has_changed) {
+        memcpy(current_matrix, buff_matrix, sizeof(buff_matrix));
+    }
+    return matrix_has_changed;
 }
