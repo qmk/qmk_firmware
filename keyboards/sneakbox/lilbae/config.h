@@ -17,6 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define VENDOR_ID       0x5342
+#define PRODUCT_ID      0x0012
+#define DEVICE_VER      0x0001
+
 /* key matrix size */
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 4
