@@ -1,0 +1,27 @@
+﻿{
+  "keyboard_name": "Lil BAE",
+  "manufacturer": "Sneakbox",
+  "processor":"atmega32u2",
+  "bootloader":"caterina",
+  "pid":"0x0012",
+  "vid":"0x5342",
+  "maintainer": "mujimanic",
+  "url": "https://sneakbox.com",
+  "width": 4,
+  "height": 1,
+  "encoder": {
+    "rotary": [
+      {"pin_a": "D2", "pin_b": "D3"}
+     ]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+          { "matrix": [0, 0], "x": 1, "y": 1 }, 
+          { "matrix": [0, 1], "x": 1.625, "y": 1 },
+          { "matrix": [0, 2], "x": 0, "y": 1 },
+          { "matrix": [0, 3], "x": 0.75, "y": 0 }         
+      ]
+  }
+  }
+}
