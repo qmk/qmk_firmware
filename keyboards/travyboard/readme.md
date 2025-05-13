@@ -2,11 +2,12 @@
 
 ![travyboard](https://i.imgur.com/0HxqCsD.jpeg)
 
-A split 23 key keyboard created from scratch. Firmware is written as well, but QMK supports is important as well.
+A split 23 key keyboard created from scratch. Firmware is written as well, but QMK support is important as well.
 
 * Keyboard Maintainer: [Travis Hepworth](https://github.com/travmonkey)
 * Hardware Supported: *travyboard pcb + waveshare rp2040 zero*
 * Hardware Availability: *DIY only, [travyboard repository](https://github.com/travishepworth/travyboard)*
+    * NOTE: If using my PCBv1, you will need to bridge TX and RX on the pico for qmk.
 
 Make example for this keyboard (after setting up your build environment):
 
