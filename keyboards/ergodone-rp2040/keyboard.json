@@ -2,7 +2,7 @@
     "keyboard_name": "Ergodone",
     "manufacturer": "K.T.E.C.",
     "maintainer": "Yu He",
-    "development_board": "sparkfun_pm2040",
+    "development_board": "promicro_rp2040",
     "usb": {
       "vid": "0x1209",
       "pid": "0x2328",
