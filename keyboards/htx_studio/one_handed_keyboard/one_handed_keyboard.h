@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2025 htx-studio (@https://github.com/htx-studio)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,14 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #pragma once
+#ifndef ONE_HANDED_KEYBOARD_H
+#define ONE_HANDED_KEYBOARD_H
 
- #include_next <mcuconf.h>
- 
-#undef STM32_SPI_USE_SPI1
-#define STM32_SPI_USE_SPI1 TRUE
+#include "quantum.h"
 
-/* enable TIM3, used for RGB LED PWM driver */
-#undef STM32_PWM_USE_TIM3
-#define STM32_PWM_USE_TIM3 TRUE
+typedef union {
+    uint16_t TrackballDPI;
+} user_config_t;
 
+void pointing_adns9800_cpi_up(void);
+void pointing_adns9800_cpi_down(void);
+void pointing_adns9800_reset(void);
+
+#endif // ONE_HANDED_KEYBOARD_H

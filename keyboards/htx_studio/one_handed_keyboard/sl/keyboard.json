@@ -1,32 +1,5 @@
 {
-    "manufacturer": "HTXStudio",
     "keyboard_name": "One-Handed_Keyboard_SL",
-    "maintainer": "HTXStudio",
-    "bootloader": "stm32-dfu",
-    "diode_direction": "ROW2COL",
-    "encoder": {
-        "rotary": [
-            {"pin_a": "A9", "pin_b": "A10"}
-        ]
-    },
-    "features": {
-        "bootmagic": true,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "pointing_device": true
-    },
-    "matrix": {
-        "cols": 14,
-        "rows": 6
-    },
-    "matrix_pins": {
-        "cols": ["A0", "A1", "A2", "C4", "B0", "B1", "B2", "B7", "B5", "B3", "B10", "C11", "C10", "A15"],
-        "rows": ["B12", "B15", "C6", "B13", "B14", "A8"]
-    },
-    "processor": "STM32G431",
-    "url": "https://github.com/htx-studio",
     "usb": {
         "device_version": "3.1.0",
         "pid": "0x03BE",

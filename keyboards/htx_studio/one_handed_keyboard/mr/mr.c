@@ -14,28 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "rgb_matrix.h"
+#include "host.h"
 
-#define SPI_DRIVER SPID1
-#define SPI_SCK_PIN A5
-#define SPI_MISO_PIN A6
-#define SPI_MOSI_PIN A7
-
-#define POINTING_DEVICE_CS_PIN A4
-#define POINTING_DEVICE_MOTION_PIN A3
-#define POINTING_DEVICE_TASK_THROTTLE_MS 1
-#define POINTING_DEVICE_INVERT_X 1
-
-#define ENCODER_RESOLUTION 2
-
-#ifdef RGB_MATRIX_ENABLE
-
-#define WS2812_BITBANG_NOP_FUDGE 0
-#define WS2812_PWM_DRIVER PWMD3
-#define WS2812_PWM_CHANNEL 1
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM1
-#define WS2812_DMA_CHANNEL 1
-#define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM3_UP
-
-#endif
-
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(28, 255, 255, 255); // assuming caps lock is at led #5
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(28, 0, 0, 0);
+    }
+    return false;
+}

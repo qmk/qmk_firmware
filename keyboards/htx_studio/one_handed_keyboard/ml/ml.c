@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2025 htx-studio (@https://github.com/htx-studio)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,12 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
- #pragma once
+#include "rgb_matrix.h"
+#include "host.h"
 
- #define HAL_USE_PWM TRUE
- #define HAL_USE_SPI TRUE
- #define SPI_USE_WAIT TRUE
- #define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
- #include_next <halconf.h>
- 
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(28, 255, 255, 255); // assuming caps lock is at led #5
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(28, 0, 0, 0);
+    }
+    return false;
+}

@@ -12,11 +12,11 @@ This is a keyboard with a fan-shaped layout and 59 keys.The commonly used button
 
 Make example for this keyboard (after setting up your build environment):
 
-    `make htx_studio/one_handed_keyboard_sl:default`
+    `make htx_studio/one_handed_keyboard/sl:default`
 
 Flashing example for this keyboard:
 
-    `make htx_studio/one_handed_keyboard_sl:default:flash`
+    `make htx_studio/one_handed_keyboard/sl:default:flash`
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
