@@ -3,8 +3,8 @@
 ZeroPad:
 ![ZeroPad](https://i.imgur.com/KBkI4q1.jpeg)
 
+This keyboard is inspired by the scotto9 from Joe Scotto. This keyboard is compatible with via and has 4 layers of keybinds (24 keybinds - 4x8 + 1 per layer for changing the layer).
 
-*This keyboard is inspired by the scotto9 from Joe Scotto. This keyboard is compatible with via and has 4 layers of keybinds (24 keybinds - 4x8 + 1 per layer for changing the layer).*
 * Keyboard Maintainer: [Leon Sieber](https://github.com/diffrentGuesser)
 * Hardware Supported: Pro Micro, 3 pin switches
 * Hardware Availability: [Pro Micro](https://de.aliexpress.com/item/32846843498.html?spm=a2g0o.cart.0.0.146d4ae4kCjqDY&mp=1&gatewayAdapt=glo2deu), [switches](https://de.aliexpress.com/item/1005007135709029.html?spm=a2g0o.cart.0.0.146d4ae4kCjqDY&mp=1&gatewayAdapt=glo2deu)
