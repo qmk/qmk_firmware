@@ -110,7 +110,7 @@ __EOT__
         if [ "$(fn_os)" = "windows" ]; then
             # No need for sudo under QMK MSYS
             return
-        elif [ ${EUID:-} -ne 0 ]; then
+        elif [ $(id -u) -ne 0 ]; then
             echo "sudo"
         fi
         true
@@ -445,11 +445,11 @@ __EOT__
     [ -n "${SKIP_PACKAGE_MANAGER:-}" ] || install_package_manager_deps
     [ -n "${SKIP_UV:-}" ] || install_uv
 
-    # Work out where we want to install the distribution and tools now that `uv` is installed
-    export QMK_DISTRIB_DIR="$(posix_ish_path "${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv_command run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}")"
-
     # Make sure the usual `uv` and other associated directories are on the $PATH
     setup_paths
+
+    # Work out where we want to install the distribution and tools now that `uv` is installed
+    export QMK_DISTRIB_DIR="$(posix_ish_path "${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv_command run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}")"
 
     # Clear out the distrib directory if necessary
     if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK_FLASHUTILS:-}" ]; then
