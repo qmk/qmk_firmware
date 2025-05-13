@@ -10,11 +10,11 @@ Hardware Availability: [sneakbox.design](https://sneakbox.com/products/lil-bae-m
 
 Make example for this keyboard (after setting up your build environment):
 
-    make lilbae:default
+    make sneakbox/lilbae:default
 
 Flashing example for this keyboard:
 
-    make lilbae:default:flash
+    make sneakbox/lilbae:default:flash
     
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.  Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
