@@ -7,6 +7,7 @@ CONSOLE_ENABLE = yes        # Console for debug
 NKRO_ENABLE = yes           # Enable N-Key Rollover
 CAPS_WORD_ENABLE = yes
 COMBO_ENABLE = yes
+LAYER_LOCK_ENABLE = yes
 KEY_OVERRIDE_ENABLE = no	# Disable for Customu_Shift_Keys module
 
 AUTO_SHIFT_ENABLE = no

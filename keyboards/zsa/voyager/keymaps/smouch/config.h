@@ -11,6 +11,8 @@
 #define COMBO_STRICT_TIMER      // full combo must be pressed within the combo_term (less misfires)
 // #define COMBO_COUNT 19
 
+#define LAYER_LOCK_IDLE_TIMEOUT 60000  // Turn off after 60 seconds.
+
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 // Holding Shift while Caps Word is active inverts the shift state.
 #define CAPS_WORD_INVERT_ON_SHIFT

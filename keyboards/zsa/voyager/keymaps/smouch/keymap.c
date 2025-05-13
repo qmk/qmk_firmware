@@ -7,7 +7,8 @@ enum layer_names {
     _DEF,
     _NUM,
     _SYM,
-    _NAV
+    _NAV,
+    _FUN,
 };
 
 enum custom_keycodes {
@@ -88,7 +89,7 @@ enum custom_keycodes {
 #define RB2 KC_O
 #define RB3 KC_Y
 #define RB4 KC_B
-#define RB5 KC_BSLS
+#define RB5 TG(_FUN)
 
 // thumb row
 #define LH1 LSFT_T(KC_R)
@@ -110,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  Vol
     ⇥   v   w   g2   m   j           =_  .:  '2  -+  /  Vol
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
-    tg  f   p   d    l   x      	 `   u   o   y   b  \
+    tg  f   p   d    l   x      	 `   u   o   y   b  fun
                          r⇧   ⌫   ⏎   ␣⇧
   */
   [_DEF] = LAYOUT_voyager(
@@ -131,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUM] = LAYOUT_voyager(
     _______, KC_TAB,  KC_PLUS, KC_SLSH, KC_ASTR, KC_EQL,                    _______, _______, _______, _______, _______, _______,
     _______, KC_MINS, KC_5,    KC_2,    KC_3,    KC_COLN,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RGUI, _______, KC_RALT, KC_RCTL, ___x___,
+    QK_LLCK, KC_7,    KC_DOT,  KC_1,    KC_0,    KC_4,                      _______, KC_RGUI, _______, KC_RALT, KC_RCTL, _______,
     _______, KC_COMM, KC_6,    KC_9,    KC_8,    KC_ENT,                    _______, ___x___, ___x___, ___x___, ___x___, _______,
                                                  KC_SPC,  _______, _______, _______
   ),
@@ -150,35 +151,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                  KC_SPC,  _______, _______, _______
   ),
 
-  /*    F3     F2      F1	   F10	  F4			           F7	   F6	   F5	F9	    F8	    F11
-    	       quit            Sclp   Scap                     vol+    home    up	end             F12
+  /*
+    	                        Sclp  Scap                     vol+    home    up	end
     	⌃      ⌥       (mo)     ⌘     SelAll       		       vol-    left    dn	rght	del
     	undo   cpy             pst    redo                     mute    ←wrd    wrd→ ←line→  rgb
                                         ⇧                      dsk-    dsk+
   */
   [_NAV] = LAYOUT_voyager(
-    _______, KC_F3,   KC_F2,   KC_F1,   KC_F10,        KC_F4,                          KC_F7,   KC_F6,      KC_F5,   KC_F9,      KC_F8,   KC_F11,
-    _______, ___x___, G(KC_Q), _______, C(S(G(KC_4))), LSG(KC_4),                      KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, KC_F12,
-    ___x___, KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  ___x___,
+    _______, _______, _______, _______, _______,       _______,                        _______, _______,    _______, _______,    _______, _______,
+    _______, ___x___, ___x___, _______, C(S(G(KC_4))), LSG(KC_4),                      KC_VOLU, G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___, _______,
+    ___x___, KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  QK_LLCK,
     ___x___, G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z),                      KC_MUTE, SELWBAK,    SELWORD, SELLINE,    LUMINO,  _______,
                                                        KC_LSFT,   _______, C(KC_LEFT), C(KC_RGHT)
   ),
 
   /* Function Keys
 
-    ⇥   F12 F5  F2   F3   :
-        F7  .   F1   10   F4       	,   ⌘  (mo)  ⌥	 ⌃
-        F11 F6  F9   F8   ⏎       	`
+    ⇥   F9  F10 F11  F12
+        F5  F6  F7   F8          	   ⌘  xxx  ⌥	 ⌃
+        F1  F2  F3   F4                                 tg
     	                ␣   ⌫   ⏎   ␣⇧
-  *
+  */
  [_FUN] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_F12,  KC_F5,   KC_F2,   KC_F3,   _______,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_F7,   ___x___, KC_F1,   KC_F10,  KC_F4,                     _______, KC_RGUI, _______, KC_RALT, KC_RCTL, ___x___,
-    _______, KC_F11,  KC_F6,   KC_F9,   KC_F8,   KC_ENT,                    _______, ___x___, ___x___, ___x___, ___x___, _______,
+    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___x___,                   _______, _______, _______, _______, _______, _______,
+    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   ___x___,                   _______, KC_RGUI, ___x___, KC_RALT, KC_RCTL, ___x___,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ___x___,                   _______, ___x___, ___x___, ___x___, ___x___, _______,
                                                  KC_SPC,  _______, _______, _______
   ),
-  */
 
 };
 
