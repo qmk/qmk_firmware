@@ -27,9 +27,6 @@
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0012",
-        "shared_endpoint": {
-            "keyboard": true
-        },
         "vid": "0x5342"
     },
     "layouts": {
