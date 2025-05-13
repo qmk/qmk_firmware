@@ -1,4 +1,4 @@
-# Sneakbox Lil' BAE
+Sneakbox Lil' BAE
 
 ![Lil' BAE](https://i.imgur.com/a/S7FKp7r.jpg)
 
