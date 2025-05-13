@@ -15,8 +15,7 @@
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": true
+        "mousekey": true
     },
     "matrix_pins": {
         "cols": ["B7", "D6", "D5", "D4"],
