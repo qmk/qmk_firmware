@@ -248,7 +248,7 @@ __EOT__
                 print_package_manager_deps_and_delay
                 $(nsudo) apt-get update
                 DEBIAN_FRONTEND=noninteractive \
-                    $(nsudo) apt-get --quiet --yes $(get_package_manager_deps)
+                    $(nsudo) apt-get --quiet --yes install $(get_package_manager_deps)
                 ;;
             *fedora*)
                 echo "It will also install the following system packages using 'dnf':" >&2
