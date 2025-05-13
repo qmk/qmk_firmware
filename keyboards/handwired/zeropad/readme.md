@@ -21,8 +21,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader:
+Enter the bootloader in 3 ways:
 
-* **Physical short**: Short the GND and the RST pins to flash the keyboard new.
-  * This will put the board into bootloader mode, allowing you to flash a new firmware.
-  * Make sure you disconnect and reconnect the cable after shorting the pins.
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (the top left key) and plug in the keyboard 
+* **Physical reset**: Short the GND and the RST pins on the Pro Micro.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
