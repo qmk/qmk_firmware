@@ -20,5 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MASTER_RIGHT
 #define SERIAL_USART_HALF_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
-#define SERIAL_USART_RX_PIN GP1
-
+#define SERIAL_USART_RX_PIN GP1 // RX pin is not used in half-duplex mode, leaving in for later
