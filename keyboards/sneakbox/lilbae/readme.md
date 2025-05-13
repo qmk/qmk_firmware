@@ -1,6 +1,6 @@
 # Sneakbox Lil' BAE
 
-![Lil' BAE](https://i.imgur.com/a/S7FKp7r.jpg)
+![Lil' BAE](https://i.imgur.com/WGNgOhM.jpeg)
 
 A small macropad featuring key positions for a Big-Ass Enter (Reverse L-shaped enter key)
 
