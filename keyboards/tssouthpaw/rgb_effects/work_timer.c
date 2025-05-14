@@ -253,6 +253,15 @@ static void load_work_timer_state(void) {
         
         // Update pulse active state
         update_pulse_active_state();
+        
+        // Additional validation - ensure break state is consistent
+        if (work_timer.flags.lunch_break || work_timer.flags.mid_break) {
+            // If in a break state but break_start_time is invalid, reset break state
+            if (work_timer.break_start_time == 0) {
+                work_timer.flags.lunch_break = 0;
+                work_timer.flags.mid_break = 0;
+            }
+        }
     }
 }
 
@@ -391,9 +400,17 @@ static void update_pulse_active_state(void) {
  */
 void toggle_work_timer(void) {
     if (work_timer.flags.active) {
-        // If timer is active, stop it
+        // If timer is active, stop it and reset all state flags
         work_timer.flags.active = 0;
+        work_timer.flags.paused = 0;
+        work_timer.flags.lunch_break = 0;
+        work_timer.flags.mid_break = 0;
+        work_timer.flags.lunch_warning_shown = 0;
+        work_timer.flags.mid_break_warning_shown = 0;
+        work_timer.flags.end_warning_shown = 0;
         work_timer.flags.pulse_active = 0;  // Clear pulse active flag
+        
+        // Save complete clean state to EEPROM
         save_work_timer_state();
     } else {
         // If timer is inactive, just activate it with current settings
@@ -536,7 +553,7 @@ void update_work_timer(void) {
                 // Break has been active for 5 seconds over its time - force exit
                 work_timer.flags.lunch_break = 0;
                 work_timer.flags.lunch_warning_shown = 0;
-                work_timer.total_break_time += work_timer.mid_break_duration; // Use exact duration instead
+                work_timer.total_break_time += break_elapsed; // Add actual break time
                 
                 // Save state for persistence
                 save_work_timer_state();
@@ -545,13 +562,20 @@ void update_work_timer(void) {
             else if (break_elapsed >= work_timer.mid_break_duration) {
                 // End lunch break
                 work_timer.flags.lunch_break = 0;
-                work_timer.flags.lunch_warning_shown = 0; // FIX: Reset the warning flag
+                work_timer.flags.lunch_warning_shown = 0; // Reset the warning flag
                 
-                // Add the break time to total_break_time - use the exact duration
-                // FIX: Use the exact lunch break duration instead of elapsed time
-                work_timer.total_break_time += work_timer.mid_break_duration;
+                // Add the break time to total_break_time - use the exact elapsed time
+                // to ensure we account for all time accurately
+                work_timer.total_break_time += break_elapsed;
                 
                 // Save state when exiting lunch break
+                save_work_timer_state();
+            }
+            // Extra validation - check if break_start_time is valid
+            if (work_timer.break_start_time == 0) {
+                // Invalid break start time, force end break
+                work_timer.flags.lunch_break = 0;
+                work_timer.flags.lunch_warning_shown = 0;
                 save_work_timer_state();
             }
         }
@@ -584,17 +608,24 @@ void update_work_timer(void) {
                 // Break has been active for 5 seconds over its time - force exit
                 work_timer.flags.mid_break = 0;
                 work_timer.flags.mid_break_warning_shown = 0;
-                work_timer.total_break_time += work_timer.mid_break_duration;
+                work_timer.total_break_time += break_elapsed; // Add actual break time
                 save_work_timer_state();
             }
             // Normal mid-break end check
             else if (break_elapsed >= work_timer.mid_break_duration) {
                 // End mid-break
                 work_timer.flags.mid_break = 0;
-                work_timer.flags.mid_break_warning_shown = 0; // FIX: Reset warning flag
+                work_timer.flags.mid_break_warning_shown = 0; // Reset warning flag
                 
-                // Add the break time to total_break_time
-                work_timer.total_break_time += work_timer.mid_break_duration;
+                // Add the break time to total_break_time - use the actual elapsed time
+                work_timer.total_break_time += break_elapsed;
+                save_work_timer_state();
+            }
+            // Extra validation - check if break_start_time is valid
+            if (work_timer.break_start_time == 0) {
+                // Invalid break start time, force end break
+                work_timer.flags.mid_break = 0;
+                work_timer.flags.mid_break_warning_shown = 0;
                 save_work_timer_state();
             }
         }
@@ -620,6 +651,9 @@ void update_work_timer(void) {
     // Auto-stop after timer duration
     if (work_timer.elapsed_time >= work_timer.timer_duration) {
         work_timer.flags.active = 0;
+        // Ensure all break states are cleared when timer ends
+        work_timer.flags.lunch_break = 0;
+        work_timer.flags.mid_break = 0;
         save_work_timer_state();
     }
     
@@ -647,43 +681,39 @@ bool is_timer_pulse_active(void) {
  * Handle the work timer visualization on LEDs
  */
 void handle_work_timer(void) {
-    if (!work_timer.flags.active) return;
-    
-    // FIX: Add a double-check for break state to ensure proper transitions
-    // This helps catch cases where the break may be stuck
-    if (work_timer.flags.lunch_break) {
-        uint32_t break_elapsed = timer_elapsed32(work_timer.break_start_time);
-        
-        // If break has gone more than 5 seconds past its duration, force-end it
-        if (break_elapsed >= (work_timer.mid_break_duration + 5000)) {
-            // Exit the break immediately - this is a failsafe check
-            work_timer.flags.lunch_break = 0;
-            work_timer.flags.lunch_warning_shown = 0;
-            work_timer.total_break_time += work_timer.mid_break_duration;
-            
-            // Make sure to save the state
-            save_work_timer_state();
-            
-            // Return early to let the next frame handle normal display
-            return;
+    if (!work_timer.flags.active) {
+        // If timer is not active, ensure all timer-related LEDs are cleared
+        const uint8_t num_leds = WORK_TIMER_LED_END - WORK_TIMER_LED_START + 1;
+        for (uint8_t i = 0; i < num_leds; i++) {
+            rgb_matrix_set_color(WORK_TIMER_LED_START + i, 0, 0, 0);
         }
+        return;
     }
     
-    // Similar check for mid-break
-    if (work_timer.flags.mid_break) {
+    // Enhanced validation checks for break states - run on every visual update
+    // to catch and correct any inconsistent timer states
+    if (work_timer.flags.lunch_break || work_timer.flags.mid_break) {
         uint32_t break_elapsed = timer_elapsed32(work_timer.break_start_time);
+        uint32_t max_break_time = work_timer.mid_break_duration * 2; // Extra safety margin
         
-        // If break has gone more than 5 seconds past its duration, force-end it
-        if (break_elapsed >= (work_timer.mid_break_duration + 5000)) {
-            // Exit the break immediately - this is a failsafe check
-            work_timer.flags.mid_break = 0;
-            work_timer.flags.mid_break_warning_shown = 0;
-            work_timer.total_break_time += work_timer.mid_break_duration;
+        // If break has been active much longer than expected (2x duration), force end it
+        if (break_elapsed > max_break_time) {
+            // Force break to end - this is an emergency failsafe
+            if (work_timer.flags.lunch_break) {
+                work_timer.flags.lunch_break = 0;
+                work_timer.flags.lunch_warning_shown = 0;
+            }
             
-            // Make sure to save the state
+            if (work_timer.flags.mid_break) {
+                work_timer.flags.mid_break = 0;
+                work_timer.flags.mid_break_warning_shown = 0;
+            }
+            
+            // Add the actual break duration to total break time
+            work_timer.total_break_time += work_timer.mid_break_duration;
             save_work_timer_state();
             
-            // Return early to let the next frame handle normal display
+            // Return early to let next frame handle normal display
             return;
         }
     }

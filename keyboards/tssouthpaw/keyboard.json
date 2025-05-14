@@ -34,7 +34,8 @@
         "caps_word": true,
         "extrakey": true,
         "nkro": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "dynamic_macro": true
     },
     "caps_word": {
         "enabled": true
