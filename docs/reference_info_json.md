@@ -274,6 +274,14 @@ Configures the [Encoder](features/encoders) feature.
                 * The number of edge transitions on both pins required to register an input.
                 * Default: `4`
 
+## Host {#host}
+
+* `host`
+    * `default`
+        * `nkro` <Badge type="info">Boolean</Badge>
+            * The default nkro state.
+            * Default: `false`
+
 ## Indicators {#indicators}
 
 Configures the [LED Indicators](features/led_indicators) feature.
@@ -818,9 +826,6 @@ Configures the [Stenography](features/stenography) feature.
     * `vid` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The USB vendor ID as a four-digit hexadecimal number.
         * Example: `"0xC1ED"`
-    * `force_nkro` <Badge type="info">Boolean</Badge>
-        * Force NKRO to be active.
-        * Default: `false`
     * `max_power` <Badge type="info">Number</Badge>
         * The maximum current draw the host should expect from the device. This does not control the actual current usage.
         * Default: `500` (500 mA)
