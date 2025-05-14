@@ -206,9 +206,10 @@ __attribute__((weak)) uint8_t pointing_modes_map_count(void) {
  *
  * @return uint16_t keycode at pointing mode map location
  */
-uint16_t keycode_at_pointing_modes_map_location_raw(pointing_modes_map_location_t map_loc) {
-    if (map_loc.map_id < pointing_modes_map_count()) {
-        return pgm_read_word(&pointing_modes_maps[map_loc.map_id][map_loc.dir]);
+uint16_t keycode_at_pointing_modes_map_location_raw(uint8_t map_loc) {
+    pointing_modes_map_location_t pm_map_loc = {.raw = map_loc};
+    if (pm_map_loc.map_id < pointing_modes_map_count()) {
+        return pgm_read_word(&pointing_modes_maps[pm_map_loc.map_id][pm_map_loc.dir]);
     }
     return KC_NO;
 }
@@ -223,7 +224,7 @@ uint16_t keycode_at_pointing_modes_map_location_raw(pointing_modes_map_location_
  *
  * @return uint16_t keycode at pointing mode map location
  */
-__attribute__((weak)) uint16_t keycode_at_pointing_modes_map_location(pointing_modes_map_location_t map_loc) {
+__attribute__((weak)) uint16_t keycode_at_pointing_modes_map_location(uint8_t map_loc) {
     return keycode_at_pointing_modes_map_location_raw(map_loc);
 }
 #endif // POINTING_DEVICE_MODES_ENABLE && POINTING_MODES_MAP_ENABLE
