@@ -1,8 +1,10 @@
 {
     "features": {
-        "joystick": true
+        "joystick": true,
+        "pointing_device": true
     },
     "joystick": {
+        "driver": "analog",
         "axes": {
             "x": {
                 "high": 938,
