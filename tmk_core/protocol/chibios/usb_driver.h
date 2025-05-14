@@ -33,9 +33,9 @@
  *   Given `USBv1/hal_usb_lld.h` marks the field as "not currently used" this code file
  *   makes the assumption this is safe to avoid littering with preprocessor directives.
  */
-#define QMK_USB_ENDPOINT_IN(mode, ep_size, ep_num, _buffer_capacity, _usb_requests_cb, _report_storage) \
+#define QMK_USB_ENDPOINT_IN(mode, ep_size, ep_num, _buffer_capacity, _usb_requests_cb, _report_handler) \
     {                                                                                                   \
-        .usb_requests_cb = _usb_requests_cb, .report_storage = _report_storage,                         \
+        .usb_requests_cb = _usb_requests_cb, .report_handler = _report_handler,                         \
         .ep_config =                                                                                    \
             {                                                                                           \
                 mode,                           /* EP Mode */                                           \
@@ -84,9 +84,9 @@
 
 #else
 
-#    define QMK_USB_ENDPOINT_IN_SHARED(mode, ep_size, ep_num, _buffer_capacity, _usb_requests_cb, _report_storage) \
+#    define QMK_USB_ENDPOINT_IN_SHARED(mode, ep_size, ep_num, _buffer_capacity, _usb_requests_cb, _report_handler) \
         {                                                                                                          \
-            .usb_requests_cb = _usb_requests_cb, .is_shared = true, .report_storage = _report_storage,             \
+            .usb_requests_cb = _usb_requests_cb, .is_shared = true, .report_handler = _report_handler,             \
             .ep_config =                                                                                           \
                 {                                                                                                  \
                     mode,                            /* EP Mode */                                                 \
@@ -165,7 +165,7 @@ typedef struct {
     usb_endpoint_config_t config;
     usbreqhandler_t       usb_requests_cb;
     bool                  timed_out;
-    usb_report_storage_t *report_storage;
+    usb_report_handler_t *report_handler;
 } usb_endpoint_in_t;
 
 typedef struct {
