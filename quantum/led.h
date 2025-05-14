@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "util.h"
 
 /* FIXME: Add doxygen comments here. */
 
@@ -36,7 +37,8 @@ typedef union {
         bool    kana : 1;
         uint8_t reserved : 3;
     };
-} led_t;
+} PACKED led_t;
+_Static_assert(sizeof(led_t) == sizeof(uint8_t), "Invalid size for 'led_t'");
 
 void led_set(uint8_t usb_led);
 
