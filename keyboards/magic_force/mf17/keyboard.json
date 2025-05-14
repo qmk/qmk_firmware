@@ -96,7 +96,7 @@
         "sleep": true
     },
     "indicators": {
-        "caps_lock": "B15",
+        "num_lock": "B15",
         "on_state": 0
     },
     "community_layouts": ["numpad_5x4"],
