@@ -509,6 +509,7 @@ void keyboard_init(void) {
     steno_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
+#    pragma message "FORCE_NKRO option is now deprecated - Please migrate to NKRO_DEFAULT_ON instead."
     keymap_config.nkro = 1;
     eeconfig_update_keymap(&keymap_config);
 #endif
