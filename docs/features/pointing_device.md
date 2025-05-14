@@ -1110,7 +1110,7 @@ const uint16_t PROGMEM pointing_modes_maps[][POINTING_MODE_NUM_DIRECTIONS] = {
                         <first map  keycode down>
     },
     //... all other pointing mode maps ...
-    [<POINTING_MODE_MAP_COUNT - 1>] = {
+    [<number of pointing mode maps - 1>] = {
                         <last map keycode up>,
         <last map keycode left>,             <last mapkeycode right>,
                         <last map keycode down>
@@ -1228,7 +1228,7 @@ const uint16_t PROGMEM pointing_modes_maps[][POINTING_MODE_NUM_DIRECTIONS] = {
         <first map keycode down left>, <first map  keycode down>, <first map keycode down right>
     },
     //... all other pointing mode maps ...
-    [<POINTING_MODE_MAP_COUNT - 1>] = {
+    [<number of pointing mode maps - 1>] = {
         <last map keycode up left>,   <last map keycode up>,    <last map keycode up right>,
         <last map keycode left>,                                <last map keycode right>,
         <last map keycode down left>, <last map  keycode down>, <last map keycode down right>
