@@ -34,6 +34,7 @@
         "scroll_lock": "D2",
         "on_state": 0
     },
+    "community_layouts": ["tkl_f13_ansi", "tkl_f13_iso"],
     "layouts": {
         "LAYOUT": {
             "layout": [
