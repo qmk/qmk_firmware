@@ -49,7 +49,7 @@
         "LAYOUT_60_ansi_arrow_7u_spc": "LAYOUT_60_ansi_arrow_tsangan",
         "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
-    "community_layouts": ["60_ansi", "60_ansi_arrow"],
+    "community_layouts": ["60_ansi", "60_ansi_arrow", "60_ansi_arrow_split_bs", "60_ansi_tsangan_split_bs_rshift"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
