@@ -63,6 +63,7 @@
     "layout_aliases": {
         "LAYOUT_65_ansi_wkl": "LAYOUT_65_ansi_blocker_tsangan_wkl"
     },
+    "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_iso_blocker", "65_iso_blocker_split_bs"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
