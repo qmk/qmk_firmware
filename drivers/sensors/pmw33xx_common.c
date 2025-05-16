@@ -1,3 +1,4 @@
+// Copyright 2025 Thomas Weber (@ginkgo)
 // Copyright 2022 Pablo Martinez (@elpekenin)
 // Copyright 2022 Daniel Kao (dkao)
 // Copyright 2022 Stefan Kerkmann (KarlK90)
@@ -237,7 +238,13 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
 }
 
 void pmw33xx_init_wrapper(void) {
+#if defined(PMW33XX_MULTIREAD)
+    for (uint8_t sensor = 0; sensor < pmw33xx_number_of_sensors; ++sensor) {
+        pmw33xx_init(sensor);
+    }
+#else
     pmw33xx_init(0);
+#endif
 }
 
 void pmw33xx_set_cpi_wrapper(uint16_t cpi) {
@@ -248,9 +255,95 @@ uint16_t pmw33xx_get_cpi_wrapper(void) {
     return pmw33xx_get_cpi(0);
 }
 
+#if defined(PMW33XX_MULTIREAD)
+void pmw33xx_multi_read(pmw33xx_report_t *reports) {
+    memset(reports, 0, sizeof(pmw33xx_report_t) * pmw33xx_number_of_sensors);
+
+    for (uint8_t sensor = 1; sensor < pmw33xx_number_of_sensors; ++sensor) {
+        /* Pull down CS pins of all sensors */
+        gpio_write_pin_low(cs_pins[sensor]);
+    }
+
+    /* Write 1 to Motion register in all sensors at once - this will freeze the deltas */
+    if (!pmw33xx_write(0, REG_Motion, 0x1)) {
+        return;
+    }
+
+    for (uint8_t sensor = 1; sensor < pmw33xx_number_of_sensors; ++sensor) {
+        /* Pull up CS pins again */
+        gpio_write_pin_high(cs_pins[sensor]);
+    }
+
+    for (uint8_t sensor = 0; sensor < pmw33xx_number_of_sensors; ++sensor) {
+        /* Read out the register values we're interested in */
+        pmw33xx_report_t *report = &reports[sensor];
+
+        uint8_t motion = pmw33xx_read(sensor, REG_Motion);
+        memcpy(&report->motion, &motion, sizeof(motion));
+
+        uint8_t delta_x[2];
+        delta_x[0] = pmw33xx_read(sensor, REG_Delta_X_L);
+        delta_x[1] = pmw33xx_read(sensor, REG_Delta_X_H);
+        memcpy(&report->delta_x, delta_x, sizeof(delta_x));
+
+        uint8_t delta_y[2];
+        delta_y[0] = pmw33xx_read(sensor, REG_Delta_Y_L);
+        delta_y[1] = pmw33xx_read(sensor, REG_Delta_Y_H);
+        memcpy(&report->delta_y, delta_y, sizeof(delta_y));
+
+        pd_dprintf("PMW33XX (%d): motion: 0x%x dx: %i dy: %i\n", sensor, report->motion.w, report->delta_x, report->delta_y);
+
+        reports[sensor].delta_x *= -1;
+        reports[sensor].delta_y *= -1;
+    }
+}
+
+report_mouse_t __attribute__((weak)) pmw33xx_combine_reports_kb(const pmw33xx_report_t *reports, report_mouse_t mouse_report) {
+    int32_t sum_x = 0;
+    int32_t sum_y = 0;
+
+    for (uint8_t sensor = 0; sensor < pmw33xx_number_of_sensors; ++sensor) {
+        sum_x += reports[sensor].delta_x;
+        sum_y += reports[sensor].delta_y;
+    }
+
+    mouse_report.x = CONSTRAIN_HID_XY(sum_x);
+    mouse_report.y = CONSTRAIN_HID_XY(sum_y);
+
+    return mouse_report;
+}
+
 report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report) {
-    pmw33xx_report_t report    = pmw33xx_read_burst(0);
-    static bool      in_motion = false;
+    static bool in_motion = false;
+
+    pmw33xx_report_t reports[pmw33xx_number_of_sensors];
+    pmw33xx_multi_read(reports);
+
+    bool any_motion = false;
+    for (uint8_t sensor = 0; sensor < pmw33xx_number_of_sensors; ++sensor) {
+        if (reports[sensor].motion.b.is_lifted) {
+            return mouse_report;
+        }
+
+        any_motion = any_motion || reports[sensor].motion.b.is_motion;
+    }
+
+    if (!any_motion) {
+        in_motion = false;
+        return mouse_report;
+    }
+
+    if (!in_motion) {
+        in_motion = true;
+        pd_dprintf("PWM3360 (0): starting motion\n");
+    }
+
+    return pmw33xx_combine_reports_kb(reports, mouse_report);
+}
+#else
+report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report) {
+    pmw33xx_report_t report = pmw33xx_read_burst(0);
+    static bool in_motion = false;
 
     if (report.motion.b.is_lifted) {
         return mouse_report;
@@ -270,3 +363,4 @@ report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report) {
     mouse_report.y = CONSTRAIN_HID_XY(report.delta_y);
     return mouse_report;
 }
+#endif
