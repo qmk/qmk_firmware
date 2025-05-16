@@ -45,7 +45,7 @@ typedef struct {
 } tap_t;
 
 /* Key event container for recording */
-typedef struct {
+typedef struct keyrecord_t {
     keyevent_t event;
 #ifndef NO_ACTION_TAPPING
     tap_t tap;
