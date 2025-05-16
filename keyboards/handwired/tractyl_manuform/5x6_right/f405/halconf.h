@@ -22,11 +22,6 @@
 #    define HAL_USE_PWM TRUE
 #endif // defined(WS2812_PWM) || defined(BACKLIGHT_PWM)
 
-#if HAL_USE_SPI == TRUE
-#    define SPI_USE_WAIT TRUE
-#    define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-#endif
-
 #ifdef AUDIO_DRIVER_DAC
 #    define HAL_USE_GPT TRUE
 #    define HAL_USE_DAC TRUE
