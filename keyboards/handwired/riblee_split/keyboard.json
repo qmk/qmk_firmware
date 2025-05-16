@@ -29,7 +29,9 @@
             "driver": "usart"
         },
         "transport": {
-            "sync_matrix_state": true
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
     "community_layouts": ["ortho_5x12"],
