@@ -31,32 +31,28 @@ typedef struct {
     uint8_t pulse_active: 1;  // Flag to track if any pulse is currently active
 } work_timer_flags_t;
 
-// Work timer state structure
+// Simplified work timer state structure
 typedef struct {
     work_timer_flags_t flags;
     work_timer_type_t timer_type;
-    uint32_t start_time;
-    uint32_t elapsed_time;    // Work time (excluding breaks)
-    uint32_t pause_time;
-    uint32_t break_start_time; // When current break started
-    uint32_t total_break_time; // Total accumulated break time
-    uint32_t timer_duration;   // Total work time duration (excludes breaks)
-    uint32_t mid_break_start;  // When in workday the break occurs
-    uint32_t mid_break_duration;
-    bool has_lunch_break;
+    uint32_t start_time;         // When timer was started
+    uint32_t end_time;           // When timer should end (calculated)
+    uint32_t pause_time;         // When pause started (if paused)
+    uint32_t break_start_time;   // When current break started
+    uint32_t mid_break_time;     // When mid-break should occur
+    uint32_t mid_break_duration; // How long the mid-break should last
+    bool has_lunch_break;        // Whether this timer has a lunch break
 } work_timer_t;
 
-// Global work timer state
+// Global work timer state with simplified initialization
 static work_timer_t work_timer = {
     .flags = {0},
     .timer_type = TIMER_TYPE_8HR,
     .start_time = 0,
-    .elapsed_time = 0,
+    .end_time = 0,
     .pause_time = 0,
     .break_start_time = 0,
-    .total_break_time = 0,
-    .timer_duration = TIMER_8HR_DURATION,
-    .mid_break_start = TIMER_8HR_DURATION / 2, // Default halfway point
+    .mid_break_time = 0,
     .mid_break_duration = LUNCH_BREAK_DURATION,
     .has_lunch_break = true
 };
@@ -67,7 +63,6 @@ static const rgb_color_t WORK_TIMER_MID_COLOR = {WORK_TIMER_MID_R, WORK_TIMER_MI
 static const rgb_color_t WORK_TIMER_END_COLOR = {WORK_TIMER_END_R, WORK_TIMER_END_G, WORK_TIMER_END_B};
 static const rgb_color_t WORK_TIMER_LUNCH_COLOR = {WORK_TIMER_LUNCH_R, WORK_TIMER_LUNCH_G, WORK_TIMER_LUNCH_B};
 static const rgb_color_t WORK_TIMER_WARNING_COLOR = {WORK_TIMER_WARNING_R, WORK_TIMER_WARNING_G, WORK_TIMER_WARNING_B};
-static const rgb_color_t WORK_TIMER_BREAK_WARNING_COLOR = {WORK_TIMER_WARNING_R, WORK_TIMER_WARNING_G, WORK_TIMER_WARNING_B};
 
 // Function prototypes for internal functions
 static void configure_timer_for_type(work_timer_type_t timer_type);
@@ -84,57 +79,56 @@ static void configure_timer_for_type(work_timer_type_t timer_type) {
     
     switch (timer_type) {
         case TIMER_TYPE_30MIN:
-            work_timer.timer_duration = TIMER_30MIN_DURATION;
-            work_timer.mid_break_start = TIMER_30MIN_DURATION / 2;
+            work_timer.mid_break_time = TIMER_30MIN_DURATION / 2;
             work_timer.mid_break_duration = MID_BREAK_30MIN_DURATION;
             work_timer.has_lunch_break = false;
+            work_timer.end_time = work_timer.start_time + TIMER_30MIN_DURATION;
             break;
             
         case TIMER_TYPE_1HR:
-            work_timer.timer_duration = TIMER_1HR_DURATION;
-            work_timer.mid_break_start = TIMER_1HR_DURATION / 2;
+            work_timer.mid_break_time = TIMER_1HR_DURATION / 2;
             work_timer.mid_break_duration = MID_BREAK_1HR_DURATION;
             work_timer.has_lunch_break = false;
+            work_timer.end_time = work_timer.start_time + TIMER_1HR_DURATION;
             break;
             
         case TIMER_TYPE_4HR:
-            work_timer.timer_duration = TIMER_4HR_DURATION;
-            work_timer.mid_break_start = TIMER_4HR_DURATION / 2;
+            work_timer.mid_break_time = TIMER_4HR_DURATION / 2;
             work_timer.mid_break_duration = MID_BREAK_4HR_DURATION;
             work_timer.has_lunch_break = false;
+            work_timer.end_time = work_timer.start_time + TIMER_4HR_DURATION;
             break;
             
         case TIMER_TYPE_8HR:
-            work_timer.timer_duration = TIMER_8HR_DURATION;
-            work_timer.mid_break_start = TIMER_8HR_DURATION / 2;
+            work_timer.mid_break_time = TIMER_8HR_DURATION / 2;
             work_timer.mid_break_duration = LUNCH_BREAK_DURATION;
             work_timer.has_lunch_break = true;
+            work_timer.end_time = work_timer.start_time + TIMER_8HR_DURATION;
             break;
             
         case TIMER_TYPE_10HR:
-            work_timer.timer_duration = TIMER_10HR_DURATION;
-            work_timer.mid_break_start = TIMER_10HR_DURATION / 2;
+            work_timer.mid_break_time = TIMER_10HR_DURATION / 2;
             work_timer.mid_break_duration = LUNCH_BREAK_DURATION;
             work_timer.has_lunch_break = true;
+            work_timer.end_time = work_timer.start_time + TIMER_10HR_DURATION;
             break;
             
         default:
             // Default to 8HR if something goes wrong
-            work_timer.timer_duration = TIMER_8HR_DURATION;
-            work_timer.mid_break_start = TIMER_8HR_DURATION / 2;
+            work_timer.mid_break_time = TIMER_8HR_DURATION / 2;
             work_timer.mid_break_duration = LUNCH_BREAK_DURATION;
             work_timer.has_lunch_break = true;
+            work_timer.end_time = work_timer.start_time + TIMER_8HR_DURATION;
             break;
     }
 }
 
 /**
  * Save the work timer state to EEPROM
- * Modern QMK using block-based EEPROM operations for RP2040
  */
 static void save_work_timer_state(void) {
     // Create a buffer to store all our data
-    uint8_t buffer[19] = {0}; // 19 bytes total
+    uint8_t buffer[24] = {0}; // Increased from 21 to 24 bytes to have enough space
     
     // Set the active flag
     buffer[0] = work_timer.flags.active;
@@ -144,21 +138,25 @@ static void save_work_timer_state(void) {
         // Save start time (4 bytes)
         memcpy(&buffer[1], &work_timer.start_time, sizeof(uint32_t));
         
-        // Save elapsed time (4 bytes)
-        memcpy(&buffer[5], &work_timer.elapsed_time, sizeof(uint32_t));
-        
-        // Save total break time (4 bytes)
-        memcpy(&buffer[9], &work_timer.total_break_time, sizeof(uint32_t));
+        // Save end time (4 bytes)
+        memcpy(&buffer[5], &work_timer.end_time, sizeof(uint32_t));
         
         // Save timer type (1 byte)
-        buffer[13] = (uint8_t)work_timer.timer_type;
+        buffer[9] = (uint8_t)work_timer.timer_type;
+        
+        // Save pause state and time (5 bytes)
+        buffer[10] = work_timer.flags.paused;
+        memcpy(&buffer[11], &work_timer.pause_time, sizeof(uint32_t));
         
         // Save break state (1 byte)
-        buffer[14] = (work_timer.flags.lunch_break ? 1 : 0) | 
-                     (work_timer.flags.mid_break ? 2 : 0);
+        buffer[15] = (work_timer.flags.lunch_break ? 1 : 0) | 
+                    (work_timer.flags.mid_break ? 2 : 0);
         
         // Save break start time (4 bytes)
-        memcpy(&buffer[15], &work_timer.break_start_time, sizeof(uint32_t));
+        memcpy(&buffer[16], &work_timer.break_start_time, sizeof(uint32_t));
+        
+        // Save mid-break time (4 bytes) - fixed buffer position
+        memcpy(&buffer[20], &work_timer.mid_break_time, sizeof(uint32_t));
     }
     
     // Write all data at once to EEPROM
@@ -167,11 +165,10 @@ static void save_work_timer_state(void) {
 
 /**
  * Load the work timer state from EEPROM
- * Modern QMK using block-based EEPROM operations for RP2040
  */
 static void load_work_timer_state(void) {
     // Create a buffer to read all our data
-    uint8_t buffer[19] = {0}; // 19 bytes total
+    uint8_t buffer[24] = {0}; // Increased from 21 to 24 bytes to match save function
     
     // Read all data at once from EEPROM
     eeprom_read_block(buffer, (const void *)EEPROM_WORK_TIMER_ACTIVE, sizeof(buffer));
@@ -182,86 +179,61 @@ static void load_work_timer_state(void) {
     // Only process the rest if timer was active
     if (work_timer.flags.active) {
         // Load timer type
-        work_timer_type_t saved_type = (work_timer_type_t)buffer[13];
-        
-        // Apply configuration for this timer type
-        configure_timer_for_type(saved_type);
+        work_timer_type_t saved_type = (work_timer_type_t)buffer[9];
         
         // Get start time (4 bytes)
         memcpy(&work_timer.start_time, &buffer[1], sizeof(uint32_t));
         
-        // Get the elapsed work time (4 bytes)
-        memcpy(&work_timer.elapsed_time, &buffer[5], sizeof(uint32_t));
+        // Get end time (4 bytes)
+        memcpy(&work_timer.end_time, &buffer[5], sizeof(uint32_t));
         
-        // Get the total break time (4 bytes)
-        memcpy(&work_timer.total_break_time, &buffer[9], sizeof(uint32_t));
+        // Get pause state and time (5 bytes)
+        work_timer.flags.paused = buffer[10];
+        memcpy(&work_timer.pause_time, &buffer[11], sizeof(uint32_t));
         
         // Get break state (1 byte)
-        uint8_t break_state = buffer[14];
+        uint8_t break_state = buffer[15];
         work_timer.flags.lunch_break = (break_state & 1) > 0;
         work_timer.flags.mid_break = (break_state & 2) > 0;
         
         // Get break start time (4 bytes)
-        memcpy(&work_timer.break_start_time, &buffer[15], sizeof(uint32_t));
+        memcpy(&work_timer.break_start_time, &buffer[16], sizeof(uint32_t));
         
-        // If in a break, adjust break_start_time to account for time powered off
+        // Get mid-break time (4 bytes) - fixed buffer position
+        memcpy(&work_timer.mid_break_time, &buffer[20], sizeof(uint32_t));
+        
+        // Apply configuration for this timer type (durations, etc.)
+        configure_timer_for_type(saved_type);
+        
+        // If currently in a break, we need to adjust for time passed since poweroff
         if (work_timer.flags.lunch_break || work_timer.flags.mid_break) {
             uint32_t current_time = timer_read32();
             uint32_t time_off = current_time - work_timer.break_start_time;
             
-            // If we've been off for less than the break duration, continue the break
-            if (work_timer.flags.lunch_break && 
-                time_off < work_timer.mid_break_duration) {
-                // Stay in lunch break, adjust break_start_time
-                work_timer.break_start_time = current_time - time_off;
-            } 
-            else if (work_timer.flags.mid_break && 
-                     time_off < work_timer.mid_break_duration) {
-                // Stay in mid-break, adjust break_start_time
-                work_timer.break_start_time = current_time - time_off;
-            }
-            else {
-                // Break would have ended while powered off
+            // If we've been powered off longer than the break duration, end the break
+            if (time_off > work_timer.mid_break_duration) {
                 work_timer.flags.lunch_break = 0;
                 work_timer.flags.mid_break = 0;
-                
-                // Add the remaining break time to total_break_time
-                // This is approximate but better than nothing
-                if (time_off < work_timer.mid_break_duration) {
-                    work_timer.total_break_time += work_timer.mid_break_duration;
-                }
             }
         }
         
-        // Calculate elapsed wall time (including time powered off)
+        // Validate timer values
         uint32_t current_time = timer_read32();
-        uint32_t wall_time_elapsed = current_time - work_timer.start_time;
         
-        // Adjust start time to account for time powered off, preserving elapsed_time
-        work_timer.start_time = current_time - wall_time_elapsed;
-        
-        // Validate time values - if unreasonable, reset
-        if (work_timer.elapsed_time > work_timer.timer_duration) {
+        // If end time is in the past, timer is done
+        if (work_timer.end_time <= current_time && !work_timer.flags.paused) {
             work_timer.flags.active = 0;
             save_work_timer_state();
         }
         
-        // Check for end warning state
-        if (work_timer.elapsed_time >= (work_timer.timer_duration - BREAK_WARNING_TIME)) {
+        // Check for end warning state (within 5 minutes of end)
+        if (!work_timer.flags.paused && 
+            current_time >= (work_timer.end_time - BREAK_WARNING_TIME)) {
             work_timer.flags.end_warning_shown = 1;
         }
         
         // Update pulse active state
         update_pulse_active_state();
-        
-        // Additional validation - ensure break state is consistent
-        if (work_timer.flags.lunch_break || work_timer.flags.mid_break) {
-            // If in a break state but break_start_time is invalid, reset break state
-            if (work_timer.break_start_time == 0) {
-                work_timer.flags.lunch_break = 0;
-                work_timer.flags.mid_break = 0;
-            }
-        }
     }
 }
 
@@ -342,32 +314,46 @@ static void update_pulse_active_state(void) {
         return;
     }
     
+    uint32_t current_time = timer_read32();
+    
     // Check if any pulse condition is active
     bool lunch_warning = false;
     bool lunch_end_warning = false;
     bool mid_point_warning = false;
     bool end_warning = false;
     
-    // For timers with lunch breaks
+    // Mid-break (lunch) timing logic
     if (work_timer.has_lunch_break) {
+        // Time until mid-break (lunch)
+        uint32_t time_to_mid_break = 0;
+        if (current_time < work_timer.mid_break_time) {
+            time_to_mid_break = work_timer.mid_break_time - current_time;
+        }
+        
         // Lunch break warning (before lunch)
         lunch_warning = !work_timer.flags.lunch_break && 
-                       (work_timer.elapsed_time >= (work_timer.mid_break_start - BREAK_WARNING_TIME) && 
-                        work_timer.elapsed_time < work_timer.mid_break_start);
+                       (time_to_mid_break > 0 && time_to_mid_break < BREAK_WARNING_TIME);
         
         // Lunch end warning (before end of lunch)
         lunch_end_warning = work_timer.flags.lunch_break && 
-                           (timer_elapsed32(work_timer.break_start_time) >= (work_timer.mid_break_duration - BREAK_WARNING_TIME));
-    } else {
+                          (timer_elapsed32(work_timer.break_start_time) >= 
+                           (work_timer.mid_break_duration - BREAK_WARNING_TIME));
+    } 
+    else {
+        // Simple mid-break logic
+        uint32_t time_to_mid_break = 0;
+        if (current_time < work_timer.mid_break_time) {
+            time_to_mid_break = work_timer.mid_break_time - current_time;
+        }
+        
         // Mid-point break warning for shorter timers
         mid_point_warning = !work_timer.flags.mid_break && 
-                          (work_timer.elapsed_time >= (work_timer.mid_break_start - BREAK_WARNING_TIME) && 
-                           work_timer.elapsed_time < work_timer.mid_break_start);
+                          (time_to_mid_break > 0 && time_to_mid_break < BREAK_WARNING_TIME);
     }
     
     // End timer warning (5 minutes before end)
-    end_warning = (work_timer.elapsed_time >= (work_timer.timer_duration - BREAK_WARNING_TIME) && 
-                  work_timer.elapsed_time < work_timer.timer_duration);
+    end_warning = (current_time >= (work_timer.end_time - BREAK_WARNING_TIME) && 
+                  current_time < work_timer.end_time);
     
     // Set pulse active if any of these conditions are true
     work_timer.flags.pulse_active = (
@@ -379,8 +365,6 @@ static void update_pulse_active_state(void) {
         mid_point_warning ||                    // Mid-point warning for shorter timers
         end_warning                             // End warning for all timers
     );
-    
-    // Removed wake functionality - no need to wake RGB matrix
 }
 
 /**
@@ -396,15 +380,15 @@ void toggle_work_timer(void) {
         work_timer.flags.lunch_warning_shown = 0;
         work_timer.flags.mid_break_warning_shown = 0;
         work_timer.flags.end_warning_shown = 0;
-        work_timer.flags.pulse_active = 0;  // Clear pulse active flag
+        work_timer.flags.pulse_active = 0;
         
-        // Save complete clean state to EEPROM
+        // Save clean state to EEPROM
         save_work_timer_state();
         
-        // Force immediate RGB refresh to restore normal LED state
+        // Force immediate RGB refresh
         rgb_matrix_mode_noeeprom(rgb_matrix_get_mode());
     } else {
-        // If timer is inactive, activate it with current settings
+        // If timer is inactive, start a new timer
         work_timer.flags.active = 1;
         work_timer.flags.paused = 0;
         work_timer.flags.lunch_break = 0;
@@ -414,12 +398,26 @@ void toggle_work_timer(void) {
         work_timer.flags.end_warning_shown = 0;
         work_timer.flags.pulse_active = 0;
         
-        // Reset all time tracking variables
+        // Set timer start and calculate end time
         work_timer.start_time = timer_read32();
-        work_timer.elapsed_time = 0;
-        work_timer.pause_time = 0;
         work_timer.break_start_time = 0;
-        work_timer.total_break_time = 0;
+        
+        // Set up mid-break time based on current time
+        uint32_t duration = 0;
+        switch (work_timer.timer_type) {
+            case TIMER_TYPE_30MIN: duration = TIMER_30MIN_DURATION; break;
+            case TIMER_TYPE_1HR:   duration = TIMER_1HR_DURATION; break;
+            case TIMER_TYPE_4HR:   duration = TIMER_4HR_DURATION; break;
+            case TIMER_TYPE_8HR:   duration = TIMER_8HR_DURATION; break;
+            case TIMER_TYPE_10HR:  duration = TIMER_10HR_DURATION; break;
+            default:               duration = TIMER_8HR_DURATION; break;
+        }
+        
+        // Set mid-break time (halfway through timer)
+        work_timer.mid_break_time = work_timer.start_time + (duration / 2);
+        
+        // Set end time
+        work_timer.end_time = work_timer.start_time + duration;
         
         save_work_timer_state();
     }
@@ -438,9 +436,6 @@ void work_timer_init(void) {
  * Start a specific timer type
  */
 void start_timer(work_timer_type_t timer_type) {
-    // Configure timer parameters based on type
-    configure_timer_for_type(timer_type);
-    
     // Reset timer state
     work_timer.flags.active = 1;
     work_timer.flags.paused = 0;
@@ -452,10 +447,11 @@ void start_timer(work_timer_type_t timer_type) {
     work_timer.flags.pulse_active = 0;
     
     work_timer.start_time = timer_read32();
-    work_timer.elapsed_time = 0;
-    work_timer.pause_time = 0;
     work_timer.break_start_time = 0;
-    work_timer.total_break_time = 0;
+    
+    // Configure timer parameters based on type
+    work_timer.timer_type = timer_type;
+    configure_timer_for_type(timer_type);
     
     save_work_timer_state();
     
@@ -475,9 +471,17 @@ void toggle_pause_work_timer(void) {
         work_timer.pause_time = timer_read32();
         save_work_timer_state();
     } else {
-        // Resume the timer, adjust start time to account for pause duration
-        uint32_t pause_duration = timer_read32() - work_timer.pause_time;
-        work_timer.start_time += pause_duration;
+        // Resume the timer - extend all time values by pause duration
+        uint32_t current_time = timer_read32();
+        uint32_t pause_duration = current_time - work_timer.pause_time;
+        
+        // Extend end time by pause duration
+        work_timer.end_time += pause_duration;
+        
+        // If mid-break hasn't happened yet, extend that too
+        if (current_time < work_timer.mid_break_time) {
+            work_timer.mid_break_time += pause_duration;
+        }
         
         // If in a break, adjust break start time too
         if (work_timer.flags.lunch_break || work_timer.flags.mid_break) {
@@ -488,7 +492,6 @@ void toggle_pause_work_timer(void) {
         save_work_timer_state();
     }
     
-    // Update pulse state after changing pause status
     update_pulse_active_state();
 }
 
@@ -498,24 +501,7 @@ void toggle_pause_work_timer(void) {
 void update_work_timer(void) {
     if (!work_timer.flags.active || work_timer.flags.paused) return;
     
-    // Current time
     uint32_t current_time = timer_read32();
-    
-    // Calculate work time (wall time minus breaks)
-    uint32_t work_time;
-    
-    if (work_timer.flags.lunch_break || work_timer.flags.mid_break) {
-        // If in a break, calculate work time as:
-        // (time since start - total break time - current break elapsed time)
-        uint32_t current_break_elapsed = timer_elapsed32(work_timer.break_start_time);
-        work_time = (current_time - work_timer.start_time) - work_timer.total_break_time - current_break_elapsed;
-    } else {
-        // Not in a break, work time is wall time minus total break time
-        work_time = (current_time - work_timer.start_time) - work_timer.total_break_time;
-    }
-    
-    // Store the calculated work time
-    work_timer.elapsed_time = work_time;
     
     // Process different timer states based on timer type
     if (work_timer.has_lunch_break) {
@@ -523,116 +509,95 @@ void update_work_timer(void) {
         if (!work_timer.flags.lunch_break) {
             // Check if it's time to start lunch
             if (!work_timer.flags.lunch_warning_shown && 
-                work_time >= (work_timer.mid_break_start - BREAK_WARNING_TIME) && 
-                work_time < work_timer.mid_break_start) {
-                // Pre-lunch warning (red pulse before lunch)
+                current_time >= (work_timer.mid_break_time - BREAK_WARNING_TIME) && 
+                current_time < work_timer.mid_break_time) {
+                // Pre-lunch warning
                 work_timer.flags.lunch_warning_shown = 1;
             } 
-            else if (work_time >= work_timer.mid_break_start) {
+            else if (current_time >= work_timer.mid_break_time) {
                 // Start lunch break
                 work_timer.flags.lunch_break = 1;
                 work_timer.break_start_time = current_time;
                 work_timer.flags.lunch_warning_shown = 0; // Reset for lunch end warning
                 
-                // Save state when entering lunch break
+                // Don't need to extend end time yet - will do that when break ends
                 save_work_timer_state();
             }
         } 
         else {
-            // First validate break_start_time before any other processing
-            if (work_timer.break_start_time == 0) {
-                // Invalid break start time, force end break
+            // Currently in lunch break
+            uint32_t break_elapsed = timer_elapsed32(work_timer.break_start_time);
+            
+            // Check for lunch end warning
+            if (!work_timer.flags.lunch_warning_shown && 
+                break_elapsed >= (work_timer.mid_break_duration - BREAK_WARNING_TIME)) {
+                // Pre-end warning
+                work_timer.flags.lunch_warning_shown = 1;
+            }
+            
+            // End lunch break after duration (plus grace period)
+            if (break_elapsed >= (work_timer.mid_break_duration + 5000)) {
+                // End lunch break
                 work_timer.flags.lunch_break = 0;
                 work_timer.flags.lunch_warning_shown = 0;
+                
+                // Extend end time by break duration
+                work_timer.end_time += break_elapsed;
+                
                 save_work_timer_state();
-                // Skip the rest of the break processing
-            }
-            else {
-                // Currently in lunch break
-                uint32_t break_elapsed = timer_elapsed32(work_timer.break_start_time);
-                
-                // Check for lunch end warning
-                if (!work_timer.flags.lunch_warning_shown && 
-                    break_elapsed >= (work_timer.mid_break_duration - BREAK_WARNING_TIME)) {
-                    // Pre-end warning (red pulse before end of lunch)
-                    work_timer.flags.lunch_warning_shown = 1;
-                }
-                
-                // End lunch break after specified duration (plus a small grace period)
-                if (break_elapsed >= (work_timer.mid_break_duration + 5000)) {
-                    // End lunch break
-                    work_timer.flags.lunch_break = 0;
-                    work_timer.flags.lunch_warning_shown = 0;
-                    
-                    // Add actual break duration to total break time
-                    work_timer.total_break_time += break_elapsed;
-                    
-                    save_work_timer_state();
-                }
             }
         }
     } 
     else {
-        // For shorter timers without lunch breaks (30MIN, 1HR, 4HR)
-        
-        // Handle mid-break state transitions
+        // Handle mid-break state transitions for shorter timers
         if (!work_timer.flags.mid_break) {
             // Check if it's time to start mid-break
             if (!work_timer.flags.mid_break_warning_shown && 
-                work_time >= (work_timer.mid_break_start - BREAK_WARNING_TIME) && 
-                work_time < work_timer.mid_break_start) {
+                current_time >= (work_timer.mid_break_time - BREAK_WARNING_TIME) && 
+                current_time < work_timer.mid_break_time) {
                 // Mid-break warning
                 work_timer.flags.mid_break_warning_shown = 1;
             } 
-            else if (work_time >= work_timer.mid_break_start) {
+            else if (current_time >= work_timer.mid_break_time) {
                 // Start mid-break
                 work_timer.flags.mid_break = 1;
                 work_timer.break_start_time = current_time;
+                work_timer.flags.mid_break_warning_shown = 0;
                 save_work_timer_state();
             }
         } 
         else {
-            // First validate break_start_time before any other processing
-            if (work_timer.break_start_time == 0) {
-                // Invalid break start time, force end break
+            // Currently in mid-break
+            uint32_t break_elapsed = timer_elapsed32(work_timer.break_start_time);
+            
+            // End mid-break after duration (plus grace period)
+            if (break_elapsed >= (work_timer.mid_break_duration + 5000)) {
+                // End mid-break
                 work_timer.flags.mid_break = 0;
                 work_timer.flags.mid_break_warning_shown = 0;
-                save_work_timer_state();
-                // Skip the rest of the break processing
-            }
-            else {
-                // Currently in mid-break
-                uint32_t break_elapsed = timer_elapsed32(work_timer.break_start_time);
                 
-                // End mid-break after specified duration (plus a small grace period)
-                if (break_elapsed >= (work_timer.mid_break_duration + 5000)) {
-                    // End mid-break
-                    work_timer.flags.mid_break = 0;
-                    work_timer.flags.mid_break_warning_shown = 0;
-                    
-                    // Add actual break duration to total break time
-                    work_timer.total_break_time += break_elapsed;
-                    save_work_timer_state();
-                }
+                // Extend end time by break duration
+                work_timer.end_time += break_elapsed;
+                
+                save_work_timer_state();
             }
         }
     }
     
-    // Check for end of day warning (5 min before end)
+    // Check for end of day warning
     if (!work_timer.flags.end_warning_shown && 
-        work_time >= (work_timer.timer_duration - BREAK_WARNING_TIME)) {
+        current_time >= (work_timer.end_time - BREAK_WARNING_TIME)) {
         work_timer.flags.end_warning_shown = 1;
     }
     
-    // Auto-stop after timer duration
-    if (work_time >= work_timer.timer_duration) {
+    // Auto-stop after timer ends
+    if (current_time >= work_timer.end_time) {
         work_timer.flags.active = 0;
         work_timer.flags.lunch_break = 0;
         work_timer.flags.mid_break = 0;
         save_work_timer_state();
     }
     
-    // Update the pulse active state
     update_pulse_active_state();
 }
 
@@ -659,83 +624,71 @@ void handle_work_timer(void) {
     static bool was_active = false;
     
     if (!work_timer.flags.active) {
-        // If the timer was just deactivated, force a complete RGB refresh
+        // If the timer was just deactivated, force RGB refresh
         if (was_active) {
             rgb_matrix_mode_noeeprom(rgb_matrix_get_mode());
             was_active = false;
         }
-        
-        // Instead of explicitly turning off LEDs, let the RGB system handle them
         return;
     }
     
     was_active = true;
     
-    // Enhanced validation checks for break states - run on every visual update
-    // to catch and correct any inconsistent timer states
-    if (work_timer.flags.lunch_break || work_timer.flags.mid_break) {
-        uint32_t break_elapsed = timer_elapsed32(work_timer.break_start_time);
-        uint32_t max_break_time = work_timer.mid_break_duration * 2; // Extra safety margin
-        
-        // If break has been active much longer than expected (2x duration), force end it
-        if (break_elapsed > max_break_time) {
-            // Force break to end - this is an emergency failsafe
-            if (work_timer.flags.lunch_break) {
-                work_timer.flags.lunch_break = 0;
-                work_timer.flags.lunch_warning_shown = 0;
-            }
-            
-            if (work_timer.flags.mid_break) {
-                work_timer.flags.mid_break = 0;
-                work_timer.flags.mid_break_warning_shown = 0;
-            }
-            
-            // Add the actual break duration to total break time
-            work_timer.total_break_time += work_timer.mid_break_duration;
-            save_work_timer_state();
-            
-            // Return early to let next frame handle normal display
-            return;
-        }
-    }
-    
-    // Get current RGB matrix brightness value (0-255)
+    // Get current RGB matrix brightness
     uint8_t rgb_brightness = rgb_matrix_get_val();
     float brightness_factor = (float)rgb_brightness / 255.0f;
-    
-    // Simplified: No need to modify brightness - use whatever the system has
     
     // Number of LEDs in the progress bar
     const uint8_t num_leds = WORK_TIMER_LED_END - WORK_TIMER_LED_START + 1;
     
     // Calculate overall progress (0.0 - 1.0)
-    float overall_progress = (float)work_timer.elapsed_time / (float)work_timer.timer_duration;
+    uint32_t current_time = timer_read32();
+    float overall_progress;
+    
+    // Simple progress calculation based on total time range
+    if (work_timer.flags.paused) {
+        // When paused, use the pause time for calculation
+        overall_progress = (float)(work_timer.pause_time - work_timer.start_time) / 
+                          (float)(work_timer.end_time - work_timer.start_time);
+    } else {
+        // Normal operation - current progress through timer
+        overall_progress = (float)(current_time - work_timer.start_time) / 
+                          (float)(work_timer.end_time - work_timer.start_time);
+    }
+    
     if (overall_progress > 1.0f) overall_progress = 1.0f;
     
-    // Create a pulsing effect by varying brightness based on timer
+    // Create pulsing effect
     uint8_t pulse_brightness = abs((timer_read() / 4) % 510 - 255);
     float pulse_ratio = (float)pulse_brightness / 255.0f;
     
     // Check for various timer states
     bool lunch_warning = false;
     bool lunch_end_warning = false;
+    bool mid_break_warning = false;
+    bool end_warning = false;
     
-    // For timers with lunch breaks (8HR and 10HR)
+    // For timers with lunch breaks
     if (work_timer.has_lunch_break) {
         // Pre-lunch warning (red pulse)
         lunch_warning = !work_timer.flags.lunch_break && 
-                      (work_timer.elapsed_time >= (work_timer.mid_break_start - BREAK_WARNING_TIME) && 
-                       work_timer.elapsed_time < work_timer.mid_break_start);
+                      (current_time >= (work_timer.mid_break_time - BREAK_WARNING_TIME) && 
+                       current_time < work_timer.mid_break_time);
         
-        // Lunch-end warning (red pulse) - Add validation for break_start_time
+        // Lunch-end warning (red pulse)
         lunch_end_warning = work_timer.flags.lunch_break && 
                           work_timer.break_start_time != 0 &&
-                          (timer_elapsed32(work_timer.break_start_time) >= (work_timer.mid_break_duration - BREAK_WARNING_TIME));
+                          (timer_elapsed32(work_timer.break_start_time) >= 
+                           (work_timer.mid_break_duration - BREAK_WARNING_TIME));
+        
+        // End warning
+        end_warning = current_time >= (work_timer.end_time - BREAK_WARNING_TIME) && 
+                     current_time < work_timer.end_time;
         
         // Choose appropriate display based on current state
         if (lunch_warning || lunch_end_warning) {
             // Pre/Post lunch red warning pulse 
-            rgb_color_t pulse_color = WORK_TIMER_BREAK_WARNING_COLOR;
+            rgb_color_t pulse_color = WORK_TIMER_WARNING_COLOR;
             
             // Apply pulsing effect to all progress bar LEDs
             for (uint8_t i = 0; i < num_leds; i++) {
@@ -746,7 +699,7 @@ void handle_work_timer(void) {
             }
         }
         else if (work_timer.flags.lunch_break && work_timer.break_start_time != 0) {
-            // During lunch break - blue pulse, only if break_start_time is valid
+            // During lunch break - blue pulse
             rgb_color_t pulse_color = WORK_TIMER_LUNCH_COLOR;
             
             // Use a slower pulse for regular lunch break
@@ -761,7 +714,7 @@ void handle_work_timer(void) {
                                    (uint8_t)((float)pulse_color.b * lunch_pulse_ratio * brightness_factor));
             }
         }
-        else if (work_timer.flags.end_warning_shown) {
+        else if (work_timer.flags.end_warning_shown || end_warning) {
             // End of day warning - red pulse
             rgb_color_t pulse_color = WORK_TIMER_WARNING_COLOR;
             
@@ -780,14 +733,17 @@ void handle_work_timer(void) {
     } 
     // For timers without lunch breaks (30MIN, 1HR, 4HR)
     else {
-        bool mid_break_warning = !work_timer.flags.mid_break && 
-                              (work_timer.elapsed_time >= (work_timer.mid_break_start - BREAK_WARNING_TIME) && 
-                               work_timer.elapsed_time < work_timer.mid_break_start);
+        mid_break_warning = !work_timer.flags.mid_break && 
+                         (current_time >= (work_timer.mid_break_time - BREAK_WARNING_TIME) && 
+                          current_time < work_timer.mid_break_time);
+        
+        end_warning = current_time >= (work_timer.end_time - BREAK_WARNING_TIME) && 
+                     current_time < work_timer.end_time;
         
         // Choose appropriate display based on current state
         if (mid_break_warning) {
             // Mid-break warning - red pulse
-            rgb_color_t pulse_color = WORK_TIMER_BREAK_WARNING_COLOR;
+            rgb_color_t pulse_color = WORK_TIMER_WARNING_COLOR;
             
             // Apply pulsing effect to all progress bar LEDs
             for (uint8_t i = 0; i < num_leds; i++) {
@@ -797,7 +753,7 @@ void handle_work_timer(void) {
                                    (uint8_t)((float)pulse_color.b * pulse_ratio * brightness_factor));
             }
         }
-        // Mid-break active - only show if break_start_time is valid
+        // Mid-break active
         else if (work_timer.flags.mid_break && work_timer.break_start_time != 0) {
             // Mid-break active - blue pulse
             rgb_color_t pulse_color = WORK_TIMER_LUNCH_COLOR;
@@ -814,7 +770,7 @@ void handle_work_timer(void) {
                                    (uint8_t)((float)pulse_color.b * mid_pulse_ratio * brightness_factor));
             }
         }
-        else if (work_timer.flags.end_warning_shown) {
+        else if (work_timer.flags.end_warning_shown || end_warning) {
             // End of timer warning - red pulse
             rgb_color_t pulse_color = WORK_TIMER_WARNING_COLOR;
             
@@ -839,7 +795,4 @@ void handle_work_timer(void) {
 void work_timer_task(void) {
     // Update work timer state
     update_work_timer();
-    
-    // Add explicit call to refresh RGB matrix if needed
-    // This might help ensure F1-F12 get proper colors after timer state changes
 }
