@@ -635,6 +635,10 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     TRI_LAYER_ENABLE := yes
 endif
 
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    SEND_STRING_ENABLE := yes
+endif
+
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
 
 CUSTOM_MATRIX ?= no
@@ -939,6 +943,8 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     endif
 
     OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(DRIVER_PATH)/led
 
     SRC += ws2812.c ws2812_$(strip $(WS2812_DRIVER)).c
 
