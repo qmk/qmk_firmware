@@ -26,7 +26,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "GP1", "pin_b": "GP0", "resolution": 4}
+            {"pin_a": "GP0", "pin_b": "GP1", "resolution": 4}
         ]
     },
     "features": {
