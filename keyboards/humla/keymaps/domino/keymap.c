@@ -1,22 +1,31 @@
 #include QMK_KEYBOARD_H
+//#include "autocorrect.h"
 #include "autocorrect_data.h"
 
 const uint16_t PROGMEM escape[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM tab[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM delete[] = {KC_Y, KC_SCLN, COMBO_END};
 const uint16_t PROGMEM quote[] = {KC_DOT, KC_SLSH, COMBO_END};
 
 combo_t key_combos[] = {
   COMBO(escape, KC_ESC),
+  COMBO(tab, KC_TAB),
   COMBO(delete, KC_DEL),
   COMBO(quote, KC_QUOT),
 };
-  
+
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record)  {
+  return process_autocorrect(keycode, record);
+};
+
+
 
 enum layers {
     _COLEMAK,
     _NUMSYM,
     _MSFN
-    //_SET 
+    //_SET
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -29,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |              |      |      |      |      |      |
  * |Shft/A| Ctl/R| Alt/S| CMD/T|   G  |              |   M  | CMD/N| Alt/E| Ctl/I|Shft/O|
  * |------+------+------+------+------|              |------+------+------+------+------|
- * |      |      |      |      |      |              |      |      |      |    Quote    | 
+ * |      |      |      |      |      |              |      |      |      |    Quote    |
  * |   Z  |   X  |   C  |   D  |   V  |              |   K  |   H  |   ,  |   .  |   /  |
  * `------+------+------+------+------+--------------+------+------+------+------+------'
  *                      | Fn/Ms|  SPC | BSPC |  ENT  | LSFT |NumSym|
@@ -83,10 +92,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)  {
-  if (!process_autocorrect(keycode, record)) {
-    return false;
-  }
-  return true;
-};
 
