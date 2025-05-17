@@ -58,11 +58,6 @@ typedef enum {
 #define WORK_TIMER_LUNCH_G 0
 #define WORK_TIMER_LUNCH_B 255
   
-// Warning color (red)
-#define WORK_TIMER_WARNING_R 255
-#define WORK_TIMER_WARNING_G 0
-#define WORK_TIMER_WARNING_B 0
-  
 // Standard timer durations (in milliseconds)
 // IMPORTANT: These represent actual working time (excluding breaks)
 #define TIMER_30MIN_DURATION     1800000  // 30 minutes
@@ -72,7 +67,7 @@ typedef enum {
 #define TIMER_10HR_DURATION     36000000  // 10 hours (real world 11 hours with lunch)
   
 // Break durations
-#define BREAK_WARNING_TIME         60000  // 60 seconds
+#define BREAK_WARNING_TIME         60000  // 60 seconds (kept for calculations but not used for warnings)
 #define MID_BREAK_30MIN_DURATION   30000  // 30 seconds
 #define MID_BREAK_1HR_DURATION     45000  // 45 seconds
 #define MID_BREAK_4HR_DURATION     60000  // 60 seconds
