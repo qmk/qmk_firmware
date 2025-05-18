@@ -12,8 +12,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
-        "ps2": true,
-        "ps2_mouse": true
+        "pointing_device": true,
     },
     "build": {
         "lto": true
