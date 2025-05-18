@@ -15,7 +15,6 @@
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
         "rgb_matrix": true
     },
     "matrix_pins": {
