@@ -48,4 +48,3 @@
  // RP2040 Settings
  #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Enable double-tap reset
  #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U // Timeout window in ms
- #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP25 // LED for reset indication
