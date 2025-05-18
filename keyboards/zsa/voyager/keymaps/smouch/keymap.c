@@ -27,7 +27,7 @@ enum custom_keycodes {
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  Vol
     ⇥   v   w   g2   m   j           =_  .:  '2  -+  /  Vol
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
-    tg  f   p   d    l   x      	 `   u   o   y   b  \
+    num f   p   d    l   x      	 `   u   o   y   b  fun
                          r⇧  ⌫   ⏎   ␣⇧
   */
 
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*	BEAKL-27 Numpad
 		⇥	+	/	*   =
     ⇥   -   5   2   3   :
-        7   .   1   0   4       	,   ⌘  (mo)  ⌥	 ⌃
+    lk  7   .   1   0   4       	,   ⌘  (mo)  ⌥	 ⌃
         ,   6   9   8   ⏎       	`
     	                ␣   ⌫   ⏎   ␣⇧
   */
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /*
     	                        Sclp  Scap                     vol+    home    up	end
-    	⌃      ⌥       (mo)     ⌘     SelAll       		       vol-    left    dn	rght	del
+    	⌃      ⌥       (mo)     ⌘     SelAll       		       vol-    left    dn	rght	del  lck
     	undo   cpy             pst    redo                     mute    ←wrd    wrd→ ←line→  rgb
                                         ⇧                      dsk-    dsk+
   */
