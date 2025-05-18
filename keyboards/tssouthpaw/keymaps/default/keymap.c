@@ -38,7 +38,6 @@
      KC_10HR,                 // 10-hour timer
  };
  
- // Replace encoder update function with encoder map
  #ifdef ENCODER_MAP_ENABLE
  const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
    [BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
@@ -168,4 +167,3 @@
          KC_NO  , _______, _______,  _______, RGB_RMOD, RGB_HUD, RGB_MOD, KC_NO  ,   _______, _______,   KC_NO  , KC_NO  , KC_NO  , KC_WRKPAU, KC_NO  , KC_NO  , _______, KC_NO  , _______, _______, _______                      
      ),
  };
- 
