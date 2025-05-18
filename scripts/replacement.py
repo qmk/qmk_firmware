@@ -4,8 +4,11 @@ data = {
     "TD(TD_SLASH)":"/ \\",
     "LT(SPECIAL,KC_ENT)":"ENT_L01",
     "LT(SPECIAL2,KC_BSPC)":"BSP_L02",
+    "LT(FKEYS,KC_SPC)":"SPC_FKeys",
+    "LCTL(DE_Z)":"UNDO",
+    "LCTL(LSFT(DE_Z))":"REDO",
     "DE_AT":"@",
-    "DE_UNDS":"_",
+    "DE_UNDS":"UNDS",
     "DE_MINS":"-",
     "DE_PIPE":"|",
     "TD(TD_AE)":"ä Ä",
@@ -14,7 +17,7 @@ data = {
     "DE_HASH":"#",
     "LSFT(KC_1)":"!",
     "LSFT(KC_MINS)":"?",
-    "DE_EQL":"=",
+    "KC_EQL":"=",
     "DE_COLN":":",
     "DE_SCLN":";",
     "DE_SS":"ß",
@@ -40,5 +43,7 @@ data = {
     "LCTL(KC_X)":"CUT",
     "LCTL(KC_A)":"ALL",
     "LCTL(KC_V)":"PASTE",
-    "LGUI(LSFT(KC_S))":"SCREEN"
+    "LGUI(LSFT(KC_S))":"SCREEN",
+    "LALT(LSFT(KC_TAB))":"SHIFT_+_ATAB",
+    "LALT(KC_TAB)":"ATAB"
 }

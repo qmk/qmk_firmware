@@ -1,0 +1,14 @@
+[
+    {
+        "name": "lily58",
+        "path": "keyboards/splitkb/aurora/lily58",
+        "keyboard": "splitkb/aurora/lily58/rev1",
+        "keymap": "smierx-colemak-dh"
+    },
+    {
+        "name": "charybdis",
+        "path": "keyboards/bastardkb/charybdis/4x6",
+        "keyboard": "bastardkb/charybdis/4x6/v2/splinky_3",
+        "keymap": "smierx"
+    }
+]

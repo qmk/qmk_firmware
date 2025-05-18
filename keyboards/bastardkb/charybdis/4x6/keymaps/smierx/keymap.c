@@ -138,56 +138,56 @@ tap_dance_action_t tap_dance_actions[] = {
 	[TD_AND_MUL] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_7),LSFT(KC_8)),
     [TD_HOME_END] = ACTION_TAP_DANCE_DOUBLE(KC_HOME,KC_END),
 };
-//TODO: Controll + Pfeiltaste hoch für macos und win+tab für windows ins mouse layer
-//TODO für macos controll pfeiltaste rechts und links /kp was für windows
+
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT(
-  // ╭──────────────────────────────														────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-        KC_ESC,	            KC_NO,	            LSFT(KC_8), 		RALT(KC_8), 		RALT(KC_7), 	 	KC_NO, 								        KC_NO, 					LSFT(KC_9), 		RALT(KC_9),       	RALT(KC_0),  		KC_NO,  				DPI_MOD,
-  // ├──────────────────────────────														────────────────────────┤ ├──────────────────────────────────────────────────────┤
-        LGUI(LSFT(KC_S)),   KC_Q,    			KC_W,    			KC_F,    			KC_P,    			KC_B,       KC_J,    KC_L,    			KC_U,    			DE_Y,    			TD(TD_QUOTES),		DPI_RMOD,
-  // ├──────────────────────────────														────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       LCTL(KC_X),    		MT(MOD_LSFT,KC_A),  MT(MOD_LALT,KC_R), 	MT(MOD_LGUI,KC_S), 	MT(MOD_LCTL,KC_T),  KC_G,       KC_M,    MT(MOD_RCTL,KC_N), MT(MOD_RGUI,KC_E),  MT(MOD_RALT,KC_I),  MT(MOD_RSFT,KC_O), 	LCTL(KC_A),
-  // ├──────────────────────────────														────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       LCTL(KC_C),    		DE_Z,    			KC_X,    			KC_C,    			KC_D,    			KC_V,       KC_K,    KC_H, 				KC_COMM,  			KC_DOT, 			TD(TD_SLASH), 		LCTL(KC_V),
-  // ╰───────────────────────────────      													────────────────────── ─┤ ├──────────────────────────────────────────────────────╯
-                                									   					TD(TD_HOME_END), KC_BTN1,   KC_DEL,      	KC_TAB,  KC_SPC,
-                                          														 LT(SPECIAL,KC_ENT), MO(MOUSE),      LT(SPECIAL2,KC_BSPC)
-  //                            														╰───────────────────────────╯ ╰──────────────────╯
+  // ╭──────────────────────────────														────────────────────────╮ ╭───────────────────────────────────────────────                                     ───────╮
+       KC_NO,KC_NO,	            KC_NO, 		        KC_NO, 		        KC_NO, 	 	        KC_NO, 						KC_NO,KC_NO,     		KC_NO,            KC_NO,  		    KC_NO,  			DPI_MOD,
+  // ├──────────────────────────────														────────────────────────┤ ├───────────────────────────────────────────────                                     ───────┤
+       KC_NO,KC_Q,    			KC_W,    			KC_F,    			KC_P,    			KC_B,                       KC_J, KC_L,    			KC_U,    		  DE_Y,    			TD(TD_QUOTES),		DPI_RMOD,
+  // ├──────────────────────────────														────────────────────────┤ ├───────────────────────────────────────────────                                     ───────┤
+       KC_NO,MT(MOD_LSFT,KC_A), MT(MOD_LALT,KC_R), 	MT(MOD_LGUI,KC_S), 	MT(MOD_LCTL,KC_T),  KC_G,                       KC_M, MT(MOD_RCTL,KC_N),MT(MOD_RGUI,KC_E),MT(MOD_RALT,KC_I),MT(MOD_RSFT,KC_O), 	KC_NO,
+  // ├──────────────────────────────														────────────────────────┤ ├───────────────────────────────────────────────                                     ───────┤
+       KC_NO,DE_Z,    			KC_X,    			KC_C,    			KC_D,    			KC_V,                       KC_K, KC_H, 			KC_COMM,  		  KC_DOT, 			TD(TD_SLASH), 		KC_NO,
+  // ╰───────────────────────────────      													────────────────────── ─┤ ├───────────────────────────────────────────────                                     ───────╯
+                                									   				KC_DEL, KC_NO,            KC_NO,    KC_NO,  KC_SPC,
+                                          											LT(SPECIAL,KC_ENT), MO(MOUSE),      LT(SPECIAL2,KC_BSPC)
+  //                            												   ╰───────────     ────────────────╯ ╰─────────────   ─────╯
   ),
 
-  [SPECIAL] = LAYOUT(
-  // ╭───────────────────────────────────────────		───────────╮ ╭──────────────────────────────────────────────────────╮
-      KC_NO,	KC_NO,			KC_NO,	  	KC_NO, 			KC_NO, 			KC_NO, 						KC_NO, 	 	KC_NO, 				KC_NO,  			KC_NO,  		KC_NO, 			KC_NO,
-  // ├───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────┤
-      KC_NO,	DE_AT,			DE_UNDS, 	DE_MINS, 	    DE_PIPE, 		DE_CIRC, 					KC_NO, 	 	TD(TD_AE), 			TD(TD_OE),   		TD(TD_UE),   	KC_NO,  	    KC_NO,
-  // ├───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────┤
-      KC_NO,	DE_PLUS, 		DE_HASH, 	DE_AMPR,		DE_PERC, 	    DE_COLN, 					DE_SCLN, 	KC_LEFT, 			KC_DOWN, 			KC_UP,			KC_RGHT,  		KC_NO,
-  // ├───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────┤
-      KC_NO,	DE_ASTR,    	LSFT(KC_1),	LSFT(KC_MINS), 	DE_EQL, 		DE_TILD, 		KC_NO,		DE_LABK,        	DE_RABK,	        DE_SS,   		KC_NO,  		KC_NO,
-  // ╰───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────╯
-                                 		 KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO,
-                                  		          KC_NO, KC_NO,      KC_NO
-  //                            	   ╰───────────────────────────╯ ╰──────────────────╯
-  ),
+    [SPECIAL] = LAYOUT(
+    // ╭───────────────────────────────────────────		───────────╮ ╭──────────────────────────────────────────────────────╮
+        KC_NO,KC_NO,  KC_NO,	 KC_NO, 	KC_NO, 	      KC_NO, 		KC_NO, 	 KC_NO, 	KC_NO,     KC_NO,  	 KC_NO,  KC_NO,
+    // ├───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────┤
+        KC_NO,DE_AT,  RALT(KC_0),RALT(KC_9),LSFT(KC_9),   DE_PLUS, 		DE_AMPR, DE_LABK, 	DE_RABK,   DE_PIPE,  DE_TILD,KC_NO,
+    // ├───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────┤
+        KC_NO,DE_UNDS,RALT(KC_7),RALT(KC_8),LSFT(KC_8),   DE_COLN, 		DE_SCLN, KC_LEFT, 	KC_DOWN,   KC_UP,	 KC_RGHT,KC_NO,
+    // ├───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────┤
+        KC_NO,DE_HASH,DE_MINS,	 LSFT(KC_1),LSFT(KC_MINS),DE_ASTR, 		DE_PERC, TD(TD_AE), TD(TD_OE), TD(TD_UE),DE_SS,  KC_NO,
+    // ╰───────────────────────────────────────────		───────────┤ ├──────────────────────────────────────────────────────╯
+                                            KC_NO,    KC_NO, KC_NO,     KC_NO, KC_NO,
+                                                      KC_NO, KC_NO,     KC_EQL
+    //                            	   ╰───────────────────────────╯ ╰──────────────────╯
+    ),
 
   [SPECIAL2] = LAYOUT(
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-       KC_NO, KC_NO,	KC_NO, 	KC_NO, 	KC_NO, 	KC_NO, 				KC_NO, KC_NO, 	KC_NO,KC_NO,KC_NO, KC_NO,
+       KC_NO, KC_NO, KC_NO, 	KC_NO, 	   KC_NO, 	  KC_NO, 	KC_NO,KC_NO, 	         KC_NO,KC_NO,KC_NO,KC_NO,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_NO, KC_NO,   KC_F1,  KC_F2,  KC_F3,  KC_F10, 			KC_NO, KC_1,	KC_2, KC_3,	KC_NO, KC_NO,
+       KC_NO, KC_ESC,LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),KC_NO, 	KC_NO,LALT(KC_TAB),      KC_NO,KC_NO,KC_NO,KC_NO,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_NO, KC_NO,   KC_F4,  KC_F5,  KC_F6,  KC_F11, 			KC_NO, KC_4,	KC_5, KC_6, KC_0, KC_NO,
+       KC_NO, KC_1,  KC_2,      KC_3,      KC_4,      KC_5, 	KC_6, KC_7,	             KC_8, KC_9, KC_0, KC_NO,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       KC_NO, KC_NO,	KC_F7, 	KC_F8, 	KC_F9, 	KC_F12,KC_NO, KC_7,	KC_8, KC_9, KC_NO, KC_NO,
+       KC_NO, KC_NO, KC_NO, 	KC_NO,     LCTL(KC_A),KC_NO,    KC_NO,LALT(LSFT(KC_TAB)),KC_NO,KC_NO,KC_NO,KC_NO,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
-                                  KC_NO, KC_NO, KC_NO,    KC_NO, KC_NO,
-                                           KC_NO, KC_NO,    KC_NO
+                                          KC_NO,KC_NO,KC_NO,    KC_NO,KC_NO,
+                                               KC_NO, KC_NO,    KC_NO
   //                            ╰───────────────────────────╯ ╰──────────────────╯
   ),
 
+ */
 	[MOUSE] = LAYOUT(
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
        KC_NO, KC_NO,	KC_NO, 	KC_NO, 	KC_NO, 	KC_NO, 				KC_NO, KC_NO, 	KC_NO,KC_NO,KC_NO, KC_NO,
