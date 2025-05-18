@@ -1,14 +1,5 @@
 {
-    "manufacturer": "florent@linguenheld.fr",
-    "keyboard_name": "chew",
-    "maintainer": "florent@linguenheld.fr",
-    "bootloader": "rp2040",
-    "features": {
-        "bootmagic": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
+    "keyboard_name": "chew/split",
     "matrix_pins": {
         "direct": [
             ["GP4", "GP3", "GP2", "GP1", "GP0"],
@@ -17,9 +8,11 @@
             ["GP7", "GP6", "GP5", "NO_PIN", "NO_PIN"]
         ]
     },
-    "processor": "RP2040",
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "GP10"
+        },
         "matrix_pins": {
             "right": {
                 "direct": [
@@ -37,11 +30,6 @@
         "transport": {
             "watchdog": true
         }
-    },
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
     },
     "layouts": {
         "LAYOUT": {
