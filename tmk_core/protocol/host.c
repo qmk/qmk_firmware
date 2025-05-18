@@ -55,6 +55,9 @@ host_driver_t bt_driver = {
     .send_nkro     = bluetooth_send_nkro,
     .send_mouse    = bluetooth_send_mouse,
     .send_extra    = bluetooth_send_extra,
+#    ifdef RAW_ENABLE
+    .send_raw_hid = bluetooth_send_raw_hid,
+#    endif
 };
 #endif
 
@@ -298,6 +301,15 @@ void host_programmable_button_send(uint32_t data) {
 #endif
 
 __attribute__((weak)) void send_programmable_button(report_programmable_button_t *report) {}
+
+#ifdef RAW_ENABLE
+void host_raw_hid_send(uint8_t *data, uint8_t length) {
+    host_driver_t *driver = host_get_active_driver();
+    if (!driver || !driver->send_raw_hid) return;
+
+    (*driver->send_raw_hid)(data, length);
+}
+#endif
 
 uint16_t host_last_system_usage(void) {
     return last_system_usage;

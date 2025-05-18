@@ -66,9 +66,19 @@ void send_keyboard(report_keyboard_t *report);
 void send_nkro(report_nkro_t *report);
 void send_mouse(report_mouse_t *report);
 void send_extra(report_extra_t *report);
+void send_raw_hid(uint8_t *data, uint8_t length);
 
 /* host struct */
-host_driver_t chibios_driver = {.keyboard_leds = usb_device_state_get_leds, .send_keyboard = send_keyboard, .send_nkro = send_nkro, .send_mouse = send_mouse, .send_extra = send_extra};
+host_driver_t chibios_driver = {
+    .keyboard_leds = usb_device_state_get_leds,
+    .send_keyboard = send_keyboard,
+    .send_nkro     = send_nkro,
+    .send_mouse    = send_mouse,
+    .send_extra    = send_extra,
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif
+};
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);

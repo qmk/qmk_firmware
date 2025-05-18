@@ -47,6 +47,10 @@ void eeconfig_init_via(void);
 void dynamic_keymap_reset(void);
 #endif // VIA_ENABLE
 
+#ifndef NKRO_DEFAULT_ON
+#    define NKRO_DEFAULT_ON false
+#endif
+
 __attribute__((weak)) void eeconfig_init_user(void) {
 #if (EECONFIG_USER_DATA_SIZE) == 0
     // Reset user EEPROM value to blank, rather than to a set value
@@ -82,7 +86,7 @@ void eeconfig_init_quantum(void) {
         .no_gui                   = false,
         .swap_grave_esc           = false,
         .swap_backslash_backspace = false,
-        .nkro                     = false,
+        .nkro                     = NKRO_DEFAULT_ON,
         .swap_lctl_lgui           = false,
         .swap_rctl_rgui           = false,
         .oneshot_enable           = true, // Enable oneshot by default

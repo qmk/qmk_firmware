@@ -443,6 +443,18 @@
                 }
             }
         },
+        "host": {
+            "type": "object",
+            "properties": {
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "nkro": {"type": "boolean"}
+                    }
+                }
+            }
+        },
         "leader_key": {
             "type": "object",
             "properties": {
@@ -952,7 +964,11 @@
                     "$comment": "Deprecated: use device_version instead"
                 },
                 "device_version": {"$ref": "./definitions.jsonschema#/bcd_version"},
-                "force_nkro": {"type": "boolean"},
+                "force_nkro": {
+                    "type": "boolean",
+                    "$comment": "Deprecated: use host.default.nkro instead"
+
+                },
                 "pid": {"$ref": "./definitions.jsonschema#/hex_number_4d"},
                 "vid": {"$ref": "./definitions.jsonschema#/hex_number_4d"},
                 "max_power": {"$ref": "./definitions.jsonschema#/unsigned_int"},
