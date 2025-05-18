@@ -62,9 +62,6 @@
   * Power management function - Called when system is waking from sleep
   */
  void suspend_wakeup_init_kb(void) {
-     // Re-enable RGB effects when computer wakes up
-     rgb_matrix_set_suspend_state(false);
-     
      // Make sure the timer pulse state is properly reflected
      // This ensures the timer visuals are immediately visible
      if (is_timer_pulse_active()) {
@@ -81,7 +78,7 @@
  /**
   * Regular task hook to ensure timer updates even during suspend
   */
- void housekeeping_task_user(void) {
+ void housekeeping_task_kb(void) {
      // Update work timer even during suspend
      if (is_timer_pulse_active()) {
          update_work_timer();
@@ -89,7 +86,3 @@
      }
  }
   
- // Default implementations for weak functions
- __attribute__((weak)) void keyboard_post_init_user(void) {}
- __attribute__((weak)) void suspend_power_down_user(void) {}
- __attribute__((weak)) void suspend_wakeup_init_user(void) {}

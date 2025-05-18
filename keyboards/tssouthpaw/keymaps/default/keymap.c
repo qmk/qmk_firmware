@@ -38,15 +38,13 @@
      KC_10HR,                 // 10-hour timer
  };
  
- // Function to handle rotary encoder updates
- bool encoder_update_user(uint8_t index, bool clockwise) {
-     if (clockwise) {
-         tap_code(KC_VOLU); // Rotate right: Volume up
-     } else {
-         tap_code(KC_VOLD); // Rotate left: Volume down
-     }
-     return true;
- }
+ // Replace encoder update function with encoder map
+ #ifdef ENCODER_MAP_ENABLE
+ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+   [BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+   [FN] = { ENCODER_CCW_CW(_______, _______) },
+ };
+ #endif
   
  /**
   * Key processing function
@@ -170,3 +168,4 @@
          KC_NO  , _______, _______,  _______, RGB_RMOD, RGB_HUD, RGB_MOD, KC_NO  ,   _______, _______,   KC_NO  , KC_NO  , KC_NO  , KC_WRKPAU, KC_NO  , KC_NO  , _______, KC_NO  , _______, _______, _______                      
      ),
  };
+ 

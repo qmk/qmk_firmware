@@ -82,3 +82,4 @@
      result.b = start.b + (int)((float)(end.b - start.b) * progress);
      return result;
  }
+ 
