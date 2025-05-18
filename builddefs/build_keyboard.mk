@@ -11,6 +11,7 @@ endif
 .DEFAULT_GOAL := all
 
 include paths.mk
+include $(BUILDDEFS_PATH)/support.mk
 include $(BUILDDEFS_PATH)/message.mk
 
 # Helper to add defines with a 'QMK_' prefix
