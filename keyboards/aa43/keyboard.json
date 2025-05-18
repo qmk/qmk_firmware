@@ -81,6 +81,12 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "soft_serial_pin": "D0",
+        "matrix_pins": {
+            "right": {
+                "cols": ["F0", "D5", "F1", "F5", "B6", "B7"],
+                "rows": ["D4", "D6", "B4", "B5"]
+            }
+        }
     }
 }
