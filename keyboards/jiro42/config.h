@@ -1,0 +1,2 @@
+// #define MASTER_RIGHT
+#define SPLIT_USB_DETECT
