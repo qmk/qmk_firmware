@@ -4,6 +4,8 @@
 
 #include <stdint.h>
 #include <stddef.h> // offsetof
+
+#include "compiler_support.h"
 #include "eeconfig.h"
 #include "util.h"
 
@@ -58,4 +60,4 @@ typedef struct PACKED {
 // Size of EEPROM being used, other code can refer to this for available EEPROM
 #define EECONFIG_SIZE ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE))
 
-_Static_assert((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");
+STATIC_ASSERT((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");
