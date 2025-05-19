@@ -76,12 +76,12 @@ def compile_schema_store():
         if not isinstance(schema_data, dict):
             cli.log.debug('Skipping schema file %s', schema_file)
             continue
+
+        # `$id`-based references
         schema_store[schema_data['$id']] = schema_data
 
-        # Additional paths for relative checking
+        # Path-based references
         schema_store[Path(schema_file).name] = schema_data
-        schema_store['./' + Path(schema_file).name] = schema_data
-        schema_store['/schemas/' + Path(schema_file).name] = schema_data
 
     return schema_store
 
