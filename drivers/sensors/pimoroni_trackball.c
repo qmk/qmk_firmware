@@ -33,6 +33,13 @@
 
 static uint16_t precision = 128;
 
+const pointing_device_driver_t pimoroni_trackball_pointing_device_driver = {
+    .init       = pimoroni_trackball_device_init,
+    .get_report = pimoroni_trackball_get_report,
+    .set_cpi    = pimoroni_trackball_set_cpi,
+    .get_cpi    = pimoroni_trackball_get_cpi,
+};
+
 uint16_t pimoroni_trackball_get_cpi(void) {
     return (precision * 125);
 }
@@ -61,8 +68,8 @@ void pimoroni_trackball_set_rgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w) {
     pd_dprintf("Trackball RGBW i2c_status_t: %d\n", status);
 }
 
-i2c_status_t read_pimoroni_trackball(pimoroni_data_t* data) {
-    i2c_status_t status = i2c_read_register(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t*)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
+i2c_status_t read_pimoroni_trackball(pimoroni_data_t *data) {
+    i2c_status_t status = i2c_read_register(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LEFT, (uint8_t *)data, sizeof(*data), PIMORONI_TRACKBALL_TIMEOUT);
 
 #ifdef POINTING_DEVICE_DEBUG
     static uint16_t d_timer;
@@ -91,4 +98,51 @@ int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_di
     }
     uint16_t magnitude = (scale * offset * offset * precision) >> 7;
     return isnegative ? -(int16_t)(magnitude) : (int16_t)(magnitude);
+}
+
+mouse_xy_report_t pimoroni_trackball_adapt_values(xy_clamp_range_t *offset) {
+    if (*offset > XY_REPORT_MAX) {
+        *offset -= XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MAX;
+    } else if (*offset < XY_REPORT_MIN) {
+        *offset += XY_REPORT_MAX;
+        return (mouse_xy_report_t)XY_REPORT_MIN;
+    } else {
+        mouse_xy_report_t temp_return = *offset;
+        *offset                       = 0;
+        return temp_return;
+    }
+}
+
+report_mouse_t pimoroni_trackball_get_report(report_mouse_t mouse_report) {
+    static uint16_t         debounce      = 0;
+    static uint8_t          error_count   = 0;
+    pimoroni_data_t         pimoroni_data = {0};
+    static xy_clamp_range_t x_offset = 0, y_offset = 0;
+
+    if (error_count < PIMORONI_TRACKBALL_ERROR_COUNT) {
+        i2c_status_t status = read_pimoroni_trackball(&pimoroni_data);
+
+        if (status == I2C_STATUS_SUCCESS) {
+            error_count = 0;
+
+            if (!(pimoroni_data.click & 128)) {
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, false, POINTING_DEVICE_BUTTON1);
+                if (!debounce) {
+                    x_offset += pimoroni_trackball_get_offsets(pimoroni_data.right, pimoroni_data.left, PIMORONI_TRACKBALL_SCALE);
+                    y_offset += pimoroni_trackball_get_offsets(pimoroni_data.down, pimoroni_data.up, PIMORONI_TRACKBALL_SCALE);
+                    mouse_report.x = pimoroni_trackball_adapt_values(&x_offset);
+                    mouse_report.y = pimoroni_trackball_adapt_values(&y_offset);
+                } else {
+                    debounce--;
+                }
+            } else {
+                mouse_report.buttons = pointing_device_handle_buttons(mouse_report.buttons, true, POINTING_DEVICE_BUTTON1);
+                debounce             = PIMORONI_TRACKBALL_DEBOUNCE_CYCLES;
+            }
+        } else {
+            error_count++;
+        }
+    }
+    return mouse_report;
 }

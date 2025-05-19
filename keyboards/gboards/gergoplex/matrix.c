@@ -168,7 +168,7 @@ void matrix_print(void) {
 // Remember this means ROWS
 static void init_cols(void) {
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-      setPinInputHigh(col_pins[col]);
+      gpio_set_pin_input_high(col_pins[col]);
     }
 }
 
@@ -195,8 +195,8 @@ static void unselect_rows(void) {
     // the other row bits high, and it's not changing to a different direction
 
     for (uint8_t row = 0; row < MATRIX_ROWS_PER_SIDE; row++) {
-      setPinInput(row_pins[row]);
-      writePinLow(row_pins[row]);
+      gpio_set_pin_input(row_pins[row]);
+      gpio_write_pin_low(row_pins[row]);
     }
 }
 
@@ -207,11 +207,11 @@ static void select_row(uint8_t row) {
         } else {                // set active row low  : 0 // set other rows hi-Z : 1
             uint8_t data;
             data = 0xFF & ~(1 << (row + 1));
-            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
 
         }
     } else {
-        setPinOutput(row_pins[row - MATRIX_ROWS_PER_SIDE]);
-        writePinLow(row_pins[row - MATRIX_ROWS_PER_SIDE]);
+        gpio_set_pin_output(row_pins[row - MATRIX_ROWS_PER_SIDE]);
+        gpio_write_pin_low(row_pins[row - MATRIX_ROWS_PER_SIDE]);
     }
 }

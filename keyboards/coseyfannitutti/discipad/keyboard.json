@@ -1,0 +1,60 @@
+{
+    "keyboard_name": "DISCIPAD",
+    "manufacturer": "coseyfannitutti",
+    "url": "https://github.com/coseyfannitutti/discipad",
+    "maintainer": "coseyfannitutti",
+    "usb": {
+        "vid": "0x6B62",
+        "pid": "0x1769",
+        "device_version": "0.0.1",
+        "max_power": 100
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["C0", "C1", "C2", "C3"],
+        "rows": ["B1", "B0", "D7", "D6", "D4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega328p",
+    "bootloader": "usbasploader",
+    "layouts": {
+        "LAYOUT_numpad_5x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 1, "h": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 3, "h": 2}
+            ]
+        }
+    }
+}

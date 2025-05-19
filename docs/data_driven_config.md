@@ -4,7 +4,7 @@ This page describes how QMK's data driven JSON configuration system works. It is
 
 ## History
 
-Historically QMK has been configured through a combination of two mechanisms- `rules.mk` and `config.h`. While this worked well when QMK was only a handful of keyboards we've grown to encompass nearly 1500 supported keyboards. That extrapolates out to 6000 configuration files under `keyboards/` alone! The freeform nature of these files and the unique patterns people have used to avoid duplication have made ongoing maintenance a challenge, and a large number of our keyboards follow patterns that are outdated and sometimes harder to understand.
+Historically QMK has been configured through a combination of two mechanisms- `rules.mk` and `config.h`. While this worked well when QMK was only a handful of keyboards we've grown to encompass nearly 4000 supported keyboards. That extrapolates out to 6000 configuration files under `keyboards/` alone! The freeform nature of these files and the unique patterns people have used to avoid duplication have made ongoing maintenance a challenge, and a large number of our keyboards follow patterns that are outdated and sometimes harder to understand.
 
 We have also been working on bringing the power of QMK to people who aren't comformable with a CLI, and other projects such as VIA are working to make using QMK as easy as installing a program. These tools need information about how a keyboard is laid out or what pins and features are available so that users can take full advantage of QMK. We introduced `info.json` as a first step towards this. The QMK API is an effort to combine these 3 sources of information- `config.h`, `rules.mk`, and `info.json`- into a single source of truth that end-user tools can use.
 
@@ -75,7 +75,7 @@ Whenever QMK generates a complete `info.json` it extracts information from `conf
 
 If you are not sure how to edit this file or are not comfortable with Python [open an issue](https://github.com/qmk/qmk_firmware/issues/new?assignees=&labels=cli%2C+python&template=other_issues.md&title=) or [join #cli on Discord](https://discord.gg/heQPAgy) and someone can help you with this part.
 
-### Add code to generate it :id=add-code-to-generate-it
+### Add code to generate it {#add-code-to-generate-it}
 
 The final piece of the puzzle is providing your new option to the build system. This is done by generating two files:
 

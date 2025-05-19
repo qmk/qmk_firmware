@@ -16,12 +16,6 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // I2C setup
 #define I2C1_SCL_PIN        B6
 #define I2C1_SDA_PIN        B7
@@ -39,7 +33,3 @@
 // RGB Matrix defines
 #define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND
 #define IS31FL3741_LED_COUNT RGB_MATRIX_LED_COUNT // is31fl3741.h does not set this for custom driver
-
-// VIA KB level
-#define VIA_FIRMWARE_VERSION 1
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 17

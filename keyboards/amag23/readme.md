@@ -15,7 +15,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make amag23:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make amag23:default:flash
 

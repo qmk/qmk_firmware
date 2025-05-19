@@ -14,7 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "bongocat.h"
+#include <stdlib.h>
+#include "oled_driver.h"
+#include "progmem.h"
+#include "timer.h"
+#include "wpm.h"
+#include "util.h"
 
 // WPM-responsive animation stuff here
 #define IDLE_FRAMES 5
@@ -28,7 +34,6 @@
 #define ANIM_FRAME_RATIO 2.5 // how aggressively animation speeds up with wpm
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 #define ANIM_SIZE 525  // number of bytes in array, minimize for adequate firmware size, max is 1024
-#define MAX(x, y) (((x) > (y)) ? (x) : (y)) // Math.max macro
 
 uint32_t curr_anim_duration = 0; // variable animation duration
 uint32_t bongo_timer = 0;

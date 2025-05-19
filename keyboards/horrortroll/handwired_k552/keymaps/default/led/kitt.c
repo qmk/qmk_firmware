@@ -35,7 +35,7 @@ static uint8_t time_to_led(uint8_t time, uint8_t led_behind) {
     return led;
 }
 
-static HSV KITT_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t KITT_math(hsv_t hsv, uint8_t i, uint8_t time) {
 
     // reset base effect startup
     if (i == 0) {

@@ -36,7 +36,7 @@ extern uint8_t split_haptic_play;
 haptic_config_t haptic_config;
 
 static void update_haptic_enable_gpios(void) {
-    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED))) {
+    if (haptic_config.enable && ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state_get_configure_state() == USB_DEVICE_STATE_CONFIGURED))) {
 #if defined(HAPTIC_ENABLE_PIN)
         HAPTIC_ENABLE_PIN_WRITE_ACTIVE();
 #endif

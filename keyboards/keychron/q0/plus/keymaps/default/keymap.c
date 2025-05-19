@@ -33,17 +33,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_P0,             KC_PDOT),
 
     [FUNC] = LAYOUT_numpad_6x5(
-        RGB_TOG, _______,  KC_MUTE, KC_VOLD,  KC_VOLU,
-        _______, RGB_MOD,  RGB_VAI, RGB_HUI,  KC_DEL,
-        _______, RGB_RMOD, RGB_VAD, RGB_HUD,  _______,
-        _______, RGB_SAI,  RGB_SPI, KC_MPRV,
-        _______, RGB_SAD,  RGB_SPD, KC_MPLY,  _______,
-        _______, RGB_TOG,           KC_MNXT),
+        RM_TOGG, _______,  KC_MUTE, KC_VOLD,  KC_VOLU,
+        _______, RM_NEXT,  RM_VALU, RM_HUEU,  KC_DEL,
+        _______, RM_PREV,  RM_VALD, RM_HUED,  _______,
+        _______, RM_SATU,  RM_SPDU, KC_MPRV,
+        _______, RM_SATD,  RM_SPDD, KC_MPLY,  _______,
+        _______, RM_TOGG,           KC_MNXT),
 };
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [BASE] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [FUNC] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
+    [FUNC] = { ENCODER_CCW_CW(RM_VALD, RM_VALU) },
 };
 #endif // ENCODER_MAP_ENABLE

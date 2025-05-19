@@ -19,6 +19,8 @@
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 16
 
+#define UNUSED_POSITIONS_LIST { {3, 12}, {4, 11}, {4, 12}, {5, 3}, {5, 4}, {5, 6}, {5, 7}, {5, 8}, {5, 9} }
+
 #define MATRIX_ROW_PINS \
     { B4, A14, B3, A15, B6, B5 }
 
@@ -63,9 +65,3 @@
 // #define DEBUG_MATRIX_SCAN_RATE
 #define DYNAMIC_KEYMAP_LAYER_COUNT 3
 #define EECONFIG_KB_DATA_SIZE 201
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

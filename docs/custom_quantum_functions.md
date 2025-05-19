@@ -2,19 +2,26 @@
 
 For a lot of people a custom keyboard is about more than sending button presses to your computer. You want to be able to do things that are more complex than simple button presses and macros. QMK has hooks that allow you to inject code, override functionality, and otherwise customize how your keyboard behaves in different situations.
 
-This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk.md) will help you understand what is going on at a more fundamental level.
+This page does not assume any special knowledge about QMK, but reading [Understanding QMK](understanding_qmk) will help you understand what is going on at a more fundamental level.
 
-## A Word on Core vs Keyboards vs Keymap :id=a-word-on-core-vs-keyboards-vs-keymap
+## A Word on Core vs Keyboards vs Keymap {#a-word-on-core-vs-keyboards-vs-keymap}
 
 We have structured QMK as a hierarchy:
 
 * Core (`_quantum`)
+  * Community Module (`_<module>`)
+    * Community Module -> Keyboard/Revision (`_<module>_kb`)
+      * Community Module -> Keymap (`_<module>_user`)
   * Keyboard/Revision (`_kb`)
     * Keymap (`_user`)
 
 Each of the functions described below can be defined with a `_kb()` suffix or a `_user()` suffix. We intend for you to use the `_kb()` suffix at the Keyboard/Revision level, while the `_user()` suffix should be used at the Keymap level.
 
-When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `_user()` before executing anything else- otherwise the keymap level function will never be called.
+When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `_user()` at an appropriate location, otherwise the keymap level function will never be called.
+
+Functions at the `_<module>_xxx()` level are intended to allow keyboards or keymaps to override or enhance the processing associated with a [community module](/features/community_modules).
+
+When defining module overrides such as `process_record_<module>()`, the same pattern should be used; the module must invoke `process_record_<module>_kb()` as appropriate.
 
 # Custom Keycodes
 
@@ -34,7 +41,7 @@ enum my_keycodes {
 };
 ```
 
-## Programming the Behavior of Any Keycode :id=programming-the-behavior-of-any-keycode
+## Programming the Behavior of Any Keycode {#programming-the-behavior-of-any-keycode}
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
 
@@ -98,7 +105,9 @@ These are the three main initialization functions, listed in the order that they
 * `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
 * `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
-!> For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+::: warning
+For most people, the `keyboard_post_init_user` function is what you want to implement. For instance, this is where you want to set up things for RGB Underglow.
+:::
 
 ## Keyboard Pre Initialization code
 
@@ -144,7 +153,7 @@ This is useful for setting up stuff that you may need elsewhere, but isn't hardw
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
 
-### Low-level Matrix Overrides Function Documentation :id=low-level-matrix-overrides
+### Low-level Matrix Overrides Function Documentation {#low-level-matrix-overrides}
 
 * GPIO pin initialisation: `void matrix_init_pins(void)`
   * This needs to perform the low-level initialisation of all row and column pins. By default this will initialise the input/output state of each of the GPIO pins listed in `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`, based on whether or not the keyboard is set up for `ROW2COL`, `COL2ROW`, or `DIRECT_PINS`. Should the keyboard designer override this function, no initialisation of pin state will occur within QMK itself, instead deferring to the keyboard's override.
@@ -182,7 +191,7 @@ Whenever possible you should customize your keyboard by using `process_record_*(
 
 ### Example `matrix_scan_*` Implementation
 
-This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/Uq7gcHh).
+This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/qmk).
 
 ### `matrix_scan_*` Function Documentation
 
@@ -204,7 +213,7 @@ Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To 
 
 ### Example `void housekeeping_task_user(void)` implementation
 
-This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](feature_rgblight.md). For RGB Matrix, the [builtin](https://docs.qmk.fm/#/feature_rgb_matrix?id=additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
+This example will show you how to use `void housekeeping_task_user(void)` to turn off [RGB Light](features/rgblight). For RGB Matrix, the [builtin](features/rgb_matrix#additional-configh-options) `RGB_MATRIX_TIMEOUT` should be used.
 
 First, add the following lines to your keymap's `config.h`:
 
@@ -284,7 +293,7 @@ void suspend_wakeup_init_user(void) {
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
 
-# Keyboard Shutdown/Reboot Code :id=keyboard-shutdown-reboot-code
+# Keyboard Shutdown/Reboot Code {#keyboard-shutdown-reboot-code}
 
 This function gets called whenever the firmware is reset, whether it's a soft reset or reset to the bootloader.  This is the spot to use for any sort of cleanup, as this happens right before the actual reset.  And it can be useful for turning off different systems (such as RGB, onboard screens, etc).
 
@@ -296,7 +305,9 @@ If `jump_to_bootloader` is set to `true`, this indicates that the board will be 
 
 As there is a keyboard and user level function, returning `false` for the user function will disable the keyboard level function, allowing for customization.
 
-?> Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
+::: tip
+Bootmagic does not trigger `shutdown_*()` as it happens before most of the initialization process.
+:::
 
 ### Example `shutdown_kb()` Implementation
 
@@ -342,7 +353,7 @@ bool shutdown_user(bool jump_to_bootloader) {
 * Keyboard/Revision: `bool shutdown_kb(bool jump_to_bootloader)`
 * Keymap: `bool shutdown_user(bool jump_to_bootloader)`
 
-# Deferred Execution :id=deferred-execution
+# Deferred Execution {#deferred-execution}
 
 QMK has the ability to execute a callback after a specified period of time, rather than having to manually manage timers. To enable this functionality, set `DEFERRED_EXEC_ENABLE = yes` in rules.mk.
 
@@ -364,7 +375,9 @@ The second argument `cb_arg` is the same argument passed into `defer_exec()` bel
 
 The return value is the number of milliseconds to use if the function should be repeated -- if the callback returns `0` then it's automatically unregistered. In the example above, a hypothetical `my_deferred_functionality()` is invoked to determine if the callback needs to be repeated -- if it does, it reschedules for a `500` millisecond delay, otherwise it informs the deferred execution background task that it's done, by returning `0`.
 
-?> Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
+::: tip
+Note that the returned delay will be applied to the intended trigger time, not the time of callback invocation. This allows for generally consistent timing even in the face of occasional late execution.
+:::
 
 ## Deferred executor registration
 
@@ -408,14 +421,14 @@ If registrations fail, then you can increase this value in your keyboard or keym
 #define MAX_DEFERRED_EXECUTORS 16
 ```
 
-# Advanced topics :id=advanced-topics
+# Advanced topics {#advanced-topics}
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Layer Change Code :id=layer-change-code
+## Layer Change Code {#layer-change-code}
 
-[Layer change code](feature_layers.md#layer-change-code)
+[Layer change code](feature_layers#layer-change-code)
 
-## Persistent Configuration (EEPROM) :id=persistent-configuration-eeprom
+## Persistent Configuration (EEPROM) {#persistent-configuration-eeprom}
 
-[Persistent Configuration (EEPROM)](feature_eeprom.md)
+[Persistent Configuration (EEPROM)](feature_eeprom)

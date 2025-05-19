@@ -18,10 +18,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SPLIT_HAND_PIN F7
-
 #define CAPS_LOCK_LED_PIN B6
-
-// Set 65% column (option 3) and Macro (option 4) on by default
-#define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00DE
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
