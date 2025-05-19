@@ -258,7 +258,7 @@ __attribute__((weak)) void unicode_input_start(void) {
             break;
         case UNICODE_MODE_VIM:
             tap_code16(LCTL(KC_V));
-            tap_code16(KC_U);
+            tap_code16(LSFT(KC_U));
             break;
     }
 
@@ -289,7 +289,7 @@ __attribute__((weak)) void unicode_input_finish(void) {
             tap_code16(KC_ENTER);
             break;
         case UNICODE_MODE_VIM:
-            // It finishes by itself when 4 hex digits received
+            // It finishes by itself when enough hex digits received
             break;
     }
 
@@ -350,6 +350,16 @@ void register_hex(uint16_t hex) {
 }
 
 void register_hex32(uint32_t hex) {
+    // In vim, `i_CTRL-V U` waits for exactly 8 digits, so we send them all
+    // @see `:h i_CTRL-V_digit`
+    if (unicode_config.input_mode == UNICODE_MODE_VIM) {
+        for (int i = 7; i >= 0; i--) {
+            uint8_t digit = ((hex >> (i * 4)) & 0xF);
+            send_nibble(digit);
+        }
+        return;
+    }
+
     bool first_digit        = true;
     bool needs_leading_zero = (unicode_config.input_mode == UNICODE_MODE_WINCOMPOSE);
     for (int i = 7; i >= 0; i--) {
