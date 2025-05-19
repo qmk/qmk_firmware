@@ -4,7 +4,7 @@
 
 void pass_td(tap_dance_state_t *state, void *user_data) {
     if (state->count % 2 == 0) tap_code16(KC_ENT);
-    else SEND_STRING(PASSWORD_STR);
+    else SEND_STRING(SHORT_PASS);
 }
 
 void exlm_td(tap_dance_state_t *state, void *user_data) {

@@ -81,6 +81,11 @@ _al*          -> alr
 _al*d         -> already
 _al*g         -> alright
 
+_acj          -> achieve
+_acj@         -> achieving
+_acjl         -> achievable
+_acjm         -> achievement
+
 _abk          -> abandon
 _abkd         -> abandoned
 _abkg         -> abandoning
@@ -190,6 +195,9 @@ _c@           -> con
 
 _cq           -> copy
 _cqn          -> copying
+_cq*          -> copy paste
+_cq*j         -> copy pasted
+_cq*@         -> copy pasting
 
 _col*         -> column
 _col*@        -> columnar
@@ -686,6 +694,8 @@ _lm(f)?a*     -> lm\1ao
 _li*r         -> listener
 _li*g         -> listening
 
+_lookg        -> looking
+
 // --------------------------------------M--------------------------------------
 
 mp*           -> mpl
@@ -766,10 +776,8 @@ _obqo         -> objection
 _obqt         -> objective
 _obqy         -> objectively
 
-_ov*p         -> overlap
 _ov*@         -> overall
 _ov*f         -> overflow
-_ov*l         -> overload
 _ov*r         -> override
 _ov*o         -> overlook
 _ov*k         -> overkill
@@ -777,9 +785,7 @@ _ov*m         -> overtime
 _ov*j         -> overwatch
 _ov*t         -> overrated
 _ov*w         -> overwhelm
-_ov*ld        -> overloaded
 _ov*od        -> overlooked
-_ov*lg        -> overloading
 _ov*we        -> overwhelmed
 _ov*p@        -> overlapping
 _ov*wn        -> overwhelming

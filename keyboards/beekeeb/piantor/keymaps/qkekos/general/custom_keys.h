@@ -18,6 +18,10 @@ enum blender_keycode {
     US_MGTR,
     US_HRTR,
     US_RFSH,
+    US_DPAS,
+    US_SPAS,
+    US_DPRP,
+    US_NPRP,
 
     WN_STEM,
     WN_DIS,

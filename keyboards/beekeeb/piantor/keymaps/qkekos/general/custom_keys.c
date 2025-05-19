@@ -108,6 +108,14 @@ int custom_keys_pr(uint16_t keycode, keyrecord_t *record) {
         case US_HRTR:
             if (record->event.pressed) toggle_hard_training();
             return false;
+
+        case US_DPAS:
+            if (record->event.pressed) send_lang_independant_string(DEFAULT_PASS);
+            return false;
+
+        case US_SPAS:
+            if (record->event.pressed) send_lang_independant_string(STRONG_PASS);
+            return false;
     }
 
     return PR_IGNORE;
