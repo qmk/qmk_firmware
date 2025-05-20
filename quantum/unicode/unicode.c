@@ -350,16 +350,6 @@ void register_hex(uint16_t hex) {
 }
 
 void register_hex32(uint32_t hex) {
-    // In vim, `i_CTRL-V U` waits for exactly 8 digits, so we send them all
-    // @see `:h i_CTRL-V_digit`
-    if (unicode_config.input_mode == UNICODE_MODE_VIM) {
-        for (int i = 7; i >= 0; i--) {
-            uint8_t digit = ((hex >> (i * 4)) & 0xF);
-            send_nibble(digit);
-        }
-        return;
-    }
-
     bool first_digit        = true;
     bool needs_leading_zero = (unicode_config.input_mode == UNICODE_MODE_WINCOMPOSE);
     for (int i = 7; i >= 0; i--) {
@@ -372,9 +362,13 @@ void register_hex32(uint32_t hex) {
             send_nibble_wrapper(0);
         }
 
-        // Always send digits (including zero) if we're down to the last
-        // two bytes of nibbles.
-        bool must_send = i < 4;
+        bool must_send =
+            // Always send digits (including zero) if we're down to the last
+            // two bytes of nibbles.
+            (i < 4)
+            // In vim, `i_CTRL-V U` waits for exactly 8 digits, so we send them all
+            // @see `:h i_CTRL-V_digit`
+            || (unicode_config.input_mode == UNICODE_MODE_VIM);
 
         // If we've found a digit worth transmitting, do so.
         if (digit != 0 || !first_digit || must_send) {
