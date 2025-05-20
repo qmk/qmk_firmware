@@ -496,7 +496,7 @@ void rgblight_decrease_speed_noeeprom(void) {
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
-        rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+        rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
         rgblight_setrgb(rgb.r, rgb.g, rgb.b);
     }
 }
@@ -515,7 +515,7 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
             // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
             rgblight_config.val = val;
 #endif
-            rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+            rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
             rgblight_setrgb(rgb.r, rgb.g, rgb.b);
         } else {
             // all LEDs in same color
@@ -647,7 +647,7 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
         return;
     }
 
-    rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+    rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
     rgblight_setrgb_at(rgb.r, rgb.g, rgb.b, index);
 }
 
@@ -679,7 +679,7 @@ void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start,
         return;
     }
 
-    rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+    rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
     rgblight_setrgb_range(rgb.r, rgb.g, rgb.b, start, end);
 }
 
