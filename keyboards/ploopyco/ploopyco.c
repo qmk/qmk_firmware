@@ -19,6 +19,9 @@
 #include "ploopyco.h"
 #include "analog.h"
 #include "opt_encoder.h"
+#include "as5600.h"
+#include "print.h"
+#include "wait.h"
 
 // for legacy support
 #if defined(OPT_DEBOUNCE) && !defined(PLOOPY_SCROLL_DEBOUNCE)
@@ -56,6 +59,13 @@
 #endif
 #ifndef ENCODER_BUTTON_COL
 #    define ENCODER_BUTTON_COL 0
+#endif
+
+#ifdef POINTING_DEVICE_AS5600_ENABLE
+// Variables specific to the Dial
+uint16_t current_position = 0;
+// Dial will have 16 positions
+const uint16_t SCROLL_DISTANCE = 64;
 #endif
 
 keyboard_config_t keyboard_config;
@@ -164,6 +174,27 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         mouse_report.y = 0;
     }
 
+#ifdef POINTING_DEVICE_AS5600_ENABLE
+    // Get AS5600 rawangle
+    uint16_t ra = get_rawangle();
+    int16_t delta = (int16_t)(ra - current_position);
+
+    // Wrap into [-2048, 2047] to get shortest direction
+    if (delta > 2048) {
+        delta -= 4096;
+    } else if (delta < -2048) {
+        delta += 4096;
+    }
+
+    if (delta >= SCROLL_DISTANCE) {
+        current_position = ra;
+        mouse_report.v = 1;
+    } else if (delta <= -SCROLL_DISTANCE) {
+        current_position = ra;
+        mouse_report.v = -1;
+    }
+#endif
+
     return mouse_report;
 }
 
@@ -205,7 +236,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 void keyboard_pre_init_kb(void) {
     // debug_enable  = true;
     // debug_matrix  = true;
-    // debug_mouse   = true;
+    //debug_mouse   = true;
     // debug_encoder = true;
 
     /* Ground all output pins connected to ground. This provides additional
@@ -237,6 +268,29 @@ void pointing_device_init_kb(void) {
     }
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
+
+#ifdef POINTING_DEVICE_AS5600_ENABLE
+void keyboard_post_init_kb(void) {
+    // Init the AS5600 controlling the Dial
+    as5600_init();
+
+    uint16_t ra = get_rawangle();
+
+    int closest = 0;
+    int min_dist = 4096;
+
+    for (int i = 0; i < 4096; i += SCROLL_DISTANCE) {
+        int diff = abs((int) ra - i);
+        int dist = diff < (4096 - diff) ? diff : (4096 - diff);
+        if (dist < min_dist) {
+            min_dist = dist;
+            closest = i;
+        }
+    }
+
+    current_position = closest;
+}
+#endif
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
