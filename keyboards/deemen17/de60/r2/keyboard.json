@@ -4,7 +4,6 @@
     "maintainer": "Deemen17",
     "processor": "STM32F103",
     "bootloader": "uf2boot",
-    "board": "STM32_F103_STM32DUINO",
     "usb": {
         "vid": "0xDE17",
         "pid": "0x60F0",
