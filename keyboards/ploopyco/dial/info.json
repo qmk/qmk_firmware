@@ -15,7 +15,8 @@
         "mousekey": true,
         "nkro": true,
         "pointing_device": true,
-        "console": true
+        "console": true,
+        "os_detection": true
     },
     "layouts": {
         "LAYOUT": {
