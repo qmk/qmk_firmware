@@ -1,0 +1,27 @@
+{
+    "keyboard_name": "Ploopy Dial",
+    "url": "www.ploopy.co",
+    "maintainer": "ploopyco",
+    "manufacturer": "Ploopy Corporation",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x63C3",
+        "max_power": 100
+    },
+    "features": {
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "pointing_device": true,
+        "console": true
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]}
+            ]
+        }
+    }
+}
