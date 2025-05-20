@@ -3,15 +3,15 @@
 set -e
 
 echo
-echo FIXME: dm9records/lain:richdawe
-echo FIXME: kiserdesigns/monorail2:richdawe
 echo
 
 KEYMAPS="
+	dm9records/lain:richdawe
 	hs60/v2/ansi:richdawe
 	hs60/v2/iso:richdawe
 	keyhive/ut472:richdawe
 	keyhive/ut472:richdawe2
+	kiserdesigns/monorail2:richdawe
 	oxwich50:richdawe
 "
 

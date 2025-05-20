@@ -1,5 +1,5 @@
 // Copyright 2022 Takuya Urakawa @hsgw (dm9records.com, 5z6p.com)
-// Copyright 2022, 2023 Richard Dawe
+// Copyright 2022, 2023, 2025 Richard Dawe
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 // Convert this into a printable keymap on Linux using:
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
         LTF_TAB, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LPRN,   KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_RPRN,   KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,               KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SFTENT,
+        KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,               KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  SC_SENT,
         KC_LCTL,          KC_LGUI, KC_LALT, LTS_SPC, LTN_SPC,            LTV_SPC, LTS_SPC, KC_RALT, KC_RGUI, KC_RCTL, SH_SLSH
     ),
 

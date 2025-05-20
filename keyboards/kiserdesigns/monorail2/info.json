@@ -20,7 +20,7 @@
     },
     "processor": "RP2040",
     "rgb_matrix": {
-        "driver": "WS2812"
+        "driver": "ws2812"
     },
     "rgblight": {
         "led_count": 12,

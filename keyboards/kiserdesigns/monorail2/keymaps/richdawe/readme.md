@@ -14,3 +14,8 @@ TODO:
 
  * Left bar = space too, don't like accidental backspace there
  * Media keys
+ * Fix this warning - probably need to move layout to info.json?
+
+```
+kiserdesigns/monorail2: LAYOUT: Layout macro should not be defined within ".h" files.
+```
