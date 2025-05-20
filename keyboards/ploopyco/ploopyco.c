@@ -20,7 +20,6 @@
 #include "analog.h"
 #include "opt_encoder.h"
 #include "as5600.h"
-#include "print.h"
 
 // for legacy support
 #if defined(OPT_DEBOUNCE) && !defined(PLOOPY_SCROLL_DEBOUNCE)
@@ -61,10 +60,8 @@
 #endif
 
 #ifdef POINTING_DEVICE_AS5600_ENABLE
-// Variables specific to the Dial
 uint16_t current_position = 0;
-// Dial will have 16 positions
-const uint16_t SCROLL_DISTANCE = 64;
+os_variant_t d_os = OS_UNSURE;
 #endif
 
 keyboard_config_t keyboard_config;
@@ -185,7 +182,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         delta += 4096;
     }
 
-    if (is_hires_scroll_on()) {
+    if (d_os == OS_WINDOWS || d_os == OS_LINUX) {
         // Establish a deadzone to prevent spurious inputs
         // 4 was found to be a good number experimentally
         if (delta > 4 || delta < -4) {
@@ -197,20 +194,14 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         // high-res scrolling implementation. For more details, see:
         // https://github.com/qmk/qmk_firmware/issues/17585#issuecomment-2325248167
         // 128 gives the scroll wheels "ticks".
-        if (delta > 128) {
+        if (delta >= 128) {
             current_position = ra;
             mouse_report.v = 1;
-        } else if (delta < 128) {
+        } else if (delta <= -128) {
             current_position = ra;
             mouse_report.v = -1;
         }
     }
-
-
-
-    /*
-
-    */
 #endif
 
     return mouse_report;
@@ -291,22 +282,12 @@ void pointing_device_init_kb(void) {
 void keyboard_post_init_kb(void) {
     // Init the AS5600 controlling the Dial
     as5600_init();
+    current_position = get_rawangle();
+}
 
-    uint16_t ra = get_rawangle();
-
-    int closest = 0;
-    int min_dist = 4096;
-
-    for (int i = 0; i < 4096; i += SCROLL_DISTANCE) {
-        int diff = abs((int) ra - i);
-        int dist = diff < (4096 - diff) ? diff : (4096 - diff);
-        if (dist < min_dist) {
-            min_dist = dist;
-            closest = i;
-        }
-    }
-
-    current_position = closest;
+bool process_detected_host_os_kb(os_variant_t detected_os) {
+    d_os = detected_os;
+    return true;
 }
 #endif
 
