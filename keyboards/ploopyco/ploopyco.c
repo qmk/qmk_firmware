@@ -21,7 +21,6 @@
 #include "opt_encoder.h"
 #include "as5600.h"
 #include "print.h"
-#include "wait.h"
 
 // for legacy support
 #if defined(OPT_DEBOUNCE) && !defined(PLOOPY_SCROLL_DEBOUNCE)
@@ -186,13 +185,32 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         delta += 4096;
     }
 
-    if (delta >= SCROLL_DISTANCE) {
-        current_position = ra;
-        mouse_report.v = 1;
-    } else if (delta <= -SCROLL_DISTANCE) {
-        current_position = ra;
-        mouse_report.v = -1;
+    if (is_hires_scroll_on()) {
+        // Establish a deadzone to prevent spurious inputs
+        // 4 was found to be a good number experimentally
+        if (delta > 4 || delta < -4) {
+            current_position = ra;
+            mouse_report.v = delta;
+        }
+    } else {
+        // Certain operating systems, like MacOS, don't play well with the
+        // high-res scrolling implementation. For more details, see:
+        // https://github.com/qmk/qmk_firmware/issues/17585#issuecomment-2325248167
+        // 128 gives the scroll wheels "ticks".
+        if (delta > 128) {
+            current_position = ra;
+            mouse_report.v = 1;
+        } else if (delta < 128) {
+            current_position = ra;
+            mouse_report.v = -1;
+        }
     }
+
+
+
+    /*
+
+    */
 #endif
 
     return mouse_report;
