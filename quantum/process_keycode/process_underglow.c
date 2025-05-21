@@ -16,7 +16,10 @@
 
 bool process_underglow(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
-        uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
+#if defined(RGBLIGHT_ENABLE) || (defined(RGB_MATRIX_ENABLE) && !defined(RGB_MATRIX_DISABLE_SHARED_KEYCODES))
+        const uint8_t shifted = get_mods() & MOD_MASK_SHIFT;
+#endif
+
         switch (keycode) {
             case QK_UNDERGLOW_TOGGLE:
 #if defined(RGBLIGHT_ENABLE)

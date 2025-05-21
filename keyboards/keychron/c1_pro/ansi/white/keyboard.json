@@ -119,8 +119,7 @@
             "solid_reactive_multinexus": true,
             "solid_splash": true,
             "wave_left_right": true,
-            "wave_up_down": true,
-            "effect_max": true
+            "wave_up_down": true
         },
         "layout": [
             {"matrix":[0, 0],  "flags":1, "x":0,   "y":0},
