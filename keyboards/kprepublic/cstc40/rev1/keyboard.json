@@ -1,8 +1,5 @@
 {
     "bootloader": "stm32-dfu",
-    "usb": {
-        "device_version": "1.0.0"
-    },
     "matrix_pins": {
         "cols": ["B15", "B14", "B13", "B10", "B12", "A5", "C4", "A7", "A15", "C10", "C11", "C0"],
         "rows": ["B1", "B0", "C5", "A6"]
@@ -59,5 +56,8 @@
             {"matrix": [3, 11], "x": 224, "y": 64, "flags": 1}
         ],
         "max_brightness": 200
+    },
+    "usb": {
+        "device_version": "1.0.0"
     }
 }
