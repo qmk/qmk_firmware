@@ -40,6 +40,7 @@
 
 #endif
 
+#define WS2812_POWER_PIN    B8
 
 #define WS2812_BYTE_ORDER       WS2812_BYTE_ORDER_GRB
 

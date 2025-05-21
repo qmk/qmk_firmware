@@ -33,6 +33,8 @@ ifeq ($(strip $(KB_LPM_ENABLED)), yes)
 endif
 
 
-
 VPATH += keyboards/keymagichorse/km_common/
 
+SRC += km_common/bhq_common.c
+SRC += km_common/transport.c
+SRC += km_common/wireless.c

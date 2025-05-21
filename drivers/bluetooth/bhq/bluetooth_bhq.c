@@ -30,31 +30,40 @@ void bluetooth_bhq_task(void) {
     report_buffer_task();
 }
 
-
 /**
  * \brief Send a keyboard report.
  *
  * \param report The keyboard report to send.
  */
+
 void bluetooth_bhq_send_keyboard(report_keyboard_t *report)
 {
     bool firstBuffer = false;
+
     if (report_buffer_is_empty() && report_buffer_next_inverval() && report_buffer_get_retry() == 0) {
         firstBuffer = true;
     }
 
+    report_buffer_t *last_report = report_buffer_peek_last();
+    if (last_report &&
+        last_report->type == REPORT_TYPE_KB &&
+        timer_elapsed32(last_report->tm) < 5)
+    {
+        memcpy(&last_report->report_data, report, sizeof(report_keyboard_t));
+        last_report->tm = timer_read32();
+        return;  
+    }
+
     report_buffer_t report_buffer;
     report_buffer.type = REPORT_TYPE_KB;
+    report_buffer.tm = timer_read32();
     memcpy(&report_buffer.report_data, report, sizeof(report_keyboard_t));
     report_buffer_enqueue(&report_buffer);
 
     if (firstBuffer) {
-        report_buffer_set_retry(0);
         report_buffer_task();
     }
-
 }
-
 /**
  * \brief Send a mouse report.
  *
@@ -64,7 +73,6 @@ void bluetooth_bhq_send_mouse(report_mouse_t *report)
 {
     bhq_send_mouse((uint8_t *)report);
 }
-
 
 /**
  * \brief Send a consumer usage.
@@ -115,26 +123,43 @@ void bluetooth_bhq_send_system(uint16_t usage)
  *
  * \param report The nkro report to send.
  */
+
 void bluetooth_bhq_send_nkro(report_nkro_t *report)
 {
     bool firstBuffer = false;
+
     if (report_buffer_is_empty() && report_buffer_next_inverval()) {
         firstBuffer = true;
     }
 
+    report_buffer_t *last_report = report_buffer_peek_last();
+
+    if (last_report &&
+        last_report->type == REPORT_TYPE_NKRO &&
+        timer_elapsed32(last_report->tm) < 5) {
+        
+        last_report->report_data[0] = report->mods;
+        for (size_t i = 0; i < NKRO_REPORT_BITS; i++) {
+            last_report->report_data[1 + i] = report->bits[i];
+        }
+
+        last_report->tm = timer_read32();
+        return; 
+    }
+
     report_buffer_t report_buffer;
     report_buffer.type = REPORT_TYPE_NKRO;
+    report_buffer.tm = timer_read32();
 
     report_buffer.report_data[0] = report->mods;
-    for (size_t i = 0; i < NKRO_REPORT_BITS; i++)
-    {
+    for (size_t i = 0; i < NKRO_REPORT_BITS; i++) {
         report_buffer.report_data[1 + i] = report->bits[i];
     }
-    
+
     report_buffer_enqueue(&report_buffer);
 
     if (firstBuffer) {
-        report_buffer_task();
+        report_buffer_task();  
     }
 }
 
@@ -146,21 +171,6 @@ void bluetooth_bhq_send_nkro(report_nkro_t *report)
 void bluetooth_bhq_send_hid_raw(uint8_t *data, uint8_t length)
 {
     bhq_send_hid_raw(data,length);
-    // bool firstBuffer = false;
-    // if (report_buffer_is_empty() && report_buffer_next_inverval()) {
-    //     firstBuffer = true;
-    // }
-
-    // report_buffer_t report_buffer;
-    // report_buffer.type = REPORT_TYPE_HID_RAW;
-    // report_buffer.length = length;
-    // memcpy(&report_buffer.report_data, data, length);
-    // report_buffer_enqueue(&report_buffer);
-    // bhq_printf("bluetooth_bhq_send_hid_raw length:%d",report_buffer.length);
-
-    // if (firstBuffer) {
-    //     report_buffer_task();
-    // }
 }
 
 

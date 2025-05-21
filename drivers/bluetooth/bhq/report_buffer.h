@@ -33,8 +33,9 @@ enum { REPORT_TYPE_NONE, REPORT_TYPE_KB, REPORT_TYPE_NKRO, REPORT_TYPE_CONSUMER,
 
 typedef struct {
     uint8_t type;
+    uint32_t tm;
     union {
-        uint8_t           report_data[128];
+        uint8_t           report_data[40];
         uint8_t           length;
         uint16_t          consumer;
     };
@@ -43,6 +44,7 @@ typedef struct {
 void    report_buffer_init(void);
 bool    report_buffer_enqueue(report_buffer_t *report);
 bool    report_buffer_dequeue(report_buffer_t *report);
+report_buffer_t* report_buffer_peek_last(void);
 bool    report_buffer_is_empty(void);
 void    report_buffer_update_timer(void);
 bool    report_buffer_next_inverval(void);

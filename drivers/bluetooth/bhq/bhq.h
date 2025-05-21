@@ -20,12 +20,8 @@
 #include <stdbool.h>
 #include "debug.h"
 
-#ifdef DEBUG_BHQ
-#    define bhq_printf dprintf
-#else
-#    define bhq_printf(str, ...) \
-        {}
-#endif
+#include "km_printf.h"
+#define bhq_printf(format, ...) km_printf(format, ##__VA_ARGS__)
 
 
 // Error checking
@@ -104,8 +100,7 @@ void BHQ_SendCmd(uint8_t isack, uint8_t *dat, uint8_t datLength);
 
 void bhq_ConfigRunParam(bhkDevConfigInfo_t parma);
 
-
-void BHQ_State_Call(uint8_t cmdid, uint8_t *dat);
+void BHQ_Protocol_Process_user(uint8_t *dat, uint16_t length) ;
 
 
 void bhq_SetPairingMode(uint8_t host_index, uint16_t timeout_1S);

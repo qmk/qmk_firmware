@@ -17,7 +17,6 @@
 #include "bluetooth.h"
 #include "bluetooth_bhq.h"
 #include "config.h"
-#include "raw_hid.h"
 #include "report_buffer.h"
 #include "uart.h"
 #include "quantum.h"
@@ -45,7 +44,7 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
-    uint16_t i = 0;
+    // uint16_t i = 0;
     uint32_t wait_bhq_ack_timeout = 0;
     uint32_t last_toggle_time = 0;
     uint32_t bhq_wakeup = 0;
@@ -82,12 +81,12 @@ void BHQ_SendData(uint8_t *dat, uint16_t length)
     gpio_write_pin_high(BHQ_INT_PIN);
     uart_transmit(dat, length);
 
-    bhq_printf("mcu send data:");
-    for (i = 0; i < length; i++)
-    {
-        bhq_printf("%02x ",dat[i]);
-    }
-    bhq_printf("\r\n");
+    // bhq_printf("mcu send data:");
+    // for (i = 0; i < length; i++)
+    // {
+    //     bhq_printf("%02x ",dat[i]);
+    // }
+    // bhq_printf("\r\n");
 }
 int16_t BHQ_ReadData(void) {
     if (uart_available()) {
@@ -364,28 +363,6 @@ void bhq_send_hid_raw(uint8_t *data, uint8_t length)
     BHQ_SendCmd(BHQ_ACK, bhkBuff,index);
 }
 
-// BHQ Status callback
-__attribute__((weak)) void BHQ_State_Call(uint8_t cmdid, uint8_t *dat) {
-
-    // uint8_t advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
-    // uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
-    // uint8_t pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
-
-    // advertSta = BHQ_GET_BLE_ADVERT_STA(dat[1]);
-    // connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
-    // pairingSta = BHQ_GET_BLE_PAIRING_STA(dat[1]);
-
-    // bhq_printf("cmdid:%d",cmdid);
-    // if(cmdid == BHQ_ACK_RUN_STA_CMDID)
-    // {
-    //     bhq_printf("[RSSI:%d]\t",dat[0]);
-    //     bhq_printf("[advertSta: %d]\t", advertSta);
-    //     bhq_printf("[connectSta: %d]\t", connectSta); // 0 = 断开, 1 = 已连接, 2 = 超时
-    //     bhq_printf("[pairingSta: %d]\t", pairingSta);
-    //     bhq_printf("[host_index:%d]\n",dat[2]);
-    // }
-}
-
 void BHQ_Led_Lock(uint8_t led_sta)
 {
     // bhq_printf("[%s] Num Lock\t", (led_sta & (1<<0)) ? "*" : " ");
@@ -394,18 +371,10 @@ void BHQ_Led_Lock(uint8_t led_sta)
     // bhq_printf("bhq led sta:%d\n",led_sta);
     bluetooth_bhq_set_keyboard_leds(led_sta);
 }
-void BHQ_Sta_Handel(uint8_t cmdid, uint8_t *dat) 
+
+__attribute__((weak)) void BHQ_Protocol_Process_user(uint8_t *dat, uint16_t length) 
 {
-    uint8_t connectSta = BHQ_GET_BLE_CONNECT_STA(dat[1]);
-    if(connectSta == 0)
-    {
-        BHQ_Led_Lock(0);
-    }
-    if(cmdid == BHQ_ACK_LED_LOCK_CMDID)
-    {
-        BHQ_Led_Lock(dat[0]);
-    }
-    BHQ_State_Call(cmdid, dat);
+    
 }
 // BHQ_Protocol_Process
 void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
@@ -415,26 +384,13 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
     uint8_t buff_sta = 0;
     cmdid = dat[3];
     cmd_length = dat[2];
-    uint8_t i = 0 ;
+    // uint8_t i = 0 ;
     // bhq_printf("BHQ_Protocol_Process: cmdid:%d\r\n",cmdid);
-    uint8_t hid_data[32] = {0};
-
     switch(cmdid)
     {
         case 0x26:  // BHQ model return hid led lock sta
-            dat[4] = dat[4];    // led lock sta
             ackCommonNotData(cmdid,0);
-            BHQ_Sta_Handel(cmdid,&dat[4]);
-            break;
-        case 0x27:  // BHQ model return hid raw data 
-            // data and length
-            raw_hid_receive(&dat[5],dat[4]);  
-            // bhq_printf("bhq return hid raw data:length:%d[%02x %02x %02x]\r\n",dat[5],dat[6],dat[7],dat[8]);
-            // for (i = 0; i < length; i++)
-            // {
-            //     bhq_printf("%02x ",dat[i]);
-            // }
-            // bhq_printf("\r\n");
+            BHQ_Led_Lock(dat[4]);
             break;
         case 0xA1:
         case 0xA2:
@@ -461,31 +417,10 @@ void BHQ_Protocol_Process(uint8_t *dat, uint16_t length)
                     report_buffer_set_inverval(DEFAULT_REPORT_INVERVAL_MS + 50);
                 break;
             }
-            break;
-
-        case 0x93:  //  BHQ model return [ble connect sta , ble pair sta...]
-            BHQ_Sta_Handel(cmdid, &dat[4]);
-            // for (i = 0; i < length; i++)
-            // {
-            //     bhq_printf("%02x ",dat[i]);
-            // }
-            // bhq_printf("\r\n");
-            break;
-        case 0x96:  // reset
-        case 0x97:  // set para
-        case 0x92:  // read module Info
-        case 0xB1:
-        case 0xB2:
-            // bhq_printf("ota:[");
-            for (i = 0; i < length; i++)
-            {
-                hid_data[i] = dat[i];
-                // bhq_printf("%02x ",dat[i]);
-            }
-            // bhq_printf("]\r\n");
-            raw_hid_send(hid_data, 32);
+            // bhq_printf("key ack sta:%d\n",buff_sta);
             break;
     }
+    BHQ_Protocol_Process_user(dat,length);
 }
 
 
@@ -531,45 +466,59 @@ void bhq_task(void)
     switch (u_sta)
     {
         case 0:
+        {
             if(bytedata == 0x5D)
             {
                 index = 0;
                 buf[index++] = bytedata;
                 u_sta++;  
-                bhq_printf("read 0x5d\r\n");
+                // bhq_printf("read:[5D ");
+                // bhq_printf("read 0x5d\r\n");
             }
             break;
+        }
         case 1:
+        {
             if(bytedata == 0x7E)
             {
                 buf[index++] = bytedata;
                 u_sta++;  
-                bhq_printf("read 0x7E\r\n");
+                // bhq_printf("7E ");
             }
             break;
+        }
         case 2:
+        {
             buf[index++] = bytedata;
-            dataLength = 2 + 1 + bytedata + 2 + 1;  //  Frame Header2  + length1 + dataN + crc2 + Frame end1
-            u_sta++;  
-            bhq_printf("read bytedata:%d\r\n",dataLength);
-            break;
-        case 3:
-            buf[index++] = bytedata;
-            // bhq_printf("%02x ",bytedata);
-            // bhq_printf("i:%d dl:%d  %02x",index,dataLength,buf[dataLength - 1]);
+            u_sta = 3;
+
+            dataLength = 2 + 1 + bytedata + 2 + 1;
+
+            while(index < dataLength)
+            {
+                temp = BHQ_ReadData();
+                if(temp == -1)
+                {
+                    break; 
+                }
+                // bhq_printf("%02x ",temp);
+                buf[index++] = (uint8_t)temp;
+                uartTimeoutBuffer = timer_read32();
+            }
             if(index == dataLength && buf[dataLength - 1] == 0x5E)
             {
+                // bhq_printf("]\r\n");
                 if(bhkVerify(buf, index) == 0x00)
                 {
-                    BHQ_Protocol_Process(buf, index) ;
+                    BHQ_Protocol_Process(buf, index);
                 }
-                index = 0;
-                u_sta = 0;
-                dataLength = 0;
-                memset(buf, 0, PACKET_MAX_LEN);
-                // bhq_printf("\r\n");
             }
-            break;
+            index = 0;
+            u_sta = 0;
+            dataLength = 0;
+            memset(buf, 0, PACKET_MAX_LEN);
+            break;    
+        }
     }
 }
 
@@ -578,35 +527,35 @@ void bhq_task(void)
 uint8_t bhkVerify(uint8_t *dat, uint16_t length)
 {
     uint8_t dataRead_length = 3 + dat[2];    // 两个帧头  一个长度 = 4 不包括帧头的长度
-   bhq_printf("dataRead_length:%d \r\n",dataRead_length);
+//    bhq_printf("dataRead_length:%d \r\n",dataRead_length);
 
     uint16_t dataReadCrc = BHQ_BUILD_UINT16(dat[dataRead_length],dat[dataRead_length + 1]);
-   bhq_printf("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
+//    bhq_printf("readCRCL %02x  readCRCH %02x \r\n",dat[dataRead_length],dat[dataRead_length + 1]);
 
     uint16_t dataSumCrc = bhkSumCrc(dat,dataRead_length) ;
-   bhq_printf("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
-   bhq_printf("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
+//    bhq_printf("readCRC %04x    sumCRC %04x \r\n", dataReadCrc, dataSumCrc);
+//    bhq_printf("readCRC %d    sumCRC %d \r\n", dataReadCrc, dataSumCrc);
 
 
     if(dat[0] != BHQ_FRAME_HEADER_1 || dat[1] != BHQ_FRAME_HEADER_2)
     {
-       bhq_printf("Verify: FRAME_HEADER error !! \r\n");
+    //    bhq_printf("Verify: FRAME_HEADER error !! \r\n");
         return 0x01;
     }
 
     if(dataReadCrc != dataSumCrc)
     {
-       bhq_printf("Verify: CRC error !! \r\n");
+    //    bhq_printf("Verify: CRC error !! \r\n");
 
         return 0x02;
     }
 
     if(dat[dataRead_length + 2] != BHQ_FRAME_END_1)  // 跳过两个校验和就到帧尾了
     {
-       bhq_printf("Verify: FRAME_END error !! \r\n");
+    //    bhq_printf("Verify: FRAME_END error !! \r\n");
         return 0x03;
     }
-   bhq_printf("Verify: data success !! \r\n");
+//    bhq_printf("Verify: data success !! \r\n");
     return 0;
 }
 
