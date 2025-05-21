@@ -24,25 +24,13 @@
         "pid": "0x0004",
         "vid": "0x5757"
     },
-  "encoder": {
-    "rotary": [
-      {
-        "pin_a": "GP16",
-        "pin_b": "GP17",
-        "resolution": 4
-      },
-      {
-        "pin_a": "GP18",
-        "pin_b": "GP19",
-        "resolution": 4
-      },
-      {
-        "pin_a": "GP20",
-        "pin_b": "GP21",
-        "resolution": 4
-      }
-    ]
-  },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP16", "pin_b": "GP17"},
+            {"pin_a": "GP18", "pin_b": "GP19"},
+            {"pin_a": "GP20", "pin_b": "GP21"}
+        ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
