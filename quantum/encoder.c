@@ -83,7 +83,7 @@ bool encoder_task(void) {
 }
 
 bool encoder_queue_full_advanced(encoder_events_t *events) {
-    return events->head == (events->tail - 1) % MAX_QUEUED_ENCODER_EVENTS;
+    return events->tail == (events->head + 1) % MAX_QUEUED_ENCODER_EVENTS;
 }
 
 bool encoder_queue_full(void) {
@@ -160,7 +160,7 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
 #    if defined(EXTRAKEY_ENABLE)
             tap_code_delay(KC_VOLU, 10);
 #    elif defined(MOUSEKEY_ENABLE)
-            tap_code_delay(KC_MS_WH_UP, 10);
+            tap_code_delay(QK_MOUSE_WHEEL_UP, 10);
 #    else
             tap_code_delay(KC_PGDN, 10);
 #    endif
@@ -168,7 +168,7 @@ __attribute__((weak)) bool encoder_update_kb(uint8_t index, bool clockwise) {
 #    if defined(EXTRAKEY_ENABLE)
             tap_code_delay(KC_VOLD, 10);
 #    elif defined(MOUSEKEY_ENABLE)
-            tap_code_delay(KC_MS_WH_DOWN, 10);
+            tap_code_delay(QK_MOUSE_WHEEL_DOWN, 10);
 #    else
             tap_code_delay(KC_PGUP, 10);
 #    endif

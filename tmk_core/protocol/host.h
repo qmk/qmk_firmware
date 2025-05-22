@@ -27,9 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-extern uint8_t keyboard_idle;
-extern uint8_t keyboard_protocol;
-
 /* host driver */
 void           host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);

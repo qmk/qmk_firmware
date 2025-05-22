@@ -3,7 +3,6 @@
 #pragma once
 
 // Split configuration
-#define SPLIT_HAND_PIN B11
 #ifdef USE_PLUG_DETECT_PIN
 #    define USB_VBUS_PIN B12
 #endif

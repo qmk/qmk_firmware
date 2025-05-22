@@ -10,6 +10,7 @@ on:
     - 'lib/arm_atsam/**'
     - 'lib/lib8tion/**'
     - 'lib/python/**'
+    - 'modules/**'
     - 'platforms/**'
     - 'quantum/**'
     - 'tests/**'
@@ -35,7 +36,7 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v43
+      uses: tj-actions/changed-files@v46
       with:
         use_rest_api: true
 

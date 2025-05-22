@@ -25,22 +25,9 @@ void protocol_pre_task(void);
 void protocol_post_task(void);
 
 // Bodge as refactoring this area sucks....
-void protocol_init(void) __attribute__((weak));
-void protocol_init(void) {
-    protocol_pre_init();
-
-    keyboard_init();
-
-    protocol_post_init();
-}
-
-void protocol_task(void) __attribute__((weak));
-void protocol_task(void) {
-    protocol_pre_task();
-
+void protocol_keyboard_task(void) __attribute__((weak));
+void protocol_keyboard_task(void) {
     keyboard_task();
-
-    protocol_post_task();
 }
 
 /** \brief Main
@@ -53,11 +40,25 @@ int main(void) {
     protocol_setup();
     keyboard_setup();
 
-    protocol_init();
+    protocol_pre_init();
+    keyboard_init();
+    protocol_post_init();
 
     /* Main loop */
     while (true) {
-        protocol_task();
+        protocol_pre_task();
+        protocol_keyboard_task();
+        protocol_post_task();
+
+#ifdef RAW_ENABLE
+        void raw_hid_task(void);
+        raw_hid_task();
+#endif
+
+#ifdef CONSOLE_ENABLE
+        void console_task(void);
+        console_task();
+#endif
 
 #ifdef QUANTUM_PAINTER_ENABLE
         // Run Quantum Painter task

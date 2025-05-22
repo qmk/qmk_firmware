@@ -1,1 +1,0 @@
-HAPTIC_DRIVER = solenoid
