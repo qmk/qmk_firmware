@@ -23,6 +23,7 @@
 #define FORCE_NKRO
 
 // Maximum time between taps of tap dances
+// Also defines time window for combos
 #define TAPPING_TERM 300
 
 // Max time between taps to prevent hold function and hold auto-repeat
