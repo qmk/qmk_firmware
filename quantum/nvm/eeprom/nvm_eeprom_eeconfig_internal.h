@@ -4,6 +4,8 @@
 
 #include <stdint.h>
 #include <stddef.h> // offsetof
+
+#include "compiler_support.h"
 #include "eeconfig.h"
 #include "util.h"
 
@@ -27,6 +29,7 @@ typedef struct PACKED {
     };
     uint32_t haptic;
     uint8_t  rgblight_ext;
+    uint8_t  connection;
 } eeprom_core_t;
 
 /* EEPROM parameter address */
@@ -46,6 +49,7 @@ typedef struct PACKED {
 #define EECONFIG_RGB_MATRIX (uint64_t *)(offsetof(eeprom_core_t, rgb_matrix))
 #define EECONFIG_HAPTIC (uint32_t *)(offsetof(eeprom_core_t, haptic))
 #define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)(offsetof(eeprom_core_t, rgblight_ext))
+#define EECONFIG_CONNECTION (uint8_t *)(offsetof(eeprom_core_t, connection))
 
 // Size of EEPROM being used for core data storage
 #define EECONFIG_BASE_SIZE ((uint8_t)sizeof(eeprom_core_t))
@@ -56,4 +60,4 @@ typedef struct PACKED {
 // Size of EEPROM being used, other code can refer to this for available EEPROM
 #define EECONFIG_SIZE ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE))
 
-_Static_assert((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");
+STATIC_ASSERT((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");

@@ -2,7 +2,6 @@
     "keyboard_name": "MK47",
     "manufacturer": "Inland",
     "maintainer": "jonylee@hfd",
-    "url":"",
     "usb": {
         "vid": "0xFFFE",
         "pid": "0x0002",
@@ -16,8 +15,6 @@
         "bootmagic": true,
         "mousekey": false,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": true,
         "rgb_matrix": true
     },

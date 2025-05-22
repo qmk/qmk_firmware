@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Chili",
     "manufacturer": "YDKB",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5945",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

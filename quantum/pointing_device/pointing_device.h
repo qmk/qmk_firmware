@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 #include "host.h"
 #include "report.h"
@@ -121,6 +122,10 @@ report_mouse_t pointing_device_task_user(report_mouse_t mouse_report);
 uint8_t        pointing_device_handle_buttons(uint8_t buttons, bool pressed, pointing_device_buttons_t button);
 report_mouse_t pointing_device_adjust_by_defines(report_mouse_t mouse_report);
 void           pointing_device_keycode_handler(uint16_t keycode, bool pressed);
+
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+uint16_t pointing_device_get_hires_scroll_resolution(void);
+#endif
 
 #if defined(SPLIT_POINTING_ENABLE)
 void     pointing_device_set_shared_report(report_mouse_t report);

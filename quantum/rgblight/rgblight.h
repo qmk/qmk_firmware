@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
 // DEPRECATED DEFINES - DO NOT USE
 #if defined(RGBLED_NUM)
 #    define RGBLIGHT_LED_COUNT RGBLED_NUM
@@ -260,7 +262,7 @@ typedef union rgblight_config_t {
     };
 } rgblight_config_t;
 
-_Static_assert(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
 
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
