@@ -33,6 +33,11 @@ typedef enum {
 #define IS_WIRELESS_TRANSPORT(t) \
     ((t) >= KB_TRANSPORT_BLUETOOTH_1 && (t) <= KB_TRANSPORT_RF)
 
+// 判断是否为无线通信（蓝牙或 2.4G）
+#define IS_RF_TRANSPORT(t) \
+    ((t) == KB_TRANSPORT_RF)
+
+
 // 判断是否为 USB
 #define IS_USB_TRANSPORT(t) \
     ((t) == KB_TRANSPORT_USB)

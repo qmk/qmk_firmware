@@ -21,26 +21,17 @@
 #include "wireless.h"
 
 enum keyboard_user_keycodes {
-    BT_1 = QK_USER,
+    BT_1 = QK_USER_28,
     BT_2,
-    BT_3,
-    BT_4,
-    BT_5,
-    BT_6,
-    BT_7,
-    BT_8,
-    BT_9,
-    BT_10,
-    BT_11,
 };
-#define BLE_TOG     BT_1    // 切换蓝牙输出 并 开启蓝牙广播（非配对类型）
-#define RF_TOG      BT_2    // 切换 2.4ghz输出
-#define USB_TOG     BT_3    // 打开USB
-#define BL_SW_0     BT_4    // 开启蓝牙通道0  短按打开广播 长按开启配对广播
-#define BL_SW_1     BT_5    // 开启蓝牙通道1  短按打开广播 长按开启配对广播
-#define BL_SW_2     BT_6    // 开启蓝牙通道2  短按打开广播 长按开启配对广播
-#define BLE_RESET   BT_7    // 删除当前蓝牙绑定
-#define BLE_OFF     BT_8    // 关闭蓝牙连接
+#define BLE_TOG     OU_BT    // 切换蓝牙输出 并 开启蓝牙广播（非配对类型）
+#define RF_TOG      OU_2P4G    // 切换 2.4ghz输出
+#define USB_TOG     OU_USB    // 打开USB
+#define BL_SW_0     BT_PRF1    // 开启蓝牙通道0  短按打开广播 长按开启配对广播
+#define BL_SW_1     BT_PRF2    // 开启蓝牙通道1  短按打开广播 长按开启配对广播
+#define BL_SW_2     BT_PRF3    // 开启蓝牙通道2  短按打开广播 长按开启配对广播
+#define BLE_RESET   BT_1    // 删除当前蓝牙绑定
+#define BLE_OFF     BT_2    // 关闭蓝牙连接
 
 bool process_record_bhq(uint16_t keycode, keyrecord_t *record);
 void bhq_switch_host_task(void);

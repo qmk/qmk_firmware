@@ -45,14 +45,28 @@ bool process_record_bhq(uint16_t keycode, keyrecord_t *record) {
     // 如果是无线模式 且 没有连接的情况下 按下任意按键触发广播
     if ( (IS_WIRELESS_TRANSPORT(transport_get()) == true)  && wireless_get() != WT_STATE_CONNECTED ) 
     {
-        // 检查按键值是否不在 BT_1 到 BT_11 范围
-        if (keycode < BT_1 || keycode > BT_11) 
-        {
-            // 检查传输模式是否为蓝牙模式
-            // KB_TRANSPORT_BLUETOOTH_1 在枚举 里面是2、在蓝牙通道内是0
-            // 那么 2 - 2 = 0 那就是host = 0;
-            // 重新打开非配对蓝牙广播。如已开启蓝牙广播或已连接，那么不会断开当前的蓝牙连接。
-            bhq_AnewOpenBleAdvertising(transport_get() - 1, 15);
+        if (
+            keycode != BLE_TOG &&
+            keycode != RF_TOG &&
+            keycode != USB_TOG &&
+            keycode != BL_SW_0 &&
+            keycode != BL_SW_1 &&
+            keycode != BL_SW_2 &&
+            keycode != BLE_RESET &&
+            keycode != BLE_OFF
+        ) {
+            if((IS_BLE_TRANSPORT(transport_get()) == true) )
+            {
+                // 检查传输模式是否为蓝牙模式
+                // KB_TRANSPORT_BLUETOOTH_1 在枚举 里面是2、在蓝牙通道内是0
+                // 那么 2 - 2 = 0 那就是host = 0;
+                // 重新打开非配对蓝牙广播。如已开启蓝牙广播或已连接，那么不会断开当前的蓝牙连接。
+                bhq_AnewOpenBleAdvertising(transport_get() - KB_TRANSPORT_BLUETOOTH_1, 15);
+            }   
+            else if(IS_RF_TRANSPORT(transport_get()) == true)
+            {
+                bhq_switch_rf_easy_kb();
+            }
         }
     }
 
