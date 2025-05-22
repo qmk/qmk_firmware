@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <stdint.h>
+
+#include "compiler_support.h"
 #include "report.h"
 #include "modifiers.h"
 
@@ -38,7 +40,7 @@ typedef union {
         bool right_gui : 1;
     };
 } PACKED mod_t;
-_Static_assert(sizeof(mod_t) == sizeof(uint8_t), "Invalid size for 'mod_t'");
+STATIC_ASSERT(sizeof(mod_t) == sizeof(uint8_t), "Invalid size for 'mod_t'");
 
 extern report_keyboard_t *keyboard_report;
 #ifdef NKRO_ENABLE
