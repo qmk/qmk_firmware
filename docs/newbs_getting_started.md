@@ -87,6 +87,10 @@ curl -fsSL https://install.qmk.fm | sh
 **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
 :::
 
+::: warning
+Any QMK packages provided by your distribution's package manager are almost certainly out of date. It is strongly suggested the installation script above is used instead.
+:::
+
 ==== FreeBSD
 
 #### Installation
