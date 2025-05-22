@@ -21,6 +21,8 @@
         "bootmagic": true,
         "command": false,
         "console": false,
+        "caps_word": true,
+        "combo": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
