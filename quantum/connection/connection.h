@@ -3,6 +3,8 @@
 #pragma once
 
 #include <stdint.h>
+
+#include "compiler_support.h"
 #include "util.h"
 
 /**
@@ -29,7 +31,7 @@ typedef union connection_config_t {
     connection_host_t desired_host : 8;
 } PACKED connection_config_t;
 
-_Static_assert(sizeof(connection_config_t) == sizeof(uint8_t), "Connection EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(connection_config_t) == sizeof(uint8_t), "Connection EECONFIG out of spec.");
 
 /**
  * \brief Initialize the subsystem.
