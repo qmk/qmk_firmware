@@ -34,8 +34,7 @@
     "tapping": {
         "term": 100
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_6x16"
     },
