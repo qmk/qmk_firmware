@@ -8,7 +8,6 @@ enum layer_names {
     _NUM,
     _SYM,
     _NAV,
-    _FUN,
 };
 
 enum custom_keycodes {
@@ -27,7 +26,7 @@ enum custom_keycodes {
     ⎋   3   2@  1$   0#  4           7   6   5   9   8  Vol
     ⇥   v   w   g2   m   j           =_  .:  '2  -+  /  Vol
     z   s⌃  n⌥  t3   h⌘  k           ,;  a⌘  e1  i⌥  c⌃ q
-    num f   p   d    l   x      	 `   u   o   y   b  fun
+    num f   p   d    l   x      	 `   u   o   y   b
                          r⇧  ⌫   ⏎   ␣⇧
   */
 
@@ -77,19 +76,19 @@ enum custom_keycodes {
 #define RM5 KC_Q
 
 // bottom row
-#define LB5 TG(_NUM)
+#define LB5 KC_GRV
 #define LB4 KC_F
 #define LB3 KC_P
 #define LB2 KC_D
 #define LB1 KC_L
 #define LB0 KC_X
 
-#define RB0 KC_GRV
+#define RB0 KC_SCLN
 #define RB1 KC_U
 #define RB2 KC_O
 #define RB3 KC_Y
 #define RB4 KC_B
-#define RB5 TG(_FUN)
+#define RB5 KC_BSLS
 
 // thumb row
 #define LH1 LSFT_T(KC_R)
@@ -145,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   [_SYM] = LAYOUT_voyager(
     _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_GRV , KC_LABK, KC_RABK, KC_MINS, KC_PIPE,                   KC_CIRC, KC_LCBR, KC_RCBR, KC_DLR , ___x___, _______,
+    _______, KC_GRV , KC_LABK, KC_RABK, KC_MINS, KC_PIPE,                   KC_CIRC, KC_LCBR, KC_RCBR, KC_DLR , KC_BSLS, _______,
     QK_LLCK, KC_EXLM, KC_ASTR, KC_SLSH, KC_EQL , KC_AMPR,                   KC_HASH, KC_LPRN, KC_RPRN, KC_SCLN, KC_DQUO, QK_LLCK,
     _______, KC_TILD, KC_PLUS, KC_LBRC, KC_RBRC, KC_PERC,                   KC_AT  , KC_COLN, KC_COMM, KC_DOT , KC_QUOT, _______,
                                                  KC_SPC , _______, _______, _______
@@ -178,21 +177,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___x___, KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                        KC_VOLD, KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,  QK_LLCK,
     ___x___, G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z),                      KC_MUTE, SELWBAK,    SELWORD, SELLINE,    LUMINO,  _______,
                                                        KC_LSFT,   _______, C(KC_LEFT), C(KC_RGHT)
-  ),
-
-  /* Function Keys
-
-    ⇥   F9  F10 F11  F12
-        F5  F6  F7   F8          	   ⌘  xxx  ⌥	 ⌃
-        F1  F2  F3   F4                                 tg
-    	                ␣   ⌫   ⏎   ␣⇧
-  */
- [_FUN] = LAYOUT_voyager(
-    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  ___x___,                   _______, _______, _______, _______, _______, _______,
-    _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   ___x___,                   _______, KC_RGUI, ___x___, KC_RALT, KC_RCTL, ___x___,
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   ___x___,                   _______, ___x___, ___x___, ___x___, ___x___, _______,
-                                                 KC_SPC,  _______, _______, _______
   ),
 
 };

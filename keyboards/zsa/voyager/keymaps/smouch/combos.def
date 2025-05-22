@@ -22,11 +22,11 @@ COMB(H_Qu,              SS_Qu,      LT2, LT1)
 COMB(Hesc,              KC_ESC,     LM4, LM1)
 COMB(Htab,            	KC_TAB,     LM3, LM1)
 COMB(Hlsft,             OSM(MOD_LSFT), 	LM2, LM3)
-COMB(Hent,              KC_ENT, 	RM1, RM3)
+/* COMB(Hent,              KC_ENT, 	RM1, RM3) */
 COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
 /* COMB(Hdel,              KC_DEL,     LM3, LM2, LM1) */
 /* COMB(Hbspc,             KC_BSPC,    RM1, RM2, RM3) */
-/* COMB(Hbspw,             A(KC_BSPC), RT1, RT3) */
+COMB(Hbspw,             A(KC_BSPC), RM1, RM3)
 
 /*---- directional ----*/
 /* COMB(Hleft,            	KC_LEFT,    RB1, RB2) */
