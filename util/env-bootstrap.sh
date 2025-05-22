@@ -16,6 +16,7 @@
 #   SKIP_QMK_CLI: Skip installing the QMK CLI. (or: --skip-qmk-cli)
 #   SKIP_QMK_TOOLCHAINS: Skip installing the QMK toolchains. (or: --skip-qmk-toolchains)
 #   SKIP_QMK_FLASHUTILS: Skip installing the QMK flashing utilities. (or: --skip-qmk-flashutils)
+#   SKIP_UDEV_RULES: Skip installing the udev rules for Linux. (or: --skip-udev-rules)
 #   SKIP_WINDOWS_DRIVERS: Skip installing the Windows drivers for the flashing utilities. (or: --skip-windows-drivers)
 #
 # Arguments above may be negated by prefixing with `--no-` instead (e.g. `--no-skip-clean`).
@@ -54,6 +55,7 @@
     --skip-qmk-cli            -- Skip installing the QMK CLI
     --skip-qmk-toolchains     -- Skip installing the QMK toolchains
     --skip-qmk-flashutils     -- Skip installing the QMK flashing utilities
+    --skip-udev-rules         -- Skip installing the udev rules for Linux
     --skip-windows-drivers    -- Skip installing the Windows drivers for the flashing utilities
 __EOT__
     }
@@ -387,6 +389,35 @@ __EOT__
         tar xf "$target_file" -C "$QMK_DISTRIB_DIR/bin"
     }
 
+    install_linux_udev_rules() {
+        # Download the udev rules to the toolchains location
+        echo "Downloading QMK udev rules file..." >&2
+        local qmk_rules_target_file="$QMK_DISTRIB_DIR/50-qmk.rules"
+        download_url "https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/util/udev/50-qmk.rules" "$qmk_rules_target_file"
+
+        # Install the udev rules -- path list is aligned with qmk doctor's linux.py
+        local udev_rules_paths=(
+            /usr/lib/udev/rules.d
+            /usr/local/lib/udev/rules.d
+            /run/udev/rules.d
+            /etc/udev/rules.d
+        )
+        for udev_rules_dir in "${udev_rules_paths[@]}"; do
+            if [ -d "$udev_rules_dir" ]; then
+                echo "Installing udev rules to $udev_rules_dir/50-qmk.rules ..." >&2
+                $(nsudo) mv "$qmk_rules_target_file" "$udev_rules_dir"
+                $(nsudo) chown 0:0 "$udev_rules_dir/50-qmk.rules"
+                $(nsudo) chmod 644 "$udev_rules_dir/50-qmk.rules"
+                break
+            fi
+        done
+
+        # Reload udev rules
+        echo "Reloading udev rules..." >&2
+        $(nsudo) udevadm control --reload-rules
+        $(nsudo) udevadm trigger
+    }
+
     install_windows_drivers() {
         # Get the latest driver installer release from https://github.com/qmk/qmk_driver_installer
         local latest_driver_installer_release=$(download_url https://api.github.com/repos/qmk/qmk_driver_installer/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
@@ -463,6 +494,9 @@ __EOT__
     [ -n "${SKIP_QMK_CLI:-}" ] || install_qmk_cli
     [ -n "${SKIP_QMK_TOOLCHAINS:-}" ] || install_toolchains
     [ -n "${SKIP_QMK_FLASHUTILS:-}" ] || install_flashing_tools
+    if [ "$(uname -s 2>/dev/null || true)" = "Linux" ]; then
+        [ -n "${SKIP_UDEV_RULES:-}" ] || install_linux_udev_rules
+    fi
     if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
         [ -n "${SKIP_WINDOWS_DRIVERS:-}" ] || install_windows_drivers
     fi
