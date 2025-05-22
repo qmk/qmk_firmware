@@ -20,7 +20,6 @@
     "features": {
         "bootmagic": true,
         "caps_word": true,
-        "combo": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
