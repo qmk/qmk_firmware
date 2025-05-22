@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Wave",
     "maintainer": "etiennecollin",
-    "manufacturer": "Etienne Collin",
+    "manufacturer": "etiennecollin",
     "url": "https://github.com/etiennecollin/wave",
     "bootloader_instructions": "Press the button marked RESET on the PCB or bridge the pins marked RST and GND on the Elite-C",
     "tags": ["ortho", "split"],
