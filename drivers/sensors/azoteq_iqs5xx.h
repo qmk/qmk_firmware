@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "compiler_support.h"
 #include "i2c_master.h"
 #include "pointing_device.h"
 #include "util.h"
@@ -79,7 +80,7 @@ typedef struct {
     azoteq_iqs5xx_relative_xy_t      y;
 } azoteq_iqs5xx_base_data_t;
 
-_Static_assert(sizeof(azoteq_iqs5xx_base_data_t) == 10, "azoteq_iqs5xx_basic_report_t should be 10 bytes");
+STATIC_ASSERT(sizeof(azoteq_iqs5xx_base_data_t) == 10, "azoteq_iqs5xx_basic_report_t should be 10 bytes");
 
 typedef struct {
     uint8_t                     number_of_fingers;
@@ -87,7 +88,7 @@ typedef struct {
     azoteq_iqs5xx_relative_xy_t y;
 } azoteq_iqs5xx_report_data_t;
 
-_Static_assert(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
+STATIC_ASSERT(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
 
 typedef struct PACKED {
     bool sw_input : 1;
@@ -159,7 +160,7 @@ typedef struct PACKED {
     uint16_t                                     zoom_consecutive_distance;
 } azoteq_iqs5xx_gesture_config_t;
 
-_Static_assert(sizeof(azoteq_iqs5xx_gesture_config_t) == 24, "azoteq_iqs5xx_gesture_config_t should be 24 bytes");
+STATIC_ASSERT(sizeof(azoteq_iqs5xx_gesture_config_t) == 24, "azoteq_iqs5xx_gesture_config_t should be 24 bytes");
 
 typedef struct {
     uint16_t x_resolution;

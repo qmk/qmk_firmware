@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "compiler_support.h"
+
 #ifndef BACKLIGHT_LEVELS
 #    define BACKLIGHT_LEVELS 3
 #elif BACKLIGHT_LEVELS > 31
@@ -44,7 +46,7 @@ typedef union backlight_config_t {
     };
 } backlight_config_t;
 
-_Static_assert(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG out of spec.");
 
 void    backlight_init(void);
 void    backlight_toggle(void);
