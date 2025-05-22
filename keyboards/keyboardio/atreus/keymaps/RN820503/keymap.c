@@ -4,6 +4,7 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include "keycodes.h"
+#include "keymap_us.h"
 #include "quantum_keycodes.h"
 #include QMK_KEYBOARD_H
 
@@ -115,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  BEAKL-19 numpad
     	-   5   2   3   :
     	7   .   1   0   4           ⌘   mo   ⌥	⌃
-    	/   6   9   8   ,       -
+    	/   6   9   8   ,
     	    +   =   *   ␣   ⌫
     */
     [_NUM] = LAYOUT(
@@ -125,27 +126,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_PLUS, KC_EQL,  KC_ASTR, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
 
+    /* Getreur Symbols
+    *
+    *	`	<   >	-	|		    ^  	{   }   $   \
+    *   !   *   /   =   &          	#   (   )   ;   "
+    *   ~   +   [	]   %		    @ 	:   ,   .	'
+    */
+    [_SYM] = LAYOUT(
+    KC_GRV,  KC_LABK, KC_RABK, KC_MINS, KC_PIPE,                   KC_CIRC, KC_LCBR, KC_RCBR, KC_DLR,  KC_BSLS,
+    KC_EXLM, KC_ASTR, KC_SLSH, KC_RPRN, KC_AMPR,                   KC_HASH, KC_LPRN, KC_RPRN, KC_SCLN, KC_DQT,
+	KC_TILD, KC_PLUS, KC_LBRC, KC_RBRC, KC_PERC, _______, _______, KC_AT,   KC_COLN, KC_COMM, KC_DOT,  KC_QUOT,
+    _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
+    ),
+
     /*  BEAKL-19 symbols
     *       <   =   >   @   	^	[	_   ]
     *   \   (   -   )   +       %   {   ;   }	!
     *       *   :   /   #		$	&	~	|
     *                   ␣
-    */
+    *
     [_SYM] = LAYOUT(
     ___x___, KC_LABK, KC_EQL,  KC_RABK, KC_AT,                     KC_CIRC, KC_LBRC, KC_UNDS, KC_RBRC, ___x___,
     KC_BSLS, KC_LPRN, KC_MINS, KC_RPRN, KC_PLUS,                   KC_PERC, KC_LCBR, KC_SCLN, KC_RCBR, KC_EXLM,
 	___x___, KC_ASTR, KC_COLN, KC_SLSH, KC_HASH, _______, _______, KC_DLR,  KC_AMPR, KC_TILD, KC_PIPE, ___x___,
     _______, _______, _______, _______, KC_SPC,  _______, _______, _______, _______, _______, _______, _______
     ),
+    */
 
     /*
-                ⌘Q             Sclp  Scap                     vol+    home    up	end
+                               Sclp  Scap                     vol+    home    up	end
     	⌃       ⌥       (mo)   ⌘     Sall        		      vol-    left    dn	rght    ⌦
     	undo   copy     cut    pst   redo                     mute    ←Sel    Sel→  ←line→
                                                               dsk-    dsk+
     */
     [_NAV] = LAYOUT(
-    ___x___, G(KC_Q), _______, C(S(G(KC_4))), LSG(KC_4),                   KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
+    ___x___, ___x___, _______, C(S(G(KC_4))), LSG(KC_4),                   KC_VOLU,    G(KC_LEFT), KC_UP,   G(KC_RGHT), ___x___,
     KC_LCTL, KC_LALT, _______, KC_LGUI,       G(KC_A),                     KC_VOLD,    KC_LEFT,    KC_DOWN, KC_RGHT,    KC_DEL,
     G(KC_Z), G(KC_C), G(KC_X), G(KC_V),       LSG(KC_Z), _______, _______, KC_MUTE,    SELWBAK,    SELWORD, SELLINE,    ___x___,
     _______, _______, _______, _______,       _______,   _______, _______, C(KC_LEFT), C(KC_RGHT), _______, _______,    _______
@@ -270,11 +285,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 const custom_shift_key_t custom_shift_keys[] = {
-    {KC_1, KC_DLR},     // Shift 1 is $
-    {KC_0, KC_HASH},    // Shift 0 is #
     {KC_EQL, KC_UNDS},  // Shift = is _
-    {KC_MINS, KC_PLUS}, // Shift - is +
     {KC_DOT , KC_COLN}, // Shift . is :
+    {KC_MINS, KC_PLUS}, // Shift - is +
     {KC_COMM, KC_SCLN}, // Shift , is ;
     {KC_BSPC, KC_DEL},  // Shift ⌫ is ⌦
 };

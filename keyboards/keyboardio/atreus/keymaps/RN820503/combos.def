@@ -20,7 +20,7 @@ COMB(H_Qu,              SS_Qu,      LT2, LT1)
 /*---- commands ----*/
 COMB(Htab,            	KC_TAB,     LM3, LM1)
 COMB(Hesc,              KC_ESC,     LM4, LM1)
-COMB(Hent,              KC_ENT, 	RM1, RM2)
+/* COMB(Hent,              KC_ENT, 	RM1, RM2) */
 COMB(Hlsft,             OSM(MOD_LSFT), 	LM2, LM3)
 COMB(Hrsft,             OSM(MOD_RSFT), 	RM2, RM3)
 COMB(Hbspw,             A(KC_BSPC), RM1, RM3)
@@ -44,8 +44,8 @@ COMB(Hsall,             G(KC_A),    LB4, LB1)
 COMB(Hpstm,             A(S(G(KC_V))), LB4, LB0)
 
 /* --- parens and brackets --- */
-COMB(Hlprn,             KC_LPRN,    LT1, LM1)
-COMB(Hrprn,             KC_RPRN,    RT1, RM1)
+COMB(Hlprn,             KC_LPRN,    LM2, LM1)
+COMB(Hrprn,             KC_RPRN,    RM1, RM2)
 /* COMB(Hlbrc,             KC_LBRC,    LT3, LM3) */
 /* COMB(Hlcbr,             KC_LCBR,    LT2, LM2) */
 /* COMB(Hlabk,             KC_LABK,    LT0, LM0) */
