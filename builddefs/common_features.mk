@@ -722,6 +722,7 @@ ifeq ($(strip $(LIB8TION_ENABLE)), yes)
         # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
         OPT_DEFS += -DLIB8_ATTINY
     endif
+    OPT_DEFS += -DFASTLED_SCALE8_FIXED=1 -DFASTLED_BLEND_FIXED=1
     SRC += $(LIB_PATH)/lib8tion/lib8tion.c
 endif
 
