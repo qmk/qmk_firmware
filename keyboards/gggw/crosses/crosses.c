@@ -244,7 +244,7 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
 
 #    if defined(POINTING_DEVICE_COMBINED) || defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
 void pointing_device_init_kb(void) {
-    set_auto_mouse_layer(_MOUS);
+    set_auto_mouse_layer(5);
     set_auto_mouse_enable(false);
 }
 #    endif /* ifdef POINTING_DEVICE */
