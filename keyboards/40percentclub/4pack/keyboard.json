@@ -11,8 +11,7 @@
         "driver": "timer",
         "pins": ["F6", "F7"]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "backlight": true,
         "bootmagic": false,
