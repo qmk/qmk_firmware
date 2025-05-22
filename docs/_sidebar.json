@@ -227,6 +227,7 @@
                             { "text": "ADC Driver", "link": "/drivers/adc" },
                             { "text": "APA102 Driver", "link": "/drivers/apa102" },
                             { "text": "Audio Driver", "link": "/drivers/audio" },
+                            { "text": "Battery Driver", "link": "/drivers/battery" },
                             { "text": "EEPROM Driver", "link": "/drivers/eeprom" },
                             { "text": "Flash Driver", "link": "/drivers/flash" },
                             { "text": "I2C Driver", "link": "/drivers/i2c" },

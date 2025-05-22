@@ -72,6 +72,7 @@ A Community Module is denoted by a `qmk_module.json` file such as the following:
 {
     "module_name": "Hello World",
     "maintainer": "QMK Maintainers",
+    "license": "GPL-2.0-or-later",
     "features": {
         "deferred_exec": true
     },
@@ -85,6 +86,10 @@ A Community Module is denoted by a `qmk_module.json` file such as the following:
 ```
 
 At minimum, the module must provide the `module_name` and `maintainer` fields.
+
+The `license` field is encouraged to indicate the terms for using and sharing the module. It is recommended to use a [SPDX license identifier](https://spdx.org/licenses/) like "`Apache-2.0`" or "`GPL-2.0-or-later`" if possible.
+
+The `url` field may specify a URL to more information about the module.
 
 The use of `features` matches the definition normally provided within `keyboard.json` and `info.json`, allowing a module to signal to the build system that it has its own dependencies. In the example above, it enables the _deferred executor_ feature whenever the above module is used in a build.
 
@@ -118,22 +123,39 @@ The source file may provide functions which allow access to information specifie
 Introspection is a relatively advanced topic within QMK, and existing patterns should be followed. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/qmk).
 :::
 
+### `led_matrix_module.inc`
+
+This file defines LED matrix effects in the same form as used with `led_matrix_kb.inc` and `led_matrix_user.inc` (see [Custom LED Matrix Effects](led_matrix#custom-led-matrix-effects)). Effect mode names are prepended with `LED_MATRIX_COMMUNITY_MODULE_`.
+
+### `rgb_matrix_module.inc`
+
+This file defines RGB matrix effects in the same form as used with `rgb_matrix_kb.inc` and `rgb_matrix_user.inc` (see [Custom RGB Matrix Effects](rgb_matrix#custom-rgb-matrix-effects)). Effect mode names are prepended with `RGB_MATRIX_COMMUNITY_MODULE_`.
+
 ### Compatible APIs
 
 Community Modules may provide specializations for the following APIs:
 
-| Base API                   | API Format                          | Example (`hello_world` module)         | API Version |
-|----------------------------|-------------------------------------|----------------------------------------|-------------|
-| `keyboard_pre_init`        | `keyboard_pre_init_<module>`        | `keyboard_pre_init_hello_world`        | `0.1.0`     |
-| `keyboard_post_init`       | `keyboard_post_init_<module>`       | `keyboard_post_init_hello_world`       | `0.1.0`     |
-| `pre_process_record`       | `pre_process_record_<module>`       | `pre_process_record_hello_world`       | `0.1.0`     |
-| `process_record`           | `process_record_<module>`           | `process_record_hello_world`           | `0.1.0`     |
-| `post_process_record`      | `post_process_record_<module>`      | `post_process_record_hello_world`      | `0.1.0`     |
-| `housekeeping_task`        | `housekeeping_task_<module>`        | `housekeeping_task_hello_world`        | `1.0.0`     |
-| `suspend_power_down`       | `suspend_power_down_<module>`       | `suspend_power_down_hello_world`       | `1.0.0`     |
-| `suspend_wakeup_init`      | `suspend_wakeup_init_<module>`      | `suspend_wakeup_init_hello_world`      | `1.0.0`     |
-| `shutdown`                 | `shutdown_<module>`                 | `shutdown_hello_world`                 | `1.0.0`     |
-| `process_detected_host_os` | `process_detected_host_os_<module>` | `process_detected_host_os_hello_world` | `1.0.0`     |
+| Base API                         | API Format                                | Example (`hello_world` module)              | API Version |
+|----------------------------------|-------------------------------------------|---------------------------------------------|-------------|
+| `keyboard_pre_init`              | `keyboard_pre_init_<module>`              | `keyboard_pre_init_hello_world`             | `0.1.0`     |
+| `keyboard_post_init`             | `keyboard_post_init_<module>`             | `keyboard_post_init_hello_world`            | `0.1.0`     |
+| `pre_process_record`             | `pre_process_record_<module>`             | `pre_process_record_hello_world`            | `0.1.0`     |
+| `process_record`                 | `process_record_<module>`                 | `process_record_hello_world`                | `0.1.0`     |
+| `post_process_record`            | `post_process_record_<module>`            | `post_process_record_hello_world`           | `0.1.0`     |
+| `housekeeping_task`              | `housekeeping_task_<module>`              | `housekeeping_task_hello_world`             | `1.0.0`     |
+| `suspend_power_down`             | `suspend_power_down_<module>`             | `suspend_power_down_hello_world`            | `1.0.0`     |
+| `suspend_wakeup_init`            | `suspend_wakeup_init_<module>`            | `suspend_wakeup_init_hello_world`           | `1.0.0`     |
+| `shutdown`                       | `shutdown_<module>`                       | `shutdown_hello_world`                      | `1.0.0`     |
+| `process_detected_host_os`       | `process_detected_host_os_<module>`       | `process_detected_host_os_hello_world`      | `1.0.0`     |
+| `default_layer_state_set`        | `default_layer_state_set_<module>`        | `default_layer_state_set_hello_world`       | `1.1.0`     |
+| `layer_state_set`                | `layer_state_set_<module>`                | `layer_state_set_hello_world`               | `1.1.0`     |
+| `led_matrix_indicators`          | `led_matrix_indicators_<module>`          | `led_matrix_indicators_hello_world`          | `1.1.0`     |
+| `led_matrix_indicators_advanced` | `led_matrix_indicators_advanced_<module>` | `led_matrix_indicators_advanced_hello_world` | `1.1.0`     |
+| `rgb_matrix_indicators`          | `rgb_matrix_indicators_<module>`          | `rgb_matrix_indicators_hello_world`          | `1.1.0`     |
+| `rgb_matrix_indicators_advanced` | `rgb_matrix_indicators_advanced_<module>` | `rgb_matrix_indicators_advanced_hello_world` | `1.1.0`     |
+| `pointing_device_init`           | `pointing_device_init_<module>`           | `pointing_device_init_hello_world`           | `1.1.0`     |
+| `pointing_device_task`           | `pointing_device_task_<module>`           | `pointing_device_task_hello_world`           | `1.1.0`     |
+
 
 ::: info
 An unspecified API is disregarded if a Community Module does not provide a specialization for it.

@@ -28,7 +28,7 @@
 #    include "audio_dac.h"
 #endif
 
-typedef union {
+typedef union audio_config_t {
     uint8_t raw;
     struct {
         bool    enable : 1;
