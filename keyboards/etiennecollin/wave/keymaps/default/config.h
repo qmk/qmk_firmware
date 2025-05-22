@@ -19,6 +19,9 @@
 // Activate caps word by pressing Left Shift + Right Shift
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
+// Default to NKRO turned ON
+#define FORCE_NKRO
+
 // Maximum time between taps of tap dances
 #define TAPPING_TERM 300
 

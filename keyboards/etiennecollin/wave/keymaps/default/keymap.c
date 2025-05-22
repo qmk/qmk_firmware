@@ -171,13 +171,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // |-------+-------+-------+-------+-------|                                                          |-------+-------+-------+-------+-------|
   // |       |       |       |       |       |                                                          |       |       |       |       |       |
   // |-------+-------+-------+-------+-------|                                                          |-------+-------+-------+-------+-------|
-  // |       |       |       |       |       |                                                          |       |       |       |       |       |
+  // |       |       | NK_OF | NK_ON | NK_TO |                                                          | NK_TO | NK_ON | NK_OF |       |       |
   // --------+-------+-------+-------+-------|                                                          |-------+-------+-------+-------+-------|
   //                 |       |       |       |                                                          |       |       |       |
   //                 --------+-------+--------                                                          --------+-------+--------
     QK_BOOT,            XXXXXXX,            DF(GAM),            DF(QWE),            DF(COL),            DF(COL),            DF(QWE),            DF(GAM),            XXXXXXX,            QK_BOOT,
     XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,
-    XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,
+    XXXXXXX,            XXXXXXX,            NK_OFF,             NK_ON,              NK_TOGG,            NK_TOGG,            NK_ON,              NK_OFF,             XXXXXXX,            XXXXXXX,
                                             _______,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            _______
   )
 };
