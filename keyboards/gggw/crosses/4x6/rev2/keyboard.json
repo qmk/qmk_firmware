@@ -1,5 +1,5 @@
 {
-    "keyboard_name": "Crosses 54 Rev2",
+    "keyboard_name": "Crosses 4x6 rev2",
     "matrix_pins": {
         "cols": ["GP13", "GP26", "GP22", "GP21", "GP23", "GP20"],
         "rows": ["GP5", "GP27", "GP28", "GP29", "GP7"]

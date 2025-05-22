@@ -195,20 +195,24 @@ void secondary_sync_handler(uint8_t in_buflen, const void* in_data, uint8_t out_
 }
 
 void housekeeping_task_kb(void) {
-    if (!is_keyboard_master()) { return; }
+    if (!is_keyboard_master()) {
+        return;
+    }
 
     static global_user_config_t last_config = {0};
-    static uint32_t last_sync = 0;
-    bool should_sync = false;
+    static uint32_t             last_sync   = 0;
+    bool                        should_sync = false;
 
     if (memcmp(&global_user_config, &last_config, sizeof(global_user_config))) {
         should_sync = true;
         memcpy(&last_config, &global_user_config, sizeof(global_user_config));
     }
 
-    should_sync =  (timer_elapsed32(last_sync) > 500);
+    should_sync = (timer_elapsed32(last_sync) > 500);
 
-    if (!should_sync) { return; }
+    if (!should_sync) {
+        return;
+    }
 
     if (transaction_rpc_send(CROSSES_SECONDARY_SYNC_ID, sizeof(global_user_config), &global_user_config)) {
         last_sync = timer_read32();
@@ -227,3 +231,52 @@ void keyboard_post_init_kb(void) {
 
     keyboard_post_init_user();
 }
+
+#ifdef OLED_ENABLE
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    if (!is_keyboard_master()) {
+        return OLED_ROTATION_180;
+    }
+
+    return rotation;
+}
+
+#    if defined(POINTING_DEVICE_COMBINED) || defined(POINTING_DEVICE_RIGHT) || defined(POINTING_DEVICE_LEFT)
+void pointing_device_init_kb(void) {
+    set_auto_mouse_layer(_MOUS);
+    set_auto_mouse_enable(false);
+}
+#    endif /* ifdef POINTING_DEVICE */
+
+static void render_logo(void) {
+    static const char PROGMEM qmk_logo[] = {0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94, 0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4, 0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00};
+
+    oled_write_P(qmk_logo, false);
+}
+
+bool oled_task_kb(void) {
+    render_logo();
+
+    // clang-format off
+    const char* layer_names[] = {
+        [0] = "BASE  CPI: ",
+        [1] = "PROG  CPI: ",
+        [2] = "NAVI  CPI: ",
+        [3] = "MEDIA CPI: ",
+        [4] = "FUNC  CPI: ",
+        [5] = "MOUSE CPI: ",
+    };
+    // clang-format on
+
+    char     cpi_str[6];
+    uint16_t current_dpi = get_pointer_dpi(&global_user_config);
+
+    snprintf(cpi_str, sizeof(cpi_str), "%u", (unsigned int)current_dpi);
+
+    oled_write(PSTR(layer_names[get_highest_layer(layer_state)]), false);
+    oled_write(cpi_str, false);
+
+    return false;
+}
+#endif /* ifdef OLED_ENABLE */
