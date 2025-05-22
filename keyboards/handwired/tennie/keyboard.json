@@ -26,7 +26,8 @@
         }
     },
     "ws2812": {
-        "pin": "D1"
+        "pin": "D1",
+        "rgbw": true
     },
     "features": {
         "bootmagic": true,
@@ -36,6 +37,12 @@
         "mousekey": true,
         "nkro": false,
         "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "cols": ["D7", "E6", "B4", "B5"],

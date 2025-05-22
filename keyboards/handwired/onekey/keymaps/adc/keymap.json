@@ -1,0 +1,10 @@
+{
+    "config": {
+        "features": {
+            "console": true
+        },
+        "tapping": {
+            "term": 500
+        }
+    }
+}

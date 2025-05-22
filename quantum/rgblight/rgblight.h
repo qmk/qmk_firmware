@@ -169,7 +169,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #include "rgblight_drivers.h"
 #include "progmem.h"
 #include "eeconfig.h"
-#include "ws2812.h"
 #include "color.h"
 
 #ifdef RGBLIGHT_LAYERS
@@ -363,7 +362,7 @@ uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
 bool    rgblight_is_enabled(void);
-HSV     rgblight_get_hsv(void);
+hsv_t   rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);

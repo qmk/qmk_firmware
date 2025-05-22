@@ -71,11 +71,12 @@
         "config": {"$ref": "qmk.keyboard.v1"},
         "notes": {
             "type": "string"
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
-    },
-    "required": [
-        "keyboard",
-        "layout",
-        "layers"
-    ]
+    }
 }

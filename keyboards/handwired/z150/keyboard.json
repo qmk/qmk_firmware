@@ -16,6 +16,12 @@
         "mousekey": true,
         "nkro": false
     },
+    "indicators": {
+        "caps_lock": "B3",
+        "num_lock": "B5",
+        "scroll_lock": "B4",
+        "on_state": 0
+    },
     "matrix_pins": {
         "cols": ["B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4"],
         "rows": ["B13", "B14", "B15", "A8", "A9", "A3", "A10", "A1", "A2", "A15", "A0"]

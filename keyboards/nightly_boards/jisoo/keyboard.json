@@ -15,6 +15,12 @@
         "mousekey": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["GP25", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1", "GP0"],
         "rows": ["GP26", "GP27", "GP28", "GP18", "GP19", "GP20"]

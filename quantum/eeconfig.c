@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include "eeprom.h"
 #include "eeconfig.h"
-#include "action_layer.h"
 
 #if defined(EEPROM_DRIVER)
 #    include "eeprom_driver.h"
@@ -46,13 +45,13 @@ __attribute__((weak)) void eeconfig_init_kb(void) {
  */
 void eeconfig_init_quantum(void) {
 #if defined(EEPROM_DRIVER)
-    eeprom_driver_erase();
+    eeprom_driver_format(false);
 #endif
 
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
     eeprom_update_byte(EECONFIG_DEBUG, 0);
     default_layer_state = (layer_state_t)1 << 0;
-    eeprom_update_byte(EECONFIG_DEFAULT_LAYER, default_layer_state);
+    eeconfig_update_default_layer(default_layer_state);
     // Enable oneshot and autocorrect by default: 0b0001 0100 0000 0000
     eeprom_update_word(EECONFIG_KEYMAP, 0x1400);
     eeprom_update_byte(EECONFIG_BACKLIGHT, 0);
@@ -108,7 +107,7 @@ void eeconfig_enable(void) {
  */
 void eeconfig_disable(void) {
 #if defined(EEPROM_DRIVER)
-    eeprom_driver_erase();
+    eeprom_driver_format(false);
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
@@ -160,14 +159,30 @@ void eeconfig_update_debug(uint8_t val) {
  *
  * FIXME: needs doc
  */
-uint8_t eeconfig_read_default_layer(void) {
-    return eeprom_read_byte(EECONFIG_DEFAULT_LAYER);
+layer_state_t eeconfig_read_default_layer(void) {
+    uint8_t val = eeprom_read_byte(EECONFIG_DEFAULT_LAYER);
+
+#ifdef DEFAULT_LAYER_STATE_IS_VALUE_NOT_BITMASK
+    // stored as a layer number, so convert back to bitmask
+    return 1 << val;
+#else
+    // stored as 8-bit-wide bitmask, so read the value directly - handling padding to 16/32 bit layer_state_t
+    return val;
+#endif
 }
 /** \brief eeconfig update default layer
  *
  * FIXME: needs doc
  */
-void eeconfig_update_default_layer(uint8_t val) {
+void eeconfig_update_default_layer(layer_state_t state) {
+#ifdef DEFAULT_LAYER_STATE_IS_VALUE_NOT_BITMASK
+    // stored as a layer number, so only store the highest layer
+    uint8_t val = get_highest_layer(state);
+#else
+    // stored as 8-bit-wide bitmask, so write the value directly - handling truncation from 16/32 bit layer_state_t
+    uint8_t val = state;
+#endif
+
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER, val);
 }
 

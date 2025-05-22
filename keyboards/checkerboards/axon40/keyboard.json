@@ -37,6 +37,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["C7", "B7", "D4", "D6", "F0", "F1", "C6", "B6", "B5", "B4", "E6", "B0"],
         "rows": ["D2", "D3", "D1", "D5"]
@@ -44,8 +50,11 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

@@ -16,6 +16,12 @@
     "mousekey": true,
     "nkro": false
   },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "cols": ["D3", "D2", "B5", "B6", "C7", "C6", "C5", "C4"],
     "rows": ["C2", "D0", "D1", "D4", "D5", "D6", "B0", "B1", "B2", "B3"]
@@ -27,8 +33,15 @@
   },
   "processor": "atmega32u2",
   "bootloader": "atmel-dfu",
+  "community_layouts": ["65_ansi", "65_ansi_split_bs", "65_ansi_blocker", "65_ansi_blocker_split_bs"],
+  "layout_aliases": {
+    "LAYOUT_normie": "LAYOUT_65_ansi",
+    "LAYOUT_spicy": "LAYOUT_65_ansi_split_bs",
+    "LAYOUT_dank": "LAYOUT_65_ansi_blocker",
+    "LAYOUT_meme": "LAYOUT_65_ansi_blocker_split_bs",
+  },
   "layouts": {
-    "LAYOUT_spicy": {
+    "LAYOUT_65_ansi_split_bs": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [1, 0], "x": 1, "y": 0},
@@ -105,7 +118,7 @@
         {"matrix": [9, 7], "x": 15, "y": 4}
       ]
     },
-    "LAYOUT_normie": {
+    "LAYOUT_65_ansi": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [1, 0], "x": 1, "y": 0},
@@ -181,7 +194,7 @@
         {"matrix": [9, 7], "x": 15, "y": 4}
       ]
     },
-    "LAYOUT_dank": {
+    "LAYOUT_65_ansi_blocker": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [1, 0], "x": 1, "y": 0},
@@ -256,7 +269,7 @@
         {"matrix": [9, 7], "x": 15, "y": 4}
       ]
     },
-    "LAYOUT_meme": {
+    "LAYOUT_65_ansi_blocker_split_bs": {
       "layout": [
         {"matrix": [0, 0], "x": 0, "y": 0},
         {"matrix": [1, 0], "x": 1, "y": 0},

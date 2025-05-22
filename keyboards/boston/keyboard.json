@@ -30,7 +30,11 @@
         ]
     },
     "qmk": {
-        "tap_keycode_delay": 15
+        "tap_keycode_delay": 15,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "backlight": {
         "pin": "A6",

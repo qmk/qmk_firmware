@@ -1,4 +1,4 @@
-// Copyright 2024 QMK
+// Copyright 2025 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -102,4 +102,5 @@
 #define ES_AT   ALGR(ES_Q)    // @
 #define ES_TILD ALGR(ES_PLUS) // ~
 #define ES_CIRC ALGR(ES_LCBR) // ^
+#define ES_GRV  ALGR(KC_NUHS) // `
 

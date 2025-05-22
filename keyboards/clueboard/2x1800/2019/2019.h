@@ -24,8 +24,5 @@ enum TWOx1800_keycodes {
     ENC_BTN4,
 };
 
-// Encoder update function that returns true/false
-bool encoder_update_keymap(uint8_t index, bool clockwise);
-
 // Encoder button combo check
 void check_encoder_buttons(void);

@@ -8,6 +8,9 @@
         "pid": "0x001F",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F1"
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
@@ -36,6 +39,12 @@
         "mousekey": false,
         "nkro": true,
         "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "cols": ["F5", "D5", "D3", "D2", "D1", "D0", "B7", "C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4", "B0", "B3"],

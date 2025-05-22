@@ -18,6 +18,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["B5", "B6", "C6", "C7", "F7", "F6", "F5", "F4", "F1", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4"],
         "rows": ["B0", "B1", "B2", "B3", "F0"]
@@ -26,6 +32,10 @@
     "backlight": {
         "pin": "B7",
         "levels": 5
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
     },
     "rgblight": {
         "saturation_steps": 8,

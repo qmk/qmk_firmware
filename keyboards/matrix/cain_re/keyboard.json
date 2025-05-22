@@ -8,6 +8,11 @@
         "pid": "0x0106",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "D3",
+        "num_lock": "F7",
+        "scroll_lock": "B0"
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

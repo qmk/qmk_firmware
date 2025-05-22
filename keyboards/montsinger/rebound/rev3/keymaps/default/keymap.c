@@ -14,15 +14,13 @@ enum layer_names {
   _ADJUST
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK
-};
-
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
 #define ADJUST MO(_ADJUST)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -62,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] =  LAYOUT_all(
-  _______, QK_BOOT,   _______, _______, _______, _______,          _______, _______, _______, _______, _______, KC_DEL,
+  _______, QK_BOOT, _______, _______, _______, _______,          _______, _______, _______, _______, _______, KC_DEL,
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -71,26 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-             }
-             break;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            break;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
-            }
-            break;
-    }
-    return true;
 }
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

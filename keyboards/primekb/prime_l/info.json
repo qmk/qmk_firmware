@@ -2,6 +2,20 @@
   "manufacturer": "PrimeKB",
   "url": "https://www.primekb.com",
   "maintainer": "MxBlu",
+  "features": {
+    "bootmagic": false,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "usb": {
     "vid": "0x5052"
   },

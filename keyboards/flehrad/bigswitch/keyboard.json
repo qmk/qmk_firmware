@@ -1,36 +1,15 @@
 {
-    "keyboard_name": "BigSwitch PCB",
     "manufacturer": "flehrad",
+    "keyboard_name": "BigSwitch PCB",
     "maintainer": "qmk",
-    "usb": {
-        "vid": "0x1209",
-        "pid": "0xB195",
-        "device_version": "0.0.1"
-    },
-    "rgblight": {
-        "led_count": 8,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "snake": true,
-            "knight": true,
-            "christmas": true,
-            "static_gradient": true,
-            "rgb_test": true,
-            "alternating": true,
-            "twinkle": true
-        }
-    },
-    "ws2812": {
-        "pin": "D3"
-    },
+    "debounce": 50,
+    "development_board": "promicro",
+    "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": false,
-        "command": true,
         "console": true,
-        "extrakey": false,
-        "mousekey": false,
+        "extrakey": true,
+        "mousekey": true,
         "nkro": false,
         "rgblight": true
     },
@@ -38,10 +17,33 @@
         "cols": ["B6"],
         "rows": ["B5"]
     },
-    "diode_direction": "ROW2COL",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
-    "debounce": 50,
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_swirl",
+            "val": 127
+        },
+        "led_count": 8
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0xB195",
+        "vid": "0x1209"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

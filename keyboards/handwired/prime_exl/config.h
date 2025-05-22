@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define NUM_LOCK_LED_PIN B6
 #define CAPS_LOCK_LED_PIN B5
 #define SCROLL_LOCK_LED_PIN C6

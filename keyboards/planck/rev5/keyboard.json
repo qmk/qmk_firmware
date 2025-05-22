@@ -8,6 +8,9 @@
     "pid": "0xAE01",
     "device_version": "0.0.5"
   },
+  "build": {
+    "lto": true
+  },
   "features": {
     "audio": true,
     "bootmagic": true,

@@ -5,14 +5,14 @@
 A compact 40% (12x4) ortholinear keyboard kit made and KPRepublic on AliExpress.
 
 * Keyboard Maintainer: [QMK Community](https://github.com/qmk)
-* Hardware Supported: JJ40 rev1 (Atmega32A)
+* Hardware Supported: JJ40 rev1 (ATmega32A)
 * Hardware Availability: [AliExpress](https://www.aliexpress.com/store/product/jj40-Custom-Mechanical-Keyboard-40-PCB-programmed-40-planck-layouts-bface-firmware-gh40/3034003_32828781103.html)
 
 Make example for this keyboard (after setting up your build environment):
 
     make kprepublic/jj40/rev1:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make kprepublic/jj40/rev1:default:flash
 

@@ -245,6 +245,17 @@ void dynamic_keymap_macro_set_buffer(uint16_t offset, uint16_t size, uint8_t *da
     }
 }
 
+typedef struct send_string_eeprom_state_t {
+    const uint8_t *ptr;
+} send_string_eeprom_state_t;
+
+char send_string_get_next_eeprom(void *arg) {
+    send_string_eeprom_state_t *state = (send_string_eeprom_state_t *)arg;
+    char                        ret   = eeprom_read_byte(state->ptr);
+    state->ptr++;
+    return ret;
+}
+
 void dynamic_keymap_macro_reset(void) {
     void *p   = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
     void *end = (void *)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE);
@@ -284,57 +295,6 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++p;
     }
 
-    // Send the macro string by making a temporary string.
-    char data[8] = {0};
-    // We already checked there was a null at the end of
-    // the buffer, so this cannot go past the end
-    while (1) {
-        data[0] = eeprom_read_byte(p++);
-        data[1] = 0;
-        // Stop at the null terminator of this macro string
-        if (data[0] == 0) {
-            break;
-        }
-        if (data[0] == SS_QMK_PREFIX) {
-            // Get the code
-            data[1] = eeprom_read_byte(p++);
-            // Unexpected null, abort.
-            if (data[1] == 0) {
-                return;
-            }
-            if (data[1] == SS_TAP_CODE || data[1] == SS_DOWN_CODE || data[1] == SS_UP_CODE) {
-                // Get the keycode
-                data[2] = eeprom_read_byte(p++);
-                // Unexpected null, abort.
-                if (data[2] == 0) {
-                    return;
-                }
-                // Null terminate
-                data[3] = 0;
-            } else if (data[1] == SS_DELAY_CODE) {
-                // Get the number and '|'
-                // At most this is 4 digits plus '|'
-                uint8_t i = 2;
-                while (1) {
-                    data[i] = eeprom_read_byte(p++);
-                    // Unexpected null, abort
-                    if (data[i] == 0) {
-                        return;
-                    }
-                    // Found '|', send it
-                    if (data[i] == '|') {
-                        data[i + 1] = 0;
-                        break;
-                    }
-                    // If haven't found '|' by i==6 then
-                    // number too big, abort
-                    if (i == 6) {
-                        return;
-                    }
-                    ++i;
-                }
-            }
-        }
-        send_string_with_delay(data, DYNAMIC_KEYMAP_MACRO_DELAY);
-    }
+    send_string_eeprom_state_t state = {p};
+    send_string_with_delay_impl(send_string_get_next_eeprom, &state, DYNAMIC_KEYMAP_MACRO_DELAY);
 }

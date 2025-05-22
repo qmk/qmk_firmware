@@ -1,4 +1,4 @@
-# QMK Graphics Format :id=qmk-graphics-format
+# QMK Graphics Format {#qmk-graphics-format}
 
 QMK uses a graphics format _("Quantum Graphics Format" - QGF)_ specifically for resource-constrained systems.
 
@@ -20,7 +20,7 @@ The general structure of the file is:
 
 Different frames within the file should be considered "isolated" and may have their own image format and/or palette.
 
-## Block Header :id=qgf-block-header
+## Block Header {#qgf-block-header}
 
 This block header is present for all blocks, including the graphics descriptor.
 
@@ -36,7 +36,7 @@ typedef struct __attribute__((packed)) qgf_block_header_v1_t {
 ```
 The _length_ describes the number of octets in the data following the block header -- a block header may specify a _length_ of `0` if no blob is specified.
 
-## Graphics descriptor block :id=qgf-graphics-descriptor
+## Graphics descriptor block {#qgf-graphics-descriptor}
 
 * _typeid_ = 0x00
 * _length_ = 18
@@ -59,7 +59,7 @@ typedef struct __attribute__((packed)) qgf_graphics_descriptor_v1_t {
 // _Static_assert(sizeof(qgf_graphics_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 18), "qgf_graphics_descriptor_v1_t must be 23 bytes in v1 of QGF");
 ```
 
-## Frame offset block :id=qgf-frame-offset-descriptor
+## Frame offset block {#qgf-frame-offset-descriptor}
 
 * _typeid_ = 0x01
 * _length_ = variable
@@ -77,7 +77,7 @@ typedef struct __attribute__((packed)) qgf_frame_offsets_v1_t {
 } qgf_frame_offsets_v1_t;
 ```
 
-## Frame descriptor block :id=qgf-frame-descriptor
+## Frame descriptor block {#qgf-frame-descriptor}
 
 * _typeid_ = 0x02
 * _length_ = 5
@@ -125,9 +125,9 @@ Frame flags is a bitmask with the following format:
 Compression scheme possible values:
 
 * `0x00`: No compression
-* `0x01`: [QMK RLE](quantum_painter_rle.md)
+* `0x01`: [QMK RLE](quantum_painter_rle)
 
-## Frame palette block :id=qgf-frame-palette-descriptor
+## Frame palette block {#qgf-frame-palette-descriptor}
 
 * _typeid_ = 0x03
 * _length_ = variable
@@ -145,7 +145,7 @@ typedef struct __attribute__((packed)) qgf_palette_v1_t {
 } qgf_palette_v1_t;
 ```
 
-## Frame delta block :id=qgf-frame-delta-descriptor
+## Frame delta block {#qgf-frame-delta-descriptor}
 
 * _typeid_ = 0x04
 * _length_ = 8
@@ -163,7 +163,7 @@ typedef struct __attribute__((packed)) qgf_delta_v1_t {
 // _Static_assert(sizeof(qgf_delta_v1_t) == 13, "qgf_delta_v1_t must be 13 bytes in v1 of QGF");
 ```
 
-## Frame data block :id=qgf-frame-data-descriptor
+## Frame data block {#qgf-frame-data-descriptor}
 
 * _typeid_ = 0x05
 * _length_ = variable

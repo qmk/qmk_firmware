@@ -4,13 +4,11 @@ extern inline void frenchdev_board_led_on(void);
 extern inline void frenchdev_led_1_on(void);
 extern inline void frenchdev_led_2_on(void);
 extern inline void frenchdev_led_3_on(void);
-extern inline void frenchdev_led_on(uint8_t led);
 
 extern inline void frenchdev_board_led_off(void);
 extern inline void frenchdev_led_1_off(void);
 extern inline void frenchdev_led_2_off(void);
 extern inline void frenchdev_led_3_off(void);
-extern inline void frenchdev_led_off(uint8_t led);
 
 extern inline void frenchdev_led_all_on(void);
 extern inline void frenchdev_led_all_off(void);
@@ -32,12 +30,11 @@ void matrix_init_kb(void) {
 
 
 
-    // unused pins - D4, D5, D7, E6
+    // unused pins - D4, D5, E6
     // set as input with internal pull-ip enabled
-    DDRD  &= ~(1<<5 | 1<<4);
-    DDRE  &= ~(1<<6);
-    PORTD |=  (1<<5 | 1<<4);
-    PORTE |=  (1<<6);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D5);
+    gpio_set_pin_input_high(E6);
 
     frenchdev_blink_all_leds();
     frenchdev_blink_all_leds();
@@ -84,14 +81,14 @@ uint8_t init_mcp23018(void) {
     // - input   : input  : 1
     // - driving : output : 0
     uint8_t data[] = {0b00000000, 0b00111111};
-    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
 
     if (!mcp23018_status) {
         // set pull-up
         // - unused  : on  : 1
         // - input   : on  : 1
         // - driving : off : 0
-        mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
     }
 
     // SREG=sreg_prev;

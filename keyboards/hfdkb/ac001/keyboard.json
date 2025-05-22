@@ -46,7 +46,11 @@
         "pin": "A1"
     },
     "qmk": {
-        "tap_keycode_delay": 5
+        "tap_keycode_delay": 5,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",

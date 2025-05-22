@@ -14,7 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "logo.h"
+#include "oled_driver.h"
+#include "progmem.h"
 
 # define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
 

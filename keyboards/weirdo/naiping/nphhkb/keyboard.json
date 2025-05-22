@@ -23,6 +23,12 @@
         "nkro": true,
         "rgblight": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["A4", "C15", "C14", "A5", "A6", "A15", "B1", "B10", "B12", "B13", "B14", "B15", "B6", "A8", "B5"],
         "rows": ["B7", "B8", "B9", "C13", "B4"]
@@ -32,11 +38,12 @@
     "bootloader": "stm32-dfu",
     "board": "QMK_PROTON_C",
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_60_tsangan_hhkb"
+        "LAYOUT": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
-    "community_layouts": ["60_tsangan_hhkb"],
+    "community_layouts": ["60_ansi_tsangan_split_bs_rshift"],
     "layouts": {
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

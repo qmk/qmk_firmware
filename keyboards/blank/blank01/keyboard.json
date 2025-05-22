@@ -16,6 +16,12 @@
         "mousekey": true,
         "nkro": true
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "matrix_pins": {
         "cols": ["D5", "D4", "D6", "D7", "B5", "B4", "B6", "C6", "C7", "F7", "F6", "F5", "F4", "F1", "F0"],
         "rows": ["D0", "D1", "D2", "D3", "B3"]
@@ -26,8 +32,11 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
