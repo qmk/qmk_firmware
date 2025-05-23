@@ -24,7 +24,6 @@
         "on_state": 1
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0100",
