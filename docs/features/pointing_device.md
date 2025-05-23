@@ -337,6 +337,7 @@ If you have different CS wiring on each half you can use `PMW33XX_CS_PIN_RIGHT` 
 | `PMW33XX_SPI_DIVISOR`        | (Optional) Sets the SPI Divisor used for SPI communication.                                 | _varies_                 |
 | `PMW33XX_LIFTOFF_DISTANCE`   | (Optional) Sets the lift off distance at run time                                           | `0x02`                   |
 | `ROTATIONAL_TRANSFORM_ANGLE` | (Optional) Allows for the sensor data to be rotated +/- 127 degrees directly in the sensor. | `0`                      |
+| `PMW33XX_MULTIREAD`          | (Optional) Read sensor data from multiple sensors at once and produce a combined value.     | not defined              |
 
 To use multiple sensors, instead of setting `PMW33XX_CS_PIN` you need to set `PMW33XX_CS_PINS` and also handle and merge the read from this sensor in user code.
 Note that different (per sensor) values of CPI, speed liftoff, rotational angle or flipping of X/Y is not currently supported.
@@ -366,6 +367,31 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 }
 #endif
 
+```
+
+An alternative mode for using multiple PMW33xx sensors is `PMW33XX_MULTIREAD`.
+With this the driver takes care of initializing and reading all sensors set with `PMW33XX_CS_PINS` and calls the combiner function `pmw33xx_combine_reports_kb()` to produce the final mouse report.
+
+By default the driver provides a weak implementation of `pmw33xx_combine_reports_kb()` that adds all deltas together.
+For more complex combinations the `pmw33xx_combine_reports_kb()` function can be overridden in `keyboard.c`.
+
+```c
+// in config.h:
+#define PMW33XX_CS_PINS {GP26, GP27}
+#define PMW33XX_MULTIREAD
+
+// in keyboard.c:
+
+#define constrain_hid(amt) ((amt) < -127 ? -127 : ((amt) > 127 ? 127 : (amt)))
+
+report_mouse_t pmw33xx_combine_reports_kb(const pmw33xx_report_t *reports, report_mouse_t mouse_report)
+{
+    /* twist-to-scroll trackball with sensors left and in front of ball */
+    mouse_report.x = constrain_hid(reports[0].delta_x);
+    mouse_report.y = constrain_hid(reports[1].delta_y);
+    mouse_report.v = constrain_hid(reports[0].delta_y);
+    return mouse_report;
+}
 ```
 
 ### Custom Driver
