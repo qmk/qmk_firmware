@@ -18,8 +18,7 @@
     "indicators": {
         "caps_lock": "B11",
         "scroll_lock": "B9",
-        "num_lock": "B6",
-        "on_state": 1
+        "num_lock": "B6"
     },
     "processor": "STM32F072",
     "usb": {
