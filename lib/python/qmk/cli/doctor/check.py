@@ -6,9 +6,16 @@ import shutil
 from subprocess import DEVNULL, TimeoutExpired
 from tempfile import TemporaryDirectory
 from pathlib import Path
+from typing import TypedDict
 
 from milc import cli
 from qmk import submodules
+
+
+class Version(TypedDict):
+    major: int
+    minor: int
+    patch: int
 
 
 class CheckStatus(Enum):
@@ -30,8 +37,10 @@ ESSENTIAL_BINARIES = {
 }
 
 
-def _parse_gcc_version(version):
+def _parse_gcc_version(version: str) -> Version:
     m = re.match(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?", version)
+    if m is None:
+        raise RuntimeError
 
     return {
         'major': int(m.group(1)),
@@ -40,7 +49,7 @@ def _parse_gcc_version(version):
     }
 
 
-def _check_arm_gcc_version():
+def _check_arm_gcc_version() -> CheckStatus:
     """Returns True if the arm-none-eabi-gcc version is not known to cause problems.
     """
     version_number = ESSENTIAL_BINARIES['arm-none-eabi-gcc']['output'].strip()
@@ -50,7 +59,7 @@ def _check_arm_gcc_version():
     return _check_arm_gcc_installation()
 
 
-def _check_arm_gcc_installation():
+def _check_arm_gcc_installation() -> CheckStatus:
     """Returns OK if the arm-none-eabi-gcc is fully installed and can produce binaries.
     """
     with TemporaryDirectory() as temp_dir:
@@ -80,7 +89,7 @@ def _check_arm_gcc_installation():
         return CheckStatus.OK
 
 
-def _check_avr_gcc_version():
+def _check_avr_gcc_version() -> CheckStatus:
     """Returns True if the avr-gcc version is not known to cause problems.
     """
     version_number = ESSENTIAL_BINARIES['avr-gcc']['output'].strip()
@@ -90,7 +99,7 @@ def _check_avr_gcc_version():
     return _check_avr_gcc_installation()
 
 
-def _check_avr_gcc_installation():
+def _check_avr_gcc_installation() -> CheckStatus:
     """Returns OK if the avr-gcc is fully installed and can produce binaries.
     """
     with TemporaryDirectory() as temp_dir:
@@ -120,7 +129,7 @@ def _check_avr_gcc_installation():
         return CheckStatus.OK
 
 
-def _check_avrdude_version():
+def _check_avrdude_version() -> CheckStatus:
     last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
     version_number = last_line.split()[2][:-1]
     cli.log.info('Found avrdude version %s', version_number)
@@ -128,7 +137,7 @@ def _check_avrdude_version():
     return CheckStatus.OK
 
 
-def _check_dfu_util_version():
+def _check_dfu_util_version() -> CheckStatus:
     first_line = ESSENTIAL_BINARIES['dfu-util']['output'].split('\n')[0]
     version_number = first_line.split()[1]
     cli.log.info('Found dfu-util version %s', version_number)
@@ -136,7 +145,7 @@ def _check_dfu_util_version():
     return CheckStatus.OK
 
 
-def _check_dfu_programmer_version():
+def _check_dfu_programmer_version() -> CheckStatus:
     first_line = ESSENTIAL_BINARIES['dfu-programmer']['output'].split('\n')[0]
     version_number = first_line.split()[1]
     cli.log.info('Found dfu-programmer version %s', version_number)
@@ -144,7 +153,7 @@ def _check_dfu_programmer_version():
     return CheckStatus.OK
 
 
-def check_binaries():
+def check_binaries() -> CheckStatus:
     """Iterates through ESSENTIAL_BINARIES and tests them.
     """
     ok = CheckStatus.OK
@@ -161,7 +170,7 @@ def check_binaries():
     return ok
 
 
-def check_binary_versions():
+def check_binary_versions() -> list[CheckStatus]:
     """Check the versions of ESSENTIAL_BINARIES
     """
     checks = {
@@ -184,7 +193,7 @@ def check_binary_versions():
     return versions
 
 
-def check_submodules():
+def check_submodules() -> CheckStatus:
     """Iterates through all submodules to make sure they're cloned and up to date.
     """
     for submodule in submodules.status().values():
@@ -196,7 +205,7 @@ def check_submodules():
     return CheckStatus.OK
 
 
-def is_executable(command):
+def is_executable(command: str) -> bool:
     """Returns True if command exists and can be executed.
     """
     # Make sure the command is in the path.
@@ -219,7 +228,7 @@ def is_executable(command):
     return False
 
 
-def release_info(file='/etc/os-release'):
+def release_info(file: str = '/etc/os-release') -> dict[str, str]:
     """Parse release info to dict
     """
     ret = {}

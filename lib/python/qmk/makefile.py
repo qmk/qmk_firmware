@@ -1,9 +1,10 @@
 """ Functions for working with Makefiles
 """
 from pathlib import Path
+from typing import Optional, Union
 
 
-def parse_rules_mk_file(file, rules_mk=None):
+def parse_rules_mk_file(filepath: Union[str, Path], rules_mk: Optional[dict[str, str]] = None) -> dict[str, str]:
     """Turn a rules.mk file into a dictionary.
 
     Args:
@@ -16,7 +17,7 @@ def parse_rules_mk_file(file, rules_mk=None):
     if not rules_mk:
         rules_mk = {}
 
-    file = Path(file)
+    file = Path(filepath)
     if file.exists():
         rules_mk_lines = file.read_text(encoding='utf-8').split("\n")
 
