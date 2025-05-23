@@ -17,18 +17,10 @@ class CheckStatus(Enum):
 
 
 ESSENTIAL_BINARIES = {
-    'make': {
-        'version_arg': '--version'
-    },
-    'git': {
-        'version_arg': '--version'
-    },
-    'dos2unix': {
-        'version_arg': '--version'
-    },
-    'diff': {
-        'version_arg': '--version'
-    },
+    'make': {},
+    'git': {},
+    'dos2unix': {},
+    'diff': {},
     'dfu-programmer': {},
     'avrdude': {},
     'dfu-util': {},

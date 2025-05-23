@@ -13,7 +13,7 @@ An example of using `sudo`, when your controller is ATMega32u4:
 
 or just:
 
-    $ qmk flash -kb <keyboard> -km <keymap>
+    $ sudo make <keyboard>:<keymap>:flash
 
 Note that running `make` with `sudo` is generally ***not*** a good idea, and you should use one of the former methods, if possible.
 
