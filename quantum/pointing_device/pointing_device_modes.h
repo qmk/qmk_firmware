@@ -1,4 +1,4 @@
-  /* Copyright 2025 Alabastard (@Alabastard-64)
+/* Copyright 2025 Alabastard (@Alabastard-64)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -88,25 +88,16 @@
 #endif
 
 /* ----------Error Checking -------------------------------------------------------------------------------------- */
-_Static_assert(
-    (POINTING_MODES_DEFAULT_DIVISOR > MOUSE_REPORT_XY_MIN && POINTING_MODES_DEFAULT_DIVISOR <= MOUSE_REPORT_XY_MAX),
-    "POINTING_MODES_DEFAULT_DIVISOR (" STR(POINTING_MODES_DEFAULT_DIVISOR) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX)
-);
-_Static_assert(
-    (POINTING_MODES_DRAG_DIVISOR > MOUSE_REPORT_XY_MIN && POINTING_MODES_DRAG_DIVISOR <= MOUSE_REPORT_XY_MAX),
-    "POINTING_MODES_DRAG_DIVISOR (" STR(POINTING_MODES_DRAG_DIVISOR) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX)
-);
-_Static_assert(
-    (POINTING_MODES_PRECISION_MIN > MOUSE_REPORT_XY_MIN && POINTING_MODES_PRECISION_MIN <= MOUSE_REPORT_XY_MAX),
-    "POINTING_MODES_PRECISION_MIN (" STR(POINTING_MODES_PRECISION_MIN) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX)
-);
+_Static_assert((POINTING_MODES_DEFAULT_DIVISOR > MOUSE_REPORT_XY_MIN && POINTING_MODES_DEFAULT_DIVISOR <= MOUSE_REPORT_XY_MAX), "POINTING_MODES_DEFAULT_DIVISOR (" STR(POINTING_MODES_DEFAULT_DIVISOR) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX));
+_Static_assert((POINTING_MODES_DRAG_DIVISOR > MOUSE_REPORT_XY_MIN && POINTING_MODES_DRAG_DIVISOR <= MOUSE_REPORT_XY_MAX), "POINTING_MODES_DRAG_DIVISOR (" STR(POINTING_MODES_DRAG_DIVISOR) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX));
+_Static_assert((POINTING_MODES_PRECISION_MIN > MOUSE_REPORT_XY_MIN && POINTING_MODES_PRECISION_MIN <= MOUSE_REPORT_XY_MAX), "POINTING_MODES_PRECISION_MIN (" STR(POINTING_MODES_PRECISION_MIN) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX));
 _Static_assert((POINTING_MODES_PRECISION_MAX > MOUSE_REPORT_XY_MIN && POINTING_MODES_PRECISION_MAX <= MOUSE_REPORT_XY_MAX), "POINTING_MODES_PRECISION_MAX (" STR(POINTING_MODES_PRECISION_MAX) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX));
 _Static_assert((POINTING_MODES_PRECISION_STEP > MOUSE_REPORT_XY_MIN && POINTING_MODES_PRECISION_STEP <= MOUSE_REPORT_XY_MAX), "POINTING_MODES_PRECISION_STEP (" STR(POINTING_MODES_PRECISION_STEP) ") must be greater than " STR(MOUSE_REPORT_XY_MIN) " and less than or equal to " STR(MOUSE_REPORT_XY_MAX));
 
 _Static_assert(POINTING_MODES_NUM_DEVICES > 0, "POINTING_MODES_NUM_DEVICES must be at least 1");
 
 #if defined(SPLIT_POINTING_ENABLE) && defined(POINTING_DEVICE_COMBINED) || defined(POINTING_MODES_SINGLE_CONTROL)
-    _Static_assert(POINTING_MODES_NUM_DEVICES > 1, "POINTING_MODES_NUM_DEVICES must be at least 2 with SPLIT_POINTING_ENABLE & POINTING_DEVICE_COMBINED or POINTING_MODES_SINGLE_CONTROL defined");
+_Static_assert(POINTING_MODES_NUM_DEVICES > 1, "POINTING_MODES_NUM_DEVICES must be at least 2 with SPLIT_POINTING_ENABLE & POINTING_DEVICE_COMBINED or POINTING_MODES_SINGLE_CONTROL defined");
 #endif
 
 /* ----------Macros----------------------------------------------------------------------------------------------- */
@@ -134,20 +125,20 @@ enum pointing_modes_directions {
     PMD_DNLT  = 0x05, // [0101] 05
     PMD_UPLT  = 0x06, // [0110] 06
     PMD_DNRT  = 0x09, // [1001] 09
-    PMD_UPRT  = 0x0A,  // [1010] 10
+    PMD_UPRT  = 0x0A, // [1010] 10
 };
 
 #ifdef POINTING_MODES_8WAY_MAP_ENABLE
 enum pointing_modes_8_key_map {
-    PMK_UPLEFT = 0x00,
-    PMK_UP = 0x01,
-    PMK_UPRIGHT = 0x02,
-    PMK_LEFT = 0x03,
-    PMK_RIGHT = 0x04,
-    PMK_DOWNLEFT = 0x05,
-    PMK_DOWN = 0x06,
+    PMK_UPLEFT    = 0x00,
+    PMK_UP        = 0x01,
+    PMK_UPRIGHT   = 0x02,
+    PMK_LEFT      = 0x03,
+    PMK_RIGHT     = 0x04,
+    PMK_DOWNLEFT  = 0x05,
+    PMK_DOWN      = 0x06,
     PMK_DOWNRIGHT = 0x07,
-    PMK_NONE = 0x08,
+    PMK_NONE      = 0x08,
 };
 
 #else
