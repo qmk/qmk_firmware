@@ -42,6 +42,12 @@
 #ifndef ANALOG_JOYSTICK_SPEED_MAX
 #    define ANALOG_JOYSTICK_SPEED_MAX 2
 #endif
+#ifndef ANALOG_JOYSTICK_X_AXIS_DEADZONE
+#    define ANALOG_JOYSTICK_X_AXIS_DEADZONE 5
+#endif
+#ifndef ANALOG_JOYSTICK_Y_AXIS_DEADZONE
+#    define ANALOG_JOYSTICK_Y_AXIS_DEADZONE 5
+#endif
 
 const pointing_device_driver_t analog_joystick_pointing_device_driver;
 
