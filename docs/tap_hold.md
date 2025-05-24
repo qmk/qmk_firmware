@@ -450,7 +450,7 @@ Optionally, define the `is_flow_tap_key()` callback to specify where Flow Tap is
 
 The default implementation of this callback is:
 
-```.c
+```c
 bool is_flow_tap_key(uint16_t keycode) {
     if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
         return false; // Disable Flow Tap on hotkeys.
@@ -476,7 +476,7 @@ Optionally, for further flexibility, define the `get_flow_tap_term()` callback. 
 
 The default implementation of this callback is
 
-```.c
+```c
 uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
                            uint16_t prev_keycode) {
     if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
