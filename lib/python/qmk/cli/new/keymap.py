@@ -1,10 +1,12 @@
 """This script automates the copying of the default keymap into your own keymap.
 """
 import re
+import json
 import shutil
+from pathlib import Path
 
 from milc import cli
-from milc.questions import question
+from milc.questions import question, choice
 
 from qmk.constants import HAS_QMK_USERSPACE, QMK_USERSPACE
 from qmk.path import is_keyboard, keymaps, keymap
@@ -12,6 +14,34 @@ from qmk.git import git_get_username
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.userspace import UserspaceDefs
+from qmk.json_schema import json_load
+from qmk.json_encoders import KeymapJSONEncoder
+from qmk.info import info_json
+
+
+def _list_available_converters(kb_name):
+    """Search for converters that can be applied to a given keyboard
+    """
+    if not is_keyboard(kb_name):
+        return None
+
+    info = info_json(kb_name)
+    pin_compatible = info.get('pin_compatible')
+    if not pin_compatible:
+        return None
+
+    return sorted(folder.name.split('_to_')[-1] for folder in Path('platforms').glob(f'*/converters/{pin_compatible}_to_*'))
+
+
+def _set_converter(file, converter):
+    """add/overwrite any existing converter specified in keymap.json
+    """
+    json_data = json_load(file) if file.exists() else {}
+
+    json_data['converter'] = converter
+
+    output = json.dumps(json_data, cls=KeymapJSONEncoder, sort_keys=True)
+    file.write_text(output + '\n', encoding='utf-8')
 
 
 def validate_keymap_name(name):
@@ -37,8 +67,28 @@ Keymap name? """
     return question(prompt, default=git_get_username())
 
 
+def prompt_converter(kb_name):
+    prompt = """
+{fg_yellow}Configure Development Board{style_reset_all}
+For more information, see:
+https://docs.qmk.fm/feature_converters
+
+Use converter? """
+
+    converters = _list_available_converters(kb_name)
+    if not converters:
+        return None
+
+    choices = ['No (default)', *converters]
+
+    answer = choice(prompt, options=choices, default=0)
+    return None if choices.index(answer) == 0 else answer
+
+
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
 @cli.argument('-km', '--keymap', help='Specify the name for the new keymap directory')
+@cli.argument('--converter', help='Specify the name of a converter to configure')
+@cli.argument('--skip-converter', arg_only=True, action='store_true', help='Skip converter')
 @cli.subcommand('Creates a new keymap for the keyboard of your choosing')
 @automagic_keyboard
 @automagic_keymap
@@ -51,9 +101,12 @@ def new_keymap(cli):
     # ask for user input if keyboard or keymap was not provided in the command line
     kb_name = cli.config.new_keymap.keyboard if cli.config.new_keymap.keyboard else prompt_keyboard()
     user_name = cli.config.new_keymap.keymap if cli.config.new_keymap.keymap else prompt_user()
+    converter = cli.config.new_keymap.converter if cli.args.skip_converter or cli.config.new_keymap.converter else prompt_converter(kb_name)
 
     # check directories
-    if not is_keyboard(kb_name):
+    try:
+        kb_name = keyboard_folder(kb_name)
+    except ValueError:
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} does not exist! Please choose a valid name.')
         return False
 
@@ -76,6 +129,9 @@ def new_keymap(cli):
 
     # create user directory with default keymap files
     shutil.copytree(keymap_path_default, keymap_path_new, symlinks=True)
+
+    if converter:
+        _set_converter(keymap_path_new / 'keymap.json', converter)
 
     # end message to user
     cli.log.info(f'{{fg_green}}Created a new keymap called {{fg_cyan}}{user_name}{{fg_green}} in: {{fg_cyan}}{keymap_path_new}.{{fg_reset}}')

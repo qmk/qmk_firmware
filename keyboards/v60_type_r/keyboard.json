@@ -1,7 +1,6 @@
 {
   "keyboard_name": "V60 Type R",
   "manufacturer": "KB Paradise",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x7432",
@@ -15,7 +14,6 @@
     "backlight": true,
     "bootmagic": false,
     "command": true,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false
