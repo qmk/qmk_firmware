@@ -68,6 +68,7 @@
         },
         "sleep": true
     },
+    "community_layouts": ["planck_mit"],
     "layouts": {
         "LAYOUT_planck_mit": {
             "layout": [
