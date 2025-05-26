@@ -6,13 +6,10 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
     },
-
     "matrix_pins": {
         "cols": ["B10", "A6", "A7", "B0", "B1", "B2", "A13", "B12", "B13", "B14", "B15", "A8", "A9", "A10", "A15", "B3", "B4", "C13", "C14", "C15", "F0"],
         "rows": ["A14", "B5", "B7", "B8", "F1", "A0"]
@@ -20,18 +17,17 @@
     "indicators": {
         "caps_lock": "B11",
         "scroll_lock": "B9",
-        "num_lock": "B6",
-        "on_state": 1
+        "num_lock": "B6"
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0100",
         "vid": "0x4C58"
     },
+    "community_layouts": ["fullsize_extended_ansi"],
     "layouts": {
-        "LAYOUT_fullsize_ansi": {
+        "LAYOUT_fullsize_extended_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
