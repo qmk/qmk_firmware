@@ -1,12 +1,12 @@
 # soyuzxl
 
-![soyuzxl](https://i.imgur.com/njUq2s3h.jpeg)
+![soyuzxl](https://i.imgur.com/KwwORGSh.jpeg)
 
-21 Keys, 4 Potentiometers and 1 Fader MIDI Macro Keyboard
+21 Key, 4 Encoder, 1 Slider
 
 * Keyboard Maintainer: [spacehangover](https://github.com/spacehangover)
-* Hardware Supported: Arduino Pro Micro, B103K Slide Pot, 10k Pots Handwired
-* Hardware Availability: Arduino Pro Micro
+* Hardware Supported: RP2040 Handwired
+* Hardware Availability: RP2040 Pico
 
 Make example for this keyboard (after setting up your build environment):
 

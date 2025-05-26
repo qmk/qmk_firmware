@@ -2,7 +2,7 @@
     "manufacturer": "spacehangover",
     "keyboard_name": "SoyuzXL",
     "maintainer": "spacehangover",
-    "bootloader": "atmel-dfu",
+    "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -10,18 +10,27 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder" : true
     },
     "matrix_pins": {
-        "cols": ["D1", "D0", "D4", "C6", "D7", "E6", "B4"],
-        "rows": ["B5", "B2", "B3"]
+        "cols": ["GP0", "GP1", "GP2", "GP3", "GP4", "GP5", "GP6"],
+        "rows": ["GP7", "GP8", "GP9"]
     },
-    "processor": "atmega32u4",
+    "processor": "RP2040",
     "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0005",
         "vid": "0x5757"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP14", "pin_b": "GP15"},
+            {"pin_a": "GP16", "pin_b": "GP17"},
+            {"pin_a": "GP18", "pin_b": "GP19"},
+            {"pin_a": "GP20", "pin_b": "GP21"}
+        ]
     },
     "layouts": {
         "LAYOUT": {
