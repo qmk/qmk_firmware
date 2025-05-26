@@ -101,12 +101,12 @@ int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_di
 }
 
 mouse_xy_report_t pimoroni_trackball_adapt_values(xy_clamp_range_t *offset) {
-    if (*offset > XY_REPORT_MAX) {
-        *offset -= XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MAX;
-    } else if (*offset < XY_REPORT_MIN) {
-        *offset += XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MIN;
+    if (*offset > MOUSE_REPORT_XY_MAX) {
+        *offset -= MOUSE_REPORT_XY_MAX;
+        return (mouse_xy_report_t)MOUSE_REPORT_XY_MAX;
+    } else if (*offset < MOUSE_REPORT_XY_MIN) {
+        *offset += MOUSE_REPORT_XY_MAX;
+        return (mouse_xy_report_t)MOUSE_REPORT_XY_MIN;
     } else {
         mouse_xy_report_t temp_return = *offset;
         *offset                       = 0;

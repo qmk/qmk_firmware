@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KeyBee65",
     "manufacturer": "KeyBee",
-    "url": "",
     "maintainer": "ToastyStoemp",
     "usb": {
         "vid": "0x6265",
@@ -20,8 +19,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

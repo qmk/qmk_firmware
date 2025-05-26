@@ -85,7 +85,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "nkro": false,
