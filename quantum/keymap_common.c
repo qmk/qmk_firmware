@@ -156,7 +156,7 @@ action_t action_for_keycode(uint16_t keycode) {
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
             mod          = mod_config(QK_LAYER_MOD_GET_MODS(keycode));
             action_layer = QK_LAYER_MOD_GET_LAYER(keycode);
-            action.code  = ACTION_LAYER_MODS(action_layer, (mod & 0x10) ? mod << 4 : mod);
+            action.code  = ACTION_LAYER_MODS(action_layer, (mod & 0x10) ? (mod & 0xF) << 4 : mod);
             break;
 #endif // NO_ACTION_LAYER
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
