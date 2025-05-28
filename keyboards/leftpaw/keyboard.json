@@ -1,6 +1,6 @@
 {
     "manufacturer": "Ryan Chomistek",
-    "keyboard_name": "lefty",
+    "keyboard_name": "leftpaw",
     "maintainer": "Ryan Chomistek",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
