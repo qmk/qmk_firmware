@@ -8,5 +8,3 @@ SRC += \
 	djinn_portscan_matrix.c \
 	djinn_split_sync.c \
 	djinn_usbpd.c
-
-DEFAULT_FOLDER = tzarc/djinn/rev2
