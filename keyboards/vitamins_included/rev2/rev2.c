@@ -12,7 +12,7 @@ bool is_keyboard_left(void) {
         gpio_set_pin_input(SPLIT_HAND_PIN);
         return x;
     #elif defined(EE_HANDS)
-        return eeprom_read_byte(EECONFIG_HANDEDNESS);
+        return eeconfig_read_handedness();
     #endif
 
     return is_keyboard_master();

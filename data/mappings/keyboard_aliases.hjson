@@ -146,6 +146,9 @@
     "daisy": {
         "target": "ktec/daisy"
     },
+    "deemen17/de60": {
+        "target": "deemen17/de60/r1"
+    },
     "dp3000": {
         "target": "dp3000/rev1"
     },
@@ -346,6 +349,9 @@
     },
     "keycapsss/plaid_pad": {
         "target": "keycapsss/plaid_pad/rev1"
+    },
+    "keyten/kt60hs_t": {
+        "target": "keyten/kt60hs_t/v1"
     },
     "kira75": {
         "target": "kira/kira75"
@@ -580,6 +586,9 @@
     },
     "ploopyco/trackball": {
         "target": "ploopyco/trackball/rev1_005"
+    },
+    "plywrks/ply8x": {
+        "target": "plywrks/ply8x/solder"
     },
     "polilla": {
         "target": "polilla/rev1"
@@ -1033,7 +1042,7 @@
         "target": "kprepublic/bm68hsrgb/rev1"
     },
     "late9/rev1": {
-        "target": "rookiebwoy/late9/rev1"
+        "target": "ivndbt/late9/rev1"
     },
     "latin17rgb": {
         "target": "latincompass/latin17rgb"
@@ -1198,7 +1207,7 @@
         "target": "spaceholdings/nebula68b"
     },
     "neopad/rev1": {
-        "target": "rookiebwoy/neopad/rev1"
+        "target": "ivndbt/neopad/rev1"
     },
     "niu_mini": {
         "target": "kbdfans/niu_mini"
@@ -2095,10 +2104,16 @@
         "target": "rmi_kb/wete/v2"
     },
     "rookiebwoy/late9": {
-        "target": "rookiebwoy/late9/rev1"
+        "target": "ivndbt/late9/rev1"
     },
     "rookiebwoy/neopad": {
-        "target": "rookiebwoy/neopad/rev1"
+        "target": "ivndbt/neopad/rev1"
+    },
+    "ivndbt/late9": {
+        "target": "ivndbt/late9/rev1"
+    },
+    "ivndbt/neopad": {
+        "target": "ivndbt/neopad/rev1"
     },
     "rura66": {
         "target": "rura66/rev1"

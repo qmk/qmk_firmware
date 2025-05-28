@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Cor TKL",
     "manufacturer": "concreteflowers",
-    "url": "",
     "maintainer": "ramonimbao",
     "community_layouts": [
       "tkl_f13_ansi",
@@ -17,8 +16,6 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": false,
         "rgb_matrix": true
     },

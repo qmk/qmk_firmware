@@ -1,7 +1,6 @@
 {
     "keyboard_name": "snatchpad",
     "manufacturer": "xia0",
-    "url": "",
     "maintainer": "xia0",
     "usb": {
         "vid": "0x6662",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "key_lock": true,
