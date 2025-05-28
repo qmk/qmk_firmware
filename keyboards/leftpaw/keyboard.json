@@ -15,7 +15,7 @@
         "rows": ["GP20", "GP19", "GP18", "GP17", "GP16"]
     },
     "processor": "RP2040",
-    "url": "",
+    "url": "https://github.com/RyanChomistek/lefty",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
