@@ -45,10 +45,6 @@ extern void bluefruit_le_send_consumer(uint16_t usage);
  * change. */
 extern void bluefruit_le_send_mouse(report_mouse_t *report);
 
-/* Compute battery voltage by reading an analog pin.
- * Returns the integer number of millivolts */
-extern uint32_t bluefruit_le_read_battery_voltage(void);
-
 extern bool bluefruit_le_set_mode_leds(bool on);
 extern bool bluefruit_le_set_power_level(int8_t level);
 

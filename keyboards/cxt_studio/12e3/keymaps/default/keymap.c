@@ -11,14 +11,14 @@ enum my_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT(
-        KC_PSCR, KC_CUT, KC_COPY, KC_PSTE,  MS_BTN3, RM_TOGG,
-        KC_CALC, KC_UNDO, KC_MPLY, KC_MNXT,     KC_MUTE,
+        KC_ESC, C(KC_X), C(KC_C), C(KC_V),  MS_BTN3, RM_TOGG,
+        KC_PSCR,C(KC_Z), KC_CALC, KC_MNXT,     KC_MPLY,
         MO(1), KC_LGUI, KC_DEL, KC_APP
     ),
 
     [_RGBL] = LAYOUT(
-        RM_NEXT, RM_SATU, KC_INS, KC_DEL,   _______, _______,
-        RM_PREV, RM_SATD, KC_PGUP, KC_HOME,     _______,
+        RM_NEXT, RM_SATU, KC_INS,  KC_DEL,   _______, _______,
+        RM_PREV, RM_SATD, KC_PGUP, KC_HOME,     KC_MUTE,
         _______, QK_BOOT, KC_PGDN, KC_END
     ),
 };

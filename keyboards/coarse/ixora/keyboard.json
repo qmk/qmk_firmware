@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ixora Rev1",
     "manufacturer": "PeiorisBoards",
-    "url": "",
     "maintainer": "Peioris",
     "usb": {
         "vid": "0xFEED",

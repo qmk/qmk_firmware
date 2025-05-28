@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Handwired48Keys",
     "manufacturer": "Wulkan",
-    "url": "",
     "maintainer": "Napoleon Wulkan",
     "usb": {
       "vid": "0xFEED",

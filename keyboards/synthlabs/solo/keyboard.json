@@ -7,8 +7,6 @@
     "processor": "atmega32u4",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Gin V2",
     "manufacturer": "Ocean",
-    "url": "",
     "maintainer": "Ocean",
     "usb": {
         "vid": "0x9624",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

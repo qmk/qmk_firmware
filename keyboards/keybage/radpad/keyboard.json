@@ -1,7 +1,6 @@
 {
     "keyboard_name": "RadPad",
     "manufacturer": "Keybage",
-    "url": "",
     "maintainer": "Brandon Schlack",
     "usb": {
         "vid": "0x4253",
@@ -13,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

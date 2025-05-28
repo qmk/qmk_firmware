@@ -44,7 +44,7 @@ void eeconfig_init_kb(void) {
         }
     }
     // Write default value to EEPROM now
-    eeconfig_update_kb_datablock(&eeprom_ec_config);
+    eeconfig_update_kb_datablock(&eeprom_ec_config, 0, EECONFIG_KB_DATA_SIZE);
 
     eeconfig_init_user();
 }
@@ -52,7 +52,7 @@ void eeconfig_init_kb(void) {
 // On Keyboard startup
 void keyboard_post_init_kb(void) {
     // Read custom menu variables from memory
-    eeconfig_read_kb_datablock(&eeprom_ec_config);
+    eeconfig_read_kb_datablock(&eeprom_ec_config, 0, EECONFIG_KB_DATA_SIZE);
 
     // Set runtime values to EEPROM values
     ec_config.actuation_mode                 = eeprom_ec_config.actuation_mode;
