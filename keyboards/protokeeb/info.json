@@ -1,0 +1,10 @@
+{
+    "keyboard_name": "Protokeeb",
+    "manufacturer": "A-Tech Officials",
+    "maintainer": "atechofficials",
+    "url": "https://github.com/atechofficials/protokeeb",
+    "tags": ["rgb", "4x4"],
+    "usb": {
+        "vid": "0x419A"
+    }
+}
