@@ -58,7 +58,7 @@ const pointing_device_driver_t paw3204_pointing_device_driver = {
     .get_cpi    = paw3204_get_cpi,
 };
 
-void paw3204_init(void) {
+bool paw3204_init(void) {
     gpio_set_pin_output(PAW3204_SCLK_PIN);     // setclockpin to output
     gpio_set_pin_input_high(PAW3204_SDIO_PIN); // set datapin input high
 
@@ -69,6 +69,9 @@ void paw3204_init(void) {
     paw3204_read_reg(0x01); // read id2
     // PAW3204_write_reg(REG_SETUP,0x06);  // dont reset sensor and set cpi 1600
     paw3204_write_reg(REG_IMGTRASH, 0x32); // write image trashhold
+
+    // TODO: Perform a real check
+    return true;
 }
 
 uint8_t paw3204_serial_read(void) {

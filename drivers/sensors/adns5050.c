@@ -55,7 +55,7 @@ const pointing_device_driver_t adns5050_pointing_device_driver = {
 
 static bool powered_down = false;
 
-void adns5050_init(void) {
+bool adns5050_init(void) {
     // Initialize the ADNS serial pins.
     gpio_set_pin_output(ADNS5050_SCLK_PIN);
     gpio_set_pin_output(ADNS5050_SDIO_PIN);
@@ -75,6 +75,9 @@ void adns5050_init(void) {
     // gets the adns ready for write commands
     // (for example, setting the dpi).
     adns5050_read_burst();
+
+    // TODO: Perform a real check
+    return true;
 }
 
 // Perform a synchronization with the ADNS.

@@ -115,7 +115,7 @@ uint8_t adns9800_read(uint8_t reg_addr) {
     return data;
 }
 
-void adns9800_init(void) {
+bool adns9800_init(void) {
     gpio_set_pin_output(ADNS9800_CS_PIN);
 
     spi_init();
@@ -178,6 +178,9 @@ void adns9800_init(void) {
     adns9800_write(REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
 
     adns9800_set_cpi(ADNS9800_CPI);
+
+    // TODO: Perform a real check
+    return true;
 }
 
 config_adns9800_t adns9800_get_config(void) {
