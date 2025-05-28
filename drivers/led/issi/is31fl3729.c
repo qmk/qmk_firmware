@@ -64,6 +64,9 @@
 #    define IS31FL3729_PWM_FREQUENCY IS31FL3729_PWM_FREQUENCY_32K_HZ
 #endif
 
+#define IS31FL3729_PWM_REGISTERS_PER_CHUNK 13
+#define IS31FL3729_CHUNK_COUNT ((IS31FL3729_PWM_REGISTER_COUNT + IS31FL3729_PWM_REGISTERS_PER_CHUNK - 1) / IS31FL3729_PWM_REGISTERS_PER_CHUNK)
+
 const uint8_t i2c_addresses[IS31FL3729_DRIVER_COUNT] = {
     IS31FL3729_I2C_ADDRESS_1,
 #ifdef IS31FL3729_I2C_ADDRESS_2
@@ -81,14 +84,14 @@ const uint8_t i2c_addresses[IS31FL3729_DRIVER_COUNT] = {
 // Storing them like this is optimal for I2C transfers to the registers.
 typedef struct is31fl3729_driver_t {
     uint8_t pwm_buffer[IS31FL3729_PWM_REGISTER_COUNT];
-    bool    pwm_buffer_dirty;
+    bool    pwm_buffer_dirty[IS31FL3729_CHUNK_COUNT];
     uint8_t scaling_buffer[IS31FL3729_SCALING_REGISTER_COUNT];
     bool    scaling_buffer_dirty;
 } PACKED is31fl3729_driver_t;
 
 is31fl3729_driver_t driver_buffers[IS31FL3729_DRIVER_COUNT] = {{
     .pwm_buffer           = {0},
-    .pwm_buffer_dirty     = false,
+    .pwm_buffer_dirty     = {0},
     .scaling_buffer       = {0},
     .scaling_buffer_dirty = false,
 }};
@@ -107,13 +110,21 @@ void is31fl3729_write_pwm_buffer(uint8_t index) {
     // Transmit PWM registers in 11 transfers of 13 bytes.
 
     // Iterate over the pwm_buffer contents at 13 byte intervals.
-    for (uint8_t i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += 13) {
+    for (uint8_t i = 0; i <= IS31FL3729_CHUNK_COUNT; i++) {
+        if (!driver_buffers[index].pwm_buffer_dirty[i]) {
+            continue;
+        }
+
+        driver_buffers[index].pwm_buffer_dirty[i] = false;
+
+        uint8_t offset = i * IS31FL3729_PWM_REGISTERS_PER_CHUNK;
+
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3729_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + i, driver_buffers[index].pwm_buffer + i, 13, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + offset, driver_buffers[index].pwm_buffer + offset, IS31FL3729_PWM_REGISTERS_PER_CHUNK, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + i, driver_buffers[index].pwm_buffer + i, 13, IS31FL3729_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + offset, driver_buffers[index].pwm_buffer + offset, IS31FL3729_PWM_REGISTERS_PER_CHUNK, IS31FL3729_I2C_TIMEOUT);
 #endif
     }
 }
@@ -167,7 +178,10 @@ void is31fl3729_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         driver_buffers[led.driver].pwm_buffer[led.r] = red;
         driver_buffers[led.driver].pwm_buffer[led.g] = green;
         driver_buffers[led.driver].pwm_buffer[led.b] = blue;
-        driver_buffers[led.driver].pwm_buffer_dirty  = true;
+
+        driver_buffers[led.driver].pwm_buffer_dirty[led.r / IS31FL3729_PWM_REGISTERS_PER_CHUNK] = true;
+        driver_buffers[led.driver].pwm_buffer_dirty[led.g / IS31FL3729_PWM_REGISTERS_PER_CHUNK] = true;
+        driver_buffers[led.driver].pwm_buffer_dirty[led.b / IS31FL3729_PWM_REGISTERS_PER_CHUNK] = true;
     }
 }
 
@@ -195,10 +209,13 @@ void is31fl3729_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, 
 }
 
 void is31fl3729_update_pwm_buffers(uint8_t index) {
-    if (driver_buffers[index].pwm_buffer_dirty) {
-        is31fl3729_write_pwm_buffer(index);
-
-        driver_buffers[index].pwm_buffer_dirty = false;
+    for (uint8_t i = 0; i < IS31FL3729_CHUNK_COUNT; i++) {
+        if (driver_buffers[index].pwm_buffer_dirty[i]) {
+            // if any of these are true then write PWM buffer
+            // then exit the loop
+            is31fl3729_write_pwm_buffer(index);
+            return;
+        }
     }
 }
 
