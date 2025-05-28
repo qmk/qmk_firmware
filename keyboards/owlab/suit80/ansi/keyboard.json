@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Suit80 ANSI",
     "manufacturer": "OwLab",
-    "url": "",
     "maintainer": "Owlab",
     "usb": {
         "vid": "0x4F53",
@@ -11,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

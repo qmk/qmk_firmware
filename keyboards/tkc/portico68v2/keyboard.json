@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Portico68 v2",
     "manufacturer": "TKC",
-    "url": "",
     "maintainer": "TerryMathews",
     "usb": {
         "vid": "0x544B",
@@ -63,7 +62,6 @@
     "features": {
         "bootmagic": true,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

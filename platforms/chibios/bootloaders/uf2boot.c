@@ -1,6 +1,8 @@
 // Copyright 2023 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include <stdint.h>
+#include <hal.h>
 #include "bootloader.h"
 
 // From mmoskal/uf2-stm32f103's backup.c

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Void65h",
     "manufacturer": "Eason",
-    "url": "",
     "maintainer": "Eason",
     "usb": {
         "vid": "0x51D7",
@@ -11,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
