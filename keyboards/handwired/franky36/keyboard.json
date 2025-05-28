@@ -23,8 +23,8 @@
     "url": "https://github.com/avdyushin/franky36",
     "usb": {
         "device_version": "0.2.0",
-        "pid": "0x0001",
-        "vid": "0xFEED"
+        "pid": "0x3336",
+        "vid": "0x1209"
     },
     "community_layouts": ["split_3x5_3"],
     "layouts": {
