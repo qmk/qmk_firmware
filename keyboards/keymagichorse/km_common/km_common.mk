@@ -38,3 +38,4 @@ VPATH += keyboards/keymagichorse/km_common/
 SRC += km_common/bhq_common.c
 SRC += km_common/transport.c
 SRC += km_common/wireless.c
+SRC += km_common/battery.c

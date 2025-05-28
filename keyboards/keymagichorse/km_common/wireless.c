@@ -20,6 +20,7 @@
 #include "report_buffer.h"
 #include "wireless.h"
 #include "transport.h"
+#include "battery.h"
 #include "km_printf.h"
 #ifdef RAW_ENABLE
 #   include "raw_hid.h"
@@ -52,6 +53,7 @@ void wireless_ble_hanlde(uint8_t host_index, uint8_t advertSta,uint8_t connectSt
     if(connectSta == 1)
     {
         report_buffer_clear();// 已连接时，清空一下
+        battery_read_and_update_data();
         wt_state = WT_STATE_CONNECTED;
     }
     wireless_ble_hanlde_kb(host_index, advertSta, connectSta, pairingSta);

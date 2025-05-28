@@ -19,7 +19,7 @@
 #include "wireless.h"
 #include "transport.h"
 #include "km_printf.h"
-
+#include "battery.h"
 #include "outputselect.h"
 #include "usb_main.h"
 # if defined(KB_LPM_ENABLED)
@@ -36,7 +36,7 @@ static uint8_t key_ble_host_index = 0;         // 蓝牙索引
 
 
 bool process_record_bhq(uint16_t keycode, keyrecord_t *record) {
-
+    battery_reset_timer();
     // TODO: 使用QMK的无线键值，并且提取这里的逻辑到km_common文件夹
 #   if defined(KB_LPM_ENABLED)
     lpm_timer_reset();  // 这里用于低功耗，按下任何按键刷新低功耗计时器
