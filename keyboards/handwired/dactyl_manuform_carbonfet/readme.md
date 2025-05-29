@@ -34,7 +34,7 @@ Variants are denoted as `RowCount`*x*`ColumnCount`*(_`Alteration`)*
 | 7 | As *6 column* with additional pinky finger column |  
 
 ### Alteration
-| Code | Description | Diagram </br> *(4x6 example)* |
+| Suffix | Description | Diagram </br> *(4x6 example)* |
 | :---: | :---: | :---: | 
 | ex | **Ex**tended Bottom Row: Key count on the finger well bottom row is extended outward from the default 2 |  ![ex](https://i.imgur.com/ifhDa7Zh.png) |
 | eic | **E**xtended **I**nner **C**olumn: Each half gains an additional inner column though the bottom key of said column is ommitted | ![eic](https://i.imgur.com/stuHtsXh.png) |
