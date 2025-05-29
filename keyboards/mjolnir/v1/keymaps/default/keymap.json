@@ -9,7 +9,7 @@
       "KC_TAB",  "KC_GRV",  "KC_W",     "KC_E",     "KC_R",     "KC_T",   "KC_NUBS",          "KC_TAB",  "KC_BSLS", "KC_U",    "KC_I",    "KC_O",     "KC_EQL",  "KC_LBRC", "KC_RBRC",
       "KC_LSFT", "KC_Q",    "KC_S",     "KC_D",     "KC_F",     "KC_G",   "KC_TAB",           "KC_TAB",  "KC_Y",    "KC_H",    "KC_J",    "KC_K",     "KC_P",    "KC_SCLN", "KC_QUOT",
       "KC_LCTL", "KC_A",    "KC_X",     "KC_C",     "KC_V",     "KC_B",                                  "KC_N",    "KC_M",    "KC_COMM", "KC_DOT",   "KC_L",    "KC_RSFT", "KC_HOME",
-                 "KC_Z",    "KC_LGUI",  "MO(2)",    "KC_LGUI",                                                      "KC_LEFT", "KC_DOWN", "KC_UP",    "KC_SLSH", "KC_RCTL", "KC_END",
+                 "KC_Z",    "KC_LGUI",  "KC_LALT",  "MO(2)",                                                        "KC_LEFT", "KC_DOWN", "KC_UP",    "KC_SLSH", "KC_RCTL", "KC_END",
                                                                                                                                                       "KC_RIGHT",
       
                                                                           "KC_ENTER",         "KC_ENTER",
