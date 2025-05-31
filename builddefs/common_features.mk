@@ -723,7 +723,9 @@ ifeq ($(strip $(LIB8TION_ENABLE)), yes)
         OPT_DEFS += -DLIB8_ATTINY
     endif
     OPT_DEFS += -DFASTLED_SCALE8_FIXED=1 -DFASTLED_BLEND_FIXED=1
-    SRC += $(LIB_PATH)/lib8tion/lib8tion.c
+    COMMON_VPATH += $(LIB_PATH)/lib8tion
+    COMMON_VPATH += $(LIB_PATH)/lib8tion/src
+    SRC += $(LIB_PATH)/lib8tion/src/lib8tion.c
 endif
 
 VALID_HAPTIC_DRIVER_TYPES := drv2605l solenoid
