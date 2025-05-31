@@ -21,10 +21,17 @@
 #include "ap2_led.h"
 
 typedef struct __attribute__((__packed__)) {
-    uint8_t _dummy[10];
-    bool    caps_lock;
-} ble_capslock_t;
-extern ble_capslock_t ble_capslock;
+    uint8_t _dummy[9];
+    uint8_t id;
+    uint8_t status;
+} ble_status_t;
+
+extern bool ble_capslock;
+
+enum {
+    BLE_STS_ID_CAPSLOCK = 0x07,
+    BLE_STS_ID_CONNECT = 0x0c,
+};
 
 enum AP2KeyCodes {
     KC_AP2_BT1 = QK_KB_0,
