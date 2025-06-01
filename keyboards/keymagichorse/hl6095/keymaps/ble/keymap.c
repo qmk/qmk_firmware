@@ -23,10 +23,11 @@
 #include "bhq_common.h"
 #include "wireless.h"
 #include "transport.h"
+#include "report_buffer.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_all(
-    QK_GESC, KC_1,    UG_TOGG,     UG_NEXT,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     KC_MINS,  KC_EQL,  KC_BSLS, KC_BSPC,
+    QK_GESC, KC_1,    KC_2,     KC_3,     KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,     KC_0,     KC_MINS,  KC_EQL,  KC_BSLS, KC_BSPC,
     KC_TAB,  KC_Q,    KC_W,     KC_E,     KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,     KC_P,     KC_LBRC,  KC_RBRC, KC_BSLS,
     KC_CAPS, KC_A,    KC_S,     KC_D,     KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,     KC_SCLN,  KC_QUOT,  KC_BSLS, KC_ENT,
     KC_LSFT, KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,   KC_SLSH,  KC_RSFT,  KC_UP,   KC_DEL,
@@ -35,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV , KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   KC_F7,    KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_DEL,
     KC_TRNS, BL_SW_0, BL_SW_1,  RF_TOG,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
     KC_TRNS, USB_TOG, NK_TOGG, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD, RGB_VAI, RGB_VAD, KC_TRNS, CG_TOGG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BRIU, KC_TRNS,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BRIU, KC_TRNS,
     KC_TRNS, GU_TOGG,   KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,                    KC_TRNS, KC_TRNS, KC_TRNS, KC_VOLD, KC_BRID, KC_VOLU),
   [2] = LAYOUT_all(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -87,7 +88,7 @@ bool led_update_user(led_t led_state) {
 // 无线蓝牙回调函数
 void wireless_ble_hanlde_kb(uint8_t host_index,uint8_t advertSta,uint8_t connectSta,uint8_t pairingSta)
 {
-    rgblight_disable_noeeprom();
+    rgblight_disable();
     rgb_adv_unblink_all_layer();
     km_printf("wireless_ble_hanlde_kb->host_index: %d\r\n",host_index);
     // 蓝牙没有连接 && 蓝牙广播开启  && 蓝牙配对模式
@@ -106,6 +107,8 @@ void wireless_ble_hanlde_kb(uint8_t host_index,uint8_t advertSta,uint8_t connect
     // 蓝牙已连接
     if(connectSta == 1)
     {
+        report_buffer_clear();
+        layer_clear();
         rgblight_blink_layer_repeat(host_index , 200, 2);
         km_printf("if 3\n");
     }
@@ -114,6 +117,13 @@ void wireless_rf24g_hanlde_kb(uint8_t connectSta,uint8_t pairingSta)
 {
     rgblight_disable_noeeprom();
     rgb_adv_unblink_all_layer();
+    if(connectSta == 1)
+    {
+        report_buffer_clear();
+        layer_clear();
+        rgblight_blink_layer_repeat(3 , 200, 2);
+        km_printf("if 3\n");
+    }
 }
 #endif
 

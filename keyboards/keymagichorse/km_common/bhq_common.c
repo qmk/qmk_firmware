@@ -55,13 +55,16 @@ bool process_record_bhq(uint16_t keycode, keyrecord_t *record) {
             keycode != BLE_RESET &&
             keycode != BLE_OFF
         ) {
-            if((IS_BLE_TRANSPORT(transport_get()) == true) )
+            if((IS_BLE_TRANSPORT(transport_get()) == true))
             {
-                // 检查传输模式是否为蓝牙模式
-                // KB_TRANSPORT_BLUETOOTH_1 在枚举 里面是2、在蓝牙通道内是0
-                // 那么 2 - 2 = 0 那就是host = 0;
-                // 重新打开非配对蓝牙广播。如已开启蓝牙广播或已连接，那么不会断开当前的蓝牙连接。
-                bhq_AnewOpenBleAdvertising(transport_get() - KB_TRANSPORT_BLUETOOTH_1, 15);
+                if(wireless_get() == WT_STATE_DISCONNECTED || wireless_get() == WT_STATE_RESET || wireless_get() == WT_STATE_INITIALIZED )
+                {
+                    // 检查传输模式是否为蓝牙模式
+                    // KB_TRANSPORT_BLUETOOTH_1 在枚举 里面是2、在蓝牙通道内是0
+                    // 那么 2 - 2 = 0 那就是host = 0;
+                    // 重新打开非配对蓝牙广播。如已开启蓝牙广播或已连接，那么不会断开当前的蓝牙连接。
+                    bhq_AnewOpenBleAdvertising(transport_get() - KB_TRANSPORT_BLUETOOTH_1, 30);
+                }
             }   
             else if(IS_RF_TRANSPORT(transport_get()) == true)
             {
