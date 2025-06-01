@@ -489,6 +489,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #ifdef ENABLE_COMPILE_KEYCODE
             case QK_MAKE: // Compiles the firmware, and adds the flash command based on keyboard bootloader
+            {
 #    ifdef NO_ACTION_ONESHOT
                 const uint8_t temp_mod = mod_config(get_mods());
 #    else
@@ -512,6 +513,7 @@ bool process_record_quantum(keyrecord_t *record) {
                     reset_keyboard();
                 }
                 return false;
+            }
 #endif
         }
     }
