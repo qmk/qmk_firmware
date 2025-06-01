@@ -357,7 +357,7 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
     drop_combo_from_buffer(combo_index);
 }
 
-static inline void apply_combos(void) {
+static inline void apply_combos(bool triggered_by_timer) {
     // Apply all buffered normal combos.
     for (uint8_t i = combo_buffer_read; i != combo_buffer_write; INCREMENT_MOD(i)) {
         queued_combo_t *buffered_combo = &combo_buffer[i];
@@ -366,6 +366,13 @@ static inline void apply_combos(void) {
 #ifdef COMBO_MUST_TAP_PER_COMBO
         if (get_combo_must_tap(buffered_combo->combo_index, combo)) {
             // Tap-only combos are applied on key release only, so let's drop 'em here.
+            drop_combo_from_buffer(buffered_combo->combo_index);
+            continue;
+        }
+#endif
+#ifdef COMBO_HOLD_STRICT
+        if (!triggered_by_timer && _get_combo_must_hold(buffered_combo->combo_index, combo)) {
+            // When strict, hold-only combos are applied only if triggered by timer
             drop_combo_from_buffer(buffered_combo->combo_index);
             continue;
         }
@@ -515,7 +522,7 @@ static combo_key_action_t process_single_combo(combo_t *combo, uint16_t keycode,
             else if (get_combo_must_tap(combo_index, combo)) {
                 // immediately apply tap-only combo
                 apply_combo(combo_index, combo);
-                apply_combos(); // also apply other prepared combos and dump key buffer
+                apply_combos(false); // also apply other prepared combos and dump key buffer
 #    ifdef COMBO_PROCESS_KEY_RELEASE
                 if (process_combo_key_release(combo_index, combo, key_index, keycode)) {
                     release_combo(combo_index, combo);
@@ -614,7 +621,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     } else {
         if (combo_buffer_read != combo_buffer_write) {
             // some combo is prepared
-            apply_combos();
+            apply_combos(false);
         } else {
             // reset state if there are no combo keys pressed at all
             dump_key_buffer();
@@ -635,7 +642,7 @@ void combo_task(void) {
 #ifndef COMBO_NO_TIMER
     if (timer && timer_elapsed(timer) > longest_term) {
         if (combo_buffer_read != combo_buffer_write) {
-            apply_combos();
+            apply_combos(true);
             longest_term = 0;
             timer        = 0;
         } else {

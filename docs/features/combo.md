@@ -140,6 +140,8 @@ Processing combos has two buffers, one for the key presses, another for the comb
 ### Modifier Combos
 If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
 
+By default, `COMBO_MUST_HOLD_MODS` ignores the `COMBO_HOLD_TERM` and fires the combo if another key is pressed before the term elapses. You can alter this behavior with `#define COMBO_HOLD_STRICT`. With `COMBO_HOLD_STRICT`, the combo will be discarded if another key is pressed before the term elapses. (For example, imagine you have a combo that makes `a`+`b` trigger `ctrl`. You press `a` and `b` together and then press `c` before `COMBO_HOLD_TERM` has elapsed. Without `COMBO_HOLD_STRICT`, you would get `ctrl`+`c`. With `COMBO_HOLD_STRICT`, you would get `abc`.)
+
 ### Strict key press order
 By defining `COMBO_MUST_PRESS_IN_ORDER` combos only activate when the keys are pressed in the same order as they are defined in the key array.
 
