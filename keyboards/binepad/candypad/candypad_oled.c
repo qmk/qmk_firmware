@@ -3,39 +3,10 @@
 // Portions of this code are based on [Andrew Kannan](https://github.com/awkannan1)'s
 //  work on the Satisfaction75
 
-#include "candypad.h"
+#include "quantum.h"
 #include "keymap_introspection.h"
 
 #ifdef OLED_ENABLE
-
-/* CandyPad Logo */
-static void __candypad_render_logo_default(void) {
-    // Generated from https://joric.github.io/qle/
-    static const char PROGMEM raw_logo[] = {
-        0,  0,  0,  0,   128, 192, 224, 96,  240, 240, 152, 24,  24,  24, 24, 24, 24,  24,  24,  56,  48,  96, 224, 192, 128, 0,   0,   0,   0,  0,   0,   0,   0,   0,   0,  0,   0,   0,   0,  0,   0,   0, 0,   0,   0,   0,  0, 0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,   0,  0,  0,   0,   0,   0,  0,  0,  0,  0,   0,   0,   0,   0, 0, 0,   128, 128, 0,   0,  0,  0,  0,   0,   0,   0,   0, 0, 0, 0,  0,   0,   0,   0, 0, 0, 0, 0, 0, 0, 0,  0,  0,  0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,  0, 0, 0,  0,  0,  0,   0,  0,  0,  0,   0,  0,  0,  128, 128, 0,   0,  192, 248, 62,  7,  15,  28,  56, 112, 225, 195, 135, 14, 28, 56, 112, 224, 192, 128, 0,   0, 0, 0,  1,  7,  62,  252, 192, 0,  128, 192, 224, 112, 48, 48, 48, 112, 96, 0,  128, 192, 224, 96,
-        48, 48, 48, 112, 224, 240, 240, 0,   0,   240, 240, 96,  112, 48, 48, 48, 112, 224, 192, 128, 0,   0,  128, 192, 224, 112, 48,  48,  48, 112, 224, 255, 255, 0,   48, 112, 224, 128, 0,  0,   0,   0, 128, 224, 112, 48, 0, 240, 240, 224, 112, 48, 48, 48, 112, 224, 192, 128, 0,  0,  128, 192, 224, 96, 48, 48, 48, 112, 224, 240, 240, 0, 0, 128, 192, 224, 112, 48, 48, 48, 112, 224, 255, 255, 0, 0, 3, 31, 124, 224, 192, 0, 0, 0, 0, 1, 3, 7, 14, 28, 56, 112, 225, 195, 135, 14, 28, 56, 240, 224, 124, 63, 3, 0, 15, 31, 56, 112, 96, 96, 96, 112, 48, 0,  15, 31,  56,  112, 96, 96,  96,  112, 56, 127, 127, 0,  0,   127, 127, 0,   0,  0,  0,  0,   0,   1,   127, 127, 0, 0, 15, 31, 56, 112, 96,  96,  96, 112, 56,  127, 127, 0,  0,  0,  3,   15, 62, 240, 248, 62,  15,
-        3,  0,  0,  0,   255, 255, 56,  112, 96,  96,  96,  112, 56,  31, 15, 0,  0,   15,  31,  56,  112, 96, 96,  96,  112, 56,  127, 127, 0,  0,   15,  63,  56,  112, 96, 96,  96,  112, 56, 127, 127, 0, 0,   0,   0,   0,  1, 3,   7,   6,   14,  12, 24, 24, 24,  24,  24,  24,  24, 24, 25,  15,  15,  6,  7,  3,  1,  0,   0,   0,   0,   0, 0, 0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,   0, 0, 0, 0,  0,   0,   0,   0, 0, 0, 0, 0, 0, 0, 0,  0,  0,  0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,  0, 0, 0,  0,  0,  0,   0,  0,  0,  0,   28, 31, 7,  1,   0,   0,   0,  0,   0,   0,   31, 31,  0,   0,  0,   0,   0,   0,   0,  0,  0,  0,   0,   0,   0,   0,   0, 0, 0,  0,  0,  0,   0,   0,   0,  0,   0,   0,   0,   0,  0,  0,  0,   0,  0,  0,   0,   0,
-    };
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
-}
-
-// Weak so that user keymaps can make their own
-__attribute__((weak)) bool candypad_render_logo_user(void) {
-    return false; // Return true if your user keymap renders its own
-}
-
-__attribute__((weak)) bool candypad_render_logo_kb(void) {
-    if (!candypad_render_logo_user()) {
-        __candypad_render_logo_default();
-    }
-    return true;
-}
-
-oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
-    oled_mode         = OLED_SPLASH;
-    oled_splash_timer = sync_timer_read();
-    return rotation;
-}
 
 static char *get_enc_mode(uint8_t encoder) {
 #    ifdef ENCODER_MAP_ENABLE
@@ -206,38 +177,16 @@ __attribute__((weak)) bool candypad_render_default_kb(void) {
     return true; // Was handled here
 }
 
+void oled_request_repaint(void) {
+    oled_clear();
+}
+
 bool oled_task_kb(void) {
     if (!oled_task_user()) {
         return false;
     }
-    // if (!oled_task_needs_to_repaint()) { return false; }
-    /* !! : oled_clear(); // Is broken !!! */
-    if (oled_repaint_requested) {
-        oled_repaint_requested = false;
-        oled_clear();
-        return false;
-    }
 
-    switch (oled_mode) {
-        case OLED_OFF:
-            // Do nothing
-            // This PCB has no digital switch to power off the OLED :(
-            break;
-
-        case OLED_SPLASH:
-            if (candypad_render_logo_kb()) {
-                break;
-            } else {
-                oled_mode = OLED_DEFAULT;
-                // don't break - let the default draw
-            }
-
-        case OLED_DEFAULT:
-        default:
-            candypad_render_default_kb();
-            break;
-    }
-
+    candypad_render_default_kb();
     return false;
 }
 

@@ -14,12 +14,8 @@
 #    define I2C_DRIVER I2CD1
 
 /* Configure oled driver for the 128x32 oled */
-#    define OLED_TIMEOUT (15 * 60 * 1000) // 15 minutes
+#    define OLED_TIMEOUT (2 * 60 * 1000) // 2 minutes
 #    define OLED_UPDATE_INTERVAL 33       // ~30fps
-
-/* Font */
-#    define OLED_FONT_H "keyboards/binepad/candypad/glcdfont.c"
-#    define OLED_FONT_END 127
 #endif // OLED_ENABLE
 
 /* ---- Direct pins, for use in (custom) `matrix.c` (please read that file) ----- */
