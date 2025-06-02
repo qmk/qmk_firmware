@@ -461,8 +461,8 @@ bool process_record_quantum(keyrecord_t *record) {
                 } else {
                     print("DEBUG: disabled.\n");
                 }
-#endif
                 return false;
+#endif
             case QK_CLEAR_EEPROM:
 #ifdef NO_RESET
                 eeconfig_init();
@@ -479,13 +479,13 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifndef NO_ACTION_ONESHOT
             case QK_ONE_SHOT_TOGGLE:
                 oneshot_toggle();
-                break;
+                return false;
             case QK_ONE_SHOT_ON:
                 oneshot_enable();
-                break;
+                return false;
             case QK_ONE_SHOT_OFF:
                 oneshot_disable();
-                break;
+                return false;
 #endif
 #ifdef ENABLE_COMPILE_KEYCODE
             case QK_MAKE: // Compiles the firmware, and adds the flash command based on keyboard bootloader
@@ -512,6 +512,7 @@ bool process_record_quantum(keyrecord_t *record) {
                 if (temp_mod & MOD_MASK_SHIFT && temp_mod & MOD_MASK_CTRL) {
                     reset_keyboard();
                 }
+                return false;
             }
 #endif
         }
