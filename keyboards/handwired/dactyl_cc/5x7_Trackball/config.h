@@ -60,6 +60,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_TASK_THROTTLE_MS 1
 #define PMW33XX_CPI 1000
 #define SPLIT_POINTING_ENABLE
+#define POINTING_DEVICE_CPI_RANGE {100, 16000}
+#define POINTING_DEVICE_CPI_INCREMENT 100
 #endif
 
 

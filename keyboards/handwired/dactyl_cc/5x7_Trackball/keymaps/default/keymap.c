@@ -14,6 +14,8 @@
 //Pointing Device Scrolling
 enum custom_keycodes {
     DRAG_SCROLL = QK_USER_0,
+    CPI_UP = QK_USER_1,
+    CPI_DN = QK_USER_2,
 };
 
 bool set_scrolling = false;
@@ -26,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_ESC,    KC_Q,    KC_W,    KC_E,   KC_R,   KC_T,   KC_CUT,
         KC_TAB,    KC_A,    KC_S,    KC_D,   KC_F,   KC_G,   KC_CALC,
         KC_CAPS,   KC_Z,    KC_X,    KC_C,   KC_V,   KC_B,
-        TG(1),     KC_GRV,  KC_LEFT, KC_RGHT,KC_LALT,
+        TG(3),     KC_GRV,  KC_LEFT, KC_RGHT,KC_LALT,
                                     KC_LCTL, KC_HOME,
                                     KC_END,
                                     KC_DEL, KC_BSPC, KC_LSFT,
@@ -35,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_CALC, KC_6,    KC_7,    KC_8,     KC_9,     KC_0,     KC_MINS,
                           KC_COPY, KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,     KC_BSLS,
                           KC_PSTE, KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN,  KC_QUOT,
-                                   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  MO(1),
+                                   KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH,  MO(2),
                                             KC_ESC,  KC_UP,    KC_DOWN,  KC_LBRC,  KC_RBRC,
              KC_RSFT, KC_SPC, KC_ENT,
              KC_LGUI, MS_BTN3, DRAG_SCROLL, MS_BTN2, MS_BTN1
@@ -48,17 +50,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,   _______,   _______,    KC_UP,    _______,   _______,  _______,
         _______,   _______,   KC_LEFT,    KC_DOWN,  KC_RGHT,   _______,  QK_BOOT,
         _______,   _______,   _______,   _______,   _______,   _______,
-        TG(1),   _______,   KC_MPRV,   KC_MNXT,   _______,
+        TO(0),     _______,   KC_MPRV,   KC_MNXT,   _______,
                                     _______, _______,
                                     _______,
                                     _______, _______, _______,
                                     _______,
         // right hand
-                          _______,   KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
-                          _______,   _______,   _______,   _______,   _______,   _______,   RGB_MOD,
-                          _______,   _______,   _______,   _______,   _______,   _______,   RGB_RMOD,
-                                     _______,   _______,   _______,   _______,   _______,   MO(1),
-                                                _______,   _______,   _______,   _______,   RGB_TOG,
+                          CPI_UP,    KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,    KC_F12,
+                          CPI_DN,    _______,   _______,   _______,   _______,   _______,   _______,
+                          _______,   _______,   _______,   _______,   _______,   _______,   _______,
+                                     _______,   _______,   _______,   _______,   _______,   _______,
+                                                _______,   _______,   _______,   _______,   _______,
              _______, _______, _______,
 
              _______, _______, _______, _______, _______
@@ -77,12 +79,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                     _______,
         // right hand
                           _______,   _______,   KC_NUM,    KC_PSLS,   KC_PAST,   KC_PMNS,   _______,
-                          _______,   _______,   KC_P7,     KC_P8,     KC_P9,     KC_PPLS,   _______,
-                          _______,   _______,   KC_P4,     KC_P5,     KC_P6,     KC_PPLS,   _______,
-                                     _______,   KC_P1,     KC_P2,     KC_P3,     KC_PENT,   _______,
-                                                KC_P0,     KC_P0,     KC_PDOT,   KC_PENT,   _______,
+                          _______,   _______,   KC_P7,     KC_P8,     KC_P9,     KC_PPLS,   RGB_MOD,
+                          _______,   _______,   KC_P4,     KC_P5,     KC_P6,     KC_PPLS,   RGB_RMOD,
+                                     _______,   KC_P1,     KC_P2,     KC_P3,     KC_PENT,   MO(2),
+                                                KC_P0,     KC_P0,     KC_PDOT,   KC_PENT,   RGB_TOG,
              _______, KC_P0,   KC_PENT,
-
              _______, _______, _______, _______, _______
     ),
 
@@ -145,7 +146,7 @@ bool oled_task_user() {
     led_t led_state = host_keyboard_led_state();
     // If you want to change the display of OLED, you need to change here
     oled_write_ln(read_layer_state(), false);
-    oled_write_ln(read_keylog(), false);
+    //oled_write_ln(read_keylog(), false);
     oled_write_ln(read_keylogs(), false);
     //oled_write_ln(led_state.caps_lock ? PSTR("Caps Lock On") : PSTR("Caps Lock Off"), false);
     //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
@@ -211,6 +212,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
         default:
             break;
+        case CPI_UP:
+          if (record->event.pressed) {
+              pointing_device_set_cpi(POINTING_DEVICE_CPI_INCREMENT); // Increase CPI
+          }
+          return false;
+        case CPI_DN:
+          if (record->event.pressed) {
+              pointing_device_set_cpi(-POINTING_DEVICE_CPI_INCREMENT); // Decrease CPI
+          }
+          return false;
     }
     return true;
 }
