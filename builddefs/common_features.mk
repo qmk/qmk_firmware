@@ -929,7 +929,10 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
         SRC += encoder_$(strip $(ENCODER_DRIVER)).c
     endif
 
-    ifeq ($(strip $(ENCODER_MAP_ENABLE)), yes)
+    # Encoder callbacks are now opt-in, default is encoder map
+    ifeq ($(strip $(ENCODER_CALLBACKS_ENABLE)), yes)
+        OPT_DEFS += -DENCODER_CALLBACKS_ENABLE
+    else
         OPT_DEFS += -DENCODER_MAP_ENABLE
     endif
 endif
