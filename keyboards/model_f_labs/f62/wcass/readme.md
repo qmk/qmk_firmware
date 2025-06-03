@@ -2,7 +2,10 @@
 
 ![model_f_labs/f62/wcass](https://images2.imgbox.com/e5/97/1hPUzXct_o.jpg)
 
-## Basic Details
+Model F Labs recreation of the IBM F62 keyboard. The keyboard uses the IBM 
+"type F" bucking spring key switch.
+
+The keyboard is using the community developed wcass controller.  
 
 * Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
 * Hardware Supported: Supports the brand new Model F reproductions from https://www.modelfkeyboards.com/, using the smaller xwhatsit controller developed by wcass.

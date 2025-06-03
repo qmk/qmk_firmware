@@ -2,7 +2,8 @@
 
 ![model_f_labs/f62](https://images2.imgbox.com/e5/97/1hPUzXct_o.jpg)
 
-## Basic Details
+Model F Labs recreation of the IBM F62 keyboard. The keyboard uses the IBM 
+"type F" bucking spring key switch.
 
 * Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
 * Build Maintainer: Matthew J Wolf
