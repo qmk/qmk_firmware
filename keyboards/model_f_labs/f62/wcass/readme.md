@@ -2,7 +2,7 @@
 
 ![model_f_labs/f62/wcass](https://images2.imgbox.com/e5/97/1hPUzXct_o.jpg)
 
-A short description of the keyboard/project
+A description of the keyboard/project
 
 * Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
 * Hardware Supported: Supports the brand new Model F reproductions from https://www.modelfkeyboards.com/, using the smaller xwhatsit controller developed by wcass.

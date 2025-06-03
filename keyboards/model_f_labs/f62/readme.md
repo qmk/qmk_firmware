@@ -2,7 +2,7 @@
 
 ![model_f_labs/f62](https://images2.imgbox.com/e5/97/1hPUzXct_o.jpg)
 
-A short description of the keyboard/project
+A description of the keyboard/project
 
 * Keyboard Maintainer: [Purdea Andrei](https://github.com/purdeaandrei)
 * Build Maintainer: Matthew J Wolf
@@ -11,7 +11,7 @@ A short description of the keyboard/project
 
 Make example for this keyboard (after setting up your build environment):
 
-    make model_f_labs/f62:default
+    make model_f_labs/f62/wcass:default
 
 See the [build environment setup](https://docs.qmk.fm//getting_started_build_tools) and the [make instructions](https://docs.qmk.fm//getting_started_make_guide) for more information. 
 
