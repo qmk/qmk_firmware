@@ -440,12 +440,11 @@ bool process_record_quantum(keyrecord_t *record) {
         process_connection(keycode, record) &&
 #endif
 
-        process_quantum_internal(keycode, record) &&
-        process_action_kb(record) &&
+        process_quantum_internal(keycode, record) && // quantum internal processed near the end
+        process_action_kb(record) && // actions processed last
         true
     );
 }
-
 
 /** \brief handles keycodes implemented within quantum itself
  *
