@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______,                            _______,                   _______, _______,          KC_HOME, KC_PGDN, KC_END
 ),
 };
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) },
     [_FN1] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) }

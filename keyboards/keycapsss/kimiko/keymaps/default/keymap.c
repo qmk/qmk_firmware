@@ -122,7 +122,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_DOWN, KC_UP),          ENCODER_CCW_CW(KC_LEFT, KC_RGHT) },
     [_LOWER] =  { ENCODER_CCW_CW(UG_HUEU, KC_TAB),         ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
