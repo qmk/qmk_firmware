@@ -169,7 +169,7 @@ The `process_record()` function itself is deceptively simple, but hidden within 
       * [`bool process_rgb(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_rgb.c#L53)
       * [`bool process_joystick(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_joystick.c#L9)
       * [`bool process_programmable_button(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/process_keycode/process_programmable_button.c#L21)
-      * [Identify and process Quantum-specific keycodes](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/quantum.c#L343)
+      * [Identify and process Quantum-specific keycodes](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/quantum/quantum.c#L343) <!-- TODO this link will need to be updated after quantum keycodes are moved to their own method. -->
 
 At any step during this chain of events a function (such as `process_record_kb()`) can `return false` to halt all further processing.
 
