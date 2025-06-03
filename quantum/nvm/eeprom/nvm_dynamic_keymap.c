@@ -57,7 +57,7 @@ STATIC_ASSERT(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR <= 65535, "DYNAMIC_KEYMAP_EEPROM_MA
 // The keyboard should override DYNAMIC_KEYMAP_LAYER_COUNT to reduce it,
 // or DYNAMIC_KEYMAP_EEPROM_MAX_ADDR to increase it, *only if* the microcontroller has
 // more than the default.
-STATIC_ASSERT((DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR) >= 100, "Dynamic keymaps are configured to use more EEPROM than is available.");
+STATIC_ASSERT((int64_t)(DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (int64_t)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR) >= 100, "Dynamic keymaps are configured to use more EEPROM than is available.");
 
 #ifndef TOTAL_EEPROM_BYTE_COUNT
 #    error Unknown total EEPROM size. Cannot derive maximum for dynamic keymaps.
