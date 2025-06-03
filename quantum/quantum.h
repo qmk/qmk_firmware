@@ -268,6 +268,7 @@ bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
 void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
 void     post_process_record_user(uint16_t keycode, keyrecord_t *record);
+bool     process_quantum_internal(uint16_t keycode, keyrecord_t *record);
 
 void reset_keyboard(void);
 void soft_reset_keyboard(void);

@@ -439,10 +439,20 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef CONNECTION_ENABLE
             process_connection(keycode, record) &&
 #endif
+            process_quantum_internal(keycode, record) &&
+            process_action_kb(record) &&
             true)) {
         return false;
     }
+    return true;
+}
 
+/** \brief handles keycodes implemented within quantum itself
+ *
+ * Handles key events for bootloader, reboot, toggling debug,
+ * clearing eeprom, toggling oneshot, and sending make macros.
+ */
+bool process_quantum_internal(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_RESET
@@ -518,7 +528,7 @@ bool process_record_quantum(keyrecord_t *record) {
         }
     }
 
-    return process_action_kb(record);
+    return true;
 }
 
 void set_single_default_layer(uint8_t default_layer) {
