@@ -442,6 +442,7 @@ bool process_record_quantum(keyrecord_t *record) {
         process_quantum_internal(keycode, record) &&
         // actions should always get processed last
         process_action_kb(record)
+        // New processors should NOT be added at the end here
     );
 }
 
