@@ -332,124 +332,124 @@ bool process_record_quantum(keyrecord_t *record) {
     }
 #endif
 
-    if (!(
+    return (
 #if defined(KEY_LOCK_ENABLE)
-            // Must run first to be able to mask key_up events.
-            process_key_lock(&keycode, record) &&
+        // Must run first to be able to mask key_up events.
+        process_key_lock(&keycode, record) &&
 #endif
 #if defined(DYNAMIC_MACRO_ENABLE) && !defined(DYNAMIC_MACRO_USER_CALL)
-            // Must run asap to ensure all keypresses are recorded.
-            process_dynamic_macro(keycode, record) &&
+        // Must run asap to ensure all keypresses are recorded.
+        process_dynamic_macro(keycode, record) &&
 #endif
 #ifdef REPEAT_KEY_ENABLE
-            process_last_key(keycode, record) && process_repeat_key(keycode, record) &&
+        process_last_key(keycode, record) && process_repeat_key(keycode, record) &&
 #endif
 #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
-            process_clicky(keycode, record) &&
+        process_clicky(keycode, record) &&
 #endif
 #ifdef HAPTIC_ENABLE
-            process_haptic(keycode, record) &&
+        process_haptic(keycode, record) &&
 #endif
 #if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_AUTO_MOUSE_ENABLE)
-            process_auto_mouse(keycode, record) &&
+        process_auto_mouse(keycode, record) &&
 #endif
-            process_record_modules(keycode, record) && // modules must run before kb
-            process_record_kb(keycode, record) &&
+        process_record_modules(keycode, record) && // modules must run before kb
+        process_record_kb(keycode, record) &&
 #if defined(VIA_ENABLE)
-            process_record_via(keycode, record) &&
+        process_record_via(keycode, record) &&
 #endif
 #if defined(SECURE_ENABLE)
-            process_secure(keycode, record) &&
+        process_secure(keycode, record) &&
 #endif
 #if defined(SEQUENCER_ENABLE)
-            process_sequencer(keycode, record) &&
+        process_sequencer(keycode, record) &&
 #endif
 #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
-            process_midi(keycode, record) &&
+        process_midi(keycode, record) &&
 #endif
 #ifdef AUDIO_ENABLE
-            process_audio(keycode, record) &&
+        process_audio(keycode, record) &&
 #endif
 #if defined(BACKLIGHT_ENABLE)
-            process_backlight(keycode, record) &&
+        process_backlight(keycode, record) &&
 #endif
 #if defined(LED_MATRIX_ENABLE)
-            process_led_matrix(keycode, record) &&
+        process_led_matrix(keycode, record) &&
 #endif
 #ifdef STENO_ENABLE
-            process_steno(keycode, record) &&
+        process_steno(keycode, record) &&
 #endif
 #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
-            process_music(keycode, record) &&
+        process_music(keycode, record) &&
 #endif
 #ifdef CAPS_WORD_ENABLE
-            process_caps_word(keycode, record) &&
+        process_caps_word(keycode, record) &&
 #endif
 #ifdef KEY_OVERRIDE_ENABLE
-            process_key_override(keycode, record) &&
+        process_key_override(keycode, record) &&
 #endif
 #ifdef TAP_DANCE_ENABLE
-            process_tap_dance(keycode, record) &&
+        process_tap_dance(keycode, record) &&
 #endif
 #if defined(UNICODE_COMMON_ENABLE)
-            process_unicode_common(keycode, record) &&
+        process_unicode_common(keycode, record) &&
 #endif
 #ifdef LEADER_ENABLE
-            process_leader(keycode, record) &&
+        process_leader(keycode, record) &&
 #endif
 #ifdef AUTO_SHIFT_ENABLE
-            process_auto_shift(keycode, record) &&
+        process_auto_shift(keycode, record) &&
 #endif
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
-            process_dynamic_tapping_term(keycode, record) &&
+        process_dynamic_tapping_term(keycode, record) &&
 #endif
 #ifdef SPACE_CADET_ENABLE
-            process_space_cadet(keycode, record) &&
+        process_space_cadet(keycode, record) &&
 #endif
 #ifdef MAGIC_ENABLE
-            process_magic(keycode, record) &&
+        process_magic(keycode, record) &&
 #endif
 #ifdef GRAVE_ESC_ENABLE
-            process_grave_esc(keycode, record) &&
+        process_grave_esc(keycode, record) &&
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-            process_underglow(keycode, record) &&
+        process_underglow(keycode, record) &&
 #endif
 #if defined(RGB_MATRIX_ENABLE)
-            process_rgb_matrix(keycode, record) &&
+        process_rgb_matrix(keycode, record) &&
 #endif
 #ifdef JOYSTICK_ENABLE
-            process_joystick(keycode, record) &&
+        process_joystick(keycode, record) &&
 #endif
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
-            process_programmable_button(keycode, record) &&
+        process_programmable_button(keycode, record) &&
 #endif
 #ifdef AUTOCORRECT_ENABLE
-            process_autocorrect(keycode, record) &&
+        process_autocorrect(keycode, record) &&
 #endif
 #ifdef TRI_LAYER_ENABLE
-            process_tri_layer(keycode, record) &&
+        process_tri_layer(keycode, record) &&
 #endif
 #if !defined(NO_ACTION_LAYER)
-            process_default_layer(keycode, record) &&
+        process_default_layer(keycode, record) &&
 #endif
 #ifdef LAYER_LOCK_ENABLE
-            process_layer_lock(keycode, record) &&
+        process_layer_lock(keycode, record) &&
 #endif
 #ifdef CONNECTION_ENABLE
-            process_connection(keycode, record) &&
+        process_connection(keycode, record) &&
 #endif
-            process_quantum_internal(keycode, record) &&
-            process_action_kb(record) &&
-            true)) {
-        return false;
-    }
-    return true;
+
+        process_quantum_internal(keycode, record) &&
+        process_action_kb(record) &&
+        true
+    );
 }
 
-/** \brief processes keycodes implemented within quantum itself
+
+/** \brief handles keycodes implemented within quantum itself
  *
- * Processes key events for bootloader, reboot, toggling debug,
+ * Handles key events for bootloader, reboot, toggling debug,
  * clearing eeprom, toggling oneshot, and sending make macros.
  */
 bool process_quantum_internal(uint16_t keycode, keyrecord_t *record) {
