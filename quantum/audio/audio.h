@@ -18,6 +18,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "compiler_support.h"
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
@@ -38,7 +40,7 @@ typedef union audio_config_t {
     };
 } audio_config_t;
 
-_Static_assert(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
 
 /*
  * a 'musical note' is represented by pitch and duration; a 'musical tone' adds intensity and timbre

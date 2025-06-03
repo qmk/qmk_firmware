@@ -31,8 +31,7 @@
             "pin": "D0"
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layout_aliases": {
         "LAYOUT_ortho_4x12_2x2u": "LAYOUT"
     },

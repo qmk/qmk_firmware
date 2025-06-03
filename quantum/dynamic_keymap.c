@@ -166,6 +166,6 @@ void dynamic_keymap_macro_send(uint8_t id) {
         ++offset;
     }
 
-    send_string_nvm_state_t state = {.offset = 0};
+    send_string_nvm_state_t state = {.offset = offset};
     send_string_with_delay_impl(send_string_get_next_nvm, &state, DYNAMIC_KEYMAP_MACRO_DELAY);
 }
