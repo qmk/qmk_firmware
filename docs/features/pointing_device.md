@@ -394,6 +394,7 @@ Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/
 | Setting                                        | Description                                                                                                                      | Default       |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `MOUSE_EXTENDED_REPORT`                        | (Optional) Enables support for extended mouse reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
+| `WHEEL_EXTENDED_REPORT`                        | (Optional) Enables support for extended wheel reports. (-32767 to 32767, instead of just -127 to 127).                           | _not defined_ |
 | `POINTING_DEVICE_ROTATION_90`                  | (Optional) Rotates the X and Y data by  90 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_180`                 | (Optional) Rotates the X and Y data by 180 degrees.                                                                              | _not defined_ |
 | `POINTING_DEVICE_ROTATION_270`                 | (Optional) Rotates the X and Y data by 270 degrees.                                                                              | _not defined_ |
@@ -416,6 +417,32 @@ The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_S
 
 ::: warning
 Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+:::
+
+## High Resolution Scrolling
+
+| Setting                                  | Description                                                                                                               | Default       |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `POINTING_DEVICE_HIRES_SCROLL_ENABLE`    | (Optional) Enables high resolution scrolling.                                                                             | _not defined_ |
+| `POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER`| (Optional) Resolution mutiplier value used by high resolution scrolling. Must be between 1 and 127, inclusive.            | `120`         |
+| `POINTING_DEVICE_HIRES_SCROLL_EXPONENT`  | (Optional) Resolution exponent value used by high resolution scrolling. Must be between 0 and 127, inclusive.             | `0`           |
+
+The `POINTING_DEVICE_HIRES_SCROLL_ENABLE` setting enables smooth and continuous scrolling when using trackballs or high-end encoders as mouse wheels (as opposed to the typical stepped behavior of most mouse wheels).
+This works by adding a resolution multiplier to the HID descriptor for mouse wheel reports, causing the host computer to interpret each wheel tick sent by the keyboard as a fraction of a normal wheel tick.
+The resolution multiplier is set to `1 / (POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER * (10 ^ POINTING_DEVICE_HIRES_SCROLL_EXPONENT))`, which is `1 / 120` by default.
+If even smoother scrolling than provided by this default value is desired, first try using `#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 1` which will result in a multiplier of `1 / 1200`.
+
+The function `pointing_device_get_hires_scroll_resolution()` can be called to get the pre-computed resolution multiplier value as a `uint16_t`.
+
+::: warning
+High resolution scrolling usually results in larger and/or more frequent mouse reports. This can result in overflow errors and overloading of the host computer's input buffer. 
+To deal with these issues, define `WHEEL_EXTENDED_REPORT` and throttle the rate at which mouse reports are sent.
+:::
+
+::: warning
+Many programs, especially those that implement their own smoothing for scrolling, don't work well when they receive simultaneous vertical and horizontal wheel inputs (e.g. from high resolution drag-scroll using a trackball).
+These programs typically implement their smoothing in a way that assumes the user will only scroll in one axis at a time, resulting in slow or jittery motion when trying to scroll at an angle.
+This can be addressed by snapping scrolling to one axis at a time.
 :::
 
 ## Split Keyboard Configuration

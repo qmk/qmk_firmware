@@ -8,10 +8,11 @@
         "pid": "0xE88F",
         "device_version": "0.0.1"
     },
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

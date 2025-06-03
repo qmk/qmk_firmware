@@ -39,6 +39,7 @@
 #include "keymap_common.h"
 #include "quantum_keycodes.h"
 #include "keycode_config.h"
+#include "keycode_string.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"
@@ -240,6 +241,15 @@ extern layer_state_t layer_state;
 #    include "os_detection.h"
 #endif
 
+#ifdef LAYER_LOCK_ENABLE
+#    include "layer_lock.h"
+#endif
+
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "community_modules.h"
+#endif
+
+void set_single_default_layer(uint8_t default_layer);
 void set_single_persistent_default_layer(uint8_t default_layer);
 
 #define IS_LAYER_ON(layer) layer_state_is(layer)

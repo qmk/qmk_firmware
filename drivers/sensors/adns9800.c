@@ -15,7 +15,6 @@
  */
 
 #include "spi_master.h"
-#include "adns9800_srom_A6.h"
 #include "adns9800.h"
 #include "wait.h"
 
@@ -67,15 +66,31 @@
 #define REG_SROM_Load_Burst              0x62
 #define REG_Pixel_Burst                  0x64
 
-#define MIN_CPI           200
-#define MAX_CPI           8200
-#define CPI_STEP          200
-#define CLAMP_CPI(value)  value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
-#define US_BETWEEN_WRITES 120
-#define US_BETWEEN_READS  20
-#define US_BEFORE_MOTION  100
-#define MSB1              0x80
+#define MIN_CPI             200
+#define MAX_CPI             8200
+#define CPI_STEP            200
+#define CLAMP_CPI(value)    value<MIN_CPI ? MIN_CPI : value> MAX_CPI ? MAX_CPI : value
+#define US_BETWEEN_WRITES   120
+#define US_BETWEEN_READS    20
+#define US_DELAY_AFTER_ADDR 100
+#define US_BEFORE_MOTION    100
+#define MSB1                0x80
 // clang-format on
+
+const pointing_device_driver_t adns9800_pointing_device_driver = {
+    .init       = adns9800_init,
+    .get_report = adns9800_get_report_driver,
+    .set_cpi    = adns9800_set_cpi,
+    .get_cpi    = adns9800_get_cpi,
+};
+
+uint16_t __attribute__((weak)) adns9800_srom_get_length(void) {
+    return 0;
+}
+
+uint8_t __attribute__((weak)) adns9800_srom_get_byte(uint16_t position) {
+    return 0;
+}
 
 void adns9800_spi_start(void) {
     spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR);
@@ -92,6 +107,7 @@ void adns9800_write(uint8_t reg_addr, uint8_t data) {
 uint8_t adns9800_read(uint8_t reg_addr) {
     adns9800_spi_start();
     spi_write(reg_addr & 0x7f);
+    wait_us(US_DELAY_AFTER_ADDR);
     uint8_t data = spi_read();
     spi_stop();
     wait_us(US_BETWEEN_READS);
@@ -115,47 +131,47 @@ void adns9800_init(void) {
     adns9800_read(REG_Delta_Y_L);
     adns9800_read(REG_Delta_Y_H);
 
-#ifdef ADNS9800_UPLOAD_SROM
-    // upload firmware
+    if (adns9800_srom_get_length() != 0) {
+        // upload firmware
 
-    // 3k firmware mode
-    adns9800_write(REG_Configuration_IV, 0x02);
+        // 3k firmware mode
+        adns9800_write(REG_Configuration_IV, 0x02);
 
-    // enable initialisation
-    adns9800_write(REG_SROM_Enable, 0x1d);
+        // enable initialisation
+        adns9800_write(REG_SROM_Enable, 0x1d);
 
-    // wait a frame
-    wait_ms(10);
+        // wait a frame
+        wait_ms(10);
 
-    // start SROM download
-    adns9800_write(REG_SROM_Enable, 0x18);
+        // start SROM download
+        adns9800_write(REG_SROM_Enable, 0x18);
 
-    // write the SROM file
+        // write the SROM file
 
-    adns9800_spi_start();
+        adns9800_spi_start();
 
-    spi_write(REG_SROM_Load_Burst | 0x80);
-    wait_us(15);
-
-    // send all bytes of the firmware
-    for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
-        spi_write(pgm_read_byte(firmware_data + i));
+        spi_write(REG_SROM_Load_Burst | 0x80);
         wait_us(15);
+
+        // send all bytes of the firmware
+        for (uint16_t i = 0; i < adns9800_srom_get_length(); i++) {
+            spi_write(adns9800_srom_get_byte(i));
+            wait_us(15);
+        }
+
+        spi_stop();
+
+        wait_ms(10);
+    } else {
+        // write reset value to REG_Configuration_IV
+        adns9800_write(REG_Configuration_IV, 0x0);
+
+        // write reset value to REG_SROM_Enable
+        adns9800_write(REG_SROM_Enable, 0x0);
+
+        // wait a frame
+        wait_ms(10);
     }
-
-    spi_stop();
-
-    wait_ms(10);
-#else
-    // write reset value to REG_Configuration_IV
-    adns9800_write(REG_Configuration_IV, 0x0);
-
-    // write reset value to REG_SROM_Enable
-    adns9800_write(REG_SROM_Enable, 0x0);
-
-    // wait a frame
-    wait_ms(10);
-#endif
 
     // enable laser
     uint8_t laser_ctrl0 = adns9800_read(REG_LASER_CTRL0);
@@ -226,4 +242,13 @@ report_adns9800_t adns9800_get_report(void) {
     spi_stop();
 
     return report;
+}
+
+report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
+    report_adns9800_t sensor_report = adns9800_get_report();
+
+    mouse_report.x = CONSTRAIN_HID_XY(sensor_report.x);
+    mouse_report.y = CONSTRAIN_HID_XY(sensor_report.y);
+
+    return mouse_report;
 }

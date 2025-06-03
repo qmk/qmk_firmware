@@ -19,6 +19,10 @@
 #include <vector>
 #include <algorithm>
 
+extern "C" {
+#include "keycode_string.h"
+}
+
 using namespace testing;
 
 extern std::map<uint16_t, std::string> KEYCODE_ID_TABLE;
@@ -29,8 +33,6 @@ std::vector<uint8_t> get_keys(const report_keyboard_t& report) {
     std::vector<uint8_t> result;
 #if defined(NKRO_ENABLE)
 #    error NKRO support not implemented yet
-#elif defined(RING_BUFFERED_6KRO_REPORT_ENABLE)
-#    error 6KRO support not implemented yet
 #else
     for (size_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
         if (report.keys[i]) {
@@ -74,7 +76,7 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
 
     os << "(";
     for (auto key = keys.cbegin(); key != keys.cend();) {
-        os << KEYCODE_ID_TABLE.at(*key);
+        os << get_keycode_string(*key);
         key++;
         if (key != keys.cend()) {
             os << ", ";
@@ -84,7 +86,7 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
     os << ") [";
 
     for (auto mod = mods.cbegin(); mod != mods.cend();) {
-        os << KEYCODE_ID_TABLE.at(*mod);
+        os << get_keycode_string(*mod);
         mod++;
         if (mod != mods.cend()) {
             os << ", ";

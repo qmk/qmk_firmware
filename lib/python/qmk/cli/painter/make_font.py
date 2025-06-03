@@ -61,10 +61,8 @@ def painter_convert_font_image(cli):
         return
 
     # Work out the text substitutions for rendering the output data
-    args_str = " ".join((f"--{arg} {getattr(cli.args, arg.replace('-', '_'))}" for arg in ["input", "output", "no-ascii", "unicode-glyphs", "format", "no-rle"]))
-    command = f"qmk painter-convert-font-image {args_str}"
     metadata = {"glyphs": _generate_font_glyphs_list(not cli.args.no_ascii, cli.args.unicode_glyphs)}
-    subs = generate_subs(cli, out_bytes, font_metadata=metadata, command=command)
+    subs = generate_subs(cli, out_bytes, font_metadata=metadata, command_name="painter_convert_font_image")
 
     # Render and write the header file
     header_text = render_header(subs)

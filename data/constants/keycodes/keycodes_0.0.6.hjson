@@ -1,0 +1,7 @@
+{
+    "ranges": {
+        "0x52E0/0x001F": {
+            "define": "QK_PERSISTENT_DEF_LAYER"
+        }
+    }
+}

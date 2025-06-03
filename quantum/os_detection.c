@@ -34,7 +34,7 @@ static uint16_t usb_setups[STORED_USB_SETUPS];
 #endif
 
 #ifndef OS_DETECTION_DEBOUNCE
-#    define OS_DETECTION_DEBOUNCE 200
+#    define OS_DETECTION_DEBOUNCE 250
 #endif
 
 // 2s should always be more than enough (otherwise, you may have other issues)
@@ -59,39 +59,66 @@ struct setups_data_t setups_data = {
 };
 
 static volatile os_variant_t detected_os = OS_UNSURE;
-static os_variant_t          reported_os = OS_UNSURE;
+static volatile os_variant_t reported_os = OS_UNSURE;
 
 // we need to be able to report OS_UNSURE if that is the stable result of the guesses
-static bool first_report = true;
+static volatile bool first_report = true;
 
 // to react on USB state changes
-static volatile enum usb_device_state current_usb_device_state  = USB_DEVICE_STATE_INIT;
-static enum usb_device_state          reported_usb_device_state = USB_DEVICE_STATE_INIT;
+static volatile struct usb_device_state current_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
+static volatile struct usb_device_state maxprev_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
+
+// to reset the keyboard on USB state change
+#ifdef OS_DETECTION_KEYBOARD_RESET
+#    ifndef OS_DETECTION_RESET_DEBOUNCE
+#        define OS_DETECTION_RESET_DEBOUNCE OS_DETECTION_DEBOUNCE
+#    endif
+static volatile fast_timer_t configured_since = 0;
+static volatile bool         reset_pending    = false;
+#endif
 
 // the OS detection might be unstable for a while, "debounce" it
 static volatile bool         debouncing = false;
-static volatile fast_timer_t last_time;
+static volatile fast_timer_t last_time  = 0;
+
+bool process_detected_host_os_modules(os_variant_t os);
 
 void os_detection_task(void) {
-    if (current_usb_device_state == USB_DEVICE_STATE_CONFIGURED) {
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
+    if (reset_pending) {
+        soft_reset_keyboard();
+    }
+    // reset the keyboard if it is stuck in the init state for longer than debounce duration, which can happen with some KVMs
+    if (current_usb_device_state.configure_state <= USB_DEVICE_STATE_INIT && maxprev_usb_device_state.configure_state >= USB_DEVICE_STATE_CONFIGURED) {
+        if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
+            soft_reset_keyboard();
+        }
+        return;
+    }
+#endif
+#ifdef OS_DETECTION_SINGLE_REPORT
+    if (!first_report) {
+        return;
+    }
+#endif
+    if (current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED) {
         // debouncing goes for both the detected OS as well as the USB state
         if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
-            debouncing                = false;
-            reported_usb_device_state = current_usb_device_state;
+            debouncing = false;
+            last_time  = 0;
             if (detected_os != reported_os || first_report) {
                 first_report = false;
                 reported_os  = detected_os;
+                process_detected_host_os_modules(detected_os);
                 process_detected_host_os_kb(detected_os);
             }
         }
     }
-#ifdef OS_DETECTION_KEYBOARD_RESET
-    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
-    // only take action if it's been stable at least once, to avoid issues with some KVMs
-    else if (current_usb_device_state == USB_DEVICE_STATE_INIT && reported_usb_device_state != USB_DEVICE_STATE_INIT) {
-        soft_reset_keyboard();
-    }
-#endif
+}
+
+__attribute__((weak)) bool process_detected_host_os_modules(os_variant_t os) {
+    return true;
 }
 
 __attribute__((weak)) bool process_detected_host_os_kb(os_variant_t detected_os) {
@@ -125,7 +152,7 @@ void process_wlength(const uint16_t w_length) {
         } else if (setups_data.count == setups_data.cnt_ff) {
             // Linux has 3 packets with 0xFF.
             guessed = OS_LINUX;
-        } else if (setups_data.count == 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff == 1 && setups_data.cnt_02 == 2) {
+        } else if (setups_data.count >= 5 && setups_data.last_wlength == 0xFF && setups_data.cnt_ff >= 1 && setups_data.cnt_02 >= 2) {
             guessed = OS_MACOS;
         } else if (setups_data.count == 4 && setups_data.cnt_ff == 0 && setups_data.cnt_02 == 2) {
             // iOS and iPadOS don't have the last 0xFF packet.
@@ -155,19 +182,35 @@ os_variant_t detected_host_os(void) {
 
 void erase_wlength_data(void) {
     memset(&setups_data, 0, sizeof(setups_data));
-    detected_os               = OS_UNSURE;
-    reported_os               = OS_UNSURE;
-    current_usb_device_state  = USB_DEVICE_STATE_INIT;
-    reported_usb_device_state = USB_DEVICE_STATE_INIT;
-    debouncing                = false;
-    first_report              = true;
+    detected_os                              = OS_UNSURE;
+    reported_os                              = OS_UNSURE;
+    current_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
+    maxprev_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
+    debouncing                               = false;
+    last_time                                = 0;
+    first_report                             = true;
 }
 
-void os_detection_notify_usb_device_state_change(enum usb_device_state usb_device_state) {
+void os_detection_notify_usb_device_state_change(struct usb_device_state usb_device_state) {
     // treat this like any other source of instability
+    if (maxprev_usb_device_state.configure_state < current_usb_device_state.configure_state) {
+        maxprev_usb_device_state.configure_state = current_usb_device_state.configure_state;
+    }
     current_usb_device_state = usb_device_state;
     last_time                = timer_read_fast();
     debouncing               = true;
+
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    if (configured_since == 0 && current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED) {
+        configured_since = timer_read_fast();
+    } else if (current_usb_device_state.configure_state == USB_DEVICE_STATE_INIT) {
+        // reset the keyboard only if it's been stable for at least debounce duration, to avoid issues with some KVMs
+        if (configured_since > 0 && timer_elapsed_fast(configured_since) >= OS_DETECTION_RESET_DEBOUNCE) {
+            reset_pending = true;
+        }
+        configured_since = 0;
+    }
+#endif
 }
 
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)

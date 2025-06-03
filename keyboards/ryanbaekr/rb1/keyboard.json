@@ -1,7 +1,6 @@
 {
     "keyboard_name": "rb1",
     "manufacturer": "ryanbaekr",
-    "url": "",
     "maintainer": "ryanbaekr",
     "usb": {
         "vid": "0x7262",
@@ -12,8 +11,6 @@
     "bootloader": "caterina",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mini Ashen 40",
     "manufacturer": "MechanicKeys",
-    "url": "",
     "maintainer": "jfescobar18",
     "usb": {
         "vid": "0x4D4B",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

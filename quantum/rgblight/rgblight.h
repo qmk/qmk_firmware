@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
 // DEPRECATED DEFINES - DO NOT USE
 #if defined(RGBLED_NUM)
 #    define RGBLIGHT_LED_COUNT RGBLED_NUM
@@ -168,8 +170,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #include <stdbool.h>
 #include "rgblight_drivers.h"
 #include "progmem.h"
-#include "eeconfig.h"
-#include "ws2812.h"
 #include "color.h"
 
 #ifdef RGBLIGHT_LAYERS
@@ -249,7 +249,7 @@ extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
-typedef union {
+typedef union rgblight_config_t {
     uint64_t raw;
     struct {
         bool    enable : 1;
@@ -262,7 +262,7 @@ typedef union {
     };
 } rgblight_config_t;
 
-_Static_assert(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
 
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
@@ -363,7 +363,7 @@ uint8_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
 bool    rgblight_is_enabled(void);
-HSV     rgblight_get_hsv(void);
+hsv_t   rgblight_get_hsv(void);
 
 /* === qmk_firmware (core)internal Functions === */
 void     rgblight_init(void);
@@ -371,8 +371,6 @@ void     rgblight_suspend(void);
 void     rgblight_wakeup(void);
 uint64_t rgblight_read_qword(void);
 void     rgblight_update_qword(uint64_t qword);
-uint64_t eeconfig_read_rgblight(void);
-void     eeconfig_update_rgblight(uint64_t val);
 void     eeconfig_update_rgblight_current(void);
 void     eeconfig_update_rgblight_default(void);
 void     eeconfig_debug_rgblight(void);

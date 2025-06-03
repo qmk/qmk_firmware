@@ -17,16 +17,12 @@ enum comet46_layers
   _ADJUST,
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
-  RAISE,
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -175,8 +171,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-  uint8_t layer = get_highest_layer(layer_state);
-  uint8_t default_layer = biton32(eeconfig_read_default_layer());
+  uint8_t layer = get_highest_layer(layer_state | default_layer_state);
   switch (layer) {
     case _LOWER:
       set_led_red;
@@ -187,39 +182,14 @@ void matrix_scan_user(void) {
     case _ADJUST:
       set_led_magenta;
       break;
+    case _COLEMAK:
+      set_led_white;
+      break;
+    case _DVORAK:
+      set_led_yellow;
+      break;
     default:
-      switch (default_layer) {
-        case _COLEMAK:
-          set_led_white;
-          break;
-        case _DVORAK:
-          set_led_yellow;
-          break;
-        default:
-          set_led_green;
-          break;
-      }
+      set_led_green;
       break;
   }
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      break;
-  }
-  return true;
-}

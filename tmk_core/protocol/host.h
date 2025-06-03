@@ -27,14 +27,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
-extern uint8_t keyboard_idle;
-extern uint8_t keyboard_protocol;
-
 /* host driver */
 void           host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);
 
 /* host driver interface */
+bool    host_can_send_nkro(void);
 uint8_t host_keyboard_leds(void);
 led_t   host_keyboard_led_state(void);
 void    host_keyboard_send(report_keyboard_t *report);
@@ -43,6 +41,7 @@ void    host_mouse_send(report_mouse_t *report);
 void    host_system_send(uint16_t usage);
 void    host_consumer_send(uint16_t usage);
 void    host_programmable_button_send(uint32_t data);
+void    host_raw_hid_send(uint8_t *data, uint8_t length);
 
 uint16_t host_last_system_usage(void);
 uint16_t host_last_consumer_usage(void);
