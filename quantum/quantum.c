@@ -439,10 +439,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef CONNECTION_ENABLE
         process_connection(keycode, record) &&
 #endif
-
-        process_quantum_internal(keycode, record) && // quantum internal processed near the end
-        process_action_kb(record) && // actions processed last
-        true
+        process_quantum_internal(keycode, record) &&
+        // actions should always get processed last
+        process_action_kb(record)
     );
 }
 
