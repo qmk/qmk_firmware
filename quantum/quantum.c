@@ -447,9 +447,9 @@ bool process_record_quantum(keyrecord_t *record) {
     return true;
 }
 
-/** \brief handles keycodes implemented within quantum itself
+/** \brief processes keycodes implemented within quantum itself
  *
- * Handles key events for bootloader, reboot, toggling debug,
+ * Processes key events for bootloader, reboot, toggling debug,
  * clearing eeprom, toggling oneshot, and sending make macros.
  */
 bool process_quantum_internal(uint16_t keycode, keyrecord_t *record) {
