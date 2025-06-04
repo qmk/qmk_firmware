@@ -236,7 +236,7 @@ pmw33xx_report_t pmw33xx_read_burst(uint8_t sensor) {
     return report;
 }
 
-__attribute__((weak)) bool pmw33xx_init_wrapper(void) {
+bool pmw33xx_init_wrapper(void) {
     return pmw33xx_init(0);
 }
 
