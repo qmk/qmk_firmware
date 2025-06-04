@@ -396,13 +396,13 @@ __EOT__
         download_url "https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/util/udev/50-qmk.rules" "$qmk_rules_target_file"
 
         # Install the udev rules -- path list is aligned with qmk doctor's linux.py
-        local udev_rules_paths=(
+        local udev_rules_paths="
             /usr/lib/udev/rules.d
             /usr/local/lib/udev/rules.d
             /run/udev/rules.d
             /etc/udev/rules.d
-        )
-        for udev_rules_dir in "${udev_rules_paths[@]}"; do
+        "
+        for udev_rules_dir in $udev_rules_paths; do
             if [ -d "$udev_rules_dir" ]; then
                 echo "Installing udev rules to $udev_rules_dir/50-qmk.rules ..." >&2
                 $(nsudo) mv "$qmk_rules_target_file" "$udev_rules_dir"
