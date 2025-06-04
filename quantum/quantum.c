@@ -179,10 +179,6 @@ __attribute__((weak)) bool pre_process_record_user(uint16_t keycode, keyrecord_t
     return true;
 }
 
-__attribute__((weak)) bool process_action_kb(keyrecord_t *record) {
-    return true;
-}
-
 __attribute__((weak)) bool process_record_modules(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
@@ -297,9 +293,10 @@ void post_process_record_quantum(keyrecord_t *record) {
     post_process_record_kb(keycode, record);
 }
 
-/* Core keycode function, hands off handling to other functions,
-    then processes internal quantum keycodes, and then processes
-    ACTIONs.                                                      */
+/** \brief Core keycode function
+ *
+ * Hands off handling to other quantum/process_keycode/ functions
+ */
 bool process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record, true);
 
@@ -451,7 +448,7 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
     }
 
-    return process_action_kb(record);
+    return true;
 }
 
 void set_single_default_layer(uint8_t default_layer) {
