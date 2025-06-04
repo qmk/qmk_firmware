@@ -57,8 +57,7 @@ bool pmw3320_init(void) {
     // Disable rest mode
     pmw3320_write_reg(REG_Performance, 0x80);
 
-    // TODO: Perform a real check
-    return true;
+    return pmw3320_check_signature();
 }
 
 // Perform a synchronization with sensor.
@@ -195,7 +194,7 @@ void pmw3320_set_cpi(uint16_t cpi) {
     pmw3320_write_reg(REG_Resolution, 0x20 | cpival);
 }
 
-bool pmw3320_check_signature(void) {
+bool __attribute__((weak)) pmw3320_check_signature(void) {
     uint8_t pid  = pmw3320_read_reg(REG_Product_ID);
     uint8_t pid2 = pmw3320_read_reg(REG_Inverse_Product_ID);
 
