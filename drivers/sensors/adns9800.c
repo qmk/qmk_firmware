@@ -115,6 +115,13 @@ uint8_t adns9800_read(uint8_t reg_addr) {
     return data;
 }
 
+bool __attribute__((weak)) adns9800_check_signature(void) {
+    if (adns9800_read(REG_Product_ID) != 0x33) {
+        return false;
+    }
+    return true;
+}
+
 bool adns9800_init(void) {
     gpio_set_pin_output(ADNS9800_CS_PIN);
 
@@ -179,8 +186,7 @@ bool adns9800_init(void) {
 
     adns9800_set_cpi(ADNS9800_CPI);
 
-    // TODO: Perform a real check
-    return true;
+    return adns9800_check_signature();
 }
 
 config_adns9800_t adns9800_get_config(void) {
