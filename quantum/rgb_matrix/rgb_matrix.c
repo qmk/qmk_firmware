@@ -18,7 +18,6 @@
 
 #include "rgb_matrix.h"
 #include "progmem.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "keyboard.h"
 #include "sync_timer.h"
@@ -48,6 +47,9 @@ __attribute__((weak)) rgb_t rgb_matrix_hsv_to_rgb(hsv_t hsv) {
 #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "rgb_matrix_effects.inc"
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "rgb_matrix_community_modules.inc"
+#endif
 #ifdef RGB_MATRIX_CUSTOM_KB
 #    include "rgb_matrix_kb.inc"
 #endif
@@ -88,9 +90,9 @@ static last_hit_t last_hit_buffer;
 const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(rgb_matrix, EECONFIG_RGB_MATRIX, rgb_matrix_config);
+EECONFIG_DEBOUNCE_HELPER(rgb_matrix, rgb_matrix_config);
 
-void eeconfig_update_rgb_matrix(void) {
+void eeconfig_force_flush_rgb_matrix(void) {
     eeconfig_flush_rgb_matrix(true);
 }
 
@@ -311,6 +313,15 @@ static void rgb_task_render(uint8_t effect) {
 #include "rgb_matrix_effects.inc"
 #undef RGB_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define RGB_MATRIX_EFFECT(name, ...)          \
+        case RGB_MATRIX_COMMUNITY_MODULE_##name:  \
+            rendering = name(&rgb_effect_params); \
+            break;
+#    include "rgb_matrix_community_modules.inc"
+#    undef RGB_MATRIX_EFFECT
+#endif
+
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
 #    define RGB_MATRIX_EFFECT(name, ...)          \
         case RGB_MATRIX_CUSTOM_##name:            \
@@ -394,7 +405,12 @@ void rgb_matrix_task(void) {
     }
 }
 
+__attribute__((weak)) bool rgb_matrix_indicators_modules(void) {
+    return true;
+}
+
 void rgb_matrix_indicators(void) {
+    rgb_matrix_indicators_modules();
     rgb_matrix_indicators_kb();
 }
 
@@ -434,6 +450,10 @@ struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
     return limits;
 }
 
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_modules(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+
 void rgb_matrix_indicators_advanced(effect_params_t *params) {
     /* special handling is needed for "params->iter", since it's already been incremented.
      * Could move the invocations to rgb_task_render, but then it's missing a few checks
@@ -441,6 +461,7 @@ void rgb_matrix_indicators_advanced(effect_params_t *params) {
      * rgb_task_render, right before the iter++ line.
      */
     RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
+    rgb_matrix_indicators_advanced_modules(min, max);
     rgb_matrix_indicators_advanced_kb(min, max);
 }
 

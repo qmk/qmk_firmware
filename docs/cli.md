@@ -6,7 +6,7 @@ The QMK CLI (command line interface) makes building and working with QMK keyboar
 
 ### Requirements {#requirements}
 
-QMK requires Python 3.7 or greater. We try to keep the number of requirements small but you will also need to install the packages listed in [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt). These are installed automatically when you install the QMK CLI.
+QMK requires Python 3.9 or greater. We try to keep the number of requirements small but you will also need to install the packages listed in [`requirements.txt`](https://github.com/qmk/qmk_firmware/blob/master/requirements.txt). These are installed automatically when you install the QMK CLI.
 
 ### Install Using Homebrew (macOS, some Linux) {#install-using-homebrew}
 
@@ -32,7 +32,7 @@ This installation can be updated via `uv tool upgrade qmk`. See [Upgrading tools
 
 ### Install Using pip {#install-using-easy_install-or-pip}
 
-If your system is not listed above you can install QMK manually. First ensure that you have Python 3.7 (or later) installed and have installed pip. Then install QMK with this command:
+If your system is not listed above you can install QMK manually. First ensure that you have Python 3.9 (or later) installed and have installed pip. Then install QMK with this command:
 
 ```
 python3 -m pip install qmk

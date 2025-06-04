@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Atreus",
   "manufacturer": "Technomancy",
-  "url": "",
   "maintainer": "qmk",
   "features": {
     "bootmagic": false,

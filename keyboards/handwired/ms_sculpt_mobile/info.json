@@ -1,6 +1,5 @@
 {
     "manufacturer": "Microsoftplus",
-    "url": "",
     "maintainer": "qmk",
     "features": {
         "bootmagic": false,
