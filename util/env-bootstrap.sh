@@ -413,9 +413,13 @@ __EOT__
         done
 
         # Reload udev rules
-        echo "Reloading udev rules..." >&2
-        $(nsudo) udevadm control --reload-rules
-        $(nsudo) udevadm trigger
+        if command -v udevadm >/dev/null 2>&1; then
+            echo "Reloading udev rules..." >&2
+            $(nsudo) udevadm control --reload-rules
+            $(nsudo) udevadm trigger
+        else
+            echo "udevadm not found, skipping udev rules reload." >&2
+        fi
     }
 
     install_windows_drivers() {
