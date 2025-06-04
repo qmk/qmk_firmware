@@ -76,8 +76,7 @@ bool adns5050_init(void) {
     // (for example, setting the dpi).
     adns5050_read_burst();
 
-    // TODO: Perform a real check
-    return true;
+    return adns5050_check_signature();
 }
 
 // Perform a synchronization with the ADNS.
@@ -223,7 +222,7 @@ uint16_t adns5050_get_cpi(void) {
     return (uint16_t)((cpival & 0b10000) * 125);
 }
 
-bool adns5050_check_signature(void) {
+bool __attribute__((weak)) adns5050_check_signature(void) {
     uint8_t pid  = adns5050_read_reg(REG_PRODUCT_ID);
     uint8_t rid  = adns5050_read_reg(REG_REVISION_ID);
     uint8_t pid2 = adns5050_read_reg(REG_PRODUCT_ID2);
