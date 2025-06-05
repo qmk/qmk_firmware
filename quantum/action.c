@@ -264,7 +264,7 @@ void process_record_tap_hint(keyrecord_t *record) {
                     break;
                 case OP_SH_TAP_TOGGLE:
                 default:
-                    swap_hands = !swap_hands;
+                    swap_hands_toggle();
                     swap_held  = true;
             }
             break;
@@ -750,7 +750,7 @@ void process_action(keyrecord_t *record, action_t action) {
             switch (action.swap.code) {
                 case OP_SH_TOGGLE:
                     if (event.pressed) {
-                        swap_hands = !swap_hands;
+                        swap_hands_toggle();
                     }
                     break;
                 case OP_SH_ON_OFF:
@@ -761,12 +761,12 @@ void process_action(keyrecord_t *record, action_t action) {
                     break;
                 case OP_SH_ON:
                     if (!event.pressed) {
-                        swap_hands = true;
+                      swap_hands_on();
                     }
                     break;
                 case OP_SH_OFF:
                     if (!event.pressed) {
-                        swap_hands = false;
+                      swap_hands_off();
                     }
                     break;
 #    ifndef NO_ACTION_ONESHOT
@@ -787,11 +787,11 @@ void process_action(keyrecord_t *record, action_t action) {
                         if (swap_held) {
                             swap_held = false;
                         } else {
-                            swap_hands = !swap_hands;
+                            swap_hands_toggle();
                         }
                     } else {
                         if (tap_count < TAPPING_TOGGLE) {
-                            swap_hands = !swap_hands;
+                            swap_hands_toggle();
                         }
                     }
                     break;
@@ -799,7 +799,7 @@ void process_action(keyrecord_t *record, action_t action) {
                     /* tap key */
                     if (tap_count > 0) {
                         if (swap_held) {
-                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
+                            swap_hands_toggle(); // undo hold set up in _tap_hint
                             swap_held  = false;
                         }
                         if (event.pressed) {
@@ -811,7 +811,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         }
                     } else {
                         if (swap_held && !event.pressed) {
-                            swap_hands = !swap_hands; // undo hold set up in _tap_hint
+                            swap_hands_toggle(); // undo hold set up in _tap_hint
                             swap_held  = false;
                         }
                     }
