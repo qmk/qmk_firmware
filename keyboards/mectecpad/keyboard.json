@@ -1,0 +1,36 @@
+{
+    "manufacturer": "Printronics",
+    "keyboard_name": "Macropad",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "cols": ["GP29", "GP28", "GP27"],
+        "rows": ["GP26", "GP15", "GP14"]
+    },
+    "usb": {
+        "device_version": "1.2.1",
+        "pid": "0x3C4D",
+        "vid": "0x1A2B"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2}
+            ]
+        }
+    }
+}

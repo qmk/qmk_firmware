@@ -1,0 +1,16 @@
+{
+    "name": "Macropad",
+    "vendorId": "0x1A2B",
+    "productId": "0x3C4D",
+    "matrix": {
+    "rows": 3,
+    "cols": 3
+  },
+  "layouts": {
+    "keymap": [
+        ["0,0","0,1","0,2"],
+        ["1,0","1,1","1,2"],
+        ["2,0","2,1","2,2"]
+    ]
+  }
+}
