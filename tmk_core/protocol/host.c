@@ -82,12 +82,25 @@ host_driver_t *host_get_driver(void) {
 #ifdef CONNECTION_ENABLE
 static connection_host_t active_host = CONNECTION_HOST_NONE;
 
+__attribute__((weak)) void host_disconnect_active_driver_user(connection_host_t host) {}
+__attribute__((weak)) void host_disconnect_active_driver_kb(connection_host_t host) {}
+
+__attribute__((weak)) void host_connect_active_driver_user(connection_host_t host) {}
+__attribute__((weak)) void host_connect_active_driver_kb(connection_host_t host) {}
+
+// TODO: Additionally have host_driver_t handle swap
 static void host_update_active_driver(connection_host_t current, connection_host_t next) {
+    host_disconnect_active_driver_user(current);
+    host_disconnect_active_driver_kb(current);
+
     if (current != CONNECTION_HOST_NONE) {
-        // TODO: Additionally have host_driver_t handle swap
         clear_keyboard();
     }
+
+    host_connect_active_driver_user(next);
+    host_connect_active_driver_kb(next);
 }
+
 #endif
 
 void host_init(void) {
