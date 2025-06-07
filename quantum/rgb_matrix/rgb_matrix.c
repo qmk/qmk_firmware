@@ -72,6 +72,13 @@ uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
 last_hit_t g_last_hit_tracker;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
+#ifndef RGB_MATRIX_FLAG_STEPS
+#    define RGB_MATRIX_FLAG_STEPS \
+        { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE }
+#endif
+static const uint8_t rgb_matrix_flag_steps[] = RGB_MATRIX_FLAG_STEPS;
+#define RGB_MATRIX_FLAG_STEPS_COUNT ARRAY_SIZE(rgb_matrix_flag_steps)
+
 // internals
 static bool            suspend_state     = false;
 static uint8_t         rgb_last_enable   = UINT8_MAX;
@@ -745,6 +752,50 @@ void rgb_matrix_set_flags(led_flags_t flags) {
 
 void rgb_matrix_set_flags_noeeprom(led_flags_t flags) {
     rgb_matrix_set_flags_eeprom_helper(flags, false);
+}
+
+void rgb_matrix_flags_step_helper(bool write_to_eeprom) {
+    led_flags_t flags = rgb_matrix_get_flags();
+
+    uint8_t next = 0;
+    for (uint8_t i = 0; i < RGB_MATRIX_FLAG_STEPS_COUNT; i++) {
+        if (rgb_matrix_flag_steps[i] == flags) {
+            next = i == RGB_MATRIX_FLAG_STEPS_COUNT - 1 ? 0 : i + 1;
+            break;
+        }
+    }
+
+    rgb_matrix_set_flags_eeprom_helper(rgb_matrix_flag_steps[next], write_to_eeprom);
+}
+
+void rgb_matrix_flags_step_noeeprom(void) {
+    rgb_matrix_flags_step_helper(false);
+}
+
+void rgb_matrix_flags_step(void) {
+    rgb_matrix_flags_step_helper(true);
+}
+
+void rgb_matrix_flags_step_reverse_helper(bool write_to_eeprom) {
+    led_flags_t flags = rgb_matrix_get_flags();
+
+    uint8_t next = 0;
+    for (uint8_t i = 0; i < RGB_MATRIX_FLAG_STEPS_COUNT; i++) {
+        if (rgb_matrix_flag_steps[i] == flags) {
+            next = i == 0 ? RGB_MATRIX_FLAG_STEPS_COUNT - 1 : i - 1;
+            break;
+        }
+    }
+
+    rgb_matrix_set_flags_eeprom_helper(rgb_matrix_flag_steps[next], write_to_eeprom);
+}
+
+void rgb_matrix_flags_step_reverse_noeeprom(void) {
+    rgb_matrix_flags_step_reverse_helper(false);
+}
+
+void rgb_matrix_flags_step_reverse(void) {
+    rgb_matrix_flags_step_reverse_helper(true);
 }
 
 //----------------------------------------------------------
