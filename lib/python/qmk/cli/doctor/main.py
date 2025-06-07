@@ -16,6 +16,34 @@ from qmk.commands import in_virtualenv
 from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, UserspaceValidationError
 
 
+def distrib_tests():
+    def _parse_distrib_info_file(file):
+        """Parse the QMK distribution info file
+        """
+        try:
+            vars = {}
+            with open(file, 'r') as f:
+                for line in f:
+                    if '=' in line:
+                        key, value = line.split('=', 1)
+                        vars[key.strip()] = value.strip()
+            return f'{vars.get("TOOLCHAIN_HOST", "unknown")}:{vars.get("TOOLCHAIN_TARGET", "unknown")}:{vars.get("COMMIT_HASH", "unknown")}'
+        except Exception as e:
+            cli.log.warning('Error reading QMK distribution info file: %s', e)
+            return f'Unknown toolchain info file: {file}'
+
+    try:
+        from qmk.cli import QMK_DISTRIB_DIR
+        if (QMK_DISTRIB_DIR / 'etc').exists():
+            cli.log.info('Found QMK tools distribution directory: {fg_cyan}%s', QMK_DISTRIB_DIR)
+            toolchains = [_parse_distrib_info_file(file) for file in (QMK_DISTRIB_DIR / 'etc').glob('toolchain_release_*')]
+            cli.log.info('Found QMK toolchains: {fg_cyan}%s', ', '.join(toolchains))
+    except ImportError:
+        cli.log.info('QMK tools distribution not found.')
+
+    return CheckStatus.OK
+
+
 def os_tests():
     """Determine our OS and run platform specific tests
     """
@@ -128,6 +156,7 @@ def doctor(cli):
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
     status = os_status = os_tests()
+    distrib_tests()
 
     userspace_tests(None)
 
