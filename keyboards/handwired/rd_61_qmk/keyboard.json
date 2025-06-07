@@ -55,6 +55,7 @@
     "ws2812": {
         "pin": "C7"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
         "LAYOUT_60_ansi": {
             "layout": [

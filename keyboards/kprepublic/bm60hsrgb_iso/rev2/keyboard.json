@@ -101,6 +101,7 @@
         "lto": true
     },
     "debounce": 3,
+    "community_layouts": ["60_iso_arrow"],
     "layouts": {
         "LAYOUT_60_iso_arrow": {
             "layout": [
