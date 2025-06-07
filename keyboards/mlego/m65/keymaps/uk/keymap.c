@@ -246,7 +246,7 @@ adj layer
 };
 // clang-format on
 
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QW]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 #if defined(RGBLIGHT_ENABLE)

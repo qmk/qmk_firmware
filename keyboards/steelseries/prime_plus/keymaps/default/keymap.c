@@ -22,7 +22,7 @@ void pointing_device_init_kb(void) {
     pointing_device_set_cpi(1600);
 }
 
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = {ENCODER_CCW_CW(MS_WHLU, MS_WHLD)},
 };
