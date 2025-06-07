@@ -38,6 +38,9 @@ void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data) {
 void tap_dance_pair_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
 
+    #ifdef REPEAT_KEY_ENABLE
+    set_last_keycode(pair->kc1);
+    #endif
     register_code16(pair->kc1);
 }
 
