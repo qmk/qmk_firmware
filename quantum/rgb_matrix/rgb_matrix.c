@@ -749,7 +749,7 @@ const char *rgb_matrix_get_mode_name(uint8_t mode) {
             return "NONE";
 
 #    define RGB_MATRIX_EFFECT(name, ...) \
-        case RGB_MATRIX_##name:   \
+        case RGB_MATRIX_##name:          \
             return #name;
 #    include "rgb_matrix_effects.inc"
 #    undef RGB_MATRIX_EFFECT

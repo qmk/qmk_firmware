@@ -652,3 +652,48 @@ void led_matrix_set_flags(led_flags_t flags) {
 void led_matrix_set_flags_noeeprom(led_flags_t flags) {
     led_matrix_set_flags_eeprom_helper(flags, false);
 }
+
+// LED Matrix naming
+#undef LED_MATRIX_EFFECT
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+const char *led_matrix_get_mode_name(uint8_t mode) {
+    switch (mode) {
+        case LED_MATRIX_NONE:
+            return "NONE";
+
+#    define LED_MATRIX_EFFECT(name, ...) \
+        case LED_MATRIX_##name:          \
+            return #name;
+#    include "led_matrix_effects.inc"
+#    undef LED_MATRIX_EFFECT
+
+#    ifdef COMMUNITY_MODULES_ENABLE
+#        define LED_MATRIX_EFFECT(name, ...)         \
+            case LED_MATRIX_COMMUNITY_MODULE_##name: \
+                return #name;
+#        include "led_matrix_community_modules.inc"
+#        undef LED_MATRIX_EFFECT
+#    endif // COMMUNITY_MODULES_ENABLE
+
+#    if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
+#        define LED_MATRIX_EFFECT(name, ...) \
+            case LED_MATRIX_CUSTOM_##name:   \
+                return #name;
+
+#        ifdef LED_MATRIX_CUSTOM_KB
+#            include "led_matrix_kb.inc"
+#        endif // LED_MATRIX_CUSTOM_KB
+
+#        ifdef LED_MATRIX_CUSTOM_USER
+#            include "led_matrix_user.inc"
+#        endif // LED_MATRIX_CUSTOM_USER
+
+#        undef LED_MATRIX_EFFECT
+#    endif // LED_MATRIX_CUSTOM_KB || LED_MATRIX_CUSTOM_USER
+
+        default:
+            return "UNKNOWN";
+    }
+}
+#    undef LED_MATRIX_EFFECT
+#endif // LED_MATRIX_MODE_NAME_ENABLE

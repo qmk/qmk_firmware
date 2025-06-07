@@ -184,6 +184,10 @@ led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
 void        led_matrix_set_flags_noeeprom(led_flags_t flags);
 
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+const char *led_matrix_get_mode_name(uint8_t mode);
+#endif // LED_MATRIX_MODE_NAME_ENABLE
+
 static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(LED_MATRIX_SPLIT)
     if (is_keyboard_left()) {
