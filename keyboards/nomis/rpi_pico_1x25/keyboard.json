@@ -1,0 +1,63 @@
+{
+    "manufacturer": "uuid.uk",
+    "keyboard_name": "rpi pico 1x25 keyboard",
+    "maintainer": "nomis",
+    "bootloader": "rp2040",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "joystick": true,
+        "nkro": true
+    },
+    "joystick": {
+        "axes": {},
+        "button_count": 25,
+        "driver": "digital"
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP0", "GP1", "GP2", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP15", "GP14", "GP13", "GP12", "GP19", "GP18", "GP17", "GP16", "GP20", "GP21", "GP22", "GP26", "GP27"]
+        ]
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/nomis/keyboard-pcb-rpi-pico-1x25",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x5A19",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "pin": "GP28"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 0, "y": 1},
+                {"matrix": [0, 2], "x": 0, "y": 2},
+                {"matrix": [0, 3], "x": 0, "y": 3},
+                {"matrix": [0, 4], "x": 0, "y": 4},
+                {"matrix": [0, 5], "x": 0, "y": 5.2667},
+                {"matrix": [0, 6], "x": 0, "y": 6.2667},
+                {"matrix": [0, 7], "x": 0, "y": 7.2667},
+                {"matrix": [0, 8], "x": 0, "y": 8.2667},
+                {"matrix": [0, 9], "x": 0, "y": 9.2667},
+                {"matrix": [0, 10], "x": 0, "y": 10.5333},
+                {"matrix": [0, 11], "x": 0, "y": 11.5333},
+                {"matrix": [0, 12], "x": 0, "y": 12.5333},
+                {"matrix": [0, 13], "x": 0, "y": 13.5333},
+                {"matrix": [0, 14], "x": 0, "y": 14.5333},
+                {"matrix": [0, 15], "x": 0, "y": 15.8},
+                {"matrix": [0, 16], "x": 0, "y": 16.8},
+                {"matrix": [0, 17], "x": 0, "y": 17.8},
+                {"matrix": [0, 18], "x": 0, "y": 18.8},
+                {"matrix": [0, 19], "x": 0, "y": 19.8},
+                {"matrix": [0, 20], "x": 0, "y": 21.0667},
+                {"matrix": [0, 21], "x": 0, "y": 22.0667},
+                {"matrix": [0, 22], "x": 0, "y": 23.0667},
+                {"matrix": [0, 23], "x": 0, "y": 24.0667},
+                {"matrix": [0, 24], "x": 0, "y": 25.0667}
+            ]
+        }
+    }
+}
