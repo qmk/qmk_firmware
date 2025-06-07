@@ -38,6 +38,9 @@
         { 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF }
 #endif
 
+#define SNLED27351_PWM_REGISTERS_PER_CHUNK 16
+#define SNLED27351_CHUNK_COUNT ((SNLED27351_PWM_REGISTER_COUNT + SNLED27351_PWM_REGISTERS_PER_CHUNK - 1) / SNLED27351_PWM_REGISTERS_PER_CHUNK)
+
 const uint8_t i2c_addresses[SNLED27351_DRIVER_COUNT] = {
     SNLED27351_I2C_ADDRESS_1,
 #ifdef SNLED27351_I2C_ADDRESS_2
@@ -59,14 +62,14 @@ const uint8_t i2c_addresses[SNLED27351_DRIVER_COUNT] = {
 // probably not worth the extra complexity.
 typedef struct snled27351_driver_t {
     uint8_t pwm_buffer[SNLED27351_PWM_REGISTER_COUNT];
-    bool    pwm_buffer_dirty;
+    bool    pwm_buffer_dirty[SNLED27351_CHUNK_COUNT];
     uint8_t led_control_buffer[SNLED27351_LED_CONTROL_REGISTER_COUNT];
     bool    led_control_buffer_dirty;
 } PACKED snled27351_driver_t;
 
 snled27351_driver_t driver_buffers[SNLED27351_DRIVER_COUNT] = {{
     .pwm_buffer               = {0},
-    .pwm_buffer_dirty         = false,
+    .pwm_buffer_dirty         = {0},
     .led_control_buffer       = {0},
     .led_control_buffer_dirty = false,
 }};
@@ -90,13 +93,21 @@ void snled27351_write_pwm_buffer(uint8_t index) {
     // Transmit PWM registers in 12 transfers of 16 bytes.
 
     // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (uint8_t i = 0; i < SNLED27351_PWM_REGISTER_COUNT; i += 16) {
+    for (uint8_t i = 0; i < SNLED27351_CHUNK_COUNT; i++) {
+        if (!driver_buffers[index].pwm_buffer_dirty[i]) {
+            continue;
+        }
+
+        driver_buffers[index].pwm_buffer_dirty[i] = false;
+
+        uint8_t offset = i * SNLED27351_PWM_REGISTERS_PER_CHUNK;
+
 #if SNLED27351_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < SNLED27351_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, offset, driver_buffers[index].pwm_buffer + offset, SNLED27351_PWM_REGISTERS_PER_CHUNK, SNLED27351_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, SNLED27351_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, offset, driver_buffers[index].pwm_buffer + offset, SNLED27351_PWM_REGISTERS_PER_CHUNK, SNLED27351_I2C_TIMEOUT);
 #endif
     }
 }
@@ -178,10 +189,12 @@ void snled27351_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
             return;
         }
 
-        driver_buffers[led.driver].pwm_buffer[led.r] = red;
-        driver_buffers[led.driver].pwm_buffer[led.g] = green;
-        driver_buffers[led.driver].pwm_buffer[led.b] = blue;
-        driver_buffers[led.driver].pwm_buffer_dirty  = true;
+        driver_buffers[led.driver].pwm_buffer[led.r]                                            = red;
+        driver_buffers[led.driver].pwm_buffer[led.g]                                            = green;
+        driver_buffers[led.driver].pwm_buffer[led.b]                                            = blue;
+        driver_buffers[led.driver].pwm_buffer_dirty[led.r / SNLED27351_PWM_REGISTERS_PER_CHUNK] = true;
+        driver_buffers[led.driver].pwm_buffer_dirty[led.g / SNLED27351_PWM_REGISTERS_PER_CHUNK] = true;
+        driver_buffers[led.driver].pwm_buffer_dirty[led.b / SNLED27351_PWM_REGISTERS_PER_CHUNK] = true;
     }
 }
 
@@ -222,12 +235,14 @@ void snled27351_set_led_control_register(uint8_t index, bool red, bool green, bo
 }
 
 void snled27351_update_pwm_buffers(uint8_t index) {
-    if (driver_buffers[index].pwm_buffer_dirty) {
-        snled27351_select_page(index, SNLED27351_COMMAND_PWM);
-
-        snled27351_write_pwm_buffer(index);
-
-        driver_buffers[index].pwm_buffer_dirty = false;
+    for (uint8_t i = 0; i < SNLED27351_CHUNK_COUNT; i++) {
+        if (driver_buffers[index].pwm_buffer_dirty[i]) {
+            // if any of these are true then write PWM buffer
+            // then exit the loop
+            snled27351_select_page(index, SNLED27351_COMMAND_PWM);
+            snled27351_write_pwm_buffer(index);
+            return;
+        }
     }
 }
 
