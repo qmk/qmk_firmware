@@ -154,8 +154,8 @@ bool     eeconfig_is_user_datablock_valid(void);
 uint32_t eeconfig_read_user_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
 uint32_t eeconfig_update_user_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
 void     eeconfig_init_user_datablock(void);
-#    define eeconfig_read_user_datablock_field(__object, __field) eeconfig_read_user_datablock(&(__object.__field), offsetof(__object, __field), sizeof(__object.__field))
-#    define eeconfig_update_user_datablock_field(__object, __field) eeconfig_update_user_datablock(&(__object.__field), offsetof(__object, __field), sizeof(__object.__field))
+#    define eeconfig_read_user_datablock_field(__object, __field) eeconfig_read_user_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))
+#    define eeconfig_update_user_datablock_field(__object, __field) eeconfig_update_user_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
 
 // Any "checked" debounce variant used requires implementation of:
