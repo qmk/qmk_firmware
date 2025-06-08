@@ -142,6 +142,8 @@ If you define these options you will enable the associated feature, which may in
   * Enables the `QK_MAKE` keycode
 * `#define STRICT_LAYER_RELEASE`
   * force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
+* `#define KEYCODE_CACHE_ENABLE`
+  * Cache keycode for pressed keys, to be used on key release, across entire physical keyboard layout.
 
 ## Behaviors That Can Be Configured
 

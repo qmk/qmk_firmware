@@ -306,6 +306,32 @@ uint8_t read_source_layers_cache(keypos_t key) {
 #    endif // ENCODER_MAP_ENABLE
     return 0;
 }
+
+#    ifdef KEYCODE_CACHE_ENABLE
+static uint16_t keycode_map[MATRIX_ROWS][MATRIX_COLS] = {{KC_NO}};
+
+/** \brief update keycode map
+ *
+ * Updates map of keycodes when a key is pressed down
+ */
+void update_keycode_map(keypos_t key, uint16_t keycode) {
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        keycode_map[key.row][key.col] = keycode;
+    }
+}
+
+/** \brief read keycode map
+ *
+ * reads from map of keycodes when a key is released
+ */
+uint16_t read_keycode_map(keypos_t key) {
+    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
+        return keycode_map[key.row][key.col];
+    }
+    return KC_NO;
+}
+#    endif
+
 #endif
 
 /** \brief Store or get action (FIXME: Needs better summary)
@@ -322,14 +348,27 @@ action_t store_or_get_action(bool pressed, keypos_t key) {
     }
 
     uint8_t layer;
-
+#    ifdef KEYCODE_CACHE_ENABLE
+    uint16_t keycode;
+#    endif
     if (pressed) {
         layer = layer_switch_get_layer(key);
         update_source_layers_cache(key, layer);
+#    ifdef KEYCODE_CACHE_ENABLE
+        keycode = keymap_key_to_keycode(layer, key);
+        update_keycode_map(key, keycode);
+#    endif
     } else {
         layer = read_source_layers_cache(key);
+#    ifdef KEYCODE_CACHE_ENABLE
+        keycode = read_keycode_map(key);
+#    endif
     }
+#    ifndef KEYCODE_CACHE_ENABLE
     return action_for_key(layer, key);
+#    else
+    return action_for_keycode(keycode);
+#    endif
 #else
     return layer_switch_get_action(key);
 #endif
