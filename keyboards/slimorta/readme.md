@@ -2,11 +2,7 @@
 
 ![slimorta](https://i.imgur.com/edsao2S.jpeg)
 
-Slimorta is a keyboard with following features:
-12*4+10 keys
-Column-staggered
-Slim
-Portable
+Slimorta is a slim and portable ortholinear keyboard.
 
 * Keyboard Maintainer: [ASHIJANKEN](https://github.com/ASHIJANKEN)
 * Hardware Supported: Slimorta PCB, ProMicro
