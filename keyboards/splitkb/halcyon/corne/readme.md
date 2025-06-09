@@ -2,7 +2,7 @@
 
 ![splitkb/halcyon/corne](https://i.imgur.com/Cpo2dM8.png)
 
-The Halcyon Corne rev4 is the second Corne revision and the third keyboard in our Halcyon range. Similar to Aurora, all keyboards in the series share the same feature set. The key highlights:
+The Halcyon Corne rev2 is the second Corne revision and the third keyboard in our Halcyon range. Similar to Aurora, all keyboards in the series share the same feature set. The key highlights:
 
 - Halcyon keyboards come preassembled! You won't need a soldering iron.
 - You'll be able to install [VIK](https://github.com/sadekbaroudi/vik) modules.
