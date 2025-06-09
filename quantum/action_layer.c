@@ -325,9 +325,9 @@ static uint16_t keycode_cache_count = 0;
  * returns index of keycode_cache for given key
  */
 static int16_t find_keycode_cache_index(keypos_t key) {
-    for (uint16_t i = 0; i < keycode_cache_count; ++i) {
-        if (keycode_cache[i].row == key.row && keycode_cache[i].col == key.col) {
-            return i;
+    for (uint16_t keycode_cache_idx = 0; keycode_cache_idx < keycode_cache_count; ++keycode_cache_idx) {
+        if (keycode_cache[keycode_cache_idx].row == key.row && keycode_cache[keycode_cache_idx].col == key.col) {
+            return keycode_cache_idx;
         }
     }
     return -1;
@@ -338,9 +338,9 @@ static int16_t find_keycode_cache_index(keypos_t key) {
  * add to cache of keycodes after a key is pressed down
  */
 static void add_keycode_cache(keypos_t key, uint16_t keycode) {
-    int16_t idx = find_keycode_cache_index(key);
-    if (idx >= 0) {
-        keycode_cache[idx].keycode = keycode;
+    int16_t keycode_cache_idx = find_keycode_cache_index(key);
+    if (keycode_cache_idx >= 0) {
+        keycode_cache[keycode_cache_idx].keycode = keycode;
         return;
     }
     if (keycode_cache_count < KEYCODE_CACHE_LIMIT) {
@@ -356,9 +356,9 @@ static void add_keycode_cache(keypos_t key, uint16_t keycode) {
  * remove from cache of keycodes after a key is released
  */
 static void remove_keycode_cache(keypos_t key) {
-    int16_t idx = find_keycode_cache_index(key);
-    if (idx >= 0) {
-        keycode_cache[idx] = keycode_cache[keycode_cache_count - 1];
+    int16_t keycode_cache_idx = find_keycode_cache_index(key);
+    if (keycode_cache_idx >= 0) {
+        keycode_cache[keycode_cache_idx] = keycode_cache[keycode_cache_count - 1];
         keycode_cache_count--;
     }
 }
@@ -368,9 +368,9 @@ static void remove_keycode_cache(keypos_t key) {
  * reads from cache of keycodes for when a key is releasing
  */
 static uint16_t read_keycode_cache(keypos_t key) {
-    int16_t idx = find_keycode_cache_index(key);
-    if (idx >= 0) {
-        return keycode_cache[idx].keycode;
+    int16_t keycode_cache_idx = find_keycode_cache_index(key);
+    if (keycode_cache_idx >= 0) {
+        return keycode_cache[keycode_cache_idx].keycode;
     }
     return KC_NO;
 }
