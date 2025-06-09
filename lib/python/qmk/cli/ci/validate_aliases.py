@@ -2,7 +2,7 @@
 """
 from milc import cli
 
-from qmk.keyboard import resolve_keyboard, keyboard_folder, keyboard_alias_definitions
+from qmk.keyboard import keyboard_folder, keyboard_alias_definitions
 
 
 def _safe_keyboard_folder(target):
@@ -15,10 +15,6 @@ def _safe_keyboard_folder(target):
 def _target_keyboard_exists(target):
     # If there's no target, then we can't build it.
     if not target:
-        return False
-
-    # If the target directory existed but there was no rules.mk or rules.mk was incorrectly parsed, then we can't build it.
-    if not resolve_keyboard(target):
         return False
 
     # If the target directory exists but it itself has an invalid alias or invalid rules.mk, then we can't build it either.
