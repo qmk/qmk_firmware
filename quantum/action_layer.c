@@ -308,25 +308,69 @@ uint8_t read_source_layers_cache(keypos_t key) {
 }
 
 #    ifdef KEYCODE_CACHE_ENABLE
-static uint16_t keycode_map[MATRIX_ROWS][MATRIX_COLS] = {{KC_NO}};
+#        ifndef KEYCODE_CACHE_LIMIT
+#define KEYCODE_CACHE_LIMIT (MATRIX_ROWS * MATRIX_COLS)
+#        endif
 
-/** \brief update keycode map
+typedef struct historical_keycode_t {
+    uint8_t row;
+    uint8_t col;
+    uint16_t keycode;
+} historical_keycode_t;
+static historical_keycode_t keycode_cache[KEYCODE_CACHE_LIMIT];
+static uint16_t keycode_cache_count = 0;
+
+/** \brief find keycode cache index
  *
- * Updates map of keycodes when a key is pressed down
+ * returns index of keycode_cache for given key
  */
-void update_keycode_map(keypos_t key, uint16_t keycode) {
-    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        keycode_map[key.row][key.col] = keycode;
+static int16_t find_keycode_cache_index(keypos_t key) {
+    for (uint16_t i = 0; i < keycode_cache_count; ++i) {
+        if (keycode_cache[i].row == key.row && keycode_cache[i].col == key.col) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/** \brief add keycode cache
+ *
+ * add to cache of keycodes after a key is pressed down
+ */
+static void add_keycode_cache(keypos_t key, uint16_t keycode) {
+    int16_t idx = find_keycode_cache_index(key);
+    if (idx >= 0) {
+        keycode_cache[idx].keycode = keycode;
+        return;
+    }
+    if (keycode_cache_count < KEYCODE_CACHE_LIMIT) {
+        keycode_cache[keycode_cache_count].row = key.row;
+        keycode_cache[keycode_cache_count].col = key.col;
+        keycode_cache[keycode_cache_count].keycode = keycode;
+        keycode_cache_count++;
     }
 }
 
-/** \brief read keycode map
+/** \brief remove keycode cache
  *
- * reads from map of keycodes when a key is released
+ * remove from cache of keycodes after a key is released
  */
-uint16_t read_keycode_map(keypos_t key) {
-    if (key.row < MATRIX_ROWS && key.col < MATRIX_COLS) {
-        return keycode_map[key.row][key.col];
+static void remove_keycode_cache(keypos_t key) {
+    int16_t idx = find_keycode_cache_index(key);
+    if (idx >= 0) {
+        keycode_cache[idx] = keycode_cache[keycode_cache_count - 1];
+        keycode_cache_count--;
+    }
+}
+
+/** \brief read keycode cache
+ *
+ * reads from cache of keycodes for when a key is releasing
+ */
+static uint16_t read_keycode_cache(keypos_t key) {
+    int16_t idx = find_keycode_cache_index(key);
+    if (idx >= 0) {
+        return keycode_cache[idx].keycode;
     }
     return KC_NO;
 }
@@ -350,24 +394,34 @@ action_t store_or_get_action(bool pressed, keypos_t key) {
     uint8_t layer;
 #    ifdef KEYCODE_CACHE_ENABLE
     uint16_t keycode;
+    bool cache_used = false;
 #    endif
     if (pressed) {
         layer = layer_switch_get_layer(key);
         update_source_layers_cache(key, layer);
 #    ifdef KEYCODE_CACHE_ENABLE
         keycode = keymap_key_to_keycode(layer, key);
-        update_keycode_map(key, keycode);
+        if (keycode_cache_count < KEYCODE_CACHE_LIMIT) {
+            add_keycode_cache(key, keycode);
+            cache_used = true;
+        }
 #    endif
     } else {
         layer = read_source_layers_cache(key);
 #    ifdef KEYCODE_CACHE_ENABLE
-        keycode = read_keycode_map(key);
+        keycode = read_keycode_cache(key);
+        remove_keycode_cache(key);
+        cache_used = (keycode != KC_NO);
 #    endif
     }
 #    ifndef KEYCODE_CACHE_ENABLE
     return action_for_key(layer, key);
 #    else
-    return action_for_keycode(keycode);
+    if (cache_used) {
+        return action_for_keycode(keycode);
+    } else {
+        return action_for_key(layer, key);
+    }
 #    endif
 #else
     return layer_switch_get_action(key);
