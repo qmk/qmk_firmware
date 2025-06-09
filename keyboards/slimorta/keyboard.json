@@ -7,8 +7,7 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": false,
-        "nkro": false
+        "mousekey": true
     },
     "matrix_pins": {
         "cols": ["D1", "D0", "D4", "C6", "D7", "E6"],
@@ -20,8 +19,6 @@
         "pid": "0x0001",
         "vid": "0x4153"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [
