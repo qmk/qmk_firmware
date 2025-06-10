@@ -41,7 +41,7 @@ void keyboard_post_init_kb(void) {
     // debug_mouse=true;
 
     // initialize with the keyboard config data
-    eeconfig_read_kb_datablock(&kb_config.raw);
+    eeconfig_read_kb_datablock(&kb_config.raw, 0, sizeof(kb_config));
 #ifdef POINTING_DEVICE_ENABLE
     modular_adns5050_set_angle(0, kb_config.angle_L);
     modular_adns5050_set_angle(1, kb_config.angle_R);
@@ -79,7 +79,7 @@ void eeconfig_init_kb(void) {
     // initialization of kb_config
     my_kb_config_init(&kb_config);
 
-    eeconfig_update_kb_datablock(&kb_config.raw);
+    eeconfig_update_kb_datablock(&kb_config.raw, 0, sizeof(kb_config));
     eeconfig_init_user();
 }
 
@@ -188,7 +188,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     if (!process_kb_config_modification(&kb_config, keycode, record)) {
-        eeconfig_update_kb_datablock(&kb_config.raw);
+        eeconfig_update_kb_datablock(&kb_config.raw, 0, sizeof(kb_config));
         switch (keycode) {
             case AUTO_MOUSE_LAYER_P1:
                 set_auto_mouse_enable(kb_config.mouse_layer_on);
