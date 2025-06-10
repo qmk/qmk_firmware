@@ -2307,11 +2307,5 @@
     },
     "sirius/uni660/rev2": {
         "target": "sirius/uni660/rev2/ansi"
-    },
-    "tzarc/djinn": {
-        "target": "tzarc/djinn/rev2"
-    },
-    "tzarc/ghoul": {
-        "target": "tzarc/ghoul/rev1/stm32"
     }
 }
