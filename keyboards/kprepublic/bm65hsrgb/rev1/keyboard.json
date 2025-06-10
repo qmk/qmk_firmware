@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BM65HSRGB",
     "manufacturer": "KPrepublic",
-    "url": "",
     "maintainer": "bytesapart",
     "usb": {
         "vid": "0x4B50",
@@ -19,8 +18,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

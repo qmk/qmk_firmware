@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pinky3",
     "manufacturer": "tamanishi",
-    "url": "",
     "maintainer": "tamanishi",
     "usb": {
         "vid": "0x544E",

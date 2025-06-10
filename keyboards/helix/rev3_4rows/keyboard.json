@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Helix rev3 4rows",
   "manufacturer": "yushakobo",
-  "url": "",
   "maintainer": "yushakobo",
   "usb": {
     "vid": "0x3265",
@@ -33,7 +32,9 @@
   },
   "split": {
     "enabled": true,
-    "soft_serial_pin": "D2"
+    "serial": {
+        "pin": "D2"
+     }
   },
   "ws2812": {
     "pin": "D3"

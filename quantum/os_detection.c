@@ -68,6 +68,15 @@ static volatile bool first_report = true;
 static volatile struct usb_device_state current_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
 static volatile struct usb_device_state maxprev_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
 
+// to reset the keyboard on USB state change
+#ifdef OS_DETECTION_KEYBOARD_RESET
+#    ifndef OS_DETECTION_RESET_DEBOUNCE
+#        define OS_DETECTION_RESET_DEBOUNCE OS_DETECTION_DEBOUNCE
+#    endif
+static volatile fast_timer_t configured_since = 0;
+static volatile bool         reset_pending    = false;
+#endif
+
 // the OS detection might be unstable for a while, "debounce" it
 static volatile bool         debouncing = false;
 static volatile fast_timer_t last_time  = 0;
@@ -77,7 +86,10 @@ bool process_detected_host_os_modules(os_variant_t os);
 void os_detection_task(void) {
 #ifdef OS_DETECTION_KEYBOARD_RESET
     // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
-    // only take action if it's been stable at least once, to avoid issues with some KVMs
+    if (reset_pending) {
+        soft_reset_keyboard();
+    }
+    // reset the keyboard if it is stuck in the init state for longer than debounce duration, which can happen with some KVMs
     if (current_usb_device_state.configure_state <= USB_DEVICE_STATE_INIT && maxprev_usb_device_state.configure_state >= USB_DEVICE_STATE_CONFIGURED) {
         if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
             soft_reset_keyboard();
@@ -187,6 +199,18 @@ void os_detection_notify_usb_device_state_change(struct usb_device_state usb_dev
     current_usb_device_state = usb_device_state;
     last_time                = timer_read_fast();
     debouncing               = true;
+
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    if (configured_since == 0 && current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED) {
+        configured_since = timer_read_fast();
+    } else if (current_usb_device_state.configure_state == USB_DEVICE_STATE_INIT) {
+        // reset the keyboard only if it's been stable for at least debounce duration, to avoid issues with some KVMs
+        if (configured_since > 0 && timer_elapsed_fast(configured_since) >= OS_DETECTION_RESET_DEBOUNCE) {
+            reset_pending = true;
+        }
+        configured_since = 0;
+    }
+#endif
 }
 
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)

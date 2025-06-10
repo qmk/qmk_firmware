@@ -1,7 +1,6 @@
 {
   "keyboard_name": "x268",
   "manufacturer": "Noxary",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4E58",
@@ -11,8 +10,6 @@
   "features": {
     "backlight": true,
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

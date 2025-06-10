@@ -7,6 +7,7 @@ endif
 OPT = g
 
 include paths.mk
+include $(BUILDDEFS_PATH)/support.mk
 include $(BUILDDEFS_PATH)/message.mk
 
 TARGET=test/$(TEST_OUTPUT)

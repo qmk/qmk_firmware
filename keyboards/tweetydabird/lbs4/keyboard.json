@@ -7,8 +7,6 @@
     "bootloader_instructions": "Short marked pads on PCB, or hold top left key when plugging in.",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
@@ -36,9 +34,6 @@
     },
     "rgblight": {
         "led_count": 6,
-        "hue_steps": 8,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "max_brightness": 175,
         "animations": {
             "alternating": true,
