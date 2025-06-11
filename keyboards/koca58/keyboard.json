@@ -1,6 +1,6 @@
 {
     "manufacturer": "oxnh",
-    "keyboard_name": "koca",
+    "keyboard_name": "Koca58",
     "maintainer": "oxnh",
     "bootloader": "stm32duino",
     "features": {
@@ -27,7 +27,7 @@
             "driver": "usart"
         }
     },
-    "url": "https://github.com/Hardware7253/Lily58_Koca",
+    "url": "https://github.com/Hardware7253/Koca58",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5106",
