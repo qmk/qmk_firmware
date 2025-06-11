@@ -1,8 +1,9 @@
-// Copyright 2023 QMK
+// Copyright 2023 WhirlwindFX
+// Copyright 2023 aedanmills
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "config.h"
 #include QMK_KEYBOARD_H
+#include "config.h"
 
 #ifdef RGB_MATRIX_ENABLE
 const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
@@ -114,11 +115,11 @@ const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
 #endif
 
 void keyboard_pre_init_kb(void) {
-  gpio_set_pin_output(LED_CAPS_LOCK_PIN);
-  gpio_set_pin_output(LED_NUM_LOCK_PIN);
-  gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_NUM_LOCK_PIN);
+    gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
 
-  gpio_set_pin_output(B11); // Required for indicators to work correctly
+    gpio_set_pin_output(B11); // Required for indicators to work correctly
 }
 
 bool led_update_kb(led_t led_state) {

@@ -1,4 +1,5 @@
-// Copyright 2023 QMK
+// Copyright 2023 WhirlwindFX
+// Copyright 2023 aedanmills
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
