@@ -3,7 +3,6 @@
     "keyboard_name": "koca",
     "maintainer": "oxnh",
     "bootloader": "stm32duino",
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -16,6 +15,9 @@
     "processor": "STM32F103",
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "C15"
+        },
         "matrix_pins": {
             "right": {
                 "direct": [["A10", "A9", "A8", "C9", "C8", "C7", "B2", "B13", "B12", "B14", "B15", "C6", "A6", "A7", "C4", "C5", "B0", "B1", "C14", "A0", "A1", "A2", "A3", "A4", "A5", "C13", "B7", "B6", "B5"]]
