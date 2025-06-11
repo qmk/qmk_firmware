@@ -25,4 +25,9 @@ CompileFlags:
     Compiler: clang
 Diagnostics:
     UnusedIncludes: None
-    Suppress: [asm_invalid_output_constraint, asm_invalid_input_constraint]
+    Suppress:
+        [
+            asm_invalid_output_constraint,
+            asm_invalid_input_constraint,
+            invalid_asm_value_for_constraint,
+        ]
