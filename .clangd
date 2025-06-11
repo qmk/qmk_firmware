@@ -7,7 +7,6 @@ CompileFlags:
             -Wno-pointer-to-int-cast,
             -Wno-int-to-void-pointer-cast,
             -DPROGMEM=,
-            -D__builtin_avr_delay_cycles(x)=_delay_us(1),
         ]
     Remove:
         [
