@@ -55,7 +55,9 @@ def cpu_defines(binary: str, compiler_args: str) -> List[str]:
             elif len(line_args) == 2 and line_args[0] == '#define':
                 define_args.append(f'-D{line_args[1]}')
 
-        type_filter = re.compile(r'^-D__(SIZE|INT|UINT|WINT|WCHAR|BYTE|SHRT|SIG|FLOAT|LONG|CHAR|SCHAR|DBL|FLT|LDBL|PTRDIFF|QQ|DQ|DA|HA|HQ|SA|SQ|TA|TQ|UDA|UDQ|UHA|UHQ|USQ|USA|UTQ|UTA|UQQ|UQA|ACCUM|FRACT|UACCUM|UFRACT|LACCUM|LFRACT|ULACCUM|ULFRACT|LLACCUM|LLFRACT|ULLACCUM|ULLFRACT|SACCUM|SFRACT|USACCUM|USFRACT)')
+        type_filter = re.compile(
+            r'^-D__(SIZE|INT|UINT|WINT|WCHAR|BYTE|SHRT|SIG|FLOAT|LONG|CHAR|SCHAR|DBL|FLT|LDBL|PTRDIFF|QQ|DQ|DA|HA|HQ|SA|SQ|TA|TQ|UDA|UDQ|UHA|UHQ|USQ|USA|UTQ|UTA|UQQ|UQA|ACCUM|FRACT|UACCUM|UFRACT|LACCUM|LFRACT|ULACCUM|ULFRACT|LLACCUM|LLFRACT|ULLACCUM|ULLFRACT|SACCUM|SFRACT|USACCUM|USFRACT)'
+        )
         return list(sorted(set(filter(lambda x: not type_filter.match(x), define_args))))
     return []
 
