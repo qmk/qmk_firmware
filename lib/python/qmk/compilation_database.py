@@ -41,9 +41,9 @@ def cpu_defines(binary: str, compiler_args: str) -> List[str]:
     if binary.endswith("gcc") or binary.endswith("g++"):
         invocation = [binary, '-dM', '-E']
         if binary.endswith("gcc"):
-            invocation.extend(['-x', 'c'])
+            invocation.extend(['-x', 'c', '-std=gnu11'])
         elif binary.endswith("g++"):
-            invocation.extend(['-x', 'c++'])
+            invocation.extend(['-x', 'c++', '-std=gnu++14'])
         compiler_args = shlex.split(compiler_args)
         invocation.extend(compiler_args)
         invocation.append('-')
