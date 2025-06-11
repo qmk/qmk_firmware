@@ -24,7 +24,12 @@
         "pid": "0xA33E",
         "device_version": "1.0.6"
     },
-
+    "indicators": {
+        "caps_lock": "B9",
+        "num_lock": "B8",
+        "scroll_lock": "B10",
+        "on_state": 0
+    },
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [
@@ -250,7 +255,6 @@
             {"matrix": [7, 12], "x": 214, "y": 64, "flags": 4}
         ],
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,

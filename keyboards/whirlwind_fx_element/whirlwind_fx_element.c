@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "config.h"
 
 #ifdef RGB_MATRIX_ENABLE
 const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
@@ -113,21 +112,8 @@ const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
     {0, SW8_CS38, SW8_CS39, SW8_CS37}
 };
 #endif
-
 void keyboard_pre_init_kb(void) {
-    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
-    gpio_set_pin_output(LED_NUM_LOCK_PIN);
-    gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
-
     gpio_set_pin_output(B11); // Required for indicators to work correctly
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(LED_NUM_LOCK_PIN, !led_state.num_lock);
-        gpio_write_pin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
-        gpio_write_pin(LED_SCROLL_LOCK_PIN, !led_state.scroll_lock);
-    }
-    return res;
+    
+    keyboard_pre_init_user();
 }
