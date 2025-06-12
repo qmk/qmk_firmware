@@ -184,20 +184,18 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
     if (d_os == OS_WINDOWS || d_os == OS_LINUX) {
         // Establish a deadzone to prevent spurious inputs
-        // 4 was found to be a good number experimentally
-        if (delta > 4 || delta < -4) {
+        if (delta > POINTING_DEVICE_AS5600_DEADZONE || delta < -POINTING_DEVICE_AS5600_DEADZONE) {
             current_position = ra;
-            mouse_report.v = delta;
+            mouse_report.v = delta / POINTING_DEVICE_AS5600_SPEED_DIV;
         }
     } else {
         // Certain operating systems, like MacOS, don't play well with the
         // high-res scrolling implementation. For more details, see:
         // https://github.com/qmk/qmk_firmware/issues/17585#issuecomment-2325248167
-        // 128 gives the scroll wheels "ticks".
-        if (delta >= 128) {
+        if (delta >= POINTING_DEVICE_AS5600_TICK_COUNT) {
             current_position = ra;
             mouse_report.v = 1;
-        } else if (delta <= -128) {
+        } else if (delta <= -POINTING_DEVICE_AS5600_TICK_COUNT) {
             current_position = ra;
             mouse_report.v = -1;
         }

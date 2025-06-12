@@ -16,11 +16,23 @@
 
 #pragma once
 
-#define POINTING_DEVICE_AS5600_ENABLE true
-
 #include <stdint.h>
 #include <stdbool.h>
 #include "i2c_master.h"
+
+#define POINTING_DEVICE_AS5600_ENABLE true
+#define POINTING_DEVICE_AS5600_TICK_COUNT 128
+
+// 12 was found to be a good value experimentally, balancing good
+// responsiveness with low backlash.
+#define POINTING_DEVICE_AS5600_DEADZONE 12
+
+// The speed divisor decreases the speed. 1 is base speed; 2 is divided by 2,
+// 3 is divided by 3, and so forth. For best results, make sure that
+// POINTING_DEVICE_AS5600_SPEED_DIV is an integer divisor of
+// POINTING_DEVICE_AS5600_DEADZONE (i.e. 3 is an integer divisor of 12, but
+// 5 is not).
+#define POINTING_DEVICE_AS5600_SPEED_DIV 2
 
 #define AS5600_I2C_ADDRESS (0x36 << 1)
 

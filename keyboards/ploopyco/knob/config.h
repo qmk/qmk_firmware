@@ -1,6 +1,4 @@
-/* Copyright 2023 Colin Lam (Ploopy Corporation)
- * Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- * Copyright 2019 Sunjun Kim
+/* Copyright 2025 Colin Lam (Ploopy Corporation)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,4 +26,3 @@
     { GP0, GP1, GP2, GP3, GP4, GP5, GP6, GP7, GP8, GP9, GP10, GP11, GP12, \
       GP13, GP14, GP15, GP16, GP17, GP18, GP19, GP20, GP21, GP24, GP25, \
       GP26, GP27, GP29 }
-
