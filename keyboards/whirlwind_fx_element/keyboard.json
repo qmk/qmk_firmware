@@ -30,6 +30,7 @@
         "scroll_lock": "B10",
         "on_state": 0
     },
+    "community_layouts": ["fullsize_ansi"],
     "layouts": {
         "LAYOUT_fullsize_ansi": {
             "layout": [
