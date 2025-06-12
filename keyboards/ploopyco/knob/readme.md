@@ -16,7 +16,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 # Triggering the Bootloader
 
-[Do you see those two golden holes in the board](https://ploopy.co/wp-content/uploads/2023/11/boot.jpg)? Those are called **vias**. They act exactly like a switch does. Right now, that switch is OFF. However, if you take a paperclip or a pair of metal tweezers and touch those two vias, the two vias will form an electrical connection. Effectively, that switch turns ON.
+[Do you see those two golden holes in the board](https://ploopy.co/wp-content/uploads/2025/06/knob-vias.jpg)? Those are called **vias**. They act exactly like a switch does. Right now, that switch is OFF. However, if you take a paperclip or a pair of metal tweezers and touch those two vias, the two vias will form an electrical connection. Effectively, that switch turns ON.
 
 Go ahead and connect the two vias, and then (while the vias are connected) plug in the Knob board into your computer.
 
