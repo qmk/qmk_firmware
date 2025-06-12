@@ -64,6 +64,11 @@ static uint16_t auto_pointer_layer_timer = 0;
 #define NV_BACK LGUI(KC_LBRC)
 #define NV_FRWD LGUI(KC_RBRC)
 
+#define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
+#define KC_CPYW LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
+#define KC_CAPP LGUI(LSFT(KC_4))        // Capture portion of screen
+#define KC_CPYP LGUI(LSFT(LCTL(KC_4)))  // Copy portion of screen
+
 #ifndef POINTING_DEVICE_ENABLE
 #    define DRGSCRL KC_NO
 #    define DPI_MOD KC_NO
@@ -125,9 +130,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_NUM] = LAYOUT(
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-       XXXXXXX, XXXXXXX,   KC_P1,   KC_P2,   KC_P3, XXXXXXX,    XXXXXXX,   KC_P1,   KC_P2,   KC_P3, XXXXXXX, XXXXXXX,
+       KC_CPYP, XXXXXXX,   KC_P1,   KC_P2,   KC_P3, XXXXXXX,    XXXXXXX,   KC_P1,   KC_P2,   KC_P3, XXXXXXX, KC_CAPP,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       XXXXXXX, XXXXXXX,   KC_P4,   KC_P5,   KC_P6, XXXXXXX,    XXXXXXX,   KC_P4,   KC_P5,   KC_P6, XXXXXXX, XXXXXXX,
+       KC_CPYW, XXXXXXX,   KC_P4,   KC_P5,   KC_P6, XXXXXXX,    XXXXXXX,   KC_P4,   KC_P5,   KC_P6, XXXXXXX, KC_CAPW,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
        XXXXXXX,   KC_P0,   KC_P7,   KC_P8,   KC_P9,   KC_P0,      KC_P0,   KC_P7,   KC_P8,   KC_P9,   KC_P0, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
@@ -137,11 +142,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LAYER_POINTER] = LAYOUT(
   // ╭──────────────────────────────────────────────────────╮ ╭──────────────────────────────────────────────────────╮
-       QK_RBT,  XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX,  QK_RBT,
+       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DPI_MOD, S_D_MOD,    S_D_MOD, DPI_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       EE_CLR,  XXXXXXX, XXXXXXX, SNIPING, DRGSCRL, XXXXXXX,    XXXXXXX, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX,  EE_CLR,
+       XXXXXXX, XXXXXXX, XXXXXXX, SNIPING, DRGSCRL, XXXXXXX,    XXXXXXX, DRGSCRL, SNIPING, XXXXXXX, XXXXXXX, XXXXXXX,
   // ├──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────┤
-       QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+       XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT, EE_CLR,  QK_RBT,     QK_RBT,  EE_CLR,  QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX,
   // ╰──────────────────────────────────────────────────────┤ ├──────────────────────────────────────────────────────╯
                                   KC_BTN1, KC_BTN2, KC_BTN3,    KC_BTN2, KC_BTN1
   //                            ╰───────────────────────────╯ ╰──────────────────╯
