@@ -1,7 +1,6 @@
 // Copyright 2025 Jack Sachinidhs (@jacksaxi)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
-#include "mectechpad.h" // or whatever the correct file is
 
 enum layers {
     _LAYER1,
