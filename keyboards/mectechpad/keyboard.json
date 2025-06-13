@@ -3,6 +3,7 @@
     "keyboard_name": "Mectechpad",
     "maintainer": "jacksaxi",
     "bootloader": "rp2040",
+    "debounce": 15,
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
