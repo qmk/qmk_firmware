@@ -13,6 +13,3 @@
 
 /* Pin for the layer change button */
 #define LAYER_CHANGE_PIN GP13
-
-/* Debounce time in milliseconds */
-#define DEBOUNCE 15
