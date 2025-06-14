@@ -27,7 +27,7 @@
             "twinkle": true
         },
         "led_count": 16,
-		"sleep": true
+        "sleep": true
     },
     "url": "https://github.com/makkomise/slothie60",
     "usb": {
