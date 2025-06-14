@@ -379,7 +379,7 @@ POINTING_DEVICE_DRIVER = custom
 Using the custom driver will require implementing the following functions:
 
 ```c
-void           pointing_device_driver_init(void) {}
+bool           pointing_device_driver_init(void) { return true; }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
 uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
 void           pointing_device_driver_set_cpi(uint16_t cpi) {}
@@ -467,20 +467,22 @@ If there is a `_RIGHT` configuration option or callback, the [common configurati
 
 ## Callbacks and Functions 
 
-| Function                                                   | Description                                                                                                   |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `pointing_device_init_kb(void)`                            | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
-| `pointing_device_init_user(void)`                          | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
-| `pointing_device_task_kb(mouse_report)`                    | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
-| `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
-| `pointing_device_handle_buttons(buttons, pressed, button)` | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
-| `pointing_device_get_cpi(void)`                            | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
-| `pointing_device_set_cpi(uint16_t)`                        | Sets the CPI/DPI, if supported.                                                                               |
-| `pointing_device_get_report(void)`                         | Returns the current mouse report (as a `report_mouse_t` data structure).                                      |
-| `pointing_device_set_report(mouse_report)`                 | Sets the mouse report to the assigned `report_mouse_t` data structured passed to the function.                |
-| `pointing_device_send(void)`                               | Sends the current mouse report to the host system.  Function can be replaced.                                 |
-| `has_mouse_report_changed(new_report, old_report)`         | Compares the old and new `report_mouse_t` data and returns true only if it has changed.                       |
-| `pointing_device_adjust_by_defines(mouse_report)`          | Applies rotations and invert configurations to a raw mouse report.                                            |
+| Function                                                      | Description                                                                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `pointing_device_init_kb(void)`                               | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
+| `pointing_device_init_user(void)`                             | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
+| `pointing_device_task_kb(mouse_report)`                       | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
+| `pointing_device_task_user(mouse_report)`                     | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
+| `pointing_device_handle_buttons(buttons, pressed, button)`    | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
+| `pointing_device_get_cpi(void)`                               | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
+| `pointing_device_set_cpi(uint16_t)`                           | Sets the CPI/DPI, if supported.                                                                               |
+| `pointing_device_get_report(void)`                            | Returns the current mouse report (as a `report_mouse_t` data structure).                                      |
+| `pointing_device_set_report(mouse_report)`                    | Sets the mouse report to the assigned `report_mouse_t` data structured passed to the function.                |
+| `pointing_device_send(void)`                                  | Sends the current mouse report to the host system.  Function can be replaced.                                 |
+| `has_mouse_report_changed(new_report, old_report)`            | Compares the old and new `report_mouse_t` data and returns true only if it has changed.                       |
+| `pointing_device_adjust_by_defines(mouse_report)`             | Applies rotations and invert configurations to a raw mouse report.                                            |
+| `pointing_device_get_status(void)`                            | Returns device status as `pointing_device_status_t` a good return is `POINTING_DEVICE_STATUS_SUCCESS`.        |
+| `pointing_device_set_status(pointing_device_status_t status)` | Sets device status, anything other than `POINTING_DEVICE_STATUS_SUCCESS` will disable reports from the device.|
 
 
 ## Split Keyboard Callbacks and Functions

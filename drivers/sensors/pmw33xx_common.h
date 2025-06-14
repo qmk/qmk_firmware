@@ -177,7 +177,7 @@ uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr);
  */
 bool pmw33xx_write(uint8_t sensor, uint8_t reg_addr, uint8_t data);
 
-void           pmw33xx_init_wrapper(void);
+bool           pmw33xx_init_wrapper(void);
 void           pmw33xx_set_cpi_wrapper(uint16_t cpi);
 uint16_t       pmw33xx_get_cpi_wrapper(void);
 report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report);
