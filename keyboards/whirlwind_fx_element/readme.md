@@ -1,6 +1,6 @@
 # WhirlwindFX ElementV2
 
-![WhirlwindFX ElementV2](https://www.whirlwindfx.com/cdn/shop/products/TheONEALONE_1920x.png)
+![WhirlwindFX ElementV2](https://i.imgur.com/Etso6Ni.png)
 
 A full-size (100%) mechanical keyboard with RGB lighting.
 
