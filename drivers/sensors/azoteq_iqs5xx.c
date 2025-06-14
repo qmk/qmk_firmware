@@ -321,7 +321,7 @@ void azoteq_iqs5xx_setup_resolution(void) {
 
 static i2c_status_t azoteq_iqs5xx_init_status = 1;
 
-void azoteq_iqs5xx_init(void) {
+bool azoteq_iqs5xx_init(void) {
     i2c_init();
     i2c_ping_address(AZOTEQ_IQS5XX_ADDRESS, 1); // wake
     azoteq_iqs5xx_reset_suspend(true, false, true);
@@ -349,67 +349,65 @@ void azoteq_iqs5xx_init(void) {
         azoteq_iqs5xx_init_status |= azoteq_iqs5xx_set_gesture_config(true);
         wait_ms(AZOTEQ_IQS5XX_REPORT_RATE + 1);
     }
+
+    return azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS;
 };
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
     report_mouse_t temp_report = {0};
 
-    if (azoteq_iqs5xx_init_status == I2C_STATUS_SUCCESS) {
-        azoteq_iqs5xx_base_data_t base_data       = {0};
-        i2c_status_t              status          = azoteq_iqs5xx_get_base_data(&base_data);
-        bool                      ignore_movement = false;
+    azoteq_iqs5xx_base_data_t base_data       = {0};
+    i2c_status_t              status          = azoteq_iqs5xx_get_base_data(&base_data);
+    bool                      ignore_movement = false;
 
-        if (status == I2C_STATUS_SUCCESS) {
+    if (status == I2C_STATUS_SUCCESS) {
 #ifdef POINTING_DEVICE_DEBUG
-            if (base_data.previous_cycle_time > AZOTEQ_IQS5XX_REPORT_RATE) {
-                pd_dprintf("IQS5XX - previous cycle time missed, took: %dms\n", base_data.previous_cycle_time);
-            }
-#endif
-            if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
-                pd_dprintf("IQS5XX - Single tap/hold.\n");
-                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
-            } else if (base_data.gesture_events_1.two_finger_tap) {
-                pd_dprintf("IQS5XX - Two finger tap.\n");
-                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
-            } else if (base_data.gesture_events_0.swipe_x_neg) {
-                pd_dprintf("IQS5XX - X-.\n");
-                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON4);
-                ignore_movement     = true;
-            } else if (base_data.gesture_events_0.swipe_x_pos) {
-                pd_dprintf("IQS5XX - X+.\n");
-                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON5);
-                ignore_movement     = true;
-            } else if (base_data.gesture_events_0.swipe_y_neg) {
-                pd_dprintf("IQS5XX - Y-.\n");
-                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON6);
-                ignore_movement     = true;
-            } else if (base_data.gesture_events_0.swipe_y_pos) {
-                pd_dprintf("IQS5XX - Y+.\n");
-                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON3);
-                ignore_movement     = true;
-            } else if (base_data.gesture_events_1.zoom) {
-                if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) < 0) {
-                    pd_dprintf("IQS5XX - Zoom out.\n");
-                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON7);
-                } else if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) > 0) {
-                    pd_dprintf("IQS5XX - Zoom in.\n");
-                    temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON8);
-                }
-            } else if (base_data.gesture_events_1.scroll) {
-                pd_dprintf("IQS5XX - Scroll.\n");
-                temp_report.h = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
-                temp_report.v = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
-            }
-            if (base_data.number_of_fingers == 1 && !ignore_movement) {
-                temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
-                temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
-            }
-
-        } else {
-            pd_dprintf("IQS5XX - get report failed, i2c status: %d \n", status);
+        if (base_data.previous_cycle_time > AZOTEQ_IQS5XX_REPORT_RATE) {
+            pd_dprintf("IQS5XX - previous cycle time missed, took: %dms\n", base_data.previous_cycle_time);
         }
+#endif
+        if (base_data.gesture_events_0.single_tap || base_data.gesture_events_0.press_and_hold) {
+            pd_dprintf("IQS5XX - Single tap/hold.\n");
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON1);
+        } else if (base_data.gesture_events_1.two_finger_tap) {
+            pd_dprintf("IQS5XX - Two finger tap.\n");
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON2);
+        } else if (base_data.gesture_events_0.swipe_x_neg) {
+            pd_dprintf("IQS5XX - X-.\n");
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON4);
+            ignore_movement     = true;
+        } else if (base_data.gesture_events_0.swipe_x_pos) {
+            pd_dprintf("IQS5XX - X+.\n");
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON5);
+            ignore_movement     = true;
+        } else if (base_data.gesture_events_0.swipe_y_neg) {
+            pd_dprintf("IQS5XX - Y-.\n");
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON6);
+            ignore_movement     = true;
+        } else if (base_data.gesture_events_0.swipe_y_pos) {
+            pd_dprintf("IQS5XX - Y+.\n");
+            temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON3);
+            ignore_movement     = true;
+        } else if (base_data.gesture_events_1.zoom) {
+            if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) < 0) {
+                pd_dprintf("IQS5XX - Zoom out.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON7);
+            } else if (AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l) > 0) {
+                pd_dprintf("IQS5XX - Zoom in.\n");
+                temp_report.buttons = pointing_device_handle_buttons(temp_report.buttons, true, POINTING_DEVICE_BUTTON8);
+            }
+        } else if (base_data.gesture_events_1.scroll) {
+            pd_dprintf("IQS5XX - Scroll.\n");
+            temp_report.h = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+            temp_report.v = CONSTRAIN_HID(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+        }
+        if (base_data.number_of_fingers == 1 && !ignore_movement) {
+            temp_report.x = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.x.h, base_data.x.l));
+            temp_report.y = CONSTRAIN_HID_XY(AZOTEQ_IQS5XX_COMBINE_H_L_BYTES(base_data.y.h, base_data.y.l));
+        }
+
     } else {
-        pd_dprintf("IQS5XX - Init failed, i2c status: %d \n", azoteq_iqs5xx_init_status);
+        pd_dprintf("IQS5XX - get report failed, i2c status: %d \n", status);
     }
 
     return temp_report;

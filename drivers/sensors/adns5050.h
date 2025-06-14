@@ -75,7 +75,7 @@ const pointing_device_driver_t adns5050_pointing_device_driver;
 // A bunch of functions to implement the ADNS5050-specific serial protocol.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
-void              adns5050_init(void);
+bool              adns5050_init(void);
 void              adns5050_sync(void);
 uint8_t           adns5050_serial_read(void);
 void              adns5050_serial_write(uint8_t data);

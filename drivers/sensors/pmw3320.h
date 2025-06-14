@@ -61,7 +61,7 @@ const pointing_device_driver_t pmw3320_pointing_device_driver;
 // Mostly taken from ADNS5050 driver.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
-void             pmw3320_init(void);
+bool             pmw3320_init(void);
 void             pmw3320_sync(void);
 uint8_t          pmw3320_serial_read(void);
 void             pmw3320_serial_write(uint8_t data);
