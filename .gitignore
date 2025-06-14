@@ -120,3 +120,6 @@ compile_commands.json
 via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
+
+# syscl0ck - Keep local stuff local
+*/local_only/*

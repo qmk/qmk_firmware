@@ -120,7 +120,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "analog.h"
 #include "qmk_midi.h"
-#define LAYER_COUNT 4
+#define LAYER_COUNT 5
 
 enum custom_keycodes {
   HEADER_3 = SAFE_RANGE,
@@ -148,7 +148,13 @@ enum custom_keycodes {
   CUSTOM_MACRO_0,
   CUSTOM_MACRO_1,
   CUSTOM_MACRO_2,
-  CUSTOM_MACRO_3
+  CUSTOM_MACRO_3,
+  LABEL_AI,
+  AI_WHAT_TXT,
+  AI_WHAT_SCR,
+  AI_WHY_TXT,
+  AI_WHY_SCR,
+  REPEAT_CMD
 };
 
 static uint8_t counter = 0;
@@ -164,6 +170,9 @@ void set_layer_rgb_mode(uint8_t layer) {
             break;
         case 3:
             rgb_matrix_mode(RGB_MATRIX_RAINDROPS);
+            break;
+        case 4:
+            rgb_matrix_mode(RGB_MATRIX_GRADIENT_UP_DOWN);
             break;
         default:  // Default Layer (Layer 0)
             rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);  // Example: Static Green
@@ -235,6 +244,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,                                   QK_BOOT 
     ),
   [3] = LAYOUT(
+    _______,         _______,     _______,     _______,
+    REPEAT_CMD,    _______,       _______,        AI_WHAT_SCR,
+    _______,         _______,     _______,     _______,
+    _______,         _______,     _______,     AI_WHAT_TXT,
+    LABEL_AI,                                   _______ 
+  ),
+  [4] = LAYOUT(
     _______,         _______,     _______,     _______,
     _______,    _______,       _______,        _______,
     _______,         _______,     _______,     _______,
@@ -405,6 +421,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 // screen invoke
                 screen_invoke(keycode);
                 return false;
+            case LABEL_AI:
+                // return the layer's label
+                SEND_STRING("# AG Maios;\n");
+                return false;
+            case AI_WHAT_TXT:
+                //Alt + Space
+                register_code(KC_LALT);
+                register_code(KC_SPACE);
+                unregister_code(KC_LALT);
+                unregister_code(KC_SPACE);
+                SEND_STRING("<jak g; kjg;Z\n");
+                // SHIFT
+                register_code(KC_LEFT_SHIFT);
+                SEND_STRING("\n\n");
+                unregister_code(KC_LEFT_SHIFT);
+                register_code(KC_PASTE);
+                unregister_code(KC_PASTE);
+                register_code(KC_ENT);
+                unregister_code(KC_ENT);
+                return false;
+            case REPEAT_CMD:
+                register_code(KC_UP);
+                unregister_code(KC_UP);
+                register_code(KC_ENT);
+                unregister_code(KC_ENT);
+                return false;
         }
     }
     return true;
@@ -413,3 +455,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 //$COMPILE && $FLASH
 //$COMPILE && $FLASH
 //$COMPILE && $FLASH
+

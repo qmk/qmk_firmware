@@ -1,6 +1,9 @@
-# GMMK NUMPAD
+# GMMK NUMPAD - With Features
 
 ![GMMK NUMPAD](https://i.imgur.com/JV4C5os.png)
+
+Useful How-To guides here:
+https://chatgpt.com/share/67b6ccf7-4588-800d-af46-622bc20e1bf6
 
 A 17 Key macropad made and sold by Glorious LLC, equipped with a WB32 microcontroller, with support for a rotary encoder.
 

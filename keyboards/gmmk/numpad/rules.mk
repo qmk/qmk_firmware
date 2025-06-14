@@ -1,3 +1,4 @@
 ANALOG_DRIVER_REQUIRED = yes
+ENCODER_ENABLE = yes
 
 SRC += matrix.c
