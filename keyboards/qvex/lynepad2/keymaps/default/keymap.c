@@ -75,31 +75,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { 
-        ENCODER_CCW_CW(KC_VOLD, KC_VOLU), 
-        ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  
+    [0] = {
+        ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+        ENCODER_CCW_CW(KC_VOLD, KC_VOLU)
     },
 
-    [1] = { 
-        ENCODER_CCW_CW(LSFT(KC_W), KC_W), 
-        ENCODER_CCW_CW(KC_N, LSFT(KC_N))  
+    [1] = {
+        ENCODER_CCW_CW(LSFT(KC_W), KC_W),
+        ENCODER_CCW_CW(KC_N, LSFT(KC_N))
     },
 
-    [2] = { 
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX), 
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX)  
+    [2] = {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX)
     },
 
-    [3] = { 
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX), 
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX)  
+    [3] = {
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX)
     },
 
-    [4] = { 
-        ENCODER_CCW_CW(UG_VALD, UG_VALU), 
-        ENCODER_CCW_CW(XXXXXXX, XXXXXXX)  
+    [4] = {
+        ENCODER_CCW_CW(UG_VALD, UG_VALU),
+        ENCODER_CCW_CW(XXXXXXX, XXXXXXX)
     }
 };
 #endif
@@ -109,7 +109,7 @@ void rgblight_sethue_noeeprom(uint8_t hue){
     //only if rgb led ring is on
     if (rgblight_get_mode()) {
         rgblight_sethsv_noeeprom(hue,rgblight_get_sat(),rgblight_get_val());
-    }     
+    }
 }
 
 //set correct layer hue on layer change
