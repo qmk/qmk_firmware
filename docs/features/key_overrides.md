@@ -135,11 +135,11 @@ bool momentary_layer(bool key_down, void *layer) {
     return false;
 }
 
-const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
+const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RALT),                       //
                                    .layers                 = ~(1 << LAYER_FN),                                          //
-                                   .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
+                                   .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RALT),                       //
                                    .options                = ko_option_no_unregister_on_other_key_down,                 //
-                                   .negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL)),          //
+                                   .negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RALT)),          //
                                    .custom_action          = momentary_layer,                                           //
                                    .context                = (void *)LAYER_FN,                                          //
                                    .trigger                = KC_NO,                                                     //
