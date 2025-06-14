@@ -1,5 +1,5 @@
 /* Copyright 2021 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
- * Copyright 2022 Alabastard
+ * Copyright 2022 Alabastard (@Alabastard-64)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -430,7 +430,12 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
  */
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
-    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode)) return true;
+    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode) ||
+#    ifdef POINTING_DEVICE_MODES_ENABLE
+        IS_QK_POINTING_MODES_MO(keycode) || IS_QK_POINTING_MODES_TG(keycode) ||
+#    endif
+        false)
+        return true;
     return false;
 }
 
