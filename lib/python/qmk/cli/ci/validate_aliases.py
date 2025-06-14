@@ -1,18 +1,19 @@
 """Validates the list of keyboard aliases.
 """
-from milc import cli
+from typing import Optional
+from milc import MILC, cli
 
 from qmk.keyboard import keyboard_folder, keyboard_alias_definitions
 
 
-def _safe_keyboard_folder(target):
+def _safe_keyboard_folder(target: str) -> Optional[str]:
     try:
         return keyboard_folder(target)  # throws ValueError if it's invalid
     except Exception:
         return None
 
 
-def _target_keyboard_exists(target):
+def _target_keyboard_exists(target: Optional[str]) -> bool:
     # If there's no target, then we can't build it.
     if not target:
         return False
@@ -26,12 +27,12 @@ def _target_keyboard_exists(target):
 
 
 @cli.subcommand('Validates the list of keyboard aliases.', hidden=True)
-def ci_validate_aliases(cli):
+def ci_validate_aliases(cli: MILC) -> bool:
     aliases = keyboard_alias_definitions()
 
     success = True
     for alias in aliases.keys():
-        target = aliases[alias].get('target', None)
+        target: Optional[str] = aliases[alias].get('target', None)
         if not _target_keyboard_exists(target):
             cli.log.error(f'Keyboard alias {alias} has a target that doesn\'t exist: {target}')
             success = False

@@ -3,6 +3,7 @@
 import platform
 import shutil
 from pathlib import Path
+from typing import Optional
 
 from milc import cli
 
@@ -10,11 +11,11 @@ from qmk.constants import QMK_FIRMWARE, BOOTLOADER_VIDS_PIDS
 from .check import CheckStatus, release_info
 
 
-def _is_wsl():
+def _is_wsl() -> bool:
     return 'microsoft' in platform.uname().release.lower()
 
 
-def _udev_rule(vid, pid=None, *args):
+def _udev_rule(vid: str, pid: Optional[str] = None, *args: str) -> str:
     """ Helper function that return udev rules
     """
     rule = ""
@@ -30,8 +31,8 @@ def _udev_rule(vid, pid=None, *args):
     return rule
 
 
-def _generate_desired_rules(bootloader_vids_pids):
-    rules = dict()
+def _generate_desired_rules(bootloader_vids_pids: dict[str, set[tuple[str, str]]]) -> dict[str, set[str]]:
+    rules: dict[str, set[str]] = {}
     for bl in bootloader_vids_pids.keys():
         rules[bl] = set()
         for vid_pid in bootloader_vids_pids[bl]:
@@ -42,7 +43,7 @@ def _generate_desired_rules(bootloader_vids_pids):
     return rules
 
 
-def _deprecated_udev_rule(vid, pid=None):
+def _deprecated_udev_rule(vid: str, pid: Optional[str] = None) -> str:
     """ Helper function that return udev rules
 
     Note: these are no longer the recommended rules, this is just used to check for them
@@ -53,7 +54,7 @@ def _deprecated_udev_rule(vid, pid=None):
         return 'SUBSYSTEMS=="usb", ATTRS{idVendor}=="%s", MODE:="0666"' % vid
 
 
-def check_udev_rules():
+def check_udev_rules() -> CheckStatus:
     """Make sure the udev rules look good.
     """
     rc = CheckStatus.OK
@@ -111,13 +112,13 @@ def check_udev_rules():
     return rc
 
 
-def check_systemd():
+def check_systemd() -> bool:
     """Check if it's a systemd system
     """
     return bool(shutil.which("systemctl"))
 
 
-def check_modem_manager():
+def check_modem_manager() -> bool:
     """Returns True if ModemManager is running.
 
     """
@@ -131,7 +132,7 @@ def check_modem_manager():
     return False
 
 
-def os_test_linux():
+def os_test_linux() -> CheckStatus:
     """Run the Linux specific tests.
     """
     info = release_info()
