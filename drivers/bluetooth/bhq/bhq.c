@@ -91,7 +91,7 @@ void BHQ_SendData(uint8_t *dat, uint16_t length)
     uart_transmit(dat, length);
     // int s = 0;//sdWrite(&UART_DRIVER,dat, length);
     // Debug print: show sent data
-    bhq_printf("mcu send data %d:",s);
+    bhq_printf("mcu send data :");
     for (uint16_t i = 0; i < length; i++)
     {
         bhq_printf("%02x ", dat[i]);

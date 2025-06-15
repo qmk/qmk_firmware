@@ -54,36 +54,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint8_t sta = 1;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if(keycode ==  QK_GESC)
-    {
-        if(record->event.pressed)
-        {
-            if(sta == 0)
-            {
-                sta = 1;
-                rgb_matrix_enable();
-                rgb_matrix_set_suspend_state(false);
-                gpio_set_pin_output(WS2812_POWER_PIN);
-                gpio_write_pin_high(WS2812_POWER_PIN);
-            }
-            else
-            {
-                sta = 0;
-                rgb_matrix_disable();
-                rgb_matrix_set_suspend_state(true);
-                gpio_set_pin_output(WS2812_POWER_PIN);
-                gpio_write_pin_low(WS2812_POWER_PIN);
-            }
-        }
-    }
-    if(keycode ==  KC_1)
-    {
-        if(record->event.pressed)
-        {
-            rgb_matrix_step();
-        }
-    }
-    
     return process_record_bhq(keycode, record);
 }
 
