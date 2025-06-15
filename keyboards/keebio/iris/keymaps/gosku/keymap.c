@@ -6,6 +6,9 @@
 #define _RAISE 2
 #define _ADJUST 3
 #define _MAC_QWERTY 4
+#define _MAC_LOWER 5
+#define _MAC_RAISE 6
+#define _MAC_ADJUST 7
 
 #define SFT_CAPS MT(MOD_LSFT,KC_CAPS) // code for a mod_tap: hold for shift, tap for caps locks
 #define C_LBRC C(KC_LBRC) // ctrl + open braces
@@ -37,6 +40,9 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   MAC_QWERTY,
+  MAC_LOWER,
+  MAC_RAISE,
+  MAC_ADJUST,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -104,11 +110,53 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      SFT_CAPS , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                              KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_PSCR, KC_LGUI, KC_LALT, KC_LCTL, LOWER,   KC_SPC,  MAC_QWERTY,       KC_MPLY,  KC_SPC,  RAISE,   KC_ENT, KC_MPLY,  KC_VOLD, KC_VOLU,
+     KC_PSCR, KC_LGUI, KC_LALT, KC_LCTL, MAC_LOWER, KC_SPC,  QWERTY,        KC_MPLY,  KC_SPC,  MAC_RAISE, KC_ENT, KC_MPLY,  KC_VOLD, KC_VOLU,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LCTL,   LOWER,  KC_SPC,                   QWERTY, C(KC_PGUP), C(KC_PGDN)
+                                    KC_LCTL, MAC_LOWER, KC_SPC,                   QWERTY, C(KC_PGUP), C(KC_PGDN)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
-  )
+  ),
+
+  [_MAC_LOWER] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                            KC_CIRC,   KC_7,    KC_8,    KC_9,  _______, KC_TRNS,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+      KC_GRV, KC_AMPR, KC_PAST, KC_PMNS, KC_UNDS, KC_GRV,                             _______,  KC_4,    KC_5,    KC_6,   KC_PLUS,  KC_PMNS,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, KC_LT,   KC_GT,   KC_PLUS, KC_EQL,  KC_DQUO,                             KC_RBRC,  KC_1,    KC_2,    KC_3,  KC_PAST, KC_SLSH,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_PDOT, MAC_RAISE, KC_0,  KC_TRNS, KC_MPRV, KC_MNXT,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    KC_LCTL,  KC_TRNS, KC_TRNS,                   QWERTY,  KC_TRNS, KC_TRNS
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+
+  [_MAC_RAISE] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_TRNS, C_LBRC,   C_RBRC,  A_DASH,  A_PLUS, KC_LBRC,                            KC_RBRC, KC_PGUP,  KC_UP,   KC_PGDN, _______, KC_DEL,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_TRNS, KC_HOME,  C_LEFT,  C_RGHT,  KC_END, KC_LPRN,                            KC_RPRN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PIPE,  KC_BSLS,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LSFT, S_HOME,  CS_LEFT, CS_RGHT,  S_END,  KC_LCBR,                            KC_RCBR,  _______, _______, _______, _______, KC_RSFT,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MAC_LOWER, KC_TRNS, KC_TRNS,          C(KC_P0), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BRID, KC_BRIU,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    KC_LCTL, MAC_LOWER, KC_TRNS,                  QWERTY, KC_TRNS, KC_TRNS
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+
+  [_MAC_ADJUST] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______,                            _______, _______, TO(_MAC_QWERTY), QWERTY, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______,  KC_F5,   KC_F6,   KC_F7,   KC_F8,  _______,                            _______, RGB_TOG, _______, _______, _______,  RESET,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______,  KC_F9,   KC_F10,  KC_F11, KC_F12,  _______,                            _______, RGB_MOD, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, _______, _______, _______, KC_TRNS,          KC_TRNS, _______, _______, _______, _______, _______, EEP_RST,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    KC_LCTL, MAC_LOWER, KC_TRNS,                  QWERTY, KC_TRNS, KC_TRNS
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
 };
 
 
@@ -125,6 +173,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
+        layer_off(_MAC_QWERTY);
 
       }
       return false;
@@ -162,6 +211,34 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       else{
         layer_off(_MAC_QWERTY);
+      }
+      return false;
+
+    case MAC_LOWER:
+      if (record->event.pressed) {
+        layer_on(_MAC_LOWER);
+        update_tri_layer(_MAC_LOWER, _MAC_RAISE, _MAC_ADJUST);
+      } else {
+        layer_off(_MAC_LOWER);
+        update_tri_layer(_MAC_LOWER, _MAC_RAISE, _MAC_ADJUST);
+      }
+      return false;
+
+    case MAC_RAISE:
+      if (record->event.pressed) {
+        layer_on(_MAC_RAISE);
+        update_tri_layer(_MAC_LOWER, _MAC_RAISE, _MAC_ADJUST);
+      } else {
+        layer_off(_MAC_RAISE);
+        update_tri_layer(_MAC_LOWER, _MAC_RAISE, _MAC_ADJUST);
+      }
+      return false;
+
+    case MAC_ADJUST:
+      if (record->event.pressed) {
+        layer_on(_MAC_ADJUST);
+      } else {
+        layer_off(_MAC_ADJUST);
       }
       return false;
 
@@ -209,12 +286,39 @@ int ledmap[][DRIVER_LED_TOTAL] = {
     },
 
     [_MAC_QWERTY] = {
-        PINK, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,     PINK,  // R1
+        PINK, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   PINK,  // R1
       YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R2
       YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R3
       YELLOW, YELLOW,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,    RED, YELLOW, YELLOW, YELLOW,  // R4
                       ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
-      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+      BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,     BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,    // Underglow
+    },
+
+    [_MAC_LOWER] = {
+       GREEN,  GREEN,  GREEN,  GREEN,  GREEN,  GREEN,    GREEN, YELLOW, YELLOW, YELLOW,   NONE,   NONE,  // R1
+       GREEN,  GREEN,  GREEN, VIOLET, VIOLET,  GREEN,     NONE, YELLOW, YELLOW, YELLOW, VIOLET, VIOLET,  // R2
+        NONE,  GREEN,  GREEN, VIOLET, VIOLET,  GREEN,     NONE, YELLOW, YELLOW, YELLOW, VIOLET, VIOLET,  // R3
+        NONE,   NONE,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK, YELLOW,  GREEN,  GREEN,  GREEN,  // R4
+                      ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
+        BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,     BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,  // Underglow
+    },
+
+    [_MAC_RAISE] = {
+        PINK, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,  GREEN, YELLOW,  GREEN,   NONE,   BLUE,  // R1
+        NONE, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET, YELLOW, YELLOW, YELLOW,   PINK,   PINK,  // R2
+        NONE, YELLOW, YELLOW, YELLOW, YELLOW, VIOLET,   VIOLET,   NONE,   NONE,   NONE,   NONE,   NONE,  // R3
+        NONE,   NONE,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,   NONE,   NONE,   NONE,   NONE,  // R4
+                      ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
+        BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,     BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,  // Underglow
+    },
+
+    [_MAC_ADJUST] = {
+        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,   NONE,  ORANGE,  PINK,   NONE,   NONE,  // R1
+        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,    RED,   NONE,   NONE,   NONE,  GREEN,  // R2
+        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,   BLUE,   NONE,   NONE,   NONE,   NONE,  // R3
+        NONE,   NONE,   NONE,   NONE,   PINK,   NONE,     NONE,   PINK,   NONE,   NONE,   NONE,   BLUE,  // R4
+                        NONE,   NONE,   NONE,   NONE,     NONE,   NONE,   NONE,   NONE,                  // Thumb Cluster
+        BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,     BLUE,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,  // Underglow
     },
 
 };
@@ -280,6 +384,15 @@ void rgb_matrix_indicators_user(void) {
     case 4:
       set_layer_color(_MAC_QWERTY);
       break;
+    case 5:
+      set_layer_color(_MAC_LOWER);
+      break;
+    case 6:
+      set_layer_color(_MAC_RAISE);
+      break;
+    case 7:
+      set_layer_color(_MAC_ADJUST);
+      break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
       rgb_matrix_set_color_all(0, 0, 0);
@@ -296,5 +409,8 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_RAISE] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
     [_ADJUST] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
     [_MAC_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
+    [_MAC_LOWER] = { ENCODER_CCW_CW(W_S_TAB, W_S_TAB), ENCODER_CCW_CW(W_S_TAB, W_S_TAB) },
+    [_MAC_RAISE] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
+    [_MAC_ADJUST] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
 };
 #endif
