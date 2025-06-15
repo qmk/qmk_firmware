@@ -227,8 +227,8 @@ void enter_low_power_mode_prepare(void)
     bhq_init();     // uart_init
     
     mousekey_clear();
-    clear_keyboard();
-    layer_clear();
+    // clear_keyboard();
+    // layer_clear();
 
     lpm_device_power_open();    // 外围设备 电源 关闭
   

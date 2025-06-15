@@ -44,50 +44,62 @@ uint16_t bhkSumCrc(uint8_t *data, uint16_t length) ;
 // bhq model send uart data
 void BHQ_SendData(uint8_t *dat, uint16_t length)
 {
-    // uint16_t i = 0;
     uint32_t wait_bhq_ack_timeout = 0;
     uint32_t last_toggle_time = 0;
     uint32_t bhq_wakeup = 0;
-    if(gpio_read_pin(BHQ_IQR_PIN) != BHQ_RUN_OR_INT_LEVEL)
+
+    // Check if the BHQ module is not in RUN state
+    if (gpio_read_pin(BHQ_IQR_PIN) != BHQ_RUN_OR_INT_LEVEL)
     {
         wait_bhq_ack_timeout = timer_read32();
         last_toggle_time = timer_read32();
-        while(1)
+
+        while (1)
         {
-            // Flip the level to wake the module
+            // Toggle INT pin every 20ms to wake up the module
             gpio_write_pin_high(BHQ_INT_PIN);
-            if(timer_elapsed32(last_toggle_time) >= 20)
+            if (timer_elapsed32(last_toggle_time) >= 20)
             {
                 gpio_write_pin_low(BHQ_INT_PIN);
                 last_toggle_time = timer_read32();
             }
-            // After the high and low level jump, the module wakes up, then you need to wait 10ms for the module to stabilize
-            if(gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && bhq_wakeup == 0)
+
+            // When module enters RUN state, record the time
+            if (gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && bhq_wakeup == 0)
             {
                 bhq_wakeup = timer_read32();
             }
-            if(gpio_read_pin(BHQ_IQR_PIN) == BHQ_RUN_OR_INT_LEVEL && timer_elapsed32(last_toggle_time) >= 5)
+
+            // After module is awake, wait 10ms for stabilization
+            if (bhq_wakeup != 0 && timer_elapsed32(bhq_wakeup) >= 10)
             {
                 break;
             }
 
-            if(timer_elapsed32(wait_bhq_ack_timeout) > 100) 
+            // Timeout if module does not wake up in 200ms
+            if (timer_elapsed32(wait_bhq_ack_timeout) > 200)
             {
-                gpio_write_pin_high(BHQ_INT_PIN);
-                return;
+                bhq_printf("wait_bhq_ack_timeout...");
+                gpio_write_pin_high(BHQ_INT_PIN); // Leave INT pin high before exit
+                break;
             }
         }
     }
+
+    // Keep INT pin high before sending data
     gpio_write_pin_high(BHQ_INT_PIN);
     uart_transmit(dat, length);
-
-    // bhq_printf("mcu send data:");
-    // for (i = 0; i < length; i++)
-    // {
-    //     bhq_printf("%02x ",dat[i]);
-    // }
-    // bhq_printf("\r\n");
+    // int s = 0;//sdWrite(&UART_DRIVER,dat, length);
+    // Debug print: show sent data
+    bhq_printf("mcu send data %d:",s);
+    for (uint16_t i = 0; i < length; i++)
+    {
+        bhq_printf("%02x ", dat[i]);
+    }
+    bhq_printf("\r\n");
 }
+
+
 int16_t BHQ_ReadData(void) {
     if (uart_available()) {
         return uart_read();
@@ -472,8 +484,7 @@ void bhq_task(void)
                 index = 0;
                 buf[index++] = bytedata;
                 u_sta++;  
-                // bhq_printf("read:[5D ");
-                // bhq_printf("read 0x5d\r\n");
+                bhq_printf("read:[5D ");
             }
             break;
         }
@@ -483,7 +494,7 @@ void bhq_task(void)
             {
                 buf[index++] = bytedata;
                 u_sta++;  
-                // bhq_printf("7E ");
+                bhq_printf("7E ");
             }
             break;
         }
@@ -501,13 +512,13 @@ void bhq_task(void)
                 {
                     break; 
                 }
-                // bhq_printf("%02x ",temp);
+                bhq_printf("%02x ",temp);
                 buf[index++] = (uint8_t)temp;
                 uartTimeoutBuffer = timer_read32();
             }
             if(index == dataLength && buf[dataLength - 1] == 0x5E)
             {
-                // bhq_printf("]\r\n");
+                bhq_printf("]\r\n");
                 if(bhkVerify(buf, index) == 0x00)
                 {
                     BHQ_Protocol_Process(buf, index);

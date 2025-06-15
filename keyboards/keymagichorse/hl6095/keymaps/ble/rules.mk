@@ -8,9 +8,6 @@ ANALOG_DRIVER_REQUIRED = yes
 # 开启键盘层DEBUG  这里是用RTT输出日记的
 KM_DEBUG = no
 
-ifeq ($(strip $(KB_CHECK_BATTERY_ENABLED)), yes)
- 	OPT_DEFS += -DKB_CHECK_BATTERY_ENABLED
-endif   
 
 include keyboards/keymagichorse/km_common/km_common.mk
 
