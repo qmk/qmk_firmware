@@ -134,7 +134,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        set_single_persistent_default_layer(_QWERTY);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -145,7 +144,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        set_single_persistent_default_layer(_QWERTY);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
