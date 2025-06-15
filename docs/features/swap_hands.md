@@ -40,7 +40,7 @@ Encoder indexes are defined as left-to-right, and the extent of the array needs 
 
 As an example, if a split keyboard has a single encoder per side, you can swap the order by using the following code in your keymap:
 ```c
-#if defined(SWAP_HANDS_ENABLE) && defined(ENCODER_MAP_ENABLE)
+#if defined(SWAP_HANDS_ENABLE) && !defined(ENCODER_CALLBACKS_ENABLE)
 const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 1, 0 };
 #endif
 ```
