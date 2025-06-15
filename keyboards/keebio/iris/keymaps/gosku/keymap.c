@@ -5,6 +5,7 @@
 #define _LOWER 1
 #define _RAISE 2
 #define _ADJUST 3
+#define _MAC_QWERTY 4
 
 #define SFT_CAPS MT(MOD_LSFT,KC_CAPS) // code for a mod_tap: hold for shift, tap for caps locks
 #define C_LBRC C(KC_LBRC) // ctrl + open braces
@@ -35,6 +36,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  MAC_QWERTY,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -47,9 +49,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      SFT_CAPS , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                              KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_PSCR, KC_LGUI, KC_LALT, KC_LCTL, LOWER,   KC_SPC,  _______,          KC_MPLY,  KC_SPC,  RAISE,   KC_ENT, KC_MPLY,  KC_VOLD, KC_VOLU,
+     KC_PSCR, KC_LGUI, KC_LALT, KC_LCTL, LOWER,   KC_SPC,  MAC_QWERTY,       KC_MPLY,  KC_SPC,  RAISE,   KC_ENT, KC_MPLY,  KC_VOLD, KC_VOLU,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LCTL,   LOWER,  KC_SPC,                   _______, C(KC_PGUP), C(KC_PGDN)
+                                    KC_LCTL,   LOWER,  KC_SPC,                   QWERTY, C(KC_PGUP), C(KC_PGDN)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -63,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_PDOT, KC_TRNS,  KC_0,    KC_TRNS, KC_MPRV, KC_MNXT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LCTL,   LOWER, KC_TRNS,                   KC_TRNS,  KC_TRNS, KC_TRNS
+                                    KC_LCTL,   LOWER, KC_TRNS,                   QWERTY,  KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
@@ -77,13 +79,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          C(KC_P0), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BRID, KC_BRIU,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LCTL,   LOWER, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
+                                    KC_LCTL,   LOWER, KC_TRNS,                   QWERTY, KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 
   [_ADJUST] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______,                            _______, _______, _______, _______, _______, _______,
+     _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,  _______,                            _______, _______, MAC_QWERTY, QWERTY, _______, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______,  KC_F5,   KC_F6,   KC_F7,   KC_F8,  _______,                            _______, RGB_TOG, _______, _______, _______,  RESET,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
@@ -91,7 +93,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      _______, _______, _______, _______, _______, _______, KC_TRNS,          KC_TRNS, _______, _______, _______, _______, _______, EEP_RST,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    KC_LCTL,   LOWER, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
+                                    KC_LCTL,   LOWER, KC_TRNS,                   QWERTY, KC_TRNS, KC_TRNS
+                                // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
+  ),
+  [_MAC_QWERTY] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                               KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                 KC_H,    KC_J,   KC_K,    KC_L,   KC_SCLN, KC_QUOT,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
+     SFT_CAPS , KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                              KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_PSCR, KC_LGUI, KC_LALT, KC_LCTL, LOWER,   KC_SPC,  MAC_QWERTY,       KC_MPLY,  KC_SPC,  RAISE,   KC_ENT, KC_MPLY,  KC_VOLD, KC_VOLU,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                    KC_LCTL,   LOWER,  KC_SPC,                   QWERTY, C(KC_PGUP), C(KC_PGDN)
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   )
 };
@@ -110,6 +125,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
+
       }
       return false;
     case LOWER:
@@ -118,6 +134,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
+        set_single_persistent_default_layer(_QWERTY);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -128,6 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
+        set_single_persistent_default_layer(_QWERTY);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -137,6 +155,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
+      }
+      return false;
+
+    case MAC_QWERTY:
+      if (record->event.pressed) {
+        layer_on(_MAC_QWERTY);
+      }
+      else{
+        layer_off(_MAC_QWERTY);
       }
       return false;
 
@@ -175,11 +202,20 @@ int ledmap[][DRIVER_LED_TOTAL] = {
     },
 
     [_ADJUST] = {
-        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,   NONE,   NONE,   NONE,   NONE,   NONE,  // R1
+        NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,   NONE,  ORANGE,  PINK,   NONE,   NONE,  // R1
         NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,    RED,   NONE,   NONE,   NONE,  GREEN,  // R2
         NONE, VIOLET, VIOLET, VIOLET, VIOLET,   NONE,     NONE,   BLUE,   NONE,   NONE,   NONE,   NONE,  // R3
         NONE,   NONE,   NONE,   NONE,   PINK,   NONE,     NONE,   PINK,   NONE,   NONE,   NONE,   BLUE,  // R4
                         NONE,   NONE,   NONE,   NONE,     NONE,   NONE,   NONE,   NONE,                  // Thumb Cluster
+      ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
+    },
+
+    [_MAC_QWERTY] = {
+        PINK, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   BLUE,   BLUE,   BLUE,   BLUE,   BLUE,     PINK,  // R1
+      YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R2
+      YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,   YELLOW, YELLOW, YELLOW, YELLOW, YELLOW, YELLOW,  // R3
+      YELLOW, YELLOW,   BLUE,    RED,   PINK, YELLOW,   YELLOW,   PINK,    RED, YELLOW, YELLOW, YELLOW,  // R4
+                      ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE,                  // Thumb Cluster
       ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,   ORANGE, ORANGE, ORANGE, ORANGE, ORANGE, ORANGE,  // Underglow
     },
 
@@ -243,6 +279,9 @@ void rgb_matrix_indicators_user(void) {
     case 3:
       set_layer_color(_ADJUST);
       break;
+    case 4:
+      set_layer_color(_MAC_QWERTY);
+      break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
       rgb_matrix_set_color_all(0, 0, 0);
@@ -258,6 +297,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [_LOWER] = { ENCODER_CCW_CW(W_S_TAB, W_S_TAB), ENCODER_CCW_CW(W_S_TAB, W_S_TAB) },
     [_RAISE] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
     [_ADJUST] = { ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)), ENCODER_CCW_CW(C(KC_PMNS), C(KC_PLUS)) },
-// #   endif
+    [_MAC_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
 };
 #endif
