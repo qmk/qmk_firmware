@@ -12,6 +12,8 @@ NKey Rollover - Overview, Testing Methodology, and Results
 dfj's NKRO(2010/06)
     http://geekhack.org/showpost.php?p=191195&postcount=251
     http://geekhack.org/showthread.php?p=204389#post204389
+HID Usage Tables for USB version 1.3
+    https://usb.org/sites/default/files/hut1_3_0.pdf
 
 
 Terminology
@@ -52,8 +54,9 @@ USB NKRO methods
     If a keyboard has 101keys, it needs 103byte report. It seems to be inefficient.
 
 3. Bitmap report
-    If the keyboard has less than 128keys, 16byte report will be enough for NKRO.
-    The 16byte report seems to be reasonable cost to get NKRO.
+    There are 220 selector keys (i.e. not modifiers) in the USB specification. Each selector key is
+    represented as a single bit. 30 bytes for NKRO allows for 240 bits, covering all possible selector keycodes.
+    The 8 modifier bits are stored separately in a dedicated modifier byte.
 
 
 Report Format
