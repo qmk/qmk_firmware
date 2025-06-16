@@ -1,8 +1,12 @@
-# takashicompany/x_09u34
+# Palmbrain
 
-![takashicompany/x_09u34](imgur.com image replace me!)
+![takashicompany/Palmbrain](https://i.imgur.com/Og9lYip.jpeg)
 
-*A short description of the keyboard/project*
+Palmbrain is a 34-key split keyboard with a key pitch of 17 mm (0.9 u).  
+It can be equipped with BLE Micro Pro and is also compatible with wireless connectivity.
+
+Palmbrainは17mm(0.9u)のキーピッチを採用した34キーの分割型のキーボードです。  
+BLE Micro Proを搭載することが可能で、無線化にも対応しています。
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: *The PCBs, controllers supported*
@@ -10,11 +14,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make takashicompany/x_09u34:default
+    make takashicompany/palmbrain:default
 
 Flashing example for this keyboard:
 
-    make takashicompany/x_09u34:default:flash
+    make takashicompany/palmbrain:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
