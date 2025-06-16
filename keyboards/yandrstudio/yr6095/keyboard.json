@@ -44,6 +44,7 @@
         "rows": ["A1", "A3", "A8", "A9", "A10"]
     },
     "diode_direction": "COL2ROW",
+    "layout_aliases": {"LAYOUT_60_tsangan_split_rshift": "LAYOUT_60_ansi_tsangan_split_rshift"},
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_rshift": {
             "layout": [
