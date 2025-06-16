@@ -1,6 +1,5 @@
 {
     "keyboard_name": "Tractyl Manuform (4x6)",
-    "url": "",
     "maintainer": "drashna",
     "usb": {
         "pid": "0x3537",
@@ -22,7 +21,9 @@
         "handedness": {
             "pin": "A6"
         },
-        "soft_serial_pin": "D3",
+        "serial": {
+            "pin": "D3"
+        },
         "bootmagic": {
             "matrix": [4, 5]
         }

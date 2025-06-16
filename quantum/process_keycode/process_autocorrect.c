@@ -38,7 +38,7 @@ bool autocorrect_is_enabled(void) {
  */
 void autocorrect_enable(void) {
     keymap_config.autocorrect_enable = true;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 }
 
 /**
@@ -48,7 +48,7 @@ void autocorrect_enable(void) {
 void autocorrect_disable(void) {
     keymap_config.autocorrect_enable = false;
     typo_buffer_size                 = 0;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 }
 
 /**
@@ -58,7 +58,7 @@ void autocorrect_disable(void) {
 void autocorrect_toggle(void) {
     keymap_config.autocorrect_enable = !keymap_config.autocorrect_enable;
     typo_buffer_size                 = 0;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 }
 
 /**
