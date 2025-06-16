@@ -30,7 +30,7 @@
             "pin": "D2"
         }
     },
-    "url": "",
+    "url": "https://github.com/takashicompany/palmbrain",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0066",
