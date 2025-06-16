@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BRACKETS] = LAYOUT(
      KC_F12, KC_F1,    KC_F2,      KC_F3,      KC_F4,   KC_F5,                           KC_F6,   KC_F7,   KC_F8,      KC_F9,      KC_F10,  KC_F11,
      _______, XXXXXXX, XXXXXXX,    XXXXXXX,    DE_LABK, XXXXXXX,                         XXXXXXX, DE_RABK, XXXXXXX,    XXXXXXX,    XXXXXXX, QK_BOOT,
-     _______, XXXXXXX, MLCURLY, ALGR(DE_5), DE_LPRN, KC_UNDS,                         KC_EQL,  DE_RPRN, ALGR(DE_6), ALGR(DE_9), XXXXXXX, KC_BSLS,
+     _______, XXXXXXX, MLCURLY,    ALGR(DE_5), DE_LPRN, XXXXXXX,                         XXXXXXX,  DE_RPRN, ALGR(DE_6), ALGR(DE_9), XXXXXXX, KC_BSLS,
      _______, XXXXXXX, ALGR(DE_7), XXXXXXX,    XXXXXXX, XXXXXXX,    TO(0), _______,      XXXXXXX, DE_EQL,  ALGR(DE_0), XXXXXXX,    XXXXXXX, XXXXXXX,
                                                 _______, _______, KC_BSPC, KC_BSPC, QK_AREP, _______
   ),
@@ -151,12 +151,12 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) { // RMAGIC defi
     	//case  KC_Z: { MAGIC_STRING("z", 		KC_NO); } break;
     	case KC_COMM: { MAGIC_STRING(" but",    KC_NO); } break;
     	case  KC_SPC: { MAGIC_STRING("the", 	KC_NO); } break;
-        case MLCURLY: { MAGIC_STRING("}", 	KC_NO); } break;
+        case MLCURLY: { SEND_STRING("TEST"); } break;
     }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (record->event.pressed) {
+  if (record->event.pressed){
   	switch (keycode) {
        	 	case LMAGIC: { process_left_magic(get_last_keycode(), get_last_mods()); set_last_keycode(KC_SPC); } return false;
         	case RMAGIC: { process_right_magic(get_last_keycode(), get_last_mods()); set_last_keycode(KC_SPC); } return false;
