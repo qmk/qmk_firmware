@@ -13,6 +13,7 @@
         "extrakey": false,
         "backlight": true
     },
+    "community_layouts": ["tkl_ansi_wkl", "tkl_iso_Wkl"],
     "layouts": {
         "LAYOUT_all": {
             "layout": [
