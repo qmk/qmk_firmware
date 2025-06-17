@@ -8,8 +8,7 @@
         "pid": "0xE8D1",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "mousekey": true,
