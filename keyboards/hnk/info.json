@@ -1,6 +1,5 @@
 {
     "manufacturer": "hnkbd",
-    "keyboard_name": "hnk65_backlight",
     "maintainer": "ascYAOBT",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
@@ -8,35 +7,9 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "rgblight": true,
-        "rgblight_sleep": true
-    },
-    "matrix_pins": {
-        "cols": ["F4", "F5", "F1", "F0", "B7", "F6", "F7", "D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7"],
-        "rows": ["C7", "C6", "B6", "B5", "B4"]
-    },
-    "processor": "atmega32u4",
-    "rgblight": {
-        "animations": {},
-        "brightness_steps": 20,
-        "default": {
-            "hue": 169,
-            "sat": 247,
-            "val": 200
-        },
-        "hue_steps": 22,
-        "led_count": 68,
-        "max_brightness": 200,
-        "saturation_steps": 22,
-        "sleep": true
+        "nkro": true
     },
     "url": "https://hnkbd.ca/",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0002",
-        "vid": "0x484E"
-    },
     "ws2812": {
         "pin": "B2"
     },
