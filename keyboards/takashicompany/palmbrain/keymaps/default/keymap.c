@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),
     
-    [5] = LAYOUT(
+    [5] = LAYOUT_split_3x5_2(
         UG_TOGG, UG_NEXT, UG_HUEU, UG_SATU, UG_VALU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         RGB_M_K, RGB_M_X, RGB_M_G, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_NO, KC_NO, KC_NO,
