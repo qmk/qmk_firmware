@@ -9,7 +9,7 @@ Palmbrainは17mm(0.9u)のキーピッチを採用した34キーの分割型の�
 BLE Micro Proを搭載することが可能で、無線化にも対応しています。
 
 * Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
-* Hardware Supported: PCB, Pro Micro.
+* Hardware Supported: PCB, Pro Micro development board.
 * Hardware Availability: https://github.com/takashicompany/palmbrain
 
 Make example for this keyboard (after setting up your build environment):
