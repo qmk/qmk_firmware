@@ -40,6 +40,15 @@
 #define BATTER_ADC_PIN              B1
 #define BATTER_ADC_DRIVER           ADCD1
 
+#define BLE_TOG     QK_USER_0    // 切换蓝牙输出 并 开启蓝牙广播（非配对类型）
+#define RF_TOG      QK_USER_1    // 切换 2.4ghz输出
+#define USB_TOG     QK_USER_2    // 打开USB
+#define BL_SW_0     QK_USER_3    // 开启蓝牙通道0（需要打开蓝牙的条件下才行） 短按打开广播 长按开启配对广播
+#define BL_SW_1     QK_USER_4    // 开启蓝牙通道1（需要打开蓝牙的条件下才行） 短按打开广播 长按开启配对广播
+#define BL_SW_2     QK_USER_5    // 开启蓝牙通道2（需要打开蓝牙的条件下才行） 短按打开广播 长按开启配对广播
+#define BLE_RESET   QK_USER_6    // 蓝牙复位
+#define BLE_OFF     QK_USER_7    // 关闭蓝牙连接
+
 #endif
 
 #define WS2812_POWER_PIN    B7

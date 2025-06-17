@@ -16,22 +16,49 @@
 
 // Very few codes are borrowed from https://www.keychron.com
 #include "quantum.h"
+#include "config.h"
 #include "km_printf.h"
 #include "transport.h"
 #include "wireless.h"
 
-enum keyboard_user_keycodes {
-    BT_1 = QK_USER_28,
-    BT_2,
-};
-#define BLE_TOG     OU_BT    // 切换蓝牙输出 并 开启蓝牙广播（非配对类型）
-#define RF_TOG      OU_2P4G    // 切换 2.4ghz输出
-#define USB_TOG     OU_USB    // 打开USB
-#define BL_SW_0     BT_PRF1    // 开启蓝牙通道0  短按打开广播 长按开启配对广播
-#define BL_SW_1     BT_PRF2    // 开启蓝牙通道1  短按打开广播 长按开启配对广播
-#define BL_SW_2     BT_PRF3    // 开启蓝牙通道2  短按打开广播 长按开启配对广播
-#define BLE_RESET   BT_1    // 删除当前蓝牙绑定
-#define BLE_OFF     BT_2    // 关闭蓝牙连接
+
+// 切换输出通道（蓝牙 / 2.4G / USB）
+// 切换到蓝牙输出，并开启广播（非配对类型）
+#ifndef BLE_TOG
+#   define BLE_TOG OU_BT       
+#endif
+// 切换到 2.4GHz 输出
+#ifndef RF_TOG
+#   define RF_TOG OU_2P4G      
+#endif
+// 切换到 USB 输出
+#ifndef USB_TOG
+#   define USB_TOG OU_USB      
+#endif
+
+// 蓝牙通道控制（短按开启广播，长按进入配对广播）
+// 蓝牙通道 0
+#ifndef BL_SW_0
+#   define BL_SW_0 BT_PRF1     
+#endif
+// 蓝牙通道 1
+#ifndef BL_SW_1
+#   define BL_SW_1 BT_PRF2      
+#endif
+// 蓝牙通道 2
+#ifndef BL_SW_2
+#   define BL_SW_2 BT_PRF3      
+#endif
+
+// 蓝牙控制功能
+// 蓝牙复位
+#ifndef BLE_RESET
+#   define BLE_RESET    QK_USER_28      
+#endif
+ // 关闭蓝牙连接
+#ifndef BLE_OFF
+#   define BLE_OFF      QK_USER_29       
+#endif
 
 bool process_record_bhq(uint16_t keycode, keyrecord_t *record);
 void bhq_switch_host_task(void);
