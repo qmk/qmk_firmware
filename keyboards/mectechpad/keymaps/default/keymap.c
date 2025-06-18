@@ -11,7 +11,8 @@ enum layers {
 
 // Define the keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_LAYER1] = LAYOUT(
+    [_LAYER0] = LAYOUT(
+        TO(_LAYER1),
         KC_1, KC_2, KC_3,
         KC_4, KC_5, KC_6,
         KC_7, KC_8, KC_9
