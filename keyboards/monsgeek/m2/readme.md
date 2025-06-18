@@ -1,5 +1,5 @@
 # MonsGeek M2
-![M2](https://imgur.com/a/kv9ChJn.png)
+![M2](https://i.imgur.com/kv9ChJn.png)
 
 A customizable 95% keyboard
 
