@@ -124,7 +124,7 @@ void system76_ec_rgb_layer(layer_state_t layer_state);
 void system76_ec_unlock(void);
 bool system76_ec_is_unlocked(void);
 
-rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
+extern rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 
 void matrix_init_kb(void) {
     usb_mux_init();
