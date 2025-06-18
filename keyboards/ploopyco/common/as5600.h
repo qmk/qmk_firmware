@@ -20,7 +20,6 @@
 #include <stdbool.h>
 #include "i2c_master.h"
 
-#define POINTING_DEVICE_AS5600_ENABLE true
 #define POINTING_DEVICE_AS5600_TICK_COUNT 128
 
 // 12 was found to be a good value experimentally, balancing good
