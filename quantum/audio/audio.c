@@ -371,8 +371,9 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     melody_current_note_duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
 }
 
-float click[2][2];
-void  audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
+void audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
+    static float click[2][2];
+
     uint16_t duration_tone  = audio_ms_to_duration(duration);
     uint16_t duration_delay = audio_ms_to_duration(delay);
 

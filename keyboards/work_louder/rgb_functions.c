@@ -25,6 +25,7 @@
 #define ws2812_set_color ws2812_rgb_set_color
 #define ws2812_set_color_all ws2812_rgb_set_color_all
 #define ws2812_flush ws2812_rgb_flush
+#define ws2812_leds ws2812_rgb_leds
 
 #include "ws2812_bitbang.c"
 
