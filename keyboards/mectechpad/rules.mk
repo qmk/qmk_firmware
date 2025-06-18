@@ -1,1 +1,1 @@
-SRC += matrix.c
+SRC += mectechpad.c
