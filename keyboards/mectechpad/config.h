@@ -7,5 +7,5 @@
 #define LED_PIN_LAYER_2 GP10
 #define LED_PIN_LAYER_3 GP9
 
-/* Pin for the layer change button */
-#define LAYER_CHANGE_PIN GP13
+/* matrix mask for direct pin switch */
+#define MATRIX_MASKED
