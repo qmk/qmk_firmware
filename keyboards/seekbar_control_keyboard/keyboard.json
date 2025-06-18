@@ -1,0 +1,55 @@
+{
+    "manufacturer": "sotarokashiuchi",
+    "keyboard_name": "seekbar_control_keyboard",
+    "maintainer": "sotarokashiuchi",
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "encoder": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "F6"],
+        "rows": ["D4", "C6"]
+    },
+    "url": "",
+    "usb": {
+        "vid": "0x0125",
+        "pid": "0x0001",
+        "device_version": "1.0.0"
+    },
+    "community_layouts": ["ortho_2x3"],
+    "layouts": {
+        "LAYOUT_ortho_2x3": {
+            "layout": [
+                {"matrix": [0, 0], "label": "A", "x": 0, "y": 0},
+                {"matrix": [0, 1], "label": "B", "x": 1, "y": 0},
+                {"matrix": [0, 2], "label": "C", "x": 2, "y": 0},
+                {"matrix": [1, 0], "label": "D", "x": 0, "y": 1},
+                {"matrix": [1, 1], "label": "E", "x": 1, "y": 1},
+                {"matrix": [1, 2], "label": "F", "x": 2, "y": 1}
+            ]
+        }
+    },
+    "tapping": {
+        "term": 275
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "F7",
+                "pin_b": "B1"
+            }
+        ]
+    },
+    "ws2812": {
+        "pin": "D7"
+    },
+    "rgblight": {
+        "led_count": 5
+    }
+}
