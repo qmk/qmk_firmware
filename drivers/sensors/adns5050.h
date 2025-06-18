@@ -70,7 +70,7 @@ typedef struct {
     int8_t dy;
 } report_adns5050_t;
 
-const pointing_device_driver_t adns5050_pointing_device_driver;
+extern const pointing_device_driver_t adns5050_pointing_device_driver;
 
 // A bunch of functions to implement the ADNS5050-specific serial protocol.
 // Note that the "serial.h" driver is insufficient, because it does not
