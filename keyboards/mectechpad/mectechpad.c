@@ -20,11 +20,3 @@ void housekeeping_task_kb(void) {
     gpio_write_pin(LED_PIN_LAYER_2, (get_highest_layer(layer_state) == 2));
     gpio_write_pin(LED_PIN_LAYER_3, (get_highest_layer(layer_state) == 3));
 }
-
-// Mask to accommodate the direct pin switch
-const matrix_row_t matrix_mask[MATRIX_ROWS] = {
-    0b111,
-    0b111,
-    0b111,
-    0b001,
-};
