@@ -77,9 +77,8 @@ ifneq ($(strip $(ALLOW_WARNINGS)), yes)
 endif
 CFLAGS += $(CSTANDARD)
 
-# This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
-# Fixing of multiple variable definitions must be made.
-CFLAGS += -fcommon
+# While default on newer compilers, force consistent behaviour
+CFLAGS += -fno-common
 
 #---------------- C++ Compiler Options ----------------
 
