@@ -26,7 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F, KC_G, KC_H,
         KC_J, KC_K, KC_L
     ),
-    [_LAYER4] = LAYOUT(
+    [_LAYER3] = LAYOUT(
+        TO(_LAYER0),
         KC_Z, KC_X, KC_C,
         KC_V, KC_B, KC_N,
         KC_M, KC_COMM, KC_DOT
