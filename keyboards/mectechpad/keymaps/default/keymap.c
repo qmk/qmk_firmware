@@ -3,10 +3,10 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
+    _LAYER0,
     _LAYER1,
     _LAYER2,
-    _LAYER3,
-    _LAYER4
+    _LAYER3
 };
 
 // Define the keymap
