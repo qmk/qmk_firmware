@@ -1,1 +1,0 @@
-SRC += mectechpad.c
