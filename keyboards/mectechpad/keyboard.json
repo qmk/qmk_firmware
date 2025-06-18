@@ -7,8 +7,6 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": true,
-        "console": true,
         "extrakey": true,
         "mousekey": true
     },
