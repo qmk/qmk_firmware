@@ -55,7 +55,7 @@ typedef struct {
     int8_t dy;
 } report_pmw3320_t;
 
-const pointing_device_driver_t pmw3320_pointing_device_driver;
+extern const pointing_device_driver_t pmw3320_pointing_device_driver;
 
 // A bunch of functions to implement the PMW3320-specific serial protocol.
 // Mostly taken from ADNS5050 driver.
