@@ -11,7 +11,7 @@
         "mousekey": true
     },
     "matrix_pins": {
-        "rows": ["GP26", "GP15", "GP14", "GP13"],
+        "rows": ["GP13", "GP26", "GP15", "GP14"],
         "cols": ["GP29", "GP28", "GP27"]
     },
     "processor": "RP2040",
