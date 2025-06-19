@@ -475,6 +475,7 @@ void bhq_task(void)
     bytedata = (uint8_t)temp;
     uartTimeoutBuffer = timer_read32();
     // bhq_printf("%02x \n",bytedata);
+    // return;
     switch (u_sta)
     {
         case 0:
@@ -501,16 +502,26 @@ void bhq_task(void)
         case 2:
         {
             buf[index++] = bytedata;
-            u_sta = 3;
-
-            dataLength = 2 + 1 + bytedata + 2 + 1;
-
+            bhq_printf("%02x ",bytedata);
+            if(dataLength == 0)
+            {
+                dataLength = 2 + 1 + bytedata + 2 + 1;
+            }
             while(index < dataLength)
             {
                 temp = BHQ_ReadData();
                 if(temp == -1)
                 {
-                    break; 
+                    if(index == dataLength && buf[dataLength - 1] == 0x5E)
+                    {
+                        bhq_printf("if1\n");
+                        break;
+                    }
+                    else
+                    {
+                        bhq_printf("%d-%d-if2\n",dataLength,index);
+                        return;
+                    }
                 }
                 bhq_printf("%02x ",temp);
                 buf[index++] = (uint8_t)temp;

@@ -1,0 +1,173 @@
+{
+    "name": "Mojo17_LJTuring",
+    "vendorId": "0x5123",
+    "productId": "0xA028",
+    "keycodes": ["qmk_lighting"],
+    "customKeycodes": [
+        {
+            "name": "USB\nMode",
+            "title": "Switch Connect Mode to USB",
+            "shortName": "USB\nMode"
+        },
+        {
+            "name": "BLE\n1",
+            "title": "Turn On the Bluetooth Channel 1",
+            "shortName": "BLE\n1"
+        },
+        {
+            "name": "BLE\n2",
+            "title": "Turn On the Bluetooth Channel 2",
+            "shortName": "BLE\n2"
+        },
+        {
+            "name": "BLE\n3",
+            "title": "Turn On the Bluetooth Channel 3",
+            "shortName": "BLE\n3"
+        },
+        {
+            "name": "BLE\nOFF",
+            "title": "Turn Off the Bluetooth Channel",
+            "shortName": "BLE\nOFF"
+        }
+    ],
+    "menus": [
+        {
+            "label": "Lighting",
+            "content": [
+                {
+                    "label": "Backlight",
+                    "content": [
+                        {
+                            "label": "Effect",
+                            "type": "dropdown",
+                            "content": ["id_qmk_rgb_matrix_effect", 3, 2],
+                            "options": [
+                                ["All Off", 0],
+                                ["Solid Color", 1],
+                                ["Alphas Mods", 2],
+                                ["Gradient Up/Down", 3],
+                                ["Gradient Left/Right", 4],
+                                ["Breathing", 5],
+                                ["Band Sat.", 6],
+                                ["Band Val.", 7],
+                                ["Pinwheel Sat.", 8],
+                                ["Pinwheel Val.", 9],
+                                ["Spiral Sat.", 10],
+                                ["Spiral Val.", 11],
+                                ["Cycle All", 12],
+                                ["Cycle Left/Right", 13],
+                                ["Cycle Up/Down", 14],
+                                ["Rainbow Moving Chevron", 15],
+                                ["Cycle Out/In", 16],
+                                ["Cycle Out/In Dual", 17],
+                                ["Cycle Pinwheel", 18],
+                                ["Cycle Spiral", 19],
+                                ["Dual Beacon", 20],
+                                ["Rainbow Beacon", 21],
+                                ["Rainbow Pinwheels", 22],
+                                ["Raindrops", 23],
+                                ["Jellybean Raindrops", 24],
+                                ["Hue Breathing", 25],
+                                ["Hue Pendulum", 26],
+                                ["Hue Wave", 27],
+                                ["Pixel Rain", 28],
+                                ["Pixel Flow", 29],
+                                ["Pixel Fractal", 30],
+                                ["Typing Heatmap", 31],
+                                ["Digital Rain", 32],
+                                ["Solid Reactive Simple", 33],
+                                ["Solid Reactive", 34],
+                                ["Solid Reactive Wide", 35],
+                                ["Solid Reactive Multi Wide", 36],
+                                ["Solid Reactive Cross", 37],
+                                ["Solid Reactive Multi Cross", 38],
+                                ["Solid Reactive Nexus", 39],
+                                ["Solid Reactive Multi Nexus", 40],
+                                ["Splash", 41],
+                                ["Multi Splash", 42],
+                                ["Solid Splash", 43],
+                                ["Solid Multi Splash", 44]
+                            ]
+                        },
+                        {
+                            "showIf": "{id_qmk_rgb_matrix_effect} != 0",
+                            "label": "Brightness",
+                            "type": "range",
+                            "options": [0, 255],
+                            "content": ["id_qmk_rgb_matrix_brightness", 3, 1]
+                        },
+                        {
+                            "showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 1",
+                            "label": "Effect Speed",
+                            "type": "range",
+                            "options": [0, 255],
+                            "content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
+                        },
+                        {
+                            "showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 24 && {id_qmk_rgb_matrix_effect} != 28 && {id_qmk_rgb_matrix_effect} != 29 && {id_qmk_rgb_matrix_effect} != 32",
+                            "label": "Color",
+                            "type": "color",
+                            "content": ["id_qmk_rgb_matrix_color", 3, 4]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "matrix": {
+        "rows": 5,
+        "cols": 4
+    },
+    "layouts": {
+        "keymap": [
+            [
+                {
+                    "c": "#aaaaaa"
+                },
+                "0,0",
+                "0,1",
+                "0,2",
+                "0,3"
+            ],
+            [
+                {
+                    "c": "#cccccc"
+                },
+                "1,0",
+                "1,1",
+                "1,2",
+                {
+                    "c": "#aaaaaa",
+                    "h": 2
+                },
+                "1,3"
+            ],
+            [
+                {
+                    "c": "#cccccc"
+                },
+                "2,0",
+                "2,1",
+                "2,2"
+            ],
+            [
+                "3,0",
+                "3,1",
+                "3,2",
+                {
+                    "c": "#777777",
+                    "h": 2
+                },
+                "4,3"
+            ],
+            [
+                {
+                    "c": "#cccccc",
+                    "w": 2
+                },
+                "4,0",
+                "4,2"
+            ]
+        ]
+    }
+}

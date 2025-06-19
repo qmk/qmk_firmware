@@ -1,0 +1,150 @@
+{
+    "keyboard_name": "Mojo17",
+    "manufacturer": "LJTuring",
+    "maintainer": "LJTuring",
+    "processor": "STM32F411",
+    "bootloader": "tinyuf2",
+    // "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "usb": {
+        "vid": "0x5123",
+        "pid": "0xA028",
+        "device_version": "1.0.0",
+        "force_nkro": true
+    },
+    "build": {
+        "debounce_type": "sym_defer_pk",
+        "lto": true
+    },
+    "dynamic_keymap": {
+        "layer_count": 4
+    },
+    "features": {
+        "nkro": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "via": true,
+        "bluetooth": true,
+        "rgb_matrix": true
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [4, 0]
+    },
+    "bluetooth":{
+        "driver": "bhq"
+    },
+    "ws2812": {
+        "pin": "B10",
+        "driver": "pwm"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "default": {
+            "on": true,
+            "animation": "cycle_up_down",
+            "val": 127,
+            "speed": 63
+        },
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_fractal": true,
+            "pixel_flow": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "layout": [
+            {"matrix": [0, 0], "x": 88, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 104, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 120, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 136, "y": 0, "flags": 4},
+
+            {"matrix": [1, 2], "x": 120, "y": 16, "flags": 4},
+            {"matrix": [1, 1], "x": 104, "y": 16, "flags": 4},
+            {"matrix": [1, 0], "x": 88, "y": 16, "flags": 4},
+
+            {"matrix": [2, 0], "x": 88, "y": 32, "flags": 4},
+            {"matrix": [2, 1], "x": 104, "y": 32, "flags": 4},
+            {"matrix": [2, 2], "x": 120, "y": 32, "flags": 4},
+
+            {"matrix": [3, 2], "x": 120, "y": 48, "flags": 4},
+            {"matrix": [3, 1], "x": 104, "y": 48, "flags": 4},
+            {"matrix": [3, 0], "x": 88, "y": 48, "flags": 4},
+            
+            {"matrix": [4, 0], "x": 96, "y": 64, "flags": 4},
+            {"matrix": [4, 2], "x": 120, "y": 64, "flags": 4},
+            {"matrix": [4, 3], "x": 136, "y": 56, "flags": 4},
+            {"matrix": [1, 3], "x": 136, "y": 24, "flags": 4}
+        ]
+    },
+    "matrix_pins": {
+        "rows": ["A8", "A3", "A4", "A5", "A6"],
+        "cols": ["B12", "B13", "B14", "B15"]
+    },
+    "layouts": {
+        "LAYOUT_5x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1, "h": 2},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4, "w": 2},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [4, 3], "x": 3, "y": 3, "h": 2}
+            ]
+        }
+    }
+}
