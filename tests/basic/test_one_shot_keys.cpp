@@ -254,7 +254,7 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
 
     /* Press and release regular key */
     EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code, regular_key.report_code)).Times(1);
-    EXPECT_REPORT(driver, (osm_key2.report_code)).Times(1);
+    EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code)).Times(1);
     tap_key(regular_key);
     VERIFY_AND_CLEAR(driver);
 
@@ -274,6 +274,118 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSMHoldRelease) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osm_key = KeymapKey{0, 0, 0, OSM(MOD_LSFT), KC_LSFT};
+
+    set_keymap({osm_key});
+
+    /* Press and release OSM */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key);
+    idle_for(TAPPING_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press and hold OSM */
+    EXPECT_REPORT(driver, (osm_key.report_code)).Times(1);
+    osm_key.press();
+    run_one_scan_loop();
+    idle_for(TAPPING_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSM */
+    EXPECT_EMPTY_REPORT(driver);
+    osm_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSMHoldReleaseTwoOSMs) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osm_key1 = KeymapKey{0, 0, 0, OSM(MOD_LSFT), KC_LSFT};
+    KeymapKey  osm_key2 = KeymapKey{0, 0, 1, OSM(MOD_LCTL), KC_LCTL};
+
+    set_keymap({osm_key1, osm_key2});
+
+    /* Press and release OSM1 */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key1);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press and release OSM2 */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key2);
+    idle_for(TAPPING_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press and hold OSM1 */
+    EXPECT_REPORT(driver, (osm_key1.report_code, osm_key2.report_code)).Times(1);
+    osm_key1.press();
+    run_one_scan_loop();
+    idle_for(TAPPING_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSM1 */
+    EXPECT_EMPTY_REPORT(driver);
+    osm_key1.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSMNonOSMMod) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osm_key     = KeymapKey{0, 0, 0, OSM(MOD_LSFT), KC_LSFT};
+    KeymapKey  regular_mod = KeymapKey{0, 1, 0, KC_LCTL};
+
+    set_keymap({osm_key, regular_mod});
+
+    /* Press and release OSM */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular mod */
+    EXPECT_REPORT(driver, (osm_key.report_code, regular_mod.report_code)).Times(1);
+    regular_mod.press();
+    run_one_scan_loop();
+    idle_for(TAPPING_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular mod */
+    EXPECT_EMPTY_REPORT(driver);
+    regular_mod.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSMLockRelease) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osm_key = KeymapKey{0, 0, 0, OSM(MOD_LSFT), KC_LSFT};
+
+    set_keymap({osm_key});
+
+    EXPECT_NO_REPORT(driver);
+    for (int i = 1; i < ONESHOT_TAP_TOGGLE; i++) {
+        /* Press and release OSM */
+        tap_key(osm_key);
+    }
+    VERIFY_AND_CLEAR(driver);
+
+    /* Lock OSM */
+    EXPECT_REPORT(driver, (osm_key.report_code)).Times(1);
+    tap_key(osm_key);
+    VERIFY_AND_CLEAR(driver);
+
+    /* Unlock OSM */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key);
     VERIFY_AND_CLEAR(driver);
 }
 
