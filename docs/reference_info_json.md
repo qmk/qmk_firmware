@@ -446,6 +446,8 @@ Configures the [LED Matrix](features/led_matrix) feature.
 
 ## Matrix {#matrix}
 
+This defines the scanning matrix in terms of GPIO pins. Which keys are where in the matrix is defined in [layout](#layout).
+
 * `debounce` <Badge type="info">Number</Badge>
     * The debounce time in milliseconds.
     * Default: `5` (5 ms)
