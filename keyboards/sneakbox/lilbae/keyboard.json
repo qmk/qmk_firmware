@@ -1,4 +1,5 @@
 {
+    "keyboard_name": "Lil' BAE",
     "manufacturer": "Sneakbox",
     "maintainer": "mujimanic",
     "bootloader": "atmel-dfu",
