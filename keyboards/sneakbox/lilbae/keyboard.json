@@ -12,6 +12,9 @@
             {"pin_a": "D2", "pin_b": "D3"}
         ]
     },
+   "bootmagic": {
+    "matrix": [0, 2]
+   },
     "features": {
         "bootmagic": true,
         "encoder": true,
