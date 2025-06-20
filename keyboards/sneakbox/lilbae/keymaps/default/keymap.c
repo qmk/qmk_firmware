@@ -23,13 +23,6 @@ enum layer_names {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_BASE] = LAYOUT_all(
-              KC_BSLS,
-    KC_UNDO, KC_ENT, KC_LGUI)
+    [_BASE] = LAYOUT_bae(
+              KC_ENT)
 };
-
-#if defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_BASE] = { ENCODER_CCW_CW(KC_1, KC_2)}
-};
-#endif
