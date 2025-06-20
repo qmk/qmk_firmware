@@ -23,12 +23,6 @@
 #include "km_printf.h"
 #define bhq_printf(format, ...) km_printf(format, ##__VA_ARGS__)
 
-
-// Error checking
-#if !STM32_SERIAL_USE_USART1 && !STM32_SERIAL_USE_USART2 && !STM32_SERIAL_USE_USART3 && !STM32_SERIAL_USE_UART4 && !STM32_SERIAL_USE_UART5 && !STM32_SERIAL_USE_USART6 && !STM32_SERIAL_USE_UART7 && !STM32_SERIAL_USE_UART8 && !STM32_SERIAL_USE_LPUART1
-#    error "BT driver activated but no USART/UART peripheral assigned"
-#endif
-
 typedef struct bhkDevConfigInfo_t
 {
     uint8_t  vendor_id_source; /* 0: From Bluetooth SIG, 1: From USB-IF */

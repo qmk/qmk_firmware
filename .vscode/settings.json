@@ -25,10 +25,7 @@
         "xstddef": "c",
         "type_traits": "c",
         "utility": "c",
-        "ranges": "c",
-        "chrono": "c",
-        "format": "c",
-        "regex": "c"
+        "ranges": "c"
     },
     "[markdown]": {
         "editor.trimAutoWhitespace": false,
@@ -38,12 +35,6 @@
     "[json]": {
         "editor.formatOnSave": false
     },
-<<<<<<< HEAD
-    "clangd.arguments": [
-        "--header-insertion=never"
-    ],
-    "cmake.sourceDirectory": "D:/project/github/hlkjXm/qmk_firmware/lib/pico-sdk/test/hardware_pwm_test"
-=======
     "clangd.arguments": ["--header-insertion=never"],
     "json.schemas": [
         {
@@ -63,5 +54,4 @@
             "url": "./data/schemas/keymap.jsonschema"
         }
     ]
->>>>>>> upstream/master
 }
