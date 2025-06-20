@@ -1066,23 +1066,13 @@ def get_modules(keyboard, keymap_filename):
     """
     modules = []
 
+    kb_info_json = info_json(keyboard)
+    modules.extend(kb_info_json.get('modules', []))
+
     if keymap_filename:
         keymap_json = parse_configurator_json(keymap_filename)
 
         if keymap_json:
-            kb = keymap_json.get('keyboard', None)
-            if not kb:
-                kb = keyboard
-
-            if kb:
-                kb_info_json = info_json(kb)
-                if kb_info_json:
-                    modules.extend(kb_info_json.get('modules', []))
-
             modules.extend(keymap_json.get('modules', []))
-
-    elif keyboard:
-        kb_info_json = info_json(keyboard)
-        modules.extend(kb_info_json.get('modules', []))
 
     return list(dict.fromkeys(modules))  # remove dupes

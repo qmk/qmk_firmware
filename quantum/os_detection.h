@@ -43,6 +43,9 @@ void slave_update_detected_host_os(os_variant_t os);
 #endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
+#    if defined(DYNAMIC_KEYMAP_ENABLE) || defined(VIA_ENABLE)
+#        error Cannot enable OS Detection debug mode simultaneously with DYNAMIC_KEYMAP or VIA
+#    endif
 void print_stored_setups(void);
 void store_setups_in_eeprom(void);
 #endif

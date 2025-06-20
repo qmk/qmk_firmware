@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Splitish",
     "manufacturer": "Reid Schneyer",
-    "url": "",
     "maintainer": "RSchneyer",
     "usb": {
         "vid": "0xFEED",
@@ -11,7 +10,6 @@
     "features": {
         "bootmagic": true,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -27,8 +25,7 @@
         "rows": ["B4", "B5", "B2", "B6"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

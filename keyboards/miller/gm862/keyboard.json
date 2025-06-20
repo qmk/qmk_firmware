@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GM862",
     "manufacturer": "MILLER",
-    "url": "",
     "maintainer": "MILLER",
     "usb": {
         "vid": "0x4B42",
@@ -44,8 +43,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Borsdorf",
     "manufacturer": "Cutie Club",
-    "url": "",
     "maintainer": "Cutie Club",
     "usb": {
         "vid": "0xFB9C",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

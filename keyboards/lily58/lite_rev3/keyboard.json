@@ -2,7 +2,6 @@
     "keyboard_name": "Lily58 Lite Rev3",
     "manufacturer": "Liliums",
     "maintainer": "yuchi",
-    "url": "",
     "processor": "RP2040",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
