@@ -61,7 +61,6 @@
 
 #ifdef POINTING_DEVICE_AS5600_ENABLE
 uint16_t current_position = 0;
-os_variant_t d_os = OS_UNSURE;
 #endif
 
 keyboard_config_t keyboard_config;
@@ -182,7 +181,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         delta += 4096;
     }
 
-    if (d_os == OS_WINDOWS || d_os == OS_LINUX) {
+    if (detected_host_os() == OS_WINDOWS || detected_host_os() == OS_LINUX) {
         // Establish a deadzone to prevent spurious inputs
         if (delta > POINTING_DEVICE_AS5600_DEADZONE || delta < -POINTING_DEVICE_AS5600_DEADZONE) {
             current_position = ra;
@@ -281,11 +280,6 @@ void keyboard_post_init_kb(void) {
     // Init the AS5600 controlling the Dial
     as5600_init();
     current_position = get_rawangle();
-}
-
-bool process_detected_host_os_kb(os_variant_t detected_os) {
-    d_os = detected_os;
-    return true;
 }
 #endif
 
