@@ -13,7 +13,7 @@
         ]
     },
    "bootmagic": {
-    "matrix": [0, 2]
+        "matrix": [0, 2]
    },
     "features": {
         "bootmagic": true,
