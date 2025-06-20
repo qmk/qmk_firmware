@@ -1,6 +1,6 @@
 # Mechanical Keyboards Point65
 
-![Mechanical Keyboards Point65](https://mechanicalkeyboards.com/cdn/shop/files/17705-MIJ95-Point-65-Keyboard-Kit.jpg)
+![Mechanical Keyboards Point65](https://i.imgur.com/lTEwGBR.png)
 ## Description
 A 65% keyboard by [Mechanical Keyboards](https://mechanicalkeyboards.com) available as either multi layout hotswap, or hotswap with RGB per key backlight.
 
@@ -13,11 +13,11 @@ A 65% keyboard by [Mechanical Keyboards](https://mechanicalkeyboards.com) availa
 ## Firmware building
 **Hotswap with 6.25U layout:**
     
-    make mechanicalkeyboards/point65/hotswap:default_625u
+    make mechanicalkeyboards/point65/hotswap:default
 
 **Hotswap with 7U layout:**
     
-    make mechanicalkeyboards/point65/hotswap:default_75u
+    make mechanicalkeyboards/point65/hotswap:default_7u
 
 **Hotswap RGB:**
     

@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_user(void) {
     HSV hsv = {0, 255, 255};
 
     // Light up ESC RGB LED when _FUNCTION layer is accessed
@@ -57,10 +57,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // end layer function
 
     // capslock indicator
-    if (!rgb_matrix_indicators_user()) {
-        return false;
-    }
-
     if (host_keyboard_led_state().caps_lock) {
         hsv.h = 43;
         hsv.s = 105;
