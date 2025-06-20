@@ -9,10 +9,6 @@
         "nkro": true,
         "rgb_matrix": true
     },
-    "matrix_pins": {
-        "cols": ["GP28", "GP27", "GP26", "GP29", "GP0", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1"],
-        "rows": ["GP24", "GP22", "GP21", "GP19", "GP25"]
-    },
     "processor": "RP2040",
     "rgb_matrix": {
         "animations": {
@@ -64,10 +60,6 @@
             "val": 128
         },
         "driver": "ws2812",
-        "layout": [
-            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 255},
-            {"matrix": [2, 0], "x": 0, "y": 32, "flags": 255}
-        ],
         "max_brightness": 128
     },
     "usb": {

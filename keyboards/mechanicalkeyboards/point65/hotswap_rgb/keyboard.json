@@ -1,5 +1,9 @@
 {
     "keyboard_name": "Point 65 Hotswap RGB",
+    "matrix_pins": {
+        "cols": ["GP28", "GP27", "GP26", "GP29", "GP0", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1"],
+        "rows": ["GP24", "GP23", "GP22", "GP21", "GP25"]
+    },
     "rgb_matrix": {
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 255},
