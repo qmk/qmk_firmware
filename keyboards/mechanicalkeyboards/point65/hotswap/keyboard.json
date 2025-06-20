@@ -229,8 +229,6 @@
             "solid_multisplash":            true
         },
         "default": {
-            "animation":    "cycle_left_right",
-            "on":           true,
             "val":          128
         }
     },
