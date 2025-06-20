@@ -8,6 +8,7 @@ extern uint16_t lut[ADC_RESOLUTION_MAX];
 const double lut_a;
 const double lut_b;
 const double lut_c;
+const double lut_d;
 
 uint16_t distance_to_adc(uint16_t distance);
 

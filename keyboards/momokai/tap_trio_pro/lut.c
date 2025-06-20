@@ -2,8 +2,8 @@
 SPDX-License-Identifier: GPL-2.0-or-later */
 #include <math.h>
 #include <stdint.h>
-// #include "scanfunctions.h"
-// #include "util.h"
+#include "scanfunctions.h"
+#include "util.h"
 
 #if !defined(MIN)
 #    define MIN(x, y) (((x) < (y)) ? (x) : (y))

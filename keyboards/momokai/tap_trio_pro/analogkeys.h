@@ -7,6 +7,7 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 
 enum analog_key_modes {
     dynamic_actuation = 0,
