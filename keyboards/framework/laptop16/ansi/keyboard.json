@@ -1,13 +1,9 @@
 {
-    "manufacturer": "Framework",
-    "keyboard_name": "Laptop 16 Keyboard Module - ANSI",
-    "maintainer": "JohnAZoidberg",
     "backlight": {
         "breathing": true,
         "driver": "pwm",
         "pin": "GP25"
     },
-    "bootloader": "rp2040",
     "features": {
         "audio": false,
         "bootmagic": false,
@@ -21,8 +17,6 @@
     "indicators": {
         "caps_lock": "GP24"
     },
-    "processor": "RP2040",
-    "url": "https://frame.work/de/en/products/laptop16-diy-amd-7040",
     "usb": {
         "device_version": "0.2.2",
         "force_nkro": true,
