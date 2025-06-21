@@ -35,7 +35,7 @@ typedef struct {
     uint16_t extremum;
     int16_t offset;
     bool    is_analog;
-    bool    dynamic_actuation_bool;
+    bool    continuous_dynamic_actuation;
     // uint16_t SMA_buffer[1<<(SMA_FILTER_SAMPLE_EXPONENT)];
     uint8_t SMA_samplesExponent;
     uint8_t SMA_samples;

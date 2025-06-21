@@ -13,17 +13,17 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #    define MAX(x, y) (((x) > (y)) ? (x) : (y))
 #endif
 
-// /* Equation parameters for the sensor-magnet linearity mapping */
-// const double lut_a = 0.200347177016;
-// const double lut_b = 0.00955994866154;
-// const double lut_c = 6.01110636956;
-// const double lut_d = 1966.74076381;
 
-/* Equation parameters for the sensor-magnet linearity mapping */
-const double lut_a = -366.805673399;
-const double lut_b = 0.00617870508512;
-const double lut_c = -1.49468890703;
-const double lut_d = 2094.38794157;
+// /* Equation parameters for the sensor-magnet linearity mapping */
+// const double lut_a = -366.805673399;
+// const double lut_b = 0.00617870508512;
+// const double lut_c = -1.49468890703;
+// const double lut_d = 2094.38794157;
+
+const double lut_a = -0.203212;
+const double lut_b = 0.00955995;
+const double lut_c = 5.99691;
+const double lut_d = 2122.25924;
 
 uint16_t distance_to_adc(uint16_t distance) {
     double intermediate = lut_a * exp(lut_b * distance + lut_c) + lut_d;

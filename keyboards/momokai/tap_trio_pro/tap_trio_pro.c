@@ -53,12 +53,12 @@ bool           debug_print(void) {
 
     // uprintf("%s", buffer);
 
-    int raw_analog_value[3];
-    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+    // int raw_analog_value[3];
+    // for (uint8_t col = 0; col < MATRIX_COLS; col++) {
 
-        raw_analog_value[col] = analogReadPin(matrix_pins[0][col]);
-    }
-    printf("raw_analog_value = %d, %d, %d\n", raw_analog_value[0], raw_analog_value[1], raw_analog_value[2]);
+    //     raw_analog_value[col] = analogReadPin(matrix_pins[0][col]);
+    // }
+    // printf("raw_analog_value = %d, %d, %d\n", raw_analog_value[0], raw_analog_value[1], raw_analog_value[2]);
 
     return true;
 }

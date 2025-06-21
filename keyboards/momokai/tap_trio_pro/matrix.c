@@ -11,6 +11,8 @@
 #include "debounce.h"
 #include "scanfunctions.h"
 #include "sma.c"
+#include "quantum/matrix.h"
+
 
 #ifndef MATRIX_INPUT_PRESSED_STATE
 #    define MATRIX_INPUT_PRESSED_STATE 0
@@ -26,6 +28,30 @@ static uint16_t restAdcValue = 0;
 /* Matrix state: 1 = on, 0 = off */
 matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
 matrix_row_t matrix[MATRIX_ROWS];     // debounced values
+
+static inline uint8_t readMatrixPin(pin_t pin) {
+    if (pin != NO_PIN) {
+        return (gpio_read_pin(pin) == MATRIX_INPUT_PRESSED_STATE) ? 0 : 1;
+    } else {
+        return 1;
+    }
+}
+
+void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    // Start with a clear matrix row
+    matrix_row_t current_row_value = 0;
+
+    matrix_row_t row_shifter = MATRIX_ROW_SHIFTER;
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++, row_shifter <<= 1) {
+        pin_t pin = matrix_pins[current_row][col_index];
+        current_row_value |= readMatrixPin(pin) ? 0 : row_shifter;
+    }
+
+    // Update the matrix
+    current_matrix[current_row] = current_row_value;
+}
+
+
 
 // Setup only rows 1, leave row 0 untouched (for analog)
 void matrix_init_pins(void) {
@@ -56,10 +82,6 @@ void matrix_init_custom(void) {
     get_sensor_offsets();
 }
 
-// User-defined overridable functions
-__attribute__((weak)) void matrix_init_pins(void);
-__attribute__((weak)) void matrix_read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-__attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col, matrix_row_t row_shifter);
 
 
 
@@ -70,7 +92,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     memcpy(previous_matrix, current_matrix, sizeof(previous_matrix));
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        if (!keys[current_row][0].is_analog) {
+        if (current_row == 1) {
             matrix_read_cols_on_row(current_matrix, current_row);
         } else {
             for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
@@ -104,10 +126,5 @@ uint8_t matrix_scan(void) {
     matrix_scan_kb();
     return (uint8_t)changed;
 }
-
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-__attribute__((weak)) void matrix_init_user(void) {}
-__attribute__((weak)) void matrix_scan_user(void) {}
 
 
