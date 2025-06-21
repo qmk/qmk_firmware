@@ -120,6 +120,7 @@
     "MATRIX_HAS_GHOST": {"info_key": "matrix_pins.ghost", "value_type": "flag"},
     "MATRIX_INPUT_PRESSED_STATE": {"info_key": "matrix_pins.input_pressed_state", "value_type": "int"},
     "MATRIX_IO_DELAY": {"info_key": "matrix_pins.io_delay", "value_type": "int"},
+    "MATRIX_MASKED": {"info_key": "matrix_pins.masked", "value_type": "flag"},
 
     // Mouse Keys
     "MOUSEKEY_DELAY": {"info_key": "mousekey.delay", "value_type": "int"},
