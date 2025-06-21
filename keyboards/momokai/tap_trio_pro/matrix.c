@@ -76,7 +76,7 @@ void matrix_init_custom(void) {
 
     matrix_init_pins();
     generate_lut();
-    pressedAdcValue = distance_to_adc(400);
+    pressedAdcValue = distance_to_adc(255);
     restAdcValue = distance_to_adc(0);
     wait_ms(100); // Let ADC reach steady state
     get_sensor_offsets();
