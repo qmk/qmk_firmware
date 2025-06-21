@@ -45,7 +45,7 @@
 // Otherwise assume V3
 #if defined(STM32F0XX) || defined(STM32L0XX) || defined(STM32G0XX)
 #    define USE_ADCV1
-#elif defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
+#elif defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F402_405) || defined(AT32F415)
 #    define USE_ADCV2
 #endif
 
@@ -82,7 +82,7 @@
 
 /* User configurable ADC options */
 #ifndef ADC_COUNT
-#    if defined(RP2040) || defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX) || defined(STM32G0XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
+#    if defined(RP2040) || defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX) || defined(STM32G0XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F402_405) || defined(AT32F415)
 #        define ADC_COUNT 1
 #    elif defined(STM32F3XX) || defined(STM32G4XX)
 #        define ADC_COUNT 4
@@ -144,10 +144,10 @@ static ADCConversionGroup adcConversionGroup = {
     .cfgr1 = ADC_CFGR1_CONT | ADC_RESOLUTION,
     .smpr  = ADC_SAMPLING_RATE,
 #elif defined(USE_ADCV2)
-#    if !defined(STM32F1XX) && !defined(GD32VF103) && !defined(WB32F3G71xx) && !defined(WB32FQ95xx) && !defined(AT32F415)
+#    if !defined(STM32F1XX) && !defined(GD32VF103) && !defined(WB32F3G71xx) && !defined(WB32FQ95xx) && !defined(AT32F402_405) && !defined(AT32F415)
     .cr2  = ADC_CR2_SWSTART, // F103 seem very unhappy with, F401 seems very unhappy without...
 #    endif
-#    if defined(AT32F415)
+#    if defined(AT32F402_405) || defined(AT32F415)
     .spt2 = ADC_SPT2_CSPT_AN0(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN1(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN2(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN3(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN4(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN5(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN6(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN7(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN8(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN9(ADC_SAMPLING_RATE),
     .spt1 = ADC_SPT1_CSPT_AN10(ADC_SAMPLING_RATE) | ADC_SPT1_CSPT_AN11(ADC_SAMPLING_RATE) | ADC_SPT1_CSPT_AN12(ADC_SAMPLING_RATE) | ADC_SPT1_CSPT_AN13(ADC_SAMPLING_RATE) | ADC_SPT1_CSPT_AN14(ADC_SAMPLING_RATE) | ADC_SPT1_CSPT_AN15(ADC_SAMPLING_RATE),
 #    else
@@ -249,7 +249,7 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case F9:  return TO_MUX( ADC_CHANNEL_IN7,  2 );
         case F10: return TO_MUX( ADC_CHANNEL_IN8,  2 );
 #    endif
-#elif defined(STM32F1XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
+#elif defined(STM32F1XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F402_405) || defined(AT32F415)
         case A0:  return TO_MUX( ADC_CHANNEL_IN0,  0 );
         case A1:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
         case A2:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
@@ -415,7 +415,7 @@ int16_t adc_read(adc_mux mux) {
     // TODO: fix previous assumption of only 1 input...
     adcConversionGroup.chselr = 1 << mux.input; /*no macro to convert N to ADC_CHSELR_CHSEL1*/
 #elif defined(USE_ADCV2)
-#    if defined(AT32F415)
+#    if defined(AT32F402_405) || defined(AT32F415)
     adcConversionGroup.osq3 = ADC_OSQ3_OSN1_N(mux.input);
 #    else
     adcConversionGroup.sqr3 = ADC_SQR3_SQ1_N(mux.input);
