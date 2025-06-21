@@ -1,4 +1,6 @@
 {
+    
+    "keyboard_name": "Laptop 16 Keyboard Module - ANSI",
     "backlight": {
         "breathing": true,
         "driver": "pwm",
