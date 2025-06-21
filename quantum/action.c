@@ -112,7 +112,7 @@ void action_exec(keyevent_t event) {
         if (has_oneshot_layer_timed_out()) {
             clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         }
-        if (has_oneshot_mods_timed_out()) {
+        if (has_oneshot_mods_timed_out() && !get_oneshot_mods_fired()) {
             clear_oneshot_mods();
         }
 #        ifdef SWAP_HANDS_ENABLE

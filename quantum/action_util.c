@@ -46,8 +46,12 @@ extern inline void clear_keys(void);
 #ifndef NO_ACTION_ONESHOT
 static uint8_t oneshot_mods        = 0;
 static uint8_t oneshot_locked_mods = 0;
+static bool    oneshot_mods_fired  = false;
 uint8_t        get_oneshot_locked_mods(void) {
     return oneshot_locked_mods;
+}
+bool get_oneshot_mods_fired(void) {
+    return oneshot_mods_fired;
 }
 void add_oneshot_locked_mods(uint8_t mods) {
     if ((oneshot_locked_mods & mods) != mods) {
@@ -260,16 +264,15 @@ static uint8_t get_mods_for_report(void) {
 
 #ifndef NO_ACTION_ONESHOT
     if (oneshot_mods) {
-#    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-        if (has_oneshot_mods_timed_out()) {
-            dprintf("Oneshot: timeout\n");
+        // Fire oneshots when other keys are pressed
+        // Release oneshots when everything else is released
+        if (has_anykey() || mods) {
+            oneshot_mods_fired = true;
+        } else if (oneshot_mods_fired) {
+            oneshot_mods_fired = false;
             clear_oneshot_mods();
         }
-#    endif
         mods |= oneshot_mods;
-        if (has_anykey()) {
-            clear_oneshot_mods();
-        }
     }
 #endif
 

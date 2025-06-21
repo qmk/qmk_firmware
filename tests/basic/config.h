@@ -17,3 +17,5 @@
 #pragma once
 
 #include "test_common.h"
+
+#define ONESHOT_TAP_TOGGLE 5
