@@ -50,7 +50,7 @@ typedef struct {
     uint8_t click;
 } pimoroni_data_t;
 
-const pointing_device_driver_t pimoroni_trackball_pointing_device_driver;
+extern const pointing_device_driver_t pimoroni_trackball_pointing_device_driver;
 
 bool           pimoroni_trackball_device_init(void);
 void           pimoroni_trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
