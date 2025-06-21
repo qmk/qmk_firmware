@@ -13,9 +13,10 @@
         "console": true,
         "extrakey": true,
         "mousekey": false,
-        "nkro": true,
         "backlight": true
     },
+    
+
     "indicators": {
         "caps_lock": "GP24"
     },
