@@ -74,6 +74,7 @@ void matrix_init_custom(void) {
         // initialize_SMA_filter(&keys[1][i], SMA_FILTER_SAMPLE_EXPONENT);
     }
 
+    // eeconfig_init_kb();
     matrix_init_pins();
     generate_lut();
     pressedAdcValue = distance_to_adc(255);
