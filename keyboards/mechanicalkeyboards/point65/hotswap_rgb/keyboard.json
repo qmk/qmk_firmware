@@ -81,6 +81,5 @@
     "ws2812": {
         "pin": "GP19"
     },
-    "community_layouts": ["65_ansi_blocker"],
-    
+    "community_layouts": ["65_ansi_blocker"]
 }
