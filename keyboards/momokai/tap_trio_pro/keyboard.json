@@ -2,96 +2,94 @@
     "manufacturer": "momokai",
     "keyboard_name": "tap_trio_pro",
     "maintainer": "peepeetee",
-    "url": "https://momokai.com/",
     "bootloader": "rp2040",
-    "features": {
-        "bootmagic": true,
-        "console": true,
-        "debug": true,
-        "extrakey": true,
-        "mousekey": true,
-        "rgb_matrix": true,
-        "oled": true,
-        "nkro": true,
-        "deferred_exec": true
-    },
     "bootmagic": {
         "matrix": [1, 0]
     },
     "debounce": 0,
+    "features": {
+        "bootmagic": true,
+        "console": true,
+        "debug": true,
+        "deferred_exec": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
     "matrix_pins": {
         "direct": [
-            ["GP28", "GP27", "GP26" ],
-            ["GP10", "GP9", "GP8" ]
+            ["GP28", "GP27", "GP26"],
+            ["GP10", "GP9", "GP8"]
         ]
     },
     "processor": "RP2040",
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_sat": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "band_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "gradient_left_right": true,
+            "gradient_up_down": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "jellybean_raindrops": true,
+            "multisplash": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "solid_color": true,
+            "solid_multisplash": true,
+            "solid_reactive": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [1, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [1, 1], "x": 0, "y": 32, "flags": 4},
+            {"matrix": [1, 2], "x": 0, "y": 64, "flags": 4}
+        ],
+        "led_count": 3,
+        "sleep": true
+    },
+    "url": "https://momokai.com/",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0016",
         "vid": "0x69F9"
     },
     "ws2812": {
-        "pin": "GP29",
-        "driver": "vendor"
-    },
-    "rgb_matrix": {
-
-        "driver": "ws2812",
-        "led_count": 3,
-        "sleep": true,
-        "animations": {
-            "solid_color": true,
-            "alphas_mods": true,
-            "gradient_up_down": true,
-            "gradient_left_right": true,
-            "breathing": true,
-            "band_sat": true,
-            "band_val": true,
-            "band_pinwheel_sat": true,
-            "band_pinwheel_val": true,
-            "band_spiral_sat": true,
-            "band_spiral_val": true,
-            "cycle_all": true,
-            "cycle_left_right": true,
-            "cycle_up_down": true,
-            "cycle_out_in": true,
-            "cycle_out_in_dual": true,
-            "rainbow_moving_chevron": true,
-            "cycle_pinwheel": true,
-            "cycle_spiral": true,
-            "dual_beacon": true,
-            "rainbow_beacon": true,
-            "rainbow_pinwheels": true,
-            "raindrops": true,
-            "jellybean_raindrops": true,
-            "hue_breathing": true,
-            "hue_pendulum": true,
-            "hue_wave": true,
-            "pixel_fractal": true,
-            "pixel_flow": true,
-            "pixel_rain": true,
-            "typing_heatmap": true,
-            "digital_rain": true,
-            "solid_reactive_simple": true,
-            "solid_reactive": true,
-            "solid_reactive_wide": true,
-            "solid_reactive_multiwide": true,
-            "solid_reactive_cross": true,
-            "solid_reactive_multicross": true,
-            "solid_reactive_nexus": true,
-            "solid_reactive_multinexus": true,
-            "splash": true,
-            "multisplash": true,
-            "solid_splash": true,
-            "solid_multisplash": true
-          },
-        "layout": [
-            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [1, 1], "x": 0, "y": 32},
-            {"flags": 4, "matrix": [1, 2], "x": 0, "y": 64}
-        ]
-
+        "driver": "vendor",
+        "pin": "GP29"
     },
     "layouts": {
         "LAYOUT": {
@@ -99,7 +97,6 @@
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
-
                 {"matrix": [1, 0], "x": 0.5, "y": 1.25, "w": 0.5, "h": 0.5},
                 {"matrix": [1, 1], "x": 1, "y": 1.25, "w": 0.5, "h": 0.5},
                 {"matrix": [1, 2], "x": 1.5, "y": 1.25, "w": 0.5, "h": 0.5}
