@@ -19,9 +19,6 @@
         "matrix": [1, 0]
     },
     "debounce": 0,
-    "build": {
-        "lto": true
-      },
     "matrix_pins": {
         "direct": [
             ["GP28", "GP27", "GP26" ],

@@ -5,21 +5,17 @@ SPDX-License-Identifier: GPL-2.0-or-later */
 #include "scanfunctions.h"
 #include "util.h"
 
-#if !defined(MIN)
-#    define MIN(x, y) (((x) < (y)) ? (x) : (y))
-#endif
-
-#if !defined(MAX)
-#    define MAX(x, y) (((x) > (y)) ? (x) : (y))
-#endif
-
-
 // /* Equation parameters for the sensor-magnet linearity mapping */
+
+//https://www.desmos.com/calculator/qtbbjbsyvi
+
+// These are values when there were 400 steps
 // const double lut_a = -366.805673399;
 // const double lut_b = 0.00617870508512;
 // const double lut_c = -1.49468890703;
 // const double lut_d = 2094.38794157;
 
+//Values for 256 steps
 const double lut_a = -0.203212;
 const double lut_b = 0.00955995;
 const double lut_c = 5.99691;

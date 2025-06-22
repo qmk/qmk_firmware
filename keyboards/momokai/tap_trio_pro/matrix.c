@@ -8,9 +8,7 @@
 #include "quantum.h"
 #include "analog.h"
 #include "lut.h"
-#include "debounce.h"
 #include "scanfunctions.h"
-#include "sma.c"
 #include "quantum/matrix.h"
 
 
@@ -119,13 +117,6 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         }
     }
     return memcmp(previous_matrix, current_matrix, sizeof(previous_matrix)) != 0;
-}
-
-uint8_t matrix_scan(void) {
-    bool changed = matrix_scan_custom(raw_matrix);
-    changed = debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-    matrix_scan_kb();
-    return (uint8_t)changed;
 }
 
 
