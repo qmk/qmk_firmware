@@ -1,12 +1,12 @@
 # momokai/tap_trio_pro
 
-![momokai/tap_trio_pro](imgur.com image replace me!)
+![momokai/tap_trio_pro](https://i.imgur.com/k6EqTA1.jpeg)
 
 Tap trio pro, a 6 key macropad with 3 hall effect switches
 
 * Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
 * Hardware Supported: Tap trio pro
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Availability: https://momokai.com/
 
 Make example for this keyboard (after setting up your build environment):
 
