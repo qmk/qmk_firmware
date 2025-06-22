@@ -9,11 +9,11 @@ The modifiers (`mod`) argument to the `MT()` macro are prefixed with `MOD_`, not
 |`MOD_LCTL`|Left Control                            |
 |`MOD_LSFT`|Left Shift                              |
 |`MOD_LALT`|Left Alt                                |
-|`MOD_LGUI`|Left GUI (Windows/Command/Meta key)     |
+|`MOD_LGUI`|Left GUI (Windows/Command/Super key)    |
 |`MOD_RCTL`|Right Control                           |
 |`MOD_RSFT`|Right Shift                             |
 |`MOD_RALT`|Right Alt (AltGr)                       |
-|`MOD_RGUI`|Right GUI (Windows/Command/Meta key)    |
+|`MOD_RGUI`|Right GUI (Windows/Command/Super key)   |
 |`MOD_HYPR`|Hyper (Left Control, Shift, Alt and GUI)|
 |`MOD_MEH` |Meh (Left Control, Shift, and Alt)      |
 
