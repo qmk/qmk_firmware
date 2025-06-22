@@ -2,10 +2,10 @@
     "manufacturer": "momokai",
     "keyboard_name": "tap_trio_pro",
     "maintainer": "peepeetee",
+    "url": "https://momokai.com/",
     "bootloader": "rp2040",
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "debug": true,
         "extrakey": true,
@@ -25,10 +25,7 @@
             ["GP10", "GP9", "GP8" ]
         ]
     },
-
-
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0016",
