@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Tester",
     "manufacturer": "Geekboards",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0xFEED",
@@ -55,8 +54,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

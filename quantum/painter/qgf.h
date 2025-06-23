@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "compiler_support.h"
 #include "qp_stream.h"
 #include "qp_internal.h"
 
@@ -24,7 +25,7 @@ typedef struct QP_PACKED qgf_block_header_v1_t {
     uint32_t length : 24; // 24-bit blob length, allowing for block sizes of a maximum of 16MB.
 } qgf_block_header_v1_t;
 
-_Static_assert(sizeof(qgf_block_header_v1_t) == 5, "qgf_block_header_v1_t must be 5 bytes in v1 of QGF");
+STATIC_ASSERT(sizeof(qgf_block_header_v1_t) == 5, "qgf_block_header_v1_t must be 5 bytes in v1 of QGF");
 
 /////////////////////////////////////////
 // Graphics descriptor
@@ -42,7 +43,7 @@ typedef struct QP_PACKED qgf_graphics_descriptor_v1_t {
     uint16_t              frame_count;         // minimum of 1
 } qgf_graphics_descriptor_v1_t;
 
-_Static_assert(sizeof(qgf_graphics_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 18), "qgf_graphics_descriptor_v1_t must be 23 bytes in v1 of QGF");
+STATIC_ASSERT(sizeof(qgf_graphics_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 18), "qgf_graphics_descriptor_v1_t must be 23 bytes in v1 of QGF");
 
 #define QGF_MAGIC 0x464751
 
@@ -56,7 +57,7 @@ typedef struct QP_PACKED qgf_frame_offsets_v1_t {
     uint32_t              offset[0]; // '0' signifies that this struct is immediately followed by the frame offsets
 } qgf_frame_offsets_v1_t;
 
-_Static_assert(sizeof(qgf_frame_offsets_v1_t) == sizeof(qgf_block_header_v1_t), "qgf_frame_offsets_v1_t must only contain qgf_block_header_v1_t in v1 of QGF");
+STATIC_ASSERT(sizeof(qgf_frame_offsets_v1_t) == sizeof(qgf_block_header_v1_t), "qgf_frame_offsets_v1_t must only contain qgf_block_header_v1_t in v1 of QGF");
 
 /////////////////////////////////////////
 // Frame descriptor
@@ -72,7 +73,7 @@ typedef struct QP_PACKED qgf_frame_v1_t {
     uint16_t              delay;                  // frame delay time for animations (in units of milliseconds)
 } qgf_frame_v1_t;
 
-_Static_assert(sizeof(qgf_frame_v1_t) == (sizeof(qgf_block_header_v1_t) + 6), "qgf_frame_v1_t must be 11 bytes in v1 of QGF");
+STATIC_ASSERT(sizeof(qgf_frame_v1_t) == (sizeof(qgf_block_header_v1_t) + 6), "qgf_frame_v1_t must be 11 bytes in v1 of QGF");
 
 #define QGF_FRAME_FLAG_DELTA 0x02
 #define QGF_FRAME_FLAG_TRANSPARENT 0x01
@@ -88,14 +89,14 @@ typedef struct QP_PACKED qgf_palette_entry_v1_t {
     uint8_t v; // value component: `[0,1]` is mapped to `[0,255]` uint8_t.
 } qgf_palette_entry_v1_t;
 
-_Static_assert(sizeof(qgf_palette_entry_v1_t) == 3, "Palette entry is not 3 bytes in size");
+STATIC_ASSERT(sizeof(qgf_palette_entry_v1_t) == 3, "Palette entry is not 3 bytes in size");
 
 typedef struct QP_PACKED qgf_palette_v1_t {
     qgf_block_header_v1_t  header; // = { .type_id = 0x03, .neg_type_id = (~0x03), .length = (N * 3 * sizeof(uint8_t)) }
     qgf_palette_entry_v1_t hsv[0]; // N * hsv, where N is the number of palette entries depending on the frame format in the descriptor
 } qgf_palette_v1_t;
 
-_Static_assert(sizeof(qgf_palette_v1_t) == sizeof(qgf_block_header_v1_t), "qgf_palette_v1_t must only contain qgf_block_header_v1_t in v1 of QGF");
+STATIC_ASSERT(sizeof(qgf_palette_v1_t) == sizeof(qgf_block_header_v1_t), "qgf_palette_v1_t must only contain qgf_block_header_v1_t in v1 of QGF");
 
 /////////////////////////////////////////
 // Frame delta descriptor
@@ -110,7 +111,7 @@ typedef struct QP_PACKED qgf_delta_v1_t {
     uint16_t              bottom; // The bottom pixel location to to draw the delta image
 } qgf_delta_v1_t;
 
-_Static_assert(sizeof(qgf_delta_v1_t) == (sizeof(qgf_block_header_v1_t) + 8), "qgf_delta_v1_t must be 13 bytes in v1 of QGF");
+STATIC_ASSERT(sizeof(qgf_delta_v1_t) == (sizeof(qgf_block_header_v1_t) + 8), "qgf_delta_v1_t must be 13 bytes in v1 of QGF");
 
 /////////////////////////////////////////
 // Frame data descriptor
@@ -122,7 +123,7 @@ typedef struct QP_PACKED qgf_data_v1_t {
     uint8_t               data[0]; // 0 signifies that this struct is immediately followed by the length of data specified in the header
 } qgf_data_v1_t;
 
-_Static_assert(sizeof(qgf_data_v1_t) == sizeof(qgf_block_header_v1_t), "qgf_data_v1_t must only contain qgf_block_header_v1_t in v1 of QGF");
+STATIC_ASSERT(sizeof(qgf_data_v1_t) == sizeof(qgf_block_header_v1_t), "qgf_data_v1_t must only contain qgf_block_header_v1_t in v1 of QGF");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // QGF API

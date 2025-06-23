@@ -1,7 +1,6 @@
 {
     "keyboard_name": "p65rgb",
     "manufacturer": "marhalloweenvt",
-    "url": "",
     "maintainer": "marhalloweenvt",
     "usb": {
         "vid": "0xFEED",
@@ -164,8 +163,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

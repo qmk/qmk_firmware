@@ -23,8 +23,11 @@ MODULE    5+  --------+--+--------- PWR   CONTROLLER
           CLK   ------+------------ PIN
 ```
 
+## Driver Configuration {#driver-configuration}
 
-## Busywait Version {#busywait-version}
+Driver selection can be configured in `rules.mk` as `PS2_DRIVER`, or in `info.json` as `ps2.driver`. Valid values are `busywait` (default), `interrupt`, `usart`, or `vendor`. See below for information on individual drivers.
+
+### Busywait Driver {#busywait-driver}
 
 Note: This is not recommended, you may encounter jerky movement or unsent inputs. Please use interrupt or USART version if possible.
 
@@ -45,7 +48,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt Version (AVR/ATMega32u4) {#interrupt-version-avr}
+### Interrupt Driver (AVR/ATMega32u4) {#interrupt-driver-avr}
 
 The following example uses D2 for clock and D5 for data. You can use any INT or PCINT pin for clock, and any pin for data.
 
@@ -78,7 +81,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### Interrupt Version (ARM chibios) {#interrupt-version-chibios}
+### Interrupt Driver (ARM chibios) {#interrupt-driver-chibios}
 
 Pretty much any two pins can be used for the (software) interrupt variant on ARM cores. The example below uses A8 for clock, and A9 for data.
 
@@ -107,7 +110,7 @@ And in the ChibiOS specific `halconf.h`:
 #include_next <halconf.h>
 ```
 
-### USART Version {#usart-version}
+### USART Driver {#usart-driver}
 
 To use USART on the ATMega32u4, you have to use PD5 for clock and PD2 for data. If one of those are unavailable, you need to use interrupt version.
 
@@ -159,7 +162,7 @@ In your keyboard config.h:
 #endif
 ```
 
-### RP2040 PIO Version {#rp2040-pio-version}
+### RP2040 PIO Driver {#rp2040-pio-driver}
 
 The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU.
 

@@ -1,5 +1,6 @@
 """Command to look over a keyboard/keymap and check for common mistakes.
 """
+from dotty_dict import dotty
 from pathlib import Path
 
 from milc import cli
@@ -11,6 +12,7 @@ from qmk.keymap import locate_keymap, list_keymaps
 from qmk.path import keyboard
 from qmk.git import git_get_ignored_files
 from qmk.c_parse import c_source_files, preprocess_c_file
+from qmk.json_schema import json_load
 
 CHIBIOS_CONF_CHECKS = ['chconf.h', 'halconf.h', 'mcuconf.h', 'board.h']
 INVALID_KB_FEATURES = set(['encoder_map', 'dip_switch_map', 'combo', 'tap_dance', 'via'])
@@ -26,7 +28,7 @@ def _list_defaultish_keymaps(kb):
     defaultish.extend(INVALID_KM_NAMES)
 
     keymaps = set()
-    for x in list_keymaps(kb):
+    for x in list_keymaps(kb, include_userspace=False):
         if x in defaultish or x.startswith('default'):
             keymaps.add(x)
 
@@ -171,6 +173,14 @@ def _handle_invalid_features(kb, info):
     return ok
 
 
+def _handle_invalid_config(kb, info):
+    """Check for invalid keyboard level config
+    """
+    if info.get('url') == "":
+        cli.log.warning(f'{kb}: Invalid keyboard level config detected - Optional field "url" should not be empty.')
+    return True
+
+
 def _chibios_conf_includenext_check(target):
     """Check the ChibiOS conf.h for the correct inclusion of the next conf.h
     """
@@ -204,6 +214,32 @@ def _rules_mk_assignment_only(rules_mk):
                 errors.append(f'Non-assignment code on line +{i} {rules_mk}: {line}')
 
     return errors
+
+
+def _handle_duplicating_code_defaults(kb, info):
+    def _collect_dotted_output(kb_info_json, prefix=''):
+        """Print the info.json in a plain text format with dot-joined keys.
+        """
+        for key in sorted(kb_info_json):
+            new_prefix = f'{prefix}.{key}' if prefix else key
+
+            if isinstance(kb_info_json[key], dict):
+                yield from _collect_dotted_output(kb_info_json[key], new_prefix)
+            elif isinstance(kb_info_json[key], list):
+                # TODO: handle non primitives?
+                yield (new_prefix, kb_info_json[key])
+            else:
+                yield (new_prefix, kb_info_json[key])
+
+    defaults_map = json_load(Path('data/mappings/info_defaults.hjson'))
+    dotty_info = dotty(info)
+
+    for key, v_default in _collect_dotted_output(defaults_map):
+        v_info = dotty_info.get(key)
+        if v_default == v_info:
+            cli.log.warning(f'{kb}: Option "{key}" duplicates default value of "{v_default}"')
+
+    return True
 
 
 def keymap_check(kb, km):
@@ -253,6 +289,12 @@ def keyboard_check(kb):  # noqa C901
 
     # Additional checks
     if not _handle_invalid_features(kb, kb_info):
+        ok = False
+
+    if not _handle_invalid_config(kb, kb_info):
+        ok = False
+
+    if not _handle_duplicating_code_defaults(kb, kb_info):
         ok = False
 
     invalid_files = git_get_ignored_files(f'keyboards/{kb}/')
