@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MB17",
     "manufacturer": "Mountainblocks",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4D42",

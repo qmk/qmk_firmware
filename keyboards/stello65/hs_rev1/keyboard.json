@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Stello65",
     "manufacturer": "@wekey",
-    "url": "",
     "maintainer": "@wekey",
     "usb": {
         "vid": "0x5559",
@@ -28,8 +27,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

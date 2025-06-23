@@ -8,12 +8,9 @@
     "pid": "0x9999",
     "device_version": "99.9.9"
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true

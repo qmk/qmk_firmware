@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Simpler64",
     "manufacturer": "Equalz",
-    "url": "",
     "maintainer": "Equalz",
     "usb": {
         "vid": "0xC3C3",
@@ -51,7 +50,6 @@
     "features": {
         "bootmagic": true,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

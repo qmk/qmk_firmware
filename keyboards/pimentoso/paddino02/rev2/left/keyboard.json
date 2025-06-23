@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Paddino02 rev2 (left)",
     "manufacturer": "Pimentoso",
-    "url": "",
     "maintainer": "Pimentoso",
     "usb": {
         "vid": "0xD00D",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

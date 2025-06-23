@@ -425,6 +425,89 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
 :::
 
+## Flow Tap
+
+Flow Tap modifies mod-tap `MT` and layer-tap `LT` keys such that when pressed within a short timeout of the preceding key, the tapping behavior is triggered. This is particularly useful for home row mods to avoid accidental mod triggers. It basically disables the hold behavior during fast typing, creating a "flow of taps." This also helps to reduce the input lag of tap-hold keys during fast typing, since the tapped behavior is sent immediately.
+
+Flow Tap is enabled by defining `FLOW_TAP_TERM` in your `config.h` with the desired timeout in milliseconds. A timeout of 150&nbsp;ms is recommended as a starting point:
+
+```c
+#define FLOW_TAP_TERM 150
+```
+
+By default, Flow Tap is enabled when:
+
+* The tap-hold key is pressed within `FLOW_TAP_TERM` milliseconds of the previous key press.
+
+* The tapping keycodes of the previous key and tap-hold key are *both* among `KC_A`&ndash;`KC_Z`, `KC_COMM`, `KC_DOT`, `KC_SCLN`, `KC_SLSH` (the main alphas area of a conventional QWERTY layout) or `KC_SPC`.
+
+As an exception to the above, Flow Tap is temporarily disabled while a tap-hold key is undecided. This is to allow chording multiple mod-tap keys without having to wait out the Flow Tap term.
+
+
+### is_flow_tap_key()
+
+Optionally, define the `is_flow_tap_key()` callback to specify where Flow Tap is enabled. The callback is called for both the tap-hold key *and* the key press immediately preceding it, and if the callback returns true for both keycodes, Flow Tap is enabled.
+
+The default implementation of this callback is:
+
+```c
+bool is_flow_tap_key(uint16_t keycode) {
+    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+        return false; // Disable Flow Tap on hotkeys.
+    }
+    switch (get_tap_keycode(keycode)) {
+        case KC_SPC:
+        case KC_A ... KC_Z:
+        case KC_DOT:
+        case KC_COMM:
+        case KC_SCLN:
+        case KC_SLSH:
+            return true;
+    }
+    return false;
+}
+```
+
+Copy the above to your `keymap.c` and edit to customize. For instance, remove the `case KC_SPC` line to disable Flow Tap for the Space key.
+
+### get_flow_tap_term()
+
+Optionally, for further flexibility, define the `get_flow_tap_term()` callback. Flow Tap acts only when key events are closer together than the time returned by the callback. Return a time of 0 to disable filtering. In this way, Flow Tap may be disabled for certain tap-hold keys, or when following certain previous keys.
+
+The default implementation of this callback is
+
+```c
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+                           uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+```
+
+In this callback, `keycode` and `record` correspond to the current tap-hold key, and `prev_keycode` is the keycode of the previous key. Return the timeout to use. Returning `0` disables Flow Tap. This callback enables setting per-key timeouts. It is also possible to enable or disable Flow Tap for certain tap-hold keys or when following certain previous keys. Example:
+
+```c
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                           uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        switch (keycode) {
+            case LCTL_T(KC_F):
+            case RCTL_T(KC_H):
+              return FLOW_TAP_TERM - 25;  // Short timeout on these keys.
+
+            default:
+              return FLOW_TAP_TERM;  // Longer timeout otherwise.
+        }
+    }
+    return 0;  // Disable Flow Tap.
+}
+```
+
+::: tip If you define both `is_flow_tap_key()` and `get_flow_tap_term()`, then the latter takes precedence.
+:::
+
 ## Chordal Hold
 
 Chordal Hold is intended to be used together with either Permissive Hold or Hold

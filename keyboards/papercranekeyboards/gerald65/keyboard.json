@@ -1,7 +1,6 @@
 {
     "keyboard_name": "gerald65",
     "manufacturer": "PaperCraneKeyboards",
-    "url": "",
     "maintainer": "PaperCraneKeyboards",
     "usb": {
         "vid": "0x5012",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
