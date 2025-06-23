@@ -6,7 +6,6 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "community_layouts": ["numpad_5x4"],
     "usb": {
       "vid": "0x4A17",
       "pid": "0x4A18",
@@ -98,8 +97,9 @@
         ],
         "sleep": true
     },
+    "community_layouts": ["numpad_5x4"],
     "layouts": {
-      "LAYOUT_numberpad_5x4": {
+      "LAYOUT_numpad_5x4": {
         "layout": [
           {"label":"FN",    "matrix": [ 0,0],"x":0,"y":0},
           {"label":"PSLS",  "matrix": [ 0,1],"x":1,"y":0},
