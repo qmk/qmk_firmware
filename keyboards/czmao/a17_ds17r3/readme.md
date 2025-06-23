@@ -1,5 +1,4 @@
 # mao ds 17r3 Righthand
-![alt text](image.png)
 
 A 17keys numberpad keyboard with RGB backlight.
 This keyboard use 16mhz HSE and APM32F103CBT6(STM32F103CBT6) as MCU.
