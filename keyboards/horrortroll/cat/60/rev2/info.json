@@ -1,0 +1,14 @@
+{
+    "usb": {
+        "device_version": "2.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "rgblight": true
+    }
+}

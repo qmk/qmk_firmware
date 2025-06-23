@@ -1,26 +1,13 @@
 {
-    "keyboard_name": "Cat 60",
-    "manufacturer": "HorrorTroll",
-    "maintainer": "HorrorTroll",
     "usb": {
-        "vid": "0x7516",
-        "pid": "0x6006",
-        "device_version": "0.0.1"
+        "pid": "0x6006"
     },
-    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["GP3", "GP24", "GP2", "GP1", "GP0", "GP4", "GP16", "GP11", "GP10", "GP9", "GP8", "GP15", "GP14", "GP13"],
         "rows": ["GP25", "GP26", "GP7", "GP12", "GP17"]
     },
-    "processor": "RP2040",
-    "bootloader": "rp2040",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "console": false,
-        "command": false,
-        "nkro": true
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "community_layouts": [
         "60_ansi_tsangan",
