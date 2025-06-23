@@ -6,6 +6,7 @@
     "diode_direction": "COL2ROW",
     "processor": "STM32F103",
     "bootloader": "stm32duino",
+    "community_layouts": ["numpad_5x4"],
     "usb": {
       "vid": "0x4A17",
       "pid": "0x4A18",
