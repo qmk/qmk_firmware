@@ -1,6 +1,7 @@
 {
     "keyboard_name": "iS0",
     "manufacturer": "Illuminati Works",
+    "url": "",
     "maintainer": "ai03",
     "usb": {
         "vid": "0xA103",
@@ -11,6 +12,7 @@
         "backlight": true,
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

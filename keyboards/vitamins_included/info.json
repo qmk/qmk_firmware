@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Vitamins Included",
   "manufacturer": "Duckle29",
+  "url": "",
   "maintainer": "Duckle29",
   "build": {
     "lto": true
@@ -8,6 +9,8 @@
   "features": {
     "audio": true,
     "bootmagic": false,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": true,

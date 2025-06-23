@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Winry 25tc",
     "manufacturer": "SpiderIsland",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -21,6 +22,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "key_lock": true,
         "mousekey": false,

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BIOI S65",
     "manufacturer": "Basic IO Instruments",
+    "url": "",
     "maintainer": "scottywei",
     "usb": {
         "vid": "0x8101",
@@ -13,6 +14,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

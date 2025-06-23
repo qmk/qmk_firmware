@@ -5,6 +5,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "encoder": true,
@@ -17,6 +19,7 @@
     "indicators": {
         "num_lock": "B0"
     },
+    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0002",

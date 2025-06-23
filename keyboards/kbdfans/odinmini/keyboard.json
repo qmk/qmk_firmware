@@ -6,6 +6,7 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "command": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -34,6 +35,7 @@
             "twinkle": true
     },
         "brightness_steps": 8,
+        "hue_steps": 8,
         "led_count": 4,
         "max_brightness": 180,
         "saturation_steps": 8,

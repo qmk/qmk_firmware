@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM65HSRGB ISO",
     "manufacturer": "KPrepublic",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B50",
@@ -85,6 +86,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

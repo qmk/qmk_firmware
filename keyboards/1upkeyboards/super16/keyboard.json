@@ -1,6 +1,7 @@
 {
   "keyboard_name": "super16",
   "manufacturer": "1upkeyboards",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x6F75",
@@ -78,6 +79,8 @@
   },
   "features": {
     "bootmagic": true,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false,
@@ -94,7 +97,8 @@
     "rows": ["D1", "D0", "F4", "F5"]
   },
   "diode_direction": "COL2ROW",
-  "development_board": "promicro",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "community_layouts": ["ortho_4x4", "numpad_4x4"],
   "layouts": {
     "LAYOUT_ortho_4x4": {

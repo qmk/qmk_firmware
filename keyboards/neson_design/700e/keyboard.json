@@ -1,6 +1,7 @@
 {
     "keyboard_name": "700E",
     "manufacturer": "Neson Design",
+    "url": "",
     "maintainer": "yulei",
     "usb": {
         "vid": "0x4E65",

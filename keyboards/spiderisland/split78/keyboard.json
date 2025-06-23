@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Split 78-key",
     "manufacturer": "SpiderIsland",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

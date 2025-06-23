@@ -214,9 +214,9 @@ void plover(keyrecord_t *record) {
         if (!eeconfig_is_enabled()) {
             eeconfig_init();
         }
-        eeconfig_read_keymap(&keymap_config);
+        keymap_config.raw  = eeconfig_read_keymap();
         keymap_config.nkro = 1;
-        eeconfig_update_keymap(&keymap_config);
+        eeconfig_update_keymap(keymap_config.raw);
     }
 }
 

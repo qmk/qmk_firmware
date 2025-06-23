@@ -1,6 +1,7 @@
 {
     "keyboard_name": "ErgoDash rev1.2",
     "manufacturer": "Omkbd",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

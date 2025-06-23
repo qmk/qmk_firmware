@@ -1,6 +1,7 @@
 {
     "keyboard_name": "QEZ",
     "manufacturer": "kb_elmo",
+    "url": "",
     "maintainer": "kb-elmo<mail@elmo.space>",
     "usb": {
         "vid": "0xA68C",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

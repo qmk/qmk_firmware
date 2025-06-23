@@ -1,6 +1,7 @@
 {
     "keyboard_name": "CANARY60RGB",
     "manufacturer": "CANARY",
+    "url": "",
     "maintainer": "tuananhnguyen204",
     "usb": {
         "vid": "0x4341",
@@ -12,6 +13,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

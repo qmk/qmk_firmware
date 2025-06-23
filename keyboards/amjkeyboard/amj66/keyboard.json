@@ -1,6 +1,7 @@
 {
     "keyboard_name": "AMJ66",
     "manufacturer": "AMJKeyboard",
+    "url": "",
     "maintainer": "FSund, qmk",
     "usb": {
         "vid": "0x00D8",

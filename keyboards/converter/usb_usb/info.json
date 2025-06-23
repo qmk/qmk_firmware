@@ -1,6 +1,7 @@
 {
     "keyboard_name": "USB to USB Converter",
     "manufacturer": "QMK",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

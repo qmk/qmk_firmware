@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Center x Enter",
     "manufacturer": "takashicompany",
+    "url": "",
     "maintainer": "takashicompany",
     "usb": {
         "vid": "0x7463",
@@ -29,6 +30,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -51,7 +54,8 @@
             {"pin_a": "D2", "pin_b": "D1", "resolution": 1}
         ]
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

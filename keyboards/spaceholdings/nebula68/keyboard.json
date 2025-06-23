@@ -1,6 +1,7 @@
 {
     "keyboard_name": "NEBULA68",
     "manufacturer": "Yiancar-Designs",
+    "url": "",
     "maintainer": "yiancar",
     "usb": {
         "vid": "0x8968",

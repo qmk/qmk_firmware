@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Devil68 Pro",
     "manufacturer": "HorrorTroll",
+    "url": "",
     "maintainer": "HorrorTroll",
     "usb": {
         "vid": "0x7516",
@@ -59,6 +60,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

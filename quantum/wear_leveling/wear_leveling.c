@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include "fnv.h"
 #include "wear_leveling.h"
-#include "wear_leveling_drivers.h"
 #include "wear_leveling_internal.h"
 
 /*

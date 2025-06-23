@@ -13,9 +13,7 @@
     "diode_direction": "ROW2COL",
     "split": {
         "enabled": true,
-        "serial": {
-            "pin": "GP1"
-        }
+        "soft_serial_pin": "GP1"
     },
     "processor": "RP2040",
     "bootloader": "rp2040"

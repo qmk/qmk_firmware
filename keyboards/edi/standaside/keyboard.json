@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Stand Aside",
     "manufacturer": "Fate Everywhere",
+    "url": "",
     "maintainer": "fateeverywhere",
     "usb": {
         "vid": "0xF7E0",

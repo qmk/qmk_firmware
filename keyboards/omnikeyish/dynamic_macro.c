@@ -1,6 +1,5 @@
 #include "omnikeyish.h"
 #include <string.h>
-#include "eeprom.h"
 
 dynamic_macro_t dynamic_macros[DYNAMIC_MACRO_COUNT];
 

@@ -8,6 +8,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
@@ -139,5 +141,6 @@
         }
     },
     "manufacturer": "Coom",
-    "maintainer": "coomstoolbox"
+    "maintainer": "coomstoolbox",
+    "url": ""
 }

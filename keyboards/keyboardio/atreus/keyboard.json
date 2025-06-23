@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Atreus",
     "manufacturer": "Keyboardio",
+    "url": "",
     "maintainer": "keyboardio",
     "usb": {
         "vid": "0x1209",

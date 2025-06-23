@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Keebwerk Mega ANSI",
     "manufacturer": "Yiancar-Designs",
+    "url": "",
     "maintainer": "Yiancar",
     "usb": {
         "vid": "0x8968",

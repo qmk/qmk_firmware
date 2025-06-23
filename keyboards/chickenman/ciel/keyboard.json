@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Ciel",
     "manufacturer": "ChickenMan",
+    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xC41C",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

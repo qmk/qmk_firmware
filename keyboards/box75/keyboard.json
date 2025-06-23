@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BOX75",
     "manufacturer": "Lin Design",
+    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x7668",

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Alpine65",
     "manufacturer": "Bitmap Designs",
+    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x6680",

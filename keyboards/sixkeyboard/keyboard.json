@@ -1,6 +1,7 @@
 {
   "keyboard_name": "SixKeyBoard",
   "manufacturer": "TechKeys",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x746B",

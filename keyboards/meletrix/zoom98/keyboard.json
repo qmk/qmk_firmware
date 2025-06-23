@@ -19,6 +19,8 @@
   },
   "features": {
     "bootmagic": true,
+    "command": false,
+    "console": false,
     "rgb_matrix": true,
     "extrakey": true,
     "mousekey": true,

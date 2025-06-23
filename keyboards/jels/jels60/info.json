@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Jels60",
     "manufacturer": "Jels",
+    "url": "",
     "maintainer": "Jels",
     "usb": {
         "vid": "0x006A",

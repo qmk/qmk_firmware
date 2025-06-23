@@ -1,6 +1,7 @@
 {
     "keyboard_name": "split_65",
     "manufacturer": "jtallbean",
+    "url": "",
     "maintainer": "samlli",
     "usb": {
         "vid": "0xFEED",

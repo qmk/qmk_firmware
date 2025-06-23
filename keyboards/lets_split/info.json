@@ -1,4 +1,5 @@
 {
+  "url": "",
   "maintainer": "qmk",
   "processor": "atmega32u4",
   "bootloader": "caterina",

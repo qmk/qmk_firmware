@@ -1,6 +1,7 @@
 {
     "keyboard_name": "reviung39",
     "manufacturer": "gtips",
+    "url": "",
     "maintainer": "gtips",
     "usb": {
         "vid": "0xFEED",

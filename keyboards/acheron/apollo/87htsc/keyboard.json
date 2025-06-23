@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Apollo87H-T-SC",
     "manufacturer": "AcheronProject",
+    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x4150",
@@ -64,6 +65,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

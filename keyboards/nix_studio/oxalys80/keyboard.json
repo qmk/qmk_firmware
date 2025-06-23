@@ -1,6 +1,7 @@
 {
     "keyboard_name": "OXALYS80",
     "manufacturer": "Nix Studio",
+    "url": "",
     "maintainer": "Nix Studio",
     "usb": {
         "vid": "0x6E78",
@@ -13,6 +14,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

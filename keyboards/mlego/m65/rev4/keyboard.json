@@ -12,6 +12,7 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
         "console": true,
         "encoder": true,
         "extrakey": true,
@@ -43,6 +44,7 @@
             "static_gradient": true,
             "twinkle": true
         },
+        "hue_steps": 8,
         "layers": {
             "enabled": true
         },

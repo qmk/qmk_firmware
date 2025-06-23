@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Just60",
     "manufacturer": "YDKB",
+    "url": "",
     "maintainer": "thinxer",
     "usb": {
         "vid": "0xFEED",

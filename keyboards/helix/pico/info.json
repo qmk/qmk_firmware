@@ -10,9 +10,7 @@
     },
     "split": {
         "enabled": true,
-        "serial": {
-            "pin": "D2"
-        }
+        "soft_serial_pin": "D2"
     },
     "tapping": {
         "term": 100

@@ -16,6 +16,7 @@
         "mousekey": true,
         "extrakey": true,
         "console": true,
+        "command": false,
         "nkro": true,
         "oled": true
     },

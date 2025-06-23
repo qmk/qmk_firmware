@@ -1,6 +1,7 @@
 {
     "keyboard_name": "YMD21 v2",
     "manufacturer": "YMDK",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x45D4",
@@ -10,6 +11,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Dactyl-Manuform (5x6) 68 Keys",
     "manufacturer": "kpagratis",
+    "url": "",
     "maintainer": "kpagratis",
     "development_board": "promicro",
     "usb": {
@@ -11,6 +12,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -23,9 +25,7 @@
     },
     "split": {
         "enabled": true,
-        "serial": {
-            "pin": "D0"
-        }
+        "soft_serial_pin": "D0"
     },
     "matrix_pins": {
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],

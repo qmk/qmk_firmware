@@ -8,6 +8,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "mousekey": true,
         "extrakey": true,
         "encoder": true,

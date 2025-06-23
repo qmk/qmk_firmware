@@ -1,6 +1,7 @@
 {
     "keyboard_name": "mothwing",
     "manufacturer": "Luana co.ltd.",
+    "url": "",
     "maintainer": "tan-t",
     "usb": {
         "vid": "0x4D77",

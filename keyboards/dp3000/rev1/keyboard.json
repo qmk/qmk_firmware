@@ -2,6 +2,8 @@
     "keyboard_name": "dp3000",
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "encoder": true,
         "oled": true,

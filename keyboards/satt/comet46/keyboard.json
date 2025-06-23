@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Comet46",
     "manufacturer": "SatT",
+    "url": "",
     "maintainer": "SatT",
     "usb": {
         "vid": "0xFEED",

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "super16v2",
     "manufacturer": "1upkeyboards",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
       "vid": "0x6F75",
@@ -50,6 +51,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

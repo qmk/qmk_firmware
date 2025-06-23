@@ -1,6 +1,7 @@
 {
   "keyboard_name": "ScrabblePad",
   "manufacturer": "DonutCables",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4443",
@@ -9,6 +10,8 @@
   },
   "features": {
     "bootmagic": false,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": true

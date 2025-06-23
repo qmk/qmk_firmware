@@ -1,6 +1,7 @@
 {
   "keyboard_name": "9Key",
   "manufacturer": "Bishop Keyboards",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -15,6 +16,8 @@
   },
   "features": {
     "bootmagic": false,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

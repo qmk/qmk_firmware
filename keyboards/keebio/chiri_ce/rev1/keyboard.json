@@ -128,9 +128,7 @@
             "driver": "vendor"
         },
         "transport": {
-            "sync": {
-                "matrix_state": true
-            }
+            "sync_matrix_state": true
         }
     },
     "usb": {

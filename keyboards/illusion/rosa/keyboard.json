@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Rosa",
     "manufacturer": "illusion keyboards",
+    "url": "",
     "maintainer": "illusion",
     "usb": {
         "vid": "0x694B",
@@ -10,6 +11,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

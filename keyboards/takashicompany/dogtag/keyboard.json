@@ -40,7 +40,8 @@
             }
         }
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "rgblight": {
         "led_count": 8,
         "split_count": [4, 4],

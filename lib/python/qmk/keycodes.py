@@ -89,7 +89,6 @@ def load_spec(version, lang=None):
     spec = _process_files(_locate_files(path, prefix, versions))
 
     # Sort?
-    spec['version'] = version
     spec['keycodes'] = dict(sorted(spec.get('keycodes', {}).items()))
     spec['ranges'] = dict(sorted(spec.get('ranges', {}).items()))
 

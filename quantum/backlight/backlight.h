@@ -20,8 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "compiler_support.h"
-
 #ifndef BACKLIGHT_LEVELS
 #    define BACKLIGHT_LEVELS 3
 #elif BACKLIGHT_LEVELS > 31
@@ -36,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define BREATHING_PERIOD 6
 #endif
 
-typedef union backlight_config_t {
+typedef union {
     uint8_t raw;
     struct {
         bool    enable : 1;
@@ -46,7 +44,7 @@ typedef union backlight_config_t {
     };
 } backlight_config_t;
 
-STATIC_ASSERT(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG out of spec.");
+_Static_assert(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG out of spec.");
 
 void    backlight_init(void);
 void    backlight_toggle(void);
@@ -60,8 +58,10 @@ void    backlight_level_noeeprom(uint8_t level);
 void    backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
 
-void eeconfig_update_backlight_current(void);
-void eeconfig_update_backlight_default(void);
+uint8_t eeconfig_read_backlight(void);
+void    eeconfig_update_backlight(uint8_t val);
+void    eeconfig_update_backlight_current(void);
+void    eeconfig_update_backlight_default(void);
 
 // implementation specific
 void backlight_init_ports(void);

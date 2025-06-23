@@ -46,7 +46,7 @@ void TestFixture::SetUpTestCase() {
 
     // The following is enough to bootstrap the values set in main
     eeconfig_init_quantum();
-    eeconfig_update_debug(&debug_config);
+    eeconfig_update_debug(debug_config.raw);
 
     TestDriver driver;
     keyboard_init();

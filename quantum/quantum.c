@@ -20,7 +20,7 @@
 #    include "process_backlight.h"
 #endif
 
-#ifdef CONNECTION_ENABLE
+#ifdef BLUETOOTH_ENABLE
 #    include "process_connection.h"
 #endif
 
@@ -436,7 +436,7 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef LAYER_LOCK_ENABLE
             process_layer_lock(keycode, record) &&
 #endif
-#ifdef CONNECTION_ENABLE
+#ifdef BLUETOOTH_ENABLE
             process_connection(keycode, record) &&
 #endif
             true)) {

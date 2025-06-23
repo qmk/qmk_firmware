@@ -1,6 +1,7 @@
 {
     "keyboard_name": "ks63",
     "manufacturer": "kleshwong",
+    "url": "",
     "maintainer": "Klesh Wong",
     "usb": {
         "vid": "0xFEED",
@@ -10,6 +11,7 @@
     "features": {
         "bootmagic": false,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

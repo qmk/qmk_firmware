@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Fortitude60",
   "manufacturer": "Pekaso",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xCB10",

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM68HSRGB Rev1",
     "manufacturer": "KPrepublic",
+    "url": "",
     "maintainer": "peepeetee",
     "usb": {
         "vid": "0x4B50",
@@ -64,6 +65,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

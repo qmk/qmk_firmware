@@ -1,6 +1,7 @@
 {
     "keyboard_name": "OSA",
     "manufacturer": "Space City Keyboards",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5343",

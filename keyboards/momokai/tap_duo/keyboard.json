@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Tap Duo",
     "manufacturer": "Momokai",
+    "url": "",
     "maintainer": "peepeetee",
     "usb": {
         "vid": "0x69F9",
@@ -13,6 +14,7 @@
     "rgb_matrix": {
         "default": {
             "animation": "solid_color",
+            "hue": 0,
             "sat": 0,
             "val": 200
         },
@@ -50,6 +52,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

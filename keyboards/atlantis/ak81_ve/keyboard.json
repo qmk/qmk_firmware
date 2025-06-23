@@ -181,6 +181,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "dynamic_macro": true,
         "encoder": true,
         "extrakey": true,

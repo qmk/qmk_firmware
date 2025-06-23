@@ -24,7 +24,9 @@
 #include "util.h"
 #include "led_tables.h"
 #include <lib/lib8tion/lib8tion.h>
-#include "eeconfig.h"
+#ifdef EEPROM_ENABLE
+#    include "eeprom.h"
+#endif
 
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard */
@@ -174,9 +176,24 @@ void rgblight_check_config(void) {
     }
 }
 
-void eeconfig_update_rgblight_current(void) {
+uint64_t eeconfig_read_rgblight(void) {
+#ifdef EEPROM_ENABLE
+    return (uint64_t)((eeprom_read_dword(EECONFIG_RGBLIGHT)) | ((uint64_t)eeprom_read_byte(EECONFIG_RGBLIGHT_EXTENDED) << 32));
+#else
+    return 0;
+#endif
+}
+
+void eeconfig_update_rgblight(uint64_t val) {
+#ifdef EEPROM_ENABLE
     rgblight_check_config();
-    eeconfig_update_rgblight(&rgblight_config);
+    eeprom_update_dword(EECONFIG_RGBLIGHT, val & 0xFFFFFFFF);
+    eeprom_update_byte(EECONFIG_RGBLIGHT_EXTENDED, (val >> 32) & 0xFF);
+#endif
+}
+
+void eeconfig_update_rgblight_current(void) {
+    eeconfig_update_rgblight(rgblight_config.raw);
 }
 
 void eeconfig_update_rgblight_default(void) {
@@ -188,7 +205,7 @@ void eeconfig_update_rgblight_default(void) {
     rgblight_config.val       = RGBLIGHT_DEFAULT_VAL;
     rgblight_config.speed     = RGBLIGHT_DEFAULT_SPD;
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
-    eeconfig_update_rgblight(&rgblight_config);
+    eeconfig_update_rgblight(rgblight_config.raw);
 }
 
 void eeconfig_debug_rgblight(void) {
@@ -211,12 +228,12 @@ void rgblight_init(void) {
     }
 
     dprintf("rgblight_init start!\n");
-    eeconfig_read_rgblight(&rgblight_config);
+    rgblight_config.raw = eeconfig_read_rgblight();
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     if (!rgblight_config.mode) {
         dprintf("rgblight_init rgblight_config.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_rgblight_default();
-        eeconfig_read_rgblight(&rgblight_config);
+        rgblight_config.raw = eeconfig_read_rgblight();
     }
     rgblight_check_config();
 
@@ -235,7 +252,7 @@ void rgblight_init(void) {
 
 void rgblight_reload_from_eeprom(void) {
     /* Reset back to what we have in eeprom */
-    eeconfig_read_rgblight(&rgblight_config);
+    rgblight_config.raw = eeconfig_read_rgblight();
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     rgblight_check_config();
     eeconfig_debug_rgblight(); // display current eeprom values
@@ -324,7 +341,7 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     }
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(&rgblight_config);
+        eeconfig_update_rgblight(rgblight_config.raw);
         dprintf("rgblight mode [EEPROM]: %u\n", rgblight_config.mode);
     } else {
         dprintf("rgblight mode [NOEEPROM]: %u\n", rgblight_config.mode);
@@ -369,7 +386,7 @@ void rgblight_toggle_noeeprom(void) {
 void rgblight_enable(void) {
     rgblight_config.enable = 1;
     // No need to update EEPROM here. rgblight_mode() will do that, actually
-    // eeconfig_update_rgblight(&rgblight_config);
+    // eeconfig_update_rgblight(rgblight_config.raw);
     dprintf("rgblight enable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_mode(rgblight_config.mode);
 }
@@ -382,7 +399,7 @@ void rgblight_enable_noeeprom(void) {
 
 void rgblight_disable(void) {
     rgblight_config.enable = 0;
-    eeconfig_update_rgblight(&rgblight_config);
+    eeconfig_update_rgblight(rgblight_config.raw);
     dprintf("rgblight disable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
     rgblight_timer_disable();
     RGBLIGHT_SPLIT_SET_CHANGE_MODE;
@@ -470,7 +487,7 @@ void rgblight_increase_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed < 3) rgblight_config.speed++;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(&rgblight_config);
+        eeconfig_update_rgblight(rgblight_config.raw);
     }
 }
 void rgblight_increase_speed(void) {
@@ -484,7 +501,7 @@ void rgblight_decrease_speed_helper(bool write_to_eeprom) {
     if (rgblight_config.speed > 0) rgblight_config.speed--;
     // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(&rgblight_config);
+        eeconfig_update_rgblight(rgblight_config.raw);
     }
 }
 void rgblight_decrease_speed(void) {
@@ -496,7 +513,7 @@ void rgblight_decrease_speed_noeeprom(void) {
 
 void rgblight_sethsv_noeeprom_old(uint8_t hue, uint8_t sat, uint8_t val) {
     if (rgblight_config.enable) {
-        rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+        rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
         rgblight_setrgb(rgb.r, rgb.g, rgb.b);
     }
 }
@@ -515,7 +532,7 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
             // needed for rgblight_layers_write() to get the new val, since it reads rgblight_config.val
             rgblight_config.val = val;
 #endif
-            rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+            rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
             rgblight_setrgb(rgb.r, rgb.g, rgb.b);
         } else {
             // all LEDs in same color
@@ -568,7 +585,7 @@ void rgblight_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool w
         rgblight_config.sat = sat;
         rgblight_config.val = val;
         if (write_to_eeprom) {
-            eeconfig_update_rgblight(&rgblight_config);
+            eeconfig_update_rgblight(rgblight_config.raw);
             dprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
         } else {
             dprintf("rgblight set hsv [NOEEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
@@ -591,7 +608,7 @@ uint8_t rgblight_get_speed(void) {
 void rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
     rgblight_config.speed = speed;
     if (write_to_eeprom) {
-        eeconfig_update_rgblight(&rgblight_config);
+        eeconfig_update_rgblight(rgblight_config.raw);
         dprintf("rgblight set speed [EEPROM]: %u\n", rgblight_config.speed);
     } else {
         dprintf("rgblight set speed [NOEEPROM]: %u\n", rgblight_config.speed);
@@ -647,7 +664,7 @@ void rgblight_sethsv_at(uint8_t hue, uint8_t sat, uint8_t val, uint8_t index) {
         return;
     }
 
-    rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+    rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
     rgblight_setrgb_at(rgb.r, rgb.g, rgb.b, index);
 }
 
@@ -679,7 +696,7 @@ void rgblight_sethsv_range(uint8_t hue, uint8_t sat, uint8_t val, uint8_t start,
         return;
     }
 
-    rgb_t rgb = rgblight_hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
+    rgb_t rgb = hsv_to_rgb((hsv_t){hue, sat, val > RGBLIGHT_LIMIT_VAL ? RGBLIGHT_LIMIT_VAL : val});
     rgblight_setrgb_range(rgb.r, rgb.g, rgb.b, start, end);
 }
 

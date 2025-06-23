@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Yun 65",
   "manufacturer": "Spaceman",
+  "url": "",
   "maintainer": "Spaceman",
   "usb": {
     "vid": "0x5342",

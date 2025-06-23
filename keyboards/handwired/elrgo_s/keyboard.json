@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Elrgo S",
     "manufacturer": "Eloren",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x454C",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

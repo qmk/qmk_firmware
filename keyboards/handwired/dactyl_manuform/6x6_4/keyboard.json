@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Dactyl-Manuform (6x6+4)",
     "manufacturer": "tshort",
+    "url": "",
     "maintainer": "dmik",
     "usb": {
         "vid": "0x444D",
@@ -16,6 +17,7 @@
     "features": {
         "bootmagic": false,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -33,9 +35,7 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "serial": {
-            "pin": "D0"
-        }
+        "soft_serial_pin": "D0"
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",

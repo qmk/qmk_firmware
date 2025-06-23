@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Alter Lite",
     "manufacturer": "DeskDaily",
+    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0xD812",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

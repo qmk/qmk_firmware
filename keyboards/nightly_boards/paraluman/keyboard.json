@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Paraluman",
     "manufacturer": "DeskDaily",
+    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0xD812",
@@ -12,6 +13,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

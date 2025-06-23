@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Dactyl-Manuform (5x6)",
     "manufacturer": "tshort",
+    "url": "",
     "maintainer": "jceb",
     "usb": {
         "vid": "0x444D",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -26,9 +29,7 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "serial": {
-            "pin": "D0"
-        },
+        "soft_serial_pin": "D0",
         "bootmagic": {
             "matrix": [6, 5]
         }

@@ -35,6 +35,7 @@
         "led_count": 9,
         "sleep": true
     },
+    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0002",

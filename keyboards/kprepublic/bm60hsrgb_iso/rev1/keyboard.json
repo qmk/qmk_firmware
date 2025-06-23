@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM60HSRGB_ISO Rev1",
     "manufacturer": "KPRepublic",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B50",
@@ -64,6 +65,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

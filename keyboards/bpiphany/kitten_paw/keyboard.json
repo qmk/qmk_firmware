@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Kitten Paw",
   "manufacturer": "bpiphany",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

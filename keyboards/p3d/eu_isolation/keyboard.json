@@ -1,6 +1,7 @@
 {
     "keyboard_name": "EU ISOlation",
     "manufacturer": "TuckTuckFloof",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,7 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,

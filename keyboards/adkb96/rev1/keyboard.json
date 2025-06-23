@@ -1,6 +1,7 @@
 {
     "keyboard_name": "ADKB96",
     "manufacturer": "Bit Trade One",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x00A5",
@@ -34,7 +35,8 @@
     "tapping": {
         "term": 100
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_6x16"
     },

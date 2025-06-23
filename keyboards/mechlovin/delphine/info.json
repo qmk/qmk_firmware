@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Delphine",
     "manufacturer": "Mechlovin",
+    "url": "",
     "maintainer": "mechlovin",
     "usb": {
         "vid": "0x4D4C"

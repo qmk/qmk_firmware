@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Liminal",
   "manufacturer": "TheRoyalSweatshirt",
+  "url": "",
   "maintainer": "TheRoyalSweatshirt",
   "usb": {
     "vid": "0x4B4B",
@@ -18,6 +19,8 @@
   },
   "features": {
     "bootmagic": true,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": false,

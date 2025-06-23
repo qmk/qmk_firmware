@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Crawlpad",
   "manufacturer": "WoodKeys.Click",
+  "url": "",
   "maintainer": "colemarkham",
   "usb": {
     "vid": "0xFEED",
@@ -27,6 +28,8 @@
   },
   "features": {
     "bootmagic": false,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true

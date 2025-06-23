@@ -17,6 +17,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -73,6 +75,9 @@
             "pixel_fractal": true,
             "pixel_flow": true,
             "pixel_rain": true
+        },
+        "default": {
+            "animation": "cycle_left_right"
         },
         "sleep": true,
         "layout": [

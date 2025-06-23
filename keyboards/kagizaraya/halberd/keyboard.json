@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Halberd",
     "manufacturer": "Kagizaraya",
+    "url": "",
     "maintainer": "ka2hiro",
     "usb": {
         "vid": "0xFEED",
@@ -32,6 +33,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

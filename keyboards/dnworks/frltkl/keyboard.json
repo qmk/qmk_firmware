@@ -13,10 +13,13 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
+        "console": false,
+        "command": false,
         "nkro": true    
     },
     "indicators": {
-        "caps_lock": "GP27"
+        "caps_lock": "GP27",
+        "on_state": 1
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

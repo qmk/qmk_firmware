@@ -1,5 +1,4 @@
 {
-    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "command": true,

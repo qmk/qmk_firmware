@@ -161,6 +161,7 @@
         "max_brightness": 120,
         "sleep": true
     },
+    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x000C",

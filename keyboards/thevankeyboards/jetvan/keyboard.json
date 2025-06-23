@@ -1,6 +1,7 @@
 {
     "keyboard_name": "JetVan",
     "manufacturer": "evangs",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEAE",
@@ -28,6 +29,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

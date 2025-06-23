@@ -1,6 +1,7 @@
 {
   "keyboard_name": "space_space",
   "manufacturer": "qpockets",
+  "url": "",
   "maintainer": "qpockets",
   "usb": {
     "vid": "0x7170",

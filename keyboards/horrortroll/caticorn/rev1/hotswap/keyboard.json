@@ -18,6 +18,8 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
+        "console": false,
+        "command": false,
         "nkro": true
     },
     "community_layouts": ["tkl_f13_ansi"],

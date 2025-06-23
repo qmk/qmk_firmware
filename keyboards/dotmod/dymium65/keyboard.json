@@ -19,6 +19,8 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
+        "console": false,
+        "command": false,
         "nkro": true,
         "mousekey": true,
         "rgb_matrix": true

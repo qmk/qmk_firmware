@@ -1,6 +1,7 @@
 {
     "keyboard_name": "AELITH",
     "manufacturer": "RMI-KB",
+    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",

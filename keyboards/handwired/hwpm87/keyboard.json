@@ -2,6 +2,7 @@
     "manufacturer": "KD-MM2",
     "keyboard_name": "hwpm87",
     "maintainer": "KD-MM2",
+    "url": "",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0001",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

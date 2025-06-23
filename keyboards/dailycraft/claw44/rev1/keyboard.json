@@ -1,6 +1,7 @@
 {
     "keyboard_name": "claw44",
     "manufacturer": "yfuku",
+    "url": "",
     "maintainer": "yfuku",
     "usb": {
         "vid": "0x5946",

@@ -31,6 +31,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -48,8 +50,9 @@
         "rows": ["B3", "B2", "B6", "B5"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "promicro",
-    "layouts": {
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+   "layouts": {
         "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0.5},

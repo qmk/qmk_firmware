@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Rabbit68",
     "manufacturer": "Kai Eckert",
+    "url": "",
     "maintainer": "kaiec",
     "usb": {
         "vid": "0xFEED",

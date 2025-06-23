@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Octopad+",
     "manufacturer": "DeskDaily",
+    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0xD812",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -49,7 +52,9 @@
             "twinkle": true
         },
         "brightness_steps": 8,
+        "hue_steps": 8,
         "led_count": 8,
+        "max_brightness": 255,
         "saturation_steps": 8,
         "sleep": true
     },

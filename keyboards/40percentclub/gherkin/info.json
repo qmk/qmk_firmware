@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Gherkin",
   "manufacturer": "40 Percent Club",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4025",

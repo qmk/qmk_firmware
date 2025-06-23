@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Split75",
     "manufacturer": "YMDK",
+    "url": "",
     "maintainer": "Michael L. Walker",
     "usb": {
         "vid": "0x594D",

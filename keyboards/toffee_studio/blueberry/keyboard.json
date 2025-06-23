@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Blueberry",
     "manufacturer": "Toffee Studio",
+    "url": "",
     "maintainer": "Toffee Studio",
     "usb": {
         "vid": "0x1067",
@@ -30,6 +31,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

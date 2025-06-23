@@ -12,6 +12,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -86,6 +88,7 @@
         "max_brightness": 200,
         "sleep": true
     },
+    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0901",

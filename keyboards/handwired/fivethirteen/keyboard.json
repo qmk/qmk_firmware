@@ -1,6 +1,7 @@
 {
   "keyboard_name": "fivethirteen",
   "manufacturer": "rdg",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

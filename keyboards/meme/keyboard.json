@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Meme",
   "manufacturer": "Switchmod Keyboards",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

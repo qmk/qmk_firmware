@@ -1,6 +1,7 @@
 {
     "keyboard_name": "RS108",
     "manufacturer": "Xelus",
+    "url": "",
     "maintainer": "xelus22",
     "usb": {
         "vid": "0x5845",

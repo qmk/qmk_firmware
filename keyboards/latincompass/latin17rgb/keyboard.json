@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Latin17RGB",
   "manufacturer": "18438880",
+  "url": "",
   "maintainer": "18438880",
   "usb": {
     "vid": "0x7C88",
@@ -65,6 +66,8 @@
   },
   "features": {
     "bootmagic": true,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false,

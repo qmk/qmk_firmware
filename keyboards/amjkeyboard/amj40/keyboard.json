@@ -1,6 +1,7 @@
 {
     "keyboard_name": "AMJ40",
     "manufacturer": "Han Chen",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x00D8",
@@ -10,6 +11,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

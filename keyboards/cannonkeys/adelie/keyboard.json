@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Adelie",
     "manufacturer": "Abec13",
+    "url": "",
     "maintainer": "Abec13",
     "usb": {
         "vid": "0xCA04",
@@ -30,6 +31,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

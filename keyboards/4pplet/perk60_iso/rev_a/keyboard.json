@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Perk60 ISO Rev A",
     "manufacturer": "4pplet",
+    "url": "",
     "maintainer": "4pplet",
     "usb": {
         "vid": "0x4444",
@@ -41,6 +42,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Siemens Tastatur",
     "manufacturer": "Yiancar-Designs",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x8968",

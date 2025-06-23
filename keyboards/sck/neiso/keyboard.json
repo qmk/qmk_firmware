@@ -1,6 +1,7 @@
 {
     "keyboard_name": "NEISO",
     "manufacturer": "Space City Keyboards",
+    "url": "",
     "maintainer": "jrfhoutx",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,7 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
         "console": true,
         "extrakey": false,
         "mousekey": false,
@@ -25,7 +27,8 @@
         "rows": ["F4"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layouts": {
         "LAYOUT": {
             "layout": [

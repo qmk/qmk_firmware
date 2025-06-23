@@ -1,6 +1,7 @@
 {
     "keyboard_name": "reviung33",
     "manufacturer": "gtips",
+    "url": "",
     "maintainer": "gtips",
     "usb": {
         "vid": "0xFEED",
@@ -31,6 +32,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false,

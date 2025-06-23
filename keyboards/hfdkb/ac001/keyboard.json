@@ -1,6 +1,7 @@
 {
     "keyboard_name": "ac001",
     "manufacturer": "hfd",
+    "url": "",
     "maintainer": "jonylee@hfd",
     "usb": {
         "vid": "0xFFFE",
@@ -22,6 +23,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

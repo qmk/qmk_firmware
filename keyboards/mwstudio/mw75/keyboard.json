@@ -1,6 +1,7 @@
 {
     "keyboard_name": "MW75",
     "manufacturer": "MWStudio",
+    "url": "",
     "maintainer": "TW59420",
     "usb": {
         "vid": "0x7BA1",
@@ -55,6 +56,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

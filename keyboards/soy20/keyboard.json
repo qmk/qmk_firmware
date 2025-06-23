@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Soy20",
     "manufacturer": "drewkeys",
+    "url": "",
     "maintainer": "twholt",
     "usb": {
         "vid": "0x4452",
@@ -10,6 +11,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

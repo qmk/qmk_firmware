@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Calice",
     "manufacturer": "QwertleKeys",
+    "url": "",
     "maintainer": "Jels02",
     "usb": {
         "vid": "0x716B",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,

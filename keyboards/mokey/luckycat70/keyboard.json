@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Lucky Cat 70",
     "manufacturer": "qmk",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x6653",
@@ -12,6 +13,8 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
+        "console": false,
+        "command": false,
         "nkro": false,
         "rgblight": true
     },

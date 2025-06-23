@@ -1,6 +1,7 @@
 {
     "keyboard_name": "JotPad16",
     "manufacturer": "Jotix",
+    "url": "",
     "maintainer": "jotix",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,7 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": false,

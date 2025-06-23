@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Splitreus62",
     "manufacturer": "NaCly",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
       "vid": "0xBEEF",
@@ -10,6 +11,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

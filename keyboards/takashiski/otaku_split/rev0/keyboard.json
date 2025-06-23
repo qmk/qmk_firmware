@@ -1,6 +1,7 @@
 {
     "keyboard_name": "otaku split rev.0",
     "manufacturer": "takashiski",
+    "url": "",
     "maintainer": "takashiski",
     "usb": {
         "vid": "0xFEED",

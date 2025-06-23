@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Finger65",
     "manufacturer": "LeeKu",
+    "url": "",
     "maintainer": "sidcarter",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false

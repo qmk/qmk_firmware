@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Blaster 75",
     "manufacturer": "Altain",
+    "url": "",
     "maintainer": "Altain",
     "usb": {
         "vid": "0xA122",
@@ -9,6 +10,7 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
         "console": true,
         "extrakey": false,
         "mousekey": false,

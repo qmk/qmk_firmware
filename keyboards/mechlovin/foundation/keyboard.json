@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Foundation FRL",
     "manufacturer": "Mechlovin Studio",
+    "url": "",
     "maintainer": "Protozoa",
     "usb": {
         "vid": "0x4D4C",

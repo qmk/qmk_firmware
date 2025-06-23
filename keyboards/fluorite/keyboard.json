@@ -1,6 +1,7 @@
 {
     "keyboard_name": "fluorite",
     "manufacturer": "ihotsuno",
+    "url": "",
     "maintainer": "ihotsuno, qmk",
     "usb": {
         "vid": "0xFEED",

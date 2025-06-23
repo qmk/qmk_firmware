@@ -1,6 +1,7 @@
 {
     "keyboard_name": "E6.5",
     "manufacturer": "Exclusive / E-Team",
+    "url": "",
     "maintainer": "masterzen",
     "usb": {
         "vid": "0x4558",
@@ -10,6 +11,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BigMac",
     "manufacturer": "Taylore101",
+    "url": "",
     "maintainer": "Taylore101",
     "usb": {
         "vid": "0xFEED",

@@ -10,6 +10,8 @@
      },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -22,7 +24,8 @@
     "dynamic_keymap": {
         "layer_count": 10
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "community_layouts": ["ortho_4x10"],
     "layouts": {
         "LAYOUT_ortho_4x10": {

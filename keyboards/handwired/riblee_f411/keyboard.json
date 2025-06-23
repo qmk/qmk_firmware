@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Handwired F411",
     "manufacturer": "Riblee",
+    "url": "",
     "maintainer": "riblee",
     "usb": {
         "vid": "0xFEED",

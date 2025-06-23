@@ -5,6 +5,7 @@
     "maintainer": "lalalademaxiya1",
     "features": {
         "bootmagic": true,
+        "command": false,
         "console": true,
         "dip_switch": true,
         "extrakey": true,

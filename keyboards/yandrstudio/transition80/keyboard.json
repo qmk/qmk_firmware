@@ -22,7 +22,8 @@
     },
     "indicators": {
         "caps_lock": "A15",
-        "scroll_lock": "B14"
+        "scroll_lock": "B14",
+        "on_state": 1
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"

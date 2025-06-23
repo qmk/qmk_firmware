@@ -1,6 +1,7 @@
 {
   "keyboard_name": "HS60 V2",
   "manufacturer": "Yiancar-Designs",
+  "url": "",
   "maintainer": "yiancar",
   "usb": {
     "vid": "0x8968",

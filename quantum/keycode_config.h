@@ -16,7 +16,9 @@
 
 #pragma once
 
-#include "compiler_support.h"
+#ifdef __cplusplus
+#    define _Static_assert static_assert
+#endif
 
 #include "eeconfig.h"
 #include "keycode.h"
@@ -26,7 +28,7 @@ uint16_t keycode_config(uint16_t keycode);
 uint8_t  mod_config(uint8_t mod);
 
 /* NOTE: Not portable. Bit field order depends on implementation */
-typedef union keymap_config_t {
+typedef union {
     uint16_t raw;
     struct {
         bool swap_control_capslock : 1;
@@ -45,6 +47,6 @@ typedef union keymap_config_t {
     };
 } keymap_config_t;
 
-STATIC_ASSERT(sizeof(keymap_config_t) == sizeof(uint16_t), "Keycode (magic) EECONFIG out of spec.");
+_Static_assert(sizeof(keymap_config_t) == sizeof(uint16_t), "Keycode (magic) EECONFIG out of spec.");
 
 extern keymap_config_t keymap_config;

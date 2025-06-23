@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Unicomp Mini M",
     "manufacturer": "stevendlander",
+    "url": "",
     "maintainer": "stevendlander",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,7 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
         "console": true,
         "extrakey": false,
         "mousekey": false,

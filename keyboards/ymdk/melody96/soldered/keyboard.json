@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Melody96 Soldered",
     "manufacturer": "YMDK",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x594D",

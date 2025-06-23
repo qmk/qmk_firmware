@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Squishy65",
     "manufacturer": "RMI-KB",
+    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",

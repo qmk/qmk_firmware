@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Framework",
     "manufacturer": "7c8",
+    "url": "",
     "maintainer": "stevennguyen",
     "usb": {
         "vid": "0x77C8",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "leader": true,

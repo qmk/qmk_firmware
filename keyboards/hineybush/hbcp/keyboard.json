@@ -1,6 +1,7 @@
 {
     "keyboard_name": "hbcp",
     "manufacturer": "hineybush",
+    "url": "",
     "maintainer": "hineybush",
     "usb": {
         "vid": "0x04D8",

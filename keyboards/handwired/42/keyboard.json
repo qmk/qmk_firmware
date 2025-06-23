@@ -1,6 +1,7 @@
 {
     "keyboard_name": "42",
     "manufacturer": "nglgzz",
+    "url": "",
     "maintainer": "nglgzz",
     "usb": {
         "vid": "0xFEED",

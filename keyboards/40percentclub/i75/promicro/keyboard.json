@@ -4,5 +4,6 @@
         "rows": ["B4", "E6", "D7", "C6", "D4", "D0", "D1", "D2", "D3"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "promicro"
+    "processor": "atmega32u4",
+    "bootloader": "caterina"
 }

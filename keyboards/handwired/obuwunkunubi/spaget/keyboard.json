@@ -1,6 +1,7 @@
 {
     "keyboard_name": "spaget",
     "manufacturer": "obuwunkunubi",
+    "url": "",
     "maintainer": "obuwunkunubi",
     "usb": {
         "vid": "0x1337",
@@ -10,6 +11,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

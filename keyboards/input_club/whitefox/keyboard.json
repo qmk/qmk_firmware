@@ -113,6 +113,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": true,
         "led_matrix": true,
         "mousekey": true,

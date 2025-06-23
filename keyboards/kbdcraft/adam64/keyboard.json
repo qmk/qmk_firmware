@@ -20,6 +20,8 @@
         "mousekey": true,
         "extrakey": true,
         "nkro": true,
+        "console": false,
+        "command": false,
         "rgb_matrix": true
     },
     "rgb_matrix": {

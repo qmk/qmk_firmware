@@ -6,6 +6,7 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
+        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
@@ -65,6 +66,7 @@
             {"flags": 4, "matrix": [2, 0], "x": 0, "y": 2}
         ]
     },
+    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xC401",

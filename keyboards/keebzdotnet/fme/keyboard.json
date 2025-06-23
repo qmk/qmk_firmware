@@ -1,6 +1,7 @@
 {
     "keyboard_name": "FMe",
     "manufacturer": "keebzdotnet",
+    "url": "",
     "maintainer": "keebzdotnet",
     "usb": {
         "vid": "0x4B5A",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

@@ -1,6 +1,7 @@
 {
   "keyboard_name": "ABELX",
   "manufacturer": "Matrix",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4D58",

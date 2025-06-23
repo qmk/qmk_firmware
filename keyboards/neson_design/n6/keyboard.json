@@ -1,6 +1,7 @@
 {
     "keyboard_name": "N6",
     "manufacturer": "Neson Design",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4E65",

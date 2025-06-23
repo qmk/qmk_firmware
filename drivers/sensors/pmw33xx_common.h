@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "compiler_support.h"
 #include "keyboard.h"
 #include <stdint.h>
 #include "spi_master.h"
@@ -40,8 +39,8 @@ typedef struct __attribute__((packed)) {
     int16_t delta_y; // displacement on y directions.
 } pmw33xx_report_t;
 
-STATIC_ASSERT(sizeof(pmw33xx_report_t) == 6, "pmw33xx_report_t must be 6 bytes in size");
-STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motion must be 1 byte in size");
+_Static_assert(sizeof(pmw33xx_report_t) == 6, "pmw33xx_report_t must be 6 bytes in size");
+_Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motion must be 1 byte in size");
 
 #if !defined(PMW33XX_CLOCK_SPEED)
 #    define PMW33XX_CLOCK_SPEED 2000000

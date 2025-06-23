@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Ein_60",
     "manufacturer": "klackygears",
+    "url": "",
     "maintainer": "klackygears",
     "usb": {
         "vid": "0x4A53",
@@ -12,6 +13,7 @@
             "val": 150
         },
         "driver": "ws2812",
+        "led_flush_limit": 16,
         "max_brightness": 200
     },
     "rgblight": {

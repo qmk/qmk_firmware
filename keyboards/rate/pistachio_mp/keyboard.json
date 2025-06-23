@@ -1,6 +1,7 @@
 {
     "keyboard_name": "pistachio_mp",
     "manufacturer": "rate",
+    "url": "",
     "maintainer": "rate",
     "usb": {
         "vid": "0x5255",
@@ -17,6 +18,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

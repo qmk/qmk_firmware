@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BananaSplit 60",
     "manufacturer": "TheVan Keyboards",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEAE",

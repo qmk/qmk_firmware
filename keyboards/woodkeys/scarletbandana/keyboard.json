@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Scarlet Bandana Version IV Mark 2",
     "manufacturer": "WoodKeys.click",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -31,6 +32,8 @@
     "features": {
         "audio": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

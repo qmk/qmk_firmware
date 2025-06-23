@@ -2,13 +2,12 @@
 // Copyright 2021 Paul Cotter (@gr1mr3aver)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "compiler_support.h"
 #include "qp_internal.h"
 #include "qp_comms.h"
 #include "qp_draw.h"
 #include "qgf.h"
 
-STATIC_ASSERT((QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE > 0) && (QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE % 16) == 0, "QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE needs to be a non-zero multiple of 16");
+_Static_assert((QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE > 0) && (QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE % 16) == 0, "QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE needs to be a non-zero multiple of 16");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Global variables

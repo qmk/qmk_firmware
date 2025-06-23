@@ -14,9 +14,6 @@
         "enabled": true,
         "serial": {
             "driver": "vendor"
-        },
-        "transport": {
-            "watchdog": true
         }
     },
     "matrix_pins": {

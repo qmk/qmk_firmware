@@ -1,6 +1,7 @@
 {
     "keyboard_name": "ginkgo 65",
     "manufacturer": "Mokey",
+    "url": "",
     "maintainer": "rhmokey",
     "usb": {
         "vid": "0x6653",
@@ -13,6 +14,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

@@ -34,9 +34,12 @@
             {"pin_a": "B1", "pin_b": "B3"}
         ]
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

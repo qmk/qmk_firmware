@@ -6,6 +6,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false,
@@ -29,6 +31,9 @@
             "cycle_left_right": true
         },
         "driver": "ws2812",
+        "default": {
+            "animation": "cycle_left_right"
+        },
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0,   "y": 0}
         ],

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Efreet",
     "manufacturer": "Soran",
+    "url": "",
     "maintainer": "amberstarlight",
     "usb": {
         "vid": "0x534F",

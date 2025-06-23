@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Uni660",
     "manufacturer": "SiRius",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5352",

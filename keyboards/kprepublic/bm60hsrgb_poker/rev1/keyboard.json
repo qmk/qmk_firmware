@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM60HSRGB Poker Rev1",
     "manufacturer": "KPrepublic",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B50",
@@ -79,6 +80,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

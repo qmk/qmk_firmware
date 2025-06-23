@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Thirty",
     "manufacturer": "Leo Deng",
+    "url": "",
     "maintainer": "myst729",
     "usb": {
         "vid": "0xDE29",

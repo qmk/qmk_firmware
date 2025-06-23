@@ -215,13 +215,10 @@ uint16_t handle_encoder_press(void){
 
 uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-    uint32_t offset = EEPROM_CUSTOM_ENCODER_OFFSET + (encoder_idx * 6) + (behavior * 2);
+    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
     //big endian
-    uint8_t hi, lo;
-    read_custom_config(&hi, offset+0, 1);
-    read_custom_config(&lo, offset+1, 1);
-    uint16_t keycode = hi << 8;
-    keycode |= lo;
+    uint16_t keycode = eeprom_read_byte(addr) << 8;
+    keycode |= eeprom_read_byte(addr + 1);
     return keycode;
 #else
     return 0;
@@ -230,10 +227,8 @@ uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
 
 void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t new_code){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-    uint32_t offset = EEPROM_CUSTOM_ENCODER_OFFSET + (encoder_idx * 6) + (behavior * 2);
-    uint8_t hi = new_code >> 8;
-    uint8_t lo = new_code & 0xFF;
-    write_custom_config(&hi, offset+0, 1);
-    write_custom_config(&lo, offset+1, 1);
+    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
+    eeprom_update_byte(addr, (uint8_t)(new_code >> 8));
+    eeprom_update_byte(addr + 1, (uint8_t)(new_code & 0xFF));
 #endif
 }

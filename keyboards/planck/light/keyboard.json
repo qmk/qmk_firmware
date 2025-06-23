@@ -60,6 +60,7 @@
   "features": {
     "audio": true,
     "bootmagic": true,
+    "command": false,
     "console": true,
     "extrakey": true,
     "midi": true,

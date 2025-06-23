@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "compiler_support.h"
-
 // DEPRECATED DEFINES - DO NOT USE
 #if defined(RGBLED_NUM)
 #    define RGBLIGHT_LED_COUNT RGBLED_NUM
@@ -170,6 +168,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #include <stdbool.h>
 #include "rgblight_drivers.h"
 #include "progmem.h"
+#include "eeconfig.h"
 #include "color.h"
 
 #ifdef RGBLIGHT_LAYERS
@@ -249,7 +248,7 @@ extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
-typedef union rgblight_config_t {
+typedef union {
     uint64_t raw;
     struct {
         bool    enable : 1;
@@ -262,7 +261,7 @@ typedef union rgblight_config_t {
     };
 } rgblight_config_t;
 
-STATIC_ASSERT(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
+_Static_assert(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
 
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
@@ -371,6 +370,8 @@ void     rgblight_suspend(void);
 void     rgblight_wakeup(void);
 uint64_t rgblight_read_qword(void);
 void     rgblight_update_qword(uint64_t qword);
+uint64_t eeconfig_read_rgblight(void);
+void     eeconfig_update_rgblight(uint64_t val);
 void     eeconfig_update_rgblight_current(void);
 void     eeconfig_update_rgblight_default(void);
 void     eeconfig_debug_rgblight(void);

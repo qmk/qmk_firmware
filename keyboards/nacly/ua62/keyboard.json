@@ -1,6 +1,7 @@
 {
     "keyboard_name": "UA62",
     "manufacturer": "NaCly",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
       "vid": "0xBEEF",

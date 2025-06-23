@@ -1,6 +1,7 @@
 {
   "keyboard_name": "GH60 Satan",
   "manufacturer": "SATAN",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4335",

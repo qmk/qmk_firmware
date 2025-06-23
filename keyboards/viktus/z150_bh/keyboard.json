@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Z-150 Blackheart",
     "manufacturer": "blindassassin111",
+    "url": "",
     "maintainer": "qmk, blindassassin111",
     "usb": {
         "vid": "0xFEED",
@@ -10,6 +11,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

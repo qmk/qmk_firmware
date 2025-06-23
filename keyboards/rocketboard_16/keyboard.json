@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Rocketboard-16",
     "manufacturer": "Rocketboard",
+    "url": "",
     "maintainer": "fl3tching101",
     "usb": {
         "vid": "0xB034",

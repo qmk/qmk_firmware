@@ -1,6 +1,7 @@
 {
     "keyboard_name": "MB-44",
     "manufacturer": "melonbred",
+    "url": "",
     "maintainer": "melonbred",
     "usb": {
         "vid": "0x6D62",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,

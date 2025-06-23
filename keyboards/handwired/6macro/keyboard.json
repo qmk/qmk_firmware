@@ -1,6 +1,7 @@
 {
     "keyboard_name": "6macro",
     "manufacturer": "joaofbmaia",
+    "url": "",
     "maintainer": "joaofbmaia",
     "usb": {
       "vid": "0xFEED",
@@ -27,6 +28,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

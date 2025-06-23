@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string.h>
 
-#include "compiler_support.h"
 #include "keyboard.h"
 #include "progmem.h"
 #include "timer.h"
@@ -266,7 +265,7 @@ void st7565_write_char(const char data, bool invert) {
     static uint8_t st7565_temp_buffer[ST7565_FONT_WIDTH];
     memcpy(&st7565_temp_buffer, st7565_cursor, ST7565_FONT_WIDTH);
 
-    STATIC_ASSERT(sizeof(font) >= ((ST7565_FONT_END + 1 - ST7565_FONT_START) * ST7565_FONT_WIDTH), "ST7565_FONT_END references outside array");
+    _Static_assert(sizeof(font) >= ((ST7565_FONT_END + 1 - ST7565_FONT_START) * ST7565_FONT_WIDTH), "ST7565_FONT_END references outside array");
 
     // set the reder buffer data
     uint8_t cast_data = (uint8_t)data; // font based on unsigned type for index

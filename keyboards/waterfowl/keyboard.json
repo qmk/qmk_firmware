@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Waterfowl",
     "manufacturer": "CyanDuck",
+    "url": "",
     "maintainer": "JW2586",
     "usb": {
         "vid": "0xFEED",

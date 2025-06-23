@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Pteron44",
   "manufacturer": "QMK",
+  "url": "",
   "maintainer": "fidelcoria",
   "usb": {
     "vid": "0xFEED",
@@ -9,6 +10,8 @@
   },
   "features": {
     "bootmagic": false,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true

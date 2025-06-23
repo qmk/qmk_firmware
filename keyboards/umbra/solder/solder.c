@@ -14,15 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "quantum.h"
-
-#ifndef CAPS_LOCK_ENABLE
-#    define CAPS_LOCK_ENABLE true
-#endif
-
-#ifndef CAPS_LOCK_COLOR
-#    define CAPS_LOCK_COLOR HSV_GREEN
-#endif
+#include "solder.h"
 
 void keyboard_pre_init_kb(void) {
     rgblight_set_effect_range(0, 16);

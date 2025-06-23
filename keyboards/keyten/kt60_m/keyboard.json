@@ -1,6 +1,7 @@
 {
     "keyboard_name": "kt60-M",
     "manufacturer": "keyten",
+    "url": "",
     "maintainer": "key10iq",
     "usb": {
         "vid": "0xEB69",
@@ -12,6 +13,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

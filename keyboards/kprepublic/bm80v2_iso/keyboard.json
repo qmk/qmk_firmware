@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM80v2 ISO",
     "manufacturer": "KPrepublic",
+    "url": "",
     "maintainer": "edwardslau",
     "usb": {
         "vid": "0x4B50",
@@ -53,6 +54,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

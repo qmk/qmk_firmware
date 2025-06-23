@@ -1,6 +1,7 @@
 {
   "keyboard_name": "MiniDox",
   "manufacturer": "That-Canadian",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

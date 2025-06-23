@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Luddite",
   "manufacturer": "di0ib",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4025",
@@ -10,6 +11,8 @@
   "features": {
     "backlight": true,
     "bootmagic": true,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
@@ -48,7 +51,8 @@
   "ws2812": {
     "pin": "B4"
   },
-  "development_board": "promicro",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "community_layouts": ["60_ansi"],
   "layouts": {
     "LAYOUT_60_ansi": {

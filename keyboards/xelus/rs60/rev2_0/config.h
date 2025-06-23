@@ -28,3 +28,6 @@
 
 // Hardware Defines
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+
+// HSE CLK
+#define STM32_HSECLK 16000000

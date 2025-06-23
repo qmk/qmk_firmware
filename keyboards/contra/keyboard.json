@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Contra",
   "manufacturer": "Cartel",
+  "url": "",
   "maintainer": "qmk",
   "features": {
     "bootmagic": true,

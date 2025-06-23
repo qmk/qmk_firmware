@@ -1,6 +1,7 @@
 {
     "keyboard_name": "snampad",
     "manufacturer": "Snamellit",
+    "url": "",
     "maintainer": "ptillemans",
     "usb": {
         "vid": "0xFEED",
@@ -26,7 +27,8 @@
         "rows": ["F4", "F5", "F6", "F7", "B1", "B3"]
     },
     "diode_direction": "ROW2COL",
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "community_layouts": ["numpad_6x4"],
     "layouts": {
         "LAYOUT_numpad_6x4": {

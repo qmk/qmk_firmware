@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Postage Board",
     "manufacturer": "LifeIsOnTheWire",
+    "url": "",
     "maintainer": "LifeIsOnTheWire",
     "usb": {
         "vid": "0xFEED",

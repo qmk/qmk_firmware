@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Program Yoink! Staggered",
     "manufacturer": "melonbred",
+    "url": "",
     "maintainer": "melonbred",
     "usb": {
         "vid": "0x7079",

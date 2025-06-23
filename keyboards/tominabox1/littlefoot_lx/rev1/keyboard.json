@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Littlefoot LX",
     "manufacturer": "tominabox1",
+    "url": "",
     "maintainer": "tominabox1",
     "usb": {
         "vid": "0x7431",

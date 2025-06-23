@@ -1,6 +1,7 @@
 {
     "keyboard_name": "XT60",
     "manufacturer": "kopibeng",
+    "url": "",
     "maintainer": "Kopibeng",
     "usb": {
         "vid": "0x4B50",
@@ -24,6 +25,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

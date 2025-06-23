@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Terminus Mini",
   "manufacturer": "James Morgan",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -14,6 +15,7 @@
   "features": {
     "bootmagic": false,
     "command": true,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true

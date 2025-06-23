@@ -1,6 +1,7 @@
 {
     "keyboard_name": "pdxkbc",
     "manufacturer": "Franklin Harding",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5044",

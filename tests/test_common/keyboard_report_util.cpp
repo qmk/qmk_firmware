@@ -19,10 +19,6 @@
 #include <vector>
 #include <algorithm>
 
-extern "C" {
-#include "keycode_string.h"
-}
-
 using namespace testing;
 
 extern std::map<uint16_t, std::string> KEYCODE_ID_TABLE;
@@ -76,7 +72,7 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
 
     os << "(";
     for (auto key = keys.cbegin(); key != keys.cend();) {
-        os << get_keycode_string(*key);
+        os << KEYCODE_ID_TABLE.at(*key);
         key++;
         if (key != keys.cend()) {
             os << ", ";
@@ -86,7 +82,7 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
     os << ") [";
 
     for (auto mod = mods.cbegin(); mod != mods.cend();) {
-        os << get_keycode_string(*mod);
+        os << KEYCODE_ID_TABLE.at(*mod);
         mod++;
         if (mod != mods.cend()) {
             os << ", ";

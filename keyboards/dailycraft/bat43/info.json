@@ -1,6 +1,7 @@
 {
     "keyboard_name": "bat43",
     "manufacturer": "yfuku",
+    "url": "",
     "maintainer": "yfuku",
     "usb": {
         "vid": "0x5946",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": false,
         "mousekey": true,
         "nkro": false

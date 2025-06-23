@@ -1,6 +1,7 @@
 {
     "keyboard_name": "reviung34",
     "manufacturer": "gtips",
+    "url": "",
     "maintainer": "gtips",
     "usb": {
         "vid": "0x6774",

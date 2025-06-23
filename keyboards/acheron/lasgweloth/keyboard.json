@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Lasgweloth",
     "manufacturer": "AcheronProject",
+    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x4150",

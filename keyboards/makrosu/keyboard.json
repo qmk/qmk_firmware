@@ -1,6 +1,7 @@
 {
     "keyboard_name": "MakrOSU",
     "manufacturer": "Valdydesu_",
+    "url": "",
     "maintainer": "Valdydesu_",
     "usb": {
         "vid": "0xAB69",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,

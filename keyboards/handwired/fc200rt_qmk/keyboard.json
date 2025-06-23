@@ -1,6 +1,7 @@
 {
     "keyboard_name": "fc200rt_qmk",
     "manufacturer": "NaCly",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xBEEF",

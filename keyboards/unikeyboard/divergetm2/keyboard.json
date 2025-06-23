@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Diverge TM 2",
     "manufacturer": "UniKeyboard",
+    "url": "",
     "maintainer": "islandman93, xton",
     "usb": {
         "vid": "0xFEED",
@@ -10,6 +11,7 @@
     "features": {
         "bootmagic": false,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -31,7 +33,8 @@
             "pin": "D0"
         }
     },
-    "development_board": "promicro",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "layout_aliases": {
         "LAYOUT_ortho_4x12_2x2u": "LAYOUT"
     },

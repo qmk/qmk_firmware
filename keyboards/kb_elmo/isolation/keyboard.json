@@ -1,6 +1,7 @@
 {
     "keyboard_name": "ISOlation",
     "manufacturer": "kb-elmo",
+    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0xA68C",

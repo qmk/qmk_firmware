@@ -1,6 +1,7 @@
 {
   "keyboard_name": "NOAH",
   "manufacturer": "Matrix",
+  "url": "",
   "maintainer": "astro",
   "usb": {
     "vid": "0x4D58",

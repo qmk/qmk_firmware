@@ -1,6 +1,7 @@
 {
     "keyboard_name": "twig50",
     "manufacturer": "Twig",
+    "url": "",
     "maintainer": "nodatk",
     "usb": {
       "vid": "0xFEED",
@@ -14,6 +15,8 @@
     "features": {
         "audio": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

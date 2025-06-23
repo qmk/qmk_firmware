@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Ninjin",
     "manufacturer": "Xelus",
+    "url": "",
     "maintainer": "Xelus",
     "usb": {
         "vid": "0x5845",

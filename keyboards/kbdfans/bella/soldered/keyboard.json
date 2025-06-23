@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Bella Soldered",
     "manufacturer": "KBDfans",
+    "url": "",
     "maintainer": "kbdfans",
     "usb": {
         "vid": "0x4B42",
@@ -10,6 +11,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

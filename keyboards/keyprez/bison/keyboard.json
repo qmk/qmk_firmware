@@ -1,6 +1,7 @@
 {
     "keyboard_name": "bison",
     "manufacturer": "csandven",
+    "url": "",
     "maintainer": "Christian Sandven",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

@@ -180,6 +180,7 @@
         ],
         "sleep": true
     },
+    "url": "",
     "usb": {
         "device_version": "0.0.3",
         "pid": "0xE393",

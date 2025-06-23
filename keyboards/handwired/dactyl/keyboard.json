@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Dactyl",
   "manufacturer": "Adereth",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

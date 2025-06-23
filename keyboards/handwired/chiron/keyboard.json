@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Chiron",
     "manufacturer": "Mike Hix",
+    "url": "",
     "maintainer": "musl",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": false,
         "mousekey": true,
         "nkro": false,

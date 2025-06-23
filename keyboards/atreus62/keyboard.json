@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Atreus62",
   "manufacturer": "Profet",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x5072",

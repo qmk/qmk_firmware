@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Helpo",
     "manufacturer": "Axolstudio",
+    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0x525C",

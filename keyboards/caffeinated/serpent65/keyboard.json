@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Serpent65",
     "manufacturer": "Caffeinated Studios",
+    "url": "",
     "maintainer": "jrfhoutx",
     "usb": {
         "vid": "0x4353",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

@@ -21,6 +21,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -179,6 +181,7 @@
         ],
         "sleep": true
     },
+    "url": "",
     "usb": {
         "device_version": "0.0.2",
         "pid": "0x0002",

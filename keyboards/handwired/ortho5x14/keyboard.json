@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Ortho5 x14",
     "manufacturer": "MPInc",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xBB80",
@@ -10,6 +11,7 @@
     "features": {
         "bootmagic": false,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

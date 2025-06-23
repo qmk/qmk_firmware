@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Vision",
     "manufacturer": "SatT",
+    "url": "",
     "maintainer": "SatT",
     "usb": {
         "vid": "0x5454",

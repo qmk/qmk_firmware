@@ -5,6 +5,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -38,6 +40,7 @@
     "indicators": {
         "caps_lock": "B3"
     },
+    "url": "",
     "usb": {
         "vid": "0x5453",
         "pid": "0x3845",

@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Redox",
   "manufacturer": "Falbatech",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4D44",
@@ -10,6 +11,7 @@
   "features":{
     "bootmagic": true,
     "command": true,
+    "console": false,
     "mousekey": true,
     "extrakey": true,
     "nkro": true,

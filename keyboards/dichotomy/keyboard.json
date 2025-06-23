@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Dichotomy",
   "manufacturer": "Broekhuijsen",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

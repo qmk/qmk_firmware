@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Redox Media",
     "manufacturer": "shiftux",
+    "url": "",
     "maintainer": "shiftux",
     "usb": {
         "vid": "0xFEED",

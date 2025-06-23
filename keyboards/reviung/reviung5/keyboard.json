@@ -1,6 +1,7 @@
 {
     "keyboard_name": "reviung5",
     "manufacturer": "gtips",
+    "url": "",
     "maintainer": "gtips",
     "usb": {
         "vid": "0x5C06",
@@ -31,6 +32,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Latin64BLE",
     "manufacturer": "latincompass",
+    "url": "",
     "maintainer": "latincompass",
     "usb": {
         "vid": "0x6C63",

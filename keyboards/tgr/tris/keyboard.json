@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Tris",
     "manufacturer": "TGR",
+    "url": "",
     "maintainer": "halfenergized",
     "usb": {
         "vid": "0x5447",
@@ -11,6 +12,7 @@
         "backlight": true,
         "bootmagic": false,
         "command": true,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

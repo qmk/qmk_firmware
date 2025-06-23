@@ -33,6 +33,10 @@ ifeq ($(strip $(PROGRAMMABLE_BUTTON_ENABLE)), yes)
     SHARED_EP_ENABLE = yes
 endif
 
+ifeq ($(strip $(RAW_ENABLE)), yes)
+    OPT_DEFS += -DRAW_ENABLE
+endif
+
 ifeq ($(strip $(CONSOLE_ENABLE)), yes)
     OPT_DEFS += -DCONSOLE_ENABLE
 else
@@ -42,8 +46,12 @@ else
 endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
-    OPT_DEFS += -DNKRO_ENABLE
-    SHARED_EP_ENABLE = yes
+    ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+        $(info NKRO is not currently supported with Bluetooth, and has been disabled.)
+    else
+        OPT_DEFS += -DNKRO_ENABLE
+        SHARED_EP_ENABLE = yes
+    endif
 endif
 
 ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)

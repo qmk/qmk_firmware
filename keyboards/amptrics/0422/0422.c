@@ -23,31 +23,30 @@
 
 #define LED_PINS_COUNT 4
 
-static pin_t pins[LED_PINS_COUNT] = {LED_LAYER_0, LED_LAYER_1, LED_LAYER_2, LED_LAYER_3};
+pin_t pins[LED_PINS_COUNT] = {LED_LAYER_0, LED_LAYER_1, LED_LAYER_2, LED_LAYER_3};
+
 
 // Function to turn on all LEDs
 void turn_on_all_leds(void) {
-    for (uint8_t i = 0; i < LED_PINS_COUNT; i++) {
+    for (int i = 0; i < LED_PINS_COUNT; i++) {
         gpio_write_pin_high(pins[i]); // Turn on LED
     }
 }
 
 // Function to turn off all LEDs
 void turn_off_all_leds(void) {
-    for (uint8_t i = 0; i < LED_PINS_COUNT; i++) {
+    for (int i = 0; i < LED_PINS_COUNT; i++) {
         gpio_write_pin_low(pins[i]); // Turn off LED
     }
 }
 
 void update_leds_for_layer(uint8_t layer) {
     turn_off_all_leds();
-    if (layer < LED_PINS_COUNT) {
-        gpio_write_pin_high(pins[layer]);
-    }
+    gpio_write_pin_high(pins[layer]);
 }
 
 void keyboard_post_init_kb(void) {
-    for (uint8_t i = 0; i < LED_PINS_COUNT; i++) {
+    for (int i = 0; i < LED_PINS_COUNT; i++) {
         gpio_set_pin_output(pins[i]);
         gpio_write_pin_low(pins[i]);
     }

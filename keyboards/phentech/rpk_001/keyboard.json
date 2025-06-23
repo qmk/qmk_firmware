@@ -2,6 +2,7 @@
     "manufacturer": "HENGCANG ELECTRONIC",
     "keyboard_name": "RPK-001",
     "maintainer": "JoyLee",
+    "url": "",
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "usb": {

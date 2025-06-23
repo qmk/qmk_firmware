@@ -1,6 +1,7 @@
 {
     "keyboard_name": "MW75R2",
     "manufacturer": "MWStudio",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x7BA1",
@@ -43,6 +44,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

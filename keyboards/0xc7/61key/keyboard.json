@@ -1,6 +1,7 @@
 {
     "keyboard_name": "61Key",
     "manufacturer": "0xC7",
+    "url": "",
     "maintainer": "RealEmanGaming",
     "usb": {
         "vid": "0xE117",
@@ -13,6 +14,7 @@
     "features": {
         "bootmagic": true,
         "command": true,
+        "console": false,
         "extrakey": false,
         "key_lock": true,
         "mousekey": false,

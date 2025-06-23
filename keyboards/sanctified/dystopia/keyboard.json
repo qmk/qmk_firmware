@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Dystopia",
     "manufacturer": "Sanctified.Works",
+    "url": "",
     "maintainer": "Sanctified",
     "usb": {
         "vid": "0x5357",
@@ -12,6 +13,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

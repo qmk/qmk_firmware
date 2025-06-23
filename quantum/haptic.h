@@ -20,8 +20,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "compiler_support.h"
-
 #ifndef HAPTIC_DEFAULT_FEEDBACK
 #    define HAPTIC_DEFAULT_FEEDBACK 0
 #endif
@@ -30,7 +28,7 @@
 #endif
 
 /* EEPROM config settings */
-typedef union haptic_config_t {
+typedef union {
     uint32_t raw;
     struct {
         bool    enable : 1;
@@ -44,7 +42,7 @@ typedef union haptic_config_t {
     };
 } haptic_config_t;
 
-STATIC_ASSERT(sizeof(haptic_config_t) == sizeof(uint32_t), "Haptic EECONFIG out of spec.");
+_Static_assert(sizeof(haptic_config_t) == sizeof(uint32_t), "Haptic EECONFIG out of spec.");
 
 typedef enum HAPTIC_FEEDBACK {
     KEY_PRESS,

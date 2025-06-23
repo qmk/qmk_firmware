@@ -1,6 +1,7 @@
 {
     "keyboard_name": "SP64",
     "manufacturer": "YMDK",
+    "url": "",
     "maintainer": "walston",
     "usb": {
         "vid": "0x594D",

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Daishi",
     "manufacturer": "MetaMechs",
+    "url": "",
     "maintainer": "Croktopus",
     "usb": {
         "vid": "0x6D6D",
@@ -9,6 +10,7 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
         "console": true,
         "dynamic_macro": true,
         "encoder": true,

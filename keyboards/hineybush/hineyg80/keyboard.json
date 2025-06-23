@@ -1,6 +1,7 @@
 {
     "keyboard_name": "hineyG80",
     "manufacturer": "hineybush",
+    "url": "",
     "maintainer": "hineybush",
     "usb": {
         "vid": "0xFEED",

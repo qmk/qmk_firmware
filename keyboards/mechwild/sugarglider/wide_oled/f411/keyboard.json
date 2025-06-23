@@ -4,6 +4,8 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
+        "console": false,
+        "command": false,
         "nkro": true,
         "rgblight": true,
         "encoder": true,

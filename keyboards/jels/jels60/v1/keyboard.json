@@ -10,6 +10,8 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
+        "console": false,
+        "command": false,
         "nkro": false
     },
     "qmk": {

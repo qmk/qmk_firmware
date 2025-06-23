@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Navi10",
     "manufacturer": "emdarcher",
+    "url": "",
     "maintainer": "emdarcher",
     "usb": {
         "vid": "0xFEED",

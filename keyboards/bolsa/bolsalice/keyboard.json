@@ -28,6 +28,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -40,6 +42,7 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "url": "",
     "maintainer": "qmk",
     "community_layouts": ["alice", "alice_split_bs"],
     "layouts": {

@@ -1,6 +1,7 @@
 {
   "keyboard_name": "Nano",
   "manufacturer": "di0ib",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4025",
@@ -25,9 +26,12 @@
   "ws2812": {
     "pin": "D3"
   },
-  "development_board": "promicro",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "features": {
     "bootmagic": false,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

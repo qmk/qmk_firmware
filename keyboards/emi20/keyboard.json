@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Emi20",
     "manufacturer": "Aquacylinder",
+    "url": "",
     "maintainer": "Aquacylinder",
     "usb": {
         "vid": "0xFEED",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

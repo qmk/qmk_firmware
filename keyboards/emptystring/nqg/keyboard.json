@@ -1,6 +1,7 @@
 {
     "keyboard_name": "NQG",
     "manufacturer": "emptystring",
+    "url": "",
     "maintainer": "culturalsnow",
     "usb": {
         "vid": "0x0076",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": true

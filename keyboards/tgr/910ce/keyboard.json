@@ -1,6 +1,7 @@
 {
     "keyboard_name": "910CE",
     "manufacturer": "TGR",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5447",
@@ -10,6 +11,8 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

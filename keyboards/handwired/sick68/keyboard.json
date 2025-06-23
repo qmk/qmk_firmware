@@ -1,6 +1,7 @@
 {
     "keyboard_name": "sick68",
     "manufacturer": "umbynos",
+    "url": "",
     "maintainer": "umbynos",
     "usb": {
         "vid": "0x5E68",

@@ -1,6 +1,7 @@
 {
   "keyboard_name": "JC65 BMC",
   "manufacturer": "RAMA",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1234",
@@ -11,6 +12,7 @@
     "backlight": true,
     "bootmagic": true,
     "command": true,
+    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": false,

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "HIDLiberation",
     "manufacturer": "bpiphany",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

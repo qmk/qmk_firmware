@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Meira",
     "manufacturer": "WoodKeys.click",
+    "url": "",
     "maintainer": "colemarkham",
     "usb": {
         "vid": "0xFEED",

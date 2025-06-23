@@ -1,6 +1,7 @@
 {
     "keyboard_name": "KBDMINI",
     "manufacturer": "DZTECH",
+    "url": "",
     "maintainer": "KBDFans",
     "usb": {
         "vid": "0xFEED",
@@ -41,6 +42,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

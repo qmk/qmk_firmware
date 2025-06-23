@@ -1,6 +1,7 @@
 {
   "keyboard_name": "JN68M",
   "manufacturer": "MxBlue",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xC714",
@@ -9,6 +10,8 @@
   },
   "features": {
     "bootmagic": false,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false

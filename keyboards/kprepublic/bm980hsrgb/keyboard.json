@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM980 Hotswap RGB",
     "manufacturer": "KPrepublic",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B50",
@@ -15,6 +16,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

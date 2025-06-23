@@ -1,6 +1,7 @@
 {
   "keyboard_name": "BDN9-BLE",
   "manufacturer": "KeyPCB/Keebio",
+  "url": "",
   "maintainer": "merlin04",
   "usb": {
     "vid": "0xCB10",

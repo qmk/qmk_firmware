@@ -1,6 +1,7 @@
 {
     "keyboard_name": "novem",
     "manufacturer": "Jose I. Martinez",
+    "url": "",
     "maintainer": "Jose I. Martinez",
     "usb": {
         "vid": "0xFEED",

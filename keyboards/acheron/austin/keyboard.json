@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Austin",
     "manufacturer": "DriftMechanics",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xAC11",

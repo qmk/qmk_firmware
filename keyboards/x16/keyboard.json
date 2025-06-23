@@ -1,6 +1,7 @@
 {
     "keyboard_name": "x16",
     "manufacturer": "yinxianwei",
+    "url": "",
     "maintainer": "yinxianwei",
     "usb": {
         "vid": "0x4B50",
@@ -10,6 +11,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

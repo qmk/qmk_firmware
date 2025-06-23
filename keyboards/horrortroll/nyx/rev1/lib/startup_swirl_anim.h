@@ -18,7 +18,6 @@
 #include <string.h>
 #include <math.h>
 #include <lib/lib8tion/lib8tion.h>
-#include "eeconfig.h"
 
 #define LED_TRAIL 10
 
@@ -106,7 +105,7 @@ static void swirl_set_color(hsv_t hsv) {
     traverse_matrix();
 
     if (!(top <= bottom && left <= right)) {
-        eeconfig_read_rgb_matrix(&rgb_matrix_config);
+        eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
         rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
         return;
     }

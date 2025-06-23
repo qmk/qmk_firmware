@@ -1,6 +1,7 @@
 {
   "keyboard_name": "2% Milk",
   "manufacturer": "Spaceman",
+  "url": "",
   "maintainer": "Spaceman",
   "usb": {
     "vid": "0x5342",
@@ -13,7 +14,8 @@
   "ws2812": {
     "pin": "B6"
   },
-  "development_board": "promicro",
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
   "features": {
     "bootmagic": false,
     "command": true,

@@ -49,9 +49,6 @@ enum {
 #    ifdef RGB_MATRIX_CUSTOM_USER
 #        include "rgb_matrix_user.inc"
 #    endif
-#    if defined(COMMUNITY_MODULES_ENABLE) && __has_include("rgb_matrix_community_modules.inc")
-#        include "rgb_matrix_community_modules.inc"
-#    endif
 #    undef RGB_MATRIX_EFFECT
 };
 
@@ -68,9 +65,6 @@ const char *rgb_matrix_name(uint8_t effect) {
 #    endif
 #    ifdef RGB_MATRIX_CUSTOM_USER
 #        include "rgb_matrix_user.inc"
-#    endif
-#    if defined(COMMUNITY_MODULES_ENABLE) && __has_include("rgb_matrix_community_modules.inc")
-#        include "rgb_matrix_community_modules.inc"
 #    endif
 #    undef RGB_MATRIX_EFFECT
         default:

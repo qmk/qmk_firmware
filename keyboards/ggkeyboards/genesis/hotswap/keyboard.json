@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Genesis Hotswap",
     "manufacturer": "GG Keyboards",
+    "url": "",
     "maintainer": "Spooknik",
     "usb": {
         "vid": "0xBB00",

@@ -7,6 +7,8 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "deferred_exec": true,
         "dip_switch": true,
         "extrakey": true,

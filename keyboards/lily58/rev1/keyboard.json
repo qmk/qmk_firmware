@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Lily58",
     "manufacturer": "liliums",
+    "url": "",
     "maintainer": "liliums",
     "usb": {
         "vid": "0x04D8",

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "QK65 Hotswap",
     "manufacturer": "qwertykeys",
+    "url": "",
     "maintainer": "qwertykeys",
     "usb": {
         "vid": "0x4F53",
@@ -10,6 +11,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

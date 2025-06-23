@@ -39,7 +39,6 @@
 #include "keymap_common.h"
 #include "quantum_keycodes.h"
 #include "keycode_config.h"
-#include "keycode_string.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "bootloader.h"

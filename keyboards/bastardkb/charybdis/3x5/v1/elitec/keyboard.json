@@ -26,9 +26,7 @@
     "diode_direction": "ROW2COL",
     "split": {
         "enabled": true,
-        "serial": {
-            "pin": "D2"
-        },
+        "soft_serial_pin": "D2",
         "matrix_pins": {
             "right": {
                 "cols": ["C7", "B7", "D7", "E6", "B4"],

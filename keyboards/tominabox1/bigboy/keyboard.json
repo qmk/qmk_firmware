@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BigBoy",
     "manufacturer": "tominabox1",
+    "url": "",
     "maintainer": "tominabox1",
     "usb": {
         "vid": "0x7431",
@@ -35,6 +36,8 @@
     "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

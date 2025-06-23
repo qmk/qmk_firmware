@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM60V2",
     "manufacturer": "KP Republic",
+    "url": "",
     "maintainer": "bdtc123",
     "usb": {
         "vid": "0x4B50",

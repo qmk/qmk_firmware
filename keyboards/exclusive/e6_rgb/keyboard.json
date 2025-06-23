@@ -1,6 +1,7 @@
 {
     "keyboard_name": "E6 RGB",
     "manufacturer": "astro",
+    "url": "",
     "maintainer": "yulei",
     "usb": {
         "vid": "0x4154",
@@ -12,6 +13,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

@@ -59,7 +59,6 @@ ifeq ($(ROOT_DIR),)
 endif
 
 include paths.mk
-include $(BUILDDEFS_PATH)/support.mk
 
 TEST_OUTPUT_DIR := $(BUILD_DIR)/test
 ERROR_FILE := $(BUILD_DIR)/error_occurred

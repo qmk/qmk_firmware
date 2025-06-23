@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Canoe Gen2",
     "manufacturer": "Percent Studio",
+    "url": "",
     "maintainer": "evyd13",
     "usb": {
         "vid": "0x9C12",

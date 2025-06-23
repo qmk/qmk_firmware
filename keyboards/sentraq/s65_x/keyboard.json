@@ -1,6 +1,7 @@
 {
   "keyboard_name": "S65-X PCB",
   "manufacturer": "Sentraq",
+  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -10,6 +11,8 @@
   "features": {
     "backlight": true,
     "bootmagic": true,
+    "command": false,
+    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": true,

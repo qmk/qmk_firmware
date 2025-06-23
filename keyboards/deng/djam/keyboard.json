@@ -1,6 +1,7 @@
 {
     "keyboard_name": "DJam",
     "manufacturer": "Leo Deng",
+    "url": "",
     "maintainer": "myst729",
     "usb": {
         "vid": "0xDE29",
@@ -20,6 +21,8 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

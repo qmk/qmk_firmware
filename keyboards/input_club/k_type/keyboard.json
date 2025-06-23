@@ -1,6 +1,7 @@
 {
     "keyboard_name": "K-Type (QMK)",
     "manufacturer": "Input:Club",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x1C11",
@@ -57,6 +58,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": true

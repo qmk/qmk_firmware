@@ -1,6 +1,7 @@
 {
     "keyboard_name": "nt980",
     "manufacturer": "Evyd13",
+    "url": "",
     "maintainer": "evyd13",
     "usb": {
         "vid": "0x4705",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

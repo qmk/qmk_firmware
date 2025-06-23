@@ -4,7 +4,6 @@
 #include <hal.h>
 #include "timer.h"
 #include "wear_leveling.h"
-#include "wear_leveling_legacy_config.h"
 #include "wear_leveling_internal.h"
 #include "legacy_flash_ops.h"
 

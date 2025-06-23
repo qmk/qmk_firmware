@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Dactyl Maximus",
     "manufacturer": "handwired",
+    "url": "",
     "maintainer": "dunk2k",
     "usb": {
         "vid": "0x444C",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -23,9 +26,7 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "serial": {
-            "pin": "D1"
-        }
+        "soft_serial_pin": "D1"
     },
     "development_board": "promicro",
     "layouts": {

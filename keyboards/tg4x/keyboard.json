@@ -1,6 +1,7 @@
 {
     "keyboard_name": "TG4x",
     "manufacturer": "MythosMann",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4D4D",
@@ -33,6 +34,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -49,8 +52,9 @@
         "rows": ["B5", "B4", "E6", "D7", "C6", "D4", "D0", "D1"]
     },
     "diode_direction": "COL2ROW",
-    "development_board": "promicro",
-    "layouts": {
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+   "layouts": {
         "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},

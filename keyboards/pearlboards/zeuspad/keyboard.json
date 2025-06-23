@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Zeuspad",
     "manufacturer": "Koobaczech",
+    "url": "",
     "maintainer": "Koobaczech",
     "usb": {
         "vid": "0x6963",
@@ -12,6 +13,8 @@
     },
     "features": {
         "bootmagic": false,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

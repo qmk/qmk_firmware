@@ -1,6 +1,7 @@
 {
     "keyboard_name": "rainkeeb",
     "manufacturer": "rainkeebs",
+    "url": "",
     "maintainer": "rain",
     "usb": {
         "vid": "0x726B",
@@ -9,6 +10,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

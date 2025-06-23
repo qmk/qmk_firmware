@@ -1,6 +1,7 @@
 {
     "keyboard_name": "BM60HSRGB Poker Rev2",
     "manufacturer": "KPrepublic",
+    "url": "",
     "maintainer": "bdtc123",
     "usb": {
         "vid": "0x4B50",

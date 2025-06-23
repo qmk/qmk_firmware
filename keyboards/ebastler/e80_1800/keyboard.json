@@ -16,6 +16,8 @@
         "extrakey": true,
         "backlight": true,
         "nkro": true,
+        "command": false,
+        "console": false,
         "mousekey": false
     },
     "matrix_pins": {
@@ -25,7 +27,8 @@
     "backlight": {
         "breathing": true,
         "levels": 5,
-        "pin": "A9"
+        "pin": "A9",
+        "on_state": 1
     },
     "indicators": {
         "num_lock": "B6",

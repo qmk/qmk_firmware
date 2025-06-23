@@ -20,6 +20,6 @@
     The size of the transient EEPROM buffer size.
 */
 #ifndef TRANSIENT_EEPROM_SIZE
-#    include "nvm_eeprom_eeconfig_internal.h"
+#    include "eeconfig.h"
 #    define TRANSIENT_EEPROM_SIZE (((EECONFIG_SIZE + 3) / 4) * 4) // based off eeconfig's current usage, aligned to 4-byte sizes, to deal with LTO
 #endif

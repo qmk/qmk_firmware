@@ -1,6 +1,7 @@
 {
     "keyboard_name": "Constellation Rev1",
     "manufacturer": "AEBoards",
+    "url": "",
     "maintainer": "Xelus22",
     "usb": {
         "vid": "0x4145",

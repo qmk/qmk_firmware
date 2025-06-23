@@ -1,5 +1,6 @@
 {
     "manufacturer": "mtei",
+    "url": "",
     "maintainer": "mtei",
     "usb": {
         "vid": "0xFEED",

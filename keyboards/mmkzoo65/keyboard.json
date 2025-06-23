@@ -1,6 +1,7 @@
 {
     "keyboard_name": "MMKZOO65",
     "manufacturer": "MWStudio",
+    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x7BA1",
@@ -11,6 +12,8 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

@@ -1,6 +1,7 @@
 {
     "keyboard_name": "VCL65",
     "manufacturer": "VCL x SawnsProjects",
+    "url": "",
     "maintainer": "MaiTheSan",
     "usb": {
         "vid": "0x5350",
@@ -9,6 +10,7 @@
     },
     "features": {
         "bootmagic": true,
+        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": false,
