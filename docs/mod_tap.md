@@ -33,21 +33,28 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 |`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                                                 |
 |`LALT_T(kc)`|`ALT_T(kc)`, `LOPT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                                                   |
 |`LGUI_T(kc)`|`GUI_T(kc)`, `LCMD_T(kc)`, `LWIN_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                                                   |
-|`C_S_T(kc)` |                                                                 |Left Control and Left Shift when held, `kc` when tapped                                |
+|`LCS_T(kc)` |                                                                 |Left Control and Left Shift when held, `kc` when tapped                                |
 |`LCA_T(kc)` |                                                                 |Left Control and Left Alt when held, `kc` when tapped                                  |
+|`LCG_T(kc)` |                                                                 |Left Control and Left GUI when held, `kc` when tapped                                  |
 |`LSA_T(kc)` |                                                                 |Left Shift and Left Alt when held, `kc` when tapped                                    |
 |`LSG_T(kc)` |`SGUI_T(kc)`, `SCMD_T(kc)`, `SWIN_T(kc)`                         |Left Shift and Left GUI when held, `kc` when tapped                                    |
 |`LAG_T(kc)` |                                                                 |Left Alt and Left GUI when held, `kc` when tapped                                      |
+|`LCSG_T(kc)`|                                                                 |Left Control, Left Shift and Left GUI when held, `kc` when tapped                      |
 |`LCAG_T(kc)`|                                                                 |Left Control, Left Alt and Left GUI when held, `kc` when tapped                        |
+|`LSAG_T(kc)`|                                                                 |Left Shift, Left Alt and Left GUI when held, `kc` when tapped                          |
 |`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped                                              |
 |`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                                                |
 |`RALT_T(kc)`|`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                                                  |
 |`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                                                  |
 |`RCS_T(kc)` |                                                                 |Right Control and Right Shift when held, `kc` when tapped                              |
-|`RSA_T(kc)` |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped                          |
+|`RCA_T(kc)` |                                                                 |Right Control and Right Alt when held, `kc` when tapped                                |
+|`RCG_T(kc)` |                                                                 |Right Control and Right GUI when held, `kc` when tapped                                |
+|`RSA_T(kc)` |`SAGR_T(kc)`                                                     |Right Shift and Right Alt when held, `kc` when tapped                                  |
 |`RSG_T(kc)` |                                                                 |Right Shift and Right GUI when held, `kc` when tapped                                  |
 |`RAG_T(kc)` |                                                                 |Right Alt and Right GUI when held, `kc` when tapped                                    |
+|`RCSG_T(kc)`|                                                                 |Right Control, Right Shift and Right GUI when held, `kc` when tapped                   |
 |`RCAG_T(kc)`|                                                                 |Right Control, Right Alt and Right GUI when held, `kc` when tapped                     |
+|`RSAG_T(kc)`|                                                                 |Right Shift, Right Alt and Right GUI when held, `kc` when tapped                       |
 |`MEH_T(kc)` |                                                                 |Left Control, Left Shift and Left Alt when held, `kc` when tapped                      |
 |`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Left Shift, Left Alt and Left GUI when held, `kc` when tapped<sup>1</sup>|
 

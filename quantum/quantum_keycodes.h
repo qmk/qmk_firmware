@@ -56,11 +56,15 @@
 #define A(kc) LALT(kc)
 #define G(kc) LGUI(kc)
 
+#define LCS(kc) (QK_LCTL | QK_LSFT | (kc))
 #define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LCG(kc) (QK_LCTL | QK_LGUI | (kc))
 #define LSA(kc) (QK_LSFT | QK_LALT | (kc))
 #define LSG(kc) (QK_LSFT | QK_LGUI | (kc))
 #define LAG(kc) (QK_LALT | QK_LGUI | (kc))
+#define LCSG(kc) (QK_LCTL | QK_LSFT | QK_LGUI | (kc))
 #define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
+#define LSAG(kc) (QK_LSFT | QK_LALT | QK_LGUI | (kc))
 
 #define SGUI(kc) LSG(kc)
 #define SCMD(kc) LSG(kc)
@@ -76,10 +80,15 @@
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
 
+#define RCA(kc) (QK_RCTL | QK_RALT | (kc))
 #define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define RCG(kc) (QK_RCTL | QK_RGUI | (kc))
 #define RSA(kc) (QK_RSFT | QK_RALT | (kc))
 #define RSG(kc) (QK_RSFT | QK_RGUI | (kc))
 #define RAG(kc) (QK_RALT | QK_RGUI | (kc))
+#define RCSG(kc) (QK_RCTL | QK_RSFT | QK_RGUI | (kc))
+#define RCAG(kc) (QK_RCTL | QK_RALT | QK_RGUI | (kc))
+#define RSAG(kc) (QK_RSFT | QK_RALT | QK_RGUI | (kc))
 
 #define SAGR(kc) RSA(kc)
 
@@ -152,12 +161,15 @@
 #define CMD_T(kc) LCMD_T(kc)
 #define WIN_T(kc) LWIN_T(kc)
 
-#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)
+#define LCS_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)
 #define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)
+#define LCG_T(kc) MT(MOD_LCTL | MOD_LGUI, kc)
 #define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
 #define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)
 #define LAG_T(kc) MT(MOD_LALT | MOD_LGUI, kc)
+#define LCSG_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LGUI, kc)
 #define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)
+#define LSAG_T(kc) MT(MOD_LSFT | MOD_LALT | MOD_LGUI, kc)
 
 #define SGUI_T(kc) LSG_T(kc)
 #define SCMD_T(kc) LSG_T(kc)
@@ -174,10 +186,14 @@
 #define RWIN_T(kc) RGUI_T(kc)
 
 #define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)
+#define RCA_T(kc) MT(MOD_RCTL | MOD_RALT, kc)
+#define RCG_T(kc) MT(MOD_RCTL | MOD_RGUI, kc)
 #define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)
 #define RSG_T(kc) MT(MOD_RSFT | MOD_RGUI, kc)
 #define RAG_T(kc) MT(MOD_RALT | MOD_RGUI, kc)
+#define RCSG_T(kc) MT(MOD_RCTL | MOD_RSFT | MOD_RGUI, kc)
 #define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)
+#define RSAG_T(kc) MT(MOD_RSFT | MOD_RALT | MOD_RGUI, kc)
 
 #define SAGR_T(kc) RSA_T(kc)
 
