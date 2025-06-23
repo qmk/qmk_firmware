@@ -14,14 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-// 在文件顶部添加这些辅助函数
-
 #include QMK_KEYBOARD_H
-
-
-
-
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
@@ -32,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   LOWER,
 //   RAISE
 // };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_numberpad_5x4(
 //1    2        3        4        
@@ -63,21 +55,12 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 KC_TRNS, KC_TRNS, KC_TRNS, 
 KC_TRNS,          KC_TRNS, KC_TRNS
     )
-    
-    
 };
-
-
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    // caps lock cyan
-
     // num lock cyan
     if (host_keyboard_led_state().num_lock) {
         RGB_MATRIX_INDICATOR_SET_COLOR(0, 255, 255, 255);
     } 
-
-
-
     // layer state
     switch (get_highest_layer(layer_state)) {
         case 1:
@@ -101,7 +84,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case 7:
             RGB_MATRIX_INDICATOR_SET_COLOR(4, 255, 255, 255);
             break;
-
     }
     return false;
 }
