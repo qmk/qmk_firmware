@@ -31,6 +31,8 @@
 #    include "is31fl3746a-mono.h"
 #elif defined(LED_MATRIX_SNLED27351)
 #    include "snled27351-mono.h"
+#elif defined(LED_MATRIX_SNLED27351_SPI)
+#    include "snled27351-mono-spi.h"
 #endif
 
 typedef struct {
