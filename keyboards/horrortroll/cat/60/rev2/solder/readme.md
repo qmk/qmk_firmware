@@ -1,4 +1,4 @@
-# Cat 60 Solder
+# Cat 60 Solder Rev. 2
 
 <img alt="Cat 60" src="https://i.imgur.com/st8q0dS.png" width="90%"/>
 

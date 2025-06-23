@@ -1,4 +1,4 @@
-# Cat 60 Hotswap
+# Cat 60 Hotswap Rev. 1
 
 <img alt="Cat 60" src="https://i.imgur.com/pwOmMcp.png" width="90%"/>
 
