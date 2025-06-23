@@ -60,7 +60,7 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "B14", "pin_b": "B13", "resolution": 4}
+            {"pin_a": "B13", "pin_b": "B14", "resolution": 4}
         ]
     },
     "qmk": {
