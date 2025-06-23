@@ -1,4 +1,4 @@
-// Copyright 2023-2024 HorrorTroll <https://github.com/HorrorTroll>
+// Copyright 2025 HorrorTroll <https://github.com/HorrorTroll>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
