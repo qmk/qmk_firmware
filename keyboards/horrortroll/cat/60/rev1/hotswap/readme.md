@@ -5,7 +5,7 @@
 A 60% keyboard, which controlled by an RP2040 chipset.
 
 * Keyboard Maintainer: [HorrorTroll](https://github.com/HorrorTroll)
-* Hardware Supported: RP2040
+* Hardware Supported: Cat 60 hotswap Rev.1 PCB
 
 Make example for this keyboard (after setting up your build environment):
 
