@@ -172,7 +172,7 @@ void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
         return;
     }
 
-    rgb_matrix_driver.set_color(rgb_matrix_led_index(index), red, green, blue);
+    rgb_matrix_driver.set_color(led_index, red, green, blue);
 }
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
