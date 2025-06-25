@@ -2,8 +2,8 @@
 
 A split keyboard with 3x5 or 3x6 vertically staggered keys and 3 thumb keys. (I've only tested 3x5). The default layout is a qwerty Miryoku layout. Firmware is basically corne with mouse controls enabled and no LEDs.
 
-Keyboard Maintainer: [juhakaup](https://github.com/juhakaup)
-Hardware Supported: Cyngus v1.0
+Keyboard Maintainer: [juhakaup](https://github.com/juhakaup)  
+Hardware Supported: Cyngus v1.0  
 Hardware Availability: [cyngus v1.0](https://github.com/juhakaup/keyboards/tree/main/Cygnus%20v1.0)
 
 Make example for this keyboard (after setting up your build environment):
