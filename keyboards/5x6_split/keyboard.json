@@ -16,21 +16,15 @@
     },
     "split": {
         "enabled": true,
+        "main": "right",
         "matrix_pins": {
             "right": {
                 "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
                 "rows": ["GP16", "GP17", "GP18", "GP19", "GP20"]
             },
         },
-        "serial": {
-            "pin": "GP0",
-            "driver": "vendor"
-        },
-        "transport": {
-            "protocol": "serial",
-        },
         "usb_detect": {
-            "enabled": true
+            "enabled": true,
         }
     },
     "processor": "RP2040",
