@@ -202,6 +202,7 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
         .fn        = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, \
         .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}),               \
     }
+
 tap_dance_action_t tap_dance_actions[] = {
     [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
 };
