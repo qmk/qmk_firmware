@@ -1,6 +1,5 @@
-# %KEYBOARD%
+# Snappy Pad v.1
 
-![%KEYBOARD%]
 
 *Easy to use Macro Pad that can be configured by via and later with also Vial*
 
