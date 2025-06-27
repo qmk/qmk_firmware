@@ -27,10 +27,6 @@
 #include "wait.h"
 #include "sendchar.h"
 
-#ifdef SLEEP_LED_ENABLE
-#    include "sleep_led.h"
-#endif
-
 /* This is from main.c of USBaspLoader */
 static void initForUsbConnectivity(void) {
     uint8_t i = 0;
@@ -63,22 +59,6 @@ static inline void vusb_send_remote_wakeup(void) {
 }
 
 bool vusb_suspended = false;
-
-static inline void vusb_suspend(void) {
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_enable();
-#endif
-
-    suspend_power_down();
-}
-
-static inline void vusb_wakeup(void) {
-    suspend_wakeup_init();
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_disable();
-#endif
-}
 
 /** \brief Setup USB
  *
@@ -133,7 +113,7 @@ void protocol_pre_task(void) {
     if (should_do_suspend()) {
         dprintln("suspending keyboard");
         while (should_do_suspend()) {
-            vusb_suspend();
+            suspend_power_down();
             if (suspend_wakeup_condition()) {
                 vusb_send_remote_wakeup();
 
@@ -148,7 +128,7 @@ void protocol_pre_task(void) {
 #    endif
             }
         }
-        vusb_wakeup();
+        suspend_wakeup_init();
     }
 #endif
 }

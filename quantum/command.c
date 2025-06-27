@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "action_util.h"
 #include "eeconfig.h"
-#include "sleep_led.h"
 #include "led.h"
 #include "command.h"
 #include "quantum.h"
@@ -37,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
+#endif
+
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
 #endif
 
 #if defined(MOUSEKEY_ENABLE)
