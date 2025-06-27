@@ -34,7 +34,7 @@ static tap_dance_state_t tap_dance_states[TAP_DANCE_MAX_SIMULTANEOUS];
 static uint16_t last_tap_time;
 
 tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
-    uint8_t  i;
+    uint8_t i;
     if (tap_dance_idx >= tap_dance_count()) {
         return NULL;
     }
@@ -47,7 +47,7 @@ tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
     // Search for the first available state
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
         if (!tap_dance_states[i].in_use) {
-            tap_dance_states[i].index = tap_dance_idx;
+            tap_dance_states[i].index  = tap_dance_idx;
             tap_dance_states[i].in_use = true;
             return &tap_dance_states[i];
         }
