@@ -18,6 +18,7 @@
     "ws2812": {
         "pin": "B2"
     },
+    "community_layouts": ["65_ansi"],
     "layouts": {
         "LAYOUT_65_ansi": {
             "layout": [
