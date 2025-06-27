@@ -11,6 +11,8 @@ The Rii 518bt is an ultra-compact 68-key keyboard.
 **Hardware Supported:** Rii 518BT with [custom USB/STM32F072 PCB](https://github.com/tim-eastwood/rii-518bt-usb-qmk-pcb)
 **Hardware Availability:** Build it yourself using any PCBA service using the source files / BoM located at [https://github.com/tim-eastwood/rii-518bt-usb-qmk-pcb](https://github.com/tim-eastwood/rii-518bt-usb-qmk-pcb)
 
+Purchasing a Rii 518BT is required to obtain the housing, key membrane, and adhesive sheet of dome switches.
+
 ---
 
 ## Compiling
@@ -37,6 +39,4 @@ qmk flash -kb rii/518bt -km default
 
 ---
 
-This is an independent hardware project and is not affiliated with Rii or the original manufacturer.
-
-Purchasing a Rii 518BT is required to obtain the housing, key membrane, and adhesive sheet of dome switches.
+Disclaimer: This is an independent hardware project and is not affiliated with Rii or the original manufacturer.
