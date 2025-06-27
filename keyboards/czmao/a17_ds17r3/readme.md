@@ -1,17 +1,17 @@
 # mao ds 17r3 Righthand
 
 A 17keys numberpad keyboard with RGB backlight.
-This keyboard use 16mhz HSE and APM32F103CBT6(STM32F103CBT6) as MCU.
+This keyboard use APM32F103CBT6(STM32F103CBT6) as MCU.
 
 - Keyboard Maintainer: https://github.com/micahyy
 - Hardware Supported: CZMAO
 - Hardware Availability: [TaoBao](https://item.taobao.com/item.htm?ft=t&id=819874589305)
 
-    make czmao/ds17r3l:default
+    make czmao/a17_ds17r3:default
 
-Make example for this keyboard (after setting up your build environment):
+- Flashing example for this keyboard:
+    make czmao/a17_ds17r3:default:flash
 
-    make czmao/ds17r3r:default
 
 
 
