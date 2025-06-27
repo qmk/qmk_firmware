@@ -119,7 +119,7 @@ This is ideal for when you want ensure everything compiles successfully when pre
 ## Examples
 
 For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example).  
-For a more complicated example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
+For more complicated examples, checkout the [`awesome-qmk` colletion](https://github.com/qmk/awesome-qmk).
 
 
 ### Customized Functions
