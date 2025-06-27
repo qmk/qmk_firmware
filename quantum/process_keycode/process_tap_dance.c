@@ -39,26 +39,21 @@ tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
     if (tap_dance_idx >= tap_dance_count()) {
         return NULL;
     }
-    // Search for a state already used for this case
+    // Search for a state already used for this keycode
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
         if (tap_dance_states[i].keycode == keycode) {
             return &tap_dance_states[i];
         }
     }
-    // Search for the first free state
+    // Search for the first available state
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
         if (tap_dance_states[i].keycode == 0) {
             tap_dance_states[i].keycode = keycode;
             return &tap_dance_states[i];
         }
     }
-    // No states are free, reuse the last state.
-    // The undefined behavior that causes is
-    // better than returning null. All the tap dances
-    // don't get processed correctly, but the keyboard
-    // doesn't crash when more than the max tap dance
-    // keys are held at the same time.
-    return &tap_dance_states[TAP_DANCE_MAX_SIMULTANEOUS - 1];
+    // No states are available, tap dance won't happen
+    return NULL;
 }
 
 void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data) {
@@ -171,8 +166,11 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
     if (!active_td || keycode == active_td) return false;
 
-    action                      = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
-    state                       = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
+    action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
+    state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
+    if (state == NULL) {
+        return false;
+    }
     state->interrupted          = true;
     state->interrupting_keycode = keycode;
     process_tap_dance_action_on_dance_finished(action, state);
@@ -201,7 +199,9 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
             }
             action = tap_dance_get(td_index);
             state  = tap_dance_get_state(td_index);
-
+            if (state == NULL) {
+                return false;
+            }
             state->pressed = record->event.pressed;
             if (record->event.pressed) {
                 last_tap_time = timer_read();
@@ -231,7 +231,7 @@ void tap_dance_task(void) {
 
     action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
     state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
-    if (!state->interrupted) {
+    if (state != NULL && !state->interrupted) {
         process_tap_dance_action_on_dance_finished(action, state);
     }
 }
