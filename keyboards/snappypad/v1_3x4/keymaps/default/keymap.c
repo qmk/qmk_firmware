@@ -51,9 +51,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 
 int layer = 0;
 bool dip_switch_update_user(uint8_t index, bool active) {
-    gpio_set_pin_output(F7);
-    gpio_set_pin_output(B2);
-    gpio_set_pin_output(B5);
 
   if (!gpio_read_pin(B6)) {
     // Be adviced that 3 else if statements didn't work for me.
