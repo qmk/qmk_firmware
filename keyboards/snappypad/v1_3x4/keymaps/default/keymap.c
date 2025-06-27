@@ -53,7 +53,6 @@ int layer = 0;
 bool dip_switch_update_user(uint8_t index, bool active) {
 
   if (!gpio_read_pin(B6)) {
-    // Be adviced that 3 else if statements didn't work for me.
 
     switch (layer) {
     case 0:
