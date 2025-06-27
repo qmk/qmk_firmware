@@ -9,10 +9,6 @@ qmk compile -kb snappypad/v1_3x4 -km default
 Flashing example for this keyboard:
 Use for example QMK toolbox to upload the firmware to the Snappy Pad
 
-See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
-
-Bootloader
-Enter the bootloader in 3 ways:
-
+Enter the bootloader in 2 ways:
 Bootmagic reset: Press the first key in 3x4 matrix, not the first key (next to leds)
 Shorting the gnd and rst pins: touch with conductive material gnd and rst pads
