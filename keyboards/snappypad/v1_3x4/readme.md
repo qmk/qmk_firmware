@@ -1,8 +1,18 @@
-Snappy Pad v.1
-
 Easy to use Macro Pad that can be configured by via and later with also Vial
 
-Keyboard Maintainer: (https://github.com/snappykey)
-Hardware Supported: Snappy Pad v.1 Hardware Availability: Not yet Available
+Keyboard Maintainer: Niilo M
+Hardware Supported: The PCBs, controllers supported
+Hardware Availability: snappykey.eu
+Make example for this keyboard (after setting up your build environment):
 
-You can upload new firmware by pressing the first key in 3x4(below the Layer Switch key) Check: (https://docs.qmk.fm/) for more info
+qmk compile -kb snappypad/v1_3x4 -km default
+Flashing example for this keyboard:
+Use for example QMK toolbox to upload the firmware to the Snappy Pad
+
+See the build environment setup and the make instructions for more information. Brand new to QMK? Start with our Complete Newbs Guide.
+
+Bootloader
+Enter the bootloader in 3 ways:
+
+Bootmagic reset: Press the first key in 3x4 matrix, not the first key (next to leds)
+Shorting the gnd and rst pins: touch with conductive material gnd and rst pads
