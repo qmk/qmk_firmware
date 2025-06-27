@@ -14,7 +14,7 @@ Use for example QMK toolbox to upload the firmware to the Snappy Pad
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
 * **Bootmagic reset**: Press the first key in 3x4 matrix, not the first key (next to leds)
 * **Shorting the gnd and rst pins:**: Touch with conductive material gnd and rst pads
