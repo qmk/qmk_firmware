@@ -25,30 +25,40 @@
 
 static uint16_t active_td;
 
-// Pointer to array of state pointers. Because the size of the
-// array depends on the number of tap dances, it is discovered
-// via introspection and is unknown at compile time. It will
-// be allocated when first used.
-static tap_dance_state_t **tap_dance_states = NULL;
+#ifndef TAP_DANCE_MAX_SIMULTANEOUS
+#    define TAP_DANCE_MAX_SIMULTANEOUS 3
+#endif
+
+static tap_dance_state_t tap_dance_states[TAP_DANCE_MAX_SIMULTANEOUS];
 
 static uint16_t last_tap_time;
 
-tap_dance_state_t *tap_dance_get_state(int tap_dance_idx) {
+tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
+    uint8_t  i;
+    uint16_t keycode = QK_TAP_DANCE + tap_dance_idx;
     if (tap_dance_idx >= tap_dance_count()) {
         return NULL;
     }
-    if (tap_dance_states == NULL) {
-        // Dynamic allocation of array of NULL pointers to tap dance states
-        // This is never freed, this array is initialized once and used forever
-        tap_dance_states = calloc(tap_dance_count(), sizeof(tap_dance_state_t *));
+    // Search for a state already used for this case
+    for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
+        if (tap_dance_states[i].keycode == keycode) {
+            return &tap_dance_states[i];
+        }
     }
-    if (tap_dance_states[tap_dance_idx] == NULL) {
-        // Dynamic allocation of struct for the tap dance state.
-        // This memory will be freed when the tap dance is complete
-        tap_dance_states[tap_dance_idx]        = calloc(1, sizeof(tap_dance_state_t));
-        tap_dance_states[tap_dance_idx]->index = tap_dance_idx;
+    // Search for the first free state
+    for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
+        if (tap_dance_states[i].keycode == 0) {
+            tap_dance_states[i].keycode = keycode;
+            return &tap_dance_states[i];
+        }
     }
-    return tap_dance_states[tap_dance_idx];
+    // No states are free, reuse the last state.
+    // The undefined behavior that causes is
+    // better than returning null. All the tap dances
+    // don't get processed correctly, but the keyboard
+    // doesn't crash when more than the max tap dance
+    // keys are held at the same time.
+    return &tap_dance_states[TAP_DANCE_MAX_SIMULTANEOUS - 1];
 }
 
 void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data) {
@@ -132,9 +142,8 @@ static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action,
     del_mods(state->oneshot_mods);
 #endif
     send_keyboard_report();
-    uint8_t tap_dance_idx = state->index;
-    free(tap_dance_states[tap_dance_idx]);
-    tap_dance_states[tap_dance_idx] = NULL;
+    // Clear the tap dance state and mark it as unused
+    memset(state, 0, sizeof(tap_dance_state_t));
 }
 
 static inline void process_tap_dance_action_on_dance_finished(tap_dance_action_t *action, tap_dance_state_t *state) {
@@ -180,7 +189,7 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    int                 td_index;
+    uint8_t             td_index;
     tap_dance_action_t *action;
     tap_dance_state_t  *state;
 
@@ -229,5 +238,5 @@ void tap_dance_task(void) {
 
 void reset_tap_dance(tap_dance_state_t *state) {
     active_td = 0;
-    process_tap_dance_action_on_reset(tap_dance_get(state->index), state);
+    process_tap_dance_action_on_reset(tap_dance_get(QK_TAP_DANCE_GET_INDEX(state->keycode)), state);
 }
