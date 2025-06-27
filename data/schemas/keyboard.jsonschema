@@ -473,6 +473,7 @@
                 "ghost": {"type": "boolean"},
                 "input_pressed_state": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "io_delay": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "masked": {"type": "boolean"},
                 "direct": {
                     "type": "array",
                     "items": {"$ref": "./definitions.jsonschema#/mcu_pin_array"}

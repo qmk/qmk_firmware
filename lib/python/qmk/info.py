@@ -254,6 +254,7 @@ def info_json(keyboard, force_layout=None):
     # Ensure that we have various calculated values
     info_data = _matrix_size(info_data)
     info_data = _joystick_axis_count(info_data)
+    info_data = _matrix_masked(info_data)
 
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
@@ -826,6 +827,25 @@ def _joystick_axis_count(info_data):
     if 'axes' in info_data.get('joystick', {}):
         axes_keys = info_data['joystick']['axes'].keys()
         info_data['joystick']['axis_count'] = max(JOYSTICK_AXES.index(a) for a in axes_keys) + 1 if axes_keys else 0
+
+    return info_data
+
+
+def _matrix_masked(info_data):
+    """"Add info_data['matrix_pins.masked'] if required"""
+    mask_required = False
+
+    if 'matrix_grid' in info_data.get('dip_switch', {}):
+        mask_required = True
+    if 'matrix_grid' in info_data.get('split', {}).get('handedness', {}):
+        mask_required = True
+
+    if mask_required:
+        if 'masked' not in info_data.get('matrix_pins', {}):
+            if 'matrix_pins' not in info_data:
+                info_data['matrix_pins'] = {}
+
+            info_data['matrix_pins']['masked'] = True
 
     return info_data
 
