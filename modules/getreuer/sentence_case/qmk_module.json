@@ -1,0 +1,10 @@
+{
+    "module_name": "Sentence Case",
+    "maintainer": "getreuer",
+    "url": "https://getreuer.info/posts/keyboards/sentence-case",
+    "keycodes": [
+        {"key": "SENTENCE_CASE_ON"},
+        {"key": "SENTENCE_CASE_OFF"},
+        {"key": "SENTENCE_CASE_TOGGLE"}
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "module_name": "Lumino",
+    "maintainer": "getreuer",
+    "url": "https://getreuer.info/posts/keyboards/lumino",
+    "features": {
+        "rgb_matrix": true
+    },
+    "keycodes": [
+        { "key": "LUMINO" }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "module_name": "Tap Flow",
+    "maintainer": "getreuer",
+    "url": "https://getreuer.info/posts/keyboards/tap-flow",
+    "keycodes": [
+        {
+            "key": "TAP_FLOW_PRINT",
+            "aliases": [
+              "TFLOW_P"
+            ]
+        },
+        {
+            "key": "TAP_FLOW_UP",
+            "aliases": [
+              "TFLOW_U"
+            ]
+        },
+        {
+            "key": "TAP_FLOW_DOWN",
+            "aliases": [
+              "TFLOW_D"
+            ]
+        }
+    ]
+}

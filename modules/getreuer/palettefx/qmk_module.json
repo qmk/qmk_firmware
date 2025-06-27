@@ -1,0 +1,8 @@
+{
+    "module_name": "PaletteFx",
+    "maintainer": "getreuer",
+    "url": "https://getreuer.info/posts/keyboards/palettefx",
+    "features": {
+        "rgb_matrix": true
+    }
+}

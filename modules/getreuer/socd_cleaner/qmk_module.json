@@ -1,0 +1,10 @@
+{
+    "module_name": "SOCD Cleaner",
+    "maintainer": "getreuer",
+    "url": "https://getreuer.info/posts/keyboards/socd-cleaner",
+    "keycodes": [
+        {"key": "SOCDON"},
+        {"key": "SOCDOFF"},
+        {"key": "SOCDTOG"}
+    ]
+}
