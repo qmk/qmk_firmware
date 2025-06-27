@@ -35,20 +35,20 @@ static uint16_t last_tap_time;
 
 tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
     uint8_t  i;
-    uint16_t keycode = QK_TAP_DANCE + tap_dance_idx;
     if (tap_dance_idx >= tap_dance_count()) {
         return NULL;
     }
     // Search for a state already used for this keycode
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
-        if (tap_dance_states[i].keycode == keycode) {
+        if (tap_dance_states[i].in_use && tap_dance_states[i].index == tap_dance_idx) {
             return &tap_dance_states[i];
         }
     }
     // Search for the first available state
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
-        if (tap_dance_states[i].keycode == 0) {
-            tap_dance_states[i].keycode = keycode;
+        if (!tap_dance_states[i].in_use) {
+            tap_dance_states[i].index = tap_dance_idx;
+            tap_dance_states[i].in_use = true;
             return &tap_dance_states[i];
         }
     }
@@ -238,5 +238,5 @@ void tap_dance_task(void) {
 
 void reset_tap_dance(tap_dance_state_t *state) {
     active_td = 0;
-    process_tap_dance_action_on_reset(tap_dance_get(QK_TAP_DANCE_GET_INDEX(state->keycode)), state);
+    process_tap_dance_action_on_reset(tap_dance_get(state->index), state);
 }

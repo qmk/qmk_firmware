@@ -28,10 +28,11 @@ typedef struct {
 #ifndef NO_ACTION_ONESHOT
     uint8_t oneshot_mods;
 #endif
-    bool     pressed : 1;
-    bool     finished : 1;
-    bool     interrupted : 1;
-    uint16_t keycode;
+    bool    pressed : 1;
+    bool    finished : 1;
+    bool    interrupted : 1;
+    bool    in_use : 1;
+    uint8_t index;
 } tap_dance_state_t;
 
 typedef void (*tap_dance_user_fn_t)(tap_dance_state_t *state, void *user_data);
