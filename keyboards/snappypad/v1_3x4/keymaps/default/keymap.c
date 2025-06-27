@@ -73,13 +73,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         layer = 0;
     }
  }
- //if (!gpio_read_pin(B6) && !gpio_read_pin(F6)) {
- //    layer_move(4);
- //    gpio_write_pin_high(F7);
- //    gpio_write_pin_low(B2);
- //    gpio_write_pin_high(B5);
- //    layer--;
- // }
+
  if(!gpio_read_pin(F6)) {
 // You can change "KC_MPLY" to any qmk supported shortcut
      tap_code(KC_MPLY);
