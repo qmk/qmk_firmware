@@ -34,7 +34,6 @@
         ]
     },
     "dip_switch": {
-        "enabled": true,
         "pins": [
             "B6",
             "F6"
