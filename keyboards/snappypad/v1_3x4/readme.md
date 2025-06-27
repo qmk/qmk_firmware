@@ -5,14 +5,12 @@
 
 * Keyboard Maintainer: [Niilo M](https://github.com/snappykey)
 * Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *(snappykey.eu)*
+* Hardware Availability: *snappykey.eu*
 
 qmk compile -kb snappypad/v1_3x4 -km default
 
 Flashing example for this macropad:
 Use for example QMK toolbox to upload the firmware to the Snappy Pad
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
