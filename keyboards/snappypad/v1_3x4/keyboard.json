@@ -25,7 +25,6 @@
         ]
     },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {
                 "pin_a": "F4",
