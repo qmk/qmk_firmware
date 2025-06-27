@@ -313,11 +313,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         return false;
     }
     if (index == 0) {
-        default_layer_set(1UL << (active ? 2 : 0));
-    }
-    if(active){
-        keymap_config.no_gui = 0;
-        eeconfig_update_keymap(&keymap_config);
+        default_layer_set(1UL << (active ? MAC_B : WIN_B));
     }
     return true;
 }
