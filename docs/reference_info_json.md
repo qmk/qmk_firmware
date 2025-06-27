@@ -480,6 +480,9 @@ Configures the [LED Matrix](features/led_matrix) feature.
     * `io_delay` <Badge type="info">Number</Badge>
         * The amount of time to wait between row/col selection and col/row pin reading, in microseconds.
         * Default: `30` (30 µs)
+    * `masked` <Badge type="info">Boolean</Badge>
+        * Whether configured intersections should be ignored.
+        * Default: `false`
     * `rows` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the matrix rows.
         * Example: `["B0", "B1", "B2"]`
