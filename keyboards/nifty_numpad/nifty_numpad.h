@@ -19,8 +19,8 @@
 #include "quantum.h"
 
 enum custom_keycodes {
-    RGB_DEF = QK_KB,
-    RGB_IEF
+    RM_DMOD = QK_KB,
+    RM_IMOD
 };
 #define LAYER_RGB (MAX_LAYER - 1)
 

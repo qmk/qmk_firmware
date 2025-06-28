@@ -21,11 +21,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     
     [LAYER_RGB] = LAYOUT_numpad_6x6(
-        _______, _______,    _______, RGB_HUI, RGB_SAI, RGB_VAI,
-        _______, _______,    _______, RGB_HUD, RGB_SAD, RGB_VAD,
-        _______, _______,    _______, RGB_MOD, _______, RGB_SPI,
+        _______, _______,    _______, RM_HUEU, RM_SATU, RM_VALU,
+        _______, _______,    _______, RM_HUED, RM_SATD, RM_VALD,
+        _______, _______,    _______, RM_NEXT, _______, RM_SPDU,
         _______, _______,    _______, _______, _______, 
-        _______, _______,    _______, _______, _______, RGB_SPD,
+        _______, _______,    _______, _______, _______, RM_SPDD,
         _______, _______,    _______,          _______     
     )
 };

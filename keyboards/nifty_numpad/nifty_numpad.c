@@ -114,7 +114,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
 #ifdef RGB_IDLE_ENABLE
         // Handle all the RGB settings
-        case RGB_DEF:
+        case RM_DMOD:
             if (record->event.pressed) {
                 // Change the RGB matrix state to active if editing idle
                 if (rgb_idle_edit_mode) {
@@ -125,7 +125,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_IEF:
+        case RM_IMOD:
             if (record->event.pressed) {
                 // Change the RGB matrix state to idle
                 if (!rgb_idle_edit_mode) {
@@ -137,49 +137,49 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 }
             }
             return false;
-        case RGB_SAI:
+        case RM_SATU:
             if (record->event.pressed) {
                 rgb_matrix_increase_sat_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_SAD:
+        case RM_SATD:
             if (record->event.pressed) {
                 rgb_matrix_decrease_sat_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_VAI:
+        case RM_VALU:
             if (record->event.pressed) {
                 rgb_matrix_increase_val_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_VAD:
+        case RM_VALD:
             if (record->event.pressed) {
                 rgb_matrix_decrease_val_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_HUI:
+        case RM_HUEU:
             if (record->event.pressed) {
                 rgb_matrix_increase_hue_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_HUD:
+        case RM_HUED:
             if (record->event.pressed) {
                 rgb_matrix_decrease_hue_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_SPI:
+        case RM_SPDU:
             if (record->event.pressed) {
                 rgb_matrix_increase_speed_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
             }
             return false;
-        case RGB_SPD:
+        case RM_SPDD:
             if (record->event.pressed) {
                 rgb_matrix_decrease_speed_noeeprom();
                 rgb_idle_edit_mode ? rgb_matrix_state_save(&idle_rgb_matrix) : rgb_matrix_state_save(&active_rgb_matrix);
