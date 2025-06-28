@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ansi.h"
 #include "user_kb.h"
 #include "side.h"
+#include "is31fl3733.h"
 //------------------------------------------------
 #define SIDE_WAVE 0
 #define SIDE_MIX 1
@@ -85,11 +86,10 @@ void user_set_side_rgb_color(int index, uint8_t red, uint8_t green, uint8_t blue
     if (is_off) is_off = 0;
     rgb_matrix_set_color(index, red, green, blue);
 }
-
 bool is_side_rgb_off(void) {
     is31fl3733_led_t led;
     for (int i = SIDE_INDEX; i < SIDE_INDEX + 10; i++) {
-        memcpy_P(&led, (&g_is31_leds[i]), sizeof(led));
+        memcpy_P(&led, (&g_is31fl3733_leds[i]), sizeof(led));
         if ((driver_buffers[led.driver].pwm_buffer[led.r] != 0) || (driver_buffers[led.driver].pwm_buffer[led.g] != 0) || (driver_buffers[led.driver].pwm_buffer[led.b] != 0)) {
             return false;
         }

@@ -15,3 +15,7 @@ SRC += matrix.c
 
 SRC += common/features/socd_cleaner.c
 SLEEP_LED_ENABLE = no
+# RGB driver
+COMMON_VPATH += $(DRIVER_PATH)/led/issi
+SRC += is31fl3733.c # For RGB
+I2C_DRIVER_REQUIRED = yes
