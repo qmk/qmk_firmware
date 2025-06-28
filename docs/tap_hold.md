@@ -602,7 +602,7 @@ either `"L"`, `"R"`, or `"*"`. Note that if `"layouts"` contains multiple
 layouts, only the first one is read. For example:
 
 ```json
-{"matrix": [5, 6], "x": 0, "y": 5.5, "w": 1.25, "hand", "*"},
+{"matrix": [5, 6], "x": 0, "y": 5.5, "w": 1.25, "hand": "*"},
 ```
 
 Alternatively, handedness may be defined functionally with
