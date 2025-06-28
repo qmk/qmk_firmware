@@ -92,7 +92,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
         // Done changing stuff, save settings in "EEPROM"
         config.active_rgb_matrix = active_rgb_matrix;
         config.idle_rgb_matrix   = idle_rgb_matrix;
-        eeconfig_update_kb_datablock(&config);
+        eeconfig_update_kb_datablock(&config, 0, EECONFIG_KB_DATA_SIZE);
     }
 #endif
 
@@ -193,7 +193,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 void keyboard_post_init_kb(void) {
 #ifdef RGB_IDLE_ENABLE
     // Read in the RGB Matrices from before
-    eeconfig_read_kb_datablock(&config);
+    eeconfig_read_kb_datablock(&config, 0, EECONFIG_KB_DATA_SIZE);
     active_rgb_matrix = config.active_rgb_matrix;
     idle_rgb_matrix   = config.idle_rgb_matrix;
     // Restore the active matrix
@@ -220,7 +220,7 @@ void eeconfig_init_kb_datablock(void) {
     config.active_rgb_matrix = default_active_rgb_matrix;
     config.idle_rgb_matrix   = default_idle_rgb_matrix;
 
-    eeconfig_update_kb_datablock(&config);
+    eeconfig_update_kb_datablock(&config, 0, EECONFIG_KB_DATA_SIZE);
 
 #    if (EECONFIG_USER_DATA_SIZE) > 0
     eeconfig_init_user_datablock();
