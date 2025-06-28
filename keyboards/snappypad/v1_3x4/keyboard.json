@@ -16,7 +16,9 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true
+        "mousekey": true,
+        "encoder": true,
+        "dip_switch": true
     },
     "matrix_pins": {
         "cols": ["E6", "B4", "D7", "C6"],
