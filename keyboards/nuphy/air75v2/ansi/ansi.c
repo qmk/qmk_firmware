@@ -326,7 +326,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case WIN_LOCK:
             if (record->event.pressed) {
                 keymap_config.no_gui = !keymap_config.no_gui;
-                eeconfig_update_keymap(keymap_config.raw);
+                eeconfig_update_keymap(&keymap_config);
                 break_all_key();
             } else
                 unregister_code16(keycode);
@@ -617,20 +617,28 @@ void init_g_config(void) {
     g_config.show_socd_indicator          = DEFAULT_SHOW_SOCD_INDICATOR;
 }
 
-void load_config_from_eeprom(void) {
+uint32_t read_custom_config(void *data, uint32_t offset, uint32_t length) {
 #ifdef VIA_ENABLE
-    eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+    return via_read_custom_config(data, offset, length);
 #else
-    eeconfig_read_kb_datablock(&g_config);
+    return eeconfig_read_kb_datablock(data, offset, length);
 #endif
 }
 
-void save_config_to_eeprom(void) {
+uint32_t write_custom_config(const void *data, uint32_t offset, uint32_t length) {
 #ifdef VIA_ENABLE
-    eeprom_update_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+    return via_update_custom_config(data, offset, length);
 #else
-    eeconfig_update_kb_datablock(&g_config);
+    return eeconfig_update_kb_datablock(data, offset, length);
 #endif
+}
+
+void load_config_from_eeprom(void) {
+    read_custom_config(&g_config, 0, sizeof(g_config));
+}
+
+void save_config_to_eeprom(void) {
+    write_custom_config(&g_config, 0, sizeof(g_config));
 }
 
 #ifdef VIA_ENABLE
