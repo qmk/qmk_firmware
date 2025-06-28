@@ -11,26 +11,6 @@ enum LAYERS {
 
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-     * SCN -> Screenshot
-     * WIN -> Task View
-     * EXP -> Open Explorer
-     * BCK -> Backspace
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │BCK│WIN│EXP│SCN│
-     * └───┴───┘  └───┴───┴───┴───┘
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F14│F20│  │Num│ / │ * │ - │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │F15│F21│  │ 7 │ 8 │ 9 │   │
-     * ├───┼───┤  ├───┼───┼───┤ + │
-     * │F16│F22│  │ 4 │ 5 │ 6 │   │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │F17│F23│  │ 1 │ 2 │ 3 │   │
-     * ├───┼───│  ├───┴───┼───┤Ent│
-     * │F18│F24│  │ 0     │ . │   │
-     * └───┴───┘  └───────┴───┴───┘
-     */
     [LAYER_BL] = LAYOUT_numpad_6x6(
         KC_F13, KC_F19,    LT(LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
         KC_F14, KC_F20,    KC_NUM,                 KC_PSLS,      KC_PAST,    KC_PMNS,
@@ -39,39 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F17, KC_F23,    KC_P1,                  KC_P2,        KC_P3,      KC_PENT,
         KC_F18, KC_F24,    KC_P0,                                KC_PDOT
     ),
-
-    /*
-     * HUI -> Hue Increase
-     * HUD -> Hue Decrease
-     * 
-     * SAI -> Saturation Increase
-     * SAD -> Saturation Decrease
-     * 
-     * VAI -> Value Increase
-     * VAD -> Value Decrease
-     * 
-     * SPI -> Speed Increase
-     * SPD -> Speed Decrease
-     * 
-     * DEF -> Set default effect mode
-     * IEF -> Set idle effect mode
-     * 
-     * ___ -> Base Layer Function
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │___│HUI│SAI│VAI│
-     * └───┴───┘  └───┴───┴───┴───┘
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │Num│HUD│SAD│VAD│
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │___│DEF│IEF│   │
-     * ├───┼───┤  ├───┼───┼───┤SPI│
-     * │___│___│  │___│___│___│   │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │___│___│___│   │
-     * ├───┼───│  ├───┴───┼───┤SPD│
-     * │___│___│  │___    │___│   │
-     * └───┴───┘  └───────┴───┴───┘
-     */
+    
     [LAYER_RGB] = LAYOUT_numpad_6x6(
         _______, _______,    _______, RGB_HUI, RGB_SAI, RGB_VAI,
         _______, _______,    _______, RGB_HUD, RGB_SAD, RGB_VAD,

@@ -63,26 +63,6 @@ tap_dance_action_t tap_dance_actions[] = {
 
 // Setup keymap
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    /*
-     * BCK -> Backspace
-     * WIN -> Task View
-     * EXP -> Open Explorer
-     * SCN -> Screenshot
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │BCK│WIN│EXP│SCN│
-     * └───┴───┘  └───┴───┴───┴───┘
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F14│F20│  │Num│ / │ * │ - │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │F15│F21│  │ 7 │ 8 │ 9 │   │
-     * ├───┼───┤  ├───┼───┼───┤ + │
-     * │F16│F22│  │ 4 │ 5 │ 6 │   │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │F17│F23│  │ 1 │ 2 │ 3 │   │
-     * ├───┼───│  ├───┴───┼───┤Ent│
-     * │F18│F24│  │ 0     │ . │   │
-     * └───┴───┘  └───────┴───┴───┘
-     */
     [LAYER_BL] = LAYOUT_numpad_6x6(
         TD(TD_M1), TD(TD_M7) ,    LT(LAYER_RGB, KC_BSPC), RGUI(KC_TAB), RGUI(KC_E), RGUI(RSFT(KC_S)),
         TD(TD_M2), TD(TD_M8) ,    TD(TD_NUM_TOGGLE),      KC_PSLS,      KC_PAST,    KC_PMNS,
@@ -92,22 +72,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TD(TD_M6), TD(TD_M12),    KC_P0,                                KC_PDOT
     ),
 
-    /*
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │F13│F19│  │F9 │F10│F11│F12│
-     * └───┴───┘  └───┴───┴───┴───┘
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │___│~/ │~* │___│
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │~7 │~8 │~9 │   │
-     * ├───┼───┤  ├───┼───┼───┤___│
-     * │___│___│  │~4 │~5 │~6 │   │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │~1 │~2 │~3 │   │
-     * ├───┼───│  ├───┴───┼───┤___│
-     * │___│___│  │~0     │~. │   │
-     * └───┴───┘  └───────┴───┴───┘
-     */
     [LAYER_MOD] = LAYOUT_numpad_6x6(
         _______, _______,    KC_F9,             KC_F10,         KC_F11,        KC_F12,
         _______, _______,    TD(TD_NUM_TOGGLE), RCTL(KC_PSLS), RCTL(KC_PAST), _______,
@@ -116,39 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,    RCTL(KC_P1),       RCTL(KC_P2),   RCTL(KC_P3),   _______,
         _______, _______,    RCTL(KC_P0),                      RCTL(KC_PDOT)     
     ),
-
-    /*
-     * HUI -> Hue Increase
-     * HUD -> Hue Decrease
-     * 
-     * SAI -> Saturation Increase
-     * SAD -> Saturation Decrease
-     * 
-     * VAI -> Value Increase
-     * VAD -> Value Decrease
-     * 
-     * SPI -> Speed Increase
-     * SPD -> Speed Decrease
-     * 
-     * DEF -> Set default effect mode
-     * IEF -> Set idle effect mode
-     * 
-     * ___ -> Base Layer Function
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │___│HUI│SAI│VAI│
-     * └───┴───┘  └───┴───┴───┴───┘
-     * ┌───┬───┐  ┌───┬───┬───┬───┐
-     * │___│___│  │Num│HUD│SAD│VAD│
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │___│DEF│IEF│   │
-     * ├───┼───┤  ├───┼───┼───┤SPI│
-     * │___│___│  │___│___│___│   │
-     * ├───┼───┤  ├───┼───┼───┼───┤
-     * │___│___│  │___│___│___│   │
-     * ├───┼───│  ├───┴───┼───┤SPD│
-     * │___│___│  │___    │___│   │
-     * └───┴───┘  └───────┴───┴───┘
-     */
+    
     [LAYER_RGB] = LAYOUT_numpad_6x6(
         _______, _______,    _______, RGB_HUI, RGB_SAI, RGB_VAI,
         _______, _______,    _______, RGB_HUD, RGB_SAD, RGB_VAD,

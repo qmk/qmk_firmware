@@ -18,23 +18,6 @@
 
 #include "quantum.h"
 
-/*
-* ┌───┬───┐  ┌───┬───┬───┬───┐
-* │F13│F19│  │F1 │F2 │F3 │F4 │
-* └───┴───┘  └───┴───┴───┴───┘
-* ┌───┬───┐  ┌───┬───┬───┬───┐
-* │F14│F20│  │Num│ / │ * │ - │
-* ├───┼───┤  ├───┼───┼───┼───┤
-* │F15│F21│  │ 7 │ 8 │ 9 │   │
-* ├───┼───┤  ├───┼───┼───┤ + │
-* │F16│F22│  │ 4 │ 5 │ 6 │   │
-* ├───┼───┤  ├───┼───┼───┼───┤
-* │F17│F23│  │ 1 │ 2 │ 3 │   │
-* ├───┼───│  ├───┴───┼───┤Ent│
-* │F18│F24│  │ 0     │ . │   │
-* └───┴───┘  └───────┴───┴───┘
-*/
-
 enum custom_keycodes {
     RGB_DEF = QK_KB,
     RGB_IEF
@@ -42,7 +25,6 @@ enum custom_keycodes {
 #define LAYER_RGB (MAX_LAYER - 1)
 
 #ifdef RGB_IDLE_ENABLE
-// Custom keycode declarations
 
 #define RGB_IDLE_TIMEOUT_MS (10*60*1000)
 
