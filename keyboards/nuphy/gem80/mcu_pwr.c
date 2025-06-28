@@ -172,7 +172,8 @@ void enter_deep_sleep(void) {
  *       This is mostly Nuphy's unreleased logic with cleanup/refactoring by me.
  */
 void exit_deep_sleep(void) {
-    matrix_init();
+    extern void matrix_init_custom(void);
+    matrix_init_custom();
 
     // connection mode switch pin
 #if (WORK_MODE == THREE_MODE)

@@ -30,8 +30,8 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 extern DEV_INFO_STRUCT dev_info;
 
 // static bool f_usb_deinit         = 0;
-static bool tim6_enabled        = false;
-static bool sleeping            = false;
+static bool tim6_enabled = false;
+static bool sleeping     = false;
 
 static bool rgb_led_on = 0;
 
@@ -169,7 +169,8 @@ void enter_deep_sleep(void) {
  *       This is mostly Nuphy's unreleased logic with cleanup/refactoring by me.
  */
 void exit_deep_sleep(void) {
-    matrix_init();
+    extern void matrix_init_custom(void);
+    matrix_init_custom();
 
     // connection mode switch pin
     gpio_set_pin_input_high(DEV_MODE_PIN);
@@ -250,7 +251,6 @@ void led_pwr_wake_handle(void) {
         rgb_matrix_update_pwm_buffers();
     }
 }
-
 
 void pwr_rgb_led_off(void) {
     if (!rgb_led_on) return;

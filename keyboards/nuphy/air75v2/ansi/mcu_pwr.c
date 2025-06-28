@@ -31,8 +31,8 @@ extern DEV_INFO_STRUCT dev_info;
 // extern bool            flush_side_leds;
 
 // static bool f_usb_deinit         = 0;
-static bool tim6_enabled         = false;
-static bool sleeping             = false;
+static bool tim6_enabled = false;
+static bool sleeping     = false;
 
 static bool rgb_led_on  = 0;
 static bool side_led_on = 0;
@@ -172,7 +172,8 @@ void enter_deep_sleep(void) {
  *       This is mostly Nuphy's unreleased logic with cleanup/refactoring by me.
  */
 void exit_deep_sleep(void) {
-    matrix_init();
+    extern void matrix_init_custom(void);
+    matrix_init_custom();
 
     // connection mode switch pin
 #if (WORK_MODE == THREE_MODE)
@@ -194,7 +195,7 @@ void exit_deep_sleep(void) {
     /* TIM6 使能 */
     if (tim6_enabled) TIM_Cmd(TIM6, ENABLE);
 
-        // Should re-init USB regardless probably if it was deinitialized.
+    // Should re-init USB regardless probably if it was deinitialized.
 #if (WORK_MODE == THREE_MODE)
     uart_send_cmd(CMD_HAND, 0, 1);
 #endif
