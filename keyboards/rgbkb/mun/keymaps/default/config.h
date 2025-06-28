@@ -18,4 +18,4 @@
 
 // 20m timeout (20m * 60s * 1000mil)
 // #define RGB_MATRIX_TIMEOUT 1200000
-#define RGB_DISABLE_WHEN_USB_SUSPENDED
+#define RGB_MATRIX_SLEEP

@@ -16,19 +16,8 @@
 
 #pragma once
 
-// `SPLIT_HAND_PIN` can currently be defined in `info.json`,
-// but can't yet be given a value
-#define SPLIT_HAND_PIN F5
-
 // Not yet available in `info.json`
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X32
 #    define SPLIT_OLED_ENABLE
-#endif
-
-// Not yet available in `info.json`
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_LED_COUNT 68
-#    define RGB_MATRIX_SPLIT { 34, 34 }
-#    define SPLIT_TRANSPORT_MIRROR
 #endif

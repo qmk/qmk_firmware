@@ -1,12 +1,12 @@
 # Keycodes Overview
 
-When defining a [keymap](keymap.md) each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.
+When defining a [keymap](keymap) each key needs a valid key definition. This page documents the symbols that correspond to keycodes that are available to you in QMK.
 
 This is a reference only. Each group of keys links to the page documenting their functionality in more detail.
 
-## Basic Keycodes :id=basic-keycodes
+## Basic Keycodes {#basic-keycodes}
 
-See also: [Basic Keycodes](keycodes_basic.md)
+See also: [Basic Keycodes](keycodes_basic)
 
 |Key                     |Aliases                        |Description                            |Windows      |macOS        |Linux<sup>1</sup>|
 |------------------------|-------------------------------|---------------------------------------|-------------|-------------|-----------------|
@@ -176,11 +176,11 @@ See also: [Basic Keycodes](keycodes_basic.md)
 |`KC_LEFT_CTRL`          |`KC_LCTL`                      |Left Control                           |✔            |✔            |✔                |
 |`KC_LEFT_SHIFT`         |`KC_LSFT`                      |Left Shift                             |✔            |✔            |✔                |
 |`KC_LEFT_ALT`           |`KC_LALT`, `KC_LOPT`           |Left Alt (Option)                      |✔            |✔            |✔                |
-|`KC_LEFT_GUI`           |`KC_LGUI`, `KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key)    |✔            |✔            |✔                |
+|`KC_LEFT_GUI`           |`KC_LGUI`, `KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Super key)   |✔            |✔            |✔                |
 |`KC_RIGHT_CTRL`         |`KC_RCTL`                      |Right Control                          |✔            |✔            |✔                |
 |`KC_RIGHT_SHIFT`        |`KC_RSFT`                      |Right Shift                            |✔            |✔            |✔                |
 |`KC_RIGHT_ALT`          |`KC_RALT`, `KC_ROPT`, `KC_ALGR`|Right Alt (Option/AltGr)               |✔            |✔            |✔                |
-|`KC_RIGHT_GUI`          |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)   |✔            |✔            |✔                |
+|`KC_RIGHT_GUI`          |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Super key)  |✔            |✔            |✔                |
 |`KC_SYSTEM_POWER`       |`KC_PWR`                       |System Power Down                      |✔            |✔<sup>3</sup>|✔                |
 |`KC_SYSTEM_SLEEP`       |`KC_SLEP`                      |System Sleep                           |✔            |✔<sup>3</sup>|✔                |
 |`KC_SYSTEM_WAKE`        |`KC_WAKE`                      |System Wake                            |             |✔<sup>3</sup>|✔                |
@@ -219,9 +219,9 @@ See also: [Basic Keycodes](keycodes_basic.md)
 <sup>5. Skips the entire track in iTunes when tapped, seeks within the current track when held.</sup><br/>
 <sup>6. WMP does not recognize the Rewind key, but both alter playback speed in VLC.</sup>
 
-## Quantum Keycodes :id=quantum-keycodes
+## Quantum Keycodes {#quantum-keycodes}
 
-See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
+See also: [Quantum Keycodes](quantum_keycodes#qmk-keycodes)
 
 |Key              |Aliases  |Description                                                                                                                                      |
 |-----------------|---------|-------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -231,9 +231,9 @@ See also: [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 |`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held. Puts keyboard into bootloader mode if shift & control are held |
 |`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                                                                                |
 
-## Audio Keys :id=audio-keys
+## Audio Keys {#audio-keys}
 
-See also: [Audio](feature_audio.md)
+See also: [Audio](features/audio)
 
 |Key                      |Aliases  |Description                                |
 |-------------------------|---------|-------------------------------------------|
@@ -253,9 +253,9 @@ See also: [Audio](feature_audio.md)
 |`QK_AUDIO_VOICE_NEXT`    |`AU_NEXT`|Cycles through the audio voices            |
 |`QK_AUDIO_VOICE_PREVIOUS`|`AU_PREV`|Cycles through the audio voices in reverse |
 
-## Auto Shift :id=auto-shift
+## Auto Shift {#auto-shift}
 
-See also: [Auto Shift](feature_auto_shift.md)
+See also: [Auto Shift](features/auto_shift)
 
 |Key                   |Aliases  |Description                                 |
 |----------------------|---------|--------------------------------------------|
@@ -266,9 +266,9 @@ See also: [Auto Shift](feature_auto_shift.md)
 |`QK_AUTO_SHIFT_OFF`   |`AS_OFF` |Turns off the Auto Shift Function           |
 |`QK_AUTO_SHIFT_TOGGLE`|`AS_TOGG`|Toggles the state of the Auto Shift feature |
 
-## Autocorrect :id=autocorrect
+## Autocorrect {#autocorrect}
 
-See also: [Autocorrect](feature_autocorrect.md)
+See also: [Autocorrect](features/autocorrect)
 
 |Key                    |Aliases  |Description                                   |
 |-----------------------|---------|----------------------------------------------|
@@ -276,9 +276,9 @@ See also: [Autocorrect](feature_autocorrect.md)
 |`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
 |`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
 
-## Backlighting :id=backlighting
+## Backlighting {#backlighting}
 
-See also: [Backlighting](feature_backlight.md)
+See also: [Backlighting](features/backlight)
 
 | Key                             | Aliases   | Description                         |
 |---------------------------------|-----------|-------------------------------------|
@@ -290,27 +290,39 @@ See also: [Backlighting](feature_backlight.md)
 | `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
 | `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
-## Bluetooth :id=bluetooth
+## Wireless/Bluetooth {#bluetooth}
 
-See also: [Bluetooth](feature_bluetooth.md)
+See also: [Wireless](features/wireless)
 
-|Key                  |Aliases  |Description                                   |
-|---------------------|---------|----------------------------------------------|
-|`QK_OUTPUT_AUTO`     |`OU_AUTO`|Automatically switch between USB and Bluetooth|
-|`QK_OUTPUT_USB`      |`OU_USB` |USB only                                      |
-|`QK_OUTPUT_BLUETOOTH`|`OU_BT`  |Bluetooth only                                |
+| Key                         | Aliases   | Description                                                                                   |
+|-----------------------------|-----------|-----------------------------------------------------------------------------------------------|
+| `QK_OUTPUT_AUTO`            | `OU_AUTO` | Automatically switch to USB when plugged in, otherwise use wireless                           |
+| `QK_OUTPUT_NEXT`            | `OU_NEXT` | Cycle forwards through USB, Bluetooth, and 2.4GHz (when available) **(not yet implemented)**  |
+| `QK_OUTPUT_PREV`            | `OU_PREV` | Cycle backwards through USB, Bluetooth, and 2.4GHz (when available) **(not yet implemented)** |
+| `QK_OUTPUT_NONE`            | `OU_NONE` | Disable all output **(not yet implemented)**                                                  |
+| `QK_OUTPUT_USB`             | `OU_USB`  | Output to USB only                                                                            |
+| `QK_OUTPUT_2P4GHZ`          | `OU_2P4G` | Output to 2.4GHz only **(not yet implemented)**                                               |
+| `QK_OUTPUT_BLUETOOTH`       | `OU_BT`   | Output to Bluetooth only                                                                      |
+| `QK_BLUETOOTH_PROFILE_NEXT` | `BT_NEXT` | Move to the next Bluetooth profile **(not yet implemented)**                                  |
+| `QK_BLUETOOTH_PROFILE_PREV` | `BT_PREV` | Move to the previous Bluetooth profile **(not yet implemented)**                              |
+| `QK_BLUETOOTH_UNPAIR`       | `BT_UNPR` | Un-pair the current Bluetooth profile **(not yet implemented)**                               |
+| `QK_BLUETOOTH_PROFILE1`     | `BT_PRF1` | Swap to Bluetooth profile #1 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE2`     | `BT_PRF2` | Swap to Bluetooth profile #2 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE3`     | `BT_PRF3` | Swap to Bluetooth profile #3 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE4`     | `BT_PRF4` | Swap to Bluetooth profile #4 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE5`     | `BT_PRF5` | Swap to Bluetooth profile #5 **(not yet implemented)**                                        |
 
-## Caps Word :id=caps-word
+## Caps Word {#caps-word}
 
-See also: [Caps Word](feature_caps_word.md)
+See also: [Caps Word](features/caps_word)
 
 |Key                  |Aliases  |Description                   |
 |---------------------|---------|------------------------------|
 |`QK_CAPS_WORD_TOGGLE`|`CW_TOGG`|Toggles Caps Word             |
 
-## Dynamic Macros :id=dynamic-macros
+## Dynamic Macros {#dynamic-macros}
 
-See also: [Dynamic Macros](feature_dynamic_macros.md)
+See also: [Dynamic Macros](features/dynamic_macros)
 
 |Key                              |Aliases  |Description                                       |
 |---------------------------------|---------|--------------------------------------------------|
@@ -320,17 +332,17 @@ See also: [Dynamic Macros](feature_dynamic_macros.md)
 |`QK_DYNAMIC_MACRO_PLAY_2`        |`DM_PLY2`|Replay Macro 2                                    |
 |`QK_DYNAMIC_MACRO_RECORD_STOP`   |`DM_RSTP`|Finish the macro that is currently being recorded.|
 
-## Grave Escape :id=grave-escape
+## Grave Escape {#grave-escape}
 
-See also: [Grave Escape](feature_grave_esc.md)
+See also: [Grave Escape](features/grave_esc)
 
 |Key              |Aliases  |Description                                                       |
 |-----------------|---------|------------------------------------------------------------------|
 |`QK_GRAVE_ESCAPE`|`QK_GESC`|Escape when pressed, <code>&#96;</code> when Shift or GUI are held|
 
-## Joystick :id=joystick
+## Joystick {#joystick}
 
-See also: [Joystick](feature_joystick.md)
+See also: [Joystick](features/joystick)
 
 |Key                    |Aliases|Description|
 |-----------------------|-------|-----------|
@@ -367,40 +379,65 @@ See also: [Joystick](feature_joystick.md)
 |`QK_JOYSTICK_BUTTON_30`|`JS_30`|Button 30  |
 |`QK_JOYSTICK_BUTTON_31`|`JS_31`|Button 31  |
 
-## Key Lock :id=key-lock
+## Key Lock {#key-lock}
 
-See also: [Key Lock](feature_key_lock.md)
+See also: [Key Lock](features/key_lock)
 
 |Key      |Description                                                   |
 |---------|--------------------------------------------------------------|
 |`QK_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
-## Layer Switching :id=layer-switching
+## Layer Lock {#layer-lock}
 
-See also: [Layer Switching](feature_layers.md#switching-and-toggling-layers)
+See also: [Layer Lock](features/layer_lock)
+
+|Key            |Aliases  |Description                       |
+|---------------|---------|----------------------------------|
+|`QK_LAYER_LOCK`|`QK_LLCK`|Locks or unlocks the highest layer|
+
+## Layer Switching {#layer-switching}
+
+See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
-|`DF(layer)`     |Set the base (default) layer                                                      |
+|`DF(layer)`     |Set the base (default) layer until the keyboard loses power                       |
+|`PDF(layer)`    |Set the base (default) layer in EEPROM                                            |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys.md) for details. |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap.md).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
+|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys) for details. |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
 |`TO(layer)`     |Turns on `layer` and turns off all other layers, except the default layer |
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
-## Leader Key :id=leader-key
+## Leader Key {#leader-key}
 
-See also: [Leader Key](feature_leader_key.md)
+See also: [Leader Key](features/leader_key)
 
 |Key      |Description             |
 |---------|------------------------|
 |`QK_LEAD`|Begins a leader sequence|
 
-## Magic Keycodes :id=magic-keycodes
+## LED Matrix {#led-matrix}
 
-See also: [Magic Keycodes](keycodes_magic.md)
+See also: [LED Matrix](features/led_matrix)
+
+|Key                            |Aliases  |Description                        |
+|-------------------------------|---------|-----------------------------------|
+|`QK_LED_MATRIX_ON`             |`LM_ON`  |Turn on LED Matrix                 |
+|`QK_LED_MATRIX_OFF`            |`LM_OFF` |Turn off LED Matrix                |
+|`QK_LED_MATRIX_TOGGLE`         |`LM_TOGG`|Toggle LED Matrix on or off        |
+|`QK_LED_MATRIX_MODE_NEXT`      |`LM_NEXT`|Cycle through animations           |
+|`QK_LED_MATRIX_MODE_PREVIOUS`  |`LM_PREV`|Cycle through animations in reverse|
+|`QK_LED_MATRIX_BRIGHTNESS_UP`  |`LM_BRIU`|Increase the brightness level      |
+|`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
+|`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
+|`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
+
+## Magic Keycodes {#magic-keycodes}
+
+See also: [Magic Keycodes](keycodes_magic)
 
 |Key                                  |Aliases  |Description                                                               |
 |-------------------------------------|---------|--------------------------------------------------------------------------|
@@ -440,9 +477,9 @@ See also: [Magic Keycodes](keycodes_magic.md)
 |`QK_MAGIC_EE_HANDS_LEFT`             |`EH_LEFT`|Set the master half of a split keyboard as the left hand (for `EE_HANDS`) |
 |`QK_MAGIC_EE_HANDS_RIGHT`            |`EH_RGHT`|Set the master half of a split keyboard as the right hand (for `EE_HANDS`)|
 
-## MIDI :id=midi
+## MIDI {#midi}
 
-See also: [MIDI](feature_midi.md)
+See also: [MIDI](features/midi)
 
 |Key                            |Aliases           |Description                      |
 |-------------------------------|------------------|---------------------------------|
@@ -591,87 +628,106 @@ See also: [MIDI](feature_midi.md)
 |`QK_MIDI_PITCH_BEND_DOWN`      |`MI_BNDD`         |Bend pitch down                  |
 |`QK_MIDI_PITCH_BEND_UP`        |`MI_BNDU`         |Bend pitch up                    |
 
-## Mouse Keys :id=mouse-keys
+## Mouse Keys {#mouse-keys}
 
-See also: [Mouse Keys](feature_mouse_keys.md)
+See also: [Mouse Keys](features/mouse_keys)
 
-|Key             |Aliases  |Description                |
-|----------------|---------|---------------------------|
-|`KC_MS_UP`      |`KC_MS_U`|Mouse Cursor Up            |
-|`KC_MS_DOWN`    |`KC_MS_D`|Mouse Cursor Down          |
-|`KC_MS_LEFT`    |`KC_MS_L`|Mouse Cursor Left          |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Mouse Cursor Right         |
-|`KC_MS_BTN1`    |`KC_BTN1`|Mouse Button 1             |
-|`KC_MS_BTN2`    |`KC_BTN2`|Mouse Button 2             |
-|`KC_MS_BTN3`    |`KC_BTN3`|Mouse Button 3             |
-|`KC_MS_BTN4`    |`KC_BTN4`|Mouse Button 4             |
-|`KC_MS_BTN5`    |`KC_BTN5`|Mouse Button 5             |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Mouse Wheel Up             |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Mouse Wheel Down           |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Mouse Wheel Left           |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Mouse Wheel Right          |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set mouse acceleration to 0|
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
+|Key                      |Aliases  |Description                |
+|-------------------------|---------|---------------------------|
+|`QK_MOUSE_CURSOR_UP`     |`MS_UP`  |Mouse cursor up            |
+|`QK_MOUSE_CURSOR_DOWN`   |`MS_DOWN`|Mouse cursor down          |
+|`QK_MOUSE_CURSOR_LEFT`   |`MS_LEFT`|Mouse cursor left          |
+|`QK_MOUSE_CURSOR_RIGHT`  |`MS_RGHT`|Mouse cursor right         |
+|`QK_MOUSE_BUTTON_1`      |`MS_BTN1`|Mouse button 1             |
+|`QK_MOUSE_BUTTON_2`      |`MS_BTN2`|Mouse button 2             |
+|`QK_MOUSE_BUTTON_3`      |`MS_BTN3`|Mouse button 3             |
+|`QK_MOUSE_BUTTON_4`      |`MS_BTN4`|Mouse button 4             |
+|`QK_MOUSE_BUTTON_5`      |`MS_BTN5`|Mouse button 5             |
+|`QK_MOUSE_BUTTON_6`      |`MS_BTN6`|Mouse button 6             |
+|`QK_MOUSE_BUTTON_7`      |`MS_BTN7`|Mouse button 7             |
+|`QK_MOUSE_BUTTON_8`      |`MS_BTN8`|Mouse button 8             |
+|`QK_MOUSE_WHEEL_UP`      |`MS_WHLU`|Mouse wheel up             |
+|`QK_MOUSE_WHEEL_DOWN`    |`MS_WHLD`|Mouse wheel down           |
+|`QK_MOUSE_WHEEL_LEFT`    |`MS_WHLL`|Mouse wheel left           |
+|`QK_MOUSE_WHEEL_RIGHT`   |`MS_WHLR`|Mouse wheel right          |
+|`QK_MOUSE_ACCELERATION_0`|`MS_ACL0`|Set mouse acceleration to 0|
+|`QK_MOUSE_ACCELERATION_1`|`MS_ACL1`|Set mouse acceleration to 1|
+|`QK_MOUSE_ACCELERATION_2`|`MS_ACL2`|Set mouse acceleration to 2|
 
-## Modifiers :id=modifiers
+## Modifiers {#modifiers}
 
-See also: [Modifier Keys](feature_advanced_keycodes.md#modifier-keys)
+See also: [Modifier Keys](feature_advanced_keycodes#modifier-keys)
 
-|Key       |Aliases                           |Description                                           |
-|----------|----------------------------------|------------------------------------------------------|
-|`LCTL(kc)`|`C(kc)`                           |Hold Left Control and press `kc`                      |
-|`LSFT(kc)`|`S(kc)`                           |Hold Left Shift and press `kc`                        |
-|`LALT(kc)`|`A(kc)`, `LOPT(kc)`               |Hold Left Alt and press `kc`                          |
-|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`   |Hold Left GUI and press `kc`                          |
-|`RCTL(kc)`|                                  |Hold Right Control and press `kc`                     |
-|`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                       |
-|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt (AltGr) and press `kc`                 |
-|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`            |Hold Right GUI and press `kc`                         |
-|`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and Left GUI and press `kc`           |
-|`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`             |
-|`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`         |
-|`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`           |
-|`LCA(kc)` |                                  |Hold Left Control and Alt and press `kc`              |
-|`LSA(kc)` |                                  |Hold Left Shift and Left Alt and press `kc`           |
-|`RSA(kc)` |`SAGR(kc)`                        |Hold Right Shift and Right Alt (AltGr) and press `kc` |
-|`RCS(kc)` |                                  |Hold Right Control and Right Shift and press `kc`     |
-|`LCAG(kc)`|                                  |Hold Left Control, Alt and GUI and press `kc`         |
-|`MEH(kc)` |                                  |Hold Left Control, Shift and Alt and press `kc`       |
-|`HYPR(kc)`|                                  |Hold Left Control, Shift, Alt and GUI and press `kc`  |
-|`KC_MEH`  |                                  |Left Control, Shift and Alt                           |
-|`KC_HYPR` |                                  |Left Control, Shift, Alt and GUI                      |
+|Key       |Aliases                           |Description                                                        |
+|----------|----------------------------------|-------------------------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                           |Hold Left Control and press `kc`                                   |
+|`LSFT(kc)`|`S(kc)`                           |Hold Left Shift and press `kc`                                     |
+|`LALT(kc)`|`A(kc)`, `LOPT(kc)`               |Hold Left Alt and press `kc`                                       |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`   |Hold Left GUI and press `kc`                                       |
+|`LCS(kc)` |                                  |Hold Left Control and Left Shift and press `kc`                    |
+|`LCA(kc)` |                                  |Hold Left Control and Left Alt and press `kc`                      |
+|`LCG(kc)` |                                  |Hold Left Control and Left GUI and press `kc`                      |
+|`LSA(kc)` |                                  |Hold Left Shift and Left Alt and press `kc`                        |
+|`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and Left GUI and press `kc`                        |
+|`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`                          |
+|`LCSG(kc)`|                                  |Hold Left Control, Left Shift and Left GUI and press `kc`          |
+|`LCAG(kc)`|                                  |Hold Left Control, Left Alt and Left GUI and press `kc`            |
+|`LSAG(kc)`|                                  |Hold Left Shift, Left Alt and Left GUI and press `kc`              |
+|`RCTL(kc)`|                                  |Hold Right Control and press `kc`                                  |
+|`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                                    |
+|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt and press `kc`                                      |
+|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`            |Hold Right GUI and press `kc`                                      |
+|`RCS(kc)` |                                  |Hold Right Control and Right Shift and press `kc`                  |
+|`RCA(kc)` |                                  |Hold Right Control and Right Alt and press `kc`                    |
+|`RCG(kc)` |                                  |Hold Right Control and Right GUI and press `kc`                    |
+|`RSA(kc)` |`SAGR(kc)`                        |Hold Right Shift and Right Alt and press `kc`                      |
+|`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`                      |
+|`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`                        |
+|`RCSG(kc)`|                                  |Hold Right Control, Right Shift and Right GUI and press `kc`       |
+|`RCAG(kc)`|                                  |Hold Right Control, Right Alt and Right GUI and press `kc`         |
+|`RSAG(kc)`|                                  |Hold Right Shift, Right Alt and Right GUI and press `kc`           |
+|`MEH(kc)` |                                  |Hold Left Control, Left Shift and Left Alt and press `kc`          |
+|`HYPR(kc)`|                                  |Hold Left Control, Left Shift, Left Alt and Left GUI and press `kc`|
+|`KC_MEH`  |                                  |Left Control, Left Shift and Left Alt                              |
+|`KC_HYPR` |                                  |Left Control, Left Shift, Left Alt and Left GUI                    |
 
-## Mod-Tap Keys :id=mod-tap-keys
+## Mod-Tap Keys {#mod-tap-keys}
 
-See also: [Mod-Tap](mod_tap.md)
+See also: [Mod-Tap](mod_tap)
 
-|Key          |Aliases                                                          |Description                                                   |
-|-------------|-----------------------------------------------------------------|--------------------------------------------------------------|
-|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                             |
-|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                      |
-|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                        |
-|`LALT_T(kc)` |`LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                          |
-|`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                          |
-|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped                     |
-|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                       |
-|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt (AltGr) when held, `kc` when tapped                 |
-|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
-|`LSG_T(kc)`  |`SGUI_T(kc)`, `SCMD_T(kc)`, `SWIN_T(kc)`                         |Left Shift and GUI when held, `kc` when tapped                |
-|`LAG_T(kc)`  |                                                                 |Left Alt and GUI when held, `kc` when tapped                  |
-|`RSG_T(kc)`  |                                                                 |Right Shift and GUI when held, `kc` when tapped               |
-|`RAG_T(kc)`  |                                                                 |Right Alt and GUI when held, `kc` when tapped                 |
-|`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped              |
-|`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped           |
-|`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
-|`RCS_T(kc)`  |                                                                 |Right Control and Right Shift when held, `kc` when tapped     |
-|`LCAG_T(kc)` |                                                                 |Left Control, Alt and GUI when held, `kc` when tapped         |
-|`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
-|`C_S_T(kc)`  |                                                                 |Left Control and Shift when held, `kc` when tapped            |
-|`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
-|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|Key          |Aliases                                                          |Description                                                                |
+|-------------|-----------------------------------------------------------------|---------------------------------------------------------------------------|
+|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                                          |
+|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                                   |
+|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                                     |
+|`LALT_T(kc)` |`ALT_T(kc)`, `LOPT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                                       |
+|`LGUI_T(kc)` |`GUI_T(kc)`, `LCMD_T(kc)`, `LWIN_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                                       |
+|`LCS_T(kc)`  |                                                                 |Left Control and Left Shift when held, `kc` when tapped                    |
+|`LCA_T(kc)`  |                                                                 |Left Control and Left Alt when held, `kc` when tapped                      |
+|`LCG_T(kc)`  |                                                                 |Left Control and Left GUI when held, `kc` when tapped                      |
+|`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped                        |
+|`LSG_T(kc)`  |`SGUI_T(kc)`, `SCMD_T(kc)`, `SWIN_T(kc)`                         |Left Shift and Left GUI when held, `kc` when tapped                        |
+|`LAG_T(kc)`  |                                                                 |Left Alt and Left GUI when held, `kc` when tapped                          |
+|`LCSG_T(kc)` |                                                                 |Left Control, Left Shift and Left GUI when held, `kc` when tapped          |
+|`LCAG_T(kc)` |                                                                 |Left Control, Left Alt and Left GUI when held, `kc` when tapped            |
+|`LSAG_T(kc)` |                                                                 |Left Shift, Left Alt and Left GUI when held, `kc` when tapped              |
+|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped                                  |
+|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                                    |
+|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                                      |
+|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                                      |
+|`RCS_T(kc)`  |                                                                 |Right Control and Right Shift when held, `kc` when tapped                  |
+|`RCA_T(kc)`  |                                                                 |Right Control and Right Alt when held, `kc` when tapped                    |
+|`RCG_T(kc)`  |                                                                 |Right Control and Right GUI when held, `kc` when tapped                    |
+|`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt when held, `kc` when tapped                      |
+|`RSG_T(kc)`  |                                                                 |Right Shift and Right GUI when held, `kc` when tapped                      |
+|`RAG_T(kc)`  |                                                                 |Right Alt and Right GUI when held, `kc` when tapped                        |
+|`RCSG_T(kc)` |                                                                 |Right Control, Right Shift and Right GUI when held, `kc` when tapped       |
+|`RCAG_T(kc)` |                                                                 |Right Control, Right Alt and Right GUI when held, `kc` when tapped         |
+|`RSAG_T(kc)` |                                                                 |Right Shift, Right Alt and Right GUI when held, `kc` when tapped           |
+|`MEH_T(kc)`  |                                                                 |Left Control, Left Shift and Left Alt when held, `kc` when tapped          |
+|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Left Shift, Left Alt and Left GUI when held, `kc` when tapped|
 
-## Tapping Term Keys :id=tapping-term-keys
+## Tapping Term Keys {#tapping-term-keys}
 
 See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 
@@ -681,52 +737,57 @@ See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
 |`QK_DYNAMIC_TAPPING_TERM_UP`   |`DT_UP`  | Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
 |`QK_DYNAMIC_TAPPING_TERM_DOWN` |`DT_DOWN`| Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
 
-## RGB Lighting :id=rgb-lighting
+## RGB Lighting {#rgb-lighting}
 
-See also: [RGB Lighting](feature_rgblight.md)
+See also: [RGB Lighting](features/rgblight)
 
-|Key                |Aliases   |Description                                                         |
-|-------------------|----------|--------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                       |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                       |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held         |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held         |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held      |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held      |
-|`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
-|`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
-|`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
-|`RGB_MODE_SWIRL`   |`RGB_M_SW`|Swirl animation mode                                                |
-|`RGB_MODE_SNAKE`   |`RGB_M_SN`|Snake animation mode                                                |
-|`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
-|`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
-|`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
-|`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
+|Key                           |Aliases   |Description                                                          |
+|------------------------------|----------|---------------------------------------------------------------------|
+|`QK_UNDERGLOW_TOGGLE`         |`UG_TOGG` |Toggle RGB lighting on or off                                        |
+|`QK_UNDERGLOW_MODE_NEXT`      |`UG_NEXT` |Cycle through modes, reverse direction when Shift is held            |
+|`QK_UNDERGLOW_MODE_PREVIOUS`  |`UG_PREV` |Cycle through modes in reverse, forward direction when Shift is held |
+|`QK_UNDERGLOW_HUE_UP`         |`UG_HUEU` |Increase hue, decrease hue when Shift is held                        |
+|`QK_UNDERGLOW_HUE_DOWN`       |`UG_HUED` |Decrease hue, increase hue when Shift is held                        |
+|`QK_UNDERGLOW_SATURATION_UP`  |`UG_SATU` |Increase saturation, decrease saturation when Shift is held          |
+|`QK_UNDERGLOW_SATURATION_DOWN`|`UG_SATD` |Decrease saturation, increase saturation when Shift is held          |
+|`QK_UNDERGLOW_VALUE_UP`       |`UG_VALU` |Increase value (brightness), decrease value when Shift is held       |
+|`QK_UNDERGLOW_VALUE_DOWN`     |`UG_VALD` |Decrease value (brightness), increase value when Shift is held       |
+|`QK_UNDERGLOW_SPEED_UP`       |`UG_SPDU` |Increase effect speed (brightness), decrease speed when Shift is held|
+|`QK_UNDERGLOW_SPEED_DOWN`     |`UG_SPDD` |Decrease effect speed (brightness), increase speed when Shift is held|
+|`RGB_MODE_PLAIN`              |`RGB_M_P `|Static (no animation) mode (deprecated)                              |
+|`RGB_MODE_BREATHE`            |`RGB_M_B` |Breathing animation mode (deprecated)                                |
+|`RGB_MODE_RAINBOW`            |`RGB_M_R` |Rainbow animation mode (deprecated)                                  |
+|`RGB_MODE_SWIRL`              |`RGB_M_SW`|Swirl animation mode (deprecated)                                    |
+|`RGB_MODE_SNAKE`              |`RGB_M_SN`|Snake animation mode (deprecated)                                    |
+|`RGB_MODE_KNIGHT`             |`RGB_M_K` |"Knight Rider" animation mode (deprecated)                           |
+|`RGB_MODE_XMAS`               |`RGB_M_X` |Christmas animation mode (deprecated)                                |
+|`RGB_MODE_GRADIENT`           |`RGB_M_G` |Static gradient animation mode (deprecated)                          |
+|`RGB_MODE_RGBTEST`            |`RGB_M_T` |Red, Green, Blue test animation mode (deprecated)                    |
+|`RGB_MODE_TWINKLE`            |`RGB_M_TW`|Twinkle animation mode (deprecated)                                  |
 
-## RGB Matrix Lighting :id=rgb-matrix-lighting
+## RGB Matrix {#rgb-matrix}
 
-See also: [RGB Matrix Lighting](feature_rgb_matrix.md)
+See also: [RGB Matrix](features/rgb_matrix)
 
-|Key                |Aliases   |Description                                                                           |
-|-------------------|----------|--------------------------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
-|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
-|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+|Key                            |Aliases  |Description                        |
+|-------------------------------|---------|-----------------------------------|
+|`QK_RGB_MATRIX_ON`             |`RM_ON`  |Turn on RGB Matrix                 |
+|`QK_RGB_MATRIX_OFF`            |`RM_OFF` |Turn off RGB Matrix                |
+|`QK_RGB_MATRIX_TOGGLE`         |`RM_TOGG`|Toggle RGB Matrix on or off        |
+|`QK_RGB_MATRIX_MODE_NEXT`      |`RM_NEXT`|Cycle through animations           |
+|`QK_RGB_MATRIX_MODE_PREVIOUS`  |`RM_PREV`|Cycle through animations in reverse|
+|`QK_RGB_MATRIX_HUE_UP`         |`RM_HUEU`|Cycle through hue                  |
+|`QK_RGB_MATRIX_HUE_DOWN`       |`RM_HUED`|Cycle through hue in reverse       |
+|`QK_RGB_MATRIX_SATURATION_UP`  |`RM_SATU`|Increase the saturation            |
+|`QK_RGB_MATRIX_SATURATION_DOWN`|`RM_SATD`|Decrease the saturation            |
+|`QK_RGB_MATRIX_VALUE_UP`       |`RM_VALU`|Increase the brightness level      |
+|`QK_RGB_MATRIX_VALUE_DOWN`     |`RM_VALD`|Decrease the brightness level      |
+|`QK_RGB_MATRIX_SPEED_UP`       |`RM_SPDU`|Increase the animation speed       |
+|`QK_RGB_MATRIX_SPEED_DOWN`     |`RM_SPDD`|Decrease the animation speed       |
 
-## US ANSI Shifted Symbols :id=us-ansi-shifted-symbols
+## US ANSI Shifted Symbols {#us-ansi-shifted-symbols}
 
-See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
+See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted)
 
 |Key                     |Aliases            |Description|
 |------------------------|-------------------|-----------|
@@ -752,9 +813,9 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`        |
 |`KC_QUESTION`           |`KC_QUES`          |`?`        |
 
-## One Shot Keys :id=one-shot-keys
+## One Shot Keys {#one-shot-keys}
 
-See also: [One Shot Keys](one_shot_keys.md)
+See also: [One Shot Keys](one_shot_keys)
 
 |Key                 |Aliases  |Description                       |
 |--------------------|---------|----------------------------------|
@@ -764,9 +825,9 @@ See also: [One Shot Keys](one_shot_keys.md)
 |`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on            |
 |`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off           |
 
-## Programmable Button Support :id=programmable-button
+## Programmable Button Support {#programmable-button}
 
-See also: [Programmable Button](feature_programmable_button.md)
+See also: [Programmable Button](features/programmable_button)
 
 |Key                        |Aliases|Description           |
 |---------------------------|-------|----------------------|
@@ -803,18 +864,18 @@ See also: [Programmable Button](feature_programmable_button.md)
 |`QK_PROGRAMMABLE_BUTTON_31`|`PB_31`|Programmable button 31|
 |`QK_PROGRAMMABLE_BUTTON_32`|`PB_32`|Programmable button 32|
 
-## Repeat Key :id=repeat-key
+## Repeat Key {#repeat-key}
 
-See also: [Repeat Key](feature_repeat_key.md)
+See also: [Repeat Key](features/repeat_key)
 
 |Keycode                |Aliases  |Description                          |
 |-----------------------|---------|-------------------------------------|
 |`QK_REPEAT_KEY`        |`QK_REP` |Repeat the last pressed key          |
 |`QK_ALT_REPEAT_KEY`    |`QK_AREP`|Perform alternate of the last key    |
 
-## Space Cadet :id=space-cadet
+## Space Cadet {#space-cadet}
 
-See also: [Space Cadet](feature_space_cadet.md)
+See also: [Space Cadet](features/space_cadet)
 
 |Key                                           |Aliases  |Description                             |
 |----------------------------------------------|---------|----------------------------------------|
@@ -826,9 +887,9 @@ See also: [Space Cadet](feature_space_cadet.md)
 |`QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE`  |`SC_RAPC`|Right Alt when held, `)` when tapped    |
 |`QK_SPACE_CADET_RIGHT_SHIFT_ENTER`            |`SC_SENT`|Right Shift when held, Enter when tapped|
 
-## Swap Hands :id=swap-hands
+## Swap Hands {#swap-hands}
 
-See also: [Swap Hands](feature_swap_hands.md)
+See also: [Swap Hands](features/swap_hands)
 
 |Key                          |Aliases  |Description                                         |
 |-----------------------------|---------|----------------------------------------------------|
@@ -841,9 +902,9 @@ See also: [Swap Hands](feature_swap_hands.md)
 |`QK_SWAP_HANDS_TAP_TOGGLE`   |`SH_TT`  |Momentary swap when held, toggle when tapped        |
 |`QK_SWAP_HANDS_ONE_SHOT`     |`SH_OS`  |Turn on hand swap while held or until next key press|
 
-## Unicode Support :id=unicode-support
+## Unicode Support {#unicode-support}
 
-See also: [Unicode Support](feature_unicode.md)
+See also: [Unicode Support](features/unicode)
 
 |Key                         |Aliases  |Description                                                     |
 |----------------------------|---------|----------------------------------------------------------------|

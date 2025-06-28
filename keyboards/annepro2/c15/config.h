@@ -18,28 +18,12 @@
 #pragma once
 
 #include "pin_defs.h"
-#include "config_led.h"
-
-// key matrix size
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-// layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 140 bytes
 
 #define LINE_UART_TX B0  // Master TX, LED RX
 #define LINE_UART_RX B1  // Master RX, LED TX
 
 #define LINE_BT_UART_TX A4  // Master TX, BLE RX
 #define LINE_BT_UART_RX A5  // Master RX, BLE TX
-
-// outputs (rows are pulled low)
-#define MATRIX_ROW_PINS \
-    { C2, C1, B5, B4, C3 }
-
-// inputs (columns are sampled)
-// PORTA 12,13 conflict with SWD
-
-#define MATRIX_COL_PINS \
-    { C4, C5, B10, B11, C0, A15, A8, A10, A11, A12, A13, A14, B2, B3 }
 
 // Obins stock firmware has something similar to this already enabled, but disabled by default in QMK
 #define PERMISSIVE_HOLD

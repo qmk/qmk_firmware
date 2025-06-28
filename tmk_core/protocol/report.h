@@ -29,7 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 
 /* HID report IDs */
-enum hid_report_ids {
+enum hid_report_ids { 
+    REPORT_ID_ALL = 0,
     REPORT_ID_KEYBOARD = 1,
     REPORT_ID_MOUSE,
     REPORT_ID_SYSTEM,
@@ -37,8 +38,11 @@ enum hid_report_ids {
     REPORT_ID_PROGRAMMABLE_BUTTON,
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
-    REPORT_ID_DIGITIZER
+    REPORT_ID_DIGITIZER,
+    REPORT_ID_COUNT = REPORT_ID_DIGITIZER
 };
+
+#define IS_VALID_REPORT_ID(id) ((id) >= REPORT_ID_ALL && (id) <= REPORT_ID_COUNT)
 
 /* Mouse buttons */
 #define MOUSE_BTN_MASK(n) (1 << (n))
@@ -190,9 +194,23 @@ typedef struct {
 } PACKED report_programmable_button_t;
 
 #ifdef MOUSE_EXTENDED_REPORT
+#    define MOUSE_REPORT_XY_MIN INT16_MIN
+#    define MOUSE_REPORT_XY_MAX INT16_MAX
 typedef int16_t mouse_xy_report_t;
 #else
+#    define MOUSE_REPORT_XY_MIN INT8_MIN
+#    define MOUSE_REPORT_XY_MAX INT8_MAX
 typedef int8_t mouse_xy_report_t;
+#endif
+
+#ifdef WHEEL_EXTENDED_REPORT
+#    define MOUSE_REPORT_HV_MIN INT16_MIN
+#    define MOUSE_REPORT_HV_MAX INT16_MAX
+typedef int16_t mouse_hv_report_t;
+#else
+#    define MOUSE_REPORT_HV_MIN INT8_MIN
+#    define MOUSE_REPORT_HV_MAX INT8_MAX
+typedef int8_t mouse_hv_report_t;
 #endif
 
 typedef struct {
@@ -206,8 +224,8 @@ typedef struct {
 #endif
     mouse_xy_report_t x;
     mouse_xy_report_t y;
-    int8_t            v;
-    int8_t            h;
+    mouse_hv_report_t v;
+    mouse_hv_report_t h;
 } PACKED report_mouse_t;
 
 typedef struct {
@@ -234,6 +252,11 @@ typedef struct {
 #endif
 #if JOYSTICK_AXIS_COUNT > 0
     joystick_axis_t axes[JOYSTICK_AXIS_COUNT];
+#endif
+
+#ifdef JOYSTICK_HAS_HAT
+    int8_t  hat : 4;
+    uint8_t reserved : 4;
 #endif
 
 #if JOYSTICK_BUTTON_COUNT > 0

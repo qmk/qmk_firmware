@@ -2,7 +2,7 @@
 RGB_MATRIX_EFFECT(RAINBOW_MOVING_CHEVRON)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV RAINBOW_MOVING_CHEVRON_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t RAINBOW_MOVING_CHEVRON_math(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.h += abs8(g_led_config.point[i].y - k_rgb_matrix_center.y) + (g_led_config.point[i].x - time);
     return hsv;
 }

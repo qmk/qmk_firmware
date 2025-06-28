@@ -1,12 +1,17 @@
 {
     "keyboard_name": "NK65",
     "manufacturer": "Yiancar-Designs",
-    "url": "",
     "maintainer": "yiancar",
     "usb": {
         "vid": "0x8968",
         "pid": "0x4E4B",
         "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "processor": "STM32F303",
     "bootloader": "stm32-dfu",

@@ -30,35 +30,15 @@ float tone_device_indication[][2] = SONG(FANTASIE_IMPROMPTU);
 
 #endif
 
-// We want to enable audio clicky (i.e. compile it into firmware),
-// but not have it "turned on" by default.
-#ifdef AUDIO_CLICKY
-
-#include "process_clicky.h"
-extern audio_config_t audio_config;
-
-void eeconfig_init_kb(void) {
-    // Reset Keyboard EEPROM value to blank, rather than to a set value
-    eeconfig_update_kb(0);
-
-    // Need to read here because this isn't done before calling eeconfig_init_kb()
-    audio_config.raw = eeconfig_read_audio();
-    // ...and this call needs audio_config initialized.
-    clicky_off();
-
-    eeconfig_init_user();
-}
-#endif // AUDIO_CLICKY
-
 void keyboard_pre_init_kb(void) {
-    setPinOutput(F1);
+    gpio_set_pin_output(F1);
 
     keyboard_pre_init_user();
 }
 
 bool led_update_kb(led_t led_state) {
     if (led_update_user(led_state)) {
-        writePin(F1, led_state.caps_lock);
+        gpio_write_pin(F1, led_state.caps_lock);
     }
 
 #ifdef AUDIO_ENABLE

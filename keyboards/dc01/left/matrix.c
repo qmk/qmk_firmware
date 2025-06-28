@@ -387,37 +387,13 @@ static void unselect_cols(void)
 
 // Complete rows from other modules over i2c
 i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset) {
-    i2c_status_t status = i2c_start(address, 5);
-    if (status < 0) {
-        goto error;
+    uint8_t data[MATRIX_ROWS + 1];
+    i2c_status_t status = i2c_read_register(address, 0x01, data, (MATRIX_ROWS + 1), 5);
+
+    for (uint8_t i = 0; i < (MATRIX_ROWS) && status >= 0; i++) { //assemble slave matrix in main matrix
+        matrix[i] &= mask;  //mask bits to keep
+        matrix[i] |= ((uint32_t)data[i+1] << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
     }
 
-    status = i2c_write(0x01, 50);
-    if (status < 0) {
-        goto error;
-    }
-
-    status = i2c_start(address | I2C_READ, 50);
-
-    status = i2c_read_ack(50);
-    if (status != 0x55) { //synchronization byte
-        goto error;
-    }
-
-    for (uint8_t i = 0; i < MATRIX_ROWS-1 && status >= 0; i++) { //assemble slave matrix in main matrix
-        matrix[i] &= mask; //mask bits to keep
-        status = i2c_read_ack(50);
-            matrix[i] |= ((uint32_t)status << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
-        }
-    //last read request must be followed by a NACK
-    if (status >= 0) {
-        matrix[MATRIX_ROWS - 1] &= mask; //mask bits to keep
-        status = i2c_read_nack(50);
-        matrix[MATRIX_ROWS - 1] |= ((uint32_t)status << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
-    }
-
-error:
-    i2c_stop();
-
-    return (status < 0) ? status : I2C_STATUS_SUCCESS;
+    return status;
 }

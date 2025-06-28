@@ -24,11 +24,6 @@
 #endif
 
 /**
- * Size of the dac_buffer arrays. All must be the same size.
- */
-#define AUDIO_DAC_BUFFER_SIZE 256U
-
-/**
  * Highest value allowed sample value.
 
  * since the DAC is limited to 12 bit, the absolute max is 0xfff = 4095U;
@@ -94,6 +89,35 @@
  */
 #ifndef AUDIO_DAC_SAMPLE_RATE
 #    define AUDIO_DAC_SAMPLE_RATE 44100U
+#endif
+
+/**
+ * Size of the dac_buffer array. This controls the length of the runtime buffer
+ * which accumulates the data to be sent to the DAC every few milliseconds, and
+ * it does not need to correspond to the length of the wavetable for the chosen
+ * waveform defined by AUDIO_DAC_SAMPLE_WAVEFORM_* in the additive DAC driver.
+ * By default, this is set to be as close to 3.3 ms as possible, giving 300 DAC
+ * interrupts per second. Any smaller and the interrupt load gets too heavy and
+ * this results in crackling due to buffer underrun in the additive DAC driver;
+ * too large and the RAM (additive driver) or flash (basic driver) usage may be
+ * too high, causing build failures, and matrix scanning is liable to have long
+ * periodic pauses that delay key presses or releases or fully lose short taps.
+ * Large buffers also cause notes to take longer to stop after they should from
+ * music mode or MIDI input.
+ * This should be a power of 2 for maximum compatibility.
+ */
+#ifndef AUDIO_DAC_BUFFER_SIZE
+#    if AUDIO_DAC_SAMPLE_RATE < 5100U
+#        define AUDIO_DAC_BUFFER_SIZE 16U
+#    elif AUDIO_DAC_SAMPLE_RATE < 9900U
+#        define AUDIO_DAC_BUFFER_SIZE 32U
+#    elif AUDIO_DAC_SAMPLE_RATE < 19500U
+#        define AUDIO_DAC_BUFFER_SIZE 64U
+#    elif AUDIO_DAC_SAMPLE_RATE < 38700U
+#        define AUDIO_DAC_BUFFER_SIZE 128U
+#    else
+#        define AUDIO_DAC_BUFFER_SIZE 256U
+#    endif
 #endif
 
 /**

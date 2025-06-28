@@ -2,9 +2,9 @@
 
 This document attempts to explain how the QMK firmware works from a very high level. It assumes you understand basic programming concepts but does not (except where needed to demonstrate) assume familiarity with C. It assumes that you have a basic understanding of the following documents:
 
-* [Introduction](getting_started_introduction.md)
-* [How Keyboards Work](how_keyboards_work.md)
-* [FAQ](faq_general.md)
+* [Introduction](getting_started_introduction)
+* [How Keyboards Work](how_keyboards_work)
+* [FAQ](faq_general)
 
 ## Startup
 

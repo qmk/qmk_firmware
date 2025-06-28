@@ -108,16 +108,16 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## Modifiers
 
-|Key             |Aliases                        |Description                         |
-|----------------|-------------------------------|------------------------------------|
-|`KC_LEFT_CTRL`  |`KC_LCTL`                      |Left Control                        |
-|`KC_LEFT_SHIFT` |`KC_LSFT`                      |Left Shift                          |
-|`KC_LEFT_ALT`   |`KC_LALT`, `KC_LOPT`           |Left Alt (Option)                   |
-|`KC_LEFT_GUI`   |`KC_LGUI`, `KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key) |
-|`KC_RIGHT_CTRL` |`KC_RCTL`                      |Right Control                       |
-|`KC_RIGHT_SHIFT`|`KC_RSFT`                      |Right Shift                         |
-|`KC_RIGHT_ALT`  |`KC_RALT`, `KC_ROPT`, `KC_ALGR`|Right Alt (Option/AltGr)            |
-|`KC_RIGHT_GUI`  |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)|
+|Key             |Aliases                        |Description                          |
+|----------------|-------------------------------|-------------------------------------|
+|`KC_LEFT_CTRL`  |`KC_LCTL`                      |Left Control                         |
+|`KC_LEFT_SHIFT` |`KC_LSFT`                      |Left Shift                           |
+|`KC_LEFT_ALT`   |`KC_LALT`, `KC_LOPT`           |Left Alt (Option)                    |
+|`KC_LEFT_GUI`   |`KC_LGUI`, `KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Super key) |
+|`KC_RIGHT_CTRL` |`KC_RCTL`                      |Right Control                        |
+|`KC_RIGHT_SHIFT`|`KC_RSFT`                      |Right Shift                          |
+|`KC_RIGHT_ALT`  |`KC_RALT`, `KC_ROPT`, `KC_ALGR`|Right Alt (Option/AltGr)             |
+|`KC_RIGHT_GUI`  |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Super key)|
 
 ## International
 
@@ -191,7 +191,9 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 These keycodes are not part of the Keyboard/Keypad usage page. The `SYSTEM_` keycodes are found in the Generic Desktop page, and the rest are located in the Consumer page.
 
-?> Some of these keycodes may behave differently depending on the OS. For example, on macOS, the keycodes `KC_MEDIA_FAST_FORWARD`, `KC_MEDIA_REWIND`, `KC_MEDIA_NEXT_TRACK` and `KC_MEDIA_PREV_TRACK` skip within the current track when held, but skip the entire track when tapped.
+::: tip
+Some of these keycodes may behave differently depending on the OS. For example, on macOS, the keycodes `KC_MEDIA_FAST_FORWARD`, `KC_MEDIA_REWIND`, `KC_MEDIA_NEXT_TRACK` and `KC_MEDIA_PREV_TRACK` skip within the current track when held, but skip the entire track when tapped.
+:::
 
 |Key                    |Aliases  |Description         |
 |-----------------------|---------|--------------------|

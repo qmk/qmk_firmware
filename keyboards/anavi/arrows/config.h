@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define RGBLIGHT_DEFAULT_MODE RGBLIGHT_MODE_RAINBOW_MOOD
-
 /* Double tap reset button to enter bootloader */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17

@@ -5,21 +5,21 @@ void matrix_init_kb(void)
 {
     matrix_init_user();
 
-    setPinOutput(RED_LED);
-    setPinOutput(BLUE_LED);
-    setPinOutput(GREEN_LED);
+    gpio_set_pin_output(RED_LED);
+    gpio_set_pin_output(BLUE_LED);
+    gpio_set_pin_output(GREEN_LED);
 }
 
 
 
 void turn_off_leds(void)
 {
-    writePinLow(RED_LED);
-    writePinLow(BLUE_LED);
-    writePinLow(GREEN_LED);
+    gpio_write_pin_low(RED_LED);
+    gpio_write_pin_low(BLUE_LED);
+    gpio_write_pin_low(GREEN_LED);
 }
 
 void turn_on_led(pin_t pin)
 {
-    writePinHigh(pin);
+    gpio_write_pin_high(pin);
 }

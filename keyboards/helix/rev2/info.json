@@ -14,7 +14,10 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D2",
+        "enabled": true,
+        "serial": {
+            "pin": "D2"
+        },
         "transport": {
             "sync": {
                 "indicators": true,

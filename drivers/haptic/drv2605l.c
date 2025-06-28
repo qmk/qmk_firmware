@@ -29,7 +29,7 @@ void drv2605l_write(uint8_t reg_addr, uint8_t data) {
 }
 
 uint8_t drv2605l_read(uint8_t reg_addr) {
-    i2c_readReg(DRV2605L_I2C_ADDRESS << 1, reg_addr, &drv2605l_read_buffer, 1, 100);
+    i2c_read_register(DRV2605L_I2C_ADDRESS << 1, reg_addr, &drv2605l_read_buffer, 1, 100);
 
     return drv2605l_read_buffer;
 }

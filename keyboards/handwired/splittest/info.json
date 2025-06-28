@@ -1,12 +1,14 @@
 {
     "keyboard_name": "Split Tester",
     "manufacturer": "Keebio",
-    "url": "",
     "maintainer": "nooges",
     "usb": {
         "vid": "0xCB10",
         "pid": "0x1111",
         "device_version": "1.0.0"
+    },
+    "split": {
+        "enabled": true
     },
     "rgblight": {
         "led_count": 12,
