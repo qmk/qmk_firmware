@@ -146,3 +146,4 @@ extern kb_config_t g_config;
 void save_config_to_eeprom(void);
 void load_config_from_eeprom(void);
 void init_g_config(void);
+void custom_init(void);

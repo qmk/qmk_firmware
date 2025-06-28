@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "host.h"
 #include "keycodes.h"
+#include "nvm_eeprom_eeconfig_internal.h"
 #include "quantum.h"
 #include "rgb_matrix.h"
 #include "user_kb.h"
@@ -327,7 +328,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case WIN_LOCK:
             if (record->event.pressed) {
                 keymap_config.no_gui = !keymap_config.no_gui;
-                eeconfig_update_keymap(keymap_config.raw);
+                eeconfig_update_keymap(&keymap_config);
                 break_all_key();
             } else
                 unregister_code16(keycode);
@@ -617,33 +618,43 @@ void init_g_config(void) {
     g_config.show_socd_indicator          = DEFAULT_SHOW_SOCD_INDICATOR;
 }
 
-void load_config_from_eeprom(void) {
+uint32_t read_custom_config(void *data, uint32_t offset, uint32_t length) {
 #ifdef VIA_ENABLE
-    eeprom_read_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+    return via_read_custom_config(data, offset, length);
 #else
-    eeconfig_read_kb_datablock(&g_config);
+    return eeconfig_read_kb_datablock(data, offset, length);
 #endif
 }
 
-void save_config_to_eeprom(void) {
+uint32_t write_custom_config(const void *data, uint32_t offset, uint32_t length) {
 #ifdef VIA_ENABLE
-    eeprom_update_block(&g_config, ((void *)VIA_EEPROM_CUSTOM_CONFIG_ADDR), sizeof(g_config));
+    return via_update_custom_config(data, offset, length);
 #else
-    eeconfig_update_kb_datablock(&g_config);
+    return eeconfig_update_kb_datablock(data, offset, length);
 #endif
+}
+
+void load_config_from_eeprom(void) {
+    read_custom_config(&g_config, 0, sizeof(g_config));
+}
+
+void save_config_to_eeprom(void) {
+    write_custom_config(&g_config, 0, sizeof(g_config));
+}
+
+void custom_init() {
+    if (eeconfig_is_enabled()) {
+        load_config_from_eeprom();
+    } else {
+        init_g_config();
+        g_config.been_initiated = 0x45;
+        save_config_to_eeprom();
+    }
 }
 
 #ifdef VIA_ENABLE
 void via_init_kb(void) {
-    init_g_config();
-    // If the EEPROM has the magic, the data is good.
-    // OK to load from EEPROM
-    if (eeconfig_is_enabled()) {
-        load_config_from_eeprom();
-    } else {
-        save_config_to_eeprom();
-        // DO NOT set EEPROM valid here, let caller do this
-    }
+    custom_init();
 }
 
 void via_config_set_value(uint8_t *data)
