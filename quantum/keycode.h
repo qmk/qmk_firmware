@@ -29,10 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_ANY(code) (KC_A <= (code) && (code) <= 0xFF)
 
 #define IS_MOUSEKEY(code) IS_MOUSE_KEYCODE(code)
-#define IS_MOUSEKEY_MOVE(code) (KC_MS_UP <= (code) && (code) <= KC_MS_RIGHT)
-#define IS_MOUSEKEY_BUTTON(code) (KC_MS_BTN1 <= (code) && (code) <= KC_MS_BTN8)
-#define IS_MOUSEKEY_WHEEL(code) (KC_MS_WH_UP <= (code) && (code) <= KC_MS_WH_RIGHT)
-#define IS_MOUSEKEY_ACCEL(code) (KC_MS_ACCEL0 <= (code) && (code) <= KC_MS_ACCEL2)
+#define IS_MOUSEKEY_MOVE(code) (QK_MOUSE_CURSOR_UP <= (code) && (code) <= QK_MOUSE_CURSOR_RIGHT)
+#define IS_MOUSEKEY_BUTTON(code) (QK_MOUSE_BUTTON_1 <= (code) && (code) <= QK_MOUSE_BUTTON_8)
+#define IS_MOUSEKEY_WHEEL(code) (QK_MOUSE_WHEEL_UP <= (code) && (code) <= QK_MOUSE_WHEEL_RIGHT)
+#define IS_MOUSEKEY_ACCEL(code) (QK_MOUSE_ACCELERATION_0 <= (code) && (code) <= QK_MOUSE_ACCELERATION_2)
 
 #define MOD_BIT(code) (1 << ((code)&0x07))
 

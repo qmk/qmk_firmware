@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ARC60H",
     "manufacturer": "vertex",
-    "url": "",
     "maintainer": "EasonQian1, Vertex-kb",
     "usb": {
         "vid": "0x7374",
@@ -52,7 +51,13 @@
     "layout_aliases": {
         "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
-    "community_layouts": ["60_ansi_tsangan", "60_tsangan_hhkb", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb"],
+    "community_layouts": [
+        "60_ansi_tsangan",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_ansi_wkl",
+        "60_ansi_wkl_split_bs_rshift",
+        "60_hhkb"
+    ],
     "layouts": {
         "LAYOUT_all": {
             "layout": [

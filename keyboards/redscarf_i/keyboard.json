@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Red Scarf I",
     "manufacturer": "Red Scarf",
-    "url": "",
     "maintainer": "qmk, defying",
     "usb": {
         "vid": "0xFEED",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false
@@ -24,6 +21,10 @@
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B5"
+    },
+    "indicators": {
+        "num_lock": "F7",
+        "on_state": 0
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

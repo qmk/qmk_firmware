@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NEBULA12B",
     "manufacturer": "Yiancar-Designs",
-    "url": "",
     "maintainer": "yiancar",
     "usb": {
         "vid": "0x8968",
@@ -65,8 +64,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

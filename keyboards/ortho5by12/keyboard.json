@@ -10,8 +10,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": false
@@ -21,6 +19,10 @@
       "enabled": true,
       "resync": true
     }
+  },
+  "indicators": {
+    "caps_lock": "C5",
+    "num_lock": "C4"
   },
   "matrix_pins": {
     "cols": ["C2", "D0", "D1", "D4", "C3", "C1"],

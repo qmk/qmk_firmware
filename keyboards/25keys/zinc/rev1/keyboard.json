@@ -8,8 +8,7 @@
     "pid": "0xEA3B",
     "device_version": "0.0.1"
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "matrix_pins": {
     "cols": ["F4", "D4", "C6", "D7", "E6", "B4"],
     "rows": ["F6", "F7", "B1", "B3"]
@@ -22,7 +21,9 @@
   },
   "split": {
     "enabled": true,
-    "soft_serial_pin": "D2"
+    "serial": {
+      "pin": "D2"
+    }
   },
   "tapping": {
     "term": 100

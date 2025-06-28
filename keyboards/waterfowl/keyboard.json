@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Waterfowl",
     "manufacturer": "CyanDuck",
-    "url": "",
     "maintainer": "JW2586",
     "usb": {
         "vid": "0xFEED",
@@ -29,7 +28,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
+        "serial": {
+            "pin": "D2"
+        },
         "transport": {
             "sync": {
                 "modifiers": true,

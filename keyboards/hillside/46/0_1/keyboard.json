@@ -26,19 +26,20 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
                     {"pin_a": "F4", "pin_b": "F5"}
                 ]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "rgblight": {
         "led_count": 4,
         "split": true,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
         "sleep": true

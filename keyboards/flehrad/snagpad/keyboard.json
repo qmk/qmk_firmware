@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Snagpad",
     "manufacturer": "Flehrad",
-    "url": "",
     "maintainer": "Flehrad",
     "usb": {
         "vid": "0x4443",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

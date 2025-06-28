@@ -1,7 +1,6 @@
 {
     "keyboard_name": "DracuLad",
     "manufacturer": "MangoIV",
-    "url": "",
     "maintainer": "MangoIV",
     "usb": {
         "vid": "0xFEED",
@@ -37,7 +36,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
@@ -45,6 +43,9 @@
                     {"pin_a": "B4", "pin_b": "B5", "resolution": 1}
                 ]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "processor": "atmega32u4",

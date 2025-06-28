@@ -29,9 +29,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CK_RST,  XXXXXXX, CK_DOWN
     ),
     [2] = LAYOUT_ortho_4x3( /* Layer 2*/
-        RGB_TOG, RGB_MOD, _______,
-        RGB_HUI, RGB_SAI, RGB_VAI,
-        RGB_HUD, RGB_SAD, RGB_VAD,
+        UG_TOGG, UG_NEXT, _______,
+        UG_HUEU, UG_SATU, UG_VALU,
+        UG_HUED, UG_SATD, UG_VALD,
         HF_TOGG, HF_FDBK, HF_CONT
     )
 };

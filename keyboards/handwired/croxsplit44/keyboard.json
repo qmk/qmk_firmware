@@ -1,7 +1,6 @@
 {
     "keyboard_name": "splitcustom44",
     "manufacturer": "Samux6146",
-    "url": "",
     "maintainer": "Samux6146",
     "usb": {
         "vid": "0xB62C",
@@ -31,8 +30,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

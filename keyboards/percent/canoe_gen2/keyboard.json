@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Canoe Gen2",
     "manufacturer": "Percent Studio",
-    "url": "",
     "maintainer": "evyd13",
     "usb": {
         "vid": "0x9C12",
@@ -21,6 +20,10 @@
             "enabled": true,
             "resync": true
         }
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
     },
     "ws2812": {
         "pin": "B7"

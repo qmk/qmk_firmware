@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 //#define EE_HANDS
-#define SPLIT_HAND_PIN E6
 
 #define PHYSICAL_LEDS_ENABLE
 #define IOS_DEVICE_ENABLE

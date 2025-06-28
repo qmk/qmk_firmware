@@ -58,8 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN5] = LAYOUT_ortho_3x10(
-    RGB_TOG, RGB_MOD, _______, QK_BOOT, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______,
-    _______, _______, DB_TOGG, _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______,
+    UG_TOGG, UG_NEXT, _______, QK_BOOT, UG_HUEU, UG_SATU, UG_VALU, _______, _______, _______,
+    _______, _______, DB_TOGG, _______, UG_HUED, UG_SATD, UG_VALD, _______, _______, _______,
     BL_STEP, _______, KC_GUIC, _______, _______, _______, _______, _______, _______, _______
   )
 

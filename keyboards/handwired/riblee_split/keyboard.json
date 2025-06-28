@@ -6,8 +6,6 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -17,7 +15,6 @@
         "rows": ["A4", "A3", "A2", "A1", "A0"]
     },
     "development_board": "blackpill_f411",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "vid": "0xFEED",
@@ -25,8 +22,16 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "C15"
+        },
+        "serial": {
+            "driver": "usart"
+        },
         "transport": {
-            "sync_matrix_state": true
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
     "community_layouts": ["ortho_5x12"],

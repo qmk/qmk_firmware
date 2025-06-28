@@ -1,7 +1,6 @@
 {
     "keyboard_name": "SQUARE.X",
     "manufacturer": "iNETT Studio",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x694E",
@@ -66,8 +65,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,
@@ -81,7 +78,16 @@
     "diode_direction": "ROW2COL",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["60_ansi", "60_hhkb", "60_iso", "60_ansi_split_bs_rshift", "60_tsangan_hhkb"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_hhkb",
+        "60_iso"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_60_ansi_tsangan_split_rshift": {
             "layout": [
@@ -430,7 +436,7 @@
                 {"matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

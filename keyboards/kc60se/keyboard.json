@@ -1,7 +1,6 @@
 {
     "keyboard_name": "kc60se",
     "manufacturer": "Unknown",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true
@@ -26,6 +23,10 @@
         "driver": "timer",
         "pin": "F5",
         "levels": 6
+    },
+    "indicators": {
+        "caps_lock": "B2",
+        "on_state": 0
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

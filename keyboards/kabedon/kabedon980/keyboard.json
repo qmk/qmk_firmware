@@ -8,6 +8,10 @@
         "pid": "0x3938",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
@@ -30,8 +34,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

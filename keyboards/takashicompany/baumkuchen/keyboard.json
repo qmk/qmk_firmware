@@ -14,8 +14,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -45,7 +43,6 @@
     "ws2812": {
         "pin": "D3"
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0045",

@@ -10,11 +10,15 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
+    },
+    "indicators": {
+        "caps_lock": "A1",
+        "num_lock": "A2",
+        "scroll_lock": "A0",
+        "on_state": 0
     },
     "matrix_pins": {
         "cols": ["A9", "A8", "B15", "B14", "B13", "B12", "B11", "B10", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3"],

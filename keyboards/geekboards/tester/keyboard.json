@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Tester",
     "manufacturer": "Geekboards",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0xFEED",
@@ -50,12 +49,11 @@
             "solid_reactive_nexus": true,
             "solid_reactive_multinexus": true
         },
-        "driver": "is31fl3731"
+        "driver": "is31fl3731",
+        "sleep": true
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

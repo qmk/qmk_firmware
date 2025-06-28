@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ColorLice",
     "manufacturer": "marhalloweenvt",
-    "url": "",
     "maintainer": "marhalloweenvt",
     "usb": {
       "vid": "0xFEED",
@@ -65,10 +64,14 @@
     "build": {
         "lto": true
     },
+    "indicators": {
+      "caps_lock": "C6",
+      "num_lock": "B2",
+      "scroll_lock": "B7",
+      "on_state": 0
+    },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

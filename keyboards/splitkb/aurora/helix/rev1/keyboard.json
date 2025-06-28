@@ -118,13 +118,18 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "D3"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["D4", "C6", "D7", "E6", "B4", "B5", "B6"],
                 "rows": ["F4", "F5", "F6", "F7", "B1"]
             }
         },
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "usb": {
         "pid": "0xB4C4"

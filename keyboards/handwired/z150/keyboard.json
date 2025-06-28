@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Z150",
     "manufacturer": "ALPS",
-    "url": "",
     "maintainer": "DmNosachev",
     "usb": {
         "vid": "0xFEED",
@@ -10,11 +9,15 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
+    },
+    "indicators": {
+        "caps_lock": "B3",
+        "num_lock": "B5",
+        "scroll_lock": "B4",
+        "on_state": 0
     },
     "matrix_pins": {
         "cols": ["B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4"],

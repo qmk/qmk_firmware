@@ -4,8 +4,6 @@
     "maintainer": "robcmills",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -21,7 +19,10 @@
         "matrix": [0, 1]
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "serial": {
+            "driver": "usart"
+        }
     },
     "layouts": {
         "LAYOUT": {

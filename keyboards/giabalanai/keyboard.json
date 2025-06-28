@@ -34,10 +34,8 @@
         "extrakey": true,
         "encoder": true,
         "bootmagic": false,
-        "console": false,
         "mousekey": false,
         "nkro": false,
-        "command": false,
         "backlight": false
     },
     "build": {
@@ -51,7 +49,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
@@ -64,6 +61,9 @@
                 "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "C7", "B7", "F1"],
                 "rows": ["D1", "D0", "D4", "C6", "D7", "E6"]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "qmk": {

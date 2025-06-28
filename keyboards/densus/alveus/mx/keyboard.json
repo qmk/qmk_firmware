@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Alveus", 
     "manufacturer": "Mechlovin Studio",
-    "url": "", 
     "usb": {
         "vid": "0xDE00",
         "pid": "0x0F70",

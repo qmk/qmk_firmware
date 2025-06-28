@@ -10,8 +10,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "encoder": true,
     "extrakey": true,
     "mousekey": true,
@@ -35,6 +33,11 @@
   },
   "bootmagic": {
     "matrix": [2, 0]
+  },
+  "indicators": {
+    "caps_lock": "D6",
+    "num_lock": "D7",
+    "scroll_lock": "D4"
   },
   "processor": "atmega32u4",
   "bootloader": "atmel-dfu",
