@@ -32,6 +32,10 @@
 #include "usb_driver.h"
 #include "usb_types.h"
 
+#ifdef RAW_ENABLE
+#    include "raw_hid.h"
+#endif
+
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 
@@ -325,18 +329,10 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
     return false;
 }
 
-static __attribute__((unused)) void dummy_cb(USBDriver *usbp) {
-    (void)usbp;
-}
-
 static const USBConfig usbcfg = {
     usb_event_cb,          /* USB events callback */
     usb_get_descriptor_cb, /* Device GET_DESCRIPTOR request callback */
     usb_requests_hook_cb,  /* Requests hook callback */
-#if STM32_USB_USE_OTG1 == TRUE || STM32_USB_USE_OTG2 == TRUE
-    dummy_cb, /* Workaround for OTG Peripherals not servicing new interrupts
-    after resuming from suspend. */
-#endif
 };
 
 void init_usb_driver(USBDriver *usbp) {
@@ -523,17 +519,11 @@ void console_task(void) {
 #endif /* CONSOLE_ENABLE */
 
 #ifdef RAW_ENABLE
-void raw_hid_send(uint8_t *data, uint8_t length) {
+void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) {
         return;
     }
     send_report(USB_ENDPOINT_IN_RAW, data, length);
-}
-
-__attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Users should #include "raw_hid.h" in their own code
-    // and implement this function there. Leave this as weak linkage
-    // so users can opt to not handle data coming in.
 }
 
 void raw_hid_task(void) {

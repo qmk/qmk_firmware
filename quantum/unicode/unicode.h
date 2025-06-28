@@ -17,6 +17,8 @@
 #pragma once
 
 #include <stdint.h>
+
+#include "compiler_support.h"
 #include "unicode_keycodes.h"
 
 /**
@@ -26,14 +28,14 @@
  * \{
  */
 
-typedef union {
+typedef union unicode_config_t {
     uint8_t raw;
     struct {
         uint8_t input_mode : 8;
     };
 } unicode_config_t;
 
-_Static_assert(sizeof(unicode_config_t) == sizeof(uint8_t), "Unicode EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(unicode_config_t) == sizeof(uint8_t), "Unicode EECONFIG out of spec.");
 
 extern unicode_config_t unicode_config;
 

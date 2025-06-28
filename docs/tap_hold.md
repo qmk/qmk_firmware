@@ -425,6 +425,252 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
 If `QUICK_TAP_TERM` is set higher than `TAPPING_TERM`, it will default to `TAPPING_TERM`.
 :::
 
+## Flow Tap
+
+Flow Tap modifies mod-tap `MT` and layer-tap `LT` keys such that when pressed within a short timeout of the preceding key, the tapping behavior is triggered. This is particularly useful for home row mods to avoid accidental mod triggers. It basically disables the hold behavior during fast typing, creating a "flow of taps." This also helps to reduce the input lag of tap-hold keys during fast typing, since the tapped behavior is sent immediately.
+
+Flow Tap is enabled by defining `FLOW_TAP_TERM` in your `config.h` with the desired timeout in milliseconds. A timeout of 150&nbsp;ms is recommended as a starting point:
+
+```c
+#define FLOW_TAP_TERM 150
+```
+
+By default, Flow Tap is enabled when:
+
+* The tap-hold key is pressed within `FLOW_TAP_TERM` milliseconds of the previous key press.
+
+* The tapping keycodes of the previous key and tap-hold key are *both* among `KC_A`&ndash;`KC_Z`, `KC_COMM`, `KC_DOT`, `KC_SCLN`, `KC_SLSH` (the main alphas area of a conventional QWERTY layout) or `KC_SPC`.
+
+As an exception to the above, Flow Tap is temporarily disabled while a tap-hold key is undecided. This is to allow chording multiple mod-tap keys without having to wait out the Flow Tap term.
+
+
+### is_flow_tap_key()
+
+Optionally, define the `is_flow_tap_key()` callback to specify where Flow Tap is enabled. The callback is called for both the tap-hold key *and* the key press immediately preceding it, and if the callback returns true for both keycodes, Flow Tap is enabled.
+
+The default implementation of this callback is:
+
+```c
+bool is_flow_tap_key(uint16_t keycode) {
+    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+        return false; // Disable Flow Tap on hotkeys.
+    }
+    switch (get_tap_keycode(keycode)) {
+        case KC_SPC:
+        case KC_A ... KC_Z:
+        case KC_DOT:
+        case KC_COMM:
+        case KC_SCLN:
+        case KC_SLSH:
+            return true;
+    }
+    return false;
+}
+```
+
+Copy the above to your `keymap.c` and edit to customize. For instance, remove the `case KC_SPC` line to disable Flow Tap for the Space key.
+
+### get_flow_tap_term()
+
+Optionally, for further flexibility, define the `get_flow_tap_term()` callback. Flow Tap acts only when key events are closer together than the time returned by the callback. Return a time of 0 to disable filtering. In this way, Flow Tap may be disabled for certain tap-hold keys, or when following certain previous keys.
+
+The default implementation of this callback is
+
+```c
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+                           uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+```
+
+In this callback, `keycode` and `record` correspond to the current tap-hold key, and `prev_keycode` is the keycode of the previous key. Return the timeout to use. Returning `0` disables Flow Tap. This callback enables setting per-key timeouts. It is also possible to enable or disable Flow Tap for certain tap-hold keys or when following certain previous keys. Example:
+
+```c
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record, 
+                           uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        switch (keycode) {
+            case LCTL_T(KC_F):
+            case RCTL_T(KC_H):
+              return FLOW_TAP_TERM - 25;  // Short timeout on these keys.
+
+            default:
+              return FLOW_TAP_TERM;  // Longer timeout otherwise.
+        }
+    }
+    return 0;  // Disable Flow Tap.
+}
+```
+
+::: tip If you define both `is_flow_tap_key()` and `get_flow_tap_term()`, then the latter takes precedence.
+:::
+
+## Chordal Hold
+
+Chordal Hold is intended to be used together with either Permissive Hold or Hold
+On Other Key Press. Chordal Hold is enabled by adding to your `config.h`:
+
+```c
+#define CHORDAL_HOLD
+```
+
+Chordal Hold implements, by default, an "opposite hands" rule. Suppose a
+tap-hold key is pressed and then, before the tapping term, another key is
+pressed. With Chordal Hold, the tap-hold key is settled as tapped if the two
+keys are on the same hand.
+
+Otherwise, if the keys are on opposite hands, Chordal Hold introduces no new
+behavior. Hold On Other Key Press or Permissive Hold may be used together with
+Chordal Hold to configure the behavior in the opposite hands case. With Hold On
+Other Key Press, an opposite hands chord is settled immediately as held. Or with
+Permissive Hold, an opposite hands chord is settled as held provided the other
+key is pressed and released (nested press) before releasing the tap-hold key.
+
+Chordal Hold may be useful to avoid accidental modifier activation with
+mod-taps, particularly in rolled keypresses when using home row mods.
+
+Notes:
+
+* Chordal Hold has no effect after the tapping term. 
+
+* Combos are exempt from the opposite hands rule, since "handedness" is
+  ill-defined in this case. Even so, Chordal Hold's behavior involving combos
+  may be customized through the `get_chordal_hold()` callback.
+
+An example of a sequence that is affected by “chordal hold”: 
+
+- `SFT_T(KC_A)` Down
+- `KC_C` Down
+- `KC_C` Up
+- `SFT_T(KC_A)` Up
+
+```
+                         TAPPING_TERM   
+  +---------------------------|--------+
+  | +----------------------+  |        |
+  | | SFT_T(KC_A)          |  |        |
+  | +----------------------+  |        |
+  |    +--------------+       |        |
+  |    | KC_C         |       |        |
+  |    +--------------+       |        |
+  +---------------------------|--------+
+```
+
+If the two keys are on the same hand, then this will produce `ac` with
+`SFT_T(KC_A)` settled as tapped the moment that `KC_C` is pressed. 
+
+If the two keys are on opposite hands and the `HOLD_ON_OTHER_KEY_PRESS` option
+enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when `KC_C` is
+pressed.
+
+Or if the two keys are on opposite hands and the `PERMISSIVE_HOLD` option is
+enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when that
+`KC_C` is released.
+
+### Chordal Hold Handedness
+
+Determining whether keys are on the same or opposite hands involves defining the
+"handedness" of each key position. By default, if nothing is specified,
+handedness is guessed based on keyboard geometry.
+
+Handedness may be specified with `chordal_hold_layout`. In keymap.c, define
+`chordal_hold_layout` in the following form:
+
+```c
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT(
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+        'L', 'L', 'L', 'L', 'L', 'L',  'R', 'R', 'R', 'R', 'R', 'R', 
+                       'L', 'L', 'L',  'R', 'R', 'R'
+    );
+```
+
+Use the same `LAYOUT` macro as used to define your keymap layers. Each entry is
+a character indicating the handedness of one key, either `'L'` for left, `'R'`
+for right, or `'*'` to exempt keys from the "opposite hands rule." A key with
+`'*'` handedness may settle as held in chords with any other key. This could be
+used perhaps on thumb keys or other places where you want to allow same-hand
+chords.
+
+Keyboard makers may specify handedness in keyboard.json. Under `"layouts"`,
+specify the handedness of a key by adding a `"hand"` field with a value of
+either `"L"`, `"R"`, or `"*"`. Note that if `"layouts"` contains multiple
+layouts, only the first one is read. For example:
+
+```json
+{"matrix": [5, 6], "x": 0, "y": 5.5, "w": 1.25, "hand": "*"},
+```
+
+Alternatively, handedness may be defined functionally with
+`chordal_hold_handedness()`. For example, in keymap.c define:
+
+```c
+char chordal_hold_handedness(keypos_t key) {
+    if (key.col == 0 || key.col == MATRIX_COLS - 1) {
+        return '*';  // Exempt the outer columns.
+    }
+    // On split keyboards, typically, the first half of the rows are on the
+    // left, and the other half are on the right.
+    return key.row < MATRIX_ROWS / 2 ? 'L' : 'R';
+}
+```
+
+Given the matrix position of a key, the function should return `'L'`, `'R'`, or
+`'*'`. Adapt the logic in this function according to the keyboard's matrix.
+
+::: warning
+Note the matrix may have irregularities around larger keys, around the edges of
+the board, and around thumb clusters. You may find it helpful to use [this
+debugging example](faq_debug#which-matrix-position-is-this-keypress) to
+correspond physical keys to matrix positions.
+:::
+
+::: tip If you define both `chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS]` and
+`chordal_hold_handedness(keypos_t key)` for handedness, the latter takes
+precedence.
+:::
+
+
+### Per-chord customization
+
+Beyond the per-key configuration possible through handedness, Chordal Hold may
+be configured at a *per-chord* granularity for detailed tuning. In keymap.c,
+define `get_chordal_hold()`. Returning `true` allows the chord to be held, while
+returning `false` settles as tapped.
+
+For example:
+
+```c
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+    // Exceptionally allow some one-handed chords for hotkeys.
+    switch (tap_hold_keycode) {
+        case LCTL_T(KC_Z):
+            if (other_keycode == KC_C || other_keycode == KC_V) {
+                return true;
+            }
+            break;
+
+        case RCTL_T(KC_SLSH):
+            if (other_keycode == KC_N) {
+                return true;
+            }
+            break;
+    }
+    // Otherwise defer to the opposite hands rule.
+    return get_chordal_hold_default(tap_hold_record, other_record);
+}
+```
+
+As shown in the last line above, you may use
+`get_chordal_hold_default(tap_hold_record, other_record)` to get the default tap
+vs. hold decision according to the opposite hands rule.
+
+
 ## Retro Tapping
 
 To enable `retro tapping`, add the following to your `config.h`:
