@@ -1,7 +1,8 @@
 # Snappy Pad v.1
 
-Reliable macro pad for all use cases
 ![sp](https://imgur.com/a/qIzKh39)
+
+Reliable macro pad for all use cases
 
 * Keyboard Maintainer: [SnappyKey](https://i.imgur.com/Xgv5qky.jpeg)
 * Hardware Supported: pcb, cad files
