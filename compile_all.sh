@@ -12,7 +12,7 @@ function log_info() {
 
 for KEYMAP in "via" "default" "ryodeushii"; do
     for LAYOUT in "ansi" "iso"; do
-        for KEYBOARD in "air75v2" "halo75v2" "gem80"; do
+        for KEYBOARD in "air75v2" "halo75v2" "halo96v2" "gem80"; do
             if [ ! -d "keyboards/nuphy/$KEYBOARD/$LAYOUT/keymaps/$KEYMAP" ] ; then
                 continue
             fi
