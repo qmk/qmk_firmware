@@ -45,10 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DRIVER_SIDE_CS_PIN C9
 
 #define SERIAL_DRIVER SD1
-#define SD1_TX_PIN B6
-#define SD1_TX_PAL_MODE 0
-#define SD1_RX_PIN B7
-#define SD1_RX_PAL_MODE 0
+#define UART_TX_PIN B6
+#define UART_TX_PAL_MODE 0
+#define UART_RX_PIN B7
+#define UART_RX_PAL_MODE 0
 
 #ifdef VIA_ENABLE
 #    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 22 // sizeof via_config
