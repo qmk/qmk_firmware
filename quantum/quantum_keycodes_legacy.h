@@ -57,3 +57,5 @@
 #define KC_ACL2 QK_MOUSE_ACCELERATION_2
 
 #define QK_OUTPUT_AUTO OU_AUTO
+
+#define C_S_T(kc) LCS_T(kc)
