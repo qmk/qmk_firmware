@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix.h"
 #include "user_kb.h"
 #include "ansi.h"
+#include "common/rf_driver.h"
+#include "common/links.h"
 
 #ifdef VIA_ENABLE
 #    include "eeprom.h"

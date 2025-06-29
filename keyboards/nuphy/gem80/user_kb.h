@@ -28,10 +28,6 @@ typedef enum {
 
 typedef enum { DEBOUNCE_PRESS = 0, DEBOUNCE_RELEASE } DEBOUNCE_EVENT;
 
-#define RF_LONG_PRESS_DELAY 30
-#define DEV_RESET_PRESS_DELAY 30
-#define RGB_TEST_PRESS_DELAY 30
-
 extern bool f_wakeup_prepare;
 extern bool f_sleep_show;
 extern bool f_usb_sleep_show;
@@ -57,7 +53,6 @@ void    load_eeprom_data(void);
 void    kb_config_reset(void);
 void    user_set_rgb_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 uint8_t get_led_index(uint8_t row, uint8_t col);
-uint8_t uart_send_cmd(uint8_t cmd, uint8_t ack_cnt, uint8_t delayms);
 
 void sleep_handle(void);
 void led_power_handle(void);

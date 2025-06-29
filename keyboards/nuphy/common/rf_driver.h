@@ -11,7 +11,6 @@
 #define TIMER_STEP 10
 #define POWER_DOWN_DELAY (24)
 
-
 typedef enum {
     RX_Idle,
     RX_Receiving,
@@ -101,4 +100,8 @@ void    rf_device_init(void);
 void    uart_send_report_repeat(void);
 void    uart_receive_pro(void);
 void    uart_send_report(uint8_t report_type, uint8_t *report_buf, uint8_t report_size);
+uint8_t uart_send_cmd(uint8_t cmd, uint8_t ack_cnt, uint8_t delayms);
 
+#define RF_LONG_PRESS_DELAY 30
+#define DEV_RESET_PRESS_DELAY 30
+#define RGB_TEST_PRESS_DELAY 30

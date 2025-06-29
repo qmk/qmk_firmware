@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeconfig.h"
 #include "color.h"
 #include "host.h"
+#include "common/rf_driver.h"
+#include "common/links.h"
 
 DEV_INFO_STRUCT dev_info = {
     .rf_battery = 100,
