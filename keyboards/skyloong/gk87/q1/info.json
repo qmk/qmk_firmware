@@ -1,0 +1,77 @@
+{
+    "manufacturer": "skyloong",
+    "maintainer": "NaturalZh",
+    "bootloader": "stm32duino",
+    "debounce": 10,
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B6", "pin_b": "B7"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": false,
+        "dip_switch": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "indicators": {
+        "scroll_lock": "C14",
+        "on_state": 0,
+        "caps_lock": "C15"
+    },
+    "dip_switch":{
+        "pins":["A15"]
+    },
+    "processor": "STM32F103",
+    "rgb_matrix": {
+        "animations": {
+            "band_spiral_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "jellybean_raindrops": true,
+            "pixel_rain": true,
+            "rainbow_moving_chevron": true,
+            "raindrops": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_simple": true,
+            "solid_splash": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "driver": "aw20216s",
+        "hue_steps": 20,
+        "max_brightness": 200,
+        "sat_steps": 20,
+        "speed_steps": 20,
+        "val_steps": 20,
+        "sleep": true
+    },
+    "url": "https://www.skyloong.vip",
+    "usb": {
+        "max_power": 380,
+        "vid": "0x1EA7"
+    }
+
+}
