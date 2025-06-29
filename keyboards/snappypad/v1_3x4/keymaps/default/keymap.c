@@ -44,7 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 layer_state_t layer_state_set_user(layer_state_t state) {
-    if (!gpio_read_pin(B6)) {
+    gpio_set_pin_output(F7);
+    gpio_set_pin_output(B2);
+    gpio_set_pin_output(B5);
+    
         switch (get_highest_layer(state)) {
         case 0:
 	         gpio_write_pin_low(F7);
@@ -58,15 +61,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         case 2:
 		     gpio_write_pin_high(F7);
-             gpio_write_pin_high(B2);
-             gpio_write_pin_low(B5);
-            break;
-        case 3:
-             gpio_write_pin_high(F7);
-             gpio_write_pin_high(B2);
-             gpio_write_pin_high(B5);
-            break;
-        }
+         gpio_write_pin_high(B2);
+           gpio_write_pin_low(B5);
+          break;
+       case 3:
+            gpio_write_pin_high(F7);
+            gpio_write_pin_high(B2);
+           gpio_write_pin_high(B5);
+         break;
     }
   return state;
 }
