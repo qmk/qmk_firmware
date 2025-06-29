@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_matrix.h"
 #include "user_kb.h"
 #include "side.h"
+#include "common/rf_driver.h"
+#include "common/links.h"
 
 #define SIDE_WAVE 0
 #define SIDE_MIX 1
