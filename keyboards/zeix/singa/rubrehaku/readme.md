@@ -4,9 +4,9 @@
 
 65% PCB designed to support Rubrehaku
 
--   Keyboard Maintainer: [Zeix](https://github.com/itsme-zeix)
--   Hardware Supported: KLC x SINGA x Rubrehose Rubrehaku
--   Hardware Availability: https://klc-playground.com/
+* Keyboard Maintainer: [Zeix](https://github.com/itsme-zeix)
+* Hardware Supported: KLC x SINGA x Rubrehose Rubrehaku
+* Hardware Availability: https://klc-playground.com/
 
 Make example for this keyboard (after setting up your build environment):
 
