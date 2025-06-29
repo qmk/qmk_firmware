@@ -1,6 +1,6 @@
 # Snappy Pad v.1
 
-![sp](https://imgur.com/a/qIzKh39)
+![sp](https://i.imgur.com/Xgv5qky.jpeg)
 
 Reliable macro pad for all use cases
 
