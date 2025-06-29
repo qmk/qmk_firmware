@@ -2293,6 +2293,9 @@
     "helix/rev2": {
         "target": "helix/rev2/base"
     },
+    "helix/rev3_4rows": {
+        "target": "helix/rev3"
+    },
     "ibm/model_m/mschwingen": {
         "target": "ibm/model_m/mschwingen/led_wired"
     },
