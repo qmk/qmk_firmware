@@ -257,12 +257,6 @@
     "handwired/jscotto/scottostarter": {
         "target": "handwired/scottokeebs/scottostarter"
     },
-    "helix/pico/sc/back": {
-        "target": "helix/pico/sc"
-    },
-    "helix/pico/sc/under": {
-        "target": "helix/pico/sc"
-    },
     "helix/rev2/back/oled": {
         "target": "helix/rev2/back"
     },
@@ -2283,9 +2277,6 @@
     },
     "handwired/dygma/raise": {
         "target": "handwired/dygma/raise/ansi"
-    },
-    "helix/pico": {
-        "target": "helix/pico/base"
     },
     "helix": {
         "target": "helix/rev2/base"
