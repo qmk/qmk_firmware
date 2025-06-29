@@ -1,0 +1,200 @@
+{
+    version: 0.2.0
+
+    routes: {
+        0x04: {
+            type: router
+            name: Keymap
+            define: KEYMAP
+            description:
+                '''
+                This subsystem allows for query of currently configured keycodes.
+                '''
+            routes: {
+                0x01: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Keymap subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_KEYMAP_CAPABILITIES
+                }
+                0x02: {
+                    type: command
+                    name: Get Layer Count
+                    define: GET_LAYER_COUNT
+                    description: Query maximum number of layers that can be addressed within the keymap.
+                    return_type: u8
+                    return_execute: keymap_get_layer_count
+                }
+                0x03: {
+                    type: command
+                    name: Get Keycode
+                    define: GET_KEYMAP_KEYCODE
+                    description: Query the Keycode at the requested location.
+                    request_type: struct
+                    request_struct_length: 3
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Row
+                        },
+                        {
+                            type: u8
+                            name: Column
+                        }
+                    ]
+                    return_type: u16
+                    return_execute: get_keymap_keycode
+                }
+                0x04: {
+                    type: command
+                    name: Get Encoder Keycode
+                    define: GET_ENCODER_KEYCODE
+                    description: Query the Keycode at the requested location.
+                    enable_if_preprocessor: defined(ENCODER_MAP_ENABLE)
+                    request_type: struct
+                    request_struct_length: 3
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Encoder
+                        },
+                        {
+                            type: u8
+                            name: Clockwise
+                        }
+                    ]
+                    return_type: u16
+                    return_execute: get_encoder_keycode
+                }
+            }
+        }
+
+        0x05: {
+            type: router
+            name: Remapping
+            define: REMAPPING
+            description:
+                '''
+                This subsystem allows for live reassignment of keycodes without rebuilding the firmware.
+                '''
+            enable_if_preprocessor: defined(DYNAMIC_KEYMAP_ENABLE)
+            routes: {
+                0x01: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Remapping subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_REMAPPING_CAPABILITIES
+                }
+                0x02: {
+                    type: command
+                    name: Get Layer Count
+                    define: GET_DYNAMIC_LAYER_COUNT
+                    description: Query maximum number of layers that can be addressed within the keymap.
+                    return_type: u8
+                    return_constant: DYNAMIC_KEYMAP_LAYER_COUNT
+                }
+                0x03: {
+                    type: command
+                    name: Set Keycode
+                    define: SET_KEYMAP_KEYCODE
+                    description: Modify the Keycode at the requested location.
+                    permissions: secure
+                    request_type: struct
+                    request_struct_length: 5
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Row
+                        },
+                        {
+                            type: u8
+                            name: Column
+                        },
+                        {
+                            type: u16
+                            name: Keycode
+                        }
+                    ]
+                    return_execute: dynamic_keymap_set_keycode
+                }
+                0x04: {
+                    type: command
+                    name: Set Encoder Keycode
+                    define: SET_ENCODER_KEYCODE
+                    permissions: secure
+                    description: Modify the Keycode at the requested location.
+                    enable_if_preprocessor: defined(ENCODER_MAP_ENABLE)
+                    request_type: struct
+                    request_struct_length: 5
+                    request_struct_members: [
+                        {
+                            type: u8
+                            name: Layer
+                        },
+                        {
+                            type: u8
+                            name: Encoder
+                        },
+                        {
+                            type: u8
+                            name: Clockwise
+                        },
+                        {
+                            type: u16
+                            name: Keycode
+                        }
+                    ]
+                    return_execute: dynamic_encoder_set_keycode
+                }
+            }
+        }
+
+        0x06: {
+            type: router
+            name: Lighting
+            define: LIGHTING
+            description:
+                '''
+                This subsystem allows for control over the lighting subsystem.
+                '''
+            routes: {
+                0x01: {
+                    type: command
+                    name: Capabilities Query
+                    define: CAPABILITIES_QUERY
+                    description:
+                        '''
+                        Lighting subsystem capabilities query. Each bit should be considered as a "usable" route within this subsystem.
+                        '''
+                    return_type: u32
+                    return_purpose: capabilities
+                    return_constant: XAP_ROUTE_LIGHTING_CAPABILITIES
+                }
+            }
+        }
+    }
+}
