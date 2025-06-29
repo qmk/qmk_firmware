@@ -17,7 +17,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "gpio.h"
 #include "user_kb.h"
-#include "mcu_stm32f0xx.h"
+#include "common/links.h"
+#include "common/rf_driver.h"
+#include "common/mcu_stm32f0xx.h"
 #include "mcu_pwr.h"
 #include "rgb_matrix.h"
 

@@ -5,9 +5,9 @@ releasing a key, that state is pushed after no changes occur for DEBOUNCE millis
 */
 
 #include "debounce.h"
+#include "gem80-common.h"
 #include "timer.h"
 #include <stdlib.h>
-#include "gem80-common.h"
 
 #ifdef PROTOCOL_CHIBIOS
 #    if CH_CFG_USE_MEMCORE == FALSE

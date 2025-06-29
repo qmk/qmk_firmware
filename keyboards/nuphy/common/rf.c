@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include <stdint.h>
-#include "user_kb.h"
+#include "rf_driver.h"
+#include "links.h"
 #include "uart.h" // qmk uart.h
 #include "rf_queue.h"
 
@@ -226,6 +227,7 @@ void rf_protocol_receive(void) {
                     if (Usart_Mgr.RXDBuf[8] <= 100) dev_info.rf_battery = Usart_Mgr.RXDBuf[8];
                     // dev_info.rf_charge = Usart_Mgr.RXDBuf[7];
                     if (dev_info.rf_battery > 0 && dev_info.rf_battery <= 100) {
+                        extern void update_bat_pct_rgb(void);
                         update_bat_pct_rgb();
                     }
 

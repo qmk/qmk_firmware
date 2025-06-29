@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-SILENT=true
+SILENT=false
 
 TAG=${1:-$(git describe --tags --abbrev=0)}
 

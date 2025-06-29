@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "host_driver.h"
-#include "user_kb.h"
+#include "rf_driver.h"
 #include "rf_queue.h"
 
 /* Variable declaration */

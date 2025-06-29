@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 #include "color.h"
 #include "common/features/socd_cleaner.h"
+#include "common/rf_driver.h"
+#include "common/links.h"
 #include "config.h"
 #include "host.h"
 #include "keycodes.h"
