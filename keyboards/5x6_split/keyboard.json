@@ -3,6 +3,7 @@
     "keyboard_name": "5x6_split",
     "maintainer": "wholteza",
     "bootloader": "rp2040",
+    "processor": "RP2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -27,8 +28,6 @@
             "enabled": true,
         }
     },
-    "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x1234",
