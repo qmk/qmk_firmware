@@ -2308,6 +2308,9 @@
     "handwired/dygma/raise": {
         "target": "handwired/dygma/raise/ansi"
     },
+    "helix/rev3_4rows": {
+        "target": "helix/rev3"
+    },
     "ibm/model_m/mschwingen": {
         "target": "ibm/model_m/mschwingen/led_wired"
     },
