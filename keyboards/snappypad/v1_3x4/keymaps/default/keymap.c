@@ -30,9 +30,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    gpio_set_pin_output(F7);
-    gpio_set_pin_output(B2);
-    gpio_set_pin_output(B5);
     
         switch (get_highest_layer(state)) {
         case 0:
