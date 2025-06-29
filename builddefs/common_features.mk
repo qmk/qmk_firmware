@@ -635,6 +635,9 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
+    ifeq ($(strip $(VIA_INSECURE)), yes)
+        OPT_DEFS += -DVIA_INSECURE
+    endif
 endif
 
 ifeq ($(strip $(RAW_ENABLE)), yes)
