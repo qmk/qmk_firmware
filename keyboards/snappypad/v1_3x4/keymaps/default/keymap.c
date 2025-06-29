@@ -19,21 +19,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Programmed by Snappy Key CEO
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT(
-    KC_F13,   KC_F14, KC_F15, KC_F16,
+    TO(1),                  KC_MPLY,
+    KC_F13, KC_F14, KC_F15, KC_F16,
     KC_F17, KC_F18, KC_F19, KC_F20,
-    KC_F21,  KC_F22, KC_F23, KC_F24
+    KC_F21, KC_F22, KC_F23, KC_F24
   ),
   [1] = LAYOUT(
+    TO(2),                                    KC_TRNS,
     LSFT(KC_F13), LSFT(KC_F14), LSFT(KC_F15), LSFT(KC_F16),
     LSFT(KC_F17), LSFT(KC_F18), LSFT(KC_F19), LSFT(KC_F20),
     LSFT(KC_F21), LSFT(KC_F22), LSFT(KC_F23), LSFT(KC_F24)
   ),
   [2] = LAYOUT(
+      TO(3),                                    KC_TRNS,
       LCTL(KC_F13), LCTL(KC_F14), LCTL(KC_F15), LCTL(KC_F16),
       LCTL(KC_F17), LCTL(KC_F18), LCTL(KC_F19), LCTL(KC_F20),
       LCTL(KC_F21), LCTL(KC_F22), LCTL(KC_F23), LCTL(KC_F24)
   ),
   [3] = LAYOUT(
+      TO(0),                                    KC_TRNS,
         LALT(KC_F13), LALT(KC_F14), LALT(KC_F15), LALT(KC_F16),
         LALT(KC_F17), LALT(KC_F18), LALT(KC_F19), LALT(KC_F20),
         LALT(KC_F21), LALT(KC_F22), LALT(KC_F23), LALT(KC_F24)
