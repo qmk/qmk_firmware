@@ -149,23 +149,23 @@ extern "C" {
 #endif
 
 /*
- * keyboard report is 8-byte array retains state of 8 modifiers and 6 keys.
+ * keyboard report with a dedicated endpoint is 8-byte array to retain the state of 6 keys + 8 mods.
  *
- * byte |0       |1       |2       |3       |4       |5       |6       |7
- * -----+--------+--------+--------+--------+--------+--------+--------+--------
- * desc |mods    |reserved|keys[0] |keys[1] |keys[2] |keys[3] |keys[4] |keys[5]
+ * byte |0        |1       |2       |3       |4       |5       |6       |7
+ * -----+---------+--------+--------+--------+--------+--------+--------+--------
+ * desc |mods     |reserved|keys[0] |keys[1] |keys[2] |keys[3] |keys[4] |keys[5]
  *
- * It is exended to 16 bytes to retain 120keys+8mods when NKRO mode.
+ * It is exended to 32 bytes to retain the state of 240 keys + 8 mods when NKRO mode.
  *
- * byte |0       |1       |2       |3       |4       |5       |6       |7        ... |15
- * -----+--------+--------+--------+--------+--------+--------+--------+--------     +--------
- * desc |mods    |bits[0] |bits[1] |bits[2] |bits[3] |bits[4] |bits[5] |bits[6]  ... |bit[14]
+ * byte |0        |1       |2       |3       |4       |5       |6       |7        ... |31
+ * -----+---------+--------+--------+--------+--------+--------+--------+--------     +--------
+ * desc |report_id|mods    |bits[0] |bits[1] |bits[2] |bits[3] |bits[4] |bits[5]  ... |bits[29]
  *
- * mods retains state of 8 modifiers.
+ * mods retains the state of 8 modifiers.
  *
- *  bit |0       |1       |2       |3       |4       |5       |6       |7
- * -----+--------+--------+--------+--------+--------+--------+--------+--------
- * desc |Lcontrol|Lshift  |Lalt    |Lgui    |Rcontrol|Rshift  |Ralt    |Rgui
+ *  bit |0        |1       |2       |3       |4       |5       |6       |7
+ * -----+---------+--------+--------+--------+--------+--------+--------+--------
+ * desc |Lcontrol |Lshift  |Lalt    |Lgui    |Rcontrol|Rshift  |Ralt    |Rgui
  *
  */
 typedef struct {
