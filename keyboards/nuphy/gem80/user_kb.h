@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum/quantum.h"
 
-typedef enum {
-    CAPS_INDICATOR_SIDE = 0,
-    CAPS_INDICATOR_UNDER_KEY,
-    CAPS_INDICATOR_BOTH,
-    CAPS_INDICATOR_OFF,
-} CAPS_LOCK_INDICATION;
-
 typedef enum { DEBOUNCE_PRESS = 0, DEBOUNCE_RELEASE } DEBOUNCE_EVENT;
 
 extern bool f_wakeup_prepare;

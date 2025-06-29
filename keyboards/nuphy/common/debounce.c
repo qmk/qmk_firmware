@@ -131,9 +131,9 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
                         // key-down: eager
                         cooked[row] ^= col_mask;
                         cooked_changed         = true;
-                        debounce_pointer->time = g_config.debounce_press_ms;
+                        debounce_pointer->time = keyboard_config.common.debounce_press_ms;
                     } else {
-                        debounce_pointer->time = g_config.debounce_release_ms;
+                        debounce_pointer->time = keyboard_config.common.debounce_release_ms;
                     }
                 }
             } else if (debounce_pointer->time != DEBOUNCE_ELAPSED) {

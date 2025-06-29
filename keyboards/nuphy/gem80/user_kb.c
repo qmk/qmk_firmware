@@ -432,9 +432,7 @@ void kb_config_reset(void) {
     rgb_matrix_set_speed(255 - RGB_MATRIX_SPD_STEP * 2);
     rgb_matrix_sethsv(RGB_DEFAULT_COLOR, 255, RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2);
 
-    init_g_config();
-    // mark config as initiated
-    g_config.been_initiated = 0x45;
+    init_keyboard_config();
 
     save_config_to_eeprom();
 }
@@ -442,7 +440,7 @@ void kb_config_reset(void) {
 void load_eeprom_data(void) {
     load_config_from_eeprom();
 
-    if (g_config.been_initiated != 0x45) {
+    if (keyboard_config.been_initiated != 0x45) {
         kb_config_reset();
         return;
     }
@@ -452,7 +450,7 @@ void load_eeprom_data(void) {
  */
 void toggle_usb_sleep(void) {
     f_usb_sleep_show          = 1;
-    g_config.usb_sleep_toggle = !g_config.usb_sleep_toggle;
+    keyboard_config.common.usb_sleep_toggle = !keyboard_config.common.usb_sleep_toggle;
     save_config_to_eeprom();
 }
 
@@ -460,10 +458,10 @@ void toggle_usb_sleep(void) {
  * @brief Toggle caps indication between side led / under key / off
  */
 void toggle_caps_indication(void) {
-    if (g_config.caps_indicator_type == CAPS_INDICATOR_OFF) {
-        g_config.caps_indicator_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
+    if (keyboard_config.common.caps_indicator_type == CAPS_INDICATOR_OFF) {
+        keyboard_config.common.caps_indicator_type = CAPS_INDICATOR_SIDE; // set to initial state, when last state reached
     } else {
-        g_config.caps_indicator_type += 1;
+        keyboard_config.common.caps_indicator_type += 1;
     }
 
     save_config_to_eeprom();
@@ -531,7 +529,7 @@ void led_power_handle(void) {
     }
 
     if (side_led_last_act > 100) { // 10ms intervals
-        if (g_config.side_brightness == 0) {
+        if (keyboard_config.lights.side_brightness == 0) {
             pwr_side_led_off();
         } else {
             pwr_side_led_on();
@@ -578,16 +576,16 @@ uint8_t two_digit_ones_led(uint8_t value) {
 void adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event) {
 #if DEBOUNCE > 0
     if (dir) {
-        if (debounce_event == DEBOUNCE_PRESS && g_config.debounce_press_ms < 99) {
-            g_config.debounce_press_ms += DEBOUNCE_STEP;
-        } else if (debounce_event == DEBOUNCE_RELEASE && g_config.debounce_release_ms < 99) {
-            g_config.debounce_release_ms += DEBOUNCE_STEP;
+        if (debounce_event == DEBOUNCE_PRESS && keyboard_config.common.debounce_press_ms < 99) {
+            keyboard_config.common.debounce_press_ms += DEBOUNCE_STEP;
+        } else if (debounce_event == DEBOUNCE_RELEASE && keyboard_config.common.debounce_release_ms < 99) {
+            keyboard_config.common.debounce_release_ms += DEBOUNCE_STEP;
         }
     } else if (!dir) {
-        if (debounce_event == DEBOUNCE_PRESS && g_config.debounce_press_ms > 0) {
-            g_config.debounce_press_ms -= DEBOUNCE_STEP;
-        } else if (debounce_event == DEBOUNCE_RELEASE && g_config.debounce_release_ms > 0) {
-            g_config.debounce_release_ms -= DEBOUNCE_STEP;
+        if (debounce_event == DEBOUNCE_PRESS && keyboard_config.common.debounce_press_ms > 0) {
+            keyboard_config.common.debounce_press_ms -= DEBOUNCE_STEP;
+        } else if (debounce_event == DEBOUNCE_RELEASE && keyboard_config.common.debounce_release_ms > 0) {
+            keyboard_config.common.debounce_release_ms -= DEBOUNCE_STEP;
         }
     }
     save_config_to_eeprom();
@@ -595,23 +593,23 @@ void adjust_debounce(uint8_t dir, DEBOUNCE_EVENT debounce_event) {
 }
 
 void adjust_sleep_timeout(uint8_t dir) {
-    if (g_config.sleep_toggle) {
-        if (g_config.sleep_timeout > 1 && !dir) {
-            g_config.sleep_timeout -= SLEEP_TIMEOUT_STEP;
-        } else if (g_config.sleep_timeout < 60 && dir) {
-            g_config.sleep_timeout += SLEEP_TIMEOUT_STEP;
+    if (keyboard_config.common.sleep_toggle) {
+        if (keyboard_config.common.sleep_timeout > 1 && !dir) {
+            keyboard_config.common.sleep_timeout -= SLEEP_TIMEOUT_STEP;
+        } else if (keyboard_config.common.sleep_timeout < 60 && dir) {
+            keyboard_config.common.sleep_timeout += SLEEP_TIMEOUT_STEP;
         }
         save_config_to_eeprom();
     }
 }
 
 uint32_t get_sleep_timeout(void) {
-    if (!g_config.sleep_toggle) return 0;
-    return g_config.sleep_timeout * 60 * 1000 / TIMER_STEP;
+    if (!keyboard_config.common.sleep_toggle) return 0;
+    return keyboard_config.common.sleep_timeout * 60 * 1000 / TIMER_STEP;
 }
 
 void toggle_deep_sleep(void) {
     f_deep_sleep_show          = 1;
-    g_config.deep_sleep_toggle = !g_config.deep_sleep_toggle;
+    keyboard_config.common.deep_sleep_toggle = !keyboard_config.common.deep_sleep_toggle;
     save_config_to_eeprom();
 }

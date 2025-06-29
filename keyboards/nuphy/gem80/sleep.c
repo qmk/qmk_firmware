@@ -54,7 +54,7 @@ void sleep_handle(void) {
     if (timer_elapsed32(delay_step_timer) < 50) return;
     delay_step_timer = timer_read32();
 
-    if (!g_config.sleep_toggle) return;
+    if (!keyboard_config.common.sleep_toggle) return;
     uint32_t sleep_time_delay = get_sleep_timeout();
     // sleep process;
     if (f_goto_sleep) {
@@ -67,13 +67,13 @@ void sleep_handle(void) {
 #endif
         // if LINK_USB -> light sleep
         if (dev_info.link_mode == LINK_USB) {
-            if (g_config.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED) {
+            if (keyboard_config.common.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED) {
                 break_all_key();
                 enter_light_sleep();
             }
         }
         // if not USB
-        else if (g_config.sleep_toggle) {
+        else if (keyboard_config.common.sleep_toggle) {
             // but charging -> light sleep
             if ((dev_info.rf_charge & 0x01) != 0 || dev_info.rf_charge == 0x03) {
                 break_all_key();
@@ -81,7 +81,7 @@ void sleep_handle(void) {
                 // otherwise -> deep sleep
             } else {
             break_all_key(); // reset keys before sleeping for new QMK lifecycle to handle on wake.
-            if (g_config.deep_sleep_toggle) {
+            if (keyboard_config.common.deep_sleep_toggle) {
                 deep_sleep_handle();
                 return; // don't need to do anything else
             } else {
@@ -106,7 +106,7 @@ void sleep_handle(void) {
             }
         } else {
             usb_suspend_debounce = 0;
-            if (g_config.usb_sleep_toggle && no_act_time >= sleep_time_delay) {
+            if (keyboard_config.common.usb_sleep_toggle && no_act_time >= sleep_time_delay) {
                 f_goto_sleep = 1;
             } else {
                 f_goto_sleep = 0;

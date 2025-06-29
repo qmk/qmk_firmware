@@ -1,5 +1,5 @@
 # common rules for nuphy keyboards
-SRC += common/features/socd_cleaner.c common/rf_driver.c common/rf_queue.c common/rf.c
+SRC += common/features/socd_cleaner.c common/rf_driver.c common/rf_queue.c common/rf.c common/config.c common/via.c common/debounce.c
 
 SRC += user_kb.c
 SRC += side.c side_driver.c side_logo.c
@@ -8,7 +8,6 @@ SRC += side.c side_driver.c side_logo.c
 SRC += mcu_pwr.c sleep.c
 
 SRC += gem80-common.c
-SRC += debounce.c
 
 UART_DRIVER_REQUIRED = yes
 

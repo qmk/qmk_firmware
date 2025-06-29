@@ -45,7 +45,7 @@
 #endif
 
 #ifndef DEFAULT_EFFECT_COLOR
-#    define DEFAULT_EFFECT_COLOR 6 //  FIXME: what?
+#    define DEFAULT_EFFECT_COLOR 6 //  FIXME: what is this value?
 #endif
 
 #ifndef DEFAULT_AMBIENT_MODE
@@ -65,11 +65,8 @@
 #endif
 
 #ifndef DEFAULT_AMBIENT_COLOR
-#    define DEFAULT_AMBIENT_COLOR 6 //  FIXME: what?
+#    define DEFAULT_AMBIENT_COLOR 6 //  FIXME: what? is this value?
 #endif
-
-
-
 
 typedef struct {
     uint8_t sleep_toggle : 1;
@@ -112,7 +109,7 @@ typedef struct {
     lights_config_t lights;
 } keyboard_config_t;
 
-extern keyboard_config_t keyboard_config;
+keyboard_config_t keyboard_config;
 
 enum via_common_ids {
     id_usb_sleep_toggle    = 0,
@@ -166,3 +163,7 @@ enum NonMatrixEffects {
     EFFECT_OFF,
 } non_matrix_effects;
 
+void custom_eeprom_init(void);
+void init_keyboard_config(void);
+void save_config_to_eeprom(void);
+void load_config_from_eeprom(void);
