@@ -25,10 +25,6 @@
 
 static uint16_t active_td;
 
-#ifndef TAP_DANCE_MAX_SIMULTANEOUS
-#    define TAP_DANCE_MAX_SIMULTANEOUS 3
-#endif
-
 static tap_dance_state_t tap_dance_states[TAP_DANCE_MAX_SIMULTANEOUS];
 
 static uint16_t last_tap_time;
@@ -40,14 +36,15 @@ tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
     }
     // Search for a state already used for this keycode
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
-        if (tap_dance_states[i].in_use && tap_dance_states[i].index == tap_dance_idx) {
+        if (tap_dance_states[i].in_use && tap_dance_states[i].tap_dance_idx == tap_dance_idx) {
             return &tap_dance_states[i];
         }
     }
     // Search for the first available state
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
         if (!tap_dance_states[i].in_use) {
-            tap_dance_states[i].index  = tap_dance_idx;
+            tap_dance_states[i].tap_dance_idx  = tap_dance_idx;
+            tap_dance_states[i].state_idx  = i;
             tap_dance_states[i].in_use = true;
             return &tap_dance_states[i];
         }
@@ -57,56 +54,62 @@ tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
 }
 
 void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data) {
-    tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
+    tap_dance_pair_t pair;
+    memcpy_P(&pair, user_data, sizeof(tap_dance_pair_t));
 
     if (state->count == 2) {
-        register_code16(pair->kc2);
+        register_code16(pair.kc2);
         state->finished = true;
     }
 }
 
 void tap_dance_pair_finished(tap_dance_state_t *state, void *user_data) {
-    tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
+    tap_dance_pair_t pair;
+    memcpy_P(&pair, user_data, sizeof(tap_dance_pair_t));
 
-    register_code16(pair->kc1);
+    register_code16(pair.kc1);
 }
 
 void tap_dance_pair_reset(tap_dance_state_t *state, void *user_data) {
-    tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
+    tap_dance_pair_t pair;
+    memcpy_P(&pair, user_data, sizeof(tap_dance_pair_t));
 
     if (state->count == 1) {
         wait_ms(TAP_CODE_DELAY);
-        unregister_code16(pair->kc1);
+        unregister_code16(pair.kc1);
     } else if (state->count == 2) {
-        unregister_code16(pair->kc2);
+        unregister_code16(pair.kc2);
     }
 }
 
 void tap_dance_dual_role_on_each_tap(tap_dance_state_t *state, void *user_data) {
-    tap_dance_dual_role_t *pair = (tap_dance_dual_role_t *)user_data;
+    tap_dance_dual_role_t pair;
+    memcpy_P(&pair, user_data, sizeof(tap_dance_dual_role_t));
 
     if (state->count == 2) {
-        layer_move(pair->layer);
+        layer_move(pair.layer);
         state->finished = true;
     }
 }
 
 void tap_dance_dual_role_finished(tap_dance_state_t *state, void *user_data) {
-    tap_dance_dual_role_t *pair = (tap_dance_dual_role_t *)user_data;
+    tap_dance_dual_role_t pair;
+    memcpy_P(&pair, user_data, sizeof(tap_dance_dual_role_t));
 
     if (state->count == 1) {
-        register_code16(pair->kc);
+        register_code16(pair.kc);
     } else if (state->count == 2) {
-        pair->layer_function(pair->layer);
+        pair.layer_function(pair.layer);
     }
 }
 
 void tap_dance_dual_role_reset(tap_dance_state_t *state, void *user_data) {
-    tap_dance_dual_role_t *pair = (tap_dance_dual_role_t *)user_data;
+    tap_dance_dual_role_t pair;
+    memcpy_P(&pair, user_data, sizeof(tap_dance_dual_role_t));
 
     if (state->count == 1) {
         wait_ms(TAP_CODE_DELAY);
-        unregister_code16(pair->kc);
+        unregister_code16(pair.kc);
     }
 }
 
@@ -159,21 +162,21 @@ static inline void process_tap_dance_action_on_dance_finished(tap_dance_action_t
 }
 
 bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    tap_dance_action_t *action;
-    tap_dance_state_t * state;
+    tap_dance_action_t action;
+    tap_dance_state_t *state;
 
     if (!record->event.pressed) return false;
 
     if (!active_td || keycode == active_td) return false;
 
-    action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
-    state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
+    memcpy_P(&action, tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td)), sizeof(tap_dance_action_t));
+    state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
     if (state == NULL) {
         return false;
     }
     state->interrupted          = true;
     state->interrupting_keycode = keycode;
-    process_tap_dance_action_on_dance_finished(action, state);
+    process_tap_dance_action_on_dance_finished(&action, state);
 
     // Tap dance actions can leave some weak mods active (e.g., if the tap dance is mapped to a keycode with
     // modifiers), but these weak mods should not affect the keypress which interrupted the tap dance.
@@ -187,9 +190,9 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    uint8_t             td_index;
-    tap_dance_action_t *action;
-    tap_dance_state_t * state;
+    uint8_t            td_index;
+    tap_dance_action_t action;
+    tap_dance_state_t *state;
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
@@ -197,20 +200,20 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
             if (td_index >= tap_dance_count()) {
                 return false;
             }
-            action = tap_dance_get(td_index);
-            state  = tap_dance_get_state(td_index);
+            memcpy_P(&action, tap_dance_get(td_index), sizeof(tap_dance_action_t));
+            state = tap_dance_get_state(td_index);
             if (state == NULL) {
                 return false;
             }
             state->pressed = record->event.pressed;
             if (record->event.pressed) {
                 last_tap_time = timer_read();
-                process_tap_dance_action_on_each_tap(action, state);
+                process_tap_dance_action_on_each_tap(&action, state);
                 active_td = state->finished ? 0 : keycode;
             } else {
-                process_tap_dance_action_on_each_release(action, state);
+                process_tap_dance_action_on_each_release(&action, state);
                 if (state->finished) {
-                    process_tap_dance_action_on_reset(action, state);
+                    process_tap_dance_action_on_reset(&action, state);
                     if (active_td == keycode) {
                         active_td = 0;
                     }
@@ -224,19 +227,19 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 void tap_dance_task(void) {
-    tap_dance_action_t *action;
-    tap_dance_state_t * state;
+    tap_dance_action_t action;
+    tap_dance_state_t *state;
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
-    action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
+    memcpy_P(&action, tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td)), sizeof(tap_dance_action_t));
     state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
     if (state != NULL && !state->interrupted) {
-        process_tap_dance_action_on_dance_finished(action, state);
+        process_tap_dance_action_on_dance_finished(&action, state);
     }
 }
 
 void reset_tap_dance(tap_dance_state_t *state) {
     active_td = 0;
-    process_tap_dance_action_on_reset(tap_dance_get(state->index), state);
+    process_tap_dance_action_on_reset(tap_dance_get(state->tap_dance_idx), state);
 }

@@ -40,7 +40,7 @@ void dance_key_two (tap_dance_state_t *state, void *user_data) {
     }
 }
 
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [TD_KEY_1] = ACTION_TAP_DANCE_FN(dance_key_one),
     [TD_KEY_2] = ACTION_TAP_DANCE_FN(dance_key_two),
 };

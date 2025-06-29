@@ -21,6 +21,10 @@
 #include "action.h"
 #include "quantum_keycodes.h"
 
+#ifndef TAP_DANCE_MAX_SIMULTANEOUS
+#    define TAP_DANCE_MAX_SIMULTANEOUS 3
+#endif
+
 typedef struct {
     uint16_t interrupting_keycode;
     uint8_t  count;
@@ -32,7 +36,8 @@ typedef struct {
     bool    finished : 1;
     bool    interrupted : 1;
     bool    in_use : 1;
-    uint8_t index;
+    uint8_t tap_dance_idx;
+    uint8_t state_idx;
 } tap_dance_state_t;
 
 typedef void (*tap_dance_user_fn_t)(tap_dance_state_t *state, void *user_data);
@@ -58,14 +63,17 @@ typedef struct {
     void (*layer_function)(uint8_t);
 } tap_dance_dual_role_t;
 
-#define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) \
-    { .fn = {tap_dance_pair_on_each_tap, tap_dance_pair_finished, tap_dance_pair_reset, NULL}, .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), }
+#define ACTION_TAP_DANCE_DOUBLE(pair) \
+    { .fn = {tap_dance_pair_on_each_tap, tap_dance_pair_finished, tap_dance_pair_reset, NULL}, .user_data = (void *)&(pair), }
 
-#define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer) \
-    { .fn = {tap_dance_dual_role_on_each_tap, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_move}), }
+#define DUAL_ROLE_TAP_DANCE_LAYER_MOVE(kc, layer) \
+    {kc, layer, layer_move}
 
-#define ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer) \
-    { .fn = {NULL, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_invert}), }
+#define DUAL_ROLE_TAP_DANCE_LAYER_TOGGLE(kc, layer) \
+    {kc, layer, layer_invert}
+
+#define ACTION_TAP_DANCE_DUAL_ROLE(dual_role) \
+    { .fn = {tap_dance_dual_role_on_each_tap, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, .user_data = (void *)&(dual_role), }
 
 #define ACTION_TAP_DANCE_FN(user_fn) \
     { .fn = {NULL, user_fn, NULL, NULL}, .user_data = NULL, }

@@ -21,10 +21,18 @@ void dance_rst_reset (tap_dance_state_t *state, void *user_data) {
   }
 }
 
+enum {
+    P_DBQT,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_DBQT] = {KC_QUOTE, KC_DQT},
+};
+
 //All tap dance functions would go here. Only showing this one.
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
  [TD_RST] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, NULL, dance_rst_reset),
- [TD_DBQT] = ACTION_TAP_DANCE_DOUBLE (KC_QUOTE, KC_DQT)
+ [TD_DBQT] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DBQT]),
 };
 
 enum custom_keycodes {

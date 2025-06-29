@@ -59,7 +59,7 @@ void dance_toggle (tap_dance_state_t *state, void *user_data) {
 }
 
 //Tap Dance Definitions
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
   [TD_TOGGLE]  = ACTION_TAP_DANCE_FN(dance_toggle)
 // Other declarations would go here, separated by commas, if you have them
 };

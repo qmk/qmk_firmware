@@ -21,16 +21,17 @@ The `TAPPING_TERM` time is the maximum time allowed between taps of your Tap Dan
 
 Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro. That macro takes a number which will later be used as an index into the `tap_dance_actions` array and turns it into a tap-dance keycode.
 
-After this, you'll want to use the `tap_dance_actions` array to specify what actions shall be taken when a tap-dance key is in action. Currently, there are five possible options:
+After this, you'll want to use the `tap_dance_actions` array to specify what actions shall be taken when a tap-dance key is in action. Currently, there several possible options:
 
-* `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise. When the key is held, the appropriate keycode is registered: `kc1` when pressed and held, `kc2` when tapped once, then pressed and held.
-* `ACTION_TAP_DANCE_LAYER_MOVE(kc, layer)`: Sends the `kc` keycode when tapped once, or moves to `layer`. (this functions like the `TO` layer keycode).
-* `ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer)`: Sends the `kc` keycode when tapped once, or toggles the state of `layer`. (this functions like the `TG` layer keycode).
+* `ACTION_TAP_DANCE_DOUBLE(pair)`: Define keycode pairs in a separate progmem array. With the pair `{kc1, kc2}`, it sends the `kc1` keycode when tapped once, `kc2` otherwise. When the key is held, the appropriate keycode is registered: `kc1` when pressed and held, `kc2` when tapped once, then pressed and held.
+* `ACTION_TAP_DANCE_DUAL_ROLE(dual_role)`: Define dual roles in a separate progmem array. Using the following:
+  * `DUAL_ROLE_TAP_DANCE_LAYER_MOVE(kc, layer)`: Sends the `kc` keycode when tapped once, or moves to `layer`. (this functions like the `TO` layer keycode).
+  * `DUAL_ROLE_TAP_DANCE_LAYER_TOGGLE(kc, layer)`: Sends the `kc` keycode when tapped once, or toggles the state of `layer`. (this functions like the `TG` layer keycode).
 * `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
 * `ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(on_each_tap_fn, on_each_release_fn, on_dance_finished_fn, on_dance_reset_fn)`: This macro is identical to `ACTION_TAP_DANCE_FN_ADVANCED` with the addition of `on_each_release_fn` which is invoked every time the key for the tap dance is released. It is worth noting that `on_each_release_fn` will still be called even when the key is released after the dance finishes (e.g. if the key is released after being pressed and held for longer than the `TAPPING_TERM`).
 
-The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise. 
+The first option is enough for a lot of cases that just want dual roles.
 
 ::: warning
 Keep in mind that only [basic keycodes](../keycodes_basic) are supported here. Custom keycodes are not supported.
@@ -60,15 +61,25 @@ Here's a simple example for a single definition:
 2. In your `keymap.c` file, define the variables and definitions, then add to your keymap:
 
 ```c
-// Tap Dance declarations
+// Tap dance pair declarations
+enum {
+    P_ESC_CAPS,
+};
+
+// Tap dance pair definitions
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_ESC_CAPS] = {KC_ESC, KC_CAPS},
+};
+
+// Tap dance declarations
 enum {
     TD_ESC_CAPS,
 };
 
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
+// Tap dance action definitions
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     // Tap once for Escape, twice for Caps Lock
-    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_ESC_CAPS]),
 };
 
 // Add tap dance item to your keymap in place of a keycode
@@ -105,7 +116,7 @@ void dance_egg(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [CT_EGG] = ACTION_TAP_DANCE_FN(dance_egg),
 };
 ```
@@ -152,8 +163,8 @@ void dance_flsh_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // All tap dances now put together. Example 2 is "CT_FLSH"
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_ESC_CAPS])
     [CT_EGG] = ACTION_TAP_DANCE_FN(dance_egg),
     [CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
 };
@@ -167,11 +178,17 @@ With a little effort, powerful tap-hold configurations can be implemented as tap
 typedef struct {
     uint16_t tap;
     uint16_t hold;
-    uint16_t held;
 } tap_dance_tap_hold_t;
 
+typedef struct {
+    uint16_t held;
+} tap_dance_tap_hold_state_t;
+
+static tap_dance_tap_hold_state_t tap_dance_tap_hold_states[TAP_DANCE_MAX_SIMULTANEOUS];
+
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+    tap_dance_tap_hold_t tap_hold;
+    memcpy_P(&tap_hold, user_data, sizeof(tap_dance_tap_hold_t));
 
     if (state->pressed) {
         if (state->count == 1
@@ -179,45 +196,45 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
             && !state->interrupted
 #endif
         ) {
-            register_code16(tap_hold->hold);
-            tap_hold->held = tap_hold->hold;
+            register_code16(tap_hold.hold);
+            tap_dance_tap_hold_states[state->state_idx].held = tap_hold.hold;
         } else {
-            register_code16(tap_hold->tap);
-            tap_hold->held = tap_hold->tap;
+            register_code16(tap_hold.tap);
+            tap_dance_tap_hold_states[state->state_idx].held = tap_hold.tap;
         }
     }
 }
 
 void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+    tap_dance_tap_hold_t tap_hold;
+    memcpy_P(&tap_hold, user_data, sizeof(tap_dance_tap_hold_t));
 
-    if (tap_hold->held) {
-        unregister_code16(tap_hold->held);
-        tap_hold->held = 0;
+    if (tap_dance_tap_hold_states[state->state_idx].held) {
+        unregister_code16(tap_dance_tap_hold_states[state->state_idx].held);
+        tap_dance_tap_hold_states[state->state_idx].held = 0;
     }
 }
 
-#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold)                                        \
-    {                                                                               \
-        .fn        = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, \
-        .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}),               \
-    }
+#define ACTION_TAP_DANCE_TAP_HOLD(tap_hold) {{NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, (void *)&(tap_hold)}
 
-tap_dance_action_t tap_dance_actions[] = {
-    [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
+const tap_dance_tap_hold_t d_ct_cln PROGMEM = {KC_COLN, KC_SCLN};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(d_ct_cln),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
     tap_dance_state_t* state;
+    tap_dance_tap_hold_t tap_hold;
 
     switch (keycode) {
         case TD(CT_CLN):
             action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
             state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
             if (!record->event.pressed && state != NULL && state->count && !state->finished) {
-                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-                tap_code16(tap_hold->tap);
+                memcpy_P(&tap_hold, (tap_dance_tap_hold_t *)action->user_data, sizeof(tap_dance_tap_hold_t));
+                tap_code16(tap_hold.tap);
             }
     }
     return true;
@@ -356,7 +373,7 @@ void x_reset(tap_dance_state_t *state, void *user_data) {
     xtap_state.state = TD_NONE;
 }
 
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [X_CTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)
 };
 ```
@@ -452,7 +469,7 @@ void altlp_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [ALT_LP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altlp_finished, altlp_reset)
 };
 ```
@@ -546,7 +563,7 @@ void ql_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Associate our tap dance key with its functionality
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
 };
 

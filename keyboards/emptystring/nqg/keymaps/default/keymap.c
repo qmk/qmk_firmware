@@ -28,12 +28,18 @@ enum tapdances{
 #define KC_DSTP LGUI(KC_D)
 #define KC_ESLO LT(_LOWER, KC_ESC)
 
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [TD_SCCL] = {KC_SCLN, KC_QUOT},
+    [TD_ENSL] = {KC_SLSH, KC_ENT},
+    [TD_N0BS] = {KC_0, KC_BSLS},
+    [TD_RPPI] = {KC_RPRN, KC_PIPE},
+};
 
-tap_dance_action_t tap_dance_actions[] = {
-  [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
-  [TD_ENSL] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_ENT),
-  [TD_N0BS] = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_BSLS),
-  [TD_RPPI] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_PIPE),
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_SCCL] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[TD_SCCL]),
+    [TD_ENSL] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[TD_ENSL]),
+    [TD_N0BS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[TD_N0BS]),
+    [TD_RPPI] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[TD_RPPI]),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

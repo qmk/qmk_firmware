@@ -112,13 +112,29 @@ void cvxa_reset(tap_dance_state_t *state, void *user_data) {
     cvxa_state.state = TD_NONE;
 }
 
+enum {
+    P_CUT_REDO,
+    P_PLAY_PAUSE_MUTE,
+    P_MNXT_RIGHT,
+    P_MPRV_LEFT,
+    P_SEARCH_REFRESH,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_CUT_REDO] = {C(KC_Z), S(C(KC_Z))},
+    [P_PLAY_PAUSE_MUTE] = {KC_MPLY, KC_MUTE},
+    [P_MNXT_RIGHT] = {KC_MNXT, KC_RIGHT},
+    [P_MPRV_LEFT] = {KC_MPRV, KC_LEFT},
+    [P_SEARCH_REFRESH] = {KC_WREF, KC_WSCH},
+};
+
 // Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_CUT_REDO] = ACTION_TAP_DANCE_DOUBLE(C(KC_Z), S(C(KC_Z))),
-    [TD_PLAY_PAUSE_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MUTE),
-    [TD_MNXT_RIGHT] = ACTION_TAP_DANCE_DOUBLE(KC_MNXT, KC_RIGHT),
-    [TD_MPRV_LEFT] = ACTION_TAP_DANCE_DOUBLE(KC_MPRV, KC_LEFT),
-    [TD_SEARCH_REFRESH] = ACTION_TAP_DANCE_DOUBLE(KC_WREF, KC_WSCH),
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_CUT_REDO] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_CUT_REDO]),
+    [TD_PLAY_PAUSE_MUTE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_PLAY_PAUSE_MUTE]),
+    [TD_MNXT_RIGHT] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_MNXT_RIGHT]),
+    [TD_MPRV_LEFT] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_MPRV_LEFT]),
+    [TD_SEARCH_REFRESH] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SEARCH_REFRESH]),
     [QUAD_LAYER_SWITCH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, layer_finished, layer_reset),
     [QUAD_CVXA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, cvxa_finished, cvxa_reset)
 };
@@ -167,7 +183,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-}; 
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -182,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT(
       A(KC_F4), SGUI(KC_S), KC_MYCM, LCA(KC_DEL), KC_CALC, TD(QUAD_LAYER_SWITCH)
       ),
-  
+
   [3] = LAYOUT(
       C(KC_SLSH), VALORANT, VSCODE, DISCORD, LSA(KC_A), TD(QUAD_LAYER_SWITCH)
       ),

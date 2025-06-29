@@ -56,9 +56,19 @@ enum tapdances{
 #define KC_CODO  TD(TD_CODO)
 // #define KC_MNUB  TD(TD_MNUB)
 
-tap_dance_action_t tap_dance_actions[] = {
-  [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(KC_MINS, LSFT(JP_BSLS)),
+enum {
+  P_CODO,
+  // P_MNUB,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+  [P_CODO] = {KC_COMM, KC_DOT},
+  // [P_MNUB] = {KC_MINS, LSFT(JP_BSLS)},
+};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+  [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_CODO]),
+  // [TD_MNUB] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_MNUB]),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

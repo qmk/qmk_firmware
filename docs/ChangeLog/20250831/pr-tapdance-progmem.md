@@ -1,0 +1,80 @@
+# Tap dance actions moved to PROGEM
+
+Tap dance actions are moved to PROGMEM so that they no longer use RAM.
+
+## Changes for tap dance action array
+
+Every layout that uses tap dances will need to change 
+
+```c
+tap_dance_action_t tap_dance_actions[] = {
+
+```
+
+to 
+
+```c
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+
+```
+
+## New syntax for `ACTION_TAP_DANCE_DOUBLE`
+
+`ACTION_TAP_DANCE_DOUBLE` no longer accepts two keycode literals, now it needs a variable containing the key code pair.
+
+
+```c
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_DEL_BSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_BSPC),
+    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
+};
+```
+
+to 
+
+```c
+enum {
+    P_DEL_BSPC,
+    P_ESC_GRAVE,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_DEL_BSPC]  = {KC_DEL, KC_BSPC},
+    [P_ESC_GRAVE] = {KC_ESC, KC_GRAVE},
+};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_DEL_BSPC]  = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DEL_BSPC]),
+    [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_ESC_GRAVE]),
+};
+
+```
+
+## New syntax for `ACTION_TAP_DANCE_LAYER_MOVE` and `ACTION_TAP_DANCE_LAYER_TOGGLE` 
+
+
+```c
+tap_dance_action_t tap_dance_actions[] = {
+    [TD_Q_ALT]   = ACTION_TAP_DANCE_LAYER_MOVE(KC_Q, _ALT),
+    [TD_R_RAISE] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_R, _RAISE),
+};
+```
+
+to 
+
+```c
+enum {
+    DR_Q_ALT,
+    DR_R_RAISE,
+};
+
+const tap_dance_dual_role_t tap_dance_dual_roles[] PROGMEM = {
+    [DR_Q_ALT]   = DUAL_ROLE_TAP_DANCE_LAYER_MOVE(KC_Q, _ALT),
+    [DR_R_RAISE] = DUAL_ROLE_TAP_DANCE_LAYER_TOGGLE(KC_R, _RAISE),
+};
+
+tap_dance_action_t tap_dance_actions[] = {   
+    [TD_Q_ALT] = ACTION_TAP_DANCE_DUAL_ROLE(tap_dance_dual_roles[DR_Q_ALT]),
+    [TD_R_RAISE] = ACTION_TAP_DANCE_DUAL_ROLE(tap_dance_dual_roles[DR_R_RAISE]),
+};
+```

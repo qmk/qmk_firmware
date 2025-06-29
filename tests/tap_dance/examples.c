@@ -76,27 +76,34 @@ void dance_flsh_reset(tap_dance_state_t *state, void *user_data) {
 typedef struct {
     uint16_t tap;
     uint16_t hold;
-    uint16_t held;
 } tap_dance_tap_hold_t;
+
+typedef struct {
+    uint16_t held;
+} tap_dance_tap_hold_state_t;
+
+static tap_dance_tap_hold_state_t tap_dance_tap_hold_states[TAP_DANCE_MAX_SIMULTANEOUS];
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
     tap_dance_state_t* state;
+    tap_dance_tap_hold_t tap_hold;
 
     switch (keycode) {
         case TD(CT_CLN):
             action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
             state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
             if (!record->event.pressed && state != NULL && state->count && !state->finished) {
-                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-                tap_code16(tap_hold->tap);
+                memcpy_P(&tap_hold, (tap_dance_tap_hold_t *)action->user_data, sizeof(tap_dance_tap_hold_t));
+                tap_code16(tap_hold.tap);
             }
     }
     return true;
 }
 
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+    tap_dance_tap_hold_t tap_hold;
+    memcpy_P(&tap_hold, user_data, sizeof(tap_dance_tap_hold_t));
 
     if (state->pressed) {
         if (state->count == 1
@@ -104,27 +111,28 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
             && !state->interrupted
 #endif
         ) {
-            register_code16(tap_hold->hold);
-            tap_hold->held = tap_hold->hold;
+            register_code16(tap_hold.hold);
+            tap_dance_tap_hold_states[state->state_idx].held = tap_hold.hold;
         } else {
-            register_code16(tap_hold->tap);
-            tap_hold->held = tap_hold->tap;
+            register_code16(tap_hold.tap);
+            tap_dance_tap_hold_states[state->state_idx].held = tap_hold.tap;
         }
     }
 }
 
 void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+    tap_dance_tap_hold_t tap_hold;
+    memcpy_P(&tap_hold, user_data, sizeof(tap_dance_tap_hold_t));
 
-    if (tap_hold->held) {
-        unregister_code16(tap_hold->held);
-        tap_hold->held = 0;
+    if (tap_dance_tap_hold_states[state->state_idx].held) {
+        unregister_code16(tap_dance_tap_hold_states[state->state_idx].held);
+        tap_dance_tap_hold_states[state->state_idx].held = 0;
     }
 }
 
-#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
-    { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
+#define ACTION_TAP_DANCE_TAP_HOLD(tap_hold) {{NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, (void *)&(tap_hold)}
 
+const tap_dance_tap_hold_t d_ct_cln PROGMEM = {KC_COLN, KC_SCLN};
 
 // Example 4
 
@@ -211,11 +219,13 @@ static void release_reset(tap_dance_state_t *state, void *user_data) {
     tap_code16(KC_R);
 }
 
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+const tap_dance_pair_t p_esc_caps PROGMEM = {KC_ESC, KC_CAPS};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(p_esc_caps),
     [CT_EGG]      = ACTION_TAP_DANCE_FN(dance_egg),
     [CT_FLSH]     = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
-    [CT_CLN]      = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
+    [CT_CLN]      = ACTION_TAP_DANCE_TAP_HOLD(d_ct_cln),
     [X_CTL]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
     [TD_RELEASE]  = ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(release_press, release_unpress, release_finished, release_reset),
     [TD_RELEASE_AND_FINISH]  = ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(release_press, release_unpress_mark_finished, release_finished, release_reset),

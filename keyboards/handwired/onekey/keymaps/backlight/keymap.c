@@ -30,7 +30,7 @@ void dance_cln_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [TD_BL]  = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_cln_finished, dance_cln_reset)
 };
 
