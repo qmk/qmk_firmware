@@ -269,38 +269,14 @@
     "handwired/jscotto/scottostarter": {
         "target": "handwired/scottokeebs/scottostarter"
     },
-    "helix/rev2/back/oled": {
-        "target": "helix/rev2/back"
+    "helix/pico/sc/back": {
+        "target": "helix/pico/sc"
     },
-    "helix/rev2/oled": {
-        "target": "helix/rev2"
+    "helix/pico/sc/under": {
+        "target": "helix/pico/sc"
     },
-    "helix/rev2/oled/back": {
-        "target": "helix/rev2/back"
-    },
-    "helix/rev2/oled/under": {
-        "target": "helix/rev2/under"
-    },
-    "helix/rev2/sc/back": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/oled": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/oledback": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/oledunder": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/under": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/under": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/under/oled": {
-        "target": "helix/rev2/under"
+    "helix/rev2": {
+        "target": "helix/beta"
     },
     "honeycomb": {
         "target": "keyhive/honeycomb"
@@ -2290,11 +2266,16 @@
     "handwired/dygma/raise": {
         "target": "handwired/dygma/raise/ansi"
     },
+<<<<<<< HEAD
     "helix": {
         "target": "helix/rev2/base"
     },
     "helix/rev2": {
         "target": "helix/rev2/base"
+=======
+    "helix/pico": {
+        "target": "helix/pico/base"
+>>>>>>> eb8481391c (Refactor helix/rev2)
     },
     "ibm/model_m/mschwingen": {
         "target": "ibm/model_m/mschwingen/led_wired"
