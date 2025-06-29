@@ -4,10 +4,6 @@
     "maintainer": "nsi21",
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
-    "dip_switch": {
-        "enabled": true,
-        "pins": ["B6", "F6"]
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "F4", "pin_b": "F5"}
