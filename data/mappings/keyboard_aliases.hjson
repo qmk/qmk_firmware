@@ -275,6 +275,9 @@
     "helix/pico/sc/under": {
         "target": "helix/pico/sc"
     },
+    "helix": {
+        "target": "helix/beta"
+    },
     "helix/rev2": {
         "target": "helix/beta"
     },
