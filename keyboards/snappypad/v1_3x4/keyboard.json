@@ -17,7 +17,7 @@
         "dip_switch": true
     },
     "matrix_pins": {
-        "cols": ["E6", "B4", "D7", "C6"],
+        "cols": ["E6", "B4", "D7", "C6", "B6", "F6"],
         "rows": ["D4", "D0", "D1"]
     },
     "url": "snappykey.eu",
