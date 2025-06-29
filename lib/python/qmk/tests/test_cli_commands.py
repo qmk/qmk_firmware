@@ -159,6 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
+
 #ifdef OTHER_KEYMAP_C
 #    include OTHER_KEYMAP_C
 #endif // OTHER_KEYMAP_C
@@ -193,6 +194,7 @@ def test_json2c_stdin():
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_ortho_1x1(KC_A)
 };
+
 
 
 
