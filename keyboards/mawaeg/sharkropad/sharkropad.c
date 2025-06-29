@@ -19,49 +19,12 @@
 #include <lib/lib8tion/lib8tion.h>
 #include <rgb_matrix.h>
 
-#if defined(RGB_MATRIX_EFFECT)
-#    undef RGB_MATRIX_EFFECT
-#endif // defined(RGB_MATRIX_EFFECT)
-
-#define RGB_MATRIX_EFFECT(x) RGB_MATRIX_EFFECT_##x,
-enum {
-    RGB_MATRIX_EFFECT_NONE,
-#include "rgb_matrix_effects.inc"
-#ifdef RGB_MATRIX_CUSTOM_KB
-#    include "rgb_matrix_kb.inc"
-#endif // RGB_MATRIX_CUSTOM_KB
-#ifdef RGB_MATRIX_CUSTOM_USER
-#    include "rgb_matrix_user.inc"
-#endif // RGB_MATRIX_CUSTOM_USER
-#undef RGB_MATRIX_EFFECT
-};
-
-#define RGB_MATRIX_EFFECT(x)    \
-    case RGB_MATRIX_EFFECT_##x: \
-        return #x;
-const char *rgb_matrix_name(uint8_t effect) {
-    switch (effect) {
-        case RGB_MATRIX_EFFECT_NONE:
-            return "NONE";
-#include "rgb_matrix_effects.inc"
-#ifdef RGB_MATRIX_CUSTOM_KB
-#    include "rgb_matrix_kb.inc"
-#endif // RGB_MATRIX_CUSTOM_KB
-#ifdef RGB_MATRIX_CUSTOM_USER
-#    include "rgb_matrix_user.inc"
-#endif // RGB_MATRIX_CUSTOM_USER
-#undef RGB_MATRIX_EFFECT
-        default:
-            return "UNKNOWN";
-    }
-}
-
 static uint8_t effect_name_len = 0;
 
 const char *rgb_matrix_get_effect_name(void) {
     static char buf[32] = {0};
 
-    snprintf(buf, sizeof(buf), "%s", rgb_matrix_name(rgb_matrix_get_mode()));
+    snprintf(buf, sizeof(buf), "%s", rgb_matrix_get_mode_name(rgb_matrix_get_mode()));
     for (uint8_t i = 1; i < sizeof(buf); ++i) {
         if (buf[i] == 0) {
             effect_name_len = i;
@@ -77,7 +40,9 @@ const char *rgb_matrix_get_effect_name(void) {
 }
 
 bool oled_task_kb(void) {
-    if (!oled_task_user()) { return false; }
+    if (!oled_task_user()) {
+        return false;
+    }
 
     static uint8_t  last_effect = 0;
     static uint8_t  last_speed  = 0;
