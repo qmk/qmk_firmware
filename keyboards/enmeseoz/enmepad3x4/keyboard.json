@@ -13,7 +13,6 @@
         "rows": ["GP3", "GP4", "GP5"]
     },
     "processor": "RP2040",
-    "url": "https://github.com/bkchqaeh/qmk_firmware/tree/master/keyboards/enmeseoz/enmepad3x4",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
