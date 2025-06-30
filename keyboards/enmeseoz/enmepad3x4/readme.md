@@ -1,6 +1,6 @@
 # ENMEPAD 3x4
 
-*A short description of the keyboard/project*
+ENMEPAD3x4 a compact macropad controlled with rp2040.
 
 * Keyboard Maintainer: [bkchqaeh](https://github.com/bkchqaeh)
 * Hardware Supported: *rp2040*
