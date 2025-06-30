@@ -43,9 +43,9 @@ tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
     // Search for the first available state
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
         if (!tap_dance_states[i].in_use) {
-            tap_dance_states[i].tap_dance_idx  = tap_dance_idx;
-            tap_dance_states[i].state_idx  = i;
-            tap_dance_states[i].in_use = true;
+            tap_dance_states[i].tap_dance_idx = tap_dance_idx;
+            tap_dance_states[i].state_idx     = i;
+            tap_dance_states[i].in_use        = true;
             return &tap_dance_states[i];
         }
     }
@@ -233,7 +233,7 @@ void tap_dance_task(void) {
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
     memcpy_P(&action, tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td)), sizeof(tap_dance_action_t));
-    state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
+    state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
     if (state != NULL && !state->interrupted) {
         process_tap_dance_action_on_dance_finished(&action, state);
     }
