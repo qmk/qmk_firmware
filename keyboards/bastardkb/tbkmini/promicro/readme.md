@@ -12,5 +12,6 @@ PIN_COMPATIBLE = elite_c
 // config.h
 #pragma once
 
+#define SPLIT_HAND_PIN F1
 #define SPLIT_HAND_PIN_LOW_IS_LEFT
 ```
