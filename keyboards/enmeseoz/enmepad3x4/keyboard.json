@@ -8,10 +8,6 @@
         "bootmagic": true,
         "nkro": true
     },
-    "matrix": {
-        "cols": 4,
-        "rows": 4
-    },
     "matrix_pins": {
         "cols": ["GP26", "GP27", "GP28", "GP29"],
         "rows": ["GP3", "GP4", "GP5"]
