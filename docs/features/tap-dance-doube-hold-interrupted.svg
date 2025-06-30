@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="257.37842mm"
+   height="203.21901mm"
+   viewBox="0 0 257.37842 203.21901"
+   version="1.1"
+   id="svg5"
+   sodipodi:docname="tap-dance-doube-hold-interrupted.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview10375"
+     pagecolor="#ffffff"
+     bordercolor="#111111"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.8884048"
+     inkscape:cx="514.45539"
+     inkscape:cy="326.20125"
+     inkscape:current-layer="svg5" />
+  <defs
+     id="defs2">
+    <rect
+       x="-469.16562"
+       y="-171.31531"
+       width="1119.4651"
+       height="787.95514"
+       id="rect13983" />
+    <marker
+       style="overflow:visible"
+       id="Arrow1L"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="8.75"
+       markerHeight="5"
+       viewBox="0 0 8.75 5"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="arrow1L"
+         transform="scale(-0.5)" />
+    </marker>
+  </defs>
+  <g
+     id="layer1"
+     transform="translate(20.27222,-104.88129)">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.165;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1L)"
+       d="m 12.896004,136.56477 c 1.573387,-0.27013 174.985566,0.43796 174.985566,0.43796"
+       id="path344" />
+    <g
+       id="g3305"
+       transform="translate(0.73059446)">
+      <path
+         style="fill:#00a391;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 14.389388,137.10256 3.308959,5.51131 3.247063,-5.53223 z"
+         id="path2611" />
+      <path
+         style="fill:#00a391;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 25.508952,135.91803 -3.156917,-5.50799 -3.24706,5.53223 z"
+         id="path2611-3" />
+    </g>
+    <path
+       style="fill:#00a391;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 50.179315,137.10256 3.308959,5.51131 3.247063,-5.53223 z"
+       id="path2611-35" />
+    <path
+       style="fill:#00a391;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 160.33169,136.24301 -3.15691,-5.50799 -3.24706,5.53223 z"
+       id="path2611-3-6" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;stroke-width:0.264583"
+       x="190.14647"
+       y="134.80312"
+       id="text3393"><tspan
+         id="tspan3391"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:0.264583"
+         x="190.14647"
+         y="134.80312">Time</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;stroke-width:0.264583"
+       x="-14.746731"
+       y="130.41003"
+       id="text3447"><tspan
+         id="tspan3445"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:0.264583"
+         x="-14.746731"
+         y="130.41003" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;stroke-width:0.264583"
+       x="-11.466892"
+       y="132.08221"
+       id="text3451"><tspan
+         id="tspan3449"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:0.264583"
+         x="-11.466892"
+         y="132.08221">Key up</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.95;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="19.694458"
+       y="113.79429"
+       id="text3451-0"><tspan
+         id="tspan3449-63"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="19.694458"
+         y="113.79429">First</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="19.694458"
+         y="120.49707"
+         id="tspan3534">press</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.95;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="54.216129"
+       y="113.79429"
+       id="text3451-0-1"><tspan
+         id="tspan3449-63-5"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="54.216129"
+         y="113.79429">2nd</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="54.216129"
+         y="120.49707"
+         id="tspan3534-5">press</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.95;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="137.03003"
+       y="110.27879"
+       id="text3451-0-1-5"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="137.03003"
+         y="110.27879"
+         id="tspan3534-5-7">End of</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="137.03003"
+         y="116.98158"
+         id="tspan3758">Tapping</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+         x="137.03003"
+         y="123.68436"
+         id="tspan3760">Term</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;stroke-width:0.264583"
+       x="-20.95661"
+       y="144.95244"
+       id="text3451-3"><tspan
+         id="tspan3449-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:0.264583"
+         x="-20.95661"
+         y="144.95244">Key down</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+       x="134.78493"
+       y="55.269905"
+       id="text3451-4"
+       transform="rotate(61.3)"><tspan
+         id="tspan3449-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+         x="134.78493"
+         y="55.269905">on_each_tap(count:1, pressed:true)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+       x="138.60913"
+       y="48.284851"
+       id="text3451-4-9"
+       transform="rotate(61.3)"><tspan
+         id="tspan3449-7-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+         x="138.60913"
+         y="48.284851">on_each_release(count:1, pressed:false)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+       x="151.62125"
+       y="24.517748"
+       id="text3451-4-7"
+       transform="rotate(61.3)"><tspan
+         id="tspan3449-7-4"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+         x="151.62125"
+         y="24.517748">on_each_tap(count:2, pressed:true)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+       x="200.44789"
+       y="-67.038536"
+       id="text3451-4-9-5"
+       transform="rotate(61.3)"><tspan
+         id="tspan3449-7-3-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+         x="200.44789"
+         y="-67.038536">on_each_release(count:2, pressed:false)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+       x="203.71626"
+       y="-73.008339"
+       id="text3451-4-9-5-4-0"
+       transform="rotate(61.3)"><tspan
+         id="tspan3449-7-3-2-4-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+         x="203.71626"
+         y="-73.008339">on_reset(count:2, pressed:false)</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1.965;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+       d="m 136.8083,127.93103 -0.0323,8.87583"
+       id="path3722" />
+  </g>
+  <path
+     style="fill:#ff7f2a;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 110.9994,32.409163 3.30895,5.51131 3.24707,-5.53223 z"
+     id="path2611-35-8"
+     sodipodi:nodetypes="cccc" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:0.95;font-family:sans-serif;-inkscape-font-specification:sans-serif;font-variant-ligatures:none;text-align:center;text-anchor:middle;stroke-width:0.264583"
+     x="113.14949"
+     y="8.1985655"
+     id="text3451-0-1-3"><tspan
+       sodipodi:role="line"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="113.14949"
+       y="8.1985655"
+       id="tspan6210">Other key</tspan><tspan
+       sodipodi:role="line"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:sans-serif;-inkscape-font-specification:sans-serif;text-align:center;text-anchor:middle;stroke-width:0.264583"
+       x="113.14949"
+       y="14.901347"
+       id="tspan6214">interrupting</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+     x="90.397614"
+     y="-79.312668"
+     id="text3451-4-9-5-4-9"
+     transform="rotate(61.3)"><tspan
+       sodipodi:role="line"
+       id="tspan3449-7-3-2-4-2"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+       x="90.397614"
+       y="-79.312668">on_dance_finished(count:2, interrupted:true)</tspan></text>
+  <text
+     xml:space="preserve"
+     transform="matrix(0.26458333,0,0,0.26458333,113.12479,40.18937)"
+     id="text13981"
+     style="font-size:26.6667px;line-height:1.25;font-family:Impact;-inkscape-font-specification:'Impact, Normal';font-variant-ligatures:none;white-space:pre;shape-inside:url(#rect13983)" />
+</svg>

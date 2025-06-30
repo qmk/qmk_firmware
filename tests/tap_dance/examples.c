@@ -132,7 +132,13 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
 
 #define ACTION_TAP_DANCE_TAP_HOLD(tap_hold) {{NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, (void *)&(tap_hold)}
 
-const tap_dance_tap_hold_t d_ct_cln PROGMEM = {KC_COLN, KC_SCLN};
+enum {
+    TH_CT_CLN,
+};
+
+const tap_dance_tap_hold_t tap_dance_tap_holds[] PROGMEM = {
+    [TH_CT_CLN] = {KC_COLN, KC_SCLN},
+};
 
 // Example 4
 
@@ -225,7 +231,7 @@ const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(p_esc_caps),
     [CT_EGG]      = ACTION_TAP_DANCE_FN(dance_egg),
     [CT_FLSH]     = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset),
-    [CT_CLN]      = ACTION_TAP_DANCE_TAP_HOLD(d_ct_cln),
+    [CT_CLN]      = ACTION_TAP_DANCE_TAP_HOLD(tap_dance_tap_holds[TH_CT_CLN]),
     [X_CTL]       = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset),
     [TD_RELEASE]  = ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(release_press, release_unpress, release_finished, release_reset),
     [TD_RELEASE_AND_FINISH]  = ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(release_press, release_unpress_mark_finished, release_finished, release_reset),
