@@ -14,101 +14,100 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
-// clang-format off
+#include QMK_KEYBOARD_H
 
+// clang-format off
 #ifdef RGB_MATRIX_ENABLE
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
+const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |   R location
- *   |   |     G location
- *   |   |     |     B location
- *   |   |     |     | */
+ *   |   |          G location
+ *   |   |          |          B location
+ *   |   |          |          | */
     {1, SW3_CS1,   SW2_CS1,   SW1_CS1},
-    {1, C_2,   B_2,   A_2},
-    {1, C_3,   B_3,   A_3},
-    {1, C_4,   B_4,   A_4},
-    {1, C_5,   B_5,   A_5},
-    {1, C_6,   B_6,   A_6},
-    {1, C_7,   B_7,   A_7},
-    {1, C_8,   B_8,   A_8},
-    {1, C_9,   B_9,   A_9},
-    {1, C_10,  B_10,  A_10},
-    {1, C_11,  B_11, A_11},
-    {1, C_12,  B_12, A_12},
-    {1, C_13,  B_13, A_13},
-    {1, C_14,  B_14, A_14},
-    {1, C_15,  B_15, A_15},
-    {1, C_16,  B_16, A_16},
+    {1, SW3_CS2,   SW2_CS2,   SW1_CS2},
+    {1, SW3_CS3,   SW2_CS3,   SW1_CS3},
+    {1, SW3_CS4,   SW2_CS4,   SW1_CS4},
+    {1, SW3_CS5,   SW2_CS5,   SW1_CS5},
+    {1, SW3_CS6,   SW2_CS6,   SW1_CS6},
+    {1, SW3_CS7,   SW2_CS7,   SW1_CS7},
+    {1, SW3_CS8,   SW2_CS8,   SW1_CS8},
+    {1, SW3_CS9,   SW2_CS9,   SW1_CS9},
+    {1, SW3_CS10,  SW2_CS10,  SW1_CS10},
+    {1, SW3_CS11,  SW2_CS11,  SW1_CS11},
+    {1, SW3_CS12,  SW2_CS12,  SW1_CS12},
+    {1, SW3_CS13,  SW2_CS13,  SW1_CS13},
+    {1, SW3_CS14,  SW2_CS14,  SW1_CS14},
+    {1, SW3_CS15,  SW2_CS15,  SW1_CS15},
+    {1, SW3_CS16,  SW2_CS16,  SW1_CS16},
 
-    {0, F_1,   E_1,   D_1},
-    {0, F_2,   E_2,   D_2},
-    {0, F_3,   E_3,   D_3},
-    {0, F_4,   E_4,   D_4},
-    {0, F_5,   E_5,   D_5},
-    {0, F_6,   E_6,   D_6},
-    {0, F_7,   E_7,   D_7},
-    {0, F_8,   E_8,   D_8},
-    {0, F_9,   E_9,   D_9},
-    {0, F_10,  E_10,  D_10},
-    {0, F_11,  E_11,  D_11},
-    {0, F_12,  E_12,  D_12},
-    {0, F_13,  E_13,  D_13},
-    {1, F_1,   E_1,   D_1},
+    {0, SW6_CS1,   SW5_CS1,   SW4_CS1},
+    {0, SW6_CS2,   SW5_CS2,   SW4_CS2},
+    {0, SW6_CS3,   SW5_CS3,   SW4_CS3},
+    {0, SW6_CS4,   SW5_CS4,   SW4_CS4},
+    {0, SW6_CS5,   SW5_CS5,   SW4_CS5},
+    {0, SW6_CS6,   SW5_CS6,   SW4_CS6},
+    {0, SW6_CS7,   SW5_CS7,   SW4_CS7},
+    {0, SW6_CS8,   SW5_CS8,   SW4_CS8},
+    {0, SW6_CS9,   SW5_CS9,   SW4_CS9},
+    {0, SW6_CS10,  SW5_CS10,  SW4_CS10},
+    {0, SW6_CS11,  SW5_CS11,  SW4_CS11},
+    {0, SW6_CS12,  SW5_CS12,  SW4_CS12},
+    {0, SW6_CS13,  SW5_CS13,  SW4_CS13},
+    {1, SW6_CS1,   SW5_CS1,   SW4_CS1},
 
-    {0, I_1,   H_1,   G_1},
-    {0, I_2,   H_2,   G_2},
-    {0, I_3,   H_3,   G_3},
-    {0, I_4,   H_4,   G_4},
-    {0, I_5,   H_5,   G_5},
-    {0, I_6,   H_6,   G_6},
-    {0, I_7,   H_7,   G_7},
-    {0, I_8,   H_8,   G_8},
-    {0, I_9,   H_9,   G_9},
-    {0, I_10,  H_10,  G_10},
-    {0, I_11,  H_11,  G_11},
-    {0, I_12,  H_12,  G_12},
-    {0, I_13,  H_13,  G_13},
-    {1, F_5,   E_5,   D_5},
-    {1, F_2,   E_2,   D_2},
+    {0, SW9_CS1,   SW8_CS1,   SW7_CS1},
+    {0, SW9_CS2,   SW8_CS2,   SW7_CS2},
+    {0, SW9_CS3,   SW8_CS3,   SW7_CS3},
+    {0, SW9_CS4,   SW8_CS4,   SW7_CS4},
+    {0, SW9_CS5,   SW8_CS5,   SW7_CS5},
+    {0, SW9_CS6,   SW8_CS6,   SW7_CS6},
+    {0, SW9_CS7,   SW8_CS7,   SW7_CS7},
+    {0, SW9_CS8,   SW8_CS8,   SW7_CS8},
+    {0, SW9_CS9,   SW8_CS9,   SW7_CS9},
+    {0, SW9_CS10,  SW8_CS10,  SW7_CS10},
+    {0, SW9_CS11,  SW8_CS11,  SW7_CS11},
+    {0, SW9_CS12,  SW8_CS12,  SW7_CS12},
+    {0, SW9_CS13,  SW8_CS13,  SW7_CS13},
+    {1, SW6_CS5,   SW5_CS5,   SW4_CS5},
+    {1, SW6_CS2,   SW5_CS2,   SW4_CS2},
 
-    {0, L_1,   K_1,   J_1},
-    {0, L_3,   K_3,   J_3},
-    {0, L_4,   K_4,   J_4},
-    {0, L_5,   K_5,   J_5},
-    {0, L_6,   K_6,   J_6},
-    {0, L_7,   K_7,   J_7},
-    {0, L_8,   K_8,   J_8},
-    {0, L_9,   K_9,   J_9},
-    {0, L_10,  K_10,  J_10},
-    {0, L_11,  K_11,  J_11},
-    {0, L_12,  K_12,  J_12},
-    {1, F_9,   E_9,   D_9},
-    {1, F_8,   E_8,   D_8},
-    {1, F_6,   E_6,   D_6},
-    {1, F_3,   E_3,   D_3},
+    {0, SW12_CS1,  SW11_CS1,  SW10_CS1},
+    {0, SW12_CS3,  SW11_CS3,  SW10_CS3},
+    {0, SW12_CS4,  SW11_CS4,  SW10_CS4},
+    {0, SW12_CS5,  SW11_CS5,  SW10_CS5},
+    {0, SW12_CS6,  SW11_CS6,  SW10_CS6},
+    {0, SW12_CS7,  SW11_CS7,  SW10_CS7},
+    {0, SW12_CS8,  SW11_CS8,  SW10_CS8},
+    {0, SW12_CS9,  SW11_CS9,  SW10_CS9},
+    {0, SW12_CS10, SW11_CS10, SW10_CS10},
+    {0, SW12_CS11, SW11_CS11, SW10_CS11},
+    {0, SW12_CS12, SW11_CS12, SW10_CS12},
+    {1, SW6_CS9,   SW5_CS9,   SW4_CS9},
+    {1, SW6_CS8,   SW5_CS8,   SW4_CS8},
+    {1, SW6_CS6,   SW5_CS6,   SW4_CS6},
+    {1, SW6_CS3,   SW5_CS3,   SW4_CS3},
 
-    {0, L_13,  K_13,  J_13},
-    {0, L_14,  K_14,  J_14},
-    {0, L_15,  K_15,  J_15},
-    {0, L_16,  K_16,  J_16},
+    {0, SW12_CS13, SW11_CS13, SW10_CS13},
+    {0, SW12_CS14, SW11_CS14, SW10_CS14},
+    {0, SW12_CS15, SW11_CS15, SW10_CS15},
+    {0, SW12_CS16, SW11_CS16, SW10_CS16},
+    {0, SW9_CS14,  SW8_CS14,  SW7_CS14},
+    {0, SW9_CS15,  SW8_CS15,  SW7_CS15},
+    {0, SW9_CS16,  SW8_CS16,  SW7_CS16},
+    {0, SW6_CS14,  SW5_CS14,  SW4_CS14},
+    {0, SW6_CS15,  SW5_CS15,  SW4_CS15},
+    {0, SW6_CS16,  SW5_CS16,  SW4_CS16},
+    {1, SW6_CS7,   SW5_CS7,   SW4_CS7},
+    {1, SW6_CS4,   SW5_CS4,   SW4_CS4},
 
-    {0, I_14,  H_14,  G_14},
-
-    {0, I_15,  H_15,  G_15},
-    {0, I_16,  H_16,  G_16},
-    {0, F_14,  E_14,  D_14},
-    {0, F_15,  E_15,  D_15},
-    {0, F_16,  E_16,  D_16},
-    {1, F_7,   E_7,   D_7},
-    {1, F_4,   E_4,   D_4},
-
-    {0, L_2,   K_2,   J_2},
-    {1, D_10,  E_10,  F_10},
-    {1, D_11,  E_11,  F_11},
+    {0, SW12_CS2,  SW11_CS2,  SW10_CS2},
+    {1, SW6_CS10,  SW5_CS10,  SW4_CS10},
+    {1, SW6_CS11,  SW5_CS11,  SW4_CS11},
 };
 #endif
+
 // clang-format on
 typedef union {
     uint32_t raw;
@@ -119,8 +118,6 @@ typedef union {
 } keyboard_config_t;
 keyboard_config_t keyboard_config;
 
-uint8_t  rgb_test_en;
-uint8_t  rgb_test_index;
 uint32_t long_pressed_time;
 uint16_t long_pressed_keycode;
 uint8_t  all_blink_cnt;
@@ -152,25 +149,16 @@ static uint8_t rgb_matrix_effects_table[] = {
     RGB_MATRIX_RAINDROPS,
     RGB_MATRIX_SOLID_REACTIVE,
 };
-
 // clang-format on
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) { // 处理键盘按键事件
-    if (process_record_user(keycode, record) != true) {         // 自定义按键处理
-        return false;                                           // 用户已处理了按键事件无需进一步处理
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (process_record_user(keycode, record) != true) {
+        return false;
     }
     switch (keycode) {
         case SW_OS1:
             if (record->event.pressed) {
                 long_pressed_time    = timer_read32();
                 long_pressed_keycode = SW_OS1;
-            } else {
-                long_pressed_time = 0;
-            }
-            break;
-        case RGB_TEST:
-            if (record->event.pressed) {
-                long_pressed_time    = timer_read32();
-                long_pressed_keycode = RGB_TEST;
             } else {
                 long_pressed_time = 0;
             }
@@ -191,24 +179,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) { // 处理键盘�
                 long_pressed_time = 0;
             }
             return false;
-        case KC_DEL:
-            if (record->event.pressed) {
-                if (rgb_test_en) {
-                    rgb_test_en = false;
-                    return false;
-                }
-            }
-            break;
-        case KC_DOWN:
-            if (record->event.pressed) {
-                if (rgb_test_en) {
-                    rgb_test_index++;
-                    rgb_test_index %= 4;
-                    return false;
-                }
-            }
-            break;
-        case RGB_SPI:
+        case RM_SPDU:
             if (record->event.pressed) {
                 rgb_matrix_increase_speed();
                 if (rgb_matrix_get_speed() >= 255) {
@@ -216,7 +187,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) { // 处理键盘�
                 }
             }
             return false;
-        case RGB_SPD:
+        case RM_SPDD:
             if (record->event.pressed) {
                 rgb_matrix_decrease_speed();
                 if (rgb_matrix_get_speed() <= 27) {
@@ -224,18 +195,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) { // 处理键盘�
                 }
             }
             return false;
-        // case GU_TOGG:
-        //     if (record->event.pressed) {
-        //     } else {
-        //         if (keymap_config.no_gui) {
-        //             single_blink_time  = timer_read32();
-        //             single_blink_cnt   = 2;
-        //             single_blink_index = 74;
-        //             single_blink_color = (RGB){100, 100, 100};
-        //         }
-        //     }
-        //     break;
-        case RGB_MOD:
+        case RM_NEXT:
             if (record->event.pressed) {
                 keyboard_config.rgb_mode++;
                 if (keyboard_config.rgb_mode > (sizeof(rgb_matrix_effects_table) / sizeof(rgb_matrix_effects_table[0]))) {
@@ -243,19 +203,15 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) { // 处理键盘�
                 }
                 eeconfig_update_user(keyboard_config.raw);
                 if (keyboard_config.rgb_mode == 9) {
-                    // rgb_matrix_disable_noeeprom();
                     rgb_matrix_set_flags(LED_FLAG_NONE);
                     rgb_matrix_set_color_all(0, 0, 0);
                 } else {
-                    // rgb_matrix_enable();
                     rgb_matrix_set_flags(LED_FLAG_ALL);
                     rgb_matrix_mode(rgb_matrix_effects_table[keyboard_config.rgb_mode]);
                 }
-                // if (rgb_matrix_get_mode() == RGB_MATRIX_NONE) {
-                // }
             }
             return false;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 if (keyboard_config.rgb_mode == 9) {
                     return false;
@@ -270,6 +226,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) { // 处理键盘�
                     } break;
                 }
             }
+            if (!rgb_matrix_is_enabled()) {
+                rgb_matrix_set_flags(LED_FLAG_ALL);
+                rgb_matrix_enable();
+            }
             return false;
         default:
             break;
@@ -282,56 +242,39 @@ void matrix_init_kb(void) {
     setPinOutputOpenDrain(RGB_DRIVER_SDB_PIN);
     writePinHigh(RGB_DRIVER_SDB_PIN);
 #endif
-
     matrix_init_user();
 }
 
 void keyboard_post_init_kb() {
-    // rgb_matrix_config.hsv.h = 170;
-    // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
     keyboard_config.raw = eeconfig_read_user();
     rgb_matrix_mode(rgb_matrix_effects_table[keyboard_config.rgb_mode]);
     if (keyboard_config.rgb_mode == 9) {
-        // rgb_matrix_disable_noeeprom();
         rgb_matrix_set_flags(LED_FLAG_NONE);
         rgb_matrix_set_color_all(0, 0, 0);
     }
-
-    keyboard_post_init_user(); // call matrix_init_user() at the end of this function
+    keyboard_post_init_user();
 }
 
 void housekeeping_task_kb(void) {
     if (!keyboard_config.first_boot) {
-        keymap_config.nkro = 1; // 全键无冲
-        eeconfig_update_keymap(keymap_config.raw);
         keyboard_config.first_boot = 1;
         rgb_matrix_config.hsv.h    = 170;
         eeconfig_update_user(keyboard_config.raw);
-        // HSV hsv = rgb_matrix_get_hsv();
-        // hsv.h = 170;
-        // RGB rgb = hsv_to_rgb(hsv);
-        // rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
     }
 
-#ifdef CONSOLE_ENABLE
-    debug_enable = true;
-#endif
-    if ((timer_elapsed32(long_pressed_time) > 2000) && (long_pressed_time)) { // 检查是否有按键长按
+    if ((timer_elapsed32(long_pressed_time) > 2000) && (long_pressed_time)) {
         long_pressed_time = 0;
         switch (long_pressed_keycode) {
-            case RGB_TEST:
-                rgb_test_en = 1;
-                break;
             case SW_OS1:
-                if (get_highest_layer(default_layer_state) == 0) { // MAC_BASE
+                if (get_highest_layer(default_layer_state) == 0) {
                     set_single_persistent_default_layer(2);
                     keymap_config.no_gui = 0;
-                    eeconfig_update_keymap(keymap_config.raw); // Write default value to EEPROM now
+                    eeconfig_update_keymap(&keymap_config);
                     single_blink_time  = timer_read32();
                     single_blink_cnt   = 2;
                     single_blink_index = 73;
                     single_blink_color = (RGB){100, 100, 100};
-                } else if (get_highest_layer(default_layer_state) == 2) { // WIN_BASE
+                } else if (get_highest_layer(default_layer_state) == 2) {
                     set_single_persistent_default_layer(0);
                     single_blink_time  = timer_read32();
                     single_blink_cnt   = 2;
@@ -341,18 +284,15 @@ void housekeeping_task_kb(void) {
                 break;
             case NK_TOGG:
                 keymap_config.nkro = !keymap_config.nkro;
-                eeconfig_update_keymap(keymap_config.raw);
+                eeconfig_update_keymap(&keymap_config);
                 single_blink_time  = timer_read32();
                 single_blink_cnt   = 6;
                 single_blink_index = 13;
                 single_blink_color = (RGB){100, 100, 100};
                 break;
             case EE_CLR:
-                // eeconfig_update_rgb_matrix_default();
-
-                EE_CLR_blink_time = timer_read32();
-                EE_CLR_blink_cnt  = 6;
-                // EE_CLR_blink_index = 64;
+                EE_CLR_blink_time  = timer_read32();
+                EE_CLR_blink_cnt   = 6;
                 EE_CLR_blink_color = (RGB){.r = 100, .g = 100, .b = 100};
                 break;
             default:
@@ -365,15 +305,9 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (rgb_matrix_indicators_advanced_user(led_min, led_max) != true) {
         return false;
     }
-    // rgb_matrix_set_color(73, 0, 0, 0);
-    // rgb_matrix_set_color(74, 0, 0, 0);
-
-    if (rgb_test_en) {
-        rgb_matrix_set_color_all(rgb_test_color_table[rgb_test_index][0], rgb_test_color_table[rgb_test_index][1], rgb_test_color_table[rgb_test_index][2]);
-    }
 
     /*************************************************************************************/
-    if (all_blink_cnt) { // 全键闪烁
+    if (all_blink_cnt) {
         rgb_matrix_set_color_all(0, 0, 0);
         if (timer_elapsed32(all_blink_time) > 300) {
             all_blink_time = timer_read32();
@@ -384,7 +318,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    if (single_blink_cnt) { // 单键闪烁
+    if (single_blink_cnt) {
         if (timer_elapsed32(single_blink_time) > 300) {
             single_blink_time = timer_read32();
             single_blink_cnt--;
@@ -396,7 +330,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
     /*************************************************************************************/
-    if (EE_CLR_blink_cnt) { // 复位闪烁
+    if (EE_CLR_blink_cnt) {
         if (EE_CLR_blink_cnt % 2) {
             rgb_matrix_set_color(73, EE_CLR_blink_color.r, EE_CLR_blink_color.g, EE_CLR_blink_color.b);
             rgb_matrix_set_color(74, EE_CLR_blink_color.r, EE_CLR_blink_color.g, EE_CLR_blink_color.b);
@@ -414,16 +348,15 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
                 eeconfig_update_rgb_matrix_default();
                 keyboard_config.rgb_mode = 0;
                 rgb_matrix_mode(rgb_matrix_effects_table[keyboard_config.rgb_mode]);
-                // rgb_matrix_set_color_all(RGB_BLUE);
                 rgb_matrix_config.hsv.h = 170;
-                eeconfig_update_user(keyboard_config.raw); // Write default value to EEPROM now
+                eeconfig_update_user(keyboard_config.raw);
                 keymap_config.no_gui = 0;
                 keymap_config.nkro   = 1;
-                eeconfig_update_keymap(keymap_config.raw);
+                eeconfig_update_keymap(&keymap_config);
             }
         }
     }
-    /*************************************************************************************/
+
     // caps lock red
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(72, 100, 100, 100);
@@ -433,6 +366,10 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     if (keymap_config.no_gui) {
         rgb_matrix_set_color(61, 100, 100, 100);
+    } else {
+        if (!rgb_matrix_get_flags()) {
+            rgb_matrix_set_color(61, 0, 0, 0);
+        }
     }
 
     return true;

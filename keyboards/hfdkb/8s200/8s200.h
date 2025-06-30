@@ -7,5 +7,4 @@
 
 enum user_keycodes {
     SW_OS1 = QK_KB_0,
-    RGB_TEST,
 };

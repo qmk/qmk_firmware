@@ -37,7 +37,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "is31fl3731",
+        "driver": "is31fl3733",
         "max_brightness": 180,
         "val_steps": 45,
         "speed_steps": 57,
@@ -150,7 +150,7 @@
         ]
     },
     "layouts": {
-        "LAYOUT_ansi": {
+        "LAYOUT_72_jis": {
             "layout": [
                 { "matrix": [0,0], "x": 0, "y":0 },
                 { "matrix": [0,1], "x": 1, "y":0 },
