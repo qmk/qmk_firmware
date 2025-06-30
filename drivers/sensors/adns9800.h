@@ -61,7 +61,7 @@ typedef struct {
     int16_t y;
 } report_adns9800_t;
 
-const pointing_device_driver_t adns9800_pointing_device_driver;
+extern const pointing_device_driver_t adns9800_pointing_device_driver;
 
 bool              adns9800_init(void);
 config_adns9800_t adns9800_get_config(void);
