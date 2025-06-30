@@ -43,7 +43,7 @@
 #    define ANALOG_JOYSTICK_SPEED_MAX 2
 #endif
 
-const pointing_device_driver_t analog_joystick_pointing_device_driver;
+extern const pointing_device_driver_t analog_joystick_pointing_device_driver;
 
 typedef struct {
     int8_t x;
