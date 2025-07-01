@@ -1,8 +1,0 @@
-{
-    "keyboard_name": "hnk65",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0x484E"
-    }
-}
