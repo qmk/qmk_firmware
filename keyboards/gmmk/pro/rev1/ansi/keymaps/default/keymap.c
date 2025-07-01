@@ -34,10 +34,9 @@ static const uint16_t snap_tap_pairs[][3] = {
 typedef struct {
     uint16_t key1;
     uint16_t key2;
-    bool key1_pressed;
-    bool key2_pressed;
-    uint32_t key1_timestamp;
-    uint32_t key2_timestamp;
+    bool key1_held;      // Is key1 physically held down?
+    bool key2_held;      // Is key2 physically held down?
+    uint16_t active_key; // Which key is currently sending input (0 = none)
 } snap_tap_pair_state_t;
 
 static snap_tap_pair_state_t snap_tap_states[SNAP_TAP_PAIRS];
@@ -47,10 +46,9 @@ void snap_tap_init(void) {
     for (int i = 0; i < SNAP_TAP_PAIRS; i++) {
         snap_tap_states[i].key1 = snap_tap_pairs[i][0];
         snap_tap_states[i].key2 = snap_tap_pairs[i][1];
-        snap_tap_states[i].key1_pressed = false;
-        snap_tap_states[i].key2_pressed = false;
-        snap_tap_states[i].key1_timestamp = 0;
-        snap_tap_states[i].key2_timestamp = 0;
+        snap_tap_states[i].key1_held = false;
+        snap_tap_states[i].key2_held = false;
+        snap_tap_states[i].active_key = 0;
     }
 }
 
@@ -80,46 +78,62 @@ bool snap_tap_process(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         // Key press
         if (is_key1) {
-            state->key1_pressed = true;
-            state->key1_timestamp = record->event.time;
+            state->key1_held = true;
             
-            // If key2 is already pressed, release it (prioritize key1)
-            if (state->key2_pressed) {
+            // If the other key is currently active, release it
+            if (state->active_key == state->key2) {
                 unregister_code(state->key2);
-                state->key2_pressed = false;
             }
-        } else if (is_key2) {
-            state->key2_pressed = true;
-            state->key2_timestamp = record->event.time;
             
-            // If key1 is already pressed, release it (prioritize key2)
-            if (state->key1_pressed) {
+            // Make this key active
+            state->active_key = state->key1;
+            register_code(state->key1);
+            
+        } else if (is_key2) {
+            state->key2_held = true;
+            
+            // If the other key is currently active, release it
+            if (state->active_key == state->key1) {
                 unregister_code(state->key1);
-                state->key1_pressed = false;
             }
+            
+            // Make this key active
+            state->active_key = state->key2;
+            register_code(state->key2);
         }
         
-        // Register the new key
-        register_code(keycode);
         return false; // Don't process normally, we handled it
         
     } else {
         // Key release
         if (is_key1) {
-            state->key1_pressed = false;
-            unregister_code(keycode);
+            state->key1_held = false;
             
-            // If key2 was pressed before key1 was released, re-register key2
-            if (state->key2_pressed) {
-                register_code(state->key2);
+            // If this was the active key, release it
+            if (state->active_key == state->key1) {
+                unregister_code(state->key1);
+                state->active_key = 0;
+                
+                // If the other key is still held, activate it
+                if (state->key2_held) {
+                    state->active_key = state->key2;
+                    register_code(state->key2);
+                }
             }
-        } else if (is_key2) {
-            state->key2_pressed = false;
-            unregister_code(keycode);
             
-            // If key1 was pressed before key2 was released, re-register key1
-            if (state->key1_pressed) {
-                register_code(state->key1);
+        } else if (is_key2) {
+            state->key2_held = false;
+            
+            // If this was the active key, release it
+            if (state->active_key == state->key2) {
+                unregister_code(state->key2);
+                state->active_key = 0;
+                
+                // If the other key is still held, activate it
+                if (state->key1_held) {
+                    state->active_key = state->key1;
+                    register_code(state->key1);
+                }
             }
         }
         
