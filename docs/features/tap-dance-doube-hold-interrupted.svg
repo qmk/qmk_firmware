@@ -25,8 +25,8 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.8884048"
-     inkscape:cx="514.45539"
-     inkscape:cy="326.20125"
+     inkscape:cx="505.18829"
+     inkscape:cy="379.68554"
      inkscape:current-layer="svg5" />
   <defs
      id="defs2">
@@ -259,6 +259,18 @@
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
        x="90.397614"
        y="-79.312668">on_dance_finished(count:2, interrupted:true)</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+     x="94.660332"
+     y="-87.032799"
+     id="text3451-4-9-5-4-9-3"
+     transform="rotate(61.3)"><tspan
+       sodipodi:role="line"
+       id="tspan3449-7-3-2-4-2-6"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+       x="94.660332"
+       y="-87.032799">Interrupting key event processing</tspan></text>
   <text
      xml:space="preserve"
      transform="matrix(0.26458333,0,0,0.26458333,113.12479,40.18937)"

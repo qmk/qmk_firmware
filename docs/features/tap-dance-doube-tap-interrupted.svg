@@ -25,7 +25,7 @@
      inkscape:document-units="mm"
      showgrid="false"
      inkscape:zoom="1.6819304"
-     inkscape:cx="428.6741"
+     inkscape:cx="387.05526"
      inkscape:cy="465.5365"
      inkscape:current-layer="layer1" />
   <defs
@@ -244,15 +244,15 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
-       x="154.10144"
-       y="16.820175"
+       x="155.74803"
+       y="17.118372"
        id="text3451-4-9-5"
        transform="rotate(61.3)"><tspan
          sodipodi:role="line"
          id="tspan3449-7-3-2"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
-         x="154.10144"
-         y="16.820175">on_each_release(count:2, pressed:false)</tspan></text>
+         x="155.74803"
+         y="17.118372">on_each_release(count:2, pressed:false)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
@@ -282,5 +282,17 @@
        d="m 136.8083,127.93103 -0.0323,8.87583"
        id="path3722"
        sodipodi:nodetypes="cc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.05556px;line-height:1.25;font-family:FreeMono;-inkscape-font-specification:FreeMono;font-variant-ligatures:none;stroke-width:0.264583"
+       x="181.4807"
+       y="-26.056341"
+       id="text3451-4-9-5-4-9-3"
+       transform="rotate(61.3)"><tspan
+         sodipodi:role="line"
+         id="tspan3449-7-3-2-4-2-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:FreeMono;-inkscape-font-specification:FreeMono;stroke-width:0.264583"
+         x="181.4807"
+         y="-26.056341">Interrupting key event processing</tspan></text>
   </g>
 </svg>
