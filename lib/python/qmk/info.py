@@ -223,12 +223,6 @@ def _validate(keyboard, info_data):
 def info_json(keyboard, force_layout=None):
     """Generate the info.json data for a specific keyboard.
     """
-    cur_dir = Path('keyboards')
-    root_rules_mk = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-
-    if 'DEFAULT_FOLDER' in root_rules_mk:
-        keyboard = root_rules_mk['DEFAULT_FOLDER']
-
     info_data = {
         'keyboard_name': str(keyboard),
         'keyboard_folder': str(keyboard),
@@ -1004,11 +998,6 @@ def find_info_json(keyboard):
     keyboard_path = base_path / keyboard
     keyboard_parent = keyboard_path.parent
     info_jsons = [keyboard_path / 'info.json', keyboard_path / 'keyboard.json']
-
-    # Add DEFAULT_FOLDER before parents, if present
-    rules = rules_mk(keyboard)
-    if 'DEFAULT_FOLDER' in rules:
-        info_jsons.append(Path(rules['DEFAULT_FOLDER']) / 'info.json')
 
     # Add in parent folders for least specific
     for _ in range(5):

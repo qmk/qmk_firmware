@@ -40,9 +40,13 @@
 
 // Define SPI config speed
 // baudrate should target 3.2MHz
-#if defined(AT32F415)
+#if defined(AT32F402_405) || defined(AT32F415)
 #    if WS2812_SPI_DIVISOR == 2
 #        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (0)
+#        if defined(AT32F402_405)
+#        elif WS2812_SPI_DIVISOR == 3
+#            define WS2812_SPI_DIVISOR_CTRL2_MDIV_X (SPI_CTRL2_MDIV3EN)
+#        endif
 #    elif WS2812_SPI_DIVISOR == 4
 #        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_0)
 #    elif WS2812_SPI_DIVISOR == 8
@@ -203,9 +207,9 @@ void ws2812_init(void) {
         NULL, // error_cb
         PAL_PORT(WS2812_DI_PIN),
         PAL_PAD(WS2812_DI_PIN),
-#    if defined(AT32F415)
+#    if defined(AT32F402_405) || defined(AT32F415)
         WS2812_SPI_DIVISOR_CTRL1_MDIV_X,
-#        if (WS2812_SPI_DIVISOR == 512 || WS2812_SPI_DIVISOR == 1024)
+#        if (WS2812_SPI_DIVISOR == 3 || WS2812_SPI_DIVISOR == 512 || WS2812_SPI_DIVISOR == 1024)
         WS2812_SPI_DIVISOR_CTRL2_MDIV_X,
 #        endif
         0
