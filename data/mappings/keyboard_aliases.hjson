@@ -2287,9 +2287,6 @@
     "durgod/dgk6x": {
         "target": "durgod/dgk6x/hades_ansi"
     },
-    "ergodox_ez": {
-        "target": "ergodox_ez/base"
-    },
     "ferris/0_2": {
         "target": "ferris/0_2/base"
     },
