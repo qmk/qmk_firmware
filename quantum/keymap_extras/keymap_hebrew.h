@@ -27,6 +27,12 @@
 #include "keycodes.h"
 // clang-format off
 
+#define QMK_HEBREW_KEYCODES_VERSION "0.0.1"
+#define QMK_HEBREW_KEYCODES_VERSION_BCD 0x00000001
+#define QMK_HEBREW_KEYCODES_VERSION_MAJOR 0
+#define QMK_HEBREW_KEYCODES_VERSION_MINOR 0
+#define QMK_HEBREW_KEYCODES_VERSION_PATCH 1
+
 // Aliases
 #define IL_SCLN KC_GRV  // ;
 #define IL_1    KC_1    // 1

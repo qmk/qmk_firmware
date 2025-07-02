@@ -123,6 +123,12 @@ enum rgb_matrix_effects {
 #include "rgb_matrix_effects.inc"
 #undef RGB_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_COMMUNITY_MODULE_##name,
+#    include "rgb_matrix_community_modules.inc"
+#    undef RGB_MATRIX_EFFECT
+#endif
+
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
 #    define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_CUSTOM_##name,
 #    ifdef RGB_MATRIX_CUSTOM_KB
@@ -213,6 +219,10 @@ led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 void        rgb_matrix_set_flags_noeeprom(led_flags_t flags);
 void        rgb_matrix_update_pwm_buffers(void);
+
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+const char *rgb_matrix_get_mode_name(uint8_t mode);
+#endif // RGB_MATRIX_MODE_NAME_ENABLE
 
 #ifndef RGBLIGHT_ENABLE
 #    define eeconfig_update_rgblight_current eeconfig_force_flush_rgb_matrix

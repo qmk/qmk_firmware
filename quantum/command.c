@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "action_util.h"
 #include "eeconfig.h"
-#include "sleep_led.h"
 #include "led.h"
 #include "command.h"
 #include "quantum.h"
@@ -37,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
+#endif
+
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
 #endif
 
 #if defined(MOUSEKEY_ENABLE)
@@ -243,7 +246,7 @@ static void print_status(void) {
 
 #if !defined(NO_PRINT) && !defined(USER_PRINT)
 static void print_eeconfig(void) {
-    xprintf("eeconfig:\ndefault_layer: %u\n", eeconfig_read_default_layer());
+    xprintf("eeconfig:\ndefault_layer: %" PRIu32 "\n", (uint32_t)eeconfig_read_default_layer());
 
     debug_config_t dc;
     eeconfig_read_debug(&dc);

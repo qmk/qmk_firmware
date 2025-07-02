@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GKB-M16",
     "manufacturer": "gkeyboard",
-    "url": "",
     "maintainer": "gkeyboard",
     "usb": {
         "vid": "0x474B",
@@ -31,8 +30,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

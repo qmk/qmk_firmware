@@ -1,6 +1,7 @@
 {
     "module_name": "Super Alt Tab",
     "maintainer": "QMK Maintainers",
+    "license": "GPL-2.0-or-later",
     "keycodes": [
         {
             "key": "COMMUNITY_MODULE_SUPER_ALT_TAB",

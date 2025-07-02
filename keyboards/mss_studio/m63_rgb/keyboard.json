@@ -1,7 +1,6 @@
 {
     "keyboard_name": "M63 RGB",
     "manufacturer": "Mss Studio",
-    "url": "",
     "maintainer": "HorrorTroll",
     "usb": {
         "vid": "0x4D4B",
@@ -62,8 +61,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

@@ -36,8 +36,8 @@ The following `#define`s apply only to the `adc` driver:
 |-----------------------------|--------------|--------------------------------------------------------------|
 |`BATTERY_PIN`                |*Not defined* |The GPIO pin connected to the voltage divider.                |
 |`BATTERY_REF_VOLTAGE_MV`     |`3300`        |The ADC reverence voltage, in millivolts.                     |
-|`BATTERY_VOLTAGE_DIVIDER_R1` |`100000`      |The voltage divider resistance, in kOhm. Set to 0 to disable. |
-|`BATTERY_VOLTAGE_DIVIDER_R1` |`100000`      |The voltage divider resistance, in kOhm. Set to 0 to disable. |
+|`BATTERY_VOLTAGE_DIVIDER_R1` |`100`         |The voltage divider resistance, in kOhm. Set to 0 to disable. |
+|`BATTERY_VOLTAGE_DIVIDER_R2` |`100`         |The voltage divider resistance, in kOhm. Set to 0 to disable. |
 |`BATTERY_ADC_RESOLUTION`     |`10`          |The ADC resolution configured for the ADC Driver.             |
 
 ## Functions
@@ -49,3 +49,25 @@ Sample battery level.
 #### Return Value {#api-battery-get-percent-return}
 
 The battery percentage, in the range 0-100.
+
+## Callbacks
+
+### `void battery_percent_changed_user(uint8_t level)` {#api-battery-percent-changed-user}
+
+User hook called when battery level changed.
+
+### Arguments {#api-battery-percent-changed-user-arguments}
+
+ - `uint8_t level`  
+   The battery percentage, in the range 0-100.
+
+---
+
+### `void battery_percent_changed_kb(uint8_t level)` {#api-battery-percent-changed-kb}
+
+Keyboard hook called when battery level changed.
+
+### Arguments {#api-battery-percent-changed-kb-arguments}
+
+ - `uint8_t level`  
+   The battery percentage, in the range 0-100.

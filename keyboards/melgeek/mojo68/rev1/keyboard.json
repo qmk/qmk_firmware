@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MoJo68",
     "manufacturer": "MelGeek",
-    "url": "",
     "maintainer": "melgeek001365",
     "usb": {
         "vid": "0xEDED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

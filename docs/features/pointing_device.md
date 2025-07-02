@@ -379,7 +379,7 @@ POINTING_DEVICE_DRIVER = custom
 Using the custom driver will require implementing the following functions:
 
 ```c
-void           pointing_device_driver_init(void) {}
+bool           pointing_device_driver_init(void) { return true; }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
 uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
 void           pointing_device_driver_set_cpi(uint16_t cpi) {}
@@ -419,6 +419,32 @@ The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_S
 Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
 :::
 
+## High Resolution Scrolling
+
+| Setting                                  | Description                                                                                                               | Default       |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `POINTING_DEVICE_HIRES_SCROLL_ENABLE`    | (Optional) Enables high resolution scrolling.                                                                             | _not defined_ |
+| `POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER`| (Optional) Resolution mutiplier value used by high resolution scrolling. Must be between 1 and 127, inclusive.            | `120`         |
+| `POINTING_DEVICE_HIRES_SCROLL_EXPONENT`  | (Optional) Resolution exponent value used by high resolution scrolling. Must be between 0 and 127, inclusive.             | `0`           |
+
+The `POINTING_DEVICE_HIRES_SCROLL_ENABLE` setting enables smooth and continuous scrolling when using trackballs or high-end encoders as mouse wheels (as opposed to the typical stepped behavior of most mouse wheels).
+This works by adding a resolution multiplier to the HID descriptor for mouse wheel reports, causing the host computer to interpret each wheel tick sent by the keyboard as a fraction of a normal wheel tick.
+The resolution multiplier is set to `1 / (POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER * (10 ^ POINTING_DEVICE_HIRES_SCROLL_EXPONENT))`, which is `1 / 120` by default.
+If even smoother scrolling than provided by this default value is desired, first try using `#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 1` which will result in a multiplier of `1 / 1200`.
+
+The function `pointing_device_get_hires_scroll_resolution()` can be called to get the pre-computed resolution multiplier value as a `uint16_t`.
+
+::: warning
+High resolution scrolling usually results in larger and/or more frequent mouse reports. This can result in overflow errors and overloading of the host computer's input buffer. 
+To deal with these issues, define `WHEEL_EXTENDED_REPORT` and throttle the rate at which mouse reports are sent.
+:::
+
+::: warning
+Many programs, especially those that implement their own smoothing for scrolling, don't work well when they receive simultaneous vertical and horizontal wheel inputs (e.g. from high resolution drag-scroll using a trackball).
+These programs typically implement their smoothing in a way that assumes the user will only scroll in one axis at a time, resulting in slow or jittery motion when trying to scroll at an angle.
+This can be addressed by snapping scrolling to one axis at a time.
+:::
+
 ## Split Keyboard Configuration
 
 The following configuration options are only available when using `SPLIT_POINTING_ENABLE` see [data sync options](split_keyboard#data-sync-options). The rotation and invert `*_RIGHT` options are only used with `POINTING_DEVICE_COMBINED`. If using `POINTING_DEVICE_LEFT` or `POINTING_DEVICE_RIGHT` use the common configuration above to configure your pointing device.
@@ -441,20 +467,22 @@ If there is a `_RIGHT` configuration option or callback, the [common configurati
 
 ## Callbacks and Functions 
 
-| Function                                                   | Description                                                                                                   |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `pointing_device_init_kb(void)`                            | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
-| `pointing_device_init_user(void)`                          | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
-| `pointing_device_task_kb(mouse_report)`                    | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
-| `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
-| `pointing_device_handle_buttons(buttons, pressed, button)` | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
-| `pointing_device_get_cpi(void)`                            | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
-| `pointing_device_set_cpi(uint16_t)`                        | Sets the CPI/DPI, if supported.                                                                               |
-| `pointing_device_get_report(void)`                         | Returns the current mouse report (as a `report_mouse_t` data structure).                                      |
-| `pointing_device_set_report(mouse_report)`                 | Sets the mouse report to the assigned `report_mouse_t` data structured passed to the function.                |
-| `pointing_device_send(void)`                               | Sends the current mouse report to the host system.  Function can be replaced.                                 |
-| `has_mouse_report_changed(new_report, old_report)`         | Compares the old and new `report_mouse_t` data and returns true only if it has changed.                       |
-| `pointing_device_adjust_by_defines(mouse_report)`          | Applies rotations and invert configurations to a raw mouse report.                                            |
+| Function                                                      | Description                                                                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `pointing_device_init_kb(void)`                               | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
+| `pointing_device_init_user(void)`                             | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
+| `pointing_device_task_kb(mouse_report)`                       | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
+| `pointing_device_task_user(mouse_report)`                     | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
+| `pointing_device_handle_buttons(buttons, pressed, button)`    | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
+| `pointing_device_get_cpi(void)`                               | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
+| `pointing_device_set_cpi(uint16_t)`                           | Sets the CPI/DPI, if supported.                                                                               |
+| `pointing_device_get_report(void)`                            | Returns the current mouse report (as a `report_mouse_t` data structure).                                      |
+| `pointing_device_set_report(mouse_report)`                    | Sets the mouse report to the assigned `report_mouse_t` data structured passed to the function.                |
+| `pointing_device_send(void)`                                  | Sends the current mouse report to the host system.  Function can be replaced.                                 |
+| `has_mouse_report_changed(new_report, old_report)`            | Compares the old and new `report_mouse_t` data and returns true only if it has changed.                       |
+| `pointing_device_adjust_by_defines(mouse_report)`             | Applies rotations and invert configurations to a raw mouse report.                                            |
+| `pointing_device_get_status(void)`                            | Returns device status as `pointing_device_status_t` a good return is `POINTING_DEVICE_STATUS_SUCCESS`.        |
+| `pointing_device_set_status(pointing_device_status_t status)` | Sets device status, anything other than `POINTING_DEVICE_STATUS_SUCCESS` will disable reports from the device.|
 
 
 ## Split Keyboard Callbacks and Functions
