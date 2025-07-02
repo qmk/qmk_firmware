@@ -4,6 +4,10 @@
 
 #pragma once
 
+// External clock configuration
+#undef AT32_HEXTCLK
+#define AT32_HEXTCLK 16000000
+
 // #define ADC_PIN A0
 
 // #define BACKLIGHT_PWM_DRIVER PWMD3
