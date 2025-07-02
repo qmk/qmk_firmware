@@ -404,7 +404,6 @@ See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 |`DF(layer)`     |Set the base (default) layer until the keyboard loses power                       |
 |`PDF(layer)`    |Set the base (default) layer in EEPROM                                            |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys) for details. |
 |`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
@@ -817,13 +816,41 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted)
 
 See also: [One Shot Keys](one_shot_keys)
 
-|Key                 |Aliases  |Description                       |
-|--------------------|---------|----------------------------------|
-|`OSM(mod)`          |         |Hold `mod` for one keypress       |
-|`OSL(layer)`        |         |Switch to `layer` for one keypress|
-|`QK_ONE_SHOT_TOGGLE`|`OS_TOGG`|Toggles One Shot keys status      |
-|`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on            |
-|`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off           |
+|Key                 |Aliases  |Description                                                          |
+|--------------------|---------|---------------------------------------------------------------------|
+|`QK_ONE_SHOT_TOGGLE`|`OS_TOGG`|Toggles One Shot keys status                                         |
+|`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on                                               |
+|`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off                                              |
+|`OSL(layer)`        |         |Switch to `layer` for one keypress                                   |
+|`OSM(mod)`          |         |Hold `mod` for one keypress                                          |
+|`OS_LCTL`           |         |Hold Left Control for one keypress                                   |
+|`OS_LSFT`           |         |Hold Left Shift for one keypress                                     |
+|`OS_LALT`           |         |Hold Left Alt for one keypress                                       |
+|`OS_LGUI`           |         |Hold Left GUI for one keypress                                       |
+|`OS_LCS`            |         |Hold Left Control and Left Shift for one keypress                    |
+|`OS_LCA`            |         |Hold Left Control and left Alt for one keypress                      |
+|`OS_LCG`            |         |Hold Left Control and Left GUI for one keypress                      |
+|`OS_LSA`            |         |Hold Left Shift and Left Alt for one keypress                        |
+|`OS_LSG`            |         |Hold Left Shift and Left GUI for one keypress                        |
+|`OS_LAG`            |         |Hold Left Alt and Left GUI for one keypress                          |
+|`OS_LCSG`           |         |Hold Left Control, Left Shift and Left GUI for one keypress          |
+|`OS_LCAG`           |         |Hold Left Control, Left Alt and Left GUI for one keypress            |
+|`OS_LSAG`           |         |Hold Left Shift, Left Alt and Left GUI for one keypress              |
+|`OS_RCTL`           |         |Hold Right Control for one keypress                                  |
+|`OS_RSFT`           |         |Hold Right Shift for one keypress                                    |
+|`OS_RALT`           |         |Hold Right Alt for one keypress                                      |
+|`OS_RGUI`           |         |Hold Right GUI for one keypress                                      |
+|`OS_RCS`            |         |Hold Right Control and Right Shift for one keypress                  |
+|`OS_RCA`            |         |Hold Right Control and Right Alt for one keypress                    |
+|`OS_RCG`            |         |Hold Right Control and Right GUI for one keypress                    |
+|`OS_RSA`            |         |Hold Right Shift and Right Alt for one keypress                      |
+|`OS_RSG`            |         |Hold Right Shift and Right GUI for one keypress                      |
+|`OS_RAG`            |         |Hold Right Alt and Right GUI for one keypress                        |
+|`OS_RCSG`           |         |Hold Right Control, Right Shift and Right GUI for one keypress       |
+|`OS_RCAG`           |         |Hold Right Control, Right Alt and Right GUI for one keypress         |
+|`OS_RSAG`           |         |Hold Right Shift, Right Alt and Right GUI for one keypress           |
+|`OS_MEH`            |         |Hold Left Control, Left Shift and Left Alt for one keypress          |
+|`OS_HYPR`           |         |Hold Left Control, Left Shift, Left Alt and Left GUI for one keypress|
 
 ## Programmable Button Support {#programmable-button}
 
