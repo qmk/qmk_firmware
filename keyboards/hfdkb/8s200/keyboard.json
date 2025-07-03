@@ -13,8 +13,6 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -47,21 +45,13 @@
         "animations": {
             "solid_color": false,
             "breathing": true,
-            "cycle_all": false,
             "cycle_left_right": true,
-            "cycle_up_down": false,
-            "cycle_out_in": false,
             "cycle_out_in_dual": true,
             "rainbow_moving_chevron": true,
-            "cycle_pinwheel": false,
-            "cycle_spiral": false,
             "dual_beacon": true,
             "rainbow_beacon": true,
             "raindrops": true,
-            "typing_heatmap": false,
-            "solid_reactive_simple": false,
-            "solid_reactive": true,
-            "multisplash": false
+            "solid_reactive": true
         },
         "default": {
             "speed": 141

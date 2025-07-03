@@ -1,4 +1,4 @@
-/* Copyright (C) 2022 jonylee@hfd
+/* Copyright (C) 2025 jonylee@hfd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -103,8 +103,8 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     {1, SW6_CS4,   SW5_CS4,   SW4_CS4},
 
     {0, SW12_CS2,  SW11_CS2,  SW10_CS2},
-    {1, SW6_CS10,  SW5_CS10,  SW4_CS10},
-    {1, SW6_CS11,  SW5_CS11,  SW4_CS11},
+    {1, SW4_CS10,  SW5_CS10,  SW6_CS10},
+    {1, SW4_CS11,  SW5_CS11,  SW6_CS11},
 };
 #endif
 
@@ -112,31 +112,24 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
 typedef union {
     uint32_t raw;
     struct {
-        bool    first_boot;
         uint8_t rgb_mode;
     };
 } keyboard_config_t;
 keyboard_config_t keyboard_config;
 
-uint32_t long_pressed_time;
-uint16_t long_pressed_keycode;
-uint8_t  all_blink_cnt;
-uint32_t all_blink_time;
-RGB      all_blink_color;
-uint8_t  single_blink_cnt;
-uint8_t  single_blink_index;
-RGB      single_blink_color;
-uint32_t single_blink_time;
-uint8_t  EE_CLR_blink_cnt;
-RGB      EE_CLR_blink_color;
-uint32_t EE_CLR_blink_time;
+static uint32_t long_pressed_time;
+static uint16_t long_pressed_keycode;
+static uint8_t  all_blink_cnt;
+static uint32_t all_blink_time;
+static RGB      all_blink_color;
+static uint8_t  single_blink_cnt;
+static uint8_t  single_blink_index;
+static RGB      single_blink_color;
+static uint32_t single_blink_time;
+static uint8_t  EE_CLR_blink_cnt;
+static RGB      EE_CLR_blink_color;
+static uint32_t EE_CLR_blink_time;
 
-const uint8_t rgb_test_color_table[][3] = {
-    {RGB_WHITE},
-    {RGB_RED},
-    {RGB_GREEN},
-    {RGB_BLUE},
-};
 // clang-format off
 static uint8_t rgb_matrix_effects_table[] = {
     RGB_MATRIX_BREATHING,
@@ -149,6 +142,9 @@ static uint8_t rgb_matrix_effects_table[] = {
     RGB_MATRIX_RAINDROPS,
     RGB_MATRIX_SOLID_REACTIVE,
 };
+
+#define RGB_MATRIX_EFFECTS_COUNT (sizeof(rgb_matrix_effects_table) / sizeof(rgb_matrix_effects_table[0]))
+
 // clang-format on
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (process_record_user(keycode, record) != true) {
@@ -198,11 +194,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RM_NEXT:
             if (record->event.pressed) {
                 keyboard_config.rgb_mode++;
-                if (keyboard_config.rgb_mode > (sizeof(rgb_matrix_effects_table) / sizeof(rgb_matrix_effects_table[0]))) {
+                if (keyboard_config.rgb_mode > RGB_MATRIX_EFFECTS_COUNT) {
                     keyboard_config.rgb_mode = 0;
                 }
                 eeconfig_update_user(keyboard_config.raw);
-                if (keyboard_config.rgb_mode == 9) {
+                if (keyboard_config.rgb_mode == RGB_MATRIX_EFFECTS_COUNT) {
                     rgb_matrix_set_flags(LED_FLAG_NONE);
                     rgb_matrix_set_color_all(0, 0, 0);
                 } else {
@@ -213,7 +209,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
-                if (keyboard_config.rgb_mode == 9) {
+                if (keyboard_config.rgb_mode == RGB_MATRIX_EFFECTS_COUNT) {
                     return false;
                 }
                 switch (rgb_matrix_get_flags()) {
@@ -237,6 +233,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void eeconfig_init_kb() {
+    rgb_matrix_config.hsv.h = 170;
+    eeconfig_update_user(keyboard_config.raw);
+
+    eeconfig_init_user();
+}
+
 void matrix_init_kb(void) {
 #ifdef RGB_DRIVER_SDB_PIN
     setPinOutputOpenDrain(RGB_DRIVER_SDB_PIN);
@@ -248,7 +251,7 @@ void matrix_init_kb(void) {
 void keyboard_post_init_kb() {
     keyboard_config.raw = eeconfig_read_user();
     rgb_matrix_mode(rgb_matrix_effects_table[keyboard_config.rgb_mode]);
-    if (keyboard_config.rgb_mode == 9) {
+    if (keyboard_config.rgb_mode == RGB_MATRIX_EFFECTS_COUNT) {
         rgb_matrix_set_flags(LED_FLAG_NONE);
         rgb_matrix_set_color_all(0, 0, 0);
     }
@@ -256,12 +259,6 @@ void keyboard_post_init_kb() {
 }
 
 void housekeeping_task_kb(void) {
-    if (!keyboard_config.first_boot) {
-        keyboard_config.first_boot = 1;
-        rgb_matrix_config.hsv.h    = 170;
-        eeconfig_update_user(keyboard_config.raw);
-    }
-
     if ((timer_elapsed32(long_pressed_time) > 2000) && (long_pressed_time)) {
         long_pressed_time = 0;
         switch (long_pressed_keycode) {
@@ -299,6 +296,8 @@ void housekeeping_task_kb(void) {
                 break;
         }
     }
+
+    housekeeping_task_user();
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
@@ -306,7 +305,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         return false;
     }
 
-    /*************************************************************************************/
     if (all_blink_cnt) {
         rgb_matrix_set_color_all(0, 0, 0);
         if (timer_elapsed32(all_blink_time) > 300) {
@@ -329,7 +327,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
             rgb_matrix_set_color(single_blink_index, 0, 0, 0);
         }
     }
-    /*************************************************************************************/
+
     if (EE_CLR_blink_cnt) {
         if (EE_CLR_blink_cnt % 2) {
             rgb_matrix_set_color(73, EE_CLR_blink_color.r, EE_CLR_blink_color.g, EE_CLR_blink_color.b);
@@ -364,6 +362,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         rgb_matrix_set_color(72, 0, 0, 0);
     }
 
+    // GUI lock white
     if (keymap_config.no_gui) {
         rgb_matrix_set_color(61, 100, 100, 100);
     } else {

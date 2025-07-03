@@ -16,13 +16,6 @@
 
 #pragma once
 
-/* Use 6 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
-
-#define RGB_DRIVER_SDB_PIN A15
-
-#define RGB_DRIVER_EN_PIN B2
-
 /* I2C Config for LED Driver */
 #define IS31FL3733_DRIVER_COUNT 2
 #define IS31FL3733_I2C_ADDRESS_1 0b1110100
@@ -33,6 +26,10 @@
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000
 
+#define RGB_DRIVER_SDB_PIN A15
+
+#define RGB_DRIVER_EN_PIN B2
+
 /* SPI Config for spi flash*/
 #define SPI_DRIVER SPIDQ
 #define SPI_SCK_PIN B3
@@ -41,3 +38,6 @@
 #define SPI_MOSI_PAL_MODE 5
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
+
+/* Use 6 dynamic keymap layers */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 6
