@@ -52,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LAYER3] = LAYOUT(
 /* ┌─────────┬─────────┬─────────┐ */
-              KC_MS_U,  TO(_LAYER4),
+              MS_UP,    TO(_LAYER4),
 /* ├─────────┼─────────┼─────────┤ */
-    KC_MS_L,  KC_MS_D,  KC_MS_R
+    MS_LEFT,  MS_DOWN,  MS_RGHT
 /* └─────────┴─────────┴─────────┘ */
   ),
 
