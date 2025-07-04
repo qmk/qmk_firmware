@@ -137,9 +137,9 @@ bool spi_start_extended(spi_start_config_t *start_config) {
     }
 #if SPI_SELECT_MODE != SPI_SELECT_MODE_NONE
     if (start_config->slave_pin == NO_PIN) {
-#if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#    if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         spiReleaseBus(&SPI_DRIVER);
-#endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#    endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         return false;
     }
 #endif
@@ -152,16 +152,16 @@ bool spi_start_extended(spi_start_config_t *start_config) {
 
 #    if defined(AT32F415)
     if (roundedDivisor < 2 || roundedDivisor > 1024) {
-#if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#        if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         spiReleaseBus(&SPI_DRIVER);
-#endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#        endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         return false;
     }
 #    else
     if (roundedDivisor < 2 || roundedDivisor > 256) {
-#if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#        if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         spiReleaseBus(&SPI_DRIVER);
-#endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#        endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         return false;
     }
 #    endif
@@ -246,9 +246,9 @@ bool spi_start_extended(spi_start_config_t *start_config) {
     }
 
     if (start_config->divisor < 1) {
-#if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#    if (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         spiReleaseBus(&SPI_DRIVER);
-#endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
+#    endif // (SPI_USE_MUTUAL_EXCLUSION == TRUE)
         return false;
     }
 
