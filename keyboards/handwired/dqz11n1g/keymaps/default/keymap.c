@@ -37,10 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * Maltron, so just putting some "Quantum" keycodes here for testing that
      * the layer exists and Fun Lock LED works. */
     [_FUNCTION] = LAYOUT(
-        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,KC_TRNS,MS_BTN3,MS_UP,MS_WHLU,KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, 
+        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,KC_TRNS,MS_BTN3,MS_UP,  MS_WHLU,KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO, 
         
         KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  CK_UP,  AU_ON,  MS_LEFT,MS_BTN1,MS_RGHT,KC_NO, KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  
-        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  CK_DOWN,AU_OFF, MS_BTN2,MS_DOWN,KC_WHLD,KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   
+        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  CK_DOWN,AU_OFF, MS_BTN2,MS_DOWN,MS_WHLD,KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   
         KC_TRNS,KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  CK_TOGG,KC_NO,  MS_ACL0,MS_ACL1,MS_ACL2,KC_NO, KC_NO,    KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   
         KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,                                                           KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   
         /* */  KC_NO,   KC_NO,  KC_NO,  KC_NO,                                                                           KC_NO,  KC_NO,  KC_NO,  KC_NO,   /* */

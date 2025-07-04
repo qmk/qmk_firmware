@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,      KC_NO,      KC_NO,       KC_NO,        KC_NO,        KC_NO,   KC_ESC,                                       KC_ESC,   KC_NO,     KC_NO,   KC_NO,   KC_NO,    KC_NO,    KC_NO,
     KC_NO,      KC_F1,      KC_F2,       KC_F3,        KC_F4,        KC_F5,   KC_F11,                                       KC_BSPC,  MS_ACL0,   MS_BTN1, MS_UP,   MS_BTN2,  KC_NO,    KC_NO,
     KC_TAB,     KC_F6,      MTC_F7,      MTC_F8,       MTC_F9,       KC_F10,  KC_F12,                                       KC_CAPS,  MS_ACL1,   MS_LEFT, MS_DOWN, MS_RGHT,  KC_NO,    KC_TAB,
-    KC_NO,      KC_NO,      MS_ACL0,     MS_ACL1,      MS_ACL2,      KC_NO,   KC_NO,    TT(SAM3),  KC_NO,  KC_NO, TT(SAM2), KC_NO,    MS_ACL2,   MS_WHLL, KC_WHLU, MS_WHLD,  MS_WHLR,  KC_RCTL,
+    KC_NO,      KC_NO,      MS_ACL0,     MS_ACL1,      MS_ACL2,      KC_NO,   KC_NO,    TT(SAM3),  KC_NO,  KC_NO, TT(SAM2), KC_NO,    MS_ACL2,   MS_WHLL, MS_WHLU, MS_WHLD,  MS_WHLR,  KC_RCTL,
     KC_NO,      TT(SAM1),   KC_NO,       KC_LALT,             KC_SPC,         TT(SAM2), KC_ENT,    MO(SAM4),  KC_NO, KC_ENT,   TT(SAM3),       KC_SPC,       KC_RALT, KC_NO,    TT(SAM1), KC_NO
   ),  
 };
