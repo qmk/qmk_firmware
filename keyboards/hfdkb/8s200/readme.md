@@ -1,6 +1,6 @@
 # 8s200
 
-![8s200](https://imgur.com/gallery/airone-pro-mBx46Fm#l50MY40)
+![8s200](https://imgur.com/l50MY40)
 
 This is a customizable 65% and jis keyboard.
 
