@@ -77,6 +77,7 @@ void sendByte(uint8_t byte) {
 }
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+static bool  ws2812_dirty = false;
 
 void ws2812_init(void) {
     palSetLineMode(WS2812_DI_PIN, WS2812_OUTPUT_MODE);
@@ -86,6 +87,7 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds[index].r = red;
     ws2812_leds[index].g = green;
     ws2812_leds[index].b = blue;
+    ws2812_dirty         = true;
 #if defined(WS2812_RGBW)
     ws2812_rgb_to_rgbw(&ws2812_leds[index]);
 #endif
@@ -98,6 +100,8 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void ws2812_flush(void) {
+    if (!ws2812_dirty) return;
+    ws2812_dirty = false;
     // this code is very time dependent, so we need to disable interrupts
     chSysLock();
 
