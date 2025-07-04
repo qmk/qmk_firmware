@@ -486,7 +486,7 @@ This example sets the modifiers to be a specific color based on the layer state.
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     hsv_t hsv = {0, 255, 255};
 
-    if (layer_state_is(layer_state, 2)) {
+    if (get_highest_layer(layer_state|default_layer_state) == 2) {
         hsv = (hsv_t){130, 255, 255};
     } else {
         hsv = (hsv_t){30, 255, 255};
