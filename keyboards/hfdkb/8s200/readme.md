@@ -1,6 +1,6 @@
 # 8s200
 
-![8s200](https://imgur.com/l50MY40)
+![8s200](https://imgur.com/l50MY40.png)
 
 This is a customizable 65% and jis keyboard.
 
