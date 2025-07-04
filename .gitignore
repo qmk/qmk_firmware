@@ -103,6 +103,7 @@ secrets.tar
 # Python things
 __pycache__
 .python-version
+*.egg-info
 .venv
 
 # Prerequisites for updating ChibiOS
