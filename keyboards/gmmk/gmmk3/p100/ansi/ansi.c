@@ -17,6 +17,7 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
+#define __ NO_LED
 
 /* Refer to AW20216S manual for these locations
  *   driver
@@ -144,26 +145,22 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
     {1, SW7_CS13, SW7_CS14, SW7_CS15},     // 110 SLED7
     {1, SW8_CS13, SW8_CS14, SW8_CS15},     // 111 SLED8
     {1, SW9_CS13, SW9_CS14, SW9_CS15},     // 112 SLED9
-    {1, SW10_CS13, SW10_CS14, SW10_CS15},  // 113 SLED10
 
-    {1, SW1_CS16, SW1_CS17, SW1_CS18},     // 114 SLED11
-    {1, SW2_CS16, SW2_CS17, SW2_CS18},     // 115 SLED12
-    {1, SW3_CS16, SW3_CS17, SW3_CS18},     // 116 SLED13
-    {1, SW4_CS16, SW4_CS17, SW4_CS18},     // 117 SLED14
-    {1, SW5_CS16, SW5_CS17, SW5_CS18},     // 118 SLED15
-    {1, SW6_CS16, SW6_CS17, SW6_CS18},     // 119 SLED16
-    {1, SW7_CS16, SW7_CS17, SW7_CS18},     // 120 SLED17
-    {1, SW8_CS16, SW8_CS17, SW8_CS18},     // 121 SLED18
-    {1, SW9_CS16, SW9_CS17, SW9_CS18},     // 122 SLED19
-    {1, SW10_CS16, SW10_CS17, SW10_CS18},  // 123 SLED20
+    {1, SW1_CS16, SW1_CS17, SW1_CS18},     // 113 SLED11
+    {1, SW2_CS16, SW2_CS17, SW2_CS18},     // 114 SLED12
+    {1, SW3_CS16, SW3_CS17, SW3_CS18},     // 115 SLED13
+    {1, SW4_CS16, SW4_CS17, SW4_CS18},     // 116 SLED14
+    {1, SW5_CS16, SW5_CS17, SW5_CS18},     // 117 SLED15
+    {1, SW6_CS16, SW6_CS17, SW6_CS18},     // 118 SLED16
+    {1, SW7_CS16, SW7_CS17, SW7_CS18},     // 119 SLED17
+    {1, SW8_CS16, SW8_CS17, SW8_CS18},     // 120 SLED18
+    {1, SW9_CS16, SW9_CS17, SW9_CS18},     // 121 SLED19
 
-    {1, SW10_CS1, SW10_CS2, SW10_CS3},     // 124 LOGO
+    {1, SW10_CS1, SW10_CS2, SW10_CS3},     // 122 LOGO
 };
 
-#define __ NO_LED
-
 led_config_t g_led_config = {
-    {   
+    {
         { 74, __, 31, 99,  98, 101, 91, 5 },
         { 38, 37, 59, 0,   75, 32,  16, 17},
         { 39, 58, 60, __,  76, 53,  1,  18},
@@ -178,6 +175,9 @@ led_config_t g_led_config = {
         { 54, 71, 87, 57,  33, __,  __, __},
         { 55, 72, 88, 102, 34, __,  52, __},
         { 56, 73, 89, 103, 35, 36,  90, __},
+        { 104, 105, 106, 107, 108, 109, 110, 111},
+        { 112, 113, 114, 115, 116, 117, 118, 119},
+        { 120, 121, 122, __, __, __, __, __},
     },
     {
         {0,0},           {21,0},  {31,0},  {42,0},  {52,0},  {68,0},  {78,0},  {89,0},   {99,0},   {115,0},  {125,0},  {136,0},  {146,0},  {159,0},  {169,0},  {180,0},                      
@@ -187,8 +187,8 @@ led_config_t g_led_config = {
         {7,52},          {23,52}, {34,52}, {44,52}, {55,52}, {65,52}, {76,52}, {86,52},  {96,52},  {107,52}, {117,52},           {137,52},           {169,52},           {193,52}, {203,52}, {214,52}, {224,58},
         {1,64}, {14,64}, {27,64},                            {66,64},                              {105,64}, {118,64}, {131,64}, {145,64}, {159,64}, {169,64}, {180,64}, {198,64},           {214,64},
         // Left and right side lights
-        {0, 15},  {0, 20},  {0, 25},  {0, 30},  {0, 35},  {0, 40},  {0, 45},  {0, 50},  {0, 55},  {0, 60},
-        {224, 15},  {224, 20},  {224, 25},  {224, 30},  {224, 35},  {224, 40},  {224, 45},  {224, 50},  {224, 55},  {224, 60},
+        {0, 15},  {0, 20},  {0, 25},  {0, 30},  {0, 35},  {0, 40},  {0, 45},  {0, 50},  {0, 55},
+        {224, 15},  {224, 20},  {224, 25},  {224, 30},  {224, 35},  {224, 40},  {224, 45},  {224, 50},  {224, 55},
         // logo
         {214, 0},
     },
@@ -201,8 +201,8 @@ led_config_t g_led_config = {
         4,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    4,    4,    4, 4, 4, 4,
         4, 4, 4,          4,          4, 4, 4, 4, 4, 4, 4, 4,    4,
         // Left and right side lights
-        2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
-        2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2,
+        2, 2, 2, 2, 2, 2, 2, 2, 2,
         // Logo 
         8,
     }
@@ -219,9 +219,9 @@ void spi_init(void) {
         is_initialised = true;
 
         // Try releasing special pins for a short time
-        gpio_set_pin_input(SPI_SCK_PIN);
-        gpio_set_pin_input(SPI_MOSI_PIN);
-        gpio_set_pin_input(SPI_MISO_PIN);
+        setPinInput(SPI_SCK_PIN);
+        setPinInput(SPI_MOSI_PIN);
+        setPinInput(SPI_MISO_PIN);
 
         chThdSleepMilliseconds(10);
 
