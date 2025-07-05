@@ -17,3 +17,7 @@
 // define default rgb - purple
 #define RGB_MATRIX_DEFAULT_HUE 191
 #define RGB_MATRIX_DEFAULT_SAT 255
+
+#define CHORDAL_HOLD
+#define TAPPING_TERM 175
+#define FLOW_TAP_TERM 150
