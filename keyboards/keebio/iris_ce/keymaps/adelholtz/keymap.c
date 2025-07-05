@@ -49,7 +49,12 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     {
         register_code16(tap_hold->hold);
         tap_hold->held = tap_hold->hold;
-    }else {
+    }else if (state->count == 2){
+   	register_code16(tap_hold->tap);
+	register_code16(tap_hold->tap);
+        tap_hold->held = tap_hold->tap;
+
+	}else {
         register_code16(tap_hold->tap);
         tap_hold->held = tap_hold->tap;
     }
