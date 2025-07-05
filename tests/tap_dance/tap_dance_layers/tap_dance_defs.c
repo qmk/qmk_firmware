@@ -90,8 +90,13 @@ static void lt_app_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_L_MOVE] = ACTION_TAP_DANCE_LAYER_MOVE(KC_APP, 1),
-    [TD_L_TOGG] = ACTION_TAP_DANCE_LAYER_TOGGLE(KC_APP, 1),
+const tap_dance_dual_role_t dual_roles[] PROGMEM = {
+    [DR_L_MOVE] = DUAL_ROLE_TAP_DANCE_LAYER_MOVE(KC_APP, 1),
+    [DR_L_TOGG] = DUAL_ROLE_TAP_DANCE_LAYER_TOGGLE(KC_APP, 1),
+};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_L_MOVE] = ACTION_TAP_DANCE_DUAL_ROLE(dual_roles[DR_L_MOVE]),
+    [TD_L_TOGG] = ACTION_TAP_DANCE_DUAL_ROLE(dual_roles[DR_L_TOGG]),
     [TD_LT_APP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, lt_app_finished, lt_app_reset),
 };

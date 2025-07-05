@@ -18,9 +18,14 @@ enum custom_keycodes {
     SLOW_CD,
 };
 
+enum tap_dance_dual_roles {
+    DR_L_MOVE, // move to layer one
+    DR_L_TOGG, // toggle layer one
+};
+
 enum tap_dance_ids {
-    TD_L_MOVE, // ACTION_TAP_DANCE_LAYER_MOVE(KC_APP, 1)
-    TD_L_TOGG, // ACTION_TAP_DANCE_LAYER_TOGGLE(KC_APP, 1)
+    TD_L_MOVE, // move to layer one
+    TD_L_TOGG, // toggle layer one
     TD_LT_APP, // similar to LT(1, KC_APP) with KC_RCTL on tap+hold or double tap
 };
 
