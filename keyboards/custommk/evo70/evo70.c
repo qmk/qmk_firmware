@@ -93,8 +93,8 @@ uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 
     "Scroll Wheel"
 };
 
-uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, KC_VOLU, 0, 0, 0, 0, 0, KC_WH_U };
-uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 0, 0, KC_WH_D };
+uint16_t enc_cw[] =  { KC_VOLU, KC_VOLU, KC_MEDIA_NEXT_TRACK, KC_VOLU, 0, 0, 0, 0, 0, MS_WHLU };
+uint16_t enc_ccw[] = { KC_VOLD, KC_VOLD, KC_MEDIA_PREV_TRACK, KC_VOLD, 0, 0, 0, 0, 0, MS_WHLD };
 #endif //bongocat
 
 uint8_t num_enc_modes = 10;

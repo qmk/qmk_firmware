@@ -59,9 +59,9 @@ At first, Move to Lower layer with long push. After that Adjust key with long pu
   //,-------------------------------------------------------------------------------------------------------------.
          QK_BOOT, RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       _______,  RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,
+       _______,  RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  XXXXXXX,  MS_LEFT,  MS_DOWN,  MS_UP,    MS_RGHT,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  _______,  KC_BTN1,  KC_BTN2,  XXXXXXX
+       RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  XXXXXXX,  _______,  MS_BTN1,  MS_BTN2,  XXXXXXX
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------'
   )
 

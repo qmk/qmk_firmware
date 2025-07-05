@@ -55,8 +55,8 @@ uint32_t processQwerty(bool lookup) {
 	P( LFT | LK  | LP  | LW,			REPEAT());
 
 	// Mouse Keys
-	/* P( LO  | LSD | LK,	CLICK_MOUSE(KC_MS_BTN2)); */
-	/* P( LO  | LR  | LW,	CLICK_MOUSE(KC_MS_BTN1)); */
+	/* P( LO  | LSD | LK,	CLICK_MOUSE(MS_BTN2)); */
+	/* P( LO  | LR  | LW,	CLICK_MOUSE(MS_BTN1)); */
 
 
 /* Function layer

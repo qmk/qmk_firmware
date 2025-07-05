@@ -26,16 +26,16 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             break;
         case THIRD:
             if (clockwise) {
-                tap_code(KC_MS_R);
+                tap_code(MS_RGHT);
             } else {
-                tap_code(KC_MS_L);
+                tap_code(MS_LEFT);
             }
             break;
         case FOURTH:
             if (clockwise) {
-                tap_code(KC_MS_U);
+                tap_code(MS_UP);
             } else {
-                tap_code(KC_MS_D);
+                tap_code(MS_DOWN);
             }
             break;
     }

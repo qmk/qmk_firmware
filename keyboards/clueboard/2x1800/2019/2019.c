@@ -41,12 +41,12 @@ void check_encoder_buttons(void) {
             dprintf("Turning drawing mode off.\n");
             drawing_mode = false;
             gpio_write_pin_low(D6);
-	    unregister_code(KC_BTN1);
+	    unregister_code(MS_BTN1);
 	} else {
             dprintf("Turning drawing mode on.\n");
             drawing_mode = true;
             gpio_write_pin_high(D6);
-	    register_code(KC_BTN1);
+	    register_code(MS_BTN1);
 	}
     }
 }
@@ -88,37 +88,37 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (keycode == ENC_BTN1) {
         if (record->event.pressed) {
             btn1_pressed = true;
-	    register_code(KC_BTN1);
+	    register_code(MS_BTN1);
 	} else {
             btn1_pressed = false;
-	    unregister_code(KC_BTN1);
+	    unregister_code(MS_BTN1);
 	}
     }
     if (keycode == ENC_BTN2) {
         if (record->event.pressed) {
             btn2_pressed = true;
-	    register_code(KC_BTN2);
+	    register_code(MS_BTN2);
 	} else {
             btn2_pressed = false;
-	    unregister_code(KC_BTN2);
+	    unregister_code(MS_BTN2);
 	}
     }
     if (keycode == ENC_BTN3) {
         if (record->event.pressed) {
             btn3_pressed = true;
-	    register_code(KC_BTN3);
+	    register_code(MS_BTN3);
 	} else {
             btn3_pressed = false;
-	    unregister_code(KC_BTN3);
+	    unregister_code(MS_BTN3);
 	}
     }
     if (keycode == ENC_BTN4) {
         if (record->event.pressed) {
             btn4_pressed = true;
-	    register_code(KC_BTN4);
+	    register_code(MS_BTN4);
 	} else {
             btn4_pressed = false;
-	    unregister_code(KC_BTN4);
+	    unregister_code(MS_BTN4);
 	}
     }
 
@@ -132,16 +132,16 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (encoder_update_user(index, clockwise)) {
         // Encoder 1, outside left
         if (index == 0 && clockwise) {
-            tap_code(KC_MS_U);  // turned right
+            tap_code(MS_UP);  // turned right
         } else if (index == 0) {
-            tap_code(KC_MS_D);  // turned left
+            tap_code(MS_DOWN);  // turned left
         }
 
         // Encoder 2, inside left
         else if (index == 1 && clockwise) {
-            tap_code(KC_WH_D);  // turned right
+            tap_code(MS_WHLD);  // turned right
         } else if (index == 1) {
-            tap_code(KC_WH_U);  // turned left
+            tap_code(MS_WHLU);  // turned left
         }
 
         // Encoder 3, inside right
@@ -153,9 +153,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
         // Encoder 4, outside right
         else if (index == 3 && clockwise) {
-            tap_code(KC_MS_R);   // turned right
+            tap_code(MS_RGHT);   // turned right
         } else if (index == 3) {
-            tap_code(KC_MS_L);   // turned left
+            tap_code(MS_LEFT);   // turned left
         }
     }
     return true;

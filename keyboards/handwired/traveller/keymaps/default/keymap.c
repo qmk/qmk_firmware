@@ -90,10 +90,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------------------------------------------------------'
      */
     [_NAV] = LAYOUT(
-        TG(_NAV), XXXXXXX,       XXXXXXX,    KC_UP,      XXXXXXX,    RGUI(KC_RGHT),                   KC_WH_U, M_MUL,   KC_MS_U, M_MUR,   XXXXXXX, KC_ACL2,
-        _______,  RGUI(KC_LEFT), KC_LEFT,    KC_DOWN,    KC_RGHT,    LCTL(KC_E),                      KC_BTN3, KC_MS_L, KC_MS_U, KC_MS_R, XXXXXXX, KC_ACL1,
-        _______,  LCTL(KC_A),    LGUI(KC_X), RGUI(KC_C), RGUI(KC_V), XXXXXXX,                         KC_WH_D, M_MDL,   KC_MS_D, M_MDR,   KC_UP,   KC_ACL0,
-        _______,  RGUI(KC_Z),    _______,    _______,    _______,    _______,       KC_ENT,  KC_BTN2, KC_BTN1, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT
+        TG(_NAV), XXXXXXX,       XXXXXXX,    KC_UP,      XXXXXXX,    RGUI(KC_RGHT),                   MS_WHLU, M_MUL,   MS_UP,   M_MUR,   XXXXXXX, MS_ACL2,
+        _______,  RGUI(KC_LEFT), KC_LEFT,    KC_DOWN,    KC_RGHT,    LCTL(KC_E),                      MS_BTN3, MS_LEFT, MS_UP,   MS_RGHT, XXXXXXX, MS_ACL1,
+        _______,  LCTL(KC_A),    LGUI(KC_X), RGUI(KC_C), RGUI(KC_V), XXXXXXX,                         MS_WHLD, M_MDL,   MS_DOWN, M_MDR,   KC_UP,   MS_ACL0,
+        _______,  RGUI(KC_Z),    _______,    _______,    _______,    _______,       KC_ENT,  MS_BTN2, MS_BTN1, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* FKEYS - Funtion keys & mac stuff
@@ -138,41 +138,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // from  algernon's ErgoDox EZ layout,
         case M_MUL:
             if (record->event.pressed) {
-                mousekey_on(KC_MS_UP);
-                mousekey_on(KC_MS_LEFT);
+                mousekey_on(MS_UP);
+                mousekey_on(MS_LEFT);
             } else {
-                mousekey_off(KC_MS_UP);
-                mousekey_off(KC_MS_LEFT);
+                mousekey_off(MS_UP);
+                mousekey_off(MS_LEFT);
             }
             mousekey_send();
             return false;
         case M_MUR:
             if (record->event.pressed) {
-                mousekey_on(KC_MS_UP);
-                mousekey_on(KC_MS_RIGHT);
+                mousekey_on(MS_UP);
+                mousekey_on(MS_RGHT);
             } else {
-                mousekey_off(KC_MS_UP);
-                mousekey_off(KC_MS_RIGHT);
+                mousekey_off(MS_UP);
+                mousekey_off(MS_RGHT);
             }
             mousekey_send();
             return false;
         case M_MDL:
             if (record->event.pressed) {
-                mousekey_on(KC_MS_DOWN);
-                mousekey_on(KC_MS_LEFT);
+                mousekey_on(MS_DOWN);
+                mousekey_on(MS_LEFT);
             } else {
-                mousekey_off(KC_MS_DOWN);
-                mousekey_off(KC_MS_LEFT);
+                mousekey_off(MS_DOWN);
+                mousekey_off(MS_LEFT);
             }
             mousekey_send();
             return false;
         case M_MDR:
             if (record->event.pressed) {
-                mousekey_on(KC_MS_DOWN);
-                mousekey_on(KC_MS_RIGHT);
+                mousekey_on(MS_DOWN);
+                mousekey_on(MS_RGHT);
             } else {
-                mousekey_off(KC_MS_DOWN);
-                mousekey_off(KC_MS_RIGHT);
+                mousekey_off(MS_DOWN);
+                mousekey_off(MS_RGHT);
             }
             mousekey_send();
             return false;

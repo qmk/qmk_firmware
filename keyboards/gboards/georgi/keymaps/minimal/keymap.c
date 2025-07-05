@@ -44,8 +44,8 @@ uint32_t processQwerty(bool lookup) {
     P( ST1 | ST2 | LW  | ST4,             SEND(KC_BSPC));
 
     // Mouse Keys
-    P( LO  | LSD | LK,    CLICK_MOUSE(KC_MS_BTN2));
-    P( LO  | LR  | LW,    CLICK_MOUSE(KC_MS_BTN1));
+    P( LO  | LSD | LK,    CLICK_MOUSE(MS_BTN2));
+    P( LO  | LR  | LW,    CLICK_MOUSE(MS_BTN1));
 
     // Thumb Chords
     P( LA  | LO  | RE  | RU,    SEND(KC_CAPS));

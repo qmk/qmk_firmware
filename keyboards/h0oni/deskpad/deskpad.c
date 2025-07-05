@@ -29,16 +29,16 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     else if(curr_layer == 1) {
         if (clockwise) {
-            tap_code(KC_WH_D);
+            tap_code(MS_WHLD);
         } else {
-            tap_code(KC_WH_U);
+            tap_code(MS_WHLU);
         }
     }
     else if(curr_layer == 2) {
         if (clockwise) {
-            tap_code16(C(KC_WH_U));
+            tap_code16(C(MS_WHLU));
         } else {
-            tap_code16(C(KC_WH_D));
+            tap_code16(C(MS_WHLD));
         }
     }
     else {
