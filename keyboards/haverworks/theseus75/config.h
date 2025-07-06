@@ -33,7 +33,7 @@
 #define USBSW_PIN A14     // Switches the hub input/output with the MUXes
 #define PSW_PIN A15       // Turns the power routing to the USB-C port on/off
 #define SPLIT_HAND_PIN B9 // The MCUs probe a pin to determine if they are left or right side. high = left, low = right
-#define BUS_B_PIN C13     // Tells the hub to be bus powered or self powered (which in turn tells the clients connected to it to be 100 mA or 500 mA)
+#define BUS_B_PIN C13     // Tells the hub to be bus-powered or self-powered (which in turn tells the clients to use 100 mA or 500 mA)
 #define USB_VBUS_PIN C15  // Only the master side will have VBUS present at power-up (used to determine master/slave)
 #define USBPD_1_PIN F0
 #define USBPD_2_PIN F1
@@ -44,7 +44,7 @@
 #define USBPD_ALLOWANCE_CHECK_INTERVAL 100
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_STATE
 #define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE // Required to sync LED indicator state info to the slave half (see https://docs.qmk.fm/#/feature_led_indicators
+#define SPLIT_LED_STATE_ENABLE
 
 /* Defines for the RGB matrix */
 #ifdef RGB_MATRIX_ENABLE
@@ -54,9 +54,7 @@
 #    define RGB_MATRIX_LED_COUNT 53
 #    define RGB_MATRIX_SPLIT {27, 26}
 #    define RGBLIGHT_SLEEP
-#
-#    /* Chip/pin-specific configs */
-#    define NOP_FUDGE 0.4
+#    define NOP_FUDGE 0.4 /* Chip/pin-specific configs from this line onward */
 #    define WS2812_EXTERNAL_PULLUP
 #    define WS2812_PWM_DRIVER PWMD3
 #    define WS2812_PWM_CHANNEL 4
