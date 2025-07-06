@@ -111,7 +111,6 @@ void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
 }
 
-// Todo: Insert timer based delay to avoid spamming pin reads/writes, only set on pin change
 void housekeeping_task_kb(void) {
     // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
     housekeeping_task_user();
