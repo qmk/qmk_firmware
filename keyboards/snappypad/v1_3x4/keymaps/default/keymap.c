@@ -30,31 +30,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    
-        switch (get_highest_layer(state)) {
+    switch (get_highest_layer(state)) {
         case 0:
-             gpio_write_pin_low(F7);
-             gpio_write_pin_low(B2);
-             gpio_write_pin_low(B5);
-             break;
+            gpio_write_pin_low(F7);
+            gpio_write_pin_low(B2);
+            gpio_write_pin_low(B5);
+            break;
         case 1:
-             gpio_write_pin_high(F7);
-             gpio_write_pin_low(B2);
-             gpio_write_pin_low(B5);
-             break;
+            gpio_write_pin_high(F7);
+            gpio_write_pin_low(B2);
+            gpio_write_pin_low(B5);
+            break;
         case 2:
-             gpio_write_pin_high(F7);
-             gpio_write_pin_high(B2);
-             gpio_write_pin_low(B5);
-             break;
-       case 3:
             gpio_write_pin_high(F7);
             gpio_write_pin_high(B2);
-             gpio_write_pin_high(B5);
-             break;
+            gpio_write_pin_low(B5);
+            break;
+        case 3:
+            gpio_write_pin_high(F7);
+            gpio_write_pin_high(B2);
+            gpio_write_pin_high(B5);
+            break;
     }
     return state;
 }
+
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
