@@ -68,6 +68,18 @@
     "bakeneko80": {
         "target": "kkatano/bakeneko80"
     },
+    "bastardkb/tbkmini/v2/elitec": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
+    "bastardkb/tbkmini/v2/splinky_2": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
+    "bastardkb/tbkmini/v2/splinky_3": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
+    "bastardkb/tbkmini/v2/stemcell": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
     "bear_face": {
         "target": "bear_face/v1"
     },
