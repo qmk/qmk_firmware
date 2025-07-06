@@ -548,7 +548,9 @@ Recall that the mouse report is set to zero (except the buttons) whenever it is 
 
 A very common implementation is to use the mouse movement to scroll instead of moving the cursor on the system.  This uses the `pointing_device_task_user` callback to intercept and modify the mouse report before it's sent to the host system.
 
-!> Note that the pointing device modes feature implements this along with other popular pointing device features automatically
+::: tip
+The [pointing device modes](#pointing-device-modes) feature implements this along with other popular pointing device features automatically.
+:::
 
 ```c
 enum custom_keycodes {
@@ -957,7 +959,7 @@ In general the following two functions must be implemented in appropriate locati
 
 ---
 
-# Pointing Device Modes (#pointing-device-modes)
+# Pointing Device Modes {#pointing-device-modes}
 
 Inspired by the work of previous trackball users that added features such as drag scroll, caret scroll, and sniping modes to their keyboards, this framework allows for easy setup and inclusion of different pointing device modes that when active will change the behaviour of a pointing device by taking it's x/y outputs and changing them into something else such as h/v for drag scrolling, key presses such as arrow keys for caret scrolling, and even just adjusting the x/y values before output.  When a pointing device mode is active it accumulates x and y outputs from a pointing device and stores it into internal x & y values, halting normal mouse x and y output (_modes can re-enable and/or modify mouse output_), these internally stored x and y values are then divided by a defined divisor and current device precision value resulting the modified output (_key taps, h/v, modified mouse x/y etc._). The dividing factors can be used to control sensitivity in each mode and precision can be used to control sensitivity on each device as adjusting cpi may not always be desired/possible.
 
@@ -986,7 +988,9 @@ The first 15 pointing device modes can easily be activated by keypress through a
 | `PM_CYCDEV`    | Cycle through devices controlled by pointing modes in order of increasing device_id (_Requires more than one device to be controlled by pointing modes see Pointing Modes for Multiple Pointing Devices below_) |
 
 ::: warning
-For pointing device modes above mode id 31 a custom keycode would need to be added unless the mode is being activated through some other means (such as on specific layers see (advanced use)[#pointing-modes-advanced-use] below)
+
+For pointing device modes above mode id 31 a custom keycode would need to be added unless the mode is being activated through some other means (such as on specific layers see [advanced use](#pointing-modes-advanced-use) below)
+
 :::
 
 
@@ -1004,11 +1008,13 @@ Pointing device modes activated by toggle type functions/macros have their mode 
 | `PM_ADVANCED_RANGE_START` |  _None_   |    32   | Start of mode id range that will require the addition of custom keycode to activate them (_new keycodes, on layers etc._)   |
 
 ::: tip
+
 - These modes can all be overwritten (including `PM_NONE` which would impact default cursor movement so care should be taken when doing this and should be generally avoided).
 - Mode ids 3-31 are free to be used for custom modes and will be supported by the built in keycode macros `PM_MO(<pm>)` and `PM_TG(<pm>)` (see adding custom modes below)
+
 :::
 
-### Use In A keymap:
+### Use In A keymap
 
 ```c
 // in keymap.c
@@ -1040,19 +1046,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 | `POINTING_MODES_HOLD_DECAY_RATE` | (optional) amount residuals are reduced per cycle for `PMO_HOLD` modes (effects held time)              | `0->MOUSE_REPORT_XY_MAX` | `(x\|y)/dot` |                      `2` |
 
 ::: warning
-- `POINTING_MODES_HOLD_DECAY_RATE` can be set to zero however this will mean last direction key or keys will be held until the direction is changed or mode_id changes
 
+- `POINTING_MODES_HOLD_DECAY_RATE` can be set to zero however this will mean last direction key or keys will be held until the direction is changed or mode_id changes
 - `MOUSE_REPORT_XY_MAX` will depend on if `MOUSE_EXTENDED_REPORT` is defined; `127` if it is not defined and `32,767` if it is
+
 :::
 
 Speed and sensitivity of any mode will be impacted by the pointing device CPI setting so divisors may need to be adjusted to personal preference and CPI settings typically used (it is possible to have divisors change based on cpi setting if desired).
 
 ::: tip
+
 Drag scroll speed will additionally be effected by OS mouse scroll settings, there are usually separate settings for scroll "wheel" and "wheel tilt" which is Vertical and Horizontal scroll respectively (_e.g. lines per scroll in windows_). The `POINTING_MODES_DRAG_DIVISOR` default value of 4 is based on having mouse settings in the OS set to three lines per tick of "mouse wheel" or "wheel tilt" (_Windows Default_).
+
 :::
 
 ::: warning
-`POINTING_MODES_TAP_DELAY` defaults to `TAP_CODE_DELAY` so if `TAP_CODE_DELAY` is set high it can cause some noticeable latency on maps with the 
+
+`POINTING_MODES_TAP_DELAY` defaults to `TAP_CODE_DELAY` so if `TAP_CODE_DELAY` is set high it can cause some noticeable latency on maps using tap mode.
+
 :::
 
 ## Functions
@@ -1079,7 +1090,9 @@ There are many functions available to control and modify pointing modes details 
 | `pointing_modes_set_active_device(device_id)`   | Set active device to `device_id` (_see controlling multiple devices_)                                                      | _None_                       | `uint8_t`                    |
 
 ::: tip
-`pointing_modes_get_divisor`, `pointing_modes_get_direction`, `pointing_modes_get_mode_type` will not recalculate any of the values to reflect changes in `mode_id` or `residuals` made in the same block of code, `pointing_modes_update` must be used to force this
+
+`pointing_modes_get_divisor`, `pointing_modes_get_direction`, `pointing_modes_get_mode_type` will not recalculate any of the values to reflect changes in `mode_id` or `residuals` made in the same block of code, `pointing_modes_update` must be used to force this.
+
 :::
 
 ## Precision
@@ -1089,8 +1102,10 @@ Precision is an additional value that is stored for each pointing mode device th
 This is useful if changing sensitivity on the pointing device directly is not possible, unreliable, or could cause additional wear of non-volitile memory on the pointing device.
 
 ::: tip
+
 - That the maximum value that a divisor can have is 255 even after precision adjustment so it will be clamped to this value if overflow occurs
 - The default Maximum precision is `4` so `PM_CYCPRE` will cycle through `1`, `2`, and `4`
+
 :::
 
 ## Basic Pointing Modes
@@ -1119,7 +1134,7 @@ const uint16_t PROGMEM pointing_modes_maps[][POINTING_MODE_NUM_DIRECTIONS] = {
 
 ```
 
-#### Example Mode Maps:
+#### Example Mode Maps
 
 ```c
 // in config.h:
@@ -1210,7 +1225,9 @@ const uint16_t PROGMEM pointing_modes_maps[][POINTING_MODES_NUM_DIRECTIONS] = {
 
 ```
 ::: warning
+
 use `KC_NO` when no keycode is desired, use of `KC_TRNS` or `_______` is unsupported as these maps do not act like layers _(only one can be active per pointing device at a time)_.
+
 :::
 
 The mode map array starts at index 0 and **must** be in the **same order** as the mode_ids of the maps (i.e `<mode map array index> + POINTING_MODES_MAP_START = <mode map mode_id>`), so use of `POINTING_MODES_MAP_START` is essential. However you can have more modes than you have maps as not all modes will be based on key presses (_such as advanced mode using `pointing_modes_task_*` functions_).
@@ -1242,7 +1259,9 @@ All newly added modes will use `POINTING_MODE_DEFAULT_DIVISOR` as its divisor un
 The default divisor of `32` will work well for most maps, however this would not be ideal for any mode that requires more sensitivity such as a WASD or Caret (arrow key) mode.
 
 ::: warning
+
 Divisors should be set to a value between `1` and `MOUSE_REPORT_XY_MAX` (_`127` by default and `32767` if `MOUSE_EXTENDED_REPORT` is defined_)
+
 :::
 
 #### Callbacks to set pointing device mode divisors
@@ -1275,7 +1294,9 @@ Directions could be used to set the divisor based on the direction (`direction` 
 | `PMD_HORI`     |    12 |   0x0C    |     1100     | For filtering direction to only horizontal component (left or right) using `direction & PMD_HORI`     |
 
 ::: tip
-Diagonal directions are only relevant for the `PMT_8WAY` and `PMT_DPAD` mode types (_[see Mode Types and Mode options](#Mode Types and Mode options)_)
+
+Diagonal directions are only relevant for the `PMT_8WAY` and `PMT_DPAD` mode types (_[see Mode Types and Mode options](#mode-types-and-mode-options)_)
+
 :::
 
 #### Example code of assigning divisors for new modes
@@ -1317,7 +1338,7 @@ mouse_xy_report_t pointing_modes_get_divisor_user(uint8_t mode_id, uint8_t direc
 }
 ```
 
-### Mode Types and Mode Options
+### Mode Types and Mode Options {#mode-types-and-mode-options}
 
 Pointing modes can be further modified by changing the mode type as well as mode options.  Some options will obviously only impact maps as they change how keypresses are handled, but options or types that impact directions affect all modes even modes that are not using a mode map such as `PM_NONE`, `PM_DRG`, and any custom modes that do not have a map associated with them.  A mode can have **only one Mode Type** but can have **multiple Mode Options**. These are set for a given mode based on the callback functions for setting both the mode type and options using the bitwise or (`|`) operator to combine them (_e.g. `PMT_DPAD | PMO_XINV | PMO_HOLD`_).
 
@@ -1340,7 +1361,11 @@ Mode Types and options are represented by labels over values of a 8-bit unsigned
 | `PMT_DPAD`   |    0x04   |   00000100   | Allows for horizontal and vertical keys to be output simultaneously on diagonal directions (`PMD_DNLT`, `PMD_UPLT`, `PMD_DNRT`, `PMD_UPRT`) |
 | `PMT_MODES`  |    0x0F   |   00001111   | Bit mask to allow extraction of mode types from output of `pointing_mode_get_type()` using bitwise operations e.g. `mode_type & PMT_MODES`  |
 
-***Note: The `PMT_4WAY` mode will additionally favour staying on the current axis i.e. if last input was horizontal will be less sensitive to vertical inputs until a large enough vertical input is given (_this effect increases with larger divisors/precision_)***
+:::tip
+
+The `PMT_4WAY` mode will additionally favour staying on the current axis i.e. if last input was horizontal will be less sensitive to vertical inputs until a large enough vertical input is given (_this effect increases with larger divisors/precision_)***
+
+:::
 
 | Mode Type    | Value Hex | Value Binary | Description                                                                                                                                 |
 | :----------- | :-------: | :----------: | :------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -1399,7 +1424,9 @@ There are built in functions to simplify the creation of custom keycodes and it 
 | `pointing_modes_key_set_precision(precision, pressed)`      | Set active device precision to `precision` on key release                 |   _None_    |
 
 ::: warning
-All of these functions must be used in `process_record_*` functions and `record->event.pressed` should be passed for `pressed`
+
+All of these functions must be used in `process_record_*` functions and `record->event.pressed` should be passed for `pressed`.
+
 :::
 
 These can be used to activate pointing device modes outside of the range of the built in keycodes as well as adding custom features to a mode that activate on key press such as registering a keycode and holding it until key release (_see code examples below_).
@@ -1436,7 +1463,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 The above code will create an Application switching pointing mode that should work on windows and linux allowing for navigation through currently open applications having the alt key held will keep the application/window UI active as long as the `KC_MO_APP` key is held (there is a slightly more advanced version of this in a below example that delays registering the alt key until enough scroll has accumulated).
 
 
-## Pointing Modes Advanced use
+## Pointing Modes Advanced use {#pointing-modes-advanced-use}
 
 There are a number of functions allowing access and control of different aspects of the pointing modes feature most of these are intended for more advanced control such as custom keycodes to activate pointing modes or pointing modes that are manipulating something other than key presses (pointing device data, internal keyboard variables, etc.).
 
@@ -1498,7 +1525,9 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 The above example will maintain the current toggle mode id and set layer pointing modes as temporary modes on top of it so that when changing to a different layer the current toggle mode will be re asserted.
 
 ::: tip
+
 The above approach will also cause the pointing mode of the active device to be reset on every layer change.
+
 :::
 
 #### Example that treats toggle modes as a "default" mode that changes depending on layer
@@ -1527,11 +1556,14 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 This approach will overwrite any toggled modes upon a layer switch but will allow for momentary mode switching while on other layers returning to the current toggled mode for that layer once a momentary mode is released. This approach works best when keys primarily are used for momentary modes and layers trigger changes to toggled modes.
 
 
-### Advanced custom modes
+### Additional ways to create custom modes
 
 Creating pointing device modes outside of pointing mode maps requires using the mode processing callbacks, Which give easy access to both the `mouse_report` and `residuals`.
+
 ::: tip
+
 At this point in the process `mouse_report` x, and y have already been transferred to the `residuals` and must be added back if cursor movement is desired
+
 :::
 
 #### Callbacks for adding custom modes
@@ -1544,7 +1576,7 @@ These callbacks work similar to keycode processing callbacks in that returning f
 | `bool pointing_modes_task_user(report_mouse_t* mouse_report, pointing_modes_residuals_t residuals)` | user/keymap level callback for adding pointing device modes |
 
 
-#### Creating modes using callback functions:
+#### Creating modes using callback functions
 
 ```c
 // in <keyboard>.h or <keyboard>.c
@@ -1703,7 +1735,9 @@ Pointing modes supports multiple pointing devices allowing for either control of
 | `POINTING_MODES_DEFAULT_DEVICE_ID`    | (optional) Default device id controlled (`PM_RIGHT_DEVICE`, `PM_LEFT_DEVICE` depending on `MASTER_RIGHT`)      | `uint8_t` | `1-255` |           `0` |
 
 ::: warning
-`POINTING_MODE_NUM_DEVICES` defaults to 2 if both `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are defined
+
+`POINTING_MODE_NUM_DEVICES` defaults to 2 if both `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are defined.
+
 :::
 
 #### Default device id defines
@@ -1713,8 +1747,10 @@ Pointing modes supports multiple pointing devices allowing for either control of
 | `PM_RIGHT_DEVICE` |  `0`  | Device index of right side pointing device              |
 | `PM_LEFT_DEVICE`  |  `1`  | Device index of left side pointing device               |
 
-::: warning
-Although up to `255` device id's are technically supported (ignoring hardware limitations) only two are given labels by default as that is the most common configuration
+::: tip
+
+Although up to `255` device id's are technically supported (ignoring hardware limitations) only two are given labels by default as that covers most common configurations.
+
 :::
 
 #### Multiple Device keycodes
@@ -1813,6 +1849,8 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 When `POINTING_MODES_NUM_DEVICES > 1` and `POINTING_MODES_SINGLE_CONTROL` is defined, then only a single set of pointing modes data (`mode_id`, `toggle_id`, `residuals`, held keys, and `precision`) is tracked, but it is possible to switch which device is currently has the mode id active through use of `pointing_mode_set_active_device`  This handles two pointing devices _(left and right)_ natively when `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are both defined but for more than two pointing devices custom `pointing_device_task` code will be needed.
 
-::: warning
-The `*_pointing_mode_device` functions do not change any internal behaviour when pointing modes is in single device mode, instead these functions are intended to simply track the desired controlled pointing device (this is handled automatically for two devices with `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED`)
+::: tip
+
+The `*_pointing_mode_device` functions do not change any internal behaviour when pointing modes is in single device mode, instead these functions are intended to simply track the controlled pointing device (this is handled automatically for two devices when `SPLIT_POINTING_ENABLE` and `POINTING_DEVICE_COMBINED` are active)
+
 :::
