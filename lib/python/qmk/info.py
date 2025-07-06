@@ -302,6 +302,24 @@ def _extract_features(info_data, rules):
     return info_data
 
 
+def _extract_matrix_rules(info_data, rules):
+    """Find all the features enabled in rules.mk.
+    """
+    if rules.get('CUSTOM_MATRIX', 'no') != 'no':
+        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
+            _log_warning(info_data, 'Custom Matrix is specified in both info.json and rules.mk, the rules.mk values win.')
+
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
+        if rules['CUSTOM_MATRIX'] == 'lite':
+            info_data['matrix_pins']['custom_lite'] = True
+        else:
+            info_data['matrix_pins']['custom'] = True
+
+    return info_data
+
+
 def _pin_name(pin):
     """Returns the proper representation for a pin.
     """
@@ -573,15 +591,6 @@ def _extract_matrix_info(info_data, config_c):
 
         info_snippet['direct'] = _extract_direct_matrix(direct_pins)
 
-    if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
-        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
-            _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
-
-        if config_c['CUSTOM_MATRIX'] == 'lite':
-            info_snippet['custom_lite'] = True
-        else:
-            info_snippet['custom'] = True
-
     if info_snippet:
         info_data['matrix_pins'] = info_snippet
 
@@ -752,6 +761,7 @@ def _extract_rules_mk(info_data, rules):
 
     # Merge in config values that can't be easily mapped
     _extract_features(info_data, rules)
+    _extract_matrix_rules(info_data, rules)
 
     return info_data
 
