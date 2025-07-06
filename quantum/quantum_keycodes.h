@@ -66,10 +66,6 @@
 #define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
 #define LSAG(kc) (QK_LSFT | QK_LALT | QK_LGUI | (kc))
 
-#define SGUI(kc) LSG(kc)
-#define SCMD(kc) LSG(kc)
-#define SWIN(kc) LSG(kc)
-
 #define RCTL(kc) (QK_RCTL | (kc))
 #define RSFT(kc) (QK_RSFT | (kc))
 #define RALT(kc) (QK_RALT | (kc))
@@ -89,8 +85,6 @@
 #define RCSG(kc) (QK_RCTL | QK_RSFT | QK_RGUI | (kc))
 #define RCAG(kc) (QK_RCTL | QK_RALT | QK_RGUI | (kc))
 #define RSAG(kc) (QK_RSFT | QK_RALT | QK_RGUI | (kc))
-
-#define SAGR(kc) RSA(kc)
 
 #define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
 #define MEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
@@ -206,10 +200,6 @@
 #define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)
 #define LSAG_T(kc) MT(MOD_LSFT | MOD_LALT | MOD_LGUI, kc)
 
-#define SGUI_T(kc) LSG_T(kc)
-#define SCMD_T(kc) LSG_T(kc)
-#define SWIN_T(kc) LSG_T(kc)
-
 #define RCTL_T(kc) MT(MOD_RCTL, kc)
 #define RSFT_T(kc) MT(MOD_RSFT, kc)
 #define RALT_T(kc) MT(MOD_RALT, kc)
@@ -230,11 +220,8 @@
 #define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)
 #define RSAG_T(kc) MT(MOD_RSFT | MOD_RALT | MOD_RGUI, kc)
 
-#define SAGR_T(kc) RSA_T(kc)
-
 #define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)
 #define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)
-#define ALL_T(kc) HYPR_T(kc)
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
 #define KC_HYPR HYPR(KC_NO)

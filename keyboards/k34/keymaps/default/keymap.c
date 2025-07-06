@@ -25,8 +25,8 @@ enum layer_names {
 #define S_SLSH  SFT_T(KC_SLSH)
 
 // combos for application shortcuts
-#define SG_LBRC SGUI(KC_LBRC)
-#define SG_RBRC SGUI(KC_RBRC)
+#define SG_LBRC LSG(KC_LBRC)
+#define SG_RBRC LSG(KC_RBRC)
 #define G_LBRC  G(KC_LBRC)
 #define G_RBRC  G(KC_RBRC)
 #define A_SLSH  A(KC_SLSH)
