@@ -241,12 +241,12 @@ void eeconfig_init_kb() {
     eeconfig_init_user();
 }
 
-void matrix_init_kb(void) {
+void keyboard_pre_init_kb(void) {
 #ifdef RGB_DRIVER_SDB_PIN
-    setPinOutputOpenDrain(RGB_DRIVER_SDB_PIN);
-    writePinHigh(RGB_DRIVER_SDB_PIN);
+    gpio_set_pin_output_open_drain(RGB_DRIVER_SDB_PIN);
+    gpio_write_pin_high(RGB_DRIVER_SDB_PIN);
 #endif
-    matrix_init_user();
+    keyboard_pre_init_user();
 }
 
 void keyboard_post_init_kb() {
