@@ -1,7 +1,7 @@
 {
     "manufacturer": "Snappy Key",
     "keyboard_name": "Snappy Pad v1",
-    "maintainer": "nsi21",
+    "maintainer": "snappykey",
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "encoder": {
