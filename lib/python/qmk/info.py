@@ -577,10 +577,10 @@ def _extract_matrix_info(info_data, config_c):
         if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
             _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
 
-        info_snippet['custom'] = True
-
         if config_c['CUSTOM_MATRIX'] == 'lite':
             info_snippet['custom_lite'] = True
+        else:
+            info_snippet['custom'] = True
 
     if info_snippet:
         info_data['matrix_pins'] = info_snippet
