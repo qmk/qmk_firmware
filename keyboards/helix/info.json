@@ -1,0 +1,24 @@
+{
+    "manufacturer": "Yushakobo",
+    "maintainer": "MakotoKurauchi",
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "oled": true
+    },
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "D2"
+        }
+    },
+    "usb": {
+        "vid": "0x3265"
+    },
+    "ws2812": {
+        "pin": "D3"
+    }
+}

@@ -1,14 +1,7 @@
 {
-    "manufacturer": "Yushakobo",
     "keyboard_name": "Helix Pico",
-    "maintainer": "MakotoKurauchi",
-    "development_board": "promicro",
-    "diode_direction": "COL2ROW",
     "features": {
         "audio": false,
-        "bootmagic": true,
-        "extrakey": true,
-        "mousekey": true,
         "rgblight": true
     },
     "matrix_pins": {
@@ -29,20 +22,10 @@
         "max_brightness": 45,
         "split_count": [25, 25]
     },
-    "split": {
-        "enabled": true,
-        "serial": {
-            "pin": "D2"
-        }
-    },
     "url": "https://shop.yushakobo.jp/products/helixpico-pcb",
     "usb": {
         "device_version": "0.0.2",
-        "pid": "0x0001",
-        "vid": "0x3265"
-    },
-    "ws2812": {
-        "pin": "D3"
+        "pid": "0x0001"
     },
     "layouts": {
         "LAYOUT": {

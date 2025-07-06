@@ -1,14 +1,6 @@
 {
-    "manufacturer": "Yushakobo",
     "keyboard_name": "Helix Beta",
-    "maintainer": "MakotoKurauchi",
-    "development_board": "promicro",
-    "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
-        "extrakey": true,
-        "mousekey": true,
-        "oled": true,
         "rgblight": true
     },
     "matrix_pins": {
@@ -29,20 +21,10 @@
         "max_brightness": 45,
         "split_count": [32, 32]
     },
-    "split": {
-        "enabled": true,
-        "serial": {
-            "pin": "D2"
-        }
-    },
     "url": "https://shop.yushakobo.jp/products/oss_pcb?variant=39452554231969",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x0000",
-        "vid": "0x3265"
-    },
-    "ws2812": {
-        "pin": "D3"
+        "pid": "0x0000"
     },
     "layouts": {
         "LAYOUT_4row": {

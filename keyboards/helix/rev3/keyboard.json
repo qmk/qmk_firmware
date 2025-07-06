@@ -1,12 +1,8 @@
 {
-    "manufacturer": "Yushakobo",
     "keyboard_name": "Helix rev3",
-    "maintainer": "MakotoKurauchi",
     "build": {
         "lto": true
     },
-    "development_board": "promicro",
-    "diode_direction": "COL2ROW",
     "dip_switch": {
         "matrix_grid": [
             [0, 6],
@@ -21,12 +17,8 @@
         ]
     },
     "features": {
-        "bootmagic": true,
         "dip_switch": false,
         "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "oled": true,
         "rgb_matrix": true
     },
     "matrix_pins": {
@@ -106,22 +98,14 @@
         "split_count": [32, 32]
     },
     "split": {
-        "enabled": true,
         "handedness": {
             "matrix_grid": ["D7", "B2"]
-        },
-        "serial": {
-            "pin": "D2"
         }
     },
     "url": "https://shop.yushakobo.jp/products/2143",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x0003",
-        "vid": "0x3265"
-    },
-    "ws2812": {
-        "pin": "D3"
+        "pid": "0x0003"
     },
     "layouts": {
         "LAYOUT_4row": {
