@@ -40,7 +40,7 @@ enum custom_layers {
     WIN_BL,    // Windows Base Layer
     WIN_FL,    // Windows Function Layer
     MACOS_BL,  // Mac OS Base Layer
-    MACOS_FL   // Mac OS Function Layer
+    MACOS_FL,   // Mac OS Function Layer
     _CL        // Custom Layer
 };
 
