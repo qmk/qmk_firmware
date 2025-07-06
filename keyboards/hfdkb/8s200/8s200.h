@@ -19,5 +19,5 @@
 #include "quantum.h"
 
 enum user_keycodes {
-    SW_OS1 = SAFE_RANGE,
+    SW_OS1 = QK_KB,
 };
