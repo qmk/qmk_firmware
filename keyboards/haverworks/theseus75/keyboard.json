@@ -2,7 +2,7 @@
     "keyboard_name": "Theseus75",
     "maintainer": "ebastler",
     "manufacturer": "Haverworks",
-    "url": "https://haver.works/",
+    "url": "https://haver.works/theseus75",
     "bootloader": "stm32-dfu",
     "bootmagic": {
         "matrix": [0, 1]
