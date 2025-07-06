@@ -4,7 +4,7 @@
 
 Reliable macro pad for all use cases
 
-* Keyboard Maintainer: [SnappyKey](https://i.imgur.com/Xgv5qky.jpeg)
+* Keyboard Maintainer: [SnappyKey](https://github.com/snappykey)
 * Hardware Supported: pcb, cad files
 * Hardware Availability: Will be open sourced later
 
