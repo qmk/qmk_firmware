@@ -1,8 +1,7 @@
 {
+    "manufacturer": "Haverworks",
     "keyboard_name": "Theseus75",
     "maintainer": "ebastler",
-    "manufacturer": "Haverworks",
-    "url": "https://haver.works/theseus75",
     "bootloader": "stm32-dfu",
     "bootmagic": {
         "matrix": [0, 1]
@@ -29,6 +28,38 @@
     },
     "processor": "STM32G431",
     "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_sat": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "band_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "dual_beacon": true,
+            "gradient_left_right": true,
+            "gradient_up_down": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "jellybean_raindrops": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "solid_color": true
+        },
         "driver": "ws2812",
         "layout": [
             {"matrix": [3, 1], "x": 32, "y": 34, "flags": 8},
@@ -84,39 +115,7 @@
             {"x": 224, "y": 1, "flags": 2},
             {"x": 224, "y": 8, "flags": 2},
             {"x": 224, "y": 19, "flags": 2}
-        ],
-        "animations": {
-            "solid_color": true,
-            "alphas_mods": true,
-            "gradient_up_down": true,
-            "gradient_left_right": true,
-            "breathing": true,
-            "band_sat": true,
-            "band_val": true,
-            "band_pinwheel_sat": true,
-            "band_pinwheel_val": true,
-            "band_spiral_sat": true,
-            "band_spiral_val": true,
-            "cycle_all": true,
-            "cycle_left_right": true,
-            "cycle_up_down": true,
-            "cycle_out_in": true,
-            "cycle_out_in_dual": true,
-            "rainbow_moving_chevron": true,
-            "cycle_pinwheel": true,
-            "cycle_spiral": true,
-            "dual_beacon": true,
-            "rainbow_beacon": true,
-            "rainbow_pinwheels": true,
-            "raindrops": true,
-            "jellybean_raindrops": true,
-            "hue_breathing": true,
-            "hue_pendulum": true,
-            "hue_wave": true,
-            "pixel_fractal": true,
-            "pixel_flow": true,
-            "pixel_rain": true
-        }
+        ]
     },
     "split": {
         "bootmagic": {
@@ -141,6 +140,7 @@
             "watchdog": true
         }
     },
+    "url": "https://haver.works/theseus75",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
