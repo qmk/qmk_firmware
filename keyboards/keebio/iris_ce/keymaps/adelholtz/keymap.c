@@ -285,3 +285,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
   return true;
 }
+
+void keyboard_post_init_user(void) {
+	// Set the effect.
+	rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_WIDE);
+	// Set the palette and maximize saturation and brightness.
+	uint8_t palette_index = PALETTEFX_AFTERBURN;  // Set Carnival palette.
+	rgb_matrix_sethsv(RGB_MATRIX_HUE_STEP * palette_index, 255, 255);
+	// Set speed to default.
+	rgb_matrix_set_speed(128);
+	// Make sure RGB Matrix is on.
+	rgb_matrix_enable();
+}
