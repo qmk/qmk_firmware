@@ -269,12 +269,6 @@
     "handwired/jscotto/scottostarter": {
         "target": "handwired/scottokeebs/scottostarter"
     },
-    "helix/pico/sc/back": {
-        "target": "helix/pico/sc"
-    },
-    "helix/pico/sc/under": {
-        "target": "helix/pico/sc"
-    },
     "helix": {
         "target": "helix/beta"
     },
@@ -2268,17 +2262,6 @@
     },
     "handwired/dygma/raise": {
         "target": "handwired/dygma/raise/ansi"
-    },
-<<<<<<< HEAD
-    "helix": {
-        "target": "helix/rev2/base"
-    },
-    "helix/rev2": {
-        "target": "helix/rev2/base"
-=======
-    "helix/pico": {
-        "target": "helix/pico/base"
->>>>>>> eb8481391c (Refactor helix/rev2)
     },
     "ibm/model_m/mschwingen": {
         "target": "ibm/model_m/mschwingen/led_wired"
