@@ -3,7 +3,7 @@
 ![image](https://i.imgur.com/11o4MRV.jpeg)
 
 * Keyboard Maintainer: [MakotoKurauchi](https://github.com/MakotoKurauchi)
-* Hardware Supported: Helix Pico, Beta, rev3 PCBs
+* Hardware Supported: Helix Pico, Beta, rev3 PCBs w/ Pro Micro compatible development board
 * Hardware Availability: [Yushakobo](https://shop.yushakobo.jp), [GitHub](https://github.com/MakotoKurauchi/helix)
 
 ## Revisions
