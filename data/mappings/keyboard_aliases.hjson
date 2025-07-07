@@ -2273,7 +2273,10 @@
         "target": "mechwild/sugarglider/wide_oled/f401"
     },
     "novelkeys/nk65": {
-        "target": "novelkeys/nk65/base"
+        "target": "novelkeys/nk65/v1"
+    },
+    "novelkeys/nk65/base": {
+        "target": "novelkeys/nk65/v1"
     },
     "sirius/uni660/rev2": {
         "target": "sirius/uni660/rev2/ansi"
