@@ -1,5 +1,5 @@
 {
-    "keyboard": "bastardkb/skeletyl",
+    "keyboard": "bastardkb/skeletyl/promicro",
     "keymap": "default",
     "layout": "LAYOUT_split_3x5_3",
     "layers": [
