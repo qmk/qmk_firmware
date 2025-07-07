@@ -37,9 +37,6 @@
     "rgb_matrix": {
         "driver": "is31fl3733",
         "max_brightness": 180,
-        "val_steps": 45,
-        "speed_steps": 57,
-        "hue_steps": 32,
         "react_on_keyup": true,
         "sleep": true,
         "animations": {
