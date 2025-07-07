@@ -38,6 +38,3 @@
 #define SPI_MOSI_PAL_MODE 5
 
 #define EXTERNAL_FLASH_SPI_SLAVE_SELECT_PIN C12
-
-/* Use 6 dynamic keymap layers */
-#define DYNAMIC_KEYMAP_LAYER_COUNT 6
