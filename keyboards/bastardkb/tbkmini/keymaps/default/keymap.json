@@ -1,5 +1,5 @@
 {
-    "keyboard": "bastardkb/tbkmini",
+    "keyboard": "bastardkb/tbkmini/promicro",
     "keymap": "default",
     "layout": "LAYOUT_split_3x6_3",
     "layers": [
