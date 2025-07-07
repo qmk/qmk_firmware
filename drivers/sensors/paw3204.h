@@ -41,7 +41,7 @@ typedef struct {
     bool    isMotion;
 } report_paw3204_t;
 
-const pointing_device_driver_t paw3204_pointing_device_driver;
+extern const pointing_device_driver_t paw3204_pointing_device_driver;
 
 /**
  * @brief Initializes the sensor so it is in a working state and ready to

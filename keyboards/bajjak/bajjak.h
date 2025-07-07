@@ -66,9 +66,9 @@ inline void bajjak_right_led_3_off(void)   { gpio_set_pin_input(B7); gpio_write_
 inline void bajjak_right_led_off(uint8_t led) { gpio_set_pin_input(led+4); gpio_write_pin_low(led+4); }
 
 #ifdef LEFT_LEDS
-bool bajjak_left_led_1;
-bool bajjak_left_led_2;
-bool bajjak_left_led_3;
+extern bool bajjak_left_led_1;
+extern bool bajjak_left_led_2;
+extern bool bajjak_left_led_3;
 
 inline void bajjak_left_led_1_on(void)    { bajjak_left_led_1 = 1; }
 inline void bajjak_left_led_2_on(void)    { bajjak_left_led_2 = 1; }
