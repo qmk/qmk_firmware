@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______,
     _______, KC_MPRV, KC_MPLY, KC_MNXT, EE_CLR,  _______, KC_CALC, _______, KC_UP,   _______, KC_PSCR, KC_SCRL, KC_PAUS,                   _______,
     _______, RM_HUEU, KC_VOLU, KC_VOLD, KC_MUTE, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______, _______, _______,          _______,
-    _______,          KC_APP,  _______, _______, _______, _______, _______, RM_NEXT, SW_OS1,  _______, _______, _______, _______, RM_VALU, _______,
+    _______,          KC_APP,  _______, _______, _______, _______, _______, RM_NEXT, PDF(2),  _______, _______, _______, _______, RM_VALU, _______,
     _______, GU_TOGG, _______, _______,                   _______,                   _______, MO(_FN3),_______, _______, RM_SPDD, RM_VALD, RM_SPDU),
 
 [MAC_BASE] = LAYOUT_72_jis(
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______,
     _______, KC_MPRV, KC_MPLY, KC_MNXT, EE_CLR,  _______, KC_CALC, _______, KC_UP,   _______, KC_PSCR, KC_SCRL, KC_PAUS,                   _______,
     _______, RM_HUEU, KC_VOLU, KC_VOLD, KC_MUTE, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  _______, _______, _______,          _______,
-    _______,          KC_APP,  _______, _______, _______, _______, _______, RM_NEXT, SW_OS1,  _______, _______, _______, _______, RM_VALU, _______,
+    _______,          KC_APP,  _______, _______, _______, _______, _______, RM_NEXT, PDF(0),  _______, _______, _______, _______, RM_VALU, _______,
     _______, _______, _______, _______,                   _______,                   MO(_FN3),_______, _______, _______, RM_SPDD, RM_VALD, RM_SPDU),
 
 [_FN3] = LAYOUT_72_jis(
