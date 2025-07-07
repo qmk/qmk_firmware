@@ -14,7 +14,7 @@ Flashing example for this keyboard:
     make bastardkb/tbkmini/blackpill:default:flash
     make bastardkb/tbkmini/promicro:default:flash
 
-Note if using the `promicro` version: If you are using an Elite-C compatible development board, see [here](../readme.md#handedness-in-on-elite-c-holder) for setting handedness by pin.
+Note if using the `promicro` version: If you are using an Elite-C compatible development board, see [here](../readme.md#handedness-pin-on-elite-c-holder) for setting handedness by pin.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
