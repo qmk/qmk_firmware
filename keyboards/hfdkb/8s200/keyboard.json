@@ -43,7 +43,6 @@
         "react_on_keyup": true,
         "sleep": true,
         "animations": {
-            "solid_color": false,
             "breathing": true,
             "cycle_left_right": true,
             "cycle_out_in_dual": true,
