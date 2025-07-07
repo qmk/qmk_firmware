@@ -7,12 +7,6 @@
         "matrix": [0, 1]
     },
     "diode_direction": "COL2ROW",
-    "eeprom": {
-        "driver": "wear_leveling",
-        "wear_leveling": {
-            "driver": "embedded_flash"
-        }
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "A8", "pin_b": "C6", "resolution": 2}
@@ -61,8 +55,7 @@
             "rainbow_beacon": true,
             "rainbow_moving_chevron": true,
             "rainbow_pinwheels": true,
-            "raindrops": true,
-            "solid_color": true
+            "raindrops": true
         },
         "driver": "ws2812",
         "layout": [

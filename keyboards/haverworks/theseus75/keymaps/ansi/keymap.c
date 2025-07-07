@@ -44,11 +44,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(0, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS);
+        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS);
     } else {
-        RGB_MATRIX_INDICATOR_SET_COLOR(0, 0, 0, 0);
+        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, 0, 0, 0);
     }
     return false;
 }
