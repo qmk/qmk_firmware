@@ -1860,6 +1860,12 @@
     "kin80": {
         "target": "kin80/blackpill401"
     },
+    "kprepublic/cstc40/daughterboard": {
+        "target": "kprepublic/cstc40/rev1"
+    },
+    "kprepublic/cstc40/single_pcb": {
+        "target": "kprepublic/cstc40/rev2"
+    },
     "kumaokobo/kudox_full": {
         "target": "kumaokobo/kudox_full/rev1"
     },
