@@ -4,6 +4,7 @@
     "maintainer": "jonylee@hfd",
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
+    "url": "https://github.com/jonylee1986",
     "usb": {
         "vid": "0xFFFE",
         "pid": "0x0096",
@@ -35,7 +36,7 @@
         }
     },
     "rgb_matrix": {
-        "driver": "is31fl3733",
+        "driver": "snled27351",
         "max_brightness": 180,
         "react_on_keyup": true,
         "sleep": true,
@@ -51,7 +52,7 @@
         },
         "default": {
             "hue": 170,
-            "speed": 141
+            "animation": "breathing"
         },
         "layout": [
             { "flags": 4, "matrix": [0,0],  "x":   7, "y": 3},
