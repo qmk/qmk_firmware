@@ -16,17 +16,10 @@
 
 #pragma once
 
-/* Defines for the split keyboard setup */
+/* Defines for configuring the serial driver for split comms (see https://docs.qmk.fm/drivers/serial) */
 #define SERIAL_USART_DRIVER SD3    // USART 3
-#define SOFT_SERIAL_PIN B10        // The GPIO pin used for split communication
 #define USART3_REMAP               // Remap USART TX and RX pins for half duplex
 #define SERIAL_USART_TX_PAL_MODE 7 // Pin alternate function 7 = USART3_TX for PB10
-
-#ifdef SOFT_SERIAL_PIN
-#    define SERIAL_USART_TX_PIN SOFT_SERIAL_PIN
-#endif
-
-#define SELECT_SOFT_SERIAL_SPEED 0 // Experimental, will make connection faster but may need testing.
 
 /* Defines for required pins */
 #define ID_PIN A13
@@ -43,18 +36,12 @@
 #define KB_STATE_SYNC_INTERVAL 500
 #define USBPD_ALLOWANCE_CHECK_INTERVAL 100
 #define SPLIT_TRANSACTION_IDS_KB RPC_ID_KB_STATE
-#define SPLIT_LAYER_STATE_ENABLE
-#define SPLIT_LED_STATE_ENABLE
 
 /* Defines for the RGB matrix */
 #ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS 128
 #    define INDICATOR_MAX_BRIGHTNESS 255
 #    define CAPS_LOCK_LED_INDEX 0 // LED1 on PCB
-#    define RGB_MATRIX_LED_COUNT 53
-#    define RGB_MATRIX_SPLIT {27, 26}
-#    define RGBLIGHT_SLEEP
-#    define NOP_FUDGE 0.4 /* Chip/pin-specific configs from this line onward */
+#    define WS2812_BITBANG_NOP_FUDGE 0.4
 #    define WS2812_EXTERNAL_PULLUP
 #    define WS2812_PWM_DRIVER PWMD3
 #    define WS2812_PWM_CHANNEL 4

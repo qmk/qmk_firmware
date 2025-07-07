@@ -7,6 +7,12 @@
         "matrix": [0, 1]
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "embedded_flash"
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "A8", "pin_b": "C6", "resolution": 2}
@@ -115,7 +121,9 @@
             {"x": 224, "y": 1, "flags": 2},
             {"x": 224, "y": 8, "flags": 2},
             {"x": 224, "y": 19, "flags": 2}
-        ]
+        ],
+        "max_brightness": 128,
+        "split_count": [27, 26]
     },
     "split": {
         "bootmagic": {
@@ -135,8 +143,17 @@
                 "rows": ["B3", "C10", "C11", "A1", "A0", "B6"]
             }
         },
+        "serial": {
+            "driver": "usart",
+            "pin": "B10"
+        },
+        "soft_serial_speed": 0,
         "transport": {
-            "sync_matrix_state": true,
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true
+            },
             "watchdog": true
         }
     },

@@ -50,12 +50,6 @@ void kb_state_slave_handler(uint8_t m2s_size, const void* m2s_buffer, uint8_t s2
 }
 
 void keyboard_pre_init_kb(void) {
-    // Customise these values to desired behaviour:
-    // debug_enable = true;
-    // debug_matrix = true;
-    // debug_keyboard = true;
-    // debug_mouse = true;
-
     // Disable the PD peripheral in pre-init because its pins are being used in the matrix:
     PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
     // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
@@ -112,9 +106,6 @@ void keyboard_post_init_kb(void) {
 }
 
 void housekeeping_task_kb(void) {
-    // Call the corresponding _user() function (see https://docs.qmk.fm/#/custom_quantum_functions)
-    housekeeping_task_user();
-
     // Update any shared kb state to send to slave:
     static uint32_t last_usbpd_allowance_check_time = 0;
     if (timer_elapsed32(last_usbpd_allowance_check_time) > USBPD_ALLOWANCE_CHECK_INTERVAL) {
