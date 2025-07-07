@@ -24,9 +24,6 @@
 
 
 #define I2C1_CLOCK_SPEED 400000
-
-#define RGB_DRIVER_SDB_PIN A15
-
 #define RGB_DRIVER_EN_PIN B2
 
 /* SPI Config for spi flash*/
