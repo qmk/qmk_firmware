@@ -50,6 +50,7 @@
             "solid_reactive": true
         },
         "default": {
+            "hue": 170,
             "speed": 141
         },
         "layout": [
