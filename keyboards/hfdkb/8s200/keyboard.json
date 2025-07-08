@@ -35,6 +35,9 @@
             "backing_size": 8192
         }
     },
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
     "rgb_matrix": {
         "driver": "snled27351",
         "max_brightness": 180,
