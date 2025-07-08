@@ -2,7 +2,10 @@
     "manufacturer": "Ning",
     "keyboard_name": "TB16 RGB",
     "maintainer": "ningjx",
-    "diode_direction": "COL2ROW",
+    "diode_direction": "ROW2COL",
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
