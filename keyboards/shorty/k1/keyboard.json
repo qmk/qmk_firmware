@@ -21,7 +21,7 @@
         "rows": ["GP3", "GP5", "GP11", "GP0"]
     },
     "processor": "RP2040",
-    "url": "",
+    "url": "https://hawtkeys.com",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x6B31",
