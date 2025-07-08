@@ -68,6 +68,18 @@
     "bakeneko80": {
         "target": "kkatano/bakeneko80"
     },
+    "bastardkb/scylla/v2/elitec": {
+        "target": "bastardkb/scylla/promicro"
+    },
+    "bastardkb/scylla/v2/splinky_2": {
+        "target": "bastardkb/scylla/promicro"
+    },
+    "bastardkb/scylla/v2/splinky_3": {
+        "target": "bastardkb/scylla/promicro"
+    },
+    "bastardkb/scylla/v2/stemcell": {
+        "target": "bastardkb/scylla/promicro"
+    },
     "bastardkb/tbkmini/v2/elitec": {
         "target": "bastardkb/tbkmini/promicro"
     },
