@@ -22,7 +22,7 @@ You may also need to adjust your layout, either in QMK or in Plover, if you have
 
 ## Plover with Steno Protocol {#plover-with-steno-protocol}
 
-Plover also understands the language of several steno machines. QMK can speak a couple of these languages: TX Bolt and GeminiPR. An example layout can be found in `splitography/kemaps/default`.
+Plover also understands the language of several steno machines. QMK can speak a couple of these languages: TX Bolt and GeminiPR. An example layout can be found in `splitography/keymaps/default`.
 
 When QMK speaks to Plover over a steno protocol, Plover will not use the keyboard as input. This means that you can switch back and forth between a standard keyboard and your steno keyboard, or even switch layers from Plover to standard and back without needing to activate/deactivate Plover.
 
