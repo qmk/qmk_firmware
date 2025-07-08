@@ -80,6 +80,18 @@
     "bastardkb/scylla/v2/stemcell": {
         "target": "bastardkb/scylla/promicro"
     },
+    "bastardkb/skeletyl/v2/elitec": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
+    "bastardkb/skeletyl/v2/splinky_2": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
+    "bastardkb/skeletyl/v2/splinky_3": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
+    "bastardkb/skeletyl/v2/stemcell": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
     "bastardkb/tbkmini/v2/elitec": {
         "target": "bastardkb/tbkmini/promicro"
     },
