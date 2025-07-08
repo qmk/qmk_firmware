@@ -80,7 +80,7 @@ All projects need to have a `readme.md` file that explains what the keyboard is,
 
 ### `keyboard.json`/`info.json`
 
-The `keyboard.json` is necessary for your keyboard (or keyboard revision) to be considered a buildable keyboard. The same content is valid in both `info.json` and `keyboard.json`. For the available configuration options of this file, see the [reference page](reference_info_json). This file is also used by the [QMK API](https://github.com/qmk/qmk_api), and by the [QMK Configurator](https://config.qmk.fm/) to display a representation of the available layouts of your keyboard.
+The `keyboard.json` file is necessary for your keyboard (or keyboard revision) to be considered a buildable keyboard. The same content is valid in both `info.json` and `keyboard.json`. For the available configuration options of this file, see the [reference page](reference_info_json). This file is also used by the [QMK API](https://github.com/qmk/qmk_api), and by the [QMK Configurator](https://config.qmk.fm/) to display a representation of the available layouts of your keyboard.
 
 Additionally, this is where layouts available on your keyboard are defined. If you only have a single layout, it should be named `LAYOUT`. When defining multiple layouts, you should have a base layout, named `LAYOUT_all`, that supports all possible switch positions in your matrix, even if that layout is impossible to build physically. This is the layout that should be used in the `default` keymap. You should then have additional keymaps named `default_<layout>` that configure keymaps for the other layouts. Layout macro names are entirely lowercase, except for the prefix of `LAYOUT`.
 
@@ -156,7 +156,7 @@ If you define options using `post_config.h` as in the above example, you should 
 
 ### `rules.mk`
 
-This file can is typically to configure hardware drivers (eg. pointing device), or to include additional C files in compilation. This is not a required file.
+This file is typically used to configure hardware drivers (eg. pointing device), or to include additional C files in compilation. This is not a required file.
 
 The `rules.mk` file can also be placed in a sub-folder, and its reading order is as follows:
 
