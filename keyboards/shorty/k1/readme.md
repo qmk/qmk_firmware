@@ -18,10 +18,6 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Remap Config
-
-* JSON schema reference: https://github.com/remap-keys/remap/blob/c0ef7ca3242883733b7c0a1b63a7b5407e16b62a/src/services/storage/assets/keyboard-definition-schema.json#L15
-
 ## Bootloader
 
 Enter the bootloader in 3 ways:
