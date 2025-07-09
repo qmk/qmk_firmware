@@ -1,0 +1,65 @@
+{
+    "keyboard_name": "ZLABKEEB 6PAD",
+    "manufacturer": "zlabkeeb",
+    "maintainer": "zlabkeeb",
+    "development_board": "promicro",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "encoder": true,
+        "mousekey": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
+    "url": "https://github.com/zlabkeeb",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0x4154",
+        "pid": "0x7A77"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 4,
+        "max_brightness": 180,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "B6"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "B5"}
+        ]
+    },
+    "matrix_pins": {
+        "direct": [
+            ["D1", "D0", "D4"],
+            ["C6", "D7", "E6"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]},
+                {"x": 1, "y": 0, "matrix": [0, 1]},
+                {"x": 2, "y": 0, "matrix": [0, 2]},
+                {"x": 0, "y": 1, "matrix": [1, 0]},
+                {"x": 1, "y": 1, "matrix": [1, 1]},
+                {"x": 2, "y": 1, "matrix": [1, 2]}
+            ]
+        }
+    }
+}

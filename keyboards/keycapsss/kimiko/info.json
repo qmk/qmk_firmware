@@ -1,0 +1,9 @@
+{
+    "features": {
+        "mousekey": true,
+        "extrakey": true
+    },
+    "split": {
+        "enabled": true
+    }
+}

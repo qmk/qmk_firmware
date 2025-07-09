@@ -14,7 +14,6 @@
 // - add `#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 128` to config.h
 //   (or change to match CHANNELS*VALUES*2)
 
-#include "quantum.h"
 #include "via.h"
 
 #ifdef VIA_ENABLE

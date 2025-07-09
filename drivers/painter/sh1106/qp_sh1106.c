@@ -44,7 +44,7 @@ __attribute__((weak)) bool qp_sh1106_init(painter_device_t device, painter_rotat
     }
 
     // clang-format off
-    const uint8_t sh1106_init_sequence[] = {
+    uint8_t sh1106_init_sequence[] = {
         // Command,                 Delay,  N, Data[N]
         SH1106_SET_MUX_RATIO,           0,  1, 0x3F,
         SH1106_DISPLAY_OFFSET,          0,  1, 0x00,
@@ -60,6 +60,16 @@ __attribute__((weak)) bool qp_sh1106_init(painter_device_t device, painter_rotat
         SH1106_DISPLAY_ON,              0,  0,
     };
     // clang-format on
+
+    // If the display height is anything other than the default 64 pixels, change SH1106_SET_MUX_RATIO data byte to the correct value
+    if (driver->oled.base.panel_height != 64) {
+        sh1106_init_sequence[3] = driver->oled.base.panel_height - 1;
+    }
+
+    // For 128x32 or 96x16 displays, change SH1106_COM_PADS_HW_CFG data byte from alternative (0x12) to sequential (0x02) configuration
+    if (driver->oled.base.panel_height <= 32) {
+        sh1106_init_sequence[20] = 0x02;
+    }
 
     qp_comms_bulk_command_sequence(device, sh1106_init_sequence, sizeof(sh1106_init_sequence));
     return true;
@@ -203,4 +213,4 @@ painter_device_t qp_sh1106_make_i2c_device(uint16_t panel_width, uint16_t panel_
     return NULL;
 }
 
-#endif // QUANTUM_PAINTER_SH1106_SPI_ENABLE
+#endif // QUANTUM_PAINTER_SH1106_I2C_ENABLE

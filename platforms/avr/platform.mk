@@ -12,9 +12,10 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
-ifeq ("$(shell echo "int main(){}" | $(CC) --param=min-pagesize=0 -x c - -o /dev/null 2>&1)", "")
-COMPILEFLAGS += --param=min-pagesize=0
-endif
+COMPILEFLAGS += $(call cc-option,--param=min-pagesize=0)
+
+# Fix ICE's: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116389
+COMPILEFLAGS += $(call cc-option,-mlra)
 
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
@@ -25,10 +26,12 @@ COMPILEFLAGS += -fshort-enums
 COMPILEFLAGS += -mcall-prologues
 COMPILEFLAGS += -fno-builtin-printf
 
-# Linker relaxation is only possible if
-# link time optimizations are not enabled.
+# On older compilers, linker relaxation is only possible if link time optimizations are not enabled.
 ifeq ($(strip $(LTO_ENABLE)), no)
 	COMPILEFLAGS += -mrelax
+else
+	# Newer compilers may support both, so quickly check before adding `-mrelax`.
+	COMPILEFLAGS += $(call cc-option,-mrelax,,-flto=auto)
 endif
 
 ASFLAGS += $(AVR_ASFLAGS)
@@ -201,17 +204,17 @@ else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 QMK_BOOTLOADER_TYPE = HID
 endif
 
-bootloader:
+bootloader: cpfirmware
 ifeq ($(strip $(QMK_BOOTLOADER_TYPE)),)
 	$(call CATASTROPHIC_ERROR,Invalid BOOTLOADER,Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
 else
-	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean
+	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean TARGET=Bootloader$(QMK_BOOTLOADER_TYPE)
 	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Keyboard.h
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval FLASH_SIZE_KB=$(shell n=`expr $(PROGRAM_SIZE_KB) + $(BOOT_SECTION_SIZE_KB)` && echo $$(($$n)) || echo 0))
-	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
+	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB) TARGET=Bootloader$(QMK_BOOTLOADER_TYPE)
 	printf "Bootloader$(QMK_BOOTLOADER_TYPE).hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Bootloader$(QMK_BOOTLOADER_TYPE).hex $(TARGET)_bootloader.hex
 endif

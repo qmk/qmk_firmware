@@ -1,11 +1,24 @@
 {
     "keyboard_name": "YD60MQ",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x594D",
         "pid": "0x604D"
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": false
+        }
     },
     "matrix_pins": {
         "cols": ["F0", "F1", "E6", "C7", "C6", "B6", "D4", "B1", "F7", "B5", "B4", "D7", "D6", "B3", "B2"],
@@ -16,6 +29,10 @@
         "pin": "B7",
         "levels": 5
     },
+    "indicators": {
+        "caps_lock": "F4",
+        "on_state": 0
+      },
     "ws2812": {
         "pin": "E2"
     },

@@ -1,0 +1,79 @@
+{
+    "manufacturer": "pelegrini.ca",
+    "keyboard_name": "MarcoPad",
+    "maintainer": "Marco Pelegrini",
+    "bootloader": "rp2040",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["GP4", "GP26", "GP27"],
+        "rows": ["GP15", "GP14", "GP29"]
+    },
+    "processor": "RP2040",
+    "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "dual_beacon": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "solid_reactive": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_multinexus": true,
+            "solid_reactive_multiwide": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "default": {
+            "animation": "splash",
+            "hue": 132,
+            "sat": 102,
+            "speed": 80
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 0, "y": 32, "flags": 4},
+            {"matrix": [0, 2], "x": 0, "y": 64, "flags": 4},
+            {"matrix": [1, 0], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [1, 1], "x": 112, "y": 32, "flags": 4},
+            {"matrix": [1, 2], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [2, 0], "x": 224, "y": 0, "flags": 4},
+            {"matrix": [2, 1], "x": 224, "y": 32, "flags": 4},
+            {"matrix": [2, 2], "x": 224, "y": 64, "flags": 4}
+        ],
+        "sleep": true
+    },
+    "url": "https://pelegrini.ca/marcopad",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP28"
+    },
+    "community_layouts": ["ortho_3x3"],
+    "layouts": {
+        "LAYOUT_ortho_3x3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 0, "y": 1},
+                {"matrix": [0, 2], "x": 0, "y": 2},
+                {"matrix": [1, 0], "x": 1, "y": 0},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 1, "y": 2},
+                {"matrix": [2, 0], "x": 2, "y": 0},
+                {"matrix": [2, 1], "x": 2, "y": 1},
+                {"matrix": [2, 2], "x": 2, "y": 2}
+            ]
+        }
+    }
+}

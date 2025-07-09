@@ -125,6 +125,20 @@ def _generate_aliases(lines, keycodes):
             lines.append(f'#define {alias} {value.get("key")}')
 
 
+def _generate_version(lines, keycodes, prefix=''):
+    version = keycodes['version']
+    major, minor, patch = map(int, version.split('.'))
+
+    bcd = f'0x{major:02d}{minor:02d}{patch:04d}'
+
+    lines.append('')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION "{version}"')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_BCD {bcd}')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_MAJOR {major}')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_MINOR {minor}')
+    lines.append(f'#define QMK_{prefix}KEYCODES_VERSION_PATCH {patch}')
+
+
 @cli.argument('-v', '--version', arg_only=True, required=True, help='Version of keycodes to generate.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -138,6 +152,7 @@ def generate_keycodes(cli):
 
     keycodes = load_spec(cli.args.version)
 
+    _generate_version(keycodes_h_lines, keycodes)
     _generate_ranges(keycodes_h_lines, keycodes)
     _generate_defines(keycodes_h_lines, keycodes)
     _generate_helpers(keycodes_h_lines, keycodes)
@@ -160,6 +175,7 @@ def generate_keycode_extras(cli):
 
     keycodes = load_spec(cli.args.version, cli.args.lang)
 
+    _generate_version(keycodes_h_lines, keycodes, f'{cli.args.lang.upper()}_')
     _generate_aliases(keycodes_h_lines, keycodes)
 
     # Show the results

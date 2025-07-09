@@ -14,13 +14,14 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "dip_switch": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
+    },
+    "dip_switch": {
+        "matrix_grid": [ [4, 4] ]
     },
     "matrix_pins": {
         "cols": ["C14", "C15", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1", "A8", "A9", "H3"],
@@ -51,7 +52,8 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "driver": "snled27351"
+        "driver": "snled27351",
+        "sleep": true
     },
     "url": "https://github.com/Keychron",
     "usb": {

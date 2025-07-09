@@ -1,0 +1,22 @@
+{
+    "config": {
+        "features": {
+            "encoder_map": true
+        }
+    },
+    "encoders": [
+        [
+            {
+                "ccw": "KC_VOLD",
+                "cw": "KC_VOLU"
+            }
+        ]
+    ],
+    "keyboard": "binepad/knobx1",
+    "keymap": "default",
+    "layers": [
+        ["X1_LYRU", "KC_MUTE"]
+    ],
+    "layout": "LAYOUT",
+    "version": 1
+}

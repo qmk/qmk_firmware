@@ -1,1 +1,0 @@
-# The default keymap for the SPIN Macro Pad, it includes basic encoder & rgb functionality.

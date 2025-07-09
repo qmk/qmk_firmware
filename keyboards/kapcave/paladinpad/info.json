@@ -3,6 +3,13 @@
   "manufacturer": "KapCave",
   "url": "https://kapcave.com/products/paladinpad-pcb",
   "maintainer": "nachie",
+  "features": {
+    "bootmagic": true,
+    "extrakey": true,
+    "mousekey": false,
+    "nkro": true,
+    "rgblight": true
+  },
   "usb": {
     "vid": "0x4B43",
     "pid": "0x5050"

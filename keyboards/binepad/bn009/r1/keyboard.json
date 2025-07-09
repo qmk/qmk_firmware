@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "BN009 R1",
+    "build": {
+        "lto": true
+    },
+    "bootloader": "atmel-dfu",
+      "diode_direction": "COL2ROW",
+      "matrix_pins": {
+          "cols": ["D2", "D1", "D0"],
+          "rows": ["B6", "B5", "B4"]
+      },
+      "processor": "atmega32u4",
+    "usb": {
+      "device_version": "0.0.1"
+    }
+  }

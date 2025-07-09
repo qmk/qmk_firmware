@@ -21,9 +21,11 @@ SPACE_CADET_ENABLE ?= yes
 GENERIC_FEATURES = \
     AUTO_SHIFT \
     AUTOCORRECT \
+    BOOTMAGIC \
     CAPS_WORD \
     COMBO \
     COMMAND \
+    CONNECTION \
     CRC \
     DEFERRED_EXEC \
     DIGITIZER \
@@ -33,8 +35,10 @@ GENERIC_FEATURES = \
     DYNAMIC_TAPPING_TERM \
     GRAVE_ESC \
     HAPTIC \
+    KEYCODE_STRING \
     KEY_LOCK \
     KEY_OVERRIDE \
+    LAYER_LOCK \
     LEADER \
     MAGIC \
     MOUSEKEY \
@@ -58,6 +62,7 @@ define HANDLE_GENERIC_FEATURE
     SRC += $$(wildcard $$(QUANTUM_DIR)/process_keycode/process_$2.c)
     SRC += $$(wildcard $$(QUANTUM_DIR)/$2/$2.c)
     SRC += $$(wildcard $$(QUANTUM_DIR)/$2.c)
+    SRC += $$(wildcard $$(QUANTUM_DIR)/nvm/$$(NVM_DRIVER_LOWER)/nvm_$2.c)
     VPATH += $$(wildcard $$(QUANTUM_DIR)/$2/)
     OPT_DEFS += -D$1_ENABLE
 endef

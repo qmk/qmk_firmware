@@ -1,0 +1,33 @@
+{
+    "keyboard_name": "waffling80 Rev A",
+    "usb": {
+        "pid": "0x0006",
+        "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 2
+    },
+    "ws2812": {
+        "pin": "D7"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["C6", "C7", "B7", "B6", "B5", "B2", "D0", "C2"],
+        "rows": ["C4", "C5", "B4", "B3", "B1", "B0", "D6", "D5", "D3", "D4", "D1", "D2"]
+    },
+    "diode_direction": "COL2ROW",
+    "qmk_lufa_bootloader": {
+        "esc_input": "C4",
+        "esc_output": "C6"
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu"
+}
