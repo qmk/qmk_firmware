@@ -18,7 +18,7 @@ Flashing example for this keyboard:
     make bastardkb/dilemma/3x5_3:default:flash
     make bastardkb/dilemma/4x6_4:default:flash
 
-Note<sup>*</sup>: the `dilemma/3x5_2/promicro` revision is the only DIY Dilemma PCB. It is footprint and pin compatible with a Pro Micro development board. This PCB uses I2C communication for the Cirque Trackpad, opposed to SPI for the variants with an integrated microcontroller.
+Note<sup>*</sup>: the `dilemma/3x5_2/promicro` revision is the only DIY Dilemma PCB. It is footprint and pin compatible with a Pro Micro development board, and the firmware is written as such it can be used with the Converter Feature. This PCB uses I2C communication for the Cirque Trackpad, opposed to SPI for the variants with an integrated microcontroller.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
