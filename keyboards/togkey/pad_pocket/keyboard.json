@@ -5,7 +5,11 @@
     "development_board": "promicro_rp2040",
     "diode_direction": "COL2ROW",
     "features": {
-        "rgblight": true
+        "bootmagic": true,
+        "extrakey": true,
+        "rgblight": true,
+        "combo": true,
+        "tap_dance": true
     },
     "matrix_pins": {
         "cols": ["GP29", "GP22"],
@@ -29,7 +33,7 @@
     "url": "https://togkey.com/products/togkey-pad-pocket",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x8686",
+        "pid": "0x8688",
         "vid": "0xFEED"
     },
     "ws2812": {
