@@ -2,7 +2,7 @@
 
 ![pad_pocket](https://i.imgur.com/yCrqAe5.jpeg)
 
-A simple 2-Key Macropad Keychain based off an RP2040 and a custom PCB that is pre-programmed to control media.
+A simple 2-Key Macropad Keychain based off an RP2040 Development Board and a custom PCB that is pre-programmed to control media.
 
 * Keyboard Maintainer: [Jon Henry](https://github.com/togkey86)
 * Hardware Supported: Togkey Pad Pocket/Duo PCB, RP2040 Pro Micro Development Board
