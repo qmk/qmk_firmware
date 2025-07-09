@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0x4D4B",
         "pid": "0x6064",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "pin": "B15"
