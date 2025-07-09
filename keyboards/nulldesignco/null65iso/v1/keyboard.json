@@ -11,23 +11,20 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
+        "rgb_matrix": true
     },
     "ws2812": {
         "pin": "GP18",
-        "driver": "vendor",
+        "driver": "vendor"
     },
     "rgb_matrix": {
-        "led_count": 69,
         "max_brightness": 90,
         "center_point": [120,32],
         "sleep": true,
-        "driver": "ws2812"
+        "driver": "ws2812",
         "animations": {
             "alphas_mods": true,
             "band_pinwheel_sat": true,
