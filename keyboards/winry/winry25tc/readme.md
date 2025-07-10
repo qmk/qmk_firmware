@@ -12,7 +12,11 @@ https://item.taobao.com/item.htm?id=599731303104
 
 Make example for this keyboard (after setting up your build environment):
 
-    make winry/winry25tc:default
+    make winry/winry25tc/default:default
+
+Make example for this keyboard with RGB matrix support (after setting up your build environment):
+
+    make winry/winry25tc/rgb:default
 
 **Reset Key**: Located on the other side of the keyboard.
 
