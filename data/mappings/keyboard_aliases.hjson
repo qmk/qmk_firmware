@@ -1420,7 +1420,7 @@
         "target": "p3d/spacey"
     },
     "spiderisland/winry25tc": {
-        "target": "winry/winry25tc"
+        "target": "winry/winry25tc/default"
     },
     "splitreus62": {
         "target": "nacly/splitreus62"
