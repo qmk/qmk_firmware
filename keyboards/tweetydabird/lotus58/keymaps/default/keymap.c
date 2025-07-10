@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX,                          KC_HASH, KC_KP_4, KC_KP_5, KC_KP_6, XXXXXXX, XXXXXXX,
         XXXXXXX, KC_LEFT, KC_DOWN, KC_RIGHT,KC_LBRC, KC_RBRC,                          KC_AMPR, KC_KP_1, KC_KP_2, KC_KP_3, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, KC_PAST, KC_PPLS, KC_PSLS, KC_EQL,  _______,        _______, KC_DLR,  KC_KP_0, KC_PDOT, KC_COLN, KC_PMNS, _______,
-                                   _______, _______, _______, _______,        _______, _______, _______, _______ 
+                                   _______, _______, _______, _______,        _______, _______, _______, _______
     ),
 
     [2] = LAYOUT(
@@ -32,11 +32,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_RBT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                          XXXXXXX, XXXXXXX, XXXXXXX,  UG_PREV, UG_SATD, RGB_M_P,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_CAPS,                          XXXXXXX, XXXXXXX, XXXXXXX, UG_HUEU, UG_VALU, RGB_M_B,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UG_HUED, UG_VALD, RGB_M_R,
-                                   _______, _______, _______, _______,        _______, _______, _______, _______ 
+                                   _______, _______, _______, _______,        _______, _______, _______, _______
     )
 };
 
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS), ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
@@ -71,21 +71,21 @@ static void print_status_narrow(void) {
         default:
             oled_write_P(PSTR("Undef"), false);
     }
-    
+
     oled_write_P(PSTR("\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
     oled_write_ln_P(PSTR("Caps- lock"), led_usb_state.caps_lock);
-    
+
 #ifdef AUTO_SHIFT_ENABLE
 
     bool autoshift = get_autoshift_state();
     oled_advance_page(true);
     oled_write_P(PSTR("Auto-Shift"), autoshift);
     oled_advance_page(true);
-    
+
 #endif
 
-    
+
 }
 
 bool oled_task_user(void) {

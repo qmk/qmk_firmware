@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LAYER0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [_LAYER1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) },
@@ -51,7 +51,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 void slider(void) {
     uint8_t current_val = analogReadPin(SLIDER_PINA) >>3;
 
-    if ( last_val - current_val < -1 || last_val - current_val > 1 ) { 
+    if ( last_val - current_val < -1 || last_val - current_val > 1 ) {
         midi_send_cc(&midi_device, 0, 90, current_val );
     }
 

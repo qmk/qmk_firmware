@@ -73,16 +73,12 @@ Keep in mind that whenver you change the encoder resolution, you will need to re
 
 ## Encoder map {#encoder-map}
 
-Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders.
 
-```make
-ENCODER_MAP_ENABLE = yes
-```
-
-Your `keymap.c` will then need an encoder mapping defined (for four layers and two encoders):
+Your `keymap.c` will then need an encoder mapping defined (in this example, for four layers and two encoders):
 
 ```c
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(MS_WHLU, MS_WHLD),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
     [1] = { ENCODER_CCW_CW(UG_HUED, UG_HUEU),  ENCODER_CCW_CW(UG_SATD, UG_SATU)  },
@@ -91,10 +87,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 ```
-
-::: tip
-This should only be enabled at the keymap level.
-:::
 
 Using encoder mapping pumps events through the normal QMK keycode processing pipeline, resulting in a _keydown/keyup_ combination pushed through `process_record_xxxxx()`. To configure the amount of time between the encoder "keyup" and "keydown", you can add the following to your `config.h`:
 
@@ -108,13 +100,30 @@ By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
 
 ## Callbacks
 
+::: warning
+Encoder callbacks were the initial method of using encoders with QMK. This strategy has been deprecated, and should not be used going forward as it is slated for removal.
+:::
+
+To enable encoder callbacks, add the following to your `rules.mk` file:
+
+```mk
+ENCODER_CALLBACKS_ENABLE = yes
+```
+
+This will disable any use of encoder map.
+
+::: tip
+This should only be enabled at the keymap level.
+:::
+
 ::: tip
 [**Default Behaviour**](https://github.com/qmk/qmk_firmware/blob/master/quantum/encoder.c#L79-): all encoders installed will function as volume up (`KC_VOLU`) on clockwise rotation and volume down (`KC_VOLD`) on counter-clockwise rotation. If you do not wish to override this, no further configuration is necessary.
 :::
 
-If you would like the alter the default behaviour, and are not using `ENCODER_MAP_ENABLE = yes`, the callback functions can be inserted into your `<keyboard>.c`:
+If you would like the alter the default behaviour, the callback functions can be inserted into your `<keyboard>.c`:
 
 ```c
+#if defined(ENCODER_CALLBACKS_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
       return false; /* Don't process further events if user function exists and returns false */
@@ -134,11 +143,13 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
+#endif
 ```
 
 or `keymap.c`:
 
 ```c
+#if defined(ENCODER_CALLBACKS_ENABLE)
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) { /* First encoder */
         if (clockwise) {
@@ -155,6 +166,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
     return false;
 }
+#endif
 ```
 
 ::: warning

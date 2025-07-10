@@ -5,7 +5,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    /* LAYER 0 
+    /* LAYER 0
      * ,-------|ENCODER|-------.
      * |   <<  |  MUTE |  >>   |
      * |-------+-------+-------|
@@ -16,13 +16,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
     [0] = LAYOUT_ortho_3x3(
-      KC_MPRV, LT(2, KC_MUTE), KC_MNXT, 
+      KC_MPRV, LT(2, KC_MUTE), KC_MNXT,
       KC_MSTP, KC_MPLY, KC_MSEL,
       KC_CALC, KC_MAIL, LT(1, KC_MYCM)
       ),
 
 
-    /* LAYER 1 
+    /* LAYER 1
      * ,-------|ENCODER|-------.
      * | MODE+ |RGB TOG| MODE- |
      * |-------+-------+-------|
@@ -31,15 +31,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | SWIRL |BREATH |       |
      * `-----------------------'
      */
-    
+
     [1] = LAYOUT_ortho_3x3(
       UG_NEXT, UG_TOGG, UG_PREV,
-      UG_VALD, RGB_M_P, UG_VALU, 
+      UG_VALD, RGB_M_P, UG_VALU,
       LT(3,RGB_M_SW), RGB_M_B, KC_TRNS
       ),
 
-      
-    /* LAYER 2 
+
+    /* LAYER 2
      * ,-------|ENCODER|-------.
      * |       |       |       |
      * |-------+-------+-------|
@@ -48,15 +48,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |       |       |       |
      * `-----------------------'
      */
-    
+
     [2] = LAYOUT_ortho_3x3(
-      KC_TRNS, KC_TRNS, KC_TRNS, 
-      KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, KC_TRNS
       ),
 
-      
-    /* LAYER 3 
+
+    /* LAYER 3
      * ,-------|ENCODER|-------.
      * |       |       |       |
      * |-------+-------+-------|
@@ -65,17 +65,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |       |       |       |
      * `-----------------------'
      */
-    
+
     [3] = LAYOUT_ortho_3x3(
-      KC_TRNS, KC_TRNS, KC_TRNS, 
-      KC_TRNS, KC_TRNS, KC_TRNS, 
+      KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, KC_TRNS
       )
 
 };
 
 /*Encoder Mapping*/
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] =  { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
     [1] =  { ENCODER_CCW_CW(UG_HUED, UG_HUEU) },

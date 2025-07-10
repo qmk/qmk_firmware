@@ -88,15 +88,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#if defined(ENCODER_MAP_ENABLE)
+#if !defined(ENCODER_CALLBACKS_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0]       = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),       ENCODER_CCW_CW(UG_NEXT, UG_PREV),                                               
-                  ENCODER_CCW_CW(KC_LBRC, KC_RBRC),       ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)),                                           
-                  ENCODER_CCW_CW(C(KC_Z), C(S(KC_Z))),    ENCODER_CCW_CW(KC_PGUP, KC_PGDN),        
+    [0]       = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),       ENCODER_CCW_CW(UG_NEXT, UG_PREV),
+                  ENCODER_CCW_CW(KC_LBRC, KC_RBRC),       ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)),
+                  ENCODER_CCW_CW(C(KC_Z), C(S(KC_Z))),    ENCODER_CCW_CW(KC_PGUP, KC_PGDN),
                   ENCODER_CCW_CW(KC_WH_U, KC_WH_D),       ENCODER_CCW_CW(KC_UP, KC_DOWN)},
-    [1 ... 3] = { ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),                                               
-                  ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),                                               
-                  ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),       
+    [1 ... 3] = { ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),
+                  ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),
+                  ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),
                   ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______)}
 };
 #endif
