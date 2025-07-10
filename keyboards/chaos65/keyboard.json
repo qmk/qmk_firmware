@@ -6,8 +6,12 @@
     "usb": {
         "vid": "0xB23B",
         "pid": "0x1688",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

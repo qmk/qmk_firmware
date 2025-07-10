@@ -45,9 +45,13 @@
     "url": "https://lectronz.com/stores/tweetys-wild-thinking",
     "usb": {
         "device_version": "1.2.3",
-        "force_nkro": true,
         "pid": "0x23B0",
         "vid": "0xFEED"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "layouts": {
         "LAYOUT": {

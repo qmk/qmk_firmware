@@ -45,7 +45,11 @@
     },
     "url": "https://github.com/Keychron",
     "usb": {
-        "force_nkro": true,
         "vid": "0x3434"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     }
 }

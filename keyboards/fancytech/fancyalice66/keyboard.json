@@ -162,9 +162,13 @@
     "url": "https://www.aliexpress.com/item/1005004272392611.html",
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0x3663",
         "vid": "0xECED"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "pin": "B0"
