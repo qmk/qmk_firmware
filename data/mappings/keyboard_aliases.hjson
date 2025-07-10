@@ -68,6 +68,9 @@
     "bakeneko80": {
         "target": "kkatano/bakeneko80"
     },
+    "bastardkb/dilemma/3x5_2/splinky": {
+        "target": "bastardkb/dilemma/3x5_2/promicro"
+    },
     "bastardkb/scylla/v2/elitec": {
         "target": "bastardkb/scylla/promicro"
     },
