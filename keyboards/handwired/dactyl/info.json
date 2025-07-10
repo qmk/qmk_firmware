@@ -1,0 +1,16 @@
+{
+    "keyboard_name": "Dactyl",
+    "manufacturer": "Adereth",
+    "url": "https://github.com/adereth/dactyl-keyboard",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0x444C"    
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "tags": ["split"]
+}

@@ -1,4 +1,7 @@
-#include "dactyl.h"
+// Copyright 2017 Matthew Adereth
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "legacy.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
