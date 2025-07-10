@@ -9,7 +9,6 @@
       "device_version": "0.0.1"
     },
     "development_board": "elite_c",
-    "pin_compatible": "elite_c",
     "features": {
         "bootmagic": true,
         "extrakey": true,
