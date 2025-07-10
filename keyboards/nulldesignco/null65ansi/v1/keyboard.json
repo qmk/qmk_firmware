@@ -159,8 +159,9 @@
         "cols": ["GP28", "GP27", "GP29", "GP0", "GP1", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5"]
     },
     "url": "https://nulldesignco.com/",
+    "community_layouts": ["65_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0 },
                 { "matrix": [0, 1], "x": 1, "y": 0 },
