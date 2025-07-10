@@ -7,9 +7,7 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "rgblight": true,
-        "combo": true,
-        "tap_dance": true
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["GP29", "GP22"],
