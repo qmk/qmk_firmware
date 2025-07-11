@@ -1,7 +1,5 @@
 # hnk65
 
-![hnk65] image to be added in the future
-
 Our Hide Nothing Keyboard version of the traditional 65%, with or without RGB support. For more information visit https://hnkbd.ca
 
 * Keyboard Maintainer: [hnkbd](https://github.com/ascYAOBT)

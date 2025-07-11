@@ -47,9 +47,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [1] = LAYOUT_65_ansi(
         KC_DEL,  KC_INS,   KC_F12,  KC_F11,  KC_F10,  KC_F9,   KC_F8,   KC_F7,   KC_F6,  KC_F5,   KC_F4,  KC_F3, KC_F2,   KC_F1,   KC_GRV,
-        _______, _______, KC_VOLU, _______, _______, _______, _______, KC_SCRL, _______, KC_7,    KC_8,    KC_9,   KC_BSLS,  RGB_SAI,  RGB_HUI,
-        RGB_HUD, RGB_SAD, KC_6, KC_5, KC_4, _______, _______, _______, _______, _______, KC_PAUS,    KC_VOLD,             KC_MUTE,  _______,
-        _______, KC_PIPE, _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,             RGB_VAI,  RGB_TOG,
-        RGB_MODE_FORWARD, RGB_VAD, RGB_MODE_REVERSE, RGB_SPI,  _______, RGB_SPD,          KC_PSCR,                _______, _______,  _______
+        _______, _______, KC_VOLU, _______, _______, _______, _______, KC_SCRL, _______, KC_7,    KC_8,    KC_9,   KC_BSLS,  RM_SATU,  RM_HUEU,
+        RM_HUED, RM_SATD, KC_6, KC_5, KC_4, _______, _______, _______, _______, _______, KC_PAUS,    KC_VOLD,             KC_MUTE,  _______,
+        _______, KC_PIPE, _______, _______, _______, _______, _______, _______, _______, KC_1,    KC_2,    KC_3,             RM_VALU,  RM_TOGG,
+        RM_NEXT, RM_VALD, RM_PREV, RM_SPDU,  _______, RM_SPDD,          KC_PSCR,                _______, _______,  _______
     )
 };
