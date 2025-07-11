@@ -540,7 +540,8 @@
                         "is31fl3743a",
                         "is31fl3745",
                         "is31fl3746a",
-                        "snled27351"
+                        "snled27351",
+                        "snled27351_spi"
                     ]
                 },
                 "center_point": {
@@ -625,6 +626,7 @@
                         "is31fl3745",
                         "is31fl3746a",
                         "snled27351",
+                        "snled27351_spi",
                         "ws2812"
                     ]
                 },
