@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    DE_PLUS, KC_ENT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SC_RSPC,
-  KC_LCTL, KC_LGUI, KC_LALT, KC_BTN1, KC_SC,       KC_SPC,       KC_ALGR, KC_FN,   KC_LEFT, KC_DOWN, KC_RGHT
+  KC_LCTL, KC_LGUI, KC_LALT, MS_BTN1, KC_SC,       KC_SPC,       KC_ALGR, KC_FN,   KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Special characters
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, DE_UDIA, KC_F9,   DE_ODIA, KC_PSCR, KC_DEL,
   QK_LOCK, DE_ADIA, DE_SS,   _______, _______, G_1,     _______, RGB_M_P, RGB_M_SW,RGB_M_SN,_______, _______,
   _______, _______, _______, _______, _______, _______, _______, UG_HUED, UG_TOGG, UG_HUEU, KC_PGUP, _______,
-  XXXXXXX, _______, XXXXXXX, KC_BTN2, XXXXXXX,      _______,     XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END
+  XXXXXXX, _______, XXXXXXX, MS_BTN2, XXXXXXX,      _______,     XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END
 ),
 
 /* Gaming

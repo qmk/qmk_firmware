@@ -131,7 +131,7 @@ TEST_F(Pointing, CorrectButtonIsReportedWhenPressed) {
 
 TEST_F(Pointing, CorrectButtonIsReportedWhenKeyPressed) {
     TestDriver driver;
-    auto       key = KeymapKey(0, 0, 0, KC_MS_BTN1);
+    auto       key = KeymapKey(0, 0, 0, QK_MOUSE_BUTTON_1);
     set_keymap({key});
 
     EXPECT_MOUSE_REPORT(driver, (0, 0, 0, 0, 1));

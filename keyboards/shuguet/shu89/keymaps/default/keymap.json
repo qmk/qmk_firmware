@@ -13,8 +13,8 @@
         ],
         [
             "QK_BOOT", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
-            "KC_TRNS", "RGB_VAI", "RGB_VAD", "KC_TRNS", "KC_TRNS"            , "KC_TRNS", "KC_TRNS",    "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
-            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RGB_TOG"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
+            "KC_TRNS", "RM_VALU", "RM_VALD", "KC_TRNS", "KC_TRNS"            , "KC_TRNS", "KC_TRNS",    "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
+            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RM_TOGG"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_VOLU",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MPLY",                          "KC_MPLY", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MPRV", "KC_VOLD", "KC_MNXT"

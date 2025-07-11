@@ -39,9 +39,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         if (clockwise) {
-            tap_code_delay(KC_WH_U, 10);
+            tap_code_delay(MS_WHLU, 10);
         } else {
-            tap_code_delay(KC_WH_D, 10);
+            tap_code_delay(MS_WHLD, 10);
         }
     }
     return true;

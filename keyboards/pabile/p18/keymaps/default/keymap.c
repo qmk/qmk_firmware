@@ -19,9 +19,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
   } else if (index == 1) { /* Second encoder */
     if (clockwise) {
-      tap_code(KC_WH_U); /*mouse wheel up*/
+      tap_code(MS_WHLU); /*mouse wheel up*/
     } else {
-      tap_code(KC_WH_D); /*mouse wheel down*/
+      tap_code(MS_WHLD); /*mouse wheel down*/
     }
   }
     return true;
