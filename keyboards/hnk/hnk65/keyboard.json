@@ -18,7 +18,6 @@
     "processor": "atmega32u4",
     "rgb_matrix": {
         "animations": {
-            "solid_color": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
             "breathing": true,
