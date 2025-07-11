@@ -1,0 +1,18 @@
+{
+    "usb": {
+        "pid": "0x6006"
+    },
+    "matrix_pins": {
+        "cols": ["GP3", "GP24", "GP2", "GP1", "GP0", "GP4", "GP16", "GP11", "GP10", "GP9", "GP8", "GP15", "GP14", "GP13"]
+    },
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
+    "community_layouts": [
+        "60_ansi_tsangan",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_ansi_wkl",
+        "60_ansi_wkl_split_bs_rshift",
+        "60_hhkb"
+    ]
+}

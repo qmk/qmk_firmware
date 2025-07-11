@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Cat 60",
+    "manufacturer": "HorrorTroll",
+    "maintainer": "HorrorTroll",
+    "usb": {
+        "vid": "0x7516",
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "RP2040",
+    "bootloader": "rp2040"
+}
