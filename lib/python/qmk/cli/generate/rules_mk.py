@@ -96,11 +96,10 @@ def generate_rules_mk(cli):
         rules_mk_lines.append(generate_rule('SPLIT_TRANSPORT', 'custom'))
 
     # Set CUSTOM_MATRIX, if needed
-    if kb_info_json.get('matrix_pins', {}).get('custom'):
-        if kb_info_json.get('matrix_pins', {}).get('custom_lite'):
-            rules_mk_lines.append(generate_rule('CUSTOM_MATRIX', 'lite'))
-        else:
-            rules_mk_lines.append(generate_rule('CUSTOM_MATRIX', 'yes'))
+    if kb_info_json.get('matrix_pins', {}).get('custom_lite'):
+        rules_mk_lines.append(generate_rule('CUSTOM_MATRIX', 'lite'))
+    elif kb_info_json.get('matrix_pins', {}).get('custom'):
+        rules_mk_lines.append(generate_rule('CUSTOM_MATRIX', 'yes'))
 
     if converter:
         rules_mk_lines.append(generate_rule('CONVERT_TO', converter))
