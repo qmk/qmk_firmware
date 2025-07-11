@@ -80,7 +80,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         return false;
     }
 #    ifdef MOUSEKEY_ENABLE
-    tap_code(clockwise ? KC_WH_U : KC_WH_D);
+    tap_code(clockwise ? MS_WHLU : MS_WHLD);
 #    else
     report_mouse_t mouse_report = pointing_device_get_report();
     mouse_report.v              = clockwise ? 1 : -1;
