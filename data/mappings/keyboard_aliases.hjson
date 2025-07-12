@@ -861,6 +861,9 @@
     "christmas_tree": {
         "target": "maple_computing/christmas_tree"
     },
+    "classic48": {
+        "target": "pablojimenezmateo/classic48"
+    },
     "claw44/rev1": {
         "target": "dailycraft/claw44/rev1"
     },
