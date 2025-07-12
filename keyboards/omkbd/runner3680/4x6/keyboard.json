@@ -46,9 +46,6 @@
             "twinkle": true
         }
     },
-    "features": {
-        "rgblight": true
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
