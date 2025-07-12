@@ -53,8 +53,8 @@
     "WS2812_DRIVER": {"info_key": "ws2812.driver"},
 
     // Items we want flagged in lint
-    "CTPC": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
-    "CONVERT_TO_PROTON_C": {"info_key": "_deprecated.ctpc", "deprecated": true, "replace_with": "CONVERT_TO=proton_c"},
     "DEFAULT_FOLDER": {"info_key": "_deprecated.default_folder", "deprecated": true},
+    "CTPC": {"info_key": "_invalid.ctpc", "invalid": true, "replace_with": "CONVERT_TO=proton_c"},
+    "CONVERT_TO_PROTON_C": {"info_key": "_invalid.ctpc", "invalid": true, "replace_with": "CONVERT_TO=proton_c"},
     "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true}
 }

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "[n]9",
     "manufacturer": "Neil Brian Ramirez",
-    "url": "",
     "maintainer": "Neil Brian Ramirez",
     "usb": {
         "vid": "0xD812",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "I160-S",
     "manufacturer": "SmithRune",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x8384",

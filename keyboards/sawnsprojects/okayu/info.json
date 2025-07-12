@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Okayu",
     "manufacturer": "Salane",
-    "url": "",
     "maintainer": "Mai The San",
     "usb": {
         "vid": "0x5350",
@@ -14,7 +13,6 @@
         "mousekey": true,
         "extrakey": true,
         "console": true,
-        "command": false,
         "nkro": true,
         "rgblight": true
     },

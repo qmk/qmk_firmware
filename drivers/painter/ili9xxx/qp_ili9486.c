@@ -75,9 +75,9 @@ static void qp_comms_spi_dc_reset_send_command_odd_cs_pulse(painter_device_t dev
     painter_driver_t *              driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
-    writePinLow(comms_config->spi_config.chip_select_pin);
+    gpio_write_pin_low(comms_config->spi_config.chip_select_pin);
     qp_comms_spi_dc_reset_send_command(device, cmd);
-    writePinHigh(comms_config->spi_config.chip_select_pin);
+    gpio_write_pin_high(comms_config->spi_config.chip_select_pin);
 }
 
 static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, const void *data, uint32_t byte_count) {
@@ -88,20 +88,20 @@ static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, con
     const uint8_t *p               = (const uint8_t *)data;
     uint32_t       max_msg_length  = 1024;
 
-    writePinHigh(comms_config->dc_pin);
+    gpio_write_pin_high(comms_config->dc_pin);
     while (bytes_remaining > 0) {
         uint32_t bytes_this_loop = QP_MIN(bytes_remaining, max_msg_length);
         bool     odd_bytes       = bytes_this_loop & 1;
 
         // send data
-        writePinLow(comms_config->spi_config.chip_select_pin);
+        gpio_write_pin_low(comms_config->spi_config.chip_select_pin);
         spi_transmit(p, bytes_this_loop);
         p += bytes_this_loop;
 
         // extra CS toggle, for alignment
         if (odd_bytes) {
-            writePinHigh(comms_config->spi_config.chip_select_pin);
-            writePinLow(comms_config->spi_config.chip_select_pin);
+            gpio_write_pin_high(comms_config->spi_config.chip_select_pin);
+            gpio_write_pin_low(comms_config->spi_config.chip_select_pin);
         }
 
         bytes_remaining -= bytes_this_loop;
@@ -116,9 +116,9 @@ static uint32_t qp_ili9486_send_data_toggling(painter_device_t device, const uin
 
     uint32_t ret;
     for (uint8_t j = 0; j < byte_count; ++j) {
-        writePinLow(comms_config->spi_config.chip_select_pin);
+        gpio_write_pin_low(comms_config->spi_config.chip_select_pin);
         ret = qp_comms_spi_dc_reset_send_data(device, &data[j], 1);
-        writePinHigh(comms_config->spi_config.chip_select_pin);
+        gpio_write_pin_high(comms_config->spi_config.chip_select_pin);
     }
 
     return ret;

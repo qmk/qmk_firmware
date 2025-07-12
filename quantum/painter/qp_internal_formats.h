@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "compiler_support.h"
 #include "qp_internal.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,7 +30,7 @@ typedef union QP_PACKED qp_pixel_t {
 
     uint32_t dummy;
 } qp_pixel_t;
-_Static_assert(sizeof(qp_pixel_t) == 4, "Invalid size for qp_pixel_t");
+STATIC_ASSERT(sizeof(qp_pixel_t) == 4, "Invalid size for qp_pixel_t");
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Quantum Painter image format

@@ -4,7 +4,9 @@
 #include "action.h"
 #include "action_layer.h"
 #include "action_tapping.h"
+#include "action_util.h"
 #include "keycode.h"
+#include "quantum_keycodes.h"
 #include "timer.h"
 
 #ifndef NO_ACTION_TAPPING
@@ -49,9 +51,7 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
 }
 #    endif
 
-#    if defined(CHORDAL_HOLD)
-extern const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;
-
+#    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 #        define REGISTERED_TAPS_SIZE 8
 // Array of tap-hold keys that have been settled as tapped but not yet released.
 static keypos_t registered_taps[REGISTERED_TAPS_SIZE] = {};
@@ -65,6 +65,14 @@ static int8_t registered_tap_find(keypos_t key);
 static void registered_taps_del_index(uint8_t i);
 /** Logs the registered_taps array for debugging. */
 static void debug_registered_taps(void);
+
+static bool is_mt_or_lt(uint16_t keycode) {
+    return IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode);
+}
+#    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
+
+#    if defined(CHORDAL_HOLD)
+extern const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;
 
 /** \brief Finds which queued events should be held according to Chordal Hold.
  *
@@ -82,10 +90,6 @@ static void waiting_buffer_chordal_hold_taps_until(keypos_t key);
 
 /** \brief Processes and pops buffered events until the first tap-hold event. */
 static void waiting_buffer_process_regular(void);
-
-static bool is_mt_or_lt(uint16_t keycode) {
-    return IS_QK_MOD_TAP(keycode) || IS_QK_LAYER_TAP(keycode);
-}
 #    endif // CHORDAL_HOLD
 
 #    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
@@ -97,6 +101,14 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 #    if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
 #        include "process_auto_shift.h"
 #    endif
+
+#    if defined(FLOW_TAP_TERM)
+static uint16_t flow_tap_prev_keycode = KC_NO;
+static uint16_t flow_tap_prev_time    = 0;
+static bool     flow_tap_expired      = true;
+
+static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time);
+#    endif // defined(FLOW_TAP_TERM)
 
 static keyrecord_t tapping_key                         = {};
 static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
@@ -148,6 +160,12 @@ void action_tapping_process(keyrecord_t record) {
     }
     if (IS_EVENT(record.event)) {
         ac_dprintf("\n");
+    } else {
+#    ifdef FLOW_TAP_TERM
+        if (!flow_tap_expired && TIMER_DIFF_16(record.event.time, flow_tap_prev_time) >= INT16_MAX / 2) {
+            flow_tap_expired = true;
+        }
+#    endif // FLOW_TAP_TERM
     }
 }
 
@@ -205,7 +223,7 @@ void action_tapping_process(keyrecord_t record) {
 bool process_tapping(keyrecord_t *keyp) {
     const keyevent_t event = keyp->event;
 
-#    if defined(CHORDAL_HOLD)
+#    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
     if (!event.pressed) {
         const int8_t i = registered_tap_find(event.key);
         if (i != -1) {
@@ -217,7 +235,7 @@ bool process_tapping(keyrecord_t *keyp) {
             debug_registered_taps();
         }
     }
-#    endif // CHORDAL_HOLD
+#    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 
     // state machine is in the "reset" state, no tapping key is to be
     // processed
@@ -227,6 +245,13 @@ bool process_tapping(keyrecord_t *keyp) {
         } else if (event.pressed && is_tap_record(keyp)) {
             // the currently pressed key is a tapping key, therefore transition
             // into the "pressed" tapping key state
+
+#    if defined(FLOW_TAP_TERM)
+            if (flow_tap_key_if_within_term(keyp, flow_tap_prev_time)) {
+                return true;
+            }
+#    endif // defined(FLOW_TAP_TERM)
+
             ac_dprintf("Tapping: Start(Press tap key).\n");
             tapping_key = *keyp;
             process_record_tap_hint(&tapping_key);
@@ -263,6 +288,27 @@ bool process_tapping(keyrecord_t *keyp) {
 
                     // copy tapping state
                     keyp->tap = tapping_key.tap;
+
+#    if defined(FLOW_TAP_TERM)
+                    // Now that tapping_key has settled as tapped, check whether
+                    // Flow Tap applies to following yet-unsettled keys.
+                    uint16_t prev_time = tapping_key.event.time;
+                    for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
+                        keyrecord_t *record = &waiting_buffer[waiting_buffer_tail];
+                        if (!record->event.pressed) {
+                            break;
+                        }
+                        const int16_t next_time = record->event.time;
+                        if (!is_tap_record(record)) {
+                            process_record(record);
+                        } else if (!flow_tap_key_if_within_term(record, prev_time)) {
+                            break;
+                        }
+                        prev_time = next_time;
+                    }
+                    debug_waiting_buffer();
+#    endif // defined(FLOW_TAP_TERM)
+
                     // enqueue
                     return false;
                 }
@@ -538,6 +584,13 @@ bool process_tapping(keyrecord_t *keyp) {
                     return true;
                 } else if (is_tap_record(keyp)) {
                     // Sequential tap can be interfered with other tap key.
+#    if defined(FLOW_TAP_TERM)
+                    if (flow_tap_key_if_within_term(keyp, flow_tap_prev_time)) {
+                        tapping_key = (keyrecord_t){0};
+                        debug_tapping_key();
+                        return true;
+                    }
+#    endif // defined(FLOW_TAP_TERM)
                     ac_dprintf("Tapping: Start with interfering other tap.\n");
                     tapping_key = *keyp;
                     waiting_buffer_scan_tap();
@@ -655,28 +708,7 @@ void waiting_buffer_scan_tap(void) {
     }
 }
 
-#    ifdef CHORDAL_HOLD
-__attribute__((weak)) bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
-    return get_chordal_hold_default(tap_hold_record, other_record);
-}
-
-bool get_chordal_hold_default(keyrecord_t *tap_hold_record, keyrecord_t *other_record) {
-    if (tap_hold_record->event.type != KEY_EVENT || other_record->event.type != KEY_EVENT) {
-        return true; // Return true on combos or other non-key events.
-    }
-
-    char tap_hold_hand = chordal_hold_handedness(tap_hold_record->event.key);
-    if (tap_hold_hand == '*') {
-        return true;
-    }
-    char other_hand = chordal_hold_handedness(other_record->event.key);
-    return other_hand == '*' || tap_hold_hand != other_hand;
-}
-
-__attribute__((weak)) char chordal_hold_handedness(keypos_t key) {
-    return (char)pgm_read_byte(&chordal_hold_layout[key.row][key.col]);
-}
-
+#    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 static void registered_taps_add(keypos_t key) {
     if (num_registered_taps >= REGISTERED_TAPS_SIZE) {
         ac_dprintf("TAPS OVERFLOW: CLEAR ALL STATES\n");
@@ -712,6 +744,30 @@ static void debug_registered_taps(void) {
         ac_dprintf("%02X%02X ", registered_taps[i].row, registered_taps[i].col);
     }
     ac_dprintf("}\n");
+}
+
+#    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
+
+#    ifdef CHORDAL_HOLD
+__attribute__((weak)) bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
+    return get_chordal_hold_default(tap_hold_record, other_record);
+}
+
+bool get_chordal_hold_default(keyrecord_t *tap_hold_record, keyrecord_t *other_record) {
+    if (tap_hold_record->event.type != KEY_EVENT || other_record->event.type != KEY_EVENT) {
+        return true; // Return true on combos or other non-key events.
+    }
+
+    char tap_hold_hand = chordal_hold_handedness(tap_hold_record->event.key);
+    if (tap_hold_hand == '*') {
+        return true;
+    }
+    char other_hand = chordal_hold_handedness(other_record->event.key);
+    return other_hand == '*' || tap_hold_hand != other_hand;
+}
+
+__attribute__((weak)) char chordal_hold_handedness(keypos_t key) {
+    return (char)pgm_read_byte(&chordal_hold_layout[key.row][key.col]);
 }
 
 static uint8_t waiting_buffer_find_chordal_hold_tap(void) {
@@ -760,6 +816,100 @@ static void waiting_buffer_process_regular(void) {
     debug_waiting_buffer();
 }
 #    endif // CHORDAL_HOLD
+
+#    ifdef FLOW_TAP_TERM
+void flow_tap_update_last_event(keyrecord_t *record) {
+    const uint16_t keycode = get_record_keycode(record, false);
+    // Don't update while a tap-hold key is unsettled.
+    if (record->tap.count == 0 && (waiting_buffer_tail != waiting_buffer_head || (tapping_key.event.pressed && tapping_key.tap.count == 0))) {
+        return;
+    }
+    // Ignore releases of modifiers and held layer switches.
+    if (!record->event.pressed) {
+        switch (keycode) {
+            case MODIFIER_KEYCODE_RANGE:
+            case QK_MOMENTARY ... QK_MOMENTARY_MAX:
+            case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
+#        ifndef NO_ACTION_ONESHOT // Ignore one-shot keys.
+            case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
+            case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
+#        endif                  // NO_ACTION_ONESHOT
+#        ifdef TRI_LAYER_ENABLE // Ignore Tri Layer keys.
+            case QK_TRI_LAYER_LOWER:
+            case QK_TRI_LAYER_UPPER:
+#        endif // TRI_LAYER_ENABLE
+                return;
+            case QK_MODS ... QK_MODS_MAX:
+                if (QK_MODS_GET_BASIC_KEYCODE(keycode) == KC_NO) {
+                    return;
+                }
+                break;
+            case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+                if (record->tap.count == 0) {
+                    return;
+                }
+                break;
+        }
+    }
+
+    flow_tap_prev_keycode = keycode;
+    flow_tap_prev_time    = record->event.time;
+    flow_tap_expired      = false;
+}
+
+static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time) {
+    const uint16_t idle_time = TIMER_DIFF_16(record->event.time, prev_time);
+    if (flow_tap_expired || idle_time >= 500) {
+        return false;
+    }
+
+    const uint16_t keycode = get_record_keycode(record, false);
+    if (is_mt_or_lt(keycode)) {
+        uint16_t term = get_flow_tap_term(keycode, record, flow_tap_prev_keycode);
+        if (term > 500) {
+            term = 500;
+        }
+        if (idle_time < term) {
+            debug_event(record->event);
+            ac_dprintf(" within flow tap term (%u < %u) considered a tap\n", idle_time, term);
+            record->tap.count = 1;
+            registered_taps_add(record->event.key);
+            debug_registered_taps();
+            process_record(record);
+            return true;
+        }
+    }
+    return false;
+}
+
+// By default, enable Flow Tap for the keys in the main alphas area and Space.
+// This should work reasonably even if the layout is remapped on the host to an
+// alt layout or international layout (e.g. Dvorak or AZERTY), where these same
+// key positions are mostly used for typing letters.
+__attribute__((weak)) bool is_flow_tap_key(uint16_t keycode) {
+    if ((get_mods() & (MOD_MASK_CG | MOD_BIT_LALT)) != 0) {
+        return false; // Disable Flow Tap on hotkeys.
+    }
+    switch (get_tap_keycode(keycode)) {
+        case KC_SPC:
+        case KC_A ... KC_Z:
+        case KC_DOT:
+        case KC_COMM:
+        case KC_SCLN:
+        case KC_SLSH:
+            return true;
+    }
+    return false;
+}
+
+__attribute__((weak)) uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
+    if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+#    endif // FLOW_TAP_TERM
 
 /** \brief Logs tapping key if ACTION_DEBUG is enabled. */
 static void debug_tapping_key(void) {

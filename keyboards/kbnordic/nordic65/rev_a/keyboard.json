@@ -12,8 +12,6 @@
     "bootloader": "stm32-dfu",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "key_lock": true,
         "mousekey": false,
