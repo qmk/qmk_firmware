@@ -539,10 +539,10 @@ KC_PAUS
  */
 [_MOUSE] = LAYOUT(
   _______     , XXXXXXX      , KC_F1       , KC_F2          , KC_F3        , KC_F4      , KC_F5        , KC_F6  , KC_F7         , KC_F8        , KC_F9         , KC_F10  , KC_F11  , KC_F12,
-  _______     , XXXXXXX      , XXXXXXX     , XXXXXXX        , KC_MS_UP     , XXXXXXX    , KC_MS_ACCEL0 , XXXXXXX, XXXXXXX       , KC_MS_WH_UP  , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX,
-  _______     , XXXXXXX      , XXXXXXX     , KC_MS_LEFT     , KC_MS_DOWN   , KC_MS_RIGHT, KC_MS_ACCEL1 , XXXXXXX, KC_MS_WH_LEFT , KC_MS_WH_DOWN, KC_MS_WH_RIGHT, XXXXXXX , XXXXXXX , XXXXXXX,
-  XXXXXXX     , XXXXXXX      , XXXXXXX     , XXXXXXX        , XXXXXXX      , XXXXXXX    , KC_MS_ACCEL2 , XXXXXXX, KC_MS_BTN1    , KC_MS_BTN2   , KC_MS_BTN3    , XXXXXXX , XXXXXXX , XXXXXXX,
-  TD(CTL_OSL1), OSM(MOD_LGUI), TD(ALT_OSL1), TD(TD_LayerDn) ,TD(TD_LayerUp),      TD(TD_SPC_ENT)       ,    KC_MS_BTN1          , KC_LEFT      , KC_DOWN       , KC_UP   , KC_RIGHT, TD(TD_ESC_GRAVE)
+  _______     , XXXXXXX      , XXXXXXX     , XXXXXXX        , MS_UP        , XXXXXXX    , MS_ACL0      , XXXXXXX, XXXXXXX       , MS_WHLU      , XXXXXXX       , XXXXXXX , XXXXXXX , XXXXXXX,
+  _______     , XXXXXXX      , XXXXXXX     , MS_LEFT        , MS_DOWN      , MS_RGHT    , MS_ACL1      , XXXXXXX, MS_WHLL       , MS_WHLD      , MS_WHLR       , XXXXXXX , XXXXXXX , XXXXXXX,
+  XXXXXXX     , XXXXXXX      , XXXXXXX     , XXXXXXX        , XXXXXXX      , XXXXXXX    , MS_ACL2      , XXXXXXX, MS_BTN1       , MS_BTN2      , MS_BTN3       , XXXXXXX , XXXXXXX , XXXXXXX,
+  TD(CTL_OSL1), OSM(MOD_LGUI), TD(ALT_OSL1), TD(TD_LayerDn) ,TD(TD_LayerUp),      TD(TD_SPC_ENT)       ,    MS_BTN1             , KC_LEFT      , KC_DOWN       , KC_UP   , KC_RIGHT, TD(TD_ESC_GRAVE)
 )
 
 };

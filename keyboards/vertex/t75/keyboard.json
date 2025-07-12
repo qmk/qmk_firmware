@@ -20,9 +20,13 @@
     "processor": "STM32F103",
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0x3006",
         "vid": "0x28E9"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "layouts": {
         "LAYOUT": {
