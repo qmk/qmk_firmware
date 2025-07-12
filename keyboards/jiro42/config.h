@@ -1,0 +1,1 @@
+#define SPLIT_USB_DETECT
