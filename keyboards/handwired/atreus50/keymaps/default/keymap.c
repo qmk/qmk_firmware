@@ -10,7 +10,7 @@ enum layer_names {
     _DVORAK,
     _LOWER,
     _RAISE,
-    _MOVEMENT,
+    _NAVIGATION,
     _ADJUST,
 };
 
