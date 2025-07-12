@@ -222,13 +222,13 @@ void shutdown_quantum(bool jump_to_bootloader) {
     PLAY_SONG(goodbye_song);
     shutdown_modules(jump_to_bootloader);
     shutdown_kb(jump_to_bootloader);
-    while (timer_elapsed(timer_start) < 250)
+    while (timer_elapsed(timer_start) < QUANTUM_WAIT_BEFORE_RESET)
         wait_ms(1);
     stop_all_notes();
 #else
     shutdown_modules(jump_to_bootloader);
     shutdown_kb(jump_to_bootloader);
-    wait_ms(250);
+    wait_ms(QUANTUM_WAIT_BEFORE_RESET);
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_shutdown();
