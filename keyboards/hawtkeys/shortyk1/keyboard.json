@@ -13,7 +13,8 @@
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
-        "mousekey": true
+        "mousekey": true,
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["GP4"],
