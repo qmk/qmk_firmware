@@ -29,14 +29,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [1] = { ENCODER_CCW_CW(RM_PREV, RM_NEXT), ENCODER_CCW_CW(KC_MPRV, KC_MNXT) },
 };
 #endif
-
-#ifdef RGB_MATRIX_ENABLE
-bool rgb_matrix_indicators_user(void) {
-    if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS);
-    } else {
-        rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, 0, 0, 0);
-    }
-    return false;
-}
-#endif
