@@ -15,8 +15,9 @@
  */
 
 #include "action_util.h"
-#include "keyboard_report_util.hpp"
+#include "config.h"
 #include "test_common.hpp"
+#include <stdint.h>
 
 using testing::_;
 using testing::InSequence;
@@ -24,24 +25,19 @@ using testing::InSequence;
 class OneShot : public TestFixture {};
 class OneShotParametrizedTestFixture : public ::testing::WithParamInterface<std::pair<KeymapKey, KeymapKey>>, public OneShot {};
 
-TEST_F(OneShot, OSMWithoutAdditionalKeypressDoesNothing) {
+TEST_F(OneShot, OSMWithoutAdditionalKeypressSetsOneShotModsButDoesNotSendReport) {
     TestDriver driver;
     auto       osm_key = KeymapKey(0, 0, 0, OSM(MOD_LSFT), KC_LSFT);
+    auto       a_key   = KeymapKey(0, 0, 0, KC_A);
 
     set_keymap({osm_key});
 
-    /* Press and release OSM key*/
+    /* Press and release OSM key should set one shot mods*/
     EXPECT_NO_REPORT(driver);
     tap_key(osm_key);
+    EXPECT_EQ(get_oneshot_mods(), MOD_LSFT);
     VERIFY_AND_CLEAR(driver);
-
-    /* OSM are added when an actual report is send */
-    EXPECT_REPORT(driver, (osm_key.report_code));
-    send_keyboard_report();
-    VERIFY_AND_CLEAR(driver);
-
-    /* Make unit-test pass */
-    clear_oneshot_mods();
+    clear_oneshot_mods(); // reset state
 }
 
 #if defined(ONESHOT_TIMEOUT)
@@ -274,6 +270,56 @@ TEST_F(OneShot, OSMHoldNotLockingOSMs) {
     EXPECT_EMPTY_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(OneShot, OSMTapThenHoldShouldSendEmptyReport) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osm_key     = KeymapKey{0, 0, 0, OSM(MOD_LSFT), KC_LSFT};
+    KeymapKey  regular_key = KeymapKey{0, 1, 0, KC_A};
+
+    set_keymap({osm_key, regular_key});
+
+    /*
+     * for some reason, none of the OSM keys are registered
+     * */
+
+    /* Press and release OSM */
+    EXPECT_NO_REPORT(driver);
+    tap_key(osm_key);
+    EXPECT_EQ(get_oneshot_mods(), 0x02); // verify oneshots are turned on
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press OSM */
+    EXPECT_NO_REPORT(driver);
+    osm_key.press();
+    run_one_scan_loop(); // not yet registered
+    VERIFY_AND_CLEAR(driver);
+
+    /* Hold OSM */
+    EXPECT_REPORT(driver, (osm_key.report_code)).Times(1); // report should be send now
+    idle_for(TAPPING_TERM);
+    EXPECT_EQ(get_oneshot_mods(), 0x00); // key registered as hold, OSM should be disabled
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release OSM */
+    EXPECT_EMPTY_REPORT(driver); // key released so we expect empty report (i.e. no key pressed)
+    osm_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_oneshot_mods(), 0x00); // one shot mods should still be disabled
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key */
+    regular_key.press();
+    run_one_scan_loop();
+    EXPECT_REPORT(driver, (regular_key.report_code)).Times(1); // should not be modded
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    regular_key.release();
+    run_one_scan_loop();
+    EXPECT_EMPTY_REPORT(driver);
     VERIFY_AND_CLEAR(driver);
 }
 
