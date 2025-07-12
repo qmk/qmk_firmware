@@ -1,0 +1,23 @@
+{
+    "manufacturer": "carbonfet",
+    "url": "https://github.com/carbonfet/dactyl-manuform",
+    "maintainer": "dunk2k",
+    "usb": {
+        "vid": "0x444D"
+    },
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "D0"
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "tags": ["dactyl_manuform", "split"]
+}
