@@ -200,6 +200,10 @@ void housekeeping_task_kb(void) {
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS, INDICATOR_MAX_BRIGHTNESS);
     } else {
