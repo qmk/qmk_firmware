@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-// Spanish
+/* These are some Spanish specific keys */
 #define ES_ACUT KC_QUOT
 #define ES_NTIL KC_SCLN
 #define ES_SLSH S(KC_7)
@@ -95,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// In RGB
+/* These values are in RGB */
 const uint8_t PROGMEM ledmap[][LED_TOTAL][3] = {
     [_MAIN] = { 
         {255,255,0}, {255,255,255}, {255,255,255}, {255,255,255}, {255,255,255}, {255,255,255},      {255,255,255}, {255,255,255}, {255,255,255}, {255,255,255}, {255,255,255}, {255,255,0},
@@ -129,8 +129,7 @@ const uint8_t PROGMEM ledmap[][LED_TOTAL][3] = {
     },
 };
 
-// We use this to get the correct values from the ledmap
-// depending on the half we are on
+/* We use this to get the correct values from the ledmap depending on the half we are on */
 uint8_t index_offset;
 
 void keyboard_post_init_user(void) {
@@ -143,8 +142,9 @@ void keyboard_post_init_user(void) {
     }
 }
 
-// So we can keep the ledmap with a "visual" representation
-// each half uses indexes from 0-23, we cannot use 0-47
+/* We use this so we can keep the ledmap with a "visual"
+representation (each half uses indexes from 0-23, we cannot use 0-47)
+*/
 const uint8_t PROGMEM physical_index[LED_TOTAL] = {
     0,  1,  2,  3,  4,  5,       5,  4,  3,  2,  1,  0, 
     11, 10, 9,  8,  7,  6,       6,  7,  8,  9,  10, 11, 
@@ -153,7 +153,7 @@ const uint8_t PROGMEM physical_index[LED_TOTAL] = {
 };
 
 
-// This is run in each half per cycle
+/* This is run in each half per cycle */
 bool rgb_matrix_indicators_user(void) {
     uint8_t layer = get_highest_layer(layer_state);
 
