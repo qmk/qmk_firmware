@@ -1,5 +1,4 @@
-/**
- * Copyright 2022 Charly Delay <charly@codesink.dev> (@0xcharly)
+/* Copyright (C) 2023 jonylee@hfd
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,10 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
 
-#include_next <mcuconf.h>
+#define HAL_USE_I2C TRUE
+#define HAL_USE_SPI TRUE
 
-#undef RP_SPI_USE_SPI0
-#define RP_SPI_USE_SPI0 TRUE
+#include_next <halconf.h>
