@@ -36,9 +36,6 @@
             }
         }
       },
-    "tapping": {
-        "term": 200
-    },
     "ws2812": {
         "pin": "GP29",
         "driver": "vendor"
