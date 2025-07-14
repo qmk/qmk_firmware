@@ -183,6 +183,25 @@ void audio_init(void) {
 #endif
 }
 
+void audio_task(void) {
+#ifdef AUDIO_INIT_DELAY
+    // startup song potentially needs to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
+#endif
+}
+
 void audio_startup(void) {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);

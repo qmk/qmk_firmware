@@ -69,7 +69,11 @@ void eeconfig_update_audio_current(void);
  * @post audio system (and hardware) initialized and ready to play tones
  */
 void audio_init(void);
-void audio_startup(void);
+
+/**
+ * \brief Handle various subsystem background tasks.
+ */
+void audio_task(void);
 
 /**
  * @brief en-/disable audio output, save this choice to the eeprom
