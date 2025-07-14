@@ -13,7 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
+
 #define EE_HANDS
+
 #define MK_KINETIC_SPEED
 #define MOUSEKEY_INITIAL_SPEED 200
 #define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 2
