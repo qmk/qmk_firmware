@@ -2,7 +2,7 @@
 
 ![pablojimenezmateo/classic48](https://i.imgur.com/czFWWhX.jpeg)
 
-A custom split keyboard with 48 keys and addressable LEDs. The config allows you to set the color of each individual LED easily.
+A custom split keyboard with 48 keys and addressable LEDs.
 
 * Keyboard Maintainer: [Pablo Jimenez Mateo](https://github.com/pablojimenezmateo)
 * Hardware Supported: RP2040 Pro Micro
