@@ -62,30 +62,16 @@ void keyboard_post_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch(keycode) {
-        case LT(0, KC_NO):
+        case LAYER_ROTATE:
             if (record->event.pressed) {
-                // on tap
-                if (record->tap.count) {
-                    uint8_t layer = get_highest_layer(layer_state);
-                    if (layer < 4){
-                        uint8_t next_layer = layer == 3 ? 0 : layer + 1;
-                        bool was_enabled = rgblight_is_enabled();
-                        if (!was_enabled){
-                            rgblight_enable();
-                        }
-                        rgblight_unblink_all_but_layer(next_layer);
-                        rgblight_blink_layer_repeat(next_layer, 300, 2);
+                uint8_t layer = get_highest_layer(layer_state);
 
-                        if (!was_enabled){
-                            rgblight_disable();
-                        }
-                    }
-                    if (layer >= 3) {
-                        layer_clear();
-                    } else {
-                        layer_move(layer + 1);
-                    }
-                }
+                uint8_t next_layer = layer >= 3 ? 0 : layer + 1;
+
+                rgblight_unblink_all_but_layer(next_layer);
+                rgblight_blink_layer_repeat(next_layer, 300, 2);
+
+                layer_move(next_layer);
             }
             return false;
     }
