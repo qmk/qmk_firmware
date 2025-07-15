@@ -37,6 +37,11 @@
         "driver": "vendor"
     },
     "rgb_matrix": {
+        "default": {
+            "hue": 180,
+            "sat": 100,
+            "val": 60
+        },
         "driver": "ws2812",
         "layout": [
             {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},

@@ -50,27 +50,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-void keyboard_post_init_user(void) {
-    rgb_matrix_sethsv(50, 255, 255);
-}
-
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case _MAIN:
             /* Yellow */
-            rgb_matrix_sethsv(50, 255, 255); break;   
+            rgb_matrix_sethsv_noeeprom(50, 255, 255); break;   
         case _NUMBERS:
             /* Cyan */
-            rgb_matrix_sethsv(170, 255, 255); break;
+            rgb_matrix_sethsv_noeeprom(170, 255, 255); break;
         case _SYMBOLS:
             /* Purple */
-            rgb_matrix_sethsv(200, 255, 255); break;
+            rgb_matrix_sethsv_noeeprom(200, 255, 255); break;
         case _NAVIGATION:
             /* Green */
-            rgb_matrix_sethsv(85, 255, 255); break;
+            rgb_matrix_sethsv_noeeprom(85, 255, 255); break;
         default:
             /* Off */
-            rgb_matrix_sethsv(0, 0, 0); break;
+            rgb_matrix_sethsv_noeeprom(0, 0, 0); break;
     }
     return state;
 }
