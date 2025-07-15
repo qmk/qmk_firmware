@@ -4,9 +4,9 @@
 ## Description
 A 65% keyboard by [Mechanical Keyboards](https://mechanicalkeyboards.com) available as either multi layout hotswap, or hotswap with RGB per key backlight.
 
-> Keyboard Maintainer: [C44Supra](https://github.com/C44Supra)
-> Hardware Supported: MK Point65 hotswap, MK Point65 hotswap RGB
-> Hardware Availability: [MK Point65 Keyboard Kit](https://mechanicalkeyboards.com/products/mk-point65-keyboard-kit)
+* Keyboard Maintainer: [C44Supra](https://github.com/C44Supra)
+* Hardware Supported: MK Point65 hotswap, MK Point65 hotswap RGB
+* Hardware Availability: [MK Point65 Keyboard Kit](https://mechanicalkeyboards.com/products/mk-point65-keyboard-kit)
 
 ## Firmware building
 **Hotswap with 6.25U layout:**
