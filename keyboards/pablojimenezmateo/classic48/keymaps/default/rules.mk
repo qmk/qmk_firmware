@@ -1,1 +1,0 @@
-LAYER_LOCK_ENABLE = yes

@@ -1,4 +1,4 @@
-/* Copyright 2024 Pablo Jiménez Mateo (@pablojimenezmateo)
+/* Copyright 2025 Pablo Jiménez Mateo (@pablojimenezmateo)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
