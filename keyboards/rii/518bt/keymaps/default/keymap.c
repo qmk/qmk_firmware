@@ -16,6 +16,16 @@
 #include QMK_KEYBOARD_H
 #define CTALDEL LCTL(LALT(KC_DEL))
 
+void keyboard_pre_init_user(void) {
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(B10);
+  gpio_set_pin_output(B11);
+  gpio_write_pin_low(B2);
+  gpio_write_pin_low(B10);
+  gpio_write_pin_low(B11);
+}
+
+
 /* Membrane labels - base
  *        .----------------------------------------------------------------------------.
  *        |light | home |  GUI | MUTE | VOL- | VOL+ | Prev | Pause| Next |    Bksp     |
