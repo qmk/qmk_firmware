@@ -59,9 +59,6 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "default": {
-            "val": 128
-        },
         "driver": "ws2812",
         "max_brightness": 128
     },
