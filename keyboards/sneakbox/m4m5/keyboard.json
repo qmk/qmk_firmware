@@ -140,7 +140,7 @@
         {"matrix": [9, 7], "x": 16.75, "y": 4, "w": 1.5}
       ]
     },
-    "LAYOUT_alice_2u_backspace": {
+    "LAYOUT_alice": {
       "layout": [
         {"matrix": [2, 0], "x": 0, "y": 0},
 
