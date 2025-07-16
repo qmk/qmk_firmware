@@ -57,10 +57,6 @@
     "vid": "0x5342",
     "pid": "0x0005"
   },
-  "community_layouts": ["alice", "alice_split_bs"],
-  "layout_aliases": {
-    "LAYOUT_all": "LAYOUT_alice_split_bs"
-  },
   "layouts": {
     "LAYOUT_alice_split_bs": {
       "layout": [
@@ -144,7 +140,7 @@
         {"matrix": [9, 7], "x": 16.75, "y": 4, "w": 1.5}
       ]
     },
-    "LAYOUT_alice": {
+    "LAYOUT_alice_2u_backspace": {
       "layout": [
         {"matrix": [2, 0], "x": 0, "y": 0},
 
