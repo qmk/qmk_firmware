@@ -95,7 +95,7 @@
     "bm68rgb": {
         "target": "kprepublic/bm68hsrgb/rev1"
     },
-    "bongopad" {
+    "bongopad": {
 	"target": "ll3ma/bongopad"
     },
     "bpiphany/pegasushoof": {
