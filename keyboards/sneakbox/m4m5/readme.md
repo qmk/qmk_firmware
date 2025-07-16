@@ -2,7 +2,7 @@
 
 ![Sneakbox M4 & M5 PCB]([https://i.imgur.com/hVLal1m.jpeg)
 
-An Alice-compatible PCB with hotswap with pushbutton rotary encoder socket placed at the top left key position. This PCB is the successor to the AliceCloneRGB PCB and features RGB underglow lighting along with revised hardware components such as an additional spacebar key in the right spacebar cluster. M4M5 covers two physical PCBs for the MGA project as well as the MGA V3.
+An Alice-compatible PCB with hotswap with pushbutton rotary encoder socket placed at the top left key position. This PCB is the successor to the AliceCloneRGB PCB and features RGB underglow lighting along with revised hardware components such as an additional spacebar key in the right spacebar cluster. M4M5 firmware covers two physical PCBs for the MGA project (M4 PCB and M5 PCB) namely for the MGA V3 keyboard (which uses either PCB).
 
 * Keyboard Maintainer: [mujimanic](https://github.com/mujimanic)
 * Hardware Supported: Any Alice-layout case.
@@ -20,4 +20,4 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the top left key in the nevigation cluster (Escape key) and plug in the keyboard
 * **Physical reset button**: Briefly press the small metal button on the back of the PCB
-* **Keycode in layout**: Press and hold the key next to the right split spacebar (to the right of the spacebar) and then press the End key (located on the bottom of the four-key navigation cluster)
+* **Keycode in layout**: Press and hold the key next to the right split spacebar (to the right of the spacebar) and then press the End key (located on the bottom of the three-key navigation cluster)
