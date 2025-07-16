@@ -140,7 +140,7 @@ tap_dance_action_t* tap_dance_get_raw(uint16_t tap_dance_idx) {
     if (tap_dance_idx >= tap_dance_count_raw()) {
         return NULL;
     }
-    return &tap_dance_actions[tap_dance_idx];
+    return (tap_dance_action_t*)&tap_dance_actions[tap_dance_idx];
 }
 
 __attribute__((weak)) tap_dance_action_t* tap_dance_get(uint16_t tap_dance_idx) {
