@@ -1,8 +1,5 @@
 {
     "keyboard_name": "Helix rev3",
-    "build": {
-        "lto": true
-    },
     "dip_switch": {
         "matrix_grid": [
             [0, 6],
@@ -18,15 +15,13 @@
     },
     "features": {
         "dip_switch": false,
-        "encoder": true,
-        "rgb_matrix": true
+        "encoder": true
     },
     "matrix_pins": {
         "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2"],
         "rows": ["D4", "C6", "D7", "E6", "B4"]
     },
     "rgb_matrix": {
-        "driver": "ws2812",
         "layout": [
             {"matrix": [0, 5], "x": 80, "y": 0, "flags": 4},
             {"matrix": [0, 4], "x": 64, "y": 0, "flags": 4},
@@ -93,8 +88,6 @@
             {"matrix": [9, 1], "x": 208, "y": 64, "flags": 4},
             {"matrix": [9, 0], "x": 224, "y": 64, "flags": 4}
         ],
-        "max_brightness": 150,
-        "sleep": true,
         "split_count": [32, 32]
     },
     "split": {
