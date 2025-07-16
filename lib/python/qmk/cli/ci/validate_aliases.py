@@ -32,6 +32,10 @@ def ci_validate_aliases(cli):
     success = True
     for alias in aliases.keys():
         target = aliases[alias].get('target', None)
+        if alias == target:
+            cli.log.error(f'Keyboard alias {alias} should not point to itself')
+            success = False
+
         if not _target_keyboard_exists(target):
             cli.log.error(f'Keyboard alias {alias} has a target that doesn\'t exist: {target}')
             success = False
