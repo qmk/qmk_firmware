@@ -95,9 +95,6 @@
     "bm68rgb": {
         "target": "kprepublic/bm68hsrgb/rev1"
     },
-    "bongopad": {
-	"target": "ll3ma/bongopad"
-    },
     "bpiphany/pegasushoof": {
         "target": "bpiphany/pegasushoof/2013"
     },
@@ -409,6 +406,9 @@
     },
     "lfkeyboards/smk65": {
         "target": "lfkeyboards/smk65/revb"
+    },
+    "ll3macorn/bongopad": {
+        "target": "ll3ma/bongopad"
     },
     "m3v3van": {
         "target": "matthewdias/m3n3van"
