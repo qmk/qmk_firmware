@@ -55,7 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define NO_MUSIC_MODE
 // #define STARTUP_SONG SONG(FANTASIE_IMPROMPTU)
 // #define STARTUP_SONG SONG(NOCTURNE_OP_9_NO_1)
-// #define STARTUP_SONG SONG(USSR_ANTHEM)
 // #define STARTUP_SONG SONG(CAMPANELLA)
 #endif  //  AUDIO_ENABLE
 
