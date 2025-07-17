@@ -1,4 +1,4 @@
-// Copyright 2021 Ll3macorn (@ll3macorn)
+// Copyright 2025 Ll3ma (@ll3ma)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
