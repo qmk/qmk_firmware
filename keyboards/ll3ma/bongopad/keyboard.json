@@ -1,8 +1,8 @@
 {
     "keyboard_name": "BongoPad",
-    "manufacturer": "Ll3macorn",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ll3macorn/bongopad",
-    "maintainer": "Ll3macorn",
+    "manufacturer": "Ll3ma",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ll3ma/bongopad",
+    "maintainer": "Ll3ma",
     "usb": {
         "vid": "0x3728",
         "pid": "0x2949",

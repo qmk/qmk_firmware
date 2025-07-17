@@ -425,6 +425,9 @@
     "lfkeyboards/smk65": {
         "target": "lfkeyboards/smk65/revb"
     },
+    "ll3macorn/bongopad": {
+        "target": "ll3ma/bongopad"
+    },
     "m3v3van": {
         "target": "matthewdias/m3n3van"
     },
