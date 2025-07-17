@@ -16,6 +16,7 @@ enum custom_keycodes {
   HRL_BRACKETS_N,
   TRL_MEDIA_L,
   TRL_MEDIA_P,
+  RELOAD
 };
 
 #define TAPPING_TERM_PER_KEY
@@ -30,6 +31,7 @@ enum custom_keycodes {
 #define HRL_BRACKETS_N LT(_BRACKETS, DE_N)
 #define TRL_MEDIA_L LT(_MEDIA, DE_L)
 #define TRL_MEDIA_P LT(_MEDIA, DE_P)
+#define HRM_SPECIAL_F LT(_SPECIAL, DE_F)
 
 // Tap Dance Hold configuration
 typedef struct {
@@ -103,12 +105,13 @@ enum custom_layers {
   _BRACKETS,
   _EXTRA,
   _MEDIA,
+  _SPECIAL
 };
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = LAYOUT(
      QK_GESC, KC_1, KC_2,  KC_3,      KC_4,           KC_5,                        KC_6,      KC_7, KC_8,      KC_9,       KC_0,   KC_BSPC,
-     KC_TAB,  DE_Q, DE_W,  DE_F,      TRL_MEDIA_P,    DE_G,                        DE_J,      TRL_MEDIA_L,     DE_U,       DE_Y,   XXXXXXX, XXXXXXX,
+     KC_TAB,  DE_Q, DE_W,  HRM_SPECIAL_F,      TRL_MEDIA_P,    DE_G,                        DE_J,      TRL_MEDIA_L,     DE_U,       DE_Y,   XXXXXXX, XXXXXXX,
      KC_LCTL, DE_A, DE_R,  HRM_ALT_S, HRL_BRACKETS_T, HRM_GUI_D,                   HRM_GUI_H, HRL_BRACKETS_N,  HRM_CTRL_E, DE_I,   DE_O,   KC_ENTER,
      KC_LSFT, DE_Z, DE_X,  DE_C,      DE_V, DE_B,               KC_HOME, KC_END,   DE_K,      DE_M, DE_COMM,   KC_DOT, KC_SLSH, KC_CAPS,
                             LMAGIC, MO(_NAVIGATION), TD(SPACE_TAB), OSM(MOD_LSFT), MO(_EXTRA), RMAGIC
@@ -147,6 +150,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, XXXXXXX,  KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX,                     XXXXXXX, RM_NEXT, RM_VALU, RM_HUEU, RM_SPDU,    XXXXXXX,
      _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLD, XXXXXXX,    TO(0), _______,   XXXXXXX, RM_PREV, RM_VALD, RM_HUED, RM_SPDD,    XXXXXXX,
                                           _______, _______, _______, _______, _______, _______
+  ),
+  [_SPECIAL] = LAYOUT(
+     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,
+     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,
+     _______, XXXXXXX, XXXXXXX, KC_PASTE, KC_COPY, KC_CUT,                      XXXXXXX, RELOAD, KC_E, XXXXXXX, XXXXXXX,    XXXXXXX,
+     _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    TO(0), _______,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,
+                                          _______, _______, _______, _______, _______, _______
   )
 };
 
@@ -161,11 +171,11 @@ const char PROGMEM chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] =
 // clang-format on
 
 const uint16_t PROGMEM activate_game_layer[] = {DE_Q, DE_W, DE_Y, COMBO_END};
-const uint16_t PROGMEM next_song[] = {DE_N, MT(MOD_LCTL, DE_E), COMBO_END};
-const uint16_t PROGMEM play_stop[] = {DE_M, DE_P, COMBO_END};
+const uint16_t PROGMEM capslock_word_toggle[] = {HRL_BRACKETS_T, HRL_BRACKETS_N,
+                                                 COMBO_END};
+
 combo_t key_combos[] = {COMBO(activate_game_layer, TO(1)),
-                        COMBO(next_song, KC_MEDIA_NEXT_TRACK),
-                        COMBO(play_stop, KC_MEDIA_PLAY_PAUSE)};
+                        COMBO(capslock_word_toggle, CW_TOGG)};
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
                             uint8_t *remembered_mods) {
@@ -202,6 +212,9 @@ static void process_left_magic(uint16_t keycode,
     case KC_M: {
       MAGIC_STRING("m", KC_NO);
     } break;
+    case KC_N: {
+      MAGIC_STRING("n", KC_NO);
+    } break;
     case DE_O: {
       MAGIC_STRING("o", KC_NO);
     } break;
@@ -223,6 +236,9 @@ static void process_right_magic(uint16_t keycode,
     } break;
     case KC_B: {
       MAGIC_STRING("b", KC_NO);
+    } break;
+    case KC_C: {
+      MAGIC_STRING("c", KC_NO);
     } break;
     case TRL_MEDIA_P: {
       MAGIC_STRING("p", KC_NO);
@@ -259,7 +275,7 @@ static void process_right_magic(uint16_t keycode,
 //     //     break;
 //     case _GAME:
 //       rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-//       break;
+//       break;8
 //     default:  //  for any other layers, or the default layer
 //       rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_WIDE);
 //       // rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_PALETTEFX_FLOW);
@@ -272,6 +288,25 @@ static void process_right_magic(uint16_t keycode,
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
+      case RELOAD: {
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            if (record->event.pressed) {
+              SEND_STRING(SS_LGUI("r"));
+            }
+            break;
+          case OS_LINUX:
+          case OS_WINDOWS:
+          if (record->event.pressed) {
+            SEND_STRING(SS_LCTL("r"));
+          }
+          break;
+          case OS_UNSURE:
+            break;
+        }
+      }
+        return false;
       case LMAGIC: {
         process_left_magic(get_last_keycode(), get_last_mods());
         set_last_keycode(KC_SPC);
