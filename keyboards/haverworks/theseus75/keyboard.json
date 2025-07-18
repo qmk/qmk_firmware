@@ -160,7 +160,7 @@
         "pin": "B7"
     },
     "layouts": {
-        "LAYOUT_75xt_all": {
+        "LAYOUT_all": {
             "layout": [
                 {"label": "LENC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "ESC", "matrix": [0, 1], "x": 1.5, "y": 0},
@@ -258,7 +258,7 @@
                 {"label": "Rght", "matrix": [11, 8], "x": 17.75, "y": 5}
             ]
         },
-        "LAYOUT_75xt_ansi": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"label": "LENC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "ESC", "matrix": [0, 1], "x": 1.5, "y": 0},
@@ -353,7 +353,7 @@
                 {"label": "Rght", "matrix": [11, 8], "x": 17.75, "y": 5}
             ]
         },
-        "LAYOUT_75xt_iso": {
+        "LAYOUT_iso": {
             "layout": [
                 {"label": "LENC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "ESC", "matrix": [0, 1], "x": 1.5, "y": 0},
