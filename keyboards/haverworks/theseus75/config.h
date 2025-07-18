@@ -5,8 +5,6 @@
 
 /* Defines for configuring the serial driver for split comms (see https://docs.qmk.fm/drivers/serial) */
 #define SERIAL_USART_DRIVER SD3    // USART 3
-#define USART3_REMAP               // Remap USART TX and RX pins for half duplex
-#define SERIAL_USART_TX_PAL_MODE 7 // Pin alternate function 7 = USART3_TX for PB10
 
 /* Defines for required pins */
 #define ID_PIN A13
