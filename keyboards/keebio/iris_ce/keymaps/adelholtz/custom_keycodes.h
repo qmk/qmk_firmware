@@ -1,8 +1,13 @@
+/**
+ * TRL: Top Row Layer
+ * HRL: Home Row Layer
+ * HRM: Home Row Mod
+ */
 enum custom_keycodes {
   LMAGIC = SAFE_RANGE,
   RMAGIC,
-  MACLCURLY, // defined in keymap.c process_record_user
-  MACRCURLY, // defined in keymap.c process_record_user
+  LCURLY, // defined in keymap.c process_record_user
+  RCURLY, // defined in keymap.c process_record_user
   HRM_GUI_D,
   HRM_GUI_H,
   HRM_ALT_S,
@@ -11,6 +16,10 @@ enum custom_keycodes {
   HRL_BRACKETS_N,
   TRL_MEDIA_L,
   TRL_MEDIA_P,
+  TRL_SPECIAL_F,
+  PIPE_,  // defined in keymap.c process_record_user
+  LBRACKET,  // defined in keymap.c process_record_user
+  RBRACKET,  // defined in keymap.c process_record_user
   RELOAD // defined in keymap.c process_record_user
 };
 
@@ -26,4 +35,4 @@ enum custom_keycodes {
 #define HRL_BRACKETS_N LT(_BRACKETS, DE_N)
 #define TRL_MEDIA_L LT(_MEDIA, DE_L)
 #define TRL_MEDIA_P LT(_MEDIA, DE_P)
-#define HRM_SPECIAL_F LT(_SPECIAL, DE_F)
+#define TRL_SPECIAL_F LT(_SPECIAL, DE_F)

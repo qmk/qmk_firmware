@@ -1,4 +1,7 @@
-/*
+#include <stdint.h>
+
+
+/**
  * This file contains the implementation of a custom key processing system
  * for handling "magic" keys and their associated behaviors. It includes
  * functionality for remembering the last key pressed, sending enhanced
@@ -29,6 +32,8 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
     case KC_ESC:
     case KC_BSPC:
     case KC_DEL:
+    case TD(XTRA_RMAGIC):
+    case TD(NAV_LMAGIC):
 
     case LMAGIC:
     case RMAGIC:
@@ -84,6 +89,12 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) {
     case TRL_MEDIA_L: {
       MAGIC_STRING("l", KC_NO);
     } break;
+    case HRM_CTRL_E: {
+      MAGIC_STRING("e", KC_NO);
+    } break;
+    case TRL_SPECIAL_F: {
+      MAGIC_STRING("unction", KC_NO);
+    } break;
     case KC_M: {
       MAGIC_STRING("m", KC_NO);
     } break;
@@ -97,7 +108,10 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) {
       MAGIC_STRING("u", KC_NO);
     } break;
 
-    case MACRCURLY: {
+    case KC_DOT: {
+      MAGIC_STRING("..", KC_NO);
+    } break;
+    case RCURLY: {
       SEND_STRING(SS_RALT("8"));
     } break;
   }
@@ -125,6 +139,15 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
     case KC_C: {
       MAGIC_STRING("c", KC_NO);
     } break;
+    case KC_G: {
+      MAGIC_STRING("g", KC_NO);
+    } break;
+    case HRM_GUI_D: {
+      MAGIC_STRING("d", KC_NO);
+    } break;
+    case TRL_SPECIAL_F: {
+      MAGIC_STRING("f", KC_NO);
+    } break;
     case TRL_MEDIA_P: {
       MAGIC_STRING("p", KC_NO);
     } break;
@@ -140,8 +163,11 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
     case DE_W: {
       MAGIC_STRING("w", KC_NO);
     } break;
+    case DE_Z: {
+      MAGIC_STRING("z", KC_NO);
+    } break;
 
-    case MACLCURLY: {
+    case LCURLY: {
       SEND_STRING(SS_RALT("9"));
     } break;
   }

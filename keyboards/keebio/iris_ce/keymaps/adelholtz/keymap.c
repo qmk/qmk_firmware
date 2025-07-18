@@ -1,8 +1,24 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
+enum custom_layers {
+  _COLEMAK,
+  _GAME,
+  _NAVIGATION,
+  _BRACKETS,
+  _EXTRA,
+  _MEDIA,
+  _SPECIAL
+};
+enum tap_dance_keys{
+  SPACE_TAB,
+  NAV_LMAGIC,
+  XTRA_RMAGIC,
+};
 #include "custom_keycodes.h"
 #include "keymap_german.h"
+// LMAGIC and RMAGIC definitions
+#include "magic.c"
 #include "tap_dance.c"
 #include "layer_layout.c"
 
@@ -19,8 +35,6 @@ const char PROGMEM chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] =
 
 #include "combos.c"
 
-// LMAGIC and RMAGIC definitions
-#include "magic.c"
 
 // custom keystroke main logic
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -31,16 +45,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                                                                                    : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_LCTL("r") : ""));
       }
         return false;
-      case MACLCURLY: {
+      case LCURLY: {
         SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("8")
                                                                                    : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_ALGR("7") : ""));
       }
         return false;
-        case MACRCURLY: {
-          SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("9")
-                                                                                     : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_ALGR("8") : ""));
-        }
-          return false;
+      case RCURLY: {
+        SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("9")
+                                                                                   : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_ALGR("0") : ""));
+      }
+        return false;
+      case PIPE_: {
+        SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("7")
+                                                                                   : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_ALGR("<") : ""));
+      }
+      case LBRACKET: {
+        SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("5")
+                                                                                   : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_ALGR("8") : ""));
+      }
+      case RBRACKET: {
+        SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("6")
+                                                                                   : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_ALGR("9") : ""));
+      }
+        return false;
       case LMAGIC: {
         process_left_magic(get_last_keycode(), get_last_mods());
         set_last_keycode(KC_SPC);
@@ -51,11 +78,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_last_keycode(KC_SPC);
       }
         return false;
-      // case TD(TDH_A_AE):
-      // case TD(TDH_O_OE):
-      case TD(TDH_U_UE): {
-        process_tap_dance_hold(keycode, record);
-      }
     }
   }
 
