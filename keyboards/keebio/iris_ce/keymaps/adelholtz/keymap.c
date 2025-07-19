@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-
+#pragma once
 #include QMK_KEYBOARD_H
 
-#include "custom_keycodes.h"
+#include "adelholtz.h"
 #include "keymap_german.h"
 // LMAGIC and RMAGIC definitions
 #include "magic.c"
@@ -21,7 +21,6 @@ const char PROGMEM chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] =
 // clang-format on
 
 #include "combos.c"
-
 
 // custom keystroke main logic
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -73,7 +72,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void keyboard_post_init_user(void) {
   rgb_matrix_mode(RGB_MATRIX_SOLID_REACTIVE_WIDE);
-  rgb_matrix_sethsv(191, 255, 255);
+  rgb_matrix_sethsv(191, 255, 255); // purple
 }
 // void keyboard_post_init_user(void) {
 //   // Set the effect.

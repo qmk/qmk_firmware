@@ -24,10 +24,7 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
 #endif
     ) {
       if (is_valid_layer_explicit(tap_hold->hold)){
-     // if (tap_hold->hold == _EXTRA) {
-        layer_move(_EXTRA);
-      }else if (tap_hold->hold == _NAVIGATION) {
-        layer_move(_NAVIGATION);
+        layer_move(tap_hold->hold);
       }else {
         register_code16(tap_hold->hold);
       }
