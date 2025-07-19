@@ -30,6 +30,9 @@ void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data) {
     tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
 
     if (state->count == 2) {
+#ifdef REPEAT_KEY_ENABLE
+        set_last_keycode(pair->kc2);
+#endif
         register_code16(pair->kc2);
         state->finished = true;
     }
@@ -68,6 +71,9 @@ void tap_dance_dual_role_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_dual_role_t *pair = (tap_dance_dual_role_t *)user_data;
 
     if (state->count == 1) {
+#ifdef REPEAT_KEY_ENABLE
+        set_last_keycode(pair->kc);
+#endif
         register_code16(pair->kc);
     } else if (state->count == 2) {
         pair->layer_function(pair->layer);
