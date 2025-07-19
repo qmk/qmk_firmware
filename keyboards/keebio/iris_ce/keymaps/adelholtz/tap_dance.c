@@ -62,12 +62,12 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 // external call for 'tap dance hold'
-static void process_tap_dance_hold(uint16_t keycode, keyrecord_t *record) {
-  tap_dance_action_t *action;
+// static void process_tap_dance_hold(uint16_t keycode, keyrecord_t *record) {
+//   tap_dance_action_t *action;
 
-  action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-  if (!record->event.pressed && action->state.count && !action->state.finished) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-    tap_code16(tap_hold->tap);
-  }
-}
+//   action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
+//   if (!record->event.pressed && action->state.count && !action->state.finished) {
+//     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+//     tap_code16(tap_hold->tap);
+//   }
+// }
