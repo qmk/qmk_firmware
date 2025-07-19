@@ -5,6 +5,15 @@ typedef struct {
   uint16_t held;
 } tap_dance_tap_hold_t;
 
+int is_valid_layer_explicit(int value) {
+  int count = sizeof(valid_tap_dance_layers) / sizeof(valid_tap_dance_layers[0]);
+  for (int i = 0; i < count; i++) {
+    if (valid_tap_dance_layers[i] == value)
+      return 1;
+  }
+  return 0;
+}
+
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
   tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
@@ -14,7 +23,8 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
         && !state->interrupted
 #endif
     ) {
-      if (tap_hold->hold == _EXTRA) {
+      if (is_valid_layer_explicit(tap_hold->hold)){
+     // if (tap_hold->hold == _EXTRA) {
         layer_move(_EXTRA);
       }else if (tap_hold->hold == _NAVIGATION) {
         layer_move(_NAVIGATION);
@@ -60,6 +70,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [NAV_LMAGIC] = ACTION_TAP_DANCE_TAP_HOLD(LMAGIC, _NAVIGATION),
     [XTRA_RMAGIC] = ACTION_TAP_DANCE_TAP_HOLD(RMAGIC, _EXTRA)
 };
+
 
 // external call for 'tap dance hold'
 // static void process_tap_dance_hold(uint16_t keycode, keyrecord_t *record) {

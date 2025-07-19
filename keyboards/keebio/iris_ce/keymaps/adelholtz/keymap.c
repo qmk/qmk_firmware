@@ -1,20 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-enum custom_layers {
-  _COLEMAK,
-  _GAME,
-  _NAVIGATION,
-  _BRACKETS,
-  _EXTRA,
-  _MEDIA,
-  _SPECIAL
-};
-enum tap_dance_keys{
-  SPACE_TAB,
-  NAV_LMAGIC,
-  XTRA_RMAGIC,
-};
+
 #include "custom_keycodes.h"
 #include "keymap_german.h"
 // LMAGIC and RMAGIC definitions

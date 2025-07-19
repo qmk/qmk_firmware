@@ -36,3 +36,22 @@ enum custom_keycodes {
 #define TRL_MEDIA_L LT(_MEDIA, DE_L)
 #define TRL_MEDIA_P LT(_MEDIA, DE_P)
 #define TRL_SPECIAL_F LT(_SPECIAL, DE_F)
+
+enum custom_layers {
+  _COLEMAK,
+  _GAME,
+  _NAVIGATION,
+  _BRACKETS,
+  _EXTRA,
+  _MEDIA,
+  _SPECIAL
+};
+enum custom_layers valid_tap_dance_layers[] = {
+  _COLEMAK, _GAME, _NAVIGATION, _BRACKETS,
+  _EXTRA, _MEDIA, _SPECIAL
+};
+enum tap_dance_keys{
+  SPACE_TAB,
+  NAV_LMAGIC,
+  XTRA_RMAGIC,
+};
