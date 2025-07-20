@@ -1,9 +1,9 @@
 {
-    "manufacturer": "wholteza",
+    "manufacturer": "zacke.dev",
     "keyboard_name": "5x6_split",
-    "maintainer": "wholteza",
+    "maintainer": "Wholteza",
+    "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
-    "processor": "RP2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -15,22 +15,31 @@
         "cols": ["GP16", "GP17", "GP18", "GP19", "GP20", "GP21"],
         "rows": ["GP15", "GP14", "GP13", "GP12", "GP11"]
     },
+    "processor": "RP2040",
     "split": {
         "enabled": true,
-        "main": "right",
         "matrix_pins": {
             "right": {
                 "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
                 "rows": ["GP16", "GP17", "GP18", "GP19", "GP20"]
-            },
+            }
+        },
+        "serial": {
+            "driver": "vendor"
+        },
+        "transport": {
+            "protocol": "serial",
+            "watchdog": true,
+            "watchdog_timeout": 3000
         },
         "usb_detect": {
-            "enabled": true,
+            "enabled": true
         }
     },
+    "url": "https://git.zacke.dev/wholteza/5x6-split-kb/src/branch/main/rev1",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x1234",
+        "pid": "0x0057",
         "vid": "0xFEED"
     },
     "layouts": {
@@ -48,7 +57,6 @@
                 {"matrix": [5, 3], "x": 9, "y": 0},
                 {"matrix": [5, 4], "x": 10, "y": 0},
                 {"matrix": [5, 5], "x": 11, "y": 0},
-
                 {"matrix": [1, 0], "x": 0, "y": 1},
                 {"matrix": [1, 1], "x": 1, "y": 1},
                 {"matrix": [1, 2], "x": 2, "y": 1},
@@ -61,7 +69,6 @@
                 {"matrix": [6, 3], "x": 9, "y": 1},
                 {"matrix": [6, 4], "x": 10, "y": 1},
                 {"matrix": [6, 5], "x": 11, "y": 1},
-
                 {"matrix": [2, 0], "x": 0, "y": 2},
                 {"matrix": [2, 1], "x": 1, "y": 2},
                 {"matrix": [2, 2], "x": 2, "y": 2},
@@ -74,7 +81,6 @@
                 {"matrix": [7, 3], "x": 9, "y": 2},
                 {"matrix": [7, 4], "x": 10, "y": 2},
                 {"matrix": [7, 5], "x": 11, "y": 2},
-
                 {"matrix": [3, 0], "x": 0, "y": 3},
                 {"matrix": [3, 1], "x": 1, "y": 3},
                 {"matrix": [3, 2], "x": 2, "y": 3},
@@ -87,7 +93,6 @@
                 {"matrix": [8, 3], "x": 9, "y": 3},
                 {"matrix": [8, 4], "x": 10, "y": 3},
                 {"matrix": [8, 5], "x": 11, "y": 3},
-
                 {"matrix": [4, 0], "x": 0, "y": 4},
                 {"matrix": [4, 1], "x": 1, "y": 4},
                 {"matrix": [4, 2], "x": 2, "y": 4},
@@ -99,7 +104,7 @@
                 {"matrix": [9, 2], "x": 8, "y": 4},
                 {"matrix": [9, 3], "x": 9, "y": 4},
                 {"matrix": [9, 4], "x": 10, "y": 4},
-                {"matrix": [9, 5], "x": 11, "y": 4},
+                {"matrix": [9, 5], "x": 11, "y": 4}
             ]
         }
     }
