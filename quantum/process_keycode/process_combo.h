@@ -22,39 +22,44 @@
 #include "keycodes.h"
 #include "quantum_keycodes.h"
 
-#ifdef EXTRA_SHORT_COMBOS
-#    define MAX_COMBO_LENGTH 6
-#elif defined(EXTRA_EXTRA_LONG_COMBOS)
+/* COMBO_BUFFER_LENGTH defines the maximum number of simulatenously active combos. */
+#ifndef COMBO_BUFFER_LENGTH
+#    define COMBO_BUFFER_LENGTH 4
+#endif
+
+#if defined(EXTRA_EXTRA_LONG_COMBOS)
 #    define MAX_COMBO_LENGTH 32
+#    define COMBO_STATE_BITS 5
+typedef uint32_t combo_active_state_t;
 #elif defined(EXTRA_LONG_COMBOS)
 #    define MAX_COMBO_LENGTH 16
+#    define COMBO_STATE_BITS 4
+typedef uint16_t combo_active_state_t;
+#elif defined(EXTRA_SMALL_COMBOS)
+#    define MAX_COMBO_LENGTH 4
+#    define COMBO_STATE_BITS 2
+typedef uint8_t combo_active_state_t;
 #else
 #    define MAX_COMBO_LENGTH 8
+#    define COMBO_STATE_BITS 3
+typedef uint8_t combo_active_state_t;
+#endif
+
+/* Must be defined if (COMBO_COUNT + 1) * MAX_COMBO_LENGTH >= 256 */
+#ifdef MANY_COMBOS
+typedef uint16_t combo_state_t;
+#else
+typedef uint8_t  combo_state_t;
 #endif
 
 #ifndef COMBO_KEY_BUFFER_LENGTH
-#    define COMBO_KEY_BUFFER_LENGTH MAX_COMBO_LENGTH
-#endif
-#ifndef COMBO_BUFFER_LENGTH
-#    define COMBO_BUFFER_LENGTH 4
+#    define COMBO_KEY_BUFFER_LENGTH (MAX_COMBO_LENGTH + 4)
 #endif
 
 typedef struct combo_t {
     const uint16_t *keys;
     uint16_t        keycode;
-#ifdef EXTRA_SHORT_COMBOS
-    uint8_t state;
-#else
-    bool disabled;
-    bool active;
-#    if defined(EXTRA_EXTRA_LONG_COMBOS)
-    uint32_t state;
-#    elif defined(EXTRA_LONG_COMBOS)
-    uint16_t state;
-#    else
-    uint8_t state;
-#    endif
-#endif
+    combo_state_t   state;
 } combo_t;
 
 #define COMBO(ck, ca) {.keys = &(ck)[0], .keycode = (ca)}
@@ -69,7 +74,7 @@ typedef struct combo_t {
 #endif
 
 /* check if keycode is only modifiers */
-#define KEYCODE_IS_MOD(code) (IS_MODIFIER_KEYCODE(code) || (IS_QK_MODS(code) && !QK_MODS_GET_BASIC_KEYCODE(code)))
+#define KEYCODE_IS_MOD(code) (IS_MOD(code) || (code >= QK_MODS && code <= QK_MODS_MAX && !(code & QK_BASIC_MAX)))
 
 bool process_combo(uint16_t keycode, keyrecord_t *record);
 void combo_task(void);
