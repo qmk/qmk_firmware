@@ -1,4 +1,5 @@
 #pragma once
+#include <stdbool.h>
 
 void display_key_counter(void);
 void display_init_kb(void);
