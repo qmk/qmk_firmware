@@ -1,3 +1,6 @@
+// Copyright 2023 Dasky (@daskygit), 2024 Choi Byungyoon (@byungyoonc)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 #include <stdbool.h>
 

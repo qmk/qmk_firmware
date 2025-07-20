@@ -4,7 +4,8 @@
 
 TrueStrike42 is a columnar staggered unibody split Hall effect keyboard designed to maximize performance and minimize finger fatigue.
 
-Hall effect part of this firmware code is a modified version of Cipulot's code.
+Hall effect part of this firmware code is a derivative work of Cipulot's code.
+OLED display part of this firmware code is a derivative work of Dasky's code.
 
 * Keyboard Maintainer: [byungyoonc](https://github.com/byungyoonc)
 * Hardware Supported: RP2040 development boards with Pro Micro pin layout
