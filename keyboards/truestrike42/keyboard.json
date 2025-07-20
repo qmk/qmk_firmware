@@ -17,7 +17,7 @@
         "rgb_matrix": true
     },
     "diode_direction": "COL2ROW",
-    "url": "",
+    "url": "https://github.com/byungyoonc/TrueStrike42",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
