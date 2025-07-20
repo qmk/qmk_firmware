@@ -11,7 +11,7 @@
 * SSD1306 OLED display (128x64) using PB6 and PB7 on I2C1
 
 * Keyboard Maintainer: [Drashna Jael're](https://github.com/drashna)
-* Hardware Supported: [Design files](https://gitlab.com/keyboards1/dm_r_track/-/tree/master/boolean), [WeAct BlackPill (F411)](https://github.com/WeActTC/MiniSTM32F4x1), [PMW3360 Optical Sensor](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/)
+* Hardware Supported: [Design files](https://gitlab.com/keyboards1/dm_r_track/-/tree/master/boolean), [WeAct BlackPill (F411)](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1), [PMW3360 Optical Sensor](https://www.tindie.com/products/jkicklighter/pmw3360-motion-sensor/)
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -29,7 +29,7 @@ enum taps {
     PNX,  // Play/pause; next track.
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [PNX] = ACTION_TAP_DANCE_DOUBLE(KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK),
 };
 
@@ -43,10 +43,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = LAYOUT_64key(
-                      KC_LSPO, KC_MINS, KC_EQL,                           KC_VOLD, KC_VOLU, KC_RSPC,
-                      KC_LCPO, KC_LGUI, KC_HAEN, KC_ENT,         KC_MUTE, TD(PNX), LAYER_N, KC_RCPC,
-                               KC_LAPO, KC_SPC,  SLQ,            SRQ,     KC_ESC,  KC_RAPC,
+[_QWERTY] = LAYOUT(
+                      SC_LSPO, KC_MINS, KC_EQL,                           KC_VOLD, KC_VOLU, SC_RSPC,
+                      SC_LCPO, KC_LGUI, KC_LNG1, KC_ENT,         KC_MUTE, TD(PNX), LAYER_N, SC_RCPC,
+                               SC_LAPO, KC_SPC,  SLQ,            SRQ,     KC_ESC,  SC_RAPC,
 
                       CM_W,    CM_F,    CM_P,    CM_G,           CM_J,    CM_L,    CM_U,    CM_Y,
     KC_TAB,  CM_Q,    CM_R,    CM_S,    CM_T,    CM_D,           CM_H,    CM_N,    CM_E,    CM_I,    CM_SCLN, KC_BSLS,
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_PGDN,                                            KC_DOWN
 ),
 
-[_COLEMAK] = LAYOUT_64key(
+[_COLEMAK] = LAYOUT(
                       _______, _______, _______,                          _______, _______, _______,
                       _______, _______, _______, _______,        _______, _______, _______, _______,
                                _______, _______, _______,        _______, _______, _______,
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______,                                            _______
 ),
 
-[_GAMING] = LAYOUT_64key(
+[_GAMING] = LAYOUT(
                       _______, _______, _______,                          _______, _______, _______,
                       _______, _______, _______, _______,        _______, _______, _______, _______,
                                _______, _______, _______,        _______, _______, _______,
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_DOWN,                                            KC_PGDN
 ),
 
-[_NUMERIC] = LAYOUT_64key(
+[_NUMERIC] = LAYOUT(
                       _______, _______, _______,                          KC_ACL1, KC_ACL2, _______,
                       _______, _______, LAYER_C, _______,        KC_ACL0, _______, _______, _______,
                                _______, _______, _______,        KC_SLEP, _______, _______,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_F2,   KC_F3,   KC_F4,   KC_F5,          KC_F6,   KC_F7,   KC_F8,   KC_F9,
     KC_F12,  KC_F1,   KC_2,    KC_3,    KC_4,    KC_5,           KC_6,    KC_7,    KC_8,    KC_9,    KC_F10,  KC_F11,
     _______, KC_1,    KC_AT,   KC_HASH, KC_DLR,  KC_PERC,        KC_CIRC, KC_AMPR, KC_ASTR, KC_APP,  KC_0,    PASTE,
-    KC_INS,  KC_EXLM, KC_BTN1, KC_BTN3, KC_BTN2,                          KC_MS_L, KC_MS_U, KC_MS_R, KC_PSCR, RESET,
+    KC_INS,  KC_EXLM, KC_BTN1, KC_BTN3, KC_BTN2,                          KC_MS_L, KC_MS_U, KC_MS_R, KC_PSCR, QK_BOOT,
                                LAYER_G,                                            KC_MS_D
 )
 };

@@ -16,7 +16,7 @@ enum unicode_names {
   SE_ODIA_LOW,
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
   [SE_ARNG_HIGH] = 0x00C5,
   [SE_ADIA_HIGH] = 0x00C4,
   [SE_ODIA_HIGH] = 0x00D6,
@@ -95,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  _______, RESET,   _______, _______, KC_WH_U, _______, _______, KC_MS_U, _______, _______,                   XP(SE_ARNG_LOW, SE_ARNG_HIGH), KC_DEL,
-  _______, _______, _______, _______, KC_WH_D, _______, KC_MS_L, KC_MS_D, KC_MS_R, XP(SE_ODIA_LOW, SE_ODIA_HIGH), XP(SE_ADIA_LOW, SE_ADIA_HIGH), _______,
+  _______, QK_BOOT, _______, _______, KC_WH_U, _______, _______, KC_MS_U, _______, _______,                   UP(SE_ARNG_LOW, SE_ARNG_HIGH), KC_DEL,
+  _______, _______, _______, _______, KC_WH_D, _______, KC_MS_L, KC_MS_D, KC_MS_R, UP(SE_ODIA_LOW, SE_ODIA_HIGH), UP(SE_ADIA_LOW, SE_ADIA_HIGH), _______,
   _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, KC_BTN1, _______, KC_BTN2, _______,                   _______,                   _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______,                   _______
 )
@@ -107,5 +107,5 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
+  set_unicode_input_mode(UNICODE_MODE_LINUX);
 }

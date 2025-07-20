@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- #include "hand88.h"
+ #include "quantum.h"
 
 void led_init_ports(void) {
     // Set our LED pins as open drain outputs

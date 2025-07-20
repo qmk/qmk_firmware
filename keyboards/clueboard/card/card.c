@@ -1,4 +1,4 @@
-#include "card.h"
+#include "quantum.h"
 
 #define BL_RED OCR1B
 #define BL_GREEN OCR1A

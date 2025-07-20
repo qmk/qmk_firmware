@@ -1,4 +1,8 @@
-#include "quantum.h"
+#pragma once
+
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
 typedef enum taphold_mode_t {
     TAPHOLD_LAYER,

@@ -19,9 +19,8 @@ Basic symmetric per-key algorithm. Uses an 8-bit counter per key.
 When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 */
 
-#include "matrix.h"
+#include "debounce.h"
 #include "timer.h"
-#include "quantum.h"
 #include <stdlib.h>
 
 #ifdef PROTOCOL_CHIBIOS
@@ -48,8 +47,9 @@ typedef uint8_t debounce_counter_t;
 static debounce_counter_t *debounce_counters;
 static fast_timer_t        last_time;
 static bool                counters_need_update;
+static bool                cooked_changed;
 
-#define DEBOUNCE_ELAPSED 0
+#    define DEBOUNCE_ELAPSED 0
 
 static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time);
 static void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows);
@@ -70,14 +70,15 @@ void debounce_free(void) {
     debounce_counters = NULL;
 }
 
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     bool updated_last = false;
+    cooked_changed    = false;
 
     if (counters_need_update) {
-        fast_timer_t now = timer_read_fast();
+        fast_timer_t now          = timer_read_fast();
         fast_timer_t elapsed_time = TIMER_DIFF_FAST(now, last_time);
 
-        last_time = now;
+        last_time    = now;
         updated_last = true;
         if (elapsed_time > UINT8_MAX) {
             elapsed_time = UINT8_MAX;
@@ -95,6 +96,8 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
         start_debounce_counters(raw, cooked, num_rows);
     }
+
+    return cooked_changed;
 }
 
 static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time) {
@@ -104,8 +107,10 @@ static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[],
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             if (*debounce_pointer != DEBOUNCE_ELAPSED) {
                 if (*debounce_pointer <= elapsed_time) {
-                    *debounce_pointer = DEBOUNCE_ELAPSED;
-                    cooked[row]       = (cooked[row] & ~(ROW_SHIFTER << col)) | (raw[row] & (ROW_SHIFTER << col));
+                    *debounce_pointer        = DEBOUNCE_ELAPSED;
+                    matrix_row_t cooked_next = (cooked[row] & ~(ROW_SHIFTER << col)) | (raw[row] & (ROW_SHIFTER << col));
+                    cooked_changed |= cooked[row] ^ cooked_next;
+                    cooked[row] = cooked_next;
                 } else {
                     *debounce_pointer -= elapsed_time;
                     counters_need_update = true;
@@ -134,7 +139,6 @@ static void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], u
     }
 }
 
-bool debounce_active(void) { return true; }
 #else
 #    include "none.c"
 #endif

@@ -10,11 +10,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, KC_RGUI, MO(1),   KC_RCTL
     ),
 
-    [1] = LAYOUT_all( /* System layer to have access to RESET button */
+    [1] = LAYOUT_all( /* System layer to have access to QK_BOOT button */
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_DEL,
-        _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, KC_SLCK, KC_PAUS, _______,
+        _______, _______, _______, _______, _______, _______, _______, KC_PGUP, KC_UP,   KC_PGDN, KC_PSCR, KC_SCRL, KC_PAUS, _______,
         _______, _______, _______, _______, _______, _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_DEL,           _______,
         _______, _______, KC_APP,  _______, _______, _______, _______, KC_END,  _______, _______, _______, _______, _______, _______,
-        RESET,   _______, _______,                            _______,                            _______, _______, _______, _______
+        QK_BOOT, _______, _______,                            _______,                            _______, _______, _______, _______
     ),
 };

@@ -13,7 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+
+#include "leds.h"
 #include "i2c_master.h"
 #include "led_tables.h"
 #include "rgb_matrix.h"
@@ -45,37 +46,6 @@ void set_led_to(int led, uint8_t r, uint8_t g, uint8_t b) {
 
 #ifdef RGB_MATRIX_ENABLE
 
-__attribute__ ((weak))
-led_config_t g_led_config = { {
-    {  27,  26,  20,  19,  12,  11,   4,   3 },
-    {  28,  25,  21,  18,  13,  10,   5,   2 },
-    {  29,  24,  22,  17,  14,   9,   6,   1 },
-    {  30,  31,  23,  16,  15,   8,   7,   0 },
-    {  60,  59,  52,  51,  44,  43,  37,  36 },
-    {  61,  58,  53,  50,  45,  42,  38,  35 },
-    {  62,  57,  54,  49,  46,  41,  39,  34 },
-    {  63,  56,  55,  48,  47,  40,  32,  33 }
-}, {
-    {   3,  35 }, {   0,  26 }, {   0,  17 }, {   0,   6 }, {  14,   5 }, {  15,  16 }, {  16,  25 }, {  17,  34 },
-    {  31,  29 }, {  31,  19 }, {  30,  11 }, {  30,   1 }, {  45,   0 }, {  45,   8 }, {  46,  17 }, {  46,  27 },
-    {  60,  27 }, {  60,  18 }, {  60,   9 }, {  60,   0 }, {  74,   2 }, {  74,  11 }, {  75,  20 }, {  74,  28 },
-    {  89,  30 }, {  89,  19 }, {  89,   7 }, {  70,  38 }, {  82,  41 }, {  93,  45 }, { 104,  50 }, {  74,  64 },
-    { 149,  64 }, { 119,  50 }, { 130,  45 }, { 141,  41 }, { 153,  38 }, { 134,   7 }, { 134,  19 }, { 134,  30 },
-    { 149,  28 }, { 148,  20 }, { 149,  11 }, { 149,   2 }, { 163,   0 }, { 163,   9 }, { 163,  18 }, { 163,  27 },
-    { 177,  27 }, { 177,  17 }, { 178,   8 }, { 178,   0 }, { 193,   1 }, { 193,  11 }, { 192,  19 }, { 192,  29 },
-    { 206,  34 }, { 207,  25 }, { 208,  16 }, { 209,   5 }, { 224,   6 }, { 223,  17 }, { 223,  26 }, { 220,  35 }
-}, {
-    4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 1, 1, 1, 1, 1,
-    1, 1, 1, 1, 1, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4,
-    4, 4, 4, 4, 4, 4, 4, 4
-} };
-
-
 static struct {
   uint8_t b;
   uint8_t g;
@@ -89,18 +59,17 @@ static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
 }
 
 static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
-  for (int i=0; i<DRIVER_LED_TOTAL; i++)
+  for (int i=0; i<RGB_MATRIX_LED_COUNT; i++)
     set_color(i, r, g, b);
 }
 
 static void init(void) {
   // Enable high current pathway to LEDs - this does violate the USB spec though! (1.6 amps...)
-  DDRE |= _BV(6);
-  PORTE &= ~_BV(6);
+  gpio_set_pin_output(E6);
+  gpio_write_pin_low(E6);
 
   // Overcurrent check input
-  DDRB &= ~_BV(4);
-  PORTB &= ~_BV(4);
+  gpio_set_pin_input(B4);
 }
 
 static void flush(void) {

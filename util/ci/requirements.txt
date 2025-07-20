@@ -1,0 +1,3 @@
+discord-webhook
+Jinja2
+ansi2html

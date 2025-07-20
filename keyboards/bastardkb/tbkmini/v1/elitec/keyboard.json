@@ -1,0 +1,31 @@
+{
+    "keyboard_name": "TBK Mini Elite-C",
+    "usb": {
+        "device_version": "1.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true
+    },
+    "ws2812": {
+        "pin": "D2"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "matrix_pins": {
+        "cols": ["B4", "E6", "C6", "B1", "B3", "B2"],
+        "rows": ["B5", "F7", "F6", "B6"]
+    },
+    "diode_direction": "ROW2COL",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "D0"
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu"
+}

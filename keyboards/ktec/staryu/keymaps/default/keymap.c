@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ┌─────────┬─────────┬─────────┐ */
               XXXXXXX,  TO(_LAYER0),
 /* ├─────────┼─────────┼─────────┤ */
-    RGB_TOG,  BL_TOGG,  BL_STEP 
+    UG_TOGG,  BL_TOGG,  BL_STEP 
 /* └─────────┴─────────┴─────────┘ */
   ),
 
@@ -78,26 +78,26 @@ void eeconfig_init_user(void) {
 
 void keyboard_post_init_user(void) {
   //layer_state_set_user is not called for inital state - set it here
-  rgblight_sethsv_noeeprom_white();
+  rgblight_sethsv_noeeprom(HSV_WHITE);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   switch (get_highest_layer(state)) {
     case _LAYER1:
-        rgblight_sethsv_noeeprom_cyan();
+        rgblight_sethsv_noeeprom(HSV_CYAN);
         break;
     case _LAYER2:
-        rgblight_sethsv_noeeprom_magenta();
+        rgblight_sethsv_noeeprom(HSV_MAGENTA);
         break;
     case _LAYER3:
-        rgblight_sethsv_noeeprom_red();
+        rgblight_sethsv_noeeprom(HSV_RED);
         break;
     case _LAYER4:
-        rgblight_sethsv_noeeprom_orange();
+        rgblight_sethsv_noeeprom(HSV_ORANGE);
         break;
     case _LAYER0:
     default: //  for any other layers, or the default layer
-        rgblight_sethsv_noeeprom_white();
+        rgblight_sethsv_noeeprom(HSV_WHITE);
         break;
     }
   return state;

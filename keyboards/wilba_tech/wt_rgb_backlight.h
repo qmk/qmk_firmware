@@ -23,6 +23,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "action.h"
 #include "quantum/color.h"
 
 typedef struct PACKED
@@ -81,7 +82,6 @@ void backlight_timer_enable(void);
 void backlight_timer_disable(void);
 
 void backlight_set_suspend_state(bool state);
-void backlight_set_indicator_state(uint8_t state);
 
 // This should not be called from an interrupt
 // (eg. from a timer interrupt).
@@ -113,3 +113,4 @@ void backlight_color_2_sat_decrease(void);
 
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue );
 void backlight_debug_led(bool state);
+void backlight_device_indication(uint8_t value);

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ein_60.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -47,16 +47,17 @@ led_config_t g_led_config = { {
 #endif
 
 #ifdef AUDIO_ENABLE
-const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT(
-   30, 31, 32, 33, 34, 35, 35, 36, 37, 38, 39, 40, 41,
-   18,  9, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
-    6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16, 17,
-    1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1
-);
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
+   {30, 31, 32, 33, 34, 35, 35, 36, 37, 38, 39, 40, 41},
+   {18, 19, 20, 21, 22, 23,  0, 25, 25, 26, 27, 28, 29},
+   { 6,  7,  8,  9, 10, 11,  0, 12, 13, 14, 15, 16, 17},
+   { 1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1}
+};
 #endif
 
 #ifdef OLED_ENABLE
-__attribute__((weak)) void oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
@@ -95,7 +96,9 @@ __attribute__((weak)) void oled_task_user(void) {
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,  4,253,197,197,197,197,197,197,197,197,197,197,199,192,192,  0,255,255,  0,255,  0,255,255,  0,254, 13, 27, 55,111,222,188,120,255,  0,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,255,255,  0,255,197,197,197,197,197,197,197,197,197,197,253,253,255,131,254,  0,  0,255,255,  0,255,184,220,238,247,219,205,198,195,193,192,255,255,255,128,255,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
         0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  3,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  3,  0,  3,  3,  2,  3,  0,  3,  3,  2,  3,  0,  0,  0,  0,  0,  1,  3,  2,  2,  3,  0,  8, 28, 20, 20, 20, 20, 20, 28,  8,  0,  1,  3,  3,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  3,  0,  0,  0,  1,  3,  3,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
         };
+
     oled_write_raw_P(ein60_logo, sizeof(ein60_logo));
+    return false;
 }
 #endif
 

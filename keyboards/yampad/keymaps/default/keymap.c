@@ -22,6 +22,7 @@ SOFTWARE.
 */
 
 #include QMK_KEYBOARD_H
+#include <stdio.h>
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -94,11 +95,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------------'
  */
   [_FN] = LAYOUT(
-    RGB_MOD,  RGB_M_P,  RGB_TOG,   _______,
-    RGB_HUD,  RGB_HUI,  XXXXXXX,
-    RGB_SAD,  RGB_SAI,  XXXXXXX,   XXXXXXX,
-    RGB_VAD,  RGB_VAI,  XXXXXXX,
-    RESET,    XXXXXXX,  XXXXXXX,   XXXXXXX
+    UG_NEXT,  RGB_M_P,  UG_TOGG,   _______,
+    UG_HUED,  UG_HUEU,  XXXXXXX,
+    UG_SATD,  UG_SATU,  XXXXXXX,   XXXXXXX,
+    UG_VALD,  UG_VALU,  XXXXXXX,
+    QK_BOOT,  XXXXXXX,  XXXXXXX,   XXXXXXX
   ),
 };
 
@@ -122,7 +123,7 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270;  // flips the display 270 degrees
 }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer"), false);
   switch (get_highest_layer(layer_state)) {
@@ -159,5 +160,7 @@ void oled_task_user(void) {
       (uint8_t)(rgblight_get_sat() / RGBLIGHT_SAT_STEP),
       (uint8_t)(rgblight_get_val() / RGBLIGHT_VAL_STEP));
   oled_write(led_buf, false);
+
+    return false;
 }
 #endif

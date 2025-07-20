@@ -1,43 +1,65 @@
 name: Generate Docs
 
+permissions:
+  contents: write
+
 on:
   push:
     branches:
     - master
     paths:
+    - 'builddefs/docsgen/**'
     - 'tmk_core/**'
     - 'quantum/**'
     - 'platforms/**'
     - 'docs/**'
     - '.github/workflows/docs.yml'
+  pull_request:
+    paths:
+    - 'builddefs/docsgen/**'
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   generate:
     runs-on: ubuntu-latest
-    container: qmkfm/qmk_cli
-
-    # protect against those who develop with their fork on master
-    if: github.repository == 'qmk/qmk_firmware'
+    container: ghcr.io/qmk/qmk_cli
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 1
 
     - name: Install dependencies
       run: |
-        apt-get update && apt-get install -y rsync nodejs npm doxygen
-        npm install -g moxygen
+        apt-get update && apt-get install -y rsync doxygen
+        # install nvm
+        touch $HOME/.bashrc
+        wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+    - name: Install node
+      run: |
+        source $HOME/.bashrc
+        nvm install 20
+        nvm use 20
+        corepack enable
 
     - name: Build docs
       run: |
+        source $HOME/.bashrc
+        nvm use 20
         qmk --verbose generate-docs
 
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+      if: ${{ github.event_name == 'push' && github.repository == 'qmk/qmk_firmware' }}
+      uses: JamesIves/github-pages-deploy-action@v4.7.3
       with:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        BASE_BRANCH: master
-        BRANCH: gh-pages
-        FOLDER: .build/docs
-        GIT_CONFIG_EMAIL: hello@qmk.fm
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: .build/docs
+          git-config-name: QMK Bot
+          git-config-email: hello@qmk.fm

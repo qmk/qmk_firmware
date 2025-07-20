@@ -18,45 +18,16 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#define VENDOR_ID 0x5043
-#define PRODUCT_ID 0x5442
-#define DEVICE_VER 0x0001
-#define PRODUCT Trackball
-
-/* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 5
-
-
-/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
 /* disable action features */
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
 
-/* Much more so than a keyboard, speed matters for a mouse. So we'll go for as high
-   a polling rate as possible. */
-#define USB_POLLING_INTERVAL_MS 1
-#define USB_MAX_POWER_CONSUMPTION 100
-
-/* Bootmagic Lite key configuration */
-#define BOOTMAGIC_LITE_ROW 0
-#define BOOTMAGIC_LITE_COLUMN 3
-
+/* PMW3360 settings */
 #define ROTATIONAL_TRANSFORM_ANGLE 20
+#define POINTING_DEVICE_INVERT_Y
 
-// If board has a debug LED, you can enable it by defining this
-// #define DEBUG_LED_PIN F7
-
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN             B0
+#define ENCODER_BUTTON_COL 1
+#define ENCODER_BUTTON_ROW 0
+/* Custom encoder needs to specify just how many encoders we have */
+#define NUM_ENCODERS 1

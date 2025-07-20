@@ -14,11 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rgb_led.h"
+#include "quantum.h"
 
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led __flash g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 // left CA
     {0, C5_2,   C6_2,   C7_2}, //D2-0
     {0, C1_1,   C3_2,   C4_2}, //D20-1
@@ -60,12 +60,12 @@ led_config_t g_led_config = { {
     },
     {
   //LED Index to Physical Positon
-  {  0,  0},  { 75,  0},  {149,  0},  {224,  0},     
-  {  0, 13},  { 75, 13},  {149, 13},  {224, 13},     
-  {  0, 25},  { 75, 25},  {149, 25},  {224, 25},     
-  {  0, 38},  { 75, 38},  {149, 38},  {224, 38},     
-  {  0, 51},  { 75, 51},  {149, 51},  {224, 51},     
-  {  0, 64},  { 37, 64},  { 75, 64},  {149, 64},  {224, 64},               
+  {  0,  0},  { 75,  0},  {149,  0},  {224,  0},
+  {  0, 13},  { 75, 13},  {149, 13},  {224, 13},
+  {  0, 25},  { 75, 25},  {149, 25},  {224, 25},
+  {  0, 38},  { 75, 38},  {149, 38},  {224, 38},
+  {  0, 51},  { 75, 51},  {149, 51},  {224, 51},
+  {  0, 64},  { 37, 64},  { 75, 64},  {149, 64},  {224, 64},
 }, {
   4,          4,          4,          4,
   4,          1,          1,          4,
@@ -75,10 +75,14 @@ led_config_t g_led_config = { {
   4,          0,          1,          1,          4,
 } };
 
-void rgb_matrix_indicators_kb(void) {
-        if (host_keyboard_led_state().num_lock) {
-            rgb_matrix_set_color(4, 255, 255, 255);
-        }
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().num_lock) {
+        rgb_matrix_set_color(4, 255, 255, 255);
+    }
+    return true;
 }
 
 __attribute__((weak))
@@ -117,7 +121,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) { return false; }
-    
+
   if (record->event.pressed) {
     switch(keycode) {
         #ifdef RGB_MATRIX_ENABLE

@@ -14,19 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "drakon.h"
+#include "quantum.h"
 
 char wpm_str[10];
-
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) return false;
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-    return true;
-}
 
 #ifdef OLED_ENABLE
 
@@ -37,10 +27,8 @@ _FN,
 _Lyr2
 };
 
-__attribute__((weak))
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_90;  // flips the display 90 degrees if offhand
-
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    return OLED_ROTATION_90;
 }
 
 static void render_status(void) {
@@ -210,8 +198,11 @@ static void render_anim(void) {
         }
     }
 }
-__attribute__((weak))
-void oled_task_user(void) {
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return false;
+    }
 
         render_anim();
         oled_set_cursor(0,6);
@@ -221,6 +212,7 @@ void oled_task_user(void) {
 
         render_status();
 
+    return false;
     }
 
 #endif

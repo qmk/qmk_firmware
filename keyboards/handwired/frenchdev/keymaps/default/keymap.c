@@ -64,16 +64,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
  */
 [_BASE] = LAYOUT(
-           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     \
-  KC_ESC,  BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, BP_DIAE,                                        BP_DCIR, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC, \
-  KC_TAB,  BP_B,    BP_EACU, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,  \
-  BP_GRV,  BP_A,    BP_U,    BP_E,    BP_I,    BP_F,    BP_SCLN,                                        BP_EXLM, BP_C,    BP_T,    BP_S,    BP_R,    BP_N,    BP_QUOT, \
-  M_SF,    BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRC, M_SFS,   BP_CBSP, L2INS,        L2LOC, BP_CDEL, M_SFS,   BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M_SF, \
-  KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M_L1E,   KC_LALT,                     KC_CAPS, M_L1E,  KC_SPACE,  KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,   \
+           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+  KC_ESC,  BP_DQUO, BP_LDAQ, BP_RDAQ, BP_LPRN, BP_RPRN, BP_DIAE,                                        BP_DCIR, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC,
+  KC_TAB,  BP_B,    BP_EACU, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,
+  BP_GRV,  BP_A,    BP_U,    BP_E,    BP_I,    BP_F,    BP_SCLN,                                        BP_EXLM, BP_C,    BP_T,    BP_S,    BP_R,    BP_N,    BP_QUOT,
+  M_SF,    BP_Z,    BP_AGRV, BP_Y,    BP_X,    KC_RBRC, M_SFS,   BP_CBSP, L2INS,        L2LOC, BP_CDEL, M_SFS,   BP_M,    BP_G,    KC_UP,   BP_H,    BP_Q,    M_SF,
+  KC_LCTL, KC_LGUI, KC_PSLS, BP_DOT,  BP_COMM, KC_SPACE,M_L1E,   KC_LALT,                     KC_CAPS, M_L1E,  KC_SPACE,  KC_LEFT, KC_DOWN, KC_RIGHT,BP_COLN, KC_RCTL,
   //left pedals
-  M_LP, M_RP, KC_TRNS, \
+  M_LP, M_RP, KC_TRNS,
   //right pedals
-  M_LP, M_RP, KC_TRNS \
+  M_LP, M_RP, KC_TRNS
 ),
 
  /* Larer 1 for symbols.
@@ -96,16 +96,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   */
 [_SYMBOLS] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
-  KC_TRNS, BP_CURR, BP_PARA, BP_SECT, BP_DGRK, KC_TRNS, BP_TILD,                                       BP_CARN, BP_LEQL, BP_GEQL, BP_PLMN, BP_DIV,  BP_MUL,  KC_TRNS, \
-  KC_TRNS, BP_BSLS, BP_ASTR, BP_LCBR, BP_RCBR, BP_GRV,  KC_TRNS,                                       BP_NEQL, BP_HASH, BP_LBRC, BP_RBRC, BP_PERC, BP_PERM, KC_TRNS, \
-  KC_TRNS, BP_EQL,  BP_UGRV, BP_LPRN, BP_RPRN, BP_PLUS, BP_COLN,                                       BP_QUES, BP_CCED, BP_LABK, BP_RABK, BP_AMPR, BP_UNDS, KC_TRNS, \
-  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    M_SE,    KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, BP_DLR,  BP_EQL,  KC_PGUP, BP_PIPE, BP_SLSH, KC_TRNS, \
-  KC_TRNS, KC_TRNS, BP_BSLS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END,  KC_TRNS, KC_TRNS,  \
+           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, BP_CURR, BP_PARA, BP_SECT, BP_DGRK, KC_TRNS, BP_TILD,                                       BP_CARN, BP_LEQL, BP_GEQL, BP_PLMN, BP_DIV,  BP_MUL,  KC_TRNS,
+  KC_TRNS, BP_BSLS, BP_ASTR, BP_LCBR, BP_RCBR, BP_GRV,  KC_TRNS,                                       BP_NEQL, BP_HASH, BP_LBRC, BP_RBRC, BP_PERC, BP_PERM, KC_TRNS,
+  KC_TRNS, BP_EQL,  BP_UGRV, BP_LPRN, BP_RPRN, BP_PLUS, BP_COLN,                                       BP_QUES, BP_CCED, BP_LABK, BP_RABK, BP_AMPR, BP_UNDS, KC_TRNS,
+  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    M_SE,    KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, BP_DLR,  BP_EQL,  KC_PGUP, BP_PIPE, BP_SLSH, KC_TRNS,
+  KC_TRNS, KC_TRNS, BP_BSLS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END,  KC_TRNS, KC_TRNS,
   //left pedals
-  KC_TRNS, KC_BTN1, KC_TRNS, \
+  KC_TRNS, KC_BTN1, KC_TRNS,
   //right pedals
-  KC_TRNS, KC_BTN1, KC_TRNS  \
+  KC_TRNS, KC_BTN1, KC_TRNS
 ),
 
  /* MEDIA, mouse and numpad.
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                      ,------.                                    ..                                    ,------.                      *
   *               ,------|PAUSE |-------------.                      ..                      ,-------------| PRINT|------.               *
   *        ,------|SCROLL|------|MUTE  |VOLUD |------.               ..               ,------| pre  | next |------| calc |------.        *
-  *        |RESET |------| stop |------|------|VOLDU |               ..               | play |------|------| stop |------| num  |        *
+  *        |QK_BOOT |------| stop |------|------|VOLDU |               ..               | play |------|------| stop |------| num  |        *
   * ,------+------|      |------| pre  | next |------|               ..               |------| pre  | next |------|      |------+------. *
   * |      |      |------|scrolu|------|------| play |               ..               | play |------|------|  8   |------|  -   |      | *
   * |------+------|      |------|      | bt4  |------|               ..               |------| next |  7   |------|  9   |------+------| *
@@ -128,16 +128,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *
   */
 [_MEDIA] = LAYOUT(
-           RESET,   KC_SLCK, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NLCK,          \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MNXT, KC_MPLY,                                     KC_MPLY, KC_MPRV, KC_MNXT, KC_MSTP, KC_TRNS, KC_PMNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_U, KC_TRNS, KC_BTN4, KC_BTN5,                                     KC_BTN4, KC_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_D, KC_BTN3, KC_BTN2, KC_BTN1,                                     KC_BTN1, KC_BTN2, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_TRNS, \
-  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    KC_BTN3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN3, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_0, KC_PDOT, BP_DOT,  BP_COMM, KC_TRNS,  \
+           QK_BOOT, KC_SCRL, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NUM,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MNXT, KC_MPLY,                                     KC_MPLY, KC_MPRV, KC_MNXT, KC_MSTP, KC_TRNS, KC_PMNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_U, KC_TRNS, KC_BTN4, KC_BTN5,                                     KC_BTN4, KC_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_D, KC_BTN3, KC_BTN2, KC_BTN1,                                     KC_BTN1, KC_BTN2, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_TRNS,
+  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    KC_BTN3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN3, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_0, KC_PDOT, BP_DOT,  BP_COMM, KC_TRNS,
   //left pedals
-  KC_BTN3, M_RP,    KC_TRNS, \
+  KC_BTN3, M_RP,    KC_TRNS,
   //right pedals
-  KC_BTN3, M_RP,    KC_TRNS  \
+  KC_BTN3, M_RP,    KC_TRNS
 ),
 
 /* TRNS - skeleton for laters
@@ -160,56 +160,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_TRNS] = LAYOUT(
-           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //left pedals
-  KC_BTN3, M_RP,    KC_TRNS, \
+  KC_BTN3, M_RP,    KC_TRNS,
   //right pedals
-  KC_BTN3, M_RP,    KC_TRNS  \
+  KC_BTN3, M_RP,    KC_TRNS
 ),
 
 };
 
 void hold_shift(void) {
   shift_count = shift_count + 1;
-  register_code(KC_LSHIFT);
+  register_code(KC_LSFT);
 }
 
 void release_shift(void) {
   shift_count = shift_count - 1;
   if(shift_count <= 0){
-    unregister_code(KC_LSHIFT);
+    unregister_code(KC_LSFT);
     shift_count = 0;
   }
 }
 
 void press_space(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code(KC_SPACE);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 void press_enter(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code (KC_ENT);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 void press_underscore(void) {
-  if(shift_count > 0) unregister_code (KC_LSHIFT);
+  if(shift_count > 0) unregister_code (KC_LSFT);
   tap_code ((unsigned char) BP_UNDS);
-  if(shift_count > 0) register_code (KC_LSHIFT);
+  if(shift_count > 0) register_code (KC_LSFT);
 }
 
 // Bleah globals need to be initialized.
 uint8_t old_layer=_BASE;
 
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
+    uint8_t layer = get_highest_layer(layer_state);
 
     frenchdev_led_1_off();
     frenchdev_led_2_off();
@@ -235,13 +235,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case M_LP: //left pedal
       if (record->event.pressed) {
         layer_on(1);
-        register_code (KC_SLCK);
+        register_code (KC_SCRL);
         key_timer_left_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_left_pedal) < KEY_DELAY) {
            tap_code (KC_BTN2);
         }
-        unregister_code (KC_SLCK);
+        unregister_code (KC_SCRL);
         layer_off(1);
       }
       break;
@@ -351,11 +351,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)){
+bool led_update_user(led_t led_state) {
+  if (led_state.caps_lock){
     frenchdev_led_3_on();
   } else {
     frenchdev_led_3_off();
   }
-  return ;
+  return false;
 }

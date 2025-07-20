@@ -15,35 +15,8 @@
  */
 
 #pragma once
-#include "config_common.h"
-
-/* vid pid  */
-#define VENDOR_ID       0x8B1E 
-#define PRODUCT_ID      0x0C00
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    SergioPoverony
-#define PRODUCT         Creator Pro
-
-	
-/* key matrix size pins */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 9
-#define DIRECT_PINS {   \
-    { D1, D4, C6, D7, \
-	                 E6, \
-	  B2, B3, B1, F7  } \
-}
-
 
 /*led layout indication pins*/
 #define RED_LED D0
 #define BLUE_LED B5
 #define GREEN_LED B6
-
-/* encoder pins*/
-#define ENCODERS_PAD_A { D2 }
-#define ENCODERS_PAD_B { D3 }
-#define ENCODER_RESOLUTION 1
-
-#define UNUSED_PINS
-

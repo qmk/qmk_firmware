@@ -1,6 +1,6 @@
 # Gherkin
 
-![Gherkin](https://4.bp.blogspot.com/-sQ18-lNZXOc/WCzlTde-4PI/AAAAAAAB_JQ/qQrehAMG6DMKf3i4oj4mkmLGOfTUvb3KgCLcB/s640/IMG_20161116_122926.jpg)
+![Gherkin](https://i.imgur.com/XrqqtTq.jpg)
 ===
 
 A 30 key keyboard.

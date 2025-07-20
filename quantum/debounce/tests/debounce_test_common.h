@@ -21,7 +21,7 @@
 #include <string>
 
 extern "C" {
-#include "quantum.h"
+#include "matrix.h"
 #include "timer.h"
 }
 
@@ -31,36 +31,35 @@ enum Direction {
 };
 
 class MatrixTestEvent {
-public:
+   public:
     MatrixTestEvent(int row, int col, Direction direction);
 
-    const int row_;
-    const int col_;
+    const int       row_;
+    const int       col_;
     const Direction direction_;
 };
 
 class DebounceTestEvent {
-public:
+   public:
     // 0, {{0, 1, DOWN}}, {{0, 1, DOWN}})
-    DebounceTestEvent(fast_timer_t time,
-        std::initializer_list<MatrixTestEvent> inputs,
-        std::initializer_list<MatrixTestEvent> outputs);
+    DebounceTestEvent(fast_timer_t time, std::initializer_list<MatrixTestEvent> inputs, std::initializer_list<MatrixTestEvent> outputs);
 
-    const fast_timer_t time_;
+    const fast_timer_t               time_;
     const std::list<MatrixTestEvent> inputs_;
     const std::list<MatrixTestEvent> outputs_;
 };
 
 class DebounceTest : public ::testing::Test {
-protected:
+   protected:
     void addEvents(std::initializer_list<DebounceTestEvent> events);
     void runEvents();
 
-    fast_timer_t time_offset_ = 7777;
-    bool time_jumps_ = false;
+    fast_timer_t time_offset_      = 7777;
+    bool         time_jumps_       = false;
+    fast_timer_t async_time_jumps_ = 0;
 
-private:
-    static bool directionValue(Direction direction);
+   private:
+    static bool        directionValue(Direction direction);
     static std::string directionLabel(Direction direction);
 
     void runEventsInternal();
@@ -78,6 +77,6 @@ private:
     matrix_row_t cooked_matrix_[MATRIX_ROWS];
     matrix_row_t output_matrix_[MATRIX_ROWS];
 
-    int extra_iterations_;
+    int  extra_iterations_;
     bool auto_advance_time_;
 };

@@ -18,38 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT Tractyl Manuform(5x6) Teensy 2.0 ++
-
-// wiring of each half
-#define MATRIX_COL_PINS \
-    { C0, C1, C2, C3, C4, C5 }
-#define MATRIX_ROW_PINS \
-    { F7, F6, F5, F4, F3, F2 }
-
-#define DIODE_DIRECTION COL2ROW
-
-// WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN      E7
-#define RGBLED_NUM      20
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT \
-    { 10, 10 }
-#define RGBLIGHT_LIMIT_VAL 80
-#define OLED_BRIGHTNESS    50
-
 #define DEBUG_LED_PIN   D6
 
 #define AUDIO_PIN       C6
 #define AUDIO_PIN_ALT   B7
 
-/* serial.c configuration for split keyboard */
-#define SOFT_SERIAL_PIN D2
 #define EE_HANDS
 
-#define ENCODERS_PAD_A \
-    { D5 }
-#define ENCODERS_PAD_B \
-    { D4 }
-
-/* PMW3360 Settings */
-#define PMW3360_CS_PIN B0
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN B0

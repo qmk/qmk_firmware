@@ -16,33 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* USB Device descriptor parameter */
-#undef PRODUCT_ID
-#define PRODUCT_ID      0x0061
-#undef PRODUCT
-#define PRODUCT         0-Sixty-underglow
-
-/* no caps lock with underglow */
-#undef LED_CAPS_LOCK_PIN
-
-/* underglow */
-#define RGB_DI_PIN B6
-#define RGBLED_NUM 24
-#define RGBLIGHT_LIMIT_VAL 185 // limit max I to 400mA 
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_RAINBOW_MOOD
-#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-#define RGBLIGHT_EFFECT_SNAKE
-#define RGBLIGHT_EFFECT_KNIGHT
-#define RGBLIGHT_EFFECT_CHRISTMAS
-#define RGBLIGHT_EFFECT_STATIC_GRADIENT
-#define RGBLIGHT_EFFECT_RGB_TEST
-#define RGBLIGHT_EFFECT_ALTERNATING
-#define RGBLIGHT_EFFECT_TWINKLE
-#define RGBLIGHT 
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -58,5 +31,3 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
-//#define NO_ACTION_MACRO
-//#define NO_ACTION_FUNCTION

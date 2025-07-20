@@ -59,7 +59,7 @@ void matrix_init(void) {
         matrix[i] = 0x00;
     }
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 // convert E0-escaped codes into unused area
@@ -188,7 +188,7 @@ uint8_t matrix_scan(void) {
             state = XT_STATE_INIT;
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
 }
