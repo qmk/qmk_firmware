@@ -4,7 +4,9 @@
 
 **This is the first revision of the 5x6_split keyboard.**
 
-The 5x6_split is designed to be easily accessible, with openly and freely available hardware and firmware. It features a split layout to minimize the PCB footprint, reducing manufacturing costs.
+The 5x6_split is designed to be easily accessible, with openly and freely available hardware and firmware. It features a split layout to minimize the PCB footprint, reducing manufacturing costs. Like the Ergodox, it allows you to keep your hands at shoulder width for a more natural typing posture, but without a thumb cluster, making it a better option for users who experience discomfort or limitations in their thumbs.
+
+The keyboard is also designed with ergonomics in mind. Its low profile, measuring just 19.4 mm from the table to the top of the keycaps (including rubber feet), helps reduce wrist strain during extended use.
 
 In the repository linked below (see the Hardware Availability section), you will find KiCad schematics, PCB designs, and 3D models for a printable chassis.
 
