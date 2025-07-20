@@ -1,6 +1,6 @@
 [Wholteza](https://github.com/wholteza)'s handwired planck layout
 
-![keyboard-layout-editor.com layout](https://imgur.com/a/ju9CNpF)
+![keyboard-layout-editor.com layout](https://i.imgur.com/7kJDaVS.png)
 
 This is a swedish layout using [colemak-se]phttps://github.com/motform/colemak-se) and a symbols layer tailored towards developers.
 
