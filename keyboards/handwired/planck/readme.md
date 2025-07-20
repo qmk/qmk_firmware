@@ -2,20 +2,26 @@
 
 ![plank handwired](https://i.imgur.com/khseWs7.jpeg)
 
-A compact 40% (12x4) ortholinear keyboard kit sold by OLKB before they developed the rev1 PCB.
+A compact 40% (12x4) ortholinear keyboard kit sold by OLKB before the PCB was released.
 
 Keyboard Maintainer: [Wholteza](https://github.com/wholteza)
 Hardware Supported: [Teensy 2.0](https://www.pjrc.com/store/teensy.html)
-
-## Compile and Flash
+Hardware Availability: [PJRC](https://www.pjrc.com/store/teensy.html)
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile --keyboard handwired/planck --keymap default
+    make handwired/planck:default
 
-To flash the keyaboard, use the Teensy Loader application provided by [PJRC](https://www.pjrc.com/teensy/loader.html).
+Flashing example for this keyboard:
 
-## Pinout
+    make handwired/planck:default:flash
 
-The pinout can be found in the `keyboard.json` and looking at your keyboards wiring (flipped with the keycaps facing down) column and row 0 is **top left**.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
+## Bootloader
+
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (top right) and plug in the keyboard
+* **Physical reset button**: Briefly press the button on the front of the PCB.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`. With the default keymap press these keys in order: "lower" + "raise" + "escape".
