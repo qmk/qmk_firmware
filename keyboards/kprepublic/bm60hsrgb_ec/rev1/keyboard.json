@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BM60HSRGB_EC Rev1",
     "manufacturer": "KP Republic",
-    "url": "",
     "maintainer": "peepeetee",
     "usb": {
         "vid": "0x4B50",
@@ -59,8 +58,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

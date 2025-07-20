@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Hnah40V2",
     "manufacturer": "HnahKB",
-    "url": "",
     "maintainer": "HnahKB",
     "usb": {
         "vid": "0xFEED",
@@ -61,14 +60,11 @@
             "animation": "cycle_pinwheel"
         },
         "driver": "ws2812",
-        "led_flush_limit": 16,
         "max_brightness": 200,
         "react_on_keyup": true
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false,

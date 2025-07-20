@@ -1,7 +1,6 @@
 {
     "keyboard_name": "YMDK Air40",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x45D4",
