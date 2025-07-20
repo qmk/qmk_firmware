@@ -24,7 +24,7 @@
 		"nkro": true
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
 		"animations": {
 			"solid_color": true,
 			"gradient_up_down": true,
@@ -68,11 +68,11 @@
 			"splash": true,           
 			"multisplash": true,      
 			"solid_splash": true,     
-			"solid_multisplash": true,
-        },
+			"solid_multisplash": true
+        }
     },
     "ws2812": {
-        "pin": "B15",
+        "pin": "B15"
     },
     "matrix_pins": {
         "cols": ["A10","A9", "B2", "A15", "B3", "B4", "B5", "B8", "B9", "C13", "C14", "C15", "A0", "A1"],
