@@ -106,7 +106,7 @@ bool he_matrix_scan(matrix_row_t current_matrix[]) {
             sw_value[row][col] = he_readkey_raw(row);
             if (he_config.bottoming_calibration) {
                 if (he_config.bottoming_calibration_starter[row][col]) {
-                    he_config.bottoming_reading[row][col]             = sw_value[row][col];
+                    he_config.bottoming_reading[row][col] = sw_value[row][col];
                     he_config.bottoming_calibration_starter[row][col] = false;
                 } else if (sw_value[row][col] < he_config.bottoming_reading[row][col]) {
                     he_config.bottoming_reading[row][col] = sw_value[row][col];
