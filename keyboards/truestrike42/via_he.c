@@ -262,7 +262,7 @@ void he_save_threshold_data(uint8_t option) {
         eeprom_he_config.mode_1_release_offset     = he_config.mode_1_release_offset;
         he_rescale_values(2);
     }
-    eeconfig_update_kb_datablock(&eeprom_he_config);
+    eeconfig_update_kb_datablock(&eeprom_he_config, 0, EECONFIG_KB_DATA_SIZE);
     uprintf("####################################\n");
     uprintf("# New thresholds applied and saved #\n");
     uprintf("####################################\n");
@@ -287,7 +287,7 @@ void he_save_bottoming_reading(void) {
     he_rescale_values(0);
     he_rescale_values(1);
     he_rescale_values(2);
-    eeconfig_update_kb_datablock(&eeprom_he_config);
+    eeconfig_update_kb_datablock(&eeprom_he_config, 0, EECONFIG_KB_DATA_SIZE);
 }
 
 // Show the calibration data
