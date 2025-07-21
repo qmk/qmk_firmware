@@ -30,6 +30,7 @@ enum layers {
     _SYM,
     _MOUSE,
 };
+
 // Tap dance declarations
 enum {
     U_TD_U_FUN,
@@ -39,6 +40,29 @@ enum {
     U_TD_U_BASE,
     U_TD_U_EXTRA
 };
+
+// Custom keycodes
+enum custom_keycodes {
+    MY_PWD1 = SAFE_RANGE,
+    MY_PWD2,
+};
+
+// Send string on key press
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case MY_PWD1:
+            if (record->event.pressed) {
+                SEND_STRING("My dog has 26 fleas!");
+            }
+            return false;
+        case MY_PWD2:
+            if (record->event.pressed) {
+                SEND_STRING("L3ahc!m");
+            }
+            return false;
+    }
+    return true;
+}
 
 void td_nav_finished(tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
@@ -149,9 +173,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        KC_F5, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,     U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND, XXXXXXX,
+        KC_F5, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  MY_PWD1, XXXXXXX,     U_RDO,   U_PST,   U_CPY,   U_CUT,   U_UND, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_F10, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,  XXXXXXX, XXXXXXX,   KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, CW_TOGG, XXXXXXX,
+       KC_F10, KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX,  MY_PWD2, XXXXXXX,   KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, CW_TOGG, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        KC_F11,  KC_ENT, KC_BSPC, KC_DEL,   KC_SPC, XXXXXXX,                      KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
