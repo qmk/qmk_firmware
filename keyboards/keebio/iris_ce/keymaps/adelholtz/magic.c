@@ -1,6 +1,3 @@
-#include <stdint.h>
-
-
 /**
  * This file contains the implementation of a custom key processing system
  * for handling "magic" keys and their associated behaviors. It includes

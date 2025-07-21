@@ -6,20 +6,24 @@
 enum custom_keycodes {
   LMAGIC = SAFE_RANGE,
   RMAGIC,
-  LCURLY, // defined in keymap.c process_record_user
-  RCURLY, // defined in keymap.c process_record_user
+  // Home Row Mod Buttons
   HRM_GUI_D,
   HRM_GUI_H,
   HRM_ALT_S,
   HRM_CTRL_E,
+  // Home Row Layer Buttons
   HRL_BRACKETS_T,
   HRL_BRACKETS_N,
+  // Tor Row Layer Buttons
   TRL_MEDIA_L,
   TRL_MEDIA_P,
   TRL_SPECIAL_F,
-  PIPE_,  // defined in keymap.c process_record_user
-  LBRACKET,  // defined in keymap.c process_record_user
-  RBRACKET,  // defined in keymap.c process_record_user
+  // OS dependent buttons
+  LCURLY, // OS specific { - defined in keymap.c process_record_user
+  RCURLY, // OS specific } - defined in keymap.c process_record_user
+  PIPE_,  // OS specific | - defined in keymap.c process_record_user
+  LBRACKET,  // OS specific [ - defined in keymap.c process_record_user
+  RBRACKET,  // OS specific ] - defined in keymap.c process_record_user
   RELOAD // defined in keymap.c process_record_user
 };
 
@@ -37,6 +41,7 @@ enum custom_keycodes {
 #define TRL_MEDIA_P LT(_MEDIA, DE_P)
 #define TRL_SPECIAL_F LT(_SPECIAL, DE_F)
 
+// used in layer_layout.c
 enum custom_layers {
   _COLEMAK,
   _GAME,
@@ -46,6 +51,8 @@ enum custom_layers {
   _MEDIA,
   _SPECIAL
 };
+// layers that can be used in a tap dance combination for layer changes
+// used in tap_dance.c
 enum custom_layers valid_tap_dance_layers[] = {
   _COLEMAK, _GAME, _NAVIGATION, _BRACKETS,
   _EXTRA, _MEDIA, _SPECIAL

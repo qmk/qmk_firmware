@@ -7,7 +7,6 @@
     "mousekey": true,
     "rgb_matrix": true
   },
-  "modules": ["getreuer/palettefx"],
   "matrix_pins": {
     "cols": ["GP29", "GP28", "GP27", "GP2", "GP3", "GP14"],
     "rows": ["GP18", "GP19", "GP20", "GP7", "GP26"]
