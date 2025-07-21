@@ -11,7 +11,6 @@ A 9% macropad.
 Make example for this keyboard (after setting up your build environment):
 
     make atset/atr1/r1:default
-	    
 Flashing example for this keyboard:
 	
 	make atset/atr1/r1:default:flash
