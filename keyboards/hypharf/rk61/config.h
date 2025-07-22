@@ -1,8 +1,6 @@
 /* Enable CapsLcok LED*/
 #define CAPS_LOCK_LED_INDEX 40
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 16
-
 #define VIA_EEPROM_ALLOW_RESET TRUE
 
 /* RGB Matrix */

@@ -26,6 +26,9 @@
 	"bootmagic": {
 		"matrix": [0, 0]
 	},
+	"dynamic_keymap": {
+		"layer_count": 16
+	},
     "rgb_matrix": {
         "driver": "ws2812",
 		"led_count": 61,
