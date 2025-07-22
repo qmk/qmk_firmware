@@ -32,6 +32,17 @@
     "rgb_matrix": {
         "driver": "ws2812",
 		"led_count": 61,
+		"default": {
+			"on": true,
+			"hue": 170,
+			"sat": 255,
+			"val": 150,
+			"speed": 128
+		},
+		"sleep": true,
+		"speed_steps": 48,
+		"max_brightness": 200,
+		"val_steps": 50,
 		"animations": {
 			"solid_color": true,
 			"gradient_up_down": true,
