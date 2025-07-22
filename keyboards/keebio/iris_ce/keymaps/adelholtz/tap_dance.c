@@ -1,15 +1,24 @@
-// Tap Dance Hold logic start
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TD(NAV_LMAGIC):
+        case TD(XTRA_RMAGIC):
+            return TAPPING_TERM - 75;
+        default:
+            return TAPPING_TERM;
+    }
+}
+
 typedef struct {
   uint16_t tap;
   uint16_t hold;
   uint16_t held;
+  void (*custom_function)(void);
 } tap_dance_tap_hold_t;
 
 int is_valid_layer_explicit(int value) {
   int count = sizeof(valid_tap_dance_layers) / sizeof(valid_tap_dance_layers[0]);
   for (int i = 0; i < count; i++) {
-    if (valid_tap_dance_layers[i] == value)
-      return 1;
+    if (valid_tap_dance_layers[i] == value) return 1;
   }
   return 0;
 }
@@ -23,22 +32,20 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
         && !state->interrupted
 #endif
     ) {
-      if (is_valid_layer_explicit(tap_hold->hold)){
+      if (is_valid_layer_explicit(tap_hold->hold)) {
         layer_move(tap_hold->hold);
-      }else {
+      } else {
         register_code16(tap_hold->hold);
       }
       tap_hold->held = tap_hold->hold;
     }
   } else {
-    if (tap_hold->tap == RMAGIC){
-        process_right_magic(get_last_keycode(), get_last_mods());
-        set_last_keycode(KC_SPC);
-    }else if (tap_hold->tap == LMAGIC){
-        process_left_magic(get_last_keycode(), get_last_mods());
-        set_last_keycode(KC_SPC);
-    }else{
-        register_code16(tap_hold->tap);
+    if (tap_hold->custom_function != NULL) {
+      tap_hold->custom_function();
+      // process_left_magic(get_last_keycode(), get_last_mods());
+      set_last_keycode(KC_SPC);
+    } else {
+      register_code16(tap_hold->tap);
     }
     tap_hold->held = tap_hold->tap;
   }
@@ -53,21 +60,48 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
     tap_hold->held = 0;
   }
 }
+ /**
+  * This macro defines a tap dance action that performs a tap action, a custom function, or a hold action.
+  * - `tap`: The keycode to send when the key is tapped.
+  * - `custom_function`: A pointer to a function to call when the key is tapped.
+  * - `hold`: The keycode to send or layer to switch to when the key is held.
+  *
+  * - If the key is held and not interrupted (when PERMISSIVE_HOLD is not defined),
+  *   it performs the hold action. If the hold action corresponds to a valid layer,
+  *   it moves to that layer; otherwise, it registers the hold keycode.
+  * - If the key is tapped, it performs the tap action or calls the custom function
+  *   if one is defined.
+  *
+  * The macro initializes a `tap_dance_tap_hold_t` structure with the provided
+  * `tap`, `custom_function`, and `hold` values. It also specifies the functions
+  * to handle the tap dance action's finished and reset states.
+  */
+#define ACTION_TAP_DANCE_TAPFUNCTION_HOLD(tap, custom_function, hold)                \
+  {                                                                                  \
+      .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset},           \
+      .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0, custom_function}), \
+  }
 
+  /**
+   * This macro defines a tap dance action that performs a tap action or a hold action.
+   * - `tap`: The keycode to send when the key is tapped.
+   * - `hold`: The keycode to send or layer to switch to when the key is held.
+   *
+   *  - If the key is held and not interrupted (when PERMISSIVE_HOLD is not defined),
+   *   it performs the hold action. If the hold action corresponds to a valid layer,
+   *   it moves to that layer; otherwise, it registers the hold keycode.
+   *
+   * The macro initializes a `tap_dance_tap_hold_t` structure with the provided
+   * `tap` and `hold` keycodes, and sets the `custom_function` to `NULL`.
+   * It also specifies the functions to handle the tap dance action's finished
+   * and reset states.
+   */
 #define ACTION_TAP_DANCE_TAP_HOLD(tap, hold)                               \
   {                                                                        \
       .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, \
-      .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}),        \
+      .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0, NULL}),  \
   }
 // Tap Dance Hold logic end
-
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-    [SPACE_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_TAB),
-    [NAV_LMAGIC] = ACTION_TAP_DANCE_TAP_HOLD(LMAGIC, _NAVIGATION),
-    [XTRA_RMAGIC] = ACTION_TAP_DANCE_TAP_HOLD(RMAGIC, _EXTRA)
-};
-
 
 // external call for 'tap dance hold'
 // static void process_tap_dance_hold(uint16_t keycode, keyrecord_t *record) {

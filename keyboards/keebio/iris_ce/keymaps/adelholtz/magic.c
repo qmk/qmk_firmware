@@ -113,6 +113,9 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) {
     } break;
   }
 }
+static void process_left_magic_static(void){
+    process_left_magic(get_last_keycode(), get_last_mods());
+}
 /**
  * RMAGIC definitions
  * -------------------
@@ -168,4 +171,7 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
       SEND_STRING(SS_RALT("9"));
     } break;
   }
+}
+static void process_right_magic_static(void){
+    process_right_magic(get_last_keycode(), get_last_mods());
 }

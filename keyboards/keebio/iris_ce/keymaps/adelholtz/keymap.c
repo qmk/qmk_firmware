@@ -4,9 +4,18 @@
 
 #include "keymap_german.h"
 #include "adelholtz.h"
+
 // LMAGIC and RMAGIC definitions
 #include "magic.c"
 #include "tap_dance.c"
+
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+    [SPACE_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_TAB),
+    [NAV_LMAGIC] = ACTION_TAP_DANCE_TAPFUNCTION_HOLD(LMAGIC, process_left_magic_static, _NAVIGATION),
+    [XTRA_RMAGIC] = ACTION_TAP_DANCE_TAPFUNCTION_HOLD(RMAGIC, process_right_magic_static, _EXTRA)
+};
+
 #include "layer_layout.c"
 
 // clang-format off
@@ -44,10 +53,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case PIPE_: { // os specific |
         SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("7")
                                                                                    : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? "|" : ""));
+        return false;
       }
       case LBRACKET: { // os specific [
         SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("5")
                                                                                    : (detected_host_os() == OS_LINUX || detected_host_os() == OS_WINDOWS ? SS_ALGR("8") : ""));
+        return false;
       }
       case RBRACKET: { // os specific ]
         SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_ALGR("6")
