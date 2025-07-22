@@ -23,6 +23,9 @@
 		"deferred_exec": true,
 		"nkro": true
     },
+	"bootmagic": {
+		"matrix": [0, 0]
+	},
     "rgb_matrix": {
         "driver": "ws2812",
 		"animations": {
