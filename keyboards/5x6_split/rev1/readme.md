@@ -1,6 +1,6 @@
 # 5x6_split revision 1
 
-![5x6_split-rev1](https://git.zacke.dev/wholteza/5x6-split-kb/raw/branch/main/rev1/images/assembled.jpeg)
+![5x6_split-rev1](https://i.imgur.com/FJ3kro3.jpeg)
 
 **This is the first revision of the 5x6_split keyboard.**
 

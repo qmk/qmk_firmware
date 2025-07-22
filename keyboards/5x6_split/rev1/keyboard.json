@@ -28,7 +28,6 @@
             "driver": "vendor"
         },
         "transport": {
-            "protocol": "serial",
             "watchdog": true,
             "watchdog_timeout": 3000
         },
