@@ -1,4 +1,4 @@
-// Copyright 2024 QMK
+// Copyright 2025 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -26,6 +26,12 @@
 #pragma once
 #include "keycodes.h"
 // clang-format off
+
+#define QMK_SWEDISH_PRO_MAC_ANSI_KEYCODES_VERSION "0.0.1"
+#define QMK_SWEDISH_PRO_MAC_ANSI_KEYCODES_VERSION_BCD 0x00000001
+#define QMK_SWEDISH_PRO_MAC_ANSI_KEYCODES_VERSION_MAJOR 0
+#define QMK_SWEDISH_PRO_MAC_ANSI_KEYCODES_VERSION_MINOR 0
+#define QMK_SWEDISH_PRO_MAC_ANSI_KEYCODES_VERSION_PATCH 1
 
 // Aliases
 #define SE_LABK KC_GRV  // <

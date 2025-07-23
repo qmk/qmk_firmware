@@ -47,7 +47,6 @@
             "twinkle": true
         },
         "brightness_steps": 8,
-        "hue_steps": 8,
         "layers": {
             "blink": false,
             "enabled": true,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Slash",
     "manufacturer": "asdftemp",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

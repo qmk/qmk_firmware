@@ -149,14 +149,14 @@ void audio_driver_start(void) {
 }
 
 void eeconfig_update_audio_current(void) {
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
 
 void eeconfig_update_audio_default(void) {
     audio_config.valid         = true;
     audio_config.enable        = AUDIO_DEFAULT_ON;
     audio_config.clicky_enable = AUDIO_DEFAULT_CLICKY_ON;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
 
 void audio_init(void) {
@@ -164,7 +164,7 @@ void audio_init(void) {
         return;
     }
 
-    audio_config.raw = eeconfig_read_audio();
+    eeconfig_read_audio(&audio_config);
     if (!audio_config.valid) {
         dprintf("audio_init audio_config.valid = 0. Write default values to EEPROM.\n");
         eeconfig_update_audio_default();
@@ -196,7 +196,7 @@ void audio_toggle(void) {
         stop_all_notes();
     }
     audio_config.enable ^= 1;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
     if (audio_config.enable) {
         audio_on_user();
     } else {
@@ -206,7 +206,7 @@ void audio_toggle(void) {
 
 void audio_on(void) {
     audio_config.enable = 1;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
     audio_on_user();
     PLAY_SONG(audio_on_song);
 }
@@ -217,7 +217,7 @@ void audio_off(void) {
     wait_ms(100);
     audio_stop_all();
     audio_config.enable = 0;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
 
 bool audio_is_on(void) {
@@ -258,11 +258,10 @@ void audio_stop_tone(float pitch) {
         for (int i = AUDIO_TONE_STACKSIZE - 1; i >= 0; i--) {
             found = (tones[i].pitch == pitch);
             if (found) {
-                tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
                 for (int j = i; (j < AUDIO_TONE_STACKSIZE - 1); j++) {
-                    tones[j]     = tones[j + 1];
-                    tones[j + 1] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
+                    tones[j] = tones[j + 1];
                 }
+                tones[AUDIO_TONE_STACKSIZE - 1] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
                 break;
             }
         }

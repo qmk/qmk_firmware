@@ -35,23 +35,27 @@ You'll need to determine which pins can be used for UART -- as an example, STM32
 To enable UART, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
 
 ```c
-#undef STM32_SERIAL_USE_USART2
-#define STM32_SERIAL_USE_USART2 TRUE
+#pragma once
+
+#include_next <mcuconf.h>
+
+#undef STM32_SERIAL_USE_USART2 // [!code focus]
+#define STM32_SERIAL_USE_USART2 TRUE // [!code focus]
 ```
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
-|     `config.h` override     |                           Description                           | Default Value |
-| --------------------------- | --------------------------------------------------------------- | ------------- |
-| `#define UART_DRIVER`       | USART peripheral to use - USART1 -> `SD1`, USART2 -> `SD2` etc. | `SD1`         |
-| `#define UART_TX_PIN`       | The pin to use for TX                                           | `A9`          |
-| `#define UART_TX_PAL_MODE`  | The alternate function mode for TX                              | `7`           |
-| `#define UART_RX_PIN`       | The pin to use for RX                                           | `A10`         |
-| `#define UART_RX_PAL_MODE`  | The alternate function mode for RX                              | `7`           |
-| `#define UART_CTS_PIN`      | The pin to use for CTS                                          | `A11`         |
-| `#define UART_CTS_PAL_MODE` | The alternate function mode for CTS                             | `7`           |
-| `#define UART_RTS_PIN`      | The pin to use for RTS                                          | `A12`         |
-| `#define UART_RTS_PAL_MODE` | The alternate function mode for RTS                             | `7`           |
+|`config.h` Override|Description                                                    |Default|
+|-------------------|---------------------------------------------------------------|-------|
+|`UART_DRIVER`      |USART peripheral to use - USART1 -> `SD1`, USART2 -> `SD2` etc.|`SD1`  |
+|`UART_TX_PIN`      |The pin to use for TX                                          |`A9`   |
+|`UART_TX_PAL_MODE` |The alternate function mode for TX                             |`7`    |
+|`UART_RX_PIN`      |The pin to use for RX                                          |`A10`  |
+|`UART_RX_PAL_MODE` |The alternate function mode for RX                             |`7`    |
+|`UART_CTS_PIN`     |The pin to use for CTS                                         |`A11`  |
+|`UART_CTS_PAL_MODE`|The alternate function mode for CTS                            |`7`    |
+|`UART_RTS_PIN`     |The pin to use for RTS                                         |`A12`  |
+|`UART_RTS_PAL_MODE`|The alternate function mode for RTS                            |`7`    |
 
 ## API {#api}
 
@@ -107,7 +111,7 @@ Receive multiple bytes.
 #### Arguments {#api-uart-receive-arguments}
 
  - `uint8_t *data`  
-   A pointer to the buffer to read into.
+   A pointer to a buffer to read into.
  - `uint16_t length`  
    The number of bytes to read. Take care not to overrun the length of `data`.
 
@@ -119,4 +123,4 @@ Return whether the receive buffer contains data. Call this function to determine
 
 #### Return Value {#api-uart-available-return}
 
-`true` if the receive buffer length is non-zero.
+`true` if there is data available to read.

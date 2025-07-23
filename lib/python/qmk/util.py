@@ -27,6 +27,27 @@ def maybe_exit_config(should_exit: bool = True, should_reraise: bool = False):
     maybe_exit_reraise = should_reraise
 
 
+def truthy(value, value_if_unknown=False):
+    """Returns True if the value is truthy, False otherwise.
+
+    Deals with:
+        True: 1, true, t, yes, y, on
+        False: 0, false, f, no, n, off
+    """
+    if value in {False, True}:
+        return bool(value)
+
+    test_value = str(value).strip().lower()
+
+    if test_value in {"1", "true", "t", "yes", "y", "on"}:
+        return True
+
+    if test_value in {"0", "false", "f", "no", "n", "off"}:
+        return False
+
+    return value_if_unknown
+
+
 @contextlib.contextmanager
 def parallelize():
     """Returns a function that can be used in place of a map() call.

@@ -163,7 +163,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
             if (record->event.pressed) {
                 set_single_persistent_default_layer(MAC_B);
                 keymap_config.no_gui = 0;
-                eeconfig_update_keymap(keymap_config.raw);
+                eeconfig_update_keymap(&keymap_config);
             }
             return false;
         case GU_TOGG:
@@ -171,7 +171,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
                 gpio_write_pin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
             }
             return true;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {

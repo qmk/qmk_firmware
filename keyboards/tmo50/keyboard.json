@@ -1,7 +1,6 @@
 {
     "keyboard_name": "TMO50",
     "manufacturer": "funderburker",
-    "url": "",
     "maintainer": "funderburker",
     "usb": {
         "vid": "0xFBFB",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

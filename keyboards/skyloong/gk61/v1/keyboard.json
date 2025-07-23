@@ -9,8 +9,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "command": false,
-        "console": false,
         "rgb_matrix": true
     },
     "processor": "STM32F103",

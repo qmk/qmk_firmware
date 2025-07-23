@@ -27,14 +27,15 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    COLEMAK,
-    DVORAK,
-    BACKLIT
+    BACKLIT = SAFE_RANGE,
 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -172,24 +173,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-            break;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-            break;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
-            }
-            return false;
-            break;
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(keycode_config(KC_LGUI));
@@ -200,7 +183,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(keycode_config(KC_LGUI));
             }
             return false;
-            break;
     }
     return true;
 };

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "M75H",
     "manufacturer": "Mode",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x00DE",
@@ -13,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true
