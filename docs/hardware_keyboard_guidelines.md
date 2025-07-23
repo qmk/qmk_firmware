@@ -203,7 +203,7 @@ The `post_rules.mk` file can interpret `features` of a keyboard-level before `co
 See `build_keyboard.mk` and `common_features.mk` for more details.
 :::
 
-### `<keyboard.c>`
+### `<keyboard>.c`
 
 This file should contain C code required for the functionality of your keyboard, for example hardware initialisation code, OLED display code, and so on. This file should only contain code necessary for the keyboard to work, and *not* things that should be left to the end user to configure in their keymap. This file is automatically included in compilation if it exists. This is not a required file.
 
@@ -214,7 +214,7 @@ The following functions are typically defined in this file:
 * `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
 * `bool led_update_kb(led_t led_state)`
 
-### `<keyboard.h>`
+### `<keyboard>.h`
 
 This file can contain function prototypes for custom functions and other header file code utilised by `<keyboard>.c`. The `<keyboard>.c` file should include this file. This is not a required file.
 
