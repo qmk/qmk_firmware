@@ -46,7 +46,7 @@ This is the location of your new keymap file. Your keyboards default keymap file
 
 ## Open `keymap.c` In Your Favorite Text Editor
 
-Open your `keymap.c` file in your text editor. Inside this file you'll find the structure that controls how your keyboard behaves. At the top of `keymap.c` there may be some defines and enums that make the keymap easier to read. Farther down you'll find a line that looks like this:
+Open your `keymap.c` file in your text editor. Inside this file you'll find the structure that controls how your keyboard behaves. At the top of `keymap.c` there may be some defines and enums that make the keymap easier to read. Further down you'll find a line that looks like this:
 
 ```c
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
