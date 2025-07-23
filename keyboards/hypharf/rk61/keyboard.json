@@ -3,7 +3,6 @@
   "processor": "STM32F072",
   "bootloader": "stm32-dfu",
   "manufacturer": "HyphaRF",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1480",
