@@ -34,8 +34,7 @@ static matrix_row_t* last_raw;
 void debounce_init(uint8_t num_rows) {
     countdowns = (uint8_t*)calloc(num_rows, sizeof(uint8_t));
     last_raw   = (matrix_row_t*)calloc(num_rows, sizeof(matrix_row_t));
-
-    last_time = timer_read();
+    last_time  = timer_read();
 }
 
 void debounce_free(void) {
