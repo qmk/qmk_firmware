@@ -99,41 +99,37 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
 // If the current time is > debounce counter, set the counter to enable input.
 static void update_debounce_counters(uint8_t num_rows, uint8_t elapsed_time) {
-    counters_need_update                 = false;
-    matrix_need_update                   = false;
-    debounce_counter_t *debounce_pointer = debounce_counters;
+    counters_need_update = false;
+    matrix_need_update   = false;
     for (uint8_t row = 0; row < num_rows; row++) {
-        if (*debounce_pointer != DEBOUNCE_ELAPSED) {
-            if (*debounce_pointer <= elapsed_time) {
-                *debounce_pointer  = DEBOUNCE_ELAPSED;
-                matrix_need_update = true;
+        if (debounce_counters[row] != DEBOUNCE_ELAPSED) {
+            if (debounce_counters[row] <= elapsed_time) {
+                debounce_counters[row] = DEBOUNCE_ELAPSED;
+                matrix_need_update     = true;
             } else {
-                *debounce_pointer -= elapsed_time;
+                debounce_counters[row] -= elapsed_time;
                 counters_need_update = true;
             }
         }
-        debounce_pointer++;
     }
 }
 
 // upload from raw_matrix to final matrix;
 static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows) {
-    matrix_need_update                   = false;
-    debounce_counter_t *debounce_pointer = debounce_counters;
+    matrix_need_update = false;
     for (uint8_t row = 0; row < num_rows; row++) {
         matrix_row_t existing_row = cooked[row];
         matrix_row_t raw_row      = raw[row];
 
         // determine new value basd on debounce pointer + raw value
         if (existing_row != raw_row) {
-            if (*debounce_pointer == DEBOUNCE_ELAPSED) {
-                *debounce_pointer = DEBOUNCE;
+            if (debounce_counters[row] == DEBOUNCE_ELAPSED) {
+                debounce_counters[row] = DEBOUNCE;
                 cooked_changed |= cooked[row] ^ raw_row;
                 cooked[row]          = raw_row;
                 counters_need_update = true;
             }
         }
-        debounce_pointer++;
     }
 }
 

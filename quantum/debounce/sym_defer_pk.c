@@ -39,8 +39,6 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 #    define DEBOUNCE UINT8_MAX
 #endif
 
-#define ROW_SHIFTER ((matrix_row_t)1)
-
 typedef uint8_t debounce_counter_t;
 
 #if DEBOUNCE > 0
@@ -101,40 +99,41 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 }
 
 static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time) {
-    counters_need_update                 = false;
-    debounce_counter_t *debounce_pointer = debounce_counters;
+    counters_need_update = false;
     for (uint8_t row = 0; row < num_rows; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            if (*debounce_pointer != DEBOUNCE_ELAPSED) {
-                if (*debounce_pointer <= elapsed_time) {
-                    *debounce_pointer        = DEBOUNCE_ELAPSED;
-                    matrix_row_t cooked_next = (cooked[row] & ~(ROW_SHIFTER << col)) | (raw[row] & (ROW_SHIFTER << col));
+            uint16_t index = row * MATRIX_COLS + col;
+
+            if (debounce_counters[index] != DEBOUNCE_ELAPSED) {
+                if (debounce_counters[index] <= elapsed_time) {
+                    debounce_counters[index] = DEBOUNCE_ELAPSED;
+                    matrix_row_t col_mask    = (MATRIX_ROW_SHIFTER << col);
+                    matrix_row_t cooked_next = (cooked[row] & ~col_mask) | (raw[row] & col_mask);
                     cooked_changed |= cooked[row] ^ cooked_next;
                     cooked[row] = cooked_next;
                 } else {
-                    *debounce_pointer -= elapsed_time;
+                    debounce_counters[index] -= elapsed_time;
                     counters_need_update = true;
                 }
             }
-            debounce_pointer++;
         }
     }
 }
 
 static void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows) {
-    debounce_counter_t *debounce_pointer = debounce_counters;
     for (uint8_t row = 0; row < num_rows; row++) {
         matrix_row_t delta = raw[row] ^ cooked[row];
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            if (delta & (ROW_SHIFTER << col)) {
-                if (*debounce_pointer == DEBOUNCE_ELAPSED) {
-                    *debounce_pointer    = DEBOUNCE;
-                    counters_need_update = true;
+            uint16_t index = row * MATRIX_COLS + col;
+
+            if (delta & (MATRIX_ROW_SHIFTER << col)) {
+                if (debounce_counters[index] == DEBOUNCE_ELAPSED) {
+                    debounce_counters[index] = DEBOUNCE;
+                    counters_need_update     = true;
                 }
             } else {
-                *debounce_pointer = DEBOUNCE_ELAPSED;
+                debounce_counters[index] = DEBOUNCE_ELAPSED;
             }
-            debounce_pointer++;
         }
     }
 }

@@ -19,32 +19,32 @@ DEBOUNCE milliseconds have elapsed since the last change.
 
 #include "debounce.h"
 #include "timer.h"
-#include <stdlib.h>
 
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
 
 static uint16_t last_time;
-// [row] milliseconds until key's state is considered debounced.
-static uint8_t* countdowns;
-// [row]
-static matrix_row_t* last_raw;
+// Countdown timers for each matrix row, indexed by row.
+static uint8_t countdowns[MATRIX_ROWS_PER_HAND] = {0};
+// Last raw state for each matrix row, indexed by row.
+static matrix_row_t last_raw[MATRIX_ROWS_PER_HAND] = {0};
 
-void debounce_init(uint8_t num_rows) {
-    countdowns = (uint8_t*)calloc(num_rows, sizeof(uint8_t));
-    last_raw   = (matrix_row_t*)calloc(num_rows, sizeof(matrix_row_t));
+void debounce_init(uint8_t num_rows) {}
 
-    last_time = timer_read();
-}
-
-void debounce_free(void) {
-    free(countdowns);
-    countdowns = NULL;
-    free(last_raw);
-    last_raw = NULL;
-}
-
+/**
+ * @brief Debounces the raw matrix state and updates the cooked (debounced) state.
+ *
+ * For each row in the matrix, this function tracks changes and applies a debounce period.
+ * If a row's state changes, its countdown timer is reset. If the countdown timer expires,
+ * the debounced state is updated to match the raw state.
+ *
+ * @param raw The current raw key state matrix.
+ * @param cooked The debounced key state matrix to be updated.
+ * @param num_rows Number of rows in the matrix.
+ * @param changed True if the raw matrix has changed since the last call.
+ * @return true if the debounced matrix has new key changes, false otherwise.
+ */
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
     uint16_t now           = timer_read();
     uint16_t elapsed16     = TIMER_DIFF_16(now, last_time);
@@ -54,7 +54,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
     uint8_t* countdown = countdowns;
 
-    for (uint8_t row = 0; row < num_rows; ++row, ++countdown) {
+    for (uint8_t row = 0; row < MATRIX_ROWS_PER_HAND; ++row, ++countdown) {
         matrix_row_t raw_row = raw[row];
 
         if (raw_row != last_raw[row]) {
@@ -70,8 +70,4 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     }
 
     return cooked_changed;
-}
-
-bool debounce_active(void) {
-    return true;
 }

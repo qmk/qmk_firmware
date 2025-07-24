@@ -43,8 +43,6 @@ releasing a key, that state is pushed after no changes occur for DEBOUNCE millis
 #    define DEBOUNCE 127
 #endif
 
-#define ROW_SHIFTER ((matrix_row_t)1)
-
 typedef struct {
     bool    pressed : 1;
     uint8_t time : 7;
@@ -109,67 +107,63 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 }
 
 static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time) {
-    debounce_counter_t *debounce_pointer = debounce_counters;
-
     counters_need_update = false;
     matrix_need_update   = false;
 
     for (uint8_t row = 0; row < num_rows; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            matrix_row_t col_mask = (ROW_SHIFTER << col);
+            uint16_t index = row * MATRIX_COLS + col;
 
-            if (debounce_pointer->time != DEBOUNCE_ELAPSED) {
-                if (debounce_pointer->time <= elapsed_time) {
-                    debounce_pointer->time = DEBOUNCE_ELAPSED;
+            if (debounce_counters[index].time != DEBOUNCE_ELAPSED) {
+                if (debounce_counters[index].time <= elapsed_time) {
+                    debounce_counters[index].time = DEBOUNCE_ELAPSED;
 
-                    if (debounce_pointer->pressed) {
+                    if (debounce_counters[index].pressed) {
                         // key-down: eager
                         matrix_need_update = true;
                     } else {
                         // key-up: defer
+                        matrix_row_t col_mask    = (MATRIX_ROW_SHIFTER << col);
                         matrix_row_t cooked_next = (cooked[row] & ~col_mask) | (raw[row] & col_mask);
                         cooked_changed |= cooked_next ^ cooked[row];
                         cooked[row] = cooked_next;
                     }
                 } else {
-                    debounce_pointer->time -= elapsed_time;
+                    debounce_counters[index].time -= elapsed_time;
                     counters_need_update = true;
                 }
             }
-            debounce_pointer++;
         }
     }
 }
 
 static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows) {
-    debounce_counter_t *debounce_pointer = debounce_counters;
-
     matrix_need_update = false;
 
     for (uint8_t row = 0; row < num_rows; row++) {
         matrix_row_t delta = raw[row] ^ cooked[row];
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-            matrix_row_t col_mask = (ROW_SHIFTER << col);
+            uint16_t index = row * MATRIX_COLS + col;
 
+            matrix_row_t col_mask = (MATRIX_ROW_SHIFTER << col);
             if (delta & col_mask) {
-                if (debounce_pointer->time == DEBOUNCE_ELAPSED) {
-                    debounce_pointer->pressed = (raw[row] & col_mask);
-                    debounce_pointer->time    = DEBOUNCE;
-                    counters_need_update      = true;
+                if (debounce_counters[index].time == DEBOUNCE_ELAPSED) {
+                    debounce_counters[index].pressed = (raw[row] & col_mask);
+                    debounce_counters[index].time    = DEBOUNCE;
+                    counters_need_update             = true;
 
-                    if (debounce_pointer->pressed) {
+                    if (debounce_counters[index].pressed) {
                         // key-down: eager
                         cooked[row] ^= col_mask;
                         cooked_changed = true;
                     }
                 }
-            } else if (debounce_pointer->time != DEBOUNCE_ELAPSED) {
-                if (!debounce_pointer->pressed) {
+            } else if (debounce_counters[index].time != DEBOUNCE_ELAPSED) {
+                if (!debounce_counters[index].pressed) {
                     // key-up: defer
-                    debounce_pointer->time = DEBOUNCE_ELAPSED;
+                    debounce_counters[index].time = DEBOUNCE_ELAPSED;
                 }
             }
-            debounce_pointer++;
         }
     }
 }
