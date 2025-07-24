@@ -7,12 +7,16 @@
   | Paws 60        | ATMEGA32U4    | 60%    | 0x7516    | 0x5001     | Hotswap                             |
   | Nyx            | RP2040        | 65%    | 0x7516    | 0x5005     | Hotswap, RGB Matrix                 |
 
-## Keyboards Completed has Collaboration with me:
-  | Keyboard name      | MCU        | Layout    | Vendor ID | Product ID | Features                           |
-  | ------------------ | ---------- | --------- | --------- | ---------- | ---------------------------------- |
-  | Lemon40            | ATMEGA32U4 | 40% Alice | 0x7516    | 0x6000     | Solder, RGB Underglow, OLED 128x32 |
-  | Caticorn (Solder)  | RP2040     | TKL       | 0x7516    | 0x6001     | Solder                             |
-  | Caticorn (Hotswap) | RP2040     | TKL       | 0x7516    | 0x6002     | Hotswap                            |
+## Keyboards Commission by me:
+  | Keyboard name       | MCU        | Layout    | Vendor ID | Product ID | Features                           |
+  | ------------------- | ---------- | --------- | --------- | ---------- | ---------------------------------- |
+  | Lemon40             | ATMEGA32U4 | 40% Alice | 0x7516    | 0x6000     | Solder, RGB Underglow, OLED 128x32 |
+  | Caticorn (Solder)   | RP2040     | TKL       | 0x7516    | 0x6001     | Solder                             |
+  | Caticorn (Hotswap)  | RP2040     | TKL       | 0x7516    | 0x6002     | Hotswap                            |
+  | Cat 60 v1 (Solder)  | RP2040     | 60%       | 0x7516    | 0x6004     | Solder                             |
+  | Cat 60 v1 (Hotswap) | RP2040     | 60%       | 0x7516    | 0x6006     | Hotswap                            |
+  | Cat 60 v2 (Solder)  | RP2040     | 60%       | 0x7516    | 0x6007     | Solder, RGB Underglow              |
+  | Cat 60 v2 (Hotswap) | RP2040     | 60%       | 0x7516    | 0x6008     | Hotswap, RGB Underglow             |
 
 ## Keyboard Rewrited by me:
   | Keyboard name                                                                               | MCU           | Layout       | Vendor ID | Product ID | Features                                     |
@@ -30,6 +34,6 @@
 
 ## Contact me if you have any problem
 
-**Discord:** HorrorTroll#0975
+**Discord:** horrortroll
 **Facebook:** https://www.facebook.com/PhamChonChe.Duc
 **Email:** sonicvipduc@gmail.com
