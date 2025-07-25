@@ -1,33 +1,14 @@
-/*
-Copyright 2019 Alex Ong<the.onga@gmail.com>
-Copyright 2021 Simon Arlott
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-/*
-Basic per-row algorithm. Uses an 8-bit counter per row.
-After pressing a key, it immediately changes state, and sets a counter.
-No further inputs are accepted until DEBOUNCE milliseconds have occurred.
-*/
+// Copyright 2017 Alex Ong<the.onga@gmail.com>
+// Copyright 2021 Simon Arlott
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
+// Basic per-row algorithm. Uses an 8-bit counter per key.
+// After pressing a key, it immediately changes state, and sets a counter.
+// No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 
 #include "debounce.h"
 #include "timer.h"
 #include "util.h"
-
-#ifdef PROTOCOL_CHIBIOS
-#    if CH_CFG_USE_MEMCORE == FALSE
-#        error ChibiOS is configured without a memory allocator. Your keyboard may have set `#define CH_CFG_USE_MEMCORE FALSE`, which is incompatible with this debounce algorithm.
-#    endif
-#endif
 
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
@@ -39,9 +20,8 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 #    define DEBOUNCE UINT8_MAX
 #endif
 
-typedef uint8_t debounce_counter_t;
-
 #if DEBOUNCE > 0
+typedef uint8_t debounce_counter_t;
 // Uses MATRIX_ROWS_PER_HAND instead of MATRIX_ROWS to support split keyboards
 static debounce_counter_t debounce_counters[MATRIX_ROWS_PER_HAND] = {0};
 static bool               counters_need_update;

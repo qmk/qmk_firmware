@@ -23,12 +23,6 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 #include "timer.h"
 #include "util.h"
 
-#ifdef PROTOCOL_CHIBIOS
-#    if CH_CFG_USE_MEMCORE == FALSE
-#        error ChibiOS is configured without a memory allocator. Your keyboard may have set `#define CH_CFG_USE_MEMCORE FALSE`, which is incompatible with this debounce algorithm.
-#    endif
-#endif
-
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
 #endif
@@ -39,9 +33,8 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 #    define DEBOUNCE UINT8_MAX
 #endif
 
-typedef uint8_t debounce_counter_t;
-
 #if DEBOUNCE > 0
+typedef uint8_t debounce_counter_t;
 // Uses MATRIX_ROWS_PER_HAND instead of MATRIX_ROWS to support split keyboards
 static debounce_counter_t debounce_counters[MATRIX_ROWS_PER_HAND * MATRIX_COLS] = {0};
 static bool               counters_need_update;
@@ -87,9 +80,9 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 /**
  * @brief Updates per-key debounce counters and determines if matrix needs updating.
  *
- * Iterates through each key in the matrix and checks its debounce counter.
- * If the debounce period has elapsed for a key, the counter is reset and the matrix is marked for update.
- * Otherwise, the counter is decremented by the elapsed time and marked for further updates if needed.
+ * Iterates through each key in the matrix and checks its debounce counter. If the debounce
+ * period has elapsed, the counter is reset and the matrix is marked for update. Otherwise,
+ * the counter is decremented by the elapsed time and marked for further updates if needed.
  *
  * @param elapsed_time The time elapsed since the last debounce update, in milliseconds.
  */
