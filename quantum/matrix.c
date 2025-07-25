@@ -25,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SPLIT_KEYBOARD
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
-
-#    define ROWS_PER_HAND (MATRIX_ROWS / 2)
-#else
-#    define ROWS_PER_HAND (MATRIX_ROWS)
 #endif
 
 #ifdef DIRECT_PINS_RIGHT
@@ -52,13 +48,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef DIRECT_PINS
-static SPLIT_MUTABLE pin_t direct_pins[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS;
+static SPLIT_MUTABLE pin_t direct_pins[MATRIX_ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS;
 #elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 #    ifdef MATRIX_ROW_PINS
-static SPLIT_MUTABLE_ROW pin_t row_pins[ROWS_PER_HAND] = MATRIX_ROW_PINS;
+static SPLIT_MUTABLE_ROW pin_t row_pins[MATRIX_ROWS_PER_HAND] = MATRIX_ROW_PINS;
 #    endif // MATRIX_ROW_PINS
 #    ifdef MATRIX_COL_PINS
-static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]   = MATRIX_COL_PINS;
+static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]          = MATRIX_COL_PINS;
 #    endif // MATRIX_COL_PINS
 #endif
 
@@ -109,7 +105,7 @@ static inline uint8_t readMatrixPin(pin_t pin) {
 #ifdef DIRECT_PINS
 
 __attribute__((weak)) void matrix_init_pins(void) {
-    for (int row = 0; row < ROWS_PER_HAND; row++) {
+    for (int row = 0; row < MATRIX_ROWS_PER_HAND; row++) {
         for (int col = 0; col < MATRIX_COLS; col++) {
             pin_t pin = direct_pins[row][col];
             if (pin != NO_PIN) {
@@ -158,7 +154,7 @@ static void unselect_row(uint8_t row) {
 }
 
 static void unselect_rows(void) {
-    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+    for (uint8_t x = 0; x < MATRIX_ROWS_PER_HAND; x++) {
         unselect_row(x);
     }
 }
@@ -228,7 +224,7 @@ static void unselect_cols(void) {
 
 __attribute__((weak)) void matrix_init_pins(void) {
     unselect_cols();
-    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+    for (uint8_t x = 0; x < MATRIX_ROWS_PER_HAND; x++) {
         if (row_pins[x] != NO_PIN) {
             gpio_atomic_set_pin_input_high(row_pins[x]);
         }
@@ -245,7 +241,7 @@ __attribute__((weak)) void matrix_read_rows_on_col(matrix_row_t current_matrix[]
     matrix_output_select_delay();
 
     // For each row...
-    for (uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++) {
+    for (uint8_t row_index = 0; row_index < MATRIX_ROWS_PER_HAND; row_index++) {
         // Check row pin state
         if (readMatrixPin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
@@ -275,16 +271,16 @@ void matrix_init(void) {
     // Set pinout for right half if pinout for that half is defined
     if (!isLeftHand) {
 #    ifdef DIRECT_PINS_RIGHT
-        const pin_t direct_pins_right[ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS_RIGHT;
-        for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
+        const pin_t direct_pins_right[MATRIX_ROWS_PER_HAND][MATRIX_COLS] = DIRECT_PINS_RIGHT;
+        for (uint8_t i = 0; i < MATRIX_ROWS_PER_HAND; i++) {
             for (uint8_t j = 0; j < MATRIX_COLS; j++) {
                 direct_pins[i][j] = direct_pins_right[i][j];
             }
         }
 #    endif
 #    ifdef MATRIX_ROW_PINS_RIGHT
-        const pin_t row_pins_right[ROWS_PER_HAND] = MATRIX_ROW_PINS_RIGHT;
-        for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
+        const pin_t row_pins_right[MATRIX_ROWS_PER_HAND] = MATRIX_ROW_PINS_RIGHT;
+        for (uint8_t i = 0; i < MATRIX_ROWS_PER_HAND; i++) {
             row_pins[i] = row_pins_right[i];
         }
 #    endif
@@ -296,8 +292,8 @@ void matrix_init(void) {
 #    endif
     }
 
-    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
-    thatHand = ROWS_PER_HAND - thisHand;
+    thisHand = isLeftHand ? 0 : (MATRIX_ROWS_PER_HAND);
+    thatHand = MATRIX_ROWS_PER_HAND - thisHand;
 #endif
 
     // initialize key pins
@@ -307,7 +303,7 @@ void matrix_init(void) {
     memset(matrix, 0, sizeof(matrix));
     memset(raw_matrix, 0, sizeof(raw_matrix));
 
-    debounce_init(ROWS_PER_HAND);
+    debounce_init(MATRIX_ROWS_PER_HAND);
 
     matrix_init_kb();
 }
@@ -325,7 +321,7 @@ uint8_t matrix_scan(void) {
 
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
-    for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS_PER_HAND; current_row++) {
         matrix_read_cols_on_row(curr_matrix, current_row);
     }
 #elif (DIODE_DIRECTION == ROW2COL)
@@ -340,9 +336,9 @@ uint8_t matrix_scan(void) {
     if (changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
 
 #ifdef SPLIT_KEYBOARD
-    changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
+    changed = debounce(raw_matrix, matrix + thisHand, MATRIX_ROWS_PER_HAND, changed) | matrix_post_scan();
 #else
-    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+    changed = debounce(raw_matrix, matrix, MATRIX_ROWS_PER_HAND, changed);
     matrix_scan_kb();
 #endif
     return (uint8_t)changed;
