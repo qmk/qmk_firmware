@@ -19,6 +19,8 @@ DEBOUNCE milliseconds have elapsed since the last change.
 
 #include "debounce.h"
 #include "timer.h"
+#include "util.h"
+#include <string.h>
 
 #ifndef DEBOUNCE
 #    define DEBOUNCE 5
@@ -30,7 +32,10 @@ static uint8_t countdowns[MATRIX_ROWS_PER_HAND] = {0};
 // Last raw state for each matrix row, indexed by row.
 static matrix_row_t last_raw[MATRIX_ROWS_PER_HAND] = {0};
 
-void debounce_init(uint8_t num_rows) {}
+void debounce_init(uint8_t num_rows) {
+    memset(countdowns, 0, sizeof(countdowns));
+    memset(last_raw, 0, sizeof(last_raw));
+}
 
 /**
  * @brief Debounces the raw matrix state and updates the cooked (debounced) state.
@@ -49,7 +54,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
     uint16_t now           = timer_read();
     uint16_t elapsed16     = TIMER_DIFF_16(now, last_time);
     last_time              = now;
-    uint8_t elapsed        = (elapsed16 > 255) ? 255 : elapsed16;
+    uint8_t elapsed        = MIN(elapsed16, UINT8_MAX);
     bool    cooked_changed = false;
 
     uint8_t* countdown = countdowns;

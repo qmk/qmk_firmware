@@ -25,7 +25,7 @@ releasing a key, that state is pushed after no changes occur for DEBOUNCE millis
 
 #include "debounce.h"
 #include "timer.h"
-#include <stdlib.h>
+#include "util.h"
 
 #ifdef PROTOCOL_CHIBIOS
 #    if CH_CFG_USE_MEMCORE == FALSE
@@ -49,36 +49,23 @@ typedef struct {
 } debounce_counter_t;
 
 #if DEBOUNCE > 0
-static debounce_counter_t *debounce_counters;
-static fast_timer_t        last_time;
-static bool                counters_need_update;
-static bool                matrix_need_update;
-static bool                cooked_changed;
+// Uses MATRIX_ROWS_PER_HAND instead of MATRIX_ROWS to support split keyboards
+static debounce_counter_t debounce_counters[MATRIX_ROWS_PER_HAND * MATRIX_COLS] = {0};
+static bool               counters_need_update;
+static bool               matrix_need_update;
+static bool               cooked_changed;
 
 #    define DEBOUNCE_ELAPSED 0
 
-static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time);
-static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows);
+static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time);
+static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[]);
 
-// we use num_rows rather than MATRIX_ROWS to support split keyboards
-void debounce_init(uint8_t num_rows) {
-    debounce_counters = malloc(num_rows * MATRIX_COLS * sizeof(debounce_counter_t));
-    int i             = 0;
-    for (uint8_t r = 0; r < num_rows; r++) {
-        for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-            debounce_counters[i++].time = DEBOUNCE_ELAPSED;
-        }
-    }
-}
-
-void debounce_free(void) {
-    free(debounce_counters);
-    debounce_counters = NULL;
-}
+void debounce_init(uint8_t num_rows) {}
 
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
-    bool updated_last = false;
-    cooked_changed    = false;
+    static fast_timer_t last_time;
+    bool                updated_last = false;
+    cooked_changed                   = false;
 
     if (counters_need_update) {
         fast_timer_t now          = timer_read_fast();
@@ -86,12 +73,10 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 
         last_time    = now;
         updated_last = true;
-        if (elapsed_time > UINT8_MAX) {
-            elapsed_time = UINT8_MAX;
-        }
 
         if (elapsed_time > 0) {
-            update_debounce_counters_and_transfer_if_expired(raw, cooked, num_rows, elapsed_time);
+            // Update debounce counters with elapsed timer clamped to UINT8_MAX
+            update_debounce_counters_and_transfer_if_expired(raw, cooked, MIN(elapsed_time, UINT8_MAX));
         }
     }
 
@@ -100,17 +85,28 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
             last_time = timer_read_fast();
         }
 
-        transfer_matrix_values(raw, cooked, num_rows);
+        transfer_matrix_values(raw, cooked);
     }
 
     return cooked_changed;
 }
 
-static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t elapsed_time) {
+/**
+ * @brief Processes per-key debounce counters and updates the debounced matrix state.
+ *
+ * This function iterates through each key in the matrix and updates its debounce counter
+ * based on the elapsed time. If the debounce period has expired, the debounced state is
+ * updated accordingly for key-down (eager) and key-up (defer) events.
+ *
+ * @param raw The current raw key state matrix.
+ * @param cooked The debounced key state matrix to be updated.
+ * @param elapsed_time The time elapsed since the last debounce update, in milliseconds.
+ */
+static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time) {
     counters_need_update = false;
     matrix_need_update   = false;
 
-    for (uint8_t row = 0; row < num_rows; row++) {
+    for (uint8_t row = 0; row < MATRIX_ROWS_PER_HAND; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             uint16_t index = row * MATRIX_COLS + col;
 
@@ -137,10 +133,21 @@ static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[],
     }
 }
 
-static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows) {
+/**
+ * @brief Applies debounced changes to the matrix state based on per-key counters.
+ *
+ * This function compares the raw and cooked key state matrices to detect changes.
+ * For each key, it updates the debounce counter and the debounced state according
+ * to the debounce algorithm. Key-down events are handled eagerly, while key-up
+ * events are deferred until the debounce period has elapsed.
+ *
+ * @param raw The current raw key state matrix.
+ * @param cooked The debounced key state matrix to be updated.
+ */
+static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[]) {
     matrix_need_update = false;
 
-    for (uint8_t row = 0; row < num_rows; row++) {
+    for (uint8_t row = 0; row < MATRIX_ROWS_PER_HAND; row++) {
         matrix_row_t delta = raw[row] ^ cooked[row];
         for (uint8_t col = 0; col < MATRIX_COLS; col++) {
             uint16_t index = row * MATRIX_COLS + col;
