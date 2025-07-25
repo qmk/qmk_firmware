@@ -8,10 +8,6 @@
 #    include "split_common/split_util.h"
 #    include "split_common/transactions.h"
 #    include <string.h>
-
-#    define ROWS_PER_HAND (MATRIX_ROWS / 2)
-#else
-#    define ROWS_PER_HAND (MATRIX_ROWS)
 #endif
 
 #ifndef MATRIX_IO_DELAY
@@ -95,8 +91,8 @@ void matrix_print(void) {
 bool matrix_post_scan(void) {
     bool changed = false;
     if (is_keyboard_master()) {
-        static bool  last_connected              = false;
-        matrix_row_t slave_matrix[ROWS_PER_HAND] = {0};
+        static bool  last_connected                     = false;
+        matrix_row_t slave_matrix[MATRIX_ROWS_PER_HAND] = {0};
         if (transport_master_if_connected(matrix + thisHand, slave_matrix)) {
             changed = memcmp(matrix + thatHand, slave_matrix, sizeof(slave_matrix)) != 0;
 
@@ -148,8 +144,8 @@ __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
 __attribute__((weak)) void matrix_init(void) {
 #ifdef SPLIT_KEYBOARD
-    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
-    thatHand = ROWS_PER_HAND - thisHand;
+    thisHand = isLeftHand ? 0 : (MATRIX_ROWS_PER_HAND);
+    thatHand = MATRIX_ROWS_PER_HAND - thisHand;
 #endif
 
     matrix_init_custom();
@@ -160,7 +156,7 @@ __attribute__((weak)) void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(ROWS_PER_HAND);
+    debounce_init(MATRIX_ROWS_PER_HAND);
 
     matrix_init_kb();
 }
@@ -169,9 +165,9 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     bool changed = matrix_scan_custom(raw_matrix);
 
 #ifdef SPLIT_KEYBOARD
-    changed = debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, changed) | matrix_post_scan();
+    changed = debounce(raw_matrix, matrix + thisHand, MATRIX_ROWS_PER_HAND, changed) | matrix_post_scan();
 #else
-    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+    changed = debounce(raw_matrix, matrix, MATRIX_ROWS_PER_HAND, changed);
     matrix_scan_kb();
 #endif
 
