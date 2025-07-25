@@ -1,0 +1,11 @@
+{
+    "keycodes": {
+        "0x7C38": {
+            "group": "quantum",
+            "key": "QK_UNICODE_MODE_VIM",
+            "aliases": [
+                "UC_VIM"
+            ]
+        }
+    }
+}

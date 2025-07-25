@@ -97,6 +97,9 @@ static float song_winc[][2] = UNICODE_SONG_WINC;
 #    ifdef UNICODE_SONG_EMACS
 static float song_emacs[][2] = UNICODE_SONG_EMACS;
 #    endif
+#    ifdef UNICODE_SONG_VIM
+static float song_vim[][2] = UNICODE_SONG_VIM;
+#    endif
 
 static void unicode_play_song(uint8_t mode) {
     switch (mode) {
@@ -128,6 +131,11 @@ static void unicode_play_song(uint8_t mode) {
 #    ifdef UNICODE_SONG_EMACS
         case UNICODE_MODE_EMACS:
             PLAY_SONG(song_emacs);
+            break;
+#    endif
+#    ifdef UNICODE_SONG_VIM
+        case UNICODE_MODE_VIM:
+            PLAY_SONG(song_vim);
             break;
 #    endif
     }
@@ -248,6 +256,10 @@ __attribute__((weak)) void unicode_input_start(void) {
             tap_code16(KC_8);
             tap_code16(KC_ENTER);
             break;
+        case UNICODE_MODE_VIM:
+            tap_code16(LCTL(KC_V));
+            tap_code16(LSFT(KC_U));
+            break;
     }
 
     wait_ms(UNICODE_TYPE_DELAY);
@@ -276,6 +288,9 @@ __attribute__((weak)) void unicode_input_finish(void) {
         case UNICODE_MODE_EMACS:
             tap_code16(KC_ENTER);
             break;
+        case UNICODE_MODE_VIM:
+            // It finishes by itself when enough hex digits received
+            break;
     }
 
     set_mods(unicode_saved_mods); // Reregister previously set mods
@@ -303,6 +318,9 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             break;
         case UNICODE_MODE_EMACS:
             tap_code16(LCTL(KC_G)); // C-g cancels
+            break;
+        case UNICODE_MODE_VIM:
+            // It looks like there is no way to cancel
             break;
     }
 
@@ -344,9 +362,13 @@ void register_hex32(uint32_t hex) {
             send_nibble_wrapper(0);
         }
 
-        // Always send digits (including zero) if we're down to the last
-        // two bytes of nibbles.
-        bool must_send = i < 4;
+        bool must_send =
+            // Always send digits (including zero) if we're down to the last
+            // two bytes of nibbles.
+            (i < 4)
+            // In vim, `i_CTRL-V U` waits for exactly 8 digits, so we send them all
+            // @see `:h i_CTRL-V_digit`
+            || (unicode_config.input_mode == UNICODE_MODE_VIM);
 
         // If we've found a digit worth transmitting, do so.
         if (digit != 0 || !first_digit || must_send) {
