@@ -33,7 +33,7 @@ static tap_dance_state_t tap_dance_states[TAP_DANCE_MAX_SIMULTANEOUS];
 
 static uint16_t last_tap_time;
 
-tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
+static tap_dance_state_t *tap_dance_get_or_allocate_state(uint8_t tap_dance_idx, bool allocate) {
     uint8_t i;
     if (tap_dance_idx >= tap_dance_count()) {
         return NULL;
@@ -43,6 +43,10 @@ tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
         if (tap_dance_states[i].in_use && tap_dance_states[i].index == tap_dance_idx) {
             return &tap_dance_states[i];
         }
+    }
+    // No existing state found; bail out if new state allocation is not allowed
+    if (!allocate) {
+        return NULL;
     }
     // Search for the first available state
     for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
@@ -54,6 +58,10 @@ tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
     }
     // No states are available, tap dance won't happen
     return NULL;
+}
+
+tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
+    return tap_dance_get_or_allocate_state(tap_dance_idx, false);
 }
 
 void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data) {
