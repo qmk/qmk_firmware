@@ -206,7 +206,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             action = tap_dance_get(td_index);
-            state  = tap_dance_get_state(td_index);
+            state  = tap_dance_get_or_allocate_state(td_index, record->event.pressed);
             if (state == NULL) {
                 return false;
             }
