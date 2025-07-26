@@ -40,6 +40,10 @@ Similar to the first option, the second and third option are good for simple lay
 
 For more complicated cases, like blink the LEDs, fiddle with the backlighting, and so on, use the fourth or fifth option. Examples of each are listed below.
 
+::: tip 
+If too many tap dances are active at the same time, later ones won't have any effect. You need to increase `TAP_DANCE_MAX_SIMULTANEOUS` by adding `#define TAP_DANCE_MAX_SIMULTANEOUS 5` (or higher) to your keymap's `config.h` file if you expect that users may hold down many tap dance keys simultaneously. By default, only 3 tap dance keys can be used together at the same time.
+:::
+
 ## Implementation Details {#implementation}
 
 Well, that's the bulk of it! You should now be able to work through the examples below, and to develop your own Tap Dance functionality. But if you want a deeper understanding of what's going on behind the scenes, then read on for the explanation of how it all works!
