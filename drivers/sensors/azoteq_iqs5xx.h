@@ -178,7 +178,7 @@ typedef struct {
 #    define POINTING_DEVICE_TASK_THROTTLE_MS AZOTEQ_IQS5XX_REPORT_RATE + 1
 #endif
 
-const pointing_device_driver_t azoteq_iqs5xx_pointing_device_driver;
+extern const pointing_device_driver_t azoteq_iqs5xx_pointing_device_driver;
 
 bool           azoteq_iqs5xx_init(void);
 i2c_status_t   azoteq_iqs5xx_wake(void);

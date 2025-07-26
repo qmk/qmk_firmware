@@ -106,7 +106,7 @@ STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motio
 
 #define pmw3360_pointing_device_driver pmw33xx_pointing_device_driver;
 #define pmw3389_pointing_device_driver pmw33xx_pointing_device_driver;
-const pointing_device_driver_t pmw33xx_pointing_device_driver;
+extern const pointing_device_driver_t pmw33xx_pointing_device_driver;
 
 /**
  * @brief Initializes the given sensor so it is in a working state and ready to
