@@ -1,0 +1,71 @@
+{
+  "manufacturer": "Milos Lalic",
+  "keyboard_name": "c13x",
+  "maintainer": "miloslalic19",
+  "development_board": "promicro",
+  "processor": "atmega32u4",
+  "diode_direction": "COL2ROW",
+  "features": {
+    "bootmagic": true,
+    "command": false,
+    "console": false,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "via": true
+  },
+  "matrix_pins": {
+    "cols": ["F7", "B1", "B3", "B2", "B6", "C6", "D7", "E6", "B4", "B5"],
+    "rows": ["F6", "F5", "D0", "D4"]
+  },
+  "url": "https://github.com/ziz0gaming/c13x",
+  "usb": {
+    "device_version": "1.0.0",
+    "pid": "0x0002",
+    "vid": "0x4D4C"
+  },
+  "layouts": {
+    "LAYOUT_10x4": {
+      "layout": [
+        { "matrix": [0, 0], "x": 0, "y": 0 },
+        { "matrix": [0, 1], "x": 1, "y": 0 },
+        { "matrix": [0, 2], "x": 2, "y": 0 },
+        { "matrix": [0, 3], "x": 3, "y": 0 },
+        { "matrix": [0, 4], "x": 4, "y": 0 },
+        { "matrix": [0, 5], "x": 5, "y": 0 },
+        { "matrix": [0, 6], "x": 6, "y": 0 },
+        { "matrix": [0, 7], "x": 7, "y": 0 },
+        { "matrix": [0, 8], "x": 8, "y": 0 },
+        { "matrix": [0, 9], "x": 9, "y": 0 },
+
+        { "matrix": [1, 0], "x": 0, "y": 1 },
+        { "matrix": [1, 1], "x": 1, "y": 1 },
+        { "matrix": [1, 2], "x": 2, "y": 1 },
+        { "matrix": [1, 3], "x": 3, "y": 1 },
+        { "matrix": [1, 4], "x": 4, "y": 1 },
+        { "matrix": [1, 5], "x": 5, "y": 1 },
+        { "matrix": [1, 6], "x": 6, "y": 1 },
+        { "matrix": [1, 7], "x": 7, "y": 1 },
+        { "matrix": [1, 9], "x": 9, "y": 1 },
+
+        { "matrix": [2, 0], "x": 0, "y": 2 },
+        { "matrix": [2, 1], "x": 1, "y": 2 },
+        { "matrix": [2, 2], "x": 2, "y": 2 },
+        { "matrix": [2, 3], "x": 3, "y": 2 },
+        { "matrix": [2, 4], "x": 4, "y": 2 },
+        { "matrix": [2, 5], "x": 5, "y": 2 },
+        { "matrix": [2, 6], "x": 6, "y": 2 },
+        { "matrix": [2, 7], "x": 7, "y": 2 },
+        { "matrix": [2, 8], "x": 8, "y": 2 },
+        { "matrix": [2, 9], "x": 9, "y": 2 },
+
+        { "matrix": [3, 0], "x": 0, "y": 3 },
+        { "matrix": [3, 1], "x": 1, "y": 3 },
+        { "matrix": [3, 3], "x": 3, "y": 3 },
+        { "matrix": [3, 5], "x": 5, "y": 3 },
+        { "matrix": [3, 7], "x": 7, "y": 3 },
+        { "matrix": [3, 9], "x": 9, "y": 3 }
+      ]
+    }
+  }
+}
