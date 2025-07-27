@@ -29,7 +29,7 @@
         "0x7103": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_0",
-            "label": "C0",
+            "label": "C₀",
             "aliases": [
                 "MI_C"
             ]
@@ -37,7 +37,7 @@
         "0x7104": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_SHARP_0",
-            "label": "C♯0",
+            "label": "C♯₀",
             "aliases": [
                 "MI_Cs",
                 "MI_Db"
@@ -46,7 +46,7 @@
         "0x7105": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_0",
-            "label": "D0",
+            "label": "D₀",
             "aliases": [
                 "MI_D"
             ]
@@ -54,7 +54,7 @@
         "0x7106": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_SHARP_0",
-            "label": "D♯0",
+            "label": "D♯₀",
             "aliases": [
                 "MI_Ds",
                 "MI_Eb"
