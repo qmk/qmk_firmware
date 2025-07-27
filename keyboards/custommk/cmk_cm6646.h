@@ -1,9 +1,9 @@
 // Copyright 2025 customMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
-
 #pragma once
+
+#include "quantum.h"
 
 #ifndef CMK_CM6646_KEYCODES_START
 #    define CMK_CM6646_KEYCODES_START QK_KB_0

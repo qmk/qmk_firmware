@@ -38,11 +38,6 @@ void housekeeping_task_kb(void) {
 }
 
 void eeconfig_init_kb(void) {
-    //enable nkro by default (not forced)
-    keymap_config.raw = eeconfig_read_keymap();
-    keymap_config.nkro = 1;
-    eeconfig_update_keymap(keymap_config.raw);
-
     //enable USB audio by default (not forced)
     keyboard_config.raw = eeconfig_read_kb();
     keyboard_config.usb_audio_enabled = 1;

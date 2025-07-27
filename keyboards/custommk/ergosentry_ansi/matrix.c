@@ -16,16 +16,6 @@ void matrix_wait_for_pin(pin_t pin, uint8_t target_state) {
     }
 }
 
-void matrix_wait_for_port(stm32_gpio_t *port, uint32_t target_bitmask) {
-    rtcnt_t start = chSysGetRealtimeCounterX();
-    rtcnt_t end   = start + 5000;
-    while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end)) {
-        if ((palReadPort(port) & target_bitmask) == target_bitmask) {
-            break;
-        }
-    }
-}
-
 void shift_pulse_clock(void) {
         gpio_write_pin_high(COL_SHIFT_CLK_PIN);
         matrix_wait_for_pin(COL_SHIFT_CLK_PIN, 1);

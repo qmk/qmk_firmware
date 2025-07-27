@@ -30,6 +30,17 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "indicators": {
+        "caps_lock": "B10",
+        "num_lock": "B0",
+        "scroll_lock": "A1",
+        "on_state": 0
+    },
+    "host": {
+        "default" : {
+            "nkro": true
+        }
+    }
     "processor": "STM32F411",
     "qmk": {
         "tap_keycode_delay": 10
@@ -248,7 +259,6 @@
             {"matrix": [2, 31], "x": 32, "y": 57, "flags": 4},
             {"matrix": [5, 30], "x": 47, "y": 59, "flags": 4}
         ],
-        "max_brightness": 255,
         "sat_steps": 8,
         "speed_steps": 10,
         "val_steps": 8,

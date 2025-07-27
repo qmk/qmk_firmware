@@ -9,10 +9,6 @@
 
 #define HAL_USE_GPT TRUE
 
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
-
-#define SERIAL_BUFFERS_SIZE 256
-
-#define SPI_USE_WAIT TRUE
+//#define SERIAL_BUFFERS_SIZE 256
 
 #include_next <halconf.h>
