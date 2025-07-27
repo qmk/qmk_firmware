@@ -3,6 +3,7 @@
         "0x7C77": {
             "group": "quantum",
             "key": "QK_TRI_LAYER_LOWER",
+            "label": "Lower",
             "aliases": [
                 "TL_LOWR"
             ]
@@ -10,6 +11,7 @@
         "0x7C78": {
             "group": "quantum",
             "key": "QK_TRI_LAYER_UPPER",
+            "label": "Upper",
             "aliases": [
                 "TL_UPPR"
             ]
