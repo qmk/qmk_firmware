@@ -63,7 +63,7 @@
         "0x7107": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_E_0",
-            "label": "E0",
+            "label": "E₀",
             "aliases": [
                 "MI_E"
             ]
@@ -71,7 +71,7 @@
         "0x7108": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_0",
-            "label": "F0",
+            "label": "F₀",
             "aliases": [
                 "MI_F"
             ]
@@ -79,7 +79,7 @@
         "0x7109": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_SHARP_0",
-            "label": "F♯0",
+            "label": "F♯₀",
             "aliases": [
                 "MI_Fs",
                 "MI_Gb"
@@ -88,7 +88,7 @@
         "0x710A": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_0",
-            "label": "G0",
+            "label": "G₀",
             "aliases": [
                 "MI_G"
             ]
@@ -96,7 +96,7 @@
         "0x710B": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_SHARP_0",
-            "label": "G♯0",
+            "label": "G♯₀",
             "aliases": [
                 "MI_Gs",
                 "MI_Ab"
@@ -105,7 +105,7 @@
         "0x710C": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_0",
-            "label": "A0",
+            "label": "A₀",
             "aliases": [
                 "MI_A"
             ]
@@ -113,7 +113,7 @@
         "0x710D": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_SHARP_0",
-            "label": "A♯0",
+            "label": "A♯₀",
             "aliases": [
                 "MI_As",
                 "MI_Bb"
@@ -122,7 +122,7 @@
         "0x710E": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_B_0",
-            "label": "B0",
+            "label": "B₀",
             "aliases": [
                 "MI_B"
             ]
@@ -130,7 +130,7 @@
         "0x710F": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_1",
-            "label": "C1",
+            "label": "C₁",
             "aliases": [
                 "MI_C1"
             ]
@@ -138,7 +138,7 @@
         "0x7110": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_SHARP_1",
-            "label": "C♯1",
+            "label": "C♯₁",
             "aliases": [
                 "MI_Cs1",
                 "MI_Db1"
@@ -147,7 +147,7 @@
         "0x7111": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_1",
-            "label": "D1",
+            "label": "D₁",
             "aliases": [
                 "MI_D1"
             ]
@@ -155,7 +155,7 @@
         "0x7112": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_SHARP_1",
-            "label": "D♯1",
+            "label": "D♯₁",
             "aliases": [
                 "MI_Ds1",
                 "MI_Eb1"
@@ -164,7 +164,7 @@
         "0x7113": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_E_1",
-            "label": "E1",
+            "label": "E₁",
             "aliases": [
                 "MI_E1"
             ]
@@ -172,7 +172,7 @@
         "0x7114": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_1",
-            "label": "F1",
+            "label": "F₁",
             "aliases": [
                 "MI_F1"
             ]
@@ -180,7 +180,7 @@
         "0x7115": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_SHARP_1",
-            "label": "F♯1",
+            "label": "F♯₁",
             "aliases": [
                 "MI_Fs1",
                 "MI_Gb1"
@@ -189,7 +189,7 @@
         "0x7116": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_1",
-            "label": "G1",
+            "label": "G₁",
             "aliases": [
                 "MI_G1"
             ]
@@ -197,7 +197,7 @@
         "0x7117": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_SHARP_1",
-            "label": "G♯1",
+            "label": "G♯₁",
             "aliases": [
                 "MI_Gs1",
                 "MI_Ab1"
@@ -206,7 +206,7 @@
         "0x7118": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_1",
-            "label": "A1",
+            "label": "A₁",
             "aliases": [
                 "MI_A1"
             ]
@@ -214,7 +214,7 @@
         "0x7119": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_SHARP_1",
-            "label": "A♯1",
+            "label": "A♯₁",
             "aliases": [
                 "MI_As1",
                 "MI_Bb1"
@@ -223,7 +223,7 @@
         "0x711A": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_B_1",
-            "label": "B1",
+            "label": "B₁",
             "aliases": [
                 "MI_B1"
             ]
@@ -231,7 +231,7 @@
         "0x711B": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_2",
-            "label": "C2",
+            "label": "C₂",
             "aliases": [
                 "MI_C2"
             ]
@@ -239,7 +239,7 @@
         "0x711C": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_SHARP_2",
-            "label": "C♯2",
+            "label": "C♯₂",
             "aliases": [
                 "MI_Cs2",
                 "MI_Db2"
@@ -248,7 +248,7 @@
         "0x711D": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_2",
-            "label": "D2",
+            "label": "D₂",
             "aliases": [
                 "MI_D2"
             ]
@@ -256,7 +256,7 @@
         "0x711E": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_SHARP_2",
-            "label": "D♯2",
+            "label": "D♯₂",
             "aliases": [
                 "MI_Ds2",
                 "MI_Eb2"
@@ -265,7 +265,7 @@
         "0x711F": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_E_2",
-            "label": "E2",
+            "label": "E₂",
             "aliases": [
                 "MI_E2"
             ]
@@ -273,7 +273,7 @@
         "0x7120": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_2",
-            "label": "F2",
+            "label": "F₂",
             "aliases": [
                 "MI_F2"
             ]
@@ -281,7 +281,7 @@
         "0x7121": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_SHARP_2",
-            "label": "F♯2",
+            "label": "F♯₂",
             "aliases": [
                 "MI_Fs2",
                 "MI_Gb2"
@@ -290,7 +290,7 @@
         "0x7122": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_2",
-            "label": "G2",
+            "label": "G₂",
             "aliases": [
                 "MI_G2"
             ]
@@ -298,7 +298,7 @@
         "0x7123": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_SHARP_2",
-            "label": "G♯2",
+            "label": "G♯₂",
             "aliases": [
                 "MI_Gs2",
                 "MI_Ab2"
@@ -307,7 +307,7 @@
         "0x7124": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_2",
-            "label": "A2",
+            "label": "A₂",
             "aliases": [
                 "MI_A2"
             ]
@@ -315,7 +315,7 @@
         "0x7125": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_SHARP_2",
-            "label": "A♯2",
+            "label": "A♯₂",
             "aliases": [
                 "MI_As2",
                 "MI_Bb2"
@@ -324,7 +324,7 @@
         "0x7126": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_B_2",
-            "label": "B2",
+            "label": "B₂",
             "aliases": [
                 "MI_B2"
             ]
@@ -332,7 +332,7 @@
         "0x7127": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_3",
-            "label": "C3",
+            "label": "C₃",
             "aliases": [
                 "MI_C3"
             ]
@@ -340,7 +340,7 @@
         "0x7128": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_SHARP_3",
-            "label": "C♯3",
+            "label": "C♯₃",
             "aliases": [
                 "MI_Cs3",
                 "MI_Db3"
@@ -349,7 +349,7 @@
         "0x7129": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_3",
-            "label": "D3",
+            "label": "D₃",
             "aliases": [
                 "MI_D3"
             ]
@@ -357,7 +357,7 @@
         "0x712A": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_SHARP_3",
-            "label": "D♯3",
+            "label": "D♯₃",
             "aliases": [
                 "MI_Ds3",
                 "MI_Eb3"
@@ -366,7 +366,7 @@
         "0x712B": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_E_3",
-            "label": "E3",
+            "label": "E₃",
             "aliases": [
                 "MI_E3"
             ]
@@ -374,7 +374,7 @@
         "0x712C": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_3",
-            "label": "F3",
+            "label": "F₃",
             "aliases": [
                 "MI_F3"
             ]
@@ -382,7 +382,7 @@
         "0x712D": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_SHARP_3",
-            "label": "F♯3",
+            "label": "F♯₃",
             "aliases": [
                 "MI_Fs3",
                 "MI_Gb3"
@@ -391,7 +391,7 @@
         "0x712E": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_3",
-            "label": "G3",
+            "label": "G₃",
             "aliases": [
                 "MI_G3"
             ]
@@ -399,7 +399,7 @@
         "0x712F": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_SHARP_3",
-            "label": "G♯3",
+            "label": "G♯₃",
             "aliases": [
                 "MI_Gs3",
                 "MI_Ab3"
@@ -408,7 +408,7 @@
         "0x7130": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_3",
-            "label": "A3",
+            "label": "A₃",
             "aliases": [
                 "MI_A3"
             ]
@@ -416,7 +416,7 @@
         "0x7131": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_SHARP_3",
-            "label": "A♯3",
+            "label": "A♯₃",
             "aliases": [
                 "MI_As3",
                 "MI_Bb3"
@@ -425,7 +425,7 @@
         "0x7132": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_B_3",
-            "label": "B3",
+            "label": "B₃",
             "aliases": [
                 "MI_B3"
             ]
@@ -433,7 +433,7 @@
         "0x7133": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_4",
-            "label": "C4",
+            "label": "C₄",
             "aliases": [
                 "MI_C4"
             ]
@@ -441,7 +441,7 @@
         "0x7134": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_SHARP_4",
-            "label": "C♯4",
+            "label": "C♯₄",
             "aliases": [
                 "MI_Cs4",
                 "MI_Db4"
@@ -450,7 +450,7 @@
         "0x7135": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_4",
-            "label": "D4",
+            "label": "D₄",
             "aliases": [
                 "MI_D4"
             ]
@@ -458,7 +458,7 @@
         "0x7136": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_SHARP_4",
-            "label": "D♯4",
+            "label": "D♯₄",
             "aliases": [
                 "MI_Ds4",
                 "MI_Eb4"
@@ -467,7 +467,7 @@
         "0x7137": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_E_4",
-            "label": "E4",
+            "label": "E₄",
             "aliases": [
                 "MI_E4"
             ]
@@ -475,7 +475,7 @@
         "0x7138": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_4",
-            "label": "F4",
+            "label": "F₄",
             "aliases": [
                 "MI_F4"
             ]
@@ -483,7 +483,7 @@
         "0x7139": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_SHARP_4",
-            "label": "F♯4",
+            "label": "F♯₄",
             "aliases": [
                 "MI_Fs4",
                 "MI_Gb4"
@@ -492,7 +492,7 @@
         "0x713A": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_4",
-            "label": "G4",
+            "label": "G₄",
             "aliases": [
                 "MI_G4"
             ]
@@ -500,7 +500,7 @@
         "0x713B": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_SHARP_4",
-            "label": "G♯4",
+            "label": "G♯₄",
             "aliases": [
                 "MI_Gs4",
                 "MI_Ab4"
@@ -509,7 +509,7 @@
         "0x713C": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_4",
-            "label": "A4",
+            "label": "A₄",
             "aliases": [
                 "MI_A4"
             ]
@@ -517,7 +517,7 @@
         "0x713D": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_SHARP_4",
-            "label": "A♯4",
+            "label": "A♯₄",
             "aliases": [
                 "MI_As4",
                 "MI_Bb4"
@@ -526,7 +526,7 @@
         "0x713E": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_B_4",
-            "label": "B4",
+            "label": "B₄",
             "aliases": [
                 "MI_B4"
             ]
@@ -534,7 +534,7 @@
         "0x713F": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_5",
-            "label": "C5",
+            "label": "C₅",
             "aliases": [
                 "MI_C5"
             ]
@@ -542,7 +542,7 @@
         "0x7140": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_C_SHARP_5",
-            "label": "C♯5",
+            "label": "C♯₅",
             "aliases": [
                 "MI_Cs5",
                 "MI_Db5"
@@ -551,7 +551,7 @@
         "0x7141": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_5",
-            "label": "D5",
+            "label": "D₅",
             "aliases": [
                 "MI_D5"
             ]
@@ -559,7 +559,7 @@
         "0x7142": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_D_SHARP_5",
-            "label": "D♯5",
+            "label": "D♯₅",
             "aliases": [
                 "MI_Ds5",
                 "MI_Eb5"
@@ -568,7 +568,7 @@
         "0x7143": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_E_5",
-            "label": "E5",
+            "label": "E₅",
             "aliases": [
                 "MI_E5"
             ]
@@ -576,7 +576,7 @@
         "0x7144": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_5",
-            "label": "F5",
+            "label": "F₅",
             "aliases": [
                 "MI_F5"
             ]
@@ -584,7 +584,7 @@
         "0x7145": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_F_SHARP_5",
-            "label": "F♯5",
+            "label": "F♯₅",
             "aliases": [
                 "MI_Fs5",
                 "MI_Gb5"
@@ -593,7 +593,7 @@
         "0x7146": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_5",
-            "label": "G5",
+            "label": "G₅",
             "aliases": [
                 "MI_G5"
             ]
@@ -601,7 +601,7 @@
         "0x7147": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_G_SHARP_5",
-            "label": "G♯5",
+            "label": "G♯₅",
             "aliases": [
                 "MI_Gs5",
                 "MI_Ab5"
@@ -610,7 +610,7 @@
         "0x7148": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_5",
-            "label": "A5",
+            "label": "A₅",
             "aliases": [
                 "MI_A5"
             ]
@@ -618,7 +618,7 @@
         "0x7149": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_A_SHARP_5",
-            "label": "A♯5",
+            "label": "A♯₅",
             "aliases": [
                 "MI_As5",
                 "MI_Bb5"
@@ -627,7 +627,7 @@
         "0x714A": {
             "group": "midi",
             "key": "QK_MIDI_NOTE_B_5",
-            "label": "B5",
+            "label": "B₅",
             "aliases": [
                 "MI_B5"
             ]
