@@ -328,7 +328,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
 #if defined(VIA_INSECURE)
                         matrix_row_t value = matrix_get_row(row + offset);
-#elif !defined(VIA_INSECURE) && defined(SECURE_ENABLE)
+#elif defined(SECURE_ENABLE)
                         matrix_row_t value = 0;
                         if (secure_is_unlocked()) {
                             value = matrix_get_row(row + offset);
