@@ -9,7 +9,7 @@
     "encoder": {
         "enabled": true,
         "rotary": [
-            {"pin_a": "A10", "pin_b": "A8", "resolution": 4}
+            {"pin_a": "A10", "pin_b": "A8"}
         ]
     },
     "layouts": {
