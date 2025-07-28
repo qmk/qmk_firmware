@@ -5,6 +5,17 @@
 #include "keymap_german.h"
 #include "adelholtz.h"
 
+// Buffer to store the last 3 keycodes
+static uint16_t last_keycodes[3] = {KC_NO, KC_NO, KC_NO};
+
+// Function to update keycode history
+void update_keycode_history(uint16_t keycode) {
+  // Shift older keycodes
+  last_keycodes[2] = last_keycodes[1];
+  last_keycodes[1] = last_keycodes[0];
+  last_keycodes[0] = keycode;
+}
+
 // LMAGIC and RMAGIC definitions
 #include "magic.c"
 #include "tap_dance.c"
@@ -34,6 +45,7 @@ const char PROGMEM chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] =
 // custom keystroke main logic
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
+    update_keycode_history(keycode);
     switch (keycode) {
       case RELOAD: {
         SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_LGUI("r")

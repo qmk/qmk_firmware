@@ -147,12 +147,18 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
     } break;
     case HRM_GUI_D: {
       MAGIC_STRING("d", KC_NO);
-    } break;
+    } break;es
     case TRL_SPECIAL_F: {
       MAGIC_STRING("f", KC_NO);
     } break;
     case KC_E: {
-      MAGIC_STRING("nt", KC_NO);
+      if (last_keycodes[0] == KC_E && last_keycodes[1] == KC_O) {
+        register_code16(KC_BSPC);
+        register_code16(KC_BSPC);
+        MAGIC_STRING("ö", KC_NO);
+      }else {
+        MAGIC_STRING("nt", KC_NO);
+      }
     } break;
     case KC_I: {
       MAGIC_STRING("ng", KC_NO);
