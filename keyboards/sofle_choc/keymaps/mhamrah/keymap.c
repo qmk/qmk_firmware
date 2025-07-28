@@ -19,6 +19,19 @@
 
 char rgb_str[10];
 
+// Custom 8x8 layer bitmaps (each array is 8 bytes for 8x8 pixels)
+static const uint8_t PROGMEM layer_main_bitmap[] = {
+    0x3C, 0x42, 0x81, 0x99, 0x99, 0x81, 0x42, 0x3C  // Main layer - circle with dots (home icon)
+};
+
+static const uint8_t PROGMEM layer_symbols_bitmap[] = {
+    0x00, 0x24, 0x66, 0xFF, 0xFF, 0x66, 0x24, 0x00  // Symbols layer - diamond/star pattern
+};
+
+static const uint8_t PROGMEM layer_util_bitmap[] = {
+    0x1C, 0x22, 0x49, 0x49, 0x49, 0x49, 0x22, 0x1C  // Util layer - gear/settings icon
+};
+
 enum layer_names {
     _MAC_DEFAULT,
     _MAC_SYMBOLS,
@@ -77,6 +90,20 @@ const char* get_rgb_mode_name(uint8_t mode) {
     }
 }
 
+// Function to draw 8x8 bitmap by setting individual pixels
+void oled_write_bitmap(const uint8_t *bitmap, uint8_t start_col, uint8_t start_row, bool invert) {
+    for (uint8_t row = 0; row < 8; row++) {
+        uint8_t byte = pgm_read_byte(&bitmap[row]);
+        if (invert) {
+            byte = ~byte;
+        }
+        for (uint8_t col = 0; col < 8; col++) {
+            bool pixel_on = (byte & (1 << (7 - col))) != 0;
+            oled_write_pixel(start_col + col, start_row + row, pixel_on);
+        }
+    }
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_MAC_DEFAULT] = 
@@ -84,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,     KC_1,   KC_2, KC_3, KC_4,           KC_5,                   KC_6,   KC_7,           KC_8, KC_9, KC_0,       KC_MINUS, 
     KC_TAB,     KC_Q,   KC_W, KC_E, KC_R,           KC_T,                   KC_Y,   KC_U,           KC_I, KC_O, KC_P,       KC_EQUAL, 
     KC_RCTL,    KC_A,   KC_S, KC_D, KC_F,   KC_G,                   KC_H,   KC_J,   KC_K, KC_L, KC_SCLN,    KC_QUOT, 
-    LSFT_T(KC_LBRC),    KC_B,   KC_Z, KC_X, KC_C,   KC_V,  KC_MUTE,     KC_MPLY, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, RSFT_T(KC_RBRC), 
+    KC_LSFT,    KC_B,   KC_Z, KC_X, KC_C,   KC_V,  KC_MUTE,     KC_MPLY, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, 
                 RGB_CYCLE, LSA_T(KC_TAB), LCA_T(KC_ESC), MO(1), LCMD_T(KC_SPC),     KC_SPC, KC_ENT, SCMD_T(KC_TAB), MO(2), MOD_MEH  
             ),
             
@@ -116,6 +143,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+// Global key counter for OLED display
+static uint16_t key_count = 0;
+
 // Handle custom keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
@@ -123,14 +153,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 cycle_custom_rgb_mode(true);
             }
-            return false;
+            return false;  // Don't count RGB keys for WPM or key counter
         case RGB_CYCLE_REV:
             if (record->event.pressed) {
                 cycle_custom_rgb_mode(false);
             }
-            return false;
+            return false;  // Don't count RGB keys for WPM or key counter
         default:
-            return true;
+            // Increment key counter and allow WPM tracking for regular keys
+            if (record->event.pressed) {
+                key_count++;
+            }
+            return true;  // This allows QMK's built-in WPM system to process the keypress
     }
 }
 
@@ -142,19 +176,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     return OLED_ROTATION_270; 
 }
 
-// Layer icons (8x8 bitmaps)
-static const char PROGMEM main_icon[] = {
-    0x3C, 0x42, 0x81, 0x81, 0x81, 0x81, 0x42, 0x3C
-};
-
-static const char PROGMEM symbols_icon[] = {
-    0x18, 0x24, 0x42, 0x99, 0x99, 0x42, 0x24, 0x18
-};
-
-static const char PROGMEM util_icon[] = {
-    0xFF, 0x81, 0xBD, 0xA5, 0xA5, 0xBD, 0x81, 0xFF
-};
-
 // Draw to OLED
 bool oled_task_user() {
     if (is_keyboard_master()) {
@@ -163,25 +184,28 @@ bool oled_task_user() {
         sprintf(rgb_str, "WPM:%03d", get_current_wpm());
         oled_write(rgb_str, false);
 
-        // Layer with icon
-        oled_set_cursor(0, 1);
-        switch (get_highest_layer(layer_state)) {
+        // Draw layer bitmap above layer name
+        uint8_t current_layer = get_highest_layer(layer_state);
+        switch (current_layer) {
             case _MAC_DEFAULT:
-                oled_write_raw_P(main_icon, sizeof(main_icon));
-                oled_write(" Main  ", false);
+                oled_write_bitmap(layer_main_bitmap, 0, 8, false);  // Row 1 (8 pixels down)
+                oled_set_cursor(0, 2);  // Row 2 for text
+                oled_write_P(PSTR("Main"), false);
                 break;
             case _MAC_SYMBOLS:
-                oled_write_raw_P(symbols_icon, sizeof(symbols_icon));
-                oled_write(" Syms  ", false);
+                oled_write_bitmap(layer_symbols_bitmap, 0, 8, false);
+                oled_set_cursor(0, 2);
+                oled_write_P(PSTR("Syms"), false);
                 break;
             case _MAC_UTIL:
-                oled_write_raw_P(util_icon, sizeof(util_icon));
-                oled_write(" Util  ", false);
+                oled_write_bitmap(layer_util_bitmap, 0, 8, false);
+                oled_set_cursor(0, 2);
+                oled_write_P(PSTR("Util"), false);
                 break;
         }
 
         // RGB info with name
-        oled_set_cursor(0, 2);
+        oled_set_cursor(0, 3);
         if (!(rgb_matrix_is_enabled())) {
             oled_write_P(PSTR("RGB:Off"), false);
         } else {
@@ -189,20 +213,25 @@ bool oled_task_user() {
             oled_write(get_rgb_mode_name(current_mode), false);
         }
     } else {
-        // Slave side - system stats and time
+        // Slave side - uptime and activity
         oled_set_cursor(0, 0);
-        oled_write_P(PSTR("SYSTEM"), false);
+        oled_write_P(PSTR("UPTIME"), false);
         
         oled_set_cursor(0, 1);
-        // Simple time display (you'll need to implement time sync)
-        oled_write_P(PSTR("--:--"), false);
+        // Show timer in seconds (simple uptime counter)
+        static uint32_t start_time = 0;
+        if (start_time == 0) start_time = timer_read32();
+        uint32_t uptime_sec = (timer_read32() - start_time) / 1000;
+        sprintf(rgb_str, "%02d:%02d", (int)(uptime_sec / 60), (int)(uptime_sec % 60));
+        oled_write(rgb_str, false);
         
         oled_set_cursor(0, 2);
-        oled_write_P(PSTR("STATS"), false);
+        oled_write_P(PSTR("KEYLOG"), false);
         
         oled_set_cursor(0, 3);
-        // Placeholder for CPU usage (requires external script)
-        oled_write_P(PSTR("CPU:--"), false);
+        // Show total key press count
+        sprintf(rgb_str, "%04d", key_count);
+        oled_write(rgb_str, false);
     }
 
     return false;
