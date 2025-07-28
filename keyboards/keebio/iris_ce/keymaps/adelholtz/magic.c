@@ -92,6 +92,9 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) {
     case TRL_SPECIAL_F: {
       MAGIC_STRING("unction", KC_NO);
     } break;
+    case KC_I: {
+      MAGIC_STRING("on", KC_NO);
+    } break;
     case KC_M: {
       MAGIC_STRING("m", KC_NO);
     } break;
@@ -147,6 +150,12 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
     } break;
     case TRL_SPECIAL_F: {
       MAGIC_STRING("f", KC_NO);
+    } break;
+    case KC_E: {
+      MAGIC_STRING("nt", KC_NO);
+    } break;
+    case KC_I: {
+      MAGIC_STRING("ng", KC_NO);
     } break;
     case TRL_MEDIA_P: {
       MAGIC_STRING("p", KC_NO);
