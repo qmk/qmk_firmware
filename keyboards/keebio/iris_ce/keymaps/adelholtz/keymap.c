@@ -45,7 +45,10 @@ const char PROGMEM chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] =
 // custom keystroke main logic
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    update_keycode_history(keycode);
+    if (keycode != TD(NAV_LMAGIC) && keycode != TD(XTRA_RMAGIC)) {
+      update_keycode_history(keycode);
+    }
+
     switch (keycode) {
       case RELOAD: {
         SEND_STRING(detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS ? SS_LGUI("r")

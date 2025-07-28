@@ -2,7 +2,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TD(NAV_LMAGIC):
         case TD(XTRA_RMAGIC):
-            return TAPPING_TERM - 75;
+            return TAPPING_TERM - 50;
         default:
             return TAPPING_TERM;
     }
