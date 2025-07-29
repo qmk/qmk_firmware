@@ -39,7 +39,7 @@
 
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.
-#define VIA_PROTOCOL_VERSION 0x000C
+#define VIA_PROTOCOL_VERSION 0x000D
 
 // This is a version number for the firmware for the keyboard.
 // It can be used to ensure the VIA keyboard definition and the firmware
@@ -82,6 +82,8 @@ enum via_keyboard_value_id {
     id_switch_matrix_state = 0x03,
     id_firmware_version    = 0x04,
     id_device_indication   = 0x05,
+    id_secure_status       = 0x06,
+    id_keycode_version     = 0x07,
 };
 
 enum via_channel_id {
