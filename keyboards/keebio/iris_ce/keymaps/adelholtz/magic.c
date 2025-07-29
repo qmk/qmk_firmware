@@ -22,8 +22,7 @@
  * Returns:
  * - true if the key should be remembered, false otherwise.
  */
-bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
-                            uint8_t *remembered_mods) {
+bool remember_last_key_user(uint16_t keycode, keyrecord_t *record, uint8_t *remembered_mods) {
   switch (keycode) {
     case CW_TOGG:
     case KC_ESC:
@@ -50,20 +49,19 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t *record,
  * - str: The string to send.
  * - repeat_keycode: The keycode to set for repeat functionality.
  */
-#define MAGIC_STRING(str, repeat_keycode) \
-  magic_send_string_P(PSTR(str), (repeat_keycode))
+#define MAGIC_STRING(str, repeat_keycode) magic_send_string_P(PSTR(str), (repeat_keycode))
 
-  /**
-   * magic_send_string_P
-   * -------------------
-   * Sends a string stored in program memory with a delay between each character
-   * and sets the last keycode for repeat functionality. This function is used
-   * internally by the MAGIC_STRING macro.
-   *
-   * Parameters:
-   * - str: A pointer to the string stored in program memory.
-   * - repeat_keycode: The keycode to set for repeat functionality.
-   */
+/**
+ * magic_send_string_P
+ * -------------------
+ * Sends a string stored in program memory with a delay between each character
+ * and sets the last keycode for repeat functionality. This function is used
+ * internally by the MAGIC_STRING macro.
+ *
+ * Parameters:
+ * - str: A pointer to the string stored in program memory.
+ * - repeat_keycode: The keycode to set for repeat functionality.
+ */
 static void magic_send_string_P(const char *str, uint16_t repeat_keycode) {
   send_string_with_delay_P(str, TAP_CODE_DELAY);  // Send the string.
   set_last_keycode(repeat_keycode);  // 2024-03-09 Disabled sending of string
@@ -116,9 +114,7 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) {
     } break;
   }
 }
-static void process_left_magic_static(void){
-    process_left_magic(get_last_keycode(), get_last_mods());
-}
+static void process_left_magic_static(void) { process_left_magic(get_last_keycode(), get_last_mods()); }
 /**
  * RMAGIC definitions
  * -------------------
@@ -155,13 +151,22 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
       if (last_keycodes[1] == KC_O) {
         tap_code16(KC_BSPC);
         tap_code16(KC_BSPC);
-        MAGIC_STRING("ö", KC_NO); // SS_TAP maybe
-      }else {
+        tap_code16(DE_ODIA);
+      } else if (last_keycodes[1] == KC_A) {
+        tap_code16(KC_BSPC);
+        tap_code16(KC_BSPC);
+        tap_code16(DE_ADIA);
+      } else if (last_keycodes[1] == KC_U) {
+        tap_code16(KC_BSPC);
+        tap_code16(KC_BSPC);
+        tap_code16(DE_UDIA);
+      } else {
         MAGIC_STRING("nt", KC_NO);
       }
     } break;
     case KC_I: {
       MAGIC_STRING("ng", KC_NO);
+    } break;
     case KC_M: {
       MAGIC_STRING("ent", KC_NO);
     } break;
@@ -189,6 +194,4 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
     } break;
   }
 }
-static void process_right_magic_static(void){
-    process_right_magic(get_last_keycode(), get_last_mods());
-}
+static void process_right_magic_static(void) { process_right_magic(get_last_keycode(), get_last_mods()); }
