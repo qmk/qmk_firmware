@@ -98,7 +98,7 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) {
     case KC_M: {
       MAGIC_STRING("m", KC_NO);
     } break;
-    case KC_N: {
+    case HRL_BRACKETS_N: {
       MAGIC_STRING("n", KC_NO);
     } break;
     case DE_O: {
@@ -162,6 +162,8 @@ static void process_right_magic(uint16_t keycode, uint8_t mods) {
     } break;
     case KC_I: {
       MAGIC_STRING("ng", KC_NO);
+    case KC_M: {
+      MAGIC_STRING("ent", KC_NO);
     } break;
     case TRL_MEDIA_P: {
       MAGIC_STRING("p", KC_NO);
