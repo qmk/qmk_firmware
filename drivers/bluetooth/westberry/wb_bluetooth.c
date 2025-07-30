@@ -1,25 +1,5 @@
-/*
- * Community Westberry wireless bluetooth support for QMK
- *
- * This code is derived from a substantially simplified version of the
- * westberry wireless code released from https://github.com/WestberryTech
- *
- * Prototype
- * The plan is to come up with a somwhat hacky version that just wraps the
- * existing implementation in wireless.c.
- *
- * M0
- * Refactor wireless.c away using the methods in module.c directly
- *
- * M1
- * Refactor module.c code away so Usmsg.c is used directly
- *
- * M2
- * Refactor smsg.c code away so QMK UART code is used directly
- *
- * M3
- * Add back in necessary sleep code
- */
+// Copyright 2025 emolitor (github.com/emolitor)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
 #include "bluetooth.h"
