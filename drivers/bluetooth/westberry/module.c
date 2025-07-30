@@ -90,7 +90,7 @@ void md_receive_host_cb(bool resume) {}
 
 static void md_receive_msg_task(void) {
     static uint32_t data_count = 0x00;
-    static uint8_t data_remain = 0x00;
+    static uint8_t  data_remain = 0x00;
 
     while (uart_available()) {
         uint8_t data = uart_read();
@@ -156,7 +156,7 @@ static void md_receive_msg_task(void) {
             switch (md_rev_payload[0]) {
                 case MD_REV_CMD_RAW: {
                     uint8_t *pdata;
-                    uint8_t len;
+                    uint8_t  len;
 
                     len   = md_rev_payload[2];
                     pdata = &md_rev_payload[3];
@@ -206,7 +206,7 @@ static void md_receive_msg_task(void) {
 
 static void md_send_pkt_task(void) {
     static uint32_t smsg_timer = 0x00;
-    static uint8_t smsg_retry  = 0;
+    static uint8_t  smsg_retry  = 0;
 
     switch (smsg_get_state()) {
         case smsg_state_busy: {
@@ -240,7 +240,6 @@ static void md_send_pkt_task(void) {
 }
 
 void md_init(void) {
-
     uart_init(MD_BAUD_RATE);
     smsg_init();
 
@@ -248,33 +247,27 @@ void md_init(void) {
 }
 
 void md_main_task(void) {
-
     md_send_pkt_task();
     md_receive_msg_task();
 }
 
 uint8_t *md_getp_state(void) {
-
     return &md_info.state;
 }
 
 uint8_t *md_getp_bat(void) {
-
     return &md_info.bat;
 }
 
 uint8_t *md_getp_indicator(void) {
-
     return &md_info.indicator;
 }
 
 uint8_t md_get_version(void) {
-
     return md_info.version;
 }
 
 void md_send_pkt(uint8_t *data, uint32_t len) {
-
     if (!data || !len) {
         return;
     }
@@ -419,7 +412,6 @@ void md_send_raw(uint8_t *data, uint8_t length) {
 
 void md_devs_change(uint8_t devs, bool reset) __attribute__((weak));
 void md_devs_change(uint8_t devs, bool reset) {
-
     switch (devs) {
         case DEVS_USB: {
             md_send_devctrl(MD_SND_CMD_DEVCTRL_USB);
@@ -466,7 +458,6 @@ void md_devs_change(uint8_t devs, bool reset) {
 }
 
 bool md_inquire_bat(void) {
-
     if (smsg_is_busy()) {
         return false;
     }
