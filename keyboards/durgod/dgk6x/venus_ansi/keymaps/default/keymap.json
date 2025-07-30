@@ -1,5 +1,5 @@
 {
-  "keyboard": "durgod/dgk6x/venus",
+  "keyboard": "durgod/dgk6x/venus_ansi",
   "keymap": "default",
   "layout": "LAYOUT_60_ansi",
   "layers": [
