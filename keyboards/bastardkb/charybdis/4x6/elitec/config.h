@@ -3,3 +3,4 @@
 #pragma once
 
 #define POINTING_DEVICE_CS_PIN F0
+#define SPLIT_HAND_PIN_LOW_IS_LEFT
