@@ -23,15 +23,15 @@ typedef struct {
 
 typedef struct {
     smsg_states_t state;
-    smsg_ptr_t *ptr;
-    smsg_ptr_t *in_ptr;
-    smsg_ptr_t *out_ptr;
-    uint8_t *buffer;
+    smsg_ptr_t    *ptr;
+    smsg_ptr_t    *in_ptr;
+    smsg_ptr_t    *out_ptr;
+    uint8_t       *buffer;
 } smsg_t;
 
 static smsg_ptr_t smsg_ptr[SMSG_NUM];
-static uint8_t smsg_buffer[SMSG_BUF_SIZE];
-static smsg_t smsg_instance;
+static uint8_t    smsg_buffer[SMSG_BUF_SIZE];
+static smsg_t     smsg_instance;
 
 void smsg_init(void) {
     smsg_instance.buffer    = smsg_buffer;
@@ -44,7 +44,6 @@ void smsg_init(void) {
 }
 
 bool smsg_push(uint8_t *buf, uint32_t size) {
-
     if (smsg_instance.in_ptr == END_PTR) {
         if (smsg_instance.ptr == smsg_instance.out_ptr) {
             return false;
@@ -77,7 +76,6 @@ bool smsg_push(uint8_t *buf, uint32_t size) {
 }
 
 uint32_t smsg_peek(uint8_t *buf) {
-
     if (smsg_instance.out_ptr != smsg_instance.in_ptr) {
         uint32_t size;
 
@@ -91,7 +89,6 @@ uint32_t smsg_peek(uint8_t *buf) {
 }
 
 void smsg_pop(void) {
-
     if (smsg_instance.out_ptr != smsg_instance.in_ptr) {
         if (smsg_instance.out_ptr == END_PTR) {
             smsg_instance.out_ptr = smsg_instance.ptr;
@@ -102,17 +99,14 @@ void smsg_pop(void) {
 }
 
 smsg_states_t smsg_get_state(void) {
-
     return smsg_instance.state;
 }
 
 void smsg_set_state(smsg_states_t state) {
-
     smsg_instance.state = state;
 }
 
 bool smsg_is_busy(void) {
-
     if (smsg_instance.out_ptr != smsg_instance.in_ptr) {
         return true;
     }
