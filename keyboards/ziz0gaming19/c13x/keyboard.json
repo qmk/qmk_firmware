@@ -7,12 +7,9 @@
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
-    "nkro": true,
-    "via": true
+    "nkro": true
   },
   "matrix_pins": {
     "cols": ["F7", "B1", "B3", "B2", "B6", "C6", "D7", "E6", "B4", "B5"],
