@@ -83,7 +83,7 @@ enum via_keyboard_value_id {
     id_firmware_version    = 0x04,
     id_device_indication   = 0x05,
     id_secure_status       = 0x06,
-    id_keycodes_version     = 0x07,
+    id_keycodes_version    = 0x07,
 };
 
 enum via_channel_id {
