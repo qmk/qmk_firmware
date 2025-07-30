@@ -23,10 +23,10 @@ typedef struct {
 
 typedef struct {
     smsg_states_t state;
-    smsg_ptr_t   *ptr;
-    smsg_ptr_t   *in_ptr;
-    smsg_ptr_t   *out_ptr;
-    uint8_t      *buffer;
+    smsg_ptr_t *  ptr;
+    smsg_ptr_t *  in_ptr;
+    smsg_ptr_t *  out_ptr;
+    uint8_t *     buffer;
 } smsg_t;
 
 static smsg_ptr_t smsg_ptr[SMSG_NUM];
