@@ -1,6 +1,6 @@
-# hyperbolas
+# Hyperbolas
 
-![hyperbolas](imgur.com image replace me!)
+![hyperbolas](https://mint-tomato-83b.notion.site/image/attachment%3A80a8f4b8-9c85-41f6-8fe5-5ce0d04d3ee3%3A4k_2025v6_Hyperbolas16.jpg?table=block&id=2303f3e3-ee19-8076-9b95-e92cb368dec3&spaceId=41a0dc7a-fdbe-4a75-8b60-e3a45cfce97f&width=2000&userId=&cache=v2)
 
 TKL project from HLB with 8K pcb layout compatibility.
 
