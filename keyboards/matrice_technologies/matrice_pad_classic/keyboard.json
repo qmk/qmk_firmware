@@ -14,7 +14,6 @@
     "rows": ["B4", "E6", "D7"],
     "cols": ["D1", "D0", "D4", "C6"]
   },
-  "matrix_size": { "rows": 3, "cols": 4 },
   "diode_direction": "ROW2COL",
 
   "features": {
