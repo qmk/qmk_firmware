@@ -17,7 +17,9 @@
   "diode_direction": "ROW2COL",
 
   "features": {
-	  "console": true
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true
    },
 
 
