@@ -1,0 +1,2 @@
+- name: Build QMK Firmware
+  uses: d3adb5/build-qmk-fw@v1
