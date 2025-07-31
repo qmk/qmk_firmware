@@ -1,6 +1,6 @@
-# matrice_pad_classic
+# Matrice Pad Classic (Macropad)
 
-![matrice_pad_classic](imgur.com image replace me!)
+![matrice_pad_classic](https://i.etsystatic.com/59084886/r/il/add86b/6960382220/il_1588xN.6960382220_6ify.jpg)
 
 A simple 3x4 macropad utilizes the Arduino Pro Micro
 
