@@ -23,14 +23,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F21, KC_F22, KC_F23, KC_F24
     )
 };
-
-
-void matrix_scan_user(void) {
-    static bool last = false;
-    bool now = !readPin(F6);
-
-    if (now && !last) {
-        tap_code16(KC_MUTE);
-    }
-    last = now;
-}
