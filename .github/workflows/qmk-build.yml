@@ -1,0 +1,36 @@
+name: Build CYBR-X Firmware
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout QMK
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install QMK CLI
+        run: |
+          python3 -m pip install --upgrade qmk
+          qmk setup -y
+
+      - name: Compile Firmware
+        run: |
+          qmk compile -kb aahil/CYBR-X -km default
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v3
+        with:
+          name: cybr_x_firmware
+          path: "*.uf2"
