@@ -16,11 +16,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-
-#define ENCODER_ENABLE_INTERRUPTS 0
-
-/* Invert CW / CCW so the knob feels reversed */
-#define ENCODER_DIRECTION_FLIP
-
-#define USB_POLLING_INTERVAL_MS 1 
-#define ENCODER_MAP_KEY_DELAY 5

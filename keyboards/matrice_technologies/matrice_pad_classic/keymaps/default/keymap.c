@@ -43,7 +43,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 void matrix_scan_user(void) {
     static bool last = false;
-    bool now = !readPin(F6);  // pressed when low
+    bool now = !readPin(F6);
 
     if (now && !last) {
         tap_code16(KC_MUTE);
