@@ -1,6 +1,6 @@
 {
     "manufacturer": "matrice_technologies",
-    "maintainer": "your_github_username",
+    "maintainer": "matricetechnologies",
     "keyboard": "matrice_pad_classic",
     "license": "GPL-2.0-or-later",
     "matrix": {
@@ -8,7 +8,7 @@
         "diode_direction": "ROW2COL",
         "rows": ["B4", "E6", "D7"]
     },
-    "url": "https://github.com/matrice_technologies/matrice_pad_classic",
+    "url": "https://github.com/matricetechnologies/matricepad_classic",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6060",
