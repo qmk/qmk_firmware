@@ -1,4 +1,4 @@
-#include "CYBR-X.h"
+#include "cybr-x.h"
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     switch(index) {
