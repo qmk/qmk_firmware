@@ -36,11 +36,6 @@ void keyboard_post_init_user(void) {
     //debug_mouse = true;
 }
 
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    tap_code16(clockwise ? KC_VOLU : KC_VOLD);
-    return false;
-}
-
 void matrix_scan_user(void) {
     static bool last = false;
     bool now = !readPin(F6);
