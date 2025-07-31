@@ -1,27 +1,36 @@
 {
-  "keyboard":      "matrice_pad_classic",
-  "manufacturer":  "Matrice Technologies",
-  "maintainer":    "your_github_username",
-  "url":           "https://github.com/matrice_technologies/matrice_pad_classic",
-  "license":       "GPL-2.0-or-later",
-
-  "usb": {
-    "vid":            "0xFEED",
-    "pid":            "0x6060",
-    "device_version": "0.0.1"
-  },
-
-  "matrix": {
-    "rows":           ["B4", "E6", "D7"],
-    "cols":           ["D1", "D0", "D4", "C6"],
-    "diode_direction":"ROW2COL"
-  },
-
-  "layouts": {
-    "LAYOUT_3x4": [
-      ["0",  "1",  "2",  "3"],
-      ["4",  "5",  "6",  "7"],
-      ["8",  "9", "10", "11"]
-    ]
-  }
+    "manufacturer": "matrice_technologies",
+    "maintainer": "your_github_username",
+    "keyboard": "matrice_pad_classic",
+    "license": "GPL-2.0-or-later",
+    "matrix": {
+        "cols": ["D1", "D0", "D4", "C6"],
+        "diode_direction": "ROW2COL",
+        "rows": ["B4", "E6", "D7"]
+    },
+    "url": "https://github.com/matrice_technologies/matrice_pad_classic",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6060",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT_3x4": {
+            "json_layout": true,
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2}
+            ]
+        }
+    }
 }
