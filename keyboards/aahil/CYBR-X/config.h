@@ -17,7 +17,7 @@
 // External matrix via I2C
 #define MATRIX_ROW_PINS {}
 #define MATRIX_COL_PINS {}
-#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION ROW2COL
 
 // Use MCP23017 I2C Expander
 #define MCP23017
