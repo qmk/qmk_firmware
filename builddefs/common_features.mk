@@ -886,7 +886,7 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
 endif
 
 BLUETOOTH_ENABLE ?= no
-VALID_BLUETOOTH_DRIVER_TYPES := bluefruit_le custom rn42
+VALID_BLUETOOTH_DRIVER_TYPES := bluefruit_le custom rn42 westberry
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BLUETOOTH_DRIVER,BLUETOOTH_DRIVER="$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
@@ -902,12 +902,15 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         SPI_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
-    endif
-
-    ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
+    else ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
         UART_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
+    else ifeq ($(strip $(BLUETOOTH_DRIVER)), westberry)
+        UART_DRIVER_REQUIRED = yes
+        SRC += $(DRIVER_PATH)/bluetooth/westberry/module.c
+        SRC += $(DRIVER_PATH)/bluetooth/westberry/smsg.c
+        SRC += $(DRIVER_PATH)/bluetooth/westberry/wb_bluetooth.c
     endif
 endif
 
@@ -940,7 +943,7 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     endif
 endif
 
-VALID_BATTERY_DRIVER_TYPES := adc custom vendor
+VALID_BATTERY_DRIVER_TYPES := adc custom westberry vendor
 
 BATTERY_DRIVER ?= adc
 ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
