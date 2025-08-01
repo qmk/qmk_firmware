@@ -44,7 +44,9 @@ bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
 void eeconfig_init_via(void);
 #else
+bool dynamic_keymap_is_valid(void);
 void dynamic_keymap_reset(void);
+void dynamic_keymap_macro_reset(void);
 #endif // VIA_ENABLE
 
 #ifndef NKRO_DEFAULT_ON
@@ -155,6 +157,7 @@ void eeconfig_init_quantum(void) {
     eeconfig_init_via();
 #elif defined(DYNAMIC_KEYMAP_ENABLE)
     dynamic_keymap_reset();
+    dynamic_keymap_macro_reset();
 #endif
 
     eeconfig_init_kb();
@@ -183,21 +186,29 @@ void eeconfig_disable(void) {
 
 bool eeconfig_is_enabled(void) {
     bool is_eeprom_enabled = nvm_eeconfig_is_enabled();
-#ifdef VIA_ENABLE
+#if defined(VIA_ENABLE)
     if (is_eeprom_enabled) {
         is_eeprom_enabled = via_eeprom_is_valid();
     }
-#endif // VIA_ENABLE
+#elif defined(DYNAMIC_KEYMAP_ENABLE)
+    if (is_eeprom_enabled) {
+        is_eeprom_enabled = dynamic_keymap_is_valid();
+    }
+#endif
     return is_eeprom_enabled;
 }
 
 bool eeconfig_is_disabled(void) {
     bool is_eeprom_disabled = nvm_eeconfig_is_disabled();
-#ifdef VIA_ENABLE
+#if defined(VIA_ENABLE)
     if (!is_eeprom_disabled) {
         is_eeprom_disabled = !via_eeprom_is_valid();
     }
-#endif // VIA_ENABLE
+#elif defined(DYNAMIC_KEYMAP_ENABLE)
+    if (!is_eeprom_disabled) {
+        is_eeprom_disabled = !dynamic_keymap_is_valid();
+    }
+#endif
     return is_eeprom_disabled;
 }
 
