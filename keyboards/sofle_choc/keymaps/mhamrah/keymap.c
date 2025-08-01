@@ -24,21 +24,19 @@
 #include "crab.c"
 #endif
 
-char rgb_str[10];
+char rgb_str[4];
 
 // Get RGB mode name for enabled animations only
 // Based on keyboard.json enabled animations and their order in rgb_matrix_effects.inc
 const char* get_rgb_mode_name(uint8_t mode) {
     switch(mode) {
-        case 0: return "None";
-        case 1: return "Static";
-        case 2: return "Breathing";
-        case 3: return "CycleUpDn";
-        case 4: return "CycleOut";
-        case 5: return "Pinwheel";
-        case 6: return "DualBeam";
-        case 7: return "RainbowPin";
-        case 8: return "HueBreathe";
+        case 0: return "Off";
+        case 15: return "CycUpDn";
+        case 17: return "CycOut";
+        case 19: return "Pinwhl";
+        case 21: return "DualBm";
+        case 23: return "RbwPin";
+        case 27: return "HueBth";
         default:
             sprintf(rgb_str, "M%d", mode);
             return rgb_str;
@@ -159,8 +157,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LAYOUT(
     KC_GRV,     KC_1,   KC_2, KC_3, KC_4,           KC_5,                   KC_6,   KC_7,           KC_8, KC_9, KC_0,       KC_MINUS,
     KC_TAB,     KC_Q,   KC_W, KC_E, KC_R,           KC_T,                   KC_Y,   KC_U,           KC_I, KC_O, KC_P,       KC_EQUAL,
-    KC_LSFT,    KC_A,   KC_S, KC_D, KC_F,   KC_G,                   KC_H,   KC_J,   KC_K, KC_L, KC_SCLN,    KC_QUOT,
-    KC_RCTL,    KC_B,   KC_Z, KC_X, KC_C,   KC_V,  KC_MUTE,     KC_MPLY, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
+    KC_RCTL,    KC_A,   KC_S, KC_D, KC_F,   KC_G,                   KC_H,   KC_J,   KC_K, KC_L, KC_SCLN,    KC_QUOT,
+    KC_LSFT,    KC_B,   KC_Z, KC_X, KC_C,   KC_V,  KC_MUTE,     KC_MPLY, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
                 RGB_MOD, LSA_T(KC_TAB), LCA_T(KC_ESC), MO(1), LCMD_T(KC_SPC),     KC_SPC, KC_ENT, SCMD_T(KC_TAB), MO(2), SCMD(KC_SPC)
             ),
 

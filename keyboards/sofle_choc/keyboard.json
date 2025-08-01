@@ -24,6 +24,7 @@
         "driver": "ws2812",
         "split_count": [29, 29],
         "animations": {
+            "solid_color": false,
             "alphas_mods": false,
             "gradient_up_down": false,
             "gradient_left_right": false,
