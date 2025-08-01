@@ -1,6 +1,6 @@
 # Proprietary Vendor Libraries
 
-QMK Firmware cannot include support for any proprietary vendor libraries that impose additional restrictions beyond those in the GPL. This includes binary-only distributions, hardware-locked libraries, and code with redistribution limitations. This document explains why such libraries are incompatible with the GPL-based QMK Firmware and addresses common proposed workarounds.
+QMK Firmware cannot include support for any proprietary vendor libraries that impose additional restrictions beyond those in the GPL. This includes binary-only distributions, hardware-locked libraries, and code with redistribution limitations. This document explains why such libraries are incompatible with the GPL-based QMK Firmware and addresses commonly proposed workarounds.
 
 ## Architecture Constraints
 
@@ -77,7 +77,7 @@ The exception only covers libraries that:
 
 The exception covers things like Windows system DLLs or Linux glibc, not microcontroller vendor libraries or Bluetooth stacks.
 
-## Proposed Workarounds
+## Attempted Workarounds
 
 ### Architectural Separation Attempts
 
