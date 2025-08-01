@@ -46,6 +46,23 @@ bool     get_permissive_hold(uint16_t keycode, keyrecord_t *record);
 bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 
+#ifdef SPECULATIVE_HOLD
+/**
+ * Callback to say if a mod-tap key may be speculatively held.
+ *
+ * By default, speculative hold is enabled for mod-tap keys where the mod is
+ * Ctrl, Shift, and Ctrl+Shift for either hand.
+ *
+ * @param keycode  Keycode of the mod-tap key.
+ * @param record   Record associated with the mod-tap press event.
+ * @return True if the mod-tap key may be speculatively held.
+ */
+bool get_speculative_hold(uint16_t keycode, keyrecord_t *record);
+
+/** Handler to be called on press events after tap-holds are settled. */
+void process_speculative_hold(keyrecord_t *record);
+#endif // SPECULATIVE_HOLD
+
 #ifdef CHORDAL_HOLD
 /**
  * Callback to say when a key chord before the tapping term may be held.

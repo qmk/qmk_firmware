@@ -51,6 +51,19 @@ __attribute__((weak)) bool get_permissive_hold(uint16_t keycode, keyrecord_t *re
 }
 #    endif
 
+#    ifdef SPECULATIVE_HOLD
+typedef struct {
+    keypos_t key;
+    uint8_t  mods;
+} speculative_key_t;
+#        define SPECULATIVE_KEYS_SIZE 8
+static speculative_key_t speculative_keys[SPECULATIVE_KEYS_SIZE] = {};
+static uint8_t           num_speculative_keys                    = 0;
+static uint8_t           prev_speculative_mods                   = 0;
+
+static void process_speculative_press(keyrecord_t *record);
+#    endif // SPECULATIVE_HOLD
+
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 #        define REGISTERED_TAPS_SIZE 8
 // Array of tap-hold keys that have been settled as tapped but not yet released.
@@ -129,6 +142,13 @@ static void debug_waiting_buffer(void);
  * FIXME: Needs doc
  */
 void action_tapping_process(keyrecord_t record) {
+#    ifdef SPECULATIVE_HOLD
+    prev_speculative_mods = get_speculative_mods();
+    if (record.event.pressed) {
+        process_speculative_press(&record);
+    }
+#    endif // SPECULATIVE_HOLD
+
     if (process_tapping(&record)) {
         if (IS_EVENT(record.event)) {
             ac_dprintf("processed: ");
@@ -144,6 +164,12 @@ void action_tapping_process(keyrecord_t record) {
             tapping_key = (keyrecord_t){0};
         }
     }
+
+#    ifdef SPECULATIVE_HOLD
+    if (get_speculative_mods() != prev_speculative_mods) {
+        send_keyboard_report();
+    }
+#    endif // SPECULATIVE_HOLD
 
     // process waiting_buffer
     if (IS_EVENT(record.event) && waiting_buffer_head != waiting_buffer_tail) {
@@ -707,6 +733,110 @@ void waiting_buffer_scan_tap(void) {
         }
     }
 }
+
+#    ifdef SPECULATIVE_HOLD
+__attribute__((weak)) bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
+    return (QK_MOD_TAP_GET_MODS(keycode) & (MOD_LALT | MOD_LGUI)) == 0;
+}
+
+static void debug_speculative_keys(void) {
+    ac_dprintf("mods = { ");
+    for (int8_t i = 0; i < num_speculative_keys; ++i) {
+        ac_dprintf("%02X ", speculative_keys[i].mods);
+    }
+    ac_dprintf("}, keys = { ");
+    for (int8_t i = 0; i < num_speculative_keys; ++i) {
+        ac_dprintf("%02X%02X ", speculative_keys[i].key.row, speculative_keys[i].key.col);
+    }
+    ac_dprintf("}\n");
+}
+
+static void process_speculative_press(keyrecord_t *record) {
+    if (num_speculative_keys >= SPECULATIVE_KEYS_SIZE) { // Overflow!
+        ac_dprintf("SPECULATIVE KEYS OVERFLOW: IGNORING EVENT\n");
+        return;
+    }
+
+    const uint16_t keycode = get_record_keycode(record, true);
+    if (!IS_QK_MOD_TAP(keycode)) {
+        return;
+    }
+
+    uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
+    if ((mods & 0x10) != 0) { // Unpack 5-bit mods to 8-bit representation.
+        mods <<= 4;
+    }
+
+    if ((~(get_mods() | get_speculative_mods()) & mods) != 0 && get_speculative_hold(keycode, record)) {
+        add_speculative_mods(mods);
+        speculative_keys[num_speculative_keys] = (speculative_key_t){
+            .key  = record->event.key,
+            .mods = mods,
+        };
+        ++num_speculative_keys;
+
+        ac_dprintf("Speculative Hold: ");
+        debug_speculative_keys();
+    }
+}
+
+void process_speculative_hold(keyrecord_t *record) {
+    if (num_speculative_keys == 0) {
+        return; // Early return when there are no active speculative keys.
+    }
+
+    // Search for the current event.key in speculative_keys.
+    const keypos_t key = record->event.key;
+    uint8_t        i;
+    for (i = 0; i < num_speculative_keys; ++i) {
+        if (KEYEQ(speculative_keys[i].key, key)) {
+            break;
+        }
+    }
+
+    const uint16_t keycode = get_record_keycode(record, true);
+    if (IS_QK_MOD_TAP(keycode) && record->tap.count == 0) { // MT hold press.
+        if (i < num_speculative_keys) {
+            const uint8_t cleared_mods = speculative_keys[i].mods;
+            del_speculative_mods(cleared_mods);
+            // Don't call send_keyboard_report() here; allow default handling
+            // to reapply the mod before the next report.
+
+            // Remove the ith entry from speculative_keys.
+            --num_speculative_keys;
+            for (uint8_t j = i; j < num_speculative_keys; ++j) {
+                speculative_keys[j] = speculative_keys[j + 1];
+            }
+
+            ac_dprintf("Speculative Hold: settled %02x, ", cleared_mods);
+            debug_speculative_keys();
+        }
+    } else { // Tap press event; cancel speculatively-held mod.
+        if (i >= num_speculative_keys) {
+            i = 0;
+        }
+
+        // Clear mods for the ith key and all keys that follow.
+        uint8_t cleared_mods = 0;
+        for (uint8_t j = i; j < num_speculative_keys; ++j) {
+            cleared_mods |= speculative_keys[j].mods;
+        }
+
+        num_speculative_keys = i; // Remove ith and following entries.
+
+        if ((prev_speculative_mods & cleared_mods) != 0) {
+#        ifdef DUMMY_MOD_NEUTRALIZER_KEYCODE
+            neutralize_flashing_modifiers(get_mods() | prev_speculative_mods);
+#        endif // DUMMY_MOD_NEUTRALIZER_KEYCODE
+        }
+
+        del_speculative_mods(cleared_mods);
+        send_keyboard_report();
+        ac_dprintf("Speculative Hold: canceled %02x, ", cleared_mods);
+        debug_speculative_keys();
+    }
+}
+#    endif // SPECULATIVE_HOLD
 
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 static void registered_taps_add(keypos_t key) {

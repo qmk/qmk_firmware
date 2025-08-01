@@ -59,6 +59,14 @@ void    del_weak_mods(uint8_t mods);
 void    set_weak_mods(uint8_t mods);
 void    clear_weak_mods(void);
 
+#ifdef SPECULATIVE_HOLD
+uint8_t get_speculative_mods(void);
+void    set_speculative_mods(uint8_t mods);
+void    add_speculative_mods(uint8_t mods);
+void    del_speculative_mods(uint8_t mods);
+void    clear_speculative_mods(void);
+#endif // SPECULATIVE_HOLD
+
 /* oneshot modifier */
 uint8_t get_oneshot_mods(void);
 void    add_oneshot_mods(uint8_t mods);
