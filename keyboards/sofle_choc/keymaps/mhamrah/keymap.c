@@ -213,7 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // Rotate OLED
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (!is_keyboard_master()) {
-      return OLED_ROTATION_180;
+      return OLED_ROTATION_180;  // Make slave vertical like master
     }
     return OLED_ROTATION_270;
   }
@@ -243,7 +243,7 @@ bool oled_task_user() {
 
         // Line after icon
         oled_set_cursor(0, 3);
-        oled_write_P(PSTR("----"), false);
+        oled_write_P(PSTR("------"), false);
 
         // Layer name centered
         oled_set_cursor(1, 4);
@@ -261,7 +261,7 @@ bool oled_task_user() {
 
         // Line after layer name
         oled_set_cursor(0, 5);
-        oled_write_P(PSTR("----"), false);
+        oled_write_P(PSTR("------"), false);
 
         // WPM label centered
         oled_set_cursor(1, 6);
@@ -274,7 +274,7 @@ bool oled_task_user() {
 
         // Line after WPM
         oled_set_cursor(0, 8);
-        oled_write_P(PSTR("----"), false);
+        oled_write_P(PSTR("------"), false);
 
         // RGB info with name
         oled_set_cursor(0, 9);
