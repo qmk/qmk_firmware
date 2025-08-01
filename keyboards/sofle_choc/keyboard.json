@@ -24,10 +24,10 @@
         "driver": "ws2812",
         "split_count": [29, 29],
         "animations": {
-            "alphas_mods": true,
+            "alphas_mods": false,
             "gradient_up_down": false,
             "gradient_left_right": false,
-            "breathing": false,
+            "breathing": true,
             "band_sat": false,
             "band_val": false,
             "band_pinwheel_sat": false,
