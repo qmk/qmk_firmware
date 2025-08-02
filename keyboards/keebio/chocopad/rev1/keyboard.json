@@ -17,6 +17,9 @@
         "rgblight": true
     },
     "backlight": {
+        "default": {
+            "brightness": 5
+        },
         "pin": "B5",
         "levels": 6
     },
