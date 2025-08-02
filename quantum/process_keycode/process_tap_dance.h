@@ -28,15 +28,16 @@ typedef struct {
 #ifndef NO_ACTION_ONESHOT
     uint8_t oneshot_mods;
 #endif
-    bool pressed : 1;
-    bool finished : 1;
-    bool interrupted : 1;
+    bool    pressed : 1;
+    bool    finished : 1;
+    bool    interrupted : 1;
+    bool    in_use : 1;
+    uint8_t index;
 } tap_dance_state_t;
 
 typedef void (*tap_dance_user_fn_t)(tap_dance_state_t *state, void *user_data);
 
 typedef struct tap_dance_action_t {
-    tap_dance_state_t state;
     struct {
         tap_dance_user_fn_t on_each_tap;
         tap_dance_user_fn_t on_dance_finished;
@@ -79,6 +80,8 @@ typedef struct {
 #define TAP_DANCE_KEYCODE(state) TD(((tap_dance_action_t *)state) - tap_dance_actions)
 
 void reset_tap_dance(tap_dance_state_t *state);
+
+tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx);
 
 /* To be used internally */
 
