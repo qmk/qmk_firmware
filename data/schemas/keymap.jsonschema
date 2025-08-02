@@ -35,6 +35,17 @@
                 }
             }
         },
+        "dip_switches": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["on", "off"],
+                "properties": {
+                    "on": {"type": "string"},
+                    "off": {"type": "string"}
+                }
+            }
+        },
         "macros": {
             "type": "array",
             "items": {
