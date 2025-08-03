@@ -1713,12 +1713,6 @@
     "durgod/venus": {
         "target": "durgod/dgk6x/venus_ansi"
     },
-    "durgod/venus_ansi": {
-        "target": "durgod/dgk6x/venus_ansi"
-    },
-    "durgod/venus_iso": {
-        "target": "durgod/dgk6x/venus_iso"
-    },
     "dztech/tofu/ii": {
         "target": "dztech/tofu/ii/v1"
     },
