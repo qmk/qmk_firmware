@@ -9,6 +9,7 @@ from milc import cli
 from milc.questions import question, choice
 
 from qmk.constants import HAS_QMK_USERSPACE, QMK_USERSPACE
+from qmk.errors import NoSuchKeyboardError
 from qmk.path import is_keyboard, keymaps, keymap
 from qmk.git import git_get_username
 from qmk.decorators import automagic_keyboard, automagic_keymap
@@ -110,13 +111,18 @@ def new_keymap(cli):
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} does not exist! Please choose a valid name.')
         return False
 
-    # generate keymap paths
-    keymaps_dirs = keymaps(kb_name)
-    keymap_path_default = keymap(kb_name, 'default')
-    keymap_path_new = keymaps_dirs[0] / user_name
+    # validate before any keymap ops
+    try:
+        keymaps_dirs = keymaps(kb_name)
+        keymap_path_new = keymaps_dirs[0] / user_name
+    except NoSuchKeyboardError:
+        cli.log.error(f'Keymap folder for {{fg_cyan}}{kb_name}{{fg_reset}} does not exist!')
+        return False
 
-    if not keymap_path_default.exists():
-        cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')
+    keymap_path_default = keymap(kb_name, 'default')
+
+    if not keymap_path_default:
+        cli.log.error(f'Default keymap for {{fg_cyan}}{kb_name}{{fg_reset}} does not exist!')
         return False
 
     if not validate_keymap_name(user_name):
@@ -134,7 +140,7 @@ def new_keymap(cli):
         _set_converter(keymap_path_new / 'keymap.json', converter)
 
     # end message to user
-    cli.log.info(f'{{fg_green}}Created a new keymap called {{fg_cyan}}{user_name}{{fg_green}} in: {{fg_cyan}}{keymap_path_new}.{{fg_reset}}')
+    cli.log.info(f'{{fg_green}}Created a new keymap called {{fg_cyan}}{user_name}{{fg_green}} in: {{fg_cyan}}{keymap_path_new}{{fg_reset}}.')
     cli.log.info(f"Compile a firmware with your new keymap by typing: {{fg_yellow}}qmk compile -kb {kb_name} -km {user_name}{{fg_reset}}.")
 
     # Add to userspace compile if we have userspace available
