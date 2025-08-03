@@ -1,17 +1,12 @@
 {
-  "keyboard_name": "DURGOD Venus (QMK)",
-  "manufacturer": "Hoksi Technology",
-  "url": "https://www.amazon.com/dp/B07XFP5MMZ",
-  "maintainer": "pascalhansjosten",
-  "usb": {
-      "vid": "0xD60D",
-      "pid": "0x7EC6",
-      "device_version": "0.0.1"
-  },
-  "matrix_pins": {
-    "cols": ["B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "C6", "C7", "C8", "C9", "C10"],
-    "rows": ["A0", "A1", "A2", "A3", "A4"]
-  },
+    "manufacturer": "Hoksi Technology",
+    "keyboard_name": "DURGOD Venus (QMK)",
+    "maintainer": "pascalhansjosten",
+    "diode_direction": "ROW2COL",
+    "matrix_pins": {
+        "cols": ["B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "C6", "C7", "C8", "C9", "C10"],
+        "rows": ["A0", "A1", "A2", "A3", "A4"]
+    },
     "rgb_matrix": {
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
@@ -28,7 +23,6 @@
             {"matrix": [0, 11], "x": 176, "y": 0, "flags": 4},
             {"matrix": [0, 12], "x": 192, "y": 0, "flags": 4},
             {"matrix": [0, 13], "x": 216, "y": 0, "flags": 1},
-
             {"matrix": [1, 0], "x": 4, "y": 16, "flags": 4},
             {"matrix": [1, 1], "x": 24, "y": 16, "flags": 4},
             {"matrix": [1, 2], "x": 40, "y": 16, "flags": 4},
@@ -42,7 +36,6 @@
             {"matrix": [1, 10], "x": 168, "y": 16, "flags": 4},
             {"matrix": [1, 11], "x": 184, "y": 16, "flags": 4},
             {"matrix": [1, 12], "x": 200, "y": 16, "flags": 4},
-
             {"matrix": [2, 0], "x": 6, "y": 32, "flags": 4},
             {"matrix": [2, 1], "x": 28, "y": 32, "flags": 4},
             {"matrix": [2, 2], "x": 44, "y": 32, "flags": 4},
@@ -57,7 +50,6 @@
             {"matrix": [2, 11], "x": 188, "y": 32, "flags": 4},
             {"matrix": [2, 12], "x": 204, "y": 32, "flags": 4},
             {"matrix": [2, 13], "x": 220, "y": 24, "flags": 1},
-
             {"matrix": [3, 0], "x": 2, "y": 48, "flags": 1},
             {"matrix": [3, 1], "x": 19, "y": 48, "flags": 4},
             {"matrix": [3, 2], "x": 36, "y": 48, "flags": 4},
@@ -71,7 +63,6 @@
             {"matrix": [3, 10], "x": 164, "y": 48, "flags": 4},
             {"matrix": [3, 11], "x": 180, "y": 48, "flags": 4},
             {"matrix": [3, 12], "x": 202, "y": 48, "flags": 1},
-
             {"matrix": [4, 0], "x": 2, "y": 64, "flags": 1},
             {"matrix": [4, 1], "x": 22, "y": 64, "flags": 1},
             {"matrix": [4, 2], "x": 42, "y": 64, "flags": 1},
@@ -82,11 +73,16 @@
             {"matrix": [4, 12], "x": 222, "y": 64, "flags": 4}
         ]
     },
-  "diode_direction": "ROW2COL",
-  "community_layouts": ["60_iso"],
-  "layouts": {
-    "LAYOUT_60_iso": {
-      "layout": [
+    "url": "https://www.amazon.com/dp/B07XFP5MMZ",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x7EC6",
+        "vid": "0xD60D"
+    },
+    "community_layouts": ["60_iso"],
+    "layouts": {
+        "LAYOUT_60_iso": {
+            "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "@", "matrix": [0, 2], "x": 2, "y": 0},
@@ -101,7 +97,6 @@
                 {"label": "_", "matrix": [0, 11], "x": 11, "y": 0},
                 {"label": "+", "matrix": [0, 12], "x": 12, "y": 0},
                 {"label": "Backspace", "matrix": [0, 13], "x": 13, "y": 0, "w": 2},
-
                 {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5},
                 {"label": "Q", "matrix": [1, 1], "x": 1.5, "y": 1},
                 {"label": "W", "matrix": [1, 2], "x": 2.5, "y": 1},
@@ -115,7 +110,6 @@
                 {"label": "P", "matrix": [1, 10], "x": 10.5, "y": 1},
                 {"label": "{", "matrix": [1, 11], "x": 11.5, "y": 1},
                 {"label": "}", "matrix": [1, 12], "x": 12.5, "y": 1},
-
                 {"label": "CapsLock", "matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
                 {"label": "A", "matrix": [2, 1], "x": 1.75, "y": 2},
                 {"label": "S", "matrix": [2, 2], "x": 2.75, "y": 2},
@@ -130,7 +124,6 @@
                 {"label": "\"", "matrix": [2, 11], "x": 11.75, "y": 2},
                 {"label": "#", "matrix": [2, 12], "x": 12.75, "y": 2},
                 {"label": "Enter", "matrix": [2, 13], "x": 13.75, "y": 1, "w": 1.25, "h": 2},
-
                 {"label": "Shift", "matrix": [3, 0], "x": 0, "y": 3, "w": 1.25},
                 {"label": "\\", "matrix": [3, 1], "x": 1.25, "y": 3},
                 {"label": "Z", "matrix": [3, 2], "x": 2.25, "y": 3},
@@ -144,7 +137,6 @@
                 {"label": ">", "matrix": [3, 10], "x": 10.25, "y": 3},
                 {"label": "?", "matrix": [3, 11], "x": 11.25, "y": 3},
                 {"label": "Shift", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
-
                 {"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "Win", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "Alt", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
@@ -153,7 +145,7 @@
                 {"label": "Fn1", "matrix": [4, 10], "x": 11.25, "y": 4, "w": 1.25},
                 {"label": "Fn2", "matrix": [4, 11], "x": 12.5, "y": 4, "w": 1.25},
                 {"label": "Ctrl", "matrix": [4, 12], "x": 13.75, "y": 4, "w": 1.25}
-      ]
+            ]
+        }
     }
-  }
 }
