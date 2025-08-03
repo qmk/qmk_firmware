@@ -1,6 +1,6 @@
 # c13x
 
-![c13x](https://imgur.com/a/LhhLknI)
+[![c13x](https://i.imgur.com/K0koJJW.jpeg)](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired)
 
 *The C-13X is a cute 35% QAZ/Alice-like keyboard, designed by flurpyflurples, but updated by ziz0gaming19 to use ProMicro controller instead.*
 
