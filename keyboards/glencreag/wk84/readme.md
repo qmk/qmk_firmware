@@ -6,7 +6,7 @@
 A keyboard, Equipped with the WestBerry Q95 microcontroller.
 
 * Keyboard Maintainer: [GSKY](https://github.com/gksygithub)
-* Hardware Supported: WK84
+* Hardware Supported: [WK84](https://glencreag.com/products/wk84-wired-wooden-mechanical-keyboard)
 * Hardware Availability: (https://glencreag.com)
 
 Make example for this keyboard (after setting up your build environment):
