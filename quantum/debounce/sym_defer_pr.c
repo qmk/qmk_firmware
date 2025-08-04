@@ -30,8 +30,8 @@ static bool               cooked_changed;
 
 #    define DEBOUNCE_ELAPSED 0
 
-static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time);
-static void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[]);
+static inline void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time);
+static inline void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[]);
 
 void debounce_init(uint8_t num_rows) {}
 
@@ -75,7 +75,7 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
  * @param cooked The debounced key state matrix to be updated.
  * @param elapsed_time The time elapsed since the last debounce update, in milliseconds.
  */
-static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time) {
+static inline void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time) {
     counters_need_update = false;
     for (uint8_t row = 0; row < MATRIX_ROWS_PER_HAND; row++) {
         if (debounce_counters[row] != DEBOUNCE_ELAPSED) {
@@ -101,7 +101,7 @@ static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[],
  * @param raw The current raw key state matrix.
  * @param cooked The debounced key state matrix.
  */
-static void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[]) {
+static inline void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[]) {
     for (uint8_t row = 0; row < MATRIX_ROWS_PER_HAND; row++) {
         if (raw[row] != cooked[row]) {
             debounce_counters[row] = DEBOUNCE;
