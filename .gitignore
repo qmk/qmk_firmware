@@ -94,6 +94,7 @@ tags
 *.mpeg
 *.ttf
 *.otf
+*.png
 
 # Things Travis sees
 /.vs
