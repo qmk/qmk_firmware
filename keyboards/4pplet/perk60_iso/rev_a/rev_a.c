@@ -14,7 +14,20 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "rev_a.h"
+#include "quantum.h"
+
+#ifndef CAPS_LOCK_ENABLE
+#    define CAPS_LOCK_ENABLE true
+#endif
+
+#ifndef CAPS_LOCK_COLOR
+#    define CAPS_LOCK_COLOR RGB_RED
+#endif
+
+#ifndef CAPS_LED_GROUP
+// change what leds to target, for example LED_FLAG_KEYLIGHT for alpas or LED_FLAG_MODIFIER for modifiers
+#    define CAPS_LED_GROUP LED_FLAG_INDICATOR
+#endif
 
 #ifdef RGB_MATRIX_ENABLE
 const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {

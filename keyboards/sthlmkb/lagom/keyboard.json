@@ -6,8 +6,6 @@
     "development_board": "promicro",
     "features": {
          "bootmagic": false,
-         "command": false,
-         "console": false,
          "extrakey": true,
          "debug": false,
          "mousekey": false,

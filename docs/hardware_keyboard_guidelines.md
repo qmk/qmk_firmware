@@ -44,7 +44,11 @@ QMK uses sub-folders both for organization and to share code between revisions o
 qmk_firmware/keyboards/top_folder/sub_1/sub_2/sub_3/sub_4
 ```
 
-If a sub-folder has a `rules.mk` file it will be considered a compilable keyboard. It will be available in QMK Configurator and tested with `make all`. If you are using a folder to organize several keyboards from the same maker you should not have a `rules.mk` file.
+If a sub-folder has a `keyboard.json` file it will be considered a compilable keyboard. It will be available in QMK Configurator and tested with `make all`. If you are using a folder to organize several keyboards from the same maker you should not have a `keyboard.json` file.
+
+::: tip
+When configuring a keyboard with multiple revisions (like the `clueboard/66` example below), an `info.json` file at the top keyboard level (eg. `clueboard/66`) should be used for configuration shared between revisions. Then `keyboard.json` in each revision directory containing revision-specific configuration, and indicating a buildable keyboard.
+:::
 
 Example:
 
@@ -52,35 +56,49 @@ Clueboard uses sub-folders for both purposes, organization and keyboard revision
 
 * [`qmk_firmware`](https://github.com/qmk/qmk_firmware/tree/master)
   * [`keyboards`](https://github.com/qmk/qmk_firmware/tree/master/keyboards)
-    * [`clueboard`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard)  &larr; This is the organization folder, there's no `rules.mk` file
-      * [`60`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/60)  &larr; This is a compilable keyboard, it has a `rules.mk` file
-      * [`66`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66) &larr; This is also compilable- it uses `DEFAULT_FOLDER` to specify `rev3` as the default revision
+    * [`clueboard`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard)  &larr; This is the organization folder, there's no `keyboard.json` file
+      * [`60`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/60)  &larr; This is a compilable keyboard - it has a `keyboard.json` file
+      * [`66`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66) &larr; This is not a compilable keyboard - a revision must be specified
         * [`rev1`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev1) &larr; compilable: `make clueboard/66/rev1`
         * [`rev2`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev2) &larr; compilable: `make clueboard/66/rev2`
-        * [`rev3`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev3) &larr; compilable: `make clueboard/66/rev3` or `make clueboard/66`
+        * [`rev3`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev3) &larr; compilable: `make clueboard/66/rev3`
 
 ## Keyboard Folder Structure
 
-Your keyboard should be located in `qmk_firmware/keyboards/` and the folder name should be your keyboard's name as described in the previous section. Inside this folder should be several files:
+Your keyboard should be located in `qmk_firmware/keyboards/` and the folder name should be your keyboard's name as described in the previous section. Inside this folder should be several files, some of which are optional:
 
 * `readme.md`
-* `info.json`
+* `keyboard.json` (or `info.json`)
 * `config.h`
 * `rules.mk`
-* `<keyboard_name>.c`
-* `<keyboard_name>.h`
+* `<keyboard>.c`
+* `<keyboard>.h`
 
 ### `readme.md`
 
 All projects need to have a `readme.md` file that explains what the keyboard is, who made it and where it's available. If applicable, it should also contain links to more information, such as the maker's website. Please follow the [published template](documentation_templates#keyboard-readmemd-template).
 
-### `info.json`
+### `keyboard.json`/`info.json`
 
-This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. You can also set metadata here. For more information see the [reference page](reference_info_json).
+The `keyboard.json` file is necessary for your keyboard (or keyboard revision) to be considered a buildable keyboard. The same content is valid in both `info.json` and `keyboard.json`. For the available configuration options of this file, see the [reference page](reference_info_json). This file is also used by the [QMK API](https://github.com/qmk/qmk_api), and by the [QMK Configurator](https://config.qmk.fm/) to display a representation of the available layouts of your keyboard.
+
+Additionally, this is where layouts available on your keyboard are defined. If you only have a single layout, it should be named `LAYOUT`. When defining multiple layouts, you should have a base layout, named `LAYOUT_all`, that supports all possible switch positions in your matrix, even if that layout is impossible to build physically. This is the layout that should be used in the `default` keymap. You should then have additional keymaps named `default_<layout>` that configure keymaps for the other layouts. Layout macro names are entirely lowercase, except for the prefix of `LAYOUT`.
+
+As an example, if you have a 60% PCB that supports ANSI and ISO, you might define the following layouts and keymaps:
+
+| Layout Name | Keymap Name  | Description                              |
+|-------------|--------------|------------------------------------------|
+| LAYOUT_all  | default      | A layout that supports both ISO and ANSI |
+| LAYOUT_ansi | default_ansi | An ANSI layout                           |
+| LAYOUT_iso  | default_iso  | An ISO layout                            |
+
+::: tip
+Providing only `LAYOUT_all` is invalid, as is providing a `LAYOUT` when multiple layouts are present.
+:::
 
 ### `config.h`
 
-All projects need to have a `config.h` file that sets things like the matrix size, product name, USB VID/PID, description and other settings. In general, use this file to set essential information and defaults for your keyboard that will always work.
+Some projects will need to have a `config.h` that configures parameters that are not possible to be set in `keyboard.json`. This is not a required file.
 
 The `config.h` files can also be placed in sub-folders, and the order in which they are read is as follows:
 
@@ -138,7 +156,7 @@ If you define options using `post_config.h` as in the above example, you should 
 
 ### `rules.mk`
 
-The presence of this file means that the folder is a keyboard target and can be used in `make` commands. This is where you setup the build environment for your keyboard and configure the default set of features.
+This file is typically used to configure hardware drivers (eg. pointing device), or to include additional C files in compilation. This is not a required file.
 
 The `rules.mk` file can also be placed in a sub-folder, and its reading order is as follows:
 
@@ -185,9 +203,9 @@ The `post_rules.mk` file can interpret `features` of a keyboard-level before `co
 See `build_keyboard.mk` and `common_features.mk` for more details.
 :::
 
-### `<keyboard_name.c>`
+### `<keyboard>.c`
 
-This is where you will write custom code for your keyboard. Typically you will write code to initialize and interface with the hardware in your keyboard. If your keyboard consists of only a key matrix with no LEDs, speakers, or other auxiliary hardware this file can be blank.
+This file should contain C code required for the functionality of your keyboard, for example hardware initialisation code, OLED display code, and so on. This file should only contain code necessary for the keyboard to work, and *not* things that should be left to the end user to configure in their keymap. This file is automatically included in compilation if it exists. This is not a required file.
 
 The following functions are typically defined in this file:
 
@@ -196,33 +214,13 @@ The following functions are typically defined in this file:
 * `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
 * `bool led_update_kb(led_t led_state)`
 
-### `<keyboard_name.h>`
+### `<keyboard>.h`
 
-This file is used to define the matrix for your keyboard. You should define at least one C macro which translates an array into a matrix representing the physical switch matrix for your keyboard. If it's possible to build your keyboard with multiple layouts you should define additional macros.
-
-If you have only a single layout you should call this macro `LAYOUT`.
-
-When defining multiple layouts you should have a base layout, named `LAYOUT_all`, that supports all possible switch positions on your matrix, even if that layout is impossible to build physically. This is the macro you should use in your `default` keymap. You should then have additional keymaps named `default_<layout>` that use your other layout macros. This will make it easier for people to use the layouts you define.
-
-Layout macro names are entirely lowercase, except for the word `LAYOUT` at the front.
-
-As an example, if you have a 60% PCB that supports ANSI and ISO you might define the following layouts and keymaps:
-
-| Layout Name | Keymap Name | Description |
-|-------------|-------------|-------------|
-| LAYOUT_all | default | A layout that supports both ISO and ANSI |
-| LAYOUT_ansi | default_ansi | An ANSI layout |
-| LAYOUT_iso | default_iso | An ISO layout |
-
-::: tip
-Providing only `LAYOUT_all` is invalid - especially when implementing the additional layouts within 3rd party tooling.
-:::
+This file can contain function prototypes for custom functions and other header file code utilised by `<keyboard>.c`. The `<keyboard>.c` file should include this file. This is not a required file.
 
 ## Image/Hardware Files
 
-In an effort to keep the repo size down we're no longer accepting binary files of any format, with few exceptions. Hosting them elsewhere (such as <https://imgur.com>) and linking them in the `readme.md` is preferred.
-
-Hardware files (such as plates, cases, pcb) can be contributed to the [qmk.fm repo](https://github.com/qmk/qmk.fm) and they will be made available on [qmk.fm](https://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `https://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` folder for an example.
+In an effort to keep the repo size down we do not accept binary files of any format, with few exceptions. Hosting them elsewhere (such as <https://imgur.com>) and linking them in the `readme.md` is preferred. Hardware files such as plates, cases, and PCBs can be published in a personal repository or elsewhere, and linked to by your keyboard's `readme.md` file.
 
 ## Keyboard Defaults
 
@@ -232,8 +230,6 @@ Given the amount of functionality that QMK exposes it's very easy to confuse new
 
 [Magic Keycodes](keycodes_magic) and [Command](features/command) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
 
-By far the most common problem new users encounter is accidentally triggering Bootmagic while they're plugging in their keyboard. They're holding the keyboard by the bottom, unknowingly pressing in alt and spacebar, and then they find that these keys have been swapped on them. We recommend leaving this feature disabled by default, but if you do turn it on consider setting `BOOTMAGIC_KEY_SALT` to a key that is hard to press while plugging your keyboard in.
-
 If your keyboard does not have 2 shift keys you should provide a working default for `IS_COMMAND`, even when you have set `COMMAND_ENABLE = no`. This will give your users a default to conform to if they do enable Command.
 
 ## Custom Keyboard Programming
@@ -242,7 +238,7 @@ As documented on [Customizing Functionality](custom_quantum_functions) you can d
 
 ## Non-Production/Handwired Projects
 
-We're happy to accept any project that uses QMK, including prototypes and handwired ones, but we have a separate `/keyboards/handwired/` folder for them, so the main `/keyboards/` folder doesn't get overcrowded. If a prototype project becomes a production project at some point in the future, we'd be happy to move it to the main `/keyboards/` folder!
+We're happy to accept any project that uses QMK, including handwired ones, but we have a separate `/keyboards/handwired/` folder for them, so the main `/keyboards/` folder doesn't get overcrowded. If a prototype project becomes a production project at some point in the future, we'd be happy to move it to the main `/keyboards/` folder!
 
 ## Warnings as Errors
 

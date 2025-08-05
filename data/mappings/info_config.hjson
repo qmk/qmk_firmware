@@ -64,6 +64,9 @@
     "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
     "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
 
+    // host
+    "NKRO_DEFAULT_ON": {"info_key": "host.default.nkro", "value_type": "bool"},
+
     // Layer locking
     "LAYER_LOCK_IDLE_TIMEOUT": {"info_key": "layer_lock.timeout", "value_type": "int"},
 
@@ -201,6 +204,7 @@
 
     // Tapping
     "CHORDAL_HOLD": {"info_key": "tapping.chordal_hold", "value_type": "flag"},
+    "FLOW_TAP_TERM": {"info_key": "tapping.flow_tap_term", "value_type": "int"},
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "flag"},
     "HOLD_ON_OTHER_KEY_PRESS_PER_KEY": {"info_key": "tapping.hold_on_other_key_press_per_key", "value_type": "flag"},
     "PERMISSIVE_HOLD": {"info_key": "tapping.permissive_hold", "value_type": "flag"},
@@ -214,7 +218,6 @@
     "TAPPING_TOGGLE": {"info_key": "tapping.toggle", "value_type": "int"},
 
     // USB
-    "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "flag"},
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
@@ -252,6 +255,7 @@
     "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
     "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.vid` in info.json"},
+    "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "flag", "deprecated": true, "replace_with": "`host.default.nkro` in info.json"},
 
     // Items we want flagged in lint
     "VIAL_KEYBOARD_UID": {"info_key": "_invalid.vial_uid", "invalid": true},

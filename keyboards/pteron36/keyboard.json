@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pteron36",
     "manufacturer": "Harshit Goel",
-    "url": "",
     "maintainer": "harshitgoel96",
     "usb": {
         "vid": "0x4847",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
