@@ -292,6 +292,33 @@ void md_send_nkro(uint8_t *data) {
     smsg_push(sdata, sizeof(sdata));
 }
 
+void md_send_consumer(uint8_t *data) {
+    uint8_t sdata[MD_SND_CMD_CONSUMER_LEN + 2] = {0x00};
+
+    sdata[0] = MD_SND_CMD_SEND_CONSUMER;
+    memcpy(&sdata[1], data, sizeof(sdata) - 2);
+    md_calc_check_sum(sdata, sizeof(sdata) - 1);
+    smsg_push(sdata, sizeof(sdata));
+}
+
+void md_send_system(uint8_t *data) {
+    uint8_t sdata[MD_SND_CMD_SYSTEM_LEN + 2] = {0x00};
+
+    sdata[0] = MD_SND_CMD_SEND_SYSTEM;
+    memcpy(&sdata[1], data, sizeof(sdata) - 2);
+    md_calc_check_sum(sdata, sizeof(sdata) - 1);
+    smsg_push(sdata, sizeof(sdata));
+}
+
+void md_send_fn(uint8_t *data) {
+    uint8_t sdata[MD_SND_CMD_FN_LEN + 2] = {0x00};
+
+    sdata[0] = MD_SND_CMD_SEND_FN;
+    memcpy(&sdata[1], data, sizeof(sdata) - 2);
+    md_calc_check_sum(sdata, sizeof(sdata) - 1);
+    smsg_push(sdata, sizeof(sdata));
+}
+
 void md_send_mouse(uint8_t *data) {
     uint8_t sdata[MD_SND_CMD_MOUSE_LEN + 2] = {0x00};
 
@@ -322,6 +349,61 @@ void md_send_devctrl(uint8_t cmd) {
 
     sdata[0] = MD_SND_CMD_DEVCTRL;
     memcpy(&sdata[1], &cmd, sizeof(sdata) - 2);
+    md_calc_check_sum(sdata, sizeof(sdata) - 1);
+    smsg_push(sdata, sizeof(sdata));
+}
+
+void md_send_manufacturer(char *str, uint8_t len) {
+    uint8_t sdata[MD_SND_CMD_MANUFACTURER_LEN + 3] = {0x00};
+
+    if (len > MD_SND_CMD_MANUFACTURER_LEN) {
+        return;
+    }
+
+    sdata[0] = MD_SND_CMD_MANUFACTURER;
+    sdata[1] = len;
+    memcpy(&sdata[2], str, len);
+    md_calc_check_sum(sdata, len + 2);
+    smsg_push(sdata, len + 3);
+}
+
+void md_send_product(char *str, uint8_t len) {
+    uint8_t sdata[MD_SND_CMD_PRODUCT_LEN + 3] = {0x00};
+
+    if (len > MD_SND_CMD_PRODUCT_LEN) {
+        return;
+    }
+
+    sdata[0] = MD_SND_CMD_PRODUCT;
+    sdata[1] = len;
+    memcpy(&sdata[2], str, len);
+    md_calc_check_sum(sdata, len + 2);
+    smsg_push(sdata, len + 3);
+}
+
+void md_send_vpid(uint16_t vid, uint16_t pid) {
+    uint8_t  sdata[4 + 2] = {0x00};
+    uint32_t vpid;
+
+    vpid = (pid << 16) | vid;
+
+    sdata[0] = MD_SND_CMD_VPID;
+    memcpy(&sdata[1], &vpid, sizeof(vpid));
+    md_calc_check_sum(sdata, sizeof(sdata) - 1);
+    smsg_push(sdata, sizeof(sdata));
+}
+
+void md_send_raw(uint8_t *data, uint8_t length) {
+    uint8_t sdata[MD_RAW_SIZE + 4] = {0x00};
+
+    if (length != MD_RAW_SIZE) {
+        return;
+    }
+
+    sdata[0] = MD_SND_CMD_RAW;
+    sdata[1] = MD_SND_CMD_RAW_IN;
+    sdata[2] = length;
+    memcpy(&sdata[3], data, length);
     md_calc_check_sum(sdata, sizeof(sdata) - 1);
     smsg_push(sdata, sizeof(sdata));
 }
