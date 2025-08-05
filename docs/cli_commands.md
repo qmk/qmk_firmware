@@ -17,12 +17,12 @@ qmk compile [-c] <configuratorExport.json>
 **Usage for Keymaps**:
 
 ```
-qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] [--compiledb] -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] [--compiledb] -kb <keyboard> -km <keymap>
 ```
 
 **Usage in Keyboard Directory**:
 
-Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
+Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap>`
 ```
 qmk compile
 ```
@@ -30,7 +30,7 @@ qmk compile
 **Usage for building all keyboards that support a specific keymap**:
 
 ```
-qmk compile -kb all -km <keymap_name>
+qmk compile -kb all -km <keymap>
 ```
 
 **Example**:
@@ -62,7 +62,7 @@ $ qmk compile
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
-qmk compile -kb <keyboard_name>
+qmk compile -kb <keyboard>
 ```
 
 **Example**:
@@ -77,11 +77,11 @@ $ qmk compile -kb dz60
 
 It is possible to speed up compilation by adding the `-j`/`--parallel` flag.
 ```
-qmk compile -j <num_jobs> -kb <keyboard_name>
+qmk compile -j <num_jobs> -kb <keyboard>
 ```
 The `num_jobs` argument determines the maximum number of jobs that can be used. Setting it to zero will enable parallel compilation without limiting the maximum number of jobs.
 ```
-qmk compile -j 0 -kb <keyboard_name>
+qmk compile -j 0 -kb <keyboard>
 ```
 
 **Compilation Database**:
@@ -120,7 +120,7 @@ qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>] <configurat
 **Usage for Keymaps**:
 
 ```
-qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
+qmk flash -kb <keyboard> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
 ```
 
 **Usage for pre-compiled firmwares**:
