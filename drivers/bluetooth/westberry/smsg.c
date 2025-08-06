@@ -21,12 +21,12 @@ void smsg_init(void) {
 }
 
 smsg_message_t *smsg_take(void) {
-    // Acquire a message to the pool
+    // Acquire a message from the pool
     return (smsg_message_t *)chFifoTakeObjectTimeout(&smsg_fifo, TIME_IMMEDIATE);
 }
 
 void smsg_return(smsg_message_t *msg) {
-    // Return the current message to the pool
+    // Return the message to the pool
     if (msg != NULL) {
         chFifoReturnObject(&smsg_fifo, msg);
     }
