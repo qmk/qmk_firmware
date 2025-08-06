@@ -7,7 +7,7 @@ This driver provides support for sampling battery level.
 To use this driver, add the following to your `rules.mk`:
 
 ```make
-BATTERY_DRIVER_REQUIRED = yes
+BATTERY_ENABLE = yes
 ```
 
 ## Basic Configuration {#basic-configuration}

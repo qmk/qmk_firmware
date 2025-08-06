@@ -16,6 +16,7 @@
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "features": {
+    "battery": true,
     "bootmagic": false,
     "mousekey": false,
     "extrakey": true,
