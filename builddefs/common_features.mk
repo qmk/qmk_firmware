@@ -943,7 +943,7 @@ endif
 VALID_BATTERY_DRIVER_TYPES := adc custom vendor
 
 BATTERY_DRIVER ?= adc
-ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
+ifeq ($(strip $(BATTERY_ENABLE)), yes)
     ifeq ($(filter $(BATTERY_DRIVER),$(VALID_BATTERY_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
     endif

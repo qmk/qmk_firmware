@@ -188,13 +188,23 @@
                 "as_caps_lock": {"type": "boolean"}
             }
         },
+        "battery": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["adc", "custom", "vendor"]
+                }
+            }
+        },
         "bluetooth": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["bluefruit_le", "custom", "rn42"]
+                    "enum": ["bluefruit_le", "custom", "rn42", "westberry"]
                 }
             }
         },
