@@ -202,8 +202,8 @@ static void md_receive_msg_task(void) {
 }
 
 static void md_send_pkt_task(void) {
-    static uint32_t        smsg_timer = 0x00;
-    static uint8_t         smsg_retry = 0;
+    static uint32_t        smsg_timer  = 0x00;
+    static uint8_t         smsg_retry  = 0;
     static smsg_message_t *current_msg = NULL;
 
     switch (smsg_get_state()) {
