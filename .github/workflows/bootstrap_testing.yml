@@ -117,7 +117,6 @@ jobs:
           sudo -u testuser bash -c "
             export PATH=/home/testuser/.local/bin:\$PATH
             cd /home/testuser
-            qmk setup -y -H /home/testuser/qmk_firmware
-            qmk doctor
-            qmk mass-compile -j $(nproc) -f 'keyboard_name==*onekey*' -km reset # Compile a bunch of different platforms
+            qmk setup -y -H /home/testuser/qmk_firmware  # setup implies doctor, no need to run it separately
+            qmk mass-compile -j $(nproc) -f 'keyboard_name==*onekey*' -km reset  # Compile a bunch of different platforms
           "
