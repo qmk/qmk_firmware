@@ -122,4 +122,5 @@ jobs:
           
           cd /home/testuser/qmk_firmware
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+          [ ! -e .failed ] || echo "Some compilations failed, check the summary for details."
 
