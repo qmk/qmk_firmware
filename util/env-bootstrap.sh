@@ -38,7 +38,6 @@
 
 { # this ensures the entire script is downloaded #
     set -eu
-    set -o posix >/dev/null 2>&1 || true # POSIX mode for better compatibility
 
     BOOTSTRAP_TMPDIR="$(mktemp -d /tmp/qmk-bootstrap-failure.XXXXXX)"
     trap 'rm -rf "$BOOTSTRAP_TMPDIR" >/dev/null 2>&1 || true' EXIT
@@ -419,8 +418,8 @@ __EOT__
         # Reload udev rules
         if command -v udevadm >/dev/null 2>&1; then
             echo "Reloading udev rules..." >&2
-            $(nsudo) udevadm control --reload-rules
-            $(nsudo) udevadm trigger
+            $(nsudo) udevadm control --reload-rules || true
+            $(nsudo) udevadm trigger || true
         else
             echo "udevadm not found, skipping udev rules reload." >&2
         fi

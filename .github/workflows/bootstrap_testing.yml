@@ -1,0 +1,123 @@
+name: Bootstrap Script Testing
+
+on:
+  push:
+    branches: [bootstrap]
+    paths:
+      - "util/env-bootstrap.sh"
+      - ".github/workflows/bootstrap_testing.yml"
+  pull_request:
+    branches: [master, develop, xap]
+    paths:
+      - "util/env-bootstrap.sh"
+      - ".github/workflows/bootstrap_testing.yml"
+  workflow_dispatch:
+
+jobs:
+  bootstrap-test:
+    name: Test Bootstrap Script
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        distribution:
+          # Ubuntu/Debian based
+          - debian:11
+          - debian:12
+          - ubuntu:20.04
+          - ubuntu:22.04
+          - ubuntu:24.04
+
+          # RHEL/CentOS/Fedora based
+          - fedora:40
+          - fedora:41
+          - fedora:42
+          - rockylinux:8
+          - rockylinux:9
+          - almalinux:8
+          - almalinux:9
+
+          # Arch based
+          - archlinux:latest
+
+    container:
+      image: ${{ matrix.distribution }}
+      options: --privileged
+
+    steps:
+      - name: Install base dependencies
+        run: |
+          case "${{ matrix.distribution }}" in
+            ubuntu:*|debian:*)
+              apt-get update
+              apt-get install -y sudo git passwd
+              ;;
+            fedora:*|rockylinux:*|almalinux:*)
+              dnf update -y
+              dnf install -y sudo git passwd findutils  # findutils=xargs
+              ;;
+            archlinux:*)
+              pacman -Syu --noconfirm
+              pacman -S --noconfirm sudo git
+              ;;
+          esac
+          
+          # Fix PAM configuration for sudo in containers (applies to all distributions)
+          # Fix /etc/shadow permissions - common issue in container environments
+          chmod 640 /etc/shadow || chmod 400 /etc/shadow || true
+          
+          # Disable problematic session modules that commonly fail in containers
+          sed -i 's/^session.*pam_systemd.so/#&/' /etc/pam.d/sudo || true
+          sed -i 's/^session.*pam_loginuid.so/#&/' /etc/pam.d/sudo || true
+          
+          # Ensure proper sudoers configuration
+          echo "Defaults !requiretty" >> /etc/sudoers
+          echo "Defaults secure_path=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"" >> /etc/sudoers
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+          path: qmk_firmware
+
+      - name: Create test user
+        run: |
+          # Create a test user for the bootstrap script
+          useradd -m -s /bin/bash testuser
+          echo 'testuser:testpassword' | chpasswd
+          
+          # Configure passwordless sudo
+          echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+          
+          # Test sudo functionality
+          sudo -u testuser whoami || echo "Sudo test failed, but continuing..."
+
+      - name: Move QMK repository to test user home
+        run: |
+          # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
+          git -C qmk_firmware remote add upstream https://github.com/qmk/qmk_firmware.git
+          # Move the QMK repository to the test user's home directory
+          mv qmk_firmware /home/testuser/qmk_firmware
+          chown -R testuser:testuser /home/testuser/qmk_firmware
+
+      - name: Run bootstrap script
+        run: |
+          # Ensure the bootstrap script can access sudo
+          sudo -u testuser bash -c "
+            export CONFIRM=1
+            export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            cd /home/testuser
+            bash /home/testuser/qmk_firmware/util/env-bootstrap.sh
+          "
+
+      - name: Test QMK CLI
+        run: |
+          sudo -u testuser bash -c "
+            export PATH=/home/testuser/.local/bin:\$PATH
+            cd /home/testuser
+            qmk setup -y -H /home/testuser/qmk_firmware
+            qmk doctor
+            qmk mass-compile -j $(nproc) -f 'keyboard_name==*onekey*' -km reset # Compile a bunch of different platforms
+          "
