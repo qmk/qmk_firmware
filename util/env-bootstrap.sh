@@ -38,6 +38,11 @@
 
 { # this ensures the entire script is downloaded #
     set -eu
+    set -o posix >/dev/null 2>&1 || true # POSIX mode for better compatibility
+
+    BOOTSTRAP_TMPDIR="$(mktemp -d /tmp/qmk-bootstrap-failure.XXXXXX)"
+    trap 'rm -rf "$BOOTSTRAP_TMPDIR" >/dev/null 2>&1 || true' EXIT
+    FAILURE_FILE="${BOOTSTRAP_TMPDIR}/fail"
 
     # Work out which `sed` to use
     command -v gsed >/dev/null 2>&1 && SED=gsed || SED=sed
@@ -58,6 +63,16 @@
     --skip-udev-rules         -- Skip installing the udev rules for Linux
     --skip-windows-drivers    -- Skip installing the Windows drivers for the flashing utilities
 __EOT__
+    }
+
+    signal_execution_failure() {
+        touch "$FAILURE_FILE" >/dev/null 2>&1 || true
+    }
+
+    exit_if_execution_failed() {
+        if [ -e "$FAILURE_FILE" ]; then
+            exit 1
+        fi
     }
 
     script_help() {
@@ -192,29 +207,39 @@ __EOT__
             *arch* | *manjaro* | *cachyos*) echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git" ;;
             *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix git" ;;
             *fedora*) echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git" ;;
-            *gentoo*) echo "app-arch/zstd app-arch/unzip app-arch/zip net-misc/wget llvm-core/clang sys-apps/hwloc dev-libs/hidapi app-text/dos2unix dev-vcs/git" ;;
-            *slackware*) echo "python3" ;;
-            *solus*) echo "system.devel zstd git wget zip unzip python3 dos2unix git" ;;
-            *void*) echo "zstd git make wget unzip zip python3 dos2unix git" ;;
             *)
-                echo "Sorry, we don't recognize your distribution. Try using the docker image instead:" >&2
                 echo >&2
-                echo "https://docs.qmk.fm/#/getting_started_docker" >&2
-                exit 1
+                echo "Sorry, we don't recognize your distribution." >&2
+                echo >&2
+                echo "Proceeding with the installation, however you will need to install at least the following tools manually:" >&2
+                echo "  - make, git, curl or wget, zstd, unzip, [lib]hidapi" >&2
+                echo "Other tools may be required depending on your distribution." >&2
+                echo >&2
+                echo "Alternatively, if you prefer Docker, try using the docker image instead:" >&2
+                echo "  - https://docs.qmk.fm/#/getting_started_docker" >&2
                 ;;
             esac
             ;;
         *)
-            echo "Sorry, we don't recognize your OS. Try using a compatible OS instead:" >&2
+            # We can only really support macOS, Windows, and Linux at this time due to `uv` requirements.
             echo >&2
-            echo "https://docs.qmk.fm/newbs_getting_started#set-up-your-environment" >&2
-            exit 1
+            echo "Sorry, we don't recognize your OS. Try using a compatible OS instead:" >&2
+            echo "  - https://docs.qmk.fm/newbs_getting_started#set-up-your-environment" >&2
+            echo >&2
+            echo "If you cannot use a compatible OS, you can try installing the \`qmk\` Python package manually using \`pip\`, most likely requiring a virtual environment:" >&2
+            echo "  % python3 -m pip install qmk" >&2
+            echo >&2
+            echo "All other dependencies will need to be installed manually, such as make, git, AVR and ARM toolchains, and associated flashing utilities." >&2
+            echo >&2
+            echo "**NOTE**: QMK does not provide official support for your environment. Here be dragons, you are on your own." >&2
+            signal_execution_failure
             ;;
         esac
     }
 
     print_package_manager_deps_and_delay() {
         get_package_manager_deps | tr ' ' '\n' | sort | xargs -I'{}' echo "    - {}" >&2
+        exit_if_execution_failed
         preinstall_delay || exit 1
     }
 
@@ -257,35 +282,14 @@ __EOT__
                 print_package_manager_deps_and_delay
                 $(nsudo) dnf -y install $(get_package_manager_deps) --skip-unavailable
                 ;;
-            *gentoo*)
-                echo "It will also the following packages using 'emerge':" >&2
-                print_package_manager_deps_and_delay
-                $(nsudo) emerge -au --noreplace $(get_package_manager_deps)
-                ;;
-            *slackware*)
-                echo "It will also the following packages using 'sboinstall':" >&2
-                print_package_manager_deps_and_delay
-                $(nsudo) sboinstall $(get_package_manager_deps)
-                ;;
-            *solus*)
-                echo "It will also install the following system packages using 'eopkg':" >&2
-                print_package_manager_deps_and_delay
-                $(nsudo) eopkg -y update-repo
-                $(nsudo) eopkg -y upgrade
-                $(nsudo) eopkg -y install $(get_package_manager_deps)
-                ;;
-            *void*)
-                echo "It will also the following packages using 'xbps-install':" >&2
-                print_package_manager_deps_and_delay
-                $(nsudo) xbps-install -y $(get_package_manager_deps)
-                ;;
             *)
-                echo "Sorry, we don't recognize your distribution. Try using the docker image instead:" >&2
-                echo >&2
-                echo "https://docs.qmk.fm/#/getting_started_docker" >&2
-                exit 1
+                print_package_manager_deps_and_delay
+                echo "Proceeding with the installation, you will need to ensure prerequisites are installed." >&2
                 ;;
             esac
+            ;;
+        *)
+            print_package_manager_deps_and_delay
             ;;
         esac
     }
@@ -507,7 +511,6 @@ __EOT__
     clean_tarballs
 
     # Notify the user that they may need to restart their shell to get the `qmk` command
-    hash -r
     echo >&2
     echo "QMK CLI installation complete." >&2
     echo "The QMK CLI has been installed to '$(posix_ish_path "$(dirname "$(command -v qmk)")")'." >&2
