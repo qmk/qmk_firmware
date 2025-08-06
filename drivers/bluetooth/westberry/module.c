@@ -202,8 +202,8 @@ static void md_receive_msg_task(void) {
 }
 
 static void md_send_pkt_task(void) {
-    static uint32_t smsg_timer = 0x00;
-    static uint8_t  smsg_retry = 0;
+    static uint32_t        smsg_timer = 0x00;
+    static uint8_t         smsg_retry = 0;
     static smsg_message_t *current_msg = NULL;
 
     switch (smsg_get_state()) {
@@ -276,7 +276,6 @@ void md_send_pkt(uint8_t *data, uint32_t len) {
         return;
     }
 
-    // send
     uart_transmit(data, len);
 }
 
@@ -352,7 +351,7 @@ void md_send_product(char *str, uint8_t len) {
 
 void md_send_vpid(uint16_t vid, uint16_t pid) {
     uint32_t vpid = (pid << 16) | vid;
-    md_send_fixed_length(MD_SND_CMD_VPID, (uint8_t*)&vpid, sizeof(vpid));
+    md_send_fixed_length(MD_SND_CMD_VPID, (uint8_t *)&vpid, sizeof(vpid));
 }
 
 void md_send_raw(uint8_t *data, uint8_t length) {

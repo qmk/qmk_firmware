@@ -12,7 +12,7 @@
 #endif
 
 typedef struct {
-    uint8_t data[SMSG_PAYLOAD_LEN];
+    uint8_t  data[SMSG_PAYLOAD_LEN];
     uint32_t size;
 } smsg_message_t;
 
