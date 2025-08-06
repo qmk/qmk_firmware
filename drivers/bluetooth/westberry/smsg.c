@@ -21,12 +21,12 @@ void smsg_init(void) {
 }
 
 smsg_message_t *smsg_take(void) {
-    // Acquire a message from the pool
+    // Acquire a message from the memory pool
     return (smsg_message_t *)chFifoTakeObjectTimeout(&smsg_fifo, TIME_IMMEDIATE);
 }
 
 void smsg_return(smsg_message_t *msg) {
-    // Return the message to the pool
+    // Return the message to the memory pool
     if (msg != NULL) {
         chFifoReturnObject(&smsg_fifo, msg);
     }
@@ -54,6 +54,6 @@ void smsg_set_state(smsg_states_t state) {
 }
 
 bool smsg_is_busy(void) {
-    // Check if there are messages in the mailbox
+    // Check if there are any pending messages in the FIFOs mailbox
     return (chMBGetUsedCountI(&smsg_fifo.mbx) > 0);
 }
