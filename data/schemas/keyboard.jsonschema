@@ -204,7 +204,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["bluefruit_le", "custom", "rn42", "westberry"]
+                    "enum": ["bluefruit_le", "custom", "rn42"]
                 }
             }
         },
