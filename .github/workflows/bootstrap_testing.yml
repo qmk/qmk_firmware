@@ -117,5 +117,9 @@ jobs:
             export PATH=/home/testuser/.local/bin:\$PATH
             cd /home/testuser
             qmk setup -y -H /home/testuser/qmk_firmware  # setup implies doctor, no need to run it separately
-            qmk mass-compile -j $(nproc) -f 'keyboard_name==*onekey*' -km reset  # Compile a bunch of different platforms
+            qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
           "
+          
+          cd /home/testuser/qmk_firmware
+          ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+
