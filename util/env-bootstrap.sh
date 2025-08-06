@@ -375,7 +375,7 @@ __EOT__
 
         # Extract the toolchain
         echo "Extracting compiler toolchains to '$QMK_DISTRIB_DIR'..." >&2
-        tar xf "$target_file" -C "$QMK_DISTRIB_DIR" --strip-components=1
+        zstdcat "$target_file" | tar xf - -C "$QMK_DISTRIB_DIR" --strip-components=1
     }
 
     install_flashing_tools() {
@@ -395,7 +395,7 @@ __EOT__
 
         # Extract the flashing tools
         echo "Extracting flashing tools to '$QMK_DISTRIB_DIR'..." >&2
-        tar xf "$target_file" -C "$QMK_DISTRIB_DIR/bin"
+        zstdcat "$target_file" | tar xf - -C "$QMK_DISTRIB_DIR/bin"
     }
 
     install_linux_udev_rules() {
