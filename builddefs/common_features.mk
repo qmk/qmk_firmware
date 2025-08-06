@@ -907,6 +907,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
     else ifeq ($(strip $(BLUETOOTH_DRIVER)), westberry)
+        OPT_DEFS += -DCH_CFG_USE_MAILBOXES -DCH_CFG_USE_MEMPOOLS -DCH_CFG_USE_OBJ_FIFOS
         UART_DRIVER_REQUIRED = yes
         SRC += $(DRIVER_PATH)/bluetooth/westberry/module.c
         SRC += $(DRIVER_PATH)/bluetooth/westberry/smsg.c
