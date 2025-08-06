@@ -279,8 +279,9 @@ __EOT__
             *fedora*)
                 echo "It will also install the following system packages using 'dnf':" >&2
                 print_package_manager_deps_and_delay
+                # Some RHEL-likes need EPEL for hidapi
+                $(nsudo) dnf -y install epel-release 2>/dev/null || true
                 # RHEL-likes have some naming differences in libusb packages, so manually handle those
-                $(nsudo) dnf -y install epel-release
                 $(nsudo) dnf -y install $(get_package_manager_deps | tr ' ' '\n' | grep -v 'epel-release' | grep -v libusb | tr '\n' ' ')
                 for pkg in $(get_package_manager_deps | tr ' ' '\n' | grep libusb); do
                     $(nsudo) dnf -y install "$pkg" 2>/dev/null || true
