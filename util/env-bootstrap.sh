@@ -205,7 +205,7 @@ __EOT__
             case $(grep ID /etc/os-release) in
             *arch* | *manjaro* | *cachyos*) echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git" ;;
             *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix git" ;;
-            *fedora*) echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git" ;;
+            *fedora*) echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
             *)
                 echo >&2
                 echo "Sorry, we don't recognize your distribution." >&2
@@ -280,7 +280,8 @@ __EOT__
                 echo "It will also install the following system packages using 'dnf':" >&2
                 print_package_manager_deps_and_delay
                 # RHEL-likes have some naming differences in libusb packages, so manually handle those
-                $(nsudo) dnf -y install $(get_package_manager_deps | tr ' ' '\n' | grep -v libusb | tr '\n' ' ')
+                $(nsudo) dnf -y install epel-release
+                $(nsudo) dnf -y install $(get_package_manager_deps | tr ' ' '\n' | grep -v 'epel-release' | grep -v libusb | tr '\n' ' ')
                 for pkg in $(get_package_manager_deps | tr ' ' '\n' | grep libusb); do
                     $(nsudo) dnf -y install "$pkg" 2>/dev/null || true
                 done

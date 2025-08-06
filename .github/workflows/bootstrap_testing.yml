@@ -54,8 +54,7 @@ jobs:
               apt-get install -y sudo git passwd
               ;;
             fedora:*|rockylinux:*|almalinux:*)
-              dnf update -y
-              dnf install -y sudo git passwd findutils  # findutils=xargs
+              dnf install -y sudo git passwd findutils epel-release  # findutils=xargs, epel-release for hidapi
               ;;
             archlinux:*)
               pacman -Syu --noconfirm
