@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  bootstrap-test:
+  bootstrap-test-linux:
     name: Test Bootstrap Script
     runs-on: ubuntu-latest
 
@@ -121,6 +121,42 @@ jobs:
           "
           
           cd /home/testuser/qmk_firmware
+          ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+          [ ! -e .failed ] || exit 1
+
+  bootstrap-test-macos:
+    name: Test Bootstrap Script (macOS)
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-13     # Intel x64
+          - macos-14     # Apple Silicon ARM64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: Run bootstrap script
+        run: |
+          # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
+          git remote add upstream https://github.com/qmk/qmk_firmware.git
+          # Run the bootstrap script
+          export CONFIRM=1
+          sh ./util/env-bootstrap.sh
+
+      - name: Test QMK CLI
+        run: |
+          # Add QMK CLI to PATH (bootstrap script installs it to ~/.local/bin on macOS)
+          export PATH="$HOME/.local/bin:$PATH"
+          qmk setup -y -H .  # setup implies doctor, no need to run it separately
+          qmk mass-compile -j $(sysctl -n hw.ncpu) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
+          
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
           [ ! -e .failed ] || exit 1
 
