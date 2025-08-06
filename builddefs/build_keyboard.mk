@@ -32,7 +32,6 @@ TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 ifeq ($(strip $(DUMP_CI_METADATA)),yes)
     $(info CI Metadata: KEYBOARD=$(KEYBOARD))
     $(info CI Metadata: KEYMAP=$(KEYMAP))
-    $(info PATH=$(PATH))
 endif
 
 # Force expansion

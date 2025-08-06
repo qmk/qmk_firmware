@@ -205,7 +205,7 @@ __EOT__
             case $(grep ID /etc/os-release) in
             *arch* | *manjaro* | *cachyos*) echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git" ;;
             *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix git" ;;
-            *fedora*) echo "zstd clang diffutils gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
+            *fedora*) echo "zstd clang diffutils which gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
             *)
                 echo >&2
                 echo "Sorry, we don't recognize your distribution." >&2
