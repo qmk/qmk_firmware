@@ -99,10 +99,11 @@ jobs:
       - name: Create test user
         run: |
           # Create a test user for the bootstrap script
-          useradd -m -s /bin/bash testuser
+          useradd -m -s /bin/bash -U testuser
           echo 'testuser:testpassword' | chpasswd
           
           # Configure passwordless sudo
+          echo "root ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  # some distros complain about root not being in sudoers
           echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
           
           # Test sudo functionality
