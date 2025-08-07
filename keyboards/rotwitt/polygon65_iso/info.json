@@ -4,8 +4,8 @@
     "url": "https://www.rotwitt.com",
     "maintainer": "trip-trap",
     "usb": {
-        "device_version": "1.0.0",
-        "vid": "0x726F",
+        "device_version": "1.0.1",
+        "vid": "0x726A",
         "pid": "0x0001"
     },
     "features": {

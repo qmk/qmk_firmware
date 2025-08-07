@@ -2,10 +2,10 @@
     "keyboard_name": "polygon65_ansi",
     "manufacturer": "Rotwitt",
     "url": "https://www.rotwitt.com",
-    "maintainer": "trip-trap",
+    "maintainer": "rotwitt",
     "usb": {
-        "device_version": "1.0.0",
-        "vid": "0x726F",
+        "device_version": "1.0.1",
+        "vid": "0x726A",
         "pid": "0x0002"
     },
     "features": {
