@@ -148,6 +148,8 @@ jobs:
           submodules: recursive
 
       - name: Run bootstrap script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
           git remote add upstream https://github.com/qmk/qmk_firmware.git
@@ -188,6 +190,8 @@ jobs:
           submodules: recursive
 
       - name: Run bootstrap script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
           git remote add upstream https://github.com/qmk/qmk_firmware.git
