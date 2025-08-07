@@ -43,6 +43,7 @@ jobs:
 
           # Arch based
           - archlinux:latest
+          - cachyos/cachyos:latest
 
     container:
       image: ${{ matrix.distribution }}
@@ -52,14 +53,14 @@ jobs:
       - name: Install base dependencies
         run: |
           case "${{ matrix.distribution }}" in
-            ubuntu:*|debian:*)
+            *ubuntu*|*debian*)
               apt-get update
               apt-get install -y sudo git passwd
               ;;
-            fedora:*|rockylinux:*|almalinux:*)
+            *fedora*|*rockylinux*|*almalinux*)
               dnf install -y sudo git passwd findutils  # findutils=xargs
               ;;
-            archlinux:*)
+            *archlinux*|*cachyos*)
               pacman -Syu --noconfirm
               pacman -S --noconfirm sudo git
               ;;
@@ -212,6 +213,10 @@ jobs:
           # Add QMK CLI to PATH (bootstrap script installs it to /opt/uv/tools/bin on Windows MSYS2)
           export PATH="/opt/uv/tools/bin:$PATH"
           qmk setup -y -H .  # setup implies doctor, no need to run it separately
+          
+          # Temporary workaround for lockups on Windows, fix TBD
+          qmk config user.parallel_search=False
+          
           qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
           
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
