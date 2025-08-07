@@ -12,6 +12,26 @@ using testing::_;
 class Pointing : public TestFixture {};
 class PointingButtonsViaMousekeysParametrized : public ::testing::WithParamInterface<std::pair<KeymapKey, uint8_t>>, public Pointing {};
 
+TEST_F(Pointing, NoMovementOnInitFailure) {
+    TestDriver driver;
+
+    pointing_device_set_status(POINTING_DEVICE_STATUS_INIT_FAILED);
+    pd_set_x(-50);
+    pd_set_y(100);
+    EXPECT_NO_MOUSE_REPORT(driver);
+    run_one_scan_loop();
+
+    pointing_device_set_status(POINTING_DEVICE_STATUS_SUCCESS);
+    EXPECT_MOUSE_REPORT(driver, (-50, 100, 0, 0, 0));
+    run_one_scan_loop();
+
+    pd_clear_movement();
+    // EXPECT_EMPTY_MOUSE_REPORT(driver);
+    run_one_scan_loop();
+
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(Pointing, SendMouseIsNotCalledWithNoInput) {
     TestDriver driver;
     EXPECT_NO_MOUSE_REPORT(driver);
@@ -111,7 +131,7 @@ TEST_F(Pointing, CorrectButtonIsReportedWhenPressed) {
 
 TEST_F(Pointing, CorrectButtonIsReportedWhenKeyPressed) {
     TestDriver driver;
-    auto       key = KeymapKey(0, 0, 0, KC_MS_BTN1);
+    auto       key = KeymapKey(0, 0, 0, QK_MOUSE_BUTTON_1);
     set_keymap({key});
 
     EXPECT_MOUSE_REPORT(driver, (0, 0, 0, 0, 1));

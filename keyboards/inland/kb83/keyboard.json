@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0xFFFE",
         "pid": "0x0007",
-        "device_version": "1.0.0",
-        "force_nkro": true
+        "device_version": "1.0.0"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgb_matrix": {
         "animations": {
@@ -60,7 +64,7 @@
     },
     "encoder": {
         "rotary": [
-            {"pin_a": "B13", "pin_b": "B14", "resolution": 4}
+            {"pin_a": "B13", "pin_b": "B14"}
         ]
     },
     "qmk": {

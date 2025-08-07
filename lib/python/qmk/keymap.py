@@ -343,24 +343,21 @@ def locate_keymap(keyboard, keymap, force_layout=None):
     # Check the keyboard folder first, last match wins
     keymap_path = ''
 
-    search_dirs = [QMK_FIRMWARE]
-    keyboard_dirs = [keyboard_folder(keyboard)]
+    search_conf = {QMK_FIRMWARE: [keyboard_folder(keyboard)]}
     if HAS_QMK_USERSPACE:
         # When we've got userspace, check there _last_ as we want them to override anything in the main repo.
-        search_dirs.append(QMK_USERSPACE)
         # We also want to search for any aliases as QMK's folder structure may have changed, with an alias, but the user
         # hasn't updated their keymap location yet.
-        keyboard_dirs.extend(keyboard_aliases(keyboard))
-        keyboard_dirs = list(set(keyboard_dirs))
+        search_conf[QMK_USERSPACE] = list(set([keyboard_folder(keyboard), *keyboard_aliases(keyboard)]))
 
-    for search_dir in search_dirs:
+    for search_dir, keyboard_dirs in search_conf.items():
         for keyboard_dir in keyboard_dirs:
             checked_dirs = ''
-            for dir in keyboard_dir.split('/'):
+            for folder_name in keyboard_dir.split('/'):
                 if checked_dirs:
-                    checked_dirs = '/'.join((checked_dirs, dir))
+                    checked_dirs = '/'.join((checked_dirs, folder_name))
                 else:
-                    checked_dirs = dir
+                    checked_dirs = folder_name
 
                 keymap_dir = Path(search_dir) / Path('keyboards') / checked_dirs / 'keymaps'
 

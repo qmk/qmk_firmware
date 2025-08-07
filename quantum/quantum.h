@@ -249,6 +249,13 @@ extern layer_state_t layer_state;
 #    include "community_modules.h"
 #endif
 
+// By default shutdown_quantum waits 250ms for, among other things, to allow
+// the shutdown chime to complete playing. This can be overriden by setting
+// this value in your keyboards config.h
+#ifndef QUANTUM_WAIT_BEFORE_RESET
+#    define QUANTUM_WAIT_BEFORE_RESET 250
+#endif
+
 void set_single_default_layer(uint8_t default_layer);
 void set_single_persistent_default_layer(uint8_t default_layer);
 
@@ -263,7 +270,6 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache);
 bool     pre_process_record_quantum(keyrecord_t *record);
 bool     pre_process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     pre_process_record_user(uint16_t keycode, keyrecord_t *record);
-bool     process_action_kb(keyrecord_t *record);
 bool     process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool     process_record_user(uint16_t keycode, keyrecord_t *record);
 void     post_process_record_kb(uint16_t keycode, keyrecord_t *record);
