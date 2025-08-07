@@ -17,9 +17,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define DRIVER_ADDR_1 0b0110000
-#define DRIVER_COUNT 1
+#define IS31FL3741_I2C_ADDRESS_1 0b0110000
+#define IS31FL3741_DRIVER_COUNT 1
 #define DRIVER_LED_TOTAL 66
+// #define IS31FL3741_LED_COUNT 66
 
 #define RGB_DISABLE_TIMEOUT 20000
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
@@ -28,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #define RGB_MATRIX_LED_COUNT DRIVER_LED_TOTAL
 #define RGB_MATRIX_KEYPRESSES
+#define ENCODER_RESOLUTION 4
 
 // RGB ANIMATIONS
 #define ENABLE_RGB_MATRIX_ALPHAS_MODS
