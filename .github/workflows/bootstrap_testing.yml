@@ -65,11 +65,11 @@ jobs:
               ;;
           esac
           
-          # Fix PAM configuration for sudo in containers (applies to all distributions)
+          # Fix PAM configuration for sudo in containers
           # Fix /etc/shadow permissions - common issue in container environments
           chmod 640 /etc/shadow || chmod 400 /etc/shadow || true
           
-          # Disable problematic session modules that commonly fail in containers
+          # Disable problematic PAM modules that commonly fail in RHEL-like containers
           sed -i 's/^session.*pam_systemd.so/#&/' /etc/pam.d/sudo || true
           sed -i 's/^session.*pam_loginuid.so/#&/' /etc/pam.d/sudo || true
           
@@ -169,6 +169,15 @@ jobs:
 
   bootstrap-test-windows:
     name: Bootstrap (Windows)
+
+    strategy:
+      fail-fast: false
+      matrix:
+        msys-variant:
+          - mingw64
+          - clang64
+          - ucrt64
+
     runs-on: windows-latest
     defaults:
       run:
@@ -178,8 +187,7 @@ jobs:
       - name: Install MSYS2
         uses: msys2/setup-msys2@v2
         with:
-          msystem: MINGW64
-          update: true
+          msystem: ${{ matrix.msys-variant }}
           pacboy: >-
             git:
 
