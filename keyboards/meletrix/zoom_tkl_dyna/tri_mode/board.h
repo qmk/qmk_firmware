@@ -7,7 +7,7 @@
 #include_next <board.h>
 
 // Undefine the MCU family variant.
-#undef AT32F402KB
+#undef AT32F405KB
 
 // Redefine the correct MCU family variant.
-#define AT32F402RC
+#define AT32F405RC

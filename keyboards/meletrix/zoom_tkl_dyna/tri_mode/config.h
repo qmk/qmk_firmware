@@ -6,20 +6,13 @@
 
 // External clock configuration
 #undef AT32_HEXTCLK
-#define AT32_HEXTCLK 16000000
+#define AT32_HEXTCLK 12000000
 
-// #define ADC_PIN A0
+// Encoder configuration
+#undef ENCODER_MAP_KEY_DELAY
+#define ENCODER_MAP_KEY_DELAY 10
 
-// #define BACKLIGHT_PWM_DRIVER PWMD3
-// #define BACKLIGHT_PWM_CHANNEL 2
-
-// /* I2C 400 kHz speed */
-// #define I2C1_TIMINGR_PRESC 2U
-// #define I2C1_TIMINGR_SCLDEL 12U
-// #define I2C1_TIMINGR_SDADEL 0U
-// #define I2C1_TIMINGR_SCLH 29U
-// #define I2C1_TIMINGR_SCLL 52U
-
-// #define SOLENOID_PIN B12
-// #define SOLENOID_PINS { B12, B13, B14, B15 }
-// #define SOLENOID_PINS_ACTIVE_STATE { high, high, low }
+// RGB LED configuration
+// #define WS2812_TIMING 1250
+// #define WS2812_T1H 850
+// #define WS2812_T0H 250
