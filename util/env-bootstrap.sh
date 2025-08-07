@@ -143,8 +143,22 @@ __EOT__
             [ "$filename" = "-" ] && quiet='-q' || echo "Downloading '$url' => '$filename'" >&2
             wget $quiet "-O$filename" "$url"
         else
-            echo "Please install 'curl' or 'wget' to continue." >&2
+            echo "Please install 'curl' to continue." >&2
             exit 1
+        fi
+    }
+
+    github_api_call() {
+        local url="$1"
+        local token="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
+        if [ -n "${token:-}" ]; then
+            if [ -n "$(command -v curl 2>/dev/null || true)" ]; then
+                curl -fsSL -H "Authorization: token $token" -H "Accept: application/vnd.github.v3+json" "https://api.github.com/$url"
+            elif [ -n "$(command -v wget 2>/dev/null || true)" ]; then
+                wget -q --header="Authorization: token $token" --header="Accept: application/vnd.github.v3+json" "https://api.github.com/$url" -O -
+            fi
+        else
+            download_url "https://api.github.com/$url" -
         fi
     }
 
@@ -157,7 +171,7 @@ __EOT__
         *darwin* | *macos* | *apple*)
             echo macos
             ;;
-        *windows* | *mingw* | *w64*)
+        *windows* | *mingw* | *msys*)
             echo windows
             ;;
         *linux*)
@@ -203,15 +217,15 @@ __EOT__
         windows) echo "base-devel: zstd:x toolchain:x clang:x hidapi:x dos2unix: git: unzip:" ;;
         linux)
             case $(grep ID /etc/os-release) in
-            *arch* | *manjaro* | *cachyos*) echo "zstd base-devel clang diffutils unzip wget zip hidapi dos2unix git" ;;
-            *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils unzip wget zip libhidapi-hidraw0 dos2unix git" ;;
-            *fedora*) echo "zstd clang diffutils which gcc git unzip wget zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
+            *arch* | *manjaro* | *cachyos*) echo "zstd base-devel clang diffutils wget unzip zip hidapi dos2unix git" ;;
+            *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils wget unzip zip libhidapi-hidraw0 dos2unix git" ;;
+            *fedora*) echo "zstd clang diffutils which gcc git wget unzip zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
             *)
                 echo >&2
                 echo "Sorry, we don't recognize your distribution." >&2
                 echo >&2
                 echo "Proceeding with the installation, however you will need to install at least the following tools manually:" >&2
-                echo "  - make, git, curl or wget, zstd, unzip, [lib]hidapi" >&2
+                echo "  - make, git, curl, zstd, unzip, [lib]hidapi" >&2
                 echo "Other tools may be required depending on your distribution." >&2
                 echo >&2
                 echo "Alternatively, if you prefer Docker, try using the docker image instead:" >&2
@@ -360,9 +374,9 @@ __EOT__
 
     install_toolchains() {
         # Get the latest toolchain release from https://github.com/qmk/qmk_toolchains
-        local latest_toolchains_release=$(download_url https://api.github.com/repos/qmk/qmk_toolchains/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        local latest_toolchains_release=$(github_api_call repos/qmk/qmk_toolchains/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset with a matching keyword
-        local toolchain_url=$(download_url https://api.github.com/repos/qmk/qmk_toolchains/releases/tags/$latest_toolchains_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep $(fn_os)$(fn_arch))
+        local toolchain_url=$(github_api_call repos/qmk/qmk_toolchains/releases/tags/$latest_toolchains_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep $(fn_os)$(fn_arch))
         if [ -z "$toolchain_url" ]; then
             echo "No toolchain found for this OS/Arch combination." >&2
             exit 1
@@ -380,9 +394,9 @@ __EOT__
 
     install_flashing_tools() {
         # Get the latest flashing tools release from https://github.com/qmk/qmk_flashutils
-        local latest_flashutils_release=$(download_url https://api.github.com/repos/qmk/qmk_flashutils/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        local latest_flashutils_release=$(github_api_call repos/qmk/qmk_flashutils/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset with a matching keyword
-        local flashutils_url=$(download_url https://api.github.com/repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep $(fn_os)$(fn_arch))
+        local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep $(fn_os)$(fn_arch))
         if [ -z "$flashutils_url" ]; then
             echo "No flashing tools found for this OS/Arch combination." >&2
             exit 1
@@ -433,9 +447,9 @@ __EOT__
 
     install_windows_drivers() {
         # Get the latest driver installer release from https://github.com/qmk/qmk_driver_installer
-        local latest_driver_installer_release=$(download_url https://api.github.com/repos/qmk/qmk_driver_installer/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        local latest_driver_installer_release=$(github_api_call repos/qmk/qmk_driver_installer/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset
-        local driver_installer_url=$(download_url https://api.github.com/repos/qmk/qmk_driver_installer/releases/tags/$latest_driver_installer_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep '\.exe')
+        local driver_installer_url=$(github_api_call repos/qmk/qmk_driver_installer/releases/tags/$latest_driver_installer_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep '\.exe')
         if [ -z "$driver_installer_url" ]; then
             echo "No driver installer found." >&2
             exit 1

@@ -13,9 +13,12 @@ on:
       - ".github/workflows/bootstrap_testing.yml"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   bootstrap-test-linux:
-    name: Test Bootstrap Script
+    name: Bootstrap (Linux)
     runs-on: ubuntu-latest
 
     strategy:
@@ -102,9 +105,11 @@ jobs:
           chown -R testuser:testuser /home/testuser/qmk_firmware
 
       - name: Run bootstrap script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Ensure the bootstrap script can access sudo
-          sudo -u testuser bash -c "
+          sudo -u testuser --preserve-env=GITHUB_TOKEN bash -c "
             export CONFIRM=1
             export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
             cd /home/testuser
@@ -125,7 +130,7 @@ jobs:
           [ ! -e .failed ] || exit 1
 
   bootstrap-test-macos:
-    name: Test Bootstrap Script (macOS)
+    name: Bootstrap (macOS)
     strategy:
       fail-fast: false
       matrix:
@@ -156,6 +161,46 @@ jobs:
           export PATH="$HOME/.local/bin:$PATH"
           qmk setup -y -H .  # setup implies doctor, no need to run it separately
           qmk mass-compile -j $(sysctl -n hw.ncpu) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
+          
+          ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+          [ ! -e .failed ] || exit 1
+
+  bootstrap-test-windows:
+    name: Bootstrap (Windows)
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - name: Install MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          pacboy: >-
+            git:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: Run bootstrap script
+        run: |
+          # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
+          git remote add upstream https://github.com/qmk/qmk_firmware.git
+          # Run the bootstrap script
+          export CONFIRM=1
+          sh ./util/env-bootstrap.sh
+
+      - name: Test QMK CLI
+        run: |
+          # Add QMK CLI to PATH (bootstrap script installs it to /opt/uv/tools/bin on Windows MSYS2)
+          export PATH="/opt/uv/tools/bin:$PATH"
+          qmk setup -y -H .  # setup implies doctor, no need to run it separately
+          qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
           
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
           [ ! -e .failed ] || exit 1
