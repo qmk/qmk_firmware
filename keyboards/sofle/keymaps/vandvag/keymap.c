@@ -248,6 +248,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+#ifdef OLED_ENABLED
 static void print_status_narrow(void) {
     oled_write_P(PSTR("\n\n"), false);
     switch (get_highest_layer(layer_state)) {
@@ -297,3 +298,10 @@ bool oled_task_user(void) {
 	print_status_narrow();
 	return false;
 }
+
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+	return OLED_ROTATION_270;
+}
+
+#endif
+
