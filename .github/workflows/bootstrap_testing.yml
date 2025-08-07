@@ -38,12 +38,19 @@ jobs:
           - fedora:42
           - rockylinux:8
           - rockylinux:9
+          - rockylinux/rockylinux:10
           - almalinux:8
           - almalinux:9
+          - almalinux:10
+
+          # OpenSUSE based
+          - opensuse/leap:latest
+          - opensuse/tumbleweed:latest
 
           # Arch based
           - archlinux:latest
           - cachyos/cachyos:latest
+          - manjarolinux/base:latest
 
     container:
       image: ${{ matrix.distribution }}
@@ -60,7 +67,11 @@ jobs:
             *fedora*|*rockylinux*|*almalinux*)
               dnf install -y sudo git passwd findutils  # findutils=xargs
               ;;
-            *archlinux*|*cachyos*)
+            *suse*)
+              zypper --non-interactive refresh
+              zypper --non-interactive install sudo git shadow
+              ;;
+            *archlinux*|*cachyos*|*manjaro*)
               pacman -Syu --noconfirm
               pacman -S --noconfirm sudo git
               ;;

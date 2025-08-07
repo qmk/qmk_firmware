@@ -220,6 +220,7 @@ __EOT__
             *arch* | *manjaro* | *cachyos*) echo "zstd base-devel clang diffutils wget unzip zip hidapi dos2unix git" ;;
             *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils wget unzip zip libhidapi-hidraw0 dos2unix git" ;;
             *fedora*) echo "zstd clang diffutils which gcc git wget unzip zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
+            *suse*) echo "zstd patterns-devel-base-devel_basis clang diffutils wget unzip zip libhidapi-hidraw0 dos2unix git libusb-1_0-devel gzip" ;;
             *)
                 echo >&2
                 echo "Sorry, we don't recognize your distribution." >&2
@@ -300,6 +301,12 @@ __EOT__
                 for pkg in $(get_package_manager_deps | tr ' ' '\n' | grep libusb); do
                     $(nsudo) dnf -y install "$pkg" 2>/dev/null || true
                 done
+                ;;
+            *opensuse* | *suse*)
+                echo "It will also install the following system packages using 'zypper':" >&2
+                print_package_manager_deps_and_delay
+                $(nsudo) zypper --non-interactive refresh
+                $(nsudo) zypper --non-interactive install $(get_package_manager_deps)
                 ;;
             *)
                 print_package_manager_deps_and_delay
