@@ -69,7 +69,7 @@ jobs:
               ;;
             *suse*)
               zypper --non-interactive refresh
-              zypper --non-interactive install sudo git shadow
+              zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
               ;;
             *archlinux*|*cachyos*|*manjaro*)
               pacman -Syu --noconfirm
