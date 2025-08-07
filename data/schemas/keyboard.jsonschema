@@ -862,11 +862,6 @@
                     "$ref": "./definitions.jsonschema#/mcu_pin",
                     "$comment": "Deprecated: use split.serial.pin instead"
                 },
-                "soft_serial_speed": {
-                    "type": "integer",
-                    "minimum": 0,
-                    "maximum": 5
-                },
                 "serial": {
                     "type": "object",
                     "additionalProperties": false,
@@ -875,7 +870,12 @@
                             "type": "string",
                             "enum": ["bitbang", "usart", "vendor"]
                         },
-                        "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"}
+                        "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                        "speed": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 5
+                        }
                     }
                 },
                 "transport": {
