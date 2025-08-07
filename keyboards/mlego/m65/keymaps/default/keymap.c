@@ -1,19 +1,5 @@
-/*
-Copyright 2021-2022 Alin M Elena <alinm.elena@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// Copyright 2020-2023 alin m elena (@alinelena)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 
@@ -42,78 +28,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R),
 
   [_ADJ] = LAYOUT_ortho_5x13(
-      RGB_MOD, RGB_RMOD, A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_T , RGB_M_SW,
-      RGB_HUI, RGB_HUD , RGB_M_P , _______, QK_BOOT  , _______, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
-      RGB_SAI, RGB_SAD , RGB_M_B , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_K ,
-      RGB_VAI, RGB_VAD , RGB_M_R , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_X ,
-      RGB_TOG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
+      UG_NEXT, UG_PREV , A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_T , RGB_M_SW,
+      UG_HUEU, UG_HUED , RGB_M_P , _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
+      UG_SATU, UG_SATD , RGB_M_B , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_K ,
+      UG_VALU, UG_VALD , RGB_M_R , _______, _______, _______, _______, _______, _______, _______, _______, _______ , RGB_M_X ,
+      UG_TOGG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
 
 };
 // clang-format on
 
-bool led_update_user(led_t led_state) {
-    // Disable the default LED update code, so that lock LEDs could be reused to show layer status.
-    return false;
-}
-
-void matrix_scan_user(void) {
-
-    toggle_leds();
-
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) {
-        case (TT(_LWR)):
-            if (!record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-                // This runs before the TT() handler toggles the layer state, so the current layer state is the opposite of the final one after toggle.
-                set_led_toggle(_LWR, !layer_state_is(_LWR));
-            }
-            return true;
-            break;
-        case (TT(_RSE)):
-            if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-                set_led_toggle(_RSE, !layer_state_is(_RSE));
-            }
-            return true;
-            break;
-        default:
-            return true;
-    }
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-
-#ifdef RGBLIGHT_ENABLE
-
-    set_rgb_layers(state);
-
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_QW]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
+#if defined(RGBLIGHT_ENABLE)
+    [_LWR] = {ENCODER_CCW_CW(UG_HUED, UG_HUEU)},
+    [_RSE] = {ENCODER_CCW_CW(UG_VALD, UG_VALU)},
+    [_ADJ] = {ENCODER_CCW_CW(UG_PREV, UG_NEXT)},
+#    else
+    [_LWR] = {ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},
+    [_RSE] = {ENCODER_CCW_CW(KC_MFFD, KC_MRWD)},
+    [_ADJ] = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP)},
 #endif
-
-    return update_tri_layer_state(state, _LWR, _RSE, _ADJ);
-}
-
-#ifdef RGBLIGHT_ENABLE
-
-layer_state_t default_layer_state_set_user(layer_state_t state) {
-    set_default_rgb_layers(state);
-    return state;
-}
-
+};
 #endif
-
-void keyboard_post_init_user(void) {
-
-#ifdef RGBLIGHT_ENABLE
-
-    // Enable the LED layers
-    rgblight_layers = my_rgb();
-
-#endif
-
-#ifdef OLED_ENABLE
-
-    init_timer();
-
-#endif
-}

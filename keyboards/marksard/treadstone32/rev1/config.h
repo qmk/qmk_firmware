@@ -24,15 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_LIMIT_VAL 50
     #define RGBLIGHT_VAL_STEP 4
   #endif
-//   #define RGBLIGHT_EFFECT_BREATHING
-  #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-  #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//   #define RGBLIGHT_EFFECT_SNAKE
-  #define RGBLIGHT_EFFECT_KNIGHT
-//   #define RGBLIGHT_EFFECT_CHRISTMAS
-  #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//   #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_EFFECT_ALTERNATING
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for treadstone32 keyboard

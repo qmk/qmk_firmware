@@ -16,7 +16,7 @@
 
 #include "led/flower_blooming/flower_blooming.h"
 
-static HSV FLOWER_BLOOMING_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t FLOWER_BLOOMING_math(hsv_t hsv, uint8_t i, uint8_t time) {
     if (g_led_config.point[i].y > k_rgb_matrix_center.y)
         hsv.h = g_led_config.point[i].x * 3 - g_led_config.point[i].y * 3 + time;
     else

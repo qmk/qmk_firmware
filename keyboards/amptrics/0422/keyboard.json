@@ -1,0 +1,39 @@
+{
+    "manufacturer": "Amptrics Technologies",
+    "keyboard_name": "Amptrics 0422",
+    "maintainer": "vchowl",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["C8", "C7", "C6"],
+        "rows": ["A14", "A13", "A10", "A9"]
+    },
+    "processor": "STM32F072",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x01A6",
+        "vid": "0x616D"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3}
+            ]
+        }
+    }
+}

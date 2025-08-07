@@ -16,8 +16,8 @@
 
 #pragma once
 
-#include "stdint.h"
-#include "stdbool.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "progmem.h"
 #include "action_layer.h"
@@ -65,8 +65,8 @@ typedef struct _split_master_matrix_sync_t {
 
 #ifdef ENCODER_ENABLE
 typedef struct _split_slave_encoder_sync_t {
-    uint8_t checksum;
-    uint8_t state[NUM_ENCODERS_MAX_PER_SIDE];
+    uint8_t          checksum;
+    encoder_events_t events;
 } split_slave_encoder_sync_t;
 #endif // ENCODER_ENABLE
 
@@ -101,6 +101,7 @@ typedef struct _split_mods_sync_t {
     uint8_t weak_mods;
 #    ifndef NO_ACTION_ONESHOT
     uint8_t oneshot_mods;
+    uint8_t oneshot_locked_mods;
 #    endif // NO_ACTION_ONESHOT
 } split_mods_sync_t;
 #endif // SPLIT_MODS_ENABLE

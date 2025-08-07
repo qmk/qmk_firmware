@@ -33,22 +33,29 @@ struct update {
 uint8_t updates_array_idx = 0;
 update  updates[32];
 
+bool isMaster;
 bool isLeftHand;
 
+extern "C" {
+bool is_keyboard_master(void) {
+    return isMaster;
+}
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!isLeftHand) {
+    if (!is_keyboard_master()) {
         // this method has no effect on slave half
-        printf("ignoring update on right hand (%d,%s)\n", index, clockwise ? "CW" : "CC");
+        printf("ignoring update on slave (%d,%s)\n", index, clockwise ? "CW" : "CC");
         return true;
     }
     updates[updates_array_idx % 32] = {index, clockwise};
     updates_array_idx++;
     return true;
 }
+};
 
 bool setAndRead(pin_t pin, bool val) {
     setPin(pin, val);
-    return encoder_read();
+    return encoder_task();
 }
 
 class EncoderSplitTestNoLeft : public ::testing::Test {
@@ -82,19 +89,8 @@ TEST_F(EncoderSplitTestNoLeft, TestInitRight) {
     EXPECT_EQ(updates_array_idx, 0); // no updates received
 }
 
-TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseLeft) {
-    isLeftHand = true;
-    encoder_init();
-    // send 4 pulses. with resolution 4, that's one step and we should get 1 update.
-    setAndRead(0, false);
-    setAndRead(1, false);
-    setAndRead(0, true);
-    setAndRead(1, true);
-
-    EXPECT_EQ(updates_array_idx, 0); // no updates received
-}
-
-TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseRightSent) {
+TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseLeftMaster) {
+    isMaster   = true;
     isLeftHand = false;
     encoder_init();
     // send 4 pulses. with resolution 4, that's one step and we should get 1 update.
@@ -103,23 +99,38 @@ TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseRightSent) {
     setAndRead(2, true);
     setAndRead(3, true);
 
-    uint8_t slave_state[32] = {0};
-    encoder_state_raw(slave_state);
+    EXPECT_EQ(updates_array_idx, 1); // one update received
+    EXPECT_EQ(updates[0].index, 1);
+    EXPECT_EQ(updates[0].clockwise, true);
 
-    EXPECT_EQ(slave_state[0], 0);
-    EXPECT_EQ(slave_state[1], 0xFF);
+    int              events_queued = 0;
+    encoder_events_t events;
+    encoder_retrieve_events(&events);
+    while (events.tail != events.head) {
+        events.tail = (events.tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
+        ++events_queued;
+    }
+    EXPECT_EQ(events_queued, 0); // No events should be queued on master
 }
 
-TEST_F(EncoderSplitTestNoLeft, TestMultipleEncodersRightReceived) {
-    isLeftHand = true;
+TEST_F(EncoderSplitTestNoLeft, TestOneClockwiseRightSlave) {
+    isMaster   = false;
+    isLeftHand = false;
     encoder_init();
+    // send 4 pulses. with resolution 4, that's one step and we should get 1 update.
+    setAndRead(2, false);
+    setAndRead(3, false);
+    setAndRead(2, true);
+    setAndRead(3, true);
 
-    uint8_t slave_state[32] = {1, 0xFF}; // First right encoder is CCW, Second right encoder no change, third right encoder CW
-    encoder_update_raw(slave_state);
+    EXPECT_EQ(updates_array_idx, 0); // no updates received
 
-    EXPECT_EQ(updates_array_idx, 2); // two updates received, one for each changed item on the right side
-    EXPECT_EQ(updates[0].index, 0);
-    EXPECT_EQ(updates[0].clockwise, false);
-    EXPECT_EQ(updates[1].index, 1);
-    EXPECT_EQ(updates[1].clockwise, true);
+    int              events_queued = 0;
+    encoder_events_t events;
+    encoder_retrieve_events(&events);
+    while (events.tail != events.head) {
+        events.tail = (events.tail + 1) % MAX_QUEUED_ENCODER_EVENTS;
+        ++events_queued;
+    }
+    EXPECT_EQ(events_queued, 1); // One event should be queued on slave
 }

@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT(
         TO(_MEDIA),
-        RGB_TOG, RGB_MOD,  RGB_VAI,
-        QMKURL,  RGB_RMOD, RGB_VAD, QMKBEST
+        UG_TOGG, UG_NEXT,  UG_VALU,
+        QMKURL,  UG_PREV,  UG_VALD, QMKBEST
     ),
     [_MEDIA] = LAYOUT(
         TO(_BASE),

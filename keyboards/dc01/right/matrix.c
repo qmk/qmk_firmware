@@ -15,8 +15,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
 #if defined(__AVR__)
 #include <avr/io.h>
 #include <avr/wdt.h>
@@ -31,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "i2c_slave.h"
 #include "lufa.h"
-#include "quantum.h"
 
 #define SLAVE_I2C_ADDRESS 0x32
 

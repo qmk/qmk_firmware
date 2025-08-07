@@ -14,9 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include "keycode_lookup.h"
+#include "quantum_keycodes.h"
+#include "keymap_us.h"
 #include "print.h"
 #include "via.h"
+#include "util.h"
 
 #define num_keycodes ARRAY_SIZE(lookup_table)
 static char UNKNOWN_KEYCODE[] = "UNKNOWN";
@@ -289,7 +293,7 @@ lookup_table_t lookup_table[333] =
  {"KC_QUES", KC_QUES},
  {"QK_BOOT", QK_BOOT},
  {"DB_TOGG", DB_TOGG},
- {"MAGIC_TOGGLE_NKRO", MAGIC_TOGGLE_NKRO},
+ {"NK_TOGG", NK_TOGG},
  {"QK_GESC", QK_GESC},
  {"AU_ON", AU_ON},
  {"AU_OFF", AU_OFF},
@@ -311,17 +315,17 @@ lookup_table_t lookup_table[333] =
  {"BL_TOGG", BL_TOGG},
  {"BL_STEP", BL_STEP},
  {"BL_BRTG", BL_BRTG},
- {"RGB_TOG", RGB_TOG},
- {"RGB_MOD", RGB_MOD},
- {"RGB_RMOD", RGB_RMOD},
- {"RGB_HUI", RGB_HUI},
- {"RGB_HUD", RGB_HUD},
- {"RGB_SAI", RGB_SAI},
- {"RGB_SAD", RGB_SAD},
- {"RGB_VAI", RGB_VAI},
- {"RGB_VAD", RGB_VAD},
- {"RGB_SPI", RGB_SPI},
- {"RGB_SPD", RGB_SPD},
+ {"UG_TOGG", UG_TOGG},
+ {"UG_NEXT", UG_NEXT},
+ {"UG_PREV", UG_PREV},
+ {"UG_HUEU", UG_HUEU},
+ {"UG_HUED", UG_HUED},
+ {"UG_SATU", UG_SATU},
+ {"UG_SATD", UG_SATD},
+ {"UG_VALU", UG_VALU},
+ {"UG_VALD", UG_VALD},
+ {"UG_SPDU", UG_SPDU},
+ {"UG_SPDD", UG_SPDD},
  {"RGB_M_P", RGB_M_P},
  {"RGB_M_B", RGB_M_B},
  {"RGB_M_R", RGB_M_R},

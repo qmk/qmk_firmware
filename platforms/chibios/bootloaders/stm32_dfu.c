@@ -107,6 +107,12 @@ void enter_bootloader_mode_if_requested(void) {
     if (bootloader_marker_active()) {
         bootloader_marker_disable();
 
+        struct system_memory_vector_t {
+            uint32_t stack_top;
+            void (*entrypoint)(void);
+        };
+        const struct system_memory_vector_t *bootloader = (const struct system_memory_vector_t *)(STM32_BOOTLOADER_ADDRESS);
+
         __disable_irq();
 
 #    if defined(QMK_MCU_ARCH_CORTEX_M7)
@@ -128,16 +134,11 @@ void enter_bootloader_mode_if_requested(void) {
             NVIC->ICPR[i] = 0xFFFFFFFF;
         }
 
+        __set_CONTROL(0);
+        __set_MSP(bootloader->stack_top);
         __enable_irq();
 
-        struct system_memory_vector_t {
-            uint32_t stack_top;
-            void (*entrypoint)(void);
-        };
-        const struct system_memory_vector_t *bootloader = (const struct system_memory_vector_t *)(STM32_BOOTLOADER_ADDRESS);
-
         // Jump to bootloader
-        __set_MSP(bootloader->stack_top);
         bootloader->entrypoint();
         while (true) {
         }

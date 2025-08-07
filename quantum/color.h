@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "util.h"
 
 // clang-format off
 
@@ -73,78 +74,24 @@
 
 // clang-format on
 
-#if defined(__GNUC__)
-#    define PACKED __attribute__((__packed__))
-#else
-#    define PACKED
-#endif
-
-#if defined(_MSC_VER)
-#    pragma pack(push, 1)
-#endif
-
-#ifdef RGBW
-#    define LED_TYPE cRGBW
-#else
-#    define LED_TYPE RGB
-#endif
-
-#define WS2812_BYTE_ORDER_RGB 0
-#define WS2812_BYTE_ORDER_GRB 1
-#define WS2812_BYTE_ORDER_BGR 2
-
-#ifndef WS2812_BYTE_ORDER
-#    define WS2812_BYTE_ORDER WS2812_BYTE_ORDER_GRB
-#endif
-
-typedef struct PACKED {
-#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-    uint8_t g;
-    uint8_t r;
-    uint8_t b;
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
+typedef struct PACKED rgb_t {
     uint8_t r;
     uint8_t g;
     uint8_t b;
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-    uint8_t b;
-    uint8_t g;
-    uint8_t r;
-#endif
-} cRGB;
+} rgb_t;
 
-typedef cRGB RGB;
+// DEPRECATED
+typedef rgb_t RGB;
+typedef rgb_t rgb_led_t;
 
-// WS2812 specific layout
-typedef struct PACKED {
-#if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-    uint8_t g;
-    uint8_t r;
-    uint8_t b;
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
-    uint8_t r;
-    uint8_t g;
-    uint8_t b;
-#elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-    uint8_t b;
-    uint8_t g;
-    uint8_t r;
-#endif
-    uint8_t w;
-} cRGBW;
-
-typedef struct PACKED {
+typedef struct PACKED hsv_t {
     uint8_t h;
     uint8_t s;
     uint8_t v;
-} HSV;
+} hsv_t;
 
-#if defined(_MSC_VER)
-#    pragma pack(pop)
-#endif
+// DEPRECATED
+typedef hsv_t HSV;
 
-RGB hsv_to_rgb(HSV hsv);
-RGB hsv_to_rgb_nocie(HSV hsv);
-#ifdef RGBW
-void convert_rgb_to_rgbw(LED_TYPE *led);
-#endif
+rgb_t hsv_to_rgb(hsv_t hsv);
+rgb_t hsv_to_rgb_nocie(hsv_t hsv);

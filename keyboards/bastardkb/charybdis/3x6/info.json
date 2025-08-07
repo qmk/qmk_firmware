@@ -3,10 +3,13 @@
     "usb": {
         "pid": "0x1834"
     },
+    "rgb_matrix": {
+        "split_count": [21, 21]
+    },
     "layout_aliases": {
         "LAYOUT_charybdis_3x6": "LAYOUT"
     },
-   "layouts": {
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 {"label": "L00", "matrix": [0, 0], "x": 0, "y": 0},

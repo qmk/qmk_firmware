@@ -25,8 +25,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               SONG(COLEMAK_SOUND), \
                               SONG(DVORAK_SOUND) \
                             }
-
-/* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS

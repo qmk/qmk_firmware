@@ -1,12 +1,15 @@
+#include "keyboard.h"
 #include "ws2812.h"
 #include "rgbsps.h"
 
-cRGB led[RGBSPS_NUM];
+void keyboard_pre_init_kb(void) {
+  ws2812_init();
+
+  keyboard_pre_init_user();
+}
 
 void rgbsps_set(uint8_t index, uint8_t r, uint8_t g, uint8_t b) {
-  led[index].r = r;
-  led[index].g = g;
-  led[index].b = b;
+  ws2812_set_color(index, r, g, b);
 }
 
 void rgbsps_setall(uint8_t r, uint8_t g, uint8_t b) {
@@ -20,7 +23,7 @@ void rgbsps_turnoff(void) {
 }
 
 void rgbsps_send(void) {
-  ws2812_setleds(led, RGBSPS_NUM);
+  ws2812_flush();
 }
 
 void rgbsps_sethsv(uint8_t index, uint16_t hue, uint8_t sat, uint8_t val) {

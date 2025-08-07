@@ -1,0 +1,52 @@
+{
+  "keyboard_name": "np12",
+  "manufacturer": "nut1414",
+  "url": "https://github.com/nut1414/np12",
+  "maintainer": "nut1414",
+  "usb": {
+    "vid": "0xA4A4",
+    "pid": "0x4401",
+    "device_version": "0.0.1"
+  },
+  "features": {
+    "bootmagic": true,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false
+  },
+  "matrix_pins": {
+    "cols": ["D1", "D0", "D4", "C6", "F6"],
+    "rows": ["D7", "E6", "B4", "F7"]
+  },
+  "diode_direction": "COL2ROW",
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F4", "pin_b": "F5"}
+    ]
+  },
+  "processor": "atmega32u4",
+  "bootloader": "caterina",
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"matrix": [3, 4], "x": 3, "y": 0},
+
+        {"matrix": [0, 0], "x": 0, "y": 1},
+        {"matrix": [0, 1], "x": 1, "y": 1},
+        {"matrix": [0, 2], "x": 2, "y": 1},
+        {"matrix": [0, 3], "x": 3, "y": 1},
+
+        {"matrix": [1, 0], "x": 0, "y": 2},
+        {"matrix": [1, 1], "x": 1, "y": 2},
+        {"matrix": [1, 2], "x": 2, "y": 2},
+        {"matrix": [1, 3], "x": 3, "y": 2},
+
+        {"matrix": [2, 0], "x": 0, "y": 3},
+        {"matrix": [2, 1], "x": 1, "y": 3},
+        {"matrix": [2, 2], "x": 2, "y": 3},
+        {"matrix": [2, 3], "x": 3, "y": 3}
+      ]
+    }
+  }
+}

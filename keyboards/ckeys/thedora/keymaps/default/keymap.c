@@ -149,15 +149,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 
     [_ADMIN] = LAYOUT(
-                 QK_BOOT,   _______, _______, _______, TG(_ADMIN),
+                 QK_BOOT, _______, _______, _______, TG(_ADMIN),
                  _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______
     ),
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

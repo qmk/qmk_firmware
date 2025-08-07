@@ -19,5 +19,4 @@
 
 #pragma once
 
-void rgb_ring_init(void);
 void rgb_ring_task(void);

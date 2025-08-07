@@ -16,7 +16,9 @@
 
 #pragma once
 
+#include <stdbool.h>
 #include "eeprom.h"
 
 void eeprom_driver_init(void);
+void eeprom_driver_format(bool erase);
 void eeprom_driver_erase(void);

@@ -1,0 +1,46 @@
+{
+    "bootloader": "rp2040",
+    "processor": "RP2040",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["GP24", "GP25", "GP23", "GP21", "GP22", "GP2", "GP1", "GP0", "GP6", "GP18", "GP19", "GP20", "GP9", "GP8"],
+        "rows": ["GP26", "GP27", "GP3", "GP4", "GP5"]
+    },
+    "ws2812": {
+        "pin": "GP29",
+        "driver": "vendor"
+    },
+    "rgblight": {
+        "led_count": 22,
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "default": {
+            "val": 0
+        }
+    },
+    "indicators": {
+        "caps_lock": "GP28"
+    }
+}

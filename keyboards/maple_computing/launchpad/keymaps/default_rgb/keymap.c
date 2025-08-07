@@ -49,10 +49,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------'
      */
     [_RGB] = LAYOUT(
-        RGB_RMOD, RGB_MOD,
-        RGB_HUD,  RGB_HUI,
-        RGB_SAD,  RGB_SAI,
-        RGB_TOG,  KC_TRNS
+        UG_PREV,  UG_NEXT,
+        UG_HUED,  UG_HUEU,
+        UG_SATD,  UG_SATU,
+        UG_TOGG,  KC_TRNS
       ),
 
     /* Function
@@ -74,5 +74,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       )
 
 };
-
-void matrix_init_user(void) {}

@@ -11,7 +11,7 @@ void dance_key_one (tap_dance_state_t *state, void *user_data) {
         tap_code(KC_ENTER);
         reset_tap_dance (state);
     } else if (state->count == 2) {
-        cycle_unicode_input_mode(+1);
+        unicode_input_mode_step();
         reset_tap_dance (state);
     }
 }

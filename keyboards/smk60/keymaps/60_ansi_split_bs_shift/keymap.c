@@ -9,7 +9,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_CAPS,  KC_LGUI,  KC_LALT,                        LT(1,KC_SPC),                   KC_RALT,  KC_RGUI, TG(1),   KC_RCTL),
     [1] = LAYOUT_60_ansi_split_bs_shift(
       _______,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,_______,KC_PSCR,
-      QK_BOOT,   RGB_TOG,RGB_MOD,_______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_PGDN,_______,
+      QK_BOOT, UG_TOGG,UG_NEXT,_______,_______,_______,_______,_______,_______,_______,_______,KC_PGUP,KC_PGDN,_______,
       _______,        _______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,KC_RIGHT,_______,_______,_______,
       _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
       _______,_______,_______,                        _______,                        _______,_______,TG(0),_______),

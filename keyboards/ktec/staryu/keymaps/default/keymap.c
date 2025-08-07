@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* ┌─────────┬─────────┬─────────┐ */
               XXXXXXX,  TO(_LAYER0),
 /* ├─────────┼─────────┼─────────┤ */
-    RGB_TOG,  BL_TOGG,  BL_STEP 
+    UG_TOGG,  BL_TOGG,  BL_STEP 
 /* └─────────┴─────────┴─────────┘ */
   ),
 

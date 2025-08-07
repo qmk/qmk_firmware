@@ -16,12 +16,7 @@
 
 #pragma once
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 35
-#define DRIVER_2_LED_TOTAL 36
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
-#define CKLED2001_CURRENT_TUNE \
+#define SNLED27351_CURRENT_TUNE \
     { 0xBD, 0xBD, 0x5D, 0xBD, 0xBD, 0x5D, 0xBD, 0xBD, 0x5D, 0xBD, 0xBD, 0x5D }
 
 /* Enable caps-lock LED */

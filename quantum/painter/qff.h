@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "compiler_support.h"
 #include "qp_stream.h"
 #include "qp_internal.h"
 #include "qgf.h"
@@ -36,7 +37,7 @@ typedef struct QP_PACKED qff_font_descriptor_v1_t {
     uint8_t               transparency_index;  // palette index used for transparent pixels (not yet implemented)
 } qff_font_descriptor_v1_t;
 
-_Static_assert(sizeof(qff_font_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 20), "qff_font_descriptor_v1_t must be 25 bytes in v1 of QFF");
+STATIC_ASSERT(sizeof(qff_font_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 20), "qff_font_descriptor_v1_t must be 25 bytes in v1 of QFF");
 
 #define QFF_MAGIC 0x464651
 
@@ -54,14 +55,14 @@ typedef struct QP_PACKED qff_ascii_glyph_v1_t {
     uint32_t value : 24; // Uses QFF_GLYPH_*_(BITS|MASK) as bitfield ordering is compiler-defined
 } qff_ascii_glyph_v1_t;
 
-_Static_assert(sizeof(qff_ascii_glyph_v1_t) == 3, "qff_ascii_glyph_v1_t must be 3 bytes in v1 of QFF");
+STATIC_ASSERT(sizeof(qff_ascii_glyph_v1_t) == 3, "qff_ascii_glyph_v1_t must be 3 bytes in v1 of QFF");
 
 typedef struct QP_PACKED qff_ascii_glyph_table_v1_t {
     qgf_block_header_v1_t header;    // = { .type_id = 0x01, .neg_type_id = (~0x01), .length = 285 }
     qff_ascii_glyph_v1_t  glyph[95]; // 95 glyphs, 0x20..0x7E
 } qff_ascii_glyph_table_v1_t;
 
-_Static_assert(sizeof(qff_ascii_glyph_table_v1_t) == (sizeof(qgf_block_header_v1_t) + (95 * sizeof(qff_ascii_glyph_v1_t))), "qff_ascii_glyph_table_v1_t must be 290 bytes in v1 of QFF");
+STATIC_ASSERT(sizeof(qff_ascii_glyph_table_v1_t) == (sizeof(qgf_block_header_v1_t) + (95 * sizeof(qff_ascii_glyph_v1_t))), "qff_ascii_glyph_table_v1_t must be 290 bytes in v1 of QFF");
 
 /////////////////////////////////////////
 // Unicode glyph table descriptor
@@ -73,7 +74,7 @@ typedef struct QP_PACKED qff_unicode_glyph_v1_t {
     uint32_t value : 24; // Uses QFF_GLYPH_*_(BITS|MASK) as bitfield ordering is compiler-defined
 } qff_unicode_glyph_v1_t;
 
-_Static_assert(sizeof(qff_unicode_glyph_v1_t) == 6, "qff_unicode_glyph_v1_t must be 6 bytes in v1 of QFF");
+STATIC_ASSERT(sizeof(qff_unicode_glyph_v1_t) == 6, "qff_unicode_glyph_v1_t must be 6 bytes in v1 of QFF");
 
 typedef struct QP_PACKED qff_unicode_glyph_table_v1_t {
     qgf_block_header_v1_t  header;   // = { .type_id = 0x02, .neg_type_id = (~0x02), .length = (N * 6) }
@@ -85,4 +86,4 @@ typedef struct QP_PACKED qff_unicode_glyph_table_v1_t {
 
 bool     qff_validate_stream(qp_stream_t *stream);
 uint32_t qff_get_total_size(qp_stream_t *stream);
-bool     qff_read_font_descriptor(qp_stream_t *stream, uint8_t *line_height, bool *has_ascii_table, uint16_t *num_unicode_glyphs, uint8_t *bpp, bool *has_palette, painter_compression_t *compression_scheme, uint32_t *total_bytes);
+bool     qff_read_font_descriptor(qp_stream_t *stream, uint8_t *line_height, bool *has_ascii_table, uint16_t *num_unicode_glyphs, uint8_t *bpp, bool *has_palette, bool *is_panel_native, painter_compression_t *compression_scheme, uint32_t *total_bytes);

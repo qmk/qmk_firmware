@@ -13,8 +13,8 @@ RGB_MATRIX_EFFECT(startup_animation_solid)
 
 static void startup_animation_setleds(effect_params_t* params, bool dots) {
     uint8_t factor = 5;
-    HSV      hsv  = rgb_matrix_config.hsv;
-    RGB rgb       = rgb_matrix_hsv_to_rgb(hsv);
+    hsv_t      hsv  = rgb_matrix_config.hsv;
+    rgb_t rgb       = rgb_matrix_hsv_to_rgb(hsv);
     if (dots) {
         rgb_matrix_set_color_all(0, 0, 0);
     }
@@ -31,7 +31,7 @@ static void startup_animation_setleds(effect_params_t* params, bool dots) {
     } else if (num == 0 || num == 1 || num == 2) {
         return;
     } else if (num >= 22) {
-        eeprom_read_block(&rgb_matrix_config, EECONFIG_RGB_MATRIX, sizeof(rgb_matrix_config));
+        eeconfig_read_rgb_matrix(&rgb_matrix_config);
         rgb_matrix_mode_noeeprom(rgb_matrix_config.mode);
         return;
     }

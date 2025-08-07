@@ -3,14 +3,14 @@
     "keyboard_name": "Dash 75",
     "maintainer": "vinorodrigues",
     "bootloader": "atmel-dfu",
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
-        "lto": true
+        "nkro": false
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

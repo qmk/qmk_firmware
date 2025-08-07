@@ -8,6 +8,6 @@ Keyboard Maintainer: [Christopher Poole (That-Canadian)](https://github.com/That
 
 Make example for this keyboard (after setting up your build environment):
 
-    make maple_computing/lets_split_eh/eh:default
+    make maple_computing/lets_split_eh:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

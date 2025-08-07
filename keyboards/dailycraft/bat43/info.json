@@ -1,12 +1,17 @@
 {
     "keyboard_name": "bat43",
     "manufacturer": "yfuku",
-    "url": "",
     "maintainer": "yfuku",
     "usb": {
         "vid": "0x5946",
         "pid": "0x0002",
         "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": false,
+        "extrakey": false,
+        "mousekey": true,
+        "nkro": false
     },
     "matrix_pins": {
         "cols": ["B6", "B2", "B3", "B1", "B5", "B4"],

@@ -26,7 +26,7 @@ def git_get_version(repo_dir='.', check_dir='.'):
             return git_describe.stdout.strip()
 
         else:
-            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
+            cli.log.warning(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
             print(git_describe.stderr)
             return None
 

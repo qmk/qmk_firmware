@@ -19,9 +19,8 @@ After pressing a key, it immediately changes state, and sets a counter.
 No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 */
 
-#include "matrix.h"
+#include "debounce.h"
 #include "timer.h"
-#include "quantum.h"
 #include <stdlib.h>
 
 #ifdef PROTOCOL_CHIBIOS

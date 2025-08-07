@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, _______,   KC_CAPS, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______,
     _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______,   _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______,
     _______, _______, _______, _______, _______, _______,   KC_PDOT, KC_P1,   KC_P2,   KC_P3,   KC_PENT, _______,
-             QK_BOOT,   _______, _______, _______,                     _______, _______, _______, _______,
+             QK_BOOT, _______, _______, _______,                     _______, _______, _______, _______,
 			                                  _______, _______,   KC_RALT, _______,
                                                  KC_WH_U,   _______,
                                _______, _______, KC_WH_D,   _______, _______, KC_P0
@@ -97,6 +97,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(LED4_PIN, layer_state_cmp(state, _NM));
+    gpio_write_pin(LED4_PIN, layer_state_cmp(state, _NM));
   return state;
 }

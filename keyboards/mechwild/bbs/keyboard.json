@@ -1,0 +1,94 @@
+{
+    "manufacturer": "MechWild",
+    "keyboard_name": "BB Steno",
+    "maintainer": "kylemccreery",
+    "bootloader_instructions": "Hold down the BOOT button, then tap the NRST button on the BlackPill. Avoid touching the A11 and A12 pins.",
+    "development_board": "blackpill_f401",
+    "diode_direction": "COL2ROW",
+    "dip_switch": {
+        "pins": ["A0"]
+    },
+    "features": {
+        "bootmagic": true,
+        "dip_switch": true,
+        "nkro": true,
+        "rgblight": true,
+        "steno": true
+    },
+    "indicators": {
+        "caps_lock": "C13",
+        "on_state": 0
+    },
+    "matrix_pins": {
+        "cols": ["B0", "A7", "A6", "A5", "A4", "A3"],
+        "rows": ["B12", "B10", "B13", "B1", "B14"]
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "brightness_steps": 8,
+        "led_count": 6,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "url": "https://mechwild.com/product/bb-steno/",
+    "usb": {
+        "device_version": "1.1.0",
+        "force_nkro": true,
+        "pid": "0x170E",
+        "shared_endpoint": {
+            "keyboard": true
+        },
+        "vid": "0x6D77"
+    },
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "B9"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0.375},
+                {"matrix": [0, 1], "x": 1, "y": 0.375},
+                {"matrix": [0, 2], "x": 2, "y": 0.125},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0.125},
+                {"matrix": [0, 5], "x": 5, "y": 0.125},
+                {"matrix": [1, 0], "x": 6.75, "y": 0.125},
+                {"matrix": [1, 1], "x": 7.75, "y": 0.125},
+                {"matrix": [1, 2], "x": 8.75, "y": 0},
+                {"matrix": [1, 3], "x": 9.75, "y": 0.125},
+                {"matrix": [1, 4], "x": 10.75, "y": 0.375},
+                {"matrix": [1, 5], "x": 11.75, "y": 0.375},
+                {"matrix": [2, 0], "x": 0, "y": 1.375},
+                {"matrix": [2, 1], "x": 1, "y": 1.375},
+                {"matrix": [2, 2], "x": 2, "y": 1.125},
+                {"matrix": [2, 3], "x": 3, "y": 1},
+                {"matrix": [2, 4], "x": 4, "y": 1.125},
+                {"matrix": [2, 5], "x": 5, "y": 1.125},
+                {"matrix": [3, 0], "x": 6.75, "y": 1.125},
+                {"matrix": [3, 1], "x": 7.75, "y": 1.125},
+                {"matrix": [3, 2], "x": 8.75, "y": 1},
+                {"matrix": [3, 3], "x": 9.75, "y": 1.125},
+                {"matrix": [3, 4], "x": 10.75, "y": 1.375},
+                {"matrix": [3, 5], "x": 11.75, "y": 1.375},
+                {"matrix": [4, 3], "x": 2.75, "y": 3.125, "h": 1.5},
+                {"matrix": [4, 4], "x": 3.75, "y": 3.125, "h": 1.5},
+                {"matrix": [4, 5], "x": 4.75, "y": 2.875, "h": 1.5},
+                {"matrix": [4, 0], "x": 7, "y": 2.875, "h": 1.5},
+                {"matrix": [4, 1], "x": 8, "y": 3.125, "h": 1.5},
+                {"matrix": [4, 2], "x": 9, "y": 3.125, "h": 1.5}
+            ]
+        }
+    }
+}

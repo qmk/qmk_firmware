@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [L_RGB] = LAYOUT_ortho_6x4(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
-        _______, RGB_MOD, _______, RGB_VAI,
-        _______, RGB_TOG, _______, RGB_VAI,
-        _______, RGB_RMOD,_______, RGB_VAD,
-        RGB_M_R, _______, _______, RGB_VAD
+        _______, UG_NEXT, _______, UG_VALU,
+        _______, UG_TOGG, _______, UG_VALU,
+        _______, UG_PREV, _______, UG_VALD,
+        RGB_M_R, _______, _______, UG_VALD
     )
 };

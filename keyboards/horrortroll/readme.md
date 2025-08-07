@@ -1,17 +1,18 @@
 # Welcome to my Keyboard Firmwares
 
 ## Keyboards Released by me:
-  | Keyboard name    | MCU           | Layout       | Vendor ID | Product ID | Features                                     |
-  | ---------------- | ------------- | ------------ | --------- | ---------- | -------------------------------------------- |
-  | Handwired K552   | STM32F103RCT6 | TKL          | 0x7516    | 0x5000     | Hotswap, RGB Underglow, OLED 128x32          |
-  | Paws 60          | ATMEGA32U4    | 60%          | 0x7516    | 0x5001     | Hotswap                                      |
+  | Keyboard name  | MCU           | Layout | Vendor ID | Product ID | Features                            |
+  | -------------- | ------------- | ------ | --------- | ---------- | ----------------------------------- |
+  | Handwired K552 | STM32F103RCT6 | TKL    | 0x7516    | 0x5000     | Hotswap, RGB Underglow, OLED 128x32 |
+  | Paws 60        | ATMEGA32U4    | 60%    | 0x7516    | 0x5001     | Hotswap                             |
+  | Nyx            | RP2040        | 65%    | 0x7516    | 0x5005     | Hotswap, RGB Matrix                 |
 
 ## Keyboards Completed has Collaboration with me:
-  | Keyboard name      | MCU           | Layout       | Vendor ID | Product ID | Features                           |
-  | ------------------ | ------------- | ------------ | --------- | ---------- | ---------------------------------- |
-  | Lemon40            | ATMEGA32U4    | 40% Alice    | 0x7516    | 0x6000     | Solder, RGB Underglow, OLED 128x32 |
-  | Caticorn (Solder)  | RP2040        | TKL          | 0x7516    | 0x6001     | Solder                             |
-  | Caticorn (Hotswap) | RP2040        | TKL          | 0x7516    | 0x6002     | Hotswap                            |
+  | Keyboard name      | MCU        | Layout    | Vendor ID | Product ID | Features                           |
+  | ------------------ | ---------- | --------- | --------- | ---------- | ---------------------------------- |
+  | Lemon40            | ATMEGA32U4 | 40% Alice | 0x7516    | 0x6000     | Solder, RGB Underglow, OLED 128x32 |
+  | Caticorn (Solder)  | RP2040     | TKL       | 0x7516    | 0x6001     | Solder                             |
+  | Caticorn (Hotswap) | RP2040     | TKL       | 0x7516    | 0x6002     | Hotswap                            |
 
 ## Keyboard Rewrited by me:
   | Keyboard name                                                                               | MCU           | Layout       | Vendor ID | Product ID | Features                                     |

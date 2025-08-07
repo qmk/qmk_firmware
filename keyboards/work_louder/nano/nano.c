@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "nano.h"
+#include "quantum.h"
 
 #if defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {

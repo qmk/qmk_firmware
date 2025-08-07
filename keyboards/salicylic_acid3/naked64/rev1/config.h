@@ -18,11 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #ifndef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 180
   #define RGBLIGHT_VAL_STEP 17
@@ -30,10 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLIGHT_LIMIT_VAL 50
   #define RGBLIGHT_VAL_STEP 4
 #endif
-
-// Selection of RGBLIGHT MODE to use.
-#define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_SNAKE
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for naked48 keyboard

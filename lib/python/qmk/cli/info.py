@@ -38,6 +38,10 @@ def _strip_api_content(info_json):
     if 'matrix_pins' in info_json:
         info_json.pop('matrix_size', None)
 
+    for feature in ['rgb_matrix', 'led_matrix']:
+        if info_json.get(feature, {}).get("layout", None):
+            info_json[feature].pop('led_count', None)
+
     return info_json
 
 
@@ -48,6 +52,11 @@ def show_keymap(kb_info_json, title_caps=True):
 
     if keymap_path and keymap_path.suffix == '.json':
         keymap_data = json.load(keymap_path.open(encoding='utf-8'))
+
+        # cater for layout-less keymap.json
+        if 'layout' not in keymap_data:
+            return
+
         layout_name = keymap_data['layout']
         layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
 

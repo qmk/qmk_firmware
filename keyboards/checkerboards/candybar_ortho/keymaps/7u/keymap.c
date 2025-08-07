@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * '----------------------------------------------------------------------------------------------------------------------'
 */
 [2] = LAYOUT_7u(
-  RGB_HUI,  RGB_SAI, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, _______, KC_LBRC, KC_RBRC, RGB_VAI,
-  RGB_HUD,  RGB_SAD, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, KC_MINS, _______, KC_LCBR, KC_RCBR, RGB_VAD,
+  UG_HUEU,  UG_SATU, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, KC_UNDS, _______, KC_LBRC, KC_RBRC, UG_VALU,
+  UG_HUED,  UG_SATD, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, KC_MINS, _______, KC_LCBR, KC_RCBR, UG_VALD,
   _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, _______, _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12, _______,
-  QK_BOOT, RGB_TOG,  _______, _______, _______, _______, _______, _______, _______, RGB_MOD, RGB_RMOD
+  QK_BOOT, UG_TOGG,  _______, _______, _______, _______, _______, _______, _______, UG_NEXT, UG_PREV
 ),
 };

@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,            KC_PDOT, KC_PENT
     ),
     [1] = LAYOUT_numpad_5x4( 
-	    RGB_TOG, RGB_MOD, KC_PMNS, _______,
+	    RM_TOGG, RM_NEXT, KC_PMNS, _______,
 	    _______, _______, _______,
         _______, _______, _______, KC_PGDN,
         _______, _______, _______,

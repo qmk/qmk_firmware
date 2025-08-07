@@ -92,22 +92,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         numlock_set = true;
     }
 
-    switch (keycode) {
-        case QK_BOOT:
-            if (record->event.pressed) {
-                set_bitc_LED(LED_DIM);
-                rgblight_disable_noeeprom();
-                #ifdef OLED_ENABLE
-                oled_off();
-                #endif
-                bootloader_jump();  // jump to bootloader
-            }
-            return false;
-
-        default:
-            break;
-    }
-
     return true;
 }
 
@@ -120,4 +104,17 @@ void matrix_init_kb(void) {
 void matrix_scan_kb(void) {
     matrix_scan_remote_kb();
     matrix_scan_user();
+}
+
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+
+    set_bitc_LED(LED_DIM);
+    rgblight_disable_noeeprom();
+#ifdef OLED_ENABLE
+    oled_off();
+#endif
+    return true;
 }

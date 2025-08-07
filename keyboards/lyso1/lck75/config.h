@@ -32,13 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* #define NO_AUTO_SHIFT_SPECIAL */
 /* #define NO_AUTO_SHIFT_NUMERIC */
 
-#ifdef LOCKING_SUPPORT_ENABLE
-#    undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#    undef LOCKING_RESYNC_ENABLE
-#endif
-
 #define PERMISSIVE_HOLD
 
 #define NO_ACTION_ONESHOT

@@ -1,2 +1,0 @@
-# The VIA La+ Layout
-

@@ -18,8 +18,8 @@
 
 #pragma once
 
+#include "send_string.h"
 #include "keymap_italian.h"
-#include "quantum.h"
 
 // clang-format off
 

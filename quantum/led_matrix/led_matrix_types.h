@@ -19,15 +19,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#if defined(__GNUC__)
-#    define PACKED __attribute__((__packed__))
-#else
-#    define PACKED
-#endif
-
-#if defined(_MSC_VER)
-#    pragma pack(push, 1)
-#endif
+#include "compiler_support.h"
+#include "util.h"
 
 #if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
 #    define LED_MATRIX_KEYREACTIVE_ENABLED
@@ -80,7 +73,7 @@ typedef struct PACKED {
     uint8_t     flags[LED_MATRIX_LED_COUNT];
 } led_config_t;
 
-typedef union {
+typedef union led_eeconfig_t {
     uint32_t raw;
     struct PACKED {
         uint8_t     enable : 2;
@@ -91,8 +84,4 @@ typedef union {
     };
 } led_eeconfig_t;
 
-_Static_assert(sizeof(led_eeconfig_t) == sizeof(uint32_t), "LED Matrix EECONFIG out of spec.");
-
-#if defined(_MSC_VER)
-#    pragma pack(pop)
-#endif
+STATIC_ASSERT(sizeof(led_eeconfig_t) == sizeof(uint32_t), "LED Matrix EECONFIG out of spec.");

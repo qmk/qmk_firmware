@@ -30,8 +30,13 @@ size_t clamp_length(intptr_t offset, size_t len) {
     return len;
 }
 
-void eeprom_driver_init(void) {
-    eeprom_driver_erase();
+void eeprom_driver_init(void) {}
+
+void eeprom_driver_format(bool erase) {
+    /* The transient eeprom driver doesn't necessarily need to be formatted before use, and it always starts up filled with zeros, due to placement in the .bss section */
+    if (erase) {
+        eeprom_driver_erase();
+    }
 }
 
 void eeprom_driver_erase(void) {

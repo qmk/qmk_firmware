@@ -1,23 +1,25 @@
 {
   "keyboard_name": "Gherkin",
   "manufacturer": "40 Percent Club",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4025",
     "pid": "0x6060",
     "device_version": "0.0.1"
   },
-  "matrix_pins": {
-    "cols": ["B4", "E6", "D7", "C6", "D4", "D0"],
-    "rows": ["F7", "B1", "B3", "B2", "B6"]
+  "features": {
+    "bootmagic": true,
+    "mousekey": true,
+    "extrakey": true,
+    "nkro": true,
+    "backlight": true
   },
-  "diode_direction": "COL2ROW",
-  "backlight": {
-    "pin": "B5"
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
   "community_layouts": ["ortho_3x10"],
   "layouts": {
     "LAYOUT_ortho_3x10": {

@@ -1,4 +1,4 @@
-#include "quantum.h"
+#include "sol.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = { {

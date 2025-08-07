@@ -41,3 +41,10 @@
    - etc.
 */
 // #define MIDI_ADVANCED
+
+/*
+ * Encoder options
+ */
+// #define PLANCK_ENCODER_SETTLE_PIN_STATE_DELAY 20
+// #define ENCODER_MAP_KEY_DELAY 10
+// #define ENCODER_RESOLUTION 4

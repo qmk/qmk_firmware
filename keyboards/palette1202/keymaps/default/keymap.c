@@ -19,13 +19,6 @@
   #include "lib/oled_helper.h"
 #endif
 
-enum custom_keycode {
-  Mac_CS = SAFE_RANGE,
-  Mac_PS,
-  Win_CS,
-  Win_PS,
-  IOS_CS,
-};
 enum layerID {
   MAC_CS_1 = 0,
   MAC_CS_2,
@@ -39,6 +32,12 @@ enum layerID {
   IOS_CS_2,
   SETTING,
 };
+
+#define Mac_CS PDF(MAC_CS_1)
+#define Mac_PS PDF(MAC_PS_1)
+#define Win_CS PDF(WIN_CS_1)
+#define Win_PS PDF(WIN_PS_1)
+#define IOS_CS PDF(IOS_CS_1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mac
@@ -232,44 +231,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
   }
     return true;
-}
-
-// custom keycode
-// switch default layer
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case Mac_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(MAC_CS_1);
-      }
-      return false;
-      break;
-    case Mac_PS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(MAC_PS_1);
-      }
-      return false;
-      break;
-    case Win_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(WIN_CS_1);
-      }
-      return false;
-      break;
-    case Win_PS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(WIN_PS_1);
-      }
-      return false;
-      break;
-    case IOS_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(IOS_CS_1);
-      }
-      return false;
-      break;
-  }
-  return true;
 }
 
 // OLED Display

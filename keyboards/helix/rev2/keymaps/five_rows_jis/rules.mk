@@ -1,5 +1,4 @@
 LTO_ENABLE = no  # if firmware size over limit, try this option
-SPLIT_KEYBOARD = yes
 
 # Helix Spacific Build Options
 # you can uncomment and edit follows 7 Variables

@@ -14,6 +14,12 @@ from qmk.path import normpath, FileType
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
 
 
+def generate_rule(rules_key, rules_value):
+    is_keymap = cli.args.filename
+    rule_assignment_operator = '=' if is_keymap else '?='
+    return f'{rules_key} {rule_assignment_operator} {rules_value}'
+
+
 def process_mapping_rule(kb_info_json, rules_key, info_dict):
     """Return the rules.mk line(s) for a mapping rule.
     """
@@ -29,15 +35,24 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
         return None
 
     if key_type in ['array', 'list']:
-        return f'{rules_key} ?= {" ".join(rules_value)}'
+        return generate_rule(rules_key, " ".join(rules_value))
     elif key_type == 'bool':
-        return f'{rules_key} ?= {"yes" if rules_value else "no"}'
+        return generate_rule(rules_key, "yes" if rules_value else "no")
     elif key_type == 'mapping':
-        return '\n'.join([f'{key} ?= {value}' for key, value in rules_value.items()])
+        return '\n'.join([generate_rule(key, value) for key, value in rules_value.items()])
     elif key_type == 'str':
-        return f'{rules_key} ?= "{rules_value}"'
+        return generate_rule(rules_key, f'"{rules_value}"')
 
-    return f'{rules_key} ?= {rules_value}'
+    return generate_rule(rules_key, rules_value)
+
+
+def generate_features_rules(features_dict):
+    lines = []
+    for feature, enabled in features_dict.items():
+        feature = feature.upper()
+        enabled = 'yes' if enabled else 'no'
+        lines.append(generate_rule(f'{feature}_ENABLE', enabled))
+    return lines
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
@@ -74,24 +89,21 @@ def generate_rules_mk(cli):
 
     # Iterate through features to enable/disable them
     if 'features' in kb_info_json:
-        for feature, enabled in kb_info_json['features'].items():
-            feature = feature.upper()
-            enabled = 'yes' if enabled else 'no'
-            rules_mk_lines.append(f'{feature}_ENABLE ?= {enabled}')
+        rules_mk_lines.extend(generate_features_rules(kb_info_json['features']))
 
     # Set SPLIT_TRANSPORT, if needed
     if kb_info_json.get('split', {}).get('transport', {}).get('protocol') == 'custom':
-        rules_mk_lines.append('SPLIT_TRANSPORT ?= custom')
+        rules_mk_lines.append(generate_rule('SPLIT_TRANSPORT', 'custom'))
 
     # Set CUSTOM_MATRIX, if needed
     if kb_info_json.get('matrix_pins', {}).get('custom'):
         if kb_info_json.get('matrix_pins', {}).get('custom_lite'):
-            rules_mk_lines.append('CUSTOM_MATRIX ?= lite')
+            rules_mk_lines.append(generate_rule('CUSTOM_MATRIX', 'lite'))
         else:
-            rules_mk_lines.append('CUSTOM_MATRIX ?= yes')
+            rules_mk_lines.append(generate_rule('CUSTOM_MATRIX', 'yes'))
 
     if converter:
-        rules_mk_lines.append(f'CONVERT_TO ?= {converter}')
+        rules_mk_lines.append(generate_rule('CONVERT_TO', converter))
 
     # Show the results
     dump_lines(cli.args.output, rules_mk_lines)

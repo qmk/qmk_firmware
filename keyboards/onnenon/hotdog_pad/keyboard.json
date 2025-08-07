@@ -1,0 +1,53 @@
+{
+    "manufacturer": "onnenon",
+    "keyboard_name": "Hotdog Pad",
+    "maintainer": "onnenon",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "matrix_pins": {
+        "direct": [["GP1", "GP2", "GP4", "GP6", "GP0"]]
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0001",
+        "vid": "0x4F4E"
+    },
+    "features": {
+        "encoder": true,
+        "rgblight": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "encoder": {
+        "rotary": [{ "pin_a": "GP29", "pin_b": "GP28" }]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "x": 0, "y": 0, "matrix": [0, 0] },
+                { "x": 1, "y": 0, "matrix": [0, 1] },
+                { "x": 2, "y": 0, "matrix": [0, 2] },
+                { "x": 3, "y": 0, "matrix": [0, 3] },
+                { "x": 4, "y": 0, "matrix": [0, 4] }
+            ]
+        }
+    },
+    "ws2812": {
+        "pin": "GP12",
+        "driver": "vendor"
+    },
+    "rgblight": {
+        "led_count": 1,
+        "max_brightness": 185,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    }
+}

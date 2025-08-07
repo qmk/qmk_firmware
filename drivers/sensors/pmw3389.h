@@ -17,8 +17,6 @@
 #define PMW33XX_CPI_MIN 50
 #define PMW33XX_CPI_MAX 16000
 
-#define PMW33XX_FIRMWARE_LENGTH 4094
-
 // PMW3389 register addresses
 // clang-format off
 #define REG_Product_ID                 0x00

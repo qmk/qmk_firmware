@@ -30,9 +30,7 @@ enum lime_layers {
 };
 
 enum custom_keycodes {
-    KC_QWERTY = SAFE_RANGE,
-    KC_COLEMAK,
-    KC_LOWER,
+    KC_LOWER = SAFE_RANGE,
     KC_RAISE,
     KC_ADJUST,
     KC_PRVWD,
@@ -46,6 +44,9 @@ enum custom_keycodes {
     KC_THUMB_RIGHT,
     KC_JOYSTICK_DEBUG,
 };
+
+#define KC_QWERTY PDF(_QWERTY)
+#define KC_COLEMAK PDF(_COLEMAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -155,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *      `----------------------------------------'            '------''----------------------------------'
  */
   [_ADJUST] = LAYOUT(
-  QK_BOOT,   XXXXXXX,    XXXXXXX,   XXXXXXX,          XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  QK_BOOT, XXXXXXX,    XXXXXXX,   XXXXXXX,          XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, KC_QWERTY,  XXXXXXX,   XXXXXXX,          CG_TOGG, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,    XXXXXXX,   KC_JOYSTICK_DEBUG,XXXXXXX, XXXXXXX,                       XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX, XXXXXXX,    XXXXXXX,   KC_COLEMAK,       XXXXXXX, XXXXXXX, XXXXXXX,     _______, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
@@ -173,8 +174,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Joystick + Encoder fix */
     void keyboard_post_init_kb(void) {
         if (is_keyboard_master()) {
-            writePinLow(JOYSTICK_X_PIN);
-            writePinLow(JOYSTICK_Y_PIN);
+            gpio_write_pin_low(JOYSTICK_X_PIN);
+            gpio_write_pin_low(JOYSTICK_Y_PIN);
         }
     }
 
@@ -480,16 +481,6 @@ bool showedJump = true;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case KC_COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
         case KC_LOWER:
             if (record->event.pressed) {
                 layer_on(_LOWER);

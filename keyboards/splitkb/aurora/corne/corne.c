@@ -85,7 +85,7 @@ static void render_mod_status_gui_alt(uint8_t modifiers) {
         oled_write_P(gui_off_2, false);
     }
 
-    if (modifiers & MOD_MASK_GUI & MOD_MASK_ALT) {
+    if ((modifiers & MOD_MASK_GUI) && (modifiers & MOD_MASK_ALT)) {
         oled_write_P(on_on_2, false);
     } else if(modifiers & MOD_MASK_GUI) {
         oled_write_P(on_off_2, false);
@@ -151,7 +151,7 @@ static void render_mod_status_ctrl_shift(uint8_t modifiers) {
         oled_write_P(ctrl_off_2, false);
     }
 
-    if (modifiers & MOD_MASK_CTRL & MOD_MASK_SHIFT) {
+    if ((modifiers & MOD_MASK_CTRL) && (modifiers & MOD_MASK_SHIFT)) {
         oled_write_P(on_on_2, false);
     } else if(modifiers & MOD_MASK_CTRL) {
         oled_write_P(on_off_2, false);
@@ -212,14 +212,19 @@ static void render_layer_state(void) {
         0x20, 0x9d, 0x9e, 0x9f, 0x20,
         0x20, 0xbd, 0xbe, 0xbf, 0x20,
         0x20, 0xdd, 0xde, 0xdf, 0x20, 0};
-    if(layer_state_is(_LOWER)) {
-        oled_write_P(lower_layer, false);
-    } else if(layer_state_is(_RAISE)) {
-        oled_write_P(raise_layer, false);
-    } else if(layer_state_is(_DEFAULT)) {
-        oled_write_P(default_layer, false);
-    } else {
-        oled_write_P(adjust_layer, false);
+
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case _LOWER:
+            oled_write_P(lower_layer, false);
+            break;
+        case _RAISE:
+            oled_write_P(raise_layer, false);
+            break;
+        case _ADJUST:
+            oled_write_P(adjust_layer, false);
+            break;
+        default:
+            oled_write_P(default_layer, false);
     }
 }
 

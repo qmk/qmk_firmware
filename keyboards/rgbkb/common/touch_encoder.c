@@ -125,7 +125,7 @@ bool touch_slave_init = false;
 slave_touch_status_t touch_slave_state = { 0, 0 };
 
 static bool write_register8(uint8_t address, uint8_t data) {
-    i2c_status_t status = i2c_writeReg((I2C_ADDRESS << 1), address, &data, sizeof(data), I2C_TIMEOUT);
+    i2c_status_t status = i2c_write_register((I2C_ADDRESS << 1), address, &data, sizeof(data), I2C_TIMEOUT);
     if (status != I2C_STATUS_SUCCESS) {
         xprintf("write_register8 %d failed %d\n", address, status);
     }
@@ -133,7 +133,7 @@ static bool write_register8(uint8_t address, uint8_t data) {
 }
 
 static bool read_register(uint8_t address, uint8_t* data, uint16_t length) {
-    i2c_status_t status = i2c_readReg((I2C_ADDRESS << 1), address, data, length, I2C_TIMEOUT);
+    i2c_status_t status = i2c_read_register((I2C_ADDRESS << 1), address, data, length, I2C_TIMEOUT);
     if (status != I2C_STATUS_SUCCESS) {
         xprintf("read_register %d failed %d\n", address, status);
         return false;

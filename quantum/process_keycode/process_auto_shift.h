@@ -16,7 +16,11 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+#include "keyboard.h"
+#include "keycodes.h"
 
 #ifndef AUTO_SHIFT_TIMEOUT
 #    define AUTO_SHIFT_TIMEOUT 175
@@ -28,10 +32,14 @@
 // clang-format off
 #define AUTO_SHIFT_ALPHA KC_A ... KC_Z
 #define AUTO_SHIFT_NUMERIC KC_1 ... KC_0
+#define AUTO_SHIFT_SYMBOLS          \
+             KC_MINUS ... KC_SLASH: \
+        case KC_NONUS_BACKSLASH
+
+// Kept to avoid breaking existing keymaps.
 #define AUTO_SHIFT_SPECIAL          \
              KC_TAB:                \
-        case KC_MINUS ... KC_SLASH: \
-        case KC_NONUS_BACKSLASH
+        case AUTO_SHIFT_SYMBOLS
 // clang-format on
 
 bool process_auto_shift(uint16_t keycode, keyrecord_t *record);
@@ -48,4 +56,5 @@ uint16_t (get_autoshift_timeout)(uint16_t keycode, keyrecord_t *record);
 void     set_autoshift_timeout(uint16_t timeout);
 void     autoshift_matrix_scan(void);
 bool     get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record);
+bool     get_auto_shifted_key(uint16_t keycode, keyrecord_t *record);
 // clang-format on

@@ -14,8 +14,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "process_magic.h"
+#include "keycode_config.h"
+#include "keycodes.h"
+#include "eeconfig.h"
 
 #ifdef AUDIO_ENABLE
+#    include "audio.h"
+
 #    ifndef AG_NORM_SONG
 #        define AG_NORM_SONG SONG(AG_NORM_SOUND)
 #    endif
@@ -42,7 +47,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (IS_MAGIC_KEYCODE(keycode)) {
             /* keymap config */
-            keymap_config.raw = eeconfig_read_keymap();
+            eeconfig_read_keymap(&keymap_config);
             switch (keycode) {
                 case QK_MAGIC_SWAP_CONTROL_CAPS_LOCK:
                     keymap_config.swap_control_capslock = true;
@@ -182,7 +187,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                     break;
             }
 
-            eeconfig_update_keymap(keymap_config.raw);
+            eeconfig_update_keymap(&keymap_config);
             clear_keyboard(); // clear to prevent stuck keys
 
             return false;

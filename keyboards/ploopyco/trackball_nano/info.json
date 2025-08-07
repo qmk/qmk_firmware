@@ -9,6 +9,9 @@
         "device_version": "0.0.1",
         "max_power": 100
     },
+    "features": {
+        "pointing_device": true
+    },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "debounce": 0,

@@ -16,6 +16,7 @@
  */
 
 #include "quantum.h"
+#include "eeprom.h"
 
 #include "usb_mux.h"
 
@@ -73,7 +74,7 @@ led_config_t g_led_config = { {
 } };
 #endif // RGB_MATRIX_ENABLE
 
-bool eeprom_is_valid(void) { 
+bool eeprom_is_valid(void) {
     return (
         eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
         eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION
@@ -139,12 +140,12 @@ void matrix_init_kb(void) {
     }
 
     system76_ec_rgb_layer(layer_state);
+
+    matrix_init_user();
 }
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
     usb_mux_event();
-
-    matrix_scan_user();
 }
 
 #define LEVEL(value) (uint8_t)(((uint16_t)value) * ((uint16_t)RGB_MATRIX_MAXIMUM_BRIGHTNESS) / ((uint16_t)255))
@@ -191,7 +192,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #else
             return true;
 #endif
-        case RGB_VAD:
+        case QK_RGB_MATRIX_VALUE_DOWN:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_config.hsv.v;
                 for (int i = sizeof(levels) - 1; i >= 0; i--) {
@@ -203,7 +204,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 set_value_all_layers(level);
             }
             return false;
-        case RGB_VAI:
+        case QK_RGB_MATRIX_VALUE_UP:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_config.hsv.v;
                 for (int i = 0; i < sizeof(levels); i++) {
@@ -215,7 +216,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 set_value_all_layers(level);
             }
             return false;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 uint8_t level = 0;
                 if (rgb_matrix_config.hsv.v == 0) {
@@ -238,9 +239,11 @@ layer_state_t layer_state_set_kb(layer_state_t layer_state) {
 }
 
 #ifdef CONSOLE_ENABLE
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     debug_enable   = true;
     debug_matrix   = false;
     debug_keyboard = false;
+
+    keyboard_post_init_user();
 }
 #endif  // CONSOLE_ENABLE

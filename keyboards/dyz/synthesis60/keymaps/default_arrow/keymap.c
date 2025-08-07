@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_LCTL,          KC_LALT,          KC_SPC,  MO(1),               KC_SPC,  KC_SPC,  KC_RALT,                   KC_LEFT, KC_DOWN, KC_RGHT
     ),
     [_FN] = LAYOUT_arrow(
-        RGB_TOG,    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,               KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
+        UG_TOGG,    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,               KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
         KC_VOLU,    _______, _______, KC_HOME, KC_UP,   KC_END,  _______,             _______, _______, _______, _______, _______, _______, _______, _______,
         KC_VOLD,    _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______,             _______, _______, _______, _______, _______, _______,          _______,
                     _______, _______, _______, _______, _______, _______,             _______, _______, _______, _______, _______, _______, _______, _______,
@@ -48,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     if (get_highest_layer(state) != 0) {
-        writePinLow(C6);
+        gpio_write_pin_low(C6);
     } else {
-        writePinHigh(C6);
+        gpio_write_pin_high(C6);
     }
     return state;
 }

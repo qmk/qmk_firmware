@@ -1,0 +1,33 @@
+{
+    "keyboard_name": "Charybdis Nano (3x5) Splinky",
+    "usb": {
+        "device_version": "2.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "rgb_matrix": true,
+        "pointing_device": true
+    },
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "matrix_pins": {
+        "cols": ["GP28", "GP21", "GP6", "GP7", "GP8"],
+        "rows": ["GP26", "GP5", "GP4", "GP9"]
+    },
+    "diode_direction": "ROW2COL",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "GP1"
+        }
+    },
+    "ws2812": {
+        "pin": "GP0",
+        "driver": "vendor"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040"
+}

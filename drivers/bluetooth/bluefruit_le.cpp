@@ -32,12 +32,7 @@
 #    define BLUEFRUIT_LE_SCK_DIVISOR 2 // 4MHz SCK/8MHz CPU, calculated for Feather 32U4 BLE
 #endif
 
-#define SAMPLE_BATTERY
 #define ConnectionUpdateInterval 1000 /* milliseconds */
-
-#ifndef BATTERY_LEVEL_PIN
-#    define BATTERY_LEVEL_PIN B5
-#endif
 
 static struct {
     bool is_connected;
@@ -48,10 +43,6 @@ static struct {
 #define UsingEvents 2
     bool event_flags;
 
-#ifdef SAMPLE_BATTERY
-    uint16_t last_battery_update;
-    uint32_t vbat;
-#endif
     uint16_t last_connection_update;
 } state;
 
@@ -188,7 +179,7 @@ static bool sdep_recv_pkt(struct sdep_msg *msg, uint16_t timeout) {
     bool     ready      = false;
 
     do {
-        ready = readPin(BLUEFRUIT_LE_IRQ_PIN);
+        ready = gpio_read_pin(BLUEFRUIT_LE_IRQ_PIN);
         if (ready) {
             break;
         }
@@ -231,7 +222,7 @@ static void resp_buf_read_one(bool greedy) {
         return;
     }
 
-    if (readPin(BLUEFRUIT_LE_IRQ_PIN)) {
+    if (gpio_read_pin(BLUEFRUIT_LE_IRQ_PIN)) {
         struct sdep_msg msg;
 
     again:
@@ -242,7 +233,7 @@ static void resp_buf_read_one(bool greedy) {
                 dprintf("recv latency %dms\n", TIMER_DIFF_16(timer_read(), last_send));
             }
 
-            if (greedy && resp_buf.peek(last_send) && readPin(BLUEFRUIT_LE_IRQ_PIN)) {
+            if (greedy && resp_buf.peek(last_send) && gpio_read_pin(BLUEFRUIT_LE_IRQ_PIN)) {
                 goto again;
             }
         }
@@ -293,16 +284,16 @@ void bluefruit_le_init(void) {
     state.configured   = false;
     state.is_connected = false;
 
-    setPinInput(BLUEFRUIT_LE_IRQ_PIN);
+    gpio_set_pin_input(BLUEFRUIT_LE_IRQ_PIN);
 
     spi_init();
 
     // Perform a hardware reset
-    setPinOutput(BLUEFRUIT_LE_RST_PIN);
-    writePinHigh(BLUEFRUIT_LE_RST_PIN);
-    writePinLow(BLUEFRUIT_LE_RST_PIN);
+    gpio_set_pin_output(BLUEFRUIT_LE_RST_PIN);
+    gpio_write_pin_high(BLUEFRUIT_LE_RST_PIN);
+    gpio_write_pin_low(BLUEFRUIT_LE_RST_PIN);
     wait_ms(10);
-    writePinHigh(BLUEFRUIT_LE_RST_PIN);
+    gpio_write_pin_high(BLUEFRUIT_LE_RST_PIN);
 
     wait_ms(1000); // Give it a second to initialize
 
@@ -508,7 +499,7 @@ void bluefruit_le_task(void) {
     resp_buf_read_one(true);
     send_buf_send_one(SdepShortTimeout);
 
-    if (resp_buf.empty() && (state.event_flags & UsingEvents) && readPin(BLUEFRUIT_LE_IRQ_PIN)) {
+    if (resp_buf.empty() && (state.event_flags & UsingEvents) && gpio_read_pin(BLUEFRUIT_LE_IRQ_PIN)) {
         // Must be an event update
         if (at_command_P(PSTR("AT+EVENTSTATUS"), resbuf, sizeof(resbuf))) {
             uint32_t mask = strtoul(resbuf, NULL, 16);
@@ -549,14 +540,6 @@ void bluefruit_le_task(void) {
             set_connected(atoi(resbuf));
         }
     }
-
-#ifdef SAMPLE_BATTERY
-    if (timer_elapsed(state.last_battery_update) > BatteryUpdateInterval && resp_buf.empty()) {
-        state.last_battery_update = timer_read();
-
-        state.vbat = analogReadPin(BATTERY_LEVEL_PIN);
-    }
-#endif
 }
 
 static bool process_queue_item(struct queue_item *item, uint16_t timeout) {
@@ -653,10 +636,6 @@ void bluefruit_le_send_mouse(report_mouse_t *report) {
     while (!send_buf.enqueue(item)) {
         send_buf_send_one();
     }
-}
-
-uint32_t bluefruit_le_read_battery_voltage(void) {
-    return state.vbat;
 }
 
 bool bluefruit_le_set_mode_leds(bool on) {

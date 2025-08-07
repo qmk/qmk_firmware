@@ -8,6 +8,10 @@
 #    include "print.h"
 #endif // CONSOLE_ENABLE
 
+#ifdef POINTING_DEVICE_ENABLE
+#    include "drivers/sensors/cirque_pinnacle_gestures.h"
+#endif // POINTING_DEVICE_ENABLE
+
 #if defined(POINTING_DEVICE_ENABLE) || defined(SPLEEB_ENCODER_MODE_MAP_ENABLE)
 typedef union {
     uint16_t raw;

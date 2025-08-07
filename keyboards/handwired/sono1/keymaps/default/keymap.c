@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                `-------------'
 */
 [_FN] = LAYOUT(
-    QK_BOOT,    _______,   _______,  _______,  _______,  _______,  _______,     _______,  _______,  KC_PSCR,  KC_LSCR,  KC_PAUS,               _______, _______,  _______,
+    QK_BOOT,  _______,   _______,  _______,  _______,  _______,  _______,     _______,  _______,  KC_PSCR,  KC_LSCR,  KC_PAUS,               _______, _______,  _______,
     _______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,   _______, _______,  _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, KC_UP, _______, KC_HOME, KC_PGUP, _______,    _______,            _______, _______,  _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END, KC_PGDN, _______,                           _______,      _______, _______, _______, _______,
@@ -150,18 +150,18 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     /* Use LED0 and 4 (Kana and KB Lock as layer indicators) */
     switch (get_highest_layer(state)) {
     case _FN:
-        writePinLow(LED_KANA_PIN);
+        gpio_write_pin_low(LED_KANA_PIN);
         break;
     case _MUS:
-        writePinLow(LED_KB_LOCK_PIN);
+        gpio_write_pin_low(LED_KB_LOCK_PIN);
         break;
     case _LOCK:
-        writePinLow(LED_KANA_PIN);
-        writePinLow(LED_KB_LOCK_PIN);
+        gpio_write_pin_low(LED_KANA_PIN);
+        gpio_write_pin_low(LED_KB_LOCK_PIN);
         break;
     default: //  for any other layers, or the default layer
-        writePinHigh(LED_KANA_PIN);
-        writePinHigh(LED_KB_LOCK_PIN);
+        gpio_write_pin_high(LED_KANA_PIN);
+        gpio_write_pin_high(LED_KB_LOCK_PIN);
         break;
     }
   return state;

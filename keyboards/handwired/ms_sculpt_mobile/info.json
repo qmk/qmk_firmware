@@ -1,7 +1,14 @@
 {
     "manufacturer": "Microsoftplus",
-    "url": "",
     "maintainer": "qmk",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false
+    },
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6060",

@@ -21,7 +21,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(KC_MUTE, KC_MPLY, KC_MPRV, KC_MNXT, TO(1)),
     [1] = LAYOUT(KC_TRNS, KC_MSTP, KC_MRWD, KC_MFFD, TO(2)),
-    [2] = LAYOUT(KC_LSFT, RGB_MOD, RGB_HUI, RGB_SAI, TO(0))
+    [2] = LAYOUT(KC_LSFT, UG_NEXT, UG_HUEU, UG_SATU, TO(0))
 };
 
 int get_icon_start_position(int key_position) {

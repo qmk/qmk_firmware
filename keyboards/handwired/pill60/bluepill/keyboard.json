@@ -1,0 +1,8 @@
+{
+    "matrix_pins": {
+        "cols": ["A8", "B11", "B10", "B15", "A10", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "B0", "B1"],
+        "rows": ["B4", "B3", "A15", "B13", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "development_board": "bluepill"
+}

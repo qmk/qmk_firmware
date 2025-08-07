@@ -2,7 +2,7 @@
     "version": 1,
     "author": "skullydazed",
     "notes": "",
-    "keyboard": "clueboard/2x1800/2018",
+    "keyboard": "clueboard/2x1800/2021",
     "keymap": "default",
     "layout": "LAYOUT_all",
     "layers": [

@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "Valor FRL TKL Rev2.2",
+    "usb": {
+        "device_version": "0.0.3",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["A10", "A8", "B15", "B14", "B13", "B12", "B9", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0"],
+        "rows": ["A15", "A14", "A13", "B3", "B4"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu"
+}

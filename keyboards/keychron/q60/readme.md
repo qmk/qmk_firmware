@@ -10,7 +10,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make keychron/q60/ansi:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/q60/ansi:default:flash
 

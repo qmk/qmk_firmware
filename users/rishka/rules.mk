@@ -1,1 +1,0 @@
-SRC += rishka.c

@@ -1,0 +1,19 @@
+{
+    "usb": {
+        "device_version": "1.0.1"
+    },
+    "split": {
+        "serial": {
+            "driver": "usart"
+        }
+    },
+    "ws2812": {
+        "pin": "A9"
+    },
+    "matrix_pins": {
+        "cols": ["A1", "A0", "B8", "B13", "B14", "B15", "B9"],
+        "rows": ["B5", "B3", "B2", "B1", "B0"]
+    },
+    "diode_direction": "COL2ROW",
+    "development_board": "proton_c"
+}

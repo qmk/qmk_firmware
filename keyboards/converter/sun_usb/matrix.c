@@ -74,8 +74,8 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-    /* DDRD |= (1<<6); */
-    /* PORTD |= (1<<6); */
+    /* gpio_set_pin_output(D6); */
+    /* gpio_write_pin_high(D6); */
     debug_enable = true;
 
     uart_init(1200);
@@ -99,7 +99,7 @@ void matrix_init(void)
     /* } */
     /* print(" Done\n"); */
 
-    /* PORTD &= ~(1<<6); */
+    /* gpio_write_pin_low(D6) */
 
     matrix_init_kb();
     return;
@@ -111,7 +111,7 @@ uint8_t matrix_scan(void)
     code = uart_read();
     if (!code) return 0;
 
-    debug_hex(code); debug(" ");
+    dprintf("%02X ", code);
 
     switch (code) {
         case 0xFF:  // reset success: FF 04

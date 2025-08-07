@@ -18,7 +18,6 @@
 
 #include <stdbool.h>
 #include <stdint.h>
-
 #include "action.h"
 
 bool process_unicode(uint16_t keycode, keyrecord_t *record);

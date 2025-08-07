@@ -16,7 +16,9 @@
  */
 #include "voices.h"
 #include "audio.h"
+#include "timer.h"
 #include <stdlib.h>
+#include <math.h>
 
 uint8_t note_timbre      = TIMBRE_DEFAULT;
 bool    glissando        = false;

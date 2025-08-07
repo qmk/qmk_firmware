@@ -1,3 +1,18 @@
+/* Copyright 2019 Max Rumpf (@Maxr1998)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include QMK_KEYBOARD_H
 
 #include "keymap_german.h"
@@ -35,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GRV,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    DE_PLUS, KC_ENT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SC_RSPC,
-  KC_LCTL, KC_LGUI, KC_LALT, QK_LEAD, KC_SC,       KC_SPC,       KC_ALGR, KC_FN,   KC_LEFT, KC_DOWN, KC_RGHT
+  KC_LCTL, KC_LGUI, KC_LALT, KC_BTN1, KC_SC,       KC_SPC,       KC_ALGR, KC_FN,   KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Special characters
@@ -76,8 +91,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F10,  KC_F11,  KC_F12,
   _______, _______, _______, _______, _______, _______, _______, DE_UDIA, KC_F9,   DE_ODIA, KC_PSCR, KC_DEL,
   QK_LOCK, DE_ADIA, DE_SS,   _______, _______, G_1,     _______, RGB_M_P, RGB_M_SW,RGB_M_SN,_______, _______,
-  _______, _______, _______, _______, _______, _______, _______, RGB_HUD, RGB_TOG, RGB_HUI, KC_PGUP, _______,
-  XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX,      _______,     XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END
+  _______, _______, _______, _______, _______, _______, _______, UG_HUED, UG_TOGG, UG_HUEU, KC_PGUP, _______,
+  XXXXXXX, _______, XXXXXXX, KC_BTN2, XXXXXXX,      _______,     XXXXXXX, XXXXXXX, KC_HOME, KC_PGDN, KC_END
 ),
 
 /* Gaming
@@ -128,13 +143,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-};
-
-void leader_end_user(void) {
-    if (leader_sequence_two_keys(KC_G, KC_P)) {
-        SEND_STRING("git push");
-    }
-    if (leader_sequence_three_keys(KC_G, KC_F, KC_P)) {
-        SEND_STRING("git push --force-with-lease");
-    }
 }

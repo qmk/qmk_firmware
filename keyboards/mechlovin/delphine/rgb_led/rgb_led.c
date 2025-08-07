@@ -18,7 +18,7 @@
 
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 // left CA
     {0, C5_2,   C6_2,   C7_2}, //D2-0
     {0, C1_1,   C3_2,   C4_2}, //D20-1

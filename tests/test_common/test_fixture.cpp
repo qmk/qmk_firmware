@@ -7,6 +7,7 @@
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
 #include "keyboard_report_util.hpp"
+#include "mouse_report_util.hpp"
 #include "keycode.h"
 #include "test_driver.hpp"
 #include "test_logger.hpp"
@@ -45,7 +46,7 @@ void TestFixture::SetUpTestCase() {
 
     // The following is enough to bootstrap the values set in main
     eeconfig_init_quantum();
-    eeconfig_update_debug(debug_config.raw);
+    eeconfig_update_debug(&debug_config);
 
     TestDriver driver;
     keyboard_init();
@@ -58,7 +59,8 @@ void TestFixture::TearDownTestCase() {}
 TestFixture::TestFixture() {
     m_this = this;
     timer_clear();
-    test_logger.info() << "tapping term is " << +GET_TAPPING_TERM(KC_TRANSPARENT, &(keyrecord_t){}) << "ms" << std::endl;
+    keyrecord_t empty_keyrecord = {0};
+    test_logger.info() << "tapping term is " << +GET_TAPPING_TERM(KC_TRANSPARENT, &empty_keyrecord) << "ms" << std::endl;
 }
 
 TestFixture::~TestFixture() {
@@ -68,6 +70,9 @@ TestFixture::~TestFixture() {
     /* Reset keyboard state. */
     clear_all_keys();
 
+#ifdef MOUSEKEY_ENABLE
+    EXPECT_EMPTY_MOUSE_REPORT(driver);
+#endif
     clear_keyboard();
 
     clear_oneshot_mods();
@@ -175,6 +180,7 @@ void TestFixture::idle_for(unsigned time) {
     test_logger.trace() << +time << " keyboard task " << (time > 1 ? "loops" : "loop") << std::endl;
     for (unsigned i = 0; i < time; i++) {
         keyboard_task();
+        housekeeping_task();
         advance_time(1);
     }
 }

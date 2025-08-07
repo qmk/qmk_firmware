@@ -3,7 +3,7 @@
 #include "quantum.h"
 
 #ifdef HAPTIC_ENABLE
-#include "drivers/haptic/DRV2605L.h"
+#include "drivers/haptic/drv2605l.h"
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
@@ -100,27 +100,27 @@ __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
         case 1:
 #ifdef HAPTIC_ENABLE
-            DRV_pulse(soft_bump);
+            drv2605l_pulse(DRV2605L_EFFECT_SOFT_BUMP_100);
 #endif
             break;
         case 2:
 #ifdef HAPTIC_ENABLE
-            DRV_pulse(sh_dblsharp_tick);
+            drv2605l_pulse(DRV2605L_EFFECT_SHORT_DOUBLE_SHARP_TICK_1_100);
 #endif
             break;
         case 3:
 #ifdef HAPTIC_ENABLE
-            DRV_pulse(lg_dblclick_str);
+            drv2605l_pulse(DRV2605L_EFFECT_LONG_DOUBLE_SHARP_CLICK_STRONG_1_100);
 #endif
             break;
         case 4:
 #ifdef HAPTIC_ENABLE
-            DRV_pulse(soft_bump);
+            drv2605l_pulse(DRV2605L_EFFECT_SOFT_BUMP_100);
 #endif
             break;
         case 5:
 #ifdef HAPTIC_ENABLE
-            DRV_pulse(pulsing_sharp);
+            drv2605l_pulse(DRV2605L_EFFECT_PULSING_SHARP_1_100);
 #endif
             break;
     }

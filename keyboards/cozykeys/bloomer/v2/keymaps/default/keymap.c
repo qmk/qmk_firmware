@@ -21,8 +21,8 @@ enum bloomer_layers {
   FN
 };
 
-#define RGB_N RGB_MOD  // Rotate to next RGB mode
-#define RGB_P RGB_RMOD // Rotate to next RGB mode
+#define RGB_N UG_NEXT // Rotate to next RGB mode
+#define RGB_P UG_PREV // Rotate to next RGB mode
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -37,10 +37,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [FN] = LAYOUT(
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
-    _______, _______, _______, _______, _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______,
-    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, KC_GRV,  KC_LBRC, KC_RBRC, _______, _______,
+    _______, _______, _______, _______, _______, _______, UG_HUEU, UG_SATU, UG_VALU, _______, _______, _______, _______, _______, _______,
+    _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, UG_HUED, UG_SATD, UG_VALD, _______, KC_GRV,  KC_LBRC, KC_RBRC, _______, _______,
     _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______,                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______,
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, RGB_P,   RGB_TOG, RGB_N,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, RGB_P,   UG_TOGG, RGB_N,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______, _______,
     _______, _______, _______, _______, _______, _______, _______, RGB_M_P, _______, _______, _______, _______, _______, _______, _______
 )
 

@@ -1,0 +1,49 @@
+{
+    "manufacturer": "TogKey",
+    "keyboard_name": "Pad Pocket",
+    "maintainer": "togkey86",
+    "development_board": "promicro_rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["GP29", "GP22"],
+        "rows": ["GP26"]
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "hue_steps": 10,
+        "led_count": 2
+    },
+    "url": "https://togkey.com/products/togkey-pad-pocket",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x8688",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP21"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0}
+            ]
+        }
+    }
+}

@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#include "keycodes.h"
+
 enum wt_rgb_backlight_keycodes {
     BR_INC = QK_KB_0, // brightness increase
     BR_DEC,             // brightness decrease

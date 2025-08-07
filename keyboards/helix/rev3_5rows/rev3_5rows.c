@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "rev3_5rows.h"
 
 bool is_mac_mode(void) {
     return keymap_config.swap_lalt_lgui == false;
@@ -27,7 +27,7 @@ void set_mac_mode(bool macmode) {
      *   https://github.com/qmk/qmk_firmware/blob/fb4a6ad30ea7a648acd59793ed4a30c3a8d8dc32/quantum/process_keycode/process_magic.c#L80-L81
      */
     keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = !macmode;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 }
 
 #ifdef DIP_SWITCH_ENABLE

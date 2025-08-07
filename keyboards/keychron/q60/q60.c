@@ -16,14 +16,6 @@
 
 #include "quantum.h"
 
-const matrix_row_t matrix_mask[] = {
-    0b11111111111111,
-    0b11111111111111,
-    0b11111111111111,
-    0b11111111111111,
-    0b11111111101111,
-};
-
 #ifdef DIP_SWITCH_ENABLE
 
 bool dip_switch_update_kb(uint8_t index, bool active) {

@@ -13,6 +13,7 @@ This is the modified version of [calculator by MWWorks](https://github.com/MWWor
    Feel free to fix it! I think it needs to detect the precision of the two operands and then figure out what the precision of the result should be
 
 */
+#include <math.h>
 #include "rubi.h"
 
 static uint8_t calc_current_operand = 0;

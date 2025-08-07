@@ -1,1 +1,0 @@
-# Default Caravan Layout

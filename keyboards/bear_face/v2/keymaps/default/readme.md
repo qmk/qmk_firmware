@@ -13,3 +13,7 @@ This layout replaces the stock layout on the Vortex Race 3.
     * 'Reset' will put the keyboard into DFU mode
     * 'APP' sends 'KC_APP'
     * Base layer toggles for QWERTY, COLEMAK, and DVORAK layouts (will persist after reboot)
+
+- New things in v2:
+    * Option of ANSI or ISO layout
+    * Optional stepped caps (will require compatible plate)

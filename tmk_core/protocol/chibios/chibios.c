@@ -51,33 +51,37 @@
 
 #define USB_GETSTATUS_REMOTE_WAKEUP_ENABLED (2U)
 
+#ifdef WAIT_FOR_USB
+// TODO: Remove backwards compatibility with old define
+#    define USB_WAIT_FOR_ENUMERATION
+#endif
+
 /* -------------------------
  *   TMK host driver defs
  * -------------------------
  */
 
 /* declarations */
-uint8_t keyboard_leds(void);
-void    send_keyboard(report_keyboard_t *report);
-void    send_mouse(report_mouse_t *report);
-void    send_extra(report_extra_t *report);
+void send_keyboard(report_keyboard_t *report);
+void send_nkro(report_nkro_t *report);
+void send_mouse(report_mouse_t *report);
+void send_extra(report_extra_t *report);
+void send_raw_hid(uint8_t *data, uint8_t length);
 
 /* host struct */
-host_driver_t chibios_driver = {keyboard_leds, send_keyboard, send_mouse, send_extra};
+host_driver_t chibios_driver = {
+    .keyboard_leds = usb_device_state_get_leds,
+    .send_keyboard = send_keyboard,
+    .send_nkro     = send_nkro,
+    .send_mouse    = send_mouse,
+    .send_extra    = send_extra,
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif
+};
 
 #ifdef VIRTSER_ENABLE
 void virtser_task(void);
-#endif
-
-#ifdef RAW_ENABLE
-void raw_hid_task(void);
-#endif
-
-#ifdef CONSOLE_ENABLE
-void console_task(void);
-#endif
-#ifdef MIDI_ENABLE
-void midi_ep_task(void);
 #endif
 
 /* TESTING
@@ -140,8 +144,6 @@ void protocol_setup(void) {
     // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 }
 
-static host_driver_t *driver = NULL;
-
 void protocol_pre_init(void) {
     /* Init USB */
     usb_event_queue_init();
@@ -152,18 +154,11 @@ void protocol_pre_init(void) {
 #endif
 
     /* Wait until USB is active */
-    while (true) {
-#if defined(WAIT_FOR_USB)
-        if (USB_DRIVER.state == USB_ACTIVE) {
-            driver = &chibios_driver;
-            break;
-        }
-#else
-        driver = &chibios_driver;
-        break;
-#endif
+#ifdef USB_WAIT_FOR_ENUMERATION
+    while (USB_DRIVER.state != USB_ACTIVE) {
         wait_ms(50);
     }
+#endif
 
     /* Do need to wait here!
      * Otherwise the next print might start a transfer on console EP
@@ -176,41 +171,40 @@ void protocol_pre_init(void) {
 }
 
 void protocol_post_init(void) {
-    host_set_driver(driver);
+    host_set_driver(&chibios_driver);
 }
 
 void protocol_pre_task(void) {
+    usb_event_queue_task();
+
 #if !defined(NO_USB_STARTUP_CHECK)
     if (USB_DRIVER.state == USB_SUSPENDED) {
         dprintln("suspending keyboard");
         while (USB_DRIVER.state == USB_SUSPENDED) {
-            suspend_power_down();
-            if ((USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED) && suspend_wakeup_condition()) {
-                /* issue a remote wakeup event to the host which should resume
-                 * the bus and get our keyboard out of suspension. */
+            /* Do this in the suspended state */
+            suspend_power_down(); // on AVR this deep sleeps for 15ms
+            /* Remote wakeup */
+            if (suspend_wakeup_condition() && (USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED)) {
                 usbWakeupHost(&USB_DRIVER);
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+                // Some hubs, kvm switches, and monitors do
+                // weird things, with USB device state bouncing
+                // around wildly on wakeup, yielding race
+                // conditions that can corrupt the keyboard state.
+                //
+                // Pause for a while to let things settle...
+                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+#    endif
             }
         }
-        /* after a successful wakeup a USB_EVENT_WAKEUP is signaled to QMK by
-         * ChibiOS, which triggers a wakeup callback that restores the state of
-         * the keyboard. Therefore we do nothing here. */
+        /* Woken up */
     }
 #endif
-
-    usb_event_queue_task();
 }
 
 void protocol_post_task(void) {
-#ifdef CONSOLE_ENABLE
-    console_task();
-#endif
-#ifdef MIDI_ENABLE
-    midi_ep_task();
-#endif
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif
-#ifdef RAW_ENABLE
-    raw_hid_task();
-#endif
+    usb_idle_task();
 }

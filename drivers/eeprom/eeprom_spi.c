@@ -35,6 +35,7 @@
 #include "timer.h"
 #include "spi_master.h"
 #include "eeprom.h"
+#include "eeprom_driver.h"
 #include "eeprom_spi.h"
 
 #define CMD_WREN 6
@@ -90,6 +91,13 @@ static void spi_eeprom_transmit_address(uintptr_t addr) {
 
 void eeprom_driver_init(void) {
     spi_init();
+}
+
+void eeprom_driver_format(bool erase) {
+    /* spi eeproms do not need to be formatted before use */
+    if (erase) {
+        eeprom_driver_erase();
+    }
 }
 
 void eeprom_driver_erase(void) {

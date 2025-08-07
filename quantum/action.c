@@ -47,7 +47,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 int tp_buttons;
 
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-int retro_tapping_counter = 0;
+bool     retro_tap_primed   = false;
+uint16_t retro_tap_curr_key = 0;
+#    if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+uint8_t retro_tap_curr_mods = 0;
+uint8_t retro_tap_next_mods = 0;
+#    endif
 #endif
 
 #if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT) && !defined(NO_ACTION_TAPPING)
@@ -77,7 +82,13 @@ void action_exec(keyevent_t event) {
         debug_event(event);
         ac_dprintf("\n");
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-        retro_tapping_counter++;
+        uint16_t event_keycode = get_event_keycode(event, false);
+        if (event.pressed) {
+            retro_tap_primed   = false;
+            retro_tap_curr_key = event_keycode;
+        } else if (retro_tap_curr_key == event_keycode) {
+            retro_tap_primed = true;
+        }
 #endif
     }
 
@@ -270,6 +281,9 @@ void process_record(keyrecord_t *record) {
     if (IS_NOEVENT(record->event)) {
         return;
     }
+#ifdef FLOW_TAP_TERM
+    flow_tap_update_last_event(record);
+#endif // FLOW_TAP_TERM
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
@@ -329,7 +343,7 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
     // should mousekeys send report, or does something else handle this?
     switch (mouse_keycode) {
 #    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
-        case KC_MS_BTN1 ... KC_MS_BTN8:
+        case QK_MOUSE_BUTTON_1 ... QK_MOUSE_BUTTON_8:
             // let pointing device handle the buttons
             // expand if/when it handles more of the code
 #        if defined(POINTING_DEVICE_ENABLE)
@@ -351,8 +365,8 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
 
 #ifdef PS2_MOUSE_ENABLE
     // make sure that ps2 mouse has button report synced
-    if (KC_MS_BTN1 <= mouse_keycode && mouse_keycode <= KC_MS_BTN3) {
-        uint8_t tmp_button_msk = MOUSE_BTN_MASK(mouse_keycode - KC_MS_BTN1);
+    if (QK_MOUSE_BUTTON_1 <= mouse_keycode && mouse_keycode <= QK_MOUSE_BUTTON_3) {
+        uint8_t tmp_button_msk = MOUSE_BTN_MASK(mouse_keycode - QK_MOUSE_BUTTON_1);
         tp_buttons             = pressed ? tp_buttons | tmp_button_msk : tp_buttons & ~tmp_button_msk;
     }
 #endif
@@ -374,7 +388,7 @@ void process_action(keyrecord_t *record, action_t action) {
     if (is_oneshot_layer_active() && event.pressed &&
         (action.kind.id == ACT_USAGE || !(IS_MODIFIER_KEYCODE(action.key.code)
 #    ifndef NO_ACTION_TAPPING
-                                          || (tap_count == 0 && (action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP))
+                                          || ((action.kind.id == ACT_LMODS_TAP || action.kind.id == ACT_RMODS_TAP) && (action.layer_tap.code <= MODS_TAP_TOGGLE || tap_count == 0))
 #    endif
                                               ))
 #    ifdef SWAP_HANDS_ENABLE
@@ -497,7 +511,7 @@ void process_action(keyrecord_t *record, action_t action) {
                 default:
                     if (event.pressed) {
                         if (tap_count > 0) {
-#    ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
+#    ifdef HOLD_ON_OTHER_KEY_PRESS
                             if (
 #        ifdef HOLD_ON_OTHER_KEY_PRESS_PER_KEY
                                 get_hold_on_other_key_press(get_event_keycode(record->event, false), record) &&
@@ -528,6 +542,14 @@ void process_action(keyrecord_t *record, action_t action) {
                             unregister_code(action.key.code);
                         } else {
                             ac_dprintf("MODS_TAP: No tap: add_mods\n");
+#    if defined(RETRO_TAPPING) && defined(DUMMY_MOD_NEUTRALIZER_KEYCODE)
+                            // Send a dummy keycode to neutralize flashing modifiers
+                            // if the key was held and then released with no interruptions.
+                            uint16_t ev_kc = get_event_keycode(event, false);
+                            if (retro_tap_primed && retro_tap_curr_key == ev_kc) {
+                                neutralize_flashing_modifiers(get_mods());
+                            }
+#    endif
                             unregister_mods(mods);
                         }
                     }
@@ -651,7 +673,6 @@ void process_action(keyrecord_t *record, action_t action) {
                                 layer_off(action.layer_tap.val);
                                 break;
                             } else if (tap_count < ONESHOT_TAP_TOGGLE) {
-                                layer_on(action.layer_tap.val);
                                 set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                             }
                         } else {
@@ -664,7 +685,6 @@ void process_action(keyrecord_t *record, action_t action) {
                         }
 #        else
                         if (event.pressed) {
-                            layer_on(action.layer_tap.val);
                             set_oneshot_layer(action.layer_tap.val, ONESHOT_START);
                         } else {
                             clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -812,6 +832,10 @@ void process_action(keyrecord_t *record, action_t action) {
         case ACT_LAYER_TAP_EXT:
 #    endif
             led_set(host_keyboard_leds());
+#    ifndef NO_ACTION_ONESHOT
+            // don't release the key
+            do_release_oneshot = false;
+#    endif
             break;
         default:
             break;
@@ -820,30 +844,44 @@ void process_action(keyrecord_t *record, action_t action) {
 
 #ifndef NO_ACTION_TAPPING
 #    if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
-    if (!is_tap_action(action)) {
-        retro_tapping_counter = 0;
-    } else {
+    if (is_tap_action(action)) {
         if (event.pressed) {
             if (tap_count > 0) {
-                retro_tapping_counter = 0;
+                retro_tap_primed = false;
+            } else {
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+                retro_tap_curr_mods = retro_tap_next_mods;
+                retro_tap_next_mods = get_mods();
+#        endif
             }
         } else {
+            uint16_t event_keycode = get_event_keycode(event, false);
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+            uint8_t curr_mods = get_mods();
+#        endif
             if (tap_count > 0) {
-                retro_tapping_counter = 0;
-            } else {
+                retro_tap_primed = false;
+            } else if (retro_tap_curr_key == event_keycode) {
                 if (
 #        ifdef RETRO_TAPPING_PER_KEY
-                    get_retro_tapping(get_event_keycode(record->event, false), record) &&
+                    get_retro_tapping(event_keycode, record) &&
 #        endif
-                    retro_tapping_counter == 2) {
+                    retro_tap_primed) {
 #        if defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT)
                     process_auto_shift(action.layer_tap.code, record);
 #        else
+                    register_mods(retro_tap_curr_mods);
+                    wait_ms(TAP_CODE_DELAY);
                     tap_code(action.layer_tap.code);
+                    wait_ms(TAP_CODE_DELAY);
+                    unregister_mods(retro_tap_curr_mods);
 #        endif
                 }
-                retro_tapping_counter = 0;
+                retro_tap_primed = false;
             }
+#        if !(defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
+            retro_tap_next_mods = curr_mods;
+#        endif
         }
     }
 #    endif
@@ -882,7 +920,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
     } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is on
-        if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) return;
+        if (host_keyboard_led_state().caps_lock) return;
 #    endif
         add_key(KC_CAPS_LOCK);
         send_keyboard_report();
@@ -892,7 +930,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
 
     } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (host_keyboard_leds() & (1 << USB_LED_NUM_LOCK)) return;
+        if (host_keyboard_led_state().num_lock) return;
 #    endif
         add_key(KC_NUM_LOCK);
         send_keyboard_report();
@@ -902,7 +940,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
 
     } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK)) return;
+        if (host_keyboard_led_state().scroll_lock) return;
 #    endif
         add_key(KC_SCROLL_LOCK);
         send_keyboard_report();
@@ -918,7 +956,7 @@ __attribute__((weak)) void register_code(uint8_t code) {
         // Force a new key press if the key is already pressed
         // without this, keys with the same keycode, but different
         // modifiers will be reported incorrectly, see issue #1708
-        if (is_key_pressed(keyboard_report, code)) {
+        if (is_key_pressed(code)) {
             del_key(code);
             send_keyboard_report();
         }
@@ -952,7 +990,7 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
     } else if (KC_LOCKING_CAPS_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
         // Resync: ignore if caps lock already is off
-        if (!(host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK))) return;
+        if (!host_keyboard_led_state().caps_lock) return;
 #    endif
         add_key(KC_CAPS_LOCK);
         send_keyboard_report();
@@ -961,7 +999,7 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
 
     } else if (KC_LOCKING_NUM_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (!(host_keyboard_leds() & (1 << USB_LED_NUM_LOCK))) return;
+        if (!host_keyboard_led_state().num_lock) return;
 #    endif
         add_key(KC_NUM_LOCK);
         send_keyboard_report();
@@ -970,7 +1008,7 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
 
     } else if (KC_LOCKING_SCROLL_LOCK == code) {
 #    ifdef LOCKING_RESYNC_ENABLE
-        if (!(host_keyboard_leds() & (1 << USB_LED_SCROLL_LOCK))) return;
+        if (!host_keyboard_led_state().scroll_lock) return;
 #    endif
         add_key(KC_SCROLL_LOCK);
         send_keyboard_report();
@@ -1004,9 +1042,7 @@ __attribute__((weak)) void unregister_code(uint8_t code) {
  */
 __attribute__((weak)) void tap_code_delay(uint8_t code, uint16_t delay) {
     register_code(code);
-    for (uint16_t i = delay; i > 0; i--) {
-        wait_ms(1);
-    }
+    wait_ms(delay);
     unregister_code(code);
 }
 
@@ -1148,6 +1184,23 @@ bool is_tap_action(action_t action) {
             return false;
     }
     return false;
+}
+
+uint16_t get_tap_keycode(uint16_t keycode) {
+    switch (keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            return QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            return QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            // IS_SWAP_HANDS_KEYCODE() tests for the special action keycodes
+            // like SH_TOGG, SH_TT, ..., which overlap the SH_T(kc) range.
+            if (!IS_SWAP_HANDS_KEYCODE(keycode)) {
+                return QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode);
+            }
+            break;
+    }
+    return keycode;
 }
 
 /** \brief Debug print (FIXME: Needs better description)

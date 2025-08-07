@@ -33,10 +33,7 @@ enum terminus_mini_layers {
 };
 
 enum terminus_mini_keycodes {
-  COLEMAK = SAFE_RANGE,
-  QWERTY,
-  DVORAK,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   FUNCTION,
   MOUSE,
@@ -47,6 +44,10 @@ enum terminus_mini_keycodes {
 
 #define SPC_LW LT(_LOWER, KC_SPC)
 #define ENT_RS LT(_RAISE, KC_ENT)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Colemak -
@@ -201,32 +202,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 // Cases to switch default layer to QWERTY, COLEMAK or DVORAK and to access ADJUST layer
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

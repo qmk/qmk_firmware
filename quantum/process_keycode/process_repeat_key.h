@@ -14,7 +14,9 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
 
 /**
  * @brief Process handler for remembering the last key.

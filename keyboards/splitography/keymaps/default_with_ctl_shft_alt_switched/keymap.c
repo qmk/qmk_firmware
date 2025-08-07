@@ -15,7 +15,6 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_steno.h"
 
 enum keyboard_layers {
     _QWERTY = 0,
@@ -215,9 +214,9 @@ void plover(keyrecord_t *record) {
         if (!eeconfig_is_enabled()) {
             eeconfig_init();
         }
-        keymap_config.raw  = eeconfig_read_keymap();
+        eeconfig_read_keymap(&keymap_config);
         keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
+        eeconfig_update_keymap(&keymap_config);
     }
 }
 

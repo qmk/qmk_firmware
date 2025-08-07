@@ -2,7 +2,7 @@
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 
-typedef HSV (*reactive_f)(HSV hsv, uint16_t offset);
+typedef hsv_t (*reactive_f)(hsv_t hsv, uint16_t offset);
 
 bool effect_runner_reactive(effect_params_t* params, reactive_f effect_func) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -20,7 +20,7 @@ bool effect_runner_reactive(effect_params_t* params, reactive_f effect_func) {
         }
 
         uint16_t offset = scale16by8(tick, qadd8(rgb_matrix_config.speed, 1));
-        RGB      rgb    = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, offset));
+        rgb_t    rgb    = rgb_matrix_hsv_to_rgb(effect_func(rgb_matrix_config.hsv, offset));
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return rgb_matrix_check_finished_leds(led_max);

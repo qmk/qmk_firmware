@@ -16,4 +16,7 @@
 
 #pragma once
 
+#define BACKLIGHT_PWM_DRIVER PWMD5
+#define BACKLIGHT_PWM_CHANNEL 1
+
 #define MOUSEKEY_INTERVAL 32

@@ -8,9 +8,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_KP_0, KC_PDOT, KC_PCMM, KC_PENT
 	),
 	[1] = LAYOUT_ortho_4x4(
-		QK_BOOT,   BL_STEP, _______, KC_VOLU,
+		QK_BOOT, BL_STEP, _______, KC_VOLU,
 		BL_TOGG, BL_DOWN, BL_UP,   KC_VOLD,
-		RGB_TOG, RGB_MOD, RGB_HUI, KC_MUTE,
-		RGB_SAI, RGB_SAD, RGB_HUD, _______
+		UG_TOGG, UG_NEXT, UG_HUEU, KC_MUTE,
+		UG_SATU, UG_SATD, UG_HUED, _______
 	),
 };

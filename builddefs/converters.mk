@@ -1,12 +1,7 @@
-# Note for new boards -- CTPC and CONVERT_TO_PROTON_C are deprecated terms
-# and should not be replicated for new boards. These will be removed from
-# documentation as well as existing keymaps in due course.
-ifneq ($(findstring yes, $(CTPC)$(CONVERT_TO_PROTON_C)),)
-$(call CATASTROPHIC_ERROR,The `CONVERT_TO_PROTON_C` and `CTPC` options are now deprecated. `CONVERT_TO=proton_c` should be used instead.)
+ifneq (,$(filter $(MCU),atmega32u4))
+    # TODO: opt in rather than assume everything uses a pro micro
+    PIN_COMPATIBLE ?= promicro
 endif
-
-# TODO: opt in rather than assume everything uses a pro micro
-PIN_COMPATIBLE ?= promicro
 
 # Remove whitespace from any rule.mk provided vars
 #   - env cannot be overwritten but cannot have whitespace anyway
@@ -15,6 +10,10 @@ ifneq ($(CONVERT_TO),)
 
     # stash so we can overwrite env provided vars if needed
     ACTIVE_CONVERTER=$(CONVERT_TO)
+
+    ifeq ($(PIN_COMPATIBLE),)
+        $(call CATASTROPHIC_ERROR,Converting to '$(CONVERT_TO)' not possible!)
+    endif
 
     # glob to search each platfrorm and/or check for valid converter
     CONVERTER := $(wildcard $(PLATFORM_PATH)/*/converters/$(PIN_COMPATIBLE)_to_$(CONVERT_TO)/)
@@ -25,7 +24,6 @@ ifneq ($(CONVERT_TO),)
     -include $(CONVERTER)/pre_converter.mk
 
     PLATFORM_KEY = $(shell echo $(CONVERTER) | cut -d "/" -f2)
-    TARGET := $(TARGET)_$(CONVERT_TO)
 
     # Configure any defaults
     OPT_DEFS += -DCONVERT_TO_$(shell echo $(CONVERT_TO) | tr '[:lower:]' '[:upper:]')

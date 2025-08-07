@@ -5,8 +5,7 @@
 meishi2 - The better micro macro keyboard
 
 Keyboard Maintainer: [Biacco42](https://github.com/Biacco42)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: [links to where you can find this hardware](https://github.com/Biacco42/meishi2)
+Hardware Availability: https://github.com/Biacco42/meishi2
 
 Make example for this keyboard (after setting up your build environment):
 

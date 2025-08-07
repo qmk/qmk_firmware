@@ -47,43 +47,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   // set CapsLock LED to output and low
-  setPinOutput(B1);
-  writePinLow(B1);
+  gpio_set_pin_output(B1);
+  gpio_write_pin_low(B1);
   // set NumLock LED to output and low
-  setPinOutput(B2);
-  writePinLow(B2);
+  gpio_set_pin_output(B2);
+  gpio_write_pin_low(B2);
   // set ScrollLock LED to output and low
-  setPinOutput(B3);
-  writePinLow(B3);
+  gpio_set_pin_output(B3);
+  gpio_write_pin_low(B3);
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    writePinHigh(B2);
+bool led_update_user(led_t led_state) {
+  if (led_state.num_lock) {
+    gpio_write_pin_high(B2);
   } else {
-    writePinLow(B2);
+    gpio_write_pin_low(B2);
   }
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(B1);
+  if (led_state.caps_lock) {
+    gpio_write_pin_high(B1);
   } else {
-    writePinLow(B1);
+    gpio_write_pin_low(B1);
   }
-/*
-  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-    writePinHigh(B3);
-  } else {
-    writePinLow(B3);
-  }*/
-
+  return false;
 }
 
 //function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state)
 {
     if (get_highest_layer(state) == 1) {
-    writePinHigh(B3);
+    gpio_write_pin_high(B3);
 	} else {
-		writePinLow(B3);
+		gpio_write_pin_low(B3);
     }
     return state;
 }

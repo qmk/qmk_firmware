@@ -3,13 +3,20 @@
     "manufacturer": "takashiski",
     "url": "https://skyhigh-works.hatenablog.com/",
     "maintainer": "takashiski",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0000",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

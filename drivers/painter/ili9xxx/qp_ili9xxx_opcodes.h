@@ -19,8 +19,8 @@
 #define ILI9XXX_CMD_SLEEP_OFF 0x11          // Exist sleep mode
 #define ILI9XXX_CMD_PARTIAL_ON 0x12         // Enter partial mode
 #define ILI9XXX_CMD_PARTIAL_OFF 0x13        // Exit partial mode
-#define ILI9XXX_CMD_INVERT_ON 0x20          // Enter inverted mode
-#define ILI9XXX_CMD_INVERT_OFF 0x21         // Exit inverted mode
+#define ILI9XXX_CMD_INVERT_OFF 0x20         // Exit inverted mode
+#define ILI9XXX_CMD_INVERT_ON 0x21          // Enter inverted mode
 #define ILI9XXX_SET_GAMMA 0x26              // Set gamma params
 #define ILI9XXX_CMD_DISPLAY_OFF 0x28        // Disable display
 #define ILI9XXX_CMD_DISPLAY_ON 0x29         // Enable display
@@ -70,6 +70,7 @@
 #define ILI9XXX_SET_LIGHT_CTL_8 0xBF        // Set backlight ctl 8
 #define ILI9XXX_SET_POWER_CTL_1 0xC0        // Set power ctl 1
 #define ILI9XXX_SET_POWER_CTL_2 0xC1        // Set power ctl 2
+#define ILI9XXX_SET_POWER_CTL_3 0xC2        // Set power ctl 3
 #define ILI9XXX_SET_VCOM_CTL_1 0xC5         // Set VCOM ctl 1
 #define ILI9XXX_SET_VCOM_CTL_2 0xC7         // Set VCOM ctl 2
 #define ILI9XXX_POWER_CTL_A 0xCB            // Set power control A

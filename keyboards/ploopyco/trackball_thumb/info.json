@@ -1,24 +1,27 @@
 {
-    "keyboard_name": "PloopyCo Thumb Trackball",
+    "keyboard_name": "Thumb Trackball",
+    "manufacturer": "Ploopy",
     "url": "www.ploopy.co",
     "maintainer": "ploopyco",
-    "manufacturer": "Ploopy Corporation",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "usb": {
         "vid": "0x5043",
         "pid": "0x5C46",
+        "device_version": "0.0.1",
         "max_power": 100
+    },
+    "bootmagic": {
+        "matrix": [0, 3]
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
+        "nkro": false,
         "pointing_device": true,
-        "encoder": false
+        "encoder": true
+    },
+    "encoder": {
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {

@@ -29,4 +29,4 @@
 #define RGBLIGHT_EFFECT_ALTERNATING
 #define RGBLIGHT_EFFECT_TWINKLE
 #define WS2812_DI_PIN D3    // The pin the LED strip is connected to
-#define RGBLED_NUM 7     // Number of LEDs in your strip
+#define RGBLIGHT_LED_COUNT 7     // Number of LEDs in your strip

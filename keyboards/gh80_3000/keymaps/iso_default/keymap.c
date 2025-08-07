@@ -11,24 +11,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT, KC_SPC,           KC_SPC,  KC_SPC,  KC_SPC,                             KC_RALT, KC_RGUI, KC_APP,  KC_RCTL,     KC_LEFT, KC_DOWN, KC_RGHT,     KC_P0,   KC_PCMM, KC_PDOT, KC_PENT
   )
 };
-
-void led_set_user(uint8_t usb_led) {
-
-    if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-        DDRB |= (1 << 5); PORTB &= ~(1 << 5);
-    } else {
-        DDRB &= ~(1 << 5); PORTB &= ~(1 << 5);
-    }
-
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 6); PORTB &= ~(1 << 6);
-    } else {
-        DDRB &= ~(1 << 6); PORTB &= ~(1 << 6);
-    }
-
-    if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-        DDRB |= (1 << 7); PORTB &= ~(1 << 7);
-    } else {
-        DDRB &= ~(1 << 7); PORTB &= ~(1 << 7);
-    }
-}

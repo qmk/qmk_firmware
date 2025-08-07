@@ -1,8 +1,14 @@
 {
   "keyboard_name": "SMK65v2",
   "manufacturer": "LFKeyboards",
-  "url": "",
   "maintainer": "qmk",
+  "features": {
+    "bootmagic": true,
+    "console": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true
+  },
   "usb": {
     "vid": "0x4C46",
     "device_version": "0.0.6"

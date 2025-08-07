@@ -1,0 +1,105 @@
+{
+    "manufacturer": "ai03 Design Studio",
+    "keyboard_name": "Altair-X",
+    "maintainer": "ai03_2725",
+    "bootloader": "rp2040",
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP20", "GP19", "GP18", "GP17", "GP16", "GP21", "GP9"],
+        "rows": ["GP26", "GP27", "GP28", "GP10"]
+    },
+    "processor": "RP2040",
+    "split": {
+        "bootmagic": {
+            "matrix": [4, 0]
+        },
+        "enabled": true,
+        "handedness": {
+            "pin": "GP8"
+        },
+        "matrix_pins": {
+            "right": {
+                "cols": ["GP15", "GP21", "GP9", "GP13", "GP10", "GP11", "GP12"],
+                "rows": ["GP16", "GP20", "GP28", "GP14"]
+            }
+        },
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP29"
+        }
+    },
+    "url": "https://ai03.com/",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x0023",
+        "vid": "0xA103"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0.38},
+                {"matrix": [0, 1], "x": 1, "y": 0.38},
+                {"matrix": [0, 2], "x": 2, "y": 0.13},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0.13},
+                {"matrix": [0, 5], "x": 5, "y": 0.25},
+                {"matrix": [0, 6], "x": 6, "y": 0.5},
+                {"matrix": [4, 0], "x": 7.75, "y": 0.5},
+                {"matrix": [4, 1], "x": 8.75, "y": 0.25},
+                {"matrix": [4, 2], "x": 9.75, "y": 0.13},
+                {"matrix": [4, 3], "x": 10.75, "y": 0},
+                {"matrix": [4, 4], "x": 11.75, "y": 0.13},
+                {"matrix": [4, 5], "x": 12.75, "y": 0.38},
+                {"matrix": [4, 6], "x": 13.75, "y": 0.38},
+                {"matrix": [1, 0], "x": 0, "y": 1.38},
+                {"matrix": [1, 1], "x": 1, "y": 1.38},
+                {"matrix": [1, 2], "x": 2, "y": 1.13},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1.13},
+                {"matrix": [1, 5], "x": 5, "y": 1.25},
+                {"matrix": [1, 6], "x": 6, "y": 1.5},
+                {"matrix": [5, 0], "x": 7.75, "y": 1.5},
+                {"matrix": [5, 1], "x": 8.75, "y": 1.25},
+                {"matrix": [5, 2], "x": 9.75, "y": 1.13},
+                {"matrix": [5, 3], "x": 10.75, "y": 1},
+                {"matrix": [5, 4], "x": 11.75, "y": 1.13},
+                {"matrix": [5, 5], "x": 12.75, "y": 1.38},
+                {"matrix": [5, 6], "x": 13.75, "y": 1.38},
+                {"matrix": [2, 0], "x": 0, "y": 2.38},
+                {"matrix": [2, 1], "x": 1, "y": 2.38},
+                {"matrix": [2, 2], "x": 2, "y": 2.13},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2.13},
+                {"matrix": [2, 5], "x": 5, "y": 2.25},
+                {"matrix": [2, 6], "x": 6, "y": 2.5},
+                {"matrix": [6, 0], "x": 7.75, "y": 2.5},
+                {"matrix": [6, 1], "x": 8.75, "y": 2.25},
+                {"matrix": [6, 2], "x": 9.75, "y": 2.13},
+                {"matrix": [6, 3], "x": 10.75, "y": 2},
+                {"matrix": [6, 4], "x": 11.75, "y": 2.13},
+                {"matrix": [6, 5], "x": 12.75, "y": 2.38},
+                {"matrix": [6, 6], "x": 13.75, "y": 2.38},
+                {"matrix": [3, 3], "x": 2.71, "y": 3.13},
+                {"matrix": [3, 4], "x": 3.73, "y": 3.16},
+                {"matrix": [3, 5], "x": 4.74, "y": 3.36},
+                {"matrix": [3, 6], "x": 5.75, "y": 3.72},
+                {"matrix": [7, 0], "x": 8, "y": 3.72},
+                {"matrix": [7, 1], "x": 9.02, "y": 3.36},
+                {"matrix": [7, 2], "x": 10.03, "y": 3.18},
+                {"matrix": [7, 3], "x": 11.05, "y": 3.13}
+            ]
+        }
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "keyboard_name": "craftwalk",
+    "manufacturer": "sotoba",
+    "url": "https://github.com/sotoba/craftwalk",
+    "maintainer": "sotoba",
+    "usb": {
+      "vid": "0x7364",
+      "pid": "0x2E8F",
+      "device_version": "0.0.1"
+    },
+    "bootmagic": {
+      "matrix": [1, 0]
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 19,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true
+        }
+    },
+    "ws2812": {
+      "pin": "D3"
+    },
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": false,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+      "cols": ["B1", "F7", "F5", "F4", "B2", "E6", "B4"],
+      "rows": ["F6", "B3", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "development_board": "promicro",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 1.25, "y": 0.25},
+                {"matrix": [0, 2], "x": 2.25, "y": 0},
+                {"matrix": [0, 3], "x": 3.25, "y": 0.25},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1.25, "y": 1.25},
+                {"matrix": [1, 2], "x": 2.25, "y": 1},
+                {"matrix": [1, 3], "x": 3.25, "y": 1.25},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1.25, "y": 2.25},
+                {"matrix": [2, 2], "x": 2.25, "y": 2},
+                {"matrix": [2, 3], "x": 3.25, "y": 2.25},
+                {"matrix": [2, 4], "x": 4.25, "y": 2},
+
+                {"matrix": [2, 5], "x": 5.25, "y": 3, "h": 1.5},
+                {"matrix": [2, 6], "x": 6.25, "y": 3, "h": 1.5}
+            ]
+        }
+    }
+}

@@ -1,23 +1,13 @@
 {
     "keyboard_name": "Jels60",
     "manufacturer": "Jels",
-    "url": "",
     "maintainer": "Jels",
     "usb": {
         "vid": "0x006A",
         "pid": "0x0060",
         "device_version": "0.0.1"
     },
-    "matrix_pins": {
-        "cols": ["E6", "C7", "B4", "D7", "D6", "D4", "D5", "D3", "F5", "F6", "F7", "C6", "B6", "B5"],
-        "rows": ["B3", "D2", "F0", "F4", "F1"]
-    },
     "diode_direction": "COL2ROW",
-    "indicators": {
-        "caps_lock": "B7"
-    },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

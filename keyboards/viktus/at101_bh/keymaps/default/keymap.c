@@ -12,33 +12,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 			KC_TRNS, KC_TRNS, KC_TRNS, 			  
-		QK_BOOT,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 	KC_TRNS, KC_TRNS, KC_TRNS, 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+		QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 	KC_TRNS, KC_TRNS, KC_TRNS, 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 	KC_TRNS, KC_TRNS, KC_TRNS, 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 					 						KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 			 KC_TRNS, 				KC_TRNS, KC_TRNS, KC_TRNS, 
 		KC_TRNS, KC_TRNS, KC_TRNS, 					 KC_TRNS, 							 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 	KC_TRNS, KC_TRNS, KC_TRNS,			KC_TRNS, 	  KC_TRNS),
 };
 
-void led_set_user(uint8_t usb_led) {
-  setPinOutput(B4);
-  setPinOutput(D6);
-  setPinOutput(D7);
+bool led_update_user(led_t led_state) {
+  gpio_set_pin_output(B4);
+  gpio_set_pin_output(D6);
+  gpio_set_pin_output(D7);
 
-  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-    writePinHigh(D7);
+  if (led_state.num_lock) {
+    gpio_write_pin_high(D7);
   } else {
-    writePinLow(D7);
+    gpio_write_pin_low(D7);
   }
 
-  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-    writePinHigh(B4);
+  if (led_state.caps_lock) {
+    gpio_write_pin_high(B4);
   } else {
-    writePinLow(B4);
+    gpio_write_pin_low(B4);
   }
 
-  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-    writePinHigh(D6);
+  if (led_state.scroll_lock) {
+    gpio_write_pin_high(D6);
   } else {
-    writePinLow(D6);
+    gpio_write_pin_low(D6);
   }
+  return false;
 }

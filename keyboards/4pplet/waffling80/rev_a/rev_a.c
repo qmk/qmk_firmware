@@ -14,7 +14,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "rev_a.h"
+#include "quantum.h"
+
+#ifndef CAPS_LOCK_ENABLE
+#    define CAPS_LOCK_ENABLE 1
+#endif
+
+#ifndef SCROLL_LOCK_ENABLE
+#    define SCROLL_LOCK_ENABLE 1
+#endif
+
+// If colors are defined, they will be static. If not defined, color for indicators can be set in VIA.
+//#define CAPS_LOCK_COLOR HSV_GREEN
+//#define SCROLL_LOCK_COLOR HSV_GREEN
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);

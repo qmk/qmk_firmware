@@ -1,0 +1,26 @@
+{
+    "matrix_pins": {
+        "cols": ["F7"],
+        "rows": ["F5"]
+    },
+    "diode_direction": "COL2ROW",
+    "split": {
+        "handedness": {
+            "pin": "F0"
+        },
+        "serial": {
+            "pin": "D1"
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": false,
+        "console": true
+    }
+}

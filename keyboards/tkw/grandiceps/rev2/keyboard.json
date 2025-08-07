@@ -1,0 +1,17 @@
+{
+    "keyboard_name": "Grandiceps Split rev2",
+    "usb": {
+        "device_version": "0.0.2"
+    },
+    "eeprom": {
+        "driver": "i2c"
+    },
+    "features": {
+        "pointing_device": true
+    },
+    "split": {
+        "handedness": {
+            "pin": "B3"
+        }
+    }
+}

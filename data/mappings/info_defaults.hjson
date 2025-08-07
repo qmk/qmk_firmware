@@ -1,0 +1,74 @@
+{
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
+    "backlight": {
+        "default": {
+            "on": true
+        },
+        "breathing_period": 6,
+        "levels": 3,
+        "on_state": 1
+    },
+    "debounce": 5,
+    "features": {
+        "command": false,
+        "console": false
+    },
+    "indicators": {
+        "on_state": 1
+    },
+    "led_matrix": {
+        "default": {
+            "animation": "solid",
+            "on": true,
+            "val": 255,
+            "speed": 128
+        },
+        "led_flush_limit": 16,
+        "max_brightness": 255,
+        "sleep": false,
+        "speed_steps": 16,
+        "val_steps": 16
+    },
+    "rgblight": {
+        "default": {
+            "animation": "static_light",
+            "on": true,
+            "hue": 0,
+            "sat": 255,
+            "val": 255,
+            "speed": 0
+        },
+        "brightness_steps": 17,
+        "hue_steps": 8,
+        "max_brightness": 255,
+        "saturation_steps": 17,
+        "sleep": false
+    },
+    "rgb_matrix": {
+        "default": {
+            "animation": "cycle_left_right",
+            "on": true,
+            "hue": 0,
+            "sat": 255,
+            "val": 255,
+            "speed": 128
+        },
+        "hue_steps": 8,
+        "led_flush_limit": 16,
+        "max_brightness": 255,
+        "sat_steps": 16,
+        "sleep": false,
+        "speed_steps": 16,
+        "val_steps": 16
+    },
+    "split": {
+        "serial": {
+            "driver": "bitbang"
+        }
+    },
+    "ws2812": {
+        "driver": "bitbang"
+    }
+}

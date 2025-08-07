@@ -26,8 +26,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT(
         KC_GRV,           KC_F1,    KC_F2, KC_F3,     KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, KC_DEL,           KC_PSCR, KC_SCRL, KC_PAUS, _______,
-        _______,          RGB_TOG,  RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,                   KC_INS, KC_HOME, KC_PGUP, _______,
-        _______,          RGB_MOD,  RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______,  _______,                 KC_DEL, KC_END, KC_PGDN, _______,
+        _______,          UG_TOGG,  UG_HUEU, UG_SATU, UG_VALU, _______, _______, _______, _______, _______, _______, _______, _______, KC_INS,                   KC_INS, KC_HOME, KC_PGUP, _______,
+        _______,          UG_NEXT,  UG_HUED, UG_SATD, UG_VALD, _______, _______, _______, _______, _______, _______, _______, _______,  _______,                 KC_DEL, KC_END, KC_PGDN, _______,
         _______, _______, BL_TOGG,  BL_BRTG, BL_UP,  BL_DOWN,_______, _______, _______, _______, _______, _______,     KC_MUTE,                     KC_VOLU,   _______, _______, _______, _______,
         _______,          _______,  _______,                   _______,             _______, _______, _______,                               _______, KC_VOLD, _______,   _______, _______, _______ 
     ),

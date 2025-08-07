@@ -343,3 +343,19 @@ void keyboard_pre_init_kb(void) {
 
     keyboard_pre_init_user();
 }
+
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_setrgb(RGB_RED);
+#endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_set_color_all(RGB_RED);
+    rgb_matrix_update_pwm_buffers();
+#endif // RGB_MATRIX_ENABLE
+    return true;
+}

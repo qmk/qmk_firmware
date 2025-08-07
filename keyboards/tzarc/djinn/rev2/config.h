@@ -3,7 +3,6 @@
 #pragma once
 
 // Split configuration
-#define SPLIT_HAND_PIN B9
 #define USB_VBUS_PIN B12
 #define SERIAL_USART_DRIVER SD3
 #define SERIAL_USART_PIN_SWAP
@@ -17,18 +16,14 @@
 #define SERIAL_USART_FULL_DUPLEX
 
 // RGB configuration
-#define RGB_MATRIX_LED_COUNT 86
-#define RGB_MATRIX_SPLIT \
-    { 43, 43 }
 #define RGB_POWER_ENABLE_PIN B0
 #define RGB_CURR_1500mA_OK_PIN C5
 #define RGB_CURR_3000mA_OK_PIN C4
 
 // EEPROM configuration
+#define EEPROM_SPI_MB85RS64V
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN B5
 #define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR 8 // (160MHz/8) => 20MHz
-#define EXTERNAL_EEPROM_BYTE_COUNT 8192
-#define EXTERNAL_EEPROM_PAGE_SIZE 64 // it's FRAM, so it doesn't actually matter, this just sets the RAM buffer size
 
 // External flash config
 #define EXTERNAL_FLASH_SPI_MODE 3

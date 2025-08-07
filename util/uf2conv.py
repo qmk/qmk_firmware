@@ -30,7 +30,7 @@ def is_hex(buf):
         w = buf[0:30].decode("utf-8")
     except UnicodeDecodeError:
         return False
-    if w[0] == ':' and re.match(b"^[:0-9a-fA-F\r\n]+$", buf):
+    if w[0] == ':' and re.match(rb"^[:0-9a-fA-F\r\n]+$", buf):
         return True
     return False
 
@@ -214,7 +214,7 @@ def get_drives():
                                      "get", "DeviceID,", "VolumeName,",
                                      "FileSystem,", "DriveType"])
         for line in to_str(r).split('\n'):
-            words = re.split('\s+', line)
+            words = re.split(r'\s+', line)
             if len(words) >= 3 and words[1] == "2" and words[2] == "FAT":
                 drives.append(words[0])
     else:
@@ -243,7 +243,7 @@ def get_drives():
 def board_id(path):
     with open(path + INFO_FILE, mode='r') as file:
         file_content = file.read()
-    return re.search("Board-ID: ([^\r\n]*)", file_content).group(1)
+    return re.search(r"Board-ID: ([^\r\n]*)", file_content).group(1)
 
 
 def list_drives():

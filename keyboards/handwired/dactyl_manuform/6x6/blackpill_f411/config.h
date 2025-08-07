@@ -19,7 +19,6 @@
 // in col2row col is input, and row is output
 // #define SPLIT_HAND_MATRIX_GRID A10, A4
 // 68kohm
-#define SPLIT_HAND_PIN              B10
 
 /* connection */
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.

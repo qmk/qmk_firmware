@@ -1,2 +1,0 @@
-
-BOOTMAGIC_ENABLE = yes

@@ -1,0 +1,76 @@
+{
+    "manufacturer": "Coban Stationery",
+    "keyboard_name": "Coban Pad 9A",
+    "maintainer": "Coban Stationery",
+    "bootloader": "rp2040",
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "GP21", "pin_b": "GP20"},
+            {"pin_a": "GP1", "pin_b": "GP0"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP22", "GP2", "GP19", "GP16", "GP10", "GP18", "GP17", "GP11"]
+        ]
+    },
+    "name": "Coban Pad 9A",
+    "processor": "RP2040",
+    "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "digital_rain": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_simple": true,
+            "solid_reactive_wide": true,
+            "splash": true,
+            "typing_heatmap": true
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 4], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 224, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 64, "y": 64, "flags": 4},
+            {"matrix": [0, 6], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [0, 7], "x": 224, "y": 64, "flags": 4}
+        ],
+        "max_brightness": 150
+    },
+    "url": "https://cobanstationery.com",
+    "usb": {
+        "device_version": "1.2.0",
+        "pid": "0xCC9A",
+        "vid": "0xCB3A"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP12"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "push_left", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "push_right", "matrix": [0, 1], "x": 2, "y": 0},
+                {"label": "key_1", "matrix": [0, 2], "x": 0, "y": 1},
+                {"label": "key_2", "matrix": [0, 3], "x": 1, "y": 1},
+                {"label": "key_3", "matrix": [0, 4], "x": 2, "y": 1},
+                {"label": "key_4", "matrix": [0, 5], "x": 0, "y": 2},
+                {"label": "key_5", "matrix": [0, 6], "x": 1, "y": 2},
+                {"label": "key_6", "matrix": [0, 7], "x": 2, "y": 2}
+            ]
+        }
+    }
+}

@@ -57,13 +57,13 @@ LT(_ARROW, KC_P0),          KC_PDOT,KC_PENT
       //|--------+--------+--------+--------|
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       //|--------+--------+--------+--------|
-          RGB_SAD, RGB_SAI, XXXXXXX,         
+          UG_SATD, UG_SATU, XXXXXXX,         
       //|--------+--------+--------+--------|
-          RGB_HUD, RGB_HUI, XXXXXXX, RGB_TOG,
+          UG_HUED, UG_HUEU, XXXXXXX, UG_TOGG,
       //|--------+--------+--------+--------|
-          RGB_VAD, RGB_VAI, XXXXXXX,         
+          UG_VALD, UG_VALU, XXXXXXX,         
       //|--------+--------+--------+--------|
-          XXXXXXX,          XXXXXXX, RGB_MOD 
+          XXXXXXX,          XXXXXXX, UG_NEXT 
       //`-----------------------------------'
   )
 };

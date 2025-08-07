@@ -1,0 +1,22 @@
+{
+    "keyboard_name": "Dilemma (3x5+2) Assembled",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "pointing_device": true
+    },
+    "matrix_pins": {
+        "cols": ["GP8", "GP9", "GP7", "GP6", "GP27"],
+        "rows": ["GP4", "GP5", "GP28", "GP26"]
+    },
+    "diode_direction": "ROW2COL",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "GP1"
+        }
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040"
+}

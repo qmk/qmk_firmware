@@ -16,7 +16,12 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
+#include "matrix.h"
+#include "debug.h"
+#include "timer.h"
+#include "wait.h"
+#include "suspend.h"
+#include <avr/interrupt.h>
 
 #ifdef BLUETOOTH_ENABLE
 #    include "adafruit_ble.h"
@@ -29,12 +34,12 @@ uint8_t power_save_level;
 
 static uint32_t matrix_last_modified = 0;
 
-static inline void key_strobe_high(void) { writePinLow(B6); }
-static inline void key_strobe_low(void) { writePinHigh(B6); }
-static inline bool key_state(void) { return readPin(D7); }
-static inline void key_prev_on(void) { writePinHigh(B7); }
-static inline void key_prev_off(void) { writePinLow(B7); }
-static inline bool key_power_state(void) { return !readPin(D6); }
+static inline void key_strobe_high(void) { gpio_write_pin_low(B6); }
+static inline void key_strobe_low(void) { gpio_write_pin_high(B6); }
+static inline bool key_state(void) { return gpio_read_pin(D7); }
+static inline void key_prev_on(void) { gpio_write_pin_high(B7); }
+static inline void key_prev_off(void) { gpio_write_pin_low(B7); }
+static inline bool key_power_state(void) { return !gpio_read_pin(D6); }
 
 static inline void suspend_power_down_longer(void) {
     uint8_t times = 60;
@@ -47,8 +52,8 @@ void matrix_power_up(void) {
     DDRB  = 0xFF;
     PORTB = 0x40;
     // switch MOS FET on
-    setPinOutput(D6);
-    writePinLow(D6);
+    gpio_set_pin_output(D6);
+    gpio_write_pin_low(D6);
 }
 
 void matrix_power_down(void) {
@@ -57,8 +62,8 @@ void matrix_power_down(void) {
     DDRB  = 0x00;
     PORTB = 0xFF;
     // switch MOS FET off
-    setPinOutput(D6);
-    writePinHigh(D6);
+    gpio_set_pin_output(D6);
+    gpio_write_pin_high(D6);
 }
 
 static inline void key_select_row(uint8_t row) { PORTB = (PORTB & 0b11111000) | ((row)&0b111); }

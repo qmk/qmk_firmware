@@ -47,9 +47,12 @@ def migrate(cli):
     files = _candidate_files(cli.args.keyboard)
 
     # Filter down keys if requested
-    keys = info_map.keys()
+    keys = list(filter(lambda key: info_map[key].get("to_json", True), info_map.keys()))
     if cli.args.filter:
         keys = list(set(keys) & set(cli.args.filter))
+        rejected = set(cli.args.filter) - set(keys)
+        for key in rejected:
+            cli.log.info(f'{{fg_yellow}}Skipping {key} as migration not possible...')
 
     cli.log.info(f'{{fg_green}}Migrating keyboard {{fg_cyan}}{cli.args.keyboard}{{fg_green}}.{{fg_reset}}')
 

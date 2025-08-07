@@ -19,9 +19,8 @@ After pressing a key, it immediately changes state, and sets a counter.
 No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 */
 
-#include "matrix.h"
+#include "debounce.h"
 #include "timer.h"
-#include "quantum.h"
 #include <stdlib.h>
 
 #ifdef PROTOCOL_CHIBIOS
@@ -129,8 +128,8 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
         if (existing_row != raw_row) {
             if (*debounce_pointer == DEBOUNCE_ELAPSED) {
                 *debounce_pointer = DEBOUNCE;
-                cooked[row]       = raw_row;
-                cooked_changed |= cooked[row] ^ raw[row];
+                cooked_changed |= cooked[row] ^ raw_row;
+                cooked[row]          = raw_row;
                 counters_need_update = true;
             }
         }

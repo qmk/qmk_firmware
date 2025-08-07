@@ -1,0 +1,105 @@
+{
+    "manufacturer": "tsubuan145",
+    "keyboard_name": "meow48",
+    "maintainer": "tsubuan145",
+    "url": "https://github.com/tsubuan145",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xF048",
+        "vid": "0xF048"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 48,
+        "max_brightness": 100,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "features": {
+        "bootmagic": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": false,
+        "oled": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["F6", "F7", "B1", "B3", "B2", "B6"],
+        "rows": ["D4", "C6", "D7", "E6", "B4", "B5", "F4", "F5"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "Q", "matrix": [1, 0], "x": 1, "y": 0},
+                {"label": "W", "matrix": [0, 1], "x": 2, "y": 0},
+                {"label": "E", "matrix": [1, 1], "x": 3, "y": 0},
+                {"label": "R", "matrix": [0, 2], "x": 4, "y": 0},
+                {"label": "T", "matrix": [1, 2], "x": 5, "y": 0},
+                {"label": "Y", "matrix": [2, 2], "x": 6, "y": 0},
+                {"label": "U", "matrix": [0, 3], "x": 7, "y": 0},
+                {"label": "I", "matrix": [1, 3], "x": 8, "y": 0},
+                {"label": "O", "matrix": [0, 4], "x": 9, "y": 0},
+                {"label": "P", "matrix": [1, 4], "x": 10, "y": 0},
+                {"label": "MINS", "matrix": [0, 5], "x": 11, "y": 0},
+                {"label": "BSPC", "matrix": [1, 5], "w": 1.25, "x": 12, "y": 0},
+
+                {"label": "TAB", "matrix": [2, 0], "w": 1.25, "x": 0, "y": 1},
+                {"label": "A", "matrix": [3, 0], "x": 1.25, "y": 1},
+                {"label": "S", "matrix": [2, 1], "x": 2.25, "y": 1},
+                {"label": "D", "matrix": [3, 1], "x": 3.25, "y": 1},
+                {"label": "F", "matrix": [3, 2], "x": 4.25, "y": 1},
+                {"label": "G", "matrix": [4, 2], "x": 5.25, "y": 1},
+                {"label": "H", "matrix": [2, 3], "x": 6.25, "y": 1},
+                {"label": "J", "matrix": [3, 3], "x": 7.25, "y": 1},
+                {"label": "K", "matrix": [2, 4], "x": 8.25, "y": 1},
+                {"label": "L", "matrix": [3, 4], "x": 9.25, "y": 1},
+                {"label": "SCLN", "matrix": [2, 5], "x": 10.25, "y": 1},
+                {"label": "ENT", "matrix": [3, 5], "w": 2, "x": 11.25, "y": 1},
+
+                {"label": "LSFT", "matrix": [4, 0], "w": 1.5, "x": 0, "y": 2},
+                {"label": "Z", "matrix": [5, 0], "x": 1.5, "y": 2},
+                {"label": "X", "matrix": [4, 1], "x": 2.5, "y": 2},
+                {"label": "C", "matrix": [5, 1], "x": 3.5, "y": 2},
+                {"label": "V", "matrix": [5, 2], "x": 4.5, "y": 2},
+                {"label": "B", "matrix": [6, 2], "x": 5.5, "y": 2},
+                {"label": "N", "matrix": [4, 3], "x": 6.5, "y": 2},
+                {"label": "M", "matrix": [5, 3], "x": 7.5, "y": 2},
+                {"label": "COMM", "matrix": [4, 4], "x": 8.5, "y": 2},
+                {"label": "DOT", "matrix": [5, 4], "x": 9.5, "y": 2},
+                {"label": "SLSH", "matrix": [4, 5], "x": 10.5, "y": 2},
+                {"label": "RSFT", "matrix": [5, 5], "w": 1.75, "x": 11.5, "y": 2},
+
+                {"label": "CAPS", "matrix": [6, 0], "w": 1.25, "x": 0, "y": 3},
+                {"label": "LCTL", "matrix": [7, 0], "x": 1.25, "y": 3},
+                {"label": "LGUI", "matrix": [6, 1], "x": 2.25, "y": 3},
+                {"label": "LALT", "matrix": [7, 1], "x": 3.25, "y": 3},
+                {"label": "SPC", "matrix": [7, 2], "w": 2, "x": 4.25, "y": 3},
+                {"label": "SPC", "matrix": [6, 3], "w": 2, "x": 6.25, "y": 3},
+                {"label": "DEL", "matrix": [7, 3], "x": 8.25, "y": 3},
+                {"label": "LEFT", "matrix": [6, 4], "x": 9.25, "y": 3},
+                {"label": "UP", "matrix": [7, 4], "x": 10.25, "y": 3},
+                {"label": "DOWN", "matrix": [6, 5], "x": 11.25, "y": 3},
+                {"label": "RGHT", "matrix": [7, 5], "x": 12.25, "y": 3}
+            ]
+        }
+    }
+}

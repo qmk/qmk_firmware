@@ -45,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------+------+------+------+------+-------------+------+------+------+-------+------'
      */
     [1] = LAYOUT_planck_mit(
-        QK_BOOT, KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,  KC_BSLS, KC_7,    KC_8,    KC_9,    RGB_TOG, _______,
-        _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PLUS, KC_MINS, KC_4,    KC_5,    KC_6,    RGB_MOD, _______,
-        _______, KC_VOLD, KC_VOLU, _______, _______, KC_ASTR, KC_SLSH, KC_1,    KC_2,    KC_3,    RGB_HUI, _______,
-        RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______,     KC_0,         _______, _______, KC_DOT,  RGB_HUD, KC_EQL
+        QK_BOOT, KC_PGUP, KC_HOME, KC_UP,   KC_END,  KC_DEL,  KC_BSLS, KC_7,    KC_8,    KC_9,    RM_TOGG, _______,
+        _______, KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_PLUS, KC_MINS, KC_4,    KC_5,    KC_6,    RM_NEXT, _______,
+        _______, KC_VOLD, KC_VOLU, _______, _______, KC_ASTR, KC_SLSH, KC_1,    KC_2,    KC_3,    RM_HUEU, _______,
+        RM_SATU, RM_SATD, RM_VALU, RM_VALD, _______,     KC_0,         _______, _______, KC_DOT,  RM_HUED, KC_EQL
     ),
 
     /* [2]

@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "action.h"
 #include "quantum/color.h"
 
 typedef struct PACKED

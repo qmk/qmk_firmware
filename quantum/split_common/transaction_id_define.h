@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
 enum serial_transaction_id {
 #ifdef USE_I2C
     I2C_EXECUTE_CALLBACK,
@@ -31,6 +33,7 @@ enum serial_transaction_id {
 #ifdef ENCODER_ENABLE
     GET_ENCODERS_CHECKSUM,
     GET_ENCODERS_DATA,
+    CMD_ENCODER_DRAIN,
 #endif // ENCODER_ENABLE
 
 #ifndef DISABLE_SYNC_TIMER
@@ -121,4 +124,4 @@ enum serial_transaction_id {
 };
 
 // Ensure we only use 5 bits for transaction
-_Static_assert(NUM_TOTAL_TRANSACTIONS <= (1 << 5), "Max number of usable transactions exceeded");
+STATIC_ASSERT(NUM_TOTAL_TRANSACTIONS <= (1 << 5), "Max number of usable transactions exceeded");

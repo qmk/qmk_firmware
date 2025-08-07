@@ -18,15 +18,3 @@
 
 /* select keyboard  master board  - I2C or Serial communication master    */
 #define MASTER_RIGHT
-
-/*************************************/
-/**       public parameter       **/
-/*************************************/
-
-#define MATRIX_IO_DELAY 15  // default  30
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

@@ -14,7 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "raise.h"
 
 // "led_map" is taken from kaleidoscope
 // LHK = Left Hand Keys

@@ -1,6 +1,6 @@
 # heavy_left
 
-![heavy_left](https://github.com/takashicompany/heavy_left/blob/master/images/qmk.jpg)
+![heavy_left](https://i.imgur.com/cWHrklQh.jpeg)
 
 This is a 95-key split type Japanese keyboard.  
 It has a numeric keypad on the left hand side, which can be used not only for entering numbers but also as a dedicated macro pad.  
@@ -10,7 +10,7 @@ It also supports key switch replacement with MX sockets and LED underglow.
 左手側にテンキーが備え付けられており、数字の入力だけでなく専用のマクロパッドとしても使用が可能です。  
 MXソケットによるキースイッチの付替えや、LEDによるアンダーグロウにも対応しています。  
 
-* Keyboard Maintainer: [takashicompany](https://github.com/yourusername)
+* Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: PCB, Pro Micro 
 * Hardware Availability: https://github.com/takashicompany/heavy_left
 

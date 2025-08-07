@@ -8,9 +8,9 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT(
-		RGB_TOG,        RGB_SAI,        RGB_VAI,
-		        RGB_HUD,        RGB_HUI,
-		RGB_MOD,        RGB_SAD,        RGB_VAD,
+		UG_TOGG,        UG_SATU,        UG_VALU,
+		        UG_HUED,        UG_HUEU,
+		UG_NEXT,        UG_SATD,        UG_VALD,
 		BL_STEP,
 		SONG_SU,SONG_SC,SONG_GB
 	)

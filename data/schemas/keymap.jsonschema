@@ -10,10 +10,10 @@
             "minLength": 1,
             "pattern": "^[a-z][0-9a-z_]*$"
         },
-        "host_language": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "layout": {"$ref": "qmk.definitions.v1#/layout_macro"},
+        "host_language": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "keyboard": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "keymap": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "layout": {"$ref": "./definitions.jsonschema#/layout_macro"},
         "layers": {
             "type": "array",
             "items": {
@@ -55,11 +55,11 @@
                                 "keycodes": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "qmk.definitions.v1#/text_identifier"
+                                        "$ref": "./definitions.jsonschema#/text_identifier"
                                     }
                                 },
                                 "duration": {
-                                    "$ref": "qmk.definitions.v1#/unsigned_int"
+                                    "$ref": "./definitions.jsonschema#/unsigned_int"
                                 }
                             }
                         }
@@ -67,15 +67,16 @@
                 }
             }
         },
-        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
-        "config": {"$ref": "qmk.keyboard.v1"},
+        "keycodes": {"$ref": "./definitions.jsonschema#/keycode_decl_array"},
+        "config": {"$ref": "./keyboard.jsonschema#"},
         "notes": {
             "type": "string"
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
-    },
-    "required": [
-        "keyboard",
-        "layout",
-        "layers"
-    ]
+    }
 }

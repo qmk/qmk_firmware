@@ -1,0 +1,97 @@
+{
+    "manufacturer": "floookay",
+    "keyboard_name": "zwerg",
+    "maintainer": "floookay",
+    "bootloader_instructions": "Press the reset button on the Gemini controller or right-side-bottom-right + esc",
+    "tags": ["ortho", "split", "40%", "OSHW"],
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP8", "GP7", "GP6", "GP5", "GP4", "GP3"],
+        "rows": ["GP28", "GP27", "GP26", "GP15", "GP14"]
+    },
+    "split": {
+        "enabled": true,
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP13"
+        }
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x7EEE",
+        "vid": "0xF100"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+
+                {"matrix": [5, 5], "x": 8, "y": 0},
+                {"matrix": [5, 4], "x": 9, "y": 0},
+                {"matrix": [5, 3], "x": 10, "y": 0},
+                {"matrix": [5, 2], "x": 11, "y": 0},
+                {"matrix": [5, 1], "x": 12, "y": 0},
+                {"matrix": [5, 0], "x": 13, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+
+                {"matrix": [6, 5], "x": 8, "y": 1},
+                {"matrix": [6, 4], "x": 9, "y": 1},
+                {"matrix": [6, 3], "x": 10, "y": 1},
+                {"matrix": [6, 2], "x": 11, "y": 1},
+                {"matrix": [6, 1], "x": 12, "y": 1},
+                {"matrix": [6, 0], "x": 13, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [2, 5], "x": 5, "y": 2},
+
+                {"matrix": [7, 5], "x": 8, "y": 2},
+                {"matrix": [7, 4], "x": 9, "y": 2},
+                {"matrix": [7, 3], "x": 10, "y": 2},
+                {"matrix": [7, 2], "x": 11, "y": 2},
+                {"matrix": [7, 1], "x": 12, "y": 2},
+                {"matrix": [7, 0], "x": 13, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+
+                {"matrix": [8, 4], "x": 9, "y": 3},
+                {"matrix": [8, 3], "x": 10, "y": 3},
+                {"matrix": [8, 2], "x": 11, "y": 3},
+                {"matrix": [8, 1], "x": 12, "y": 3},
+                {"matrix": [8, 0], "x": 13, "y": 3},
+
+                {"matrix": [4, 4], "x": 5, "y": 5, "h": 1.5},
+                {"matrix": [4, 5], "x": 6, "y": 5, "h": 1.5},
+
+                {"matrix": [9, 5], "x": 8, "y": 5, "h": 1.5},
+                {"matrix": [9, 4], "x": 9, "y": 5, "h": 1.5}
+            ]
+        }
+    }
+}

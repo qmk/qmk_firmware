@@ -24,6 +24,7 @@
 #include "timer.h"
 #include "wait.h"
 #include "util.h"
+#include "progmem.h"
 
 #ifndef F_SCL
 #    define F_SCL 400000UL // SCL frequency
@@ -38,7 +39,7 @@
 
 #define TWBR_val (((F_CPU / F_SCL) - 16) / 2)
 
-void i2c_init(void) {
+__attribute__((weak)) void i2c_init(void) {
     TWSR = 0; /* no prescaler */
     TWBR = (uint8_t)TWBR_val;
 
@@ -94,7 +95,7 @@ static i2c_status_t i2c_start_impl(uint8_t address, uint16_t timeout) {
     return I2C_STATUS_SUCCESS;
 }
 
-i2c_status_t i2c_start(uint8_t address, uint16_t timeout) {
+__attribute__((always_inline)) static inline i2c_status_t i2c_start(uint8_t address, uint16_t timeout) {
     // Retry i2c_start_impl a bunch times in case the remote side has interrupts disabled.
     uint16_t     timeout_timer = timer_read();
     uint16_t     time_slice    = MAX(1, (timeout == (I2C_TIMEOUT_INFINITE)) ? 5 : (timeout / (I2C_START_RETRY_COUNT))); // if it's infinite, wait 1ms between attempts, otherwise split up the entire timeout into the number of retries
@@ -103,6 +104,11 @@ i2c_status_t i2c_start(uint8_t address, uint16_t timeout) {
         status = i2c_start_impl(address, time_slice);
     } while ((status < 0) && ((timeout == I2C_TIMEOUT_INFINITE) || (timer_elapsed(timeout_timer) <= timeout)));
     return status;
+}
+
+__attribute__((always_inline)) static inline void i2c_stop(void) {
+    // transmit STOP condition
+    TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
 }
 
 i2c_status_t i2c_write(uint8_t data, uint16_t timeout) {
@@ -167,6 +173,18 @@ i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length,
     return status;
 }
 
+i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
+    i2c_status_t status = i2c_start(address | I2C_ACTION_WRITE, timeout);
+
+    for (uint16_t i = 0; i < length && status >= 0; i++) {
+        status = i2c_write(pgm_read_byte((const char*)data++), timeout);
+    }
+
+    i2c_stop();
+
+    return status;
+}
+
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_status_t status = i2c_start(address | I2C_ACTION_READ, timeout);
 
@@ -189,7 +207,7 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
     return (status < 0) ? status : I2C_STATUS_SUCCESS;
 }
 
-i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
     if (status >= 0) {
         status = i2c_write(regaddr, timeout);
@@ -204,7 +222,7 @@ i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data,
     return status;
 }
 
-i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_write_register16(uint8_t devaddr, uint16_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
     if (status >= 0) {
         status = i2c_write(regaddr >> 8, timeout);
@@ -223,7 +241,7 @@ i2c_status_t i2c_writeReg16(uint8_t devaddr, uint16_t regaddr, const uint8_t* da
     return status;
 }
 
-i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_read_register(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_status_t status = i2c_start(devaddr, timeout);
     if (status < 0) {
         goto error;
@@ -256,7 +274,7 @@ error:
     return (status < 0) ? status : I2C_STATUS_SUCCESS;
 }
 
-i2c_status_t i2c_readReg16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_read_register16(uint8_t devaddr, uint16_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_status_t status = i2c_start(devaddr, timeout);
     if (status < 0) {
         goto error;
@@ -293,7 +311,8 @@ error:
     return (status < 0) ? status : I2C_STATUS_SUCCESS;
 }
 
-void i2c_stop(void) {
-    // transmit STOP condition
-    TWCR = (1 << TWINT) | (1 << TWEN) | (1 << TWSTO);
+__attribute__((weak)) i2c_status_t i2c_ping_address(uint8_t address, uint16_t timeout) {
+    i2c_status_t status = i2c_start(address, timeout);
+    i2c_stop();
+    return status;
 }

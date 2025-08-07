@@ -85,10 +85,14 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 void eeconfig_init_kb(void) {
     kb_cums.raw = 0;
     eeconfig_update_kb(kb_cums.raw);
+
+    eeconfig_init_user();
 }
 
 void keyboard_post_init_kb(void) {
     kb_cums.underground_rgb_sw = eeconfig_read_kb();
+
+    keyboard_post_init_user();
 }
 
 #endif

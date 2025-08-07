@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______,  _______,     _______,        SP_ADJ,       _______,  _______,      _______,_______,     _______,    _______,  KC_DOWN,  KC_UP
     ),
     [_ADJUST] = LAYOUT(
-        _______,   RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
-            _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  RGB_HUI,  RGB_SAI,  RGB_VAI,  _______,  RGB_RMOD,  _______,
-            _______,    AU_TOGG,  CK_TOGG,  MU_TOGG,  MU_NEXT,  _______,  _______,  _______,  RGB_HUD,  RGB_SAD,  RGB_VAD,  RGB_TOG,  RGB_MOD,   _______,
+        _______,   UG_HUEU,  UG_SATU,  UG_VALU,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SCRL,  KC_PAUS,
+            _______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  UG_HUEU,  UG_SATU,  UG_VALU,  _______,  UG_PREV,   _______,
+            _______,    AU_TOGG,  CK_TOGG,  MU_TOGG,  MU_NEXT,  _______,  _______,  _______,  UG_HUED,  UG_SATD,  UG_VALD,  UG_TOGG,  UG_NEXT,   _______,
         KC_CAPS,  KC_CAPS,  CK_RST,   CK_DOWN,  CK_UP,    AU_PREV,  AU_NEXT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
         _______,  _______,  _______,     _______,        _______,      _______,  _______,      _______,_______,     _______,    _______,  _______,  _______
     )

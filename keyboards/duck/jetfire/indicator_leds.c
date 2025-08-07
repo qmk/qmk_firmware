@@ -12,13 +12,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "indicator_leds.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
-#include <stdbool.h>
 #include <util/delay.h>
-#include <stdint.h>
-#include "indicator_leds.h"
-#include "quantum.h"
 
 #define LED_T1H  900
 #define LED_T1L  600

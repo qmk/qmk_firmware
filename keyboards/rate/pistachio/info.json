@@ -1,7 +1,6 @@
 {
     "keyboard_name": "pistachio",
     "manufacturer": "rate",
-    "url": "",
     "maintainer": "rate",
     "usb": {
         "vid": "0x5255",

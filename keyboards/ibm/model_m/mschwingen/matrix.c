@@ -14,12 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdbool.h>
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include "quantum.h"
 #include "spi_master.h"
 #include "print.h"
 #include "mschwingen.h"
@@ -34,15 +31,15 @@ static uint16_t row_bits[MATRIX_ROWS] = {
 static const pin_t col_pins[MATRIX_COLS] = {D1, D4, D7, B4, F7, F6, F5, F4};
 
 static void select_col(uint8_t col) {
-    setPinOutput(col_pins[col]);
-    writePinLow(col_pins[col]);
+    gpio_set_pin_output(col_pins[col]);
+    gpio_write_pin_low(col_pins[col]);
 }
 
-static void unselect_col(uint8_t col) { setPinInputHigh(col_pins[col]); }
+static void unselect_col(uint8_t col) { gpio_set_pin_input_high(col_pins[col]); }
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+        gpio_set_pin_input_high(col_pins[x]);
     }
 }
 
@@ -54,14 +51,13 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     select_col(current_col);
     matrix_io_delay();
 
-    writePinLow(SR_LOAD_PIN);
-    writePinHigh(SR_LOAD_PIN);
+    gpio_write_pin_low(SR_LOAD_PIN);
+    gpio_write_pin_high(SR_LOAD_PIN);
 
     row_data = spi_read() << 8;
     row_data |= spi_read();
 
-    debug_hex8(~row_data);
-    dprint(" ");
+    dprintf("%02X ", ~row_data);
 
     // For each row...
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {

@@ -24,10 +24,3 @@
 #pragma once
 
 #include "avr/xprintf.h"
-
-// Create user & normal print defines
-#define print(s) xputs(PSTR(s))
-#define println(s) xputs(PSTR(s "\r\n"))
-#define uprint(s) xputs(PSTR(s))
-#define uprintln(s) xputs(PSTR(s "\r\n"))
-#define uprintf(fmt, ...) __xprintf(PSTR(fmt), ##__VA_ARGS__)

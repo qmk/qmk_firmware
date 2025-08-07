@@ -58,6 +58,8 @@ __attribute__((weak)) bool qp_st7735_init(painter_device_t device, painter_rotat
         ST77XX_SET_PIX_FMT,            0,  1, 0x55,
         ST77XX_CMD_INVERT_OFF,         0,  0,
         ST77XX_CMD_NORMAL_ON,          0,  0,
+        ST7735_SET_PGAMMA,             0, 16, 0x02, 0x1C, 0x07, 0x12, 0x37, 0x32, 0x29, 0x2D, 0x29, 0x25, 0x2B, 0x39, 0x00, 0x01, 0x03, 0x10,
+        ST7735_SET_NGAMMA,             0, 16, 0x03, 0x1D, 0x07, 0x06, 0x2E, 0x2C, 0x29, 0x2D, 0x2E, 0x2E, 0x37, 0x3F, 0x00, 0x00, 0x02, 0x10,
         ST77XX_CMD_DISPLAY_ON,        20,  0
     };
     // clang-format on
@@ -127,13 +129,14 @@ painter_device_t qp_st7735_make_spi_device(uint16_t panel_width, uint16_t panel_
             driver->base.native_bits_per_pixel = 16; // RGB565
 
             // SPI and other pin configuration
-            driver->base.comms_config                              = &driver->spi_dc_reset_config;
-            driver->spi_dc_reset_config.spi_config.chip_select_pin = chip_select_pin;
-            driver->spi_dc_reset_config.spi_config.divisor         = spi_divisor;
-            driver->spi_dc_reset_config.spi_config.lsb_first       = false;
-            driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
-            driver->spi_dc_reset_config.dc_pin                     = dc_pin;
-            driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+            driver->base.comms_config                                   = &driver->spi_dc_reset_config;
+            driver->spi_dc_reset_config.spi_config.chip_select_pin      = chip_select_pin;
+            driver->spi_dc_reset_config.spi_config.divisor              = spi_divisor;
+            driver->spi_dc_reset_config.spi_config.lsb_first            = false;
+            driver->spi_dc_reset_config.spi_config.mode                 = spi_mode;
+            driver->spi_dc_reset_config.dc_pin                          = dc_pin;
+            driver->spi_dc_reset_config.reset_pin                       = reset_pin;
+            driver->spi_dc_reset_config.command_params_uses_command_pin = false;
 
             if (!qp_internal_register_device((painter_device_t)driver)) {
                 memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));

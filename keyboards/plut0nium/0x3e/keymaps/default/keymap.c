@@ -32,10 +32,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT(
         KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,             KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
-        QK_BOOT,   _______, KC_UP,   _______, _______, _______,           _______, _______, _______, KC_F11,  KC_F12,  _______,
+        QK_BOOT, _______, KC_UP,   _______, _______, _______,           _______, _______, _______, KC_F11,  KC_F12,  _______,
         _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,           _______, _______, _______, _______, _______, _______,
-        _______, RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD, _______, KC_END,   _______, _______, BL_UP,   KC_MPLY, KC_VOLU, KC_MUTE,
-        _______, RGB_HUD, RGB_SAD, RGB_VAD, RGB_TOG, RGB_TOG, KC_HOME,  BL_TOGG, BL_TOGG, BL_DOWN, KC_MPRV, KC_VOLD, KC_MNXT
+        _______, UG_HUEU, UG_SATU, UG_VALU, UG_NEXT, _______, KC_END,   _______, _______, BL_UP,   KC_MPLY, KC_VOLU, KC_MUTE,
+        _______, UG_HUED, UG_SATD, UG_VALD, UG_TOGG, UG_TOGG, KC_HOME,  BL_TOGG, BL_TOGG, BL_DOWN, KC_MPRV, KC_VOLD, KC_MNXT
     )
 };
 
@@ -135,14 +135,6 @@ bool oled_task_user(void) {
             // Or use the write_ln shortcut over adding '\n' to the end of your string
             oled_write_ln_P(PSTR("Undf"), false);
     }
-
-    // Host Keyboard LED Status
-    // uint8_t led_usb_state = host_keyboard_leds();
-    // oled_write_P(PSTR("-----"), false);
-    // oled_write_P(PSTR("Stats"), false);
-    // oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("num:*") : PSTR("num:."), false);
-    // oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("cap:*") : PSTR("cap:."), false);
-    // oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("scr:*") : PSTR("scr:."), false);
 
     oled_write_P(PSTR("-----"), false);
     render_backlight_status();

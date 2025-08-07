@@ -1,8 +1,18 @@
 {
   "keyboard_name": "Vitamins Included",
   "manufacturer": "Duckle29",
-  "url": "",
   "maintainer": "Duckle29",
+  "build": {
+    "lto": true
+  },
+  "features": {
+    "audio": true,
+    "bootmagic": false,
+    "extrakey": true,
+    "mousekey": false,
+    "nkro": true,
+    "rgblight": true
+  },
   "usb": {
     "vid": "0x1209",
     "pid": "0xBEE5"

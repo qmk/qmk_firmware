@@ -2,7 +2,7 @@
 
 This page documents the templates you should use when submitting new Keymaps and Keyboards to QMK.
 
-## Keymap `readme.md` Template :id=keyboard-readmemd-template
+## Keymap `readme.md` Template {#keyboard-readmemd-template}
 
 Most keymaps have an image depicting the layout. You can use [Keyboard Layout Editor](http://keyboard-layout-editor.com) to create an image. Upload it to [Imgur](https://imgur.com) or another hosting service, please do not include images in your Pull Request.
 
@@ -40,7 +40,7 @@ Flashing example for this keyboard:
 
     make planck/rev4:default:flash
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+See the [build environment setup](getting_started_build_tools) and the [make instructions](getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](newbs).
 
 ## Bootloader
 

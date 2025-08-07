@@ -15,17 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // clang-format off
-#include <stdint.h>
-#include <stdbool.h>
-#include <gpio.h>
 #ifndef readPort
 #    include "gpio_extr.h"
 #endif
+#include "atomic_util.h"
 #include "util.h"
 #include "matrix.h"
 #include "matrix_extr.h"
 #include "debounce.h"
-#include "quantum.h"
 
 #define ALWAYS_INLINE inline __attribute__((always_inline))
 #define NO_INLINE     __attribute__((noinline))

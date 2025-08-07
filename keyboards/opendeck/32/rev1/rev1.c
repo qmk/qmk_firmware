@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev1.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -63,74 +63,16 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
     // clang-format on
 };
 
-// clang-format off
-led_config_t g_led_config = {
-    {
-        // Key Matrix to LED Index
-        {  0,  1,  2,  3,  4,  5,  6,  7 },
-        {  8,  9, 10, 11, 12, 13, 14, 15 },
-        { 16, 17, 18, 19, 20, 21, 22, 23 },
-        { 24, 25, 26, 27, 28, 29, 30, 31 }
-    }, {
-        // LED Index to Physical Position
-        { 0,  0 }, { 32,  0 }, { 64,  0 }, { 96,  0 }, { 128,  0 }, { 160,  0 }, { 192,  0 }, { 224,  0 },
-        { 0, 21 }, { 32, 21 }, { 64, 21 }, { 96, 21 }, { 128, 21 }, { 160, 21 }, { 192, 21 }, { 224, 21 },
-        { 0, 43 }, { 32, 43 }, { 64, 43 }, { 96, 43 }, { 128, 43 }, { 160, 43 }, { 192, 43 }, { 224, 43 },
-        { 0, 64 }, { 32, 64 }, { 64, 64 }, { 96, 64 }, { 128, 64 }, { 160, 64 }, { 192, 64 }, { 224, 64 }
-    }, {
-        // LED Index to Flag
-        4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4
-    }
-};
-
-// clang-format on
-
 void keyboard_pre_init_kb(void) {
     // Light power LED
-    setPinOutput(POWER_LED_PIN);
-    writePinLow(POWER_LED_PIN);
-
-    // Enable RGB driver IC
-    setPinOutput(RGB_DISABLE_N_PIN);
-    writePinHigh(RGB_DISABLE_N_PIN);
+    gpio_set_pin_output(POWER_LED_PIN);
+    gpio_write_pin_low(POWER_LED_PIN);
 
     // We don't use this feature of the IS31FL3731 but it is electrically connected
     // Make sure not to drive it
-    setPinInput(RGB_IRQ_N_PIN);
+    gpio_set_pin_input(IS31FL3731_IRQ_PIN);
+
+    keyboard_pre_init_user();
 }
 
-void keyboard_post_init_user(void) {
-    // RGB enabled by default, no way to turn off. No need to expend EEPROM write cycles here.
-    rgb_matrix_enable_noeeprom();
-}
-#endif
-
-#if defined(KC_WRAPPER_KEY)
-
-static uint8_t g_key_wrapper_tracker = 0;
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) { return false; }
-    if (record->event.pressed && keycode != KC_WRAPPER_KEY) {
-        register_code(KC_WRAPPER_KEY);
-        register_code(keycode);
-        g_key_wrapper_tracker++;
-        return false;
-    }
-    return true;
-}
-
-void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed && keycode != KC_WRAPPER_KEY) {
-        --g_key_wrapper_tracker;
-        if (g_key_wrapper_tracker <= 0) {
-            unregister_code(KC_WRAPPER_KEY);
-            g_key_wrapper_tracker = 0;
-        }
-    }
-    post_process_record_user(keycode, record);
-}
 #endif

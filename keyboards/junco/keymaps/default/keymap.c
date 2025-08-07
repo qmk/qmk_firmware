@@ -118,8 +118,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
     [_ADJUST] = LAYOUT_split4x6_r1(
         KC_NO,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,                       KC_NO,       KC_NO,         KC_NO,           KC_NO,   KC_NO,    KC_NO,
-        RGB_SPI,   RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_MOD,    KC_NO,                       KC_NO,       EE_CLR,        QK_RBT,          DB_TOGG, QK_BOOT,  KC_NO,
-        RGB_SPD,   RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_RMOD,   RGB_TOG,                     KC_NO,       DF(_QWERTY),   DF(_COLEMAK_DH), KC_NO,   KC_NO,    KC_NO,
+        RM_SPDU,   RM_HUEU,    RM_SATU,    RM_VALU,    RM_NEXT,    KC_NO,                       KC_NO,       EE_CLR,        QK_RBT,          DB_TOGG, QK_BOOT,  KC_NO,
+        RM_SPDD,   RM_HUED,    RM_SATD,    RM_VALD,    RM_PREV,    RM_TOGG,                     KC_NO,       DF(_QWERTY),   DF(_COLEMAK_DH), KC_NO,   KC_NO,    KC_NO,
         KC_NO,     KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,   KC_NO,    KC_NO,    KC_NO,       KC_NO,         KC_NO,           KC_NO,   KC_NO,    KC_NO,
                                _______,    _______,    _______,    _______, _______,  _______,  _______,     _______,       _______,         _______
     )

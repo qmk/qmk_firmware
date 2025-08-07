@@ -27,15 +27,16 @@ enum ortho_brass_layers {
 };
 
 enum ortho_brass_keycodes {
-    QWERTY = SAFE_RANGE,
-    COLEMAK,
-    DVORAK,
-    PLOVER,
+    PLOVER = SAFE_RANGE,
     EXT_PLV
 };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -160,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12_1x2uC(
-    _______, QK_BOOT, DB_TOGG, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL ,
+    _______, QK_BOOT, DB_TOGG, _______, _______, _______, _______, _______, _______,  _______, _______, KC_DEL ,
     _______, _______, MU_NEXT, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK,  DVORAK,  PLOVER,  _______,
     _______, AU_PREV, AU_NEXT, MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______,  _______, _______, _______,
     _______, _______, _______, _______, _______,     _______,      _______, _______,  _______, _______, _______
@@ -172,24 +173,6 @@ layer_state_t layer_state_set_user(layer_state_t state) { return update_tri_laye
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-            break;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-            break;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
-            }
-            return false;
-            break;
         case PLOVER:
             if (record->event.pressed) {
                 layer_off(_RAISE);
@@ -199,9 +182,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!eeconfig_is_enabled()) {
                     eeconfig_init();
                 }
-                keymap_config.raw  = eeconfig_read_keymap();
+                eeconfig_read_keymap(&keymap_config);
                 keymap_config.nkro = 1;
-                eeconfig_update_keymap(keymap_config.raw);
+                eeconfig_update_keymap(&keymap_config);
             }
             return false;
             break;

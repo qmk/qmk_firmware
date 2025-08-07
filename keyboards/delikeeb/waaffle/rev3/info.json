@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Waaffle rev3",
     "manufacturer": "dELIKEEb",
-    "url": "",
     "maintainer": "noclew",
     "usb": {
         "vid": "0x9906",
@@ -12,7 +11,12 @@
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 10,
-        "sleep": true
+        "sleep": true,
+        "animations": {
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "static_gradient": true
+        }
     },
     "ws2812": {
         "pin": "C7"
