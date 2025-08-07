@@ -68,6 +68,18 @@
     "bakeneko80": {
         "target": "kkatano/bakeneko80"
     },
+    "bastardkb/charybdis/3x5/v2/elitec": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
+    "bastardkb/charybdis/3x5/v2/splinky_2": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
+    "bastardkb/charybdis/3x5/v2/splinky_3": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
+    "bastardkb/charybdis/3x5/v2/stemcell": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
     "bastardkb/dilemma/3x5_2/splinky": {
         "target": "bastardkb/dilemma/3x5_2/promicro"
     },
@@ -412,6 +424,9 @@
     },
     "lfkeyboards/smk65": {
         "target": "lfkeyboards/smk65/revb"
+    },
+    "ll3macorn/bongopad": {
+        "target": "ll3ma/bongopad"
     },
     "m3v3van": {
         "target": "matthewdias/m3n3van"
@@ -2295,6 +2310,12 @@
     },
     "handwired/dygma/raise": {
         "target": "handwired/dygma/raise/ansi"
+    },
+    "helix/rev3_4rows": {
+        "target": "helix/rev3"
+    },
+    "helix/rev3_5rows": {
+        "target": "helix/rev3"
     },
     "ibm/model_m/mschwingen": {
         "target": "ibm/model_m/mschwingen/led_wired"
