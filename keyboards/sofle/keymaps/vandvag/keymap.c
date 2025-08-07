@@ -269,19 +269,19 @@ static void print_status_narrow(void) {
             oled_write_P(PSTR("Base\n"), false);
             break;
         case _NAV:
-            oled_write_P(PSTR("Nav"), false);
+            oled_write_P(PSTR("Nav\n"), false);
             break;
         case _SYM:
-            oled_write_P(PSTR("Symbol"), false);
+            oled_write_P(PSTR("Symbl\n"), false);
             break;
         case _FN:
-            oled_write_P(PSTR("Func"), false);
+            oled_write_P(PSTR("Func\n"), false);
             break;
         case _ADJUST:
-            oled_write_P(PSTR("Adjust"), false);
+            oled_write_P(PSTR("Adjust\n"), false);
             break;
         default:
-            oled_write_ln_P(PSTR("Undef"), false);
+            oled_write_ln_P(PSTR("Undef\n"), false);
     }
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
