@@ -4,13 +4,9 @@
 
 #pragma once
 
-// External clock configuration
-#undef AT32_HEXTCLK
-#define AT32_HEXTCLK 12000000
-
 // Encoder configuration
-#undef ENCODER_MAP_KEY_DELAY
-#define ENCODER_MAP_KEY_DELAY 10
+// #undef ENCODER_MAP_KEY_DELAY
+// #define ENCODER_MAP_KEY_DELAY 10
 
 // RGB LED configuration
 // #define WS2812_TIMING 1250

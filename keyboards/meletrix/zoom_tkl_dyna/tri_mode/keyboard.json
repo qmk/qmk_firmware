@@ -3,12 +3,9 @@
     "keyboard_name": "meletrix/zoom_tkl_dyna/tri_mode",
     "maintainer": "MHooijberg",
     "bootloader": "at32-dfu",
-    "diode_direction": "COL2ROW",
+    "diode_direction": "ROW2COL",
     "features": {
-        "bootmagic": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
+        "bootmagic": true
     },
     "matrix_pins": {
         "cols": ["C3", "C2", "C1", "C0", "C13", "B7", "B3", "C12", "C11", "F7", "F6", "A8", "C9", "C8", "C7", "C6"],
