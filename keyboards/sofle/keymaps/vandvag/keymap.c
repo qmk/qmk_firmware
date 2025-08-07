@@ -20,8 +20,8 @@ enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
     _QWERTY,
     _COLEMAK,
-    _LOWER,
-    _RAISE,
+    _SYM,
+    _NAV,
     _ADJUST,
 };
 
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   N  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
+ *            | LGUI | LAlt | LCTR |SYM   | /Enter  /       \Space \  |NAV   | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -70,7 +70,7 @@ KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,     XXXXXXX,KC_N,   
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |LShift|   Z  |   X  |   C  |   V  |   B  |-------|    |-------|   K  |   M  |   ,  |   .  |   /  |RShift|
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
+ *            | LGUI | LAlt | LCTR |SYM   | /Enter  /       \Space \  |NAV   | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -82,7 +82,7 @@ KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,     XXXXXXX,KC_N,   
   KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE,      XXXXXXX,KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
                  KC_LGUI,KC_LALT,KC_LCTL,TL_LOWR, KC_ENT,        KC_SPC,  TL_UPPR, KC_RCTL, KC_RALT, KC_RGUI
 ),
-/* LOWER
+/* SYMBOLS
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * | F12  |  F1  |  F2  |  F3  |  F4  |  F5  |                    |  F6  |  F7  |  F8  |  F9  | F10  | F11  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -92,18 +92,18 @@ KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, XXXXXXX,     XXXXXXX,KC_N,   
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |      |   %  |   /  |   *  |   +  |   \  |-------|    |-------|   /  |   -  |   <  |   >  |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
+ *            | LGUI | LAlt | LCTR |SYM   | /Enter  /       \Space \  |NAV   | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
-[_LOWER] = LAYOUT(
+[_SYM] = LAYOUT(
 KC_F12, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                       /**/ KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11,
 KC_TRNS, KC_GRV, S(KC_GRV), S(KC_3), S(KC_7), S(KC_BSLS),        /**/ S(KC_6), S(KC_LBRC), S(KC_RBRC), KC_LBRC, KC_RBRC, KC_DEL,
 KC_TRNS, S(KC_1), S(KC_MINS), S(KC_SCLN), KC_EQL, S(KC_4),       /**/ S(KC_2), S(KC_9), S(KC_0), S(KC_MINS), KC_TRNS, KC_PIPE,
 KC_TRNS, S(KC_5), KC_SLSH, S(KC_8), S(KC_EQL), KC_BSLS, KC_TRNS, /**/ KC_TRNS, KC_SLSH, KC_MINS, S(KC_COMM), S(KC_DOT), KC_BSLS, KC_TRNS,
 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     /**/ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* RAISE
+/* NAVIGATION
  * ,----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
@@ -113,11 +113,11 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     /**/ KC_TRNS, K
  * |------+------+------+------+------+------|  MUTE  |   |       |------+------+------+------+------+------|
  * |Shift | Undo |  Cut | Copy | Paste| PrtSc|-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
+ *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |NAV   | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
-[_RAISE] = LAYOUT(
+[_NAV] = LAYOUT(
 _______, _______, _______, _______, _______, _______,          /**/ _______, _______, _______, _______, _______, _______,
 _______, _______, _______, KC_PGUP, KC_HOME, _______,          /**/ KC_F5, _______, KC_UP, KC_F10, KC_F11, _______,
 _______, _______, _______, KC_PGDN, KC_END, KC_CAPS,           /**/ KC_F9, KC_LEFT, KC_DOWN, KC_RGHT,  _______, _______,
@@ -225,4 +225,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
+}
+
+static void print_status_narrow(void) {
+    oled_write_P(PSTR("\n\n"), false);
+    switch (get_highest_layer(layer_state)) {
+        case 0:
+            oled_write_ln_P(PSTR("Qwrt"), false);
+            break;
+        case 1:
+            oled_write_ln_P(PSTR("Clmk"), false);
+            break;
+        default:
+            oled_write_P(PSTR("Mod\n"), false);
+            break;
+    }
+    oled_write_P(PSTR("\n\n"), false);
+    oled_write_ln_P(PSTR("LAYER"), false);
+    switch (get_highest_layer(layer_state)) {
+        case _QWERTY:
+        case _COLEMAK:
+            oled_write_P(PSTR("Base\n"), false);
+            break;
+        case _NAV:
+            oled_write_P(PSTR("Nav"), false);
+            break;
+        case _SYM:
+            oled_write_P(PSTR("Symbol"), false);
+            break;
+        case 4:
+            oled_write_P(PSTR("Adjust"), false);
+            break;
+        default:
+            oled_write_ln_P(PSTR("Undef"), false);
+    }
+    oled_write_P(PSTR("\n\n"), false);
+    led_t led_usb_state = host_keyboard_led_state();
+    oled_write_ln_P(PSTR("CPSLK"), led_usb_state.caps_lock);
+
+#ifdef WPM_ENABLE
+	oled_write_P(PSTR("WPM: "), false);
+    oled_write(get_u8_str(get_current_wpm(), '0'), false);
+#endif
+}
+
+bool oled_task_user(void) {
+	print_status_narrow();
+	return false;
 }
