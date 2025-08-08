@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //#define USE_MATRIX_I2C
 
-//#define QUICK_TAP_TERM 0
-//#define TAPPING_TERM 100
+#define QUICK_TAP_TERM 0
+#define TAPPING_TERM 200
 
 #ifdef RGBLIGHT_ENABLE
     #define RGBLIGHT_EFFECT_BREATHING
