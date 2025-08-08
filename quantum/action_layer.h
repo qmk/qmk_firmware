@@ -164,8 +164,6 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 void    update_source_layers_cache(keypos_t key, uint8_t layer);
 uint8_t read_source_layers_cache(keypos_t key);
 #    ifdef KEYCODE_CACHE_ENABLE
-void     update_keycode_map(keypos_t key, uint16_t keycode);
-uint16_t read_keycode_map(keypos_t key);
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
 #    endif
 #endif
