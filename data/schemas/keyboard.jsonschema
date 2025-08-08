@@ -862,6 +862,10 @@
                     "$ref": "./definitions.jsonschema#/mcu_pin",
                     "$comment": "Deprecated: use split.serial.pin instead"
                 },
+                "soft_serial_speed": {
+                    "type": "integer",
+                    "$comment": "Deprecated: use split.serial.speed instead"
+                },
                 "serial": {
                     "type": "object",
                     "additionalProperties": false,
