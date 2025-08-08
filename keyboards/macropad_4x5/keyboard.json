@@ -7,7 +7,7 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true,
+        "mousekey": false,
         "nkro": true
     },
 	"matrix_pins": {
