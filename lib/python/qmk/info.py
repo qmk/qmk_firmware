@@ -477,6 +477,9 @@ def _extract_split_serial(info_data, config_c):
     if 'soft_serial_pin' in split:
         split['serial'] = split.get('serial', {})
         split['serial']['pin'] = split.pop('soft_serial_pin')
+    if 'soft_serial_speed' in split:
+        split['serial'] = split.get('serial', {})
+        split['serial']['speed'] = split.pop('soft_serial_speed')
 
 
 def _extract_split_transport(info_data, config_c):
