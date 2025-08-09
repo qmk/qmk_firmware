@@ -753,9 +753,9 @@ Configures the [Split Keyboard](features/split_keyboard) feature.
             * Default: `"bitbang"`
         * `pin` <Badge type="info">Pin</Badge>
             * The GPIO pin to use for transmit and receive.
-    * `soft_serial_speed` <Badge type="info">Number</Badge>
-        * The protocol speed, from `0` to `5` (`serial` transport protocol only).
-        * Default: `1`
+        * `speed` <Badge type="info">Number</Badge>
+            * The protocol speed, from `0` to `5` (fastest to slowest).
+            * Default: `1`
     * `transport`
         * `protocol` <Badge type="info">String</Badge>
             * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`.
