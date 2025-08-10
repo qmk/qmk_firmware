@@ -230,8 +230,8 @@ def info_json(keyboard, force_layout=None):
         keyboard = root_rules_mk['DEFAULT_FOLDER']
 
     info_data = {
-        'keyboard_name': str(keyboard),
-        'keyboard_folder': str(keyboard),
+        'keyboard_name': str(Path(keyboard).as_posix()),  # Convention; need posix-style paths otherwise JSON validation fails
+        'keyboard_folder': str(Path(keyboard).as_posix()),  # Convention; need posix-style paths otherwise JSON validation fails
         'keymaps': {},
         'layouts': {},
         'parse_errors': [],
