@@ -945,21 +945,25 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(BATTERY_ENABLE)), yes)
+    BATTERY_DRIVER_REQUIRED := yes
+endif
+
 VALID_BATTERY_DRIVER_TYPES := adc custom vendor
 
-BATTERY_DRIVER ?= adc
+BATTERY_DRIVER ?= none
 ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
     ifeq ($(filter $(BATTERY_DRIVER),$(VALID_BATTERY_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
     endif
 
-    OPT_DEFS += -DBATTERY_DRIVER
-    OPT_DEFS += -DBATTERY_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DBATTERY_DRIVER_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(DRIVER_PATH)/battery
 
-    SRC += battery.c
-    SRC += battery_$(strip $(BATTERY_DRIVER)).c
+    ifneq ($(strip $(BATTERY_DRIVER)), custom)
+        SRC += battery_$(strip $(BATTERY_DRIVER)).c
+    endif
 
     # add extra deps
     ifeq ($(strip $(BATTERY_DRIVER)), adc)
