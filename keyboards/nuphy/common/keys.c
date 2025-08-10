@@ -25,9 +25,22 @@ extern uint8_t         rf_sw_temp;
 extern uint16_t        rf_sw_press_delay;
 extern uint16_t        rf_linking_time;
 extern uint32_t        no_act_time;
+extern bool            f_wakeup_prepare;
+
+extern void exit_light_sleep(void);
 
 socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
 socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
+
+bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    // wakeup check for light sleep/no sleep - fire this immediately to not lose wake keys.
+    if (f_wakeup_prepare) {
+        f_wakeup_prepare = 0;
+        if (keyboard_config.common.sleep_toggle) exit_light_sleep();
+    }
+
+    return pre_process_record_user(keycode, record);
+}
 
 
 bool process_record_nuphy(uint16_t keycode, keyrecord_t *record) {

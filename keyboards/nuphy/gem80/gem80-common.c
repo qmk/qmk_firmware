@@ -38,24 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "eeconfig.h"
 #endif
 
-extern bool            f_wakeup_prepare;
-extern bool            f_bat_hold;
-extern bool            f_debounce_press_show;
-extern bool            f_debounce_release_show;
-extern bool            f_sleep_timeout_show;
 extern DEV_INFO_STRUCT dev_info;
-
-extern void exit_light_sleep(void);
-
-bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    // wakeup check for light sleep/no sleep - fire this immediately to not lose wake keys.
-    if (f_wakeup_prepare) {
-        f_wakeup_prepare = 0;
-        if (keyboard_config.common.sleep_toggle) exit_light_sleep();
-    }
-
-    return pre_process_record_user(keycode, record);
-}
 
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
