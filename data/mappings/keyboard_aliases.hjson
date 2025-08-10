@@ -80,6 +80,18 @@
     "bastardkb/charybdis/3x5/v2/stemcell": {
         "target": "bastardkb/charybdis/3x5/elitec"
     },
+    "bastardkb/charybdis/3x6/v2/elitec": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/splinky_2": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/splinky_3": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/stemcell": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
     "bastardkb/dilemma/3x5_2/splinky": {
         "target": "bastardkb/dilemma/3x5_2/promicro"
     },
