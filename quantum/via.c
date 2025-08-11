@@ -33,6 +33,7 @@
 #include "eeconfig.h"
 #include "matrix.h"
 #include "timer.h"
+#include "quantum.h"
 #include "wait.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #include "nvm_via.h"
@@ -459,6 +460,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             break;
         }
 #endif
+        case id_bootloader_jump: {
+            raw_hid_send(data, length);
+            reset_keyboard();
+            break;
+        }
         default: {
             // The command ID is not known
             // Return the unhandled state
