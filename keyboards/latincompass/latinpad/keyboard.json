@@ -40,7 +40,27 @@
             "pixel_flow": true,
             "pixel_fractal": true
         },
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 74, "y": 21, "flags": 1},
+            {"matrix": [0, 1], "x": 37, "y": 21, "flags": 1},
+            {"matrix": [0, 2], "x": 24, "y": 21, "flags": 1},
+            {"matrix": [0, 3], "x": 18, "y": 21, "flags": 1},
+            {"matrix": [1, 0], "x": 74, "y": 10, "flags": 1},
+            {"matrix": [1, 1], "x": 37, "y": 10, "flags": 1},
+            {"matrix": [1, 2], "x": 28, "y": 10, "flags": 1},
+            {"matrix": [1, 3], "x": 18, "y": 10, "flags": 1},
+            {"matrix": [2, 0], "x": 74, "y": 7, "flags": 1},
+            {"matrix": [2, 1], "x": 37, "y": 7, "flags": 1},
+            {"matrix": [2, 2], "x": 20, "y": 7, "flags": 1},
+            {"matrix": [2, 3], "x": 18, "y": 7, "flags": 1},
+            {"matrix": [3, 0], "x": 74, "y": 5, "flags": 1},
+            {"matrix": [3, 1], "x": 37, "y": 5, "flags": 1},
+            {"matrix": [3, 2], "x": 22, "y": 5, "flags": 1},
+            {"matrix": [3, 3], "x": 18, "y": 5, "flags": 1},
+            {"matrix": [4, 0], "x": 74, "y": 5, "flags": 1},
+            {"matrix": [4, 1], "x": 37, "y": 5, "flags": 1}
+        ]
     },
     "features": {
         "bootmagic": true,
