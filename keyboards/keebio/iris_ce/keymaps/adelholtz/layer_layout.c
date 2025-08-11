@@ -6,14 +6,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_TAB,  DE_Q, DE_W,  TRL_SPECIAL_F, TRL_MEDIA_P,    DE_G,                        DE_J,      TRL_MEDIA_L,     DE_U,       DE_Y,    XXXXXXX, XXXXXXX,
      KC_LCTL, DE_A, DE_R,  HRM_ALT_S,     HRL_BRACKETS_T, HRM_GUI_D,                   HRM_GUI_H, HRL_BRACKETS_N,  HRM_CTRL_E, DE_I,    DE_O,    KC_ENTER,
      KC_LSFT, DE_Z, DE_X,  DE_C,          DE_V, DE_B,                KC_HOME, KC_END,  DE_K,      DE_M,            DE_COMM,    KC_DOT,  KC_SLSH, KC_CAPS,
-                                            LMAGIC, TD(NAV_LMAGIC), TD(SPACE_TAB), OSM(MOD_LSFT), TD(XTRA_RMAGIC), RMAGIC // MO(_EXTRA)
+                                            GAME, TD(NAV_LMAGIC), TD(SPACE_TAB), OSM(MOD_LSFT), TD(XTRA_RMAGIC), GAME // MO(_EXTRA)
   ),
   [_GAME] = LAYOUT(
-     QK_GESC, KC_1, KC_2, KC_3, KC_4, KC_5,                  KC_6, KC_7, KC_8, KC_9,   KC_0,    KC_BSPC,
-     KC_TAB,  DE_Q, DE_W, DE_E, DE_R, DE_T,                  DE_Z, DE_U, DE_I, DE_O,   DE_P, DE_UDIA,
-     KC_LCTL, DE_A, DE_S, DE_D, DE_F, DE_G,                  DE_H, DE_J, DE_K, DE_L, DE_ODIA, DE_ADIA,
-     KC_LSFT, DE_Y, DE_X, DE_C, DE_V, DE_B, KC_HOME, KC_END, DE_N, DE_M, DE_COMM, KC_DOT, KC_SLSH, KC_CAPS,
-               LMAGIC,MO(_NAVIGATION), LT(_BRACKETS,KC_SPC), KC_LSFT,  LT(_EXTRA,KC_ENTER), TO(_COLEMAK)
+     QK_GESC, KC_1, KC_2, KC_3, KC_4, KC_5,                  KC_6, KC_7, KC_8, KC_9, KC_0,    KC_BSPC,
+     KC_TAB,  DE_Q, DE_W, DE_F, DE_P, DE_G,                  DE_J, DE_L, DE_U, DE_Y,  XXXXXXX, XXXXXXX,
+     KC_LCTL, DE_A, DE_R, DE_S, DE_T, DE_D,                  DE_H, DE_N, DE_E, DE_I, DE_O, KC_ENTER,
+     KC_LSFT, DE_Z, DE_X, DE_C, DE_V, DE_B, KC_HOME, KC_END, DE_K, DE_M, DE_COMM, KC_DOT, KC_SLSH, KC_CAPS,
+                COLEMAK, TD(NAV_LMAGIC), LT(_BRACKETS,KC_SPC), KC_LSFT,  TD(XTRA_RMAGIC), COLEMAK
   ),
   [_NAVIGATION] = LAYOUT(
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,

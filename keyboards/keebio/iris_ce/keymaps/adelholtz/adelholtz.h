@@ -24,7 +24,9 @@ enum custom_keycodes {
   PIPE_,  // OS specific | - defined in keymap.c process_record_user
   LBRACKET,  // OS specific [ - defined in keymap.c process_record_user
   RBRACKET,  // OS specific ] - defined in keymap.c process_record_user
-  RELOAD // defined in keymap.c process_record_user
+  RELOAD, // defined in keymap.c process_record_user
+  GAME,
+  COLEMAK
 };
 
 #define TAPPING_TERM_PER_KEY

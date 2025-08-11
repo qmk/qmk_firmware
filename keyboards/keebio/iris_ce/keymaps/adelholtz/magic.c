@@ -78,6 +78,15 @@ static void magic_send_string_P(const char *str, uint16_t repeat_keycode) {
  * Parameters:
  * - keycode: The keycode of the key being processed.
  * - mods: The modifier keys active during the key press.
+ *
+ * Special behaviour:
+ *
+ *  Additions:
+ *      f -> unction
+ *      i -> on
+ *      ret -> urn
+ *      t -> he
+ *      . -> ..
  */
 static void process_left_magic(uint16_t keycode, uint8_t mods) {
   switch (keycode) {
@@ -105,6 +114,13 @@ static void process_left_magic(uint16_t keycode, uint8_t mods) {
     case DE_U: {
       MAGIC_STRING("u", KC_NO);
     } break;
+    case HRL_BRACKETS_T: {
+      if (last_keycodes[1] == HRM_CTRL_E && last_keycodes[2] == KC_R) {
+        MAGIC_STRING("urn", KC_NO);
+      } else {
+        MAGIC_STRING("he", KC_NO);
+      }
+    } break;
 
     case KC_DOT: {
       MAGIC_STRING("..", KC_NO);
@@ -126,6 +142,16 @@ static void process_left_magic_static(void) { process_left_magic(get_last_keycod
  * Parameters:
  * - keycode: The keycode of the key being processed.
  * - mods: The modifier keys active during the key press.
+ *
+ * Special behaviour:
+ *  Replacement:
+ *      AE -> ä, OE -> ö, UE -> ü
+ *
+ *  Addition:
+ *      e -> nt
+ *      i -> ng
+ *      m -> ent
+ *      { -> }
  */
 static void process_right_magic(uint16_t keycode, uint8_t mods) {
   switch (keycode) {
