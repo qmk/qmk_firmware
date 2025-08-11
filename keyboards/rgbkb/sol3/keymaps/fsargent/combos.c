@@ -19,6 +19,7 @@ enum combo_events {
 	CAL,
 	DELWD,
 	QIN,
+	KL,
 	QNM,
 	EML,WRK,
 	QP,
@@ -27,6 +28,11 @@ enum combo_events {
 	OUTER_THUMB,
 	JK,
 	TAB,
+	DF_TAB,        // Add this for the df_combo
+	THUMB_NUM,     // Add this for the tog_num_combo
+	SD_GRAVE,      // Add this for the sd_combo
+	M_COMMA_MINUS, // Add this for the m_comma_combo
+	DOT_COMMA_EQL, // Add this for the dot_comma_combo
 	COMBO_LENGTH
 };
 uint16_t COMBO_LEN		= COMBO_LENGTH;  // remove the COMBO_COUNT define and use this instead!
@@ -44,24 +50,30 @@ const uint16_t PROGMEM mute_combo[]		= {KC_VOLU,KC_VOLD, COMBO_END};
 // LCTL_T(KC_F)
 
 const uint16_t PROGMEM zx_combo[]		= {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM jk_combo[]		= {MT_J, MT_K, COMBO_END};
+const uint16_t PROGMEM jk_combo[]		= {M_J, M_K, COMBO_END};
+const uint16_t PROGMEM kl_combo[]		= {M_K, M_L, COMBO_END};
 const uint16_t PROGMEM xc_combo[]		= {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cv_combo[]		= {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM qr_combo[]		= {KC_Q, KC_R, COMBO_END};
-const uint16_t PROGMEM df_combo[]		= {LALT_T(KC_D), LCTL_T(KC_F), COMBO_END};
+const uint16_t PROGMEM df_combo[]		= {M_D, M_F, COMBO_END};
 const uint16_t PROGMEM gravminus_combo[]	= {KC_GRV, KC_DEL, COMBO_END};
+
+// New combos
+const uint16_t PROGMEM sd_combo[]		= {M_S, M_D, COMBO_END};
+const uint16_t PROGMEM m_comma_combo[]		= {KC_M, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM dot_comma_combo[]	= {KC_DOT, KC_COMMA, COMBO_END};
 
 const uint16_t PROGMEM xcv_combo[]		= {KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM sdf_combo[]		= {LGUI_T(KC_S), LALT_T(KC_D), LCTL_T(KC_F), COMBO_END};
 
-const uint16_t PROGMEM cal_combo[]		= {KC_C, LSFT_T(KC_A), MT_L, COMBO_END};
-const uint16_t PROGMEM phone_combo[]		= {KC_P, KC_Q, COMBO_END};
+const uint16_t PROGMEM cal_combo[]		= {KC_C, M_A, M_L, COMBO_END};
+const uint16_t PROGMEM phone_combo[]	= {KC_P, KC_Q, COMBO_END};
 const uint16_t PROGMEM qnm_combo[]		= {KC_Q, KC_N, KC_M, COMBO_END};
 const uint16_t PROGMEM qin_combo[]		= {KC_Q, KC_I, KC_N, COMBO_END};
-const uint16_t PROGMEM eml_combo[]		= {KC_E, KC_M, MT_L, COMBO_END};
+const uint16_t PROGMEM eml_combo[]		= {KC_E, KC_M, M_L, COMBO_END};
 const uint16_t PROGMEM wrk_combo[]		= {KC_W, KC_R, MT(MOD_LGUI, KC_K), COMBO_END};
 const uint16_t PROGMEM rbu_combo[]		= {KC_R, KC_B, KC_U, COMBO_END};
-const uint16_t PROGMEM rbl_combo[]		= {KC_R, KC_B, MT_L, COMBO_END};
+const uint16_t PROGMEM rbl_combo[]		= {KC_R, KC_B, M_L, COMBO_END};
 
 const uint16_t PROGMEM togwin_combo[]		= {KC_9, KC_2, COMBO_END};
 const uint16_t PROGMEM toggame_combo[]		= {KC_0, KC_1, COMBO_END};
@@ -83,8 +95,12 @@ combo_t key_combos[]	= {
 	[CPY]		= COMBO_ACTION(xc_combo),
 	[PST]		= COMBO_ACTION(cv_combo),
 	[CTRLR]		= COMBO_ACTION(qr_combo),
-	[DELWD]		= COMBO_ACTION(df_combo),
-	[JK]		= COMBO_ACTION(jk_combo),
+	[DF_TAB]	= COMBO_ACTION(df_combo),       // Changed from TAB to DF_TAB
+	[DELWD]		= COMBO_ACTION(jk_combo),
+	[KL]		= COMBO_ACTION(kl_combo),
+	[SD_GRAVE]	= COMBO_ACTION(sd_combo),
+	[M_COMMA_MINUS]	= COMBO_ACTION(m_comma_combo),
+	[DOT_COMMA_EQL]	= COMBO_ACTION(dot_comma_combo),
 	// [TGSYM]		= COMBO_ACTION(thumbs_combo),
 	// [WINTGSYM]		= COMBO_ACTION(win_thumbs_combo),
 	[RST]		= COMBO_ACTION(gravminus_combo),
@@ -111,7 +127,7 @@ combo_t key_combos[]	= {
 	[QP]		= COMBO_ACTION(phone_combo),
 	[QIN]		= COMBO_ACTION(qin_combo),
 	[QNM]		= COMBO_ACTION(qnm_combo),
-	[THUMBS]	= COMBO_ACTION(tog_num_combo),
+	[THUMB_NUM]	= COMBO_ACTION(tog_num_combo),  // Changed from THUMBS to THUMB_NUM
 	[THUMBS]	= COMBO_ACTION(thumbs_combo)
 };
 
@@ -120,6 +136,11 @@ combo_t key_combos[]	= {
 void process_combo_event(uint16_t combo_index, bool pressed) {
 	if (layer_state_is(0)) {
 	   switch (combo_index) {
+		case TAB:
+			if (pressed) {
+				tap_code(KC_TAB);
+			}
+			break;
 		case OUTER_THUMB:
 			if (pressed) {
 				tap_code(KC_ENT);
@@ -153,6 +174,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 			if (pressed) {
 			SEND_STRING(SS_DOWN(X_LALT) SS_TAP(X_LEFT) SS_DOWN(X_LSFT) SS_TAP(X_RIGHT) SS_UP(X_LSFT) SS_UP(X_LALT));
 			}
+			break;
+		case KL:
+			if (pressed) {
+				tap_code(KC_ENT);
+			}
+			break;
 	   }
 	}
 	if (layer_state_is(1)) {
@@ -201,12 +228,37 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 				tap_code(KC_TAB);
 			}
 			break;
+		case DF_TAB:
+			if (pressed) {
+				tap_code(KC_TAB);
+			}
+			break;
+		case SD_GRAVE:
+			if (pressed) {
+				tap_code(KC_GRV);
+			}
+			break;
+		case M_COMMA_MINUS:
+			if (pressed) {
+				tap_code(KC_MINS);
+			}
+			break;
+		case DOT_COMMA_EQL:
+			if (pressed) {
+				tap_code(KC_EQL);
+			}
+			break;
 		case JK:
 			if (pressed) {
 				tap_code(KC_ENT);
 			}
 			break;
 		case THUMBS:
+			if (pressed) {
+				layer_invert(_NUM);
+			}
+			break;
+		case THUMB_NUM:
 			if (pressed) {
 				layer_invert(_NUM);
 			}

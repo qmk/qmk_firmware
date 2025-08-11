@@ -1,4 +1,4 @@
-/*
+  /*
  * ----------------------------------------------------------------------------
  * "THE BEER-WARE LICENSE" (Revision 42):
  * <https://github.com/Legonut> wrote this file.	As long as you retain this
@@ -14,25 +14,25 @@
 #include "os_detection.h"
 
 /* Qwerty
-* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐  ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
-* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │  │      │   6  │   7  │   8  │   9  │   0  │   -  │
-* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├ OLED ┼──────┼──────┼──────┼──────┼──────┼──────┤
-* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │  │      │   Y  │   U  │   I  │   O  │   P  │   \  │
-* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │  │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
-* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-* │Shift │   Z  │   X  │  C   │   V  │   B  │   [  │  │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
-* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤  ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-* │ Ctrl │  Alt │  Win │  SYM │ NAV  │      │2Sym  │  │2Ctrl │      │  _   │   =  │RGUI  │RALT  │RCTRL │
-* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤  ├──────┤ 3Spc ├──────┴──────┴──────┴──────┴──────┘
-*				     │      │3Ctrl │  │1Enter│      │
-*				     └──────┴──────┘  └──────┴──────┘
- * ┌──────┬──────┬──────┬──────┬──────┬──────┐				┌──────┬──────┬──────┬──────┬──────┬──────┐
- * │Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│				│Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│
- * └──────┴──────┴──────┴──────┴──────┴──────┘				└──────┴──────┴──────┴──────┴──────┴──────┘
- * ┌──────┬──────┬──────┬──────┬──────┐							  ┌──────┬──────┬──────┬──────┬──────┐
- * │Vol Dn│Vol Up│ Prev │ Play │ Next │							  │Vol Dn│Vol Up│ Prev │ Play │ Next │
- * └──────┴──────┴──────┴──────┴──────┘							  └──────┴──────┴──────┴──────┴──────┘
+* ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐ 			 ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┐
+* │ GESC │   1  │   2  │   3  │   4  │   5  │ ESC  │ 			 │      │   6  │   7  │   8  │   9  │   0  │   -  │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤ 			 ├ OLED ┼──────┼──────┼──────┼──────┼──────┼──────┤
+* │ Tab  │   Q  │   W  │   E  │   R  │   T  │   {  │ 			 │      │   Y  │   U  │   I  │   O  │   P  │   \  │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤ 			 ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+* |MEHESC│   A  │   S  │   D  │   F  │   G  │   (  │ 			 │VOLUP │   H  │   J  │   K  │   L  │   ;  │   '  │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤ 			 ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+* │Shift │   Z  │   X  │  C   │   V  │   B  │   [  │ 			 │VOLDN │   N  │   M  │   ,  │   .  │   /  │Shift │
+* ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤ 			 ├──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+* │ Ctrl │  Alt │  Win │  SYM │ NAV  │      │2Sym  │ 			 │2Ctrl │      │  _   │   =  │RGUI  │RALT  │RCTRL │
+* └──────┴──────┴──────┴──────┴──────┤1BSpc ├──────┤ 			 ├──────┤ 3Spc ├──────┴──────┴──────┴──────┴──────┘
+*				     │      │3Ctrl │ 			 │1Enter│      │
+*				     └──────┴──────┘ 			 └──────┴──────┘
+* ┌──────┬──────┬──────┬──────┬──────┬──────┐					┌──────┬──────┬──────┬──────┬──────┬──────┐
+* │Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│					│Vol Dn│Vol Up│Vol Dn│Vol Up│Vol Dn│Vol Up│
+* └──────┴──────┴──────┴──────┴──────┴──────┘					└──────┴──────┴──────┴──────┴──────┴──────┘
+* ┌──────┬──────┬──────┬──────┬──────┐						       ┌──────┬──────┬──────┬──────┬──────┐
+* │Vol Dn│Vol Up│ Prev │ Play │ Next │						       │Vol Dn│Vol Up│ Prev │ Play │ Next │
+* └──────┴──────┴──────┴──────┴──────┘						       └──────┴──────┴──────┴──────┴──────┘
  */
 
 enum sol_layers {
@@ -64,29 +64,29 @@ enum sol_keycodes {
 #define LBRC		MT(MOD_LALT, KC_LBRC)
 #define RBRC		MT(MOD_LGUI, KC_RBRC)
 
-#define MINUS		LT(_NUM, KC_MINS)
-#define EQL		LT(_SYM, KC_EQL)
-#define APPLE		KC_LPRN
+#define MINUS		LT(_NUM, KC_LPRN)
+#define EQL		LT(_SYM, KC_LBRC)
+#define APPLE		KC_RBRC
 #define BERRY 		KC_RPRN
 
-#define LTHUMB0		CMD_T(KC_BSPC)
-#define LTHUMB0WIN	CTL_T(KC_BSPC)
+#define LTHUMB0		LT(_NAV, KC_BSPC)
+#define LTHUMB0WIN	LT(_NAV, KC_BSPC)
 #define LTHUMB1		MT(MOD_LCTL, KC_DEL)
-#define LTHUMB2		MT(MOD_LALT, KC_TAB)
+#define LTHUMB2		LT(_NUM, KC_TAB)
 
 #define RTHUMB0		KC_SPC
 #define RTHUMB2		KC_ENT
 #define RTHUMB1		KC_MPLY
 
-#define M_A	LSFT_T(KC_A)
-#define M_S	LGUI_T(KC_S)
-#define M_D	LALT_T(KC_D)
-#define M_F	LCTL_T(KC_F)
+#define M_A	LCTL_T(KC_A)
+#define M_S	LALT_T(KC_S)
+#define M_D	LGUI_T(KC_D)
+#define M_F	LSFT_T(KC_F)
 
-#define MT_J	RCTL_T(KC_J)
-#define MT_K	RALT_T(KC_K)
-#define MT_L	RGUI_T(KC_L)
-#define MT_SEMI	RSFT_T(KC_SCLN)
+#define M_J	RSFT_T(KC_J)
+#define M_K	RGUI_T(KC_K)
+#define M_L	RALT_T(KC_L)
+#define M_SEMI	RCTL_T(KC_SCLN)
 
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
@@ -126,9 +126,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_MAC]	= LAYOUT(
 	KC_GRV,		KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_ESC,						KC_NO,		KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_DEL,
 	KC_TAB,		KC_Q,		KC_W,		KC_E,		KC_R,		KC_T,		TO(_MAC),					KC_NO,		KC_Y,		KC_U,		KC_I,		KC_O,		KC_P,		KC_BSLS,
-	MEHESC,		M_A,		M_S,		M_D,		M_F,		KC_G,		TO(_WIN),					KC_F11,		KC_H,		MT_J,		MT_K,		MT_L,		MT_SEMI,	KC_QUOT,
-	KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(_GAME),					KC_F12,		KC_N,		KC_M,		KC_COMM,	KC_DOT,		KC_SLSH,	KC_RSFT,
-	KC_LCTL,	LBRC,		RBRC,		MO(_NUM),	MO(_NAV),	LTHUMB0,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	MINUS,		EQL,		APPLE,		BERRY,		KC_RCTL,
+	HYPESC,		M_A,		M_S,		M_D,		M_F,		KC_G,		TO(_WIN),					KC_F11,		KC_H,		M_J,		M_K,		M_L,		M_SEMI,		KC_QUOT,
+	KC_LSFT,	KC_Z,		KC_X,		KC_C,		KC_V,		KC_B,		TO(_GAME),					KC_F12,		KC_N,		KC_M,		KC_COMMA,	KC_DOT,		KC_SLSH,	KC_RSFT,
+	KC_LCTL,	S(G(KC_GRV)),	S(C(KC_TAB)), 	C(KC_TAB),   	G(KC_GRV),	LTHUMB0,	LTHUMB1,	LTHUMB2,	RTHUMB2,	RTHUMB1,	RTHUMB0,	MINUS,		EQL,		APPLE,		BERRY,		KC_RCTL,
 	KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO,														KC_NO,		KC_NO,		KC_NO,		KC_NO,		KC_NO
 	),
 
@@ -145,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_NAV]		= LAYOUT(
 	C(KC_GRV),	KC_F1,		KC_F2,		KC_F3,		KC_F4,		KC_F5,		_______,					_______,	KC_F6,		KC_F7,		KC_F8,		KC_F9,		KC_F10,		KC_DEL,
 	C(KC_TAB),	A(KC_BSPC),	A(KC_LEFT),	KC_UP,		A(KC_RGHT),	A(KC_DEL),	_______,					_______,	KC_WH_U,	KC_WH_U,	KC_MS_U,	KC_WH_L,	KC_PGUP,	_______,
-	KC_MEH,		G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),	_______,					KC_F11,		KC_WH_L,	KC_MS_L,	KC_MS_D,	KC_MS_R,	KC_WH_R,	_______,
+	KC_MEH,		G(KC_LEFT),	KC_LEFT,	KC_DOWN,	KC_RGHT,	G(KC_RGHT),	_______,					KC_F11,		KC_WH_L,	M_J,		M_K,		M_L,		M_SEMI,		_______,
 	KC_LSFT,	KC_HOME,	G(KC_DOWN),	KC_DEL,		G(KC_UP),	KC_END,		_______,					KC_F12,		KC_WH_D,	KC_WH_D,	KC_NO,		KC_NO,		KC_PGDN,	_______,
 	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	KC_BTN2,	MENU_BTN,	KC_BTN1,	KC_APP,		_______,	_______,	_______,	_______,
 	_______,	_______,	_______,	_______,	_______,													_______,	_______,	_______,	_______,	_______
