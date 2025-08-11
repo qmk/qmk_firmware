@@ -18,7 +18,6 @@
 
 #include "rgb_matrix.h"
 #include "progmem.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "keyboard.h"
 #include "sync_timer.h"
@@ -35,7 +34,7 @@ const led_point_t k_rgb_matrix_center = {112, 32};
 const led_point_t k_rgb_matrix_center = RGB_MATRIX_CENTER;
 #endif
 
-__attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
+__attribute__((weak)) rgb_t rgb_matrix_hsv_to_rgb(hsv_t hsv) {
     return hsv_to_rgb(hsv);
 }
 
@@ -48,6 +47,9 @@ __attribute__((weak)) RGB rgb_matrix_hsv_to_rgb(HSV hsv) {
 #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "rgb_matrix_effects.inc"
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "rgb_matrix_community_modules.inc"
+#endif
 #ifdef RGB_MATRIX_CUSTOM_KB
 #    include "rgb_matrix_kb.inc"
 #endif
@@ -84,13 +86,13 @@ static last_hit_t last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 // split rgb matrix
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#if defined(RGB_MATRIX_SPLIT)
 const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(rgb_matrix, EECONFIG_RGB_MATRIX, rgb_matrix_config);
+EECONFIG_DEBOUNCE_HELPER(rgb_matrix, rgb_matrix_config);
 
-void eeconfig_update_rgb_matrix(void) {
+void eeconfig_force_flush_rgb_matrix(void) {
     eeconfig_flush_rgb_matrix(true);
 }
 
@@ -98,7 +100,7 @@ void eeconfig_update_rgb_matrix_default(void) {
     dprintf("eeconfig_update_rgb_matrix_default\n");
     rgb_matrix_config.enable = RGB_MATRIX_DEFAULT_ON;
     rgb_matrix_config.mode   = RGB_MATRIX_DEFAULT_MODE;
-    rgb_matrix_config.hsv    = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
+    rgb_matrix_config.hsv    = (hsv_t){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL};
     rgb_matrix_config.speed  = RGB_MATRIX_DEFAULT_SPD;
     rgb_matrix_config.flags  = RGB_MATRIX_DEFAULT_FLAGS;
     eeconfig_flush_rgb_matrix(true);
@@ -143,12 +145,21 @@ void rgb_matrix_update_pwm_buffers(void) {
     rgb_matrix_driver.flush();
 }
 
+__attribute__((weak)) int rgb_matrix_led_index(int index) {
+#if defined(RGB_MATRIX_SPLIT)
+    if (!is_keyboard_left() && index >= k_rgb_matrix_split[0]) {
+        return index - k_rgb_matrix_split[0];
+    }
+#endif
+    return index;
+}
+
 void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    rgb_matrix_driver.set_color(index, red, green, blue);
+    rgb_matrix_driver.set_color(rgb_matrix_led_index(index), red, green, blue);
 }
 
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-#if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_SPLIT)
+#if defined(RGB_MATRIX_SPLIT)
     for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++)
         rgb_matrix_set_color(i, red, green, blue);
 #else
@@ -156,7 +167,7 @@ void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 #endif
 }
 
-void process_rgb_matrix(uint8_t row, uint8_t col, bool pressed) {
+void rgb_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
 #ifndef RGB_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
@@ -302,6 +313,15 @@ static void rgb_task_render(uint8_t effect) {
 #include "rgb_matrix_effects.inc"
 #undef RGB_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define RGB_MATRIX_EFFECT(name, ...)          \
+        case RGB_MATRIX_COMMUNITY_MODULE_##name:  \
+            rendering = name(&rgb_effect_params); \
+            break;
+#    include "rgb_matrix_community_modules.inc"
+#    undef RGB_MATRIX_EFFECT
+#endif
+
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
 #    define RGB_MATRIX_EFFECT(name, ...)          \
         case RGB_MATRIX_CUSTOM_##name:            \
@@ -385,7 +405,12 @@ void rgb_matrix_task(void) {
     }
 }
 
+__attribute__((weak)) bool rgb_matrix_indicators_modules(void) {
+    return true;
+}
+
 void rgb_matrix_indicators(void) {
+    rgb_matrix_indicators_modules();
     rgb_matrix_indicators_kb();
 }
 
@@ -404,7 +429,6 @@ struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
     limits.led_min_index = RGB_MATRIX_LED_PROCESS_LIMIT * (iter);
     limits.led_max_index = limits.led_min_index + RGB_MATRIX_LED_PROCESS_LIMIT;
     if (limits.led_max_index > RGB_MATRIX_LED_COUNT) limits.led_max_index = RGB_MATRIX_LED_COUNT;
-    uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
     if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
 #    else
@@ -414,9 +438,8 @@ struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
 #    endif
 #else
 #    if defined(RGB_MATRIX_SPLIT)
-    limits.led_min_index                = 0;
-    limits.led_max_index                = RGB_MATRIX_LED_COUNT;
-    const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+    limits.led_min_index = 0;
+    limits.led_max_index = RGB_MATRIX_LED_COUNT;
     if (is_keyboard_left() && (limits.led_max_index > k_rgb_matrix_split[0])) limits.led_max_index = k_rgb_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_rgb_matrix_split[0])) limits.led_min_index = k_rgb_matrix_split[0];
 #    else
@@ -427,6 +450,10 @@ struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
     return limits;
 }
 
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_modules(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+
 void rgb_matrix_indicators_advanced(effect_params_t *params) {
     /* special handling is needed for "params->iter", since it's already been incremented.
      * Could move the invocations to rgb_task_render, but then it's missing a few checks
@@ -434,6 +461,7 @@ void rgb_matrix_indicators_advanced(effect_params_t *params) {
      * rgb_task_render, right before the iter++ line.
      */
     RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
+    rgb_matrix_indicators_advanced_modules(min, max);
     rgb_matrix_indicators_advanced_kb(min, max);
 }
 
@@ -584,7 +612,7 @@ void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
     rgb_matrix_sethsv_eeprom_helper(hue, sat, val, true);
 }
 
-HSV rgb_matrix_get_hsv(void) {
+hsv_t rgb_matrix_get_hsv(void) {
     return rgb_matrix_config.hsv;
 }
 uint8_t rgb_matrix_get_hue(void) {

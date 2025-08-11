@@ -67,20 +67,32 @@
 #    include "raw_hid.h"
 #endif
 
-uint8_t keyboard_idle = 0;
-/* 0: Boot Protocol, 1: Report Protocol(default) */
-uint8_t        keyboard_protocol  = 1;
-static uint8_t keyboard_led_state = 0;
+#ifdef WAIT_FOR_USB
+// TODO: Remove backwards compatibility with old define
+#    define USB_WAIT_FOR_ENUMERATION
+#endif
 
 static report_keyboard_t keyboard_report_sent;
 
 /* Host driver */
-static uint8_t keyboard_leds(void);
-static void    send_keyboard(report_keyboard_t *report);
-static void    send_nkro(report_nkro_t *report);
-static void    send_mouse(report_mouse_t *report);
-static void    send_extra(report_extra_t *report);
-host_driver_t  lufa_driver = {keyboard_leds, send_keyboard, send_nkro, send_mouse, send_extra};
+static void send_keyboard(report_keyboard_t *report);
+static void send_nkro(report_nkro_t *report);
+static void send_mouse(report_mouse_t *report);
+static void send_extra(report_extra_t *report);
+#ifdef RAW_ENABLE
+static void send_raw_hid(uint8_t *data, uint8_t length);
+#endif
+
+host_driver_t lufa_driver = {
+    .keyboard_leds = usb_device_state_get_leds,
+    .send_keyboard = send_keyboard,
+    .send_nkro     = send_nkro,
+    .send_mouse    = send_mouse,
+    .send_extra    = send_extra,
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif
+};
 
 void send_report(uint8_t endpoint, void *report, size_t size) {
     uint8_t timeout = 255;
@@ -132,26 +144,16 @@ USB_ClassInfo_CDC_Device_t cdc_device = {
  *
  * FIXME: Needs doc
  */
-void raw_hid_send(uint8_t *data, uint8_t length) {
+static void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) return;
     send_report(RAW_IN_EPNUM, data, RAW_EPSIZE);
-}
-
-/** \brief Raw HID Receive
- *
- * FIXME: Needs doc
- */
-__attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Users should #include "raw_hid.h" in their own code
-    // and implement this function there. Leave this as weak linkage
-    // so users can opt to not handle data coming in.
 }
 
 /** \brief Raw HID Task
  *
  * FIXME: Needs doc
  */
-static void raw_hid_task(void) {
+void raw_hid_task(void) {
     // Create a temporary buffer to hold the read in data from the host
     uint8_t data[RAW_EPSIZE];
     bool    data_read = false;
@@ -266,6 +268,7 @@ void EVENT_USB_Device_Disconnect(void) {
 void EVENT_USB_Device_Reset(void) {
     print("[R]");
     usb_device_state_set_reset();
+    usb_device_state_set_protocol(USB_PROTOCOL_REPORT);
 }
 
 /** \brief Event USB Device Connect
@@ -448,10 +451,10 @@ void EVENT_USB_Device_ControlRequest(void) {
                             uint8_t report_id = Endpoint_Read_8();
 
                             if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
-                                keyboard_led_state = Endpoint_Read_8();
+                                usb_device_state_set_leds(Endpoint_Read_8());
                             }
                         } else {
-                            keyboard_led_state = Endpoint_Read_8();
+                            usb_device_state_set_leds(Endpoint_Read_8());
                         }
 
                         Endpoint_ClearOUT();
@@ -468,7 +471,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                     Endpoint_ClearSETUP();
                     while (!(Endpoint_IsINReady()))
                         ;
-                    Endpoint_Write_8(keyboard_protocol);
+                    Endpoint_Write_8(usb_device_state_get_protocol());
                     Endpoint_ClearIN();
                     Endpoint_ClearStatusStage();
                 }
@@ -481,7 +484,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                     Endpoint_ClearSETUP();
                     Endpoint_ClearStatusStage();
 
-                    keyboard_protocol = (USB_ControlRequest.wValue & 0xFF);
+                    usb_device_state_set_protocol(USB_ControlRequest.wValue & 0xFF);
                     clear_keyboard();
                 }
             }
@@ -492,7 +495,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                 Endpoint_ClearSETUP();
                 Endpoint_ClearStatusStage();
 
-                keyboard_idle = ((USB_ControlRequest.wValue & 0xFF00) >> 8);
+                usb_device_state_set_idle_rate(USB_ControlRequest.wValue >> 8);
             }
 
             break;
@@ -501,7 +504,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                 Endpoint_ClearSETUP();
                 while (!(Endpoint_IsINReady()))
                     ;
-                Endpoint_Write_8(keyboard_idle);
+                Endpoint_Write_8(usb_device_state_get_idle_rate());
                 Endpoint_ClearIN();
                 Endpoint_ClearStatusStage();
             }
@@ -517,13 +520,6 @@ void EVENT_USB_Device_ControlRequest(void) {
 /*******************************************************************************
  * Host driver
  ******************************************************************************/
-/** \brief Keyboard LEDs
- *
- * FIXME: Needs doc
- */
-static uint8_t keyboard_leds(void) {
-    return keyboard_led_state;
-}
 
 /** \brief Send Keyboard
  *
@@ -531,7 +527,7 @@ static uint8_t keyboard_leds(void) {
  */
 static void send_keyboard(report_keyboard_t *report) {
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
-    if (!keyboard_protocol) {
+    if (usb_device_state_get_protocol() == USB_PROTOCOL_BOOT) {
         send_report(KEYBOARD_IN_EPNUM, &report->mods, 8);
     } else {
         send_report(KEYBOARD_IN_EPNUM, report, KEYBOARD_REPORT_SIZE);
@@ -807,7 +803,7 @@ void protocol_pre_init(void) {
 
     /* wait for USB startup & debug output */
 
-#ifdef WAIT_FOR_USB
+#ifdef USB_WAIT_FOR_ENUMERATION
     while (USB_DeviceState != DEVICE_STATE_Configured) {
 #    if defined(INTERRUPT_CONTROL_ENDPOINT)
         ;
@@ -831,7 +827,7 @@ void protocol_pre_task(void) {
         dprintln("suspending keyboard");
         while (USB_DeviceState == DEVICE_STATE_Suspended) {
             suspend_power_down();
-            if (USB_Device_RemoteWakeupEnabled && suspend_wakeup_condition()) {
+            if (suspend_wakeup_condition() && USB_Device_RemoteWakeupEnabled) {
                 USB_Device_SendRemoteWakeup();
                 clear_keyboard();
 
@@ -863,10 +859,6 @@ void protocol_post_task(void) {
 #ifdef VIRTSER_ENABLE
     virtser_task();
     CDC_Device_USBTask(&cdc_device);
-#endif
-
-#ifdef RAW_ENABLE
-    raw_hid_task();
 #endif
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)

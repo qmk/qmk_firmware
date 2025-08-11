@@ -41,6 +41,7 @@
         "rows": ["B1", "E6", "D7", "C6", "D4"]
     },
     "diode_direction": "ROW2COL",
+
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layouts": {

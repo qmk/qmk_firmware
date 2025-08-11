@@ -18,6 +18,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "compiler_support.h"
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
@@ -28,7 +30,7 @@
 #    include "audio_dac.h"
 #endif
 
-typedef union {
+typedef union audio_config_t {
     uint8_t raw;
     struct {
         bool    enable : 1;
@@ -38,7 +40,7 @@ typedef union {
     };
 } audio_config_t;
 
-_Static_assert(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
 
 /*
  * a 'musical note' is represented by pitch and duration; a 'musical tone' adds intensity and timbre
@@ -215,9 +217,9 @@ void audio_startup(void);
 // hardware interface
 
 // implementation in the driver_avr/arm_* respective parts
-void audio_driver_initialize(void);
-void audio_driver_start(void);
-void audio_driver_stop(void);
+void audio_driver_initialize_impl(void);
+void audio_driver_start_impl(void);
+void audio_driver_stop_impl(void);
 
 /**
  * @brief get the number of currently active tones

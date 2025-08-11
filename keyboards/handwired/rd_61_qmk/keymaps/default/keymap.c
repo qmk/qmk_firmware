@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TRNS,  KC_TRNS, KC_TRNS,      KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DB_TOGG, QK_RBT,  QK_BOOT, QK_MAKE,
             KC_TRNS,  KC_TRNS, KC_TRNS,      KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
             KC_TRNS,  KC_TRNS, KC_TRNS,      KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,
-            KC_TRNS,           KC_TRNS,      KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAI,          KC_TRNS,
-            KC_TRNS,  KC_TRNS, KC_TRNS,                                     KC_TRNS,                            RGB_MOD, KC_TRNS, RGB_HUI, RGB_SAI
+            KC_TRNS,           KC_TRNS,      KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, UG_VALU,          KC_TRNS,
+            KC_TRNS,  KC_TRNS, KC_TRNS,                                     KC_TRNS,                            UG_NEXT, KC_TRNS, UG_HUEU, UG_SATU
   )
 };

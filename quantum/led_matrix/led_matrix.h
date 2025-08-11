@@ -98,6 +98,12 @@ enum led_matrix_effects {
 #include "led_matrix_effects.inc"
 #undef LED_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_COMMUNITY_MODULE_##name,
+#    include "led_matrix_community_modules.inc"
+#    undef LED_MATRIX_EFFECT
+#endif
+
 #if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
 #    define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_CUSTOM_##name,
 #    ifdef LED_MATRIX_CUSTOM_KB
@@ -115,16 +121,18 @@ enum led_matrix_effects {
 };
 
 void eeconfig_update_led_matrix_default(void);
-void eeconfig_update_led_matrix(void);
+void eeconfig_force_flush_led_matrix(void);
 void eeconfig_debug_led_matrix(void);
 
 uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
 uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
 
+int led_matrix_led_index(int index);
+
 void led_matrix_set_value(int index, uint8_t value);
 void led_matrix_set_value_all(uint8_t value);
 
-void process_led_matrix(uint8_t row, uint8_t col, bool pressed);
+void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);
 
 void led_matrix_task(void);
 

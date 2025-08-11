@@ -27,10 +27,11 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-
-#include "quantum.h"
 #include "i2c_master.h"
+#include "gpio.h"
+#include "chibios_config.h"
 #include <string.h>
+#include <ch.h>
 #include <hal.h>
 
 static uint8_t i2c_address;

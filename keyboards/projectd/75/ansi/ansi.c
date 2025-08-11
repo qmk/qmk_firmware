@@ -134,9 +134,9 @@ void spi_init(void) {
         is_initialised = true;
 
         // Try releasing special pins for a short time
-        setPinInput(SPI_SCK_PIN);
-        setPinInput(SPI_MOSI_PIN);
-        setPinInput(SPI_MISO_PIN);
+        gpio_set_pin_input(SPI_SCK_PIN);
+        gpio_set_pin_input(SPI_MOSI_PIN);
+        gpio_set_pin_input(SPI_MISO_PIN);
 
         chThdSleepMilliseconds(10);
 
@@ -162,6 +162,9 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
 
     switch (keycode) {
 

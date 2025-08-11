@@ -14,53 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
-
-void keyboard_pre_init_sub(void) { setPinInputHigh(A0); }
-
-void matrix_scan_sub_kb(void) {
-    if (!readPin(A0)) {
-        reset_keyboard();
-    }
-}
-
-__attribute__((weak)) void bootmagic_scan(void) {
-    // We need multiple scans because debouncing can't be turned off.
-    matrix_scan();
-#if defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-#else
-    wait_ms(30);
-#endif
-    matrix_scan();
-
-    uint8_t row = BOOTMAGIC_ROW;
-    uint8_t col = BOOTMAGIC_COLUMN;
-
-#if defined(SPLIT_KEYBOARD) && defined(BOOTMAGIC_ROW_RIGHT) && defined(BOOTMAGIC_COLUMN_RIGHT)
-    if (!is_keyboard_left()) {
-        row = BOOTMAGIC_ROW_RIGHT;
-        col = BOOTMAGIC_COLUMN_RIGHT;
-    }
-#endif
-
-    if (matrix_get_row(row) & (1 << col) || !readPin(A0)) {
-        eeconfig_disable();
-        bootloader_jump();
-    }
-}
-
+#include "tractyl_manuform.h"
 
 #ifdef USB_VBUS_PIN
 bool usb_vbus_state(void) {
-    setPinInputLow(USB_VBUS_PIN);
+    gpio_set_pin_input_low(USB_VBUS_PIN);
     wait_us(5);
-    return readPin(USB_VBUS_PIN);
+    return gpio_read_pin(USB_VBUS_PIN);
 }
 #endif
-
-void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
-    for (int32_t i = 0; i < 40; i++) {
-        __asm__ volatile("nop" ::: "memory");
-    }
-}

@@ -1,12 +1,17 @@
 {
   "keyboard_name": "The ECO Keyboard",
   "manufacturer": "Bishop Keyboards",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1337",
     "pid": "0x6006"
   },
   "processor": "atmega32u4",
-  "bootloader": "caterina"
+  "bootloader": "caterina",
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  }
 }

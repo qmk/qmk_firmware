@@ -22,20 +22,11 @@ bool led_update_kb(led_t led_state) {
     if (!led_update_user(led_state)) { return false; }
     // Only update if left half
     if (isLeftHand && led_update_user(led_state)) {
-        writePin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
+        gpio_write_pin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
     }
     return true;
 }
 #endif
-
-void eeconfig_init_kb(void) {
-#ifdef BACKLIGHT_ENABLE
-    backlight_enable();
-    backlight_level(3);
-#endif
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {

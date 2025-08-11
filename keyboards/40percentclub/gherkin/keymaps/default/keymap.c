@@ -46,30 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [5] = LAYOUT_ortho_3x10(
     KC_CALC, KC_WHOM, KC_MAIL, KC_MYCM, _______, _______, _______, _______, _______, KC_PSCR,
     _______, _______, _______, _______, _______, _______, _______, _______, BL_DOWN, BL_UP, 
-    _______, _______, _______, _______, QK_BOOT,   _______, _______, _______, _______, _______
+    _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, _______
   )
 
 };
-
-void keyboard_pre_init_user(void) {
-  // Call the keyboard pre init code.
-
-  // Set our LED pins as output
-  setPinOutput(D5);
-  setPinOutput(B0);
-}
-
-bool led_update_user(led_t led_state) {
-  if (led_state.num_lock) {
-    writePinLow(D5);
-  } else {
-    writePinHigh(D5);
-  }
-
-  if (led_state.caps_lock) {
-    writePinLow(B0);
-  } else {
-    writePinHigh(B0);
-  }
-  return false;
-}

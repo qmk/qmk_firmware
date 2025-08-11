@@ -1,0 +1,65 @@
+{
+  "keyboard_name": "Bad Wings",
+  "manufacturer": "Hazel",
+  "maintainer": "jasonhazel",
+  "url": "https://shop.hazel.cc/products/bad-wings",
+  "usb": {
+    "vid": "0x4A48",
+    "pid": "0x4257",
+    "device_version": "1.0.0"
+  },
+  "processor": "RP2040",
+  "bootloader": "rp2040",
+  "diode_direction": "COL2ROW",
+  "features": {
+    "bootmagic": true,
+    "deferred_exec": true,
+    "nkro": false,
+    "pointing_device": true,
+    "tri_layer": true,
+    "caps_word": true
+  },
+  "community_layouts": ["split_3x5_3"],
+  "layouts": {
+    "LAYOUT_split_3x5_3": {
+      "layout": [
+        {"label": "K00", "matrix": [0, 0], "x": 0, "y": 0.75},
+        {"label": "K10", "matrix": [1, 0], "x": 1, "y": 0.5},
+        {"label": "K20", "matrix": [2, 0], "x": 2, "y": 0},
+        {"label": "K30", "matrix": [3, 0], "x": 3, "y": 0.25},
+        {"label": "K40", "matrix": [4, 0], "x": 4, "y": 0.36},
+        {"label": "K44", "matrix": [4, 4], "x": 8, "y": 0.36},
+        {"label": "K34", "matrix": [3, 4], "x": 9, "y": 0.25},
+        {"label": "K24", "matrix": [2, 4], "x": 10, "y": 0},
+        {"label": "K14", "matrix": [1, 4], "x": 11, "y": 0.5},
+        {"label": "K04", "matrix": [0, 4], "x": 12, "y": 0.75},
+        {"label": "K01", "matrix": [0, 1], "x": 0, "y": 1.75},
+        {"label": "K11", "matrix": [1, 1], "x": 1, "y": 1.5},
+        {"label": "K21", "matrix": [2, 1], "x": 2, "y": 1},
+        {"label": "K31", "matrix": [3, 1], "x": 3, "y": 1.25},
+        {"label": "K41", "matrix": [4, 1], "x": 4, "y": 1.36},
+        {"label": "K45", "matrix": [4, 5], "x": 8, "y": 1.36},
+        {"label": "K35", "matrix": [3, 5], "x": 9, "y": 1.25},
+        {"label": "K25", "matrix": [2, 5], "x": 10, "y": 1},
+        {"label": "K15", "matrix": [1, 5], "x": 11, "y": 1.5},
+        {"label": "K05", "matrix": [0, 5], "x": 12, "y": 1.75},
+        {"label": "K02", "matrix": [0, 2], "x": 0, "y": 2.75},
+        {"label": "K12", "matrix": [1, 2], "x": 1, "y": 2.5},
+        {"label": "K22", "matrix": [2, 2], "x": 2, "y": 2},
+        {"label": "K32", "matrix": [3, 2], "x": 3, "y": 2.25},
+        {"label": "K42", "matrix": [4, 2], "x": 4, "y": 2.36},
+        {"label": "K46", "matrix": [4, 6], "x": 8, "y": 2.36},
+        {"label": "K36", "matrix": [3, 6], "x": 9, "y": 2.25},
+        {"label": "K26", "matrix": [2, 6], "x": 10, "y": 2},
+        {"label": "K16", "matrix": [1, 6], "x": 11, "y": 2.5},
+        {"label": "K06", "matrix": [0, 6], "x": 12, "y": 2.75},
+        {"label": "K23", "matrix": [2, 3], "x": 3, "y": 3.25},
+        {"label": "K33", "matrix": [3, 3], "x": 4, "y": 3.36},
+        {"label": "K43", "matrix": [4, 3], "x": 5, "y": 3.47},
+        {"label": "K47", "matrix": [4, 7], "x": 7, "y": 3.47},
+        {"label": "K37", "matrix": [3, 7], "x": 8, "y": 3.36},
+        {"label": "K27", "matrix": [2, 7], "x": 9, "y": 3.25}
+      ]
+    }
+  }
+}

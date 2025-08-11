@@ -6,11 +6,13 @@ There are three main types of configuration files in QMK:
 
 * `config.h`, which contains various preprocessor directives (`#define`, `#ifdef`)
 * `rules.mk`, which contains additional variables
-* `info.json`, which is utilized for [data-driven configuration](https://docs.qmk.fm/#/data_driven_config)
+* `info.json`, which is utilized for [data-driven configuration](data_driven_config)
 
 This page will only discuss the first two types, `config.h` and `rules.mk`.
 
-?> While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](https://docs.qmk.fm/#/reference_info_json) page for more details.
+::: tip
+While not all settings have data-driven equivalents yet, keyboard makers are encouraged to utilize the `info.json` file to set the metadata for their boards when possible. See the [`info.json` Format](reference_info_json) page for more details.
+:::
 
 These files exist at various levels in QMK and all files of the same type are combined to build the final configuration. The levels, from lowest priority to highest priority, are:
 
@@ -56,10 +58,10 @@ This is a C header file that is one of the first things included, and will persi
   * the number of columns in your keyboard's matrix
 * `#define MATRIX_ROW_PINS { D0, D5, B5, B6 }`
   * pins of the rows, from top to bottom
-  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions#low-level-matrix-overrides) for more information.
 * `#define MATRIX_COL_PINS { F1, F0, B0, C7, F4, F5, F6, F7, D4, D6, B4, D7 }`
   * pins of the columns, from left to right
-  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions#low-level-matrix-overrides) for more information.
 * `#define MATRIX_IO_DELAY 30`
   * the delay in microseconds when between changing matrix pin state and reading values
 * `#define MATRIX_HAS_GHOST`
@@ -138,8 +140,6 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define ENABLE_COMPILE_KEYCODE`
   * Enables the `QK_MAKE` keycode
-* `#define FORCE_NKRO`
-  * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
   * force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
 
@@ -151,26 +151,26 @@ If you define these options you will enable the associated feature, which may in
   * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
   * tap anyway, even after `TAPPING_TERM`, if there was no other key interruption between press and release
-  * See [Retro Tapping](tap_hold.md#retro-tapping) for details
+  * See [Retro Tapping](tap_hold#retro-tapping) for details
 * `#define RETRO_TAPPING_PER_KEY`
   * enables handling for per key `RETRO_TAPPING` settings
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
-  * See [Permissive Hold](tap_hold.md#permissive-hold) for details
+  * See [Permissive Hold](tap_hold#permissive-hold) for details
 * `#define PERMISSIVE_HOLD_PER_KEY`
   * enabled handling for per key `PERMISSIVE_HOLD` settings
 * `#define QUICK_TAP_TERM 100`
   * tap-then-hold timing to use a dual role key to repeat keycode
-  * See [Quick Tap Term](tap_hold.md#quick-tap-term)
+  * See [Quick Tap Term](tap_hold#quick-tap-term)
   * Changes the timing of Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
   * Defaults to `TAPPING_TERM` if not defined
 * `#define QUICK_TAP_TERM_PER_KEY`
   * enables handling for per key `QUICK_TAP_TERM` settings
 * `#define HOLD_ON_OTHER_KEY_PRESS`
   * selects the hold action of a dual-role key as soon as the tap of the dual-role key is interrupted by the press of another key.
-  * See "[hold on other key press](tap_hold.md#hold-on-other-key-press)" for details
+  * See "[hold on other key press](tap_hold#hold-on-other-key-press)" for details
 * `#define HOLD_ON_OTHER_KEY_PRESS_PER_KEY`
   * enables handling for per key `HOLD_ON_OTHER_KEY_PRESS` settings
 * `#define LEADER_TIMEOUT 300`
@@ -205,7 +205,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define TAP_HOLD_CAPS_DELAY 80`
   * Sets the delay for Tap Hold keys (`LT`, `MT`) when using `KC_CAPS_LOCK` keycode, as this has some special handling on MacOS.  The value is in milliseconds, and defaults to 80 ms if not defined. For macOS, you may want to set this to 200 or higher.
 * `#define KEY_OVERRIDE_REPEAT_DELAY 500`
-  * Sets the key repeat interval for [key overrides](feature_key_overrides.md).
+  * Sets the key repeat interval for [key overrides](features/key_overrides).
 * `#define LEGACY_MAGIC_HANDLING`
   * Enables magic configuration handling for advanced keycodes (such as Mod Tap and Layer Tap)
 
@@ -215,14 +215,14 @@ If you define these options you will enable the associated feature, which may in
 * `#define WS2812_DI_PIN D7`
   * pin the DI on the WS2812 is hooked-up to
 * `#define RGBLIGHT_LAYERS`
-  * Lets you define [lighting layers](feature_rgblight.md?id=lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
+  * Lets you define [lighting layers](features/rgblight#lighting-layers) that can be toggled on or off. Great for showing the current keyboard layer or caps lock state.
 * `#define RGBLIGHT_MAX_LAYERS`
-  * Defaults to 8. Can be expanded up to 32 if more [lighting layers](feature_rgblight.md?id=lighting-layers) are needed.
+  * Defaults to 8. Can be expanded up to 32 if more [lighting layers](features/rgblight#lighting-layers) are needed.
   * Note: Increasing the maximum will increase the firmware size and slow sync on split keyboards.
 * `#define RGBLIGHT_LAYER_BLINK`
-  * Adds ability to [blink](feature_rgblight.md?id=lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
+  * Adds ability to [blink](features/rgblight#lighting-layer-blink) a lighting layer for a specified number of milliseconds (e.g. to acknowledge an action).
 * `#define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF`
-  * If defined, then [lighting layers](feature_rgblight?id=overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
+  * If defined, then [lighting layers](features/rgblight#overriding-rgb-lighting-onoff-status) will be shown even if RGB Light is off.
 * `#define RGBLIGHT_LED_COUNT 12`
   * number of LEDs
 * `#define RGBLIGHT_SPLIT`
@@ -237,7 +237,7 @@ If you define these options you will enable the associated feature, which may in
   * units to step when in/decreasing saturation
 * `#define RGBLIGHT_VAL_STEP 12`
   * units to step when in/decreasing value (brightness)
-* `#define RGBW`
+* `#define WS2812_RGBW`
   * Enables RGBW LED support
 
 ## Mouse Key Options
@@ -294,7 +294,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
 * `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
   * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
-  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions.md?id=low-level-matrix-overrides) for more information.
+  * may be omitted by the keyboard designer if matrix reads are handled in an alternate manner. See [low-level matrix overrides](custom_quantum_functions#low-level-matrix-overrides) for more information.
 
 * `#define DIRECT_PINS_RIGHT { { F1, F0, B0, C7 }, { F4, F5, F6, F7 } }`
   * If you want to specify a different direct pinout for the right half than the left half, you can define `DIRECT_PINS_RIGHT`. Currently, the size of `DIRECT_PINS` must be the same as `DIRECT_PINS_RIGHT`.
@@ -356,7 +356,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 * `#define SPLIT_TRANSACTION_IDS_KB .....`
 * `#define SPLIT_TRANSACTION_IDS_USER .....`
-  * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](feature_split_keyboard.md#custom-data-sync) for more information.
+  * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](features/split_keyboard#custom-data-sync) for more information.
 
 # The `rules.mk` File
 
@@ -385,7 +385,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
      ...  a.o c.o  ...  lib_b.a lib_d.a  ...
     ```
 * `LAYOUTS`
-  * A list of [layouts](feature_layouts.md) this keyboard supports.
+  * A list of [layouts](feature_layouts) this keyboard supports.
 * `LTO_ENABLE`
   * Enables Link Time Optimization (LTO) when compiling the keyboard.  This makes the process take longer, but it can significantly reduce the compiled size (and since the firmware is small, the added time is not noticeable).
 
@@ -399,19 +399,20 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `atmel-dfu`
   * `lufa-dfu`
   * `qmk-dfu`
+  * `qmk-hid`
   * `halfkay`
   * `caterina`
   * `bootloadhid`
   * `usbasploader`
 
-## Feature Options :id=feature-options
+## Feature Options {#feature-options}
 
 Use these to enable or disable building certain features. The more you have enabled the bigger your firmware will be, and you run the risk of building a firmware too large for your MCU.
 
 * `MAGIC_ENABLE`
   * MAGIC actions (BOOTMAGIC without the boot)
 * `BOOTMAGIC_ENABLE`
-  * Enable Bootmagic Lite
+  * Enable Bootmagic
 * `MOUSEKEY_ENABLE`
   * Mouse keys
 * `EXTRAKEY_ENABLE`
@@ -424,8 +425,6 @@ Use these to enable or disable building certain features. The more you have enab
   * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-* `RING_BUFFERED_6KRO_REPORT_ENABLE`
-  * USB 6-Key Rollover - Instead of stopping any new input once 6 keys are pressed, the oldest key is released and the new key is pressed.
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `KEY_OVERRIDE_ENABLE`
@@ -446,12 +445,12 @@ Use these to enable or disable building certain features. The more you have enab
   * Allows replacing the standard matrix scanning routine with a custom one.
 * `DEBOUNCE_TYPE`
   * Allows replacing the standard key debouncing routine with an alternative or custom one.
-* `WAIT_FOR_USB`
+* `USB_WAIT_FOR_ENUMERATION`
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
 * `DEFERRED_EXEC_ENABLE`
-  * Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions.md#deferred-execution) for more information.
+  * Enables deferred executor support -- timed delays before callbacks are invoked. See [deferred execution](custom_quantum_functions#deferred-execution) for more information.
 * `DYNAMIC_TAPPING_TERM_ENABLE`
   * Allows to configure the global tapping term on the fly.
 

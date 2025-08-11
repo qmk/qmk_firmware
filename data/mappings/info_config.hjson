@@ -19,6 +19,8 @@
     // Audio
     "AUDIO_DEFAULT_ON": {"info_key": "audio.default.on", "value_type": "bool"},
     "AUDIO_DEFAULT_CLICKY_ON": {"info_key": "audio.default.clicky", "value_type": "bool"},
+    "AUDIO_POWER_CONTROL_PIN": {"info_key": "audio.power_control.pin"},
+    "AUDIO_POWER_CONTROL_PIN_ON_STATE": {"info_key": "audio.power_control.on_state", "value_type": "int" },
     "AUDIO_VOICES": {"info_key": "audio.voices", "value_type": "flag"},
     "SENDSTRING_BELL": {"info_key": "audio.macro_beep", "value_type": "flag"},
 
@@ -62,6 +64,12 @@
     "WEAR_LEVELING_BACKING_SIZE": {"info_key": "eeprom.wear_leveling.backing_size", "value_type": "int", "to_json": false},
     "WEAR_LEVELING_LOGICAL_SIZE": {"info_key": "eeprom.wear_leveling.logical_size", "value_type": "int", "to_json": false},
 
+    // host
+    "NKRO_DEFAULT_ON": {"info_key": "host.default.nkro", "value_type": "bool"},
+
+    // Layer locking
+    "LAYER_LOCK_IDLE_TIMEOUT": {"info_key": "layer_lock.timeout", "value_type": "int"},
+
     // Indicators
     "LED_CAPS_LOCK_PIN": {"info_key": "indicators.caps_lock"},
     "LED_NUM_LOCK_PIN": {"info_key": "indicators.num_lock"},
@@ -69,6 +77,11 @@
     "LED_COMPOSE_PIN": {"info_key": "indicators.compose"},
     "LED_KANA_PIN": {"info_key": "indicators.kana"},
     "LED_PIN_ON_STATE": {"info_key": "indicators.on_state", "value_type": "int"},
+
+    // Joystick
+    "JOYSTICK_AXIS_COUNT": {"info_key": "joystick.axis_count", "value_type": "int"},
+    "JOYSTICK_AXIS_RESOLUTION": {"info_key": "joystick.axis_resolution", "value_type": "int"},
+    "JOYSTICK_BUTTON_COUNT": {"info_key": "joystick.button_count", "value_type": "int"},
 
     // Leader Key
     "LEADER_PER_KEY_TIMING": {"info_key": "leader_key.timing", "value_type": "flag"},
@@ -162,7 +175,6 @@
     "RGBLIGHT_DEFAULT_SAT": {"info_key": "rgblight.default.sat", "value_type": "int"},
     "RGBLIGHT_DEFAULT_VAL": {"info_key": "rgblight.default.val", "value_type": "int"},
     "RGBLIGHT_DEFAULT_SPD": {"info_key": "rgblight.default.speed", "value_type": "int"},
-    "RGBW": {"info_key": "rgblight.rgbw", "value_type": "flag"},
 
     // Secure
     "SECURE_IDLE_TIMEOUT": {"info_key": "secure.idle_timeout", "value_type": "int"},
@@ -170,7 +182,7 @@
     "SECURE_UNLOCK_TIMEOUT": {"info_key": "secure.unlock_timeout", "value_type": "int"},
 
     // Split Keyboard
-    "SOFT_SERIAL_PIN": {"info_key": "split.soft_serial_pin"},
+    "SOFT_SERIAL_PIN": {"info_key": "split.serial.pin"},
     "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
     "SPLIT_HAND_MATRIX_GRID": {"info_key": "split.handedness.matrix_grid", "value_type": "array", "to_c": false},
     "SPLIT_HAND_PIN": {"info_key": "split.handedness.pin"},
@@ -191,6 +203,8 @@
     "SPLIT_WPM_ENABLE": {"info_key": "split.transport.sync.wpm", "value_type": "flag"},
 
     // Tapping
+    "CHORDAL_HOLD": {"info_key": "tapping.chordal_hold", "value_type": "flag"},
+    "FLOW_TAP_TERM": {"info_key": "tapping.flow_tap_term", "value_type": "int"},
     "HOLD_ON_OTHER_KEY_PRESS": {"info_key": "tapping.hold_on_other_key_press", "value_type": "flag"},
     "HOLD_ON_OTHER_KEY_PRESS_PER_KEY": {"info_key": "tapping.hold_on_other_key_press_per_key", "value_type": "flag"},
     "PERMISSIVE_HOLD": {"info_key": "tapping.permissive_hold", "value_type": "flag"},
@@ -204,7 +218,6 @@
     "TAPPING_TOGGLE": {"info_key": "tapping.toggle", "value_type": "int"},
 
     // USB
-    "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "flag"},
     "USB_MAX_POWER_CONSUMPTION": {"info_key": "usb.max_power", "value_type": "int"},
     "USB_POLLING_INTERVAL_MS": {"info_key": "usb.polling_interval", "value_type": "int"},
     "USB_SUSPEND_WAKEUP_DELAY": {"info_key": "usb.suspend_wakeup_delay", "value_type": "int"},
@@ -213,6 +226,7 @@
     "WS2812_DI_PIN": {"info_key": "ws2812.pin"},
     "WS2812_I2C_ADDRESS": {"info_key": "ws2812.i2c_address", "value_type": "hex"},
     "WS2812_I2C_TIMEOUT": {"info_key": "ws2812.i2c_timeout", "value_type": "int"},
+    "WS2812_RGBW": {"info_key": "ws2812.rgbw", "value_type": "flag"},
 
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
 
@@ -227,6 +241,7 @@
     "PREVENT_STUCK_MODIFIERS": {"info_key": "_invalid.prevent_stuck_mods", "invalid": true},
     "QMK_KEYS_PER_SCAN": {"info_key": "qmk.keys_per_scan", "value_type": "int", "deprecated": true},
     "RGB_DI_PIN": {"info_key": "rgblight.pin", "invalid": true, "replace_with": "WS2812_DI_PIN or APA102_DI_PIN"},
+    "RGBW": {"info_key": "rgblight.rgbw", "invalid": true, "replace_with": "WS2812_RGBW"},
     "RGB_DISABLE_WHEN_USB_SUSPENDED": {"info_key": "_invalid.rgb_matrix_sleep", "invalid": true, "replace_with": "RGB_MATRIX_SLEEP"},
     "RGBLIGHT_ANIMATIONS": {"info_key": "_invalid.rgblight.animations.all", "value_type": "flag", "invalid": true},
     "TAPPING_FORCE_HOLD": {"info_key": "tapping.force_hold", "value_type": "flag", "deprecated": true},
@@ -240,6 +255,7 @@
     "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
     "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.vid` in info.json"},
+    "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "flag", "deprecated": true, "replace_with": "`host.default.nkro` in info.json"},
 
     // Items we want flagged in lint
     "VIAL_KEYBOARD_UID": {"info_key": "_invalid.vial_uid", "invalid": true},

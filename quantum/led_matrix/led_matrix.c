@@ -19,7 +19,6 @@
 
 #include "led_matrix.h"
 #include "progmem.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "keyboard.h"
 #include "sync_timer.h"
@@ -46,6 +45,9 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #define LED_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "led_matrix_effects.inc"
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "led_matrix_community_modules.inc"
+#endif
 #ifdef LED_MATRIX_CUSTOM_KB
 #    include "led_matrix_kb.inc"
 #endif
@@ -82,13 +84,13 @@ static last_hit_t last_hit_buffer;
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
 // split led matrix
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
 const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(led_matrix, EECONFIG_LED_MATRIX, led_matrix_eeconfig);
+EECONFIG_DEBOUNCE_HELPER(led_matrix, led_matrix_eeconfig);
 
-void eeconfig_update_led_matrix(void) {
+void eeconfig_force_flush_led_matrix(void) {
     eeconfig_flush_led_matrix(true);
 }
 
@@ -139,15 +141,24 @@ void led_matrix_update_pwm_buffers(void) {
     led_matrix_driver.flush();
 }
 
+__attribute__((weak)) int led_matrix_led_index(int index) {
+#if defined(LED_MATRIX_SPLIT)
+    if (!is_keyboard_left() && index >= k_led_matrix_split[0]) {
+        return index - k_led_matrix_split[0];
+    }
+#endif
+    return index;
+}
+
 void led_matrix_set_value(int index, uint8_t value) {
 #ifdef USE_CIE1931_CURVE
     value = pgm_read_byte(&CIE1931_CURVE[value]);
 #endif
-    led_matrix_driver.set_value(index, value);
+    led_matrix_driver.set_value(led_matrix_led_index(index), value);
 }
 
 void led_matrix_set_value_all(uint8_t value) {
-#if defined(LED_MATRIX_ENABLE) && defined(LED_MATRIX_SPLIT)
+#if defined(LED_MATRIX_SPLIT)
     for (uint8_t i = 0; i < LED_MATRIX_LED_COUNT; i++)
         led_matrix_set_value(i, value);
 #else
@@ -159,7 +170,7 @@ void led_matrix_set_value_all(uint8_t value) {
 #endif
 }
 
-void process_led_matrix(uint8_t row, uint8_t col, bool pressed) {
+void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
 #ifndef LED_MATRIX_SPLIT
     if (!is_keyboard_master()) return;
 #endif
@@ -274,6 +285,15 @@ static void led_task_render(uint8_t effect) {
 #include "led_matrix_effects.inc"
 #undef LED_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define LED_MATRIX_EFFECT(name, ...)          \
+        case LED_MATRIX_COMMUNITY_MODULE_##name:  \
+            rendering = name(&led_effect_params); \
+            break;
+#    include "led_matrix_community_modules.inc"
+#    undef LED_MATRIX_EFFECT
+#endif
+
 #if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
 #    define LED_MATRIX_EFFECT(name, ...)          \
         case LED_MATRIX_CUSTOM_##name:            \
@@ -350,7 +370,12 @@ void led_matrix_task(void) {
     }
 }
 
+__attribute__((weak)) bool led_matrix_indicators_modules(void) {
+    return true;
+}
+
 void led_matrix_indicators(void) {
+    led_matrix_indicators_modules();
     led_matrix_indicators_kb();
 }
 
@@ -362,6 +387,10 @@ __attribute__((weak)) bool led_matrix_indicators_user(void) {
     return true;
 }
 
+__attribute__((weak)) bool led_matrix_indicators_advanced_modules(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+
 void led_matrix_indicators_advanced(effect_params_t *params) {
     /* special handling is needed for "params->iter", since it's already been incremented.
      * Could move the invocations to led_task_render, but then it's missing a few checks
@@ -369,6 +398,7 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
      * led_task_render, right before the iter++ line.
      */
     LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
+    led_matrix_indicators_advanced_modules(min, max);
     led_matrix_indicators_advanced_kb(min, max);
 }
 
@@ -387,7 +417,6 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
     limits.led_min_index = LED_MATRIX_LED_PROCESS_LIMIT * (iter);
     limits.led_max_index = limits.led_min_index + LED_MATRIX_LED_PROCESS_LIMIT;
     if (limits.led_max_index > LED_MATRIX_LED_COUNT) limits.led_max_index = LED_MATRIX_LED_COUNT;
-    uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
     if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
 #    else
@@ -397,9 +426,8 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
 #    endif
 #else
 #    if defined(LED_MATRIX_SPLIT)
-    limits.led_min_index                = 0;
-    limits.led_max_index                = LED_MATRIX_LED_COUNT;
-    const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+    limits.led_min_index = 0;
+    limits.led_max_index = LED_MATRIX_LED_COUNT;
     if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
 #    else

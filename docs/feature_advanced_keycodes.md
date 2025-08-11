@@ -1,32 +1,43 @@
-# Modifier Keys :id=modifier-keys
+# Modifier Keys {#modifier-keys}
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-|Key       |Aliases                           |Description                                           |
-|----------|----------------------------------|------------------------------------------------------|
-|`LCTL(kc)`|`C(kc)`                           |Hold Left Control and press `kc`                      |
-|`LSFT(kc)`|`S(kc)`                           |Hold Left Shift and press `kc`                        |
-|`LALT(kc)`|`A(kc)`, `LOPT(kc)`               |Hold Left Alt and press `kc`                          |
-|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`   |Hold Left GUI and press `kc`                          |
-|`RCTL(kc)`|                                  |Hold Right Control and press `kc`                     |
-|`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                       |
-|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt and press `kc`                         |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`            |Hold Right GUI and press `kc`                         |
-|`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`                |
-|`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`             |
-|`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`         |
-|`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`           |
-|`LCA(kc)` |                                  |Hold Left Control and Alt and press `kc`              |
-|`LSA(kc)` |                                  |Hold Left Shift and Left Alt and press `kc`           |
-|`RSA(kc)` |`SAGR(kc)`                        |Hold Right Shift and Right Alt (AltGr) and press `kc` |
-|`RCS(kc)` |                                  |Hold Right Control and Right Shift and press `kc`     |
-|`LCAG(kc)`|                                  |Hold Left Control, Alt and GUI and press `kc`         |
-|`MEH(kc)` |                                  |Hold Left Control, Shift and Alt and press `kc`       |
-|`HYPR(kc)`|                                  |Hold Left Control, Shift, Alt and GUI and press `kc`  |
+|Key       |Aliases                           |Description                                                                    |
+|----------|----------------------------------|-------------------------------------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                           |Hold Left Control and press `kc`                                               |
+|`LSFT(kc)`|`S(kc)`                           |Hold Left Shift and press `kc`                                                 |
+|`LALT(kc)`|`A(kc)`, `LOPT(kc)`               |Hold Left Alt and press `kc`                                                   |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`   |Hold Left GUI and press `kc`                                                   |
+|`LCS(kc)` |                                  |Hold Left Control and Left Shift and press `kc`                                |
+|`LCA(kc)` |                                  |Hold Left Control and Left Alt and press `kc`                                  |
+|`LCG(kc)` |                                  |Hold Left Control and Left GUI and press `kc`                                  |
+|`LSA(kc)` |                                  |Hold Left Shift and Left Alt and press `kc`                                    |
+|`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and Left GUI and press `kc`                                    |
+|`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`                                      |
+|`LCSG(kc)`|                                  |Hold Left Control, Left Shift and Left GUI and press `kc`                      |
+|`LCAG(kc)`|                                  |Hold Left Control, Left Alt and Left GUI and press `kc`                        |
+|`LSAG(kc)`|                                  |Hold Left Shift, Left Alt and Left GUI and press `kc`                          |
+|`RCTL(kc)`|                                  |Hold Right Control and press `kc`                                              |
+|`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                                                |
+|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt and press `kc`                                                  |
+|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`            |Hold Right GUI and press `kc`                                                  |
+|`RCA(kc)` |                                  |Hold Right Control and Right Alt and press `kc`                                |
+|`RCS(kc)` |                                  |Hold Right Control and Right Shift and press `kc`                              |
+|`RCG(kc)` |                                  |Hold Right Control and Right GUI and press `kc`                                |
+|`RSA(kc)` |`SAGR(kc)`                        |Hold Right Shift and Right Alt and press `kc`                                  |
+|`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`                                  |
+|`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`                                    |
+|`RCSG(kc)`|                                  |Hold Right Control, Right Shift and Right GUI and press `kc`                   |
+|`RCAG(kc)`|                                  |Hold Right Control, Right Alt and Right GUI and press `kc`                     |
+|`RSAG(kc)`|                                  |Hold Right Shift, Right Alt and Right GUI and press `kc`                       |
+|`MEH(kc)` |                                  |Hold Left Control, Left Shift and Left Alt and press `kc`                      |
+|`HYPR(kc)`|                                  |Hold Left Control, Left Shift, Left Alt and Left GUI and press `kc`<sup>1</sup>|
 
-You can also chain them, for example `LCTL(LALT(KC_DEL))` or `C(A(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
+<sup>1. More information on the Hyper key can be found on [this blog post by Brett Terpstra](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/).</sup>
 
-# Checking Modifier State :id=checking-modifier-state
+You can also chain them, for example `LCTL(LALT(KC_DEL))`, `C(A(KC_DEL))`, or `LCA(KC_DEL)` all make a key that sends Control+Alt+Delete with a single keypress.
+
+# Checking Modifier State {#checking-modifier-state}
 
 The current modifier state can mainly be accessed with two functions: `get_mods()` for normal modifiers and modtaps and `get_oneshot_mods()` for one-shot modifiers (unless they're held, in which case they act like normal modifier keys).
 
@@ -35,7 +46,7 @@ The presence of one or more specific modifiers in the current modifier state can
 Thus, to give an example, `01000010` would be the internal representation of LShift+RAlt.
 For more information on bitwise operators in C, click [here](https://en.wikipedia.org/wiki/Bitwise_operations_in_C) to open the Wikipedia page on the topic.
 
-In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic.md#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
+In practice, this means that you can check whether a given modifier is active with `get_mods() & MOD_BIT(KC_<modifier>)` (see the [list of modifier keycodes](keycodes_basic#modifiers)) or with `get_mods() & MOD_MASK_<modifier>` if the difference between left and right hand modifiers is not important and you want to match both. Same thing can be done for one-shot modifiers if you replace `get_mods()` with `get_oneshot_mods()`.
 
 To check that *only* a specific set of mods is active at a time, use a simple equality operator: `get_mods() == <mod mask>`.
 
@@ -77,11 +88,11 @@ Similarly, in addition to `get_oneshot_mods()`, there also exists these function
 * `set_oneshot_mods(mods)`: Overwrite current one-shot modifier state with `mods`
 * `clear_oneshot_mods()`: Reset the one-shot modifier state by disabling all one-shot modifiers
 
-## Examples :id=examples
+## Examples {#examples}
 
-The following examples use [advanced macro functions](feature_macros.md#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros.md).
+The following examples use [advanced macro functions](feature_macros#advanced-macro-functions) which you can read more about in the [documentation page on macros](feature_macros).
 
-### Alt + Escape for Alt + Tab :id=alt-escape-for-alt-tab
+### Alt + Escape for Alt + Tab {#alt-escape-for-alt-tab}
 
 Simple example where chording Left Alt with `KC_ESC` makes it behave like `KC_TAB` for alt-tabbing between applications. This example strictly checks if only Left Alt is active, meaning you can't do Alt+Shift+Esc to switch between applications in reverse order. Also keep in mind that this removes the ability to trigger the actual Alt+Escape keyboard shortcut, though it keeps the ability to do AltGr+Escape.
 
@@ -110,7 +121,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 ```
 
-### Shift + Backspace for Delete :id=shift-backspace-for-delete
+### Shift + Backspace for Delete {#shift-backspace-for-delete}
 
 Advanced example where the original behaviour of shift is cancelled when chorded with `KC_BSPC` and is instead fully replaced by `KC_DEL`. Two main variables are created to make this work well: `mod_state` and `delkey_registered`. The first one stores the modifier state and is used to restore it after registering `KC_DEL`. The second variable is a boolean variable (true or false) which keeps track of the status of `KC_DEL` to manage the release of the whole Backspace/Delete key correctly.
 
@@ -160,28 +171,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 ```
-Alternatively, this can be done with [Key Overrides](feature_key_overrides?id=simple-example).
+Alternatively, this can be done with [Key Overrides](features/key_overrides#simple-example).
 
-# Advanced topics :id=advanced-topics
+# Advanced topics {#advanced-topics}
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
 
-## Layers :id=switching-and-toggling-layers
+## Layers {#switching-and-toggling-layers}
 
-* [Layers](feature_layers.md)
+* [Layers](feature_layers)
 
-## Mod-Tap :id=mod-tap
+## Mod-Tap {#mod-tap}
 
-* [Mod-Tap](mod_tap.md)
+* [Mod-Tap](mod_tap)
 
-## One Shot Keys :id=one-shot-keys
+## One Shot Keys {#one-shot-keys}
 
-* [One Shot Keys](one_shot_keys.md)
+* [One Shot Keys](one_shot_keys)
 
-## Tap-Hold Configuration Options :id=tap-hold-configuration-options
+## Tap-Hold Configuration Options {#tap-hold-configuration-options}
 
-* [Tap-Hold Configuration Options](tap_hold.md)
+* [Tap-Hold Configuration Options](tap_hold)
 
-## Key Overrides :id=key-overrides
+## Key Overrides {#key-overrides}
 
-* [Key Overrides](feature_key_overrides.md)
+* [Key Overrides](features/key_overrides)

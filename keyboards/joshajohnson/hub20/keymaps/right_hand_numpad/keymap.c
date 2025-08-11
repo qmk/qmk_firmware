@@ -34,11 +34,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0,   KC_PDOT,          KC_PENT
 ),
     [1] = LAYOUT_right_handed(
-                   QK_BOOT,  _______,
-       RGB_TOG, RGB_RMOD,  RGB_MOD,    _______,
-       _______,  RGB_VAD,  RGB_VAI,
-       _______,  RGB_HUD,  RGB_HUI,    _______,
-       _______,  RGB_SAD,  RGB_SAI,
+                 QK_BOOT,  _______,
+       RM_TOGG,  RM_PREV,  RM_NEXT,    _______,
+       _______,  RM_VALD,  RM_VALU,
+       _______,  RM_HUED,  RM_HUEU,    _______,
+       _______,  RM_SATD,  RM_SATU,
            _______,        _______,    _______
 )
 };

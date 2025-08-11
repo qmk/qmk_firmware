@@ -388,7 +388,7 @@ static void unselect_cols(void)
 // Complete rows from other modules over i2c
 i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset) {
     uint8_t data[MATRIX_ROWS + 1];
-    i2c_status_t status = i2c_readReg(address, 0x01, data, (MATRIX_ROWS + 1), 5);
+    i2c_status_t status = i2c_read_register(address, 0x01, data, (MATRIX_ROWS + 1), 5);
 
     for (uint8_t i = 0; i < (MATRIX_ROWS) && status >= 0; i++) { //assemble slave matrix in main matrix
         matrix[i] &= mask;  //mask bits to keep
