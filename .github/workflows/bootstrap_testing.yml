@@ -224,10 +224,6 @@ jobs:
           # Add QMK CLI to PATH (bootstrap script installs it to /opt/uv/tools/bin on Windows MSYS2)
           export PATH="/opt/uv/tools/bin:$PATH"
           qmk setup -y -H .  # setup implies doctor, no need to run it separately
-          
-          # Temporary workaround for lockups on Windows, fix TBD
-          qmk config user.parallel_search=False
-          
           qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
           
           ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true

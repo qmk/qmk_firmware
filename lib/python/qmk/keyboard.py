@@ -179,6 +179,7 @@ def keyboard_completer(prefix, action, parser, parsed_args):
     return list_keyboards()
 
 
+@lru_cache(maxsize=None)
 def list_keyboards(resolve_defaults=True):
     """Returns a list of all keyboards - optionally processing any DEFAULT_FOLDER.
     """
