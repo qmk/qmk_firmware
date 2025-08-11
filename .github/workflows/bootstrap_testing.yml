@@ -149,6 +149,7 @@ jobs:
         os:
           - macos-13     # Intel x64
           - macos-14     # Apple Silicon ARM64
+          - macos-15     # Apple Silicon ARM64
 
     runs-on: ${{ matrix.os }}
 
