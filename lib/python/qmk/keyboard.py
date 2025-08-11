@@ -192,6 +192,9 @@ def list_keyboards(resolve_defaults=True):
     if resolve_defaults:
         found = map(resolve_keyboard, found)
 
+    # Convert to posix paths for consistency
+    found = map(lambda x: str(Path(x).as_posix()), found)
+
     return sorted(set(found))
 
 
