@@ -37,10 +37,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_SPLIT_SYNC
 #define SPLIT_TRANSPORT_MIRROR
 
-#define RGB_MATRIX_DEFAULT_HUE 194    // Hue for blue (0=red, 85=green, 170=blue)
-#define RGB_MATRIX_DEFAULT_SAT 0    // Full saturation (255 = full color)
-#define RGB_MATRIX_DEFAULT_VAL 0    // Full brightness
+#define RGB_MATRIX_DEFAULT_HUE 80    // Hue for blue (0=red, 85=green, 170=blue)
+#define RGB_MATRIX_DEFAULT_SAT 100   // Full saturation (255 = full color)
+#define RGB_MATRIX_DEFAULT_VAL 50  // Full brightness
 
 #define RGB_DI_PIN D3
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT = 5
+
+#define LED_PIN_ON_STATE 0

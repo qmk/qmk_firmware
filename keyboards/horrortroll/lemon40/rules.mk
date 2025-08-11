@@ -1,1 +1,0 @@
-SRC += lib/bongocat.c
