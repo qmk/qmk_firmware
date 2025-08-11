@@ -1,0 +1,86 @@
+{
+    "manufacturer": "Hawtkeys",
+    "keyboard_name": "Shorty Zero.1",
+    "maintainer": "Hawtkeys",
+    "bootloader": "rp2040",
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [3, 0]
+    },
+    "diode_direction": "ROW2COL",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP1", "pin_b": "GP0"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["GP22", "GP21", "GP20"],
+        "rows": ["GP23", "GP24", "GP25", "GP2"]
+    },
+    "processor": "RP2040",
+    "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "digital_rain": true,
+            "gradient_left_right": true,
+            "gradient_up_down": true,
+            "jellybean_raindrops": true,
+            "raindrops": true,
+            "solid_color": true,
+            "typing_heatmap": true
+        },
+        "default": {
+            "animation": "typing_heatmap"
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
+            {"matrix": [1, 0], "x": 112, "y": 0, "flags": 1},
+            {"matrix": [2, 0], "x": 224, "y": 0, "flags": 1},
+            {"matrix": [0, 1], "x": 0, "y": 21, "flags": 1},
+            {"matrix": [1, 1], "x": 112, "y": 21, "flags": 1},
+            {"matrix": [2, 1], "x": 224, "y": 21, "flags": 1},
+            {"matrix": [0, 2], "x": 0, "y": 43, "flags": 1},
+            {"matrix": [1, 2], "x": 112, "y": 43, "flags": 1},
+            {"matrix": [2, 2], "x": 224, "y": 43, "flags": 1}
+        ]
+    },
+    "url": "https://hawtkeys.com",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x6B32",
+        "vid": "0x5453"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP3"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 1, "y": 0},
+                {"matrix": [2, 0], "x": 2, "y": 0},
+                {"matrix": [3, 0], "x": 3, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 1},
+                {"matrix": [1, 1], "x": 2, "y": 1},
+                {"matrix": [2, 1], "x": 3, "y": 1},
+                {"matrix": [0, 2], "x": 1, "y": 2},
+                {"matrix": [1, 2], "x": 2, "y": 2},
+                {"matrix": [2, 2], "x": 3, "y": 2}
+            ]
+        }
+    }
+}
