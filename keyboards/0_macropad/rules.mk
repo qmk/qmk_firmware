@@ -1,0 +1,3 @@
+RGBLIGHT_ENABLE = yes
+WS2812_DRIVER = vendor
+MIDI_ENABLE = yes
