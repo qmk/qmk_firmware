@@ -42,7 +42,7 @@ void i2c_init(void);
  */
 i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout);
 
-i2c_status_t i2c_transmit_and_receive(uint8_t address, const uint8_t* tx_data, uint16_t tx_length, uint8_t* rx_data, uint8_t rx_length, uint16_t timeout);
+i2c_status_t i2c_transmit_and_receive(uint8_t address, const uint8_t* tx_data, uint16_t tx_length, uint8_t* rx_data, uint16_t rx_length, uint16_t timeout);
 
 #if defined(__AVR__) || defined(__DOXYGEN__)
 /**
