@@ -103,7 +103,7 @@ KC_LGUI,KC_LCTL,LT(_NUM, KC_LALT), MO(_SYM), KC_ENT,        /**/  KC_SPC,  MO(_N
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * |      |   %  |   /  |   *  |   +  |   \  |-------|    |-------|   /  |   -  |   <  |   >  |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |SYM   | /Enter  /       \Space \  |NAV   | RCTR | RAlt | RGUI |
+ *            | LGUI | LAlt | LCTR |      | /Enter  /       \Space \  | ADJ  | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -112,7 +112,7 @@ KC_F12, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5,                       /**/ KC_F6, KC_
 KC_TRNS, KC_GRV, S(KC_GRV), S(KC_3), S(KC_7), S(KC_BSLS),        /**/ S(KC_6), S(KC_LBRC), S(KC_RBRC), KC_LBRC, KC_RBRC, KC_DEL,
 KC_TRNS, S(KC_1), S(KC_MINS), S(KC_SCLN), KC_EQL, S(KC_4),       /**/ S(KC_2), S(KC_9), S(KC_0), S(KC_MINS), KC_TRNS, KC_PIPE,
 KC_TRNS, S(KC_5), KC_SLSH, S(KC_8), S(KC_EQL), KC_BSLS, KC_TRNS, /**/ KC_TRNS, KC_SLSH, KC_MINS, S(KC_COMM), S(KC_DOT), KC_BSLS, KC_TRNS,
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     /**/ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     /**/ KC_TRNS, MO(_ADJUST), KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 /* NAVIGATION
@@ -125,7 +125,7 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     /**/ KC_TRNS, K
  * |------+------+------+------+------+------|  MUTE  |   |       |------+------+------+------+------+------|
  * |Shift | Undo |  Cut | Copy | Paste| PrtSc|-------|    |-------|      |      |      |      |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
- *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |NAV   | RCTR | RAlt | RGUI |
+ *            | LGUI | LAlt | LCTR | ADJ  | /Enter  /       \Space \  |      | RCTR | RAlt | RGUI |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
@@ -134,7 +134,7 @@ _______, _______, _______, _______, _______, _______,          /**/ _______, ___
 _______, _______, _______,   MS_UP, KC_HOME, _______,          /**/ KC_F5, _______, KC_UP, KC_F10, KC_F11, _______,
 _______, _______, MS_LEFT, MS_DOWN, MS_RGHT,  KC_CAPS,         /**/ KC_F9, KC_LEFT, KC_DOWN, KC_RGHT,  _______, _______,
 _______, C(KC_Z), C(KC_X), C(KC_C), C(KC_V), KC_PSCR, _______, /**/ _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, _______,
-_______, _______, _______, _______, _______,                   /**/ _______, _______, _______, _______, _______
+_______, _______, _______, MO(_ADJUST), _______,               /**/ _______, _______, _______, _______, _______
 ),
 
 /* FUNCTION
@@ -195,13 +195,13 @@ _______, _______, _______, _______, _______,                   /**/ _______, ___
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
  *            `----------------------------------'           '------''---------------------------'
  */
-  [_ADJUST] = LAYOUT(
-  XXXXXXX , XXXXXXX,  XXXXXXX ,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  QK_BOOT  , XXXXXXX,KC_QWERTY,KC_COLEMAK,CG_TOGG,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX,CG_TOGG, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-                   _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
-  )
+[_ADJUST] = LAYOUT(
+XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX , XXXXXXX, XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+QK_BOOT, XXXXXXX, DF(_QWERTY), DF(_COLEMAK),XXXXXXX,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+				_______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
+)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -289,10 +289,10 @@ static void print_status_narrow(void) {
 
     oled_write_P(PSTR("\n\n"), false);
     switch (get_highest_layer(layer_state)) {
-        case 0:
+        case _QWERTY:
             oled_write_ln_P(PSTR("Qwrt"), false);
             break;
-        case 1:
+        case _COLEMAK:
             oled_write_ln_P(PSTR("Clmk"), false);
             break;
         default:
