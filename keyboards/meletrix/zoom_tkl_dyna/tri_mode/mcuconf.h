@@ -9,5 +9,5 @@
 // #undef AT32_ADC_USE_ADC1
 // #define AT32_ADC_USE_ADC1 TRUE
 
-// #undef AT32_PWM_USE_TMR3
-// #define AT32_PWM_USE_TMR3 TRUE
+#undef AT32_PWM_USE_TMR3
+#define AT32_PWM_USE_TMR3 TRUE

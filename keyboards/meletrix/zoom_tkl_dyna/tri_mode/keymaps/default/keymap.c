@@ -47,3 +47,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] ={
         KC_LCTL, KC_LGUI, KC_LALT,        KC_SPC,             KC_SPC,         KC_SPC,             KC_RALT, KC_RGUI, KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT
     )
 };
+
+#if defined(ENCODER_MAP_ENABLE)
+    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+        [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+        [1] = { ENCODER_CCW_CW(QK_RGB_MATRIX_VALUE_DOWN, QK_RGB_MATRIX_VALUE_UP)  },
+        [2] = { ENCODER_CCW_CW(QK_RGB_MATRIX_VALUE_DOWN, QK_RGB_MATRIX_VALUE_UP)  }
+    };
+#endif

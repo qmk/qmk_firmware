@@ -18,6 +18,84 @@
         "pid": "0xC987",
         "vid": "0x5542"
     },
+    "ws2812": {
+        "driver": "pwm",
+        "pin":     "A1",
+        "rgbw":   false
+    },
+    "rgb_matrix": {
+        "animations": {
+            "solid_color":               true, // Static single hue, no speed support
+            "alphas_mods":               true, // Static dual hue, speed is hue for secondary hue
+            "gradient_up_down":          true, // Static gradient top to bottom, speed controls how much gradient changes
+            "gradient_left_right":       true, // Static gradient left to right, speed controls how much gradient changes
+            "breathing":                 true, // Single hue brightness cycling animation
+            "band_sat":                  true, // Single hue band fading saturation scrolling left to right
+            "band_val":                  true, // Single hue band fading brightness scrolling left to right
+            "band_pinwheel_sat":         true, // Single hue 3 blade spinning pinwheel fades saturation
+            "band_pinwheel_val":         true, // Single hue 3 blade spinning pinwheel fades brightness
+            "band_spiral_val":           true, // Single hue spinning spiral fades brightness
+            "band_spiral_sat":           true, // Single hue spinning spiral fades saturation
+            "cycle_all":                 true, // Full keyboard solid hue cycling through full gradient
+            "cycle_left_right":          true, // Full gradient scrolling left to right
+            "cycle_up_down":             true, // Full gradient scrolling top to bottom
+            "cycle_out_in":              true, // Full gradient scrolling out to in
+            "cycle_out_in_dual":         true, // Full dual gradients scrolling out to in
+            "rainbow_moving_chevron":    true, // Full gradient Chevron shapped scrolling left to right
+            "cycle_pinwheel":            true, // Full gradient spinning pinwheel around center of keyboard
+            "cycle_spiral":              true, // Full gradient spinning spiral around center of keyboard
+            "dual_beacon":               true, // Full gradient spinning around center of keyboard
+            "rainbow_beacon":            true, // Full tighter gradient spinning around center of keyboard
+            "rainbow_pinwheels":         true, // Full dual gradients spinning two halfs of keyboard
+            "flower_blooming":           true, // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
+            "raindrops":                 true, // Randomly changes a single key's hue
+            "jellybean_raindrops":       true, // Randomly changes a single key's hue and saturation
+            "hue_breathing":             true, // Hue shifts up a slight ammount at the same time, then shifts back
+            "hue_pendulum":              true, // Hue shifts up a slight ammount in a wave to the right, then back to the left
+            "hue_wave":                  true, // Hue shifts up a slight ammount and then back down in a wave to the right
+            "pixel_fractal":             true, // Single hue fractal filled keys pulsing horizontally out to edges
+            "pixel_flow":                true, // Pulsing RGB flow along LED wiring with random hues
+            "pixel_rain":                true, // Randomly light keys with random hues
+            "typing_heatmap":            true, // How hot is your WPM!
+            "digital_rain":              true, // That famous computer simulation
+            "solid_reactive_simple":     true, // Pulses keys hit to hue & value then fades value out
+            "solid_reactive":            true, // Static single hue, pulses keys hit to shifted hue then fades to current hue
+            "solid_reactive_wide":       true, // Hue & value pulse near a single key hit then fades value out
+            "solid_reactive_multiwide":  true, // Hue & value pulse near multiple key hits then fades value out
+            "solid_reactive_cross":      true, // Hue & value pulse the same column and row of a single key hit then fades value out
+            "solid_reactive_multicross": true, // Hue & value pulse the same column and row of multiple key hits then fades value out
+            "solid_reactive_nexus":      true, // Hue & value pulse away on the same column and row of a single key hit then fades value out
+            "solid_reactive_multinexus": true, // Hue & value pulse away on the same column and row of multiple key hits then fades value out
+            "splash":                    true, // Full gradient & value pulse away from a single key hit then fades value out
+            "multisplash":               true, // Full gradient & value pulse away from multiple key hits then fades value out
+            "solid_splash":              true, // Hue & value pulse away from a single key hit then fades value out
+            "solid_multisplash":         true, // Hue & value pulse away from multiple key hits then fades value out
+            "starlight":                 true, // LEDs turn on and off at random at varying brightness, maintaining user set color
+            "starlight_smooth":          true, // LEDs slowly increase and decrease in brightness randomly
+            "starlight_dual_hue":        true, // LEDs turn on and off at random at varying brightness, modifies user set hue by +- 30
+            "starlight_dual_sat":        true, // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
+            "riverflow":                 true // Modification to breathing animation, offset's animation depending on key location to simulate a river flowing
+        },
+        "center_point": [112, 32],
+        "default": {
+            "animation": "rainbow_moving_chevron",
+            "on":   true,
+            "hue":     0,
+            "sat":   255,
+            "val":   255,
+            "speed": 128
+        },
+        "driver":      "ws2812",
+        "hue_steps":          8,
+        "led_flush_limit":   16,
+        "max_brightness":   255,
+        "react_on_keyup": false,
+        "sat_steps":         16,
+        "sleep":           true,
+        "speed_steps":       16,
+        "timeout":         3000,
+        "val_steps":         16
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
