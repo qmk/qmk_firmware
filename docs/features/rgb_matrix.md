@@ -125,13 +125,13 @@ enum rgb_matrix_effects {
     RGB_MATRIX_CYCLE_SPIRAL,        // Full gradient spinning spiral around center of keyboard
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_BEACON,      // Full tighter gradient spinning around center of keyboard
-    RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
+    RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halves of keyboard
     RGB_MATRIX_FLOWER_BLOOMING,     // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
-    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
-    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
-    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right
+    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight amount at the same time, then shifts back
+    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight amount in a wave to the right, then back to the left
+    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight amount and then back down in a wave to the right
     RGB_MATRIX_PIXEL_FRACTAL,       // Single hue fractal filled keys pulsing horizontally out to edges
     RGB_MATRIX_PIXEL_FLOW,          // Pulsing RGB flow along LED wiring with random hues
     RGB_MATRIX_PIXEL_RAIN,          // Randomly light keys with random hues
@@ -240,7 +240,7 @@ In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_H
 
 As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
 
-Limit the distance the effect spreads to surrounding keys. 
+Limit the distance the effect spreads to surrounding keys.
 
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40
@@ -385,8 +385,8 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_VAL_STEP 16 // The value by which to increment the brightness per adjustment action
 #define RGB_MATRIX_SPD_STEP 16 // The value by which to increment the animation speed per adjustment action
 #define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
-#define RGB_MATRIX_SPLIT { X, Y } 	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
-                              		// If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+#define RGB_MATRIX_SPLIT { X, Y } // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
+                                  // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 #define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
 ```
 
@@ -589,13 +589,13 @@ This function can only be run from within an effect or indicator callback, other
 
 #### Arguments {#api-rgb-matrix-set-color-arguments}
 
- - `uint8_t index`  
+ - `uint8_t index`
    The LED index, from 0 to `RGB_MATRIX_LED_COUNT - 1`.
- - `uint8_t r`  
+ - `uint8_t r`
    The red value to set.
- - `uint8_t g`  
+ - `uint8_t g`
    The green value to set.
- - `uint8_t b`  
+ - `uint8_t b`
    The blue value to set.
 
 ---
@@ -608,11 +608,11 @@ This function can only be run from within an effect or indicator callback, other
 
 #### Arguments {#api-rgb-matrix-set-color-all-arguments}
 
- - `uint8_t r`  
+ - `uint8_t r`
    The red value to set.
- - `uint8_t g`  
+ - `uint8_t g`
    The green value to set.
- - `uint8_t b`  
+ - `uint8_t b`
    The blue value to set.
 
 ---
@@ -623,7 +623,7 @@ Set the currently running effect.
 
 #### Arguments {#api-rgb-matrix-mode-arguments}
 
- - `uint8_t mode`  
+ - `uint8_t mode`
    The effect to switch to.
 
 ---
@@ -634,7 +634,7 @@ Set the currently running effect. New state is not written to EEPROM.
 
 #### Arguments {#api-rgb-matrix-mode-noeeprom-arguments}
 
- - `uint8_t mode`  
+ - `uint8_t mode`
    The effect to switch to.
 
 ---
@@ -805,7 +805,7 @@ Set the effect speed.
 
 #### Arguments {#api-rgb-matrix-set-speed-arguments}
 
- - `uint8_t speed`  
+ - `uint8_t speed`
    The new speed to set, from 0 to 255.
 
 ---
@@ -816,7 +816,7 @@ Set the effect speed. New state is not written to EEPROM.
 
 #### Arguments {#api-rgb-matrix-set-speed-noeeprom-arguments}
 
- - `uint8_t speed`  
+ - `uint8_t speed`
    The new speed to set, from 0 to 255.
 
 ---
@@ -837,11 +837,11 @@ Set the global effect hue, saturation, and value (brightness).
 
 ### Arguments {#api-rgb-matrix-sethsv-arguments}
 
- - `uint8_t h`  
+ - `uint8_t h`
    The hue to set, from 0 to 255.
- - `uint8_t s`  
+ - `uint8_t s`
    The saturation to set, from 0 to 255.
- - `uint8_t v`  
+ - `uint8_t v`
    The value (brightness) to set, from 0 to 255.
 
 ---
@@ -852,11 +852,11 @@ Set the global effect hue, saturation, and value (brightness). New state is not 
 
 #### Arguments {#api-rgb-matrix-sethsv-noeeprom-arguments}
 
- - `uint8_t h`  
+ - `uint8_t h`
    The hue to set, from 0 to 255.
- - `uint8_t s`  
+ - `uint8_t s`
    The saturation to set, from 0 to 255.
- - `uint8_t v`  
+ - `uint8_t v`
    The value (brightness) to set, from 0 to 255.
 
 ---
@@ -913,9 +913,9 @@ Keyboard-level callback, invoked after current animation frame is rendered but b
 
 ### Arguments {#api-rgb-matrix-indicators-advanced-kb-arguments}
 
- - `uint8_t led_min`  
+ - `uint8_t led_min`
    The index of the first LED in this batch.
- - `uint8_t led_max`  
+ - `uint8_t led_max`
    The index of the last LED in this batch.
 
 #### Return Value {#api-rgb-matrix-indicators-advanced-kb-return}
@@ -930,9 +930,9 @@ Keymap-level callback, invoked after current animation frame is rendered but bef
 
 ### Arguments {#api-rgb-matrix-indicators-advanced-user-arguments}
 
- - `uint8_t led_min`  
+ - `uint8_t led_min`
    The index of the first LED in this batch.
- - `uint8_t led_max`  
+ - `uint8_t led_max`
    The index of the last LED in this batch.
 
 #### Return Value {#api-rgb-matrix-indicators-advanced-user-return}
