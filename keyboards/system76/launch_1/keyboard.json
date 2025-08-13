@@ -44,9 +44,7 @@
         },
         "default": {
             "animation": "rainbow_moving_chevron",
-            "hue": 142,
-            "sat": 255,
-            "speed": 127
+            "hue": 142
         },
         "driver": "ws2812",
         "max_brightness": 176,
