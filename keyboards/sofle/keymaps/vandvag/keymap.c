@@ -43,8 +43,6 @@ enum custom_keycodes {
     KC_LEND
 };
 
-#define KC_QWERTY PDF(_QWERTY)
-#define KC_COLEMAK PDF(_COLEMAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
