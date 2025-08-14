@@ -589,13 +589,13 @@ This function can only be run from within an effect or indicator callback, other
 
 #### Arguments {#api-rgb-matrix-set-color-arguments}
 
- - `uint8_t index`
+ - `uint8_t index`  
    The LED index, from 0 to `RGB_MATRIX_LED_COUNT - 1`.
- - `uint8_t r`
+ - `uint8_t r`  
    The red value to set.
- - `uint8_t g`
+ - `uint8_t g`  
    The green value to set.
- - `uint8_t b`
+ - `uint8_t b`  
    The blue value to set.
 
 ---
@@ -608,11 +608,11 @@ This function can only be run from within an effect or indicator callback, other
 
 #### Arguments {#api-rgb-matrix-set-color-all-arguments}
 
- - `uint8_t r`
+ - `uint8_t r`  
    The red value to set.
- - `uint8_t g`
+ - `uint8_t g`  
    The green value to set.
- - `uint8_t b`
+ - `uint8_t b`  
    The blue value to set.
 
 ---
@@ -623,7 +623,7 @@ Set the currently running effect.
 
 #### Arguments {#api-rgb-matrix-mode-arguments}
 
- - `uint8_t mode`
+ - `uint8_t mode`  
    The effect to switch to.
 
 ---
@@ -634,7 +634,7 @@ Set the currently running effect. New state is not written to EEPROM.
 
 #### Arguments {#api-rgb-matrix-mode-noeeprom-arguments}
 
- - `uint8_t mode`
+ - `uint8_t mode`  
    The effect to switch to.
 
 ---
@@ -805,7 +805,7 @@ Set the effect speed.
 
 #### Arguments {#api-rgb-matrix-set-speed-arguments}
 
- - `uint8_t speed`
+ - `uint8_t speed`  
    The new speed to set, from 0 to 255.
 
 ---
@@ -816,7 +816,7 @@ Set the effect speed. New state is not written to EEPROM.
 
 #### Arguments {#api-rgb-matrix-set-speed-noeeprom-arguments}
 
- - `uint8_t speed`
+ - `uint8_t speed`  
    The new speed to set, from 0 to 255.
 
 ---
@@ -837,11 +837,11 @@ Set the global effect hue, saturation, and value (brightness).
 
 ### Arguments {#api-rgb-matrix-sethsv-arguments}
 
- - `uint8_t h`
+ - `uint8_t h`  
    The hue to set, from 0 to 255.
- - `uint8_t s`
+ - `uint8_t s`  
    The saturation to set, from 0 to 255.
- - `uint8_t v`
+ - `uint8_t v`  
    The value (brightness) to set, from 0 to 255.
 
 ---
@@ -852,11 +852,11 @@ Set the global effect hue, saturation, and value (brightness). New state is not 
 
 #### Arguments {#api-rgb-matrix-sethsv-noeeprom-arguments}
 
- - `uint8_t h`
+ - `uint8_t h`  
    The hue to set, from 0 to 255.
- - `uint8_t s`
+ - `uint8_t s`  
    The saturation to set, from 0 to 255.
- - `uint8_t v`
+ - `uint8_t v`  
    The value (brightness) to set, from 0 to 255.
 
 ---
@@ -913,9 +913,9 @@ Keyboard-level callback, invoked after current animation frame is rendered but b
 
 ### Arguments {#api-rgb-matrix-indicators-advanced-kb-arguments}
 
- - `uint8_t led_min`
+ - `uint8_t led_min`  
    The index of the first LED in this batch.
- - `uint8_t led_max`
+ - `uint8_t led_max`  
    The index of the last LED in this batch.
 
 #### Return Value {#api-rgb-matrix-indicators-advanced-kb-return}
@@ -930,9 +930,9 @@ Keymap-level callback, invoked after current animation frame is rendered but bef
 
 ### Arguments {#api-rgb-matrix-indicators-advanced-user-arguments}
 
- - `uint8_t led_min`
+ - `uint8_t led_min`  
    The index of the first LED in this batch.
- - `uint8_t led_max`
+ - `uint8_t led_max`  
    The index of the last LED in this batch.
 
 #### Return Value {#api-rgb-matrix-indicators-advanced-user-return}

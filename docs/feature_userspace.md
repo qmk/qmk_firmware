@@ -119,6 +119,7 @@ This is ideal for when you want ensure everything compiles successfully when pre
 ## Examples
 
 For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/_example).
+
 For more complicated examples, checkout the [`awesome-qmk` collection](https://github.com/qmk/awesome-qmk).
 
 

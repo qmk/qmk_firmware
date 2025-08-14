@@ -76,10 +76,7 @@ Should you rather choose to generate and use your own sample-table with the DAC 
 If the DAC pins are unavailable (or the MCU has no usable DAC at all, like STM32F1xx); PWM can be an alternative.
 Note that there is currently only one speaker/pin supported.
 
-set in `rules.mk`:
-
-`AUDIO_DRIVER = pwm_software` and in `config.h`:
-`#define AUDIO_PIN C13` (can be any pin) to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
+To use this feature, set `AUDIO_DRIVER = pwm_software` in `rules.mk` and set `#define AUDIO_PIN C13` (can be any pin) in `config.h` to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
 
 #### Wiring
 The usual piezo wiring: red goes to the selected AUDIO_PIN, black goes to ground.
