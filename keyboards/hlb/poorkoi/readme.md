@@ -14,12 +14,14 @@ Regarding source code we added extra features with dedicated custom keycode **L_
 
 Make example for this keyboard (after setting up your build environment):
 
-    make hlb/poorkoi:vial
+    make hlb/poorkoi:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-How to enter bootloader (DFU):
-* Short the reset-header (labled BL/RESET) on the back of the PCB for about 2 seconds for the keyboard to enter DFU. When in DFU, it's ready to flash the firmware. If using a APM MCU it will not automatically reset after flash. Simply short the reset-header for a very short time to just reset the PCB, alternatively unplug and repluck the USB-cable to the keyboard.
+## Bootloader
 
-Alternative option if the firmware is already pre-flashed:
-* Unplug your keyboard, hold down the Spacebar and B at the same time, plug in your keyboard and wait a second before releasing the keys. The keyboard will enter DFU and is ready to flash the firmware.
+Enter the bootloader in 3 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard.
+* **Physical reset button**: Short the reset pins on the back of pcb with tweezers.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.
