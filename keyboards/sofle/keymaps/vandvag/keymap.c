@@ -22,7 +22,7 @@
 // Right-hand home row mods
 #define CTL_N RCTL_T(KC_N)
 #define SFT_E RSFT_T(KC_E)
-#define ALT_I LALT_T(KC_I)
+#define ALT_I RALT_T(KC_I)
 #define GUI_O RGUI_T(KC_O)
 
 
@@ -89,7 +89,7 @@ KC_LGUI,KC_LCTL,LT(_NUM, KC_LALT), MO(_SYM), KC_ENT,      KC_SPC,  MO(_NAV), LT(
 [_COLEMAK] = LAYOUT(
 KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,          /**/  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_GRV,
 KC_TAB,   KC_Q,   KC_W,    KC_F,    KC_P,    KC_G,          /**/  KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN,  KC_BSPC,
-KC_LCTL,  GUI_A,  ALT_R,   SFT_S,   CTL_TH,   KC_D,         /**/  KC_H,    KC_N,    KC_E,    KC_I,    KC_O,  KC_QUOT,
+KC_LCTL,  GUI_A,  ALT_R,   SFT_S,   CTL_TH,   KC_D,         /**/  KC_H,   CTL_N,   SFT_E,   ALT_I,   GUI_O,  KC_QUOT,
 KC_LSFT,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_MUTE, /**/  XXXXXXX, KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_RSFT,
 KC_LGUI,KC_LCTL,LT(_NUM, KC_LALT), MO(_SYM), KC_ENT,        /**/  KC_SPC,  MO(_NAV), LT(_FN, KC_RALT), KC_RCTL, KC_RGUI
 ),
