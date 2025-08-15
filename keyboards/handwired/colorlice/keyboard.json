@@ -103,7 +103,7 @@
           {"matrix": [2, 11], "x": 195, "y": 32, "flags": 4},
           {"matrix": [2, 12], "x": 210, "y": 32, "flags": 4},
           {"matrix": [2, 14], "x": 224, "y": 32, "flags": 1},
-          {"matrix": [3, 14], "x": 225, "y": 48, "flags": 1},
+          {"matrix": [3, 14], "x": 224, "y": 48, "flags": 1},
           {"matrix": [3, 13], "x": 224, "y": 48, "flags": 4},
           {"matrix": [3, 12], "x": 210, "y": 48, "flags": 4},
           {"matrix": [3, 11], "x": 195, "y": 48, "flags": 4},
@@ -126,7 +126,7 @@
           {"matrix": [4, 11], "x": 210, "y": 64, "flags": 1},
           {"matrix": [4, 12], "x": 215, "y": 64, "flags": 1},
           {"matrix": [4, 13], "x": 220, "y": 64, "flags": 1},
-          {"matrix": [4, 14], "x": 225, "y": 64, "flags": 1}
+          {"matrix": [4, 14], "x": 224, "y": 64, "flags": 1}
       ],
       "led_flush_limit": 26,
       "led_process_limit": 4,
