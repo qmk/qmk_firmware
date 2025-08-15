@@ -1,6 +1,6 @@
 # Hyperbolas
 
-![hyperbolas](https://imgur.com/DGKsDHw)
+![hyperbolas](https://i.imgur.com/DGKsDHw.jpeg)
 
 TKL project from HLB with 8K pcb layout compatibility.
 
