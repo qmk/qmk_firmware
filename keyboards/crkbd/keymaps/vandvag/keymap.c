@@ -30,6 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ALT_L LALT_T(KC_L)
 #define GUI_SCLN RGUI_T(KC_SCLN)
 
+#define SFT_ENT LSFT_T(KC_ENT)
+#define NUM_ALT LT(_NUM, KC_LALT)
+
 enum crkbd_layers {
     _BASE,
     _SYMB,
@@ -48,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                 LT(_NUM, KC_LALT),  MO(_SYMB),  KC_ENT,     KC_SPC,   MO(_NAV), KC_RALT
+                            NUM_ALT,   MO(_SYMB), SFT_ENT,     KC_SPC,   MO(_NAV), KC_RALT
                                       //`--------------------------'  `--------------------------'
 
   ),
