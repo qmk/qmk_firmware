@@ -37,7 +37,7 @@ enum sofle_layers {
     _SYM,
     _NAV,
     _FN,
-	_NUM,
+    _NUM,
     _ADJUST,
 };
 
@@ -333,14 +333,14 @@ static void print_custom_state(void) {
         case _ADJUST:
             oled_write_P(PSTR("Adjust\n"), false);
             break;
-		case _NUM:
+        case _NUM:
             oled_write_P(PSTR("Num\n"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef\n"), false);
-			break;
-	}
-    
+            break;
+    }
+
 
     oled_write_P(PSTR("\n\n"), false);
     led_t led_usb_state = host_keyboard_led_state();
@@ -352,15 +352,12 @@ static void print_custom_state(void) {
 #endif
 }
 
-// TODO: 
-// somehow this one doesn't override the default
-// Fix me
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
         print_custom_state();
     } else {
-		render_logo();
-	}
+        render_logo();
+    }
 
     return false;
 }
