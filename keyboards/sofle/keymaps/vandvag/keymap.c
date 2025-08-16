@@ -209,6 +209,18 @@ XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX, XXXXXXX,     XXXXXXX, 
 )
 };
 
+#ifdef TAPPING_TERM_PER_KEY
+uint16_t get_tapping_term(unit16_t keycode, keyrecord_t* record) {
+    switch (keycode) {
+        case GUI_SCLN:
+        case GUI_A:
+        case GUI_O:
+            return TAPPING_TERM + 100;
+    }
+    return TAPPING_TERM;
+}
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case KC_PRVWD:
