@@ -13,14 +13,6 @@ enum layer_names {
 #define MO_SYM MO(_SYMBOL)
 #define MO_NAV MO(_NAVIGATION)
 #define MO_FUN MO(_FUNCTION)
-#define OS_LCTL OSM(MOD_LCTL)
-#define OS_LSFT OSM(MOD_LSFT)
-#define OS_LALT OSM(MOD_LALT)
-#define OS_LGUI OSM(MOD_LGUI)
-#define OS_RCTL OSM(MOD_RCTL)
-#define OS_RSFT OSM(MOD_RSFT)
-#define OS_RALT OSM(MOD_RALT)
-#define OS_RGUI OSM(MOD_RGUI)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x5_2(
