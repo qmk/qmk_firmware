@@ -14,9 +14,6 @@
         "nkro": true,
         "rgb_matrix": true
     },
-    "combo": {
-        "term": 150
-    },
     "matrix_pins": {
         "cols": ["B5", "B6", "B7", "C7", "C6", "C4", "D4", "D5", "D6", "B0", "B1", "B2"],
         "rows": ["D2", "C5", "B3"]
