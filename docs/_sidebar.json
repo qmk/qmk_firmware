@@ -175,6 +175,7 @@
                         ]
                     },
                     { "text": "Audio", "link": "/features/audio" },
+                    { "text": "Battery", "link": "/features/battery" },
                     { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },

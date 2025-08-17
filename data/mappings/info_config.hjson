@@ -43,6 +43,14 @@
     "BOOTMAGIC_ROW": {"info_key": "bootmagic.matrix.0", "value_type": "int"},
     "BOOTMAGIC_ROW_RIGHT": {"info_key": "split.bootmagic.matrix.0", "value_type": "int"},
 
+    // Battery
+    "BATTERY_SAMPLE_INTERVAL": {"info_key": "battery.sample_interval", "value_type": "int"},
+    "BATTERY_ADC_PIN": {"info_key": "battery.adc.pin"},
+    "BATTERY_ADC_REF_VOLTAGE_MV": {"info_key": "battery.adc.reference_voltage", "value_type": "int"},
+    "BATTERY_ADC_VOLTAGE_DIVIDER_R1": {"info_key": "battery.adc.divider_r1", "value_type": "int"},
+    "BATTERY_ADC_VOLTAGE_DIVIDER_R2": {"info_key": "battery.adc.divider_r2", "value_type": "int"},
+    "BATTERY_ADC_RESOLUTION": {"info_key": "battery.adc.resolution", "value_type": "int"},
+
     // Caps Word
     "BOTH_SHIFTS_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.both_shifts_turns_on", "value_type": "flag"},
     "CAPS_WORD_IDLE_TIMEOUT": {"info_key": "caps_word.idle_timeout", "value_type": "int"},

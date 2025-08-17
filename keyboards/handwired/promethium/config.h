@@ -64,8 +64,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PS2_MOUSE_INIT_DELAY 2000
 
-#define BATTERY_PIN B5
-
 #ifndef __ASSEMBLER__  // assembler doesn't like enum in .h file
 enum led_sequence {
     LED_IND_LINUX,
