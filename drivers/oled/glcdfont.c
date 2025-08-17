@@ -1,5 +1,5 @@
 // Copyright 2025 QMK
-// SPDX-License-Identifier: GPL-2.0-or-later
+// SPDX-License-Identifier: GPL-2.0-or-later WITH BSD-2-Clause
 
 #include "progmem.h"
 
