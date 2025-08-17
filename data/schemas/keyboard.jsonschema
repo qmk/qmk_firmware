@@ -188,6 +188,28 @@
                 "as_caps_lock": {"type": "boolean"}
             }
         },
+        "battery": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["adc", "custom", "vendor"]
+                },
+                "adc": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                        "reference_voltage": {"type": "integer"},
+                        "divider_r1": {"type": "integer"},
+                        "divider_r2": {"type": "integer"},
+                        "resolution": {"type": "integer"}
+                    }
+                },
+                "sample_interval": {"type": "integer"}
+            }
+        },
         "bluetooth": {
             "type": "object",
             "additionalProperties": false,
