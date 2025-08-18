@@ -2265,8 +2265,17 @@
     "trnthsn/s6xty5neor2": {
         "target": "trnthsn/s6xty5neor2/stm32f103"
     },
-    "tweetydabird/lotus58": {
-        "target": "tweetydabird/lotus58/promicro"
+    "tweetydabird/lotus58/elite_c": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/nanoboot": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/promicro": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/rp2040_ce": {
+        "target": "tweetydabird/lotus58"
     },
     "unison": {
         "target": "unison/v04"
