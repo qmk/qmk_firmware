@@ -45,11 +45,11 @@ typedef uint8_t combo_active_state_t;
 typedef uint8_t combo_active_state_t;
 #endif
 
-/* Must be defined if (COMBO_COUNT + 1) * MAX_COMBO_LENGTH >= 256 */
-#ifdef MANY_COMBOS
-typedef uint16_t combo_state_t;
+#ifdef COMBO_COMPRESSED
+/* If (combo_count() + 1) * MAX_COMBO_LENGTH < 256, this can be defined to save some space */
+typedef uint8_t combo_state_t;
 #else
-typedef uint8_t  combo_state_t;
+typedef uint16_t combo_state_t;
 #endif
 
 #ifndef COMBO_KEY_BUFFER_LENGTH
@@ -67,7 +67,7 @@ typedef struct combo_t {
 
 #define COMBO_END 0
 #ifndef COMBO_TERM
-#    define COMBO_TERM 50
+#    define COMBO_TERM 150
 #endif
 #ifndef COMBO_HOLD_TERM
 #    define COMBO_HOLD_TERM TAPPING_TERM

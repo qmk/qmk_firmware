@@ -25,7 +25,7 @@ TEST_F(Combo, combo_basic) {
     // Press key A, wait for less than COMBO_TERM, then press key B
     run_one_scan_loop(); // Ensure that combo timer is > 0
     key_a.press();
-    idle_for(COMBO_TERM-2);
+    idle_for(COMBO_TERM-1);
     key_b.press();
     run_one_scan_loop();
     key_a.release();
@@ -69,6 +69,8 @@ TEST_F(Combo, combo_release_interrupt) {
     EXPECT_REPORT(driver, (KC_A, KC_2));
     EXPECT_REPORT(driver, (KC_2));
     EXPECT_EMPTY_REPORT(driver);
+    // Press A, C, D in that order; release A after C
+    // Should still trigger combo for C+D
     run_one_scan_loop();
     key_a.press();
     run_one_scan_loop();
@@ -114,6 +116,40 @@ TEST_F(Combo, combo_disjoint) {
     key_c.release();
     run_one_scan_loop();
     key_d.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(Combo, combo_noncontiguous) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    KeymapKey  key_b(0, 1, 0, KC_B);
+    KeymapKey  key_c(0, 2, 0, KC_C);
+    KeymapKey  key_d(0, 3, 0, KC_D);
+    set_keymap({key_a, key_b, key_c, key_d});
+
+    EXPECT_REPORT(driver, (KC_A)).Times(2);
+    EXPECT_REPORT(driver, (KC_A, KC_C)).Times(2);
+    EXPECT_REPORT(driver, (KC_A, KC_C, KC_B)).Times(2);
+    EXPECT_REPORT(driver, (KC_A, KC_C, KC_B, KC_D));
+    EXPECT_EMPTY_REPORT(driver);
+    // Press A, C, B, D in that order; don't trigger any combos
+    run_one_scan_loop();
+    key_a.press();
+    run_one_scan_loop();
+    key_c.press();
+    run_one_scan_loop();
+    key_b.press();
+    run_one_scan_loop();
+    key_d.press();
+    run_one_scan_loop();
+    key_d.release();
+    run_one_scan_loop();
+    key_b.release();
+    run_one_scan_loop();
+    key_c.release();
+    run_one_scan_loop();
+    key_a.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
