@@ -26,21 +26,9 @@ TEST_F(ComboConflicts, combo_irrelevant_press) {
     EXPECT_REPORT(driver, (KC_1)).Times(2);
     EXPECT_REPORT(driver, (KC_1, KC_Z));
     EXPECT_EMPTY_REPORT(driver);
-    // Press A, Z, B in that order; release B, Z, A
+    // Press A, Z, B in that order
     // Combo for A+B should be triggered since it does not require contiguity
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_z.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_z.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
+    tap_combo({key_a, key_z, key_b});
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_REPORT(driver, (KC_A)).Times(3);
@@ -64,25 +52,15 @@ TEST_F(ComboConflicts, combo_irrelevant_press) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_X)).Times(2);
-    EXPECT_REPORT(driver, (KC_X, KC_Z)).Times(2);
+    EXPECT_REPORT(driver, (KC_X));
+    EXPECT_REPORT(driver, (KC_X, KC_Z));
     EXPECT_REPORT(driver, (KC_X, KC_Z, KC_Y));
+    EXPECT_REPORT(driver, (KC_Z, KC_Y));
+    EXPECT_REPORT(driver, (KC_Y));
     EXPECT_EMPTY_REPORT(driver);
-    // Press X, Z, Y in that order; release Y, Z, X
+    // Press X, Z, Y in that order; release X, Z, Y
     // Combo for X+Y should not be triggered since it requires contiguity
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_z.press();
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
-    key_z.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
+    tap_combo({key_x, key_z, key_y});
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -97,49 +75,17 @@ TEST_F(ComboConflicts, combo_priority) {
     EXPECT_REPORT(driver, (KC_4)).Times(2);
     EXPECT_REPORT(driver, (KC_4, KC_A));
     EXPECT_EMPTY_REPORT(driver);
-    // Press X, A, B, Y in that order; release Y, B, A, X
+    // Press X, A, B, Y in that order
     // Combo for X+B+Y should be triggered since it has higher priority (index)
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
+    tap_combo({key_x, key_a, key_b, key_y});
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_REPORT(driver, (KC_4)).Times(2);
     EXPECT_REPORT(driver, (KC_4, KC_A));
     EXPECT_EMPTY_REPORT(driver);
-    // Press X, Y, A, B in that order; release B, A, Y, X
+    // Press X, Y, A, B in that order
     // Combo for X+B+Y should be triggered since it has higher priority (index)
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
+    tap_combo({key_x, key_y, key_a, key_b});
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -154,25 +100,9 @@ TEST_F(ComboConflicts, combo_priority_trigger) {
     EXPECT_REPORT(driver, (KC_3)).Times(2);
     EXPECT_REPORT(driver, (KC_3, KC_B));
     EXPECT_EMPTY_REPORT(driver);
-    // Press A, X, B, Y in that order; release Y, B, X, A
+    // Press A, X, B, Y in that order
     // Combo for X+A+Y should be triggered since it has earlier trigger
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
+    tap_combo({key_a, key_x, key_b, key_y});
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -188,51 +118,15 @@ TEST_F(ComboConflicts, combo_wait_for_preferred) {
     EXPECT_REPORT(driver, (KC_4)).Times(2);
     EXPECT_REPORT(driver, (KC_4, KC_A));
     EXPECT_EMPTY_REPORT(driver);
-    // Press X, A, Y, B in that order; release B, Y, A, X
+    // Press X, A, Y, B in that order
     // Combo for X+B+Y should be triggered since it has higher priority (index), even though X+A+Y completed before it
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
+    tap_combo({key_x, key_a, key_y, key_b});
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_REPORT(driver, (KC_6));
     EXPECT_EMPTY_REPORT(driver);
-    // Press X, Y, A, B, C in that order; release C, B, A, Y, X
+    // Press X, Y, A, B, C in that order
     // Combo for X+A+B+C+Y should be triggered sice it has higher priority than the others
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_c.press();
-    run_one_scan_loop();
-    key_c.release();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
+    tap_combo({key_x, key_y, key_a, key_b, key_c});
     VERIFY_AND_CLEAR(driver);
 }
