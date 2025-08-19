@@ -331,8 +331,12 @@ __attribute__((weak)) bool is_combo_preferred(combo_state_t combo_index1, combo_
     return combo_index1 > combo_index2;
 }
 
+__attribute__((weak)) bool is_combo_contiguous(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys) {
+    return true;
+}
+
 /* Default behavior (if none of COMBO_MUST_PRESS_IN_ORDER, COMBO_MUST_PRESS_IN_ORDER_PER_COMBO, or COMBO_SHOULD_TRIGGER are defined)
- * is to be interrupted by any key not contained in a combo, and otherwise to not be interrupted (require contiguous presses) */
+ * is to be interrupted by any key not contained in a combo, and otherwise to not be interrupted (require contiguous presses). */
 __attribute__((weak)) bool is_combo_interrupted(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys, bool combo_has_key) {
     if (combo_has_key) {
 #ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
@@ -356,7 +360,7 @@ __attribute__((weak)) bool is_combo_interrupted(uint16_t index, combo_t *combo, 
         return false;
 #endif
     }
-    return true;
+    return is_combo_contiguous(index, combo, keycode, record, n_unpressed_keys);
 }
 
 /*************************

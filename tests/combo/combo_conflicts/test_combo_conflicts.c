@@ -24,16 +24,12 @@ combo_t key_combos[] = {
 };
 // clang-format on
 
-/* Return true if the keypress in record interrupts the given combo with the given index,
- * preventing it from firing. */
-bool is_combo_interrupted(uint16_t index, combo_t *combo, keyrecord_t *record, uint8_t n_unpressed_keys, bool combo_has_key) {
+bool is_combo_contiguous(uint16_t index, combo_t *combo, keyrecord_t *record, uint8_t n_unpressed_keys) {
     switch (index) {
         case xy_2:
         case cxy_5:
-            // Require contiguous
-            return !combo_has_key;
+            return true; // xy_2 and cxy_5 are contiguous combos
         default:
-            return false;
+            return false; // no other combos are contiguous
     }
 }
-
