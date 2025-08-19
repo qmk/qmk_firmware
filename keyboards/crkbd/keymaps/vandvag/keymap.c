@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_SYMB] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TAB,  KC_GRV, KC_TILDE, KC_HASH, KC_AMPR, KC_PIPE, KC_VOLU,    _______, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC,  KC_DEL,
+      KC_TAB,  KC_GRV, KC_TILDE, KC_HASH, KC_AMPR, KC_PIPE, KC_VOLU,    _______, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL, KC_EXLM, KC_UNDS, KC_COLN,  KC_EQL,  KC_DLR, KC_VOLD,    _______,   KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, XXXXXXX, KC_PIPE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
