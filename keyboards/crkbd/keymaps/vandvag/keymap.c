@@ -139,6 +139,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    for (uint8_t i = led_min; i < led_max; i++) {
+        switch(get_highest_layer(layer_state|default_layer_state)) {
+            case _SYMB:
+                rgb_matrix_set_color(i, RGB_GREEN);
+                break;
+            case _NAV:
+                rgb_matrix_set_color(i, RGB_BLUE);
+                break;
+            case _NUM:
+                rgb_matrix_set_color(i, RGB_RED);
+                break;
+            case _FN:
+                rgb_matrix_set_color(i, RGB_ORANGE);
+                break;
+            default:
+                break;
+        }
+    }
+    return false;
+}
+
 #ifdef ENCODER_MAP_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
