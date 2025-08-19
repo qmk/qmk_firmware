@@ -48,8 +48,6 @@ typedef uint8_t combo_active_state_t;
 #ifdef COMBO_COMPRESSED
 /* If combo_count() < (256/MAX_COMBO_LENGTH) - 1, this can be defined to save some space */
 typedef uint8_t combo_state_t;
-#elif defined(MANY_COMBOS)
-typedef uint32_t combo_state_t;
 #else
 typedef uint16_t combo_state_t;
 #endif

@@ -146,7 +146,7 @@ To configure the maximum amount of keys a combo can be composed of, change the f
 | 32   | `#define EXTRA_EXTRA_LONG_COMBOS` |
 
 
-A larger maximum combo length will cause a (pretty negligible) increase in memory usage. Another cost of longer combos is limiting the maximum number of combos that can be defined. The maximum combo count is `(65536 / MAX_COMBO_LENGTH) - 1`. If you really need more, you can `#define MANY_COMBOS`, but this will increase the memory usage of each combo.
+A larger maximum combo length will cause a (pretty negligible) increase in memory usage. Another cost of longer combos is limiting the maximum number of combos that can be defined. The maximum combo count is `(65536 / MAX_COMBO_LENGTH) - 1`.
 
 If you have a modest number of combos that aren't too large, you can save additional memory by defining `COMBO_COMPRESSED`. This compresses the internal state of each combo to a single byte. However, this should ONLY be set if you have fewer than `(256/MAX_COMBO_LENGTH) -1` combos, where `MAX_COMBO_LENGTH` is inferred from the flags above.
 
@@ -322,7 +322,7 @@ If the default prioritization of combos described above doesn't work for you, yo
 ```c
 /* Return true if combo1 is preferred to combo2 if they could both activate.
  * Default behavior: prefer longer combos, and break ties by preferring combos with higher indices */
-bool is_combo_preferred(combo_state_t combo_index1, combo_state_t combo_index2, uint8_t combo_length1) {
+bool is_combo_preferred(uint16_t combo_index1, uint16_t combo_index2, uint8_t combo_length1) {
     uint8_t combo_length2 = _get_combo_length(combo_get(combo_index2));
     if (combo_length1 > combo_length2) {
         return true;

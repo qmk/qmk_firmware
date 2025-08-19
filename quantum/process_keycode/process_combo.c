@@ -291,7 +291,7 @@ bool does_combo_overlap(combo_t *combo1, combo_t *combo2) {
 
 /* Return true if combo1 is preferred to combo2 if they could both activate.
  * Default behavior: prefer longer combos, and break ties by preferring combos with higher indices */
-__attribute__((weak)) bool is_combo_preferred(combo_state_t combo_index1, combo_state_t combo_index2, uint8_t combo_length1) {
+__attribute__((weak)) bool is_combo_preferred(uint16_t combo_index1, uint16_t combo_index2, uint8_t combo_length1) {
     uint8_t combo_length2 = _get_combo_length(combo_get(combo_index2));
     if (combo_length1 > combo_length2) {
         return true;
