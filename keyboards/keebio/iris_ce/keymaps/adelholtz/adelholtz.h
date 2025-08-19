@@ -61,6 +61,7 @@ enum custom_layers valid_tap_dance_layers[] = {
 };
 enum tap_dance_keys{
   SPACE_TAB,
+  MAGIC_TAB,
   NAV_LMAGIC,
   XTRA_RMAGIC,
 };

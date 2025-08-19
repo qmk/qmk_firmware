@@ -22,9 +22,12 @@ void update_keycode_history(uint16_t keycode) {
 #include "tap_dance.c"
 
 // Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {[SPACE_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_TAB),
-                                          [NAV_LMAGIC] = ACTION_TAP_DANCE_TAPFUNCTION_HOLD(LMAGIC, process_left_magic_static, _NAVIGATION),
-                                          [XTRA_RMAGIC] = ACTION_TAP_DANCE_TAPFUNCTION_HOLD(RMAGIC, process_right_magic_static, _EXTRA)};
+tap_dance_action_t tap_dance_actions[] = {
+    [SPACE_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_TAB),
+    [MAGIC_TAB] = ACTION_TAP_DANCE_DOUBLE(KC_TAB, LSFT(KC_TAB)),
+    [NAV_LMAGIC] = ACTION_TAP_DANCE_TAPFUNCTION_HOLD(LMAGIC, process_left_magic_static, _NAVIGATION),
+    [XTRA_RMAGIC] = ACTION_TAP_DANCE_TAPFUNCTION_HOLD(RMAGIC, process_right_magic_static, _EXTRA)
+};
 
 #include "layer_layout.c"
 
