@@ -3,10 +3,10 @@
 #include "quantum.h"
 #include "stdio.h"
 
-enum combos {ab_action, xy_123};
+enum combos { ab_action, xy_123 };
 
-uint16_t const ab_action_combo[]     = {KC_A, KC_B, COMBO_END};
-uint16_t const xy_123_combo[]     = {KC_X, KC_Y, COMBO_END};
+uint16_t const ab_action_combo[] = {KC_A, KC_B, COMBO_END};
+uint16_t const xy_123_combo[]    = {KC_X, KC_Y, COMBO_END};
 
 // clang-format off
 combo_t key_combos[] = {
@@ -30,7 +30,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
     switch (combo_index) {
         case xy_123:
-            switch(keycode) {
+            switch (keycode) {
                 case KC_X:
                     tap_code(KC_2);
                     break;

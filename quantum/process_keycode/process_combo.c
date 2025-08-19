@@ -94,7 +94,7 @@ static bool b_combo_enable = false;
  * separate buffer.
  */
 
-#define COMBO_NULL_INDEX (((combo_state_t)-1) >> COMBO_STATE_BITS)
+#define COMBO_NULL_INDEX (((combo_state_t) - 1) >> COMBO_STATE_BITS)
 #define COMBO_NULL_STATE ((COMBO_NULL_INDEX << COMBO_STATE_BITS))
 
 /* Used by combo queue iterators */
@@ -167,7 +167,9 @@ static uint16_t        next_expiration = 0;
 #define GET_QUEUED_RECORD(i) &key_buffer[(key_buffer_head + i) % COMBO_KEY_BUFFER_LENGTH]
 
 /* Returns true if this key is ready to be dumped from the buffer */
-static inline bool is_key_resolved(queued_record_t *qrecord) { return ((qrecord->state == COMBO_NULL_STATE) || GET_STATE(qrecord) >= COMBO_KEY_CONSUMED); }
+static inline bool is_key_resolved(queued_record_t *qrecord) {
+    return ((qrecord->state == COMBO_NULL_STATE) || GET_STATE(qrecord) >= COMBO_KEY_CONSUMED);
+}
 
 __attribute__((weak)) void process_combo_event(uint16_t combo_index, bool pressed) {}
 
@@ -178,15 +180,21 @@ __attribute__((weak)) uint8_t combo_ref_from_layer(uint8_t layer) {
 #endif
 
 #ifdef COMBO_MUST_HOLD_PER_COMBO
-__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) { return false; }
+__attribute__((weak)) bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+    return false;
+}
 #endif
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
-__attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) { return false; }
+__attribute__((weak)) bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+    return false;
+}
 #endif
 
 #ifdef COMBO_TERM_PER_COMBO
-__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) { return COMBO_TERM; }
+__attribute__((weak)) uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    return COMBO_TERM;
+}
 #endif
 
 #ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
@@ -202,7 +210,9 @@ __attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *c
 #endif
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) { return false; }
+__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    return false;
+}
 #endif
 
 #ifdef COMBO_PROCESS_KEY_REPRESS
@@ -317,7 +327,7 @@ bool is_combo_interrupted(uint16_t index, combo_t *combo, uint16_t keycode, keyr
         if (false) {
 #endif
             /* If the combo must be pressed in order, it is interrupted if this key is not the next key in sequence */
-            uint8_t combo_length = _get_combo_length(combo);
+            uint8_t  combo_length = _get_combo_length(combo);
             uint16_t expected_key = pgm_read_word(&(combo->keys)[combo_length - n_unpressed_keys]);
             if (expected_key != keycode) {
                 return true;
@@ -350,7 +360,9 @@ typedef struct {
 } combo_iterator_t;
 
 /* Have we reached the end of the iteration; usually used only through convenience macro below */
-static inline bool combo_iter_is_complete(combo_iterator_t *iter) { return (iter->combo_index == COMBO_NULL_INDEX); }
+static inline bool combo_iter_is_complete(combo_iterator_t *iter) {
+    return (iter->combo_index == COMBO_NULL_INDEX);
+}
 
 /* Move to next iterator; usually used only through convenience macro below */
 void combo_iter_next(combo_iterator_t *iter) {
@@ -441,8 +453,8 @@ void process_active_buffer_overflow(void) {
             break;
         }
     }
-    uint16_t       combo_index = iter.combo_index;
-    combo_t       *combo       = iter.combo;
+    uint16_t              combo_index = iter.combo_index;
+    combo_t              *combo       = iter.combo;
     combo_active_state_t *combo_state = NULL;
     if (combo != NULL) {
         combo_state = get_combo_active_state(iter.combo_index);
@@ -467,7 +479,7 @@ void process_active_buffer_overflow(void) {
             keyrecord_t fake_release = {
                 .event =
                     {
-                        .key     = MAKE_KEYPOS(0,0),
+                        .key     = MAKE_KEYPOS(0, 0),
                         .time    = timer_read() | 1,
                         .type    = KEY_EVENT,
                         .pressed = false,
@@ -504,7 +516,7 @@ combo_active_state_t *init_combo_active_state(combo_state_t combo_index) {
 /* Insert into ripe queue, maintaining sort in order of decreasing priority */
 void ripen_combo(combo_state_t combo_index, combo_t *combo) {
     combo_iterator_t iter;
-    uint8_t combo_length = _get_combo_length(combo);
+    uint8_t          combo_length = _get_combo_length(combo);
     for (ALL_COMBOS_IN_QUEUE(&ripe_head, &iter)) {
         if (is_combo_preferred(combo_index, iter.combo_index, combo_length)) {
             break;
@@ -563,8 +575,8 @@ void resolve_conflicts(void) {
         /* Overlapping partial and unripe complete combos that have lower
          * priority or don't fully contain this combo are inactivated */
         for (uint8_t i = 0; i < key_buffer_size; i++) {
-            queued_record_t *qrecord = GET_QUEUED_RECORD(i);
-            bool combo_has_key = _combo_has_key(ripe_iter.combo, qrecord->record.keycode);
+            queued_record_t *qrecord       = GET_QUEUED_RECORD(i);
+            bool             combo_has_key = _combo_has_key(ripe_iter.combo, qrecord->record.keycode);
             if (combo_has_key) {
                 SET_STATE(qrecord, COMBO_KEY_RIPE);
             } else if (is_key_resolved(qrecord)) {
@@ -730,8 +742,8 @@ void dump_keyrecord(keyrecord_t *record) {
 
 /* Insert combo into active queue and process the combo's outcome */
 void activate_combo(queued_record_t *qrecord) {
-    combo_state_t  combo_index = GET_NEXT_COMBO(qrecord);
-    combo_t       *combo       = combo_get(combo_index);
+    combo_state_t         combo_index = GET_NEXT_COMBO(qrecord);
+    combo_t              *combo       = combo_get(combo_index);
     combo_active_state_t *combo_state = init_combo_active_state(combo_index);
     if (combo_state == NULL) {
         /* This should never happen! */
@@ -742,15 +754,16 @@ void activate_combo(queued_record_t *qrecord) {
     combo_queue_insert(&active_head, combo_index, combo);
 
     if (!combo->keycode) {
-            process_combo_event(combo_index, true);
+        process_combo_event(combo_index, true);
     } else {
         keyrecord_t record = {
-            .event = {
-                .key     = MAKE_KEYPOS(0, 0),
-                .time    = qrecord->record.event.time,
-                .type    = COMBO_EVENT,
-                .pressed = true,
-            },
+            .event =
+                {
+                    .key     = MAKE_KEYPOS(0, 0),
+                    .time    = qrecord->record.event.time,
+                    .type    = COMBO_EVENT,
+                    .pressed = true,
+                },
             .keycode = combo->keycode,
         };
         dump_keyrecord(&record);
@@ -786,7 +799,7 @@ bool release_from_active(keyrecord_t *record) {
                         process_combo_event(iter.combo_index, false);
                     } else {
                         keyrecord_t release_record = {
-                            .event = MAKE_COMBOEVENT(false),
+                            .event   = MAKE_COMBOEVENT(false),
                             .keycode = iter.combo->keycode,
                         };
                         dump_keyrecord(&release_record);
@@ -906,8 +919,8 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
 #else
-    uint8_t  highest_layer = get_highest_layer(layer_state | default_layer_state);
-    uint8_t  ref_layer     = combo_ref_from_layer(highest_layer);
+    uint8_t highest_layer = get_highest_layer(layer_state | default_layer_state);
+    uint8_t ref_layer     = combo_ref_from_layer(highest_layer);
     if (ref_layer != highest_layer) {
         keycode = keymap_key_to_keycode(ref_layer, record->event.key);
     }
@@ -951,13 +964,13 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     key_buffer_size++;
 
     if (record->event.pressed
-        /* Key presses can:
-         * - be consumed by an active combo repress if COMBO_PROCESS_KEY_REPRESS is defined, OR
-         * - contribute to partial combos, possibly completing them;
-         * - contribute to inactive combos, moving them to partial state (or
-         *   completing them, if user has defined a combo of length 1);
-         * - inactivate partial combos that are contiguous but lack this key
-         */
+    /* Key presses can:
+     * - be consumed by an active combo repress if COMBO_PROCESS_KEY_REPRESS is defined, OR
+     * - contribute to partial combos, possibly completing them;
+     * - contribute to inactive combos, moving them to partial state (or
+     *   completing them, if user has defined a combo of length 1);
+     * - inactivate partial combos that are contiguous but lack this key
+     */
 #ifdef COMBO_PROCESS_KEY_REPRESS
         && !try_repress(qrecord, keycode)
 #endif
@@ -984,7 +997,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
                 continue;
             }
             for (ALL_COMBOS_IN_KEY(old_record, &iter)) {
-                bool combo_has_key = _combo_has_key(iter.combo, keycode);
+                bool    combo_has_key  = _combo_has_key(iter.combo, keycode);
                 uint8_t keys_remaining = GET_STATE(iter.combo);
                 /* If already complete, can't be interrupted */
                 if (0 != keys_remaining) {
@@ -1002,7 +1015,7 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     } /* Key releases are handled by the process_expiration call above */
 
     /* Store the keycode so we can notice overlaps later */
-    qrecord->record.keycode  = keycode;
+    qrecord->record.keycode = keycode;
     dump_safely();
     set_next_expiration();
     return false; /* Key events can only be released from buffer when safe */
@@ -1066,4 +1079,6 @@ void combo_toggle(void) {
     }
 }
 
-bool is_combo_enabled(void) { return b_combo_enable; }
+bool is_combo_enabled(void) {
+    return b_combo_enable;
+}

@@ -61,7 +61,6 @@ TEST_F(ComboOrder, combo_doesnt_require_order) {
     tap_combo({key_x, key_y, key_z});
     VERIFY_AND_CLEAR(driver);
 
-
     EXPECT_REPORT(driver, (KC_3));
     EXPECT_EMPTY_REPORT(driver);
     // Press Y, X, Z in that order

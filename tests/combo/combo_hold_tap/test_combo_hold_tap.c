@@ -3,10 +3,10 @@
 #include "quantum.h"
 #include "stdio.h"
 
-enum combos {ab_1, xy_2};
+enum combos { ab_1, xy_2 };
 
-uint16_t const ab_1_combo[]     = {KC_A, KC_B, COMBO_END};
-uint16_t const xy_2_combo[]     = {KC_X, KC_Y, COMBO_END};
+uint16_t const ab_1_combo[] = {KC_A, KC_B, COMBO_END};
+uint16_t const xy_2_combo[] = {KC_X, KC_Y, COMBO_END};
 
 // clang-format off
 combo_t key_combos[] = {

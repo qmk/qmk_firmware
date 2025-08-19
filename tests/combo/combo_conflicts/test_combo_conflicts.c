@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 
-enum combos {ab_1, xy_2, axy_3, bxy_4, cxy_5, abcxy_6};
+enum combos { ab_1, xy_2, axy_3, bxy_4, cxy_5, abcxy_6 };
 
-uint16_t const ab_1_combo[]     = {KC_A, KC_B, COMBO_END};
-uint16_t const xy_2_combo[]     = {KC_X, KC_Y,  COMBO_END};
-uint16_t const axy_3_combo[]     = {KC_A, KC_X, KC_Y, COMBO_END};
+uint16_t const ab_1_combo[]    = {KC_A, KC_B, COMBO_END};
+uint16_t const xy_2_combo[]    = {KC_X, KC_Y, COMBO_END};
+uint16_t const axy_3_combo[]   = {KC_A, KC_X, KC_Y, COMBO_END};
 uint16_t const bxy_4_combo[]   = {KC_B, KC_X, KC_Y, COMBO_END};
 uint16_t const cxy_5_combo[]   = {KC_C, KC_X, KC_Y, COMBO_END};
 uint16_t const abcxy_6_combo[] = {KC_A, KC_B, KC_C, KC_X, KC_Y, COMBO_END};

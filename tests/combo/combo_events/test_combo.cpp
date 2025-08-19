@@ -42,7 +42,6 @@ TEST_F(ComboEvents, combo_release) {
     tap_combo({key_x, key_y});
     VERIFY_AND_CLEAR(driver);
 
-
     // Combo deactivates early when y is released
     EXPECT_REPORT(driver, (KC_1)).Times(2);
     EXPECT_REPORT(driver, (KC_1, KC_3));
