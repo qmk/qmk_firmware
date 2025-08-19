@@ -1039,7 +1039,7 @@ void reset_combos(void) {
     SET_NEXT_COMBO(combo, COMBO_NULL_INDEX);
 
     active_combo_count = 0;
-    for (uint8_t i = 0; i < COMBO_BUFFER_LENGTH - 1; i++) {
+    for (uint8_t i = 0; i < COMBO_BUFFER_LENGTH; i++) {
         active_buffer[i].combo_index = COMBO_NULL_INDEX;
         active_buffer[i].state       = 0;
     }
