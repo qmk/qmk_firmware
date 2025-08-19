@@ -4,5 +4,3 @@
 #pragma once
 
 #include "test_common.h"
-
-#define COMBO_CONTIGUOUS_PER_COMBO
