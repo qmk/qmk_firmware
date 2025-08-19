@@ -100,23 +100,7 @@ TEST_F(Combo, combo_disjoint) {
     EXPECT_REPORT(driver, (KC_2));
     EXPECT_EMPTY_REPORT(driver);
     // Press A, B, C, D in that order; trigger combos for A+B and C+D
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_c.press();
-    run_one_scan_loop();
-    key_d.press();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_c.release();
-    run_one_scan_loop();
-    key_d.release();
-    run_one_scan_loop();
+    tap_combo({key_a, key_b, key_c, key_d});
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -128,29 +112,16 @@ TEST_F(Combo, combo_noncontiguous) {
     KeymapKey  key_d(0, 3, 0, KC_D);
     set_keymap({key_a, key_b, key_c, key_d});
 
-    EXPECT_REPORT(driver, (KC_A)).Times(2);
-    EXPECT_REPORT(driver, (KC_A, KC_C)).Times(2);
-    EXPECT_REPORT(driver, (KC_A, KC_C, KC_B)).Times(2);
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_C));
+    EXPECT_REPORT(driver, (KC_A, KC_C, KC_B));
     EXPECT_REPORT(driver, (KC_A, KC_C, KC_B, KC_D));
+    EXPECT_REPORT(driver, (KC_C, KC_B, KC_D));
+    EXPECT_REPORT(driver, (KC_B, KC_D));
+    EXPECT_REPORT(driver, (KC_D));
     EXPECT_EMPTY_REPORT(driver);
     // Press A, C, B, D in that order; don't trigger any combos
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_c.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_d.press();
-    run_one_scan_loop();
-    key_d.release();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_c.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
+    tap_combo({key_a, key_c, key_b, key_d});
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -162,7 +133,6 @@ TEST_F(Combo, combo_modtest_tapped) {
 
     EXPECT_REPORT(driver, (KC_SPACE));
     EXPECT_EMPTY_REPORT(driver);
-    run_one_scan_loop(); // Ensure that combo timer is > 0
     tap_combo({key_y, key_u});
     VERIFY_AND_CLEAR(driver);
 }
