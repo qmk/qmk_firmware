@@ -1,0 +1,7 @@
+{
+    "manufacturer": "QMK Community",
+    "maintainer": "thelowprokill",
+    "usb": {
+        "vid": "0x44DD"
+    }
+}
