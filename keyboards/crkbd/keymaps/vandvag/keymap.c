@@ -19,16 +19,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 // Left-hand home row mods
-#define GUI_A LGUI_T(KC_A)
-#define ALT_S LALT_T(KC_S)
-#define SFT_D LSFT_T(KC_D)
-#define CTL_F LCTL_T(KC_F)
+#define GUI_A  LGUI_T(KC_A)
+#define ALT_S  LALT_T(KC_S)
+#define ALT_R  LALT_T(KC_R)
+#define SFT_D  LSFT_T(KC_D)
+#define SFT_S  LSFT_T(KC_S)
+#define CTL_F  LCTL_T(KC_F)
+#define CTL_TH LCTL_T(KC_T)
 
 // Right-hand home row mods
 #define CTL_J RCTL_T(KC_J)
+#define CTL_N RCTL_T(KC_N)
 #define SFT_K RSFT_T(KC_K)
-#define ALT_L LALT_T(KC_L)
+#define SFT_E RSFT_T(KC_E)
+#define ALT_L RALT_T(KC_L)
+#define ALT_I RALT_T(KC_I)
 #define GUI_SCLN RGUI_T(KC_SCLN)
+#define GUI_O RGUI_T(KC_O)
 
 #define SFT_ENT LSFT_T(KC_ENT)
 #define NUM_ALT LT(_NUM, KC_LALT)
@@ -36,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum crkbd_layers {
     _BASE,
+    _CLMK, // Colemak DH Matrix
     _SYMB,
     _NAV,
     _NUM,
@@ -47,7 +55,7 @@ enum crkbd_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_VOLU,    KC_MUTE,    KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_VOLU,  DF(_CLMK),    KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,  KC_BSPC,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    GUI_A,   ALT_S,   SFT_D,   CTL_F,   KC_G, KC_VOLD,   MO(_RGB),    KC_H,    CTL_J,   SFT_K,  ALT_L,GUI_SCLN, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -57,9 +65,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       //`--------------------------'  `--------------------------'
   ),
 
+    [_CLMK] = LAYOUT_split_3x6_3_ex2(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+       KC_TAB,    KC_Q,    KC_W,    KC_F,    KC_P,    KC_B, KC_VOLU,  DF(_BASE),    KC_J,    KC_L,    KC_U,    KC_Y, KC_SCLN, KC_BSPC,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LCTL,   GUI_A,   ALT_R,   SFT_S,  CTL_TH,    KC_G, KC_VOLD,   MO(_RGB),    KC_M,   CTL_N,   SFT_E,   ALT_I,   GUI_O, KC_QUOT,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,                         KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,  KC_ESC,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                            NUM_ALT,    MO(_SYMB), SFT_ENT,              KC_SPC, NAV_ESC, KC_RALT
+                                      //`--------------------------'  `--------------------------'
+  ),
+
     [_SYMB] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      KC_TAB,  KC_GRV, KC_TILDE, KC_HASH, KC_AMPR, KC_PIPE, KC_VOLU,    KC_MUTE, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC,  KC_DEL,
+      KC_TAB,  KC_GRV, KC_TILDE, KC_HASH, KC_AMPR, KC_PIPE, KC_VOLU,    _______, KC_CIRC, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC,  KC_DEL,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL, KC_EXLM, KC_UNDS, KC_COLN,  KC_EQL,  KC_DLR, KC_VOLD,    _______,   KC_AT, KC_LPRN, KC_RPRN, KC_UNDS, XXXXXXX, KC_PIPE,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -71,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, KC_HOME, KC_PGUP, KC_PSCR, KC_VOLU,    KC_MUTE, _______, _______,   KC_UP, _______, _______, _______,
+      _______, _______, _______, KC_HOME, KC_PGUP, KC_PSCR, KC_VOLU,    _______, _______, _______,   KC_UP, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       RM_TOGG, RM_HUEU, RM_SATU,  KC_END, KC_PGDN, KC_CAPS, KC_VOLD,    _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -83,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NUM] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______, _______, _______, _______, _______, KC_VOLU,    KC_MUTE, _______,    KC_7,    KC_8,    KC_9,    KC_0, _______,
+      _______, _______, _______, _______, _______, _______, KC_VOLU,    _______, _______,    KC_7,    KC_8,    KC_9,    KC_0, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, _______, KC_VOLD,    _______, _______,    KC_4,    KC_5,    KC_6, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -96,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FN] = LAYOUT_split_3x6_3_ex2(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      _______, _______,   KC_F7,   KC_F8,   KC_F9,  KC_F12, KC_VOLU,    KC_MUTE, _______, _______, _______, _______, _______, _______,
+      _______, _______,   KC_F7,   KC_F8,   KC_F9,  KC_F12, KC_VOLU,    _______, _______, _______, _______, _______, _______, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       _______, _______,   KC_F4,   KC_F5,   KC_F6,  KC_F11, KC_VOLD,    _______, _______, KC_RCTL, KC_RSFT, KC_RALT, KC_RGUI, _______,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
