@@ -23,61 +23,27 @@ TEST_F(ComboOrder, combo_requires_order) {
 
     EXPECT_REPORT(driver, (KC_1));
     EXPECT_EMPTY_REPORT(driver);
-    // Press A, B, C in that order; release C, B, A
-    // triggers ABC combo in order
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_c.press();
-    run_one_scan_loop();
-    key_c.release();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
+    // Press A, B, C in that order
+    // triggers ABC combo
+    tap_combo({key_a, key_b, key_c});
     VERIFY_AND_CLEAR(driver);
 
     EXPECT_REPORT(driver, (KC_2));
     EXPECT_EMPTY_REPORT(driver);
     // Press C, A, B in that order; release B, A, C
     // triggers CAB combo in order
-    run_one_scan_loop();
-    key_c.press();
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
-    key_c.release();
-    run_one_scan_loop();
+    tap_combo({key_c, key_a, key_b});
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_A)).Times(2);
-    EXPECT_REPORT(driver, (KC_A, KC_C)).Times(2);
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_C));
     EXPECT_REPORT(driver, (KC_A, KC_C, KC_B));
+    EXPECT_REPORT(driver, (KC_C, KC_B));
+    EXPECT_REPORT(driver, (KC_B));
     EXPECT_EMPTY_REPORT(driver);
-    // Press A, C, B; release B, C, A
+    // Press A, C, B
     // does not trigger any combo
-    run_one_scan_loop();
-    key_a.press();
-    run_one_scan_loop();
-    key_c.press();
-    run_one_scan_loop();
-    key_b.press();
-    run_one_scan_loop();
-    key_b.release();
-    run_one_scan_loop();
-    key_c.release();
-    run_one_scan_loop();
-    key_a.release();
-    run_one_scan_loop();
+    tap_combo({key_a, key_c, key_b});
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -90,40 +56,16 @@ TEST_F(ComboOrder, combo_doesnt_require_order) {
 
     EXPECT_REPORT(driver, (KC_3));
     EXPECT_EMPTY_REPORT(driver);
-    // Press X, Y, Z in that order; release Z, Y, X
+    // Press X, Y, Z in that order
     // triggers XYZ combo
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_z.press();
-    run_one_scan_loop();
-    key_z.release();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
+    tap_combo({key_x, key_y, key_z});
     VERIFY_AND_CLEAR(driver);
 
 
     EXPECT_REPORT(driver, (KC_3));
     EXPECT_EMPTY_REPORT(driver);
-    // Press Y, X, Z in that order; release Z, X, Y
+    // Press Y, X, Z in that order
     // triggers XYZ combo
-    run_one_scan_loop();
-    key_y.press();
-    run_one_scan_loop();
-    key_x.press();
-    run_one_scan_loop();
-    key_z.press();
-    run_one_scan_loop();
-    key_z.release();
-    run_one_scan_loop();
-    key_x.release();
-    run_one_scan_loop();
-    key_y.release();
-    run_one_scan_loop();
+    tap_combo({key_y, key_x, key_z});
     VERIFY_AND_CLEAR(driver);
 }
