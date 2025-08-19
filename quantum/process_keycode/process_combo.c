@@ -201,12 +201,6 @@ __attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *c
 }
 #endif
 
-#ifdef COMBO_DETAILED_EVENTS_PER_COMBO
-__attribute__((weak)) bool get_combo_needs_details(uint16_t index, combo_t *combo) { return false; }
-__attribute__((weak)) void process_combo_detailed_press(uint16_t index, combo_t *combo, keyrecord_t *triggers) {}
-static keyrecord_t         triggers[MAX_COMBO_LENGTH];
-#endif
-
 #ifdef COMBO_PROCESS_KEY_RELEASE
 __attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode, keyevent_t *event) { return false; }
 #endif
@@ -734,8 +728,7 @@ void dump_keyrecord(keyrecord_t *record) {
 #endif
 }
 
-/* Insert combo into active queue, process the combo's outcome, and
- * initialize detailed active state */
+/* Insert combo into active queue and process the combo's outcome */
 void activate_combo(queued_record_t *qrecord) {
     combo_state_t  combo_index = GET_NEXT_COMBO(qrecord);
     combo_t       *combo       = combo_get(combo_index);
@@ -749,24 +742,7 @@ void activate_combo(queued_record_t *qrecord) {
     combo_queue_insert(&active_head, combo_index, combo);
 
     if (!combo->keycode) {
-#ifdef COMBO_DETAILED_EVENTS_PER_COMBO
-        if (get_combo_needs_details(combo_index, combo)) {
-            triggers[0]                  = qrecord->record;
-            uint8_t       trigger_index  = 1;
-            combo_state_t consumed_state = ((combo_index << COMBO_STATE_BITS) & COMBO_KEY_CONSUMED);
-            for (uint8_t i = 0; i < key_buffer_size; i++) {
-                queued_record_t *buffer_entry = GET_QUEUED_RECORD(i);
-                if (qrecord->state == consumed_state) {
-                    triggers[trigger_index] = buffer_entry->record;
-                    trigger_index++;
-                }
-            }
-            process_combo_detailed_press(combo_index, combo, triggers);
-        } else
-#endif
-        {
             process_combo_event(combo_index, true);
-        }
     } else {
         keyrecord_t record = {
             .event = {
@@ -800,13 +776,6 @@ bool release_from_active(keyrecord_t *record) {
                 released = true;
                 *combo_state &= ~(1 << key_index);
 
-#ifdef COMBO_DETAILED_EVENTS_PER_COMBO
-                if (get_combo_needs_details(iter.combo_index, iter.combo)) {
-                    if (process_combo_detailed_release(iter.combo_index, iter.combo, key_index, record->keycode, &record->event)) {
-                        *combo_state = 0;
-                    }
-                }
-#endif
 #ifdef COMBO_PROCESS_KEY_RELEASE
                 if (process_combo_key_release(iter.combo_index, iter.combo, key_index, record->keycode)) {
                     *combo_state = 0;

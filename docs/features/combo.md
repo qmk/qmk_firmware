@@ -28,7 +28,7 @@ A combo will trigger if and only if
         - A hold, tap, ordering, contiguity, or generic `combo_should_trigger` condition prevents it from firing (see below). By default, this constraints all combos to be *contiguous*. That means that if a key that doesn't belong to the combo is pressed between the first and last triggers, then the combo will not fire. (However, irrelevant key *releases* will not interrupt combos.)
         - An overlapping combo with higher priority triggers instead
  
-Combos, and key presses/releases not consumed by combos, will always be released in their event order. The event time of a combo is that of its FIRST trigger key press (so that the relevant keys are still in the buffer for combos requiring detailed event processing)
+Combos, and key presses/releases not consumed by combos, will always be released in their event order. The event time of a combo is that of its FIRST trigger key press.
 
 Each key press will be consumed by at most one combo. That means that when overlapping combos have all trigger keys pressed, we need to decide which one will fire. By default, we prioritize combos as follows:
 - first, we prioritize combos whose first trigger key was pressed earliest
