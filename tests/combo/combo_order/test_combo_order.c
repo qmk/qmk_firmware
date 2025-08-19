@@ -1,6 +1,4 @@
-// Copyright 2023 Stefan Kerkmann (@KarlK90)
-// Copyright 2023 @filterpaper
-// Copyright 2023 Nick Brassel (@tzarc)
+// Copyright 2025 @johnwilmes
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "quantum.h"
 #include "stdio.h"
