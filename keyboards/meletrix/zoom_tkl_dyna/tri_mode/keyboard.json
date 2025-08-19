@@ -20,7 +20,7 @@
     },
     "ws2812": {
         "driver": "pwm",
-        "pin":     "A1",
+        "pin":     "B8",
         "rgbw":   false
     },
     "rgb_matrix": {
