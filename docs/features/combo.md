@@ -17,6 +17,24 @@ combo_t key_combos[] = {
 
 This will send "Escape" if you hit the A and B keys, and Ctrl+Z when you hit the C and D keys.
 
+## Combo timing and triggering
+
+A combo will trigger if and only if
+    - all of its keys are pressed within its combo term (by default defined as `COMBO_TERM` milliseconds), and
+    - none of the following occurs
+        - One of the combo's keys was released before the final key was pressed
+        - Two events (press and/or release) occur for any one keycode (whether or not it belongs to the combo) between the first and last triggering key presses
+        - The key buffer overflows between the first and last key presses of the combo
+        - A hold, tap, ordering, contiguity, or generic `combo_should_trigger` condition prevents it from firing (see below). By default, this constraints all combos to be *contiguous*. That means that if a key that doesn't belong to the combo is pressed between the first and last triggers, then the combo will not fire. (However, irrelevant key *releases* will not interrupt combos.)
+        - An overlapping combo with higher priority triggers instead
+ 
+Combos, and key presses/releases not consumed by combos, will always be released in their event order. The event time of a combo is that of its FIRST trigger key press (so that the relevant keys are still in the buffer for combos requiring detailed event processing)
+
+Each key press will be consumed by at most one combo. That means that when overlapping combos have all trigger keys pressed, we need to decide which one will fire. By default, we prioritize combos as follows:
+- first, we prioritize combos whose first trigger key was pressed earliest
+- next, we prioritize longer combos
+- finally, we prioritize combos with a larger index (i.e., appearing later in the list of combos)
+
 ## Advanced Keycodes Support
 Advanced keycodes, such as [Mod-Tap](../mod_tap) and [Tap Dance](tap_dance) are also supported together with combos. If you use these advanced keycodes in your keymap, you will need to place the full keycode in the combo definition, e.g.:
 
@@ -114,28 +132,33 @@ You can enable, disable and toggle the Combo feature on the fly. This is useful 
 These configuration settings can be set in your `config.h` file.
 
 ### Combo Term
-By default, the timeout for the Combos to be recognized is set to 50ms. This can be changed if accidental combo misfires are happening or if you're having difficulties pressing keys at the same time. For instance, `#define COMBO_TERM 40` would set the timeout period for combos to 40ms.
+By default, the timeout for the Combos to be recognized is set to 150ms. This can be changed if accidental combo misfires are happening or if you're having difficulties pressing keys at the same time. For instance, `#define COMBO_TERM 40` would set the timeout period for combos to 40ms. See below for how to define this differently for each combo.
 
 ### Buffer and state sizes
-If you're using long combos, or you have a lot of overlapping combos, you may run into issues with this, as the buffers may not be large enough to accommodate what you're doing. In this case, you can configure the sizes of the buffers used. Be aware, larger combo sizes and larger buffers will increase memory usage!
 
-To configure the amount of keys a combo can be composed of, change the following:
+To configure the maximum amount of keys a combo can be composed of, change the following:
 
-| Keys | Define to be set                  |
+| Keys (`MAX_COMBO_LENGTH`) | Define to be set                  |
 |------|-----------------------------------|
-| 6    | `#define EXTRA_SHORT_COMBOS`      |
+| 4    | `#define EXTRA_SMALL_COMBOS`      |
 | 8    | QMK Default                       |
 | 16   | `#define EXTRA_LONG_COMBOS`       |
 | 32   | `#define EXTRA_EXTRA_LONG_COMBOS` |
 
-Defining `EXTRA_SHORT_COMBOS` combines a combo's internal state into just one byte. This can, in some cases, save some memory. If it doesn't, no point using it. If you do, you also have to make sure you don't define combos with more than 6 keys.
 
-Processing combos has two buffers, one for the key presses, another for the combos being activated. Use the following options to configure the sizes of these buffers:
+A larger maximum combo length will cause a (pretty negligible) increase in memory usage. Another cost of longer combos is limiting the maximum number of combos that can be defined. The maximum combo count is `(65536 / MAX_COMBO_LENGTH) - 1`. If you really need more, you can `#define MANY_COMBOS`, but this will increase the memory usage of each combo.
+
+If you have a modest number of combos that aren't too large, you can save additional memory by defining `COMBO_COMPRESSED`. This compresses the internal state of each combo to a single byte. However, this should ONLY be set if you have fewer than `(256/MAX_COMBO_LENGTH) -1` combos, where `MAX_COMBO_LENGTH` is inferred from the flags above.
+
+
+Processing combos requires two buffers, one for the key presses, another for currently active combos. Use the following options to configure the sizes of these buffers:
 
 | Define                              | Default                                              |
 |-------------------------------------|------------------------------------------------------|
-| `#define COMBO_KEY_BUFFER_LENGTH 8` | 8 (the key amount `(EXTRA_)EXTRA_LONG_COMBOS` gives) |
+| `#define COMBO_KEY_BUFFER_LENGTH 8` | `MAX_COMBO_LENGTH` + 4 |
 | `#define COMBO_BUFFER_LENGTH 4`     | 4                                                    |
+
+If the key buffer overflows, then completed combos might get activated before their hold term expires, and incomplete combos might get inactivated. If the combo buffer overflows, then active combos might be deactivated before all their keys are released. Longer buffers increase memory usage.
 
 ### Modifier Combos
 If a combo resolves to a Modifier, the window for processing the combo can be extended independently from normal combos. By default, this is disabled but can be enabled with `#define COMBO_MUST_HOLD_MODS`, and the time window can be configured with `#define COMBO_HOLD_TERM 150` (default: `TAPPING_TERM`). With `COMBO_MUST_HOLD_MODS`, you cannot tap the combo any more which makes the combo less prone to misfires.
@@ -143,8 +166,8 @@ If a combo resolves to a Modifier, the window for processing the combo can be ex
 ### Strict key press order
 By defining `COMBO_MUST_PRESS_IN_ORDER` combos only activate when the keys are pressed in the same order as they are defined in the key array.
 
-### Per Combo Timing, Holding, Tapping and Key Press Order
-For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, if it needs to be tapped, or if its keys need to be pressed in order.
+### Per Combo Timing, Holding, Tapping, Key Press Order, and Contiguity
+For each combo, it is possible to configure the time window it has to pressed in, if it needs to be held down, if it needs to be tapped, if its keys need to be pressed in order, or if its key presses need to be contiguous.
 
 For example, tap-only combos are useful if any (or all) of the underlying keys are mod-tap or layer-tap keys. When you tap the combo, you get the combo result. When you press the combo and hold it down, the combo doesn't activate. Instead the keys are processed separately as if the combo wasn't even there.
 
@@ -156,6 +179,8 @@ In order to use these features, the following configuration options and function
 | `COMBO_MUST_HOLD_PER_COMBO` | `bool get_combo_must_hold(uint16_t combo_index, combo_t *combo)` | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
 | `COMBO_MUST_TAP_PER_COMBO`  | `bool get_combo_must_tap(uint16_t combo_index, combo_t *combo)`  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
 | `COMBO_MUST_PRESS_IN_ORDER_PER_COMBO` | `bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo)` | Controls if a given combo should fire only if its keys are pressed in order. (default: `true`) |
+| `COMBO_CONTIGUOUS_PER_COMBO` | `bool is_combo_contiguous(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys)` | Controls if a partially activated combo should be de-activated by a keypress not included in the combo |
+| `COMBO_SHOULD_TRIGGER` | `combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record)` | 
 
 Examples:
 ```c
@@ -177,7 +202,7 @@ uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
     // i.e. the exact array of keys you defined for the combo.
     // This can be useful if your combos have a common key and you want to apply the
     // same combo term for all of them.
-    if (combo->keys[0] == KC_ENT) { // if first key in the array is Enter
+    if (pgm_read_word(&combo->keys[0]) == KC_ENT) { // if first key in the array is Enter
         return 150;
     }
 
@@ -239,12 +264,41 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
     }
 }
 #endif
+
+#ifdef COMBO_CONTIGUOUS_PER_COMBO
+bool is_combo_contiguous(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys) {
+    /* Decide if a key *press* for a key not involved in a combo should interrupt that combo.
+     * A "contiguous" combo requires that all the keys of the combo are pressed together, without any other key presses
+     * occurring in between. A "non-contiguous" combo will still fire even if irrelevant keys are pressed between its triggers.
+     * This function lets us define that behavior on a per-combo basis, and even based on which non-combo key has been pressed
+     *
+     * `index` and `combo` as above
+     * `keycode` and `record` describe a key that has been pressed that DOES NOT belong to this combo
+     * `n_unpressed_keys` is the number of keys of combo we are still waiting to be pressed for the combo to complete
+     */
+    if (keycode == KC_LCTL) {
+        return false; // left control doesn't interrupt any combo
+    }
+    switch (combo_index) {
+        case MY_INDEPENDENT_COMBO_1:
+        case MY_INDEPENDENT_COMBO_2:
+            // I like to mash these together, so they shouldn't be contiguous
+            return false;
+        default:
+            // Default to requiring that no unrelated key presses interrupt the combo
+            return true;
+    }
+}
+#endif
 ```
 
 ### Generic hook to (dis)allow a combo activation
 
 By defining `COMBO_SHOULD_TRIGGER` and its companying function `bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record)` you can block or allow combos to activate on the conditions of your choice.
 For example, you could disallow some combos on the base layer and allow them on another. Or disable combos on the home row when a timer is running.
+
+This function is called for every keypress for keys included in the combo. It must return true for each of these keypresses in
+order for the combo to trigger.
 
 Examples:
 ```c
@@ -261,24 +315,24 @@ bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode
 }
 ```
 
-### Combo timer
+### Customizable combo prioritization
 
-Normally, the timer is started on the first key press and then reset on every subsequent key press within the `COMBO_TERM`.
-Inputting combos is relaxed like this, but also slightly more prone to accidental misfires.
+If the default prioritization of combos described above doesn't work for you, you can override it by defining the following function:
 
-The next two options alter the behaviour of the timer.
+```c
+/* Return true if combo1 is preferred to combo2 if they could both activate.
+ * Default behavior: prefer longer combos, and break ties by preferring combos with higher indices */
+bool is_combo_preferred(combo_state_t combo_index1, combo_state_t combo_index2, uint8_t combo_length1) {
+    uint8_t combo_length2 = _get_combo_length(combo_get(combo_index2));
+    if (combo_length1 > combo_length2) {
+        return true;
+    }
+    return combo_index1 > combo_index2;
+}
+```
 
-#### `#define COMBO_STRICT_TIMER`
+However, we always prefer combos whose first triggering key is earlier, even if they are shorter. E.g., if I press `A,B,C,D` in order, then combo `A+B` will be preferred to `B+C+D` regardless of how `is_combo_preferred` is implemented.
 
-With `COMBO_STRICT_TIMER`, the timer is started only on the first key press.
-Inputting combos is now less relaxed; you need to make sure the full chord is pressed within the `COMBO_TERM`.
-Misfires are less common but if you type multiple combos fast, there is a
-chance that the latter ones might not activate properly.
-
-#### `#define COMBO_NO_TIMER`
-
-By defining `COMBO_NO_TIMER`, the timer is disabled completely and combos are activated on the first key release.
-This also disables the "must hold" functionalities as they just wouldn't work at all.
 
 ### Customizable key releases
 
@@ -315,6 +369,7 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
     return false;
 }
 ```
+
 
 ### Customizable key repress
 By defining `COMBO_PROCESS_KEY_REPRESS` and implementing `bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)` you can run your custom code when you repress just released key of a combo. By combining it with custom `process_combo_event` we can for example make special handling for Alt+Tab to switch windows, which, on combo F+G activation, registers Alt and presses Tab - then we can switch windows forward by releasing G and pressing it again, or backwards with F key. Here's the full example:

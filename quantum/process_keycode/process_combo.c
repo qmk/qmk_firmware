@@ -30,31 +30,6 @@
 /* Enabled at matrix initialization, when linked lists are initialized */
 static bool b_combo_enable = false;
 
-/* Combo guarantees:
- * A combo will trigger if and only if
- *  - all of its keys are pressed within its combo term, and
- *  - none of the following occurs
- *      - One of the combo's keys was released before the final key was
- *        pressed
- *      - Two events (press and/or release) occur for any one keycode
- *        (whether or not it belongs to the combo) between the first and
- *        last triggering key presses
- *      - The combo has the "contiguous" requirement, and an unrelated key
- *        was pressed between the first and last triggering key presses
- *      - The combo has the "tap" requirement, but no triggering key is
- *        released within the hold term
- *      - The combo has the "hold" requirement, but a triggering key is
- *        released within the hold term
- *      - An overlapping combo with higher priority triggers instead
- *      - The key buffer overflows between the first and last key presses of
- *        the combo
- *
- * Combos, and key presses/releases not consumed by combos, will always be
- * released in their event order. The event time of a combo is that of its
- * FIRST trigger key press (so that the relevant keys are still in the
- * buffer for combos requiring detailed event processing)
- */
-
 /* Combo statuses:
  * Inactive: no triggering key presses are available for legal assignment to
  * this combo
@@ -68,7 +43,7 @@ static bool b_combo_enable = false;
  *  - moves to complete status if all triggering keys are pressed
  *
  * Complete: all triggering keys have been pressed, but either the combo
- * term has not yet elapsed, or a tap is required has not yet occurred, or a
+ * term has not yet elapsed, or a tap is required but has not yet occurred, or a
  * hold is required but the hold term has not yet elapsed
  *  - moves to ripe status if combo/hold term elapses or tap occurs,
  *    according to combo requirements
@@ -229,12 +204,11 @@ __attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *c
 #ifdef COMBO_DETAILED_EVENTS_PER_COMBO
 __attribute__((weak)) bool get_combo_needs_details(uint16_t index, combo_t *combo) { return false; }
 __attribute__((weak)) void process_combo_detailed_press(uint16_t index, combo_t *combo, keyrecord_t *triggers) {}
-__attribute__((weak)) bool process_combo_detailed_release(uint16_t index, combo_t *combo, uint8_t key_index, uint16_t keycode, keyevent_t *event) { return false; }
 static keyrecord_t         triggers[MAX_COMBO_LENGTH];
 #endif
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) { return false; }
+__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode, keyevent_t *event) { return false; }
 #endif
 
 #ifdef COMBO_PROCESS_KEY_REPRESS
@@ -331,13 +305,15 @@ __attribute__((weak)) bool is_combo_preferred(combo_state_t combo_index1, combo_
     return combo_index1 > combo_index2;
 }
 
+#ifdef COMBO_CONTIGUOUS_PER_COMBO
 __attribute__((weak)) bool is_combo_contiguous(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys) {
     return true;
 }
+#endif
 
 /* Default behavior (if none of COMBO_MUST_PRESS_IN_ORDER, COMBO_MUST_PRESS_IN_ORDER_PER_COMBO, or COMBO_SHOULD_TRIGGER are defined)
  * is to be interrupted by any key not contained in a combo, and otherwise to not be interrupted (require contiguous presses). */
-__attribute__((weak)) bool is_combo_interrupted(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys, bool combo_has_key) {
+bool is_combo_interrupted(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys, bool combo_has_key) {
     if (combo_has_key) {
 #ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
         if (get_combo_must_press_in_order(index, combo)) {
@@ -360,7 +336,12 @@ __attribute__((weak)) bool is_combo_interrupted(uint16_t index, combo_t *combo, 
         return false;
 #endif
     }
+#ifdef COMBO_CONTIGUOUS_PER_COMBO
     return is_combo_contiguous(index, combo, keycode, record, n_unpressed_keys);
+#else
+    /* By default, all combos are contiguous */
+    return true;
+#endif
 }
 
 /*************************
