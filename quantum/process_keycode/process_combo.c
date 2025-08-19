@@ -202,7 +202,7 @@ __attribute__((weak)) bool combo_should_trigger(uint16_t combo_index, combo_t *c
 #endif
 
 #ifdef COMBO_PROCESS_KEY_RELEASE
-__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode, keyevent_t *event) { return false; }
+__attribute__((weak)) bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) { return false; }
 #endif
 
 #ifdef COMBO_PROCESS_KEY_REPRESS
