@@ -12,9 +12,9 @@
 using testing::_;
 using testing::InSequence;
 
-class ComboConflicts : public TestFixture {};
+class ComboHoldTap : public TestFixture {};
 
-TEST_F(ComboConflicts, combo_hold) {
+TEST_F(ComboHoldTap, combo_hold) {
     TestDriver driver;
     KeymapKey  key_a(0, 0, 1, KC_A);
     KeymapKey  key_b(0, 0, 2, KC_B);
@@ -33,7 +33,7 @@ TEST_F(ComboConflicts, combo_hold) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(ComboConflicts, combo_tap) {
+TEST_F(ComboHoldTap, combo_tap) {
     TestDriver driver;
     KeymapKey  key_x(0, 0, 1, KC_X);
     KeymapKey  key_y(0, 0, 2, KC_Y);

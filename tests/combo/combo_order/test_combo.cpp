@@ -12,9 +12,9 @@
 using testing::_;
 using testing::InSequence;
 
-class ComboConflicts : public TestFixture {};
+class ComboOrder : public TestFixture {};
 
-TEST_F(ComboConflicts, combo_requires_order) {
+TEST_F(ComboOrder, combo_requires_order) {
     TestDriver driver;
     KeymapKey  key_a(0, 0, 0, KC_A);
     KeymapKey  key_b(0, 1, 0, KC_B);
@@ -81,7 +81,7 @@ TEST_F(ComboConflicts, combo_requires_order) {
     VERIFY_AND_CLEAR(driver);
 }
 
-TEST_F(ComboConflicts, combo_doesnt_require_order) {
+TEST_F(ComboOrder, combo_doesnt_require_order) {
     TestDriver driver;
     KeymapKey  key_x(0, 0, 0, KC_X);
     KeymapKey  key_y(0, 1, 0, KC_Y);
