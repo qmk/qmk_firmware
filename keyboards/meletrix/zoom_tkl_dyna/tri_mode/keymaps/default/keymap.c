@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] ={
      * ├───────┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───────┤     ├───────┼───────┼───────┤
      * │    2,0    │  2,1  │  2,2  │  2,3  │  2,4  │  2,5  │  2,6  │  2,7  │  2,8  │  2,9  │  2,10 │  2,11 │  2,12 │  2,13 │     │  2,14 │  2,15 │  4,15 │
      * ├───────────┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───────┤     └───────┴───────┴───────┘
-     * │   3,0   3,0   │  3,1  │  3,2  │  3,3  │  3,4  │  3,5  │  3,6  │  3,7  │  3,8  │  3,9  │  3,10 │  3,11 │   3,13    │      
+     * │   3,0   3,0   │  3,1  │  3,2  │  3,3  │  3,4  │  3,5  │  3,6  │  3,7  │  3,8  │  3,9  │  3,10 │  3,11 │   3,13    │
      * ├───────────────┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───────────┤             ┌───────┐
      * │  4,0   4,0   4,1  │  4,2  │  4,3  │  4,4  │  4,5  │  4,6  │  4,7  │  4,8  │  4,9  │  4,10 │  4,11 │ 4,12 4,12 4,13│             │  4,14 │
      * ├───────────┬───────┼───────┴────┬──┴───────┴───────┴───────┴───────┴───────┴───────┴──────┬┴──────┬┴──────┬────────┤     ┌───────┼───────┼───────┐
@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] ={
      * ├───────┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───────┤     ├───────┼───────┼───────┤
      * │   Tab     │   Q   │   W   │   E   │   R   │   T   │   Y   │   U   │   I   │   O   │   P   │   [   │   ]   │   \   │     │  Del  │  End  │  PgD  │
      * ├───────────┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───────┤     └───────┴───────┴───────┘
-     * │   Caps Lock   │   A   │   S   │   D   │   F   │   G   │   H   │   J   │   K   │   L   │   ;   │   '   │  Enter    │      
+     * │   Caps Lock   │   A   │   S   │   D   │   F   │   G   │   H   │   J   │   K   │   L   │   ;   │   '   │  Enter    │
      * ├───────────────┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───┬───┴───────────┤             ┌───────┐
      * │     Shift         │   Z   │   X   │   C   │   V   │   B   │   N   │   M   │   ,   │   .   │   /   │     Shift     │             │   ↑   │
      * ├─────────┬─────────┼───────┴────┬──┴───────┴───────┴───────┴───────┴───────┴───────┴──────┬┴──────┬┴──────┬────────┤     ┌───────┼───────┼───────┐
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] ={
      */
 
     [0] = LAYOUT(
-        KC_ESC,  QK_BOOT,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_F13,                    KC_PSCR,KC_SCRL, KC_PAUS, 
+        KC_ESC,  QK_BOOT,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_F13,                    KC_PSCR,KC_SCRL, KC_PAUS,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,   KC_BSPC,         KC_INS, KC_HOME, KC_PGUP,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,                    KC_DEL, KC_END, KC_PAGE_DOWN,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,
@@ -48,10 +48,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] ={
     )
 };
 
-#if defined(ENCODER_MAP_ENABLE)
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-        [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
-        [1] = { ENCODER_CCW_CW(QK_RGB_MATRIX_VALUE_DOWN, QK_RGB_MATRIX_VALUE_UP)  },
-        [2] = { ENCODER_CCW_CW(QK_RGB_MATRIX_VALUE_DOWN, QK_RGB_MATRIX_VALUE_UP)  }
-    };
-#endif
+// #if defined(ENCODER_MAP_ENABLE)
+//     const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+//         [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
+//         [1] = { ENCODER_CCW_CW(QK_RGB_MATRIX_VALUE_DOWN, QK_RGB_MATRIX_VALUE_UP)  },
+//         [2] = { ENCODER_CCW_CW(QK_RGB_MATRIX_VALUE_DOWN, QK_RGB_MATRIX_VALUE_UP)  }
+//     };
+// #endif

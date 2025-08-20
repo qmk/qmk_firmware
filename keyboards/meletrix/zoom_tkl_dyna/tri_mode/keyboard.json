@@ -9,7 +9,7 @@
     },
     "matrix_pins": {
         "cols": ["C3", "C2", "C1", "C0", "C13", "B7", "B3", "C12", "C11", "F7", "F6", "A8", "C9", "C8", "C7", "C6"],
-        "rows": ["B12", "D2", "A7", "A6", "A5", "A4"] 
+        "rows": ["B12", "D2", "A7", "A6", "A5", "A4"]
     },
     "processor": "AT32F405",
     "url": "",
@@ -20,8 +20,7 @@
     },
     "ws2812": {
         "driver": "pwm",
-        "pin":     "B8",
-        "rgbw":   false
+        "pin":     "B8"
     },
     "rgb_matrix": {
         "animations": {
@@ -135,7 +134,7 @@
                 { "h": 1, "label":        "Insert", "matrix": [ 1, 14 ], "w":    1, "x":    14, "y": 1.25 },
                 { "h": 1, "label":          "Home", "matrix": [ 1, 15 ], "w":    1, "x":    15, "y": 1.25 },
                 { "h": 1, "label":        "PageUp", "matrix": [ 3, 15 ], "w":    1, "x":    15, "y": 1.25 },
-                
+
                 { "h": 1, "label":           "Tab", "matrix": [ 2,  0 ], "w": 1.50, "x":     0, "y": 2.25 },
                 { "h": 1, "label":             "Q", "matrix": [ 2,  1 ], "w":    1, "x":  1.50, "y": 2.25 },
                 { "h": 1, "label":             "W", "matrix": [ 2,  2 ], "w":    1, "x":  2.50, "y": 2.25 },
