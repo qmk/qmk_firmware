@@ -25,10 +25,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_PGDN,          KC_LCTL, KC_LGUI, KC_LALT, MO(1),   KC_SPC,  KC_SPC,      KC_SPC,  KC_SPC,  KC_RALT, KC_RGUI, KC_MENU, KC_RCTL
   ),
   [1] = LAYOUT(
-    KC_MUTE, QK_BOOT, _______, UG_HUED, UG_HUEU, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______, KC_DEL,
-    BL_STEP,          _______, UG_SATD, UG_SATU, _______, _______, _______,     _______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______,
-    UG_NEXT,          _______, UG_VALD, UG_VALU, _______, _______, _______,     _______, KC_4,    KC_5,    KC_6,    _______, _______,          _______,
-    KC_VOLU,          _______, _______, _______, _______, _______, _______,     _______, KC_1,    KC_2,    KC_3,    _______, _______, _______,
+    KC_MUTE, QK_BOOT, KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  _______, KC_DEL,
+    BL_STEP,          RM_NEXT, UG_SATD, UG_SATU, _______, _______, _______,     _______, KC_7,    KC_8,    KC_9,    _______, _______, _______, _______,
+    UG_NEXT,          RM_TOGG, UG_VALD, UG_VALU, _______, _______, _______,     _______, KC_4,    KC_5,    KC_6,    _______, _______,          _______,
+    KC_VOLU,          _______, UG_HUED, UG_HUEU, _______, _______, _______,     _______, KC_1,    KC_2,    KC_3,    _______, _______, _______,
     KC_VOLD,          _______, _______, _______, _______, _______, _______,     _______, KC_0,    _______, _______, _______, _______
   ),
 };
