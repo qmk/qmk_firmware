@@ -8,11 +8,8 @@
         "pid": "0x002E"
     },
     "community_layouts": ["tkl_nofrow_ansi", "tkl_nofrow_iso"],
-    "layout_aliases": {
-        "LAYOUT_all": "LAYOUT"
-    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
