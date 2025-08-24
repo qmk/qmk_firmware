@@ -1,0 +1,80 @@
+{
+    "manufacturer": "dj505",
+    "keyboard_name": "PicoFX",
+    "url": "https://github.com/dj505/PicoFX",
+    "maintainer": "jjc1138",
+
+    "bootloader": "rp2040",
+    "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable, or if a version of this firmware is installed, then hold down the Service button when connecting the USB cable",
+    "processor": "RP2040",
+
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4658",
+        "vid": "0xFEED"
+    },
+
+    "features": {
+        "bootmagic": true,
+        "extrakey": true
+    },
+
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [14, 0]
+    },
+
+    "matrix_pins": {
+        "direct": [
+            ["GP0"],
+            [null],
+            ["GP2"],
+            [null],
+            ["GP4"],
+            [null],
+            ["GP6"],
+            [null],
+            ["GP8"],
+            [null],
+            ["GP10"],
+            [null],
+            [null],
+            [null],
+            ["GP14"],
+            ["GP15"],
+            [null],
+            ["GP17"],
+            [null],
+            ["GP19"],
+            [null],
+            ["GP21"],
+            [null],
+            [null],
+            [null],
+            [null],
+            [null],
+            ["GP27"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "P1 UL", "matrix": [19, 0], "x": 0, "y": 0},
+                {"label": "P1 UR", "matrix": [6, 0], "x": 2, "y": 0},
+                {"label": "P2 UL", "matrix": [27, 0], "x": 3, "y": 0},
+                {"label": "P2 UR", "matrix": [0, 0], "x": 5, "y": 0},
+
+                {"label": "P1 CN", "matrix": [10, 0], "x": 1, "y": 1},
+                {"label": "P2 CN", "matrix": [2, 0], "x": 4, "y": 1},
+
+                {"label": "P1 DL", "matrix": [21, 0], "x": 0, "y": 2},
+                {"label": "P1 DR", "matrix": [8, 0], "x": 2, "y": 2},
+                {"label": "P2 DL", "matrix": [17, 0], "x": 3, "y": 2},
+                {"label": "P2 DR", "matrix": [4, 0], "x": 5, "y": 2},
+
+                {"label": "Service", "matrix": [14, 0], "x": 6.5, "y": 0.5},
+                {"label": "Test", "matrix": [15, 0], "x": 6.5, "y": 1.5}
+            ]
+        }
+    }
+}
