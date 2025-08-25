@@ -4,10 +4,8 @@ F_CPU = 8000000
 # External oscillator is 16 MHz
 F_USB = 16000000
 
-
 # Build options
-#   change yes to no to disable
-#
+#   change "yes" to "no" to disable
 RGB_MATRIX_CUSTOM_KB = yes  # Custom keyboard effects
 
 # Add System76 EC command interface as well as I2C and USB mux drivers
