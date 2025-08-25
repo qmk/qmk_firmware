@@ -1,27 +1,14 @@
 {
-    "manufacturer": "Stoeph",
-    "keyboard_name": "0_macropad",
-    "maintainer": "Stephan-Fis",
-    "bootloader": "rp2040",
-    "diode_direction": "COL2ROW",
-    "features": {
-	"bootmagic": true,
-	"extrakey": true,
-	"mousekey": true,
-	"nkro": true
-	},
-	"matrix_pins": {
-	  "rows": ["GP16", "GP17", "GP18", "GP19", "GP20"],
-	  "cols": ["GP10", "GP11", "GP12", "GP13", "GP14", "GP15"]
-	},
-    "processor": "RP2040",
-    "url": "",
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
-    },
-	"layouts": {
+  "name": "macropad_5x6",
+  "vendor_id": "0xFEED",
+  "product_id": "0x6060",
+  "features": ["rgb", "midi"],
+  "lighting": "none",
+  "matrix": {
+    "rows": 5,
+    "cols": 6
+  },
+  "layouts": {
 	  "LAYOUT_6x5": {
 		"layout": [
 		  { "label": "KC_C1", "x": 0, "y": 0, "matrix": [0, 0] },

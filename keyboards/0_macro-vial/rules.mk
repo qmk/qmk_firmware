@@ -1,0 +1,3 @@
+VIAL_ENABLE = yes
+MIDI_ENABLE = yes
+RGBLIGHT_ENABLE = yes
