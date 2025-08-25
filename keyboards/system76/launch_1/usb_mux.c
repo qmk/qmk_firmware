@@ -97,7 +97,7 @@ i2c_status_t usb7206_read_reg(struct USB7206 *self, uint32_t addr, uint8_t *data
     uint8_t data_with_buffer_length[length];
     status = i2c_read_register16(self->addr << 1, read, data_with_buffer_length, length, I2C_TIMEOUT);
 
-    for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
+    for (uint16_t i = 0; i < (length - 1) && status >= 0; ++i) {
         data[i] = data_with_buffer_length[i+1];
     }
 
@@ -143,11 +143,11 @@ i2c_status_t usb7206_write_reg(struct USB7206 *self, uint32_t addr, uint8_t *dat
     uint8_t send_buffer[send_buffer_length];
     uint8_t j = 0;
 
-    for (uint16_t i = 0; i < sizeof(register_write); i++) {
+    for (uint16_t i = 0; i < sizeof(register_write); ++i) {
         send_buffer[j++] = register_write[i];
     }
 
-    for (uint16_t i = 0; i < length; i++) {
+    for (uint16_t i = 0; i < length; ++i) {
         send_buffer[j++] = data[i];
     }
 
@@ -550,7 +550,7 @@ void usb_mux_init(void) {
 
     // Ensure orientation is correct after attaching hub.
     // TODO: Find reason why GPIO for sink orientation is reset.
-    for (int i = 0; i < 100; i++) {
+    for (int i = 0; i < 100; ++i) {
         ptn5110_sink_set_orientation(&usb_sink);
         wait_ms(10);
     }

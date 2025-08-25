@@ -115,7 +115,7 @@ static enum rgb_matrix_effects mode_map[] = {
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
-rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT];
+rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT] = {0};
 
 // clang-format off
 rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
@@ -150,7 +150,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
-        .hsv = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL},
+        .hsv = (hsv_t){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL},
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
@@ -160,7 +160,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     {
         .enable = 1,
         .mode = RGB_MATRIX_CUSTOM_active_keys,
-        .hsv = (HSV){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL},
+        .hsv = (hsv_t){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL},
         .speed = RGB_MATRIX_DEFAULT_SPD,
         .flags = LED_FLAG_KEYLIGHT,
     },
@@ -248,7 +248,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case CMD_LED_GET_VALUE:
             if (!bootloader_unlocked) {
                 uint8_t index = data[2];
-                for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; ++layer) {
                     if (index == (0xF0 | layer)) {
                         data[3] = layer_rgb[layer].hsv.v;
                         data[4] = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
@@ -265,7 +265,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 if (value >= RGB_MATRIX_MAXIMUM_BRIGHTNESS) {
                     value = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
                 }
-                for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; ++layer) {
                     if (index == (0xF0 | layer)) {
                         layer_rgb[layer].hsv.v = value;
                         data[1] = 0;
@@ -284,7 +284,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     data[5] = raw_rgb_data[index].b;
                     data[1] = 0;
                 } else {
-                    for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                    for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; ++layer) {
                         if (index == (0xF0 | layer)) {
                             data[3] = layer_rgb[layer].hsv.h;
                             data[4] = layer_rgb[layer].hsv.s;
@@ -310,7 +310,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     raw_rgb_data[index] = rgb;
                     data[1] = 0;
                 } else {
-                    for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++) {
+                    for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; ++layer) {
                         if (index == (0xF0 | layer)) {
                             layer_rgb[layer].hsv.h = rgb.r;
                             layer_rgb[layer].hsv.s = rgb.g;
@@ -328,7 +328,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 uint8_t layer = data[2];
                 if (layer < DYNAMIC_KEYMAP_LAYER_COUNT) {
                     enum rgb_matrix_effects mode = layer_rgb[layer].mode;
-                    for (uint8_t i = 0; i < MODE_LAST; i++) {
+                    for (uint8_t i = 0; i < MODE_LAST; ++i) {
                         if (mode_map[i] == mode) {
                             data[3] = i;
                             data[4] = layer_rgb[layer].speed;
@@ -367,8 +367,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             uint8_t byte = 4;
             uint8_t bit  = 0;
 
-            for (uint8_t row = 0; row < matrix_rows(); row++) {
-                for (uint8_t col = 0; col < matrix_cols(); col++) {
+            for (uint8_t row = 0; row < matrix_rows(); ++row) {
+                for (uint8_t col = 0; col < matrix_cols(); ++col) {
                     if (byte < length) {
                         if (matrix_is_on(row, col)) {
                             data[byte] |= (1 << bit);
@@ -377,9 +377,8 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                         }
                     }
 
-                    bit++;
-                    if (bit >= 8) {
-                        byte++;
+                    if (++bit >= 8) {
+                        ++byte;
                         bit = 0;
                     }
                 }
