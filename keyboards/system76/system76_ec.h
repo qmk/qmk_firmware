@@ -15,7 +15,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "action_layer.h"
+#pragma once
+
+enum Command {
+    CMD_PROBE         = 1,  // Probe for System76 EC protocol
+    CMD_BOARD         = 2,  // Read board string
+    CMD_VERSION       = 3,  // Read version string
+    CMD_RESET         = 6,  // Reset to bootloader
+    CMD_KEYMAP_GET    = 9,  // Get keyboard map index
+    CMD_KEYMAP_SET    = 10, // Set keyboard map index
+    CMD_LED_GET_VALUE = 11, // Get LED value by index
+    CMD_LED_SET_VALUE = 12, // Set LED value by index
+    CMD_LED_GET_COLOR = 13, // Get LED color by index
+    CMD_LED_SET_COLOR = 14, // Set LED color by index
+    CMD_LED_GET_MODE  = 15, // Get LED matrix mode and speed
+    CMD_LED_SET_MODE  = 16, // Set LED matrix mode and speed
+    CMD_MATRIX_GET    = 17, // Get currently pressed keys
+    CMD_LED_SAVE      = 18, // Save LED settings to ROM
+    CMD_SET_NO_INPUT  = 19, // Enable/disable no input mode
+};
 
 void system76_ec_rgb_eeprom(bool write);
 void system76_ec_rgb_layer(layer_state_t state);
