@@ -23,12 +23,12 @@
 #include "i2c_master.h"
 #include "wait.h"
 
-// USB signal prefixes from schematic
-//  - UP = USB C upstream (center)
-//  - AR = USB A right side
-//  - AL = USB A left side
-//  - CR = USB C right side
-//  - CL = USB C left side
+// USB signal prefixes from schematic:
+//  - UP = USB-C upstream (center)
+//  - AR = USB-A right side
+//  - AL = USB-A left side
+//  - CR = USB-C right side
+//  - CL = USB-C left side
 
 // System76 USB Vendor ID and Product IDs from `https://github.com/system76/usb_ids'.
 #define SYSTEM76_VID 0x3384
@@ -36,8 +36,8 @@
 #define LAUNCH_USB2_HUB_PID 0x0003
 #define LAUNCH_USB3_HUB_PID 0x0004
 
-// USB7206 is a 6-Port USB 3.1 Gen 2 controller hub.
-// I2C address: 0x5A = 0x2D << 1
+// USB7206 is a 6-Port USB 3.1 Gen 2 controller hub:
+//  - I2C address: 0x5A = 0x2D << 1
 #define USB7206_PF1_CTL 0xBF800C04
 #define USB7206_VID 0xBF803000
 #define USB7206_HUB_PRT_SWAP 0xBF8030FA
@@ -93,7 +93,7 @@ i2c_status_t usb7206_read_reg(struct USB7206 *self, uint32_t addr, uint8_t *data
         return status;
     }
 
-    uint16_t read = 0x0006; // Buffer address LSB 6 to skip header
+    uint16_t read = 0x0006; // Buffer address LSB set to 0x06 to skip header
     uint8_t data_with_buffer_length[length];
     status = i2c_read_register16(self->addr << 1, read, data_with_buffer_length, length, I2C_TIMEOUT);
 
@@ -109,7 +109,7 @@ i2c_status_t usb7206_read_reg(struct USB7206 *self, uint32_t addr, uint8_t *data
 i2c_status_t usb7206_read_reg_32(struct USB7206 *self, uint32_t addr, uint32_t *data) {
     i2c_status_t status;
 
-    // First byte is available length
+    // First byte is available length.
     uint8_t bytes[4] = {0, 0, 0, 0};
 
     status = usb7206_read_reg(self, addr, bytes, sizeof(bytes));
@@ -117,7 +117,7 @@ i2c_status_t usb7206_read_reg_32(struct USB7206 *self, uint32_t addr, uint32_t *
         return status;
     }
 
-    // Convert from little endian
+    // Convert from little endian.
     *data = (((uint32_t)bytes[0]) << 0) | (((uint32_t)bytes[1]) << 8) | (((uint32_t)bytes[2]) << 16) | (((uint32_t)bytes[3]) << 24);
 
     return status;
@@ -167,7 +167,7 @@ i2c_status_t usb7206_write_reg_8(struct USB7206 *self, uint32_t addr, uint8_t da
 // Write 32-bit value to USB7206 register region.
 // Returns number of bytes written on success or a negative number on error.
 i2c_status_t usb7206_write_reg_32(struct USB7206 *self, uint32_t addr, uint32_t data) {
-    // Convert to little endian
+    // Convert to little endian.
     uint8_t bytes[4] = {
         (uint8_t)(data >> 0),
         (uint8_t)(data >> 8),
@@ -184,7 +184,7 @@ i2c_status_t usb7206_init(struct USB7206 *self) {
     i2c_status_t status;
     uint32_t data;
 
-    // DM and DP are swapped on ports 2 (AR) and 3 (AL)
+    // DM and DP are swapped on ports 2 (AR) and 3 (AL).
     // [5:0] PRT_SWAP => Swaps the upstream and downstream USB DP and DM pins for ease of board routing to devices and connectors:
     //  - '0' = USB D+ functionality is associated with the DP pin, and D– functionality is associated with the DM pin (default).
     //  - '1' = USB D+ functionality is associated with the DM pin, and D– functionality is associated with the DP pin.
@@ -193,7 +193,7 @@ i2c_status_t usb7206_init(struct USB7206 *self) {
         return status;
     }
 
-    // Disable audio
+    // Disable audio.
     // [7:0] I2S_UNIT_SEL => Control features of the I2S interface if an I2S configuration is selected:
     //  - 0x00 = I2S is disabled.
     //  - 0x01 = Audio `IN' through microphone is enabled.
@@ -204,7 +204,7 @@ i2c_status_t usb7206_init(struct USB7206 *self) {
         return status;
     }
 
-    // Disable Hub Feature Controller (HFC)
+    // Disable Hub Feature Controller (HFC).
     // [0] HFC_DISABLE:
     //  - '0': HFC is enabled (default).
     //  - '1': HFC is disabled.
@@ -219,14 +219,14 @@ i2c_status_t usb7206_init(struct USB7206 *self) {
         return status;
     }
 
-    // Set Vendor ID and Product ID of USB 2 hub
+    // Set Vendor ID and Product ID of USB 2 hub.
     data = ((uint32_t)LAUNCH_USB2_HUB_PID << 16) | SYSTEM76_VID;
     status = usb7206_write_reg_32(self, USB7206_VID, data);
     if (status < 0) {
         return status;
     }
 
-    // Set Vendor ID and Product ID of USB 3 hub
+    // Set Vendor ID and Product ID of USB 3 hub.
     data = ((uint32_t)LAUNCH_USB3_HUB_PID << 16) | SYSTEM76_VID;
     status = usb7206_write_reg_32(self, USB7206_USB3_HUB_VID, data);
     if (status < 0) {
@@ -264,7 +264,7 @@ i2c_status_t usb7206_gpio_set(struct USB7206_GPIO *self, bool value) {
     i2c_status_t status;
     uint32_t data;
 
-    // Set GPIO output value
+    // Set GPIO output value.
     // PIO[96:64] OUTPUT REGISTER => PIO96_OUT[x]:
     //  - '0' = Output is `0'.
     //  - '1' = Output is `1'.
@@ -293,16 +293,16 @@ i2c_status_t usb7206_gpio_init(struct USB7206_GPIO *self) {
     i2c_status_t status;
     uint32_t data;
 
-    // Set programmable function to GPIO
+    // Set programmable function to GPIO.
     status = usb7206_write_reg_8(self->usb7206, USB7206_PF1_CTL + (self->pf - 1), 0x00);
     if (status < 0) {
         return status;
     }
 
-    // Set GPIO to false by default
+    // Set GPIO to "false" by default.
     usb7206_gpio_set(self, false);
 
-    // Set GPIO to output
+    // Set GPIO to output.
     // PIO[96:64] OUTPUT ENABLE REGISTER => PIO96_OEN[x]:
     //  - '0' = Disabled.
     //  - '1' = Enabled.
@@ -351,15 +351,15 @@ struct PTN5110 {
     struct USB7206_GPIO *gpio;
 };
 
-// USB C upstream port controller (PTN5110DHQ)
+// USB-C upstream port controller (PTN5110DHQ):
 //  - Configured for Upstream Facing Port (UFP)/Sink role at Power On or Reset (POR).
 //  - The CC1/2 pins present sink (Rd) role.
 //  - I2C address: 0xA2 (0b1010001x) = 0x51 << 1
-// USB C left port controller (PTN5110THQ)
+// USB-C left port controller (PTN5110THQ):
 //  - Configured for Downstream Facing Port (DFP)/Source role at Power On or Reset (POR).
 //  - I2C address: 0xA4 (0b1010010x) = 0x52 << 1
-// USB C right port controller (PTN5110THQ)
-//  - Configured for  Downstream Facing Port (DFP)/Source role at Power On or Reset (POR).
+// USB-C right port controller (PTN5110THQ):
+//  - Configured for Downstream Facing Port (DFP)/Source role at Power On or Reset (POR).
 //  - I2C address: 0xA0 (0b1010000x) = 0x50 << 1
 struct PTN5110 usb_sink         = {.type = TCPC_TYPE_SINK,   .addr = 0x51, .gpio = &usb_gpio_sink};
 struct PTN5110 usb_source_left  = {.type = TCPC_TYPE_SOURCE, .addr = 0x52, .gpio = &usb_gpio_source_left};
@@ -400,7 +400,7 @@ i2c_status_t ptn5110_sink_set_orientation(struct PTN5110 *self) {
         return status;
     }
 
-    // PTN5110N in UFP and therefore ROLE_CONTROL.CC1 = Rd
+    // PTN5110N in UFP and therefore ROLE_CONTROL.CC1 = Rd.
     if (((cc >> PTN5110_CC_STATUS_CC1_SHIFT) & PTN5110_CC_STATUS_CC1_MASK) == PTN5110_CC_STATE_SNK_OPEN) {
         // CC_STATUS[1:0] CC1 State:
         //  - 0b00 = SNK_Open (Below maximum vRa)
@@ -439,7 +439,7 @@ i2c_status_t ptn5110_source_update(struct PTN5110 *self) {
         bool connected = false;
         bool orientation = false;
 
-        // PTN5110N in DFP and therefore ROLE_CONTROL.CC1 = Rp and ROLE_CONTROL.CC2 = Rp
+        // PTN5110N in DFP and therefore ROLE_CONTROL.CC1 = Rp and ROLE_CONTROL.CC2 = Rp.
         if (((cc >> PTN5110_CC_STATUS_CC1_SHIFT) & PTN5110_CC_STATUS_CC1_MASK) == PTN5110_CC_STATE_SRC_RD) {
             // CC_STATUS[1:0] CC1 State:
             //  - 0b10 = SRC_Rd (within the vRd range)
@@ -453,20 +453,20 @@ i2c_status_t ptn5110_source_update(struct PTN5110 *self) {
         }
 
         if (connected) {
-            // Set SS multiplexer orientation
+            // Set SS multiplexer orientation.
             status = ptn5110_set_ssmux(self, orientation);
             if (status < 0) {
                 return status;
             }
 
-            // Enable source Vbus command
+            // Enable source Vbus command.
             //  - 0b01110111: SourceVbusDefaultVoltage => Enable sourcing vSafe5V over Vbus and enable Vbus present detection.
             status = ptn5110_command(self, PTN5110_CMD_SRC_VBUS_DEFAULT);
             if (status < 0) {
                 return status;
             }
         } else {
-            // Disable source Vbus command
+            // Disable source Vbus command.
             //  - 0b01100110: DisableSourceVbus => Disable sourcing power over Vbus.
             status = ptn5110_command(self, PTN5110_CMD_DISABLE_SRC_VBUS);
             if (status < 0) {
@@ -484,9 +484,9 @@ i2c_status_t ptn5110_init(struct PTN5110 *self) {
     i2c_status_t status;
     uint8_t reg;
 
-    self->cc = 0xFF; // Set last cc to invalid value, to force update
+    self->cc = 0xFF; // Set last `cc' to invalid value, to force update
 
-    // Initialize GPIO
+    // Initialize GPIO.
     status = usb7206_gpio_init(self->gpio);
     if (status < 0) {
         return status;
@@ -494,15 +494,15 @@ i2c_status_t ptn5110_init(struct PTN5110 *self) {
 
     switch (self->type) {
         case TCPC_TYPE_SINK:
-            // UFP Initialization
+            // UFP Initialization.
             status = ptn5110_sink_set_orientation(self);
             break;
         case TCPC_TYPE_SOURCE:
-            // DFP Initialization
-            // [6] DRP: 0b0 = No DRP.
-            // [5:4] Rp Value: 0b00 = Rp default.
-            // [3:2] CC2: 0b01 = Rp definition from [5:4].
-            // [1:0] CC1: 0b01 = Rp definition from [5:4].
+            // DFP Initialization:
+            //  - [6] DRP: 0b0 = No DRP.
+            //  - [5:4] Rp Value: 0b00 = Rp default.
+            //  - [3:2] CC2: 0b01 = Rp definition from [5:4].
+            //  - [1:0] CC1: 0b01 = Rp definition from [5:4].
             reg = (PTN5110_ROLE_CTRL_RP_VAL_DEF << PTN5110_ROLE_CTRL_RP_VAL_SHIFT) |
                   (PTN5110_ROLE_CTRL_CC_RP << PTN5110_ROLE_CTRL_CC2_SHIFT) |
                   (PTN5110_ROLE_CTRL_CC_RP << PTN5110_ROLE_CTRL_CC1_SHIFT); // 0x05
@@ -516,8 +516,8 @@ i2c_status_t ptn5110_init(struct PTN5110 *self) {
 // The interrupt pin is not wired due to lack of pins on the AVR.
 // The TCPCs will need to be periodically polled.
 void usb_mux_event(void) {
-    // `tVbusOFF' in the USB C spec is 650 ms which sets the maximum
-    // polling interval so run every 1000th matrix scan
+    // `tVbusOFF' in the USB-C specification is 650 ms which sets
+    // the maximum polling interval so run every 1000th matrix scan.
     static int cycle = 0;
     if (cycle >= 1000) {
         cycle = 0;
@@ -529,27 +529,27 @@ void usb_mux_event(void) {
 }
 
 void usb_mux_init(void) {
-    // Run I2C bus at 100 kHz
+    // Run I2C bus at 100 kHz.
     i2c_init();
 
-    // Set up hub
+    // Set up hub.
     // I2C pullups are present on the board, so the hub will wait in `SOC_CFG'
     // (allowing for external configuration) until it receives the "Attach" command
-    // and becomes active
+    // and becomes active.
     usb7206_init(&usb_hub);
 
-    // Set up sink and the upstream SS multiplexer first
+    // Set up sink and the upstream SS multiplexer first.
     ptn5110_init(&usb_sink);
 
-    // Set up sources and the downstream SS multiplexers
+    // Set up sources and the downstream SS multiplexers.
     ptn5110_init(&usb_source_left);
     ptn5110_init(&usb_source_right);
 
     // Attach hub
     usb7206_attach(&usb_hub);
 
-    // Ensure orientation is correct after attaching hub
-    // TODO: Find reason why GPIO for sink orientation is reset
+    // Ensure orientation is correct after attaching hub.
+    // TODO: Find reason why GPIO for sink orientation is reset.
     for (int i = 0; i < 100; i++) {
         ptn5110_sink_set_orientation(&usb_sink);
         wait_ms(10);
