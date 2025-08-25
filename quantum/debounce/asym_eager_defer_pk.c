@@ -53,8 +53,8 @@ bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
         updated_last = true;
 
         if (elapsed_time > 0) {
-            // Update debounce counters with elapsed timer clamped to UINT8_MAX
-            update_debounce_counters_and_transfer_if_expired(raw, cooked, MIN(elapsed_time, UINT8_MAX));
+            // Update debounce counters with elapsed timer clamped to 127 (maximum debounce)
+            update_debounce_counters_and_transfer_if_expired(raw, cooked, MIN(elapsed_time, 127));
         }
     }
 
