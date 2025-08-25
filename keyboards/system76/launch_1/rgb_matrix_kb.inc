@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-RGB_MATRIX_EFFECT(active_keys)
-RGB_MATRIX_EFFECT(raw_rgb)
-RGB_MATRIX_EFFECT(unlocked)
+RGB_MATRIX_EFFECT(ACTIVE_KEYS)
+RGB_MATRIX_EFFECT(RAW_RGB)
+RGB_MATRIX_EFFECT(UNLOCKED)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
@@ -39,7 +39,7 @@ static void active_keys_initialize(void) {
     active_keys_initialized = true;
 }
 
-static bool active_keys(effect_params_t *params) {
+static bool ACTIVE_KEYS(effect_params_t *params) {
     if (!active_keys_initialized) {
         active_keys_initialize();
     }
@@ -48,7 +48,7 @@ static bool active_keys(effect_params_t *params) {
     uint8_t layer = get_highest_layer(layer_state);
     rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
 
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (uint8_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
 
         uint8_t rowcol = active_keys_table[i];
@@ -69,7 +69,7 @@ static bool active_keys(effect_params_t *params) {
     return led_max < RGB_MATRIX_LED_COUNT;
 }
 
-rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT] = {0};
+extern rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT];
 
 static uint8_t normalize_component(uint8_t component) {
     uint16_t x = (uint16_t)component;
@@ -88,7 +88,7 @@ static rgb_t normalize_index(uint8_t i) {
     return rgb;
 }
 
-static bool raw_rgb(effect_params_t *params) {
+static bool RAW_RGB(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
@@ -114,10 +114,10 @@ static uint8_t unlocked_i          = 0;
 static uint8_t unlocked_leds_count = 0;
 static uint8_t unlocked_leds[2]    = {0, 0};
 
-static bool unlocked(effect_params_t *params) {
+static bool UNLOCKED(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    unlocked_ticks++;
+    ++unlocked_ticks;
 
     if (params->init) {
         unlocked_ticks = 0;
@@ -130,11 +130,11 @@ static bool unlocked(effect_params_t *params) {
             unlocked_i = 0;
         } else {
             unlocked_leds_count = rgb_matrix_map_row_column_to_led(unlocked_keys[unlocked_i][0], unlocked_keys[unlocked_i][1], unlocked_leds);
-            unlocked_i++;
+            ++unlocked_i;
         }
     }
 
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (uint8_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
 
         hsv_t hsv = {
@@ -142,7 +142,7 @@ static bool unlocked(effect_params_t *params) {
             .s = 0xFF,
             .v = 0x70,
         };
-        for (uint8_t j = 0; j < unlocked_leds_count; j++) {
+        for (uint8_t j = 0; j < unlocked_leds_count; ++j) {
             if (i == unlocked_leds[j]) {
                 hsv.s = 0;
                 hsv.v = 0xFF;
