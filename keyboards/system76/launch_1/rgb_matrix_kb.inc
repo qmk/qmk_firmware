@@ -21,7 +21,11 @@ RGB_MATRIX_EFFECT(UNLOCKED)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
 #include "dynamic_keymap.h"
+#else
+#include "keymap_introspection.h"
+#endif
 #include "action_layer.h"
 
 static bool active_keys_initialized = false;
@@ -54,7 +58,12 @@ static bool ACTIVE_KEYS(effect_params_t *params) {
         uint8_t rowcol = active_keys_table[i];
         uint8_t row = rowcol >> 4;
         uint8_t col = rowcol & 0xF;
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
         uint16_t keycode = dynamic_keymap_get_keycode(layer, row, col);
+#else
+        uint16_t keycode = keycode_at_keymap_location(layer, row, col);
+#endif
         switch (keycode) {
             case KC_NO:
             case KC_TRNS:

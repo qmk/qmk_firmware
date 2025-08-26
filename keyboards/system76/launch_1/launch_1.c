@@ -96,6 +96,7 @@ extern rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 void matrix_init_kb(void) {
     usb_mux_init();
 
+#ifdef SYSTEM76_EC
     if (!eeprom_is_valid()) {
         //eeprom_set_valid(false);      // Set the magic number to `false', in case this gets interrupted
         dynamic_keymap_reset();       // Reset the keymaps in EEPROM to what is in flash
@@ -105,6 +106,7 @@ void matrix_init_kb(void) {
     } else {
         system76_ec_rgb_eeprom(false); // Read System76 per-layer RGB matrix settings
     }
+#endif
 
     matrix_init_user();
 }

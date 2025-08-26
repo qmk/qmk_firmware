@@ -17,6 +17,9 @@
 
 #pragma once
 
+#ifndef __ASSEMBLER__
+#include "nvm_eeprom_eeconfig_internal.h"
+
 // I2C
 #define F_SCL 100000UL // Run I2C bus at 100 kHz
 #define I2C_START_RETRY_COUNT 20
@@ -44,3 +47,5 @@
 // System76 EC
 #define SYSTEM76_EC_EEPROM_ADDR (DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR + DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE)
 #define SYSTEM76_EC_EEPROM_SIZE (EEPROM_SIZE - SYSTEM76_EC_EEPROM_ADDR)
+
+#endif

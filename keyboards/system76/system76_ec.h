@@ -17,6 +17,8 @@
 
 #pragma once
 
+#include "quantum.h"
+
 enum Command {
     CMD_PROBE         = 1,  // Probe for System76 EC protocol
     CMD_BOARD         = 2,  // Read board string
@@ -35,9 +37,62 @@ enum Command {
     CMD_SET_NO_INPUT  = 19, // Enable/disable no input mode
 };
 
-void system76_ec_rgb_eeprom(bool write);
+enum Mode {
+    MODE_SOLID_COLOR = 0,
+#ifdef RGB_MATRIX_CUSTOM_KB
+    MODE_PER_KEY,
+#endif
+#ifndef DISABLE_RGB_MATRIX_ANIMATIONS
+    MODE_CYCLE_ALL,
+    MODE_CYCLE_LEFT_RIGHT,
+    MODE_CYCLE_UP_DOWN,
+    MODE_CYCLE_OUT_IN,
+    MODE_CYCLE_OUT_IN_DUAL,
+    MODE_RAINBOW_MOVING_CHEVRON,
+    MODE_CYCLE_PINWHEEL,
+    MODE_CYCLE_SPIRAL,
+    MODE_RAINDROPS,
+    MODE_SPLASH,
+    MODE_MULTISPLASH,
+#endif
+#ifdef RGB_MATRIX_CUSTOM_KB
+    MODE_ACTIVE_KEYS,
+#endif
+    MODE_DISABLED,
+    MODE_LAST,
+};
+
+// clang-format off
+static enum rgb_matrix_effects mode_map[] = {
+    RGB_MATRIX_SOLID_COLOR,
+#ifdef RGB_MATRIX_CUSTOM_KB
+    RGB_MATRIX_CUSTOM_RAW_RGB,
+#endif
+#ifndef DISABLE_RGB_MATRIX_ANIMATIONS
+    RGB_MATRIX_CYCLE_ALL,
+    RGB_MATRIX_CYCLE_LEFT_RIGHT,
+    RGB_MATRIX_CYCLE_UP_DOWN,
+    RGB_MATRIX_CYCLE_OUT_IN,
+    RGB_MATRIX_CYCLE_OUT_IN_DUAL,
+    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
+    RGB_MATRIX_CYCLE_PINWHEEL,
+    RGB_MATRIX_CYCLE_SPIRAL,
+    RGB_MATRIX_RAINDROPS,
+    RGB_MATRIX_SPLASH,
+    RGB_MATRIX_MULTISPLASH,
+#endif
+#ifdef RGB_MATRIX_CUSTOM_KB
+    RGB_MATRIX_CUSTOM_ACTIVE_KEYS,
+#endif
+    RGB_MATRIX_NONE,
+};
+// clang-format on
+
+_Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
+
 void system76_ec_rgb_layer(layer_state_t state);
 #ifdef SYSTEM76_EC
+void system76_ec_rgb_eeprom(bool write);
 void system76_ec_unlock(void);
 #endif
 bool system76_ec_is_unlocked(void);

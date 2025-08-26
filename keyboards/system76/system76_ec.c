@@ -16,12 +16,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#ifndef RGB_MATRIX_ENABLE
+#error "RGB_MATRIX_ENABLE is not enabled"
+#endif
+
 #include "system76_ec.h"
 
 #include <string.h>
 
-#include "quantum.h"
 #ifdef SYSTEM76_EC
+#ifndef RAW_ENABLE
+#error "RAW_ENABLE is not enabled"
+#endif
+
+#ifndef DYNAMIC_KEYMAP_ENABLE
+#error "DYNAMIC_KEYMAP_ENABLE is not enabled"
+#endif
+
 #include "raw_hid.h"
 #include "version.h"
 #include "eeprom.h"
@@ -68,59 +79,6 @@ bool system76_ec_is_unlocked(void) {
     return false;
 }
 #endif // SYSTEM76_EC
-
-enum Mode {
-    MODE_SOLID_COLOR = 0,
-#ifdef RGB_MATRIX_CUSTOM_KB
-    MODE_PER_KEY,
-#endif
-#ifndef DISABLE_RGB_MATRIX_ANIMATIONS
-    MODE_CYCLE_ALL,
-    MODE_CYCLE_LEFT_RIGHT,
-    MODE_CYCLE_UP_DOWN,
-    MODE_CYCLE_OUT_IN,
-    MODE_CYCLE_OUT_IN_DUAL,
-    MODE_RAINBOW_MOVING_CHEVRON,
-    MODE_CYCLE_PINWHEEL,
-    MODE_CYCLE_SPIRAL,
-    MODE_RAINDROPS,
-    MODE_SPLASH,
-    MODE_MULTISPLASH,
-#endif
-#ifdef RGB_MATRIX_CUSTOM_KB
-    MODE_ACTIVE_KEYS,
-#endif
-    MODE_DISABLED,
-    MODE_LAST,
-};
-
-// clang-format off
-static enum rgb_matrix_effects mode_map[] = {
-    RGB_MATRIX_SOLID_COLOR,
-#ifdef RGB_MATRIX_CUSTOM_KB
-    RGB_MATRIX_CUSTOM_RAW_RGB,
-#endif
-#ifndef DISABLE_RGB_MATRIX_ANIMATIONS
-    RGB_MATRIX_CYCLE_ALL,
-    RGB_MATRIX_CYCLE_LEFT_RIGHT,
-    RGB_MATRIX_CYCLE_UP_DOWN,
-    RGB_MATRIX_CYCLE_OUT_IN,
-    RGB_MATRIX_CYCLE_OUT_IN_DUAL,
-    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
-    RGB_MATRIX_CYCLE_PINWHEEL,
-    RGB_MATRIX_CYCLE_SPIRAL,
-    RGB_MATRIX_RAINDROPS,
-    RGB_MATRIX_SPLASH,
-    RGB_MATRIX_MULTISPLASH,
-#endif
-#ifdef RGB_MATRIX_CUSTOM_KB
-    RGB_MATRIX_CUSTOM_ACTIVE_KEYS,
-#endif
-    RGB_MATRIX_NONE,
-};
-// clang-format on
-
-_Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
 rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT] = {0};
 
@@ -183,6 +141,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
 };
 // clang-format on
 
+#ifdef SYSTEM76_EC
 // Read or write EEPROM data with checks for being inside System76 EC region.
 static bool system76_ec_eeprom_op(void *buf, uint16_t size, uint16_t offset, bool write) {
     uint16_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
@@ -206,6 +165,7 @@ void system76_ec_rgb_eeprom(bool write) {
     system76_ec_eeprom_op((void *)layer_rgb, layer_rgb_size, 0, write);
     system76_ec_eeprom_op((void *)raw_rgb_data, sizeof(raw_rgb_data), layer_rgb_size, write);
 }
+#endif // SYSTEM76_EC
 
 // Update RGB parameters on layer change.
 void system76_ec_rgb_layer(layer_state_t state) {
