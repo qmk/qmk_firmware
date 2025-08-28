@@ -47,6 +47,9 @@ bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 
 #ifdef SPECULATIVE_HOLD
+/** Gets the currently active speculative mods. */
+uint8_t get_speculative_mods(void);
+
 /**
  * Callback to say if a mod-tap key may be speculatively held.
  *
@@ -59,8 +62,16 @@ bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
  */
 bool get_speculative_hold(uint16_t keycode, keyrecord_t *record);
 
-/** Handler to be called on press events after tap-holds are settled. */
-void process_speculative_hold(keyrecord_t *record);
+/**
+ * Handler to be called on press events after tap-holds are settled.
+ *
+ * This function is to be called in process_record() in action.c, that is, just
+ * after tap-hold events are settled as either tapped or held. When `record`
+ * corresponds to a speculatively-held key, the speculative mod is cleared.
+ *
+ * @param record   Record associated with the mod-tap press event.
+ */
+void speculative_key_settled(keyrecord_t *record);
 #endif // SPECULATIVE_HOLD
 
 #ifdef CHORDAL_HOLD

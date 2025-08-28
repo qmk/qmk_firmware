@@ -60,8 +60,10 @@ typedef struct {
 static speculative_key_t speculative_keys[SPECULATIVE_KEYS_SIZE] = {};
 static uint8_t           num_speculative_keys                    = 0;
 static uint8_t           prev_speculative_mods                   = 0;
+static uint8_t           speculative_mods                        = 0;
 
-static void process_speculative_press(keyrecord_t *record);
+/** Handler to be called on incoming press events. */
+static void speculative_key_press(keyrecord_t *record);
 #    endif // SPECULATIVE_HOLD
 
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
@@ -143,9 +145,9 @@ static void debug_waiting_buffer(void);
  */
 void action_tapping_process(keyrecord_t record) {
 #    ifdef SPECULATIVE_HOLD
-    prev_speculative_mods = get_speculative_mods();
+    prev_speculative_mods = speculative_mods;
     if (record.event.pressed) {
-        process_speculative_press(&record);
+        speculative_key_press(&record);
     }
 #    endif // SPECULATIVE_HOLD
 
@@ -166,7 +168,7 @@ void action_tapping_process(keyrecord_t record) {
     }
 
 #    ifdef SPECULATIVE_HOLD
-    if (get_speculative_mods() != prev_speculative_mods) {
+    if (speculative_mods != prev_speculative_mods) {
         send_keyboard_report();
     }
 #    endif // SPECULATIVE_HOLD
@@ -735,10 +737,6 @@ void waiting_buffer_scan_tap(void) {
 }
 
 #    ifdef SPECULATIVE_HOLD
-__attribute__((weak)) bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
-    return (QK_MOD_TAP_GET_MODS(keycode) & (MOD_LALT | MOD_LGUI)) == 0;
-}
-
 static void debug_speculative_keys(void) {
     ac_dprintf("mods = { ");
     for (int8_t i = 0; i < num_speculative_keys; ++i) {
@@ -751,7 +749,7 @@ static void debug_speculative_keys(void) {
     ac_dprintf("}\n");
 }
 
-static void process_speculative_press(keyrecord_t *record) {
+static void speculative_key_press(keyrecord_t *record) {
     if (num_speculative_keys >= SPECULATIVE_KEYS_SIZE) { // Overflow!
         ac_dprintf("SPECULATIVE KEYS OVERFLOW: IGNORING EVENT\n");
         return;
@@ -767,8 +765,9 @@ static void process_speculative_press(keyrecord_t *record) {
         mods <<= 4;
     }
 
-    if ((~(get_mods() | get_speculative_mods()) & mods) != 0 && get_speculative_hold(keycode, record)) {
-        add_speculative_mods(mods);
+    if ((~(get_mods() | speculative_mods) & mods) != 0 && get_speculative_hold(keycode, record)) {
+        speculative_mods |= mods;
+        // Remember the keypos and mods associated with this key.
         speculative_keys[num_speculative_keys] = (speculative_key_t){
             .key  = record->event.key,
             .mods = mods,
@@ -780,7 +779,17 @@ static void process_speculative_press(keyrecord_t *record) {
     }
 }
 
-void process_speculative_hold(keyrecord_t *record) {
+uint8_t get_speculative_mods(void) {
+    return speculative_mods;
+}
+
+__attribute__((weak)) bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
+    const uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
+    return (mods & (MOD_LCTL | MOD_LSFT)) == mods;
+}
+
+
+void speculative_key_settled(keyrecord_t *record) {
     if (num_speculative_keys == 0) {
         return; // Early return when there are no active speculative keys.
     }
@@ -798,7 +807,7 @@ void process_speculative_hold(keyrecord_t *record) {
     if (IS_QK_MOD_TAP(keycode) && record->tap.count == 0) { // MT hold press.
         if (i < num_speculative_keys) {
             const uint8_t cleared_mods = speculative_keys[i].mods;
-            del_speculative_mods(cleared_mods);
+            speculative_mods &= ~cleared_mods;
             // Don't call send_keyboard_report() here; allow default handling
             // to reapply the mod before the next report.
 
@@ -830,7 +839,7 @@ void process_speculative_hold(keyrecord_t *record) {
 #        endif // DUMMY_MOD_NEUTRALIZER_KEYCODE
         }
 
-        del_speculative_mods(cleared_mods);
+        speculative_mods &= ~cleared_mods;
         send_keyboard_report();
         ac_dprintf("Speculative Hold: canceled %02x, ", cleared_mods);
         debug_speculative_keys();

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "action_util.h"
 #include "action_layer.h"
+#include "action_tapping.h"
 #include "timer.h"
 #include "keycode_config.h"
 #include <string.h>
@@ -27,9 +28,6 @@ extern keymap_config_t keymap_config;
 
 static uint8_t real_mods = 0;
 static uint8_t weak_mods = 0;
-#ifdef SPECULATIVE_HOLD
-static uint8_t speculative_mods = 0;
-#endif
 #ifdef KEY_OVERRIDE_ENABLE
 static uint8_t weak_override_mods = 0;
 static uint8_t suppressed_mods    = 0;
@@ -277,7 +275,7 @@ static uint8_t get_mods_for_report(void) {
 #endif
 
 #ifdef SPECULATIVE_HOLD
-    mods |= speculative_mods;
+    mods |= get_speculative_mods();
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
@@ -404,28 +402,6 @@ void set_weak_mods(uint8_t mods) {
 void clear_weak_mods(void) {
     weak_mods = 0;
 }
-
-#ifdef SPECULATIVE_HOLD
-uint8_t get_speculative_mods(void) {
-    return speculative_mods;
-}
-
-void set_speculative_mods(uint8_t mods) {
-    speculative_mods = mods;
-}
-
-void add_speculative_mods(uint8_t mods) {
-    speculative_mods |= mods;
-}
-
-void del_speculative_mods(uint8_t mods) {
-    speculative_mods &= ~mods;
-}
-
-void clear_speculative_mods(void) {
-    speculative_mods = 0;
-}
-#endif // SPECULATIVE_HOLD
 
 #ifdef KEY_OVERRIDE_ENABLE
 /** \brief set weak mods used by key overrides. DO not call this manually
