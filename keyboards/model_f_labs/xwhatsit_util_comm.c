@@ -80,6 +80,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     offset = data[3];
                     current_matrix_ptr += offset;
                 }
+
+                if (offset > sizeof(current_matrix)) {
+                    offset = sizeof(current_matrix);
+                }
+
                 memcpy(&response[3], current_matrix_ptr, min(32 - 3, sizeof(current_matrix) - offset));
             }
             break;
@@ -97,6 +102,11 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     offset = data[4];
                     assigned_to_threshold_ptr += offset;
                 }
+
+                if (offset > sizeof(assigned_to_threshold[cal_bin])) {
+                    offset = sizeof(assigned_to_threshold[cal_bin]);
+                }
+
                 memcpy(&response[6], assigned_to_threshold_ptr, min(32 - 6, sizeof(assigned_to_threshold[cal_bin]) - offset));
             }
 #else
@@ -130,6 +140,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             uint8_t col   = data[3];
             uint8_t row   = data[4];
             uint8_t count = data[5];
+            if (count > (RAW_EPSIZE-3)/2) {
+                count = (RAW_EPSIZE-3)/2;
+            }
             int     i;
             for (i = 0; i < count; i++) {
                 uint16_t value          = measure_middle_keymap_coords(col, row, CAPSENSE_HARDCODED_SAMPLE_TIME, 8);
