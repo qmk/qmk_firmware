@@ -789,3 +789,63 @@ TEST_F(SpeculativeHoldFlowTapTest, roll_release_132) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(SpeculativeHoldFlowTapTest, roll_lt_to_mt) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key = KeymapKey(0, 0, 0, LT(1, KC_A));
+    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_B));
+    auto       regular_key = KeymapKey(1, 1, 0, KC_C);
+
+    set_keymap({layer_tap_key, mod_tap_key, regular_key});
+
+    // Press layer tap key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press regular key. The speculative mod activates.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Wait for the layer tap key to settle.
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_C));
+    idle_for(TAPPING_TERM - FLOW_TAP_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release keys.
+    EXPECT_EMPTY_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    regular_key.release();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press layer tap key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press regular key.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release keys.
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_B));
+    EXPECT_REPORT(driver, (KC_B));
+    EXPECT_EMPTY_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    regular_key.release();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+}
