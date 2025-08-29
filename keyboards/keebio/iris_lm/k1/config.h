@@ -31,9 +31,9 @@
 
 // Configuration for Tri Layer, setting the layers taken into account
 
-#define TRI_LAYER_LOWER_LAYER 3
-#define TRI_LAYER_UPPER_LAYER 4
-#define TRI_LAYER_ADJUST_LAYER 5
+#define TRI_LAYER_LOWER_LAYER 2
+#define TRI_LAYER_UPPER_LAYER 3
+#define TRI_LAYER_ADJUST_LAYER 4
 
 // N Key Rollover enabled
 
@@ -46,6 +46,6 @@
 // Definitions for mod tap
 
 // #define PERMISSIVE_HOLD
-#define TAPPING_TERM 130
-#define QUICK_TAP_TERM 90
-#define FLOW_TAP_TERM 130
+#define TAPPING_TERM 160
+#define QUICK_TAP_TERM 140
+#define FLOW_TAP_TERM 150
