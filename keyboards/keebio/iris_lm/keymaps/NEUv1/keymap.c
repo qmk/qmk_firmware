@@ -159,7 +159,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 				hsv = (hsv_t){0, 255, 255}; // HSV_RED
                 break;
             case _UPPER:
-				hsv = (hsv_t){106, 255, 255}; // HSV_SPRINGGREEN
+				hsv = (hsv_t){21, 255, 255}; // HSV_ORANGE
                 break;
 			case _LOWER:
 				hsv = (hsv_t){21, 255, 255}; // HSV_ORANGE
@@ -168,7 +168,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 				hsv = (hsv_t){128, 255, 128}; // HSV_TEAL
                 break;
 			case _NEU:
-				hsv = (hsv_t){123,  90, 112}; // HSV_TURQUOISE
+				hsv = (hsv_t){191, 255, 255}; // HSV_PURPLE
                 break;
             default:
 				break;
