@@ -15,7 +15,6 @@
     "processor": "STM32G431",
     "rgb_matrix": {
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
@@ -147,6 +146,9 @@
             "matrix": [5, 5]
         },
         "enabled": true,
+        "handedness": {
+            "pin": "A8"
+        },
         "serial": {
             "driver": "usart"
         },
@@ -164,6 +166,7 @@
         "driver": "pwm",
         "pin": "B0"
     },
+    "community_layouts": ["ortho_5x12", "ortho_4x12"],
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [
