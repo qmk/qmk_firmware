@@ -168,7 +168,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 #endif
-
+    bool shifted = get_mods() & MOD_MASK_SHIFT;
     switch (keycode) {
         case QK_BOOT:
             if (record->event.pressed) {
@@ -216,8 +216,24 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case QK_RGB_MATRIX_MODE_NEXT:
             if (record->event.pressed) {
-                uint8_t mode = layer_rgb[0].mode + 1;
-                set_mode_default_layer((mode < RGB_MATRIX_EFFECT_MAX) ? mode : 0);
+                if (shifted) {
+                    uint8_t mode = layer_rgb[0].mode - 1;
+                    set_mode_default_layer((layer_rgb[0].mode == 0) ? RGB_MATRIX_EFFECT_MAX - 1 : mode);
+                } else {
+                    uint8_t mode = layer_rgb[0].mode + 1;
+                    set_mode_default_layer((mode < RGB_MATRIX_EFFECT_MAX) ? mode : 0);
+                }
+            }
+            return false;
+        case QK_RGB_MATRIX_MODE_PREVIOUS:
+            if (record->event.pressed) {
+                if (!shifted) {
+                    uint8_t mode = layer_rgb[0].mode - 1;
+                    set_mode_default_layer((layer_rgb[0].mode == 0) ? RGB_MATRIX_EFFECT_MAX - 1 : mode);
+                } else {
+                    uint8_t mode = layer_rgb[0].mode + 1;
+                    set_mode_default_layer((mode < RGB_MATRIX_EFFECT_MAX) ? mode : 0);
+                }
             }
             return false;
 #ifdef SYSTEM76_EC
