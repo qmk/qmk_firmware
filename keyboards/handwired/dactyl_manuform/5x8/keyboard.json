@@ -20,15 +20,15 @@
         }
     },
     "matrix_pins": {
-        "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"],
+        "cols": ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"],
         "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "enabled": true,
         "matrix_pins": {
             "right": {
-                "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"]
+                "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"],
+                "rows": ["D4", "C6", "D7", "E6", "B4", "B5"]
         },
         "serial": {
             "pin": "D0"
