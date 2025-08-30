@@ -22,6 +22,7 @@
 #include "keymap_introspection.h"
 #endif
 
+#ifdef SYSTEM76_EC
 enum Command {
     CMD_PROBE         = 1,  // Probe for System76 EC protocol
     CMD_BOARD         = 2,  // Read board string
@@ -93,9 +94,12 @@ static enum rgb_matrix_effects mode_map[] = {
 
 _Static_assert(sizeof(mode_map) == MODE_LAST, "mode_map_length");
 
-void system76_ec_rgb_layer(layer_state_t state);
-#ifdef SYSTEM76_EC
 void system76_ec_rgb_eeprom(bool write);
 void system76_ec_unlock(void);
 #endif
+void system76_ec_rgb_layer(layer_state_t state);
 bool system76_ec_is_unlocked(void);
+
+#ifdef VIA_ENABLE
+uint32_t ec_rgb_eeprom(bool write);
+#endif

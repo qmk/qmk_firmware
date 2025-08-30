@@ -16,8 +16,10 @@
  */
 
 RGB_MATRIX_EFFECT(ACTIVE_KEYS)
+#ifdef SYSTEM76_EC
 RGB_MATRIX_EFFECT(RAW_RGB)
 RGB_MATRIX_EFFECT(UNLOCKED)
+#endif
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
@@ -78,6 +80,7 @@ static bool ACTIVE_KEYS(effect_params_t *params) {
     return led_max < RGB_MATRIX_LED_COUNT;
 }
 
+#ifdef SYSTEM76_EC
 extern rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT];
 
 static uint8_t normalize_component(uint8_t component) {
@@ -163,5 +166,6 @@ static bool UNLOCKED(effect_params_t *params) {
     }
     return led_max < RGB_MATRIX_LED_COUNT;
 }
+#endif
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

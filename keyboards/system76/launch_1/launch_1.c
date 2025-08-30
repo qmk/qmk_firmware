@@ -77,6 +77,7 @@ led_config_t g_led_config = { {
 #endif // RGB_MATRIX_ENABLE
 // clang-format on
 
+#ifdef SYSTEM76_EC
 bool eeprom_is_valid(void) {
     return (eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC && eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
 }
@@ -90,6 +91,7 @@ void bootmagic_reset_eeprom(void) {
     eeprom_set_valid(false); // Set the keyboard-specific EEPROM state as invalid
     eeconfig_disable();      // Set the TMK/QMK EEPROM state as invalid
 }
+#endif
 
 extern rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 
@@ -110,6 +112,16 @@ void matrix_init_kb(void) {
 
     matrix_init_user();
 }
+
+#if defined(VIA_ENABLE) && defined(RGB_MATRIX_ENABLE)
+void via_init_kb(void) {
+    if (eeconfig_is_enabled()) {
+        ec_rgb_eeprom(false); // Read per-layer RGB matrix settings
+    } else	{
+        ec_rgb_eeprom(true); // Populate per-layer RGB matrix settings 
+    }
+}
+#endif
 
 void housekeeping_task_kb(void) {
     usb_mux_event(); // Poll the USB hub for cable connections and disconnections
@@ -205,7 +217,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case QK_RGB_MATRIX_MODE_NEXT:
             if (record->event.pressed) {
                 uint8_t mode = layer_rgb[0].mode + 1;
-                set_mode_default_layer((mode < sizeof(mode_map)) ? mode : 0);
+                set_mode_default_layer((mode < RGB_MATRIX_EFFECT_MAX) ? mode : 0);
             }
             return false;
 #ifdef SYSTEM76_EC

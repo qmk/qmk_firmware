@@ -196,7 +196,7 @@ void system76_ec_rgb_layer(layer_state_t state) {
     }
 }
 
-#ifdef SYSTEM76_EC
+#if defined(SYSTEM76_EC)
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     data[1] = 1; // Set "error" response by default; changed to "success" by commands
 
@@ -395,4 +395,102 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         reset_keyboard();
     }
 }
-#endif // SYSTEM76_EC
+#elif defined(VIA_ENABLE)
+#include "via.h"
+#include <lib/lib8tion/lib8tion.h>
+
+// Read or write EEPROM RGB parameters.
+uint32_t ec_rgb_eeprom(bool write) {
+    uint16_t layer_rgb_size = sizeof(layer_rgb);
+    uint32_t size = 0;
+    if (write) {
+        size  = via_update_custom_config((const void *)layer_rgb, 0, layer_rgb_size);
+    } else {
+        size  = via_read_custom_config((void *)layer_rgb, 0, layer_rgb_size);
+    }
+    return size;
+}
+
+void ec_rgb_matrix_set_value(uint8_t *data) {
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_qmk_rgb_matrix_brightness: {
+            uint8_t value = scale8(value_data[0], RGB_MATRIX_MAXIMUM_BRIGHTNESS);
+            layer_rgb[0].hsv.v = value;
+            rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), value);
+            break;
+        }
+        case id_qmk_rgb_matrix_effect: {
+            if (value_data[0] == 0) {
+                layer_rgb[0].enable = 0;
+                layer_rgb[0].mode   = value_data[0];
+                rgb_matrix_disable_noeeprom();
+            } else {
+                layer_rgb[0].enable = 1;
+                layer_rgb[0].mode   = value_data[0];
+                rgb_matrix_enable_noeeprom();
+                rgb_matrix_mode_noeeprom(value_data[0]);
+            }
+            break;
+        }
+        case id_qmk_rgb_matrix_effect_speed: {
+            layer_rgb[0].speed = value_data[0];
+            rgb_matrix_set_speed_noeeprom(value_data[0]);
+            break;
+        }
+        case id_qmk_rgb_matrix_color: {
+            layer_rgb[0].hsv.h = value_data[0];
+            layer_rgb[0].hsv.s = value_data[1];
+            rgb_matrix_sethsv_noeeprom(value_data[0], value_data[1], rgb_matrix_get_val());
+            break;
+        }
+    }
+}
+
+void ec_rgb_matrix_command(uint8_t *data, uint8_t length) {
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *value_id_and_data = &(data[2]);
+
+    switch (*command_id) {
+        case id_custom_set_value: {
+            ec_rgb_matrix_set_value(value_id_and_data);
+            break;
+        }
+        case id_custom_get_value: {
+            via_qmk_rgb_matrix_get_value(value_id_and_data);
+            break;
+        }
+        case id_custom_save: {
+            via_qmk_rgb_matrix_save();
+            break;
+        }
+        default: {
+            *command_id = id_unhandled;
+            break;
+        }
+    }
+}
+
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    uint8_t *command_id = &(data[0]);
+
+    *command_id = id_unhandled;
+}
+
+void via_custom_value_command(uint8_t *data, uint8_t length) {
+    uint8_t *channel_id = &(data[1]);
+
+#if defined(RGB_MATRIX_ENABLE)
+    if (*channel_id == id_qmk_rgb_matrix_channel) {
+        ec_rgb_matrix_command(data, length);
+        return;
+    }
+#endif // RGB_MATRIX_ENABLE
+
+    (void)channel_id;
+
+    via_custom_value_command_kb(data, length);
+}
+#endif // defined(SYSTEM76_EC)

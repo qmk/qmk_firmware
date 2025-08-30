@@ -1,12 +1,16 @@
 {
     "keyboard_name": "Launch Configurable Keyboard (launch_1)",
     "manufacturer": "System76",
-    "url": "https://system76.com/accessories/launch",
+    "url": "https://tech-docs.system76.com/models/launch_1/README.html",
+    "bootloader_instructions": "Hold down the `Esc` key and plug in the keyboard.",
+    "tags": ["tkl", "rgb"],
     "usb": {
         "vid": "0x3384",
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "bootloader": "atmel-dfu",
+    "processor": "atmega32u4",
     "build": {
         "lto": true
     },
@@ -23,9 +27,6 @@
             "enabled": true,
             "resync": true
         }
-    },
-    "ws2812": {
-        "pin": "E2"
     },
     "rgb_matrix": {
         "animations": {
@@ -49,13 +50,14 @@
         "max_brightness": 176,
         "sleep": true
     },
+    "ws2812": {
+        "pin": "E2"
+    },
+    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["D7", "C7", "C6", "B6", "B5", "B4", "D6", "D4", "E6", "D5", "D3", "D2", "B7", "B0"],
         "rows": ["F0", "F1", "F4", "F5", "F6", "F7"]
     },
-    "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
     "layouts": {
         "LAYOUT": {
             "layout": [
