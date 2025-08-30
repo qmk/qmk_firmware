@@ -23,6 +23,9 @@
 #define I2C1_TIMINGR_SCLH 0x03U
 #define I2C1_TIMINGR_SCLL 0x09U
 
+// Fixes oled_init erroring out
+#define OLED_I2C_TIMEOUT 1000
+
 // configure oled driver for the 128x32 oled
 #define OLED_UPDATE_INTERVAL 66 // ~15fps
 
