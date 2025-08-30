@@ -118,10 +118,10 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
     // Layer 2
     {
         .enable = 1,
-#ifdef RGB_MATRIX_CUSTOM_KB
+#if defined(RGB_MATRIX_CUSTOM_KB) && defined(SYSTEM76_EC)
         .mode = RGB_MATRIX_CUSTOM_RAW_RGB,
-#else
-        .mode = RGB_MATRIX_SOLID_COLOR,
+#elif defined(ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON)
+        .mode = RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
 #endif
         .hsv = (hsv_t){RGB_MATRIX_DEFAULT_HUE, RGB_MATRIX_DEFAULT_SAT, RGB_MATRIX_DEFAULT_VAL},
         .speed = RGB_MATRIX_DEFAULT_SPD,
@@ -171,8 +171,27 @@ void system76_ec_rgb_eeprom(bool write) {
 void system76_ec_rgb_layer(layer_state_t state) {
     if (!system76_ec_is_unlocked()) {
         uint8_t layer = get_highest_layer(state);
-        if (layer < DYNAMIC_KEYMAP_LAYER_COUNT) {
-            rgb_matrix_config = layer_rgb[layer];
+#ifdef DYNAMIC_KEYMAP_ENABLE
+        uint8_t layer_count = DYNAMIC_KEYMAP_LAYER_COUNT;
+#else
+        uint8_t layer_count = keymap_layer_count();
+#endif
+        if (layer < layer_count) {
+            rgb_matrix_sethsv_noeeprom(layer_rgb[layer].hsv.h, layer_rgb[layer].hsv.s, layer_rgb[layer].hsv.v);
+            rgb_matrix_set_speed_noeeprom(layer_rgb[layer].speed);
+            rgb_matrix_set_flags_noeeprom(layer_rgb[layer].flags);
+            if (layer_rgb[layer].mode != RGB_MATRIX_NONE) {
+                rgb_matrix_mode_noeeprom(layer_rgb[layer].mode);
+            } else {
+                rgb_matrix_config.mode = RGB_MATRIX_NONE;
+                rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+                rgb_matrix_sethsv_noeeprom(HSV_OFF);
+            }
+            if (layer_rgb[layer].enable) {
+                rgb_matrix_enable_noeeprom();
+            } else {
+                rgb_matrix_disable_noeeprom();
+            }
         }
     }
 }

@@ -18,6 +18,9 @@
 #pragma once
 
 #include "quantum.h"
+#ifndef DYNAMIC_KEYMAP_ENABLE
+#include "keymap_introspection.h"
+#endif
 
 enum Command {
     CMD_PROBE         = 1,  // Probe for System76 EC protocol

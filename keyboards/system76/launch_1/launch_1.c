@@ -143,6 +143,13 @@ static void set_value_all_layers(uint8_t value) {
     }
 }
 
+static void set_mode_default_layer(uint8_t value) {
+    if (!system76_ec_is_unlocked()) {
+        layer_rgb[0].mode = value;
+    }
+    system76_ec_rgb_layer(layer_state);
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #ifdef SYSTEM76_EC
     if (input_disabled) {
@@ -153,16 +160,16 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QK_BOOT:
             if (record->event.pressed) {
-                rgb_matrix_mode_noeeprom(RGB_MATRIX_NONE);
+                rgb_matrix_disable_noeeprom();
             }
-#ifdef SYSTEM76_EC
+#ifndef KEYBOARD_system76_launch_1
             return false;
 #else
             return true;
 #endif
         case QK_RGB_MATRIX_VALUE_DOWN:
             if (record->event.pressed) {
-                uint8_t level = rgb_matrix_config.hsv.v;
+                uint8_t level = rgb_matrix_get_val();
                 for (int i = sizeof(levels) - 1; i >= 0; --i) {
                     if (levels[i] < level) {
                         level = levels[i];
@@ -174,7 +181,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case QK_RGB_MATRIX_VALUE_UP:
             if (record->event.pressed) {
-                uint8_t level = rgb_matrix_config.hsv.v;
+                uint8_t level = rgb_matrix_get_val();
                 for (int i = 0; i < sizeof(levels); ++i) {
                     if (levels[i] > level) {
                         level = levels[i];
@@ -187,12 +194,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 uint8_t level = 0;
-                if (rgb_matrix_config.hsv.v == 0) {
+                if (rgb_matrix_get_val() == 0) {
                     level = toggle_level;
                 } else {
-                    toggle_level = rgb_matrix_config.hsv.v;
+                    toggle_level = rgb_matrix_get_val();
                 }
                 set_value_all_layers(level);
+            }
+            return false;
+        case QK_RGB_MATRIX_MODE_NEXT:
+            if (record->event.pressed) {
+                uint8_t mode = layer_rgb[0].mode + 1;
+                set_mode_default_layer((mode < sizeof(mode_map)) ? mode : 0);
             }
             return false;
 #ifdef SYSTEM76_EC
