@@ -182,7 +182,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case QK_RGB_MATRIX_VALUE_DOWN:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_get_val();
-                for (int i = sizeof(levels) - 1; i >= 0; --i) {
+                for (uint8_t i = (uint8_t)(sizeof(levels) - 1); i >= 0; --i) {
                     if (levels[i] < level) {
                         level = levels[i];
                         break;
@@ -194,7 +194,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case QK_RGB_MATRIX_VALUE_UP:
             if (record->event.pressed) {
                 uint8_t level = rgb_matrix_get_val();
-                for (int i = 0; i < sizeof(levels); ++i) {
+                for (uint8_t i = 0; i < (uint8_t)sizeof(levels); ++i) {
                     if (levels[i] > level) {
                         level = levels[i];
                         break;
