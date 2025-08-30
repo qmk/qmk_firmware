@@ -196,6 +196,24 @@ void system76_ec_rgb_layer(layer_state_t state) {
     }
 }
 
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
+#ifndef RGB_MATRIX_CAPS_LOCK_INDEX
+    uint8_t index = g_led_config.matrix_co[3][0]; // 38
+#else
+    uint8_t index = RGB_MATRIX_CAPS_LOCK_INDEX;
+#endif
+    if (host_keyboard_led_state().caps_lock && (rgb_matrix_get_flags() != LED_FLAG_NONE)) {
+        rgb_matrix_set_color(index, RGB_WHITE);  // alternatively: RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b)
+    } else if (rgb_matrix_get_flags() == LED_FLAG_KEYLIGHT) {
+        rgb_matrix_set_color(index, RGB_OFF);
+    }
+    return true;
+}
+
 #if defined(SYSTEM76_EC)
 void raw_hid_receive(uint8_t *data, uint8_t length) {
     data[1] = 1; // Set "error" response by default; changed to "success" by commands
