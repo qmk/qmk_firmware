@@ -367,7 +367,7 @@ struct PTN5110 usb_source_right = {.type = TCPC_TYPE_SOURCE, .addr = 0x50, .gpio
 
 // Write PTN5110 ROLE_CONTROL.
 // Returns zero on success or a negative number on error.
-int ptn5110_set_role_control(struct PTN5110 *self, uint8_t role_control) {
+i2c_status_t ptn5110_set_role_control(struct PTN5110 *self, uint8_t role_control) {
     return i2c_write_register(self->addr << 1, PTN5110_ROLE_CTRL, &role_control, 1, I2C_TIMEOUT);
 }
 
@@ -518,7 +518,7 @@ i2c_status_t ptn5110_init(struct PTN5110 *self) {
 void usb_mux_event(void) {
     // `tVbusOFF' in the USB-C specification is 650 ms which sets
     // the maximum polling interval so run every 1000th matrix scan.
-    static int cycle = 0;
+    static uint16_t cycle = 0;
     if (cycle >= 1000) {
         cycle = 0;
         ptn5110_source_update(&usb_source_left);
@@ -550,7 +550,7 @@ void usb_mux_init(void) {
 
     // Ensure orientation is correct after attaching hub.
     // TODO: Find reason why GPIO for sink orientation is reset.
-    for (int i = 0; i < 100; ++i) {
+    for (uint8_t i = 0; i < 100; ++i) {
         ptn5110_sink_set_orientation(&usb_sink);
         wait_ms(10);
     }
