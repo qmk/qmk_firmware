@@ -32,13 +32,13 @@ class SpeculativeHoldFlowTapTest : public TestFixture {};
 TEST_F(SpeculativeHoldFlowTapTest, tap_mod_tap) {
     TestDriver driver;
     InSequence s;
-    auto       mod_tap_hold_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
 
-    set_keymap({mod_tap_hold_key});
+    set_keymap({mod_tap_key});
 
     // Press mod-tap-hold key.
     EXPECT_REPORT(driver, (KC_LSFT));
-    mod_tap_hold_key.press();
+    mod_tap_key.press();
     idle_for(10);
     VERIFY_AND_CLEAR(driver);
 
@@ -46,9 +46,11 @@ TEST_F(SpeculativeHoldFlowTapTest, tap_mod_tap) {
     EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_EMPTY_REPORT(driver);
-    mod_tap_hold_key.release();
+    mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 
     // Idle for tapping term of mod tap hold key.
     idle_for(TAPPING_TERM - 10);
@@ -86,6 +88,8 @@ TEST_F(SpeculativeHoldFlowTapTest, two_mod_taps_same_mods) {
     mod_tap_key1.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 // Test an input of quick distinct taps. All should be settled as tapped.
@@ -166,6 +170,8 @@ TEST_F(SpeculativeHoldFlowTapTest, distinct_taps) {
     mod_tap_key2.release();
     idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 // By default, Flow Tap is disabled when mods other than Shift and AltGr are on.
@@ -248,6 +254,8 @@ TEST_F(SpeculativeHoldFlowTapTest, hotkey_taps) {
     shft_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 // Test input with two mod-taps in a rolled press quickly after a regular key.
@@ -292,6 +300,8 @@ TEST_F(SpeculativeHoldFlowTapTest, rolled_press) {
     mod_tap_key2.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, long_flow_tap_settled_as_held) {
@@ -328,6 +338,8 @@ TEST_F(SpeculativeHoldFlowTapTest, long_flow_tap_settled_as_held) {
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, holding_multiple_mod_taps) {
@@ -377,6 +389,8 @@ TEST_F(SpeculativeHoldFlowTapTest, holding_multiple_mod_taps) {
     mod_tap_key2.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, holding_mod_tap_with_regular_mod) {
@@ -426,6 +440,8 @@ TEST_F(SpeculativeHoldFlowTapTest, holding_mod_tap_with_regular_mod) {
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, layer_tap_ignored_with_disabled_key) {
@@ -456,6 +472,8 @@ TEST_F(SpeculativeHoldFlowTapTest, layer_tap_ignored_with_disabled_key) {
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, layer_tap_ignored_with_disabled_key_complex) {
@@ -514,6 +532,8 @@ TEST_F(SpeculativeHoldFlowTapTest, layer_tap_ignored_with_disabled_key_complex) 
     mod_tap_key1.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, layer_tap_ignored_with_enabled_key) {
@@ -545,6 +565,8 @@ TEST_F(SpeculativeHoldFlowTapTest, layer_tap_ignored_with_enabled_key) {
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, quick_tap) {
@@ -575,6 +597,8 @@ TEST_F(SpeculativeHoldFlowTapTest, quick_tap) {
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, rolling_mt_mt) {
@@ -613,6 +637,8 @@ TEST_F(SpeculativeHoldFlowTapTest, rolling_mt_mt) {
     mod_tap_key2.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, rolling_lt_mt_regular) {
@@ -656,6 +682,8 @@ TEST_F(SpeculativeHoldFlowTapTest, rolling_lt_mt_regular) {
     regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, rolling_lt_regular_mt) {
@@ -699,6 +727,8 @@ TEST_F(SpeculativeHoldFlowTapTest, rolling_lt_regular_mt) {
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, rolling_mt_mt_mt) {
@@ -746,6 +776,8 @@ TEST_F(SpeculativeHoldFlowTapTest, rolling_mt_mt_mt) {
     mod_tap_key3.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
 TEST_F(SpeculativeHoldFlowTapTest, roll_release_132) {
@@ -788,14 +820,19 @@ TEST_F(SpeculativeHoldFlowTapTest, roll_release_132) {
     mod_tap_key2.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
 
-TEST_F(SpeculativeHoldFlowTapTest, roll_lt_to_mt) {
+// Test with layer tap and speculative mod tap keys on the same layer, rolling
+// from LT to MT key:
+// "LT down, MT down, (wait out tapping term), LT up, MT up."
+TEST_F(SpeculativeHoldFlowTapTest, lt_mt_same_layer_roll) {
     TestDriver driver;
     InSequence s;
     auto       layer_tap_key = KeymapKey(0, 0, 0, LT(1, KC_A));
-    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_B));
-    auto       regular_key = KeymapKey(1, 1, 0, KC_C);
+    auto       mod_tap_key   = KeymapKey(0, 1, 0, SFT_T(KC_B));
+    auto       regular_key   = KeymapKey(1, 1, 0, KC_C);
 
     set_keymap({layer_tap_key, mod_tap_key, regular_key});
 
@@ -805,9 +842,10 @@ TEST_F(SpeculativeHoldFlowTapTest, roll_lt_to_mt) {
     idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
 
-    // Press regular key. The speculative mod activates.
+    // Press mod-tap key, after flow tap term but within tapping term. The
+    // speculative mod activates.
     EXPECT_REPORT(driver, (KC_LSFT));
-    regular_key.press();
+    mod_tap_key.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
@@ -821,31 +859,214 @@ TEST_F(SpeculativeHoldFlowTapTest, roll_lt_to_mt) {
     EXPECT_EMPTY_REPORT(driver);
     layer_tap_key.release();
     run_one_scan_loop();
-    regular_key.release();
+    mod_tap_key.release();
     idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
+}
 
-    // Press layer tap key.
+// Test with layer tap and speculative mod tap keys on the same layer, trying
+// a nested press from LT to MT key:
+// "LT down, MT down, (wait out tapping term), MT up, LT up."
+TEST_F(SpeculativeHoldFlowTapTest, lt_mt_same_layer_nested_press) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key = KeymapKey(0, 0, 0, LT(1, KC_A));
+    auto       mod_tap_key   = KeymapKey(0, 1, 0, SFT_T(KC_B));
+    auto       regular_key   = KeymapKey(1, 1, 0, KC_C);
+
+    set_keymap({layer_tap_key, mod_tap_key, regular_key});
+
     EXPECT_NO_REPORT(driver);
     layer_tap_key.press();
     idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
 
-    // Press regular key.
     EXPECT_REPORT(driver, (KC_LSFT));
-    regular_key.press();
+    mod_tap_key.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    // Release keys.
     EXPECT_EMPTY_REPORT(driver);
-    EXPECT_REPORT(driver, (KC_A));
-    EXPECT_REPORT(driver, (KC_A, KC_B));
+    EXPECT_REPORT(driver, (KC_C));
+    idle_for(TAPPING_TERM - FLOW_TAP_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release keys: MT first, LT second.
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    layer_tap_key.release();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
+}
+
+// Test with layer tap and speculative mod tap keys on the same layer, trying
+// a nested press with the MT first:
+// "MT down, LT down, (wait out tapping term), LT up, MT up."
+TEST_F(SpeculativeHoldFlowTapTest, mt_lt_same_layer_nested_press) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key = KeymapKey(0, 0, 0, LT(1, KC_A));
+    auto       mod_tap_key   = KeymapKey(0, 1, 0, SFT_T(KC_B));
+    auto       regular_key   = KeymapKey(1, 1, 0, KC_C);
+
+    set_keymap({layer_tap_key, mod_tap_key, regular_key});
+
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_tap_key.press();
+    run_one_scan_loop();
+
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    mod_tap_key.release();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
+}
+
+// Test with a speculative mod tap key reached by a layer tap key, rolling from
+// LT to MT key:
+// "LT down, MT down, (wait out tapping term), LT up, MT up."
+TEST_F(SpeculativeHoldFlowTapTest, lt_mt_different_layer_roll) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key   = KeymapKey(0, 0, 0, LT(1, KC_A));
+    auto       regular_key     = KeymapKey(0, 1, 0, KC_B);
+    auto       placeholder_key = KeymapKey(1, 0, 0, KC_NO);
+    auto       mod_tap_key     = KeymapKey(1, 1, 0, SFT_T(KC_C));
+
+    set_keymap({layer_tap_key, regular_key, placeholder_key, mod_tap_key});
+
+    // Press layer tap key.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    idle_for(FLOW_TAP_TERM + 1);
+    // Press mod tap key.
+    mod_tap_key.press();
+    idle_for(TAPPING_TERM - FLOW_TAP_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release keys.
+    EXPECT_REPORT(driver, (KC_B));
+    layer_tap_key.release();
+    idle_for(TAPPING_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
+}
+
+// Test with a speculative mod tap key reached by a layer tap key, slowly
+// rolling from LT to MT key:
+// "LT down, (wait), MT down, (wait), LT up, MT up."
+TEST_F(SpeculativeHoldFlowTapTest, lt_mt_different_layer_slow_roll) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key   = KeymapKey(0, 0, 0, LT(1, KC_A));
+    auto       regular_key     = KeymapKey(0, 1, 0, KC_B);
+    auto       placeholder_key = KeymapKey(1, 0, 0, KC_NO);
+    auto       mod_tap_key     = KeymapKey(1, 1, 0, SFT_T(KC_C));
+
+    set_keymap({layer_tap_key, regular_key, placeholder_key, mod_tap_key});
+
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    idle_for(TAPPING_TERM + 1);
+
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_tap_key.press();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_B));
     EXPECT_EMPTY_REPORT(driver);
     layer_tap_key.release();
     run_one_scan_loop();
-    regular_key.release();
+    mod_tap_key.release();
     idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
+}
+
+// Test with a speculative mod tap key reached by a layer tap key, trying a
+// nested press:
+// "LT down, MT down, (wait out tapping term), MT up, LT up."
+TEST_F(SpeculativeHoldFlowTapTest, lt_mt_different_layer_nested_press) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key   = KeymapKey(0, 0, 0, LT(1, KC_A));
+    auto       regular_key     = KeymapKey(0, 1, 0, KC_B);
+    auto       placeholder_key = KeymapKey(1, 0, 0, KC_NO);
+    auto       mod_tap_key     = KeymapKey(1, 1, 0, SFT_T(KC_C));
+
+    set_keymap({layer_tap_key, regular_key, placeholder_key, mod_tap_key});
+
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    idle_for(FLOW_TAP_TERM + 1);
+    mod_tap_key.press();
+    idle_for(TAPPING_TERM - FLOW_TAP_TERM);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release keys.
+    EXPECT_REPORT(driver, (KC_C));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    layer_tap_key.release();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
+}
+
+// Test with a speculative mod tap key reached by a layer tap key, trying a
+// slow nested press:
+// "LT down, (wait), MT down, MT up, LT up."
+TEST_F(SpeculativeHoldFlowTapTest, lt_mt_different_layer_slow_nested_press) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key   = KeymapKey(0, 0, 0, LT(1, KC_A));
+    auto       regular_key     = KeymapKey(0, 1, 0, KC_B);
+    auto       placeholder_key = KeymapKey(1, 0, 0, KC_NO);
+    auto       mod_tap_key     = KeymapKey(1, 1, 0, SFT_T(KC_C));
+
+    set_keymap({layer_tap_key, regular_key, placeholder_key, mod_tap_key});
+
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.press();
+    idle_for(TAPPING_TERM + 1);
+
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_tap_key.press();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_C));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    layer_tap_key.release();
+    idle_for(FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+    // All mods are released.
+    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
