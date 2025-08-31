@@ -143,8 +143,8 @@ void bluetooth_send_mouse(report_mouse_t *report) {
         wls_report_mouse.buttons = report->buttons;
         wls_report_mouse.x       = report->x;
         wls_report_mouse.y       = report->y;
-        wls_report_mouse.z       = report->h;
-        wls_report_mouse.h       = report->v;
+        wls_report_mouse.z       = report->z;
+        wls_report_mouse.h       = report->h;
     }
 
     md_send_mouse((uint8_t *)&wls_report_mouse);
