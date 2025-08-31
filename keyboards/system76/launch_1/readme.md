@@ -14,7 +14,7 @@ Additional Launch Keyboard resources:
 - Keyboard Maintainer: [System76](https://github.com/system76)
 - Hardware Supported: [System76 Launch GitHub Repository](https://github.com/system76/launch)
 - Hardware Specifications: [System76 Launch Technical Documentation](https://tech-docs.system76.com/models/launch_1/README.html)
-- Hardware Availability: [System76 Shop](https://system76.com/accessories/launch)
+- Hardware Availability: [System76 Shop](https://system76.com/keyboards/)
 
 ## Building Firmware
 

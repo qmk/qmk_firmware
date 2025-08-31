@@ -13,3 +13,11 @@ else
     OPT_DEFS += -DSYSTEM76_EC
 endif
 SRC += system76_ec.c
+
+# USB multiplexer
+#   Allow variable-length arrays in USB multiplexer's I2C functions
+VALID_USB_VLA_SETTINGS := yes no
+USB_VLA_ENABLE ?= no
+ifeq ($(strip $(USB_VLA_ENABLE)),yes)
+    OPT_DEFS += -DUSB_VLA
+endif

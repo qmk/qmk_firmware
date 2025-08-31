@@ -50,4 +50,4 @@
 #define SYSTEM76_EC_EEPROM_SIZE (EEPROM_SIZE - SYSTEM76_EC_EEPROM_ADDR)
 #endif
 
-#endif
+#endif // __ASSEMBLER__

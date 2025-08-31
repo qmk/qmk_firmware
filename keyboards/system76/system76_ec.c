@@ -24,7 +24,7 @@
 
 #include <string.h>
 
-#ifdef SYSTEM76_EC
+#if defined(SYSTEM76_EC)
 #ifndef RAW_ENABLE
 #error "RAW_ENABLE is not enabled"
 #endif
@@ -36,7 +36,12 @@
 #include "raw_hid.h"
 #include "version.h"
 #include "eeprom.h"
+#elif defined(VIA_ENABLE)
+#include "via.h"
+#include <lib/lib8tion/lib8tion.h>
+#endif
 
+#ifdef SYSTEM76_EC
 static bool keymap_get(uint8_t layer, uint8_t output, uint8_t input, uint16_t *value) {
     if (layer < dynamic_keymap_get_layer_count()) {
         if (output < MATRIX_ROWS) {
@@ -61,8 +66,9 @@ static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t va
     return false;
 }
 
-bool input_disabled = false;
-static bool bootloader_reset, bootloader_unlocked = false;
+static bool input_disabled = false;
+static bool bootloader_reset = false;
+static bool bootloader_unlocked = false;
 
 void system76_ec_unlock(void) {
 #ifdef RGB_MATRIX_CUSTOM_KB
@@ -143,9 +149,9 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
 
 #ifdef SYSTEM76_EC
 // Read or write EEPROM data with checks for being inside System76 EC region.
-static bool system76_ec_eeprom_op(void *buf, uint16_t size, uint16_t offset, bool write) {
-    uintptr_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
-    uintptr_t end  = addr + size;
+static bool system76_ec_eeprom_op(void *buf, size_t size, size_t offset, bool write) {
+    size_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
+    size_t end  = addr + size;
     // Check for overflow and zero size
     if ((end > addr) && (addr >= SYSTEM76_EC_EEPROM_ADDR) && (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))) {
         if (write) {
@@ -161,7 +167,7 @@ static bool system76_ec_eeprom_op(void *buf, uint16_t size, uint16_t offset, boo
 
 // Read or write EEPROM RGB parameters.
 void system76_ec_rgb_eeprom(bool write) {
-    uint16_t layer_rgb_size = sizeof(layer_rgb);
+    size_t layer_rgb_size = sizeof(layer_rgb);
     system76_ec_eeprom_op((void *)layer_rgb, layer_rgb_size, 0, write);
     system76_ec_eeprom_op((void *)raw_rgb_data, sizeof(raw_rgb_data), layer_rgb_size, write);
 }
@@ -207,7 +213,7 @@ bool rgb_matrix_indicators_kb(void) {
     uint8_t index = RGB_MATRIX_CAPS_LOCK_INDEX;
 #endif
     if (host_keyboard_led_state().caps_lock && (rgb_matrix_get_flags() != LED_FLAG_NONE)) {
-        rgb_matrix_set_color(index, RGB_WHITE);  // alternatively: RGB_MATRIX_INDICATOR_SET_COLOR(i, r, g, b)
+        rgb_matrix_set_color(index, RGB_WHITE);
     } else if (rgb_matrix_get_flags() == LED_FLAG_KEYLIGHT) {
         rgb_matrix_set_color(index, RGB_OFF);
     }
@@ -236,7 +242,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             data[1] = 0;
             break;
         case CMD_RESET:
-            if (bootloader_unlocked) {
+            if (system76_ec_is_unlocked()) {
                 data[1] = 0;
                 bootloader_reset = true;
             }
@@ -257,7 +263,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         } break;
 #ifdef RGB_MATRIX_CUSTOM_KB
         case CMD_LED_GET_VALUE:
-            if (!bootloader_unlocked) {
+            if (!system76_ec_is_unlocked()) {
                 uint8_t index = data[2];
                 for (uint8_t layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; ++layer) {
                     if (index == (0xF0 | layer)) {
@@ -270,7 +276,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_SET_VALUE:
-            if (!bootloader_unlocked) {
+            if (!system76_ec_is_unlocked()) {
                 uint8_t index = data[2];
                 uint8_t value = data[3];
                 if (value >= RGB_MATRIX_MAXIMUM_BRIGHTNESS) {
@@ -287,7 +293,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_GET_COLOR:
-            if (!bootloader_unlocked) {
+            if (!system76_ec_is_unlocked()) {
                 uint8_t index = data[2];
                 if (index < RGB_MATRIX_LED_COUNT) {
                     data[3] = raw_rgb_data[index].r;
@@ -308,7 +314,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_SET_COLOR:
-            if (!bootloader_unlocked) {
+            if (!system76_ec_is_unlocked()) {
                 uint8_t index = data[2];
 
                 rgb_t rgb = {
@@ -335,7 +341,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_GET_MODE:
-            if (!bootloader_unlocked) {
+            if (!system76_ec_is_unlocked()) {
                 uint8_t layer = data[2];
                 if (layer < DYNAMIC_KEYMAP_LAYER_COUNT) {
                     enum rgb_matrix_effects mode = layer_rgb[layer].mode;
@@ -351,7 +357,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_SET_MODE:
-            if (!bootloader_unlocked) {
+            if (!system76_ec_is_unlocked()) {
                 uint8_t layer = data[2];
                 uint8_t mode  = data[3];
                 uint8_t speed = data[4];
@@ -364,7 +370,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             }
             break;
         case CMD_LED_SAVE:
-            if (!bootloader_unlocked) {
+            if (!system76_ec_is_unlocked()) {
                 system76_ec_rgb_eeprom(true);
                 data[1] = 0;
             }
@@ -414,23 +420,20 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
     }
 }
 #elif defined(VIA_ENABLE)
-#include "via.h"
-#include <lib/lib8tion/lib8tion.h>
-
 // Read or write EEPROM RGB parameters.
 uint32_t ec_rgb_eeprom(bool write) {
-    uint16_t layer_rgb_size = sizeof(layer_rgb);
+    size_t layer_rgb_size = sizeof(layer_rgb);
     uint32_t size = 0;
     if (write) {
-        size  = via_update_custom_config((const void *)layer_rgb, 0, layer_rgb_size);
+        size = via_update_custom_config((const void *)layer_rgb, 0, layer_rgb_size);
     } else {
-        size  = via_read_custom_config((void *)layer_rgb, 0, layer_rgb_size);
+        size = via_read_custom_config((void *)layer_rgb, 0, layer_rgb_size);
     }
     return size;
 }
 
 void ec_rgb_matrix_set_value(uint8_t *data) {
-    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_id = &(data[0]);
     uint8_t *value_data = &(data[1]);
 
     switch (*value_id) {
@@ -443,11 +446,11 @@ void ec_rgb_matrix_set_value(uint8_t *data) {
         case id_qmk_rgb_matrix_effect: {
             if (value_data[0] == 0) {
                 layer_rgb[0].enable = 0;
-                layer_rgb[0].mode   = value_data[0];
+                layer_rgb[0].mode = value_data[0];
                 rgb_matrix_disable_noeeprom();
             } else {
                 layer_rgb[0].enable = 1;
-                layer_rgb[0].mode   = value_data[0];
+                layer_rgb[0].mode = value_data[0];
                 rgb_matrix_enable_noeeprom();
                 rgb_matrix_mode_noeeprom(value_data[0]);
             }
@@ -468,7 +471,7 @@ void ec_rgb_matrix_set_value(uint8_t *data) {
 }
 
 void ec_rgb_matrix_command(uint8_t *data, uint8_t length) {
-    uint8_t *command_id        = &(data[0]);
+    uint8_t *command_id = &(data[0]);
     uint8_t *value_id_and_data = &(data[2]);
 
     switch (*command_id) {
@@ -500,7 +503,7 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
 void via_custom_value_command(uint8_t *data, uint8_t length) {
     uint8_t *channel_id = &(data[1]);
 
-#if defined(RGB_MATRIX_ENABLE)
+#ifdef RGB_MATRIX_ENABLE
     if (*channel_id == id_qmk_rgb_matrix_channel) {
         ec_rgb_matrix_command(data, length);
         return;

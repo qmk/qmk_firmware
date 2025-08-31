@@ -68,7 +68,7 @@ i2c_status_t usb7206_register_access(struct USB7206 *self) {
 
 // Read data from USB7206 register region.
 // Returns number of bytes read on success or a negative number on error.
-i2c_status_t usb7206_read_reg(struct USB7206 *self, uint32_t addr, uint8_t *data, int length) {
+i2c_status_t usb7206_read_reg(struct USB7206 *self, uint32_t addr, uint8_t *data, size_t length) {
     i2c_status_t status;
 
     uint8_t register_read[9] = {
@@ -93,12 +93,17 @@ i2c_status_t usb7206_read_reg(struct USB7206 *self, uint32_t addr, uint8_t *data
         return status;
     }
 
+#ifndef USB_VLA
+    const size_t max_length = sizeof(uint32_t);
+#else
+    size_t max_length = length;
+#endif
     uint16_t read = 0x0006; // Buffer address LSB set to 0x06 to skip header
-    uint8_t data_with_buffer_length[length];
-    status = i2c_read_register16(self->addr << 1, read, data_with_buffer_length, length, I2C_TIMEOUT);
+    uint8_t data_with_buffer_length[max_length + 1];
+    status = i2c_read_register16(self->addr << 1, read, data_with_buffer_length, length + 1, I2C_TIMEOUT);
 
-    for (uint16_t i = 0; i < (length - 1) && status >= 0; ++i) {
-        data[i] = data_with_buffer_length[i+1];
+    for (uint16_t i = 0; i < length && status >= 0; ++i) {
+        data[i] = data_with_buffer_length[i + 1];
     }
 
     return (status < 0) ? status : length;
@@ -125,7 +130,7 @@ i2c_status_t usb7206_read_reg_32(struct USB7206 *self, uint32_t addr, uint32_t *
 
 // Write data to USB7206 register region.
 // Returns number of bytes written on success or a negative number on error.
-i2c_status_t usb7206_write_reg(struct USB7206 *self, uint32_t addr, uint8_t *data, int length) {
+i2c_status_t usb7206_write_reg(struct USB7206 *self, uint32_t addr, uint8_t *data, size_t length) {
     i2c_status_t status;
 
     uint8_t register_write[9] = {
@@ -139,7 +144,11 @@ i2c_status_t usb7206_write_reg(struct USB7206 *self, uint32_t addr, uint8_t *dat
         (uint8_t)(addr >> 8),  // Register address byte 1
         (uint8_t)(addr >> 0),  // Register address byte 0
     };
+#ifndef USB_VLA
+    const uint8_t send_buffer_length = sizeof(register_write) + sizeof(uint32_t);
+#else
     uint8_t send_buffer_length = sizeof(register_write) + length;
+#endif
     uint8_t send_buffer[send_buffer_length];
     uint8_t j = 0;
 

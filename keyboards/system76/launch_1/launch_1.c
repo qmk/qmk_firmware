@@ -117,8 +117,8 @@ void matrix_init_kb(void) {
 void via_init_kb(void) {
     if (eeconfig_is_enabled()) {
         ec_rgb_eeprom(false); // Read per-layer RGB matrix settings
-    } else	{
-        ec_rgb_eeprom(true); // Populate per-layer RGB matrix settings 
+    } else {
+        ec_rgb_eeprom(true); // Populate per-layer RGB matrix settings
     }
 }
 #endif
@@ -168,15 +168,19 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 #endif
+
     bool shifted = get_mods() & MOD_MASK_SHIFT;
     switch (keycode) {
         case QK_BOOT:
+#ifdef SYSTEM76_EC
+            if (record->event.pressed) {
+                system76_ec_unlock();
+            }
+            return false;
+#else
             if (record->event.pressed) {
                 rgb_matrix_disable_noeeprom();
             }
-#ifndef KEYBOARD_system76_launch_1
-            return false;
-#else
             return true;
 #endif
         case QK_RGB_MATRIX_VALUE_DOWN:
