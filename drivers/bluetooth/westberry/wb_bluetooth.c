@@ -133,7 +133,7 @@ void bluetooth_send_mouse(report_mouse_t *report) {
         uint8_t buttons;
         int8_t  x;
         int8_t  y;
-        int8_t  z;
+        int8_t  v;
         int8_t  h;
     } __attribute__((packed)) wls_report_mouse_t;
 
@@ -143,7 +143,7 @@ void bluetooth_send_mouse(report_mouse_t *report) {
         wls_report_mouse.buttons = report->buttons;
         wls_report_mouse.x       = report->x;
         wls_report_mouse.y       = report->y;
-        wls_report_mouse.z       = report->z;
+        wls_report_mouse.v       = report->v;
         wls_report_mouse.h       = report->h;
     }
 
