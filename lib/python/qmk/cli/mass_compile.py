@@ -23,7 +23,7 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
     os.environ.setdefault('SKIP_SCHEMA_VALIDATION', '1')
 
     make_cmd = find_make()
-    builddir = Path(QMK_FIRMWARE) / '.build'
+    builddir = Path(env.get("BUILD_DIR")) if env.get("BUILD_DIR") is not None else Path(QMK_FIRMWARE) / '.build'
     makefile = builddir / 'parallel_kb_builds.mk'
 
     if dry_run:
@@ -47,8 +47,8 @@ def mass_compile_targets(targets: List[BuildTarget], clean: bool, dry_run: bool,
                 command = target.compile_command(**env)
                 command[0] = '+@$(MAKE)'  # Override the make so that we can use jobserver to handle parallelism
                 extra_args = '_'.join([f"{k}_{v}" for k, v in target.extra_args.items()])
-                build_log = f"{QMK_FIRMWARE}/.build/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
-                failed_log = f"{QMK_FIRMWARE}/.build/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+                build_log = f"{builddir}/build.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
+                failed_log = f"{builddir}/failed.log.{os.getpid()}.{keyboard_safe}.{keymap_name}"
                 target_suffix = ''
                 if len(extra_args) > 0:
                     build_log += f".{extra_args}"
@@ -77,9 +77,9 @@ all: {target_filename}{target_suffix}_binary
                     # yapf: disable
                     f.write(
                         f"""\
-	@rm -rf "{QMK_FIRMWARE}/.build/{target_filename}.elf" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/{target_filename}.map" 2>/dev/null || true
-	@rm -rf "{QMK_FIRMWARE}/.build/obj_{target_filename}" || true
+	@rm -rf "{builddir}/{target_filename}.elf" 2>/dev/null || true
+	@rm -rf "{builddir}/{target_filename}.map" 2>/dev/null || true
+	@rm -rf "{builddir}/obj_{target_filename}" || true
 """# noqa
                     )
                     # yapf: enable
