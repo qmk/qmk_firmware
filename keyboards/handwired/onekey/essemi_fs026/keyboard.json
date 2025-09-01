@@ -7,13 +7,13 @@
         }
     },
     "matrix_pins": {
-        "cols": ["B3"],
-        "rows": ["B4"]
+        "cols": ["D15"],
+        "rows": ["B0"]
     },
     "backlight": {
-        "pin": "A0"
+        "pin": "A5"
     },
     "ws2812": {
-        "pin": "B0"
+        "pin": "C0"
     }
 }
