@@ -4,7 +4,7 @@
 
 The second revision of a 75% keyboard made by Exclusive and run in a Geekhack group buy.
 
-* Keyboard Maintainer: [Aidan Smith](https://github.com/Aidan Smith)
+* Keyboard Maintainer: [AidanSmith.dev](https://github.com/Aidan-OS)
 * Hardware Supported: E7-V2 QMK Solder PCB
 * Hardware Availability: [Exclusive's Website](https://exclusive.run/collections/e7-v2)
 
