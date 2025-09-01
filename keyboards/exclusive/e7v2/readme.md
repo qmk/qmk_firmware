@@ -1,10 +1,10 @@
 # E7-V2
 
-![E7-V2](https://imgur.com/p7Gi1fZ)
+![E7-V2](https://i.imgur.com/p7Gi1fZ.jpeg)
 
 The second revision of a 75% keyboard made by Exclusive and run in a Geekhack group buy.
 
-* Keyboard Maintainer: [Aidan Smith](https://github.com/Aidan-OS)
+* Keyboard Maintainer: [AidanSmith.dev](https://github.com/Aidan-OS)
 * Hardware Supported: E7-V2 QMK Solder PCB
 * Hardware Availability: [Exclusive's Website](https://exclusive.run/collections/e7-v2)
 
