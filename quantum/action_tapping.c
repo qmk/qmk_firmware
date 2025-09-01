@@ -8,6 +8,7 @@
 #include "keycode.h"
 #include "quantum_keycodes.h"
 #include "timer.h"
+#include "wait.h"
 
 #ifndef NO_ACTION_TAPPING
 
@@ -853,6 +854,8 @@ void speculative_key_settled(keyrecord_t *record) {
 
         speculative_mods &= ~cleared_mods;
         send_keyboard_report();
+        wait_ms(TAP_CODE_DELAY);
+
         ac_dprintf("Speculative Hold: canceled %02x, ", cleared_mods);
         debug_speculative_keys();
     }
