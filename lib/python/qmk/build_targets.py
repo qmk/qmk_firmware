@@ -153,7 +153,7 @@ class BuildTarget:
         command = self.compile_command(build_target=build_target, dry_run=True, **env_vars)
         if HAS_QMK_USERSPACE:
             userspace_out = QMK_USERSPACE / 'compile_commands.json'
-            ret = write_compilation_database(command=command, output_path=output_path, skip_clean=skip_clean, **env_vars)
+            ret = write_compilation_database(command=command, output_path=userspace_out, skip_clean=skip_clean, **env_vars)
             if ret and userspace_out.exists():
                 firmware_out = QMK_FIRMWARE / 'compile_commands.json'
                 try:
@@ -164,7 +164,7 @@ class BuildTarget:
             return ret
 
         firmware_out = QMK_FIRMWARE / 'compile_commands.json'
-        return write_compilation_database(command=command, output_path=output_path, skip_clean=skip_clean, **env_vars)
+        return write_compilation_database(command=command, output_path=firmware_out, skip_clean=skip_clean, **env_vars)
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean or self._compiledb:
