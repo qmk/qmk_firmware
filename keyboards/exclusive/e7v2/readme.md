@@ -1,6 +1,6 @@
 # E7-V2
 
-![E7-V2](https://imgur.com/p7Gi1fZ)
+![E7-V2](https://i.imgur.com/p7Gi1fZ.jpeg)
 
 The second revision of a 75% keyboard made by Exclusive and run in a Geekhack group buy.
 
