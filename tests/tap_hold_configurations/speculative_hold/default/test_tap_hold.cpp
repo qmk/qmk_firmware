@@ -82,6 +82,43 @@ TEST_F(SpeculativeHoldDefault, tap_mod_tap_neutralized) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(SpeculativeHoldDefault, hold_two_mod_taps) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_key1 = KeymapKey(0, 1, 0, CTL_T(KC_A));
+    auto       mod_tap_key2 = KeymapKey(0, 2, 0, SFT_T(KC_B));
+
+    set_keymap({mod_tap_key1, mod_tap_key2});
+
+    // Press first mod-tap key.
+    EXPECT_REPORT(driver, (KC_LCTL));
+    mod_tap_key1.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press second mod-tap key.
+    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT));
+    mod_tap_key2.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release first mod-tap key.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_tap_key1.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release second mod-tap key.
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key2.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(SpeculativeHoldDefault, two_mod_taps_same_mods) {
     TestDriver driver;
     InSequence s;

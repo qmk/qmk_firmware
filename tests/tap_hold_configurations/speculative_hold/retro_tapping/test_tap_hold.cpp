@@ -80,12 +80,12 @@ TEST_F(SpeculativeHoldRetroTappingTest, regular_to_mod_under_tap_term) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_B));
-    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_LSFT));
     regular_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
+    EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key.release();

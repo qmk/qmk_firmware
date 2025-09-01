@@ -755,7 +755,7 @@ static void speculative_key_press(keyrecord_t *record) {
         return;
     }
 
-    const uint16_t keycode = get_record_keycode(record, true);
+    const uint16_t keycode = get_record_keycode(record, false);
     if (!IS_QK_MOD_TAP(keycode)) {
         return;
     }
@@ -764,8 +764,20 @@ static void speculative_key_press(keyrecord_t *record) {
     if ((mods & 0x10) != 0) { // Unpack 5-bit mods to 8-bit representation.
         mods <<= 4;
     }
+    if ((~(get_mods() | speculative_mods) & mods) == 0) {
+        return;
+    }
 
-    if ((~(get_mods() | speculative_mods) & mods) != 0 && get_speculative_hold(keycode, record)) {
+    // Don't do Speculative Hold when there are non-speculated buffered events,
+    // since that could result in sending keys out of order.
+    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
+        if (!waiting_buffer[i].tap.speculated) {
+            return;
+        }
+    }
+
+    if (get_speculative_hold(keycode, record)) {
+        record->tap.speculated = true;
         speculative_mods |= mods;
         // Remember the keypos and mods associated with this key.
         speculative_keys[num_speculative_keys] = (speculative_key_t){
@@ -803,7 +815,7 @@ void speculative_key_settled(keyrecord_t *record) {
         }
     }
 
-    const uint16_t keycode = get_record_keycode(record, true);
+    const uint16_t keycode = get_record_keycode(record, false);
     if (IS_QK_MOD_TAP(keycode) && record->tap.count == 0) { // MT hold press.
         if (i < num_speculative_keys) {
             const uint8_t cleared_mods = speculative_keys[i].mods;

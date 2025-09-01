@@ -282,7 +282,9 @@ void process_record(keyrecord_t *record) {
         return;
     }
 #ifdef SPECULATIVE_HOLD
-    speculative_key_settled(record);
+    if (record->event.pressed) {
+        speculative_key_settled(record);
+    }
 #endif // SPECULATIVE_HOLD
 #ifdef FLOW_TAP_TERM
     flow_tap_update_last_event(record);
