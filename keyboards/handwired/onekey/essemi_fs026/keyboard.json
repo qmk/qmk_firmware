@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Onekey essemi_fs026",
+    "bootloader": "custom",
+    "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["B3"],
+        "rows": ["B4"]
+    },
+    "backlight": {
+        "pin": "A0"
+    },
+    "ws2812": {
+        "pin": "B0"
+    }
+}
