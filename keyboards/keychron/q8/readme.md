@@ -1,18 +1,26 @@
 # Keychron Q8
 
+![Keychron Q8](https://i.imgur.com/FQnOwRrh.jpg)
+
 A customizable 65% Alice layout keyboard.
 
 * Keyboard Maintainer: [Keychron](https://github.com/keychron)
 * Hardware Supported: Keychron Q8
-* Hardware Availability: [Keychron](https://www.keychron.com)
+* Hardware Availability: [Keychron Q8 (Alice Layout) QMK Custom Mechanical Keyboard](https://www.keychron.com/products/keychron-q8-alice-layout-qmk-custom-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
     make keychron/q8/ansi:default
+    make keychron/q8/ansi_encoder:default
+    make keychron/q8/iso:default
+    make keychron/q8/iso_encoder:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/q8/ansi:default:flash
+    make keychron/q8/ansi_encoder:default:flash
+    make keychron/q8/iso:default:flash
+    make keychron/q8/iso_encoder:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

@@ -3,6 +3,14 @@
     "manufacturer": "kaylynb",
     "url": "https://github.com/kaylynb/MechLlama-G35",
     "maintainer": "kaylynb",
+    "features": {
+        "bootmagic": false,
+        "extrakey": false,
+        "mousekey": false,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true
+    },
     "usb": {
         "vid": "0xCEEB",
         "pid": "0x0035",

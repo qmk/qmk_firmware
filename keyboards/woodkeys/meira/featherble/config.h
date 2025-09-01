@@ -32,15 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Column pins to demux in LSB order
 #define MATRIX_COL_PINS { C7, B7, B6, C6, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN, NO_PIN }
 #define MATRIX_COL_PINS_SCANNED { C7, B7, B6, C6 }
-#define LED_EN_PIN D2
 
 #define AUDIO_PIN B5
 #define AUDIO_VOICES
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /*
  * Feature disable options

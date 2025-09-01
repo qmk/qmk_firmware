@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_TIMINGR_SCLH 3U
 #define I2C1_TIMINGR_SCLL 9U
 
-#define WS2812_SPI SPID2 // default: SPID1
+#define WS2812_SPI_DRIVER SPID2 // default: SPID1
 #define WS2812_SPI_MOSI_PAL_MODE 0 // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 5
 #define WS2812_SPI_SCK_PAL_MODE 0
 #define WS2812_SPI_SCK_PIN B13
@@ -73,8 +73,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
 #define RGB_BACKLIGHT_COLOR_2 { .h = 127, .s = 255 }
 
-#define DRIVER_COUNT 1
-#define RGB_MATRIX_LED_COUNT 16
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_LED_COUNT 16
 
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for

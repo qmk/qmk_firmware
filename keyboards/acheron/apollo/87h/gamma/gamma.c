@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -26,98 +26,98 @@ const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
  *   |  |         |         B location
  *   |  |         |         | */
 // First row
-    {0, CS7_SW9 , CS9_SW9 , CS8_SW9  }, //ESC    0
-    {0, CS7_SW8 , CS9_SW8 , CS8_SW8  }, //F1     1
-    {0, CS7_SW7 , CS9_SW7 , CS8_SW7  }, //F2     2
-    {0, CS7_SW6 , CS9_SW6 , CS8_SW6  }, //F3     3
-    {0, CS7_SW5 , CS9_SW5 , CS8_SW5  }, //F4     4
-    {0, CS7_SW4 , CS9_SW4 , CS8_SW4  }, //F5     5
-    {0, CS7_SW3 , CS9_SW3 , CS8_SW3  }, //F6     6
-    {0, CS7_SW2 , CS9_SW2 , CS8_SW2  }, //F7     7
-    {0, CS7_SW1 , CS9_SW1 , CS8_SW1  }, //F8     8
-    {0, CS18_SW2, CS16_SW2, CS17_SW2 }, //F9     9
-    {0, CS18_SW3, CS16_SW3, CS17_SW3 }, //F10    10
-    {0, CS18_SW4, CS16_SW4, CS17_SW4 }, //F11    11
-    {0, CS18_SW6, CS16_SW6, CS17_SW6 }, //F12    12
-    {0, CS18_SW7, CS16_SW7, CS17_SW7 }, //PRI    13
-    {0, CS18_SW8, CS16_SW8, CS17_SW8 }, //SCR    14
-    {0, CS18_SW9, CS16_SW9, CS17_SW9 }, //PAUS   15
+    {0, SW9_CS7 , SW9_CS9 , SW9_CS8  }, //ESC    0
+    {0, SW8_CS7 , SW8_CS9 , SW8_CS8  }, //F1     1
+    {0, SW7_CS7 , SW7_CS9 , SW7_CS8  }, //F2     2
+    {0, SW6_CS7 , SW6_CS9 , SW6_CS8  }, //F3     3
+    {0, SW5_CS7 , SW5_CS9 , SW5_CS8  }, //F4     4
+    {0, SW4_CS7 , SW4_CS9 , SW4_CS8  }, //F5     5
+    {0, SW3_CS7 , SW3_CS9 , SW3_CS8  }, //F6     6
+    {0, SW2_CS7 , SW2_CS9 , SW2_CS8  }, //F7     7
+    {0, SW1_CS7 , SW1_CS9 , SW1_CS8  }, //F8     8
+    {0, SW2_CS18, SW2_CS16, SW2_CS17 }, //F9     9
+    {0, SW3_CS18, SW3_CS16, SW3_CS17 }, //F10    10
+    {0, SW4_CS18, SW4_CS16, SW4_CS17 }, //F11    11
+    {0, SW6_CS18, SW6_CS16, SW6_CS17 }, //F12    12
+    {0, SW7_CS18, SW7_CS16, SW7_CS17 }, //PRI    13
+    {0, SW8_CS18, SW8_CS16, SW8_CS17 }, //SCR    14
+    {0, SW9_CS18, SW9_CS16, SW9_CS17 }, //PAUS   15
 //Second row
-    {0, CS12_SW9, CS11_SW9, CS10_SW9 }, //GRAVE  16
-    {0, CS12_SW8, CS11_SW8, CS10_SW8 }, //1      17
-    {0, CS12_SW7, CS11_SW7, CS10_SW7 }, //2      18
-    {0, CS12_SW6, CS11_SW6, CS10_SW6 }, //3      19
-    {0, CS12_SW5, CS11_SW5, CS10_SW5 }, //4      20
-    {0, CS12_SW4, CS11_SW4, CS10_SW4 }, //5      21
-    {0, CS12_SW3, CS11_SW3, CS10_SW3 }, //6      22
-    {0, CS12_SW2, CS11_SW2, CS10_SW2 }, //7      23
-    {0, CS12_SW1, CS11_SW1, CS10_SW1 }, //8      24
-    {0, CS15_SW1, CS13_SW1, CS14_SW1 }, //9      25
-    {0, CS15_SW2, CS13_SW2, CS14_SW2 }, //0      26
-    {0, CS15_SW3, CS13_SW3, CS14_SW3 }, //MINUS  27
-    {0, CS15_SW4, CS13_SW4, CS14_SW4 }, //PLUS   28
-    {0, CS15_SW5, CS13_SW5, CS14_SW5 }, //BKSP   29
-    {0, CS15_SW7, CS13_SW7, CS14_SW7 }, //INS    30
-    {0, CS15_SW8, CS13_SW8, CS14_SW8 }, //HOME   31
-    {0, CS15_SW9, CS13_SW9, CS14_SW9 }, //PGUP   32
+    {0, SW9_CS12, SW9_CS11, SW9_CS10 }, //GRAVE  16
+    {0, SW8_CS12, SW8_CS11, SW8_CS10 }, //1      17
+    {0, SW7_CS12, SW7_CS11, SW7_CS10 }, //2      18
+    {0, SW6_CS12, SW6_CS11, SW6_CS10 }, //3      19
+    {0, SW5_CS12, SW5_CS11, SW5_CS10 }, //4      20
+    {0, SW4_CS12, SW4_CS11, SW4_CS10 }, //5      21
+    {0, SW3_CS12, SW3_CS11, SW3_CS10 }, //6      22
+    {0, SW2_CS12, SW2_CS11, SW2_CS10 }, //7      23
+    {0, SW1_CS12, SW1_CS11, SW1_CS10 }, //8      24
+    {0, SW1_CS15, SW1_CS13, SW1_CS14 }, //9      25
+    {0, SW2_CS15, SW2_CS13, SW2_CS14 }, //0      26
+    {0, SW3_CS15, SW3_CS13, SW3_CS14 }, //MINUS  27
+    {0, SW4_CS15, SW4_CS13, SW4_CS14 }, //PLUS   28
+    {0, SW5_CS15, SW5_CS13, SW5_CS14 }, //BKSP   29
+    {0, SW7_CS15, SW7_CS13, SW7_CS14 }, //INS    30
+    {0, SW8_CS15, SW8_CS13, SW8_CS14 }, //HOME   31
+    {0, SW9_CS15, SW9_CS13, SW9_CS14 }, //PGUP   32
 //Third row
-    {0, CS4_SW9 , CS6_SW9 , CS5_SW9  }, //TAB    33
-    {0, CS4_SW8 , CS6_SW8 , CS5_SW8  }, //Q      34
-    {0, CS4_SW7 , CS6_SW7 , CS5_SW7  }, //W      35
-    {0, CS4_SW6 , CS6_SW6 , CS5_SW6  }, //E      36
-    {0, CS4_SW5 , CS6_SW5 , CS5_SW5  }, //R      37
-    {0, CS4_SW4 , CS6_SW4 , CS5_SW4  }, //T      38
-    {0, CS4_SW3 , CS6_SW3 , CS5_SW3  }, //Y      39
-    {0, CS4_SW2 , CS6_SW2 , CS5_SW2  }, //U      40
-    {0, CS4_SW1 , CS6_SW1 , CS5_SW1  }, //I      41
-    {0, CS3_SW2 , CS1_SW2 , CS2_SW2  }, //O      42
-    {0, CS3_SW3 , CS1_SW3 , CS2_SW3  }, //P      43
-    {0, CS3_SW4 , CS1_SW4 , CS2_SW4  }, //LBRKT  44
-    {0, CS3_SW5 , CS1_SW5 , CS2_SW5  }, //RBRKT  45
-    {0, CS3_SW6 , CS1_SW6 , CS2_SW6  }, //BSLS   46
-    {0, CS3_SW7 , CS1_SW7 , CS2_SW7  }, //DEL    47
-    {0, CS3_SW8 , CS1_SW8 , CS2_SW8  }, //END    48
-    {0, CS3_SW9 , CS1_SW9 , CS2_SW9  }, //PGDN   49
+    {0, SW9_CS4 , SW9_CS6 , SW9_CS5  }, //TAB    33
+    {0, SW8_CS4 , SW8_CS6 , SW8_CS5  }, //Q      34
+    {0, SW7_CS4 , SW7_CS6 , SW7_CS5  }, //W      35
+    {0, SW6_CS4 , SW6_CS6 , SW6_CS5  }, //E      36
+    {0, SW5_CS4 , SW5_CS6 , SW5_CS5  }, //R      37
+    {0, SW4_CS4 , SW4_CS6 , SW4_CS5  }, //T      38
+    {0, SW3_CS4 , SW3_CS6 , SW3_CS5  }, //Y      39
+    {0, SW2_CS4 , SW2_CS6 , SW2_CS5  }, //U      40
+    {0, SW1_CS4 , SW1_CS6 , SW1_CS5  }, //I      41
+    {0, SW2_CS3 , SW2_CS1 , SW2_CS2  }, //O      42
+    {0, SW3_CS3 , SW3_CS1 , SW3_CS2  }, //P      43
+    {0, SW4_CS3 , SW4_CS1 , SW4_CS2  }, //LBRKT  44
+    {0, SW5_CS3 , SW5_CS1 , SW5_CS2  }, //RBRKT  45
+    {0, SW6_CS3 , SW6_CS1 , SW6_CS2  }, //BSLS   46
+    {0, SW7_CS3 , SW7_CS1 , SW7_CS2  }, //DEL    47
+    {0, SW8_CS3 , SW8_CS1 , SW8_CS2  }, //END    48
+    {0, SW9_CS3 , SW9_CS1 , SW9_CS2  }, //PGDN   49
 //Fourth row
-    {0, CS33_SW9, CS32_SW9, CS31_SW9  }, //CAPS  50
-    {0, CS33_SW8, CS32_SW8, CS31_SW8  }, //A     51
-    {0, CS33_SW7, CS32_SW7, CS31_SW7  }, //S     52
-    {0, CS33_SW6, CS32_SW6, CS31_SW6  }, //D     53
-    {0, CS33_SW5, CS32_SW5, CS31_SW5  }, //F     54
-    {0, CS33_SW4, CS32_SW4, CS31_SW4  }, //G     55
-    {0, CS33_SW3, CS32_SW3, CS31_SW3  }, //H     56
-    {0, CS33_SW2, CS32_SW2, CS31_SW2  }, //J     57
-    {0, CS33_SW1, CS32_SW1, CS31_SW1  }, //K     58
-    {0, CS39_SW2, CS38_SW2, CS37_SW2  }, //L     59
-    {0, CS39_SW3, CS38_SW3, CS37_SW3  }, //COLON 60
-    {0, CS39_SW4, CS38_SW4, CS37_SW4  }, //QUOTE 61
-    {0, CS39_SW6, CS38_SW6, CS37_SW6  }, //ENTER 62
+    {0, SW9_CS33, SW9_CS32, SW9_CS31  }, //CAPS  50
+    {0, SW8_CS33, SW8_CS32, SW8_CS31  }, //A     51
+    {0, SW7_CS33, SW7_CS32, SW7_CS31  }, //S     52
+    {0, SW6_CS33, SW6_CS32, SW6_CS31  }, //D     53
+    {0, SW5_CS33, SW5_CS32, SW5_CS31  }, //F     54
+    {0, SW4_CS33, SW4_CS32, SW4_CS31  }, //G     55
+    {0, SW3_CS33, SW3_CS32, SW3_CS31  }, //H     56
+    {0, SW2_CS33, SW2_CS32, SW2_CS31  }, //J     57
+    {0, SW1_CS33, SW1_CS32, SW1_CS31  }, //K     58
+    {0, SW2_CS39, SW2_CS38, SW2_CS37  }, //L     59
+    {0, SW3_CS39, SW3_CS38, SW3_CS37  }, //COLON 60
+    {0, SW4_CS39, SW4_CS38, SW4_CS37  }, //QUOTE 61
+    {0, SW6_CS39, SW6_CS38, SW6_CS37  }, //ENTER 62
 //Fifth row
-    {0, CS30_SW9, CS28_SW9, CS29_SW9  }, //LSFT  63
-    {0, CS30_SW7, CS28_SW7, CS29_SW7  }, //Z     64
-    {0, CS30_SW6, CS28_SW6, CS29_SW6  }, //X     65
-    {0, CS30_SW5, CS28_SW5, CS29_SW5  }, //C     66
-    {0, CS30_SW4, CS28_SW4, CS29_SW4  }, //V     67
-    {0, CS30_SW3, CS28_SW3, CS29_SW3  }, //B     68
-    {0, CS30_SW2, CS28_SW2, CS29_SW2  }, //N     69
-    {0, CS30_SW1, CS28_SW1, CS29_SW1  }, //M     70
-    {0, CS36_SW1, CS35_SW1, CS34_SW1  }, //COMMA 71
-    {0, CS36_SW3, CS35_SW3, CS34_SW3  }, //DOT   72
-    {0, CS36_SW4, CS35_SW4, CS34_SW4  }, //SLASH 73
-    {0, CS36_SW6, CS35_SW6, CS34_SW6  }, //RSFT  74
-    {0, CS36_SW7, CS35_SW7, CS34_SW7  }, //UP    75
+    {0, SW9_CS30, SW9_CS28, SW9_CS29  }, //LSFT  63
+    {0, SW7_CS30, SW7_CS28, SW7_CS29  }, //Z     64
+    {0, SW6_CS30, SW6_CS28, SW6_CS29  }, //X     65
+    {0, SW5_CS30, SW5_CS28, SW5_CS29  }, //C     66
+    {0, SW4_CS30, SW4_CS28, SW4_CS29  }, //V     67
+    {0, SW3_CS30, SW3_CS28, SW3_CS29  }, //B     68
+    {0, SW2_CS30, SW2_CS28, SW2_CS29  }, //N     69
+    {0, SW1_CS30, SW1_CS28, SW1_CS29  }, //M     70
+    {0, SW1_CS36, SW1_CS35, SW1_CS34  }, //COMMA 71
+    {0, SW3_CS36, SW3_CS35, SW3_CS34  }, //DOT   72
+    {0, SW4_CS36, SW4_CS35, SW4_CS34  }, //SLASH 73
+    {0, SW6_CS36, SW6_CS35, SW6_CS34  }, //RSFT  74
+    {0, SW7_CS36, SW7_CS35, SW7_CS34  }, //UP    75
 //Sixth row
-    {0, CS27_SW9, CS25_SW9, CS26_SW9  }, //LCTRL 76
-    {0, CS27_SW7, CS25_SW7, CS26_SW7  }, //LWIN  77
-    {0, CS27_SW6, CS25_SW6, CS26_SW6  }, //LALT  78
-    {0, CS27_SW5, CS25_SW5, CS26_SW5  }, //SPACE 79
-    {0, CS27_SW3, CS25_SW3, CS26_SW3  }, //RALT  80
-    {0, CS24_SW4, CS23_SW4, CS22_SW4  }, //RGUI  81
-    {0, CS24_SW5, CS23_SW5, CS22_SW5  }, //MENU  82
-    {0, CS24_SW6, CS23_SW6, CS22_SW6  }, //RCTRL 83
-    {0, CS24_SW1, CS23_SW1, CS22_SW1  }, //LEFT  84
-    {0, CS24_SW2, CS23_SW2, CS22_SW2  }, //DOWN  85
-    {0, CS24_SW3, CS23_SW3, CS22_SW3  }, //RIGHT 86
+    {0, SW9_CS27, SW9_CS25, SW9_CS26  }, //LCTRL 76
+    {0, SW7_CS27, SW7_CS25, SW7_CS26  }, //LWIN  77
+    {0, SW6_CS27, SW6_CS25, SW6_CS26  }, //LALT  78
+    {0, SW5_CS27, SW5_CS25, SW5_CS26  }, //SPACE 79
+    {0, SW3_CS27, SW3_CS25, SW3_CS26  }, //RALT  80
+    {0, SW4_CS24, SW4_CS23, SW4_CS22  }, //RGUI  81
+    {0, SW5_CS24, SW5_CS23, SW5_CS22  }, //MENU  82
+    {0, SW6_CS24, SW6_CS23, SW6_CS22  }, //RCTRL 83
+    {0, SW1_CS24, SW1_CS23, SW1_CS22  }, //LEFT  84
+    {0, SW2_CS24, SW2_CS23, SW2_CS22  }, //DOWN  85
+    {0, SW3_CS24, SW3_CS23, SW3_CS22  }, //RIGHT 86
 
 };
 

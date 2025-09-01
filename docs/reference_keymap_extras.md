@@ -2,9 +2,31 @@
 
 Keyboards are able to support a wide range of languages. However, this support is not actually achieved within the keyboard itself - instead, it sends numerical codes, which the operating system maps to the appropriate characters depending on the user's configured keyboard layout. By default (and per the HID spec), this is the US ANSI layout. For example, when a Swedish person presses the key with the `å` character printed on it, the keyboard is *actually* sending the keycode for `[`.
 
-Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These won't do much on their own - you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap.
+Obviously, this can get confusing, so QMK provides language-specific keycode aliases for many keyboard layouts. These are used in place of the `KC_` prefixed ones. They won't do much on their own - you still have to set the matching keyboard layout in your OS settings. Think of them more as keycap labels for your keymap. The language-specific keycode aliases are defined in the files listed in the [Keycodes Header](#header-files) column below.
 
-Simply `#include` one of the keycode headers below at the top of your `keymap.c`, and assign the keycodes defined in the header in place of the `KC_` prefixed ones.
+## Selecting Your Host Keyboard Layout
+
+To select a host keyboard layout, simply `#include` one of the [keycode headers](#header-files) below at the top of your `keymap.c`. Example:
+
+```c
+#include QMK_KEYBOARD_H
+
+#include "keymap_japanese.h" // [!code focus]
+```
+
+Alternatively, if using `keymap.json`, add the `host_language` key as shown in the following example. The available languages are those with a _Sendstring LUT Header_ entry in one of the [Header Files](#header-files) tables.
+
+```json
+{
+    "keyboard": "handwired/my_macropad",
+    "keymap": "my_keymap",
+    "host_language": "swedish", // [!code focus]
+    "layout": "LAYOUT_all",
+    "layers": [
+        ["SE_ARNG"]
+    ]
+}
+```
 
 ## Sendstring Support
 
@@ -23,6 +45,8 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Canadian Multilingual (CSA)      |`keymap_canadian_multilingual.h` |`sendstring_canadian_multilingual.h`|
 |Croatian                         |`keymap_croatian.h`              |`sendstring_croatian.h`             |
 |Czech                            |`keymap_czech.h`                 |`sendstring_czech.h`                |
+|Czech (macOS, ANSI)              |`keymap_czech_mac_ansi.h`        |`sendstring_czech_mac_ansi.h`       |
+|Czech (macOS, ISO)               |`keymap_czech_mac_iso.h`         |`sendstring_czech_mac_iso.h`        |
 |Danish                           |`keymap_danish.h`                |`sendstring_danish.h`               |
 |Dutch (Belgium)                  |`keymap_belgian.h`               |`sendstring_belgian.h`              |
 |English (Ireland)                |`keymap_irish.h`                 |                                    |
@@ -31,11 +55,14 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |English (US International)       |`keymap_us_international.h`      |`sendstring_us_international.h`     |
 |English (US International, Linux)|`keymap_us_international_linux.h`|                                    |
 |Estonian                         |`keymap_estonian.h`              |`sendstring_estonian.h`             |
+|EurKEY                           |`keymap_eurkey.h`                |                                    |
+|Farsi                            |`keymap_farsi.h`                 |                                    |
 |Finnish                          |`keymap_finnish.h`               |`sendstring_finnish.h`              |
 |French                           |`keymap_french.h`                |`sendstring_french.h`               |
 |French (AFNOR)                   |`keymap_french_afnor.h`          |`sendstring_french_afnor.h`         |
 |French (BÉPO)                    |`keymap_bepo.h`                  |`sendstring_bepo.h`                 |
 |French (Belgium)                 |`keymap_belgian.h`               |`sendstring_belgian.h`              |
+|French (Canada)                  |`keymap_canadian_french.h`       |`sendstring_canadian_french.h`      |
 |French (Switzerland)             |`keymap_swiss_fr.h`              |`sendstring_swiss_fr.h`             |
 |French (macOS, ISO)              |`keymap_french_mac_iso.h`        |`sendstring_french_mac_iso.h`       |
 |German                           |`keymap_german.h`                |`sendstring_german.h`               |
@@ -67,6 +94,7 @@ These headers are located in [`quantum/keymap_extras/`](https://github.com/qmk/q
 |Slovenian                        |`keymap_slovenian.h`             |`sendstring_slovenian.h`            |
 |Spanish                          |`keymap_spanish.h`               |`sendstring_spanish.h`              |
 |Spanish (Dvorak)                 |`keymap_spanish_dvorak.h`        |`sendstring_spanish_dvorak.h`       |
+|Spanish (Latin America)          |`keymap_spanish_latin_america.h` |`sendstring_spanish_latin_america.h`|
 |Swedish                          |`keymap_swedish.h`               |`sendstring_swedish.h`              |
 |Swedish (macOS, ANSI)            |`keymap_swedish_mac_ansi.h`      |                                    |
 |Swedish (macOS, ISO)             |`keymap_swedish_mac_iso.h`       |                                    |
@@ -87,6 +115,5 @@ There are also a few which are not quite language-specific, but useful if you ar
 |Norman             |`keymap_norman.h`           |`sendstring_norman.h`           |
 |Plover             |`keymap_plover.h`           |                                |
 |Plover (Dvorak)    |`keymap_plover_dvorak.h`    |                                |
-|Steno              |`keymap_steno.h`            |                                |
 |Workman            |`keymap_workman.h`          |`sendstring_workman.h`          |
 |Workman (ZXCVM)    |`keymap_workman_zxcvm.h`    |`sendstring_workman_zxcvm.h`    |

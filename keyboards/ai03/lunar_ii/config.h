@@ -17,11 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-/* Mechanical lock switch support */
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE
-
 /* Solenoid support */
 #define SOLENOID_PIN B7
 #define SOLENOID_DEFAULT_DWELL 15

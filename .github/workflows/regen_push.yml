@@ -26,7 +26,7 @@ jobs:
         util/regen.sh
         git diff
 
-    - uses: rlespinasse/github-slug-action@v3.x
+    - uses: rlespinasse/github-slug-action@v5
 
     - name: Become QMK Bot
       run: |
@@ -34,7 +34,7 @@ jobs:
         git config user.email 'hello@qmk.fm'
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v5
+      uses: peter-evans/create-pull-request@v7
       if: ${{ github.repository == 'qmk/qmk_firmware'}}
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}

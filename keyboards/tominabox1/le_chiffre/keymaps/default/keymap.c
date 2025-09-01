@@ -48,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT(
-      QK_BOOT,  _______,  AG_NORM,  AG_SWAP,  DB_TOGG, KC_TRNS,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
-    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_NO,           KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
-    RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  KC_NO,           KC_MINS,    KC_INT1,  KC_COMM,   KC_DOT,  KC_BSLS,
+    QK_BOOT,  _______,  AG_NORM,  AG_SWAP,  DB_TOGG, KC_TRNS,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
+    RM_TOGG,  RM_HUEU,  RM_SATU,  RM_VALU,  KC_NO,           KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
+    RM_NEXT,  RM_HUED,  RM_SATD,  RM_VALD,  KC_NO,           KC_MINS,    KC_INT1,  KC_COMM,   KC_DOT,  KC_BSLS,
                                   KC_TRNS,KC_TRNS,           KC_TRNS,  KC_TRNS
   )
 };
@@ -88,115 +88,68 @@ combo_t key_combos[] = {
 };
 #endif
 
-#ifdef OLED_ENABLE // Special thanks to Sickbabies for this great OLED widget!
-oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_90; // rotates for proper orientation
-}
+#ifdef OLED_ENABLE
 
-void render_lechiffre_logo(void) {
-    static const char PROGMEM lechiffre_logo[] = {
-       // 'lechiffre_logo', 32x20px
-    0x00, 0x3e, 0x20, 0x20, 0x00, 0x18, 0x2c, 0xa8, 0x80, 0x00, 0x1c, 0x22, 0x22, 0x00, 0x3e, 0x08,
-    0x30, 0x00, 0x34, 0x00, 0x3c, 0x0a, 0x00, 0xbc, 0x8a, 0x00, 0x38, 0x08, 0x00, 0x18, 0x2c, 0x28,
-    0x00, 0xb6, 0xb6, 0x00, 0xdb, 0xdb, 0x00, 0x6d, 0x6d, 0x00, 0xdb, 0xdb, 0x00, 0xdb, 0xdb, 0x00,
-    0x00, 0xdb, 0xdb, 0x00, 0xdb, 0xdb, 0x00, 0x6d, 0x6d, 0x00, 0xdb, 0xdb, 0x00, 0xb6, 0xb6, 0x00,
-    0x00, 0x01, 0x01, 0x00, 0x00, 0x00, 0x06, 0x06, 0x06, 0x00, 0x06, 0x06, 0x06, 0x06, 0x06, 0x00,
-    0x00, 0x06, 0x06, 0x06, 0x06, 0x06, 0x00, 0x06, 0x06, 0x06, 0x00, 0x00, 0x00, 0x01, 0x01, 0x00};
+// Add additional layer names here if desired. Only first 5 characters will be copied to display.
+const char PROGMEM layer_base[]    = "BASE";
+const char PROGMEM layer_num_sym[] = " SYM";
+const char PROGMEM layer_nav[]     = " NAV";
+// Add layer name variables to array here. Make sure these are in order.
+const char* const PROGMEM layer_names[] = {
+    layer_base,
+    layer_num_sym,
+    layer_nav
+};
 
-    oled_write_raw_P(lechiffre_logo, sizeof(lechiffre_logo));
-}
+static char oled_layer_buf[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+static layer_state_t top_layer_cache;
 
-static void render_layer_status(void) {
-    oled_write_P(PSTR("-----"), false);
-    switch (get_highest_layer(layer_state)) {
-        case _BASE:
-            oled_write_ln_P(PSTR("BASE"), false);
-            break;
-        case _NUM_SYM:
-            oled_write_ln_P(PSTR(" SYM"), false);
-            break;
-        case _NAV:
-            oled_write_ln_P(PSTR(" NAV"), false);
-            break;
-        default:
-            oled_write_ln_P(PSTR("?????"), false);
-    }
-}
-
-#    define KEYLOG_LEN 11
-char     keylog_str[KEYLOG_LEN] = {};
-uint8_t  keylogs_str_idx        = 0;
-uint16_t log_timer              = 0;
-
-const char code_to_name[60] = {
-    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
-    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
-    'R', 'E', 'B', 'T', '_', '-', '=', '[', ']', '\\',
-    '#', ';', '\'', '`', ',', '.', '/', ' ', ' ', ' '};
-
-void add_keylog(uint16_t keycode) {
-    if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
-        keycode = keycode & 0xFF;
-    }
-
-    for (uint8_t i = KEYLOG_LEN - 1; i > 0; i--) {
-        keylog_str[i] = keylog_str[i - 1];
-    }
-    if (keycode < 60) {
-        keylog_str[0] = code_to_name[keycode];
-    }
-    keylog_str[KEYLOG_LEN - 1] = 0;
-
-    log_timer = timer_read();
-}
-
-void update_log(void) {
-    if (timer_elapsed(log_timer) > 750) {
-        add_keylog(0);
-    }
-}
-
-// Text only renders
-void render_keylogger_status(void) {
-    oled_write_P(PSTR("-----"), false);
-    oled_write(keylog_str, false);
-}
-
-void render_keylock_status(led_t led_state) {
-    oled_write_P(PSTR("-----"), false);
-    oled_write_P(PSTR("C"), led_state.caps_lock);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("N"), led_state.num_lock);
-    oled_write_P(PSTR(" "), false);
-    oled_write_P(PSTR("S"), led_state.scroll_lock);
-    // oled_write_ln_P(PSTR(" "), false);
-}
-
-void render_mod_status(uint8_t modifiers) {
-    oled_write_P(PSTR("-----"), false);
-    oled_write_ln_P(PSTR("SHFT"), (modifiers & MOD_MASK_SHIFT));
-    oled_write_ln_P(PSTR("ALT"), (modifiers & MOD_MASK_ALT));
-    oled_write_ln_P(PSTR("CTRL"), (modifiers & MOD_MASK_CTRL));
-    oled_write_ln_P(PSTR("GUI"), (modifiers & MOD_MASK_GUI));
-}
-
+/* BEGIN STANDARD QMK FUNCTIONS */
 bool oled_task_user(void) {
-    render_lechiffre_logo();
+    oled_write_raw_P(lechiffre_logo, sizeof(lechiffre_logo));
+    // Renders the current keyboard state (layer, lock, caps, scroll, etc);
     oled_set_cursor(0, 3);
-    render_layer_status(); // Renders the current keyboard state (layer, lock, caps, scroll, etc)
+    oled_write_P(oled_section_break, false);
+    render_layer_status(oled_layer_buf);
+    oled_write_P(oled_section_break, false);
     render_mod_status(get_mods() | get_oneshot_mods());
+    oled_write_P(oled_section_break, false);
     render_keylock_status(host_keyboard_led_state());
+    oled_write_P(oled_section_break, false);
     render_keylogger_status();
 
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     if (record->event.pressed) {
-        add_keylog(keycode);
+        add_keylog(keycode, record);
     }
+
     return true;
+}
+
+// If we don't force an update during initialization, the layer name buffer will start out blank.
+layer_state_t default_layer_state_set_user(layer_state_t state) {
+    update_layer_namebuf(get_highest_layer(state), true);
+    return state;
+}
+layer_state_t layer_state_set_user(layer_state_t state) {
+    update_layer_namebuf(get_highest_layer(state | default_layer_state), false);
+    return state;
+}
+
+/* END STANDARD QMK FUNCTIONS */
+/* BEGIN CUSTOM HELPER FUNCTION FOR OLED */
+// Avoid excessive copying by only updating the layer name buffer when the layer changes
+void update_layer_namebuf(layer_state_t layer, bool force_update) {
+    if (force_update || layer != top_layer_cache) {
+        top_layer_cache = layer;
+        if (layer < ARRAY_SIZE(layer_names)) {
+            memcpy_P(oled_layer_buf, pgm_read_ptr(&layer_names[layer]), ARRAY_SIZE(oled_layer_buf) - 1);
+        } else {
+            memcpy(oled_layer_buf, get_u8_str(layer, ' '), ARRAY_SIZE(oled_layer_buf) - 1);
+        }
+    }
 }
 #endif

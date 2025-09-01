@@ -1,1 +1,1 @@
-SRC += analog.c
+ANALOG_DRIVER_REQUIRED = yes

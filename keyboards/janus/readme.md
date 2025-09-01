@@ -18,6 +18,8 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
+If you would like to plug in your keyboard using either half, then set the EEPROM left/right UF2 bootloader parameter when flashing each half for the first time. Refer to [QMK's handedness by EEPROM documentation](https://docs.qmk.fm/features/split_keyboard#handedness-by-eeprom). Without this bootloader parameter, the configuration assumes the left half will be plugged in.
+
 ## Bootloader
 
 Enter the bootloader in 3 ways:

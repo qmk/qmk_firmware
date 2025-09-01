@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,			  KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,  KC_DEL,
 //---------------------------------------------------------//-----------------------------------------------------------//
-    QK_BOOT,   _______, _______, _______, _______, KC_LBRC,			  KC_RBRC, KC_P7,   KC_P8,   KC_P9,   _______,  KC_PLUS,
+    QK_BOOT, _______, _______, _______, _______, KC_LBRC,			  KC_RBRC, KC_P7,   KC_P8,   KC_P9,   _______,  KC_PLUS,
 //---------------------------------------------------------//-----------------------------------------------------------//
     _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END,  KC_LPRN,	      KC_RPRN, KC_P4,   KC_P5,   KC_P6,   KC_MINS,  KC_PIPE,
 //---------------------------------------------------------//-----------------------------------------------------------//
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [2] = LAYOUT(
     KC_F12,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,			    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,
 //---------------------------------------------------------//--------------------------------------------------------------//
-    _______, _______, RGB_RMOD, RGB_TOG, RGB_MOD, KC_LBRC,			  KC_RBRC, _______, KC_NUM, KC_INS,  KC_SCRL,  KC_MUTE,
+    _______, _______, UG_PREV,  UG_TOGG, UG_NEXT, KC_LBRC,			  KC_RBRC, _______, KC_NUM, KC_INS,  KC_SCRL,  KC_MUTE,
 //---------------------------------------------------------//--------------------------------------------------------------//
     _______, KC_LEFT, KC_UP,    KC_DOWN, KC_RGHT, KC_LPRN,	      KC_RPRN, KC_MPRV, KC_MPLY, KC_MNXT, _______,  KC_VOLU,
 //---------------------------------------------------------//--------------------------------------------------------------//

@@ -8,7 +8,7 @@ Your iconic keys and keycaps can be placed in the center of the keyboard.
 It is possible to make it shine with LED backlighting.  
 The keyswitches can also be replaced with MX sockets.  
 
-* Keyboard Maintainer: [takashicompany](https://github.com/yourusername)
+* Keyboard Maintainer: [takashicompany](https://github.com/takashicompany)
 * Hardware Supported: PCB, Pro Micro
 * Hardware Availability: https://github.com/takashicompany/radialex
 
