@@ -102,7 +102,7 @@ def parse_make_n(f: Iterator[str]) -> List[Dict[str, str]]:
     return records
 
 
-def write_compilation_database(keyboard: str = None, keymap: str = None, output_path: Path = QMK_FIRMWARE / 'compile_commands.json', skip_clean: bool = False, command: List[str] = None, **env_vars) -> bool:
+def generate_compilation_database(keyboard: str = None, keymap: str = None, skip_clean: bool = False, command: List[str] = None, **env_vars):
     # Generate the make command for a specific keyboard/keymap.
     if not command:
         from qmk.build_targets import KeyboardKeymapBuildTarget  # Lazy load due to circular references
@@ -112,7 +112,7 @@ def write_compilation_database(keyboard: str = None, keymap: str = None, output_
     if not command:
         cli.log.error('You must supply both `--keyboard` and `--keymap`, or be in a directory for a keyboard or keymap.')
         cli.echo('usage: qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]')
-        return False
+        return None
 
     # remove any environment variable overrides which could trip us up
     env = os.environ.copy()
@@ -130,11 +130,15 @@ def write_compilation_database(keyboard: str = None, keymap: str = None, output_
     db = parse_make_n(result.stdout.splitlines())
     if not db:
         cli.log.error("Failed to parse output from make output:\n%s", result.stdout)
-        return False
+        return None
 
     cli.log.info("Found %s compile commands", len(db))
+    return json.dumps(db, indent=4)
 
+def write_compilation_database(keyboard: str = None, keymap: str = None, output_path: Path = QMK_FIRMWARE / 'compile_commands.json', skip_clean: bool = False, command: List[str] = None, **env_vars) -> bool:
+    if not db:
+        return False
     cli.log.info(f"Writing build database to {output_path}")
-    output_path.write_text(json.dumps(db, indent=4))
+    output_path.write_text(db)
 
     return True
