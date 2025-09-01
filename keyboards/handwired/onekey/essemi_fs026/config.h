@@ -4,6 +4,9 @@
 
 #pragma once
 
+/* ADC pin */
+#define ADC_PIN C5
+
 /* Backlight configs */
 #define BACKLIGHT_PWM_DRIVER PWM_GP16C4T2
 #define BACKLIGHT_PWM_CHANNEL 3
