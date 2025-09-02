@@ -122,7 +122,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SPLIT_KEYBOARD
 #    include "split_util.h"
 #endif
-#ifdef BATTERY_DRIVER
+#ifdef BATTERY_ENABLE
 #    include "battery.h"
 #endif
 #ifdef BLUETOOTH_ENABLE
@@ -532,7 +532,7 @@ void keyboard_init(void) {
     // init after split init
     pointing_device_init();
 #endif
-#ifdef BATTERY_DRIVER
+#ifdef BATTERY_ENABLE
     battery_init();
 #endif
 #ifdef BLUETOOTH_ENABLE
@@ -779,7 +779,7 @@ void keyboard_task(void) {
     joystick_task();
 #endif
 
-#ifdef BATTERY_DRIVER
+#ifdef BATTERY_ENABLE
     battery_task();
 #endif
 

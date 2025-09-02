@@ -179,6 +179,32 @@ Configures the [Backlight](features/backlight) feature.
     * `pins` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only).
 
+## Battery
+
+Configures the [Battery](features/battery) feature.
+
+* `battery`
+    * `adc`
+        * `pin` <Badge type="info">Pin</Badge> <Badge>Required</Badge>
+            * The GPIO pin connected to the voltage divider.
+        * `reference_voltage` <Badge type="info">Number</Badge>
+            * The ADC reverence voltage, in millivolts. 
+            * Default: `3300`
+        * `divider_r1` <Badge type="info">Number</Badge>
+            * The voltage divider resistance, in kOhm. Set to 0 to disable.
+            * Default: `100`
+        * `divider_r2` <Badge type="info">Number</Badge>
+            * The voltage divider resistance, in kOhm. Set to 0 to disable.
+            * Default: `100`
+        * `resolution` <Badge type="info">Number</Badge>
+            * The ADC resolution configured for the ADC Driver.
+            * Default: `10`
+    * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
+        * The driver to use. Must be one of `adc`, `custom`, `vendor`.
+    * `sample_interval` <Badge type="info">Number</Badge>
+        * The delay between sampling the battery in milliseconds.
+        * Default: `30000` (30 s)
+
 ## Wireless/Bluetooth {#bluetooth}
 
 Configures the [Wireless](features/wireless) feature.
