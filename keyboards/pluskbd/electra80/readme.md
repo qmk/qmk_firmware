@@ -1,6 +1,6 @@
 # electra80
 
-![electra80](imgur.com image replace me!)
+![electra80](https://i.imgur.com/jiB8uh6.png)
 
 *A short description of the keyboard/project*
 
