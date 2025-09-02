@@ -98,6 +98,7 @@ MD_RCU_PPRE_HCLK_DIV_16      = HCLK divided by 16
  * ADC driver system settings.
  */
 #define ES32_ADC_USE_ADC1 TRUE
+#define ES32_ADC1_HANDLER Vector70
 
 /*
  * GPT driver system settings.
