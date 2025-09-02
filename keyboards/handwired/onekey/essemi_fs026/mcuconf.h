@@ -95,12 +95,17 @@ MD_RCU_PPRE_HCLK_DIV_16      = HCLK divided by 16
 #define ES32_IRQ_EXTI4_15_PRIORITY           6
 
 /*
+ * ADC driver system settings.
+ */
+#define ES32_ADC_USE_ADC1 TRUE
+
+/*
  * GPT driver system settings.
  */
 #define ES32_GPT_USE_AD16C4T1 FALSE
 #define ES32_GPT_USE_GP32C4T1 FALSE
 #define ES32_GPT_USE_GP16C4T1 FALSE
-#define ES32_GPT_USE_GP16C4T2 FALSE
+#define ES32_GPT_USE_GP16C4T2 TRUE
 #define ES32_GPT_USE_GP16C4T3 FALSE
 #define ES32_GPT_USE_GP16C2T1 FALSE
 #define ES32_GPT_USE_GP16C2T2 FALSE
