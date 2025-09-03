@@ -1632,6 +1632,12 @@
     "1upkeyboards/sweet16": {
         "target": "1upkeyboards/sweet16/v1"
     },
+    "1upkeyboards/sweet16v2/kb2040": {
+        "target": "1upkeyboards/sweet16v2"
+    },
+    "1upkeyboards/sweet16v2/pro_micro": {
+        "target": "1upkeyboards/sweet16v2"
+    },
     "25keys/aleth42": {
         "target": "25keys/aleth42/rev1"
     },
