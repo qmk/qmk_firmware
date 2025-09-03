@@ -48,7 +48,7 @@ i2c_status_t mcp23018_writeReg(uint8_t regaddr, const uint8_t* data, uint16_t le
         return mcp23018_status;
     }
 
-    mcp23018_status = i2c_writeReg((MCP23018_ADDR << 1), regaddr, data, length, MCP23018_TIMEOUT);
+    mcp23018_status = i2c_write_register((MCP23018_ADDR << 1), regaddr, data, length, MCP23018_TIMEOUT);
     return mcp23018_status;
 }
 
@@ -57,6 +57,6 @@ i2c_status_t mcp23018_readReg(uint8_t regaddr, uint8_t* data, uint16_t length) {
         return mcp23018_status;
     }
 
-    mcp23018_status = i2c_readReg((MCP23018_ADDR << 1), regaddr, data, length, MCP23018_TIMEOUT);
+    mcp23018_status = i2c_read_register((MCP23018_ADDR << 1), regaddr, data, length, MCP23018_TIMEOUT);
     return mcp23018_status;
 }

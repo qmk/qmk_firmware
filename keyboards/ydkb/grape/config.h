@@ -23,14 +23,3 @@
 #define MATRIX_COL_PINS { F4, F5, F6, F7, C7, C6, B6, B5, B4, D7, D6, D4, D5, D3, B3, B2, B1, B0 }
 
 #define SN74X138_ADDRESS_PINS { D2, D1, D0 }
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLED_NUM 4
-#endif
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define DYNAMIC_KEYMAP_LAYER_COUNT 3

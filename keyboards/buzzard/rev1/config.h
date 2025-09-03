@@ -3,14 +3,8 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #ifdef OLED_ENABLE
 #define OLED_DISPLAY_128X32
-#define SPLIT_OLED_ENABLE
 #endif
 
 #ifdef PS2_DRIVER_INTERRUPT

@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Onekey Nucleo H723ZG",
+    "processor": "STM32H723",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "cols": ["A9"],
+        "rows": ["A10"]
+    },
+    "backlight": {
+        "pin": "B8"
+    },
+    "ws2812": {
+        "pin": "A0"
+    },
+    "apa102": {
+        "data_pin": "A0",
+        "clock_pin": "B13"
+    }
+}

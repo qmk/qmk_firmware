@@ -3,30 +3,21 @@
     "keyboard_name": "Sugar Glider",
     "maintainer": "kylemccreery",
     "url": "https://mechwild.com/product/sugar-glider/",
-    "bootloader": "stm32-dfu",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true,
-        "encoder": true,
-        "rgblight": true,
-        "dip_switch": true,
-        "steno": true
-    },
     "usb": {
         "vid": "0x6D77",
         "pid": "0x1710",
         "device_version": "0.2.0",
-        "force_nkro": true
+        "force_nkro": true,
+        "shared_endpoint": {
+            "keyboard": true
+        }
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 5
+    },
     "rgblight": {
         "led_count": 10,
-        "max_brightness": 255,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
         "animations": {
@@ -42,8 +33,17 @@
             "twinkle": true
         }
     },
+    "tapping": {
+        "term": 0
+    },
     "ws2812": {
         "pin": "B5"
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
+    "dip_switch": {
+        "pins": ["A0"]
     },
     "encoder": {
         "rotary": [

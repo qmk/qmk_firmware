@@ -23,12 +23,15 @@
 #include <sstream>
 
 extern "C" {
-#include "quantum.h"
-#include "timer.h"
 #include "debounce.h"
+#include "timer.h"
 
-void set_time(uint32_t t);
-void advance_time(uint32_t ms);
+void     simulate_async_tick(uint32_t t);
+void     reset_access_counter(void);
+uint32_t current_access_counter(void);
+uint32_t timer_read_internal(void);
+void     set_time(uint32_t t);
+void     advance_time(uint32_t ms);
 }
 
 void DebounceTest::addEvents(std::initializer_list<DebounceTestEvent> events) {
@@ -59,6 +62,7 @@ void DebounceTest::runEventsInternal() {
     /* Initialise keyboard with start time (offset to avoid testing at 0) and all keys UP */
     debounce_init(MATRIX_ROWS);
     set_time(time_offset_);
+    simulate_async_tick(async_time_jumps_);
     std::fill(std::begin(input_matrix_), std::end(input_matrix_), 0);
     std::fill(std::begin(output_matrix_), std::end(output_matrix_), 0);
 
@@ -71,9 +75,9 @@ void DebounceTest::runEventsInternal() {
             advance_time(1);
         } else {
             /* Fast forward to the time for this event, calling debounce() with no changes */
-            ASSERT_LT((time_offset_ + event.time_) - timer_read_fast(), 60000) << "Test tries to advance more than 1 minute of time";
+            ASSERT_LT((time_offset_ + event.time_) - timer_read_internal(), 60000) << "Test tries to advance more than 1 minute of time";
 
-            while (timer_read_fast() != time_offset_ + event.time_) {
+            while (timer_read_internal() != time_offset_ + event.time_) {
                 runDebounce(false);
                 checkCookedMatrix(false, "debounce() modified cooked matrix");
                 advance_time(1);
@@ -125,14 +129,20 @@ void DebounceTest::runDebounce(bool changed) {
     std::copy(std::begin(input_matrix_), std::end(input_matrix_), std::begin(raw_matrix_));
     std::copy(std::begin(output_matrix_), std::end(output_matrix_), std::begin(cooked_matrix_));
 
+    reset_access_counter();
+
     bool cooked_changed = debounce(raw_matrix_, cooked_matrix_, MATRIX_ROWS, changed);
 
     if (!std::equal(std::begin(input_matrix_), std::end(input_matrix_), std::begin(raw_matrix_))) {
         FAIL() << "Fatal error: debounce() modified raw matrix at " << strTime() << "\ninput_matrix: changed=" << changed << "\n" << strMatrix(input_matrix_) << "\nraw_matrix:\n" << strMatrix(raw_matrix_);
     }
 
-    if (std::equal(std::begin(output_matrix_), std::end(output_matrix_), std::begin(cooked_matrix_)) && cooked_changed) {
-        FAIL() << "Fatal error: debounce() did detect a wrong cooked matrix change at " << strTime() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
+    if (std::equal(std::begin(output_matrix_), std::end(output_matrix_), std::begin(cooked_matrix_)) == cooked_changed) {
+        FAIL() << "Fatal error: debounce() reported a wrong cooked matrix change result at " << strTime() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
+    }
+
+    if (current_access_counter() > 1) {
+        FAIL() << "Fatal error: debounce() read the timer multiple times, which is not allowed, at " << strTime() << "\ntimer: access_count=" << current_access_counter() << "\noutput_matrix: cooked_changed=" << cooked_changed << "\n" << strMatrix(output_matrix_) << "\ncooked_matrix:\n" << strMatrix(cooked_matrix_);
     }
 }
 
@@ -145,7 +155,7 @@ void DebounceTest::checkCookedMatrix(bool changed, const std::string &error_mess
 std::string DebounceTest::strTime() {
     std::stringstream text;
 
-    text << "time " << (timer_read_fast() - time_offset_) << " (extra_iterations=" << extra_iterations_ << ", auto_advance_time=" << auto_advance_time_ << ")";
+    text << "time " << (timer_read_internal() - time_offset_) << " (extra_iterations=" << extra_iterations_ << ", auto_advance_time=" << auto_advance_time_ << ")";
 
     return text.str();
 }

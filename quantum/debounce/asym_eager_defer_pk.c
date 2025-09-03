@@ -18,13 +18,13 @@
  */
 
 /*
-Basic symmetric per-key algorithm. Uses an 8-bit counter per key.
-When no state changes have occured for DEBOUNCE milliseconds, we push the state.
+Asymetric per-key algorithm. After pressing a key, it immediately changes state,
+with no further inputs accepted until DEBOUNCE milliseconds have occurred. After
+releasing a key, that state is pushed after no changes occur for DEBOUNCE milliseconds.
 */
 
-#include "matrix.h"
+#include "debounce.h"
 #include "timer.h"
-#include "quantum.h"
 #include <stdlib.h>
 
 #ifdef PROTOCOL_CHIBIOS
@@ -143,6 +143,8 @@ static void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[],
 
 static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows) {
     debounce_counter_t *debounce_pointer = debounce_counters;
+
+    matrix_need_update = false;
 
     for (uint8_t row = 0; row < num_rows; row++) {
         matrix_row_t delta = raw[row] ^ cooked[row];

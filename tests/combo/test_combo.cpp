@@ -3,7 +3,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "keyboard_report_util.hpp"
-#include "quantum.h"
 #include "keycode.h"
 #include "test_common.h"
 #include "test_driver.hpp"

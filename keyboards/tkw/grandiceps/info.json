@@ -4,18 +4,45 @@
     "maintainer": "vattern",
     "usb": {
         "vid": "0xFEED",
-        "pid": "0x7812"
+        "pid": "0x7812",
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgblight": true
     },
     "ws2812": {
         "pin": "B1",
         "driver": "pwm"
     },
     "rgblight": {
-        "max_brightness": 120
+        "led_count": 16,
+        "max_brightness": 120,
+        "split_count": [8, 8],
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
     },
     "matrix_pins": {
         "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
-        "rows": ["B12", "A6", "B13", "B9", "B8"]
+        "rows": ["B12", "A6", "B13", "B9", "B8"],
+        "io_delay": 5
     },
     "diode_direction": "COL2ROW",
     "encoder": {
@@ -24,17 +51,22 @@
         ]
     },
     "split": {
-        "soft_serial_pin": "A15",
+        "enabled": true,
         "matrix_pins": {
             "right": {
                 "cols": ["B0", "A7", "A3", "A5", "A4", "A2"],
                 "rows": ["B12", "A6", "B13", "B9", "B8"]
             }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "A15"
         }
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
-    "board": "BLACKPILL_STM32_F411",
+    "qmk": {
+        "tap_keycode_delay": 10
+    },
+    "development_board": "blackpill_f411",
     "layouts": {
         "LAYOUT": {
             "layout": [

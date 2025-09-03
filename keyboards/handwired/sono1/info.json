@@ -1,8 +1,20 @@
 {
     "keyboard_name": "Sono1",
     "manufacturer": "ASKeyboard",
-    "url": "",
     "maintainer": "DmNosachev",
+    "features": {
+        "bootmagic": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "vid": "0x515A",
         "pid": "0x5331"

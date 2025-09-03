@@ -33,54 +33,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // for "Generic" Promicro to be detected correctly as lefthand side (slave)
 #define SPLIT_USB_DETECT
 
-#ifdef RGBLIGHT_ENABLE
-#   define RGBLED_NUM 123
-
-// Do not define "RGBLED_SPLIT" since somehow it doesn't work well yet.
-// Even thhough "#define RGBLED_SPLIT { 60, 63 }" was set, LEDs on the sub keyboad side didn't turn on.
-// Not sure but rgblight_sethsv_at() might not support RGBLED_SPLIT yet.
-// Instead, LED data is tranferred from right side to the left via TRRS cable.
-
-#   define RGBLIGHT_LAYERS
-
-// By default, LEDs of the buttons which are pressed turn on.
-// #    define RGBLIGHT_EFFECT_TWINKLE
-// #    define RGBLIGHT_EFFECT_KNIGHT
-
-
-// RGBLIGHT LED MAP
-//     Right 1st row (12 LEDs)
-//     ENCODER
-//     Right 2nd .. 5th row(13, 12, 13, 12 LEDs)
-//     Left 1st .. 5th row (12 LEDs x 5 rows)
-
-#   define RGBLIGHT_LED_MAP { \
-    60,  61,  62,  63,  64,  65,  66,  67,  68,  69,  70,  71, \
-    97, \
-    84,  83,  82,  81,  80,  79,  78,  77,  76,  75,  74,  73,  72, \
-    85,  86,  87,  88,  89,  90,  91,  92,  93,  94,  95,  96, \
-    110, 109, 108, 107, 106, 105, 104, 103, 102, 101, 100, 99,  98, \
-    111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, \
-    \
-    11,  10,  9,   8,   7,   6,   5,   4,   3,   2,   1,   0,  \
-    12,  13,  14,  15,  16,  17,  18,  19,  20,  21,  22,  23, \
-    35,  34,  33,  32,  31,  30,  29,  28,  27,  26,  25,  24, \
-    36,  37,  38,  39,  40,  41,  42,  43,  44,  45,  46,  47, \
-    59,  58,  57,  56,  55,  54,  53,  52,  51,  50,  49,  48  \
-    }
-#endif
+#define RGBLIGHT_LAYERS
 
 #ifdef RGB_MATRIX_ENABLE
 /* ws2812 RGB MATRIX */
-#   define RGB_MATRIX_LED_COUNT 123
-#   define RGB_MATRIX_KEYPRESSES  // reacts to keypresses
-
 //  for all fingers used at once.
 #   define LED_HITS_TO_REMEMBER 10
 
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 50
-
-// the above brighness setting has no effect on rgb_matrix_set_color().
+// the max brightness setting has no effect on rgb_matrix_set_color().
 // Use darker colors instead.
 /*              RGB darker COLORS             */
 #   define RGB_DARKWHITE 0x66, 0x66, 0x66
@@ -101,50 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGB_DARKPURPLE 0x30, 0x0, 0x66
 #   define RGB_DARKMAGENTA 0x66, 0x0, 0x66
 #   define RGB_DARKPINK 0x66, 0x33, 0x4C
-
-//  https://docs.qmk.fm/#/feature_rgb_matrix
-//  Enable suspend mode.
-// #    define RGB_DISABLE_WHEN_USB_SUSPENDED true
-
-#   define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-// #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-// #define ENABLE_RGB_MATRIX_BREATHING
-// #define ENABLE_RGB_MATRIX_BAND_SAT
-// #define ENABLE_RGB_MATRIX_BAND_VAL
-// #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-// #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-// #define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-// #define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-// #define ENABLE_RGB_MATRIX_CYCLE_ALL
-// #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-// #define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-#   define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-// #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN
-// #define ENABLE_RGB_MATRIX_CYCLE_OUT_IN_DUAL
-// #define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-// #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-// #define ENABLE_RGB_MATRIX_DUAL_BEACON
-// #   define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-// #define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-// #define ENABLE_RGB_MATRIX_RAINDROPS
-// #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-#   define ENABLE_RGB_MATRIX_HUE_BREATHING
-// #define ENABLE_RGB_MATRIX_HUE_PENDULUM
-// #define ENABLE_RGB_MATRIX_HUE_WAVE
-// #define ENABLE_RGB_MATRIX_TYPING_HEATMAP
-// #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#   define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-// #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-// #define ENABLE_RGB_MATRIX_SPLASH
-#   define ENABLE_RGB_MATRIX_MULTISPLASH
-// #define ENABLE_RGB_MATRIX_SOLID_SPLASH
-// #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif  // RGB_MATRIX_ENABLE
 
 /*
@@ -196,8 +112,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Initial velocity value (avoid using 127 since it is used as a special number in some sound sources.)
 #   define MIDI_INITIAL_VELOCITY 117
 #endif  //  MIDI_ENABLE
-
-#define TAP_CODE_DELAY 10
 
 /* 2021/01/22 added to shrink firmware size */
 // NO_ACTION_TAPPING -1964 bytes, however, this disables Layer mods...

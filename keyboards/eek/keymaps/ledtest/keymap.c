@@ -44,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
   [_QUERTY] = LAYOUT_split_3x5_3(
-    KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,         RGBRST,     RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_SPI,
-    KC_A,    KC_S,    KC_D,    KC_F,       KC_G,         RGB_MOD,    RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD,
-    KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,         RGB_TOG,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
+    KC_Q,    KC_W,    KC_E,    KC_R,       KC_T,         RGBRST,     RM_HUEU,    RM_SATU,    RM_VALU,    RM_SPDU,
+    KC_A,    KC_S,    KC_D,    KC_F,       KC_G,         RM_NEXT,    RM_HUED,    RM_SATD,    RM_VALD,    RM_SPDD,
+    KC_Z,    KC_X,    KC_C,    KC_V,       KC_B,         RM_TOGG,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,
                       KC_LCTL, MO(_LOWER), KC_SPC,       KC_BSPC, MO(_RAISE), OSM(MOD_LSFT)
   ),
 
@@ -65,8 +65,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_split_3x5_3(
-    RGB_VAI,   RGB_SAI, RGB_HUI,  RGB_MOD,  RGB_TOG,      _______,  KC_F9,  KC_F10, KC_F11, KC_F12,
-    RGB_VAD,   RGB_SAD, RGB_HUD,  RGB_RMOD, _______,      _______,  KC_F5,  KC_F6,  KC_F7,  KC_F8,
+    RM_VALU,   RM_SATU, RM_HUEU,  RM_NEXT,  RM_TOGG,      _______,  KC_F9,  KC_F10, KC_F11, KC_F12,
+    RM_VALD,   RM_SATD, RM_HUED,  RM_PREV,  _______,      _______,  KC_F5,  KC_F6,  KC_F7,  KC_F8,
     _______,   _______, _______,  _______,  _______,      QK_BOOT,  KC_F1,  KC_F2,  KC_F3,  KC_F4,
                         _______,  _______,  _______,      _______,  _______,  _______
   ),

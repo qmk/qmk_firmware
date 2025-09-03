@@ -155,6 +155,10 @@ ifdef WB32_BOOTLOADER_ADDRESS
     OPT_DEFS += -DWB32_BOOTLOADER_ADDRESS=$(WB32_BOOTLOADER_ADDRESS)
 endif
 
+ifdef AT32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DAT32_BOOTLOADER_ADDRESS=$(AT32_BOOTLOADER_ADDRESS)
+endif
+
 # Work out if we need to set up the include for the bootloader definitions
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
     OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
@@ -258,8 +262,8 @@ endif
 
 # HAL-OSAL files (optional).
 include $(CHIBIOS)/os/hal/hal.mk
--include $(CHIBIOS)/os/hal/osal/rt/osal.mk         # ChibiOS <= 19.x
--include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk     # ChibiOS >= 20.x
+include $(CHIBIOS)/os/oslib/oslib.mk
+include $(CHIBIOS)/os/hal/osal/rt-nil/osal.mk
 # RTOS files (optional).
 include $(CHIBIOS)/os/rt/rt.mk
 # Other files (optional).
@@ -270,6 +274,7 @@ PLATFORM_SRC = \
         $(KERNSRC) \
         $(PORTSRC) \
         $(OSALSRC) \
+        $(OSLIBSRC) \
         $(HALSRC) \
         $(PLATFORMSRC) \
         $(BOARDSRC) \
@@ -277,18 +282,19 @@ PLATFORM_SRC = \
         $(CHIBIOS)/os/various/syscalls.c \
         $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
         $(PLATFORM_COMMON_DIR)/wait.c \
-        $(PLATFORM_COMMON_DIR)/synchronization_util.c
+        $(PLATFORM_COMMON_DIR)/synchronization_util.c \
+        $(PLATFORM_COMMON_DIR)/interrupt_handlers.c
 
 # Ensure the ASM files are not subjected to LTO -- it'll strip out interrupt handlers otherwise.
 QUANTUM_LIB_SRC += $(STARTUPASM) $(PORTASM) $(OSALASM) $(PLATFORMASM)
 
 PLATFORM_SRC := $(patsubst $(TOP_DIR)/%,%,$(PLATFORM_SRC))
 
-EXTRAINCDIRS += $(CHIBIOS)/os/license $(CHIBIOS)/os/oslib/include \
+EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs \
          $(TOP_DIR)/platforms/chibios/boards/common/configs \
          $(HALCONFDIR) $(CHCONFDIR) \
-         $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
+         $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) $(OSLIBINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
 
@@ -401,6 +407,17 @@ ifeq ($(strip $(MCU)), risc-v)
                -mabi=$(MCU_ABI) \
                -mcmodel=$(MCU_CMODEL) \
                -mstrict-align
+
+    # Deal with different arch revisions and gcc renaming them
+    ifneq ($(shell echo 'int main() { asm("csrc 0x300,8"); return 0; }' | $(TOOLCHAIN)gcc $(MCUFLAGS) $(TOOLCHAIN_CFLAGS) -x c -o /dev/null - 2>/dev/null >/dev/null; echo $$?),0)
+        MCUFLAGS = -march=$(MCU_ARCH)_zicsr \
+                   -mabi=$(MCU_ABI) \
+                   -mcmodel=$(MCU_CMODEL) \
+                   -mstrict-align
+        ifneq ($(shell echo 'int main() { asm("csrc 0x300,8"); return 0; }' | $(TOOLCHAIN)gcc $(MCUFLAGS) $(TOOLCHAIN_CFLAGS) -x c -o /dev/null - 2>/dev/null >/dev/null; echo $$?),0)
+            $(call CATASTROPHIC_ERROR,Incompatible toolchain,No compatible RISC-V toolchain found. Can't work out correct architecture.)
+        endif
+    endif
 else
     # ARM toolchain specific configuration
     TOOLCHAIN ?= arm-none-eabi-
@@ -431,6 +448,15 @@ else
         OPT_DEFS += -DCORTEX_USE_FPU=FALSE
     endif
 endif
+
+# Extra config.h files for the platform
+ifneq ("$(wildcard $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/config.h)","")
+    CONFIG_H += $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/$(MCU_SERIES)/config.h
+endif
+ifneq ("$(wildcard $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/config.h)","")
+    CONFIG_H += $(PLATFORM_COMMON_DIR)/vendors/$(MCU_FAMILY)/config.h
+endif
+CONFIG_H += $(PLATFORM_COMMON_DIR)/config.h
 
 # Assembler flags
 ASFLAGS  += $(SHARED_ASFLAGS) $(TOOLCHAIN_ASFLAGS)
@@ -466,6 +492,11 @@ NM      = $(TOOLCHAIN)nm
 HEX     = $(OBJCOPY) -O $(FORMAT)
 EEP     =
 BIN     = $(OBJCOPY) -O binary
+
+# disable warning about RWX triggered by ChibiOS linker scripts
+ifeq ("$(shell echo "int main(){}" | $(CC) -shared -Wl,--no-warn-rwx-segments -x c - -o /dev/null 2>&1)", "")
+	SHARED_LDFLAGS += -Wl,--no-warn-rwx-segments
+endif
 
 ##############################################################################
 # Make targets

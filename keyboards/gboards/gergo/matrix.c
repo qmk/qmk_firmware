@@ -297,19 +297,12 @@ static matrix_row_t read_cols(uint8_t row) {
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB, I2C_TIMEOUT);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ, I2C_TIMEOUT);     if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(I2C_TIMEOUT);                if (mcp23018_status < 0) goto out;
-            data = ~((uint8_t)mcp23018_status);
-            mcp23018_status = I2C_STATUS_SUCCESS;
-        out:
-            i2c_stop();
+            mcp23018_status = i2c_read_register(I2C_ADDR, GPIOB, &data, 1, I2C_TIMEOUT);
 
 #ifdef DEBUG_MATRIX
-            if (data != 0x00) xprintf("I2C: %d\n", data);
+            if (~data != 0x00) xprintf("I2C: %d\n", ~data);
 #endif
-            return data;
+            return ~data;
         }
     } else {
          /* read from teensy
@@ -350,11 +343,8 @@ static void select_row(uint8_t row)
         // select on mcp23018
         if (mcp23018_status) { // do nothing on error
         } else { // set active row low  : 0 // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, I2C_TIMEOUT);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, I2C_TIMEOUT);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<row), I2C_TIMEOUT);      if (mcp23018_status) goto out;
-        out:
-            i2c_stop();
+            uint8_t data = 0xFF & ~(1<<row);
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
         }
     } else {
         // Output low(DDR:1, PORT:0) to select

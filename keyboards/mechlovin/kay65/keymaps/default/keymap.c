@@ -36,12 +36,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOGO_LED_ON:
         if (record->event.pressed) {
-             writePinLow(D7);	
+             gpio_write_pin_low(D7);	
         } 
         break;
     case LOGO_LED_OFF:
         if (record->event.pressed) {
-             writePinHigh(D7);	
+             gpio_write_pin_high(D7);	
         } 
         break;
   }

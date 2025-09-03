@@ -3,10 +3,6 @@
 
 #pragma once
 
-// Underglow LED settings
-
-#define RGBLED_NUM 10
-
 // Thumbstick settings
 #define ANALOG_JOYSTICK_X_AXIS_PIN B5
 #define ANALOG_JOYSTICK_Y_AXIS_PIN B6

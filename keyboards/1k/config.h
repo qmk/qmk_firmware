@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#define RGBLED_NUM 1
-
 // Save as much space as we can...
 #define LAYER_STATE_8BIT
 #define NO_ACTION_LAYER
@@ -34,3 +32,5 @@
 #define USB_INTR_ENABLE_BIT PCIE
 #define USB_INTR_PENDING_BIT PCIF
 #define USB_INTR_VECTOR SIG_PIN_CHANGE
+
+#define WS2812_LED_COUNT 1

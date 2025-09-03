@@ -43,6 +43,8 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32F446](https://www.st.com/en/microcontrollers-microprocessors/stm32f446.html)
  * [STM32G431](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x1.html)
  * [STM32G474](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x4.html)
+ * [STM32H723](https://www.st.com/en/microcontrollers-microprocessors/stm32h723-733.html)
+ * [STM32H733](https://www.st.com/en/microcontrollers-microprocessors/stm32h723-733.html)
  * [STM32L412](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
  * [STM32L422](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
  * [STM32L432](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
@@ -54,6 +56,10 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
 
  * [WB32F3G71xx](http://www.westberrytech.com)
  * [WB32FQ95xx](http://www.westberrytech.com)
+
+### Artery (AT32)
+
+ * [AT32F415](https://www.arterychip.com/en/product/AT32F415.jsp)
 
 ### NXP (Kinetis)
 
@@ -71,11 +77,7 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
 
 * [RP2040](https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html)
 
-For a detailed overview about the RP2040 support by QMK see the [dedicated RP2040 page](platformdev_rp2040.md).
-
-## Atmel ATSAM
-
-There is limited support for one of Atmel's ATSAM microcontrollers, that being the [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) used by the [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop). However, it is not recommended to design a board with this microcontroller as the support is quite specialized to Massdrop hardware.
+For a detailed overview about the RP2040 support by QMK see the [dedicated RP2040 page](platformdev_rp2040).
 
 ## RISC-V
 

@@ -15,13 +15,10 @@
  */
 #include "process_steno.h"
 #include "quantum_keycodes.h"
-#include "keymap_steno.h"
+#include "eeconfig.h"
 #include <string.h>
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
-#endif
-#ifdef STENO_ENABLE_ALL
-#    include "eeprom.h"
 #endif
 
 // All steno keys that have been pressed to form this chord,
@@ -128,16 +125,13 @@ static const uint16_t combinedmap_second[] PROGMEM = {STN_S2, STN_KL, STN_WL, ST
 
 #ifdef STENO_ENABLE_ALL
 void steno_init(void) {
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
-    mode = eeprom_read_byte(EECONFIG_STENOMODE);
+    mode = eeconfig_read_steno_mode();
 }
 
 void steno_set_mode(steno_mode_t new_mode) {
     steno_clear_chord();
     mode = new_mode;
-    eeprom_update_byte(EECONFIG_STENOMODE, mode);
+    eeconfig_update_steno_mode(mode);
 }
 #endif // STENO_ENABLE_ALL
 

@@ -15,6 +15,7 @@ on:
     - quantum/**/*
     - tests/**/*
     - tmk_core/**/*
+    - lib/python/**/*
     - util/**/*
     - Makefile
     - '*.mk'
@@ -27,7 +28,7 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         fetch-depth: 0
 

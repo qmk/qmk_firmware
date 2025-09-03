@@ -23,18 +23,43 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "led_matrix_types.h"
-#include "quantum.h"
+#include "led_matrix_drivers.h"
+#include "keyboard.h"
 
-#ifdef IS31FL3731
-#    include "is31fl3731-simple.h"
-#elif defined(IS31FLCOMMON)
-#    include "is31flcommon.h"
+#ifndef LED_MATRIX_TIMEOUT
+#    define LED_MATRIX_TIMEOUT 0
 #endif
-#ifdef IS31FL3733
-#    include "is31fl3733-simple.h"
+
+#ifndef LED_MATRIX_MAXIMUM_BRIGHTNESS
+#    define LED_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
 #endif
-#ifdef CKLED2001
-#    include "ckled2001-simple.h"
+
+#ifndef LED_MATRIX_VAL_STEP
+#    define LED_MATRIX_VAL_STEP 8
+#endif
+
+#ifndef LED_MATRIX_SPD_STEP
+#    define LED_MATRIX_SPD_STEP 16
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_ON
+#    define LED_MATRIX_DEFAULT_ON true
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_MODE
+#    define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_VAL
+#    define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_SPD
+#    define LED_MATRIX_DEFAULT_SPD UINT8_MAX / 2
+#endif
+
+#ifndef LED_MATRIX_DEFAULT_FLAGS
+#    define LED_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL
 #endif
 
 #ifndef LED_MATRIX_LED_FLUSH_LIMIT
@@ -42,38 +67,24 @@
 #endif
 
 #ifndef LED_MATRIX_LED_PROCESS_LIMIT
-#    define LED_MATRIX_LED_PROCESS_LIMIT (LED_MATRIX_LED_COUNT + 4) / 5
+#    define LED_MATRIX_LED_PROCESS_LIMIT ((LED_MATRIX_LED_COUNT + 4) / 5)
 #endif
 
-#if defined(LED_MATRIX_LED_PROCESS_LIMIT) && LED_MATRIX_LED_PROCESS_LIMIT > 0 && LED_MATRIX_LED_PROCESS_LIMIT < LED_MATRIX_LED_COUNT
-#    if defined(LED_MATRIX_SPLIT)
-#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
-            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter;                            \
-            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;                                     \
-            if (max > LED_MATRIX_LED_COUNT) max = LED_MATRIX_LED_COUNT;                           \
-            uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                                     \
-            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
-#    else
-#        define LED_MATRIX_USE_LIMITS(min, max)                        \
-            uint8_t min = LED_MATRIX_LED_PROCESS_LIMIT * params->iter; \
-            uint8_t max = min + LED_MATRIX_LED_PROCESS_LIMIT;          \
-            if (max > LED_MATRIX_LED_COUNT) max = LED_MATRIX_LED_COUNT;
-#    endif
-#else
-#    if defined(LED_MATRIX_SPLIT)
-#        define LED_MATRIX_USE_LIMITS(min, max)                                                   \
-            uint8_t       min                   = 0;                                              \
-            uint8_t       max                   = LED_MATRIX_LED_COUNT;                           \
-            const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;                               \
-            if (is_keyboard_left() && (max > k_led_matrix_split[0])) max = k_led_matrix_split[0]; \
-            if (!(is_keyboard_left()) && (min < k_led_matrix_split[0])) min = k_led_matrix_split[0];
-#    else
-#        define LED_MATRIX_USE_LIMITS(min, max) \
-            uint8_t min = 0;                    \
-            uint8_t max = LED_MATRIX_LED_COUNT;
-#    endif
-#endif
+struct led_matrix_limits_t {
+    uint8_t led_min_index;
+    uint8_t led_max_index;
+};
+
+struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter);
+
+#define LED_MATRIX_USE_LIMITS_ITER(min, max, iter)                   \
+    struct led_matrix_limits_t limits = led_matrix_get_limits(iter); \
+    uint8_t                    min    = limits.led_min_index;        \
+    uint8_t                    max    = limits.led_max_index;        \
+    (void)min;                                                       \
+    (void)max;
+
+#define LED_MATRIX_USE_LIMITS(min, max) LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter)
 
 #define LED_MATRIX_TEST_LED_FLAGS() \
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) continue
@@ -86,6 +97,12 @@ enum led_matrix_effects {
 #define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_##name,
 #include "led_matrix_effects.inc"
 #undef LED_MATRIX_EFFECT
+
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_COMMUNITY_MODULE_##name,
+#    include "led_matrix_community_modules.inc"
+#    undef LED_MATRIX_EFFECT
+#endif
 
 #if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
 #    define LED_MATRIX_EFFECT(name, ...) LED_MATRIX_CUSTOM_##name,
@@ -104,16 +121,18 @@ enum led_matrix_effects {
 };
 
 void eeconfig_update_led_matrix_default(void);
-void eeconfig_update_led_matrix(void);
+void eeconfig_force_flush_led_matrix(void);
 void eeconfig_debug_led_matrix(void);
 
 uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
 uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
 
+int led_matrix_led_index(int index);
+
 void led_matrix_set_value(int index, uint8_t value);
 void led_matrix_set_value_all(uint8_t value);
 
-void process_led_matrix(uint8_t row, uint8_t col, bool pressed);
+void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);
 
 void led_matrix_task(void);
 
@@ -128,6 +147,8 @@ bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
 bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
 
 void led_matrix_init(void);
+
+void led_matrix_reload_from_eeprom(void);
 
 void        led_matrix_set_suspend_state(bool state);
 bool        led_matrix_get_suspend_state(void);
@@ -163,18 +184,6 @@ led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
 void        led_matrix_set_flags_noeeprom(led_flags_t flags);
 
-typedef struct {
-    /* Perform any initialisation required for the other driver functions to work. */
-    void (*init)(void);
-
-    /* Set the brightness of a single LED in the buffer. */
-    void (*set_value)(int index, uint8_t value);
-    /* Set the brightness of all LEDS on the keyboard in the buffer. */
-    void (*set_value_all)(uint8_t value);
-    /* Flush any buffered changes to the hardware. */
-    void (*flush)(void);
-} led_matrix_driver_t;
-
 static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
 #if defined(LED_MATRIX_SPLIT)
     if (is_keyboard_left()) {
@@ -186,8 +195,6 @@ static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
     return led_idx < LED_MATRIX_LED_COUNT;
 #endif
 }
-
-extern const led_matrix_driver_t led_matrix_driver;
 
 extern led_eeconfig_t led_matrix_eeconfig;
 

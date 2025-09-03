@@ -18,12 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define QUICK_TAP_TERM 0
-#define TAPPING_TERM 100
-
-/* Select hand configuration */
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-//#define EE_HANDS
 
 /*
  * Feature disable options

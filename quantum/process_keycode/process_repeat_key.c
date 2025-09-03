@@ -13,6 +13,10 @@
 // limitations under the License.
 
 #include "process_repeat_key.h"
+#include "repeat_key.h"
+#include "keycodes.h"
+#include "quantum_keycodes.h"
+#include "action_util.h"
 
 // Default implementation of remember_last_key_user().
 __attribute__((weak)) bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
@@ -37,7 +41,10 @@ static bool remember_last_key(uint16_t keycode, keyrecord_t* record, uint8_t* re
 #ifdef TRI_LAYER_ENABLE // Ignore Tri Layer keys.
         case QK_TRI_LAYER_LOWER:
         case QK_TRI_LAYER_UPPER:
-#endif // TRI_LAYER_ENABLE
+#endif                   // TRI_LAYER_ENABLE
+#ifdef LAYER_LOCK_ENABLE // Ignore Layer Lock key.
+        case QK_LAYER_LOCK:
+#endif // LAYER_LOCK_ENABLE
             return false;
 
             // Ignore hold events on tap-hold keys.

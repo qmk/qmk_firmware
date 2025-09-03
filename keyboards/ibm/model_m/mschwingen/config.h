@@ -65,12 +65,10 @@
 # define MODELM_LED_SCROLLOCK MODELM_LED3
 # define MODELM_LED_NUMLOCK   MODELM_LED1
 #elif defined(KEYBOARD_ibm_model_m_mschwingen_led_ws2812)
+# define WS2812_LED_COUNT 3
 #else
 # error one of MODELM_LEDS_FFC, MODELM_LEDS_WIRED or MODELM_LEDS_WS2812 must be set!
 #endif
-
-// 3* WS2812 LEDs instead of singlecolor GPIO LEDs
-#define RGBLED_NUM 3
 
 // disabled, needs PCB patch.
 //#define AUDIO_PIN C6

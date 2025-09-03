@@ -1,0 +1,98 @@
+{
+    "manufacturer": "rainkeebs",
+    "keyboard_name": "trailmix",
+    "maintainer": "ATron789",
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "B2", "pin_b": "B4"}
+        ]
+    },
+    "matrix_pins": {
+        "cols": ["F6", "D4", "F5", "D0", "F4", "B6"],
+        "rows": ["D1", "D7", "F7", "C6"]
+    },
+    "processor": "atmega32u4",
+    "split": {
+        "enabled": true,
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "B2", "pin_b": "B4"}
+                ]
+            }
+        },
+        "serial": {
+            "pin": "D3"
+        }
+    },
+    "url": "https://www.rainkeebs.mx",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x7363",
+        "vid": "0x726B"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "L00", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "L01", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "L02", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "L03", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "L04", "matrix": [0, 4], "x": 4, "y": 0},
+
+                {"label": "R04", "matrix": [4, 4], "x": 8, "y": 0},
+                {"label": "R03", "matrix": [4, 3], "x": 9, "y": 0},
+                {"label": "R02", "matrix": [4, 2], "x": 10, "y": 0},
+                {"label": "R01", "matrix": [4, 1], "x": 11, "y": 0},
+                {"label": "R00", "matrix": [4, 0], "x": 12, "y": 0},
+
+                {"label": "L10", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "L11", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "L12", "matrix": [1, 2], "x": 2, "y": 1},
+                {"label": "L13", "matrix": [1, 3], "x": 3, "y": 1},
+                {"label": "L14", "matrix": [1, 4], "x": 4, "y": 1},
+
+                {"label": "R14", "matrix": [5, 4], "x": 8, "y": 1},
+                {"label": "R13", "matrix": [5, 3], "x": 9, "y": 1},
+                {"label": "R12", "matrix": [5, 2], "x": 10, "y": 1},
+                {"label": "R11", "matrix": [5, 1], "x": 11, "y": 1},
+                {"label": "R10", "matrix": [5, 0], "x": 12, "y": 1},
+
+                {"label": "L20", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "L21", "matrix": [2, 1], "x": 1, "y": 2},
+                {"label": "L22", "matrix": [2, 2], "x": 2, "y": 2},
+                {"label": "L23", "matrix": [2, 3], "x": 3, "y": 2},
+                {"label": "L24", "matrix": [2, 4], "x": 4, "y": 2},
+                {"label": "L25", "matrix": [2, 5], "x": 5, "y": 2},
+
+                {"label": "R25", "matrix": [6, 5], "x": 7, "y": 2},
+                {"label": "R24", "matrix": [6, 4], "x": 8, "y": 2},
+                {"label": "R23", "matrix": [6, 3], "x": 9, "y": 2},
+                {"label": "R22", "matrix": [6, 2], "x": 10, "y": 2},
+                {"label": "R21", "matrix": [6, 1], "x": 11, "y": 2},
+                {"label": "R20", "matrix": [6, 0], "x": 12, "y": 2},
+
+                {"label": "L30", "matrix": [3, 0], "x": 0, "y": 3},
+                {"label": "L31", "matrix": [3, 1], "x": 1, "y": 3},
+                {"label": "L32", "matrix": [3, 2], "x": 2, "y": 3},
+                {"label": "L33", "matrix": [3, 3], "x": 3, "y": 3},
+                {"label": "L34", "matrix": [3, 4], "x": 4, "y": 3, "w": 2},
+
+                {"label": "R34", "matrix": [7, 4], "x": 7, "y": 3, "w": 2},
+                {"label": "R33", "matrix": [7, 3], "x": 9, "y": 3},
+                {"label": "R32", "matrix": [7, 2], "x": 10, "y": 3},
+                {"label": "R31", "matrix": [7, 1], "x": 11, "y": 3},
+                {"label": "R30", "matrix": [7, 0], "x": 12, "y": 3}
+            ]
+        }
+    }
+}

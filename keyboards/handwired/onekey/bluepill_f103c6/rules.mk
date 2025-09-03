@@ -7,12 +7,6 @@ BOOTLOADER_TYPE = stm32duino
 DFU_ARGS = -d 1EAF:0003 -a 2 -R
 DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 
-# Enter lower-power sleep mode when on the ChibiOS idle thread
-OPT_DEFS += -DCORTEX_ENABLE_WFI_IDLE=TRUE
-
-# LTO is required to fit the firmware into the available 24K of flash
-LTO_ENABLE = yes
-
 # EEPROM emulation not supported yet (need to implement a proper firmware size
 # check first, otherwise the chance of the EEPROM backing store overwriting
 # some part of the firmware code is really high).

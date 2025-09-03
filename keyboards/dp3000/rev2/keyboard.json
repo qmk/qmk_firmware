@@ -1,0 +1,37 @@
+{
+    "keyboard_name": "dp3000 rev2",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "encoder": true,
+        "oled": true,
+        "mousekey": false,
+        "nkro": false,
+        "rgblight": true
+    },
+    "usb": {
+        "device_version": "2.0.0",
+        "pid": "0x3132"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 4,
+        "max_brightness": 180,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "B6"
+    }
+}

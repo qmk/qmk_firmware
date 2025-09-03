@@ -15,14 +15,10 @@
  */
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // IS31FL3731 driver
-#define DRIVER_COUNT 2
-#define RGB_MATRIX_LED_COUNT 72
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
+#define IS31FL3731_LED_COUNT 72
 
 // Enable WT RGB backlight
 #define RGB_BACKLIGHT_ENABLED 1

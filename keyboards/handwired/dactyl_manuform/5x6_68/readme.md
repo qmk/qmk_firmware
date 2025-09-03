@@ -1,5 +1,5 @@
-# Dactyl Manuform
+# Dactyl Manuform 5x6_68
 
-This is a 5x6 manuform with a 4 key bottom row and 6 key thumb clusters.
+This is a Dactyl ManuForm 5x6 with an extended, 4 key, bottom row; totalling 68 keys.  
 
-This results in a 68 key 5x6
+![diagram](https://i.imgur.com/TGd36fWh.png)

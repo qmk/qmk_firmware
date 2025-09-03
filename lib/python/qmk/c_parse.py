@@ -24,7 +24,7 @@ def _get_chunks(it, size):
     return iter(lambda: tuple(islice(it, size)), ())
 
 
-def _preprocess_c_file(file):
+def preprocess_c_file(file):
     """Load file and strip comments
     """
     file_contents = file.read_text(encoding='utf-8')
@@ -66,7 +66,7 @@ def find_layouts(file):
     parsed_layouts = {}
 
     # Search the file for LAYOUT macros and aliases
-    file_contents = _preprocess_c_file(file)
+    file_contents = preprocess_c_file(file)
 
     for line in file_contents.split('\n'):
         if layout_macro_define_regex.match(line.lstrip()) and '(' in line and 'LAYOUT' in line:
@@ -241,19 +241,24 @@ def _parse_led_config(file, matrix_cols, matrix_rows):
     position_raw = []
     flags = []
 
-    found_led_config = False
+    found_led_config_t = False
+    found_g_led_config = False
     bracket_count = 0
     section = 0
     current_row_index = 0
     current_row = []
 
-    for _type, value in lex(_preprocess_c_file(file), CLexer()):
-        # Assume g_led_config..stuff..;
-        if value == 'g_led_config':
-            found_led_config = True
+    for _type, value in lex(preprocess_c_file(file), CLexer()):
+        if not found_g_led_config:
+            # Check for type
+            if value == 'led_config_t':
+                found_led_config_t = True
+            # Type found, now check for name
+            elif found_led_config_t and value == 'g_led_config':
+                found_g_led_config = True
         elif value == ';':
-            found_led_config = False
-        elif found_led_config:
+            found_g_led_config = False
+        else:
             # Assume bracket count hints to section of config we are within
             if value == '{':
                 bracket_count += 1

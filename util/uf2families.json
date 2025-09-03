@@ -175,9 +175,54 @@
         "description": "ESP32-H2"
     },
     {
+        "id": "0x540ddf62",
+        "short_name": "ESP32C6",
+        "description": "ESP32-C6"
+    },
+    {
+        "id": "0x3d308e94",
+        "short_name": "ESP32P4",
+        "description": "ESP32-P4"
+    },
+    {
+        "id": "0xf71c0343",
+        "short_name": "ESP32C5",
+        "description": "ESP32-C5"
+    },
+    {
+        "id": "0x77d850c4",
+        "short_name": "ESP32C61",
+        "description": "ESP32-C61"
+    },
+    {
         "id": "0xe48bff56",
         "short_name": "RP2040",
         "description": "Raspberry Pi RP2040"
+    },
+    {
+        "id": "0xe48bff57",
+        "short_name": "RP2XXX_ABSOLUTE",
+        "description": "Raspberry Pi Microcontrollers: Absolute (unpartitioned) download"
+    },
+    {
+        "id": "0xe48bff58",
+        "short_name": "RP2XXX_DATA",
+        "description": "Raspberry Pi Microcontrollers: Data partition download"
+    },
+    {
+        "id": "0xe48bff59",
+        "short_name": "RP2350_ARM_S",
+        "description": "Raspberry Pi RP2350, Secure Arm image"
+    },
+    {
+        "id": "0xe48bff5a",
+        "short_name": "RP2350_RISCV",
+        "description": "Raspberry Pi RP2350, RISC-V image"
+    },
+    {
+        "id": "0xe48bff5b",
+        "short_name": "RP2350_ARM_NS",
+        "description": "Raspberry Pi RP2350, Non-secure Arm image"
     },
     {
         "id": "0x00ff6919",
@@ -203,5 +248,50 @@
         "id": "0x11de784a",
         "short_name": "M0SENSE",
         "description": "M0SENSE BL702"
+    },
+    {
+        "id": "0x4b684d71",
+        "short_name": "MaixPlay-U4",
+        "description": "Sipeed MaixPlay-U4(BL618)"
+    },
+    {
+        "id": "0x9517422f",
+        "short_name": "RZA1LU",
+        "description": "Renesas RZ/A1LU (R7S7210xx)"
+    },
+    {
+        "id": "0x2dc309c5",
+        "short_name": "STM32F411xE",
+        "description": "ST STM32F411xE"
+    },
+    {
+        "id": "0x06d1097b",
+        "short_name": "STM32F411xC",
+        "description": "ST STM32F411xC"
+    },
+    {
+        "id": "0x72721d4e",
+        "short_name": "NRF52832xxAA",
+        "description": "Nordic NRF52832xxAA"
+    },
+    {
+        "id": "0x6f752678",
+        "short_name": "NRF52832xxAB",
+        "description": "Nordic NRF52832xxAB"
+    },
+    {
+        "id": "0xa0c97b8e",
+        "short_name": "AT32F415",
+        "description": "ArteryTek AT32F415"
+    },
+    {
+        "id": "0x699b62ec",
+        "short_name": "CH32V",
+        "description": "WCH CH32V2xx and CH32V3xx"
+    },
+    {
+        "id": "0x7be8976d",
+        "short_name": "RA4M1",
+        "description": "Renesas RA4M1"
     }
 ]

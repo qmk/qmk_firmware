@@ -136,19 +136,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    [RL] = LAYOUT_60_iso_split(
 	//  1          2          3          4          5          6          7          8          9          10         11         12         13         14
 	    TG(RL),    _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   QK_BOOT,
-        _______,   RGB_TOG,   RGB_MOD,   RGB_HUI,   RGB_HUD,   _______,   _______,   RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   _______,   _______,
+        _______,   UG_TOGG,   UG_NEXT,   UG_HUEU,   UG_HUED,   _______,   _______,   UG_SATU,   UG_SATD,   UG_VALU,   UG_VALD,   _______,   _______,
         _______,   RGB_STA,   RGB_BRE,   RGB_RAI,   RGB_SWI,   _______,   _______,   RGB_SNA,   RGB_KNI,   RGB_GRA,   RGB_XMS,   _______,   _______,   _______,
         _______,   BL_DOWN,   BL_TOGG,   BL_UP,     BL_STEP,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
         _______,   _______,   _______,   _______,   MO(FL),    _______,   _______,   _______,   TO(BL),    _______),
 
 
 };
-
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 // always enable num lock on layer NL and disable on other layers
 // thanks to spidey3 & Erovia on discord

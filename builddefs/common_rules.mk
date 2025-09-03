@@ -12,6 +12,9 @@ vpath %.hpp $(VPATH_SRC)
 vpath %.S $(VPATH_SRC)
 VPATH :=
 
+# Helper to return the distinct elements of a list
+uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
+
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
 $(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$(patsubst %.clib,$1/%.a,$($1_SRC))))))
@@ -40,25 +43,25 @@ ifneq ($(USE_CCACHE),no)
     CC_PREFIX ?= ccache
 endif
 
+#---------------- Debug Options ----------------
+
+DEBUG_ENABLE ?= no
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
+	CFLAGS 	 += -ggdb3
+	CXXFLAGS += -ggdb3
+	ASFLAGS  += -ggdb3
+# Create a map file when debugging
+	LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
+
+
 #---------------- C Compiler Options ----------------
 
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),ARM_ATSAM)
-        $(info Enabling LTO on arm_atsam-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LTO_ENABLE = no.)
-    endif
     CDEFS += -flto
     CDEFS += -DLTO_ENABLE
 endif
 
-DEBUG_ENABLE ?= yes
-ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
-  DEBUG_ENABLE=no
-endif
-
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CFLAGS += -g$(DEBUG)
-endif
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
@@ -80,9 +83,6 @@ CFLAGS += -fcommon
 
 #---------------- C++ Compiler Options ----------------
 
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CXXFLAGS += -g$(DEBUG)
-endif
 CXXFLAGS += $(CXXDEFS)
 CXXFLAGS += -O$(OPT)
 # to suppress "warning: only initialized variables can be placed into program memory area"
@@ -103,14 +103,10 @@ endif
 
 #---------------- Linker Options ----------------
 
-CREATE_MAP ?= yes
-ifeq ($(CREATE_MAP),yes)
-	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
-endif
 ifeq ($(VERBOSE_LD_CMD),yes)
 	LDFLAGS += -v
 endif
-#LDFLAGS += -Wl,--relax
+
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += -lm
@@ -123,15 +119,11 @@ ADHLNS_ENABLE ?= no
 ifeq ($(ADHLNS_ENABLE),yes)
   # Avoid "Options to '-Xassembler' do not match" - only specify assembler options at LTO link time
   ifeq ($(strip $(LTO_ENABLE)), yes)
-    LDFLAGS += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
+    LDFLAGS  += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
   else
-    CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+    CFLAGS   += -Wa,-adhlns=$(@:%.o=%.lst)
     CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-    ifeq ($(strip $(DEBUG_ENABLE)),yes)
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-    else
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
-    endif
+	ASFLAGS  += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
   endif
 endif
 
@@ -176,7 +168,7 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 # For a ChibiOS build, ensure that the board files have the hook overrides injected
 define BOARDSRC_INJECT_HOOKS
-$(KEYBOARD_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+$(INTERMEDIATE_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): FILE_SPECIFIC_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
 endef
 $(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
 
@@ -188,7 +180,7 @@ DFU_SUFFIX_ARGS ?=
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
 uf2: $(BUILD_DIR)/$(TARGET).uf2
-cpfirmware: $(FIRMWARE_FORMAT)
+cpfirmware_qmk: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 eep: $(BUILD_DIR)/$(TARGET).eep
@@ -196,6 +188,15 @@ lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
+
+cpfirmware: cpfirmware_qmk
+
+ifneq ($(QMK_USERSPACE),)
+cpfirmware: cpfirmware_userspace
+cpfirmware_userspace: cpfirmware_qmk
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to userspace folder" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(QMK_USERSPACE)/$(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
+endif
 
 # Display size of file, modifying the output so people don't mistakenly grab the hex output
 BINARY_SIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(SED) -e 's/\.build\/.*$$/$(TARGET).$(FIRMWARE_FORMAT)/g'
@@ -264,7 +265,7 @@ BEGIN = gccversion sizebefore
 # Note the obj.txt depeendency is there to force linking if a source file is deleted
 %.elf: $(OBJ) $(MASTER_OUTPUT)/cflags.txt $(MASTER_OUTPUT)/ldflags.txt $(MASTER_OUTPUT)/obj.txt | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
+	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(call uniq,$(OBJ)) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 
@@ -288,10 +289,10 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
     ifneq ($$(VERBOSE_C_INCLUDE),)
 	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
     endif
-	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
     ifneq ($$(DUMP_C_MACROS),)
-	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
+	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$<)
 	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
     endif
 
@@ -299,13 +300,13 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 $1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
@@ -380,31 +381,9 @@ dump_vars:
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
-ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
-SIZE_MARGIN = 1024
 
+# size check optionally implemented in its platform.mk
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | $(SED) -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
-	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
-	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
-	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
-	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
-	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
-		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
-		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
-		else \
-		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
-			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
-		    else \
-			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi ; \
-		fi ; \
-	fi
-else
-check-size:
-	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
-endif
 
 check-md5:
 	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)

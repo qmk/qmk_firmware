@@ -217,3 +217,51 @@ class KeymapJSONEncoder(QMKJSONEncoder):
                 return '50' + str(key)
 
         return key
+
+
+class UserspaceJSONEncoder(QMKJSONEncoder):
+    """Custom encoder to make userspace qmk.json's a little nicer to work with.
+    """
+    def sort_dict(self, item):
+        """Sorts the hashes in a nice way.
+        """
+        key = item[0]
+
+        if self.indentation_level == 1:
+            if key == 'userspace_version':
+                return '00userspace_version'
+
+            if key == 'build_targets':
+                return '01build_targets'
+
+        return key
+
+
+class CommunityModuleJSONEncoder(QMKJSONEncoder):
+    """Custom encoder to make qmk_module.json's a little nicer to work with.
+    """
+    def sort_dict(self, item):
+        """Sorts the hashes in a nice way.
+        """
+        key = item[0]
+
+        if self.indentation_level == 1:
+            if key == 'module_name':
+                return '00module_name'
+            if key == 'maintainer':
+                return '01maintainer'
+            if key == 'license':
+                return '02license'
+            if key == 'url':
+                return '03url'
+            if key == 'features':
+                return '04features'
+            if key == 'keycodes':
+                return '05keycodes'
+        elif self.indentation_level == 3:  # keycodes
+            if key == 'key':
+                return '00key'
+            if key == 'aliases':
+                return '01aliases'
+
+        return key

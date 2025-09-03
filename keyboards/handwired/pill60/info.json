@@ -3,6 +3,16 @@
     "manufacturer": "IktaS",
     "url": "https://github.com/IktaS/Pill60",
     "maintainer": "IktaS <imamrafiiia@gmail.com>",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true
+    },
     "usb": {
         "vid": "0x4454",
         "pid": "0x5444",
@@ -12,11 +22,6 @@
         "rotary": [
             {"pin_a": "B9", "pin_b": "B8", "resolution": 2}
         ]
-    },
-    "backlight": {
-        "driver": "software",
-        "pin": "B14",
-        "levels": 5
     },
     "debounce": 1,
     "layouts": {

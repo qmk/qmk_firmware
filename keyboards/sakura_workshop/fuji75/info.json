@@ -1,0 +1,33 @@
+{
+    "manufacturer": "SakuraWorkshop",
+    "maintainer": "Freather",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "rgblight": {
+        "led_count": 1,
+       "layers": {
+             "enabled": true
+        },
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    }
+}

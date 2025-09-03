@@ -19,18 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
  * scan matrix
  */
-#include <stdint.h>
-#include <stdbool.h>
-#if defined(__AVR__)
-#include <avr/io.h>
-#endif
+#include "matrix.h"
 #include "meira.h"
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
-#include "util.h"
-#include "matrix.h"
-#include "config.h"
 #include "timer.h"
 
 #ifndef DEBOUNCE

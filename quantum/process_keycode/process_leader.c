@@ -16,16 +16,13 @@
 
 #include "process_leader.h"
 #include "leader.h"
+#include "quantum_keycodes.h"
 
 bool process_leader(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (leader_sequence_active() && !leader_sequence_timed_out()) {
 #ifndef LEADER_KEY_STRICT_KEY_PROCESSING
-            if (IS_QK_MOD_TAP(keycode)) {
-                keycode = QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
-            } else if (IS_QK_LAYER_TAP(keycode)) {
-                keycode = QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
-            }
+            keycode = get_tap_keycode(keycode);
 #endif
 
             if (!leader_sequence_add(keycode)) {

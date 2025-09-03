@@ -325,16 +325,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Fn */
   [_FN] = LAYOUT(
-    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG,
+    CSYSTEM, BSYSTEM, CNTBASC, CSYSALL, CHRTONE, CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UG_TOGG,
       DF_QWER, TGLBASS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         DF_COLE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, TGLMICH,
           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     XXXXXXX,
-      MI_OCN2, MI_OCN1, MI_OC0,  MI_OC1,  MI_OC2,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, VERSION, EE_CLR, _______,
-    CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, RGB_TOG,
-      XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, TGLUVEL, MELDYAL, MELODYS, MELDYAH
+      MI_OCN2, MI_OCN1, MI_OC0,  MI_OC1,  MI_OC2,  XXXXXXX, XXXXXXX, MI_OCTD, MI_OCTU, XXXXXXX, VERSION, EE_CLR, _______,
+    CSYSTEM, BSYSTEM,  CNTBASC,  CSYSALL,  CHRTONE,  CFLIP2B, XXXXXXX, XXXXXXX, XXXXXXX, MI_VELD, MI_VELU, XXXXXXX, UG_TOGG,
+      XXXXXXX,   TGLBASS,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, MI_TRSD, MI_TRSU, TGLUVEL, MELDYAL, MELODYS, MELDYAH
   )
 };
 
@@ -368,7 +368,7 @@ const rgblight_segment_t PROGMEM my_adjust_layer[] = RGBLIGHT_LAYER_SEGMENTS({1,
 // Light up fn layer keys
 const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(                           //  left keyboard
                                                                          {0,   6, HSV_ORANGE},      //  MIDI layouts
-                                                                         {11,  1, HSV_RED},         //  RGB_TOG
+                                                                         {11,  1, HSV_RED},         //  UG_TOGG
                                                                          {12,  1, HSV_WHITE},       //  DF_QWER
                                                                          {13,  1, HSV_CORAL},       //  TGLBASS
                                                                          {24,  1, HSV_WHITE},       //  DF_COLE
@@ -405,7 +405,7 @@ const rgblight_segment_t PROGMEM my_fn_layer[] = RGBLIGHT_LAYER_SEGMENTS(       
                                                                          {98,  6, HSV_ORANGE},      //  MIDI layouts
                                                                          {107, 1, HSV_YELLOW},      //  MI_VELD
                                                                          {108, 1, HSV_GREEN},       //  MI_VELU
-                                                                         {110, 1, HSV_RED},         //  RGB_TOG
+                                                                         {110, 1, HSV_RED},         //  UG_TOGG
                                                                          {112, 1, HSV_CORAL},       //  TGLBASS
                                                                          {119, 1, HSV_CORAL},       //  TGLUVEL
                                                                          {120, 1, HSV_CYAN},        //  MELDYAL

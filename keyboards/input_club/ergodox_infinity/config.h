@@ -23,15 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_MAX_SPEED      7
 #define MOUSEKEY_WHEEL_DELAY 0
 
-#define TAPPING_TOGGLE  1
-
-#define TAPPING_TERM    200
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* key combination for command */
 #define IS_COMMAND() ( \
     get_mods() == (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL)) || \
@@ -47,37 +38,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_BRIGHTNESS_HI       255
 
 /* LED matrix driver */
-#define LED_DRIVER_ADDR_1 0x74
-#define LED_DRIVER_COUNT 1
-#define LED_MATRIX_LED_COUNT 76
-#define LED_MATRIX_SPLIT { 38, 38 }
-#define LED_DISABLE_WHEN_USB_SUSPENDED
-
-// LED Matrix Animation modes. Explicitly enabled
-// For full list of effects, see:
-// https://docs.qmk.fm/#/feature_led_matrix?id=led-matrix-effects
-#define ENABLE_LED_MATRIX_ALPHAS_MODS
-#define ENABLE_LED_MATRIX_BREATHING
-#define ENABLE_LED_MATRIX_BAND
-#define ENABLE_LED_MATRIX_BAND_PINWHEEL
-#define ENABLE_LED_MATRIX_BAND_SPIRAL
-#define ENABLE_LED_MATRIX_CYCLE_LEFT_RIGHT
-#define ENABLE_LED_MATRIX_CYCLE_UP_DOWN
-#define ENABLE_LED_MATRIX_CYCLE_OUT_IN
-#define ENABLE_LED_MATRIX_DUAL_BEACON
-#if defined(LED_MATRIX_KEYREACTIVE_ENABLED)
-#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE
-#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_WIDE
-#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTIWIDE
-#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_CROSS
-#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTICROSS
-#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_NEXUS
-#    define ENABLE_LED_MATRIX_SOLID_REACTIVE_MULTINEXUS
-#    define ENABLE_LED_MATRIX_SPLASH
-#    define ENABLE_LED_MATRIX_MULTISPLASH
-#endif
-#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT
-#define ENABLE_LED_MATRIX_WAVE_UP_DOWN
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_SDB_PIN B16
 
 /* i2c (for LED matrix) */
 #define I2C1_CLOCK_SPEED 400000

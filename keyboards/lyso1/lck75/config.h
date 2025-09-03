@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-#define RGBLIGHT_SLEEP
-
 #define OLED_TIMEOUT 10000
 
 #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_MACOS, UNICODE_MODE_LINUX
@@ -34,14 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* #define NO_AUTO_SHIFT_SPECIAL */
 /* #define NO_AUTO_SHIFT_NUMERIC */
 
-#ifdef LOCKING_SUPPORT_ENABLE
-#    undef LOCKING_SUPPORT_ENABLE
-#endif
-#ifdef LOCKING_RESYNC_ENABLE
-#    undef LOCKING_RESYNC_ENABLE
-#endif
-
 #define PERMISSIVE_HOLD
-#define TAPPING_TERM 200
 
 #define NO_ACTION_ONESHOT

@@ -3,13 +3,6 @@
     "keyboard_name": "splaytoraid",
     "maintainer": "freya-irl",
     "url": "https://github.com/freya-irl/splaytoraid40",
-    "development_board": "promicro",
-    "bootloader": "qmk-dfu",
-    "diode_direction": "COL2ROW",
-    "matrix_pins": {
-        "cols": ["F5", "F6", "F7", "F4", "B3", "B1", "B2"],
-        "rows": ["D3", "D2", "D1", "D4", "D7", "E6", "B4", "C6"]
-    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xCB00",
@@ -21,7 +14,8 @@
         "bootmagic": true,
         "console": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true
     },
     "bootmagic": {
         "matrix": [1, 0]
@@ -29,14 +23,14 @@
     "build": {
         "lto": true
     },
-    "encoder": {
-        "enabled": true,
-        "rotary": [
-            {"pin_a": "B5", "pin_b": "B6", "resolution": 4}
-        ]
-    },
     "rgb_matrix": {
-        "driver": "WS2812",
+        "default": {
+            "animation": "breathing",
+            "hue": 152,
+            "sat": 232,
+            "speed": 50
+        },
+        "driver": "ws2812",
         "layout": [
             {"flags": 4, "matrix": [0, 2], "x": 0, "y": 0},
             {"flags": 4, "matrix": [1, 0], "x": 20, "y": 0},
@@ -56,10 +50,8 @@
             {"flags": 4, "matrix": [7, 5], "x": 122, "y": 64},
             {"flags": 4, "matrix": [1, 5], "x": 142, "y": 64},
             {"flags": 4, "matrix": [0, 3], "x": 163, "y": 64}
-        ]
-    },
-    "ws2812": {
-        "pin": "D0"
+        ],
+        "max_brightness": 200
     },
     "layouts": {
         "LAYOUT_36": {
