@@ -97,6 +97,7 @@ MD_RCU_PPRE_HCLK_DIV_16      = HCLK divided by 16
 /*
  * ADC driver system settings.
  */
+#define ADC_COUNT 1
 #define ES32_ADC_USE_ADC1 TRUE
 #define ES32_ADC1_HANDLER Vector70
 
