@@ -101,5 +101,6 @@ void system76_ec_rgb_layer(layer_state_t state);
 bool system76_ec_is_unlocked(void);
 
 #ifdef VIA_ENABLE
-uint32_t ec_rgb_eeprom(bool write);
+uint32_t via_rgb_eeprom(bool write);
+void via_custom_value_command_kb(uint8_t *data, uint8_t length);
 #endif

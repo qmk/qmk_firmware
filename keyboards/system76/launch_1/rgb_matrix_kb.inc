@@ -28,7 +28,6 @@ RGB_MATRIX_EFFECT(UNLOCKED)
 #else
 #include "keymap_introspection.h"
 #endif
-#include "action_layer.h"
 
 static bool active_keys_initialized = false;
 static uint8_t active_keys_table[RGB_MATRIX_LED_COUNT] = {0};
@@ -121,10 +120,10 @@ static uint8_t unlocked_keys[8][2] = {
     {3, 3}, // D
 };
 
-static uint8_t unlocked_ticks      = 0;
-static uint8_t unlocked_i          = 0;
+static uint8_t unlocked_ticks = 0;
+static uint8_t unlocked_i = 0;
 static uint8_t unlocked_leds_count = 0;
-static uint8_t unlocked_leds[2]    = {0, 0};
+static uint8_t unlocked_leds[2] = {0, 0};
 
 static bool UNLOCKED(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -166,6 +165,6 @@ static bool UNLOCKED(effect_params_t *params) {
     }
     return led_max < RGB_MATRIX_LED_COUNT;
 }
-#endif
+#endif // SYSTEM76_EC
 
 #endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS

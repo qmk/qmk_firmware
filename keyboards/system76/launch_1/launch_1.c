@@ -36,7 +36,7 @@
 // 70 LB0 LC0 LD0 LE0 LF0 LG0 LH0 LI0 LJ0 LK0
 // 80 LL0 LM0 LN0 LO0
 led_config_t g_led_config = { {
-    // Key matrix to LED index (see `launch_1.h' for matrix-to-physical layout)
+    // Key matrix to LED index (see `keyboard.json' for matrix-to-physical layout)
 //    A   B   C   D   E   F   G   H   I   J   K   L   M   N   O
 // 0  69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83,
 // 1  68, 67, 66, 65, 64, 63, 62, 61, 60, 59, 58, 57, 56, 55, 54,
@@ -74,7 +74,7 @@ led_config_t g_led_config = { {
 /* 70 */ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
 /* 80 */ 4, 4, 4, 4
 } };
-#endif // RGB_MATRIX_ENABLE
+#endif
 // clang-format on
 
 #ifdef SYSTEM76_EC
@@ -116,9 +116,9 @@ void matrix_init_kb(void) {
 #if defined(VIA_ENABLE) && defined(RGB_MATRIX_ENABLE)
 void via_init_kb(void) {
     if (eeconfig_is_enabled()) {
-        ec_rgb_eeprom(false); // Read per-layer RGB matrix settings
+        via_rgb_eeprom(false); // Read per-layer RGB matrix settings
     } else {
-        ec_rgb_eeprom(true); // Populate per-layer RGB matrix settings
+        via_rgb_eeprom(true); // Populate per-layer RGB matrix settings
     }
 }
 #endif
@@ -136,7 +136,7 @@ static const uint8_t levels[] = {
     LEVEL(96),
     LEVEL(144),
     LEVEL(192),
-    LEVEL(255)
+    LEVEL(255),
 };
 // clang-format on
 
@@ -272,8 +272,8 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 
 void keyboard_post_init_kb(void) {
 #ifdef CONSOLE_ENABLE
-    debug_enable   = true;
-    debug_matrix   = false;
+    debug_enable = true;
+    debug_matrix = false;
     debug_keyboard = false;
 #endif
 

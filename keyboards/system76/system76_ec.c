@@ -66,7 +66,7 @@ static bool keymap_set(uint8_t layer, uint8_t output, uint8_t input, uint16_t va
     return false;
 }
 
-static bool input_disabled = false;
+bool input_disabled = false;
 static bool bootloader_reset = false;
 static bool bootloader_unlocked = false;
 
@@ -80,7 +80,7 @@ void system76_ec_unlock(void) {
 bool system76_ec_is_unlocked(void) {
     return bootloader_unlocked;
 }
-#else  // !SYSTEM76_EC
+#else // !SYSTEM76_EC
 bool system76_ec_is_unlocked(void) {
     return false;
 }
@@ -151,7 +151,7 @@ rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT] = {
 // Read or write EEPROM data with checks for being inside System76 EC region.
 static bool system76_ec_eeprom_op(void *buf, size_t size, size_t offset, bool write) {
     size_t addr = SYSTEM76_EC_EEPROM_ADDR + offset;
-    size_t end  = addr + size;
+    size_t end = addr + size;
     // Check for overflow and zero size
     if ((end > addr) && (addr >= SYSTEM76_EC_EEPROM_ADDR) && (end <= (SYSTEM76_EC_EEPROM_ADDR + SYSTEM76_EC_EEPROM_SIZE))) {
         if (write) {
@@ -171,7 +171,7 @@ void system76_ec_rgb_eeprom(bool write) {
     system76_ec_eeprom_op((void *)layer_rgb, layer_rgb_size, 0, write);
     system76_ec_eeprom_op((void *)raw_rgb_data, sizeof(raw_rgb_data), layer_rgb_size, write);
 }
-#endif // SYSTEM76_EC
+#endif
 
 // Update RGB parameters on layer change.
 void system76_ec_rgb_layer(layer_state_t state) {
@@ -359,10 +359,10 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         case CMD_LED_SET_MODE:
             if (!system76_ec_is_unlocked()) {
                 uint8_t layer = data[2];
-                uint8_t mode  = data[3];
+                uint8_t mode = data[3];
                 uint8_t speed = data[4];
                 if (layer < DYNAMIC_KEYMAP_LAYER_COUNT && mode < MODE_LAST) {
-                    layer_rgb[layer].mode  = mode_map[mode];
+                    layer_rgb[layer].mode = mode_map[mode];
                     layer_rgb[layer].speed = speed;
                     data[1] = 0;
                     system76_ec_rgb_layer(layer_state);
@@ -382,7 +382,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
             data[3] = matrix_cols();
 
             uint8_t byte = 4;
-            uint8_t bit  = 0;
+            uint8_t bit = 0;
 
             for (uint8_t row = 0; row < matrix_rows(); ++row) {
                 for (uint8_t col = 0; col < matrix_cols(); ++col) {
@@ -419,9 +419,9 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
         reset_keyboard();
     }
 }
-#elif defined(VIA_ENABLE)
+#elif defined(VIA_ENABLE) // !defined(SYSTEM76_EC)
 // Read or write EEPROM RGB parameters.
-uint32_t ec_rgb_eeprom(bool write) {
+uint32_t via_rgb_eeprom(bool write) {
     size_t layer_rgb_size = sizeof(layer_rgb);
     uint32_t size = 0;
     if (write) {
@@ -432,7 +432,7 @@ uint32_t ec_rgb_eeprom(bool write) {
     return size;
 }
 
-void ec_rgb_matrix_set_value(uint8_t *data) {
+void via_qmk_rgb_matrix_set_value_kb(uint8_t *data) {
     uint8_t *value_id = &(data[0]);
     uint8_t *value_data = &(data[1]);
 
@@ -470,13 +470,13 @@ void ec_rgb_matrix_set_value(uint8_t *data) {
     }
 }
 
-void ec_rgb_matrix_command(uint8_t *data, uint8_t length) {
+void via_qmk_rgb_matrix_command_kb(uint8_t *data, uint8_t length) {
     uint8_t *command_id = &(data[0]);
     uint8_t *value_id_and_data = &(data[2]);
 
     switch (*command_id) {
         case id_custom_set_value: {
-            ec_rgb_matrix_set_value(value_id_and_data);
+            via_qmk_rgb_matrix_set_value_kb(value_id_and_data);
             break;
         }
         case id_custom_get_value: {
@@ -494,24 +494,18 @@ void ec_rgb_matrix_command(uint8_t *data, uint8_t length) {
     }
 }
 
-void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
-    uint8_t *command_id = &(data[0]);
-
-    *command_id = id_unhandled;
-}
-
 void via_custom_value_command(uint8_t *data, uint8_t length) {
     uint8_t *channel_id = &(data[1]);
 
 #ifdef RGB_MATRIX_ENABLE
     if (*channel_id == id_qmk_rgb_matrix_channel) {
-        ec_rgb_matrix_command(data, length);
+        via_qmk_rgb_matrix_command_kb(data, length);
         return;
     }
-#endif // RGB_MATRIX_ENABLE
+#endif
 
     (void)channel_id;
 
     via_custom_value_command_kb(data, length);
 }
-#endif // defined(SYSTEM76_EC)
+#endif // defined(VIA_ENABLE)
