@@ -243,7 +243,7 @@ __attribute__((weak)) bool auto_mouse_activation(report_mouse_t mouse_report) {
     auto_mouse_context.total_mouse_movement.y += mouse_report.y;
     auto_mouse_context.total_mouse_movement.h += mouse_report.h;
     auto_mouse_context.total_mouse_movement.v += mouse_report.v;
-    return abs(auto_mouse_context.total_mouse_movement.x) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.y) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.h) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.v) > AUTO_MOUSE_THRESHOLD || mouse_report.buttons;
+    return abs(auto_mouse_context.total_mouse_movement.x) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.y) > AUTO_MOUSE_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.h) > AUTO_MOUSE_SCROLL_THRESHOLD || abs(auto_mouse_context.total_mouse_movement.v) > AUTO_MOUSE_SCROLL_THRESHOLD || mouse_report.buttons;
 }
 
 /**
