@@ -1,28 +1,33 @@
 /*
- *  Copyright (C) 2021  System76
+ * Copyright (C) 2021-2022 System76
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-RGB_MATRIX_EFFECT(active_keys)
-RGB_MATRIX_EFFECT(raw_rgb)
-RGB_MATRIX_EFFECT(unlocked)
+RGB_MATRIX_EFFECT(ACTIVE_KEYS)
+#ifdef SYSTEM76_EC
+RGB_MATRIX_EFFECT(RAW_RGB)
+RGB_MATRIX_EFFECT(UNLOCKED)
+#endif
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
+#ifdef DYNAMIC_KEYMAP_ENABLE
 #include "dynamic_keymap.h"
-#include "action_layer.h"
+#else
+#include "keymap_introspection.h"
+#endif
 
 static bool active_keys_initialized = false;
 static uint8_t active_keys_table[RGB_MATRIX_LED_COUNT] = {0};
@@ -39,7 +44,7 @@ static void active_keys_initialize(void) {
     active_keys_initialized = true;
 }
 
-static bool active_keys(effect_params_t* params) {
+static bool ACTIVE_KEYS(effect_params_t *params) {
     if (!active_keys_initialized) {
         active_keys_initialize();
     }
@@ -48,13 +53,18 @@ static bool active_keys(effect_params_t* params) {
     uint8_t layer = get_highest_layer(layer_state);
     rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
 
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (uint8_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
 
         uint8_t rowcol = active_keys_table[i];
         uint8_t row = rowcol >> 4;
         uint8_t col = rowcol & 0xF;
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
         uint16_t keycode = dynamic_keymap_get_keycode(layer, row, col);
+#else
+        uint16_t keycode = keycode_at_keymap_location(layer, row, col);
+#endif
         switch (keycode) {
             case KC_NO:
             case KC_TRNS:
@@ -69,12 +79,13 @@ static bool active_keys(effect_params_t* params) {
     return led_max < RGB_MATRIX_LED_COUNT;
 }
 
-rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT] = {0};
+#ifdef SYSTEM76_EC
+extern rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT];
 
 static uint8_t normalize_component(uint8_t component) {
     uint16_t x = (uint16_t)component;
-    x *= rgb_matrix_config.hsv.v;  // Multiply by current brightness
-    x /= 255;                      // Divide by maximum brightness
+    x *= rgb_matrix_config.hsv.v; // Multiply by current brightness
+    x /= 255;                     // Divide by maximum brightness
     return (uint8_t)x;
 }
 
@@ -88,7 +99,7 @@ static rgb_t normalize_index(uint8_t i) {
     return rgb;
 }
 
-static bool raw_rgb(effect_params_t* params) {
+static bool RAW_RGB(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
@@ -99,25 +110,25 @@ static bool raw_rgb(effect_params_t* params) {
 }
 
 static uint8_t unlocked_keys[8][2] = {
-    {2, 7},  // U
-    {4, 6},  // N
-    {3, 9},  // L
-    {2, 9},  // O
-    {4, 3},  // C
-    {3, 8},  // K
-    {2, 3},  // E
-    {3, 3},  // D
+    {2, 7}, // U
+    {4, 6}, // N
+    {3, 9}, // L
+    {2, 9}, // O
+    {4, 3}, // C
+    {3, 8}, // K
+    {2, 3}, // E
+    {3, 3}, // D
 };
 
-static uint8_t unlocked_ticks      = 0;
-static uint8_t unlocked_i          = 0;
+static uint8_t unlocked_ticks = 0;
+static uint8_t unlocked_i = 0;
 static uint8_t unlocked_leds_count = 0;
-static uint8_t unlocked_leds[2]    = {0, 0};
+static uint8_t unlocked_leds[2] = {0, 0};
 
-static bool unlocked(effect_params_t* params) {
+static bool UNLOCKED(effect_params_t *params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
-    unlocked_ticks++;
+    ++unlocked_ticks;
 
     if (params->init) {
         unlocked_ticks = 0;
@@ -130,11 +141,11 @@ static bool unlocked(effect_params_t* params) {
             unlocked_i = 0;
         } else {
             unlocked_leds_count = rgb_matrix_map_row_column_to_led(unlocked_keys[unlocked_i][0], unlocked_keys[unlocked_i][1], unlocked_leds);
-            unlocked_i++;
+            ++unlocked_i;
         }
     }
 
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (uint8_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
 
         hsv_t hsv = {
@@ -142,7 +153,7 @@ static bool unlocked(effect_params_t* params) {
             .s = 0xFF,
             .v = 0x70,
         };
-        for (uint8_t j = 0; j < unlocked_leds_count; j++) {
+        for (uint8_t j = 0; j < unlocked_leds_count; ++j) {
             if (i == unlocked_leds[j]) {
                 hsv.s = 0;
                 hsv.v = 0xFF;
@@ -154,5 +165,6 @@ static bool unlocked(effect_params_t* params) {
     }
     return led_max < RGB_MATRIX_LED_COUNT;
 }
+#endif // SYSTEM76_EC
 
-#endif  // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif // RGB_MATRIX_CUSTOM_EFFECT_IMPLS
