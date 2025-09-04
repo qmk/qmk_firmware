@@ -22,6 +22,7 @@
 #include "test_keymap_key.hpp"
 
 using testing::_;
+using testing::AnyNumber;
 using testing::InSequence;
 
 namespace {
@@ -301,6 +302,41 @@ TEST_F(SpeculativeHoldDefault, respects_magic_mod_config) {
     // Release mod-tap-hold key.
     EXPECT_EMPTY_REPORT(driver);
     EXPECT_REPORT(driver, (KC_P));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(SpeculativeHoldDefault, key_overrides) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_key = KeymapKey(0, 1, 0, LSFT_T(KC_A));
+    auto       esc_key     = KeymapKey(0, 3, 0, KC_ESC);
+
+    set_keymap({mod_tap_key, esc_key});
+
+    // Press mod-tap Shift key.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mod_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press Esc key.
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
+    EXPECT_REPORT(driver, (KC_HOME));
+    esc_key.press();
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release Esc key.
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
+    EXPECT_REPORT(driver, (KC_LSFT));
+    esc_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release mod-tap Shift key.
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key.release();
     run_one_scan_loop();
