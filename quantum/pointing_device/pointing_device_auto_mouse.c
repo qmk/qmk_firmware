@@ -352,6 +352,8 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         case QK_TO ... QK_TO_MAX:
             if (QK_TO_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                 if (!(record->event.pressed)) auto_mouse_toggle();
+            } else {
+                auto_mouse_context.status.is_toggled = false;
             }
             break;
         // TG((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
