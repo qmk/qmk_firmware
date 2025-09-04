@@ -6,6 +6,7 @@
 #include "action_tapping.h"
 #include "action_util.h"
 #include "keycode.h"
+#include "keycode_config.h"
 #include "quantum_keycodes.h"
 #include "timer.h"
 #include "wait.h"
@@ -761,7 +762,7 @@ static void speculative_key_press(keyrecord_t *record) {
         return;
     }
 
-    uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
+    uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
     if ((mods & 0x10) != 0) { // Unpack 5-bit mods to 8-bit representation.
         mods <<= 4;
     }
@@ -797,7 +798,7 @@ uint8_t get_speculative_mods(void) {
 }
 
 __attribute__((weak)) bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
-    const uint8_t mods = QK_MOD_TAP_GET_MODS(keycode);
+    const uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
     return (mods & (MOD_LCTL | MOD_LSFT)) == mods;
 }
 

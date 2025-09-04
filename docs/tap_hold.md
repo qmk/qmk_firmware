@@ -766,7 +766,7 @@ By default, Speculative Hold applies to mod-taps using Shift, Ctrl, or Shift + C
 
 ```c
 bool get_speculative_hold(uint16_t keycode, keyrecord_t* record) {
-    switch (keycode) { // Enable speculative holding for these keys.
+    switch (keycode) { // These keys may be speculatively held.
         case LCTL_T(KC_ESC):
         case LSFT_T(KC_Z):
         case RSFT_T(KC_SLSH):

@@ -36,21 +36,23 @@ TEST_F(SpeculativeHoldFlowTapTest, tap_mod_tap) {
 
     set_keymap({mod_tap_key});
 
-    // Press mod-tap-hold key.
+    // Press mod-tap-hold key. Mod is held speculatively.
     EXPECT_REPORT(driver, (KC_LSFT));
     mod_tap_key.press();
     idle_for(10);
     VERIFY_AND_CLEAR(driver);
+    EXPECT_EQ(get_speculative_mods(), MOD_BIT_LSHIFT);
 
     // Release mod-tap-hold key.
-    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_EMPTY_REPORT(driver); // Speculative mod canceled.
     EXPECT_REPORT(driver, (KC_P));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
     // All mods are released.
-    EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
+    EXPECT_EQ(get_speculative_mods(), 0);
+    EXPECT_EQ(get_mods(), 0);
 
     // Idle for tapping term of mod tap hold key.
     idle_for(TAPPING_TERM - 10);
@@ -60,8 +62,8 @@ TEST_F(SpeculativeHoldFlowTapTest, tap_mod_tap) {
 TEST_F(SpeculativeHoldFlowTapTest, hold_two_mod_taps) {
     TestDriver driver;
     InSequence s;
-    auto       mod_tap_key1 = KeymapKey(0, 1, 0, CTL_T(KC_A));
-    auto       mod_tap_key2 = KeymapKey(0, 2, 0, SFT_T(KC_B));
+    auto       mod_tap_key1 = KeymapKey(0, 1, 0, LCTL_T(KC_A));
+    auto       mod_tap_key2 = KeymapKey(0, 2, 0, RALT_T(KC_B));
 
     set_keymap({mod_tap_key1, mod_tap_key2});
 
@@ -70,19 +72,23 @@ TEST_F(SpeculativeHoldFlowTapTest, hold_two_mod_taps) {
     mod_tap_key1.press();
     idle_for(FLOW_TAP_TERM + 1);
     VERIFY_AND_CLEAR(driver);
+    EXPECT_EQ(get_speculative_mods(), MOD_BIT_LCTRL);
 
     // Press second mod-tap key.
-    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT));
+    EXPECT_REPORT(driver, (KC_LCTL, KC_RALT));
     mod_tap_key2.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
+    EXPECT_EQ(get_speculative_mods(), MOD_BIT_LCTRL | MOD_BIT_RALT);
 
     EXPECT_NO_REPORT(driver);
     idle_for(TAPPING_TERM + 1);
     VERIFY_AND_CLEAR(driver);
+    EXPECT_EQ(get_speculative_mods(), 0);
+    EXPECT_EQ(get_mods(), MOD_BIT_LCTRL | MOD_BIT_RALT);
 
     // Release first mod-tap key.
-    EXPECT_REPORT(driver, (KC_LSFT));
+    EXPECT_REPORT(driver, (KC_RALT));
     mod_tap_key1.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
