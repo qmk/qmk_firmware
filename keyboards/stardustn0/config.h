@@ -1,0 +1,3 @@
+
+#define MASTER_RIGHT
+#define LED_CAPS_LOCK_PIN GP25
