@@ -80,6 +80,7 @@ void matrix_slave_scan_kb(void) {
     matrix_slave_scan_user();
 }
 
+#ifdef RGB_MATRIX_ENABLE
 void rgb_matrix_increase_flags(void)
 {
     switch (rgb_matrix_get_flags()) {
