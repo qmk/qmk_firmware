@@ -802,7 +802,6 @@ __attribute__((weak)) bool get_speculative_hold(uint16_t keycode, keyrecord_t *r
     return (mods & (MOD_LCTL | MOD_LSFT)) == mods;
 }
 
-
 void speculative_key_settled(keyrecord_t *record) {
     if (num_speculative_keys == 0) {
         return; // Early return when there are no active speculative keys.

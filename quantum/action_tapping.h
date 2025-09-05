@@ -73,7 +73,7 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t *record);
  */
 void speculative_key_settled(keyrecord_t *record);
 #else
-#define get_speculative_mods() 0
+#    define get_speculative_mods() 0
 #endif // SPECULATIVE_HOLD
 
 #ifdef CHORDAL_HOLD
