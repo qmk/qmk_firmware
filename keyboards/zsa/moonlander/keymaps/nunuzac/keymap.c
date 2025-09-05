@@ -150,6 +150,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case WMAL_COMBO:
             if(!pressed)
                 send_work_mail();
+        break;
         case LNAM_COMBO:
             if(!pressed)
                 send_long_name();
