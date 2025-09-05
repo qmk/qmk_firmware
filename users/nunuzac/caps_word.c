@@ -18,6 +18,7 @@
 
 #include "caps_word.h"
 #include "nunuzac.h"
+#include "tap_dances.h"
 
 static bool caps_word_active = false;
 

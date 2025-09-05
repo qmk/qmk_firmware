@@ -16,7 +16,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdint.h>
 #include "nunuzac.h"
+#include "tap_dances.h"
+#include "caps_word.h"
+#include "secrets.h"
 
 enum combo_events {
     CAPS_COMBO,
@@ -24,6 +28,8 @@ enum combo_events {
     SPWD_COMBO,
     MAIL_COMBO,
     WMAL_COMBO,
+    LNAM_COMBO,
+    SNAM_COMBO,
     COMBO_LENGTH
 };
 
@@ -45,13 +51,17 @@ const uint16_t PROGMEM lpwd_combo[] = {KC_P, KC_W, KC_D, COMBO_END};
 const uint16_t PROGMEM spwd_combo[] = {KC_P, KC_W, COMBO_END};
 const uint16_t PROGMEM mail_combo[] = {KC_M, KC_L, COMBO_END};
 const uint16_t PROGMEM wmal_combo[] = {KC_W, KC_M, KC_L, COMBO_END};
+const uint16_t PROGMEM lnam_combo[] = {KC_N, KC_A, KC_M, COMBO_END};
+const uint16_t PROGMEM snam_combo[] = {KC_N, KC_M, COMBO_END};
 
 combo_t key_combos[] = {
     [CAPS_COMBO] = COMBO_ACTION(caps_combo),
     [LPWD_COMBO] = COMBO_ACTION(lpwd_combo),
     [SPWD_COMBO] = COMBO_ACTION(spwd_combo),
     [MAIL_COMBO] = COMBO_ACTION(mail_combo),
-    [WMAL_COMBO] = COMBO_ACTION(wmal_combo)
+    [WMAL_COMBO] = COMBO_ACTION(wmal_combo),
+    [LNAM_COMBO] = COMBO_ACTION(lnam_combo),
+    [SNAM_COMBO] = COMBO_ACTION(snam_combo),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -140,6 +150,13 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         case WMAL_COMBO:
             if(!pressed)
                 send_work_mail();
+        case LNAM_COMBO:
+            if(!pressed)
+                send_long_name();
+        break;
+        case SNAM_COMBO:
+            if(!pressed)
+                send_short_name();
     }
 }
 

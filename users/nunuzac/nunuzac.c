@@ -10,7 +10,7 @@ void set_current_os(os_type val) {
     current_os = val;
 }
 
-uint16_t get_os_shortcut(shortcut intended) {
+uint16_t get_os_shortcut(shortcut_t intended) {
     switch (intended) {
         case COPY:
             if(current_os == OSX)

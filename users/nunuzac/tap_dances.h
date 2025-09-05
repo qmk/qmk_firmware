@@ -1,5 +1,6 @@
 #pragma once
-#include "nunuzac.h"
+
+#include "quantum.h"
 
 enum {
     X_AT,
@@ -45,6 +46,7 @@ enum {
     X_COPY_CUT,
     X_PST_SV,
     X_FIND_REPL,
+    TAP_DANCE_LENGHT,
 };
 
 #define KC_TDEC TD(X_ESC_CAPSL)
@@ -94,3 +96,9 @@ enum {
 #define KC_TDCC TD(X_COPY_CUT)
 #define KC_TDPS TD(X_PST_SV)
 #define KC_TDFR TD(X_FIND_REPL)
+
+tap_dance_action_t tap_dance_actions[TAP_DANCE_LENGHT];
+
+void tilde_dance_end(tap_dance_state_t *state, void *user_data);
+
+void tap_and_hold_dance_end(tap_dance_state_t *state, void *user_data);

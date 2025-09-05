@@ -1,17 +1,28 @@
 #include "tap_dances.h"
+#include "nunuzac.h"
 
-#define ACTION_TAP_AND_HOLD_DANCE(kc1, kc2) \
-    { .fn = {NULL, tap_and_hold_dance_end, NULL}, .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), }
+#define ACTION_TAP_AND_HOLD_DANCE(kc1, kc2)                   \
+    {                                                         \
+        .fn        = {NULL, tap_and_hold_dance_end, NULL},    \
+        .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), \
+    }
 
-#define ACTION_TILDE_DANCE(kc1, kc2) \
-    { .fn = {NULL, tilde_dance_end, NULL}, .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), }
+#define ACTION_TILDE_DANCE(kc1, kc2)                          \
+    {                                                         \
+        .fn        = {NULL, tilde_dance_end, NULL},           \
+        .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), \
+    }
 
-#define ACTION_SHORTCUT_DANCE(sc1, sc2) \
-    { .fn = {NULL, shortcut_dance_end, NULL}, .user_data = (void *)&((shortcut_pair_t){sc1, sc2}), }
+#define ACTION_SHORTCUT_DANCE(sc1, sc2)                      \
+    {                                                        \
+        .fn        = {NULL, shortcut_dance_end, NULL},       \
+        .user_data = (void *)&((shortcut_pair_t){sc1, sc2}), \
+    }
 
-typedef struct {
-    shortcut sc1;
-    shortcut sc2;
+
+typedef struct shortcut_pair {
+    shortcut_t sc1;
+    shortcut_t sc2;
 } shortcut_pair_t;
 
 void tilde_dance_end(tap_dance_state_t *state, void *user_data) {
@@ -58,7 +69,7 @@ void tap_and_hold_dance_end(tap_dance_state_t *state, void *user_data) {
 
 void shortcut_dance_end(tap_dance_state_t *state, void *user_data) {
     shortcut_pair_t *scs = (shortcut_pair_t *)user_data;
-    shortcut sc = state->pressed ? scs->sc2 : scs->sc1;
+    shortcut_t sc = state->pressed ? scs->sc2 : scs->sc1;
     tap_code16(get_os_shortcut(sc));
 }
 
@@ -106,5 +117,5 @@ tap_dance_action_t tap_dance_actions[] = {
     [X_COPY_CUT]  = ACTION_SHORTCUT_DANCE(COPY, CUT),
     [X_PST_SV]    = ACTION_SHORTCUT_DANCE(PASTE, SAVE),
     [X_FIND_REPL] = ACTION_SHORTCUT_DANCE(FIND, REPLACE),
-
 };
+

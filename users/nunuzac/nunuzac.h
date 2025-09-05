@@ -1,8 +1,5 @@
 #pragma once
 #include QMK_KEYBOARD_H
-#include "tap_dances.h"
-#include "caps_word.h"
-#include "secrets.h"
 
 typedef enum {
     WLX,
@@ -18,7 +15,7 @@ enum layers {
     GAMES
 };
 
-typedef enum {
+typedef enum shortcut {
     COPY,
     CUT,
     PASTE,
@@ -31,8 +28,8 @@ typedef enum {
     FIND_ALL,
     REPLACE,
     REPLACE_ALL
-} shortcut;
+} shortcut_t;
 
 os_type get_current_os(void);
 void set_current_os(os_type val);
-uint16_t get_os_shortcut(shortcut intended);
+uint16_t get_os_shortcut(shortcut_t intended);
