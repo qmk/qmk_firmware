@@ -186,7 +186,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         cycle_dpi();
     }
     if (keycode == MOMENTARY_DRAG_SCROLL) {
-        is_drag_scroll = record->event.pressed;
+        toggle_drag_scroll();
     }
 
     if (keycode == TOGGLE_DRAG_SCROLL) {
