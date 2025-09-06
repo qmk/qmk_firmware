@@ -107,7 +107,11 @@ void eeconfig_update_led_matrix_default(void) {
 void eeconfig_debug_led_matrix(void) {
     dprintf("led_matrix_eeconfig EEPROM\n");
     dprintf("led_matrix_eeconfig.enable = %d\n", led_matrix_eeconfig.enable);
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+    dprintf("led_matrix_eeconfig.mode = %d (%s)\n", led_matrix_eeconfig.mode, led_matrix_get_mode_name(led_matrix_eeconfig.mode));
+#else
     dprintf("led_matrix_eeconfig.mode = %d\n", led_matrix_eeconfig.mode);
+#endif // LED_MATRIX_MODE_NAME_ENABLE
     dprintf("led_matrix_eeconfig.val = %d\n", led_matrix_eeconfig.val);
     dprintf("led_matrix_eeconfig.speed = %d\n", led_matrix_eeconfig.speed);
     dprintf("led_matrix_eeconfig.flags = %d\n", led_matrix_eeconfig.flags);
@@ -525,7 +529,11 @@ void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     }
     led_task_state = STARTING;
     eeconfig_flag_led_matrix(write_to_eeprom);
-    dprintf("led matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.mode);
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+    dprintf("led matrix mode [%s]: %u (%s)\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)led_matrix_eeconfig.mode, led_matrix_get_mode_name(led_matrix_eeconfig.mode));
+#else
+    dprintf("led matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)led_matrix_eeconfig.mode);
+#endif // LED_MATRIX_MODE_NAME_ENABLE
 }
 void led_matrix_mode_noeeprom(uint8_t mode) {
     led_matrix_mode_eeprom_helper(mode, false);
@@ -652,3 +660,48 @@ void led_matrix_set_flags(led_flags_t flags) {
 void led_matrix_set_flags_noeeprom(led_flags_t flags) {
     led_matrix_set_flags_eeprom_helper(flags, false);
 }
+
+// LED Matrix naming
+#undef LED_MATRIX_EFFECT
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+const char *led_matrix_get_mode_name(uint8_t mode) {
+    switch (mode) {
+        case LED_MATRIX_NONE:
+            return "NONE";
+
+#    define LED_MATRIX_EFFECT(name, ...) \
+        case LED_MATRIX_##name:          \
+            return #name;
+#    include "led_matrix_effects.inc"
+#    undef LED_MATRIX_EFFECT
+
+#    ifdef COMMUNITY_MODULES_ENABLE
+#        define LED_MATRIX_EFFECT(name, ...)         \
+            case LED_MATRIX_COMMUNITY_MODULE_##name: \
+                return #name;
+#        include "led_matrix_community_modules.inc"
+#        undef LED_MATRIX_EFFECT
+#    endif // COMMUNITY_MODULES_ENABLE
+
+#    if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
+#        define LED_MATRIX_EFFECT(name, ...) \
+            case LED_MATRIX_CUSTOM_##name:   \
+                return #name;
+
+#        ifdef LED_MATRIX_CUSTOM_KB
+#            include "led_matrix_kb.inc"
+#        endif // LED_MATRIX_CUSTOM_KB
+
+#        ifdef LED_MATRIX_CUSTOM_USER
+#            include "led_matrix_user.inc"
+#        endif // LED_MATRIX_CUSTOM_USER
+
+#        undef LED_MATRIX_EFFECT
+#    endif // LED_MATRIX_CUSTOM_KB || LED_MATRIX_CUSTOM_USER
+
+        default:
+            return "UNKNOWN";
+    }
+}
+#    undef LED_MATRIX_EFFECT
+#endif // LED_MATRIX_MODE_NAME_ENABLE

@@ -96,7 +96,7 @@ def _find_bootloader():
                             details = 'halfkay'
                         else:
                             details = 'qmk-hid'
-                    elif bl in {'apm32-dfu', 'gd32v-dfu', 'kiibohd', 'stm32-dfu'}:
+                    elif bl in {'apm32-dfu', 'at32-dfu', 'gd32v-dfu', 'kiibohd', 'stm32-dfu'}:
                         details = (vid, pid)
                     else:
                         details = None
@@ -176,7 +176,7 @@ def _flash_dfu_util(details, file):
     # kiibohd
     elif details[0] == '1c11' and details[1] == 'b007':
         cli.run(['dfu-util', '-a', '0', '-d', f'{details[0]}:{details[1]}', '-D', file], capture_output=False)
-    # STM32, APM32, or GD32V DFU
+    # STM32, APM32, AT32, or GD32V DFU
     else:
         cli.run(['dfu-util', '-a', '0', '-d', f'{details[0]}:{details[1]}', '-s', '0x08000000:leave', '-D', file], capture_output=False)
 
@@ -226,7 +226,7 @@ def flasher(mcu, file):
                 return (True, "Please make sure 'teensy_loader_cli' or 'hid_bootloader_cli' is available on your system.")
         else:
             return (True, "Specifying the MCU with '-m' is necessary for HalfKay/HID bootloaders!")
-    elif bl in {'apm32-dfu', 'gd32v-dfu', 'kiibohd', 'stm32-dfu'}:
+    elif bl in {'apm32-dfu', 'at32-dfu', 'gd32v-dfu', 'kiibohd', 'stm32-dfu'}:
         _flash_dfu_util(details, file)
     elif bl == 'wb32-dfu':
         if _flash_wb32_dfu_updater(file):

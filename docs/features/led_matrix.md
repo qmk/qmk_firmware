@@ -214,9 +214,30 @@ led_matrix_mode(LED_MATRIX_CUSTOM_my_cool_effect);
 For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
+## Naming
+
+If you wish to be able to use the name of an effect in your code -- say for a display indicator -- then you can enable the function `led_matrix_get_mode_name` in the following manner:
+
+In your keymap's `config.h`:
+```c
+#define LED_MATRIX_MODE_NAME_ENABLE
+```
+
+In your `keymap.c`
+```c
+const char* effect_name = led_matrix_get_mode_name(led_matrix_get_mode());
+// do something with `effect_name`, like `oled_write_ln(effect_name, false);`
+```
+
+::: info
+`led_matrix_get_mode_name()` is not enabled by default as it increases the amount of flash memory used by the firmware based on the number of effects enabled.
+:::
+
+
 ## Additional `config.h` Options {#additional-configh-options}
 
 ```c
+#define LED_MATRIX_MODE_NAME_ENABLE // enables led_matrix_get_mode_name()
 #define LED_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
 #define LED_MATRIX_TIMEOUT 0 // number of milliseconds to wait until led automatically turns off
 #define LED_MATRIX_SLEEP // turn off effects when suspended

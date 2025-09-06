@@ -223,12 +223,6 @@ def _validate(keyboard, info_data):
 def info_json(keyboard, force_layout=None):
     """Generate the info.json data for a specific keyboard.
     """
-    cur_dir = Path('keyboards')
-    root_rules_mk = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-
-    if 'DEFAULT_FOLDER' in root_rules_mk:
-        keyboard = root_rules_mk['DEFAULT_FOLDER']
-
     info_data = {
         'keyboard_name': str(keyboard),
         'keyboard_folder': str(keyboard),
@@ -260,6 +254,7 @@ def info_json(keyboard, force_layout=None):
     # Ensure that we have various calculated values
     info_data = _matrix_size(info_data)
     info_data = _joystick_axis_count(info_data)
+    info_data = _matrix_masked(info_data)
 
     # Merge in data from <keyboard.c>
     info_data = _extract_led_config(info_data, str(keyboard))
@@ -482,6 +477,9 @@ def _extract_split_serial(info_data, config_c):
     if 'soft_serial_pin' in split:
         split['serial'] = split.get('serial', {})
         split['serial']['pin'] = split.pop('soft_serial_pin')
+    if 'soft_serial_speed' in split:
+        split['serial'] = split.get('serial', {})
+        split['serial']['speed'] = split.pop('soft_serial_speed')
 
 
 def _extract_split_transport(info_data, config_c):
@@ -836,6 +834,25 @@ def _joystick_axis_count(info_data):
     return info_data
 
 
+def _matrix_masked(info_data):
+    """"Add info_data['matrix_pins.masked'] if required"""
+    mask_required = False
+
+    if 'matrix_grid' in info_data.get('dip_switch', {}):
+        mask_required = True
+    if 'matrix_grid' in info_data.get('split', {}).get('handedness', {}):
+        mask_required = True
+
+    if mask_required:
+        if 'masked' not in info_data.get('matrix_pins', {}):
+            if 'matrix_pins' not in info_data:
+                info_data['matrix_pins'] = {}
+
+            info_data['matrix_pins']['masked'] = True
+
+    return info_data
+
+
 def _check_matrix(info_data):
     """Check the matrix to ensure that row/column count is consistent.
     """
@@ -1004,11 +1021,6 @@ def find_info_json(keyboard):
     keyboard_path = base_path / keyboard
     keyboard_parent = keyboard_path.parent
     info_jsons = [keyboard_path / 'info.json', keyboard_path / 'keyboard.json']
-
-    # Add DEFAULT_FOLDER before parents, if present
-    rules = rules_mk(keyboard)
-    if 'DEFAULT_FOLDER' in rules:
-        info_jsons.append(Path(rules['DEFAULT_FOLDER']) / 'info.json')
 
     # Add in parent folders for least specific
     for _ in range(5):

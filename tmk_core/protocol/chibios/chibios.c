@@ -40,9 +40,6 @@
 #    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP FALSE
 #endif
 
-#ifdef SLEEP_LED_ENABLE
-#    include "sleep_led.h"
-#endif
 #ifdef MIDI_ENABLE
 #    include "qmk_midi.h"
 #endif
