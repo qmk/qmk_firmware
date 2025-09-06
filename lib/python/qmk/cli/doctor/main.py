@@ -17,27 +17,53 @@ from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, Userspace
 
 
 def distrib_tests():
-    def _parse_distrib_info_file(file):
-        """Parse the QMK distribution info file
+    def _load_kvp_file(file):
+        """Load a simple key=value file into a dictionary
+        """
+        vars = {}
+        with open(file, 'r') as f:
+            for line in f:
+                if '=' in line:
+                    key, value = line.split('=', 1)
+                    vars[key.strip()] = value.strip()
+        return vars
+
+    def _parse_toolchain_release_file(file):
+        """Parse the QMK toolchain release info file
         """
         try:
-            vars = {}
-            with open(file, 'r') as f:
-                for line in f:
-                    if '=' in line:
-                        key, value = line.split('=', 1)
-                        vars[key.strip()] = value.strip()
+            vars = _load_kvp_file(file)
             return f'{vars.get("TOOLCHAIN_HOST", "unknown")}:{vars.get("TOOLCHAIN_TARGET", "unknown")}:{vars.get("COMMIT_HASH", "unknown")}'
         except Exception as e:
-            cli.log.warning('Error reading QMK distribution info file: %s', e)
-            return f'Unknown toolchain info file: {file}'
+            cli.log.warning('Error reading QMK toolchain release info file: %s', e)
+            return f'Unknown toolchain release info file: {file}'
+
+    def _parse_flashutils_release_file(file):
+        """Parse the QMK flashutils release info file
+        """
+        try:
+            vars = _load_kvp_file(file)
+            return f'{vars.get("FLASHUTILS_HOST", "unknown")}:{vars.get("COMMIT_HASH", "unknown")}'
+        except Exception as e:
+            cli.log.warning('Error reading QMK flashutils release info file: %s', e)
+            return f'Unknown flashutils release info file: {file}'
 
     try:
         from qmk.cli import QMK_DISTRIB_DIR
         if (QMK_DISTRIB_DIR / 'etc').exists():
             cli.log.info('Found QMK tools distribution directory: {fg_cyan}%s', QMK_DISTRIB_DIR)
-            toolchains = [_parse_distrib_info_file(file) for file in (QMK_DISTRIB_DIR / 'etc').glob('toolchain_release_*')]
-            cli.log.info('Found QMK toolchains: {fg_cyan}%s', ', '.join(toolchains))
+
+            toolchains = [_parse_toolchain_release_file(file) for file in (QMK_DISTRIB_DIR / 'etc').glob('toolchain_release_*')]
+            if len(toolchains) > 0:
+                cli.log.info('Found QMK toolchains: {fg_cyan}%s', ', '.join(toolchains))
+            else:
+                cli.log.warning('No QMK toolchains manifest found.')
+
+            flashutils = [_parse_flashutils_release_file(file) for file in (QMK_DISTRIB_DIR / 'etc').glob('flashutils_release_*')]
+            if len(flashutils) > 0:
+                cli.log.info('Found QMK flashutils: {fg_cyan}%s', ', '.join(flashutils))
+            else:
+                cli.log.warning('No QMK flashutils manifest found.')
     except ImportError:
         cli.log.info('QMK tools distribution not found.')
 

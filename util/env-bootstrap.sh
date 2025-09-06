@@ -418,6 +418,8 @@ __EOT__
         # Extract the flashing tools
         echo "Extracting flashing tools to '$QMK_DISTRIB_DIR'..." >&2
         zstdcat "$target_file" | tar xf - -C "$QMK_DISTRIB_DIR/bin"
+        # Move the release file to etc
+        mv "$QMK_DISTRIB_DIR/bin/flashutils_release"* "$QMK_DISTRIB_DIR/etc"
     }
 
     install_linux_udev_rules() {
