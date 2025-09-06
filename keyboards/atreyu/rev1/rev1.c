@@ -31,9 +31,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     if (index == 0) {
       if (clockwise) {
-          tap_code(KC_WH_U);
+          tap_code(MS_WHLU);
       } else {
-          tap_code(KC_WH_D);
+          tap_code(MS_WHLD);
       }
     }
     return true;
