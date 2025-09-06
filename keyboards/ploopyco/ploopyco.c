@@ -190,13 +190,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (keycode == TOGGLE_DRAG_SCROLL) {
-#ifdef PLOOPY_DRAGSCROLL_MOMENTARY
-        is_drag_scroll = record->event.pressed;
-#else
         if (record->event.pressed) {
             toggle_drag_scroll();
         }
-#endif
     }
 
     return true;
