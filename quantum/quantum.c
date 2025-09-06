@@ -157,9 +157,7 @@ __attribute__((weak)) void unregister_code16(uint16_t code) {
  */
 __attribute__((weak)) void tap_code16_delay(uint16_t code, uint16_t delay) {
     register_code16(code);
-    for (uint16_t i = delay; i > 0; i--) {
-        wait_ms(1);
-    }
+    wait_ms(delay);
     unregister_code16(code);
 }
 
