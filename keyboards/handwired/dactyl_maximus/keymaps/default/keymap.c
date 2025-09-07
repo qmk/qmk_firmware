@@ -41,12 +41,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [2] = LAYOUT(
         KC_TRNS, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                      KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO, KC_TRNS,
-        KC_TRNS, KC_NO, KC_NO,   KC_ACL2, KC_ACL1, KC_ACL0, KC_NO,                                      KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO, KC_TRNS,
-        KC_TRNS, KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_NO,                                      KC_NO,   KC_SLEP, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_TRNS,
-        KC_TRNS, KC_NO, KC_WH_L, KC_WH_D, KC_WH_U, KC_WH_R, KC_NO,                                      KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO, KC_TRNS,
+        KC_TRNS, KC_NO, KC_NO,   MS_ACL2, MS_ACL1, MS_ACL0, KC_NO,                                      KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO, KC_TRNS,
+        KC_TRNS, KC_NO, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, KC_NO,                                      KC_NO,   KC_SLEP, KC_NO, KC_NO, QK_BOOT, KC_NO, KC_TRNS,
+        KC_TRNS, KC_NO, MS_WHLL, MS_WHLD, MS_WHLU, MS_WHLR, KC_NO,                                      KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO, KC_TRNS,
         KC_TRNS, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                        KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO, KC_TRNS,
                                                                    KC_NO,   KC_NO,        KC_NO, KC_NO,
-                                                            KC_NO, KC_BTN1, KC_BTN2,      KC_NO, KC_NO, KC_TRNS,
+                                                            KC_NO, MS_BTN1, MS_BTN2,      KC_NO, KC_NO, KC_TRNS,
                                                             KC_NO, KC_NO,   KC_NO,        KC_NO, KC_NO, KC_NO
     )
 };

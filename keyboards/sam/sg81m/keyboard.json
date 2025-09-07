@@ -1,7 +1,6 @@
 {
     "keyboard_name": "SG81M",
     "manufacturer": "Sam",
-    "url": "",
     "maintainer": "CMMS-Freather",
     "usb": {
         "vid": "0x534D",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

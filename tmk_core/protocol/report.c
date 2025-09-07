@@ -32,7 +32,7 @@ uint8_t has_anykey(void) {
     uint8_t* p   = keyboard_report->keys;
     uint8_t  lp  = sizeof(keyboard_report->keys);
 #ifdef NKRO_ENABLE
-    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         p  = nkro_report->bits;
         lp = sizeof(nkro_report->bits);
     }
@@ -49,7 +49,7 @@ uint8_t has_anykey(void) {
  */
 uint8_t get_first_key(void) {
 #ifdef NKRO_ENABLE
-    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         uint8_t i = 0;
         for (; i < NKRO_REPORT_BITS && !nkro_report->bits[i]; i++)
             ;
@@ -69,7 +69,7 @@ bool is_key_pressed(uint8_t key) {
         return false;
     }
 #ifdef NKRO_ENABLE
-    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         if ((key >> 3) < NKRO_REPORT_BITS) {
             return nkro_report->bits[key >> 3] & 1 << (key & 7);
         } else {
@@ -151,7 +151,7 @@ void del_key_bit(report_nkro_t* nkro_report, uint8_t code) {
  */
 void add_key_to_report(uint8_t key) {
 #ifdef NKRO_ENABLE
-    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         add_key_bit(nkro_report, key);
         return;
     }
@@ -165,7 +165,7 @@ void add_key_to_report(uint8_t key) {
  */
 void del_key_from_report(uint8_t key) {
 #ifdef NKRO_ENABLE
-    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         del_key_bit(nkro_report, key);
         return;
     }
@@ -180,7 +180,7 @@ void del_key_from_report(uint8_t key) {
 void clear_keys_from_report(void) {
     // not clear mods
 #ifdef NKRO_ENABLE
-    if (usb_device_state_get_protocol() == USB_PROTOCOL_REPORT && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         memset(nkro_report->bits, 0, sizeof(nkro_report->bits));
         return;
     }

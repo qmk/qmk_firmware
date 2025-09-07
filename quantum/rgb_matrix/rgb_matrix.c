@@ -18,7 +18,6 @@
 
 #include "rgb_matrix.h"
 #include "progmem.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "keyboard.h"
 #include "sync_timer.h"
@@ -48,6 +47,9 @@ __attribute__((weak)) rgb_t rgb_matrix_hsv_to_rgb(hsv_t hsv) {
 #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "rgb_matrix_effects.inc"
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "rgb_matrix_community_modules.inc"
+#endif
 #ifdef RGB_MATRIX_CUSTOM_KB
 #    include "rgb_matrix_kb.inc"
 #endif
@@ -88,9 +90,9 @@ static last_hit_t last_hit_buffer;
 const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(rgb_matrix, EECONFIG_RGB_MATRIX, rgb_matrix_config);
+EECONFIG_DEBOUNCE_HELPER(rgb_matrix, rgb_matrix_config);
 
-void eeconfig_update_rgb_matrix(void) {
+void eeconfig_force_flush_rgb_matrix(void) {
     eeconfig_flush_rgb_matrix(true);
 }
 
@@ -107,7 +109,11 @@ void eeconfig_update_rgb_matrix_default(void) {
 void eeconfig_debug_rgb_matrix(void) {
     dprintf("rgb_matrix_config EEPROM\n");
     dprintf("rgb_matrix_config.enable = %d\n", rgb_matrix_config.enable);
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+    dprintf("rgb_matrix_config.mode = %d (%s)\n", rgb_matrix_config.mode, rgb_matrix_get_mode_name(rgb_matrix_config.mode));
+#else
     dprintf("rgb_matrix_config.mode = %d\n", rgb_matrix_config.mode);
+#endif // RGB_MATRIX_MODE_NAME_ENABLE
     dprintf("rgb_matrix_config.hsv.h = %d\n", rgb_matrix_config.hsv.h);
     dprintf("rgb_matrix_config.hsv.s = %d\n", rgb_matrix_config.hsv.s);
     dprintf("rgb_matrix_config.hsv.v = %d\n", rgb_matrix_config.hsv.v);
@@ -311,6 +317,15 @@ static void rgb_task_render(uint8_t effect) {
 #include "rgb_matrix_effects.inc"
 #undef RGB_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define RGB_MATRIX_EFFECT(name, ...)          \
+        case RGB_MATRIX_COMMUNITY_MODULE_##name:  \
+            rendering = name(&rgb_effect_params); \
+            break;
+#    include "rgb_matrix_community_modules.inc"
+#    undef RGB_MATRIX_EFFECT
+#endif
+
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
 #    define RGB_MATRIX_EFFECT(name, ...)          \
         case RGB_MATRIX_CUSTOM_##name:            \
@@ -394,7 +409,12 @@ void rgb_matrix_task(void) {
     }
 }
 
+__attribute__((weak)) bool rgb_matrix_indicators_modules(void) {
+    return true;
+}
+
 void rgb_matrix_indicators(void) {
+    rgb_matrix_indicators_modules();
     rgb_matrix_indicators_kb();
 }
 
@@ -434,6 +454,10 @@ struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter) {
     return limits;
 }
 
+__attribute__((weak)) bool rgb_matrix_indicators_advanced_modules(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+
 void rgb_matrix_indicators_advanced(effect_params_t *params) {
     /* special handling is needed for "params->iter", since it's already been incremented.
      * Could move the invocations to rgb_task_render, but then it's missing a few checks
@@ -441,6 +465,7 @@ void rgb_matrix_indicators_advanced(effect_params_t *params) {
      * rgb_task_render, right before the iter++ line.
      */
     RGB_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
+    rgb_matrix_indicators_advanced_modules(min, max);
     rgb_matrix_indicators_advanced_kb(min, max);
 }
 
@@ -539,7 +564,11 @@ void rgb_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     }
     rgb_task_state = STARTING;
     eeconfig_flag_rgb_matrix(write_to_eeprom);
-    dprintf("rgb matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.mode);
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+    dprintf("rgb matrix mode [%s]: %u (%s)\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)rgb_matrix_config.mode, rgb_matrix_get_mode_name(rgb_matrix_config.mode));
+#else
+    dprintf("rgb matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)rgb_matrix_config.mode);
+#endif // RGB_MATRIX_MODE_NAME_ENABLE
 }
 void rgb_matrix_mode_noeeprom(uint8_t mode) {
     rgb_matrix_mode_eeprom_helper(mode, false);
@@ -717,3 +746,49 @@ void rgb_matrix_set_flags(led_flags_t flags) {
 void rgb_matrix_set_flags_noeeprom(led_flags_t flags) {
     rgb_matrix_set_flags_eeprom_helper(flags, false);
 }
+
+//----------------------------------------------------------
+// RGB Matrix naming
+#undef RGB_MATRIX_EFFECT
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+const char *rgb_matrix_get_mode_name(uint8_t mode) {
+    switch (mode) {
+        case RGB_MATRIX_NONE:
+            return "NONE";
+
+#    define RGB_MATRIX_EFFECT(name, ...) \
+        case RGB_MATRIX_##name:          \
+            return #name;
+#    include "rgb_matrix_effects.inc"
+#    undef RGB_MATRIX_EFFECT
+
+#    ifdef COMMUNITY_MODULES_ENABLE
+#        define RGB_MATRIX_EFFECT(name, ...)         \
+            case RGB_MATRIX_COMMUNITY_MODULE_##name: \
+                return #name;
+#        include "rgb_matrix_community_modules.inc"
+#        undef RGB_MATRIX_EFFECT
+#    endif // COMMUNITY_MODULES_ENABLE
+
+#    if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+#        define RGB_MATRIX_EFFECT(name, ...) \
+            case RGB_MATRIX_CUSTOM_##name:   \
+                return #name;
+
+#        ifdef RGB_MATRIX_CUSTOM_KB
+#            include "rgb_matrix_kb.inc"
+#        endif // RGB_MATRIX_CUSTOM_KB
+
+#        ifdef RGB_MATRIX_CUSTOM_USER
+#            include "rgb_matrix_user.inc"
+#        endif // RGB_MATRIX_CUSTOM_USER
+
+#        undef RGB_MATRIX_EFFECT
+#    endif // RGB_MATRIX_CUSTOM_KB || RGB_MATRIX_CUSTOM_USER
+
+        default:
+            return "UNKNOWN";
+    }
+}
+#    undef RGB_MATRIX_EFFECT
+#endif // RGB_MATRIX_MODE_NAME_ENABLE

@@ -18,6 +18,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "compiler_support.h"
 #include "util.h"
 
 #if defined(LED_MATRIX_KEYPRESSES) || defined(LED_MATRIX_KEYRELEASES)
@@ -71,7 +73,7 @@ typedef struct PACKED {
     uint8_t     flags[LED_MATRIX_LED_COUNT];
 } led_config_t;
 
-typedef union {
+typedef union led_eeconfig_t {
     uint32_t raw;
     struct PACKED {
         uint8_t     enable : 2;
@@ -82,4 +84,4 @@ typedef union {
     };
 } led_eeconfig_t;
 
-_Static_assert(sizeof(led_eeconfig_t) == sizeof(uint32_t), "LED Matrix EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(led_eeconfig_t) == sizeof(uint32_t), "LED Matrix EECONFIG out of spec.");

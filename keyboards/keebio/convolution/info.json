@@ -6,7 +6,6 @@
         "vid": "0xCB10"
     },
     "features": {
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": false,

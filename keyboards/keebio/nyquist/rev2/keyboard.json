@@ -7,8 +7,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -42,8 +40,7 @@
             "pin": "D0"
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_5x12"
     },

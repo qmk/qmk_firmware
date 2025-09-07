@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Plain60",
     "manufacturer": "Evyd13",
-    "url": "",
     "maintainer": "evyd13",
     "usb": {
         "vid": "0x4705",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

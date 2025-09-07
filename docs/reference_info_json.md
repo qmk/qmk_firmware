@@ -2,7 +2,7 @@
 
 The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. Its key/value pairs are ruled by the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file. To learn more about the why and how of the schema file see the [Data Driven Configuration](data_driven_config) page.
 
-You can create `info.json` files at every level under `qmk_firmware/keyboards/<keyboard_name>`. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies information common to all Clueboard products, such as `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` contains more specific information about Clueboard 66%.
+You can create `info.json` files at every level under `qmk_firmware/keyboards/<keyboard>`. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies information common to all Clueboard products, such as `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` contains more specific information about Clueboard 66%.
 
 ## General Metadata {#general-metadata}
 
@@ -74,6 +74,8 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
         * The delay between keydown and keyup for tap events in milliseconds.
         * Default: `0` (no delay)
 * `tapping`
+    * `chordal_hold` <Badge type="info">Boolean</Badge>
+        * Default: `false`
     * `hold_on_other_key_press` <Badge type="info">Boolean</Badge>
         * Default: `false`
     * `hold_on_other_key_press_per_key` <Badge type="info">Boolean</Badge>
@@ -177,6 +179,32 @@ Configures the [Backlight](features/backlight) feature.
     * `pins` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only).
 
+## Battery
+
+Configures the [Battery](features/battery) feature.
+
+* `battery`
+    * `adc`
+        * `pin` <Badge type="info">Pin</Badge> <Badge>Required</Badge>
+            * The GPIO pin connected to the voltage divider.
+        * `reference_voltage` <Badge type="info">Number</Badge>
+            * The ADC reverence voltage, in millivolts. 
+            * Default: `3300`
+        * `divider_r1` <Badge type="info">Number</Badge>
+            * The voltage divider resistance, in kOhm. Set to 0 to disable.
+            * Default: `100`
+        * `divider_r2` <Badge type="info">Number</Badge>
+            * The voltage divider resistance, in kOhm. Set to 0 to disable.
+            * Default: `100`
+        * `resolution` <Badge type="info">Number</Badge>
+            * The ADC resolution configured for the ADC Driver.
+            * Default: `10`
+    * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
+        * The driver to use. Must be one of `adc`, `custom`, `vendor`.
+    * `sample_interval` <Badge type="info">Number</Badge>
+        * The delay between sampling the battery in milliseconds.
+        * Default: `30000` (30 s)
+
 ## Wireless/Bluetooth {#bluetooth}
 
 Configures the [Wireless](features/wireless) feature.
@@ -272,6 +300,14 @@ Configures the [Encoder](features/encoders) feature.
                 * The number of edge transitions on both pins required to register an input.
                 * Default: `4`
 
+## Host {#host}
+
+* `host`
+    * `default`
+        * `nkro` <Badge type="info">Boolean</Badge>
+            * The default nkro state.
+            * Default: `false`
+
 ## Indicators {#indicators}
 
 Configures the [LED Indicators](features/led_indicators) feature.
@@ -328,6 +364,8 @@ The ISO enter key is represented by a 1.25u×2uh key. Renderers which utilize in
                 * `h` <Badge type="info">KeyUnit</Badge>
                     * The height of the key, in key units.
                     * Default: `1` (1u)
+                * `hand` <Badge type="info">String</Badge>
+                    * The handedness of the key for Chordal Hold, either `"L"` (left hand), `"R"` (right hand), or `"*"` (either or exempted handedness).
                 * `label` <Badge type="info">String</Badge>
                     * What to name the key. This is *not* a key assignment as in the keymap, but should usually correspond to the keycode for the first layer of the default keymap.
                     * Example: `"Escape"`
@@ -409,7 +447,7 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * Default: `16`
     * `led_process_limit` <Badge type="info">Number</Badge>
         * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
-        * Default: `led_count / 5`
+        * Default: `(led_count + 4) / 5`
     * `max_brightness` <Badge type="info">Number</Badge>
         * The maximum value which brightness is scaled to, from 0 to 255.
         * Default: `255`
@@ -420,7 +458,7 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * Turn off the LEDs when the host goes to sleep.
         * Default: `false`
     * `speed_steps` <Badge type="info">Number</Badge>
-        * The number of speed adjustment steps.
+        * The value by which to increment the speed.
         * Default: `16`
     * `split_count` <Badge type="info">Array: Number</Badge>
         * For split keyboards, the number of LEDs on each half.
@@ -429,7 +467,7 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * The LED activity timeout in milliseconds.
         * Default: `0` (no timeout)
     * `val_steps` <Badge type="info">Number</Badge>
-        * The number of brightness adjustment steps.
+        * The value by which to increment the brightness.
         * Default: `8`
 
 ## Matrix {#matrix}
@@ -468,6 +506,9 @@ Configures the [LED Matrix](features/led_matrix) feature.
     * `io_delay` <Badge type="info">Number</Badge>
         * The amount of time to wait between row/col selection and col/row pin reading, in microseconds.
         * Default: `30` (30 µs)
+    * `masked` <Badge type="info">Boolean</Badge>
+        * Whether configured intersections should be ignored.
+        * Default: `false`
     * `rows` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the matrix rows.
         * Example: `["B0", "B1", "B2"]`
@@ -545,7 +586,7 @@ Configures the [RGB Lighting](features/rgblight) feature.
         }
         ```
     * `brightness_steps` <Badge type="info">Number</Badge>
-        * The number of brightness adjustment steps.
+        * The value by which to increment the brightness.
         * Default: `17`
     * `default`
         * `animation` <Badge type="info">String</Badge>
@@ -570,7 +611,7 @@ Configures the [RGB Lighting](features/rgblight) feature.
         * The driver to use. Must be one of `apa102`, `custom`, `ws2812`.
         * Default: `"ws2812"`
     * `hue_steps` <Badge type="info">Number</Badge>
-        * The number of hue adjustment steps.
+        * The value by which to increment the hue.
         * Default: `8`
     * `layers`
         * `blink` <Badge type="info">Boolean</Badge>
@@ -589,7 +630,7 @@ Configures the [RGB Lighting](features/rgblight) feature.
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
     * `saturation_steps` <Badge type="info">Number</Badge>
-        * The number of saturation adjustment steps.
+        * The value by which to increment the suturation.
         * Default: `17`
     * `sleep` <Badge type="info">Boolean</Badge>
         * Turn off the LEDs when the host goes to sleep.
@@ -641,7 +682,7 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
     * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3236`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
     * `hue_steps` <Badge type="info">Number</Badge>
-        * The number of hue adjustment steps.
+        * The value by which to increment the hue.
         * Default: `8`
     * `layout` <Badge type="info">Array: Object</Badge> <Badge>Required</Badge>
         * List of LED configuration dictionaries. Each dictionary contains:
@@ -660,7 +701,7 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * Default: `16`
     * `led_process_limit` <Badge type="info">Number</Badge>
         * Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness).
-        * Default: `led_count / 5`
+        * Default: `(led_count + 4) / 5`
     * `max_brightness` <Badge type="info">Number</Badge>
         * The maximum value which the HSV "V" component is scaled to, from 0 to 255.
         * Default: `255`
@@ -668,13 +709,13 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * Animations react to keyup instead of keydown.
         * Default: `false`
     * `sat_steps` <Badge type="info">Number</Badge>
-        * The number of saturation adjustment steps.
+        * The value by which to increment the saturation.
         * Default: `16`
     * `sleep` <Badge type="info">Boolean</Badge>
         * Turn off the LEDs when the host goes to sleep.
         * Default: `false`
     * `speed_steps` <Badge type="info">Number</Badge>
-        * The number of speed adjustment steps.
+        * The value by which to increment the speed.
         * Default: `16`
     * `split_count` <Badge type="info">Array: Number</Badge>
         * For split keyboards, the number of LEDs on each half.
@@ -683,7 +724,7 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * The LED activity timeout in milliseconds.
         * Default: `0` (no timeout)
     * `val_steps` <Badge type="info">Number</Badge>
-        * The number of brightness adjustment steps.
+        * The value by which to increment the brightness.
         * Default: `16`
 
 ## Secure {#secure}
@@ -738,9 +779,9 @@ Configures the [Split Keyboard](features/split_keyboard) feature.
             * Default: `"bitbang"`
         * `pin` <Badge type="info">Pin</Badge>
             * The GPIO pin to use for transmit and receive.
-    * `soft_serial_speed` <Badge type="info">Number</Badge>
-        * The protocol speed, from `0` to `5` (`serial` transport protocol only).
-        * Default: `1`
+        * `speed` <Badge type="info">Number</Badge>
+            * The protocol speed, from `0` to `5` (fastest to slowest).
+            * Default: `1`
     * `transport`
         * `protocol` <Badge type="info">String</Badge>
             * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`.
@@ -814,9 +855,6 @@ Configures the [Stenography](features/stenography) feature.
     * `vid` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The USB vendor ID as a four-digit hexadecimal number.
         * Example: `"0xC1ED"`
-    * `force_nkro` <Badge type="info">Boolean</Badge>
-        * Force NKRO to be active.
-        * Default: `false`
     * `max_power` <Badge type="info">Number</Badge>
         * The maximum current draw the host should expect from the device. This does not control the actual current usage.
         * Default: `500` (500 mA)

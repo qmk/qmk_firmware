@@ -27,3 +27,18 @@
 #    define SERIAL_USART_DRIVER SD2
 #endif
 
+/**======================
+ **    SPI Driver
+ *========================**/
+#ifndef SPI_DRIVER
+#    define SPI_DRIVER SPID1
+#endif
+#ifndef SPI_SCK_PIN
+#    define SPI_SCK_PIN B1
+#endif
+#ifndef SPI_MISO_PIN
+#    define SPI_MISO_PIN B3
+#endif
+#ifndef SPI_MOSI_PIN
+#    define SPI_MOSI_PIN B2
+#endif

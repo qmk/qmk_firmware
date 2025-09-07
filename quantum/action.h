@@ -45,7 +45,7 @@ typedef struct {
 } tap_t;
 
 /* Key event container for recording */
-typedef struct {
+typedef struct keyrecord_t {
     keyevent_t event;
 #ifndef NO_ACTION_TAPPING
     tap_t tap;
@@ -127,6 +127,12 @@ void clear_keyboard_but_mods_and_keys(void);
 void layer_switch(uint8_t new_layer);
 bool is_tap_record(keyrecord_t *record);
 bool is_tap_action(action_t action);
+
+/**
+ * Given an MT or LT keycode, returns the tap keycode. Otherwise returns the
+ * original keycode unchanged.
+ */
+uint16_t get_tap_keycode(uint16_t keycode);
 
 #ifndef NO_ACTION_TAPPING
 void process_record_tap_hint(keyrecord_t *record);
