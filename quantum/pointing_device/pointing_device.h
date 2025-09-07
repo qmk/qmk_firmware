@@ -70,6 +70,8 @@ typedef struct {
 #        define POINTING_DEVICE_ROTATION_90
 #    endif
 #    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
+#elif defined(POINTING_DEVICE_DRIVER_blackberry_trackball)
+#    include "drivers/sensors/blackberry_trackball.h"
 #elif defined(POINTING_DEVICE_DRIVER_pmw3360) || defined(POINTING_DEVICE_DRIVER_pmw3389)
 #    include "spi_master.h"
 #    include "drivers/sensors/pmw33xx_common.h"
