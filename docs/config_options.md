@@ -6,7 +6,7 @@ There are three main types of configuration files in QMK:
 
 * `config.h`, which contains various preprocessor directives (`#define`, `#ifdef`)
 * `rules.mk`, which contains additional variables
-* `info.json`, which is utilized for [data-driven configuration](data_driven_config)
+* `info.json`, which is utilized for [data-driven configuration](data_driven_config.md)
 
 This page will only discuss the first two types, `config.h` and `rules.mk`.
 
