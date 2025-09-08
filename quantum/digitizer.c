@@ -56,6 +56,9 @@ typedef struct {
 const digitizer_driver_t digitizer_driver = {};
 
 static digitizer_t digitizer_state = {};
+digitizer_t        digitizer_get_state(void) {
+    return digitizer_state;
+}
 
 #if defined(SPLIT_DIGITIZER_ENABLE)
 #    if defined(DIGITIZER_LEFT)
@@ -149,6 +152,20 @@ __attribute__((weak)) bool digitizer_motion_detected(void) {
 }
 #endif
 
+static uint8_t scale_percentage = 100;
+static uint16_t scale_offset_x = 0;
+static uint16_t scale_offset_y = 0;
+
+void digitizer_set_scale(uint8_t scale) {
+    scale_percentage = scale;
+    scale_offset_x = (DIGITIZER_RESOLUTION_X - (DIGITIZER_RESOLUTION_X * scale / 100)) / 2;
+    scale_offset_y = (DIGITIZER_RESOLUTION_Y - (DIGITIZER_RESOLUTION_Y * scale / 100)) / 2;
+}
+
+uint8_t digitizer_get_scale(void) {
+    return scale_percentage;
+}
+
 /**
  * \brief Task processing routine for the digitizer feature. This function polls the digitizer hardware
  * and sends events to the host as required.
@@ -226,8 +243,8 @@ bool digitizer_task(void) {
                     report.fingers[finger_index].tip = false;
                 }
                 report.fingers[finger_index].contact_id = i;
-                report.fingers[finger_index].x          = tmp_state.contacts[i].x;
-                report.fingers[finger_index].y          = tmp_state.contacts[i].y;
+                report.fingers[finger_index].x          = scale_offset_x + (tmp_state.contacts[i].x * scale_percentage) / 100;
+                report.fingers[finger_index].y          = scale_offset_y + (tmp_state.contacts[i].y * scale_percentage) / 100;
                 report.fingers[finger_index].confidence = tmp_state.contacts[i].confidence;
             }
 #endif
