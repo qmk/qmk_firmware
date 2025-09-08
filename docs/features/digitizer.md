@@ -66,10 +66,11 @@ The mouse fallback gesture detection code can be tweaked with the following para
 
 | Setting                                        | Description                                                                                                                      | Default             |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | ------------------- |
-| `DIGITIZER_MOUSE_TAP_TIME`                     | (Optional) The timeout in ms before a tap gesture is detected.                                                                   | `200`               |
+| `DIGITIZER_MOUSE_TAP_DETECTION_TIMEOUT`        | (Optional) The timeout in ms before a tap gesture is detected.                                                                   | `200`               |
+| `DIGITIZER_MOUSE_TAP_DURATION`                 | (Optional) The length of time each simulated button press is held for.                                                           | `1`                 |
 | `DIGITIZER_MOUSE_TAP_DISTANCE`                 | (Optional) The maximum distance a contact can move in an axis and still be detected as a tap.                                    | `25`                |
 | `DIGITIZER_SCROLL_DIVISOR`                     | (Optional) A scaling factor that is applied to reduce the speed of scroll reporting.                                             | `10`                |
-| `DIGITIZER_MOUSE_SWIPE_TIME`                   | (Optional) The timeout in ms before a swipe gesture is detected.                                                                 | `500`               |
+| `DIGITIZER_MOUSE_SWIPE_TIMEOUT`                | (Optional) The timeout in ms before a swipe gesture is detected.                                                                 | `500`               |
 | `DIGITIZER_MOUSE_SWIPE_DISTANCE`               | (Optional) Minimum move distance required for a swipe to be detected.                                                            | `300`               |
 | `DIGITIZER_MOUSE_SWIPE_THRESHOLD`              | (Optional) Movements in the alternate axis must be less than this threshold for a swipe to be detected.                          | `100`               |
 | `DIGITIZER_SWIPE_LEFT_KC`                      | (Optional) The keycode to generate when a swipe left gesture is detected                                                         | `QK_MOUSE_BUTTON_3` |
@@ -90,13 +91,15 @@ It is strongly recommended to put your digitizer device on the master half, as t
 
 ## Callbacks and Functions 
 
-| Function                                                   | Description                                                                                                                                                 |
-| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `digitizer_init_kb(void)`                                  | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                                                                |
-| `digitizer_init_user(void)`                                | Callback to allow for user level initialization Useful for additional hardware sensors.                                                                     |
-| `digitizer_task_kb(digitizer_t *const digitizer_state)`    | Callback that provides the keyboard an opportunity to change the digitizer state whenever we get new digitizer data. Returns true if the state was changed. |
-| `digitizer_task_user(digitizer_t *const digitizer_state)`  | Callback that provides the user an opportunity to change the digitizer state whenever we get new digitizer data. Returns true if the state was changed.     |
+| Function                                                   | Description                                                                                                                                                                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `digitizer_init_kb(void)`                                  | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                                                                                                               |
+| `digitizer_init_user(void)`                                | Callback to allow for user level initialization Useful for additional hardware sensors.                                                                                                                    |
+| `digitizer_task_kb(digitizer_t *const digitizer_state)`    | Callback that provides the keyboard an opportunity to change the digitizer state whenever we get new digitizer data. Returns true if the state was changed.                                                |
+| `digitizer_task_user(digitizer_t *const digitizer_state)`  | Callback that provides the user an opportunity to change the digitizer state whenever we get new digitizer data. Returns true if the state was changed.                                                    |
+| `digitizer_set_scale(uint8_t scale)`                       | Scale finger poitions by a percentage. This provides a mechanism for the device to reduce the pointer speed but it may cause issues with swipe gestures if you can no longer generate a long enough swipe. |
+| `digitizer_get_scale()`                                    | Gets the configured scaling percentage.                                                                                                                                                                    |
 
 ## Example
 
-There is a onekey keymap which demonstrates the digitizer api. It uses the styulus report to draw squares in the middle of the screen.
+There is a onekey keymap which demonstrates the digitizer api. It uses the stylus report to draw squares in the middle of the screen.
