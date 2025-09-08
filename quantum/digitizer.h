@@ -55,6 +55,9 @@ __attribute__((weak)) bool digitizer_task_user(digitizer_t *const digitizer_stat
 __attribute__((weak)) bool digitizer_task_kb(digitizer_t *const digitizer_state);
 void                       digitizer_init(void);
 bool                       digitizer_task(void);
+digitizer_t                digitizer_get_state(void);
+void                       digitizer_set_scale(uint8_t scale);
+uint8_t                    digitizer_get_scale(void);
 
 #if defined(SPLIT_DIGITIZER_ENABLE)
 void digitizer_set_shared_report(digitizer_t report);
