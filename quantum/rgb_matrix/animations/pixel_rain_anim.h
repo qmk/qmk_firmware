@@ -21,7 +21,7 @@ static bool PIXEL_RAIN(effect_params_t* params) {
             rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
             rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
         }
-        if (rgb_matrix_check_finished_leds(led_max) == false) {
+        if (!rgb_matrix_check_finished_leds(led_max)) {
             // In the final LED range, update the LED index and advance the timer for
             // the next cycle, scaling the delay between 256–2048 ms based on speed.
             index = random8_max(RGB_MATRIX_LED_COUNT);
