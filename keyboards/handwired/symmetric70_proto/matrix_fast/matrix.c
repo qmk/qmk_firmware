@@ -166,8 +166,6 @@ void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(MATRIX_ROWS);
-
     matrix_init_kb();
 }
 
@@ -221,7 +219,7 @@ uint8_t matrix_scan(void) {
     MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP(); MATRIX_DEBUG_SCAN_START();
 
     // debounce raw_matrix[] to matrix[]
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, changed);
     MATRIX_DEBUG_SCAN_END(); MATRIX_DEBUG_GAP();
 
     MATRIX_DEBUG_SCAN_START();

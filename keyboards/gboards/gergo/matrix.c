@@ -147,7 +147,6 @@ void matrix_init(void) {
     raw_matrix[i] = 0;
   }
 
-    debounce_init(MATRIX_ROWS);
     matrix_init_kb();
 }
 
@@ -254,7 +253,7 @@ uint8_t matrix_scan(void) {
         unselect_rows();
     }
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, changed);
     matrix_scan_kb();
 
     enableInterrupts();

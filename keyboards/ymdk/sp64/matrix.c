@@ -73,7 +73,6 @@ void matrix_init(void)
     matrix[row] = 0;
     matrix_debouncing[row] = 0;
   }
-  debounce_init(MATRIX_ROWS);
   matrix_init_kb();
 }
 
@@ -125,7 +124,7 @@ uint8_t matrix_scan(void)
     }
   }
 
-  debounce(matrix_debouncing, matrix, MATRIX_ROWS, changed);
+  debounce(matrix_debouncing, matrix, changed);
 
   matrix_scan_kb();
 

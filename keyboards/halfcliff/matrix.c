@@ -201,8 +201,6 @@ void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(ROWS_PER_HAND);
-
     matrix_init_kb();
 
     split_post_init();
@@ -267,7 +265,7 @@ uint8_t matrix_scan(void) {
         }
     }
 
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, local_changed);
+    debounce(raw_matrix, matrix + thisHand, local_changed);
 
     bool remote_changed = matrix_post_scan();
     return (uint8_t)(local_changed || remote_changed);
