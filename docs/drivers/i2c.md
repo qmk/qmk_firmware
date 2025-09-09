@@ -240,7 +240,7 @@ Send and receive multiple bytes from the selected I2C device.
  - `uint16_t timeout`
    The time in milliseconds to wait for a response from the target device.
 
-#### Return Value {#api-i2c-receive-return}
+#### Return Value {#api-i2c-transmit-and-receive-return}
 
 `I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
 
