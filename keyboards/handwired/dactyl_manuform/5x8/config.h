@@ -11,7 +11,3 @@
 #define OLED_FONT_END 223
 #define OLED_FONT_WIDTH 6
 #define OLED_FONT_HEIGHT 12
-
-// Пины подключения
-// #define OLED_SDA_PIN G1
-// #define OLED_SCL_PIN G0
