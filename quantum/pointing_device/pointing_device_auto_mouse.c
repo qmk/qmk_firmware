@@ -114,7 +114,6 @@ int8_t get_auto_mouse_key_tracker(void) {
  * @brief Reset auto mouse context
  *
  * Clear timers and status
- *<!--- Describe your changes in detail here. -->
 
  * NOTE: this will set is_toggled to false so careful when using it
  */
@@ -147,7 +146,7 @@ void set_auto_mouse_enable(bool enable) {
  *
  * @param[in] layer uint8_t
  */
-void set_auto_mouse_layer(uint8_t layer) {<!--- Describe your changes in detail here. -->
+void set_auto_mouse_layer(uint8_t layer) {
 
     // skip if unchanged
     if (auto_mouse_context.config.layer == layer) return;
@@ -179,7 +178,7 @@ void set_auto_mouse_debounce(uint8_t debounce) {
 
 /**
  * @brief Changes the timeout for the mouse auto layer to be disabled
- *<!--- Describe your changes in detail here. -->
+ *
 
  * @param key_tracker
  */
@@ -192,7 +191,7 @@ void set_auto_mouse_key_tracker(int8_t key_tracker) {
  *
  * Change state of local layer_toggled bool meant to track when the mouse layer is toggled on by other means
  *
- * NOTE: While is_toggled is true it will prevent deactiving target layer (but not<!--- Describe your changes in detail here. -->
+ * NOTE: While is_toggled is true it will prevent deactiving target layer (but not
  activation)
  */
 void auto_mouse_toggle(void) {
@@ -375,7 +374,7 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         // DF ---------------------------------------------------------------------------------------------------------
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
         // PDF --------------------------------------------------------------------------------------------------------
-        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:<!--- Describe your changes in detail here. -->
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:
 
 #    ifndef NO_ACTION_ONESHOT
         // OSL((AUTO_MOUSE_TARGET_LAYER))------------------------------------------------------------------------------
