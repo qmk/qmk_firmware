@@ -42,7 +42,7 @@ Then define the following:
 #include "pointing_device.h"
 
 #ifndef BLACKBERRY_TRACKBALL_STEP
-#define BLACKBERRY_TRACKBALL_STEP 5
+#    define BLACKBERRY_TRACKBALL_STEP 5
 #endif
 
 #define M_UP 0
