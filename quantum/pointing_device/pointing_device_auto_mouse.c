@@ -23,9 +23,9 @@
 #    include "debug.h"
 #    include "action_util.h"
 #    include "quantum_keycodes.h"
-#ifdef LAYER_LOCK_ENABLE
-#    include "layer_lock.h"
-#endif
+#    ifdef LAYER_LOCK_ENABLE
+#        include "layer_lock.h"
+#    endif
 
 /* local data structure for tracking auto mouse */
 static auto_mouse_context_t auto_mouse_context = {
@@ -114,7 +114,8 @@ int8_t get_auto_mouse_key_tracker(void) {
  * @brief Reset auto mouse context
  *
  * Clear timers and status
- *
+ *<!--- Describe your changes in detail here. -->
+
  * NOTE: this will set is_toggled to false so careful when using it
  */
 static void auto_mouse_reset(void) {
@@ -146,7 +147,8 @@ void set_auto_mouse_enable(bool enable) {
  *
  * @param[in] layer uint8_t
  */
-void set_auto_mouse_layer(uint8_t layer) {
+void set_auto_mouse_layer(uint8_t layer) {<!--- Describe your changes in detail here. -->
+
     // skip if unchanged
     if (auto_mouse_context.config.layer == layer) return;
     auto_mouse_context.config.layer = layer;
@@ -177,7 +179,8 @@ void set_auto_mouse_debounce(uint8_t debounce) {
 
 /**
  * @brief Changes the timeout for the mouse auto layer to be disabled
- *
+ *<!--- Describe your changes in detail here. -->
+
  * @param key_tracker
  */
 void set_auto_mouse_key_tracker(int8_t key_tracker) {
@@ -189,7 +192,8 @@ void set_auto_mouse_key_tracker(int8_t key_tracker) {
  *
  * Change state of local layer_toggled bool meant to track when the mouse layer is toggled on by other means
  *
- * NOTE: While is_toggled is true it will prevent deactiving target layer (but not activation)
+ * NOTE: While is_toggled is true it will prevent deactiving target layer (but not<!--- Describe your changes in detail here. -->
+ activation)
  */
 void auto_mouse_toggle(void) {
     auto_mouse_context.status.is_toggled ^= 1;
@@ -268,9 +272,9 @@ void pointing_device_task_auto_mouse(report_mouse_t mouse_report) {
             layer_on((AUTO_MOUSE_TARGET_LAYER));
         }
     } else if (layer_state_is((AUTO_MOUSE_TARGET_LAYER)) && timer_elapsed(auto_mouse_context.timer.active) > auto_mouse_context.config.timeout) {
-#ifdef LAYER_LOCK_ENABLE
-        if(is_layer_locked(AUTO_MOUSE_DEFAULT_LAYER)) return;
-#endif
+#    ifdef LAYER_LOCK_ENABLE
+        if (is_layer_locked(AUTO_MOUSE_DEFAULT_LAYER)) return;
+#    endif
         layer_off((AUTO_MOUSE_TARGET_LAYER));
         auto_mouse_context.timer.active         = 0;
         auto_mouse_context.total_mouse_movement = (total_mouse_movement_t){.x = 0, .y = 0, .h = 0, .v = 0};
@@ -305,9 +309,9 @@ void auto_mouse_keyevent(bool pressed) {
  */
 void auto_mouse_reset_trigger(bool pressed) {
     if (pressed) {
-#ifdef LAYER_LOCK_ENABLE
-        if(is_layer_locked(AUTO_MOUSE_DEFAULT_LAYER)) return;
-#endif
+#    ifdef LAYER_LOCK_ENABLE
+        if (is_layer_locked(AUTO_MOUSE_DEFAULT_LAYER)) return;
+#    endif
         if (layer_state_is((AUTO_MOUSE_TARGET_LAYER))) {
             layer_off((AUTO_MOUSE_TARGET_LAYER));
         };
@@ -371,7 +375,8 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         // DF ---------------------------------------------------------------------------------------------------------
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
         // PDF --------------------------------------------------------------------------------------------------------
-        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:<!--- Describe your changes in detail here. -->
+
 #    ifndef NO_ACTION_ONESHOT
         // OSL((AUTO_MOUSE_TARGET_LAYER))------------------------------------------------------------------------------
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
@@ -444,13 +449,13 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
     if (is_mouse_record_kb(keycode, record)) return true;
-    
+
     // if it's a mouse key, only treat it as a mouse record if we're currently on the auto mouse target layer
     // this prevents mouse keys from activating the auto mouse layer when pressed on other layers
     if (IS_MOUSEKEY(keycode)) {
         return layer_state_is((AUTO_MOUSE_TARGET_LAYER));
     }
-    
+
     return false;
 }
 
