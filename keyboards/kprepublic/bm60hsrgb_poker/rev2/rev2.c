@@ -88,6 +88,17 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     { 0, SW11_CS12, SW10_CS12, SW12_CS12 },
     { 0, SW5_CS16, SW4_CS16, SW6_CS16 }
 };
+
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+    if (host_keyboard_led_state().caps_lock) {
+        rgb_matrix_set_color(28, 0xFF, 0xFF, 0xFF);
+    }
+    return true;
+}
+
 // clang-format on
 
 // ==========================================================================
