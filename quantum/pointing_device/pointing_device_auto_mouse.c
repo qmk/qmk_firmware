@@ -443,7 +443,14 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
  */
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
-    if (is_mouse_record_kb(keycode, record) || IS_MOUSEKEY(keycode)) return true;
+    if (is_mouse_record_kb(keycode, record)) return true;
+    
+    // if it's a mouse key, only treat it as a mouse record if we're currently on the auto mouse target layer
+    // this prevents mouse keys from activating the auto mouse layer when pressed on other layers
+    if (IS_MOUSEKEY(keycode)) {
+        return layer_state_is((AUTO_MOUSE_TARGET_LAYER));
+    }
+    
     return false;
 }
 
