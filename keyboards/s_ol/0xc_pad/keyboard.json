@@ -41,8 +41,8 @@
         },
         "driver": "ws2812",
         "layout": [
-            {"matrix": [0, 0], "x": 18, "y": 0, "flags": 4},
-            {"matrix": [1, 0], "x": 92, "y": 0, "flags": 4},
+            {"matrix": [0, 0], "x": 74, "y": 0, "flags": 4},
+            {"matrix": [1, 0], "x": 148, "y": 0, "flags": 4},
             {"matrix": [2, 0], "x": 37, "y": 21, "flags": 4},
             {"matrix": [3, 1], "x": 111, "y": 21, "flags": 4},
             {"matrix": [2, 1], "x": 185, "y": 21, "flags": 4},
