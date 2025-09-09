@@ -147,7 +147,6 @@ void set_auto_mouse_enable(bool enable) {
  * @param[in] layer uint8_t
  */
 void set_auto_mouse_layer(uint8_t layer) {
-
     // skip if unchanged
     if (auto_mouse_context.config.layer == layer) return;
     auto_mouse_context.config.layer = layer;
