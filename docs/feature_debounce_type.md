@@ -47,7 +47,7 @@ susceptible to noise, you must choose a debounce method that will also mitigate 
    * Debounce algorithms often have a 'debounce time' parameter, that specifies the maximum settling time of the switch contacts.
      This time might be measured in various units:
      * Cycles-based debouncing waits n cycles (scans), decreasing count by one each matrix_scan
-     * Timestamp-based debouncing stores the millisecond timestamp a change occurred, and does substraction to figure out time elapsed.
+     * Timestamp-based debouncing stores the millisecond timestamp a change occurred, and does subtraction to figure out time elapsed.
    * Timestamp-based debouncing is usually superior, especially in the case of noise-resistant devices because settling times of physical
      switches is specified in units of time, and should not depend on the matrix scan-rate of the keyboard.
    * Cycles-based debouncing is sometimes considered inferior, because the settling time that it is able to compensate for depends on the

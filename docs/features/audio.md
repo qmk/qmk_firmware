@@ -73,16 +73,13 @@ Should you rather choose to generate and use your own sample-table with the DAC 
 
 
 ### PWM (software)
-if the DAC pins are unavailable (or the MCU has no usable DAC at all, like STM32F1xx); PWM can be an alternative.
+If the DAC pins are unavailable (or the MCU has no usable DAC at all, like STM32F1xx); PWM can be an alternative.
 Note that there is currently only one speaker/pin supported.
 
-set in `rules.mk`:
-
-`AUDIO_DRIVER = pwm_software` and in `config.h`: 
-`#define AUDIO_PIN C13` (can be any pin) to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
+To use this feature, set `AUDIO_DRIVER = pwm_software` in `rules.mk` and set `#define AUDIO_PIN C13` (can be any pin) in `config.h` to have the selected pin output a pwm signal, generated from a timer callback which toggles the pin in software.
 
 #### Wiring
-the usual piezo wiring: red goes to the selected AUDIO_PIN, black goes to ground.
+The usual piezo wiring: red goes to the selected AUDIO_PIN, black goes to ground.
 
 OR if you can chose to drive one piezo with two pins, for example `#define AUDIO_PIN B1`, `#define AUDIO_PIN_ALT B2` in `config.h`, with `#define AUDIO_PIN_ALT_AS_NEGATIVE` - then the red lead could go to B1, the black to B2.
 
@@ -159,7 +156,7 @@ PLAY_LOOP(my_song);
 
 It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif` to avoid causing problems when audio isn't built into the keyboard.
 
-The available keycodes for audio are: 
+The available keycodes for audio are:
 
 |Key                      |Aliases  |Description                                |
 |-------------------------|---------|-------------------------------------------|
@@ -178,8 +175,8 @@ These keycodes turn all of the audio functionality on and off.  Turning it off m
 |`AUDIO_PIN`                       | *Not defined*        |Configures the pin that the speaker is connected to.                                         |
 |`AUDIO_PIN_ALT`                   | *Not defined*        |Configures the pin for a second speaker or second pin connected to one speaker.              |
 |`AUDIO_PIN_ALT_AS_NEGATIVE`       | *Not defined*        |Enables support for one speaker connected to two pins.                                       |
-|`AUDIO_INIT_DELAY`                | *Not defined*        |Enables delay during startup song to accomidate for USB startup issues.                      |
-|`AUDIO_ENABLE_TONE_MULTIPLEXING`  | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simutaneously.                   |
+|`AUDIO_INIT_DELAY`                | *Not defined*        |Enables delay during startup song to accommodate for USB startup issues.                     |
+|`AUDIO_ENABLE_TONE_MULTIPLEXING`  | *Not defined*        |Enables time splicing/multiplexing to create multiple tones simultaneously.                  |
 |`AUDIO_POWER_CONTROL_PIN`         | *Not defined*        |Enables power control code to enable or cut off power to speaker (such as with PAM8302 amp). |
 |`AUDIO_POWER_CONTROL_PIN_ON_STATE`| `1`                  |The state of the audio power control pin when audio is "on" - `1` for high, `0` for low.     |
 |`STARTUP_SONG`                    | `STARTUP_SOUND`      |Plays when the keyboard starts up (audio.c)                                                  |
@@ -301,9 +298,9 @@ Things that return false are not part of the mask, and are always processed.
 
 ### Music Map
 
-By default, the Music Mode uses the columns and row to determine the scale for the keys. For a board that uses a rectangular matrix that matches the keyboard layout, this is just fine.  However, for boards that use a more complicated matrix (such as the Planck Rev6, or many split keyboards) this would result in a very skewed experience.  
+By default, the Music Mode uses the columns and row to determine the scale for the keys. For a board that uses a rectangular matrix that matches the keyboard layout, this is just fine.  However, for boards that use a more complicated matrix (such as the Planck Rev6, or many split keyboards) this would result in a very skewed experience.
 
-However, the Music Map option allows you to remap the scaling for the music mode, so it fits the layout, and is more natural. 
+However, the Music Map option allows you to remap the scaling for the music mode, so it fits the layout, and is more natural.
 
 To enable this feature, add `#define MUSIC_MAP` to your `config.h` file, and then you will want to add a `uint8_t music_map` to your keyboard's `c` file, or your `keymap.c`.
 
@@ -316,13 +313,13 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
 );
 ```
 
-You will want to use whichever `LAYOUT` macro that your keyboard uses here.  This maps it to the correct key location.  Start in  the bottom left of the keyboard layout, and  move to the right, and then upwards.  Fill in all the entries until you have a complete matrix.  
+You will want to use whichever `LAYOUT` macro that your keyboard uses here.  This maps it to the correct key location.  Start in  the bottom left of the keyboard layout, and  move to the right, and then upwards.  Fill in all the entries until you have a complete matrix.
 
-You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e9ace1487887c1f8b4a7e8e6d87c322988bec9ce/keyboards/planck/planck.c#L24-L29) as an example of how to implement this. 
+You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e9ace1487887c1f8b4a7e8e6d87c322988bec9ce/keyboards/planck/planck.c#L24-L29) as an example of how to implement this.
 
 ## Audio Click
 
-This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. And the sounds are slightly different for each keypress, so it doesn't sound like a single long note, if you type rapidly. 
+This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. And the sounds are slightly different for each keypress, so it doesn't sound like a single long note, if you type rapidly.
 
 Keycodes available:
 
@@ -341,7 +338,7 @@ The feature is disabled by default, to save space.  To enable it, add this to yo
 #define AUDIO_CLICKY
 ```
 
-You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values: 
+You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values:
 
 | Option | Default Value | Description |
 |--------|---------------|-------------|
@@ -349,7 +346,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 | `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
 | `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the highest frequency. Too high may result in coworkers attacking you. |
 | `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes.  This is a multiplicative factor.  The default steps the frequency up/down by a musical minor third.  |
-| `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
+| `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. |
 | `AUDIO_CLICKY_DELAY_DURATION` | 1 | An integer note duration where 1 is 1/16th of the tempo, or a sixty-fourth note (see `quantum/audio/musical_notes.h` for implementation details). The main clicky effect will be delayed by this duration.  Adjusting this to values around 6-12 will help compensate for loud switches. |
 
 ## MIDI Functionality

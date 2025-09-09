@@ -44,14 +44,14 @@ Not all keycodes below will work depending on which haptic mechanism you have ch
 |`QK_HAPTIC_MODE_NEXT`        |`HF_NEXT`| Go to next DRV2605L waveform                          |
 |`QK_HAPTIC_MODE_PREVIOUS`    |`HF_PREV`| Go to previous DRV2605L waveform                      |
 |`QK_HAPTIC_CONTINUOUS_TOGGLE`|`HF_CONT`| Toggle continuous haptic mode on/off                  |
-|`QK_HAPTIC_CONTINUOUS_UP`    |`HF_CONU`| Increase DRV2605L continous haptic strength           |
-|`QK_HAPTIC_CONTINUOUS_DOWN`  |`HF_COND`| Decrease DRV2605L continous haptic strength           |
+|`QK_HAPTIC_CONTINUOUS_UP`    |`HF_CONU`| Increase DRV2605L continuous haptic strength          |
+|`QK_HAPTIC_CONTINUOUS_DOWN`  |`HF_COND`| Decrease DRV2605L continuous haptic strength          |
 |`QK_HAPTIC_DWELL_UP`         |`HF_DWLU`| Increase Solenoid dwell time                          |
 |`QK_HAPTIC_DWELL_DOWN`       |`HF_DWLD`| Decrease Solenoid dwell time                          |
 
 ### Solenoids
 
-The solenoid code supports relay switches, and similar hardware, as well as solenoids. 
+The solenoid code supports relay switches, and similar hardware, as well as solenoids.
 
 For a regular solenoid,  you will need a build a circuit to drive the solenoid through a mosfet as most MCU will not be able to provide the current needed to drive the coil in the solenoid.
 
@@ -75,7 +75,7 @@ For relay switches, the hardware may already contain all of that ciruitry, and j
 |`SOLENOID_BUZZ_NONACTUATED` | `SOLENOID_MIN_DWELL` |Non-Actuated-time when the switch is in buzz mode.            |
 
 * If solenoid buzz is off, then dwell time is how long the "plunger" stays activated. The dwell time changes how the solenoid sounds.
-* If solenoid buzz is on, then dwell time sets the length of the buzz, while `SOLENOID_BUZZ_ACTUATED` and `SOLENOID_BUZZ_NONACTUATED` set the (non-)actuation times withing the buzz period.
+* If solenoid buzz is on, then dwell time sets the length of the buzz, while `SOLENOID_BUZZ_ACTUATED` and `SOLENOID_BUZZ_NONACTUATED` set the (non-)actuation times within the buzz period.
 * With the current implementation, for any of the above time settings, the precision of these settings may be affected by how fast the keyboard is able to scan the matrix.
   Therefore, if the keyboards scanning routine is slow, it may be preferable to set `SOLENOID_DWELL_STEP_SIZE` to a value slightly smaller than the time it takes to scan the keyboard.
 
@@ -104,7 +104,7 @@ Eccentric Rotating Mass vibration motors (ERM) is motor with a off-set weight at
 ```
 ##### LRA
 
-Linear resonant actuators (LRA, also know as a linear vibrator) works different from a ERM. A LRA has a weight and magnet suspended by springs and a voice coil. When the drive signal is applied, the weight would be vibrate on a single axis (side to side or up and down). Since the weight is attached to a spring, there is a resonance effect at a specific frequency. This frequency is where the LRA will operate the most efficiently. Refer to the motor's datasheet for the recommanded range for this frequency.
+Linear resonant actuators (LRA, also know as a linear vibrator) works different from a ERM. A LRA has a weight and magnet suspended by springs and a voice coil. When the drive signal is applied, the weight would be vibrate on a single axis (side to side or up and down). Since the weight is attached to a spring, there is a resonance effect at a specific frequency. This frequency is where the LRA will operate the most efficiently. Refer to the motor's datasheet for the recommended range for this frequency.
 
 ```c
 #define DRV2605L_FB_ERM_LRA 1
@@ -114,7 +114,7 @@ Linear resonant actuators (LRA, also know as a linear vibrator) works different 
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
 #define DRV2605L_RATED_VOLTAGE 2
 #define DRV2605L_V_PEAK 2.8
-#define DRV2605L_V_RMS 2.0 
+#define DRV2605L_V_RMS 2.0
 #define DRV2605L_V_PEAK 2.1
 #define DRV2605L_F_LRA 205 /* resonance freq */
 ```
@@ -125,7 +125,7 @@ DRV2605L comes with preloaded library of various waveform sequences that can be 
 
 List of waveform sequences from the datasheet:
 
-|seq# | Sequence name          |seq# | Sequence name                  |seq# |Sequence name                           |
+|seq# | Sequence name       |seq# | Sequence name                     |seq# |Sequence name                         |
 |-----|---------------------|-----|-----------------------------------|-----|--------------------------------------|
 | 1   | strong_click 		| 43  | lg_dblclick_med_60                | 85  | transition_rampup_med_smooth2        |
 | 2   | strong_click_60 	| 44  | lg_dblsharp_tick                  | 86  | transition_rampup_short_smooth1      |
