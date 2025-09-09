@@ -233,7 +233,6 @@ i2c_status_t i2c_transmit_and_receive(uint8_t address, const uint8_t* tx_data, u
     return status;
 }
 
-
 i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
     if (status >= 0) {
