@@ -1,0 +1,31 @@
+{
+    "ranges": {
+        "0x5302/0x001F": {
+            "define": "QK_POINTING_MODES_MO"
+        },
+        "0x5322/0x001F": {
+            "define": "QK_POINTING_MODES_TG"
+        },
+        "0x5342/0x0001": {
+            "define": "QK_POINTING_MODES_UTIL"
+        }
+    },
+    "keycodes": {
+        "0x5342": {
+            "group": "pointing_modes_util",
+            "key": "QK_PM_CYCLE_DEVICES",
+            "label": "Cycle pointing mode device",
+            "aliases": [
+                "PM_CYDEV"
+            ]
+        },
+        "0x5343":{
+            "group": "pointing_modes_util",
+            "key": "QK_PM_CYCLE_PRECISION",
+            "label": "Cycle through precision values for active device",
+            "aliases": [
+                "PM_CYCPRE"
+            ]
+        }
+    }
+}

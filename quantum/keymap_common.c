@@ -41,6 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "process_midi.h"
 #endif
 
+#ifdef POINTING_MODES_MAP_ENABLE
+#    include "pointing_device_modes.h"
+#endif
+
 extern keymap_config_t keymap_config;
 
 #include <inttypes.h>
@@ -208,6 +212,7 @@ __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key
         return keycode_at_encodermap_location(layer, key.col, false);
     }
 #endif // ENCODER_MAP_ENABLE
+
 #ifdef DIP_SWITCH_MAP_ENABLE
     else if (key.row == KEYLOC_DIP_SWITCH_ON && key.col < NUM_DIP_SWITCHES) {
         return keycode_at_dip_switch_map_location(key.col, true);
@@ -215,6 +220,16 @@ __attribute__((weak)) uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key
         return keycode_at_dip_switch_map_location(key.col, false);
     }
 #endif // DIP_SWITCH_MAP_ENABLE
+
+#if defined(POINTING_DEVICE_MODES_ENABLE) && defined(POINTING_MODES_MAP_ENABLE)
+
+    pointing_modes_map_location_t pm_map_loc = {.raw = key.col};
+
+    if (key.row == KEYLOC_POINTING_MODES && pm_map_loc.map_id < pointing_modes_map_count()) {
+        return keycode_at_pointing_modes_map_location(pm_map_loc.raw);
+    }
+
+#endif // POINTING_DEVICE_MODES_ENABLE && POINTING_MODES_MAP_ENABLE
 
     return KC_NO;
 }

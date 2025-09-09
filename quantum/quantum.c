@@ -434,6 +434,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TRI_LAYER_ENABLE
             process_tri_layer(keycode, record) &&
 #endif
+#if defined(POINTING_DEVICE_ENABLE) && defined(POINTING_DEVICE_MODES_ENABLE)
+            process_pointing_modes_records(keycode, record) &&
+#endif
 #if !defined(NO_ACTION_LAYER)
             process_default_layer(keycode, record) &&
 #endif

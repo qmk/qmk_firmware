@@ -178,6 +178,58 @@ __attribute__((weak)) const key_override_t* key_override_get(uint16_t key_overri
 #endif // defined(KEY_OVERRIDE_ENABLE)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Pointing mode mapping
+
+#if defined(POINTING_DEVICE_MODES_ENABLE) && defined(POINTING_MODES_MAP_ENABLE)
+
+uint8_t pointing_modes_map_count_raw(void) {
+    return ARRAY_SIZE(pointing_modes_maps);
+}
+
+__attribute__((weak)) uint8_t pointing_modes_map_count(void) {
+    return pointing_modes_map_count_raw();
+}
+
+/*
+ * @brief Retrieve keycode from pointing mode map
+ *
+ * Returns keycode from pointing mode map based on 8-bit pointing_modes_map_location_t struct.
+ * This struct has three attributes:
+ * map_id: Id of pointing modes map (Note this is not the mode id)
+ * dir:    Direction; this will either be a 2-bit(4 keys) or 3-bit(8 keys) number depending
+ *         if POINTING_MODES_8WAY_MAP_ENABLE is defined
+ * raw:    The raw 8-bit data of both map_id and dir
+ *
+ * NOTE: silently fails and returns KC_NO if mode map out of range
+ *
+ * @param[in] map_loc uint8_t
+ *
+ * @return uint16_t keycode at pointing mode map location
+ */
+uint16_t keycode_at_pointing_modes_map_location_raw(uint8_t map_loc) {
+    pointing_modes_map_location_t pm_map_loc = {.raw = map_loc};
+    if (pm_map_loc.map_id < pointing_modes_map_count()) {
+        return pgm_read_word(&pointing_modes_maps[pm_map_loc.map_id][pm_map_loc.dir]);
+    }
+    return KC_NO;
+}
+
+/*
+ * @brief Weakly defined function for retreiving keycode from pointing mode map
+ *
+ * Defaults to passing map_loc to raw function, would allow interception of
+ * keycode retrieval process for pointing mode maps
+ *
+ * @param[in] map_loc uint8_t
+ *
+ * @return uint16_t keycode at pointing mode map location
+ */
+__attribute__((weak)) uint16_t keycode_at_pointing_modes_map_location(uint8_t map_loc) {
+    return keycode_at_pointing_modes_map_location_raw(map_loc);
+}
+#endif // POINTING_DEVICE_MODES_ENABLE && POINTING_MODES_MAP_ENABLE
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Community modules (must be last in this file!)
 
 #if defined(COMMUNITY_MODULES_ENABLE)
