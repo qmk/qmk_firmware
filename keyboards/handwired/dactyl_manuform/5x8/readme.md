@@ -1,6 +1,6 @@
 # handwired/dactyl_manuform/5x8
 
-![Dactyl_manuform 5x8]([https://i.imgur.com/DtawD9r.jpeg](https://github.com/iliorik/qmk_firmware/blob/master/keyboards/handwired/dactyl_manuform/5x8/dactyl_manuform_5x8.jpg))
+![Dactyl_manuform 5x8](https://imgur.com/tIfAbG4)
 
 * Keyboard Maintainer: [iliorik](https://github.com/iliorik)
 
