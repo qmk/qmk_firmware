@@ -72,7 +72,6 @@ i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t* data, uint16_t lengt
  */
 i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout);
 
-
 /**
  * \brief Send multiple bytes and then receive multiple bytes from the selected I2C device.
  *
@@ -87,7 +86,6 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
  */
 
 i2c_status_t i2c_transmit_and_receive(uint8_t address, const uint8_t* tx_data, uint16_t tx_length, uint8_t* rx_data, uint16_t rx_length, uint16_t timeout);
-
 
 /**
  * \brief Write to a register with an 8-bit address on the I2C device.

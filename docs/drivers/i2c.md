@@ -225,7 +225,7 @@ Receive multiple bytes from the selected I2C device.
 
 Send and receive multiple bytes from the selected I2C device.
 
-#### Arguments {#api-i2c-receive-arguments}
+#### Arguments {#api-i2c-transmit-and-receive-arguments}
 
  - `uint8_t address`
    The 7-bit I2C address of the device.
