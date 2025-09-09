@@ -50,7 +50,7 @@
             {"matrix": [6, 2], "x": 175, "y": 43, "flags": 4},
             {"matrix": [6, 1], "x": 200, "y": 43, "flags": 4},
             {"matrix": [5, 1], "x": 200, "y": 21, "flags": 4},
-            {"matrix": [5, 2], "x": 150, "y": 21, "flags": 4}
+            {"matrix": [5, 2], "x": 175, "y": 21, "flags": 4}
         ],
         "sat_steps": 8,
         "val_steps": 8,
