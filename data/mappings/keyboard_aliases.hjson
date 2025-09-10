@@ -1620,8 +1620,11 @@
     "0_sixty": {
         "target": "0_sixty/base"
     },
-    "0xcb/splaytoraid": {
-        "target": "0xcb/splaytoraid/rp2040_ce"
+    "0xcb/splaytoraid/32u4": {
+        "target": "0xcb/splaytoraid"
+    },
+    "0xcb/splaytoraid/rp2040_ce": {
+        "target": "0xcb/splaytoraid"
     },
     "1upkeyboards/pi40": {
         "target": "1upkeyboards/pi40/mit_v1_0"
