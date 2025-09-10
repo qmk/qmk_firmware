@@ -135,6 +135,49 @@ pkg install -g "py*-qmk"
 
 NOTE: remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
 
+==== NixOS
+
+#### Installation
+
+In your `configureation.nix` ensure you have the following lines
+
+```nix
+environment.systemPackages = with pkgs; [
+    qmk
+];
+
+hardware.keyboard.qmk.enable = true;
+```
+
+From now on, you can follow the "Linux/WSL" instructions.
+
+:::: details Advanced Users
+
+If you would like to use the `flake.nix` located internally with `direnv` to
+automatically set up the environment when you change to the `qmk_firmware`
+directory, you can do the following.
+
+#### Prerequisites
+
+`direnv` is installed and set up to work with the current shell.
+
+#### Installation
+
+```sh
+# Clone the QMK repo into current directory
+nix-shell -p qmk --run "qmk clone"
+cd qmk_firmware
+# Link .envrc file
+ln -s ./util/nix/envrc ./.envrc
+direnv allow
+```
+
+NOTE: There is a `flake.nix` and a `flake.lock` in `qmk_firmware/util/nix/`
+that create a development shell if you want to use another method besides
+`direnv`.
+
+::::
+
 :::::
 
 ## 3. Run QMK Setup {#set-up-qmk}
