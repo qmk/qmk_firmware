@@ -1,0 +1,8 @@
+# direnv .envrc file
+#
+# To use, run this command in the root of the repository:
+# ln -s ./util/nix/envrc ./.envrc && nix flake update --flake ./util/nix
+
+if nix flake show path:./util/nix &> /dev/null; then
+  use flake path:./util/nix
+fi
