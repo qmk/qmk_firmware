@@ -16,10 +16,6 @@
 
 #include "he_switch_matrix.h"
 #include "matrix.h"
-#include "print.h"
-
-extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 void matrix_init_custom(void) {
     // Initialize HE

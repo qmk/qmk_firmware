@@ -12,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -116,8 +114,7 @@
             {"matrix": [1, 8], "x": 172, "y": 0, "flags": 4},
             {"matrix": [1, 7], "x": 155, "y": 2, "flags": 4},
             {"matrix": [1, 6], "x": 137, "y": 4, "flags": 4}
-        ],
-        "max_brightness": 255
+        ]
     },
     "url": "https://github.com/byungyoonc/TrueStrike42",
     "usb": {

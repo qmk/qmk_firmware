@@ -70,8 +70,6 @@ void keyboard_post_init_kb(void) {
         }
     }
 
-    rgb_matrix_set_flags(LED_FLAG_ALL);
-
     keyboard_post_init_user();
 }
 
