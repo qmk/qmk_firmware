@@ -1647,6 +1647,12 @@
     "25keys/zinc": {
         "target": "25keys/zinc/rev1"
     },
+    "40percentclub/gherkin/kb2040": {
+        "target": "40percentclub/gherkin"
+    },
+    "40percentclub/gherkin/pro_micro": {
+        "target": "40percentclub/gherkin"
+    },
     "40percentclub/i75": {
         "target": "40percentclub/i75/promicro"
     },
