@@ -207,15 +207,13 @@ bool he_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
 // Print the matrix values
 void he_print_matrix(void) {
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-        uint8_t last_col = 0;
         for (uint8_t col = 0; col < MATRIX_COLS - 1; col++) {
             if (row < rows_per_col[col])
             {
                 uprintf("%4d,", sw_value[row][col]);
-                last_col = col;
             }
         }
-        uprintf("%4d\n", sw_value[row][last_col + 1]);
+        uprintf("%4d\n", sw_value[row][MATRIX_COLS - 1]);
     }
     print("\n");
 }
