@@ -106,61 +106,49 @@ static const {{ data.return_type | type_to_c_before }} {{ this_prefix_lc }}_data
 ////////////////////////////////////////////////////////////////////////////////
 // Routes
 
-{% macro append_routing_table(prefix, container, route_stack) %}
+{% macro append_routing_function(prefix, container, route_stack) %}
 {% set this_route_stack = route_stack.copy() %}
 {{ this_route_stack.append(container) or '' }}
 {% if 'routes' in container %}
 {% for route, data in container.routes | dictsort %}
 {% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
 {% set this_prefix_lc = this_prefix_uc | lower %}
-{{ append_routing_table(this_prefix_lc, data, this_route_stack) }}
+{{ append_routing_function(this_prefix_lc, data, this_route_stack) }}
 {% endfor %}
 {% call route_conditions(this_route_stack) %}
-static const xap_route_t {{ prefix | lower}}_table[] PROGMEM = {
+bool {{ prefix | lower }}_route_handler(xap_token_t token, const uint8_t *data, size_t data_len) {
+    switch (data[0]) {
 {% for route, data in container.routes | dictsort %}
 {% set inner_route_stack = this_route_stack.copy() %}
 {{ inner_route_stack.append(data) or '' }}
-{% if 'permissions' in data %}
-{% set secure_status = 'ROUTE_PERMISSIONS_SECURE' %}
-{% else %}
-{% set secure_status = 'ROUTE_PERMISSIONS_INSECURE' %}
-{% endif %}
 {% call route_conditions(inner_route_stack) %}
-    [{{ prefix | upper }}_{{ data.define }}] = {
-{% if 'routes' in data %}
-        .flags = {
-            .type = XAP_ROUTE,
-            .secure = {{ secure_status }},
-        },
-        .child_routes = {{ prefix | lower }}_{{ data.define | lower }}_table,
-        .child_routes_len = sizeof({{ prefix | lower }}_{{ data.define | lower }}_table)/sizeof(xap_route_t),
-{% elif 'return_execute' in data %}
-        .flags = {
-            .type = XAP_EXECUTE,
-            .secure = {{ secure_status }},
-        },
-        .handler = xap_respond_{{ data.return_execute | lower }},
-{% elif 'return_constant' in data and data.return_type == 'string' %}
-        .flags = {
-            .type = XAP_CONST_MEM,
-            .secure = {{ secure_status }},
-        },
-        .const_data = {{ prefix | lower }}_{{ data.define | lower }}_str,
-        .const_data_len = sizeof({{ prefix | lower }}_{{ data.define | lower }}_str) - 1,
-{% elif 'return_constant' in data %}
-        .flags = {
-            .type = XAP_CONST_MEM,
-            .secure = {{ secure_status }},
-        },
-        .const_data = &{{ prefix | lower }}_{{ data.define | lower }}_data,
-        .const_data_len = sizeof({{ prefix | lower }}_{{ data.define | lower }}_data),
-{% endif %}
-    },
+        case {{ prefix | upper }}_{{ data.define }}:
+        {
+        {% if 'permissions' in data %}
+            if(xap_ensure_unlocked(token)) { return true; } // Route requires secure unlock
+        {% else %}
+            secure_activity_event();
+        {% endif %}
+        {% if 'routes' in data %}
+            extern bool {{ prefix | lower }}_{{ data.define | lower }}_route_handler(xap_token_t token, const uint8_t *data, size_t data_len);
+            return {{ prefix | lower }}_{{ data.define | lower }}_route_handler(token, &data[1], data_len - 1);
+        {% elif 'return_execute' in data %}
+            return xap_respond_{{ data.return_execute | lower }}(token, &data[1], data_len - 1);
+        {% elif 'return_constant' in data and data.return_type == 'string' %}
+            return xap_respond_data_P(token, {{ prefix | lower }}_{{ data.define | lower }}_str, sizeof({{ prefix | lower }}_{{ data.define | lower }}_str) - 1);
+        {% elif 'return_constant' in data %}
+            return xap_respond_data(token, &{{ prefix | lower }}_{{ data.define | lower }}_data, sizeof({{ prefix | lower }}_{{ data.define | lower }}_data));
+        {% endif %}
+        }
 {% endcall %}
 {% endfor %}
-};
+        default:
+            break;
+    }
+    return false;
+}
 {% endcall %}
 {% endif %}
 {% endmacro %}
 
-{{ append_routing_table("xap_route", xap, []) }}
+{{ append_routing_function("xap_route", xap, []) }}
