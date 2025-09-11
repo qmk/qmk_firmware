@@ -35,18 +35,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS
     )};
 
-void matrix_init_user(void) {
-    // user init
-}
-
-void matrix_scan_user(void) {
-    // user matrix
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
-
 bool led_update_user(led_t led_state) {
     return true;
 }
