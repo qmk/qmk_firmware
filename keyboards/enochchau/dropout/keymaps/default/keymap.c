@@ -27,10 +27,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-bool led_update_user(led_t led_state) {
-    return true;
-}
-
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE]  = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
