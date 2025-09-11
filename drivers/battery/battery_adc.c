@@ -1,23 +1,24 @@
 // Copyright 2025 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#include "battery_driver.h"
 #include "analog.h"
 #include "gpio.h"
 
-#ifndef BATTERY_PIN
-#    error("BATTERY_PIN not configured!")
+#ifndef BATTERY_ADC_PIN
+#    error("BATTERY_ADC_PIN not configured!")
 #endif
 
-#ifndef BATTERY_REF_VOLTAGE_MV
-#    define BATTERY_REF_VOLTAGE_MV 3300
+#ifndef BATTERY_ADC_REF_VOLTAGE_MV
+#    define BATTERY_ADC_REF_VOLTAGE_MV 3300
 #endif
 
-#ifndef BATTERY_VOLTAGE_DIVIDER_R1
+#ifndef BATTERY_ADC_VOLTAGE_DIVIDER_R1
 #    define BATTERY_VOLTAGE_DIVIDER_R1 100
 #endif
 
-#ifndef BATTERY_VOLTAGE_DIVIDER_R2
-#    define BATTERY_VOLTAGE_DIVIDER_R2 100
+#ifndef BATTERY_ADC_VOLTAGE_DIVIDER_R2
+#    define BATTERY_ADC_VOLTAGE_DIVIDER_R2 100
 #endif
 
 // TODO: infer from adc config?
@@ -26,16 +27,16 @@
 #endif
 
 void battery_driver_init(void) {
-    gpio_set_pin_input(BATTERY_PIN);
+    gpio_set_pin_input(BATTERY_ADC_PIN);
 }
 
 uint16_t battery_driver_get_mv(void) {
-    uint32_t raw = analogReadPin(BATTERY_PIN);
+    uint32_t raw = analogReadPin(BATTERY_ADC_PIN);
 
-    uint32_t bat_mv = raw * BATTERY_REF_VOLTAGE_MV / (1 << BATTERY_ADC_RESOLUTION);
+    uint32_t bat_mv = raw * BATTERY_ADC_REF_VOLTAGE_MV / (1 << BATTERY_ADC_RESOLUTION);
 
-#if BATTERY_VOLTAGE_DIVIDER_R1 > 0 && BATTERY_VOLTAGE_DIVIDER_R2 > 0
-    bat_mv = bat_mv * (BATTERY_VOLTAGE_DIVIDER_R1 + BATTERY_VOLTAGE_DIVIDER_R2) / BATTERY_VOLTAGE_DIVIDER_R2;
+#if BATTERY_VOLTAGE_DIVIDER_R1 > 0 && BATTERY_ADC_VOLTAGE_DIVIDER_R2 > 0
+    bat_mv = bat_mv * (BATTERY_VOLTAGE_DIVIDER_R1 + BATTERY_ADC_VOLTAGE_DIVIDER_R2) / BATTERY_ADC_VOLTAGE_DIVIDER_R2;
 #endif
 
     return bat_mv;
