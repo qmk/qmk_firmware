@@ -37,39 +37,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_NO,      KC_NO,      KC_NO,                              KC_TRNS,                                        KC_NO,      KC_TRNS,                            KC_MPRV,    KC_VOLD,    KC_MNXT
     )
 };
-
-bool rgb_matrix_indicators_user(void) {
-    HSV hsv = {0, 255, 255};
-
-    // Light up ESC RGB LED when _FUNCTION layer is accessed
-    if ((get_highest_layer(layer_state|default_layer_state)) == _FUNCTION){
-        hsv.h = 43;
-        hsv.s = 105;
-        hsv.v = 255;
-
-        if (hsv.v > rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET) {
-            hsv.v = rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET;
-        }
-        RGB rgb = hsv_to_rgb(hsv);
-
-        rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
-    }
-    // end layer function
-
-    // capslock indicator
-    if (host_keyboard_led_state().caps_lock) {
-        hsv.h = 43;
-        hsv.s = 105;
-        hsv.v = 255;
-
-        if (hsv.v > rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET) {
-                hsv.v = rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET;
-        }
-        RGB rgb = hsv_to_rgb(hsv);
-
-        rgb_matrix_set_color(1, rgb.r, rgb.g, rgb.b);
-    }
-    // end capslock function
-
-    return false;
-}
