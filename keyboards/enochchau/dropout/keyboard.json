@@ -36,9 +36,8 @@
         "pid": "0x2800",
         "vid": "0x9650"
     },
-    "community_layouts": ["numpad_5x4"],
     "layouts": {
-        "LAYOUT_numpad_5x4": {
+        "LAYOUT": {
             "layout": [
                 {"label": "Num Lock", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "/", "matrix": [0, 1], "x": 1, "y": 0},
