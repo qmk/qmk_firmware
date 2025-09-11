@@ -109,7 +109,11 @@ void eeconfig_update_rgb_matrix_default(void) {
 void eeconfig_debug_rgb_matrix(void) {
     dprintf("rgb_matrix_config EEPROM\n");
     dprintf("rgb_matrix_config.enable = %d\n", rgb_matrix_config.enable);
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+    dprintf("rgb_matrix_config.mode = %d (%s)\n", rgb_matrix_config.mode, rgb_matrix_get_mode_name(rgb_matrix_config.mode));
+#else
     dprintf("rgb_matrix_config.mode = %d\n", rgb_matrix_config.mode);
+#endif // RGB_MATRIX_MODE_NAME_ENABLE
     dprintf("rgb_matrix_config.hsv.h = %d\n", rgb_matrix_config.hsv.h);
     dprintf("rgb_matrix_config.hsv.s = %d\n", rgb_matrix_config.hsv.s);
     dprintf("rgb_matrix_config.hsv.v = %d\n", rgb_matrix_config.hsv.v);
@@ -560,7 +564,11 @@ void rgb_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     }
     rgb_task_state = STARTING;
     eeconfig_flag_rgb_matrix(write_to_eeprom);
-    dprintf("rgb matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.mode);
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+    dprintf("rgb matrix mode [%s]: %u (%s)\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)rgb_matrix_config.mode, rgb_matrix_get_mode_name(rgb_matrix_config.mode));
+#else
+    dprintf("rgb matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)rgb_matrix_config.mode);
+#endif // RGB_MATRIX_MODE_NAME_ENABLE
 }
 void rgb_matrix_mode_noeeprom(uint8_t mode) {
     rgb_matrix_mode_eeprom_helper(mode, false);
@@ -738,3 +746,49 @@ void rgb_matrix_set_flags(led_flags_t flags) {
 void rgb_matrix_set_flags_noeeprom(led_flags_t flags) {
     rgb_matrix_set_flags_eeprom_helper(flags, false);
 }
+
+//----------------------------------------------------------
+// RGB Matrix naming
+#undef RGB_MATRIX_EFFECT
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+const char *rgb_matrix_get_mode_name(uint8_t mode) {
+    switch (mode) {
+        case RGB_MATRIX_NONE:
+            return "NONE";
+
+#    define RGB_MATRIX_EFFECT(name, ...) \
+        case RGB_MATRIX_##name:          \
+            return #name;
+#    include "rgb_matrix_effects.inc"
+#    undef RGB_MATRIX_EFFECT
+
+#    ifdef COMMUNITY_MODULES_ENABLE
+#        define RGB_MATRIX_EFFECT(name, ...)         \
+            case RGB_MATRIX_COMMUNITY_MODULE_##name: \
+                return #name;
+#        include "rgb_matrix_community_modules.inc"
+#        undef RGB_MATRIX_EFFECT
+#    endif // COMMUNITY_MODULES_ENABLE
+
+#    if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+#        define RGB_MATRIX_EFFECT(name, ...) \
+            case RGB_MATRIX_CUSTOM_##name:   \
+                return #name;
+
+#        ifdef RGB_MATRIX_CUSTOM_KB
+#            include "rgb_matrix_kb.inc"
+#        endif // RGB_MATRIX_CUSTOM_KB
+
+#        ifdef RGB_MATRIX_CUSTOM_USER
+#            include "rgb_matrix_user.inc"
+#        endif // RGB_MATRIX_CUSTOM_USER
+
+#        undef RGB_MATRIX_EFFECT
+#    endif // RGB_MATRIX_CUSTOM_KB || RGB_MATRIX_CUSTOM_USER
+
+        default:
+            return "UNKNOWN";
+    }
+}
+#    undef RGB_MATRIX_EFFECT
+#endif // RGB_MATRIX_MODE_NAME_ENABLE

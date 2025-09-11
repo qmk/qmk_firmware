@@ -3,8 +3,8 @@
     "manufacturer": "SpiderIsland",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
+        "vid": "0xF1F1",
+        "pid": "0x0025",
         "device_version": "0.0.1"
     },
     "ws2812": {

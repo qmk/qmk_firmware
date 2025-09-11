@@ -88,9 +88,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
 
     if (clockwise) {
-        tap_code(KC_MS_WH_UP);
+        tap_code(MS_WHLU);
     } else {
-        tap_code(KC_MS_WH_DOWN);
+        tap_code(MS_WHLD);
     }
 
     return true;

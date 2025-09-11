@@ -364,8 +364,6 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 
 ## Build Options
 
-* `DEFAULT_FOLDER`
-  * Used to specify a default folder when a keyboard has more than one sub-folder.
 * `FIRMWARE_FORMAT`
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
