@@ -1,13 +1,13 @@
 # Dropout
 
-See more on the [github repository](https://github.com/ec965/dropout-numpad).
+See more on the [github repository](https://github.com/enochchau/dropout-numpad).
 
 Compile:
 ```
-qmk compile -kb dropout -km default
+qmk compile -kb enochchau/dropout -km default
 ```
 
 Flash:
 ```
-qmk flash -kb dropout -km default
+qmk flash -kb enochchau/dropout -km default
 ```

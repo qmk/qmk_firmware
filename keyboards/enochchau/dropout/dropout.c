@@ -3,27 +3,27 @@
 
 #include "quantum.h"
 
-void led_init_kb(void){
-  // numlock led is wired like so:
-  // 5V -> led -> pin
-  setPinOutput(LED_NUM_LOCK_PIN); // numlock led
-  writePinHigh(LED_NUM_LOCK_PIN);
+void led_init_kb(void) {
+    // numlock led is wired like so:
+    // 5V -> led -> pin
+    setPinOutput(LED_NUM_LOCK_PIN); // numlock led
+    writePinHigh(LED_NUM_LOCK_PIN);
 }
 
 bool led_update_kb(led_t led_state) {
-  bool res = led_update_user(led_state);
-  if(res) {
-    writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
-    //enable or disable the backlight based on num lock state
-    if (!led_state.num_lock){
-      backlight_enable();
-    } else {
-      backlight_disable();
+    bool res = led_update_user(led_state);
+    if (res) {
+        writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
+        // enable or disable the backlight based on num lock state
+        if (!led_state.num_lock) {
+            backlight_enable();
+        } else {
+            backlight_disable();
+        }
     }
-  }
-  return res;
+    return res;
 }
 
-void matrix_init_kb(void){
-  led_init_kb();
+void matrix_init_kb(void) {
+    led_init_kb();
 }
