@@ -70,7 +70,7 @@ bool digitizer_taps_as_clicks = true;
 bool digitizer_taps_as_clicks = false;
 #    endif
 
-#define CLIP(X, A, B) (X<A ? A : X>B ? B : X)
+#    define CLIP(X, A, B) (X < A ? A : X > B ? B : X)
 
 // This variable indicates that we are sending mouse reports. It will be updated
 // during USB enumeration if the host sends a feature report indicating it supports
