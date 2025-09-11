@@ -16,7 +16,7 @@
 
 #include QMK_KEYBOARD_H
 
-enum reformortho_layers {
+enum point65_layers {
     _QWERTY,
     _FUNCTION
 };
