@@ -38,9 +38,14 @@ enum tapdances{
   TD_ESQW,
 };
 
-tap_dance_action_t tap_dance_actions[] = {
-  [TD_ESFL] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _FLOCK),
-  [TD_ESQW] = ACTION_TAP_DANCE_LAYER_MOVE(KC_ESC, _QWERTY),
+const tap_dance_dual_role_t tap_dance_dual_roles[] PROGMEM = {
+   [TD_ESFL] = DUAL_ROLE_TAP_DANCE_LAYER_MOVE(KC_ESC, _FLOCK),
+   [TD_ESQW] = DUAL_ROLE_TAP_DANCE_LAYER_MOVE(KC_ESC, _QWERTY),
+};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+  [TD_ESFL] = ACTION_TAP_DANCE_DUAL_ROLE(tap_dance_dual_roles[TD_ESFL]),
+  [TD_ESQW] = ACTION_TAP_DANCE_DUAL_ROLE(tap_dance_dual_roles[TD_ESQW]),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
