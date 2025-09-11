@@ -152,14 +152,14 @@ __attribute__((weak)) bool digitizer_motion_detected(void) {
 }
 #endif
 
-static uint8_t scale_percentage = 100;
-static uint16_t scale_offset_x = 0;
-static uint16_t scale_offset_y = 0;
+static uint8_t  scale_percentage = 100;
+static uint16_t scale_offset_x   = 0;
+static uint16_t scale_offset_y   = 0;
 
 void digitizer_set_scale(uint8_t scale) {
     scale_percentage = scale;
-    scale_offset_x = (DIGITIZER_RESOLUTION_X - (DIGITIZER_RESOLUTION_X * scale / 100)) / 2;
-    scale_offset_y = (DIGITIZER_RESOLUTION_Y - (DIGITIZER_RESOLUTION_Y * scale / 100)) / 2;
+    scale_offset_x   = (DIGITIZER_RESOLUTION_X - (DIGITIZER_RESOLUTION_X * scale / 100)) / 2;
+    scale_offset_y   = (DIGITIZER_RESOLUTION_Y - (DIGITIZER_RESOLUTION_Y * scale / 100)) / 2;
 }
 
 uint8_t digitizer_get_scale(void) {
