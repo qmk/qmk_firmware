@@ -5,8 +5,7 @@
 
 enum layer_names {
     _BASE,
-    _LIGHT,
-    _EMPTY
+    _LIGHT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -20,20 +19,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_LIGHT] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, BL_UP, BL_DOWN, BL_TOGG,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, QK_BOOT,
-        KC_TRNS, KC_TRNS
-    ),
-
-    [_EMPTY] = LAYOUT( // empty layer
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS
-    )};
+        _______, _______, _______, _______,
+        _______, BL_UP, BL_DOWN, BL_TOGG,
+        _______, _______, _______, _______,
+        _______, _______, _______, QK_BOOT,
+        _______, _______
+    )
+};
 
 bool led_update_user(led_t led_state) {
     return true;
@@ -42,7 +34,6 @@ bool led_update_user(led_t led_state) {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE]  = {ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-    [_LIGHT] = {ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
-    [_EMPTY] = {ENCODER_CCW_CW(KC_TRNS, KC_TRNS)},
+    [_LIGHT] = {ENCODER_CCW_CW(_______, _______)}
 };
 #endif
