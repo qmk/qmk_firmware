@@ -17,21 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-    // Key Matrix to LED Index
-    { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
-}, {
-    // LED Index to Physical Position
-    { 0, 0 }, { 20, 0 }, { 40, 0 }, { 60, 0 },
-    { 80, 0 }, { 100, 0 }, { 120, 0 }, { 140, 0 },
-    { 160, 0 }, { 180, 0 }, { 200, 0 }, { 220, 0 },
-}, {
-    // LED Index to Flag
-    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4
-} };
-#endif
-
 void eeconfig_init_kb(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable();             // Enable RGB by default
