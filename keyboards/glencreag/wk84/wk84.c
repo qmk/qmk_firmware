@@ -16,6 +16,7 @@
 
 #include "quantum.h"
 
+/* WS2812 POWER PIN ENABLE */
 void keyboard_pre_init_kb(void) {
     setPinOutput(B13);
     writePinHigh(B13);
