@@ -11,7 +11,7 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_BASE] = LAYOUT(
+    [_BASE] = LAYOUT_numpad_5x4(
         LT(1, KC_NUM), KC_PSLS, KC_PAST, KC_MPLY,
         KC_P7, KC_P8, KC_P9, KC_PMNS,
         KC_P4, KC_P5, KC_P6, KC_PPLS,
@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0, KC_PDOT
     ),
 
-    [_LIGHT] = LAYOUT(
+    [_LIGHT] = LAYOUT_numpad_5x4(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, BL_UP, BL_DOWN, BL_TOGG,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -27,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS
     ),
 
-    [_EMPTY] = LAYOUT( // empty layer
+    [_EMPTY] = LAYOUT_numpad_5x4( // empty layer
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
