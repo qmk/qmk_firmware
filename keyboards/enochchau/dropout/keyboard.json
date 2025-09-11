@@ -22,9 +22,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "indicators": {
-        "num_lock": "B6"
-    },
     "matrix_pins": {
         "cols": ["B3", "B1", "D7", "C6"],
         "rows": ["D1", "B2", "E6", "B4", "B5"]
