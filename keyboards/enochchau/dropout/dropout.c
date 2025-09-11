@@ -15,11 +15,13 @@ bool led_update_kb(led_t led_state) {
     if (res) {
         writePin(LED_NUM_LOCK_PIN, led_state.num_lock);
         // enable or disable the backlight based on num lock state
+#ifdef BACKLIGHT_ENABLE
         if (!led_state.num_lock) {
             backlight_enable();
         } else {
             backlight_disable();
         }
+#endif
     }
     return res;
 }

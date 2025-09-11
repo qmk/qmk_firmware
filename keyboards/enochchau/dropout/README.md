@@ -1,6 +1,6 @@
 # dropout
 
-![dropout](https://github.com/enochchau/dropout-numpad/blob/main/graphics/completed_dropout.jpg)
+![dropout](https://i.imgur.com/VTjdJ4e.jpeg)
 
 A numpad with a rotary encoder.
 See more in the [github repository](https://github.com/enochchau/dropout-numpad).

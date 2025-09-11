@@ -2,25 +2,25 @@
     "manufacturer": "enochchau",
     "keyboard_name": "dropout",
     "maintainer": "enochchau",
-    "_invalid": {
-        "debouncing_delay": "5",
-        "usb_description": "numpad"
-    },
     "backlight": {
         "levels": 6,
         "on_state": 0,
         "pin": "B6"
     },
-    "bootloader": "caterina",
-    "bootmagic": {
-        "enabled": true
-    },
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "D0", "pin_b": "D4"}
         ]
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
     },
     "indicators": {
         "num_lock": "B6"
@@ -29,10 +29,6 @@
         "cols": ["B3", "B1", "D7", "C6"],
         "rows": ["D1", "B2", "E6", "B4", "B5"]
     },
-    "mouse_key": {
-        "enabled": true
-    },
-    "processor": "atmega32u4",
     "tags": ["numpad"],
     "url": "https://github.com/enochchau/dropout-numpad",
     "usb": {
