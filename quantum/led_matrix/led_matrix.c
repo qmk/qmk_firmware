@@ -70,6 +70,13 @@ uint8_t g_led_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
 last_hit_t g_last_hit_tracker;
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
+#ifndef LED_MATRIX_FLAG_STEPS
+#    define LED_MATRIX_FLAG_STEPS \
+        { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_NONE }
+#endif
+static const uint8_t led_matrix_flag_steps[] = LED_MATRIX_FLAG_STEPS;
+#define LED_MATRIX_FLAG_STEPS_COUNT ARRAY_SIZE(led_matrix_flag_steps)
+
 // internals
 static bool            suspend_state     = false;
 static uint8_t         led_last_enable   = UINT8_MAX;
@@ -659,6 +666,50 @@ void led_matrix_set_flags(led_flags_t flags) {
 
 void led_matrix_set_flags_noeeprom(led_flags_t flags) {
     led_matrix_set_flags_eeprom_helper(flags, false);
+}
+
+void led_matrix_flags_step_helper(bool write_to_eeprom) {
+    led_flags_t flags = led_matrix_get_flags();
+
+    uint8_t next = 0;
+    for (uint8_t i = 0; i < LED_MATRIX_FLAG_STEPS_COUNT; i++) {
+        if (led_matrix_flag_steps[i] == flags) {
+            next = i == LED_MATRIX_FLAG_STEPS_COUNT - 1 ? 0 : i + 1;
+            break;
+        }
+    }
+
+    led_matrix_set_flags_eeprom_helper(led_matrix_flag_steps[next], write_to_eeprom);
+}
+
+void led_matrix_flags_step_noeeprom(void) {
+    led_matrix_flags_step_helper(false);
+}
+
+void led_matrix_flags_step(void) {
+    led_matrix_flags_step_helper(true);
+}
+
+void led_matrix_flags_step_reverse_helper(bool write_to_eeprom) {
+    led_flags_t flags = led_matrix_get_flags();
+
+    uint8_t next = 0;
+    for (uint8_t i = 0; i < LED_MATRIX_FLAG_STEPS_COUNT; i++) {
+        if (led_matrix_flag_steps[i] == flags) {
+            next = i == 0 ? LED_MATRIX_FLAG_STEPS_COUNT - 1 : i - 1;
+            break;
+        }
+    }
+
+    led_matrix_set_flags_eeprom_helper(led_matrix_flag_steps[next], write_to_eeprom);
+}
+
+void led_matrix_flags_step_reverse_noeeprom(void) {
+    led_matrix_flags_step_reverse_helper(false);
+}
+
+void led_matrix_flags_step_reverse(void) {
+    led_matrix_flags_step_reverse_helper(true);
 }
 
 // LED Matrix naming

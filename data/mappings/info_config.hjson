@@ -98,6 +98,7 @@
 
     // LED Matrix
     "LED_MATRIX_CENTER": {"info_key": "led_matrix.center_point", "value_type": "array.int"},
+    "LED_MATRIX_FLAG_STEPS": {"info_key": "led_matrix.flag_steps", "value_type": "array.int"},
     "LED_MATRIX_KEYRELEASES": {"info_key": "led_matrix.react_on_keyup", "value_type": "flag"},
     "LED_MATRIX_LED_FLUSH_LIMIT": {"info_key": "led_matrix.led_flush_limit", "value_type": "int"},
     "LED_MATRIX_LED_PROCESS_LIMIT": {"info_key": "led_matrix.led_process_limit", "value_type": "int", "to_json": false},
@@ -147,6 +148,7 @@
 
     // RGB Matrix
     "RGB_MATRIX_CENTER": {"info_key": "rgb_matrix.center_point", "value_type": "array.int"},
+    "RGB_MATRIX_FLAG_STEPS": {"info_key": "rgb_matrix.flag_steps", "value_type": "array.int"},
     "RGB_MATRIX_HUE_STEP": {"info_key": "rgb_matrix.hue_steps", "value_type": "int"},
     "RGB_MATRIX_KEYRELEASES": {"info_key": "rgb_matrix.react_on_keyup", "value_type": "flag"},
     "RGB_MATRIX_LED_FLUSH_LIMIT": {"info_key": "rgb_matrix.led_flush_limit", "value_type": "int"},

@@ -800,6 +800,14 @@ def _extract_led_config(info_data, keyboard):
             if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
 
+            if info_data[feature].get('layout', None) and not info_data[feature].get('flag_steps', None):
+                flags = {0xFF, 0}
+                # if only a single flag is used, assume only all+none flags
+                unique_flags = set(x.get('flags', 0) for x in info_data[feature]['layout'])
+                if len(unique_flags) > 1:
+                    flags.update(unique_flags)
+                info_data[feature]['flag_steps'] = sorted(list(flags), reverse=True)
+
     return info_data
 
 
