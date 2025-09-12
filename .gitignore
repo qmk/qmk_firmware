@@ -109,6 +109,9 @@ __pycache__
 # Prerequisites for updating ChibiOS
 /util/fmpp*
 
+# Ignore flake.nix
+/util/nix/flake.nix
+
 # Allow to exist but don't include it in the repo
 user_song_list.h
 
