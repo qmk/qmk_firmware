@@ -6,7 +6,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keebio/ergodicity:default:flash
+    make keebio/ergodicity:default
 
 Example of flashing this keyboard:
 
