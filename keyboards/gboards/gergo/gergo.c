@@ -1,3 +1,6 @@
+// Jane Bernhardt (https://github.com/germ)
+// SPDX-License-Identifier: GPL-2.0+
+
 #include "gergo.h"
 
 bool i2c_initialized = 0;
