@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "command.h"
 #include "util.h"
+#include "host.h"
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "action_layer.h"
@@ -471,6 +472,7 @@ void keyboard_init(void) {
 #ifdef CONNECTION_ENABLE
     connection_init();
 #endif
+    host_init();
     led_init_ports();
 #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
@@ -699,6 +701,8 @@ void quantum_task(void) {
 #ifdef LAYER_LOCK_ENABLE
     layer_lock_task();
 #endif
+
+    host_task();
 }
 
 /** \brief Main task that is repeatedly called as fast as possible. */
