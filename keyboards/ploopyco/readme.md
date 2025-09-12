@@ -33,13 +33,20 @@ The `DPI_CONFIG` macro will cycle through the values in the array, each time you
 
 ## Drag Scroll
 
-Drag Sroll is a custom keycode for the Ploopy devices that allow you to hold or tap a button and have the mouse movement translate into scrolling instead.
+The Drag Scroll custom keycodes for the Ploopy devices allow you to hold or tap a button and have the mouse movement translate into scrolling instead.
 
-Nothing needs to be enabled to use this functionality.  Just add the `DRAG_SCROLL` to your keymap.
+Nothing needs to be enabled to use this functionality.  Just add `MOMENTARY_DRAG_SCROLL` or `TOGGLE_DRAG_SCROLL` to your keymap. 
+
+### Momentary Drag Scroll
+
+The `MOMENTARY_DRAG_SCROLL` keycode is a momentary toggle for enabling drag scrolling. While the button mapped to the keycode is held down drag scroll will be enabled.
+
+### Toggle Drag Scroll
+
+The `TOGGLE_DRAG_SCROLL` keycode is a toggle for enabling drag scrolling. Tap the button mapped to the keycode to turn on drag scroll and tap again to turn it off.
 
 ### Drag Scroll Configuration
 
-* `#define PLOOPY_DRAGSCROLL_MOMENTARY` - Makes the key into a momentary key, rather than a toggle.
-* `#define PLOOPY_DRAGSCROLL_DIVISOR_H 8.0` - Sets the horizontal movement divisor to use when drag scroll is enabled.
-* `#define PLOOPY_DRAGSCROLL_DIVISOR_V 8.0` - Sets the vertical movement divisor to use when drag scroll is enabled.
-* `#define PLOOPY_DRAGSCROLL_INVERT` - This reverses the direction that the scroll is performed.
+* `#define PLOOPY_DRAGSCROLL_DIVISOR_H 8` - Sets the horizontal movement divisor to use when drag scroll is enabled. A higher value makes drag scroll less sensitive to horizontal movement.
+* `#define PLOOPY_DRAGSCROLL_DIVISOR_V 8` - Sets the vertical movement divisor to use when drag scroll is enabled. A higher value makes drag scroll less sensitive to vertical movement.
+* `#define PLOOPY_DRAGSCROLL_INVERT_V` - This reverses the vertical direction that the scroll is performed.
