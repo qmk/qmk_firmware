@@ -144,7 +144,7 @@ static ADCConversionGroup adcConversionGroup = {
     .cfgr1 = ADC_CFGR1_CONT | ADC_RESOLUTION,
     .smpr  = ADC_SAMPLING_RATE,
 #elif defined(USE_ADCV2)
-#    if !defined(STM32F1XX) && !defined(GD32VF103) && !defined(WB32F3G71xx) && !defined(WB32FQ95xx) && !defined(AT32F415)
+#    if !defined(STM32F1XX) && !defined(GD32VF103) && !defined(WB32F3G71xx) && !defined(WB32FQ95xx) && !defined(AT32F415) && !defined(FS026)
     .cr2  = ADC_CR2_SWSTART, // F103 seem very unhappy with, F401 seems very unhappy without...
 #    endif
 #    if defined(AT32F415)
