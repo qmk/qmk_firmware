@@ -49,6 +49,9 @@
 #    define IS31FL3737_GLOBAL_CURRENT 0xFF
 #endif
 
+#define IS31FL3737_PWM_REGISTERS_PER_CHUNK 16
+#define IS31FL3737_CHUNK_COUNT ((IS31FL3737_PWM_REGISTER_COUNT + IS31FL3737_PWM_REGISTERS_PER_CHUNK - 1) / IS31FL3737_PWM_REGISTERS_PER_CHUNK)
+
 const uint8_t i2c_addresses[IS31FL3737_DRIVER_COUNT] = {
     IS31FL3737_I2C_ADDRESS_1,
 #ifdef IS31FL3737_I2C_ADDRESS_2
@@ -70,7 +73,7 @@ const uint8_t i2c_addresses[IS31FL3737_DRIVER_COUNT] = {
 // probably not worth the extra complexity.
 typedef struct is31fl3737_driver_t {
     uint8_t pwm_buffer[IS31FL3737_PWM_REGISTER_COUNT];
-    bool    pwm_buffer_dirty;
+    bool    pwm_buffer_dirty[IS31FL3737_CHUNK_COUNT];
     uint8_t led_control_buffer[IS31FL3737_LED_CONTROL_REGISTER_COUNT];
     bool    led_control_buffer_dirty;
 } PACKED is31fl3737_driver_t;
@@ -102,13 +105,21 @@ void is31fl3737_write_pwm_buffer(uint8_t index) {
     // Transmit PWM registers in 12 transfers of 16 bytes.
 
     // Iterate over the pwm_buffer contents at 16 byte intervals.
-    for (uint8_t i = 0; i < IS31FL3737_PWM_REGISTER_COUNT; i += 16) {
+    for (uint8_t i = 0; i < IS31FL3737_CHUNK_COUNT; i += 16) {
+        if (!driver_buffers[index].pwm_buffer_dirty[i]) {
+            continue;
+        }
+
+        driver_buffers[index].pwm_buffer_dirty[i] = false;
+
+        uint8_t offset = i * IS31FL3737_PWM_REGISTERS_PER_CHUNK;
+
 #if IS31FL3737_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3737_I2C_PERSISTENCE; j++) {
-            if (i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3737_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
+            if (i2c_write_register(i2c_addresses[index] << 1, offset, driver_buffers[index].pwm_buffer + offset, IS31FL3737_PWM_REGISTERS_PER_CHUNK, IS31FL3737_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
         }
 #else
-        i2c_write_register(i2c_addresses[index] << 1, i, driver_buffers[index].pwm_buffer + i, 16, IS31FL3737_I2C_TIMEOUT);
+        i2c_write_register(i2c_addresses[index] << 1, offset, driver_buffers[index].pwm_buffer + offset, IS31FL3737_PWM_REGISTERS_PER_CHUNK, IS31FL3737_I2C_TIMEOUT);
 #endif
     }
 }
@@ -180,8 +191,8 @@ void is31fl3737_set_value(int index, uint8_t value) {
             return;
         }
 
-        driver_buffers[led.driver].pwm_buffer[led.v] = value;
-        driver_buffers[led.driver].pwm_buffer_dirty  = true;
+        driver_buffers[led.driver].pwm_buffer[led.v]                                            = value;
+        driver_buffers[led.driver].pwm_buffer_dirty[led.v / IS31FL3737_PWM_REGISTERS_PER_CHUNK] = true;
     }
 }
 
@@ -208,12 +219,14 @@ void is31fl3737_set_led_control_register(uint8_t index, bool value) {
 }
 
 void is31fl3737_update_pwm_buffers(uint8_t index) {
-    if (driver_buffers[index].pwm_buffer_dirty) {
-        is31fl3737_select_page(index, IS31FL3737_COMMAND_PWM);
-
-        is31fl3737_write_pwm_buffer(index);
-
-        driver_buffers[index].pwm_buffer_dirty = false;
+    for (uint8_t i = 0; i < IS31FL3737_CHUNK_COUNT; i++) {
+        if (driver_buffers[index].pwm_buffer_dirty[i]) {
+            // if any of these are true then write PWM buffer
+            // then exit the loop
+            is31fl3737_select_page(index, IS31FL3737_COMMAND_PWM);
+            is31fl3737_write_pwm_buffer(index);
+            return;
+        }
     }
 }
 

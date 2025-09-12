@@ -165,6 +165,7 @@ static void set_led_color_rgb(ws2812_led_t color, int pos) {
 }
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+static bool  ws2812_dirty = false;
 
 void ws2812_init(void) {
     palSetLineMode(WS2812_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
@@ -228,6 +229,7 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds[index].r = red;
     ws2812_leds[index].g = green;
     ws2812_leds[index].b = blue;
+    ws2812_dirty         = true;
 #if defined(WS2812_RGBW)
     ws2812_rgb_to_rgbw(&ws2812_leds[index]);
 #endif
@@ -240,6 +242,9 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void ws2812_flush(void) {
+    if (!ws2812_dirty) return;
+    ws2812_dirty = false;
+
     for (int i = 0; i < WS2812_LED_COUNT; i++) {
         set_led_color_rgb(ws2812_leds[i], i);
     }
