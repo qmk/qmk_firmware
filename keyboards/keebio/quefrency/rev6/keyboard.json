@@ -209,6 +209,9 @@
                 "rows": ["A5", "A4", "A3", "B5", "F1"]
             }
         },
+        "serial": {
+            "driver": "usart"
+        },
         "transport": {
             "sync": {
                 "matrix_state": true
