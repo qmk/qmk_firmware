@@ -11,10 +11,6 @@
 #define _FN1 1
 #define _FN2 2
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-};
-
 #define KC_FN1 MO(_FN1)
 #define KC_FN2 MO(_FN2)
 #define SPFN1 LT(_FN1, KC_SPACE)
