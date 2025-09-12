@@ -2,36 +2,36 @@
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-|Key       |Aliases                           |Description                                                                    |
-|----------|----------------------------------|-------------------------------------------------------------------------------|
-|`LCTL(kc)`|`C(kc)`                           |Hold Left Control and press `kc`                                               |
-|`LSFT(kc)`|`S(kc)`                           |Hold Left Shift and press `kc`                                                 |
-|`LALT(kc)`|`A(kc)`, `LOPT(kc)`               |Hold Left Alt and press `kc`                                                   |
-|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`   |Hold Left GUI and press `kc`                                                   |
-|`LCS(kc)` |                                  |Hold Left Control and Left Shift and press `kc`                                |
-|`LCA(kc)` |                                  |Hold Left Control and Left Alt and press `kc`                                  |
-|`LCG(kc)` |                                  |Hold Left Control and Left GUI and press `kc`                                  |
-|`LSA(kc)` |                                  |Hold Left Shift and Left Alt and press `kc`                                    |
-|`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and Left GUI and press `kc`                                    |
-|`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`                                      |
-|`LCSG(kc)`|                                  |Hold Left Control, Left Shift and Left GUI and press `kc`                      |
-|`LCAG(kc)`|                                  |Hold Left Control, Left Alt and Left GUI and press `kc`                        |
-|`LSAG(kc)`|                                  |Hold Left Shift, Left Alt and Left GUI and press `kc`                          |
-|`RCTL(kc)`|                                  |Hold Right Control and press `kc`                                              |
-|`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                                                |
-|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt and press `kc`                                                  |
-|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`            |Hold Right GUI and press `kc`                                                  |
-|`RCA(kc)` |                                  |Hold Right Control and Right Alt and press `kc`                                |
-|`RCS(kc)` |                                  |Hold Right Control and Right Shift and press `kc`                              |
-|`RCG(kc)` |                                  |Hold Right Control and Right GUI and press `kc`                                |
-|`RSA(kc)` |`SAGR(kc)`                        |Hold Right Shift and Right Alt and press `kc`                                  |
-|`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`                                  |
-|`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`                                    |
-|`RCSG(kc)`|                                  |Hold Right Control, Right Shift and Right GUI and press `kc`                   |
-|`RCAG(kc)`|                                  |Hold Right Control, Right Alt and Right GUI and press `kc`                     |
-|`RSAG(kc)`|                                  |Hold Right Shift, Right Alt and Right GUI and press `kc`                       |
-|`MEH(kc)` |                                  |Hold Left Control, Left Shift and Left Alt and press `kc`                      |
-|`HYPR(kc)`|                                  |Hold Left Control, Left Shift, Left Alt and Left GUI and press `kc`<sup>1</sup>|
+|Key       |Aliases                        |Description                                                                    |
+|----------|-------------------------------|-------------------------------------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                                               |
+|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                                                 |
+|`LALT(kc)`|`A(kc)`, `LOPT(kc)`            |Hold Left Alt and press `kc`                                                   |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                                                   |
+|`LCS(kc)` |                               |Hold Left Control and Left Shift and press `kc`                                |
+|`LCA(kc)` |                               |Hold Left Control and Left Alt and press `kc`                                  |
+|`LCG(kc)` |                               |Hold Left Control and Left GUI and press `kc`                                  |
+|`LSA(kc)` |                               |Hold Left Shift and Left Alt and press `kc`                                    |
+|`LSG(kc)` |                               |Hold Left Shift and Left GUI and press `kc`                                    |
+|`LAG(kc)` |                               |Hold Left Alt and Left GUI and press `kc`                                      |
+|`LCSG(kc)`|                               |Hold Left Control, Left Shift and Left GUI and press `kc`                      |
+|`LCAG(kc)`|                               |Hold Left Control, Left Alt and Left GUI and press `kc`                        |
+|`LSAG(kc)`|                               |Hold Left Shift, Left Alt and Left GUI and press `kc`                          |
+|`RCTL(kc)`|                               |Hold Right Control and press `kc`                                              |
+|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                                                |
+|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt and press `kc`                                                  |
+|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`         |Hold Right GUI and press `kc`                                                  |
+|`RCA(kc)` |                               |Hold Right Control and Right Alt and press `kc`                                |
+|`RCS(kc)` |                               |Hold Right Control and Right Shift and press `kc`                              |
+|`RCG(kc)` |                               |Hold Right Control and Right GUI and press `kc`                                |
+|`RSA(kc)` |                               |Hold Right Shift and Right Alt and press `kc`                                  |
+|`RSG(kc)` |                               |Hold Right Shift and Right GUI and press `kc`                                  |
+|`RAG(kc)` |                               |Hold Right Alt and Right GUI and press `kc`                                    |
+|`RCSG(kc)`|                               |Hold Right Control, Right Shift and Right GUI and press `kc`                   |
+|`RCAG(kc)`|                               |Hold Right Control, Right Alt and Right GUI and press `kc`                     |
+|`RSAG(kc)`|                               |Hold Right Shift, Right Alt and Right GUI and press `kc`                       |
+|`MEH(kc)` |                               |Hold Left Control, Left Shift and Left Alt and press `kc`                      |
+|`HYPR(kc)`|                               |Hold Left Control, Left Shift, Left Alt and Left GUI and press `kc`<sup>1</sup>|
 
 <sup>1. More information on the Hyper key can be found on [this blog post by Brett Terpstra](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/).</sup>
 

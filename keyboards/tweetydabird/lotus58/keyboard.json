@@ -1,0 +1,219 @@
+{
+    "manufacturer": "Tweetys Wild Thinking",
+    "keyboard_name": "Lotus 58 Glow",
+    "maintainer": "TweetyDaBird",
+    "bootloader_instructions": "Short marked pads on PCB, or hold top-outer key when plugging in each hand.",
+    "build": {
+        "lto": true
+    },
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F5", "pin_b": "F4", "resolution": 2}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true,
+        "tri_layer": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["B1", "B2", "B3", "B6", "F7", "F6"],
+        "rows": ["D4", "C6", "D7", "E6", "B4"]
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 5], "x": 72, "y": 4, "flags": 4},
+            {"x": 65, "y": 4, "flags": 2},
+            {"matrix": [0, 4], "x": 58, "y": 2, "flags": 4},
+            {"matrix": [0, 3], "x": 43, "y": 0, "flags": 4},
+            {"x": 36, "y": 4, "flags": 2},
+            {"matrix": [0, 2], "x": 29, "y": 2, "flags": 4},
+            {"matrix": [0, 1], "x": 14, "y": 6, "flags": 4},
+            {"x": 7, "y": 4, "flags": 2},
+            {"matrix": [0, 0], "x": 0, "y": 8, "flags": 4},
+            {"matrix": [1, 0], "x": 0, "y": 23, "flags": 4},
+            {"matrix": [1, 1], "x": 14, "y": 21, "flags": 4},
+            {"matrix": [1, 2], "x": 29, "y": 17, "flags": 4},
+            {"matrix": [1, 3], "x": 43, "y": 15, "flags": 4},
+            {"matrix": [1, 4], "x": 58, "y": 17, "flags": 4},
+            {"matrix": [1, 5], "x": 72, "y": 19, "flags": 4},
+            {"matrix": [2, 5], "x": 72, "y": 34, "flags": 4},
+            {"matrix": [2, 4], "x": 58, "y": 32, "flags": 4},
+            {"matrix": [2, 3], "x": 43, "y": 30, "flags": 4},
+            {"matrix": [2, 2], "x": 29, "y": 32, "flags": 4},
+            {"matrix": [2, 1], "x": 14, "y": 36, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 38, "flags": 4},
+            {"matrix": [3, 0], "x": 0, "y": 53, "flags": 4},
+            {"x": 7, "y": 52, "flags": 2},
+            {"matrix": [3, 1], "x": 14, "y": 51, "flags": 4},
+            {"matrix": [3, 2], "x": 29, "y": 47, "flags": 4},
+            {"matrix": [3, 3], "x": 43, "y": 45, "flags": 4},
+            {"matrix": [3, 4], "x": 58, "y": 47, "flags": 4},
+            {"matrix": [3, 5], "x": 72, "y": 49, "flags": 4},
+            {"x": 79, "y": 45, "flags": 2},
+            {"matrix": [4, 5], "x": 87, "y": 41, "flags": 4},
+            {"matrix": [4, 4], "x": 87, "y": 64, "flags": 4},
+            {"matrix": [4, 3], "x": 65, "y": 64, "flags": 4},
+            {"matrix": [4, 2], "x": 51, "y": 62, "flags": 4},
+            {"x": 43, "y": 62, "flags": 2},
+            {"matrix": [4, 1], "x": 36, "y": 62, "flags": 4},
+            {"matrix": [5, 5], "x": 152, "y": 4, "flags": 4},
+            {"x": 159, "y": 4, "flags": 2},
+            {"matrix": [5, 4], "x": 166, "y": 2, "flags": 4},
+            {"matrix": [5, 3], "x": 181, "y": 0, "flags": 4},
+            {"x": 188, "y": 4, "flags": 2},
+            {"matrix": [5, 2], "x": 195, "y": 2, "flags": 4},
+            {"matrix": [5, 1], "x": 210, "y": 6, "flags": 4},
+            {"x": 217, "y": 4, "flags": 2},
+            {"matrix": [5, 0], "x": 224, "y": 8, "flags": 4},
+            {"matrix": [6, 0], "x": 224, "y": 23, "flags": 4},
+            {"matrix": [6, 1], "x": 210, "y": 21, "flags": 4},
+            {"matrix": [6, 2], "x": 195, "y": 17, "flags": 4},
+            {"matrix": [6, 3], "x": 181, "y": 15, "flags": 4},
+            {"matrix": [6, 4], "x": 166, "y": 17, "flags": 4},
+            {"matrix": [6, 5], "x": 152, "y": 19, "flags": 4},
+            {"matrix": [7, 5], "x": 152, "y": 34, "flags": 4},
+            {"matrix": [7, 4], "x": 166, "y": 32, "flags": 4},
+            {"matrix": [7, 3], "x": 181, "y": 30, "flags": 4},
+            {"matrix": [7, 2], "x": 195, "y": 32, "flags": 4},
+            {"matrix": [7, 1], "x": 210, "y": 36, "flags": 4},
+            {"matrix": [7, 0], "x": 224, "y": 38, "flags": 4},
+            {"matrix": [8, 0], "x": 224, "y": 53, "flags": 4},
+            {"x": 217, "y": 52, "flags": 2},
+            {"matrix": [8, 1], "x": 210, "y": 51, "flags": 4},
+            {"matrix": [8, 2], "x": 195, "y": 47, "flags": 4},
+            {"matrix": [8, 3], "x": 181, "y": 45, "flags": 4},
+            {"matrix": [8, 4], "x": 166, "y": 47, "flags": 4},
+            {"matrix": [8, 5], "x": 152, "y": 49, "flags": 4},
+            {"x": 159, "y": 45, "flags": 2},
+            {"matrix": [9, 5], "x": 137, "y": 41, "flags": 4},
+            {"matrix": [9, 4], "x": 137, "y": 64, "flags": 4},
+            {"matrix": [9, 3], "x": 159, "y": 64, "flags": 4},
+            {"matrix": [9, 2], "x": 173, "y": 62, "flags": 4},
+            {"x": 180, "y": 62, "flags": 2},
+            {"matrix": [9, 1], "x": 188, "y": 62, "flags": 4}
+        ],
+        "max_brightness": 175,
+        "sleep": true,
+        "split_count": [35, 35]
+    },
+    "split": {
+        "bootmagic": {
+            "matrix": [5, 0]
+        },
+        "enabled": true,
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
+                ]
+            }
+        },
+        "handedness": {
+            "pin": "B5"
+        },
+        "serial": {
+            "pin": "D2"
+        },
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+                "matrix_state": true,
+                "modifiers": true,
+                "oled": true
+            }
+        },
+        "usb_detect": {
+            "enabled": true
+        }
+    },
+    "url": "https://lectronz.com/stores/tweetys-wild-thinking",
+    "usb": {
+        "device_version": "1.2.3",
+        "pid": "0x23B0",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0.75},
+                {"label": "1", "matrix": [0, 1], "x": 1, "y": 0.5},
+                {"label": "2", "matrix": [0, 2], "x": 2, "y": 0.25},
+                {"label": "3", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "4", "matrix": [0, 4], "x": 4, "y": 0.25},
+                {"label": "5", "matrix": [0, 5], "x": 5, "y": 0.5},
+                {"label": "Left ENC", "matrix": [4, 0], "x": 6.25, "y": 0.75},
+                {"label": "Right ENC", "matrix": [9, 0], "x": 7.75, "y": 0.75},
+                {"label": "6", "matrix": [5, 5], "x": 9, "y": 0.5},
+                {"label": "7", "matrix": [5, 4], "x": 10, "y": 0.25},
+                {"label": "8", "matrix": [5, 3], "x": 11, "y": 0},
+                {"label": "9", "matrix": [5, 2], "x": 12, "y": 0.25},
+                {"label": "0", "matrix": [5, 1], "x": 13, "y": 0.5},
+                {"label": "-", "matrix": [5, 0], "x": 14, "y": 0.75},
+                {"label": "Tab", "matrix": [1, 0], "x": 0, "y": 1.75},
+                {"label": "Q", "matrix": [1, 1], "x": 1, "y": 1.5},
+                {"label": "W", "matrix": [1, 2], "x": 2, "y": 1.25},
+                {"label": "E", "matrix": [1, 3], "x": 3, "y": 1},
+                {"label": "R", "matrix": [1, 4], "x": 4, "y": 1.25},
+                {"label": "T", "matrix": [1, 5], "x": 5, "y": 1.5},
+                {"label": "Y", "matrix": [6, 5], "x": 9, "y": 1.5},
+                {"label": "U", "matrix": [6, 4], "x": 10, "y": 1.25},
+                {"label": "I", "matrix": [6, 3], "x": 11, "y": 1},
+                {"label": "O", "matrix": [6, 2], "x": 12, "y": 1.25},
+                {"label": "P", "matrix": [6, 1], "x": 13, "y": 1.5},
+                {"label": "{", "matrix": [6, 0], "x": 14, "y": 1.75},
+                {"label": "Caps Lock", "matrix": [2, 0], "x": 0, "y": 2.75},
+                {"label": "A", "matrix": [2, 1], "x": 1, "y": 2.5},
+                {"label": "S", "matrix": [2, 2], "x": 2, "y": 2.25},
+                {"label": "D", "matrix": [2, 3], "x": 3, "y": 2},
+                {"label": "F", "matrix": [2, 4], "x": 4, "y": 2.25},
+                {"label": "G", "matrix": [2, 5], "x": 5, "y": 2.5},
+                {"label": "H", "matrix": [7, 5], "x": 9, "y": 2.5},
+                {"label": "J", "matrix": [7, 4], "x": 10, "y": 2.25},
+                {"label": "K", "matrix": [7, 3], "x": 11, "y": 2},
+                {"label": "L", "matrix": [7, 2], "x": 12, "y": 2.25},
+                {"label": ":", "matrix": [7, 1], "x": 13, "y": 2.5},
+                {"label": "\"", "matrix": [7, 0], "x": 14, "y": 2.75},
+                {"label": "L_Ctrl", "matrix": [3, 0], "x": 0, "y": 3.75},
+                {"label": "Z", "matrix": [3, 1], "x": 1, "y": 3.5},
+                {"label": "X", "matrix": [3, 2], "x": 2, "y": 3.25},
+                {"label": "C", "matrix": [3, 3], "x": 3, "y": 3},
+                {"label": "V", "matrix": [3, 4], "x": 4, "y": 3.25},
+                {"label": "B", "matrix": [3, 5], "x": 5, "y": 3.5},
+                {"label": "Down", "matrix": [4, 5], "x": 6, "y": 3},
+                {"label": "Up", "matrix": [9, 5], "x": 8, "y": 3},
+                {"label": "N", "matrix": [8, 5], "x": 9, "y": 3.5},
+                {"label": "M", "matrix": [8, 4], "x": 10, "y": 3.25},
+                {"label": ",", "matrix": [8, 3], "x": 11, "y": 3},
+                {"label": ".", "matrix": [8, 2], "x": 12, "y": 3.25},
+                {"label": "?", "matrix": [8, 1], "x": 13, "y": 3.5},
+                {"label": "R_Ctrl", "matrix": [8, 0], "x": 14, "y": 3.75},
+                {"label": "Win", "matrix": [4, 1], "x": 2.5, "y": 4.25},
+                {"label": "Lower", "matrix": [4, 2], "x": 3.5, "y": 4.25},
+                {"label": "Alt", "matrix": [4, 3], "x": 4.5, "y": 4.5},
+                {"label": "Space", "matrix": [4, 4], "x": 6, "y": 4.25, "h": 1.25},
+                {"label": "Enter", "matrix": [9, 4], "x": 8, "y": 4.25, "h": 1.25},
+                {"label": "AltGr", "matrix": [9, 3], "x": 9.5, "y": 4.5},
+                {"label": "Raise", "matrix": [9, 2], "x": 10.5, "y": 4.25},
+                {"label": "BckSp", "matrix": [9, 1], "x": 11.5, "y": 4.25}
+            ]
+        }
+    }
+}
