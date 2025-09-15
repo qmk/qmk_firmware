@@ -106,7 +106,7 @@ STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motio
 
 #define pmw3360_pointing_device_driver pmw33xx_pointing_device_driver;
 #define pmw3389_pointing_device_driver pmw33xx_pointing_device_driver;
-const pointing_device_driver_t pmw33xx_pointing_device_driver;
+extern const pointing_device_driver_t pmw33xx_pointing_device_driver;
 
 /**
  * @brief Initializes the given sensor so it is in a working state and ready to
@@ -177,7 +177,7 @@ uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr);
  */
 bool pmw33xx_write(uint8_t sensor, uint8_t reg_addr, uint8_t data);
 
-void           pmw33xx_init_wrapper(void);
+bool           pmw33xx_init_wrapper(void);
 void           pmw33xx_set_cpi_wrapper(uint16_t cpi);
 uint16_t       pmw33xx_get_cpi_wrapper(void);
 report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report);

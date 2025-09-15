@@ -21,8 +21,14 @@
             { "text": "Debugging QMK", "link": "/faq_debug" },
             { "text": "Keymap FAQ", "link": "/faq_keymap" },
             { "text": "Squeezing Space from AVR", "link": "/squeezing_avr" },
-            { "text": "Glossary", "link": "/reference_glossary" },
-            { "text": "License Violations", "link": "/license_violations" }
+            { "text": "Glossary", "link": "/reference_glossary" }
+        ]
+    },
+    {
+        "text": "Licensing",
+        "items": [
+            { "text": "License Violations", "link": "/license_violations" },
+            { "text": "Proprietary Libraries", "link": "/proprietary_libs" }
         ]
     },
     {
@@ -169,6 +175,7 @@
                         ]
                     },
                     { "text": "Audio", "link": "/features/audio" },
+                    { "text": "Battery", "link": "/features/battery" },
                     { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
@@ -207,7 +214,7 @@
                     { "text": "My Pull Request Was Flagged", "link": "/breaking_changes_instructions" },
                     {
                         "text": "Most Recent ChangeLog",
-                        "link": "/ChangeLog/20250525"
+                        "link": "/ChangeLog/20250831"
                     },
                     { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
                     { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
