@@ -839,8 +839,8 @@
             "additionalProperties": false,
             "properties": {
                 "double_tap_reset": {"type": "boolean"},
-                "double_tap_reset_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
-                "double_tap_reset_led": {"$ref": "./definitions.jsonschema#/mcu_pin"}
+                "double_tap_reset_led": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "double_tap_reset_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"}
             }
         },
         "split": {

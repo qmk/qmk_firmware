@@ -760,11 +760,11 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
     * `double_tap_reset` <Badge type="info">Boolean</Badge>
         * Enable the double-tap functionality to enter bootloader.
         * Default: `false`
+    * `double_tap_reset_led` <Badge type="info">Pin</Badge>
+        * The GPIO pin connected to an LED to flash.
     * `double_tap_reset_timout` <Badge type="info">Number</Badge>
         * The timeout value in which the reset button must be double-tapped in milliseconds.
         * Default: `200`
-    * `double_tap_reset_led` <Badge type="info">Pin</Badge>
-        * The GPIO pin connected to an LED to flash.
 
 ## Secure {#secure}
 

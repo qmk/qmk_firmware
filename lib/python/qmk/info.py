@@ -502,6 +502,19 @@ def _extract_split_encoders(info_data, config_c):
 
         info_data['split']['encoder']['right']['rotary'] = encoders
 
+def _extract_rp2040_bootloder(info_data, config_c):
+    """Populate data about RP2040 bootloader
+    """
+    timeout = int(config_c.get('RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT', '').rstrip('U'))
+    if timeout:
+        if 'rp2040_bootloader' not in info_data:
+            info_data['rp2040_bootloader'] = {}
+
+        if 'double_tap_reset_timeout' in info_data['rp2040_bootloader']:
+            _log_warning(info_data, 'RP2040 bootloader double tap reset timeout is specified in both config.h (RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT) and info.json (rp2040_bootloader.double_tap_reset_timeout) (Value: %s), the config.h value wins.' % info_data['rp2040_bootloader']['double_tap_reset_timeout'])
+
+        info_data['rp2040_bootloader']['double_tap_reset_timeout'] = timeout
+
 
 def _extract_secure_unlock(info_data, config_c):
     """Populate data about the secure unlock sequence
@@ -723,6 +736,7 @@ def _extract_config_h(info_data, config_c):
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
     _extract_audio(info_data, config_c)
+    _extract_rp2040_bootloder(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
     _extract_split_handedness(info_data, config_c)
     _extract_split_serial(info_data, config_c)
