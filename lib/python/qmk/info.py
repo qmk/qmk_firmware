@@ -505,7 +505,7 @@ def _extract_split_encoders(info_data, config_c):
 def _extract_rp2040_bootloder(info_data, config_c):
     """Populate data about RP2040 bootloader
     """
-    timeout = int(config_c.get('RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT', '').rstrip('U'))
+    timeout = int(config_c.get('RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT', '0').rstrip('U'))
     if timeout:
         if 'rp2040_bootloader' not in info_data:
             info_data['rp2040_bootloader'] = {}
