@@ -27,6 +27,10 @@
             ["GP17", "GP18", "GP16", null, null, null]
         ]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "split": {
         "enabled": true,
         "matrix_pins": {
