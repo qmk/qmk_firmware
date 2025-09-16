@@ -86,5 +86,9 @@
             {"matrix": [2, 1], "flags": 4, "x": 112, "y": 64},
             {"matrix": [2, 2], "flags": 4, "x": 224, "y": 64}
         ]
+    },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
     }
 }
