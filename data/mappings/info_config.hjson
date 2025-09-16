@@ -191,8 +191,8 @@
 
     // RP2040 Bootloader
     "RP2040_BOOTLOADER_DOUBLE_TAP_RESET": {"info_key": "rp2040_bootloader.double_tap_reset", "value_type": "flag"},
+    "RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED": {"info_key": "rp2040_bootloader.double_tap_reset_led"},
     "RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT": {"info_key": "rp2040_bootloader.double_tap_reset_timeout", "value_type": "int"},
-    "RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED": {"info_key": "rp2040_bootloader.double_tap_reset_led"}
 
     // Secure
     "SECURE_IDLE_TIMEOUT": {"info_key": "secure.idle_timeout", "value_type": "int"},
