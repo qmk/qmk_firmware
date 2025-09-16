@@ -834,6 +834,15 @@
                 }
             }
         },
+        "rp2040_bootloader": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "double_tap_reset": {"type": "boolean"},
+                "double_tap_reset_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "led": {"$ref": "./definitions.jsonschema#/mcu_pin"}
+            }
+        },
         "split": {
             "type": "object",
             "additionalProperties": false,
