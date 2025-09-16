@@ -23,6 +23,10 @@
         "rows": ["GP6","GP5","GP4","GP0","GP12"],
         "cols": ["GP28","GP27","GP26","GP25","GP24","GP23","GP22","GP3","GP2","GP1","GP8","GP9","GP10","GP11","GP7"]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all",
         "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
