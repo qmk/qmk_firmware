@@ -28,6 +28,12 @@
             "resync": true
         }
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP17",
+        "double_tap_reset_timeout": 1000
+    },
+    "url": "https://qmk.fm/keyboards",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6D64",
