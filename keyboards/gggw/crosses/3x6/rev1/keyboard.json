@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Crosses 3x6 rev1",
     "matrix_pins": {
-        "cols": ["GP13", "GP26", "GP22", "GP21", "GP23", "GP20"],
+        "cols": ["GP1", "GP26", "GP22", "GP21", "GP23", "GP20"],
         "rows": ["GP27", "GP28", "GP29", "GP9"]
     },
     "usb": {
