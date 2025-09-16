@@ -15,20 +15,21 @@
  */
 #pragma once
 
-// This is hardcoded at 0x5F00 so it's well after keycode value SAFE_RANGE
+#include "keycodes.h"
+
 enum wt_rgb_backlight_keycodes {
-	BR_INC = 0x5F00,	// backlight brightness increase
-	BR_DEC, 			// backlight brightness decrease
-	EF_INC, 			// backlight effect increase
-	EF_DEC,  			// backlight effect decrease
-	ES_INC,
-	ES_DEC,
-	H1_INC,
-	H1_DEC,
-	S1_INC,
-	S1_DEC,
-	H2_INC,
-	H2_DEC,
-	S2_INC,
-	S2_DEC
+    BR_INC = QK_KB_0, // brightness increase
+    BR_DEC,             // brightness decrease
+    EF_INC,             // effect increase
+    EF_DEC,             // effect decrease
+    ES_INC,             // effect speed increase
+    ES_DEC,             // effect speed decrease
+    H1_INC,             // color 1 hue increase
+    H1_DEC,             // color 1 hue decrease
+    S1_INC,             // color 1 saturation increase
+    S1_DEC,             // color 1 saturation decrease
+    H2_INC,             // color 2 hue increase
+    H2_DEC,             // color 2 hue decrease
+    S2_INC,             // color 2 saturation increase
+    S2_DEC              // color 2 saturation decrease
 };

@@ -1,170 +1,76 @@
-#include <stdint.h>
-#include <stdbool.h>
-#include <avr/io.h>
-#include "wait.h"
-#include "action_layer.h"
-#include "print.h"
-#include "debug.h"
-#include "util.h"
+// Copyright 2022 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "gpio.h"
 #include "matrix.h"
-#include "ergodone.h"
-#include "expander.h"
+#include "mcp23018.h"
+#include "util.h"
+#include "wait.h"
+#include "debug.h"
 
-/*
- * This constant define not debouncing time in msecs, but amount of matrix
- * scan loops which should be made to get stable debounced results.
- *
- * On Ergodox matrix scan rate is relatively low, because of slow I2C.
- * Now it's only 317 scans/second, or about 3.15 msec/scan.
- * According to Cherry specs, debouncing time is 5 msec.
- *
- * And so, there is no sense to have DEBOUNCE higher than 2.
- */
+#define I2C_ADDR 0x20
 
-#ifndef DEBOUNCE
-#   define DEBOUNCE	5
-#endif
+static uint8_t mcp23018_errors = 0;
 
-/* matrix state(1:on, 0:off) */
-static matrix_row_t matrix[MATRIX_ROWS];
-
-// Debouncing: store for each key the number of scans until it's eligible to
-// change.  When scanning the matrix, ignore any changes in keys that have
-// already changed in the last DEBOUNCE scans.
-static uint8_t debounce_matrix[MATRIX_ROWS * MATRIX_COLS];
-
-static matrix_row_t read_cols(uint8_t row);
-static void init_cols(void);
-static void unselect_rows(void);
-static void select_row(uint8_t row);
-
-__attribute__ ((weak))
-void matrix_init_user(void) {}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {}
-
-__attribute__ ((weak))
-void matrix_init_kb(void) {
-  matrix_init_user();
+static void expander_init(void) {
+    mcp23018_init(I2C_ADDR);
 }
 
-__attribute__ ((weak))
-void matrix_scan_kb(void) {
-  matrix_scan_user();
+static void expander_init_cols(void) {
+    mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTA, ALL_INPUT);
+    mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTB, ALL_INPUT);
 }
 
-inline
-uint8_t matrix_rows(void)
-{
-  return MATRIX_ROWS;
-}
-
-inline
-uint8_t matrix_cols(void)
-{
-  return MATRIX_COLS;
-}
-
-void matrix_init(void)
-{
-  unselect_rows();
-  init_cols();
-
-  // initialize matrix state: all keys off
-  for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-    matrix[i] = 0;
-    for (uint8_t j=0; j < MATRIX_COLS; ++j) {
-      debounce_matrix[i * MATRIX_COLS + j] = 0;
+static void expander_select_row(uint8_t row) {
+    if (mcp23018_errors) {
+        // wait to mimic i2c interactions
+        wait_us(100);
+        return;
     }
-  }
 
-  matrix_init_quantum();
+    mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTB, ~(1 << (row + 1)));
 }
 
-void matrix_power_up(void) {
-  unselect_rows();
-  init_cols();
-
-  // initialize matrix state: all keys off
-  for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-    matrix[i] = 0;
-  }
+static void expander_unselect_row(uint8_t row) {
+    // No need to unselect row as the next `select_row` will blank everything anyway
 }
 
-// Returns a matrix_row_t whose bits are set if the corresponding key should be
-// eligible to change in this scan.
-matrix_row_t debounce_mask(uint8_t row) {
-  matrix_row_t result = 0;
-  for (uint8_t j=0; j < MATRIX_COLS; ++j) {
-    if (debounce_matrix[row * MATRIX_COLS + j]) {
-      --debounce_matrix[row * MATRIX_COLS + j];
-    } else {
-      result |= (1 << j);
+static void expander_unselect_rows(void) {
+    if (mcp23018_errors) {
+        return;
     }
-  }
-  return result;
+
+    mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTB, ALL_INPUT);
 }
 
-// Report changed keys in the given row.  Resets the debounce countdowns
-// corresponding to each set bit in 'change' to DEBOUNCE.
-void debounce_report(matrix_row_t change, uint8_t row) {
-  for (uint8_t i = 0; i < MATRIX_COLS; ++i) {
-    if (change & (1 << i)) {
-      debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
+static matrix_row_t expander_read_row(void) {
+    if (mcp23018_errors) {
+        return 0;
     }
-  }
+
+    uint8_t ret = 0xFF;
+    mcp23018_errors += !mcp23018_read_pins(I2C_ADDR, mcp23018_PORTA, &ret);
+
+    ret = bitrev(~ret);
+    ret = ((ret & 0b11111000) >> 1) | (ret & 0b00000011);
+
+    return ((uint16_t)ret) << 7;
 }
 
-uint8_t matrix_scan(void)
-{
-  expander_scan();
+static void expander_scan(void) {
+    if (!mcp23018_errors) {
+        return;
+    }
 
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    select_row(i);
-    wait_us(30);  // without this wait read unstable value.
-    matrix_row_t mask = debounce_mask(i);
-    matrix_row_t cols = (read_cols(i) & mask) | (matrix[i] & ~mask);
-    debounce_report(cols ^ matrix[i], i);
-    matrix[i] = cols;
-
-    unselect_rows();
-  }
-
-  matrix_scan_quantum();
-
-  return 1;
-}
-
-inline
-bool matrix_is_on(uint8_t row, uint8_t col)
-{
-  return (matrix[row] & ((matrix_row_t)1<<col));
-}
-
-inline
-matrix_row_t matrix_get_row(uint8_t row)
-{
-  return matrix[row];
-}
-
-void matrix_print(void)
-{
-  print("\nr/c 0123456789ABCDEF\n");
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    print_hex8(row); print(": ");
-    print_bin_reverse16(matrix_get_row(row));
-    print("\n");
-  }
-}
-
-uint8_t matrix_key_count(void)
-{
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop16(matrix[i]);
-  }
-  return count;
+    static uint16_t mcp23018_reset_loop = 0;
+    if (++mcp23018_reset_loop > 0x1FFF) {
+        // tuned to about 5s given the current scan rate
+        dprintf("trying to reset mcp23018\n");
+        mcp23018_reset_loop = 0;
+        mcp23018_errors     = 0;
+        expander_unselect_rows();
+        expander_init_cols();
+    }
 }
 
 /* Column pin configuration
@@ -174,32 +80,31 @@ uint8_t matrix_key_count(void)
  *
  * Expander:  13   12   11   10   9    8    7
  */
-static void  init_cols(void)
-{
-  // Pro Micro
-  DDRE  &= ~(1<<PE6);
-  PORTE |=  (1<<PE6);
-  DDRD  &= ~(1<<PD2 | 1<<PD3 | 1<<PD4 | 1<<PD7);
-  PORTD |=  (1<<PD2 | 1<<PD3 | 1<<PD4 | 1<<PD7);
-  DDRC  &= ~(1<<PC6);
-  PORTC |=  (1<<PC6);
-  DDRB  &= ~(1<<PB4);
-  PORTB |=  (1<<PB4);
+static void init_cols(void) {
+    // Pro Micro
+    gpio_set_pin_input_high(E6);
+    gpio_set_pin_input_high(D2);
+    gpio_set_pin_input_high(D3);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D7);
+    gpio_set_pin_input_high(C6);
+    gpio_set_pin_input_high(B4);
 
-  // MCP23017
-  expander_init();
+    // Expander
+    expander_init_cols();
 }
 
-static matrix_row_t read_cols(uint8_t row)
-{
-  return expander_read_row() |
-    (PIND&(1<<PD3) ? 0 : (1<<6)) |
-    (PIND&(1<<PD2) ? 0 : (1<<5)) |
-    (PIND&(1<<PD4) ? 0 : (1<<4)) |
-    (PINC&(1<<PC6) ? 0 : (1<<3)) |
-    (PIND&(1<<PD7) ? 0 : (1<<2)) |
-    (PINE&(1<<PE6) ? 0 : (1<<1)) |
-    (PINB&(1<<PB4) ? 0 : (1<<0)) ;
+static matrix_row_t read_cols(void) {
+    // clang-format off
+    return expander_read_row() |
+        (gpio_read_pin(D3) ? 0 : (1<<6)) |
+        (gpio_read_pin(D2) ? 0 : (1<<5)) |
+        (gpio_read_pin(D4) ? 0 : (1<<4)) |
+        (gpio_read_pin(C6) ? 0 : (1<<3)) |
+        (gpio_read_pin(D7) ? 0 : (1<<2)) |
+        (gpio_read_pin(E6) ? 0 : (1<<1)) |
+        (gpio_read_pin(B4) ? 0 : (1<<0)) ;
+    // clang-format on
 }
 
 /* Row pin configuration
@@ -209,48 +114,122 @@ static matrix_row_t read_cols(uint8_t row)
  *
  * Expander:  0   1   2   3   4   5
  */
-static void unselect_rows(void)
-{
-  // Pro Micro
-  DDRF  &= ~(1<<PF4 | 1<<PF5 | 1<<PF6 | 1<<PF7);
-  PORTF &= ~(1<<PF4 | 1<<PF5 | 1<<PF6 | 1<<PF7);
-  DDRB  &= ~(1<<PB1 | 1<<PB2);
-  PORTB &= ~(1<<PB1 | 1<<PB2);
+static void unselect_rows(void) {
+    // Pro Micro
+    gpio_set_pin_input(B1);
+    gpio_set_pin_input(B2);
+    gpio_set_pin_input(F4);
+    gpio_set_pin_input(F5);
+    gpio_set_pin_input(F6);
+    gpio_set_pin_input(F7);
+    gpio_write_pin_low(B1);
+    gpio_write_pin_low(B2);
+    gpio_write_pin_low(F4);
+    gpio_write_pin_low(F5);
+    gpio_write_pin_low(F6);
+    gpio_write_pin_low(F7);
 
-  // Expander
-  expander_unselect_rows();
+    // Expander
+    expander_unselect_rows();
 }
 
-static void select_row(uint8_t row)
-{
-  // Pro Micro
-  switch (row) {
-  case 0:
-    DDRF  |=  (1<<PF4);
-    PORTF &= ~(1<<PF4);
-    break;
-  case 1:
-    DDRF  |=  (1<<PF5);
-    PORTF &= ~(1<<PF5);
-    break;
-  case 2:
-    DDRF  |=  (1<<PF6);
-    PORTF &= ~(1<<PF6);
-    break;
-  case 3:
-    DDRF  |=  (1<<PF7);
-    PORTF &= ~(1<<PF7);
-    break;
-  case 4:
-    DDRB  |=  (1<<PB1);
-    PORTB &= ~(1<<PB1);
-    break;
-  case 5:
-    DDRB  |=  (1<<PB2);
-    PORTB &= ~(1<<PB2);
-    break;
-  }
+static void unselect_row(uint8_t row) {
+    // Pro Micro
+    switch (row) {
+        case 0:
+            gpio_set_pin_input(F4);
+            gpio_write_pin_low(F4);
+            break;
+        case 1:
+            gpio_set_pin_input(F5);
+            gpio_write_pin_low(F5);
+            break;
+        case 2:
+            gpio_set_pin_input(F6);
+            gpio_write_pin_low(F6);
+            break;
+        case 3:
+            gpio_set_pin_input(F7);
+            gpio_write_pin_low(F7);
+            break;
+        case 4:
+            gpio_set_pin_input(B1);
+            gpio_write_pin_low(B1);
+            break;
+        case 5:
+            gpio_set_pin_input(B2);
+            gpio_write_pin_low(B2);
+            break;
+    }
 
-  expander_select_row(row);
+    // Expander
+    expander_unselect_row(row);
 }
 
+static void select_row(uint8_t row) {
+    // Pro Micro
+    switch (row) {
+        case 0:
+            gpio_set_pin_output(F4);
+            gpio_write_pin_low(F4);
+            break;
+        case 1:
+            gpio_set_pin_output(F5);
+            gpio_write_pin_low(F5);
+            break;
+        case 2:
+            gpio_set_pin_output(F6);
+            gpio_write_pin_low(F6);
+            break;
+        case 3:
+            gpio_set_pin_output(F7);
+            gpio_write_pin_low(F7);
+            break;
+        case 4:
+            gpio_set_pin_output(B1);
+            gpio_write_pin_low(B1);
+            break;
+        case 5:
+            gpio_set_pin_output(B2);
+            gpio_write_pin_low(B2);
+            break;
+    }
+
+    // Expander
+    expander_select_row(row);
+}
+
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value = current_matrix[current_row];
+
+    // Clear data in matrix row
+    current_matrix[current_row] = 0;
+
+    // Select row and wait for row selection to stabilize
+    select_row(current_row);
+    // Skip the wait_us(30); as i2c is slow enough to debounce the io changes
+
+    current_matrix[current_row] = read_cols();
+
+    unselect_row(current_row);
+
+    return (last_row_value != current_matrix[current_row]);
+}
+
+void matrix_init_custom(void) {
+    expander_init();
+
+    unselect_rows();
+    init_cols();
+}
+
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    expander_scan();
+
+    bool changed = false;
+    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+        changed |= read_cols_on_row(current_matrix, current_row);
+    }
+    return changed;
+}

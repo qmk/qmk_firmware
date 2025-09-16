@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,       KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_EQL ,
     KC_INS , S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5),       S(KC_6), S(KC_7), S(KC_8), S(KC_9), S(KC_0), KC_MINS,
     KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,       KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
-                               KC_CAPS, OUT_USB, OUT_BT ,       _______, _______, _______
+                               KC_CAPS, OU_USB , OU_BT  ,       _______, _______, _______
   ),
   // Navigation Layer
   LAYOUT(
@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   // Mouse Layer
   LAYOUT(
-    _______, _______, KC_WREF, KC_WH_U, KC_WSCH, _______,       _______, KC_BTN1, KC_MS_U, KC_BTN2, _______, _______,
-    _______, _______, KC_WH_L, KC_WH_D, KC_WH_R, _______,       _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
+    _______, _______, KC_WREF, MS_WHLU, KC_WSCH, _______,       _______, MS_BTN1, MS_UP,   MS_BTN2, _______, _______,
+    _______, _______, MS_WHLL, MS_WHLD, MS_WHLR, _______,       _______, MS_LEFT, MS_DOWN, MS_RGHT, _______, _______,
     _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,       _______, _______, _______, _______, _______, _______,
                                _______, _______, _______,       _______, _______, _______
   )

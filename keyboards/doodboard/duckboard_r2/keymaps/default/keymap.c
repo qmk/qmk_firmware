@@ -31,11 +31,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(2),   KC_TRNS, KC_INS,  KC_DEL,  KC_TRNS),
 
     [2] = LAYOUT(
-                 KC_TRNS, RGB_TOG, RGB_MOD, KC_TRNS,
-                 RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS,
-                 RGB_HUD, RGB_SAD, RGB_VAD, KC_TRNS,
-        RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-        TG(2),   RESET,   KC_TRNS, KC_TRNS, KC_TRNS),
+                 KC_TRNS, UG_TOGG, UG_NEXT, KC_TRNS,
+                 UG_HUEU, UG_SATU, UG_VALU, KC_TRNS,
+                 UG_HUED, UG_SATD, UG_VALD, KC_TRNS,
+        QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        TG(2),   QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
@@ -89,7 +89,7 @@ static void render_anim(void) {
         }
     }
 
-void oled_task_user(void) {
+bool oled_task_user(void) {
         render_anim();
         oled_set_cursor(0,6);
         oled_write_P(PSTR("DUCK\nBOARD\n"), false);
@@ -109,6 +109,7 @@ void oled_task_user(void) {
             oled_write_P(PSTR("RGB\n"), false);
             break;
     }
+    return false;
 }
 #endif
 

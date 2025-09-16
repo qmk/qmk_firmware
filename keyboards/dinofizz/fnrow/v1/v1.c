@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v1.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     // Immediately set the LED pin as an output and set it ON
-    setPinOutput(A15);
-    writePinHigh(A15);
+    gpio_set_pin_output(A15);
+    gpio_write_pin_high(A15);
     
     keyboard_pre_init_user();
 }
@@ -26,11 +26,11 @@ void keyboard_pre_init_kb(void) {
 void keyboard_post_init_kb(void) {
     // Blink the LED so we know everything is running OK
     // Finish with LED OFF
-    writePinLow(A15);
+    gpio_write_pin_low(A15);
     wait_ms(100);
-    writePinHigh(A15);
+    gpio_write_pin_high(A15);
     wait_ms(100);
-    writePinLow(A15);
+    gpio_write_pin_low(A15);
     
     keyboard_post_init_user();
 }

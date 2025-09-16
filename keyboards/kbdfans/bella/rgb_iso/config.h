@@ -14,44 +14,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#include "config_common.h"
 
-/* USB Device descriptor parameter */
-#define VENDOR_ID       0x4B42
-#define PRODUCT_ID      0x0009
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    KBDFANS
-#define PRODUCT         BELLA RGB ISO
-/* key matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 16
-
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, B7, B6 }
-#define MATRIX_COL_PINS { C6, C7, F7, F6, F5, F4, F1, F0, D2, D3, D5, D4, D6, D7, B4, B5 }
-#define UNUSED_PINS
-
-#define DIODE_DIRECTION COL2ROW
-
-#define DEBOUNCE 5
-
-/* disable these deprecated features by default */
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-#define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_LED_PROCESS_LIMIT 4
-#define RGB_MATRIX_LED_FLUSH_LIMIT 26
-#define DISABLE_RGB_MATRIX_SPLASH
-#define DISABLE_RGB_MATRIX_MULTISPLASH
-#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-//#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_COLOR
-#define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL
-#define DRIVER_ADDR_1 0b0110000
-#define DRIVER_ADDR_2 0b0110000 // this is here for compliancy reasons.
-#define DRIVER_COUNT 1
-#define DRIVER_1_LED_TOTAL 109
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
-#define DRIVER_INDICATOR_LED_TOTAL 0
-#endif
-#define DYNAMIC_KEYMAP_LAYER_COUNT 2
+#define IS31FL3741_I2C_ADDRESS_1 IS31FL3741_I2C_ADDRESS_GND

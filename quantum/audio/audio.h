@@ -18,40 +18,29 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "compiler_support.h"
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
-#include "quantum.h"
-#include <math.h>
 
-#if defined(__AVR__)
-#    include <avr/io.h>
-#    if defined(AUDIO_DRIVER_PWM)
-#        include "driver_avr_pwm.h"
-#    endif
+#if defined(AUDIO_DRIVER_PWM)
+#    include "audio_pwm.h"
+#elif defined(AUDIO_DRIVER_DAC)
+#    include "audio_dac.h"
 #endif
 
-#if defined(PROTOCOL_CHIBIOS)
-#    if defined(AUDIO_DRIVER_PWM)
-#        include "driver_chibios_pwm.h"
-#    elif defined(AUDIO_DRIVER_DAC)
-#        include "driver_chibios_dac.h"
-#    endif
-#endif
-
-typedef union {
+typedef union audio_config_t {
     uint8_t raw;
     struct {
         bool    enable : 1;
         bool    clicky_enable : 1;
-        uint8_t level : 6;
+        bool    valid : 1;
+        uint8_t reserved : 5;
     };
 } audio_config_t;
 
-// AVR/LUFA has a MIN, arm/chibios does not
-#ifndef MIN
-#    define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
+STATIC_ASSERT(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
 
 /*
  * a 'musical note' is represented by pitch and duration; a 'musical tone' adds intensity and timbre
@@ -59,14 +48,19 @@ typedef union {
  * "A musical tone is characterized by its duration, pitch, intensity (or loudness), and timbre (or quality)"
  */
 typedef struct {
-    uint16_t time_started;  // timestamp the tone/note was started, system time runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
-    float    pitch;         // aka frequency, in Hz
-    uint16_t duration;      // in ms, converted from the musical_notes.h unit which has 64parts to a beat, factoring in the current tempo in beats-per-minute
+    uint16_t time_started; // timestamp the tone/note was started, system time runs with 1ms resolution -> 16bit timer overflows every ~64 seconds, long enough under normal circumstances; but might be too soon for long-duration notes when the note_tempo is set to a very low value
+    float    pitch;        // aka frequency, in Hz
+    uint16_t duration;     // in ms, converted from the musical_notes.h unit which has 64parts to a beat, factoring in the current tempo in beats-per-minute
     // float intensity;    // aka volume [0,1] TODO: not used at the moment; pwm drivers can't handle it
     // uint8_t timbre;     // range: [0,100] TODO: this currently kept track of globally, should we do this per tone instead?
 } musical_tone_t;
 
 // public interface
+
+/**
+ * @brief Save the current choices to the eeprom
+ */
+void eeconfig_update_audio_current(void);
 
 /**
  * @brief one-time initialization called by quantum/quantum.c
@@ -75,7 +69,11 @@ typedef struct {
  * @post audio system (and hardware) initialized and ready to play tones
  */
 void audio_init(void);
-void audio_startup(void);
+
+/**
+ * \brief Handle various subsystem background tasks.
+ */
+void audio_task(void);
 
 /**
  * @brief en-/disable audio output, save this choice to the eeprom
@@ -223,9 +221,9 @@ void audio_startup(void);
 // hardware interface
 
 // implementation in the driver_avr/arm_* respective parts
-void audio_driver_initialize(void);
-void audio_driver_start(void);
-void audio_driver_stop(void);
+void audio_driver_initialize_impl(void);
+void audio_driver_start_impl(void);
+void audio_driver_stop_impl(void);
 
 /**
  * @brief get the number of currently active tones
@@ -283,3 +281,6 @@ bool audio_update_state(void);
 #define increase_tempo(t) audio_increase_tempo(t)
 #define decrease_tempo(t) audio_decrease_tempo(t)
 // vibrato functions are not used in any keyboards
+
+void audio_on_user(void);
+void audio_off_user(void);

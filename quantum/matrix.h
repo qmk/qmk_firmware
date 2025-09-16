@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "gpio.h"
+
+/* diode directions */
+#define COL2ROW 0
+#define ROW2COL 1
 
 #if (MATRIX_COLS <= 8)
 typedef uint8_t matrix_row_t;
@@ -28,6 +33,12 @@ typedef uint16_t matrix_row_t;
 typedef uint32_t matrix_row_t;
 #else
 #    error "MATRIX_COLS: invalid value"
+#endif
+
+#ifdef SPLIT_KEYBOARD
+#    define MATRIX_ROWS_PER_HAND (MATRIX_ROWS / 2)
+#else
+#    define MATRIX_ROWS_PER_HAND (MATRIX_ROWS)
 #endif
 
 #define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
@@ -46,8 +57,8 @@ void matrix_setup(void);
 void matrix_init(void);
 /* scan all key states on matrix */
 uint8_t matrix_scan(void);
-/* whether modified from previous scan. used after matrix_scan. */
-bool matrix_is_modified(void) __attribute__((deprecated));
+/* whether matrix scanning operations should be executed */
+bool matrix_can_read(void);
 /* whether a switch is on */
 bool matrix_is_on(uint8_t row, uint8_t col);
 /* matrix state on row */
@@ -64,10 +75,6 @@ void matrix_io_delay(void);
 void matrix_power_up(void);
 void matrix_power_down(void);
 
-/* executes code for Quantum */
-void matrix_init_quantum(void);
-void matrix_scan_quantum(void);
-
 void matrix_init_kb(void);
 void matrix_scan_kb(void);
 
@@ -75,6 +82,7 @@ void matrix_init_user(void);
 void matrix_scan_user(void);
 
 #ifdef SPLIT_KEYBOARD
+bool matrix_post_scan(void);
 void matrix_slave_scan_kb(void);
 void matrix_slave_scan_user(void);
 #endif

@@ -36,40 +36,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    endif
 
 #    ifndef MOUSEKEY_MOVE_DELTA
-#        ifndef MK_KINETIC_SPEED
-#            define MOUSEKEY_MOVE_DELTA 5
+#        if defined(MK_KINETIC_SPEED)
+#            define MOUSEKEY_MOVE_DELTA 16
+#        elif defined(MOUSEKEY_INERTIA)
+#            define MOUSEKEY_MOVE_DELTA 1
 #        else
-#            define MOUSEKEY_MOVE_DELTA 25
+#            define MOUSEKEY_MOVE_DELTA 8
 #        endif
 #    endif
-#    ifndef MOUSEKEY_WHEEL_DELTA
-#        define MOUSEKEY_WHEEL_DELTA 1
-#    endif
 #    ifndef MOUSEKEY_DELAY
-#        ifndef MK_KINETIC_SPEED
-#            define MOUSEKEY_DELAY 300
+#        if defined(MK_KINETIC_SPEED)
+#            define MOUSEKEY_DELAY 5
+#        elif defined(MOUSEKEY_INERTIA)
+#            define MOUSEKEY_DELAY 150 // allow single-pixel movements before repeat activates
 #        else
-#            define MOUSEKEY_DELAY 8
+#            define MOUSEKEY_DELAY 10
 #        endif
 #    endif
 #    ifndef MOUSEKEY_INTERVAL
-#        ifndef MK_KINETIC_SPEED
-#            define MOUSEKEY_INTERVAL 50
+#        if defined(MK_KINETIC_SPEED)
+#            define MOUSEKEY_INTERVAL 10
+#        elif defined(MOUSEKEY_INERTIA)
+#            define MOUSEKEY_INTERVAL 16 // 60 fps
 #        else
-#            define MOUSEKEY_INTERVAL 8
+#            define MOUSEKEY_INTERVAL 20
 #        endif
 #    endif
 #    ifndef MOUSEKEY_MAX_SPEED
-#        define MOUSEKEY_MAX_SPEED 10
+#        if defined(MOUSEKEY_INERTIA)
+#            define MOUSEKEY_MAX_SPEED 32
+#        else
+#            define MOUSEKEY_MAX_SPEED 10
+#        endif
 #    endif
 #    ifndef MOUSEKEY_TIME_TO_MAX
-#        define MOUSEKEY_TIME_TO_MAX 20
+#        if defined(MOUSEKEY_INERTIA)
+#            define MOUSEKEY_TIME_TO_MAX 32
+#        else
+#            define MOUSEKEY_TIME_TO_MAX 30
+#        endif
 #    endif
 #    ifndef MOUSEKEY_WHEEL_DELAY
-#        define MOUSEKEY_WHEEL_DELAY 300
+#        define MOUSEKEY_WHEEL_DELAY 10
 #    endif
 #    ifndef MOUSEKEY_WHEEL_INTERVAL
-#        define MOUSEKEY_WHEEL_INTERVAL 100
+#        define MOUSEKEY_WHEEL_INTERVAL 80
+#    endif
+#    ifndef MOUSEKEY_WHEEL_DELTA
+#        define MOUSEKEY_WHEEL_DELTA 1
 #    endif
 #    ifndef MOUSEKEY_WHEEL_MAX_SPEED
 #        define MOUSEKEY_WHEEL_MAX_SPEED 8
@@ -78,11 +92,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #    endif
 
+#    ifndef MOUSEKEY_FRICTION
+#        define MOUSEKEY_FRICTION 24 // 0 to 255
+#    endif
 #    ifndef MOUSEKEY_INITIAL_SPEED
 #        define MOUSEKEY_INITIAL_SPEED 100
 #    endif
 #    ifndef MOUSEKEY_BASE_SPEED
-#        define MOUSEKEY_BASE_SPEED 1000
+#        define MOUSEKEY_BASE_SPEED 5000
 #    endif
 #    ifndef MOUSEKEY_DECELERATED_SPEED
 #        define MOUSEKEY_DECELERATED_SPEED 400
@@ -157,6 +174,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif /* #ifndef MK_3_SPEED */
 
+#ifndef MOUSEKEY_OVERLAP_MOVE_DELTA
+#    define MOUSEKEY_OVERLAP_MOVE_DELTA MOUSEKEY_MOVE_DELTA
+#endif
+#ifndef MOUSEKEY_OVERLAP_WHEEL_DELTA
+#    define MOUSEKEY_OVERLAP_WHEEL_DELTA MOUSEKEY_WHEEL_DELTA
+#endif
+#ifndef MOUSEKEY_OVERLAP_INTERVAL
+#    define MOUSEKEY_OVERLAP_INTERVAL MOUSEKEY_INTERVAL
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -174,6 +201,7 @@ void           mousekey_off(uint8_t code);
 void           mousekey_clear(void);
 void           mousekey_send(void);
 report_mouse_t mousekey_get_report(void);
+bool           should_mousekey_report_send(report_mouse_t *mouse_report);
 
 #ifdef __cplusplus
 }

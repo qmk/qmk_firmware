@@ -24,6 +24,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#pragma once
+
 // Top row of keyboard, when shift held
 #define CHR_TILDE      {0b00110000, 0b01000000, 0b00110000, 0b00001000, 0b00110000, 0b00000000}
 #define CHR_BANG       {0b00000000, 0b00000000, 0b11111010, 0b10000000, 0b00000000, 0b00000000}

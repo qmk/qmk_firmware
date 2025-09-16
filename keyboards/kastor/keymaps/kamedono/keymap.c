@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
    CTL_TB, A    , S_CUR,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN , ENT  , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    LSFT , Z_GU , X_BR , C_ALT, V_RAI, B    ,   N_ETC, M_RAI,CM_ALT,DOT_BR, SL_GU, SPC    \
+    LSFT , Z_GU , X_BR , C_ALT, V_RAI, B    ,   N    , M_RAI,CM_ALT,DOT_BR, SL_GU, SPC    \
 //`-----------------------------------------' `-----------------------------------------'
   ),
 

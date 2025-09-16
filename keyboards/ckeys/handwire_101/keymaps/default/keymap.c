@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  _______, _______, _______,
         _______,  _______, _______, TG(_MUSIC_4_LIFE),
         MU_OFF,   _______, _______, _______,
-        MU_ON,    _______, _______, MU_MOD
+        MU_ON,    _______, _______, MU_NEXT
     ),
     /* MUSIC_4_LIFE
      * ,-----------------------.
@@ -117,10 +117,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------------------------------------'
      */
     [_MOUSE] = LAYOUT_ortho_4x4(
-        KC_BTN5, _______, KC_WH_U, _______,
-        _______, KC_BTN1, KC_MS_U, KC_BTN2,
-        KC_BTN4, KC_MS_L, KC_MS_D, KC_MS_R,
-        KC_BTN3, KC_WH_L, KC_WH_D, KC_WH_R
+        MS_BTN5, _______, MS_WHLU, _______,
+        _______, MS_BTN1, MS_UP,   MS_BTN2,
+        MS_BTN4, MS_LEFT, MS_DOWN, MS_RGHT,
+        MS_BTN3, MS_WHLL, MS_WHLD, MS_WHLR
     ),
     /* TERMINAL
      * ,---------------------------------------.
@@ -134,14 +134,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `--------=======------------------------'
      */
     [_TERMINAL] = LAYOUT_ortho_4x4(
-        _______,  TERM_ABOUT, _______, _______,
-        TERM_OFF, TERM_PRINT, _______, _______,
-        _______,  TERM_FLUSH, _______, _______,
-        TERM_ON,  TERM_HELP , _______, _______
+        _______, TERM_ABOUT, _______, _______,
+        _______, TERM_PRINT, _______, _______,
+        _______, TERM_FLUSH, _______, _______,
+        _______, TERM_HELP , _______, _______
     ),
     /* ADMIN
      * ,-----------------------------------------.
-     * |   RESET    |     |           |    X     |
+     * |   QK_BOOT    |     |           |    X     |
      * |------------+-----+-----------+----------|
      * |ABOUT CKEYS |     |           |          |
      * |------------+-----+-----------+----------|
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------'
      */
     [_ADMIN] = LAYOUT_ortho_4x4(
-        RESET,       _______, _______, _______,
+        QK_BOOT,     _______, _______, _______,
         CKEYS_ABOUT, _______, _______, _______,
         _______,     _______, _______, CK_OFF,
         _______,     _______, _______, CK_ON

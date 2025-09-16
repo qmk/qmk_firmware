@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "Bigswitch PCB",
-    "maintainer": "qmk",
-    "layouts": {
-        "LAYOUT": {
-            "layout": [{"x":0, "y":0, "w":4, "h":4}]
-        }
-    }
-}

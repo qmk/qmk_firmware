@@ -19,7 +19,8 @@
 #include "debounce_test_common.h"
 
 TEST_F(DebounceTest, OneKeyShort1) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Release key after 1ms delay */
         {1, {{0, 1, UP}}, {}},
@@ -43,7 +44,8 @@ TEST_F(DebounceTest, OneKeyShort1) {
 }
 
 TEST_F(DebounceTest, OneKeyShort2) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Release key after 2ms delay */
         {2, {{0, 1, UP}}, {}},
@@ -58,7 +60,8 @@ TEST_F(DebounceTest, OneKeyShort2) {
 }
 
 TEST_F(DebounceTest, OneKeyShort3) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Release key after 3ms delay */
         {3, {{0, 1, UP}}, {}},
@@ -73,7 +76,8 @@ TEST_F(DebounceTest, OneKeyShort3) {
 }
 
 TEST_F(DebounceTest, OneKeyShort4) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Release key after 4ms delay */
         {4, {{0, 1, UP}}, {}},
@@ -88,7 +92,8 @@ TEST_F(DebounceTest, OneKeyShort4) {
 }
 
 TEST_F(DebounceTest, OneKeyShort5) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Release key after 5ms delay */
@@ -102,7 +107,8 @@ TEST_F(DebounceTest, OneKeyShort5) {
 }
 
 TEST_F(DebounceTest, OneKeyShort6) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Release key after 6ms delay */
@@ -116,7 +122,8 @@ TEST_F(DebounceTest, OneKeyShort6) {
 }
 
 TEST_F(DebounceTest, OneKeyShort7) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Release key after 7ms delay */
@@ -130,7 +137,8 @@ TEST_F(DebounceTest, OneKeyShort7) {
 }
 
 TEST_F(DebounceTest, OneKeyShort8) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Release key after 1ms delay */
         {1, {{0, 1, UP}}, {}},
@@ -145,7 +153,8 @@ TEST_F(DebounceTest, OneKeyShort8) {
 }
 
 TEST_F(DebounceTest, OneKeyShort9) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Release key after 1ms delay */
         {1, {{0, 1, UP}}, {}},
@@ -159,7 +168,8 @@ TEST_F(DebounceTest, OneKeyShort9) {
 }
 
 TEST_F(DebounceTest, OneKeyBouncing1) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 1, UP}}, {}},
         {2, {{0, 1, DOWN}}, {}},
@@ -185,7 +195,8 @@ TEST_F(DebounceTest, OneKeyBouncing1) {
 }
 
 TEST_F(DebounceTest, OneKeyBouncing2) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         /* Change twice in the same time period */
         {1, {{0, 1, UP}}, {}},
@@ -217,7 +228,8 @@ TEST_F(DebounceTest, OneKeyBouncing2) {
 }
 
 TEST_F(DebounceTest, OneKeyLong) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         {25, {{0, 1, UP}}, {}},
@@ -236,7 +248,8 @@ TEST_F(DebounceTest, OneKeyLong) {
 }
 
 TEST_F(DebounceTest, TwoKeysShort) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
         {1, {{0, 2, DOWN}}, {{0, 2, DOWN}}},
         /* Release key after 2ms delay */
@@ -249,14 +262,14 @@ TEST_F(DebounceTest, TwoKeysShort) {
         {10, {}, {{0, 1, UP}}}, /* 5ms+5ms after DOWN at time 0 */
         /* Press key again after 1ms delay */
         {11, {{0, 1, DOWN}}, {{0, 1, DOWN}, {0, 2, UP}}}, /* 5ms+5ms after DOWN at time 0 */
-        {12, {{0, 2, DOWN}}, {{0, 2, DOWN}}}, /* 5ms+5ms after DOWN at time 0 */
+        {12, {{0, 2, DOWN}}, {{0, 2, DOWN}}},             /* 5ms+5ms after DOWN at time 0 */
     });
     runEvents();
 }
 
-
 TEST_F(DebounceTest, OneKeyDelayedScan1) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late, immediately release key */
@@ -269,7 +282,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan1) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan2) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late, immediately release key */
@@ -283,7 +297,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan2) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan3) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late */
@@ -298,7 +313,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan3) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan4) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is very late */
@@ -314,7 +330,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan4) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan5) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         {5, {{0, 1, UP}}, {}},
@@ -329,7 +346,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan5) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan6) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         {5, {{0, 1, UP}}, {}},
@@ -345,7 +363,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan6) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan7) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         {5, {{0, 1, UP}}, {}},
@@ -358,7 +377,8 @@ TEST_F(DebounceTest, OneKeyDelayedScan7) {
 }
 
 TEST_F(DebounceTest, OneKeyDelayedScan8) {
-    addEvents({ /* Time, Inputs, Outputs */
+    addEvents({
+        /* Time, Inputs, Outputs */
         {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
 
         /* Processing is a bit late */
@@ -370,5 +390,34 @@ TEST_F(DebounceTest, OneKeyDelayedScan8) {
         {100, {}, {{0, 1, UP}}},
     });
     time_jumps_ = true;
+    runEvents();
+}
+
+TEST_F(DebounceTest, AsyncTickOneKeyShort1) {
+    addEvents({
+        /* Time, Inputs, Outputs */
+        {0, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
+        /* Release key after 1ms delay */
+        {1, {{0, 1, UP}}, {}},
+
+        /*
+         * Until the eager timer on DOWN is observed to finish, the defer timer
+         * on UP can't start. There's no workaround for this because it's not
+         * possible to debounce an event that isn't being tracked.
+         *
+         * sym_defer_pk has the same problem but the test has to track that the
+         * key changed state so the DOWN timer is always allowed to finish
+         * before starting the UP timer.
+         */
+        {5, {}, {}},
+
+        {10, {}, {{0, 1, UP}}}, /* 5ms+5ms after DOWN at time 0 */
+        /* Press key again after 1ms delay */
+        {11, {{0, 1, DOWN}}, {{0, 1, DOWN}}},
+    });
+    /*
+     * Debounce implementations should never read the timer more than once per invocation
+     */
+    async_time_jumps_ = DEBOUNCE;
     runEvents();
 }

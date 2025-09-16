@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Onekey Teensy 2.0++",
+    "processor": "at90usb1286",
+    "bootloader": "halfkay",
+    "matrix_pins": {
+        "cols": ["F4"],
+        "rows": ["F5"]
+    },
+    "backlight": {
+        "pin": "B6"
+    },
+    "ws2812": {
+        "pin": "F6"
+    },
+    "apa102": {
+        "data_pin": "F6",
+        "clock_pin": "F7"
+    }
+}

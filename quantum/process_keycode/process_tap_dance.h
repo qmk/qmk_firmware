@@ -16,88 +16,80 @@
 
 #pragma once
 
-#ifdef TAP_DANCE_ENABLE
-
-#    include <stdbool.h>
-#    include <inttypes.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+#include "quantum_keycodes.h"
 
 typedef struct {
-    uint8_t  count;
-    uint8_t  oneshot_mods;
-    uint8_t  weak_mods;
-    uint16_t keycode;
     uint16_t interrupting_keycode;
-    uint16_t timer;
-    bool     interrupted;
-    bool     pressed;
-    bool     finished;
-} qk_tap_dance_state_t;
+    uint8_t  count;
+    uint8_t  weak_mods;
+#ifndef NO_ACTION_ONESHOT
+    uint8_t oneshot_mods;
+#endif
+    bool pressed : 1;
+    bool finished : 1;
+    bool interrupted : 1;
+} tap_dance_state_t;
 
-#    define TD(n) (QK_TAP_DANCE | ((n)&0xFF))
+typedef void (*tap_dance_user_fn_t)(tap_dance_state_t *state, void *user_data);
 
-typedef void (*qk_tap_dance_user_fn_t)(qk_tap_dance_state_t *state, void *user_data);
-
-typedef struct {
+typedef struct tap_dance_action_t {
+    tap_dance_state_t state;
     struct {
-        qk_tap_dance_user_fn_t on_each_tap;
-        qk_tap_dance_user_fn_t on_dance_finished;
-        qk_tap_dance_user_fn_t on_reset;
+        tap_dance_user_fn_t on_each_tap;
+        tap_dance_user_fn_t on_dance_finished;
+        tap_dance_user_fn_t on_reset;
+        tap_dance_user_fn_t on_each_release;
     } fn;
-    qk_tap_dance_state_t state;
-    uint16_t             custom_tapping_term;
-    void *               user_data;
-} qk_tap_dance_action_t;
+    void *user_data;
+} tap_dance_action_t;
 
 typedef struct {
     uint16_t kc1;
     uint16_t kc2;
-} qk_tap_dance_pair_t;
+} tap_dance_pair_t;
 
 typedef struct {
     uint16_t kc;
     uint8_t  layer;
     void (*layer_function)(uint8_t);
-} qk_tap_dance_dual_role_t;
+} tap_dance_dual_role_t;
 
-#    define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) \
-        { .fn = {qk_tap_dance_pair_on_each_tap, qk_tap_dance_pair_finished, qk_tap_dance_pair_reset}, .user_data = (void *)&((qk_tap_dance_pair_t){kc1, kc2}), }
+#define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) \
+    { .fn = {tap_dance_pair_on_each_tap, tap_dance_pair_finished, tap_dance_pair_reset, NULL}, .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), }
 
-#    define ACTION_TAP_DANCE_DUAL_ROLE(kc, layer) \
-        { .fn = {qk_tap_dance_dual_role_on_each_tap, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset}, .user_data = (void *)&((qk_tap_dance_dual_role_t){kc, layer, layer_move}), }
+#define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer) \
+    { .fn = {tap_dance_dual_role_on_each_tap, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_move}), }
 
-#    define ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer) \
-        { .fn = {NULL, qk_tap_dance_dual_role_finished, qk_tap_dance_dual_role_reset}, .user_data = (void *)&((qk_tap_dance_dual_role_t){kc, layer, layer_invert}), }
+#define ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer) \
+    { .fn = {NULL, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_invert}), }
 
-#    define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer) ACTION_TAP_DANCE_DUAL_ROLE(kc, layer)
+#define ACTION_TAP_DANCE_FN(user_fn) \
+    { .fn = {NULL, user_fn, NULL, NULL}, .user_data = NULL, }
 
-#    define ACTION_TAP_DANCE_FN(user_fn) \
-        { .fn = {NULL, user_fn, NULL}, .user_data = NULL, }
+#define ACTION_TAP_DANCE_FN_ADVANCED(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset) \
+    { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, NULL}, .user_data = NULL, }
 
-#    define ACTION_TAP_DANCE_FN_ADVANCED(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset) \
-        { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset}, .user_data = NULL, }
+#define ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(user_fn_on_each_tap, user_fn_on_each_release, user_fn_on_dance_finished, user_fn_on_dance_reset) \
+    { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, user_fn_on_each_release}, .user_data = NULL, }
 
-#    define ACTION_TAP_DANCE_FN_ADVANCED_TIME(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, tap_specific_tapping_term) \
-        { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset}, .user_data = NULL, .custom_tapping_term = tap_specific_tapping_term, }
+#define TD_INDEX(code) QK_TAP_DANCE_GET_INDEX(code)
+#define TAP_DANCE_KEYCODE(state) TD(((tap_dance_action_t *)state) - tap_dance_actions)
 
-extern qk_tap_dance_action_t tap_dance_actions[];
+void reset_tap_dance(tap_dance_state_t *state);
 
 /* To be used internally */
 
-void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record);
+bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record);
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record);
 void tap_dance_task(void);
-void reset_tap_dance(qk_tap_dance_state_t *state);
 
-void qk_tap_dance_pair_on_each_tap(qk_tap_dance_state_t *state, void *user_data);
-void qk_tap_dance_pair_finished(qk_tap_dance_state_t *state, void *user_data);
-void qk_tap_dance_pair_reset(qk_tap_dance_state_t *state, void *user_data);
+void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data);
+void tap_dance_pair_finished(tap_dance_state_t *state, void *user_data);
+void tap_dance_pair_reset(tap_dance_state_t *state, void *user_data);
 
-void qk_tap_dance_dual_role_on_each_tap(qk_tap_dance_state_t *state, void *user_data);
-void qk_tap_dance_dual_role_finished(qk_tap_dance_state_t *state, void *user_data);
-void qk_tap_dance_dual_role_reset(qk_tap_dance_state_t *state, void *user_data);
-
-#else
-
-#    define TD(n) KC_NO
-
-#endif
+void tap_dance_dual_role_on_each_tap(tap_dance_state_t *state, void *user_data);
+void tap_dance_dual_role_finished(tap_dance_state_t *state, void *user_data);
+void tap_dance_dual_role_reset(tap_dance_state_t *state, void *user_data);

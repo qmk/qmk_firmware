@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
 #include "eeconfig.h"
 #include "keycode.h"
 #include "action_code.h"
@@ -24,7 +26,7 @@ uint16_t keycode_config(uint16_t keycode);
 uint8_t  mod_config(uint8_t mod);
 
 /* NOTE: Not portable. Bit field order depends on implementation */
-typedef union {
+typedef union keymap_config_t {
     uint16_t raw;
     struct {
         bool swap_control_capslock : 1;
@@ -37,8 +39,12 @@ typedef union {
         bool nkro : 1;
         bool swap_lctl_lgui : 1;
         bool swap_rctl_rgui : 1;
-        bool oneshot_disable : 1;
+        bool oneshot_enable : 1;
+        bool swap_escape_capslock : 1;
+        bool autocorrect_enable : 1;
     };
 } keymap_config_t;
+
+STATIC_ASSERT(sizeof(keymap_config_t) == sizeof(uint16_t), "Keycode (magic) EECONFIG out of spec.");
 
 extern keymap_config_t keymap_config;

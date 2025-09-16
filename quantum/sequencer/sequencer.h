@@ -17,8 +17,7 @@
 #pragma once
 
 #include <stdbool.h>
-#include "debug.h"
-#include "timer.h"
+#include <stdint.h>
 
 // Maximum number of steps: 256
 #ifndef SEQUENCER_STEPS
@@ -42,13 +41,24 @@
  * Make sure that the items of this enumeration follow the powers of 2, separated by a ternary variant.
  * Check the implementation of `get_step_duration` for further explanation.
  */
-typedef enum { SQ_RES_2, SQ_RES_2T, SQ_RES_4, SQ_RES_4T, SQ_RES_8, SQ_RES_8T, SQ_RES_16, SQ_RES_16T, SQ_RES_32, SEQUENCER_RESOLUTIONS } sequencer_resolution_t;
+typedef enum {
+    SQ_RES_2, //
+    SQ_RES_2T,
+    SQ_RES_4,
+    SQ_RES_4T,
+    SQ_RES_8,
+    SQ_RES_8T,
+    SQ_RES_16,
+    SQ_RES_16T,
+    SQ_RES_32,
+    SEQUENCER_RESOLUTIONS
+} sequencer_resolution_t;
 
 typedef struct {
     bool                   enabled;
     uint8_t                steps[SEQUENCER_STEPS];
     uint16_t               track_notes[SEQUENCER_TRACKS];
-    uint8_t                tempo;  // Is a maximum tempo of 255 reasonable?
+    uint8_t                tempo; // Is a maximum tempo of 255 reasonable?
     sequencer_resolution_t resolution;
 } sequencer_config_t;
 
@@ -57,9 +67,9 @@ typedef struct {
  * We use a "phase" state machine to delay some of the events.
  */
 typedef enum sequencer_phase_t {
-    SEQUENCER_PHASE_ATTACK,   // t=0ms, send the MIDI note on signal
-    SEQUENCER_PHASE_RELEASE,  // t=SEQUENCER_PHASE_RELEASE_TIMEOUT ms, send the MIDI note off signal
-    SEQUENCER_PHASE_PAUSE     // t=step duration ms, loop
+    SEQUENCER_PHASE_ATTACK,  // t=0ms, send the MIDI note on signal
+    SEQUENCER_PHASE_RELEASE, // t=SEQUENCER_PHASE_RELEASE_TIMEOUT ms, send the MIDI note off signal
+    SEQUENCER_PHASE_PAUSE    // t=step duration ms, loop
 } sequencer_phase_t;
 
 typedef struct {

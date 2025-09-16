@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "Suihankey",
+    "manufacturer": "kakunpc",
+    "url": "https://kakunpc.booth.pm/",
+    "maintainer": "kakunpc",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
+    "split": {
+        "enabled": true,
+        "handedness": {
+            "pin": "D2"
+        },
+        "serial": {
+            "pin": "D0"
+        }
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "community_layouts": ["split_3x5_3"]
+}

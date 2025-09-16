@@ -74,7 +74,7 @@ void matrix_init(void)
     matrix_debouncing[row] = 0;
   }
   debounce_init(MATRIX_ROWS);
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void)
@@ -114,7 +114,7 @@ uint8_t matrix_scan(void)
 #ifdef RIGHT_HALF
     uint8_t data = 0x7F;
     // Receive the columns from right half
-    i2c_receive(I2C_ADDR_WRITE, &data, 1, MCP23018_I2C_TIMEOUT);
+    i2c_receive(I2C_ADDR, &data, 1, MCP23018_I2C_TIMEOUT);
     cols |= ((~(data) & 0x7F) << 7);
 #endif
 
@@ -127,7 +127,7 @@ uint8_t matrix_scan(void)
 
   debounce(matrix_debouncing, matrix, MATRIX_ROWS, changed);
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
 
 #ifdef DEBUG_MATRIX
   for (uint8_t c = 0; c < MATRIX_COLS; c++)
@@ -154,15 +154,6 @@ void matrix_print(void)
   }
 }
 
-uint8_t matrix_key_count(void)
-{
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop16(matrix[i]);
-  }
-  return count;
-}
-
 static void matrix_select_row(uint8_t row)
 {
 #ifdef RIGHT_HALF
@@ -171,7 +162,7 @@ static void matrix_select_row(uint8_t row)
   //Set the remote row on port A
   txdata[0] = GPIOA;
   txdata[1] = 0xFF & ~(1<<row);
-  mcp23018_status = i2c_transmit(I2C_ADDR_WRITE, (uint8_t *)txdata, 2, MCP23018_I2C_TIMEOUT);
+  mcp23018_status = i2c_transmit(I2C_ADDR, (uint8_t *)txdata, 2, MCP23018_I2C_TIMEOUT);
 #endif
 
   // select other half

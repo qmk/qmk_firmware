@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include "crkbd.h"
 
 char mode_icon[24];
 

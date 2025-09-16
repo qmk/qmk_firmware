@@ -1,1 +1,1 @@
-SRC += ws2812.c
+WS2812_DRIVER_REQUIRED = yes

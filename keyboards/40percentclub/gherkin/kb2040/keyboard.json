@@ -1,0 +1,12 @@
+{
+    "development_board": "kb2040",
+    "matrix_pins": {
+        "cols": ["GP8", "GP7", "GP6", "GP5", "GP4", "GP3"],
+        "rows": ["GP26", "GP18", "GP20", "GP19", "GP10"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "GP9",
+        "driver": "software"
+    }
+}

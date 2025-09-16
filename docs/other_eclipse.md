@@ -11,13 +11,13 @@ Using an IDE such as Eclipse provides many advantages over a plain text editor, 
 * static code analysis
 * many other tools such as debugging, code formatting, showing call hierarchies etc.
 
-The purpose of the is page is to document how to set-up Eclipse for developing AVR software, and working on the QMK code base.
+The purpose of this page is to document how to set-up Eclipse for developing AVR software, and working on the QMK code base.
 
 Note that this set-up has been tested on Ubuntu 16.04 only for the moment.
 
 # Prerequisites
 ## Build Environment
-Before starting, you must have followed the [Getting Started](newbs_getting_started.md) section of the Tutorial. In particular, you must have been able to build the firmware with [the `qmk compile` command](newbs_building_firmware.md#build-your-firmware).
+Before starting, you must have followed the [Getting Started](newbs_getting_started) section of the Tutorial. In particular, you must have been able to build the firmware with [the `qmk compile` command](newbs_building_firmware#build-your-firmware).
 
 ## Java
 Eclipse is a Java application, so you will need to install Java 8 or more recent to be able to run it. You may choose between the JRE or the JDK, the latter being useful if you intend to do Java development.
@@ -74,7 +74,7 @@ Once both plugins are installed, restart Eclipse as prompted.
 
 ## Build Your Keyboard
 
-We will now change the default make target of the the project from `all` to the
+We will now change the default make target of the project from `all` to the
 specific keyboard and keymap combination we are working on,
 e.g. `kinesis/kint36:stapelberg`. This way, project-wide actions like cleaning
 and building the project will complete quickly, instead of taking a long time or

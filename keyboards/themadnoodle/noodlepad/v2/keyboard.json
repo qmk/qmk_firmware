@@ -1,0 +1,24 @@
+{
+    "manufacturer": "The Mad Noodle",
+    "keyboard_name": "NoodlePad v2",
+    "maintainer": "The-Mad-Noodle",
+    "url": "https://www.madnoodleprototypes.com/",
+    "ws2812": {
+        "pin": "B7"
+    },
+    "matrix_pins": {
+        "cols": ["F0", "B5", "B6"],
+        "rows": ["F1", "D6", "D7"]
+    },
+    "usb": {
+        "device_version": "2.0.0",
+        "pid": "0x0002",
+        "vid": "0x6A6C"
+    },
+    "encoder": {
+        "rotary": [
+            { "pin_a": "D0", "pin_b": "D1" }
+        ]
+    
+    }
+}
