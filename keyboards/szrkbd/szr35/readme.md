@@ -59,6 +59,13 @@ qmk setup
 qmk compile -kb szr35 -km default
 ```
 
+If you want you can use the keymap that came with the keyboard from factory:
+
+```bash
+qmk setup
+qmk compile -kb szr35 -km factory
+```
+
 You may also create your own keymap folder (e.g. `miryoku`) and compile:
 
 ```bash
