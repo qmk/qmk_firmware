@@ -42,6 +42,11 @@
         "saturation_steps": 8,
         "brightness_steps": 8
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP25",
+        "double_tap_reset_timeout": 500
+    },
     "split": {
         "enabled": true,
         "serial": {
