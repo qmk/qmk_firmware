@@ -10,11 +10,15 @@
         "pid": "0x5801",
         "device_version": "1.0.0"
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "split": {
         "enabled": true,
         "serial": {
             "driver": "vendor"
-        } 
+        }
     },
     "matrix_pins": {
         "cols": ["GP3", "GP4", "GP5", "GP6", "GP7", "GP8"],
