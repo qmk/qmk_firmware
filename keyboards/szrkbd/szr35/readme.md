@@ -31,6 +31,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Each half can enter DFU mode by holding a key while plugging in the USB cable. `Q` for the left, `P` for the right.
+* **Bootmagic reset**: Holding top left key for the left half, top right key for the right half, while plugging in the USB cable.
 * **Physical reset button**: Short the reset pads, marked within a white rectangle, while plugging in. Not the ones at the edge opposing the USB connectors but about 2 or 3 centimeters from that edge.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available.
