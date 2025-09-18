@@ -15,7 +15,10 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+    },
+    "dynamic_keymap": {
+        "layer_count": 9
     },
     "matrix_pins": {
         "direct": [
@@ -54,13 +57,13 @@
             "watchdog_timeout": 3000
         },
         "usb_detect": {
-            "enabled": true,
             "polling_interval": 10
         },
         "bootmagic": {
             "matrix": [4, 4]
         }
     },
+    "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [
@@ -116,11 +119,8 @@
     },
     "rgb_matrix": {
         "driver": "ws2812",
-        "led_count": 36,
-        "split": true,
         "split_count": [18, 18],
         "animations": {
-            "solid_color": true,
             "alphas_mods": true,
             "gradient_up_down": true,
             "gradient_left_right": true,
