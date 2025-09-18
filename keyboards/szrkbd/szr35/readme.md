@@ -1,6 +1,6 @@
 # SZR35 
 
-![szr35](https://github.com/user-attachments/assets/9b85112a-782f-4a9e-a45f-c03a4d3b69d5)
+![szr35](https://i.ibb.co/vvQPBTF9/szr35.jpg)
 
 *The **SZR35** is a minimalist 36-key split keyboard. It follows the popular 3x5+3 layout and is aimed at users who value ergonomic typing, portability, and open-source firmware flexibility. It ships with Vial-compatible firmware and is built around an STM32 microcontroller.*
 
