@@ -10,9 +10,6 @@
         "nkro": true,
         "rgb_matrix": true
     },
-    "build": {
-        "lto": true
-    },
     "matrix_pins": {
         "rows": [ "B0", "B1", "B2", "B3", "B12", "B13", "B14", "B15" ],
         "cols": [ "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9", "A10", "A13", "A14" ]
