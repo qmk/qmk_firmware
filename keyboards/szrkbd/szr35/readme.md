@@ -10,7 +10,8 @@
   * **Backlighting:** Addressable RGB (WS2812 or similar)
   * **Connection:** USB-C on both halves, TRS jack for interconnect
 * Hardware Availability:
-- I bought this keyboard in amazon from a seller named HardToChooseOne, [here](https://www.amazon.com/gp/product/B0DD69RGHK). This is their [website](https://hardtochooseone.com). It is also sold from other websites under the SZRKBD brand.
+  *  [HardToChooseOne](https://hardtochooseone.com)  on [Amapzon](https://www.amazon.com/gp/product/B0DD69RGHK).
+  * Alternatively sold from other websites under the SZRKBD brand.
 
 Make example for this keyboard (after setting up your build environment):
 
