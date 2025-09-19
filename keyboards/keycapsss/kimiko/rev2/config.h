@@ -18,8 +18,4 @@
 
 #pragma once
 
-// OLED definitions
-#ifndef OLED_FONT_H
-#   define OLED_FONT_H "keyboards/keycapsss/kimiko/glcdfont.c"
-#endif
-
+#define OLED_FONT_H "keyboards/keycapsss/kimiko/rev2/glcdfont.c"
