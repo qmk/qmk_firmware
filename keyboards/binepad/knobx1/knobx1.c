@@ -9,6 +9,13 @@
 #    define X1_KEYMAP_LAYER_COUNT 4
 #endif
 
+__attribute__((weak)) void x1_layer_led(uint8_t lyr) {
+    gpio_write_pin(IND1_LED, lyr >= 0);
+    gpio_write_pin(IND2_LED, lyr >= 1);
+    gpio_write_pin(IND3_LED, lyr >= 2);
+    gpio_write_pin(IND4_LED, lyr >= 3);
+}
+
 void keyboard_pre_init_kb(void) {
     const pin_t indicator_leds[4] = {IND1_LED, IND2_LED, IND3_LED, IND4_LED};
     for (int i = 0; i < 4; i++) {
