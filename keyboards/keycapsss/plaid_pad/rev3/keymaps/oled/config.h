@@ -1,6 +1,4 @@
-/* Copyright 2019 MechMerlin
- * Copyright 2023 @Ex3c4Def
- * Copyright 2023 @BenRoe (keycapsss.com)
+/* Copyright 2021 Ben Roesner (keycapsss.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +16,5 @@
 
 #pragma once
 
-// OLED definitions
-#ifndef OLED_FONT_H
-#   define OLED_FONT_H "keyboards/keycapsss/kimiko/glcdfont.c"
-#endif
-
+// place overrides here
+#define OLED_FONT_H "keyboards/keycapsss/plaid_pad/rev3/lib/glcdfont.c"
