@@ -12,6 +12,7 @@ from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.json_schema import json_load, validate
 from qmk.keyboard import keyboard_alias_definitions
 from qmk.util import maybe_exit
+from qmk.path import unix_style_path
 
 
 def find_make():
@@ -85,7 +86,7 @@ def build_environment(args):
     envs = parse_env_vars(args)
 
     if HAS_QMK_USERSPACE:
-        envs['QMK_USERSPACE'] = Path(QMK_USERSPACE).resolve()
+        envs['QMK_USERSPACE'] = unix_style_path(Path(QMK_USERSPACE).resolve())
 
     return envs
 
@@ -98,11 +99,14 @@ def in_virtualenv():
     return active_prefix != sys.prefix
 
 
-def dump_lines(output_file, lines, quiet=True):
+def dump_lines(output_file, lines, quiet=True, remove_repeated_newlines=False):
     """Handle dumping to stdout or file
     Creates parent folders if required
     """
     generated = '\n'.join(lines) + '\n'
+    if remove_repeated_newlines:
+        while '\n\n\n' in generated:
+            generated = generated.replace('\n\n\n', '\n\n')
     if output_file and output_file.name != '-':
         output_file.parent.mkdir(parents=True, exist_ok=True)
         if output_file.exists():

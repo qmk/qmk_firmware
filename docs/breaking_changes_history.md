@@ -2,6 +2,9 @@
 
 This page links to all previous changelogs from the QMK Breaking Changes process.
 
+* [2025 Aug 31](ChangeLog/20250831) - version 0.30.0
+* [2025 May 25](ChangeLog/20250525) - version 0.29.0
+* [2025 Feb 23](ChangeLog/20250223) - version 0.28.0
 * [2024 Nov 24](ChangeLog/20241124) - version 0.27.0
 * [2024 Aug 25](ChangeLog/20240825) - version 0.26.0
 * [2024 May 26](ChangeLog/20240526) - version 0.25.0

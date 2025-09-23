@@ -1,15 +1,12 @@
 {
   "keyboard_name": "Pancake",
   "manufacturer": "Spaceman",
-  "url": "",
   "maintainer": "Spaceman",
   "usb": {
     "vid": "0x5342",
     "pid": "0x504B",
     "device_version": "0.0.1"
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
   "community_layouts": ["ortho_4x12", "planck_mit"],
   "layouts": {
     "LAYOUT_planck_mit": {

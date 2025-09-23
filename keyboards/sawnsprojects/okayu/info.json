@@ -1,20 +1,22 @@
 {
     "keyboard_name": "Okayu",
     "manufacturer": "Salane",
-    "url": "",
     "maintainer": "Mai The San",
     "usb": {
         "vid": "0x5350",
         "pid": "0x00A1",
-        "device_version": "1.0.0",
-        "force_nkro": true
+        "device_version": "1.0.0"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
         "console": true,
-        "command": false,
         "nkro": true,
         "rgblight": true
     },

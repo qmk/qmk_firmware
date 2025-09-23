@@ -16,6 +16,7 @@
  */
 
 #include "quantum.h"
+#include "eeprom.h"
 
 #include "usb_mux.h"
 
@@ -73,7 +74,7 @@ led_config_t g_led_config = { {
 } };
 #endif // RGB_MATRIX_ENABLE
 
-bool eeprom_is_valid(void) { 
+bool eeprom_is_valid(void) {
     return (
         eeprom_read_word(((void *)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
         eeprom_read_byte(((void *)EEPROM_VERSION_ADDR)) == EEPROM_VERSION
@@ -123,7 +124,7 @@ void system76_ec_rgb_layer(layer_state_t layer_state);
 void system76_ec_unlock(void);
 bool system76_ec_is_unlocked(void);
 
-rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
+extern rgb_config_t layer_rgb[DYNAMIC_KEYMAP_LAYER_COUNT];
 
 void matrix_init_kb(void) {
     usb_mux_init();

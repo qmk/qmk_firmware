@@ -6,8 +6,12 @@
     "usb": {
         "vid": "0x4F53",
         "pid": "0x564F",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgb_matrix": {
         "animations": {
@@ -66,8 +70,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

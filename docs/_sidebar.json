@@ -21,8 +21,14 @@
             { "text": "Debugging QMK", "link": "/faq_debug" },
             { "text": "Keymap FAQ", "link": "/faq_keymap" },
             { "text": "Squeezing Space from AVR", "link": "/squeezing_avr" },
-            { "text": "Glossary", "link": "/reference_glossary" },
-            { "text": "License Violations", "link": "/license_violations" }
+            { "text": "Glossary", "link": "/reference_glossary" }
+        ]
+    },
+    {
+        "text": "Licensing",
+        "items": [
+            { "text": "License Violations", "link": "/license_violations" },
+            { "text": "Proprietary Libraries", "link": "/proprietary_libs" }
         ]
     },
     {
@@ -60,6 +66,7 @@
                 "items": [
                     { "text": "Customizing Functionality", "link": "/custom_quantum_functions" },
                     { "text": "Driver Installation with Zadig", "link": "/driver_installation_zadig" },
+                    { "text": "Community Modules", "link": "/features/community_modules" },
                     { "text": "Keymap Overview", "link": "/keymap" },
                     {
                         "text": "Development Environments",
@@ -168,6 +175,7 @@
                         ]
                     },
                     { "text": "Audio", "link": "/features/audio" },
+                    { "text": "Battery", "link": "/features/battery" },
                     { "text": "Bootmagic", "link": "/features/bootmagic" },
                     { "text": "Converters", "link": "/feature_converters" },
                     { "text": "Custom Matrix", "link": "/custom_matrix" },
@@ -206,7 +214,7 @@
                     { "text": "My Pull Request Was Flagged", "link": "/breaking_changes_instructions" },
                     {
                         "text": "Most Recent ChangeLog",
-                        "link": "/ChangeLog/20241124"
+                        "link": "/ChangeLog/20250831"
                     },
                     { "text": "Past Breaking Changes", "link": "/breaking_changes_history" },
                     { "text": "Deprecation Policy", "link": "/support_deprecation_policy" }
@@ -226,6 +234,7 @@
                             { "text": "ADC Driver", "link": "/drivers/adc" },
                             { "text": "APA102 Driver", "link": "/drivers/apa102" },
                             { "text": "Audio Driver", "link": "/drivers/audio" },
+                            { "text": "Battery Driver", "link": "/drivers/battery" },
                             { "text": "EEPROM Driver", "link": "/drivers/eeprom" },
                             { "text": "Flash Driver", "link": "/drivers/flash" },
                             { "text": "I2C Driver", "link": "/drivers/i2c" },

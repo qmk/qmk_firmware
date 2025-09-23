@@ -9,12 +9,19 @@ This page does not assume any special knowledge about QMK, but reading [Understa
 We have structured QMK as a hierarchy:
 
 * Core (`_quantum`)
+  * Community Module (`_<module>`)
+    * Community Module -> Keyboard/Revision (`_<module>_kb`)
+      * Community Module -> Keymap (`_<module>_user`)
   * Keyboard/Revision (`_kb`)
     * Keymap (`_user`)
 
 Each of the functions described below can be defined with a `_kb()` suffix or a `_user()` suffix. We intend for you to use the `_kb()` suffix at the Keyboard/Revision level, while the `_user()` suffix should be used at the Keymap level.
 
-When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `_user()` before executing anything else- otherwise the keymap level function will never be called.
+When defining functions at the Keyboard/Revision level it is important that your `_kb()` implementation call `_user()` at an appropriate location, otherwise the keymap level function will never be called.
+
+Functions at the `_<module>_xxx()` level are intended to allow keyboards or keymaps to override or enhance the processing associated with a [community module](/features/community_modules).
+
+When defining module overrides such as `process_record_<module>()`, the same pattern should be used; the module must invoke `process_record_<module>_kb()` as appropriate.
 
 # Custom Keycodes
 
@@ -99,7 +106,7 @@ These are the three main initialization functions, listed in the order that they
 * `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
 ::: warning
-For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+For most people, the `keyboard_post_init_user` function is what you want to implement. For instance, this is where you want to set up things for RGB Underglow.
 :::
 
 ## Keyboard Pre Initialization code
@@ -138,7 +145,7 @@ void keyboard_pre_init_user(void) {
 
 This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized.
 
-This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started.
+This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependent on where it's started.
 
 
 ### `matrix_init_*` Function Documentation
@@ -202,7 +209,7 @@ You should use this function if you need custom matrix scanning code. It can als
 
 This function gets called at the end of all QMK processing, before starting the next iteration. You can safely assume that QMK has dealt with the last matrix scan at the time that these functions are invoked -- layer states have been updated, USB reports have been sent, LEDs have been updated, and displays have been drawn.
 
-Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throtting their behaviour if you do indeed require implementing something special.
+Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throttling their behaviour if you do indeed require implementing something special.
 
 ### Example `void housekeeping_task_user(void)` implementation
 
@@ -239,7 +246,7 @@ void check_rgb_timeout(void) {
     }
 }
 /* Then, call the above functions from QMK's built in post processing functions like so */
-/* Runs at the end of each scan loop, check if RGB timeout has occured or not */
+/* Runs at the end of each scan loop, check if RGB timeout has occurred or not */
 void housekeeping_task_user(void) {
 #ifdef RGBLIGHT_TIMEOUT
     check_rgb_timeout();
@@ -309,7 +316,7 @@ bool shutdown_kb(bool jump_to_bootloader) {
     if (!shutdown_user(jump_to_bootloader)) {
         return false;
     }
-    
+
     if (jump_to_bootloader) {
         // red for bootloader
         rgb_matrix_set_color_all(RGB_OFF);

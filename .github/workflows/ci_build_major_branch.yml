@@ -45,7 +45,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Determine concurrency
         id: generate_slice_length
@@ -83,12 +83,12 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Download firmwares
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           pattern: firmware-*
           path: .
