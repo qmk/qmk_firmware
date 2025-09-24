@@ -6,7 +6,6 @@
 // switch easily between the 36-key keyboard and a laptop keyboard. The goal is to minimize the
 // learning curve by avoiding key relocation and maintaining our hard-earned muscle memory.
 
-#include "keycodes.h"
 #include QMK_KEYBOARD_H
 
 enum layers {
