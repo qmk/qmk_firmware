@@ -54,7 +54,6 @@
             "rainbow_pinwheels": true,
             "raindrops": true,
             "riverflow": true,
-            "solid_color": true,
             "solid_multisplash": true,
             "solid_reactive": true,
             "solid_reactive_cross": true,
@@ -157,6 +156,9 @@
             "matrix": [5, 8]
         },
         "enabled": true,
+        "handedness": {
+            "pin": "A8"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["A6", "A5", "A4", "A3", "A2", "B5", "B6", "B7"],
