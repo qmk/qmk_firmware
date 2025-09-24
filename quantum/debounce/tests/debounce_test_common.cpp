@@ -121,8 +121,6 @@ void DebounceTest::runEventsInternal() {
         checkCookedMatrix(false, "debounce() modified cooked matrix");
         advance_time(1);
     }
-
-    debounce_free();
 }
 
 void DebounceTest::runDebounce(bool changed) {

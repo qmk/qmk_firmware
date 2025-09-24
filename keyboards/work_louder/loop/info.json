@@ -54,6 +54,17 @@
             "typing_heatmap": true
         },
         "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 11], "x": 188, "y": 32, "flags": 4},
+            {"matrix": [0, 10], "x": 169, "y": 32, "flags": 4},
+            {"matrix": [0, 9], "x": 150, "y": 32, "flags": 4},
+            {"matrix": [0, 8], "x": 131, "y": 32, "flags": 4},
+            {"matrix": [0, 7], "x": 112, "y": 32, "flags": 4},
+            {"matrix": [0, 6], "x": 93, "y": 32, "flags": 4},
+            {"matrix": [0, 5], "x": 74, "y": 32, "flags": 4},
+            {"matrix": [0, 4], "x": 55, "y": 32, "flags": 4},
+            {"matrix": [0, 3], "x": 36, "y": 32, "flags": 4}
+        ],
         "max_brightness": 120,
         "sleep": true
     },

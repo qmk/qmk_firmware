@@ -415,6 +415,9 @@ Configures the [LED Matrix](features/led_matrix) feature.
     * `center_point` <Badge type="info">Array: Number</Badge>
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
+    * `flag_steps` <Badge type="info">Array: Number</Badge>
+        * A list of flag bitfields that can be cycled through.
+        * Default: `[255, 5, 0]`
     * `default`
         * `animation` <Badge type="info">String</Badge>
             * The default effect. Must be one of `led_matrix.animations`
@@ -660,6 +663,9 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
     * `center_point` <Badge type="info">Array: Number</Badge>
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
+    * `flag_steps` <Badge type="info">Array: Number</Badge>
+        * A list of flag bitfields that can be cycled through.
+        * Default: `[255, 5, 2, 0]`
     * `default`
         * `animation` <Badge type="info">String</Badge>
             * The default effect. Must be one of `rgb_matrix.animations`
