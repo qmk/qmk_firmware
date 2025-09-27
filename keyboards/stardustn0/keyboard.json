@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -17,7 +15,6 @@
         "rows": ["GP3","GP9","GP13","GP14","GP15"]
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
@@ -26,11 +23,6 @@
     
     "split": {
         "enabled": true,
-        "main": "left",
-        "soft_serial_pin": "GP1",
-        "transport": {
-            "protocol": "serial"
-        },
         "matrix_pins": {
             "right": {
                 "cols": ["GP15","GP14","GP13","GP12","GP20","GP26"],
@@ -41,7 +33,8 @@
             "timeout": 2500
         },
         "serial": {
-            "driver":"vendor"
+            "driver":"vendor",
+            "pin":"GP1"
         },
         "handedness":{
             "pin":"GP2"
