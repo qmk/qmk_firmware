@@ -431,6 +431,9 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * `speed` <Badge type="info">Number</Badge>
             * The default animation speed.
             * Default: `128`
+        * `flags` <Badge type="info">Number</Badge>
+            * The default LED flags.
+            * Default: `255`
     * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The driver to use. Must be one of `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`.
     * `layout` <Badge type="info">Array: Object</Badge> <Badge>Required</Badge>
@@ -685,6 +688,9 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * `speed` <Badge type="info">Number</Badge>
             * The default animation speed.
             * Default: `128`
+        * `flags` <Badge type="info">Number</Badge>
+            * The default LED flags.
+            * Default: `255`
     * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3236`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
     * `hue_steps` <Badge type="info">Number</Badge>

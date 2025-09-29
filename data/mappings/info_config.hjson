@@ -112,6 +112,7 @@
     "LED_MATRIX_DEFAULT_ON": {"info_key": "led_matrix.default.on", "value_type": "bool"},
     "LED_MATRIX_DEFAULT_VAL": {"info_key": "led_matrix.default.val", "value_type": "int"},
     "LED_MATRIX_DEFAULT_SPD": {"info_key": "led_matrix.default.speed", "value_type": "int"},
+    "LED_MATRIX_DEFAULT_FLAGS": {"info_key": "led_matrix.default.flags", "value_type": "int"},
 
     // Locking Switch
     "LOCKING_SUPPORT_ENABLE": {"info_key": "qmk.locking.enabled", "value_type": "flag"},
@@ -166,6 +167,7 @@
     "RGB_MATRIX_DEFAULT_SAT": {"info_key": "rgb_matrix.default.sat", "value_type": "int"},
     "RGB_MATRIX_DEFAULT_VAL": {"info_key": "rgb_matrix.default.val", "value_type": "int"},
     "RGB_MATRIX_DEFAULT_SPD": {"info_key": "rgb_matrix.default.speed", "value_type": "int"},
+    "RGB_MATRIX_DEFAULT_FLAGS": {"info_key": "rgb_matrix.default.flags", "value_type": "int"},
 
     // RGBLight
     "RGBLED_SPLIT": {"info_key": "rgblight.split_count", "value_type": "array.int"},
