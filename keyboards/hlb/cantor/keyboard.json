@@ -24,8 +24,14 @@
             ["A2", "A1", "A0", null, null, null]
         ]
     },
+    "bootmagic": {
+        "matrix": [3,0]
+    },
     "split": {
         "enabled": true,
+        "bootmagic": {
+            "matrix": [7,2]
+        },
         "matrix_pins": {
             "right": {
                 "direct": [
