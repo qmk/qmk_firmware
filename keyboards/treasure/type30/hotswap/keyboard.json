@@ -20,6 +20,10 @@
     },
     "processor": "atmega32u2",
     "rgb_matrix": {
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true
+        },
         "driver": "ws2812",
         "default": {
             "speed": 40,
