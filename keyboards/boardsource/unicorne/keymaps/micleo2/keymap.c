@@ -17,7 +17,6 @@ enum layers {
   _NAV, // Navigation
   _SYS, // Sysctrl
   _NUM, // Numpad
-  _BLN, // Blender
   _PLV, // Plover
 };
 
@@ -26,26 +25,37 @@ enum layers {
 #define N _NAV
 #define Y _SYS
 #define U _NUM
-#define L _BLN
 #define P _PLV
 
 // This denotes the key you used to enter into the layer.
 // E for entry.
 #define ___E___ _______
 
-enum custom_keycodes {
-  KB_VLEAD = SAFE_RANGE
-};
-
 #define PWR_SFT LT(0, KC_A)
+#define BSE_S LT(U, KC_S)
+#define BSE_D ALT_T(KC_D)
+#define BSE_F LT(N, KC_F)
+// base left thumb
+#define BSE_LTB GUI_T(KC_SPC)
+
+enum my_keycodes {
+  // Following codes use platform-dependent modifier
+  KC_ZMIN = SAFE_RANGE,
+  KC_ZMOUT,
+  KC_CLSTB, // close tab
+  // Multi-character
+  KC_HMEDIR,
+  KC_CURDIR,
+  KC_UPDIR,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_BSE] = LAYOUT_split_3x6_3(
-    TG(_BLN),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
-    PWR_SFT,       KC_A,          LT(U, KC_S),  ALT_T(KC_D),   LT(N, KC_F),   KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
-    TG(_PLV),      KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
-                                                CTL_T(KC_ESC), GUI_T(KC_SPC), HYPR_T(KC_ENT),       KB_VLEAD,      SFT_T(KC_BSPC),OSL(M)
+    TG(_PLV),      KC_Q,          KC_W,         KC_E,          KC_R,          KC_T,                 KC_Y,          KC_U,          KC_I,         KC_O,          KC_P,          KC_DEL,
+    PWR_SFT,       KC_A,          BSE_S,        BSE_D,         BSE_F,         KC_G,                 KC_H,          KC_J,          KC_K,         KC_L,          KC_SCLN,       OSL(Y),
+    _______,       KC_Z,          KC_X,         KC_C,          KC_V,          KC_B,                 KC_N,          KC_M,          KC_COMM,      KC_DOT,        KC_COLN,       C(G(KC_Q)),
+                                                CTL_T(KC_ESC), BSE_LTB,       HYPR_T(KC_ENT),       HYPR_T(KC_SPC),SFT_T(KC_BSPC),OSL(M)
 ),
 
 [_SYM] = LAYOUT_split_3x6_3(
@@ -58,14 +68,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NAV] = LAYOUT_split_3x6_3(
     _______,       _______,       _______,      _______,       _______,       _______,              _______,       C(KC_TAB),     KC_TAB,       LSFT(KC_TAB),  C(S(KC_TAB)),  _______,
     _______,       _______,       _______,      _______,       ___E___,       _______,              KC_LEFT,       KC_DOWN,       KC_UP,        KC_RGHT,       _______,       _______,
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       _______,       KC_HOME,      KC_END,        _______,       _______,
+    _______,       _______,       _______,      _______,       _______,       _______,              _______,       KC_ZMOUT,      KC_HOME,      KC_END,        KC_ZMIN,    _______,
                                                 _______,       _______,       _______,              _______,       KC_ENT,        _______
 ),
 
 [_SYS] = LAYOUT_split_3x6_3(
-    CW_TOGG,       RGB_TOG,       RGB_VAD,      RGB_VAI,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
-    _______,       _______,       KC_MPLY,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
-    QK_BOOT,       _______,       KC_MPRV,      KC_MNXT,       KC_MUTE,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        _______,
+    _______,       _______,       _______,      _______,       KC_PSCR,       _______,              _______,       KC_F7,         KC_F8,        KC_F9,         KC_F12,        _______,
+    _______,       _______,       KC_MUTE,      KC_VOLD,       KC_VOLU,       _______,              _______,       KC_F4,         KC_F5,        KC_F6,         KC_F11,        ___E___,
+    QK_BOOT,       _______,       KC_MPLY,      KC_MPRV,       KC_MNXT,       _______,              _______,       KC_F1,         KC_F2,        KC_F3,         KC_F10,        _______,
                                                 _______,       _______,       _______,              _______,       _______,       _______
 ),
 
@@ -76,47 +86,46 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                 _______,       _______,       _______,              _______,       KC_0,          KC_BSPC
 ),
 
-[_BLN] = LAYOUT_split_3x6_3(
-    KC_GRV,        LT(0, KC_Q),   LT(0, KC_W),  LT(0, KC_E),   LT(0, KC_R),   LT(0, KC_T),          _______,       _______,       _______,      _______,       _______,       _______,
-    SFT_T(KC_TAB), _______,       _______,      _______,       _______,       LT(0, KC_G),          _______,       _______,       _______,      _______,       _______,       _______,
-    TG(_BLN),      _______,       LT(0, KC_X),  LT(0, KC_C),   LT(0, KC_V),   _______,              _______,       _______,       _______,      _______,       _______,       _______,
-                                                _______,       _______,       SFT_T(KC_ENT),        _______,       _______,       _______
-),
-
 [_PLV] = LAYOUT_split_3x6_3(
-    _______,       _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       _______,
+    TG(_PLV),      _______,       _______,      _______,       _______,       _______,              _______,       _______,       _______,      _______,       _______,       _______,
     _______,       STN_S1,        STN_TL,       STN_PL,        STN_HL,        STN_ST1,              STN_ST3,       STN_FR,        STN_PR,       STN_LR,        STN_TR,        STN_DR,
-    TG(_PLV),      STN_S2,        STN_KL,       STN_WL,        STN_RL,        STN_ST2,              STN_ST4,       STN_RR,        STN_BR,       STN_GR,        STN_SR,        STN_ZR,
+    _______,       STN_S2,        STN_KL,       STN_WL,        STN_RL,        STN_ST2,              STN_ST4,       STN_RR,        STN_BR,       STN_GR,        STN_SR,        STN_ZR,
                                                 STN_A,         STN_O,         STN_AO,               STN_EU,        STN_E,         STN_U
 )
 
 };
 
-// clang-format on
-
 #define SEQ_END 0
-const uint16_t PROGMEM goto_ws1[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_M, SEQ_END};
-const uint16_t PROGMEM goto_ws2[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_COMM, SEQ_END};
-const uint16_t PROGMEM goto_ws3[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_DOT, SEQ_END};
-const uint16_t PROGMEM goto_ws4[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_J, SEQ_END};
-const uint16_t PROGMEM goto_ws5[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_K, SEQ_END};
-const uint16_t PROGMEM goto_ws6[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_L, SEQ_END};
-const uint16_t PROGMEM goto_ws7[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_U, SEQ_END};
-const uint16_t PROGMEM goto_ws8[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_I, SEQ_END};
-const uint16_t PROGMEM goto_ws9[] = {LT(U, KC_S), GUI_T(KC_SPC), KC_O, SEQ_END};
 
-// clang-format off
+const uint16_t PROGMEM chrd_goto_ws1[] = {BSE_S, BSE_LTB, KC_M, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws2[] = {BSE_S, BSE_LTB, KC_COMM, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws3[] = {BSE_S, BSE_LTB, KC_DOT, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws4[] = {BSE_S, BSE_LTB, KC_J, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws5[] = {BSE_S, BSE_LTB, KC_K, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws6[] = {BSE_S, BSE_LTB, KC_L, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws7[] = {BSE_S, BSE_LTB, KC_U, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws8[] = {BSE_S, BSE_LTB, KC_I, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws9[] = {BSE_S, BSE_LTB, KC_O, SEQ_END};
+
+const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
+const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
+const uint16_t PROGMEM chrd_updir[]   = {BSE_S, BSE_D, BSE_F, KC_K, SEQ_END};
+
 combo_t key_combos[] = {
-    COMBO(goto_ws1, G(KC_1)),
-    COMBO(goto_ws2, G(KC_2)),
-    COMBO(goto_ws3, G(KC_3)),
-    COMBO(goto_ws4, G(KC_4)),
-    COMBO(goto_ws5, G(KC_5)),
-    COMBO(goto_ws6, G(KC_6)),
-    COMBO(goto_ws7, G(KC_7)),
-    COMBO(goto_ws8, G(KC_8)),
-    COMBO(goto_ws9, G(KC_9)),
+  COMBO(chrd_goto_ws1, G(KC_1)),
+  COMBO(chrd_goto_ws2, G(KC_2)),
+  COMBO(chrd_goto_ws3, G(KC_3)),
+  COMBO(chrd_goto_ws4, G(KC_4)),
+  COMBO(chrd_goto_ws5, G(KC_5)),
+  COMBO(chrd_goto_ws6, G(KC_6)),
+  COMBO(chrd_goto_ws7, G(KC_7)),
+  COMBO(chrd_goto_ws8, G(KC_8)),
+  COMBO(chrd_goto_ws9, G(KC_9)),
+  COMBO(chrd_curdir, KC_CURDIR),
+  COMBO(chrd_homedir, KC_HMEDIR),
+  COMBO(chrd_updir, KC_UPDIR),
 };
+
 // clang-format on
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
@@ -176,190 +185,8 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
     return true;
 }
 
-typedef struct vlead_seq_t {
-    const uint16_t *keys;
-    uint16_t        event_id;
-    unsigned int    is_eligible : 1;
-    unsigned int    keys_count : 7;
-} vlead_seq_t;
-#define VLEAD_SEQ(ck, ca) \
-    { .keys = &(ck)[0], .event_id = (ca) }
-
-enum vleader_events {
-    K_U,
-    K_D,
-    K_E,
-    K_M,
-    K_H,
-    K_NM,
-    K_NT,
-    K_NA,
-    K_LTHUMB,
-};
-
-const uint16_t PROGMEM k_u[]      = {KC_U, SEQ_END};
-const uint16_t PROGMEM k_d[]      = {ALT_T(KC_D), SEQ_END};
-const uint16_t PROGMEM k_e[]      = {KC_E, SEQ_END};
-const uint16_t PROGMEM k_m[]      = {KC_M, SEQ_END};
-const uint16_t PROGMEM k_h[]      = {KC_H, SEQ_END};
-const uint16_t PROGMEM k_nm[]     = {KC_N, KC_M, SEQ_END};
-const uint16_t PROGMEM k_nt[]     = {KC_N, KC_T, SEQ_END};
-const uint16_t PROGMEM k_na[]     = {KC_N, KC_A, SEQ_END};
-const uint16_t PROGMEM k_lthumb[] = {GUI_T(KC_SPC), SEQ_END};
-
-// clang-format off
-vlead_seq_t vleader_map[] = {
-    VLEAD_SEQ(k_u, K_U),
-    VLEAD_SEQ(k_d, K_D),
-    VLEAD_SEQ(k_e, K_E),
-    VLEAD_SEQ(k_m, K_M),
-    VLEAD_SEQ(k_h, K_H),
-    VLEAD_SEQ(k_nm, K_NM),
-    VLEAD_SEQ(k_nt, K_NT),
-    VLEAD_SEQ(k_na, K_NA),
-    VLEAD_SEQ(k_lthumb, K_LTHUMB),
-};
-// clang-format on
-
-void process_vlead_event_user(uint16_t vlead_idx) {
-    switch (vlead_idx) {
-        case K_LTHUMB:
-            SEND_STRING(". ");
-            add_oneshot_mods(MOD_MASK_SHIFT);
-            break;
-        case K_U:
-            SEND_STRING("../");
-            break;
-        case K_D:
-            SEND_STRING("./");
-            break;
-        default:
-            break;
-    }
-}
-
-bool     vleading              = false;
-uint16_t vleader_time          = 0;
-uint8_t  vleader_sequence_size = 0;
-
-uint16_t vleader_map_count(void) {
-    return sizeof(vleader_map) / sizeof(vlead_seq_t);
-}
-
-vlead_seq_t *vleader_map_get(uint16_t seq_idx) {
-    return &vleader_map[seq_idx];
-}
-
-bool vleader_sequence_active(void) {
-    return vleading;
-}
-
-bool vleader_sequence_timed_out(void) {
-#if defined(LEADER_NO_TIMEOUT)
-    return vleader_sequence_size > 0 && timer_elapsed(vleader_time) > LEADER_TIMEOUT;
-#else
-    return timer_elapsed(vleader_time) > LEADER_TIMEOUT;
-#endif
-}
-
-void vleader_reset_timer(void) {
-    vleader_time = timer_read();
-}
-
-void vleader_start(void) {
-    vleading              = true;
-    vleader_time          = timer_read();
-    vleader_sequence_size = 0;
-    for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq = vleader_map_get(i);
-        seq->is_eligible = 1;
-    }
-}
-
-void vleader_end(void) {
-    vleading = false;
-}
-
-void vleader_sequence_add(uint16_t keycode) {
-    vleader_sequence_size++;
-    bool         duplicate_matches  = false;
-    vlead_seq_t *first_matching_seq = NULL;
-    for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq = vleader_map_get(i);
-        if (!seq->is_eligible) continue;
-        if (seq->keys_count < vleader_sequence_size) {
-            seq->is_eligible = false;
-            continue;
-        }
-        uint16_t seq_cur_kc = pgm_read_word(&seq->keys[vleader_sequence_size - 1]);
-        if (seq_cur_kc != keycode) {
-            seq->is_eligible = false;
-            continue;
-        }
-        if (first_matching_seq) {
-            duplicate_matches = true;
-        } else {
-            first_matching_seq = seq;
-        }
-    }
-    if (!first_matching_seq) {
-        vleader_end();
-        return;
-    }
-    // If we found a single match, execute this event and end the sequence.
-    if (!duplicate_matches) {
-        process_vlead_event_user(first_matching_seq->event_id);
-        vleader_end();
-        return;
-    }
-    // We found a partial match, reset the timer.
-    vleader_reset_timer();
-}
-
-bool process_vleader(uint16_t keycode, keyrecord_t *record) {
-    if (vleader_sequence_active() && vleader_sequence_timed_out()) {
-        vleader_end();
-    }
-    if (record->event.pressed) {
-        if (vleader_sequence_active()) {
-            // If a user enters in an incorrect sequence, we still want to consume the entire
-            // sequence. So if there is a sequence for "as", and they type "ad", then both a
-            // and d should not register as taps. But the leader will get disabled after.
-            vleader_sequence_add(keycode);
-            return false;
-        } else if (keycode == KB_VLEAD) {
-            vleader_start();
-            return false;
-        }
-    }
-    return true;
-}
-
-void keyboard_post_init_user(void) {
-    for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq        = vleader_map_get(i);
-        uint16_t     keys_count = 0;
-        while (true) {
-            uint16_t key = pgm_read_word(&seq->keys[keys_count]);
-            if (key == SEQ_END) break;
-            keys_count++;
-        }
-        seq->keys_count = keys_count;
-    }
-}
-
-void housekeeping_task_user(void) {
-    if (vleader_sequence_active() && vleader_sequence_timed_out()) {
-        vleader_end();
-    }
-}
-
 // return true if qmk should continue processing the keycode as normal.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_vleader(keycode, record)) {
-        return false;
-    }
-
     // The following handlers simply notify callbacks.
     switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
         case KC_B:
@@ -421,6 +248,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // This switch can actually modify keypress behavior.
     switch (keycode) {
+        case KC_CURDIR:
+            if (record->event.pressed) {
+                SEND_STRING("./");
+                break;
+            }
+            return false;
+        case KC_HMEDIR:
+            if (record->event.pressed) {
+                SEND_STRING("~/");
+                break;
+            }
+            return false;
+        case KC_UPDIR:
+            if (record->event.pressed) {
+                SEND_STRING("../");
+                break;
+            }
+        case KC_ZMOUT:
+            if (record->event.pressed) {
+                register_mods(copypaste_modifier);
+                tap_code16(KC_MINS);
+                unregister_mods(copypaste_modifier);
+            }
+            return false;
+        case KC_ZMIN:
+            if (record->event.pressed) {
+                register_mods(copypaste_modifier);
+                tap_code16(KC_PLUS);
+                unregister_mods(copypaste_modifier);
+            }
+            return false;
         // When tapped: oneshot shift.
         // When tapped while holding shift: toggle caps word.
         // When held: hold shift.
@@ -526,39 +384,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
 
 #    define SET_COLOR(...) SET_COLOR_INNER(__VA_ARGS__)
 
-    /* if (vleader_sequence_active()) { */
-    /*     for (uint8_t row = 0; row < MATRIX_ROWS; ++row) { */
-    /*         for (uint8_t col = 0; col < MATRIX_COLS; ++col) { */
-    /*             uint8_t index = g_led_config.matrix_co[row][col]; */
-    /*             if (!(index >= led_min && index < led_max && index != NO_LED)) { */
-    /*                 continue; */
-    /*             } */
-    /*             uint16_t kc = keymap_key_to_keycode(layer, (keypos_t){col, row}); */
-    /*             if (kc == KC_NO) { */
-    /*                 rgb_matrix_set_color(index, RGB_OFF); */
-    /*                 continue; */
-    /*             } */
-    /*             bool kc_is_eligible = false; */
-    /*             for (uint16_t i = 0; i < vleader_map_count(); i++) { */
-    /*                 vlead_seq_t *seq = vleader_map_get(i); */
-    /*                 if (!seq->is_eligible) continue; */
-    /*                 if (seq->keys_count < vleader_sequence_size) continue; */
-    /*                 uint16_t seq_cur_kc = pgm_read_word(&seq->keys[vleader_sequence_size]); */
-    /*                 if (seq_cur_kc == kc) { */
-    /*                     kc_is_eligible = true; */
-    /*                     break; */
-    /*                 } */
-    /*             } */
-    /*             if (kc_is_eligible) { */
-    /*                 rgb_matrix_set_color(index, RGB_GREEN); */
-    /*             } else { */
-    /*                 rgb_matrix_set_color(index, BASE_COL); */
-    /*             } */
-    /*         } */
-    /*     } */
-    /*     return false; */
-    /* } */
-
     switch (layer) {
         case _BSE:
             SET_COLOR(BASE_COL)
@@ -575,9 +400,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         case _NUM:
         case _PLV:
             SET_COLOR(RGB_GREEN);
-            break;
-        case _BLN:
-            SET_COLOR(RGB_ORANGE);
             break;
         default:
             SET_COLOR(BASE_COL);
@@ -686,11 +508,6 @@ bool oled_task_user() {
         return false;
     }
 
-    if (vleader_sequence_active()) {
-        oled_write_raw(gw_diver, sizeof(gw_diver));
-        return false;
-    }
-
     const uint8_t cur_layer = get_highest_layer(layer_state);
     switch (cur_layer) {
         case _BSE:
@@ -710,9 +527,6 @@ bool oled_task_user() {
         case _NUM:
         case _PLV:
             oled_write_raw(gw_key, sizeof(gw_key));
-            break;
-        case _BLN:
-            oled_write_raw(gw_flagman_right, sizeof(gw_flagman_right));
             break;
         default:
             render_idle();

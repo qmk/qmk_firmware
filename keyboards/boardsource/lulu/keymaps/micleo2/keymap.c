@@ -52,9 +52,6 @@ enum my_keycodes {
   KC_ZMOUT,
   KC_CLSTB, // close tab
   // Multi-character
-  KC_MPARENS,
-  KC_SPRDOT,
-  KC_SPRQUES,
   KC_HMEDIR,
   KC_CURDIR,
   KC_UPDIR,
@@ -130,94 +127,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #define SEQ_END 0
 
+const uint16_t PROGMEM chrd_goto_ws1[] = {BSE_S, BSE_LTB, KC_M, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws2[] = {BSE_S, BSE_LTB, KC_COMM, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws3[] = {BSE_S, BSE_LTB, KC_DOT, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws4[] = {BSE_S, BSE_LTB, KC_J, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws5[] = {BSE_S, BSE_LTB, KC_K, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws6[] = {BSE_S, BSE_LTB, KC_L, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws7[] = {BSE_S, BSE_LTB, KC_U, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws8[] = {BSE_S, BSE_LTB, KC_I, SEQ_END};
+const uint16_t PROGMEM chrd_goto_ws9[] = {BSE_S, BSE_LTB, KC_O, SEQ_END};
 
-const uint16_t PROGMEM goto_ws1[] = {BSE_S, BSE_LTB, KC_M, SEQ_END};
-const uint16_t PROGMEM goto_ws2[] = {BSE_S, BSE_LTB, KC_COMM, SEQ_END};
-const uint16_t PROGMEM goto_ws3[] = {BSE_S, BSE_LTB, KC_DOT, SEQ_END};
-const uint16_t PROGMEM goto_ws4[] = {BSE_S, BSE_LTB, KC_J, SEQ_END};
-const uint16_t PROGMEM goto_ws5[] = {BSE_S, BSE_LTB, KC_K, SEQ_END};
-const uint16_t PROGMEM goto_ws6[] = {BSE_S, BSE_LTB, KC_L, SEQ_END};
-const uint16_t PROGMEM goto_ws7[] = {BSE_S, BSE_LTB, KC_U, SEQ_END};
-const uint16_t PROGMEM goto_ws8[] = {BSE_S, BSE_LTB, KC_I, SEQ_END};
-const uint16_t PROGMEM goto_ws9[] = {BSE_S, BSE_LTB, KC_O, SEQ_END};
-
-/* const uint16_t PROGMEM matching_parens[] = {BSE_D, BSE_F, KC_K, SEQ_END}; */
-/* const uint16_t PROGMEM period_chord[]    = {BSE_D, BSE_F, SEQ_END}; */
-/* const uint16_t PROGMEM question_chord[]  = {BSE_D, BSE_F, KC_J, SEQ_END}; */
-
-const uint16_t PROGMEM curdir_chord[]  = {BSE_S, BSE_F, SEQ_END};
-const uint16_t PROGMEM homedir_chord[] = {BSE_S, BSE_F, KC_J, SEQ_END};
-const uint16_t PROGMEM updir_chord[]   = {BSE_S, BSE_F, KC_K, SEQ_END};
+const uint16_t PROGMEM chrd_curdir[]  = {BSE_S, BSE_D, BSE_F, SEQ_END};
+const uint16_t PROGMEM chrd_homedir[] = {BSE_S, BSE_D, BSE_F, KC_J, SEQ_END};
+const uint16_t PROGMEM chrd_updir[]   = {BSE_S, BSE_D, BSE_F, KC_K, SEQ_END};
 
 combo_t key_combos[] = {
-  COMBO(goto_ws1, G(KC_1)),
-  COMBO(goto_ws2, G(KC_2)),
-  COMBO(goto_ws3, G(KC_3)),
-  COMBO(goto_ws4, G(KC_4)),
-  COMBO(goto_ws5, G(KC_5)),
-  COMBO(goto_ws6, G(KC_6)),
-  COMBO(goto_ws7, G(KC_7)),
-  COMBO(goto_ws8, G(KC_8)),
-  COMBO(goto_ws9, G(KC_9)),
-  /* COMBO(matching_parens, KC_MPARENS), */
-  /* COMBO(period_chord, KC_SPRDOT), */
-  /* COMBO(question_chord, KC_SPRQUES), */
-  COMBO(curdir_chord, KC_CURDIR),
-  COMBO(homedir_chord, KC_HMEDIR),
-  COMBO(updir_chord, KC_UPDIR),
+  COMBO(chrd_goto_ws1, G(KC_1)),
+  COMBO(chrd_goto_ws2, G(KC_2)),
+  COMBO(chrd_goto_ws3, G(KC_3)),
+  COMBO(chrd_goto_ws4, G(KC_4)),
+  COMBO(chrd_goto_ws5, G(KC_5)),
+  COMBO(chrd_goto_ws6, G(KC_6)),
+  COMBO(chrd_goto_ws7, G(KC_7)),
+  COMBO(chrd_goto_ws8, G(KC_8)),
+  COMBO(chrd_goto_ws9, G(KC_9)),
+  COMBO(chrd_curdir, KC_CURDIR),
+  COMBO(chrd_homedir, KC_HMEDIR),
+  COMBO(chrd_updir, KC_UPDIR),
 };
 
-// clang-format on
-
-/* ********************* */
-/* VLEADER SECTION BEGIN */
-/* ********************* */
-
-typedef struct vlead_seq_t {
-    const uint16_t *keys;
-    uint16_t        event_id;
-    unsigned int    is_eligible : 1;
-    unsigned int    keys_count : 7;
-} vlead_seq_t;
-#define VLEAD_SEQ(ck, ca) {.keys = &(ck)[0], .event_id = (ca)}
-
-enum vleader_events {
-    K_U,
-    K_D,
-    K_E,
-    K_M,
-    K_H,
-    K_NM,
-    K_NT,
-    K_NA,
-    K_A,
-    K_LTHUMB,
-};
-
-const uint16_t PROGMEM k_u[]      = {KC_U, SEQ_END};
-const uint16_t PROGMEM k_d[]      = {ALT_T(KC_D), SEQ_END};
-const uint16_t PROGMEM k_e[]      = {KC_E, SEQ_END};
-const uint16_t PROGMEM k_m[]      = {KC_M, SEQ_END};
-const uint16_t PROGMEM k_h[]      = {KC_H, SEQ_END};
-const uint16_t PROGMEM k_nm[]     = {KC_N, KC_M, SEQ_END};
-const uint16_t PROGMEM k_nt[]     = {KC_N, KC_T, SEQ_END};
-const uint16_t PROGMEM k_na[]     = {KC_N, KC_A, SEQ_END};
-const uint16_t PROGMEM k_a[]      = {KC_A, SEQ_END};
-const uint16_t PROGMEM k_lthumb[] = {GUI_T(KC_SPC), SEQ_END};
-
-// clang-format off
-vlead_seq_t vleader_map[] = {
-    VLEAD_SEQ(k_u, K_U),
-    VLEAD_SEQ(k_d, K_D),
-    VLEAD_SEQ(k_e, K_E),
-    VLEAD_SEQ(k_m, K_M),
-    VLEAD_SEQ(k_h, K_H),
-    VLEAD_SEQ(k_nm, K_NM),
-    VLEAD_SEQ(k_nt, K_NT),
-    VLEAD_SEQ(k_na, K_NA),
-    VLEAD_SEQ(k_a, K_A),
-    VLEAD_SEQ(k_lthumb, K_LTHUMB),
-};
 // clang-format on
 
 static uint8_t host_is_apple = 0;
@@ -235,168 +173,6 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
     }
     return true;
 }
-
-void process_vlead_event_user(uint16_t vlead_idx) {
-    switch (vlead_idx) {
-        case K_LTHUMB:
-            SEND_STRING(". ");
-            add_oneshot_mods(MOD_MASK_SHIFT);
-            break;
-        case K_A:
-            SEND_STRING("? ");
-            add_oneshot_mods(MOD_MASK_SHIFT);
-            break;
-        case K_U:
-            SEND_STRING("../");
-            break;
-        case K_D:
-            SEND_STRING("./");
-            break;
-        case K_E:
-            SEND_STRING("michaelleon67@gmail.com");
-            break;
-        case K_M:
-            SEND_STRING("8473138536");
-            break;
-        case K_H:
-            if (get_mods() & MOD_MASK_SHIFT) {
-                SEND_STRING("Hermes");
-            } else {
-                SEND_STRING("hermes");
-            }
-            break;
-        case K_NM:
-            SEND_STRING("Martin");
-            /* send_unicode_string("í"); */
-            /* SEND_STRING(SS_DELAY(15) "n"); */
-            break;
-        case K_NT:
-            SEND_STRING("Tzvetan");
-            break;
-        case K_NA:
-            SEND_STRING("Aakash");
-            break;
-        default:
-            break;
-    }
-}
-
-bool     vleading              = false;
-uint16_t vleader_time          = 0;
-uint8_t  vleader_sequence_size = 0;
-
-uint16_t vleader_map_count(void) {
-    return sizeof(vleader_map) / sizeof(vlead_seq_t);
-}
-
-vlead_seq_t *vleader_map_get(uint16_t seq_idx) {
-    return &vleader_map[seq_idx];
-}
-
-bool vleader_sequence_active(void) {
-    return vleading;
-}
-
-bool vleader_sequence_timed_out(void) {
-#if defined(LEADER_NO_TIMEOUT)
-    return vleader_sequence_size > 0 && timer_elapsed(vleader_time) > LEADER_TIMEOUT;
-#else
-    return timer_elapsed(vleader_time) > LEADER_TIMEOUT;
-#endif
-}
-
-void vleader_reset_timer(void) {
-    vleader_time = timer_read();
-}
-
-void vleader_start(void) {
-    vleading              = true;
-    vleader_time          = timer_read();
-    vleader_sequence_size = 0;
-    for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq = vleader_map_get(i);
-        seq->is_eligible = 1;
-    }
-}
-
-void vleader_end(void) {
-    vleading = false;
-}
-
-void vleader_sequence_add(uint16_t keycode) {
-    vleader_sequence_size++;
-    bool         duplicate_matches  = false;
-    vlead_seq_t *first_matching_seq = NULL;
-    for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq = vleader_map_get(i);
-        if (!seq->is_eligible) continue;
-        if (seq->keys_count < vleader_sequence_size) {
-            seq->is_eligible = false;
-            continue;
-        }
-        uint16_t seq_cur_kc = pgm_read_word(&seq->keys[vleader_sequence_size - 1]);
-        if (seq_cur_kc != keycode) {
-            seq->is_eligible = false;
-            continue;
-        }
-        if (first_matching_seq) {
-            duplicate_matches = true;
-        } else {
-            first_matching_seq = seq;
-        }
-    }
-    if (!first_matching_seq) {
-        vleader_end();
-        return;
-    }
-    // If we found a single match, execute this event and end the sequence.
-    if (!duplicate_matches) {
-        process_vlead_event_user(first_matching_seq->event_id);
-        vleader_end();
-        return;
-    }
-    // We found a partial match, reset the timer.
-    vleader_reset_timer();
-}
-
-bool process_vleader(uint16_t keycode, keyrecord_t *record) {
-    if (vleader_sequence_active() && vleader_sequence_timed_out()) {
-        vleader_end();
-    }
-    if (record->event.pressed) {
-        if (vleader_sequence_active()) {
-            // If a user enters in an incorrect sequence, we still want to consume the entire
-            // sequence. So if there is a sequence for "as", and they type "ad", then both a
-            // and d should not register as taps. But the leader will get disabled after.
-            vleader_sequence_add(keycode);
-            return false;
-        }
-    }
-    return true;
-}
-
-void keyboard_post_init_user(void) {
-    for (uint16_t i = 0; i < vleader_map_count(); i++) {
-        vlead_seq_t *seq        = vleader_map_get(i);
-        uint16_t     keys_count = 0;
-        while (true) {
-            uint16_t key = pgm_read_word(&seq->keys[keys_count]);
-            if (key == SEQ_END) break;
-            keys_count++;
-        }
-        seq->keys_count = keys_count;
-    }
-}
-
-void housekeeping_task_user(void) {
-    if (vleader_sequence_active() && vleader_sequence_timed_out()) {
-        vleader_end();
-    }
-}
-
-/* ********************* */
-/* VLEADER SECTION END   */
-/* ********************* */
 
 void b_key_pressed_cb(void);
 
@@ -418,10 +194,6 @@ void refresh_key_pressed_cb(void);
 
 // return true if qmk should continue processing the keycode as normal.
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (!process_vleader(keycode, record)) {
-        return false;
-    }
-
     // The following handlers simply notify callbacks.
     switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
         case KC_B:
@@ -482,27 +254,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     const uint8_t all_mods = get_mods() | get_oneshot_mods();
     // This switch can actually modify keypress behavior.
     switch (keycode) {
-        case KC_MPARENS:
-            if (record->event.pressed) {
-                tap_code16(KC_LPRN);
-                tap_code16(KC_RPRN);
-                tap_code16(KC_LEFT);
-            }
-            return false;
-        case KC_SPRDOT:
-            if (record->event.pressed) {
-                SEND_STRING(". ");
-                add_oneshot_mods(MOD_MASK_SHIFT);
-                break;
-            }
-            return false;
-        case KC_SPRQUES:
-            if (record->event.pressed) {
-                SEND_STRING("? ");
-                add_oneshot_mods(MOD_MASK_SHIFT);
-                break;
-            }
-            return false;
         case KC_CURDIR:
             if (record->event.pressed) {
                 SEND_STRING("./");
@@ -562,12 +313,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-            break;
-        case HYPR_T(KC_SPC):
-            if (record->tap.count && record->event.pressed) {
-                vleader_start();
-                return false;
-            }
             break;
         case LT(0, KC_Q):
             if (!record->tap.count && record->event.pressed) {
@@ -787,11 +532,6 @@ bool shutdown_user(bool jump_to_bootloader) {
 bool oled_task_user() {
     cur_render_time = timer_read32();
     if (render_flash_seq() == false) {
-        return false;
-    }
-
-    if (vleader_sequence_active()) {
-        oled_write_raw(gw_diver, sizeof(gw_diver));
         return false;
     }
 
