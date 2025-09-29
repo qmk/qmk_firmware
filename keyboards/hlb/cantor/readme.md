@@ -1,8 +1,8 @@
 # HLB CantorMX F411
 
 Project based on original Cantor keyboard (42 key diodeless split keyboard), designed with simplicity in mind. It is inspired on the popular [corne](https://github.com/foostan/crkbd), [ferris](https://github.com/pierrechevalier83/ferris) and [sweep](https://github.com/davidphilipbarr/Sweep) keyboards, aiming to provide a more ergonomic (stronger column stagger) corne-like layout with a simple, easy to assemble and cheap design.
-We upgraded blackpill version to STM32F411 8Mhz therefore original firmware maintained by [Diego Palacios](https://github.com/diepala) must be adapted to this hardware.
-A case design has beed made to get a full 3DP Cantor project (see below)
+We upgraded Blackpill version to STM32F411 8Mhz therefore original firmware maintained by [Diego Palacios](https://github.com/diepala) must be adapted to this hardware.
+A case design has been made to get a full 3DP Cantor project (see below)
 
 * Keyboard Maintainer: [HLB H3lli0n](https://github.com/H3lli0n)
 * Hardware Supported: Blackpill STM32F411 8Mhz only
