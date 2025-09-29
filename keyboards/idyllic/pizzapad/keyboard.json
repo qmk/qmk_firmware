@@ -18,6 +18,9 @@
         "vid": "0x7A79"
     },
     "features": {
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
         "encoder": true
     },
     "encoder": {
