@@ -1,6 +1,6 @@
 # Treasure TYPE-30
 
-* Keyboard Maintainer: [arnstadm](https://www,treasuretypes.com)
+* Keyboard Maintainer: [Treasure](https://www,treasuretypes.com)
 * Hardware Supported: Treasure TYPE-30 Hotswap PCB
 * Hardware Availability: [Treasure Store](http://treasuretypes.com)
 
