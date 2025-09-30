@@ -36,7 +36,7 @@ Unrelated to styling, high-level tech.
 
 ### Images
 
-![QMK Color Wheel with HSV Values](./vkYVo66.jpg)
+![QMK Color Wheel with HSV Values](https://i.imgur.com/vkYVo66.jpg)
 
 ![QMK Light](./public/badge-community-light.svg)
 ![QMK Dark](./public/badge-community-dark.svg)
