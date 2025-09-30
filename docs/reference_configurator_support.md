@@ -189,15 +189,15 @@ Currently, the Configurator does not support key rotation or non-rectangular key
 
 For ISO Enter keys, QMK custom is to display it as a rectangular key, 1.25u wide and 2u high, aligned so its right edge is aligned with the right edge of the alphanumeric key block.
 
-![](./JKngtTw.png)  
+![](/JKngtTw.png)  
 *A 60% keyboard in standard ISO layout, as rendered by QMK Configurator.*
 
 #### Vertically-offset keys
 
 For vertically-offset keys, place them in KLE as if they were not offset, then edit the Y-values as needed in the converted JSON file
 
-![](./fmDvDzR.png)  
+![](/fmDvDzR.png)  
 *An 1800-layout keyboard as rendered in Keyboard Layout Editor, without the vertical offset applied to the arrow keys.*
 
-![](./8beYMBR.png)  
+![](/8beYMBR.png)  
 *A Unix diff file, showing the changes needed to vertically-offset the arrow keys in our keyboard's JSON file.*
