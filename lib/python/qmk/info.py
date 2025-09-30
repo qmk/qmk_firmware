@@ -477,6 +477,9 @@ def _extract_split_serial(info_data, config_c):
     if 'soft_serial_pin' in split:
         split['serial'] = split.get('serial', {})
         split['serial']['pin'] = split.pop('soft_serial_pin')
+    if 'soft_serial_speed' in split:
+        split['serial'] = split.get('serial', {})
+        split['serial']['speed'] = split.pop('soft_serial_speed')
 
 
 def _extract_split_transport(info_data, config_c):
@@ -796,6 +799,14 @@ def _extract_led_config(info_data, keyboard):
 
             if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
+
+            if info_data[feature].get('layout', None) and not info_data[feature].get('flag_steps', None):
+                flags = {0xFF, 0}
+                # if only a single flag is used, assume only all+none flags
+                unique_flags = set(x.get('flags', 0) for x in info_data[feature]['layout'])
+                if len(unique_flags) > 1:
+                    flags.update(unique_flags)
+                info_data[feature]['flag_steps'] = sorted(list(flags), reverse=True)
 
     return info_data
 

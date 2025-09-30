@@ -80,6 +80,30 @@
     "bastardkb/charybdis/3x5/v2/stemcell": {
         "target": "bastardkb/charybdis/3x5/elitec"
     },
+    "bastardkb/charybdis/3x6/v2/elitec": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/splinky_2": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/splinky_3": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/stemcell": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/elitec": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/splinky_2": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/splinky_3": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/stemcell": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
     "bastardkb/dilemma/3x5_2/splinky": {
         "target": "bastardkb/dilemma/3x5_2/promicro"
     },
@@ -1596,8 +1620,11 @@
     "0_sixty": {
         "target": "0_sixty/base"
     },
-    "0xcb/splaytoraid": {
-        "target": "0xcb/splaytoraid/rp2040_ce"
+    "0xcb/splaytoraid/32u4": {
+        "target": "0xcb/splaytoraid"
+    },
+    "0xcb/splaytoraid/rp2040_ce": {
+        "target": "0xcb/splaytoraid"
     },
     "1upkeyboards/pi40": {
         "target": "1upkeyboards/pi40/mit_v1_0"
@@ -1608,11 +1635,23 @@
     "1upkeyboards/sweet16": {
         "target": "1upkeyboards/sweet16/v1"
     },
+    "1upkeyboards/sweet16v2/kb2040": {
+        "target": "1upkeyboards/sweet16v2"
+    },
+    "1upkeyboards/sweet16v2/pro_micro": {
+        "target": "1upkeyboards/sweet16v2"
+    },
     "25keys/aleth42": {
         "target": "25keys/aleth42/rev1"
     },
     "25keys/zinc": {
         "target": "25keys/zinc/rev1"
+    },
+    "40percentclub/gherkin/kb2040": {
+        "target": "40percentclub/gherkin"
+    },
+    "40percentclub/gherkin/pro_micro": {
+        "target": "40percentclub/gherkin"
     },
     "40percentclub/i75": {
         "target": "40percentclub/i75/promicro"
@@ -2241,8 +2280,17 @@
     "trnthsn/s6xty5neor2": {
         "target": "trnthsn/s6xty5neor2/stm32f103"
     },
-    "tweetydabird/lotus58": {
-        "target": "tweetydabird/lotus58/promicro"
+    "tweetydabird/lotus58/elite_c": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/nanoboot": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/promicro": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/rp2040_ce": {
+        "target": "tweetydabird/lotus58"
     },
     "unison": {
         "target": "unison/v04"

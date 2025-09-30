@@ -33,37 +33,6 @@ void i2c_init(void) {
     }
 }
 
-// LED matrix
-// physical location
-// 2      3   4       5
-//
-// 1                  6
-//        0   7
-#ifdef RGB_MATRIX_ENABLE
-// clang-format off
-led_config_t g_led_config = {{
-    // Key Matrix to LED Index
-    // Since we only have 8 LEDs, map the keys near them to the same LED.
-    {2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5},
-    {2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5},
-    {1, 1, 1, 0, 0, 0, 7, 7, 7, 6, 6, 6},
-    {NO_LED, NO_LED, NO_LED, 0, 0, 0, 7, 7, 7, NO_LED, NO_LED, NO_LED},
-}, {// LED Index to Physical Position
-  {94, 60},
-  {18, 44},
-  {8, 10},
-  {94, 10},
-  {130,10},
-  {216, 10},
-  {208, 44},
-  {130, 60}
-}, {// LED Index to Flag
-  LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL,
-  LED_FLAG_ALL, LED_FLAG_ALL, LED_FLAG_ALL
-}};
-// clang-format on
-#endif
-
 #ifdef OLED_ENABLE
 // OLED shared code
 // The oled is vertical. Need to rotate 270 degrees.
