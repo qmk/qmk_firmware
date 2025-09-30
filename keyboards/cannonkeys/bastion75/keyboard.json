@@ -47,6 +47,10 @@
             "rainbow_swirl": true
         }
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"
     },
