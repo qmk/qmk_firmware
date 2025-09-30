@@ -1,4 +1,4 @@
-// Copyright 2023 Danny Nguyen (danny@keeb.io)
+// Copyright 2025 Keebio (@keebio)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
@@ -13,9 +13,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [1] = LAYOUT_65xt(
     RM_HUEU, RM_HUED, KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
-    RM_SATU, RM_SATD, RM_TOGG, RM_NEXT, KC_UP,   _______, QK_BOOT, EE_CLR,  _______, _______, _______, _______, _______, _______, _______, _______, KC_END,
+    RM_SATU, RM_SATD, RM_TOGG, RM_NEXT, KC_UP,   _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_END,
     RM_VALU, RM_VALD, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______,          _______, _______, _______,
-    _______, _______, _______,          _______, _______, _______, _______, _______, _______, EE_CLR,  _______, _______, _______, _______, _______, _______,
+    RM_SPDU, RM_SPDD, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______,                            _______, _______, _______, _______, _______, _______, _______
   )
 };
