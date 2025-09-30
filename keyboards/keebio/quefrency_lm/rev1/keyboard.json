@@ -188,6 +188,10 @@
             "matrix": [5, 8]
         },
         "enabled": true,
+        "handedness": {
+            "pin": "A0"
+        },
+
         "matrix_pins": {
             "right": {
                 "cols": ["B2", "A15", "A2", "A1", "A4", "B15", "B6", "C13", "C14"],
