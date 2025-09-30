@@ -1,0 +1,17 @@
+#pragma once
+
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 7
+
+#define DIODE_DIRECTION COL2ROW
+
+#define RGB_DI_PIN GP0
+#define RGBLED_NUM 35
+#define DRIVER_LED_TOTAL 35
+#define RGB_MATRIX_SPLIT { 35 }
+
+#define ENCODERS_PAD_A { GP1, GP3, GP5 }
+#define ENCODERS_PAD_B { GP2, GP4, GP6 }
+#define ENCODER_RESOLUTION 4
+
+#define VIA_ENABLE
