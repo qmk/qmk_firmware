@@ -1,0 +1,38 @@
+name: QMK Firmware Build
+
+on:
+  push:
+    branches:
+      - main
+      - shipit57
+  pull_request:
+    branches:
+      - main
+      - shipit57
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install QMK
+        run: |
+          python3 -m pip install --upgrade pip
+          pip3 install qmk
+          qmk setup -y
+      - name: QMK Compile shipit57 VIA
+        run: |
+          qmk compile -kb shipit57 -km via
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: shipit57-firmware
+          path: |
+            *.bin
+            *.uf2
+            .build/*.bin
+            .build/*.uf2
