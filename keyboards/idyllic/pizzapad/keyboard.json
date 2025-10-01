@@ -18,6 +18,7 @@
         "vid": "0x7A79"
     },
     "features": {
+        "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
         "nkro": true,
