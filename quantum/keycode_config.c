@@ -24,6 +24,7 @@ keymap_config_t keymap_config;
  * and will return the corrected keycode, when appropriate.
  */
 __attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
+#ifdef MAGIC_ENABLE
     switch (keycode) {
         case KC_CAPS_LOCK:
         case KC_LOCKING_CAPS_LOCK:
@@ -115,6 +116,9 @@ __attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
         default:
             return keycode;
     }
+#else
+    return keycode;
+#endif // MAGIC_ENABLE
 }
 
 /** \brief mod_config
@@ -124,6 +128,7 @@ __attribute__((weak)) uint16_t keycode_config(uint16_t keycode) {
  */
 
 __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
+#ifdef MAGIC_ENABLE
     /**
      * Note: This function is for the 5-bit packed mods, NOT the full 8-bit mods.
      * More info about the mods can be seen in modifiers.h.
@@ -161,5 +166,6 @@ __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
         mod &= ~MOD_RGUI;
     }
 
+#endif // MAGIC_ENABLE
     return mod;
 }
