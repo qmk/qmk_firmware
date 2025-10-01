@@ -19,7 +19,7 @@ typedef struct qp_comms_i2c_config_t {
 bool     qp_comms_i2c_init(painter_device_t device);
 bool     qp_comms_i2c_start(painter_device_t device);
 uint32_t qp_comms_i2c_send_data(painter_device_t device, const void* data, uint32_t byte_count);
-void     qp_comms_i2c_stop(painter_device_t device);
+bool     qp_comms_i2c_stop(painter_device_t device);
 
 extern const painter_comms_with_command_vtable_t i2c_comms_cmddata_vtable;
 
