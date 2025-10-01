@@ -38,6 +38,9 @@
         },
         "handedness":{
             "pin":"GP2"
+        },
+        "transport": {
+            "watchdog": true
         }
     },
     "indicators":{
