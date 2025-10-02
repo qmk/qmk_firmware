@@ -101,7 +101,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(59, 255, 255, 255);
     } else {
         if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
+            RGB_MATRIX_INDICATOR_SET_COLOR(59, 0, 0, 0);
         }
     }
     return true;
