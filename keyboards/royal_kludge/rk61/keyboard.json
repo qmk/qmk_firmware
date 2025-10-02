@@ -2,7 +2,7 @@
   "keyboard_name": "RK61",
   "processor": "STM32F072",
   "bootloader": "stm32-dfu",
-  "manufacturer": "HyphaRF",
+  "manufacturer": "Royal Kludge",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1480",
