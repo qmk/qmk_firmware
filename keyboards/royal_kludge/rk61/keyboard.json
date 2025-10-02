@@ -8,8 +8,6 @@
         "layer_count": 16
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "deferred_exec": true,
         "extrakey": true,
