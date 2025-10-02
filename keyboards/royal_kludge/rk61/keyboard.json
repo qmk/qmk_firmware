@@ -77,7 +77,6 @@
             "val": 150
         },
         "driver": "ws2812",
-        "led_count": 61,
         "layout": [
             {"matrix": [0, 13], "x": 218, "y": 0, "flags": 1},
             {"matrix": [0, 12], "x": 193, "y": 0, "flags": 4},
@@ -142,9 +141,7 @@
             {"matrix": [4, 0], "x": 2, "y": 64, "flags": 1}
         ],
         "max_brightness": 200,
-        "sleep": true,
-        "speed_steps": 48,
-        "val_steps": 50
+        "sleep": true
     },
     "url": "http://en.rkgaming.com/",
     "usb": {
