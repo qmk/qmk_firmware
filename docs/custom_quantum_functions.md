@@ -145,7 +145,7 @@ void keyboard_pre_init_user(void) {
 
 This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized.
 
-This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started.
+This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependent on where it's started.
 
 
 ### `matrix_init_*` Function Documentation
@@ -209,7 +209,7 @@ You should use this function if you need custom matrix scanning code. It can als
 
 This function gets called at the end of all QMK processing, before starting the next iteration. You can safely assume that QMK has dealt with the last matrix scan at the time that these functions are invoked -- layer states have been updated, USB reports have been sent, LEDs have been updated, and displays have been drawn.
 
-Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throtting their behaviour if you do indeed require implementing something special.
+Similar to `matrix_scan_*`, these are called as often as the MCU can handle. To keep your board responsive, it's suggested to do as little as possible during these function calls, potentially throttling their behaviour if you do indeed require implementing something special.
 
 ### Example `void housekeeping_task_user(void)` implementation
 
@@ -246,7 +246,7 @@ void check_rgb_timeout(void) {
     }
 }
 /* Then, call the above functions from QMK's built in post processing functions like so */
-/* Runs at the end of each scan loop, check if RGB timeout has occured or not */
+/* Runs at the end of each scan loop, check if RGB timeout has occurred or not */
 void housekeeping_task_user(void) {
 #ifdef RGBLIGHT_TIMEOUT
     check_rgb_timeout();
@@ -316,7 +316,7 @@ bool shutdown_kb(bool jump_to_bootloader) {
     if (!shutdown_user(jump_to_bootloader)) {
         return false;
     }
-    
+
     if (jump_to_bootloader) {
         // red for bootloader
         rgb_matrix_set_color_all(RGB_OFF);

@@ -5,14 +5,14 @@ AVR is severely resource-constrained, and as QMK continues to grow, it is approa
 However, if you need to reduce the compiled size of your firmware to fit the controller's limited flash size, there are a number of options to do so.
 
 ## `rules.mk` Settings
-First and foremost is enabling link time optimization. To do so, add this to your rules.mk: 
+First and foremost is enabling link time optimization. To do so, add this to your rules.mk:
 ```make
 LTO_ENABLE = yes
 ```
 This will cause the final step to take longer, but should get you a smaller compiled size. This also disables Action Functions, and Action Macros, both of which are deprecated.
 This will get you the most savings, in most situations.
 
-From there, disabling extraneous systems will help -- e.g.: 
+From there, disabling extraneous systems will help -- e.g.:
 ```make
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
@@ -21,10 +21,10 @@ EXTRAKEY_ENABLE = no
 ```
 This disables some of the functionality that you may not need. But note that extrakeys disables stuff like the media keys and system volume control.
 
-If that isn't enough to get your firmware down to size, then there are some additional features that you can disable: 
+If that isn't enough to get your firmware down to size, then there are some additional features that you can disable:
 ```make
 SPACE_CADET_ENABLE = no
-GRAVE_ESC_ENABLE = no 
+GRAVE_ESC_ENABLE = no
 MAGIC_ENABLE = no
 ```
 These features are enabled by default, but they may not be needed. Double check to make sure. The [Magic Keycodes](keycodes_magic) are the largest and control things like NKRO toggling, GUI and ALT/CTRL swapping, etc. Disabling them will disable those functions. See [Magic Functions](#magic-functions) for disabling related functions.
@@ -51,7 +51,7 @@ Starting with Lock Key support. If you have a Cherry MX Lock switch (lucky you!)
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 ```
-Oneshots. If you're not using these, you can disable the feature by adding this to your `config.h`: 
+Oneshots. If you're not using these, you can disable the feature by adding this to your `config.h`:
 ```c
 #define NO_ACTION_ONESHOT
 ```
@@ -61,7 +61,7 @@ The same with tapping keys (mod tap, layer tap, etc)
 ```
 ## Audio Settings
 
-If you're using the Audio feature, by default that includes the music mode feature. This tranlates matrix positions into notes. It's neat for sure, but most likely, you're not using it. You can disable it by adding this to your `config.h`:
+If you're using the Audio feature, by default that includes the music mode feature. This translates matrix positions into notes. It's neat for sure, but most likely, you're not using it. You can disable it by adding this to your `config.h`:
 ```c
 #define NO_MUSIC_MODE
 ```
@@ -124,7 +124,7 @@ into this:
     oled_write_P(PSTR("WPM: "), false);
     oled_write(get_u8_str(get_current_wpm(), ' '), false);
 ```
-which outputs `WPM:   5`. Or this: 
+which outputs `WPM:   5`. Or this:
 ```c
     // NEW CODE
     oled_write_P(PSTR("WPM: "), false);

@@ -1,0 +1,80 @@
+{
+    "manufacturer": "takashicompany",
+    "keyboard_name": "Palmbrain",
+    "maintainer": "takashicompany",
+    "development_board": "promicro",
+    "dynamic_keymap": {
+        "layer_count": 12
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["F5", "D1", "F6", "E6", "F7", "F4", "D0", "C6", "B4", "B1", "D3", "D4", "D7", "B5", "B3", "B2", "B6"]
+        ]
+    },
+    "split": {
+        "enabled": true,
+        "matrix_pins": {
+            "right": {
+                "direct": [
+                    ["F7", "E6", "F6", "D1", "F5", "B1", "B4", "C6", "D0", "F4", "B3", "B5", "D7", "D4", "D3", "B6", "B2"]
+                ]
+            }
+        },
+        "serial": {
+            "pin": "D2"
+        }
+    },
+    "url": "https://github.com/takashicompany/palmbrain",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0066",
+        "vid": "0x7463"
+    },
+    "community_layouts": ["split_3x5_2"],
+    "layouts": {
+        "LAYOUT_split_3x5_2": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0.45},
+                {"matrix": [0, 1], "x": 0.9, "y": 0.225},
+                {"matrix": [0, 2], "x": 1.8, "y": 0},
+                {"matrix": [0, 3], "x": 2.7, "y": 0.225},
+                {"matrix": [0, 4], "x": 3.6, "y": 0.45},
+                {"matrix": [1, 0], "x": 7.2, "y": 0.45},
+                {"matrix": [1, 1], "x": 8.1, "y": 0.225},
+                {"matrix": [1, 2], "x": 9, "y": 0},
+                {"matrix": [1, 3], "x": 9.9, "y": 0.225},
+                {"matrix": [1, 4], "x": 10.8, "y": 0.45},
+                {"matrix": [0, 5], "x": 0, "y": 1.35},
+                {"matrix": [0, 6], "x": 0.9, "y": 1.125},
+                {"matrix": [0, 7], "x": 1.8, "y": 0.9},
+                {"matrix": [0, 8], "x": 2.7, "y": 1.125},
+                {"matrix": [0, 9], "x": 3.6, "y": 1.35},
+                {"matrix": [1, 5], "x": 7.2, "y": 1.35},
+                {"matrix": [1, 6], "x": 8.1, "y": 1.125},
+                {"matrix": [1, 7], "x": 9, "y": 0.9},
+                {"matrix": [1, 8], "x": 9.9, "y": 1.125},
+                {"matrix": [1, 9], "x": 10.8, "y": 1.35},
+                {"matrix": [0, 10], "x": 0, "y": 2.25},
+                {"matrix": [0, 11], "x": 0.9, "y": 2.025},
+                {"matrix": [0, 12], "x": 1.8, "y": 1.8},
+                {"matrix": [0, 13], "x": 2.7, "y": 2.025},
+                {"matrix": [0, 14], "x": 3.6, "y": 2.25},
+                {"matrix": [1, 10], "x": 7.2, "y": 2.25},
+                {"matrix": [1, 11], "x": 8.1, "y": 2.025},
+                {"matrix": [1, 12], "x": 9, "y": 1.8},
+                {"matrix": [1, 13], "x": 9.9, "y": 2.025},
+                {"matrix": [1, 14], "x": 10.8, "y": 2.25},
+                {"matrix": [0, 15], "x": 3.6, "y": 3.375},
+                {"matrix": [0, 16], "x": 4.5, "y": 3.375},
+                {"matrix": [1, 15], "x": 6.3, "y": 3.375},
+                {"matrix": [1, 16], "x": 7.2, "y": 3.375}
+            ]
+        }
+    }
+}
