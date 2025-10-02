@@ -149,7 +149,8 @@
         "vid": "0x1480"
     },
     "ws2812": {
-        "pin": "B15"
+        "pin": "B15",
+        "driver": "spi"
     },
     "community_layouts": ["60_ansi"],
     "layouts": {
