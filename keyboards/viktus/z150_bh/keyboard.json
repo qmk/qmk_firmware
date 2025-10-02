@@ -1,18 +1,19 @@
 {
     "keyboard_name": "Z-150 Blackheart",
     "manufacturer": "blindassassin111",
-    "url": "",
     "maintainer": "qmk, blindassassin111",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6060",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

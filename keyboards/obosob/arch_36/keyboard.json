@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Arch-36",
     "manufacturer": "obosob",
-    "url": "",
     "maintainer": "obosob",
     "usb": {
         "vid": "0xFEED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
@@ -37,8 +34,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "community_layouts": ["split_3x5_3"],
     "layouts": {
         "LAYOUT_split_3x5_3": {

@@ -1,7 +1,21 @@
 {
+    "keyboard_name": "Corne",
+    "usb": {
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "processor": "atmega32u4",
     "features": {
         "rgb_matrix": true
     },
+    "build": {
+        "lto": true
+    },
+    "matrix_pins": {
+        "cols": [ "F4", "F5", "F6", "F7", "B1", "B3" ],
+        "rows": [ "D4", "C6", "D7", "E6" ]
+    },
+    "diode_direction": "COL2ROW",
     "split": {
         "serial": {
             "pin": "D2"
@@ -38,6 +52,7 @@
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x6_3"
     },
+    "community_layouts": [ "split_3x5_3", "split_3x6_3" ],
     "layouts": {
         "LAYOUT_split_3x5_3": {
             "layout": [

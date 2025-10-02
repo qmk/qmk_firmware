@@ -4,7 +4,6 @@
     "maintainer": "mazestd",
     "bootloader": "atmel-dfu",
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "vid": "0x70F5",
         "pid": "0x4A01",
@@ -12,8 +11,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

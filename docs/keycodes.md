@@ -176,11 +176,11 @@ See also: [Basic Keycodes](keycodes_basic)
 |`KC_LEFT_CTRL`          |`KC_LCTL`                      |Left Control                           |✔            |✔            |✔                |
 |`KC_LEFT_SHIFT`         |`KC_LSFT`                      |Left Shift                             |✔            |✔            |✔                |
 |`KC_LEFT_ALT`           |`KC_LALT`, `KC_LOPT`           |Left Alt (Option)                      |✔            |✔            |✔                |
-|`KC_LEFT_GUI`           |`KC_LGUI`, `KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key)    |✔            |✔            |✔                |
+|`KC_LEFT_GUI`           |`KC_LGUI`, `KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Super key)   |✔            |✔            |✔                |
 |`KC_RIGHT_CTRL`         |`KC_RCTL`                      |Right Control                          |✔            |✔            |✔                |
 |`KC_RIGHT_SHIFT`        |`KC_RSFT`                      |Right Shift                            |✔            |✔            |✔                |
 |`KC_RIGHT_ALT`          |`KC_RALT`, `KC_ROPT`, `KC_ALGR`|Right Alt (Option/AltGr)               |✔            |✔            |✔                |
-|`KC_RIGHT_GUI`          |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)   |✔            |✔            |✔                |
+|`KC_RIGHT_GUI`          |`KC_RGUI`, `KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Super key)  |✔            |✔            |✔                |
 |`KC_SYSTEM_POWER`       |`KC_PWR`                       |System Power Down                      |✔            |✔<sup>3</sup>|✔                |
 |`KC_SYSTEM_SLEEP`       |`KC_SLEP`                      |System Sleep                           |✔            |✔<sup>3</sup>|✔                |
 |`KC_SYSTEM_WAKE`        |`KC_WAKE`                      |System Wake                            |             |✔<sup>3</sup>|✔                |
@@ -203,8 +203,8 @@ See also: [Basic Keycodes](keycodes_basic)
 |`KC_WWW_STOP`           |`KC_WSTP`                      |Browser Stop                           |✔            |             |✔                |
 |`KC_WWW_REFRESH`        |`KC_WREF`                      |Browser Refresh                        |✔            |             |✔                |
 |`KC_WWW_FAVORITES`      |`KC_WFAV`                      |Browser Favorites                      |✔            |             |✔                |
-|`KC_MEDIA_FAST_FORWARD` |`KC_MFFD`                      |Next Track                             |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Previous Track                         |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
+|`KC_MEDIA_FAST_FORWARD` |`KC_MFFD`                      |Fast Forward                           |✔            |✔<sup>5</sup>|✔                |
+|`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Rewind                                 |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
 |`KC_BRIGHTNESS_UP`      |`KC_BRIU`                      |Brightness Up                          |✔            |✔            |✔                |
 |`KC_BRIGHTNESS_DOWN`    |`KC_BRID`                      |Brightness Down                        |✔            |✔            |✔                |
 |`KC_CONTROL_PANEL`      |`KC_CPNL`                      |Open Control Panel                     |✔            |             |                 |
@@ -290,15 +290,27 @@ See also: [Backlighting](features/backlight)
 | `QK_BACKLIGHT_DOWN`             | `BL_DOWN` | Decrease the backlight level        |
 | `QK_BACKLIGHT_TOGGLE_BREATHING` | `BL_BRTG` | Toggle backlight breathing          |
 
-## Bluetooth {#bluetooth}
+## Wireless/Bluetooth {#bluetooth}
 
-See also: [Bluetooth](features/bluetooth)
+See also: [Wireless](features/wireless)
 
-|Key                  |Aliases  |Description                                   |
-|---------------------|---------|----------------------------------------------|
-|`QK_OUTPUT_AUTO`     |`OU_AUTO`|Automatically switch between USB and Bluetooth|
-|`QK_OUTPUT_USB`      |`OU_USB` |USB only                                      |
-|`QK_OUTPUT_BLUETOOTH`|`OU_BT`  |Bluetooth only                                |
+| Key                         | Aliases   | Description                                                                                   |
+|-----------------------------|-----------|-----------------------------------------------------------------------------------------------|
+| `QK_OUTPUT_AUTO`            | `OU_AUTO` | Automatically switch to USB when plugged in, otherwise use wireless                           |
+| `QK_OUTPUT_NEXT`            | `OU_NEXT` | Cycle forwards through USB, Bluetooth, and 2.4GHz (when available) **(not yet implemented)**  |
+| `QK_OUTPUT_PREV`            | `OU_PREV` | Cycle backwards through USB, Bluetooth, and 2.4GHz (when available) **(not yet implemented)** |
+| `QK_OUTPUT_NONE`            | `OU_NONE` | Disable all output **(not yet implemented)**                                                  |
+| `QK_OUTPUT_USB`             | `OU_USB`  | Output to USB only                                                                            |
+| `QK_OUTPUT_2P4GHZ`          | `OU_2P4G` | Output to 2.4GHz only **(not yet implemented)**                                               |
+| `QK_OUTPUT_BLUETOOTH`       | `OU_BT`   | Output to Bluetooth only                                                                      |
+| `QK_BLUETOOTH_PROFILE_NEXT` | `BT_NEXT` | Move to the next Bluetooth profile **(not yet implemented)**                                  |
+| `QK_BLUETOOTH_PROFILE_PREV` | `BT_PREV` | Move to the previous Bluetooth profile **(not yet implemented)**                              |
+| `QK_BLUETOOTH_UNPAIR`       | `BT_UNPR` | Un-pair the current Bluetooth profile **(not yet implemented)**                               |
+| `QK_BLUETOOTH_PROFILE1`     | `BT_PRF1` | Swap to Bluetooth profile #1 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE2`     | `BT_PRF2` | Swap to Bluetooth profile #2 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE3`     | `BT_PRF3` | Swap to Bluetooth profile #3 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE4`     | `BT_PRF4` | Swap to Bluetooth profile #4 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE5`     | `BT_PRF5` | Swap to Bluetooth profile #5 **(not yet implemented)**                                        |
 
 ## Caps Word {#caps-word}
 
@@ -375,15 +387,23 @@ See also: [Key Lock](features/key_lock)
 |---------|--------------------------------------------------------------|
 |`QK_LOCK`|Hold down the next key pressed, until the key is pressed again|
 
+## Layer Lock {#layer-lock}
+
+See also: [Layer Lock](features/layer_lock)
+
+|Key            |Aliases  |Description                       |
+|---------------|---------|----------------------------------|
+|`QK_LAYER_LOCK`|`QK_LLCK`|Locks or unlocks the highest layer|
+
 ## Layer Switching {#layer-switching}
 
 See also: [Layer Switching](feature_layers#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
-|`DF(layer)`     |Set the base (default) layer                                                      |
+|`DF(layer)`     |Set the base (default) layer until the keyboard loses power                       |
+|`PDF(layer)`    |Set the base (default) layer in EEPROM                                            |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](one_shot_keys) for details. |
 |`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](mod_tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
@@ -637,58 +657,74 @@ See also: [Mouse Keys](features/mouse_keys)
 
 See also: [Modifier Keys](feature_advanced_keycodes#modifier-keys)
 
-|Key       |Aliases                           |Description                                           |
-|----------|----------------------------------|------------------------------------------------------|
-|`LCTL(kc)`|`C(kc)`                           |Hold Left Control and press `kc`                      |
-|`LSFT(kc)`|`S(kc)`                           |Hold Left Shift and press `kc`                        |
-|`LALT(kc)`|`A(kc)`, `LOPT(kc)`               |Hold Left Alt and press `kc`                          |
-|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`   |Hold Left GUI and press `kc`                          |
-|`RCTL(kc)`|                                  |Hold Right Control and press `kc`                     |
-|`RSFT(kc)`|                                  |Hold Right Shift and press `kc`                       |
-|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`            |Hold Right Alt (AltGr) and press `kc`                 |
-|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`            |Hold Right GUI and press `kc`                         |
-|`LSG(kc)` |`SGUI(kc)`, `SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and Left GUI and press `kc`           |
-|`LAG(kc)` |                                  |Hold Left Alt and Left GUI and press `kc`             |
-|`RSG(kc)` |                                  |Hold Right Shift and Right GUI and press `kc`         |
-|`RAG(kc)` |                                  |Hold Right Alt and Right GUI and press `kc`           |
-|`LCA(kc)` |                                  |Hold Left Control and Alt and press `kc`              |
-|`LSA(kc)` |                                  |Hold Left Shift and Left Alt and press `kc`           |
-|`RSA(kc)` |`SAGR(kc)`                        |Hold Right Shift and Right Alt (AltGr) and press `kc` |
-|`RCS(kc)` |                                  |Hold Right Control and Right Shift and press `kc`     |
-|`LCAG(kc)`|                                  |Hold Left Control, Alt and GUI and press `kc`         |
-|`MEH(kc)` |                                  |Hold Left Control, Shift and Alt and press `kc`       |
-|`HYPR(kc)`|                                  |Hold Left Control, Shift, Alt and GUI and press `kc`  |
-|`KC_MEH`  |                                  |Left Control, Shift and Alt                           |
-|`KC_HYPR` |                                  |Left Control, Shift, Alt and GUI                      |
+|Key       |Aliases                        |Description                                                        |
+|----------|-------------------------------|-------------------------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                                   |
+|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                                     |
+|`LALT(kc)`|`A(kc)`, `LOPT(kc)`            |Hold Left Alt and press `kc`                                       |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                                       |
+|`LCS(kc)` |                               |Hold Left Control and Left Shift and press `kc`                    |
+|`LCA(kc)` |                               |Hold Left Control and Left Alt and press `kc`                      |
+|`LCG(kc)` |                               |Hold Left Control and Left GUI and press `kc`                      |
+|`LSA(kc)` |                               |Hold Left Shift and Left Alt and press `kc`                        |
+|`LSG(kc)` |                               |Hold Left Shift and Left GUI and press `kc`                        |
+|`LAG(kc)` |                               |Hold Left Alt and Left GUI and press `kc`                          |
+|`LCSG(kc)`|                               |Hold Left Control, Left Shift and Left GUI and press `kc`          |
+|`LCAG(kc)`|                               |Hold Left Control, Left Alt and Left GUI and press `kc`            |
+|`LSAG(kc)`|                               |Hold Left Shift, Left Alt and Left GUI and press `kc`              |
+|`RCTL(kc)`|                               |Hold Right Control and press `kc`                                  |
+|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                                    |
+|`RALT(kc)`|`ROPT(kc)`, `ALGR(kc)`         |Hold Right Alt and press `kc`                                      |
+|`RGUI(kc)`|`RCMD(kc)`, `RWIN(kc)`         |Hold Right GUI and press `kc`                                      |
+|`RCS(kc)` |                               |Hold Right Control and Right Shift and press `kc`                  |
+|`RCA(kc)` |                               |Hold Right Control and Right Alt and press `kc`                    |
+|`RCG(kc)` |                               |Hold Right Control and Right GUI and press `kc`                    |
+|`RSA(kc)` |                               |Hold Right Shift and Right Alt and press `kc`                      |
+|`RSG(kc)` |                               |Hold Right Shift and Right GUI and press `kc`                      |
+|`RAG(kc)` |                               |Hold Right Alt and Right GUI and press `kc`                        |
+|`RCSG(kc)`|                               |Hold Right Control, Right Shift and Right GUI and press `kc`       |
+|`RCAG(kc)`|                               |Hold Right Control, Right Alt and Right GUI and press `kc`         |
+|`RSAG(kc)`|                               |Hold Right Shift, Right Alt and Right GUI and press `kc`           |
+|`MEH(kc)` |                               |Hold Left Control, Left Shift and Left Alt and press `kc`          |
+|`HYPR(kc)`|                               |Hold Left Control, Left Shift, Left Alt and Left GUI and press `kc`|
+|`KC_MEH`  |                               |Left Control, Left Shift and Left Alt                              |
+|`KC_HYPR` |                               |Left Control, Left Shift, Left Alt and Left GUI                    |
 
 ## Mod-Tap Keys {#mod-tap-keys}
 
 See also: [Mod-Tap](mod_tap)
 
-|Key          |Aliases                                                          |Description                                                   |
-|-------------|-----------------------------------------------------------------|--------------------------------------------------------------|
-|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                             |
-|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                      |
-|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                        |
-|`LALT_T(kc)` |`LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                          |
-|`LGUI_T(kc)` |`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                          |
-|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped                     |
-|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                       |
-|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt (AltGr) when held, `kc` when tapped                 |
-|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
-|`LSG_T(kc)`  |`SGUI_T(kc)`, `SCMD_T(kc)`, `SWIN_T(kc)`                         |Left Shift and GUI when held, `kc` when tapped                |
-|`LAG_T(kc)`  |                                                                 |Left Alt and GUI when held, `kc` when tapped                  |
-|`RSG_T(kc)`  |                                                                 |Right Shift and GUI when held, `kc` when tapped               |
-|`RAG_T(kc)`  |                                                                 |Right Alt and GUI when held, `kc` when tapped                 |
-|`LCA_T(kc)`  |                                                                 |Left Control and Alt when held, `kc` when tapped              |
-|`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped           |
-|`RSA_T(kc)`  |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
-|`RCS_T(kc)`  |                                                                 |Right Control and Right Shift when held, `kc` when tapped     |
-|`LCAG_T(kc)` |                                                                 |Left Control, Alt and GUI when held, `kc` when tapped         |
-|`RCAG_T(kc)` |                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
-|`C_S_T(kc)`  |                                                                 |Left Control and Shift when held, `kc` when tapped            |
-|`MEH_T(kc)`  |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
-|`HYPR_T(kc)` |`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|Key          |Aliases                                                          |Description                                                                |
+|-------------|-----------------------------------------------------------------|---------------------------------------------------------------------------|
+|`MT(mod, kc)`|                                                                 |`mod` when held, `kc` when tapped                                          |
+|`LCTL_T(kc)` |`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                                   |
+|`LSFT_T(kc)` |`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                                     |
+|`LALT_T(kc)` |`ALT_T(kc)`, `LOPT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                                       |
+|`LGUI_T(kc)` |`GUI_T(kc)`, `LCMD_T(kc)`, `LWIN_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                                       |
+|`LCS_T(kc)`  |                                                                 |Left Control and Left Shift when held, `kc` when tapped                    |
+|`LCA_T(kc)`  |                                                                 |Left Control and Left Alt when held, `kc` when tapped                      |
+|`LCG_T(kc)`  |                                                                 |Left Control and Left GUI when held, `kc` when tapped                      |
+|`LSA_T(kc)`  |                                                                 |Left Shift and Left Alt when held, `kc` when tapped                        |
+|`LSG_T(kc)`  |                                                                 |Left Shift and Left GUI when held, `kc` when tapped                        |
+|`LAG_T(kc)`  |                                                                 |Left Alt and Left GUI when held, `kc` when tapped                          |
+|`LCSG_T(kc)` |                                                                 |Left Control, Left Shift and Left GUI when held, `kc` when tapped          |
+|`LCAG_T(kc)` |                                                                 |Left Control, Left Alt and Left GUI when held, `kc` when tapped            |
+|`LSAG_T(kc)` |                                                                 |Left Shift, Left Alt and Left GUI when held, `kc` when tapped              |
+|`RCTL_T(kc)` |                                                                 |Right Control when held, `kc` when tapped                                  |
+|`RSFT_T(kc)` |                                                                 |Right Shift when held, `kc` when tapped                                    |
+|`RALT_T(kc)` |`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                                      |
+|`RGUI_T(kc)` |`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                                      |
+|`RCS_T(kc)`  |                                                                 |Right Control and Right Shift when held, `kc` when tapped                  |
+|`RCA_T(kc)`  |                                                                 |Right Control and Right Alt when held, `kc` when tapped                    |
+|`RCG_T(kc)`  |                                                                 |Right Control and Right GUI when held, `kc` when tapped                    |
+|`RSA_T(kc)`  |                                                                 |Right Shift and Right Alt when held, `kc` when tapped                      |
+|`RSG_T(kc)`  |                                                                 |Right Shift and Right GUI when held, `kc` when tapped                      |
+|`RAG_T(kc)`  |                                                                 |Right Alt and Right GUI when held, `kc` when tapped                        |
+|`RCSG_T(kc)` |                                                                 |Right Control, Right Shift and Right GUI when held, `kc` when tapped       |
+|`RCAG_T(kc)` |                                                                 |Right Control, Right Alt and Right GUI when held, `kc` when tapped         |
+|`RSAG_T(kc)` |                                                                 |Right Shift, Right Alt and Right GUI when held, `kc` when tapped           |
+|`MEH_T(kc)`  |                                                                 |Left Control, Left Shift and Left Alt when held, `kc` when tapped          |
+|`HYPR_T(kc)` |                                                                 |Left Control, Left Shift, Left Alt and Left GUI when held, `kc` when tapped|
 
 ## Tapping Term Keys {#tapping-term-keys}
 
@@ -728,23 +764,25 @@ See also: [RGB Lighting](features/rgblight)
 |`RGB_MODE_RGBTEST`            |`RGB_M_T` |Red, Green, Blue test animation mode (deprecated)                    |
 |`RGB_MODE_TWINKLE`            |`RGB_M_TW`|Twinkle animation mode (deprecated)                                  |
 
-## RGB Matrix Lighting {#rgb-matrix-lighting}
+## RGB Matrix {#rgb-matrix}
 
-See also: [RGB Matrix Lighting](features/rgb_matrix)
+See also: [RGB Matrix](features/rgb_matrix)
 
-|Key                |Aliases   |Description                                                                           |
-|-------------------|----------|--------------------------------------------------------------------------------------|
-|`RGB_TOG`          |          |Toggle RGB lighting on or off                                                         |
-|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held                             |
-|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held                  |
-|`RGB_HUI`          |          |Increase hue, decrease hue when Shift is held                                         |
-|`RGB_HUD`          |          |Decrease hue, increase hue when Shift is held                                         |
-|`RGB_SAI`          |          |Increase saturation, decrease saturation when Shift is held                           |
-|`RGB_SAD`          |          |Decrease saturation, increase saturation when Shift is held                           |
-|`RGB_VAI`          |          |Increase value (brightness), decrease value when Shift is held                        |
-|`RGB_VAD`          |          |Decrease value (brightness), increase value when Shift is held                        |
-|`RGB_SPI`          |          |Increase effect speed (does not support eeprom yet), decrease speed when Shift is held|
-|`RGB_SPD`          |          |Decrease effect speed (does not support eeprom yet), increase speed when Shift is held|
+|Key                            |Aliases  |Description                        |
+|-------------------------------|---------|-----------------------------------|
+|`QK_RGB_MATRIX_ON`             |`RM_ON`  |Turn on RGB Matrix                 |
+|`QK_RGB_MATRIX_OFF`            |`RM_OFF` |Turn off RGB Matrix                |
+|`QK_RGB_MATRIX_TOGGLE`         |`RM_TOGG`|Toggle RGB Matrix on or off        |
+|`QK_RGB_MATRIX_MODE_NEXT`      |`RM_NEXT`|Cycle through animations           |
+|`QK_RGB_MATRIX_MODE_PREVIOUS`  |`RM_PREV`|Cycle through animations in reverse|
+|`QK_RGB_MATRIX_HUE_UP`         |`RM_HUEU`|Cycle through hue                  |
+|`QK_RGB_MATRIX_HUE_DOWN`       |`RM_HUED`|Cycle through hue in reverse       |
+|`QK_RGB_MATRIX_SATURATION_UP`  |`RM_SATU`|Increase the saturation            |
+|`QK_RGB_MATRIX_SATURATION_DOWN`|`RM_SATD`|Decrease the saturation            |
+|`QK_RGB_MATRIX_VALUE_UP`       |`RM_VALU`|Increase the brightness level      |
+|`QK_RGB_MATRIX_VALUE_DOWN`     |`RM_VALD`|Decrease the brightness level      |
+|`QK_RGB_MATRIX_SPEED_UP`       |`RM_SPDU`|Increase the animation speed       |
+|`QK_RGB_MATRIX_SPEED_DOWN`     |`RM_SPDD`|Decrease the animation speed       |
 
 ## US ANSI Shifted Symbols {#us-ansi-shifted-symbols}
 
@@ -778,13 +816,41 @@ See also: [US ANSI Shifted Symbols](keycodes_us_ansi_shifted)
 
 See also: [One Shot Keys](one_shot_keys)
 
-|Key                 |Aliases  |Description                       |
-|--------------------|---------|----------------------------------|
-|`OSM(mod)`          |         |Hold `mod` for one keypress       |
-|`OSL(layer)`        |         |Switch to `layer` for one keypress|
-|`QK_ONE_SHOT_TOGGLE`|`OS_TOGG`|Toggles One Shot keys status      |
-|`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on            |
-|`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off           |
+|Key                 |Aliases  |Description                                                          |
+|--------------------|---------|---------------------------------------------------------------------|
+|`QK_ONE_SHOT_TOGGLE`|`OS_TOGG`|Toggles One Shot keys status                                         |
+|`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on                                               |
+|`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off                                              |
+|`OSL(layer)`        |         |Switch to `layer` for one keypress                                   |
+|`OSM(mod)`          |         |Hold `mod` for one keypress                                          |
+|`OS_LCTL`           |         |Hold Left Control for one keypress                                   |
+|`OS_LSFT`           |         |Hold Left Shift for one keypress                                     |
+|`OS_LALT`           |         |Hold Left Alt for one keypress                                       |
+|`OS_LGUI`           |         |Hold Left GUI for one keypress                                       |
+|`OS_LCS`            |         |Hold Left Control and Left Shift for one keypress                    |
+|`OS_LCA`            |         |Hold Left Control and left Alt for one keypress                      |
+|`OS_LCG`            |         |Hold Left Control and Left GUI for one keypress                      |
+|`OS_LSA`            |         |Hold Left Shift and Left Alt for one keypress                        |
+|`OS_LSG`            |         |Hold Left Shift and Left GUI for one keypress                        |
+|`OS_LAG`            |         |Hold Left Alt and Left GUI for one keypress                          |
+|`OS_LCSG`           |         |Hold Left Control, Left Shift and Left GUI for one keypress          |
+|`OS_LCAG`           |         |Hold Left Control, Left Alt and Left GUI for one keypress            |
+|`OS_LSAG`           |         |Hold Left Shift, Left Alt and Left GUI for one keypress              |
+|`OS_RCTL`           |         |Hold Right Control for one keypress                                  |
+|`OS_RSFT`           |         |Hold Right Shift for one keypress                                    |
+|`OS_RALT`           |         |Hold Right Alt for one keypress                                      |
+|`OS_RGUI`           |         |Hold Right GUI for one keypress                                      |
+|`OS_RCS`            |         |Hold Right Control and Right Shift for one keypress                  |
+|`OS_RCA`            |         |Hold Right Control and Right Alt for one keypress                    |
+|`OS_RCG`            |         |Hold Right Control and Right GUI for one keypress                    |
+|`OS_RSA`            |         |Hold Right Shift and Right Alt for one keypress                      |
+|`OS_RSG`            |         |Hold Right Shift and Right GUI for one keypress                      |
+|`OS_RAG`            |         |Hold Right Alt and Right GUI for one keypress                        |
+|`OS_RCSG`           |         |Hold Right Control, Right Shift and Right GUI for one keypress       |
+|`OS_RCAG`           |         |Hold Right Control, Right Alt and Right GUI for one keypress         |
+|`OS_RSAG`           |         |Hold Right Shift, Right Alt and Right GUI for one keypress           |
+|`OS_MEH`            |         |Hold Left Control, Left Shift and Left Alt for one keypress          |
+|`OS_HYPR`           |         |Hold Left Control, Left Shift, Left Alt and Left GUI for one keypress|
 
 ## Programmable Button Support {#programmable-button}
 

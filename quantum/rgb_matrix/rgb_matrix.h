@@ -123,6 +123,12 @@ enum rgb_matrix_effects {
 #include "rgb_matrix_effects.inc"
 #undef RGB_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_COMMUNITY_MODULE_##name,
+#    include "rgb_matrix_community_modules.inc"
+#    undef RGB_MATRIX_EFFECT
+#endif
+
 #if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
 #    define RGB_MATRIX_EFFECT(name, ...) RGB_MATRIX_CUSTOM_##name,
 #    ifdef RGB_MATRIX_CUSTOM_KB
@@ -140,10 +146,12 @@ enum rgb_matrix_effects {
 };
 
 void eeconfig_update_rgb_matrix_default(void);
-void eeconfig_update_rgb_matrix(void);
+void eeconfig_force_flush_rgb_matrix(void);
 
 uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
 uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
+
+int rgb_matrix_led_index(int index);
 
 void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void rgb_matrix_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
@@ -184,7 +192,7 @@ void        rgb_matrix_step_reverse(void);
 void        rgb_matrix_step_reverse_noeeprom(void);
 void        rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 void        rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
-HSV         rgb_matrix_get_hsv(void);
+hsv_t       rgb_matrix_get_hsv(void);
 uint8_t     rgb_matrix_get_hue(void);
 uint8_t     rgb_matrix_get_sat(void);
 uint8_t     rgb_matrix_get_val(void);
@@ -210,9 +218,14 @@ void        rgb_matrix_decrease_speed_noeeprom(void);
 led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 void        rgb_matrix_set_flags_noeeprom(led_flags_t flags);
+void        rgb_matrix_update_pwm_buffers(void);
+
+#ifdef RGB_MATRIX_MODE_NAME_ENABLE
+const char *rgb_matrix_get_mode_name(uint8_t mode);
+#endif // RGB_MATRIX_MODE_NAME_ENABLE
 
 #ifndef RGBLIGHT_ENABLE
-#    define eeconfig_update_rgblight_current eeconfig_update_rgb_matrix
+#    define eeconfig_update_rgblight_current eeconfig_force_flush_rgb_matrix
 #    define rgblight_reload_from_eeprom rgb_matrix_reload_from_eeprom
 #    define rgblight_toggle rgb_matrix_toggle
 #    define rgblight_toggle_noeeprom rgb_matrix_toggle_noeeprom

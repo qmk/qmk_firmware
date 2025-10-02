@@ -17,9 +17,9 @@
                         "additionalProperties": false,
                         "required": ["pin_a", "pin_b"],
                         "properties": {
-                            "pin_a": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                            "pin_b": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                            "resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                            "pin_a": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                            "pin_b": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                            "resolution": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                         }
                     }
                 }
@@ -28,24 +28,29 @@
         "dip_switch_config": {
             "type": "object",
             "properties": {
-                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                "pins": {"$ref": "./definitions.jsonschema#/mcu_pin_array"}
             }
+        },
+        "features_config": {
+            "$ref": "./definitions.jsonschema#/boolean_array",
+            "propertyNames": {"$ref": "./definitions.jsonschema#/snake_case"},
+            "not": {"required": ["lto"]}
         }
     },
     "type": "object",
     "not": {"required": ["vendorId", "productId"]}, // reject via keys...
     "properties": {
-        "keyboard_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "keyboard_folder": {"$ref": "qmk.definitions.v1#/keyboard"},
-        "maintainer": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "manufacturer": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "keyboard_name": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "keyboard_folder": {"$ref": "./definitions.jsonschema#/keyboard"},
+        "maintainer": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "manufacturer": {"$ref": "./definitions.jsonschema#/text_identifier"},
         "url": {
             "type": "string",
             "format": "uri"
         },
         "development_board": {
             "type": "string",
-            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera"]
+            "enum": ["promicro", "elite_c", "elite_pi", "proton_c", "kb2040", "promicro_rp2040", "blok", "michi", "bit_c_pro", "stemcell", "bluepill", "blackpill_f401", "blackpill_f411", "bonsai_c4", "helios", "liatris", "imera", "svlinky"]
         },
         "pin_compatible": {
             "type": "string",
@@ -79,6 +84,7 @@
                 "STM32F407",
                 "STM32F411",
                 "STM32F446",
+                "STM32G0B1",
                 "STM32G431",
                 "STM32G474",
                 "STM32H723",
@@ -92,6 +98,7 @@
                 "GD32VF103",
                 "WB32F3G71",
                 "WB32FQ95",
+                "AT32F415",
                 "atmega16u2",
                 "atmega32u2",
                 "atmega16u4",
@@ -112,8 +119,8 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "data_pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "clock_pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                 "default_brightness": {
                     "type": "integer",
                     "minimum": 0,
@@ -138,13 +145,13 @@
                     "enum": ["dac_additive", "dac_basic", "pwm_software", "pwm_hardware"]
                 },
                 "macro_beep": {"type": "boolean"},
-                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
+                "pins": {"$ref": "./definitions.jsonschema#/mcu_pin_array"},
                 "power_control": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
-                        "on_state": {"$ref": "qmk.definitions.v1#/bit"},
-                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                        "on_state": {"$ref": "./definitions.jsonschema#/bit"},
+                        "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"}
                     }
                 },
                 "voices": {"type": "boolean"}
@@ -164,21 +171,43 @@
                     "properties": {
                         "on": {"type": "boolean"},
                         "breathing": {"type": "boolean"},
-                        "brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                        "brightness": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "breathing": {"type": "boolean"},
-                "breathing_period": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "breathing_period": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                 "levels": {
                     "type": "integer",
                     "minimum": 1,
                     "maximum": 31
                 },
-                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "pins": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "on_state": {"$ref": "qmk.definitions.v1#/bit"},
+                "max_brightness": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "pins": {"$ref": "./definitions.jsonschema#/mcu_pin_array"},
+                "on_state": {"$ref": "./definitions.jsonschema#/bit"},
                 "as_caps_lock": {"type": "boolean"}
+            }
+        },
+        "battery": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["adc", "custom", "vendor"]
+                },
+                "adc": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                        "reference_voltage": {"type": "integer"},
+                        "divider_r1": {"type": "integer"},
+                        "divider_r2": {"type": "integer"},
+                        "resolution": {"type": "integer"}
+                    }
+                },
+                "sample_interval": {"type": "integer"}
             }
         },
         "bluetooth": {
@@ -216,6 +245,7 @@
             "type": "string",
             "enum": [
                 "apm32-dfu",
+                "at32-dfu",
                 "atmel-dfu",
                 "bootloadhid",
                 "caterina",
@@ -261,7 +291,7 @@
             "type": "string",
             "enum": ["COL2ROW", "ROW2COL"]
         },
-        "debounce": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+        "debounce": {"$ref": "./definitions.jsonschema#/unsigned_int"},
         "caps_word": {
             "type": "object",
             "additionalProperties": false,
@@ -269,20 +299,20 @@
                 "enabled": {"type": "boolean"},
                 "both_shifts_turns_on": {"type": "boolean"},
                 "double_tap_shift_turns_on": {"type": "boolean"},
-                "idle_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "idle_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "invert_on_shift": {"type": "boolean"}
             }
         },
         "combo": {
             "type": "object",
             "properties": {
-                "count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "term": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "count": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "term": {"$ref": "./definitions.jsonschema#/unsigned_int"}
             }
         },
         "community_layouts": {
             "type": "array",
-            "items": {"$ref": "qmk.definitions.v1#/filename"}
+            "items": {"$ref": "./definitions.jsonschema#/filename"}
         },
         "dip_switch": {
             "$ref": "#/definitions/dip_switch_config",
@@ -312,10 +342,10 @@
                     "properties": {
                         "driver": {
                             "type": "string",
-                            "enum": ["custom", "embedded_flash", "legacy", "rp2040_flash", "spi_flash"]
+                            "enum": ["none", "custom", "embedded_flash", "legacy", "rp2040_flash", "spi_flash"]
                         },
-                        "backing_size": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                        "logical_size": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                        "backing_size": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                        "logical_size": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                     }
                 }
             }
@@ -326,20 +356,16 @@
                 "enabled": {"type": "boolean"}
             }
         },
-        "features": {
-            "$ref": "qmk.definitions.v1#/boolean_array",
-            "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
-            "not": {"required": ["lto"]}
-        },
+        "features": { "$ref": "#/definitions/features_config" },
         "indicators": {
             "type": "object",
             "properties": {
-                "caps_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "num_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "scroll_lock": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "compose": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "kana": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "on_state": {"$ref": "qmk.definitions.v1#/bit"}
+                "caps_lock": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "num_lock": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "scroll_lock": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "compose": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "kana": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "on_state": {"$ref": "./definitions.jsonschema#/bit"}
             }
         },
         "joystick": {
@@ -347,20 +373,20 @@
             "properties": {
                 "enabled": {"type": "boolean"},
                 "driver": {"type": "string"},
-                "button_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "axis_resolution": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "button_count": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "axis_resolution": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "axes": {
                     "type": "object",
-                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]}
+                    "propertyNames": {"enum": ["x", "y", "z", "rx", "ry", "rz"]},
                     "additionalProperties": {
                         "oneOf": [
                             {
                                 "type": "object",
                                 "properties": {
-                                    "input_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                                    "low": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                                    "rest": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                                    "high": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                                    "input_pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                                    "low": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                                    "rest": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                                    "high": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                                 }
                             },
                             {
@@ -372,14 +398,20 @@
                 }
             }
         },
-        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
+        "keycodes": {"$ref": "./definitions.jsonschema#/keycode_decl_array"},
+        "layer_lock": {
+            "type": "object",
+            "properties": {
+                "timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"}
+            }
+        },
         "layout_aliases": {
             "type": "object",
-            "additionalProperties": {"$ref": "qmk.definitions.v1#/layout_macro"}
+            "additionalProperties": {"$ref": "./definitions.jsonschema#/layout_macro"}
         },
         "layouts": {
             "type": "object",
-            "propertyNames": {"$ref": "qmk.definitions.v1#/layout_macro"},
+            "propertyNames": {"$ref": "./definitions.jsonschema#/layout_macro"},
             "additionalProperties": {
                 "type": "object",
                 "additionalProperties": false,
@@ -394,7 +426,7 @@
                             "additionalProperties": false,
                             "required": ["x", "y"],
                             "properties": {
-                                "encoder": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                                "encoder": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                                 "label": {
                                     "type": "string",
                                     "pattern": "^[^\\n]*$"
@@ -408,13 +440,17 @@
                                         "minimum": 0
                                     }
                                 },
-                                "r": {"$ref": "qmk.definitions.v1#/signed_decimal"},
-                                "rx": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
-                                "ry": {"$ref": "qmk.definitions.v1#/unsigned_decimal"},
-                                "h": {"$ref": "qmk.definitions.v1#/key_unit"},
-                                "w": {"$ref": "qmk.definitions.v1#/key_unit"},
-                                "x": {"$ref": "qmk.definitions.v1#/key_unit"},
-                                "y": {"$ref": "qmk.definitions.v1#/key_unit"}
+                                "r": {"$ref": "./definitions.jsonschema#/signed_decimal"},
+                                "rx": {"$ref": "./definitions.jsonschema#/unsigned_decimal"},
+                                "ry": {"$ref": "./definitions.jsonschema#/unsigned_decimal"},
+                                "h": {"$ref": "./definitions.jsonschema#/key_unit"},
+                                "w": {"$ref": "./definitions.jsonschema#/key_unit"},
+                                "x": {"$ref": "./definitions.jsonschema#/key_unit"},
+                                "y": {"$ref": "./definitions.jsonschema#/key_unit"},
+                                "hand": {
+                                    "type": "string",
+                                    "enum": ["L", "R", "*"]
+                                }
                             }
                         }
                     }
@@ -430,12 +466,24 @@
                 }
             }
         },
+        "host": {
+            "type": "object",
+            "properties": {
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "nkro": {"type": "boolean"}
+                    }
+                }
+            }
+        },
         "leader_key": {
             "type": "object",
             "properties": {
                 "timing": {"type": "boolean"},
                 "strict_processing": {"type": "boolean"},
-                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"}
             }
         },
         "matrix_pins": {
@@ -445,32 +493,39 @@
                 "custom": {"type": "boolean"},
                 "custom_lite": {"type": "boolean"},
                 "ghost": {"type": "boolean"},
-                "input_pressed_state": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "io_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "input_pressed_state": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "io_delay": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "masked": {"type": "boolean"},
                 "direct": {
                     "type": "array",
-                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                    "items": {"$ref": "./definitions.jsonschema#/mcu_pin_array"}
                 },
-                "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                "cols": {"$ref": "./definitions.jsonschema#/mcu_pin_array"},
+                "rows": {"$ref": "./definitions.jsonschema#/mcu_pin_array"}
+            }
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
             }
         },
         "mouse_key": {
             "type": "object",
             "properties": {
                 "enabled": {"type": "boolean"},
-                "delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "max_speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "time_to_max": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "wheel_delay": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                "delay": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "interval": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "max_speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "time_to_max": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "wheel_delay": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
             }
         },
         "oneshot": {
             "type": "object",
             "properties": {
-                "tap_toggle": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "tap_toggle": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"}
             }
         },
         "led_matrix": {
@@ -478,7 +533,7 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "propertyNames": {"$ref": "./definitions.jsonschema#/snake_case"},
                     "additionalProperties": {"type": "boolean"}
                 },
                 "default": {
@@ -487,8 +542,8 @@
                     "properties": {
                         "on": {"type": "boolean"},
                         "animation": {"type": "string"},
-                        "val": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                        "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                        "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
@@ -514,27 +569,28 @@
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 2,
-                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                 },
-                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "led_flush_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "led_process_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "max_brightness": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "val_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "speed_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "led_flush_limit": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "led_process_limit": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "react_on_keyup": {"type": "boolean"},
                 "sleep": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 2,
-                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                 },
                 "layout": {
                     "type": "array",
                     "items": {
                         "type": "object",
                         "additionalProperties": false,
+                        "required": ["x", "y"],
                         "properties": {
                             "matrix": {
                                 "type": "array",
@@ -545,9 +601,9 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                            "x": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                            "y": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                            "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                         }
                     }
                 }
@@ -558,7 +614,7 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "propertyNames": {"$ref": "./definitions.jsonschema#/snake_case"},
                     "additionalProperties": {"type": "boolean"}
                 },
                 "default": {
@@ -567,10 +623,10 @@
                     "properties": {
                         "on": {"type": "boolean"},
                         "animation": {"type": "string"},
-                        "hue": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                        "sat": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                        "val": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                        "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                        "hue": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "sat": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
@@ -598,29 +654,30 @@
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 2,
-                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                 },
-                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "sat_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "val_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "speed_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "led_flush_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "led_process_limit": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "max_brightness": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "hue_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "sat_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "val_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "speed_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "led_flush_limit": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "led_process_limit": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "react_on_keyup": {"type": "boolean"},
                 "sleep": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 2,
-                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                 },
                 "layout": {
                     "type": "array",
                     "items": {
                         "type": "object",
                         "additionalProperties": false,
+                        "required": ["x", "y"],
                         "properties": {
                             "matrix": {
                                 "type": "array",
@@ -631,9 +688,9 @@
                                     "minimum": 0
                                 }
                             },
-                            "x": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                            "y": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                            "flags": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                            "x": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                            "y": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                            "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                         }
                     }
                 }
@@ -645,27 +702,27 @@
             "properties": {
                 "animations": {
                     "type": "object",
-                    "propertyNames": {"$ref": "qmk.definitions.v1#/snake_case"},
+                    "propertyNames": {"$ref": "./definitions.jsonschema#/snake_case"},
                     "additionalProperties": {"type": "boolean"}
                 },
-                "brightness_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "brightness_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "default": {
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
                         "on": {"type": "boolean"},
                         "animation": {"type": "string"},
-                        "hue": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                        "sat": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                        "val": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                        "speed": {"$ref": "qmk.definitions.v1#/unsigned_int_8"}
+                        "hue": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "sat": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
                     "type": "string",
                     "enum": ["apa102", "custom", "ws2812"]
                 },
-                "hue_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "hue_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "layers": {
                     "type": "object",
                     "additionalProperties": false,
@@ -680,29 +737,29 @@
                         "override_rgb": {"type": "boolean"}
                     }
                 },
-                "led_count": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "led_count": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "led_map": {
                     "type": "array",
                     "minItems": 2,
-                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                 },
-                "max_brightness": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "max_brightness": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                 "pin": {
-                    "$ref": "qmk.definitions.v1#/mcu_pin",
+                    "$ref": "./definitions.jsonschema#/mcu_pin",
                     "$comment": "Deprecated: use ws2812.pin instead"
                 },
                 "rgbw": {
                     "type": "boolean",
                     "$comment": "Deprecated: use ws2812.rgbw instead"
                 },
-                "saturation_steps": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "saturation_steps": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "sleep": {"type": "boolean"},
                 "split": {"type": "boolean"},
                 "split_count": {
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 2,
-                    "items": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                 }
             }
         },
@@ -711,8 +768,8 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
-                "unlock_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "idle_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "unlock_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "idle_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "unlock_sequence": {
                     "type": "array",
                     "minItems": 1,
@@ -746,8 +803,8 @@
             "properties": {
                 "enabled": {"type": "boolean"},
                 "mouse_enabled": {"type": "boolean"},
-                "clock_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "data_pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "clock_pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "data_pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                 "driver": {
                     "type": "string",
                     "enum": ["busywait", "interrupt", "usart", "vendor"]
@@ -784,11 +841,11 @@
                             "properties": {
                                 "direct": {
                                     "type": "array",
-                                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                                    "items": {"$ref": "./definitions.jsonschema#/mcu_pin_array"}
                                 },
-                                "cols": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                                "rows": {"$ref": "qmk.definitions.v1#/mcu_pin_array"},
-                                "unused": {"$ref": "qmk.definitions.v1#/mcu_pin_array"}
+                                "cols": {"$ref": "./definitions.jsonschema#/mcu_pin_array"},
+                                "rows": {"$ref": "./definitions.jsonschema#/mcu_pin_array"},
+                                "unused": {"$ref": "./definitions.jsonschema#/mcu_pin_array"}
                             }
                         }
                     }
@@ -815,22 +872,21 @@
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
-                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                        "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                         "matrix_grid": {
-                            "$ref": "qmk.definitions.v1#/mcu_pin_array",
+                            "$ref": "./definitions.jsonschema#/mcu_pin_array",
                             "minItems": 2,
                             "maxItems": 2
                         }
                     }
                 },
                 "soft_serial_pin": {
-                    "$ref": "qmk.definitions.v1#/mcu_pin",
+                    "$ref": "./definitions.jsonschema#/mcu_pin",
                     "$comment": "Deprecated: use split.serial.pin instead"
                 },
                 "soft_serial_speed": {
                     "type": "integer",
-                    "minimum": 0,
-                    "maximum": 5
+                    "$comment": "Deprecated: use split.serial.speed instead"
                 },
                 "serial": {
                     "type": "object",
@@ -840,7 +896,12 @@
                             "type": "string",
                             "enum": ["bitbang", "usart", "vendor"]
                         },
-                        "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                        "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                        "speed": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 5
+                        }
                     }
                 },
                 "transport": {
@@ -868,7 +929,7 @@
                             }
                         },
                         "watchdog": {"type": "boolean"},
-                        "watchdog_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                        "watchdog_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                         "sync_matrix_state": {
                             "type": "boolean",
                             "$comment": "Deprecated: use sync.matrix_state instead"
@@ -884,8 +945,8 @@
                     "additionalProperties": false,
                     "properties": {
                         "enabled": {"type": "boolean"},
-                        "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                        "timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                        "polling_interval": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                        "timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"}
                     }
                 },
                 "main": {
@@ -895,7 +956,7 @@
                 },
                 "matrix_grid": {
                     "type": "array",
-                    "items": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                    "items": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                     "$comment": "Deprecated: use split.handedness.matrix_grid instead"
                 }
             }
@@ -907,6 +968,7 @@
         "tapping": {
             "type": "object",
             "properties": {
+                "chordal_hold": {"type": "boolean"},
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},
@@ -916,9 +978,9 @@
                 "permissive_hold_per_key": {"type": "boolean"},
                 "retro": {"type": "boolean"},
                 "retro_per_key": {"type": "boolean"},
-                "term": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "term": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "term_per_key": {"type": "boolean"},
-                "toggle": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "toggle": {"$ref": "./definitions.jsonschema#/unsigned_int"}
             }
         },
         "usb": {
@@ -926,16 +988,20 @@
             "additionalProperties": false,
             "properties": {
                 "device_ver": {
-                    "$ref": "qmk.definitions.v1#/hex_number_4d",
+                    "$ref": "./definitions.jsonschema#/hex_number_4d",
                     "$comment": "Deprecated: use device_version instead"
                 },
-                "device_version": {"$ref": "qmk.definitions.v1#/bcd_version"},
-                "force_nkro": {"type": "boolean"},
-                "pid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
-                "vid": {"$ref": "qmk.definitions.v1#/hex_number_4d"},
-                "max_power": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "device_version": {"$ref": "./definitions.jsonschema#/bcd_version"},
+                "force_nkro": {
+                    "type": "boolean",
+                    "$comment": "Deprecated: use host.default.nkro instead"
+
+                },
+                "pid": {"$ref": "./definitions.jsonschema#/hex_number_4d"},
+                "vid": {"$ref": "./definitions.jsonschema#/hex_number_4d"},
+                "max_power": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "no_startup_check": {"type": "boolean"},
-                "polling_interval": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
+                "polling_interval": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                 "shared_endpoint": {
                     "type": "object",
                     "additionalProperties": false,
@@ -944,7 +1010,7 @@
                         "mouse": {"type": "boolean"}
                     }
                 },
-                "suspend_wakeup_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "suspend_wakeup_delay": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "wait_for_enumeration": {"type": "boolean"}
             }
         },
@@ -952,9 +1018,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "keys_per_scan": {"$ref": "qmk.definitions.v1#/unsigned_int_8"},
-                "tap_keycode_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
-                "tap_capslock_delay": {"$ref": "qmk.definitions.v1#/unsigned_int"},
+                "keys_per_scan": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                "tap_keycode_delay": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "tap_capslock_delay": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "locking": {
                     "type": "object",
                     "additionalProperties": false,
@@ -969,10 +1035,10 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-                "esc_output": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "esc_input": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "led": {"$ref": "qmk.definitions.v1#/mcu_pin"},
-                "speaker": {"$ref": "qmk.definitions.v1#/mcu_pin"}
+                "esc_output": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "esc_input": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "led": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                "speaker": {"$ref": "./definitions.jsonschema#/mcu_pin"}
             }
         },
         "ws2812": {
@@ -983,10 +1049,10 @@
                     "type": "string",
                     "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
                 },
-                "pin": {"$ref": "qmk.definitions.v1#/mcu_pin"},
+                "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                 "rgbw": {"type": "boolean"},
-                "i2c_address": {"$ref": "qmk.definitions.v1#/hex_number_2d"},
-                "i2c_timeout": {"$ref": "qmk.definitions.v1#/unsigned_int"}
+                "i2c_address": {"$ref": "./definitions.jsonschema#/hex_number_2d"},
+                "i2c_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"}
             }
         }
     }

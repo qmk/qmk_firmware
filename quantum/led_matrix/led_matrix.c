@@ -19,7 +19,6 @@
 
 #include "led_matrix.h"
 #include "progmem.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "keyboard.h"
 #include "sync_timer.h"
@@ -46,6 +45,9 @@ const led_point_t k_led_matrix_center = LED_MATRIX_CENTER;
 #define LED_MATRIX_CUSTOM_EFFECT_IMPLS
 
 #include "led_matrix_effects.inc"
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "led_matrix_community_modules.inc"
+#endif
 #ifdef LED_MATRIX_CUSTOM_KB
 #    include "led_matrix_kb.inc"
 #endif
@@ -86,9 +88,9 @@ static last_hit_t last_hit_buffer;
 const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(led_matrix, EECONFIG_LED_MATRIX, led_matrix_eeconfig);
+EECONFIG_DEBOUNCE_HELPER(led_matrix, led_matrix_eeconfig);
 
-void eeconfig_update_led_matrix(void) {
+void eeconfig_force_flush_led_matrix(void) {
     eeconfig_flush_led_matrix(true);
 }
 
@@ -105,7 +107,11 @@ void eeconfig_update_led_matrix_default(void) {
 void eeconfig_debug_led_matrix(void) {
     dprintf("led_matrix_eeconfig EEPROM\n");
     dprintf("led_matrix_eeconfig.enable = %d\n", led_matrix_eeconfig.enable);
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+    dprintf("led_matrix_eeconfig.mode = %d (%s)\n", led_matrix_eeconfig.mode, led_matrix_get_mode_name(led_matrix_eeconfig.mode));
+#else
     dprintf("led_matrix_eeconfig.mode = %d\n", led_matrix_eeconfig.mode);
+#endif // LED_MATRIX_MODE_NAME_ENABLE
     dprintf("led_matrix_eeconfig.val = %d\n", led_matrix_eeconfig.val);
     dprintf("led_matrix_eeconfig.speed = %d\n", led_matrix_eeconfig.speed);
     dprintf("led_matrix_eeconfig.flags = %d\n", led_matrix_eeconfig.flags);
@@ -139,11 +145,20 @@ void led_matrix_update_pwm_buffers(void) {
     led_matrix_driver.flush();
 }
 
+__attribute__((weak)) int led_matrix_led_index(int index) {
+#if defined(LED_MATRIX_SPLIT)
+    if (!is_keyboard_left() && index >= k_led_matrix_split[0]) {
+        return index - k_led_matrix_split[0];
+    }
+#endif
+    return index;
+}
+
 void led_matrix_set_value(int index, uint8_t value) {
 #ifdef USE_CIE1931_CURVE
     value = pgm_read_byte(&CIE1931_CURVE[value]);
 #endif
-    led_matrix_driver.set_value(index, value);
+    led_matrix_driver.set_value(led_matrix_led_index(index), value);
 }
 
 void led_matrix_set_value_all(uint8_t value) {
@@ -274,6 +289,15 @@ static void led_task_render(uint8_t effect) {
 #include "led_matrix_effects.inc"
 #undef LED_MATRIX_EFFECT
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    define LED_MATRIX_EFFECT(name, ...)          \
+        case LED_MATRIX_COMMUNITY_MODULE_##name:  \
+            rendering = name(&led_effect_params); \
+            break;
+#    include "led_matrix_community_modules.inc"
+#    undef LED_MATRIX_EFFECT
+#endif
+
 #if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
 #    define LED_MATRIX_EFFECT(name, ...)          \
         case LED_MATRIX_CUSTOM_##name:            \
@@ -350,7 +374,12 @@ void led_matrix_task(void) {
     }
 }
 
+__attribute__((weak)) bool led_matrix_indicators_modules(void) {
+    return true;
+}
+
 void led_matrix_indicators(void) {
+    led_matrix_indicators_modules();
     led_matrix_indicators_kb();
 }
 
@@ -362,6 +391,10 @@ __attribute__((weak)) bool led_matrix_indicators_user(void) {
     return true;
 }
 
+__attribute__((weak)) bool led_matrix_indicators_advanced_modules(uint8_t led_min, uint8_t led_max) {
+    return true;
+}
+
 void led_matrix_indicators_advanced(effect_params_t *params) {
     /* special handling is needed for "params->iter", since it's already been incremented.
      * Could move the invocations to led_task_render, but then it's missing a few checks
@@ -369,6 +402,7 @@ void led_matrix_indicators_advanced(effect_params_t *params) {
      * led_task_render, right before the iter++ line.
      */
     LED_MATRIX_USE_LIMITS_ITER(min, max, params->iter - 1);
+    led_matrix_indicators_advanced_modules(min, max);
     led_matrix_indicators_advanced_kb(min, max);
 }
 
@@ -387,7 +421,6 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
     limits.led_min_index = LED_MATRIX_LED_PROCESS_LIMIT * (iter);
     limits.led_max_index = limits.led_min_index + LED_MATRIX_LED_PROCESS_LIMIT;
     if (limits.led_max_index > LED_MATRIX_LED_COUNT) limits.led_max_index = LED_MATRIX_LED_COUNT;
-    uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
     if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
 #    else
@@ -397,9 +430,8 @@ struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter) {
 #    endif
 #else
 #    if defined(LED_MATRIX_SPLIT)
-    limits.led_min_index                = 0;
-    limits.led_max_index                = LED_MATRIX_LED_COUNT;
-    const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+    limits.led_min_index = 0;
+    limits.led_max_index = LED_MATRIX_LED_COUNT;
     if (is_keyboard_left() && (limits.led_max_index > k_led_matrix_split[0])) limits.led_max_index = k_led_matrix_split[0];
     if (!(is_keyboard_left()) && (limits.led_min_index < k_led_matrix_split[0])) limits.led_min_index = k_led_matrix_split[0];
 #    else
@@ -497,7 +529,11 @@ void led_matrix_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     }
     led_task_state = STARTING;
     eeconfig_flag_led_matrix(write_to_eeprom);
-    dprintf("led matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", led_matrix_eeconfig.mode);
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+    dprintf("led matrix mode [%s]: %u (%s)\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)led_matrix_eeconfig.mode, led_matrix_get_mode_name(led_matrix_eeconfig.mode));
+#else
+    dprintf("led matrix mode [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", (unsigned)led_matrix_eeconfig.mode);
+#endif // LED_MATRIX_MODE_NAME_ENABLE
 }
 void led_matrix_mode_noeeprom(uint8_t mode) {
     led_matrix_mode_eeprom_helper(mode, false);
@@ -624,3 +660,48 @@ void led_matrix_set_flags(led_flags_t flags) {
 void led_matrix_set_flags_noeeprom(led_flags_t flags) {
     led_matrix_set_flags_eeprom_helper(flags, false);
 }
+
+// LED Matrix naming
+#undef LED_MATRIX_EFFECT
+#ifdef LED_MATRIX_MODE_NAME_ENABLE
+const char *led_matrix_get_mode_name(uint8_t mode) {
+    switch (mode) {
+        case LED_MATRIX_NONE:
+            return "NONE";
+
+#    define LED_MATRIX_EFFECT(name, ...) \
+        case LED_MATRIX_##name:          \
+            return #name;
+#    include "led_matrix_effects.inc"
+#    undef LED_MATRIX_EFFECT
+
+#    ifdef COMMUNITY_MODULES_ENABLE
+#        define LED_MATRIX_EFFECT(name, ...)         \
+            case LED_MATRIX_COMMUNITY_MODULE_##name: \
+                return #name;
+#        include "led_matrix_community_modules.inc"
+#        undef LED_MATRIX_EFFECT
+#    endif // COMMUNITY_MODULES_ENABLE
+
+#    if defined(LED_MATRIX_CUSTOM_KB) || defined(LED_MATRIX_CUSTOM_USER)
+#        define LED_MATRIX_EFFECT(name, ...) \
+            case LED_MATRIX_CUSTOM_##name:   \
+                return #name;
+
+#        ifdef LED_MATRIX_CUSTOM_KB
+#            include "led_matrix_kb.inc"
+#        endif // LED_MATRIX_CUSTOM_KB
+
+#        ifdef LED_MATRIX_CUSTOM_USER
+#            include "led_matrix_user.inc"
+#        endif // LED_MATRIX_CUSTOM_USER
+
+#        undef LED_MATRIX_EFFECT
+#    endif // LED_MATRIX_CUSTOM_KB || LED_MATRIX_CUSTOM_USER
+
+        default:
+            return "UNKNOWN";
+    }
+}
+#    undef LED_MATRIX_EFFECT
+#endif // LED_MATRIX_MODE_NAME_ENABLE

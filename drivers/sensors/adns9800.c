@@ -15,7 +15,6 @@
  */
 
 #include "spi_master.h"
-#include "adns9800_srom_A6.h"
 #include "adns9800.h"
 #include "wait.h"
 
@@ -78,6 +77,21 @@
 #define MSB1                0x80
 // clang-format on
 
+const pointing_device_driver_t adns9800_pointing_device_driver = {
+    .init       = adns9800_init,
+    .get_report = adns9800_get_report_driver,
+    .set_cpi    = adns9800_set_cpi,
+    .get_cpi    = adns9800_get_cpi,
+};
+
+uint16_t __attribute__((weak)) adns9800_srom_get_length(void) {
+    return 0;
+}
+
+uint8_t __attribute__((weak)) adns9800_srom_get_byte(uint16_t position) {
+    return 0;
+}
+
 void adns9800_spi_start(void) {
     spi_start(ADNS9800_CS_PIN, false, ADNS9800_SPI_MODE, ADNS9800_SPI_DIVISOR);
 }
@@ -101,7 +115,14 @@ uint8_t adns9800_read(uint8_t reg_addr) {
     return data;
 }
 
-void adns9800_init(void) {
+bool __attribute__((weak)) adns9800_check_signature(void) {
+    if (adns9800_read(REG_Product_ID) != 0x33) {
+        return false;
+    }
+    return true;
+}
+
+bool adns9800_init(void) {
     gpio_set_pin_output(ADNS9800_CS_PIN);
 
     spi_init();
@@ -117,53 +138,55 @@ void adns9800_init(void) {
     adns9800_read(REG_Delta_Y_L);
     adns9800_read(REG_Delta_Y_H);
 
-#ifdef ADNS9800_UPLOAD_SROM
-    // upload firmware
+    if (adns9800_srom_get_length() != 0) {
+        // upload firmware
 
-    // 3k firmware mode
-    adns9800_write(REG_Configuration_IV, 0x02);
+        // 3k firmware mode
+        adns9800_write(REG_Configuration_IV, 0x02);
 
-    // enable initialisation
-    adns9800_write(REG_SROM_Enable, 0x1d);
+        // enable initialisation
+        adns9800_write(REG_SROM_Enable, 0x1d);
 
-    // wait a frame
-    wait_ms(10);
+        // wait a frame
+        wait_ms(10);
 
-    // start SROM download
-    adns9800_write(REG_SROM_Enable, 0x18);
+        // start SROM download
+        adns9800_write(REG_SROM_Enable, 0x18);
 
-    // write the SROM file
+        // write the SROM file
 
-    adns9800_spi_start();
+        adns9800_spi_start();
 
-    spi_write(REG_SROM_Load_Burst | 0x80);
-    wait_us(15);
-
-    // send all bytes of the firmware
-    for (uint16_t i = 0; i < FIRMWARE_LENGTH; i++) {
-        spi_write(pgm_read_byte(firmware_data + i));
+        spi_write(REG_SROM_Load_Burst | 0x80);
         wait_us(15);
+
+        // send all bytes of the firmware
+        for (uint16_t i = 0; i < adns9800_srom_get_length(); i++) {
+            spi_write(adns9800_srom_get_byte(i));
+            wait_us(15);
+        }
+
+        spi_stop();
+
+        wait_ms(10);
+    } else {
+        // write reset value to REG_Configuration_IV
+        adns9800_write(REG_Configuration_IV, 0x0);
+
+        // write reset value to REG_SROM_Enable
+        adns9800_write(REG_SROM_Enable, 0x0);
+
+        // wait a frame
+        wait_ms(10);
     }
-
-    spi_stop();
-
-    wait_ms(10);
-#else
-    // write reset value to REG_Configuration_IV
-    adns9800_write(REG_Configuration_IV, 0x0);
-
-    // write reset value to REG_SROM_Enable
-    adns9800_write(REG_SROM_Enable, 0x0);
-
-    // wait a frame
-    wait_ms(10);
-#endif
 
     // enable laser
     uint8_t laser_ctrl0 = adns9800_read(REG_LASER_CTRL0);
     adns9800_write(REG_LASER_CTRL0, laser_ctrl0 & 0xf0);
 
     adns9800_set_cpi(ADNS9800_CPI);
+
+    return adns9800_check_signature();
 }
 
 config_adns9800_t adns9800_get_config(void) {
@@ -228,4 +251,13 @@ report_adns9800_t adns9800_get_report(void) {
     spi_stop();
 
     return report;
+}
+
+report_mouse_t adns9800_get_report_driver(report_mouse_t mouse_report) {
+    report_adns9800_t sensor_report = adns9800_get_report();
+
+    mouse_report.x = CONSTRAIN_HID_XY(sensor_report.x);
+    mouse_report.y = CONSTRAIN_HID_XY(sensor_report.y);
+
+    return mouse_report;
 }

@@ -19,7 +19,7 @@ jobs:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
@@ -39,7 +39,7 @@ jobs:
         qmk format-text -a
         git diff
 
-    - uses: rlespinasse/github-slug-action@v3.x
+    - uses: rlespinasse/github-slug-action@v5
 
     - name: Become QMK Bot
       run: |

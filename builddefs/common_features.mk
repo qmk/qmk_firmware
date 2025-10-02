@@ -28,6 +28,11 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/sync_timer.c \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
+    $(QUANTUM_DIR)/process_keycode/process_default_layer.c \
+    $(QUANTUM_DIR)/process_keycode/process_oneshot.c \
+    $(QUANTUM_DIR)/process_keycode/process_quantum.c \
+
+include $(QUANTUM_DIR)/nvm/rules.mk
 
 VPATH += $(QUANTUM_DIR)/logging
 # Fall back to lib/printf if there is no platform provided print
@@ -129,13 +134,13 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         MOUSE_ENABLE := yes
         VPATH += $(QUANTUM_DIR)/pointing_device
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device.c
-        SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_drivers.c
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
             OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
         endif
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
+        OPT_DEFS += -DPOINTING_DEVICE_DRIVER_NAME=$(strip $(POINTING_DEVICE_DRIVER))
         ifeq ($(strip $(POINTING_DEVICE_DRIVER)), adns9800)
             SPI_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), analog_joystick)
@@ -168,84 +173,82 @@ endif
 
 VALID_EEPROM_DRIVER_TYPES := vendor custom transient i2c spi wear_leveling legacy_stm32_flash
 EEPROM_DRIVER ?= vendor
-ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
+ifneq ($(strip $(EEPROM_DRIVER)),none)
+  ifeq ($(filter $(EEPROM_DRIVER),$(VALID_EEPROM_DRIVER_TYPES)),)
   $(call CATASTROPHIC_ERROR,Invalid EEPROM_DRIVER,EEPROM_DRIVER="$(EEPROM_DRIVER)" is not a valid EEPROM driver)
-else
-  OPT_DEFS += -DEEPROM_ENABLE
-  COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
-  COMMON_VPATH += $(DRIVER_PATH)/eeprom
-  COMMON_VPATH += $(PLATFORM_COMMON_DIR)
-  ifeq ($(strip $(EEPROM_DRIVER)), custom)
-    # Custom EEPROM implementation -- only needs to implement init/erase/read_block/write_block
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_CUSTOM
-    SRC += eeprom_driver.c
-  else ifeq ($(strip $(EEPROM_DRIVER)), wear_leveling)
-    # Wear-leveling EEPROM implementation
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
-    SRC += eeprom_driver.c eeprom_wear_leveling.c
-  else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
-    # External I2C EEPROM implementation
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
-    I2C_DRIVER_REQUIRED = yes
-    SRC += eeprom_driver.c eeprom_i2c.c
-  else ifeq ($(strip $(EEPROM_DRIVER)), spi)
-    # External SPI EEPROM implementation
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
-    SPI_DRIVER_REQUIRED = yes
-    SRC += eeprom_driver.c eeprom_spi.c
-  else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
-    # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
-    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
-    COMMON_VPATH += $(DRIVER_PATH)/flash
-    SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
-  else ifeq ($(strip $(EEPROM_DRIVER)), transient)
-    # Transient EEPROM implementation -- no data storage but provides runtime area for it
-    OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
-    SRC += eeprom_driver.c eeprom_transient.c
-  else ifeq ($(strip $(EEPROM_DRIVER)), vendor)
-    # Vendor-implemented EEPROM
-    OPT_DEFS += -DEEPROM_VENDOR
-    ifeq ($(PLATFORM),AVR)
-      # Automatically provided by avr-libc, nothing required
-    else ifeq ($(PLATFORM),CHIBIOS)
-      ifneq ($(filter %_STM32F072xB %_STM32F042x6, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
-        # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
-        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
-        COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
-        COMMON_VPATH += $(DRIVER_PATH)/flash
-        SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
-      else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G4xx WB32F3G71xx WB32FQ95xx GD32VF103),)
-        # Wear-leveling EEPROM implementation, backed by MCU flash
-        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
-        SRC += eeprom_driver.c eeprom_wear_leveling.c
-        WEAR_LEVELING_DRIVER ?= embedded_flash
-      else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
-        # True EEPROM on STM32L0xx, L1xx
-        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
-        SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
-      else ifneq ($(filter $(MCU_SERIES),RP2040),)
-        # Wear-leveling EEPROM implementation, backed by RP2040 flash
-        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
-        SRC += eeprom_driver.c eeprom_wear_leveling.c
-        WEAR_LEVELING_DRIVER ?= rp2040_flash
-      else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
-        # Teensy EEPROM implementations
-        OPT_DEFS += -DEEPROM_KINETIS_FLEXRAM
-        SRC += eeprom_kinetis_flexram.c
-      else
-        # Fall back to transient, i.e. non-persistent
-        OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
-        SRC += eeprom_driver.c eeprom_transient.c
+  else
+    OPT_DEFS += -DEEPROM_ENABLE
+    COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/eeprom
+    COMMON_VPATH += $(DRIVER_PATH)/eeprom
+    COMMON_VPATH += $(PLATFORM_COMMON_DIR)
+    ifeq ($(strip $(EEPROM_DRIVER)), custom)
+      # Custom EEPROM implementation -- only needs to implement init/erase/read_block/write_block
+      OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_CUSTOM
+      SRC += eeprom_driver.c
+    else ifeq ($(strip $(EEPROM_DRIVER)), wear_leveling)
+      # Wear-leveling EEPROM implementation
+      OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+      SRC += eeprom_driver.c eeprom_wear_leveling.c
+    else ifeq ($(strip $(EEPROM_DRIVER)), i2c)
+      # External I2C EEPROM implementation
+      OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_I2C
+      I2C_DRIVER_REQUIRED = yes
+      SRC += eeprom_driver.c eeprom_i2c.c
+    else ifeq ($(strip $(EEPROM_DRIVER)), spi)
+      # External SPI EEPROM implementation
+      OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_SPI
+      SPI_DRIVER_REQUIRED = yes
+      SRC += eeprom_driver.c eeprom_spi.c
+    else ifeq ($(strip $(EEPROM_DRIVER)), legacy_stm32_flash)
+      # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
+      OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
+      COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
+      COMMON_VPATH += $(DRIVER_PATH)/flash
+      SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
+    else ifeq ($(strip $(EEPROM_DRIVER)), transient)
+      # Transient EEPROM implementation -- no data storage but provides runtime area for it
+      OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
+      SRC += eeprom_driver.c eeprom_transient.c
+    else ifeq ($(strip $(EEPROM_DRIVER)), vendor)
+      # Vendor-implemented EEPROM
+      OPT_DEFS += -DEEPROM_VENDOR
+      ifeq ($(PLATFORM),AVR)
+        # Automatically provided by avr-libc, nothing required
+      else ifeq ($(PLATFORM),CHIBIOS)
+        ifneq ($(filter %_STM32F072xB %_STM32F042x6, $(MCU_SERIES)_$(MCU_LDSCRIPT)),)
+          # STM32 Emulated EEPROM, backed by MCU flash (soon to be deprecated)
+          OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_LEGACY_EMULATED_FLASH
+          COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
+          COMMON_VPATH += $(DRIVER_PATH)/flash
+          SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
+        else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G0xx STM32G4xx WB32F3G71xx WB32FQ95xx AT32F415 GD32VF103),)
+          # Wear-leveling EEPROM implementation, backed by MCU flash
+          OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+          SRC += eeprom_driver.c eeprom_wear_leveling.c
+          WEAR_LEVELING_DRIVER ?= embedded_flash
+        else ifneq ($(filter $(MCU_SERIES),STM32L0xx STM32L1xx),)
+          # True EEPROM on STM32L0xx, L1xx
+          OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_STM32_L0_L1
+          SRC += eeprom_driver.c eeprom_stm32_L0_L1.c
+        else ifneq ($(filter $(MCU_SERIES),RP2040),)
+          # Wear-leveling EEPROM implementation, backed by RP2040 flash
+          OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
+          SRC += eeprom_driver.c eeprom_wear_leveling.c
+          WEAR_LEVELING_DRIVER ?= rp2040_flash
+        else ifneq ($(filter $(MCU_SERIES),KL2x K20x),)
+          # Teensy EEPROM implementations
+          OPT_DEFS += -DEEPROM_KINETIS_FLEXRAM
+          SRC += eeprom_kinetis_flexram.c
+        else
+          # Fall back to transient, i.e. non-persistent
+          OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_TRANSIENT
+          SRC += eeprom_driver.c eeprom_transient.c
+        endif
+      else ifeq ($(PLATFORM),TEST)
+        # Test harness "EEPROM"
+        OPT_DEFS += -DEEPROM_TEST_HARNESS
+        SRC += eeprom.c
       endif
-    else ifeq ($(PLATFORM),ARM_ATSAM)
-      # arm_atsam EEPROM
-      OPT_DEFS += -DEEPROM_SAMD
-      SRC += eeprom_samd.c
-    else ifeq ($(PLATFORM),TEST)
-      # Test harness "EEPROM"
-      OPT_DEFS += -DEEPROM_TEST_HARNESS
-      SRC += eeprom.c
     endif
   endif
 endif
@@ -266,18 +269,14 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
     ifeq ($(strip $(WEAR_LEVELING_DRIVER)), embedded_flash)
       OPT_DEFS += -DHAL_USE_EFL
       SRC += wear_leveling_efl.c
-      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_efl_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), spi_flash)
       FLASH_DRIVER := spi
       SRC += wear_leveling_flash_spi.c
-      POST_CONFIG_H += $(DRIVER_PATH)/wear_leveling/wear_leveling_flash_spi_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), rp2040_flash)
       SRC += wear_leveling_rp2040_flash.c
-      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_PATH)/wear_leveling/wear_leveling_rp2040_flash_config.h
     else ifeq ($(strip $(WEAR_LEVELING_DRIVER)), legacy)
       COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
       SRC += legacy_flash_ops.c wear_leveling_legacy.c
-      POST_CONFIG_H += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling/wear_leveling_legacy_config.h
     endif
   endif
 endif
@@ -310,11 +309,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         POST_CONFIG_H += $(QUANTUM_DIR)/rgblight/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
         OPT_DEFS += -DRGBLIGHT_$(strip $(shell echo $(RGBLIGHT_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        SRC += $(QUANTUM_DIR)/process_keycode/process_underglow.c
         SRC += $(QUANTUM_DIR)/color.c
         SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
         SRC += $(QUANTUM_DIR)/rgblight/rgblight_drivers.c
         CIE1931_CURVE := yes
-        RGB_KEYCODES_ENABLE := yes
     endif
 
     ifeq ($(strip $(RGBLIGHT_DRIVER)), ws2812)
@@ -436,6 +435,13 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
         SRC += snled27351-mono.c
     endif
 
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_KB)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_KB
+    endif
+
+    ifeq ($(strip $(LED_MATRIX_CUSTOM_USER)), yes)
+        OPT_DEFS += -DLED_MATRIX_CUSTOM_USER
+    endif
 endif
 
 # Deprecated driver names - do not use
@@ -460,12 +466,16 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations/runners
     POST_CONFIG_H += $(QUANTUM_DIR)/rgb_matrix/post_config.h
+
+    # TODO: Remove this
+    SRC += $(QUANTUM_DIR)/process_keycode/process_underglow.c
+
+    SRC += $(QUANTUM_DIR)/process_keycode/process_rgb_matrix.c
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
     LIB8TION_ENABLE := yes
     CIE1931_CURVE := yes
-    RGB_KEYCODES_ENABLE := yes
 
     ifeq ($(strip $(RGB_MATRIX_DRIVER)), aw20216s)
         SPI_DRIVER_REQUIRED = yes
@@ -568,10 +578,6 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(RGB_KEYCODES_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/process_keycode/process_rgb.c
-endif
-
 VARIABLE_TRACE ?= no
 ifneq ($(strip $(VARIABLE_TRACE)),no)
     SRC += $(QUANTUM_DIR)/variable_trace.c
@@ -629,6 +635,18 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
+    ifeq ($(strip $(VIA_INSECURE)), yes)
+        OPT_DEFS += -DVIA_INSECURE
+    endif
+endif
+
+ifeq ($(strip $(RAW_ENABLE)), yes)
+    OPT_DEFS += -DRAW_ENABLE
+    SRC += raw_hid.c
+endif
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    SEND_STRING_ENABLE := yes
 endif
 
 VALID_CUSTOM_MATRIX_TYPES:= yes lite no
@@ -709,6 +727,7 @@ ifeq ($(strip $(LIB8TION_ENABLE)), yes)
         # ATmegaxxU2 does not have hardware MUL instruction - lib8tion must be told to use software multiplication routines
         OPT_DEFS += -DLIB8_ATTINY
     endif
+    OPT_DEFS += -DFASTLED_SCALE8_FIXED=1 -DFASTLED_BLEND_FIXED=1
     SRC += $(LIB_PATH)/lib8tion/lib8tion.c
 endif
 
@@ -880,19 +899,19 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     OPT_DEFS += -DBLUETOOTH_ENABLE
     OPT_DEFS += -DBLUETOOTH_$(strip $(shell echo $(BLUETOOTH_DRIVER) | tr '[:lower:]' '[:upper:]'))
     NO_USB_STARTUP_CHECK := yes
+    CONNECTION_ENABLE := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
-    SRC += outputselect.c
+    SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), bluefruit_le)
         SPI_DRIVER_REQUIRED = yes
-        ANALOG_DRIVER_REQUIRED = yes
-        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
+        SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/bluefruit_le.cpp
     endif
 
     ifeq ($(strip $(BLUETOOTH_DRIVER)), rn42)
         UART_DRIVER_REQUIRED = yes
-        SRC += $(DRIVER_PATH)/bluetooth/bluetooth.c
+        SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
     endif
 endif
@@ -926,6 +945,32 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(BATTERY_ENABLE)), yes)
+    BATTERY_DRIVER_REQUIRED := yes
+endif
+
+VALID_BATTERY_DRIVER_TYPES := adc custom vendor
+
+BATTERY_DRIVER ?= none
+ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
+    ifeq ($(filter $(BATTERY_DRIVER),$(VALID_BATTERY_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
+    endif
+
+    OPT_DEFS += -DBATTERY_DRIVER_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
+
+    COMMON_VPATH += $(DRIVER_PATH)/battery
+
+    ifneq ($(strip $(BATTERY_DRIVER)), custom)
+        SRC += battery_$(strip $(BATTERY_DRIVER)).c
+    endif
+
+    # add extra deps
+    ifeq ($(strip $(BATTERY_DRIVER)), adc)
+        ANALOG_DRIVER_REQUIRED = yes
+    endif
+endif
+
 VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
 
 WS2812_DRIVER ?= bitbang
@@ -936,7 +981,9 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
 
     OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
-    SRC += ws2812_$(strip $(WS2812_DRIVER)).c
+    COMMON_VPATH += $(DRIVER_PATH)/led
+
+    SRC += ws2812.c ws2812_$(strip $(WS2812_DRIVER)).c
 
     ifeq ($(strip $(PLATFORM)), CHIBIOS)
         ifeq ($(strip $(WS2812_DRIVER)), pwm)

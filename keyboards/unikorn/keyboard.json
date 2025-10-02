@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Unikorn60",
     "manufacturer": "Singa x TGR",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5354",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

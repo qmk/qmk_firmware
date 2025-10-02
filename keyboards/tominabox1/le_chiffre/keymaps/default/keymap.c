@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NAV] = LAYOUT(
     QK_BOOT,  _______,  AG_NORM,  AG_SWAP,  DB_TOGG, KC_TRNS,   KC_GRV,  KC_PGDN,    KC_UP,  KC_PGUP,  KC_SCLN,
-    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_NO,           KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
-    RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD,  KC_NO,           KC_MINS,    KC_INT1,  KC_COMM,   KC_DOT,  KC_BSLS,
+    RM_TOGG,  RM_HUEU,  RM_SATU,  RM_VALU,  KC_NO,           KC_HOME,  KC_LEFT,  KC_DOWN,  KC_RGHT,   KC_END,
+    RM_NEXT,  RM_HUED,  RM_SATD,  RM_VALD,  KC_NO,           KC_MINS,    KC_INT1,  KC_COMM,   KC_DOT,  KC_BSLS,
                                   KC_TRNS,KC_TRNS,           KC_TRNS,  KC_TRNS
   )
 };
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] =  {ENCODER_CCW_CW(KC_MNXT, KC_MPRV) },
-    [_NUM_SYM] = { ENCODER_CCW_CW(KC_WH_D, KC_WH_U) },
+    [_NUM_SYM] = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU) },
     [_NAV] = { ENCODER_CCW_CW(KC_PGDN, KC_PGUP) }
 };
 #endif

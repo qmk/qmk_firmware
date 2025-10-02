@@ -42,9 +42,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TRNS,        KC_C,       KC_V,       C(KC_M),
         TO(3),  KC_TRNS),
     [_LAY3] = LAYOUT(
-                KC_TRNS,        RGB_SPI,    RGB_SPD,    RGB_HUI,    KC_TRNS,    KC_TRNS,
-        KC_TRNS,    KC_TRNS,    RGB_SAI,    RGB_SAD,    RGB_HUD,
-                KC_TRNS,        RGB_MOD,    RGB_VAI,    RGB_VAD,
+                KC_TRNS,        RM_SPDU,    RM_SPDD,    RM_HUEU,    KC_TRNS,    KC_TRNS,
+        KC_TRNS,    KC_TRNS,    RM_SATU,    RM_SATD,    RM_HUED,
+                KC_TRNS,        RM_NEXT,    RM_VALU,    RM_VALD,
         TO(0),  KC_TRNS)
 };
 
