@@ -3,9 +3,6 @@
     "keyboard_name": "RK61",
     "maintainer": "DEREFERENC3D",
     "bootloader": "stm32-dfu",
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
         "layer_count": 16
@@ -14,8 +11,6 @@
         "audio": false,
         "backlight": false,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "deferred_exec": true,
         "extrakey": true,
         "mousekey": false,
@@ -82,9 +77,6 @@
         },
         "default": {
             "hue": 170,
-            "on": true,
-            "sat": 255,
-            "speed": 128,
             "val": 150
         },
         "driver": "ws2812",
