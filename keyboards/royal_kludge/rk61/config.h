@@ -1,3 +1,5 @@
+#pragma once
+
 #define CAPS_LOCK_LED_INDEX 40
 
 #define VIA_EEPROM_ALLOW_RESET TRUE
