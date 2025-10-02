@@ -4,7 +4,7 @@
   "bootloader": "stm32-dfu",
   "manufacturer": "Royal Kludge",
   "url": "http://en.rkgaming.com/",
-  "maintainer": "qmk",
+  "maintainer": "DEREFERENC3D",
   "usb": {
     "vid": "0x1480",
     "pid": "0x6461",
