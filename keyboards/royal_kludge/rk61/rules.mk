@@ -1,0 +1,1 @@
+DFU_SUFFIX_ARGS = -p FFFF -v FFFF
