@@ -103,8 +103,9 @@
     "ws2812": {
         "pin": "B15"
     },
+    "community_layouts": ["60_ansi"],
     "layouts": {
-        "LAYOUT_61": {
+        "LAYOUT_60_ansi": {
             "layout": [
                 {"label": "ESC", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},
