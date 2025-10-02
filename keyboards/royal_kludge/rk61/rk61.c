@@ -127,17 +127,3 @@ led_config_t g_led_config = {
 
 
 #endif // RGB_MATRIX_ENABLE
-
-#ifdef VIA_ENABLE
-#define VIA_EEPROM_RESET 0x0A
-bool via_command_kb(uint8_t *data, uint8_t length) {
-    uint8_t command_id = data[0];
-    
-    if (command_id == VIA_EEPROM_RESET) {
-        eeconfig_init();
-        soft_reset_keyboard();
-    }
-
-    return false;
-}
-#endif
