@@ -3,6 +3,7 @@
   "processor": "STM32F072",
   "bootloader": "stm32-dfu",
   "manufacturer": "Royal Kludge",
+  "url": "http://en.rkgaming.com/",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x1480",
