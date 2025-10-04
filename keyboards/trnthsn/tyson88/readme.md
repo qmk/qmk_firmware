@@ -8,7 +8,7 @@ A TKL keyboard PCB compatible F13 layout.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make  trnthsn/tyson88/stm32f103:default
+    make trnthsn/tyson88/stm32f103:default
 
 Flashing example for this keyboard:
 
