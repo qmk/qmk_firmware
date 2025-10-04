@@ -1,5 +1,7 @@
 # Tyson70
 
+![trnthsn/tyson70](https://live.staticflickr.com/65535/54832178554_f7c6b657b6_b.jpg)
+
 A FKL keyboard PCB compatible with TKD Cycle7, KBDFans Pluto. Supports TKD Cycle7, KBDFans Pluto keyboard like an out-of-the-box PCB without any modification.
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
