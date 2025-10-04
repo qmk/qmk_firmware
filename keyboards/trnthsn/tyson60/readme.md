@@ -1,5 +1,7 @@
 # Tyson60
 
+![trnthsn/tyson60](https://live.staticflickr.com/65535/54831948531_6b41780afe_b.jpg)
+
 Tyson60 PCB, 60% keyboard PCB.
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
