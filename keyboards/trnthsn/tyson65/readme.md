@@ -1,5 +1,7 @@
 # Tyson65
 
+![trnthsn/tyson65](https://live.staticflickr.com/65535/54831930681_bf79fb1761_c.jpg)
+
 A 65% keyboard PCB compatible with various keyboard cases. Supports a middle USB Type-C connector, 5 JST SH1.0 and 2 JST ZH1.25 positions for a daughter board.
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
