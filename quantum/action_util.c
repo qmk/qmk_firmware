@@ -219,7 +219,7 @@ bool is_oneshot_layer_active(void) {
 void oneshot_set(bool active) {
     if (keymap_config.oneshot_enable != active) {
         keymap_config.oneshot_enable = active;
-        eeconfig_update_keymap(keymap_config.raw);
+        eeconfig_update_keymap(&keymap_config);
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         dprintf("Oneshot: active: %d\n", active);
     }
@@ -318,14 +318,12 @@ void send_nkro_report(void) {
  */
 void send_keyboard_report(void) {
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         send_nkro_report();
-    } else {
-        send_6kro_report();
+        return;
     }
-#else
-    send_6kro_report();
 #endif
+    send_6kro_report();
 }
 
 /** \brief Get mods

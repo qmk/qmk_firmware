@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make ymdk/ymd75/rev1:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make ymdk/ymd75/rev1:default:flash
 

@@ -24,13 +24,11 @@ extern inline void ergodox_board_led_on(void);
 extern inline void ergodox_right_led_1_on(void);
 extern inline void ergodox_right_led_2_on(void);
 extern inline void ergodox_right_led_3_on(void);
-extern inline void ergodox_right_led_on(uint8_t led);
 
 extern inline void ergodox_board_led_off(void);
 extern inline void ergodox_right_led_1_off(void);
 extern inline void ergodox_right_led_2_off(void);
 extern inline void ergodox_right_led_3_off(void);
-extern inline void ergodox_right_led_off(uint8_t led);
 
 extern inline void ergodox_led_all_on(void);
 extern inline void ergodox_led_all_off(void);
@@ -53,17 +51,14 @@ void matrix_init_kb(void) {
     TCCR1B = 0b00001001;  // set and configure fast PWM
 
     // (tied to Vcc for hardware convenience)
-    DDRB &= ~(1 << 4);   // set B(4) as input
-    PORTB &= ~(1 << 4);  // set B(4) internal pull-up disabled
+    gpio_set_pin_input(B4); // set B(4) as input, internal pull-up disabled
 
-    // unused pins - C7, D4, D5, D7, E6
+    // unused pins - C7, D4, D5, E6
     // set as input with internal pull-up enabled
-    DDRC &= ~(1 << 7);
-    DDRD &= ~(1 << 5 | 1 << 4);
-    DDRE &= ~(1 << 6);
-    PORTC |= (1 << 7);
-    PORTD |= (1 << 5 | 1 << 4);
-    PORTE |= (1 << 6);
+    gpio_set_pin_input_high(C7);
+    gpio_set_pin_input_high(D4);
+    gpio_set_pin_input_high(D5);
+    gpio_set_pin_input_high(E6);
 
     keyboard_config.raw = eeconfig_read_kb();
     ergodox_led_all_set((uint8_t)keyboard_config.led_level * 255 / 4);
@@ -156,14 +151,14 @@ uint8_t init_mcp23018(void) {
     // - input   : input  : 1
     // - driving : output : 0
     uint8_t data[] = {0b00000000, 0b00111111};
-    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, 2, ERGODOX_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, IODIRA, data, 2, ERGODOX_EZ_I2C_TIMEOUT);
 
     if (!mcp23018_status) {
         // set pull-up
         // - unused  : on  : 1
         // - input   : on  : 1
         // - driving : off : 0
-        mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, data, 2, ERGODOX_EZ_I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(I2C_ADDR, GPPUA, data, 2, ERGODOX_EZ_I2C_TIMEOUT);
     }
 
 #ifdef LEFT_LEDS
@@ -191,7 +186,7 @@ uint8_t ergodox_left_leds_update(void) {
     uint8_t data[2];
     data[0] = 0b11111111 & ~(ergodox_left_led_3 << LEFT_LED_3_SHIFT);
     data[1] = 0b11111111 & ~(ergodox_left_led_2 << LEFT_LED_2_SHIFT) & ~(ergodox_left_led_1 << LEFT_LED_1_SHIFT);
-    mcp23018_status = i2c_writeReg(I2C_ADDR, OLATA, data, 2, ERGODOX_EZ_I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, OLATA, data, 2, ERGODOX_EZ_I2C_TIMEOUT);
 
     return mcp23018_status;
 }
@@ -348,7 +343,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 eeconfig_update_kb(keyboard_config.raw);
             }
             break;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -387,15 +382,23 @@ static bool is_on = false;
 static bool is_dynamic_recording = false;
 static uint16_t dynamic_loop_timer;
 
-void dynamic_macro_record_start_user(int8_t direction) {
+bool dynamic_macro_record_start_kb(int8_t direction) {
+    if (!dynamic_macro_record_start_user(direction)) {
+        return false;
+    }
     is_dynamic_recording = true;
     dynamic_loop_timer = timer_read();
     ergodox_right_led_1_on();
+    return true;
 }
 
-void dynamic_macro_record_end_user(int8_t direction) {
+bool dynamic_macro_record_end_kb(int8_t direction) {
+    if (!dynamic_macro_record_end_user(direction)) {
+        return false;
+    }
     is_dynamic_recording = false;
     layer_state_set_user(layer_state);
+    return true;
 }
 #endif
 

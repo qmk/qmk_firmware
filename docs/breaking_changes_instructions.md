@@ -31,4 +31,4 @@ Commenting on your pull request and being responsive to questions, comments, and
 
 ### Ask for Help
 
-Having your submission flagged may have caught you off guard. If you find yourself intimidated or overwhelmed, let us know. Comment on your pull request, or [reach out to the QMK team on Discord](https://discord.gg/Uq7gcHh).
+Having your submission flagged may have caught you off guard. If you find yourself intimidated or overwhelmed, let us know. Comment on your pull request, or [reach out to the QMK team on Discord](https://discord.gg/qmk).

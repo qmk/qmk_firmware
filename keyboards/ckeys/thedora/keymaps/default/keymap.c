@@ -123,10 +123,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 
     [_MOUSE] = LAYOUT(
-                 KC_BTN5, _______, KC_WH_U, _______, _______,
-                 _______, KC_BTN1, KC_MS_U, KC_BTN2, TG(_MOUSE),
-                 KC_BTN4, KC_MS_L, KC_MS_D, KC_MS_R, _______,
-        _______, KC_BTN3, KC_WH_L, KC_WH_D, KC_WH_R, _______
+                 MS_BTN5, _______, MS_WHLU, _______, _______,
+                 _______, MS_BTN1, MS_UP,   MS_BTN2, TG(_MOUSE),
+                 MS_BTN4, MS_LEFT, MS_DOWN, MS_RGHT, _______,
+        _______, MS_BTN3, MS_WHLL, MS_WHLD, MS_WHLR, _______
     ),
 
     // ADMIN LAYER
@@ -149,15 +149,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 
     [_ADMIN] = LAYOUT(
-                 QK_BOOT,   _______, _______, _______, TG(_ADMIN),
+                 QK_BOOT, _______, _______, _______, TG(_ADMIN),
                  _______, _______, _______, _______, _______,
                  _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______
     ),
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    return true;
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {

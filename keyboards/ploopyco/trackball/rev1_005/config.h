@@ -22,3 +22,12 @@
 // They are set as output and pulled high, by default
 #define UNUSABLE_PINS \
     { D1, D3, B4, B7, D6, C7, F6, F5, F3, F7 }
+
+// If board has a debug LED, you can enable it by defining this
+// #define DEBUG_LED_PIN F7
+
+/* PMW33XX Settings */
+#define PMW33XX_CS_PIN B0
+
+#define ENCODER_A_PINS { F0 }
+#define ENCODER_B_PINS { F4 }

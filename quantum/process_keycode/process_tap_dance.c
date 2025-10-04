@@ -21,6 +21,7 @@
 #include "action_util.h"
 #include "timer.h"
 #include "wait.h"
+#include "keymap_introspection.h"
 
 static uint16_t active_td;
 static uint16_t last_tap_time;
@@ -133,7 +134,7 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
     if (!active_td || keycode == active_td) return false;
 
-    action                             = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(active_td)];
+    action                             = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
     action->state.interrupted          = true;
     action->state.interrupting_keycode = keycode;
     process_tap_dance_action_on_dance_finished(action);
@@ -150,11 +151,16 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
+    int                 td_index;
     tap_dance_action_t *action;
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
-            action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
+            td_index = QK_TAP_DANCE_GET_INDEX(keycode);
+            if (td_index >= tap_dance_count()) {
+                return false;
+            }
+            action = tap_dance_get(td_index);
 
             action->state.pressed = record->event.pressed;
             if (record->event.pressed) {
@@ -182,7 +188,7 @@ void tap_dance_task(void) {
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
-    action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(active_td)];
+    action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
     if (!action->state.interrupted) {
         process_tap_dance_action_on_dance_finished(action);
     }

@@ -62,7 +62,7 @@
 #define STM32_HSI16_ENABLED                 TRUE
 #define STM32_HSI48_ENABLED                 TRUE
 #define STM32_HSE_ENABLED                   FALSE
-#define STM32_LSI_ENABLED                   TRUE
+#define STM32_LSI_ENABLED                   FALSE
 #define STM32_LSE_ENABLED                   FALSE
 #define STM32_SW                            STM32_SW_PLLRCLK
 #define STM32_PLLSRC                        STM32_PLLSRC_HSI16

@@ -11,13 +11,17 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "oled": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "processor": "STM32F072",
     "url": "https://cannonkeys.com",

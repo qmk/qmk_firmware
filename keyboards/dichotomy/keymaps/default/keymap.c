@@ -28,9 +28,9 @@ enum dichotomy_keycodes
   NUMKEY,
   SFTKEY,
   MOUKEY,
-  MS_BTN1,
-  MS_BTN2,
-  MS_BTN3
+  CK_MSE1,
+  CK_MSE2,
+  CK_MSE3
 };
 
 #define CUSTOM_LONGPRESS 150
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   NUMKEY,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, CK_QE,
   SFTKEY,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, MOUKEY,
                              KC_LCTL, KC_LALT, KC_LGUI,        KC_RGUI, KC_RALT, KC_RCTL,
-                    MS_BTN3, KC_LBRC, KC_LPRN, KC_SPC,         KC_SPC,  KC_RPRN, KC_RBRC, MS_BTN3
+                    CK_MSE3, KC_LBRC, KC_LPRN, KC_SPC,         KC_SPC,  KC_RPRN, KC_RBRC, CK_MSE3
 ),
 
 [_SF] = LAYOUT( /* Shifted layout, small changes (because angle brackets have been moved to thumb cluster buttons) */
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MS] = LAYOUT( /* Mouse layer, including buttons for clicking. */
   _______, _______, _______, _______, _______, _______,        KC_VOLU, KC_HOME, KC_PGUP, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,        _______, MS_BTN1, MS_BTN2, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,        _______, CK_MSE1, CK_MSE2, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,        KC_VOLD, KC_END,  KC_PGDN, _______, _______, _______,
   							 _______, _______, _______,        _______, KC_UP,   _______,
 					_______, _______, _______, _______,        KC_LEFT, KC_DOWN, KC_RGHT, _______
@@ -311,7 +311,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		break;
 
 		//mouse buttons, for 1-3, to update the mouse report:
-		case MS_BTN1:
+		case CK_MSE1:
 			currentReport = pointing_device_get_report();
 			if (record->event.pressed) {
 				if (shift_held && shift_suspended){
@@ -327,7 +327,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			pointing_device_set_report(currentReport);
 			returnVal = false;
 		break;
-		case MS_BTN2:
+		case CK_MSE2:
 			currentReport = pointing_device_get_report();
 			if (record->event.pressed) {
 				if (shift_held && shift_suspended){
@@ -343,7 +343,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			pointing_device_set_report(currentReport);
 			returnVal = false;
 		break;
-		case MS_BTN3:
+		case CK_MSE3:
 			currentReport = pointing_device_get_report();
 			if (record->event.pressed) {
 				if (shift_held && shift_suspended){

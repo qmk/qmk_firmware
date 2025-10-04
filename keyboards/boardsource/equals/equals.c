@@ -49,6 +49,5 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     ui_task();
-    housekeeping_task_user();
 }
 #endif // QUANTUM_PAINTER_ENABLE

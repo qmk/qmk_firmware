@@ -6,6 +6,12 @@
         "vid": "0x3297",
         "device_version": "0.0.1"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "hue_steps": 12,
         "brightness_steps": 12,
@@ -27,7 +33,8 @@
         "debounce_type": "sym_eager_pr"
     },
     "ws2812": {
-        "pin": "D7"
+        "pin": "D7",
+        "rgbw": true
     },
     "rgb_matrix": {
         "animations": {

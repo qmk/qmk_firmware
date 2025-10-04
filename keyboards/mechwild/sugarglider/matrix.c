@@ -38,7 +38,7 @@ static matrix_row_t read_cols(void) {
     }
 
     uint8_t ret = 0xFF;                                                         // sets all to 1
-    mcp23018_errors += !mcp23018_readPins(I2C_ADDR, mcp23018_PORTB, &ret);      // will update with values 0 = pulled down by connection, 1 = pulled up by pullup resistors
+    mcp23018_errors += !mcp23018_read_pins(I2C_ADDR, mcp23018_PORTB, &ret);      // will update with values 0 = pulled down by connection, 1 = pulled up by pullup resistors
 
     return (~ret) & 0b00111111; // Clears out the two row bits in the B buffer.
 }

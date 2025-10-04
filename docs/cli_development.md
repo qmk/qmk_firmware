@@ -44,7 +44,7 @@ def hello(cli):
 
 First we import the `cli` object from `milc`. This is how we interact with the user and control the script's behavior. We use `@cli.argument()` to define a command line flag, `--name`. This also creates a configuration variable named `hello.name` (and the corresponding `user.name`) which the user can set so they don't have to specify the argument. The `cli.subcommand()` decorator designates this function as a subcommand. The name of the subcommand will be taken from the name of the function.
 
-Once inside our function we find a typical "Hello, World!" program. We use `cli.log` to access the underlying [Logger Object](https://docs.python.org/3.7/library/logging.html#logger-objects), whose behavior is user controllable. We also access the value for name supplied by the user as `cli.config.hello.name`. The value for `cli.config.hello.name` will be determined by looking at the `--name` argument supplied by the user, if not provided it will use the value in the `qmk.ini` config file, and if neither of those is provided it will fall back to the default supplied in the `cli.argument()` decorator.
+Once inside our function we find a typical "Hello, World!" program. We use `cli.log` to access the underlying [Logger Object](https://docs.python.org/3.9/library/logging.html#logger-objects), whose behavior is user controllable. We also access the value for name supplied by the user as `cli.config.hello.name`. The value for `cli.config.hello.name` will be determined by looking at the `--name` argument supplied by the user, if not provided it will use the value in the `qmk.ini` config file, and if neither of those is provided it will fall back to the default supplied in the `cli.argument()` decorator.
 
 # User Interaction
 
@@ -56,13 +56,13 @@ There are two main methods for outputting text in a subcommand- `cli.log` and `c
 
 You can use special tokens to colorize your text, to make it easier to understand the output of your program. See [Colorizing Text](#colorizing-text) below.
 
-Both of these methods support built-in string formatting using python's [printf style string format operations](https://docs.python.org/3.7/library/stdtypes.html#old-string-formatting). You can use tokens such as `%s` and `%d` within your text strings then pass the values as arguments. See our Hello, World program above for an example.
+Both of these methods support built-in string formatting using python's [printf style string format operations](https://docs.python.org/3.9/library/stdtypes.html#old-string-formatting). You can use tokens such as `%s` and `%d` within your text strings then pass the values as arguments. See our Hello, World program above for an example.
 
 You should never use the format operator (`%`) directly, always pass values as arguments.
 
 ### Logging (`cli.log`)
 
-The `cli.log` object gives you access to a [Logger Object](https://docs.python.org/3.7/library/logging.html#logger-objects). We have configured our log output to show the user a nice emoji for each log level (or the log level name if their terminal does not support unicode.) This way the user can tell at a glance which messages are most important when something goes wrong.
+The `cli.log` object gives you access to a [Logger Object](https://docs.python.org/3.9/library/logging.html#logger-objects). We have configured our log output to show the user a nice emoji for each log level (or the log level name if their terminal does not support unicode.) This way the user can tell at a glance which messages are most important when something goes wrong.
 
 The default log level is `INFO`. If the user runs `qmk -v <subcommand>` the default log level will be set to `DEBUG`.
 
@@ -192,17 +192,23 @@ We use nose2, flake8, and yapf to test, lint, and format code. You can use the `
 
 ### Testing and Linting
 
-    qmk pytest
+```
+qmk pytest
+```
 
 ### Formatting
 
-    qmk format-python
+```
+qmk format-python
+```
 
 ## Formatting Details
 
 We use [yapf](https://github.com/google/yapf) to automatically format code. Our configuration is in the `[yapf]` section of `setup.cfg`.
 
-?> Tip- Many editors can use yapf as a plugin to automatically format code as you type.
+::: tip
+Many editors can use yapf as a plugin to automatically format code as you type.
+:::
 
 ## Testing Details
 
@@ -210,7 +216,9 @@ Our tests can be found in `lib/python/qmk/tests/`. You will find both unit and i
 
 If your PR does not include a comprehensive set of tests please add comments like this to your code so that other people know where they can help:
 
-    # TODO(unassigned/<your_github_username>): Write <unit|integration> tests
+```python
+# TODO(unassigned/<your_github_username>): Write <unit|integration> tests
+```
 
 We use [nose2](https://nose2.readthedocs.io/en/latest/getting_started.html) to run our tests. You can refer to the nose2 documentation for more details on what you can do in your test functions.
 
