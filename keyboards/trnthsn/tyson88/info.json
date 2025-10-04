@@ -17,7 +17,7 @@
         "rows": ["A15", "B3", "B4", "A6", "B6", "B5"]
     },
     "rgblight": {
-        "led_count": 15,
+        "led_count": 30,
         "animations": {
             "breathing": true,
             "rainbow_mood": true,
