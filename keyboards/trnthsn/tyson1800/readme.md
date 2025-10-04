@@ -1,4 +1,4 @@
-# trnthsn/tyson1800
+# Tyson1800
 
 *A short description of the keyboard/project*
 A platform design for Tyson.Keebs's 1800-layout PCBs. 
