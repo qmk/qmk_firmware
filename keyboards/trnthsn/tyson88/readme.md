@@ -3,9 +3,9 @@
 *A short description of the keyboard/project*
 A TKL keyboard PCB compatible F13 layout.
 
-* Keyboard Maintainer: [ThanhSon.Mech](https://github.com/trnthsn)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
+* Hardware Supported: STM32, Tyson88
+* Hardware Availability: [ThanhSon.Mech](https://www.facebook.com/ThanhSon.mech)
 
 Make example for this keyboard (after setting up your build environment):
 
