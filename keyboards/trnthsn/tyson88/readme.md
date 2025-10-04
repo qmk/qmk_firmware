@@ -1,6 +1,5 @@
 # Tyson88
 
-*A short description of the keyboard/project*
 A TKL keyboard PCB compatible F13 layout.
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
