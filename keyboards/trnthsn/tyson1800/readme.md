@@ -1,5 +1,7 @@
 # Tyson1800
 
+![trnthsn/tyson1800](https://live.staticflickr.com/65535/54831085972_2e012d7276_c.jpg)
+
 A platform design for Tyson.Keebs's 1800-layout PCBs. 
 
 * Keyboard Maintainer: [Trnthsn](https://github.com/trnthsn)
