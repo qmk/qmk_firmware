@@ -5,8 +5,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -31,6 +29,10 @@
         },
         "default": {
             "animation": "rainbow_mood"
+        },
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
         }
     },
     "ws2812": {
@@ -40,7 +42,6 @@
     "indicators": {
         "caps_lock": "B0"
     },
-    "url": "",
     "usb": {
         "vid": "0x5453",
         "pid": "0x7437",
