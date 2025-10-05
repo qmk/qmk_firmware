@@ -30,8 +30,7 @@
     "rgb_matrix": {
         "animations": {
             "breathing": true,
-            "cycle_left_right": true,
-            "solid_color": true
+            "cycle_left_right": true
         },
         "driver": "ws2812",
         "layout": [
@@ -39,8 +38,7 @@
             {"matrix": [0, 16], "x": 17, "y": 1, "flags": 4},
             {"matrix": [0, 17], "x": 18, "y": 1, "flags": 4}
         ],
-        "led_count": 3,
-        "max_brightness": 255
+        "led_count": 3
     },
     "usb": {
         "device_version": "0.0.1",

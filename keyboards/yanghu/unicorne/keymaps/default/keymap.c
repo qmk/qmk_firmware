@@ -45,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_ADJUST] = LAYOUT_split_3x6_4(
-    RGB_VAI,   RGB_SAI, RGB_HUI,  RGB_MOD,  XXXXXXX,   RGB_TOG,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
-    RGB_VAD,   RGB_SAD, RGB_HUD,  RGB_RMOD, XXXXXXX,   XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    UG_VALU,   UG_SATU, UG_HUEU,  UG_NEXT,  XXXXXXX,   UG_TOGG,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
+    UG_VALD,   UG_SATD, UG_HUED,  UG_PREV,  XXXXXXX,   XXXXXXX,            XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
     XXXXXXX,   XXXXXXX, XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX,            QK_BOOT,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
              _______,  _______,   _______,   _______,  _______,   _______,   _______,  _______
   ),
@@ -59,13 +59,13 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (clockwise) {
 #ifdef MOUSEKEY_ENABLE
-            tap_code(KC_MS_WH_DOWN);
+            tap_code(MS_WHLD);
 #else
             tap_code(KC_PGDN);
 #endif
         } else {
 #ifdef MOUSEKEY_ENABLE
-            tap_code(KC_MS_WH_UP);
+            tap_code(MS_WHLU);
 #else
             tap_code(KC_PGUP);
 #endif

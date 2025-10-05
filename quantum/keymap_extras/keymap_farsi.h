@@ -1,4 +1,4 @@
-// Copyright 2024 QMK
+// Copyright 2025 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 /*******************************************************************************
@@ -26,6 +26,12 @@
 #pragma once
 #include "keycodes.h"
 // clang-format off
+
+#define QMK_FARSI_KEYCODES_VERSION "0.0.1"
+#define QMK_FARSI_KEYCODES_VERSION_BCD 0x00000001
+#define QMK_FARSI_KEYCODES_VERSION_MAJOR 0
+#define QMK_FARSI_KEYCODES_VERSION_MINOR 0
+#define QMK_FARSI_KEYCODES_VERSION_PATCH 1
 
 // Aliases
 #define FA_ZWJ  KC_GRV  // (zero-width joiner)
@@ -150,7 +156,7 @@
 #define FA_DQT  ALGR(FA_GAF)  // "
 #define FA_MINA ALGR(FA_BSLS) // -
 #define FA_PIPE ALGR(FA_ZA)   // |
-#define FA_SUBA ALGR(FA_RA)   // ٖ
+#define FA_SUBA ALGR(FA_RE)   // ٖ
 #define FA_HMZB ALGR(FA_DAL)  // ء
 #define FA_ELLP ALGR(FA_PE)   // …
 #define FA_COMM ALGR(FA_WAW)  // ,

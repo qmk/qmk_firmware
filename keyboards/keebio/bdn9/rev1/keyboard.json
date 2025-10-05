@@ -12,6 +12,9 @@
         ]
     },
     "backlight": {
+        "default": {
+            "brightness": 5
+        },
         "pin": "B5",
         "levels": 7
     },
@@ -36,8 +39,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": false,

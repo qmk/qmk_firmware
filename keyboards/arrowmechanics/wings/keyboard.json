@@ -188,6 +188,9 @@
     },
     "split": {
         "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "layer_state": true,

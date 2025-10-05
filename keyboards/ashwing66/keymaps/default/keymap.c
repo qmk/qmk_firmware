@@ -17,9 +17,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LBRC,KC_PSCR,KC_CAPS ,MO(_LAYERB),KC_LGUI ,KC_LALT ,KC_SPC  ,KC_PGDN  	 ,KC_PGUP ,KC_ENT  ,KC_BSPC ,MO(_LAYERC),KC_INS  ,KC_DEL  ,KC_BSLS ,KC_RBRC
 ),
     [_LAYERB] = LAYOUT_5x16(
-        KC_ESC ,RGB_TOG,RGB_RMOD,RGB_MOD    ,RGB_VAD ,RGB_VAI                                              ,RGB_SPD    ,RGB_SPI ,RGB_HUD ,RGB_HUI ,RGB_SAD ,RGB_SAI ,
-        KC_TAB ,KC_Q   ,KC_W    ,KC_E       ,KC_R    ,KC_T                                                 ,KC_Y       ,KC_BTN1 ,KC_MS_U ,KC_BTN2 ,KC_P    ,KC_EQL  ,
-        KC_LCTL,KC_A   ,KC_S    ,KC_D       ,KC_F    ,KC_G                                                 ,KC_H       ,KC_MS_L ,KC_MS_D ,KC_MS_R ,KC_SCLN ,KC_QUOT ,
+        KC_ESC ,RM_TOGG,RM_PREV ,RM_NEXT    ,RM_VALD ,RM_VALU                                              ,RM_SPDD    ,RM_SPDU ,RM_HUED ,RM_HUEU ,RM_SATD ,RM_SATU ,
+        KC_TAB ,KC_Q   ,KC_W    ,KC_E       ,KC_R    ,KC_T                                                 ,KC_Y       ,MS_BTN1 ,MS_UP   ,MS_BTN2 ,KC_P    ,KC_EQL  ,
+        KC_LCTL,KC_A   ,KC_S    ,KC_D       ,KC_F    ,KC_G                                                 ,KC_H       ,MS_LEFT ,MS_DOWN ,MS_RGHT ,KC_SCLN ,KC_QUOT ,
         KC_LSFT,KC_Z   ,KC_X    ,KC_C       ,KC_V    ,KC_B    ,KC_LBRC          ,KC_MUTE          ,KC_RBRC ,KC_N       ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
         KC_LBRC,KC_PSCR,KC_CAPS ,_______    ,KC_LGUI ,KC_LALT ,KC_SPC  ,KC_END          ,KC_HOME  ,KC_ENT  ,KC_BSPC    ,_______ ,KC_INS  ,KC_DEL  ,KC_BSLS ,KC_RBRC
 ),
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_LAYERA] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_LAYERB] =  { ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
-    [_LAYERC] =  { ENCODER_CCW_CW(RGB_VAD, RGB_VAI)}
+    [_LAYERB] =  { ENCODER_CCW_CW(RM_HUED, RM_HUEU)},
+    [_LAYERC] =  { ENCODER_CCW_CW(RM_VALD, RM_VALU)}
 };
 #endif

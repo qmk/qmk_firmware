@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Arabica3/7",
     "manufacturer": "CalciumNitride",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -21,7 +20,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "rgblight": {
         "led_count": 50,
@@ -30,8 +31,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

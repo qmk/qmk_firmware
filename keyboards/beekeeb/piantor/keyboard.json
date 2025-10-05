@@ -5,8 +5,6 @@
     "bootloader": "rp2040",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -40,6 +38,9 @@
                     ["GP15", "GP14", "GP16", null, null, null]
                 ]
             }
+        },
+        "serial": {
+            "driver": "vendor"
         }
     },
     "community_layouts": [

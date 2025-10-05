@@ -15,7 +15,9 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "rgblight": {
         "saturation_steps": 8,
@@ -27,8 +29,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": false,

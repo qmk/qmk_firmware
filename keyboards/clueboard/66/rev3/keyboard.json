@@ -8,8 +8,6 @@
   "features": {
     "backlight": true,
     "bootmagic": false,
-    "command": false,
-    "console": true,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
@@ -30,15 +28,12 @@
       "knight": true,
       "rainbow_mood": true,
       "rainbow_swirl": true,
-      "rgb_test": true,
       "snake": true,
       "static_gradient": true,
       "twinkle": true
     },
-    "brightness_steps": 17,
     "hue_steps": 32,
-    "led_count": 18,
-    "saturation_steps": 17
+    "led_count": 18
   },
   "ws2812": {
     "pin": "D7"

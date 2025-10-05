@@ -1,6 +1,6 @@
 # 'serial' Driver
 
-The Serial driver powers the [Split Keyboard](../features/split_keyboard) feature. Several implementations are available that cater to the platform and capabilites of MCU in use. Note that none of the drivers support split keyboards with more than two halves.
+The Serial driver powers the [Split Keyboard](../features/split_keyboard) feature. Several implementations are available that cater to the platform and capabilities of MCU in use. Note that none of the drivers support split keyboards with more than two halves.
 
 | Driver                                  | AVR                | ARM                | Connection between halves                                                                     |
 | --------------------------------------- | ------------------ | ------------------ | --------------------------------------------------------------------------------------------- |
@@ -11,8 +11,6 @@ The Serial driver powers the [Split Keyboard](../features/split_keyboard) featur
 ::: tip
 Serial in this context should be read as **sending information one bit at a time**, rather than implementing UART/USART/RS485/RS232 standards.
 :::
-
-<hr>
 
 ## Bitbang
 
@@ -35,7 +33,7 @@ On ARM platforms the bitbang driver causes connection issues when using it toget
 +-------+                 +-------+
 ```
 
-One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A TRS or USB cable provides enough conductors for this driver to function. 
+One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A TRS or USB cable provides enough conductors for this driver to function.
 
 ### Setup
 
@@ -53,20 +51,24 @@ SERIAL_DRIVER = bitbang
 #define SOFT_SERIAL_PIN D0  // or D1, D2, D3, E6
 ```
 
-3. On ARM platforms you must turn on ChibiOS `PAL_USE_CALLBACKS` feature:
+3. On ARM platforms you must turn on ChibiOS PAL callbacks:
 
-* In `halconf.h` add the line `#define PAL_USE_CALLBACKS TRUE`.
+```c
+#pragma once
 
-<hr>
+#define PAL_USE_CALLBACKS TRUE // [!code focus]
+
+#include_next <halconf.h>
+```
 
 ## USART Half-duplex
 
-Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose Half-duplex over Bitbang if MCU is capable of utilising Half-duplex, and Full-duplex can't be used instead (e.g. lack of available GPIO pins, or imcompatible PCB design).
+Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose Half-duplex over Bitbang if MCU is capable of utilising Half-duplex, and Full-duplex can't be used instead (e.g. lack of available GPIO pins, or incompatible PCB design).
 
 ### Pin configuration
 
 ```
-  LEFT                      RIGHT  
+  LEFT                      RIGHT
 +-------+  |           |  +-------+
 |       |  R           R  |       |
 |       |  |   SERIAL  |  |       |
@@ -78,7 +80,7 @@ Targeting ARM boards based on ChibiOS, where communication is offloaded to a USA
 +-------+                 +-------+
 ```
 
-Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work. 
+Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work.
 
 ::: warning
 ***Note:*** A pull-up resistor isn't required for RP2040 controllers configured with PIO subsystem.
@@ -116,8 +118,6 @@ For STM32 MCUs several GPIO configuration options can be changed as well. See th
 ```
 
 4. Decide either for `SERIAL`, `SIO`, or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
-
-<hr>
 
 ## USART Full-duplex
 
@@ -179,38 +179,46 @@ For STM32 MCUs several GPIO configuration options, including the ability for `TX
 
 4. Decide either for `SERIAL`, `SIO`, or `PIO` subsystem. See section ["Choosing a driver subsystem"](#choosing-a-driver-subsystem).
 
-<hr>
-
 ## Choosing a driver subsystem
 
 ### The `SERIAL` driver
 
 The `SERIAL` Subsystem is supported for the majority of ChibiOS MCUs and should be used whenever supported. Follow these steps in order to activate it:
 
-1. In your keyboards `halconf.h` add:
+1. Enable the SERIAL subsystem in the ChibiOS HAL.
 
-```c
-#define HAL_USE_SERIAL TRUE
-```
+   Add the following to your keyboard's `halconf.h`, creating it if necessary:
 
-2. In your keyboards `mcuconf.h`: activate the USART peripheral that is used on your MCU. The shown example is for an STM32 MCU, so this will not work on MCUs by other manufacturers. You can find the correct names in the `mcuconf.h` files of your MCU that ship with ChibiOS. 
- 
-Just below `#include_next <mcuconf.h>` add:
+   ```c
+   #pragma once
 
-```c
-#include_next <mcuconf.h>
+   #define HAL_USE_SERIAL TRUE // [!code focus]
 
-#undef STM32_SERIAL_USE_USARTn
-#define STM32_SERIAL_USE_USARTn TRUE
-```
+   #include_next <halconf.h>
+   ```
 
-Where 'n' matches the peripheral number of your selected USART on the MCU.
+2. Activate the USART peripheral that is used on your MCU. The shown example is for an STM32 MCU, so this will not work on MCUs by other manufacturers. You can find the correct names in the `mcuconf.h` files of your MCU that ship with ChibiOS.
 
-3. In you keyboards `config.h`: override the default USART `SERIAL` driver if you use a USART peripheral that does not belong to the default selected `SD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SD3`.
+   Add the following to your keyboard's `mcuconf.h`, creating it if necessary:
 
-```c
- #define SERIAL_USART_DRIVER SD3
- ```
+   ```c
+   #pragma once
+
+   #include_next <mcuconf.h>
+
+   #undef STM32_SERIAL_USE_USARTn // [!code focus]
+   #define STM32_SERIAL_USE_USARTn TRUE // [!code focus]
+   ```
+
+   Where *n* matches the peripheral number of your selected USART on the MCU.
+
+3. Override the default USART `SERIAL` driver if you use a USART peripheral that does not belong to the default selected `SD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SD3`.
+
+   Add the following to your keyboard's `config.h`:
+
+   ```c
+   #define SERIAL_USART_DRIVER SD3
+   ```
 
 ### The `SIO` driver
 
@@ -218,31 +226,41 @@ The `SIO` Subsystem was added to ChibiOS with the 21.11 release and is only supp
 
 Follow these steps in order to activate it:
 
-1. In your keyboards `halconf.h` add:
+1. Enable the SIO subsystem in the ChibiOS HAL.
 
-```c
-#define HAL_USE_SIO TRUE
-```
+   Add the following to your keyboard's `halconf.h`, creating it if necessary:
 
-2. In your keyboards `mcuconf.h:` activate the USART peripheral that is used on your MCU. The shown example is for an STM32 MCU, so this will not work on MCUs by other manufacturers. You can find the correct names in the `mcuconf.h` files of your MCU that ship with ChibiOS. 
- 
-Just below `#include_next <mcuconf.h>` add:
+   ```c
+   #pragma once
 
-```c
-#include_next <mcuconf.h>
+   #define HAL_USE_SIO TRUE // [!code focus]
 
-#undef STM32_SIO_USE_USARTn
-#define STM32_SIO_USE_USARTn TRUE
-```
+   #include_next <halconf.h>
+   ```
 
-Where 'n' matches the peripheral number of your selected USART on the MCU.
+2. Activate the USART peripheral that is used on your MCU. The shown example is for an STM32 MCU, so this will not work on MCUs by other manufacturers. You can find the correct names in the `mcuconf.h` files of your MCU that ship with ChibiOS.
 
-3. In the keyboard's `config.h` file: override the default USART `SIO` driver if you use a USART peripheral that does not belong to the default selected `SIOD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SIOD3`.
+   Add the following to your keyboard's `mcuconf.h`, creating it if necessary:
 
-```c
- #define SERIAL_USART_DRIVER SIOD3
- ```
- 
+   ```c
+   #pragma once
+
+   #include_next <mcuconf.h>
+
+   #undef STM32_SIO_USE_USARTn // [!code focus]
+   #define STM32_SIO_USE_USARTn TRUE // [!code focus]
+   ```
+
+   Where *n* matches the peripheral number of your selected USART on the MCU.
+
+3. Override the default USART `SIO` driver if you use a USART peripheral that does not belong to the default selected `SIOD1` driver. For instance, if you selected `STM32_SERIAL_USE_USART3` the matching driver would be `SIOD3`.
+
+   Add the following to your keyboard's `config.h`:
+
+   ```c
+   #define SERIAL_USART_DRIVER SIOD3
+   ```
+
 ### The `PIO` driver
 
 The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using an integrated PIO peripheral and is therefore only available on this MCU. Because of the flexible nature of PIO peripherals, **any** GPIO pin can be used as a `TX` or `RX` pin. Half-duplex and Full-duplex operation modes are fully supported with this driver. Half-duplex uses the built-in pull-ups and GPIO manipulation of the RP2040 to drive the line high by default, thus an external pull-up resistor **is not required**.
@@ -254,19 +272,19 @@ Optionally, the PIO peripheral utilized for split communication can be changed w
 
 The Serial PIO program uses 2 state machines, 13 instructions and the complete interrupt handler of the PIO peripheral it is running on.
 
-<hr>
-
 ## Advanced Configuration
 
 There are several advanced configuration options that can be defined in your keyboards `config.h` file:
 
 ### Baudrate
 
-If you're having issues or need a higher baudrate with serial communication, you can change the baudrate which in turn controls the communication speed for serial. You want to lower the baudrate if you experience failed transactions. 
+If you're having issues or need a higher baudrate with serial communication, you can change the baudrate which in turn controls the communication speed for serial. You want to lower the baudrate if you experience failed transactions.
 
 ```c
-#define SELECT_SOFT_SERIAL_SPEED {#}
+#define SELECT_SOFT_SERIAL_SPEED n
 ```
+
+Where *n* is one of:
 
 | Speed | Bitbang                    | Half-duplex and Full-duplex |
 | ----- | -------------------------- | --------------------------- |
@@ -287,23 +305,21 @@ This is the default time window in milliseconds in which a successful communicat
 #define SERIAL_USART_TIMEOUT 20    // USART driver timeout. default 20
 ```
 
-<hr>
-
 ## Troubleshooting
 
-If you're having issues withe serial communication, you can enable debug messages that will give you insights which part of the communication failed. The enable these messages add to your keyboards `config.h` file:
+If you're having issues with serial communication, you can enable debug messages that will give you insights which part of the communication failed. The enable these messages add to your keyboards `config.h` file:
 
 ```c
 #define SERIAL_DEBUG
 ```
- 
+
 ::: tip
 The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](../faq_debug).
 :::
 
 ## Alternate Functions for selected STM32 MCUs
 
-Pins for USART Peripherals with 
+Pins for USART Peripherals with
 
 ### STM32F303 / Proton-C [Datasheet](https://www.st.com/resource/en/datasheet/stm32f303cc.pdf)
 

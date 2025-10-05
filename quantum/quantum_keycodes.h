@@ -41,44 +41,53 @@
 #define QK_MODS_GET_MODS(kc) (((kc) >> 8) & 0x1F)
 #define QK_MODS_GET_BASIC_KEYCODE(kc) ((kc)&0xFF)
 
-// Keycode modifiers & aliases
+// Modified keycodes
 #define LCTL(kc) (QK_LCTL | (kc))
 #define LSFT(kc) (QK_LSFT | (kc))
 #define LALT(kc) (QK_LALT | (kc))
 #define LGUI(kc) (QK_LGUI | (kc))
+
 #define LOPT(kc) LALT(kc)
 #define LCMD(kc) LGUI(kc)
 #define LWIN(kc) LGUI(kc)
+
+#define C(kc) LCTL(kc)
+#define S(kc) LSFT(kc)
+#define A(kc) LALT(kc)
+#define G(kc) LGUI(kc)
+
+#define LCS(kc) (QK_LCTL | QK_LSFT | (kc))
+#define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LCG(kc) (QK_LCTL | QK_LGUI | (kc))
+#define LSA(kc) (QK_LSFT | QK_LALT | (kc))
+#define LSG(kc) (QK_LSFT | QK_LGUI | (kc))
+#define LAG(kc) (QK_LALT | QK_LGUI | (kc))
+#define LCSG(kc) (QK_LCTL | QK_LSFT | QK_LGUI | (kc))
+#define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
+#define LSAG(kc) (QK_LSFT | QK_LALT | QK_LGUI | (kc))
+
 #define RCTL(kc) (QK_RCTL | (kc))
 #define RSFT(kc) (QK_RSFT | (kc))
 #define RALT(kc) (QK_RALT | (kc))
 #define RGUI(kc) (QK_RGUI | (kc))
+
 #define ALGR(kc) RALT(kc)
 #define ROPT(kc) RALT(kc)
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
 
-#define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
-#define MEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
-#define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
-#define LSG(kc) (QK_LSFT | QK_LGUI | (kc))
-#define SGUI(kc) LSG(kc)
-#define SCMD(kc) LSG(kc)
-#define SWIN(kc) LSG(kc)
-#define LAG(kc) (QK_LALT | QK_LGUI | (kc))
+#define RCA(kc) (QK_RCTL | QK_RALT | (kc))
+#define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
+#define RCG(kc) (QK_RCTL | QK_RGUI | (kc))
+#define RSA(kc) (QK_RSFT | QK_RALT | (kc))
 #define RSG(kc) (QK_RSFT | QK_RGUI | (kc))
 #define RAG(kc) (QK_RALT | QK_RGUI | (kc))
-#define LCA(kc) (QK_LCTL | QK_LALT | (kc))
-#define LSA(kc) (QK_LSFT | QK_LALT | (kc))
-#define RSA(kc) (QK_RSFT | QK_RALT | (kc))
-#define RCS(kc) (QK_RCTL | QK_RSFT | (kc))
-#define SAGR(kc) RSA(kc)
+#define RCSG(kc) (QK_RCTL | QK_RSFT | QK_RGUI | (kc))
+#define RCAG(kc) (QK_RCTL | QK_RALT | QK_RGUI | (kc))
+#define RSAG(kc) (QK_RSFT | QK_RALT | QK_RGUI | (kc))
 
-// Modified keycode aliases
-#define C(kc) LCTL(kc)
-#define S(kc) LSFT(kc)
-#define A(kc) LALT(kc)
-#define G(kc) LGUI(kc)
+#define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
+#define MEH(kc) (QK_LCTL | QK_LSFT | QK_LALT | (kc))
 
 // GOTO layer - 32 layer max
 #define TO(layer) (QK_TO | ((layer)&0x1F))
@@ -91,6 +100,10 @@
 // Set default layer - 32 layer max
 #define DF(layer) (QK_DEF_LAYER | ((layer)&0x1F))
 #define QK_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
+
+// Set persistent default layer - 32 layer max
+#define PDF(layer) (QK_PERSISTENT_DEF_LAYER | ((layer)&0x1F))
+#define QK_PERSISTENT_DEF_LAYER_GET_LAYER(kc) ((kc)&0x1F)
 
 // Toggle to layer - 32 layer max
 #define TG(layer) (QK_TOGGLE_LAYER | ((layer)&0x1F))
@@ -109,6 +122,41 @@
 #define OSM(mod) (QK_ONE_SHOT_MOD | ((mod)&0x1F))
 #define QK_ONE_SHOT_MOD_GET_MODS(kc) ((kc)&0x1F)
 
+#define OS_LCTL OSM(MOD_LCTL)
+#define OS_LSFT OSM(MOD_LSFT)
+#define OS_LALT OSM(MOD_LALT)
+#define OS_LGUI OSM(MOD_LGUI)
+
+#define OS_LCS OSM(MOD_LCTL | MOD_LSFT)
+#define OS_LCA OSM(MOD_LCTL | MOD_LALT)
+#define OS_LCG OSM(MOD_LCTL | MOD_LGUI)
+#define OS_LSA OSM(MOD_LSFT | MOD_LALT)
+#define OS_LSG OSM(MOD_LSFT | MOD_LGUI)
+#define OS_LAG OSM(MOD_LALT | MOD_LGUI)
+
+#define OS_LCSG OSM(MOD_LCTL | MOD_LSFT | MOD_LGUI)
+#define OS_LCAG OSM(MOD_LCTL | MOD_LALT | MOD_LGUI)
+#define OS_LSAG OSM(MOD_LSFT | MOD_LALT | MOD_LGUI)
+
+#define OS_RCTL OSM(MOD_RCTL)
+#define OS_RSFT OSM(MOD_RSFT)
+#define OS_RALT OSM(MOD_RALT)
+#define OS_RGUI OSM(MOD_RGUI)
+
+#define OS_RCS OSM(MOD_RCTL | MOD_RSFT)
+#define OS_RCA OSM(MOD_RCTL | MOD_RALT)
+#define OS_RCG OSM(MOD_RCTL | MOD_RGUI)
+#define OS_RSA OSM(MOD_RSFT | MOD_RALT)
+#define OS_RSG OSM(MOD_RSFT | MOD_RGUI)
+#define OS_RAG OSM(MOD_RALT | MOD_RGUI)
+
+#define OS_RCSG OSM(MOD_RCTL | MOD_RSFT | MOD_RGUI)
+#define OS_RCAG OSM(MOD_RCTL | MOD_RALT | MOD_RGUI)
+#define OS_RSAG OSM(MOD_RSFT | MOD_RALT | MOD_RGUI)
+
+#define OS_MEH OSM(MOD_LCTL | MOD_LSFT | MOD_LALT)
+#define OS_HYPR OSM(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI)
+
 // Layer tap-toggle - 32 layer max
 #define TT(layer) (QK_LAYER_TAP_TOGGLE | ((layer)&0x1F))
 #define QK_LAYER_TAP_TOGGLE_GET_LAYER(kc) ((kc)&0x1F)
@@ -123,51 +171,57 @@
 #define QK_MOD_TAP_GET_MODS(kc) (((kc) >> 8) & 0x1F)
 #define QK_MOD_TAP_GET_TAP_KEYCODE(kc) ((kc)&0xFF)
 
+// Mod-Tap shortcuts
 #define LCTL_T(kc) MT(MOD_LCTL, kc)
-#define RCTL_T(kc) MT(MOD_RCTL, kc)
-#define CTL_T(kc) LCTL_T(kc)
-
 #define LSFT_T(kc) MT(MOD_LSFT, kc)
-#define RSFT_T(kc) MT(MOD_RSFT, kc)
-#define SFT_T(kc) LSFT_T(kc)
-
 #define LALT_T(kc) MT(MOD_LALT, kc)
-#define RALT_T(kc) MT(MOD_RALT, kc)
-#define LOPT_T(kc) LALT_T(kc)
-#define ROPT_T(kc) RALT_T(kc)
-#define ALGR_T(kc) RALT_T(kc)
-#define ALT_T(kc) LALT_T(kc)
-#define OPT_T(kc) LOPT_T(kc)
-
 #define LGUI_T(kc) MT(MOD_LGUI, kc)
-#define RGUI_T(kc) MT(MOD_RGUI, kc)
+
+#define CTL_T(kc) LCTL_T(kc)
+#define SFT_T(kc) LSFT_T(kc)
+#define ALT_T(kc) LALT_T(kc)
+#define GUI_T(kc) LGUI_T(kc)
+
+#define LOPT_T(kc) LALT_T(kc)
 #define LCMD_T(kc) LGUI_T(kc)
 #define LWIN_T(kc) LGUI_T(kc)
-#define RCMD_T(kc) RGUI_T(kc)
-#define RWIN_T(kc) RGUI_T(kc)
-#define GUI_T(kc) LGUI_T(kc)
+
+#define OPT_T(kc) LOPT_T(kc)
 #define CMD_T(kc) LCMD_T(kc)
 #define WIN_T(kc) LWIN_T(kc)
 
-#define C_S_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)                        // Left Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)             // Meh is a less hyper version of the Hyper key -- doesn't include GUI, so just Left Control + Shift + Alt
-#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)            // Left Control + Alt + GUI
-#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)            // Right Control + Alt + GUI
-#define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)                        // Left Shift + GUI
-#define SGUI_T(kc) LSG_T(kc)
-#define SCMD_T(kc) LSG_T(kc)
-#define SWIN_T(kc) LSG_T(kc)
-#define LAG_T(kc) MT(MOD_LALT | MOD_LGUI, kc) // Left Alt + GUI
-#define RSG_T(kc) MT(MOD_RSFT | MOD_RGUI, kc) // Right Shift + GUI
-#define RAG_T(kc) MT(MOD_RALT | MOD_RGUI, kc) // Right Alt + GUI
-#define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc) // Left Control + Alt
-#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc) // Left Shift + Alt
-#define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc) // Right Shift + Alt
-#define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc) // Right Control + Shift
-#define SAGR_T(kc) RSA_T(kc)
+#define LCS_T(kc) MT(MOD_LCTL | MOD_LSFT, kc)
+#define LCA_T(kc) MT(MOD_LCTL | MOD_LALT, kc)
+#define LCG_T(kc) MT(MOD_LCTL | MOD_LGUI, kc)
+#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
+#define LSG_T(kc) MT(MOD_LSFT | MOD_LGUI, kc)
+#define LAG_T(kc) MT(MOD_LALT | MOD_LGUI, kc)
+#define LCSG_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LGUI, kc)
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc)
+#define LSAG_T(kc) MT(MOD_LSFT | MOD_LALT | MOD_LGUI, kc)
 
-#define ALL_T(kc) HYPR_T(kc)
+#define RCTL_T(kc) MT(MOD_RCTL, kc)
+#define RSFT_T(kc) MT(MOD_RSFT, kc)
+#define RALT_T(kc) MT(MOD_RALT, kc)
+#define RGUI_T(kc) MT(MOD_RGUI, kc)
+
+#define ROPT_T(kc) RALT_T(kc)
+#define ALGR_T(kc) RALT_T(kc)
+#define RCMD_T(kc) RGUI_T(kc)
+#define RWIN_T(kc) RGUI_T(kc)
+
+#define RCS_T(kc) MT(MOD_RCTL | MOD_RSFT, kc)
+#define RCA_T(kc) MT(MOD_RCTL | MOD_RALT, kc)
+#define RCG_T(kc) MT(MOD_RCTL | MOD_RGUI, kc)
+#define RSA_T(kc) MT(MOD_RSFT | MOD_RALT, kc)
+#define RSG_T(kc) MT(MOD_RSFT | MOD_RGUI, kc)
+#define RAG_T(kc) MT(MOD_RALT | MOD_RGUI, kc)
+#define RCSG_T(kc) MT(MOD_RCTL | MOD_RSFT | MOD_RGUI, kc)
+#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc)
+#define RSAG_T(kc) MT(MOD_RSFT | MOD_RALT | MOD_RGUI, kc)
+
+#define MEH_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc)
+#define HYPR_T(kc) MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc)
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
 #define KC_HYPR HYPR(KC_NO)

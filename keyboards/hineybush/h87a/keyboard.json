@@ -1,7 +1,6 @@
 {
     "keyboard_name": "h87a",
     "manufacturer": "hineybush",
-    "url": "",
     "maintainer": "hineybush",
     "usb": {
         "vid": "0x04D8",
@@ -14,8 +13,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -44,6 +41,9 @@
         "pin": "D3"
     },
     "rgblight": {
+        "default": {
+            "val": 128
+        },
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 24,

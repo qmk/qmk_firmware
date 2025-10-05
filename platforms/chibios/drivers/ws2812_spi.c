@@ -40,26 +40,53 @@
 
 // Define SPI config speed
 // baudrate should target 3.2MHz
+#if defined(AT32F415)
+#    if WS2812_SPI_DIVISOR == 2
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (0)
+#    elif WS2812_SPI_DIVISOR == 4
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_0)
+#    elif WS2812_SPI_DIVISOR == 8
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_1)
+#    elif WS2812_SPI_DIVISOR == 16 // default
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_1 | SPI_CTRL1_MDIV_0)
+#    elif WS2812_SPI_DIVISOR == 32
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_2)
+#    elif WS2812_SPI_DIVISOR == 64
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_0)
+#    elif WS2812_SPI_DIVISOR == 128
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_1)
+#    elif WS2812_SPI_DIVISOR == 256
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_2 | SPI_CTRL1_MDIV_1 | SPI_CTRL1_MDIV_0)
+#    elif WS2812_SPI_DIVISOR == 512
+#        define WS2812_SPI_DIVISOR_CTRL2_MDIV_X (SPI_CTRL1_MDIV_3)
+#    elif WS2812_SPI_DIVISOR == 1024
+#        define WS2812_SPI_DIVISOR_CTRL2_MDIV_X (SPI_CTRL1_MDIV_3)
+#        define WS2812_SPI_DIVISOR_CTRL1_MDIV_X (SPI_CTRL1_MDIV_0)
+#    else
+#        error "Configured WS2812_SPI_DIVISOR value is not supported at this time."
+#    endif
+#else
 // F072 fpclk = 48MHz
 // 48/16 = 3Mhz
-#if WS2812_SPI_DIVISOR == 2
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (0)
-#elif WS2812_SPI_DIVISOR == 4
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_0)
-#elif WS2812_SPI_DIVISOR == 8
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1)
-#elif WS2812_SPI_DIVISOR == 16 // default
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)
-#elif WS2812_SPI_DIVISOR == 32
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2)
-#elif WS2812_SPI_DIVISOR == 64
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_0)
-#elif WS2812_SPI_DIVISOR == 128
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1)
-#elif WS2812_SPI_DIVISOR == 256
-#    define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
-#else
-#    error "Configured WS2812_SPI_DIVISOR value is not supported at this time."
+#    if WS2812_SPI_DIVISOR == 2
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (0)
+#    elif WS2812_SPI_DIVISOR == 4
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_0)
+#    elif WS2812_SPI_DIVISOR == 8
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1)
+#    elif WS2812_SPI_DIVISOR == 16 // default
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#    elif WS2812_SPI_DIVISOR == 32
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2)
+#    elif WS2812_SPI_DIVISOR == 64
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_0)
+#    elif WS2812_SPI_DIVISOR == 128
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1)
+#    elif WS2812_SPI_DIVISOR == 256
+#        define WS2812_SPI_DIVISOR_CR1_BR_X (SPI_CR1_BR_2 | SPI_CR1_BR_1 | SPI_CR1_BR_0)
+#    else
+#        error "Configured WS2812_SPI_DIVISOR value is not supported at this time."
+#    endif
 #endif
 
 // Use SPI circular buffer
@@ -106,7 +133,7 @@ static uint8_t get_protocol_eq(uint8_t data, int pos) {
     return eq;
 }
 
-static void set_led_color_rgb(rgb_led_t color, int pos) {
+static void set_led_color_rgb(ws2812_led_t color, int pos) {
     uint8_t* tx_start = &txbuf[PREAMBLE_SIZE];
 
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
@@ -133,9 +160,11 @@ static void set_led_color_rgb(rgb_led_t color, int pos) {
 #endif
 #ifdef WS2812_RGBW
     for (int j = 0; j < 4; j++)
-        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 4 + j] = get_protocol_eq(color.w, j);
+        tx_start[BYTES_FOR_LED * pos + BYTES_FOR_LED_BYTE * 3 + j] = get_protocol_eq(color.w, j);
 #endif
 }
+
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
 
 void ws2812_init(void) {
     palSetLineMode(WS2812_DI_PIN, WS2812_MOSI_OUTPUT_MODE);
@@ -174,8 +203,16 @@ void ws2812_init(void) {
         NULL, // error_cb
         PAL_PORT(WS2812_DI_PIN),
         PAL_PAD(WS2812_DI_PIN),
+#    if defined(AT32F415)
+        WS2812_SPI_DIVISOR_CTRL1_MDIV_X,
+#        if (WS2812_SPI_DIVISOR == 512 || WS2812_SPI_DIVISOR == 1024)
+        WS2812_SPI_DIVISOR_CTRL2_MDIV_X,
+#        endif
+        0
+#    else
         WS2812_SPI_DIVISOR_CR1_BR_X,
         0
+#    endif
 #endif
     };
 
@@ -187,9 +224,24 @@ void ws2812_init(void) {
 #endif
 }
 
-void ws2812_setleds(rgb_led_t* ledarray, uint16_t leds) {
-    for (uint8_t i = 0; i < leds; i++) {
-        set_led_color_rgb(ledarray[i], i);
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
+
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        set_led_color_rgb(ws2812_leds[i], i);
     }
 
     // Send async - each led takes ~0.03ms, 50 leds ~1.5ms, animations flushing faster than send will cause issues.

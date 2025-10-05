@@ -11,8 +11,6 @@
     "features": {
         "audio": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true
@@ -21,6 +19,11 @@
         "locking": {
             "enabled": true,
             "resync": true
+        }
+    },
+    "audio": {
+        "default": {
+            "clicky": false
         }
     },
     "matrix_pins": {

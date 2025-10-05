@@ -7,7 +7,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
@@ -42,7 +41,6 @@
             "sat": 232,
             "speed": 2
         },
-        "hue_steps": 8,
         "led_count": 2,
         "max_brightness": 100,
         "saturation_steps": 8,
@@ -50,6 +48,9 @@
     },
     "split": {
         "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "indicators": true,

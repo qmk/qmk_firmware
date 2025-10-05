@@ -10,7 +10,6 @@
   },
   "features": {
     "bootmagic": false,
-    "command": false,
     "console": true,
     "extrakey": true,
     "mousekey": true,
@@ -29,10 +28,11 @@
   "diode_direction": "COL2ROW",
   "split": {
     "enabled": true,
-    "soft_serial_pin": "D0"
+    "serial": {
+      "pin": "D0"
+    }
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "layouts": {
     "LAYOUT": {
       "layout": [

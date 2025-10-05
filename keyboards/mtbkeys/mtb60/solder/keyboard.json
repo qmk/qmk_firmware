@@ -34,8 +34,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -55,13 +53,14 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
-        "LAYOUT": "LAYOUT_all"
+        "LAYOUT": "LAYOUT_all",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "community_layouts": [
         "60_ansi",
         "60_ansi_split_bs_rshift",
         "60_ansi_tsangan",
-        "60_tsangan_hhkb"
+        "60_ansi_tsangan_split_bs_rshift"
     ],
     "layouts": {
         "LAYOUT_all": {
@@ -348,7 +347,7 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 13.5, "y": 4, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},

@@ -49,6 +49,7 @@ subcommands = [
     'qmk.cli.generate.api',
     'qmk.cli.generate.autocorrect_data',
     'qmk.cli.generate.compilation_database',
+    'qmk.cli.generate.community_modules',
     'qmk.cli.generate.config_h',
     'qmk.cli.generate.develop_pr_list',
     'qmk.cli.generate.dfu_header',
@@ -57,7 +58,6 @@ subcommands = [
     'qmk.cli.generate.keyboard_c',
     'qmk.cli.generate.keyboard_h',
     'qmk.cli.generate.keycodes',
-    'qmk.cli.generate.keycodes_tests',
     'qmk.cli.generate.keymap_h',
     'qmk.cli.generate.make_dependencies',
     'qmk.cli.generate.rgb_breathe_table',
@@ -82,6 +82,7 @@ subcommands = [
     'qmk.cli.new.keymap',
     'qmk.cli.painter',
     'qmk.cli.pytest',
+    'qmk.cli.resolve_alias',
     'qmk.cli.test.c',
     'qmk.cli.userspace.add',
     'qmk.cli.userspace.compile',
@@ -207,13 +208,13 @@ def _eprint(errmsg):
 # Ubuntu 24.04: 3.12
 # void: 3.12
 
-if sys.version_info[0] != 3 or sys.version_info[1] < 7:
-    _eprint('Error: Your Python is too old! Please upgrade to Python 3.7 or later.')
+if sys.version_info[0] != 3 or sys.version_info[1] < 9:
+    _eprint('Error: Your Python is too old! Please upgrade to Python 3.9 or later.')
     exit(127)
 
 milc_version = __VERSION__.split('.')
 
-if int(milc_version[0]) < 2 and int(milc_version[1]) < 4:
+if int(milc_version[0]) < 2 and int(milc_version[1]) < 9:
     requirements = Path('requirements.txt').resolve()
 
     _eprint(f'Your MILC library is too old! Please upgrade: python3 -m pip install -U -r {str(requirements)}')

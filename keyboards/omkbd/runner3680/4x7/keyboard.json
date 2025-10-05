@@ -1,7 +1,6 @@
 {
     "keyboard_name": "runner3680 4x7",
     "manufacturer": "Omkbd",
-    "url": "",
     "maintainer": "omkbd",
     "usb": {
         "vid": "0xFEED",
@@ -20,7 +19,9 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "tapping": {
         "term": 120

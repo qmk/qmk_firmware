@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ergocheap",
     "manufacturer": "xSteins",
-    "url": "",
     "maintainer": "xSteins",
     "usb": {
         "vid": "0xFEDE",

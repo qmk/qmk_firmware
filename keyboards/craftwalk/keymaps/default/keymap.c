@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
                  KC_Q,    KC_W,    KC_E,
         KC_LCTL, KC_A,    KC_S,    KC_D,
-        KC_LSFT, MO_ADJ,  KC_WH_U, KC_WH_D, KC_F,    MO_NUM,  KC_SPC
+        KC_LSFT, MO_ADJ,  MS_WHLU, MS_WHLD, KC_F,    MO_NUM,  KC_SPC
     ),
     /* Number */
     [_NUM] = LAYOUT(
@@ -40,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     /* Adjust */
     [_ADJUST] = LAYOUT(
-                 RGB_HUI, RGB_SAI, RGB_VAI,
-        QK_BOOT, RGB_HUD, RGB_SAD, RGB_VAD,
-        RGB_M_T, KC_TRNS, RGB_MOD, RGB_RMOD,RGB_TOG, KC_TRNS, KC_TRNS
+                 UG_HUEU, UG_SATU, UG_VALU,
+        QK_BOOT, UG_HUED, UG_SATD, UG_VALD,
+        RGB_M_T, KC_TRNS, UG_NEXT, UG_PREV, UG_TOGG, KC_TRNS, KC_TRNS
     )
 };

@@ -17,6 +17,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SPLIT_HAND_PIN D1
-
 #define SPLIT_USB_DETECT

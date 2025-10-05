@@ -25,6 +25,8 @@
 *.la
 *.stackdump
 *.sym
+index.html
+firmware_list.json
 
 # QMK-specific
 api_data/v1
@@ -62,6 +64,7 @@ build/
 cmake-build-debug
 CMakeLists.txt
 *.pdf
+*.zip
 
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace
@@ -116,4 +119,5 @@ compile_commands.json
 
 # VIA(L) files that don't belong in QMK repo
 via*.json
+/keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*

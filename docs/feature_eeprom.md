@@ -100,7 +100,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
             if (user_config.rgb_layer_change) {        // only if this is enabled
                 user_config.rgb_layer_change = false;  // disable it, and
-                eeconfig_update_user(user_config.raw); // write the setings to EEPROM
+                eeconfig_update_user(user_config.raw); // write the settings to EEPROM
             }
         }
         return true; break;
@@ -109,7 +109,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 ```
-And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EE_CLR` keycode or [Bootmagic Lite](features/bootmagic) functionallity. For example, if you want to set rgb layer indication by default, and save the default valued.
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. To force an EEPROM reset, use the `EE_CLR` keycode or [Bootmagic](features/bootmagic) functionality. For example, if you want to set rgb layer indication by default, and save the default valued.
 
 ```c
 void eeconfig_init_user(void) {  // EEPROM is getting reset!

@@ -10,7 +10,7 @@ The following converters are available at this time:
 |------------|-------------------|
 | `promicro` | `proton_c`        |
 | `promicro` | `kb2040`          |
-| `promicro` | `promicro_rp2040` |
+| `promicro` | `sparkfun_pm2040` |
 | `promicro` | `blok`            |
 | `promicro` | `bit_c_pro`       |
 | `promicro` | `stemcell`        |
@@ -21,6 +21,7 @@ The following converters are available at this time:
 | `promicro` | `liatris`         |
 | `promicro` | `imera`           |
 | `promicro` | `michi`           |
+| `promicro` | `svlinky`         |
 | `elite_c`  | `stemcell`        |
 | `elite_c`  | `rp2040_ce`       |
 | `elite_c`  | `elite_pi`        |
@@ -77,7 +78,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 |------------------------------------------------------------------------------------------|-------------------|
 | [Proton C](https://qmk.fm/proton-c/)                                                     | `proton_c`        |
 | [Adafruit KB2040](https://learn.adafruit.com/adafruit-kb2040)                            | `kb2040`          |
-| [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)                   | `promicro_rp2040` |
+| [SparkFun Pro Micro - RP2040](https://www.sparkfun.com/products/18288)                   | `sparkfun_pm2040` |
 | [Blok](https://boardsource.xyz/store/628b95b494dfa308a6581622)                           | `blok`            |
 | [Bit-C PRO](https://nullbits.co/bit-c-pro)                                               | `bit_c_pro`       |
 | [STeMCell](https://github.com/megamind4089/STeMCell)                                     | `stemcell`        |
@@ -87,6 +88,7 @@ If a board currently supported in QMK uses a [Pro Micro](https://www.sparkfun.co
 | [Liatris](https://splitkb.com/products/liatris)                                          | `liatris`         |
 | [Imera](https://splitkb.com/products/imera)                                              | `imera`           |
 | [Michi](https://github.com/ci-bus/michi-promicro-rp2040)                                 | `michi`           |
+| [Svlinky](https://github.com/sadekbaroudi/svlinky)                                       | `svlinky`         |
 
 Converter summary:
 
@@ -94,7 +96,7 @@ Converter summary:
 |-------------------|---------------------------------|------------------------------|-------------------------------------|
 | `proton_c`        | `-e CONVERT_TO=proton_c`        | `CONVERT_TO=proton_c`        | `#ifdef CONVERT_TO_PROTON_C`        |
 | `kb2040`          | `-e CONVERT_TO=kb2040`          | `CONVERT_TO=kb2040`          | `#ifdef CONVERT_TO_KB2040`          |
-| `promicro_rp2040` | `-e CONVERT_TO=promicro_rp2040` | `CONVERT_TO=promicro_rp2040` | `#ifdef CONVERT_TO_PROMICRO_RP2040` |
+| `sparkfun_pm2040` | `-e CONVERT_TO=sparkfun_pm2040` | `CONVERT_TO=sparkfun_pm2040` | `#ifdef CONVERT_TO_SPARKFUN_PM2040` |
 | `blok`            | `-e CONVERT_TO=blok`            | `CONVERT_TO=blok`            | `#ifdef CONVERT_TO_BLOK`            |
 | `bit_c_pro`       | `-e CONVERT_TO=bit_c_pro`       | `CONVERT_TO=bit_c_pro`       | `#ifdef CONVERT_TO_BIT_C_PRO`       |
 | `stemcell`        | `-e CONVERT_TO=stemcell`        | `CONVERT_TO=stemcell`        | `#ifdef CONVERT_TO_STEMCELL`        |
@@ -105,6 +107,7 @@ Converter summary:
 | `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
 | `imera`           | `-e CONVERT_TO=imera`           | `CONVERT_TO=imera`           | `#ifdef CONVERT_TO_IMERA`           |
 | `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
+| `svlinky`         | `-e CONVERT_TO=svlinky`         | `CONVERT_TO=svlinky`         | `#ifdef CONVERT_TO_SVLINKY`         |
 
 ### Proton C {#proton_c}
 
@@ -135,7 +138,7 @@ The following defaults are based on what has been implemented for [RP2040](platf
 | USB Host (e.g. USB-USB converter)            | Not supported (USB host code is AVR specific and is not currently supported on ARM)                              |
 | [Split keyboards](features/split_keyboard) | Partial via `PIO` vendor driver - heavily dependent on enabled features                                          |
 
-### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi {#promicro_rp2040 }
+### SparkFun Pro Micro - RP2040, Blok, Bit-C PRO and Michi {#sparkfun_pm2040 }
 
 Feature set is identical to [Adafruit KB2040](#kb2040).
 
@@ -170,6 +173,9 @@ The Bonsai C4 only has one on-board LED (B2), and by default, both the Pro Micro
 
 Feature set is identical to [Adafruit KB2040](#kb2040). VBUS detection is enabled by default for superior split keyboard support. For more information, refer to the [Community Edition pinout](platformdev_rp2040#rp2040_ce) docs.
 
+### Svlinky {#svlinky}
+
+Feature set is a pro micro equivalent of the [RP2040 Community Edition](#rp2040_ce), except that two of the analog GPIO have been replaced with digital only GPIO. These two were moved to the FPC connector to support the [VIK specification](https://github.com/sadekbaroudi/vik). This means that if you are expecting analog support on all 4 pins as provided on a RP2040 Community Edition pinout, you will not have that. Please see the [Svlinky github page](https://github.com/sadekbaroudi/svlinky) for more details.
 
 ## Elite-C
 

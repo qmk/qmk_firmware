@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Axon40",
     "manufacturer": "Nasp",
-    "url": "",
     "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",
@@ -30,8 +29,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -50,8 +47,11 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT"
+    },
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

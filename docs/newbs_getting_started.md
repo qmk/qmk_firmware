@@ -101,6 +101,12 @@ Install the QMK CLI by running:
 python3 -m pip install --user qmk
 ```
 
+Alternatively, install the QMK CLI as a [uv](https://docs.astral.sh/uv/) managed tool, kept isolated in a virtual environment (requires uv to be installed):
+
+```sh
+uv tool install qmk
+```
+
 #### Community Packages
 
 These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.

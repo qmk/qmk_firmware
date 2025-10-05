@@ -122,6 +122,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SPLIT_KEYBOARD
 #    include "split_util.h"
 #endif
+#ifdef BATTERY_ENABLE
+#    include "battery.h"
+#endif
 #ifdef BLUETOOTH_ENABLE
 #    include "bluetooth.h"
 #endif
@@ -139,6 +142,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef OS_DETECTION_ENABLE
 #    include "os_detection.h"
+#endif
+#ifdef LAYER_LOCK_ENABLE
+#    include "layer_lock.h"
+#endif
+#ifdef CONNECTION_ENABLE
+#    include "connection.h"
 #endif
 
 static uint32_t last_input_modification_time = 0;
@@ -286,6 +295,21 @@ __attribute__((weak)) void keyboard_pre_init_kb(void) {
     keyboard_pre_init_user();
 }
 
+/** \brief keyboard_pre_init_modules
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak)) void keyboard_pre_init_modules(void) {}
+
+/** \brief keyboard_pre_init_quantum
+ *
+ * FIXME: needs doc
+ */
+void keyboard_pre_init_quantum(void) {
+    keyboard_pre_init_modules();
+    keyboard_pre_init_kb();
+}
+
 /** \brief keyboard_post_init_user
  *
  * FIXME: needs doc
@@ -300,6 +324,23 @@ __attribute__((weak)) void keyboard_post_init_user(void) {}
 
 __attribute__((weak)) void keyboard_post_init_kb(void) {
     keyboard_post_init_user();
+}
+
+/** \brief keyboard_post_init_modules
+ *
+ * FIXME: needs doc
+ */
+
+__attribute__((weak)) void keyboard_post_init_modules(void) {}
+
+/** \brief keyboard_post_init_quantum
+ *
+ * FIXME: needs doc
+ */
+
+void keyboard_post_init_quantum(void) {
+    keyboard_post_init_modules();
+    keyboard_post_init_kb();
 }
 
 /** \brief matrix_can_read
@@ -320,7 +361,7 @@ void keyboard_setup(void) {
     eeprom_driver_init();
 #endif
     matrix_setup();
-    keyboard_pre_init_kb();
+    keyboard_pre_init_quantum();
 }
 
 #ifndef SPLIT_KEYBOARD
@@ -352,6 +393,13 @@ __attribute__((weak)) bool should_process_keypress(void) {
     return is_keyboard_master();
 }
 
+/** \brief housekeeping_task_modules
+ *
+ * Codegen will override this if community modules are enabled.
+ * This is specific to keyboard-level functionality.
+ */
+__attribute__((weak)) void housekeeping_task_modules(void) {}
+
 /** \brief housekeeping_task_kb
  *
  * Override this function if you have a need to execute code for every keyboard main loop iteration.
@@ -371,6 +419,7 @@ __attribute__((weak)) void housekeeping_task_user(void) {}
  * Invokes hooks for executing code after QMK is done after each loop iteration.
  */
 void housekeeping_task(void) {
+    housekeeping_task_modules();
     housekeeping_task_kb();
     housekeeping_task_user();
 }
@@ -386,8 +435,8 @@ void quantum_init(void) {
     }
 
     /* init globals */
-    debug_config.raw  = eeconfig_read_debug();
-    keymap_config.raw = eeconfig_read_keymap();
+    eeconfig_read_debug(&debug_config);
+    eeconfig_read_keymap(&keymap_config);
 
 #ifdef BOOTMAGIC_ENABLE
     bootmagic();
@@ -419,6 +468,9 @@ void keyboard_init(void) {
 #endif
     matrix_init();
     quantum_init();
+#ifdef CONNECTION_ENABLE
+    connection_init();
+#endif
     led_init_ports();
 #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
@@ -457,8 +509,9 @@ void keyboard_init(void) {
     steno_init();
 #endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
+#    pragma message "FORCE_NKRO option is now deprecated - Please migrate to NKRO_DEFAULT_ON instead."
     keymap_config.nkro = 1;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 #endif
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
@@ -479,6 +532,9 @@ void keyboard_init(void) {
     // init after split init
     pointing_device_init();
 #endif
+#ifdef BATTERY_ENABLE
+    battery_init();
+#endif
 #ifdef BLUETOOTH_ENABLE
     bluetooth_init();
 #endif
@@ -490,7 +546,7 @@ void keyboard_init(void) {
     debug_enable = true;
 #endif
 
-    keyboard_post_init_kb(); /* Always keep this last */
+    keyboard_post_init_quantum(); /* Always keep this last */
 }
 
 /** \brief key_event_task
@@ -592,24 +648,8 @@ void quantum_task(void) {
     if (!is_keyboard_master()) return;
 #endif
 
-#if defined(AUDIO_ENABLE) && defined(AUDIO_INIT_DELAY)
-    // There are some tasks that need to be run a little bit
-    // after keyboard startup, or else they will not work correctly
-    // because of interaction with the USB device state, which
-    // may still be in flux...
-    //
-    // At the moment the only feature that needs this is the
-    // startup song.
-    static bool     delayed_tasks_run  = false;
-    static uint16_t delayed_task_timer = 0;
-    if (!delayed_tasks_run) {
-        if (!delayed_task_timer) {
-            delayed_task_timer = timer_read();
-        } else if (timer_elapsed(delayed_task_timer) > 300) {
-            audio_startup();
-            delayed_tasks_run = true;
-        }
-    }
+#ifdef AUDIO_ENABLE
+    audio_task();
 #endif
 
 #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
@@ -654,6 +694,10 @@ void quantum_task(void) {
 
 #ifdef SECURE_ENABLE
     secure_task();
+#endif
+
+#ifdef LAYER_LOCK_ENABLE
+    layer_lock_task();
 #endif
 }
 
@@ -733,6 +777,10 @@ void keyboard_task(void) {
 
 #ifdef JOYSTICK_ENABLE
     joystick_task();
+#endif
+
+#ifdef BATTERY_ENABLE
+    battery_task();
 #endif
 
 #ifdef BLUETOOTH_ENABLE

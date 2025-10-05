@@ -16,9 +16,5 @@
 
 #pragma once
 
-// `SPLIT_HAND_PIN` can currently be defined in `info.json`,
-// but can't yet be given a value
-#define SPLIT_HAND_PIN B5
-
 #define OLED_DISPLAY_128X64
 #define SPLIT_OLED_ENABLE

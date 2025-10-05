@@ -7,7 +7,6 @@
     "features": {
         "bootmagic": false,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -25,7 +24,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "rgblight": {
         "led_count": 12,
@@ -34,8 +35,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_5x12"
     },

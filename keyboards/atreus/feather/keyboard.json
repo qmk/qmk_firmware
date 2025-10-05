@@ -7,8 +7,7 @@
     "processor": "atmega32u4",
     "bootloader": "caterina",
     "features": {
-        "bluetooth": true,
-        "console": false
+        "bluetooth": true
     },
     "build": {
         "lto": true

@@ -17,6 +17,8 @@
 
 #include "quantum.h"
 
-void keyboard_post_init_user(void) {
+void keyboard_post_init_kb(void) {
     rgblight_setrgb(0xff, 0xff, 0xff);
+
+    keyboard_post_init_user();
 }

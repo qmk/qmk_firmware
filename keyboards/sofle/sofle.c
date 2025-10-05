@@ -85,10 +85,13 @@ void print_status_narrow(void) {
             oled_write_P(PSTR("Base\n"), false);
             break;
         case 2:
-            oled_write_P(PSTR("Raise"), false);
+            oled_write_P(PSTR("Lower"), false);
             break;
         case 3:
-            oled_write_P(PSTR("Lower"), false);
+            oled_write_P(PSTR("Raise"), false);
+            break;
+        case 4:
+            oled_write_P(PSTR("Adjust"), false);
             break;
         default:
             oled_write_ln_P(PSTR("Undef"), false);

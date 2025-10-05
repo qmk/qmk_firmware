@@ -3,14 +3,11 @@
 
 #pragma once
 
-#define SERIAL_USART_TX_PIN GP0
-
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_DISABLE_KEYCODES // disable keycodes for RGB Light controls, only status LED is supported
 #    define PICA40_RGBLIGHT_TIMEOUT 5 // turn RGB off after N minutes
 #endif
 

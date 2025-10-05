@@ -3,6 +3,11 @@
         "cols": ["B1"],
         "rows": ["B10"]
     },
+    "split": {
+        "handedness": {
+            "pin": "A7"
+        }
+    },
     "diode_direction": "COL2ROW",
     "development_board": "bluepill",
     "features": {

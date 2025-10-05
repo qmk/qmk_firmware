@@ -20,13 +20,15 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
                     {"pin_a": "F4", "pin_b": "F5", "resolution": 2}
                 ]
             }
+        },
+        "serial": {
+            "pin": "D2"
         },
         "transport": {
             "sync": {
@@ -40,8 +42,7 @@
     "qmk": {
         "tap_keycode_delay": 10
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": false,

@@ -175,12 +175,18 @@
         "bootmagic": {
             "matrix": [6, 0]
         },
+        "handedness": {
+            "pin": "GP21"
+        },
         "enabled": true,
         "matrix_pins": {
             "right": {
                 "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP27", "GP17", "GP13"],
                 "rows": ["GP10", "GP11", "GP12", "GP28", "GP19", "GP16"]
             }
+        },
+        "serial": {
+            "driver": "vendor"
         },
         "transport": {
             "sync": {
@@ -190,7 +196,6 @@
             }
         }
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.2",
         "pid": "0x0006",
