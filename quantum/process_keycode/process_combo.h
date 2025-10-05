@@ -40,6 +40,9 @@ typedef uint16_t combo_active_state_t;
 #    define COMBO_STATE_BITS 2
 typedef uint8_t combo_active_state_t;
 #else
+#    ifdef EXTRA_SHORT_COMBOS
+#        pragma message "EXTRA_SHORT_COMBOS is no longer supported. Falling back to default MAX_COMBO_LENGTH of 8. Use EXTRA_SMALL_COMBOS to reduce MAX_COMBO_LENGTH to 4."
+#    endif
 #    define MAX_COMBO_LENGTH 8
 #    define COMBO_STATE_BITS 3
 typedef uint8_t combo_active_state_t;
