@@ -21,59 +21,32 @@
 
     "bootmagic": {
         "enabled": true,
-        "matrix": [14, 0]
+        "matrix": [3, 0]
     },
 
     "matrix_pins": {
         "direct": [
-            ["GP0"],
-            [null],
-            ["GP2"],
-            [null],
-            ["GP4"],
-            [null],
-            ["GP6"],
-            [null],
-            ["GP8"],
-            [null],
-            ["GP10"],
-            [null],
-            [null],
-            [null],
-            ["GP14"],
-            ["GP15"],
-            [null],
-            ["GP17"],
-            [null],
-            ["GP19"],
-            [null],
-            ["GP21"],
-            [null],
-            [null],
-            [null],
-            [null],
-            [null],
-            ["GP27"]
+            ["GP19", null, "GP6", "GP27", null, "GP0"],
+            [null, "GP10", null, null, "GP2", null],
+            ["GP21", null, "GP8", "GP17", null, "GP4"],
+            ["GP14", "GP15"]
         ]
     },
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label": "P1 UL", "matrix": [19, 0], "x": 0, "y": 0},
-                {"label": "P1 UR", "matrix": [6, 0], "x": 2, "y": 0},
-                {"label": "P2 UL", "matrix": [27, 0], "x": 3, "y": 0},
-                {"label": "P2 UR", "matrix": [0, 0], "x": 5, "y": 0},
-
-                {"label": "P1 CN", "matrix": [10, 0], "x": 1, "y": 1},
-                {"label": "P2 CN", "matrix": [2, 0], "x": 4, "y": 1},
-
-                {"label": "P1 DL", "matrix": [21, 0], "x": 0, "y": 2},
-                {"label": "P1 DR", "matrix": [8, 0], "x": 2, "y": 2},
-                {"label": "P2 DL", "matrix": [17, 0], "x": 3, "y": 2},
-                {"label": "P2 DR", "matrix": [4, 0], "x": 5, "y": 2},
-
-                {"label": "Service", "matrix": [14, 0], "x": 6.5, "y": 0.5},
-                {"label": "Test", "matrix": [15, 0], "x": 6.5, "y": 1.5}
+                {"label": "P1 UL", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "P1 UR", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "P2 UL", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "P2 UR", "matrix": [0, 5], "x": 5, "y": 0},
+                {"label": "P1 CN", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "P2 CN", "matrix": [1, 4], "x": 4, "y": 1},
+                {"label": "P1 DL", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "P1 DR", "matrix": [2, 2], "x": 2, "y": 2},
+                {"label": "P2 DL", "matrix": [2, 3], "x": 3, "y": 2},
+                {"label": "P2 DR", "matrix": [2, 5], "x": 5, "y": 2},
+                {"label": "Service", "matrix": [3, 0], "x": 6.5, "y": 0.5},
+                {"label": "Test", "matrix": [3, 1], "x": 6.5, "y": 1.5}
             ]
         }
     }
