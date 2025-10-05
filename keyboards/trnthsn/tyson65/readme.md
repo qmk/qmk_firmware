@@ -9,6 +9,7 @@ A 65% keyboard PCB compatible with various keyboard cases. Supports a middle USB
 * Hardware Availability: [ThanhSon.Mech](https://www.facebook.com/ThanhSon.mech)
 
 Make example for this keyboard (after setting up your build environment):
+
     make trnthsn/tyson65/stm32f103:default
 
 Flashing example for this keyboard:
