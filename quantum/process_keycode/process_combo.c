@@ -94,7 +94,7 @@ static bool b_combo_enable = false;
  * separate buffer.
  */
 
-#define COMBO_NULL_INDEX (((combo_state_t) - 1) >> COMBO_STATE_BITS)
+#define COMBO_NULL_INDEX (((combo_state_t)-1) >> COMBO_STATE_BITS)
 #define COMBO_NULL_STATE ((COMBO_NULL_INDEX << COMBO_STATE_BITS))
 
 /* Used by combo queue iterators */
@@ -350,7 +350,7 @@ bool is_combo_interrupted(uint16_t index, combo_t *combo, uint16_t keycode, keyr
  *************************/
 
 typedef struct {
-    combo_t       *combo;
+    combo_t *      combo;
     combo_state_t  combo_index;
     combo_state_t *prev_combo;
     bool           removed;
@@ -451,7 +451,7 @@ void process_active_buffer_overflow(void) {
         }
     }
     uint16_t              combo_index = iter.combo_index;
-    combo_t              *combo       = iter.combo;
+    combo_t *             combo       = iter.combo;
     combo_active_state_t *combo_state = NULL;
     if (combo != NULL) {
         combo_state = get_combo_active_state(iter.combo_index);
@@ -740,7 +740,7 @@ void dump_keyrecord(keyrecord_t *record) {
 /* Insert combo into active queue and process the combo's outcome */
 void activate_combo(queued_record_t *qrecord) {
     combo_state_t         combo_index = GET_NEXT_COMBO(qrecord);
-    combo_t              *combo       = combo_get(combo_index);
+    combo_t *             combo       = combo_get(combo_index);
     combo_active_state_t *combo_state = init_combo_active_state(combo_index);
     if (combo_state == NULL) {
         /* This should never happen! */
