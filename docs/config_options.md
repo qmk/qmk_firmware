@@ -188,18 +188,31 @@ If you define these options you will enable the associated feature, which may in
   * how many taps before oneshot toggle is triggered
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
-* `#define COMBO_MUST_HOLD_MODS`
-  * Flag for enabling extending timeout on Combos containing modifiers
-* `#define COMBO_MOD_TERM 200`
-  * Allows for extending COMBO_TERM for mod keys while mid-combo.
-* `#define COMBO_MUST_HOLD_PER_COMBO`
-  * Flag to enable per-combo COMBO_TERM extension and `get_combo_must_hold()` function
+* `#define COMBO_ONLY_FROM_LAYER 0`
+  * Only consider keybinding from a particular layer for combo trigger definitions
 * `#define COMBO_TERM_PER_COMBO`
-  * Flag to enable per-combo COMBO_TERM extension and `get_combo_term()` function
-* `#define COMBO_STRICT_TIMER`
-  * Only start the combo timer on the first key press instead of on all key presses.
-* `#define COMBO_NO_TIMER`
-  * Disable the combo timer completely for relaxed combos.
+  * Enable per-combo COMBO_TERM configuration via `get_combo_term()` function
+* `#define COMBO_MUST_HOLD_PER_COMBO`
+  * Enable per-combo hold requirement in order to trigger, via `get_combo_must_hold()` function
+* `#define COMBO_MUST_TAP_PER_COMBO`
+  * Enable per-combo tap requirement in order to trigger, via `get_combo_must_hold()` function
+* `#define COMBO_MUST_HOLD_MODS`
+  * Require combos that resolve to modifier keys to be held in order to trigger
+* `#define COMBO_HOLD_TERM 200`
+  * how long for the above optional combo hold/tap requirements to complete. Defaults to `TAPPING_TERM` if not defined.
+* `#define COMBO_MUST_PRESS_IN_ORDER_PER_COMBO`
+  * Enable per-combo requirement that combo keys are pressed in order via `get_combo_must_press_in_order()` function
+* `#define COMBO_CONTIGUOUS_PER_COMBO`
+  * Enable per-combo contiguity requirement (i.e., whether combo can trigger if non-combo key is pressed between combo keys) via `is_combo_contiguous()` function. By default, all combos must have contiguous keys
+* `#define COMBO_SHOULD_TRIGGER`
+  * Enable dynamic per-combo activation overrides via `combo_should_trigger` function
+* `#define COMBO_PROCESS_KEY_RELEASE`
+  * Enable custom behavior on individual key releases of active combos via `process_combo_key_release` function
+* `#define COMBO_PROCESS_KEY_REPRESS`
+  * Enable released and repressed keys to be dynamically re-added to still-active combos via `process_combo_key_repress` function
+* `#define COMBO_COMPRESSED`
+  * Use less memory for combo state. Should only be set if `combo_count() < (256//MAX_COMBO_LENGTH) - 1` 
+
 * `#define TAP_CODE_DELAY 100`
   * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds and defaults to `0`.
 * `#define TAP_HOLD_CAPS_DELAY 80`
