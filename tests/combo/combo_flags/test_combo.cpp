@@ -14,9 +14,9 @@ using testing::InSequence;
 
 extern bool combo_override;
 
-class ComboBuffer : public TestFixture {};
+class ComboFlags : public TestFixture {};
 
-TEST_F(ComboBuffer, combo_flags) {
+TEST_F(ComboFlags, combo_long) {
     TestDriver driver;
     KeymapKey  key_a(0, 0, 0, KC_A);
     KeymapKey  key_b(0, 1, 0, KC_B);
@@ -41,5 +41,58 @@ TEST_F(ComboBuffer, combo_flags) {
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
     tap_combo({key_a, key_b, key_c, key_d, key_e, key_f, key_g, key_h, key_i, key_j, key_k, key_l, key_m, key_n, key_o, key_p, key_q, key_r}, 300);
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(ComboFlags, combo_flags) {
+    TestDriver driver;
+    KeymapKey  key_a0(0, 0, 0, KC_A);
+    KeymapKey  key_b0(0, 1, 0, KC_B);
+    KeymapKey  key_c0(0, 2, 0, KC_C);
+    KeymapKey  key_d0(0, 3, 0, KC_D);
+    KeymapKey  key_d1(1, 0, 0, KC_D);
+    KeymapKey  key_a1(1, 1, 0, KC_A);
+    KeymapKey  key_b1(1, 2, 0, KC_B);
+    KeymapKey  key_c1(1, 3, 0, KC_C);
+    set_keymap({key_a0, key_b0, key_c0, key_d0, key_a1, key_b1, key_c1, key_d1});
+
+    // in order, proper layer, held -> fires
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_combo({key_a0, key_d0}, 300);
+    VERIFY_AND_CLEAR(driver);
+
+    // out of order, proper layer, held -> no fire
+    EXPECT_REPORT(driver, (KC_D));
+    EXPECT_REPORT(driver, (KC_D, KC_A));
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_combo({key_d0, key_a0}, 300);
+    VERIFY_AND_CLEAR(driver);
+
+    // in order, proper layer, tapped -> no fire
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_D));
+    EXPECT_REPORT(driver, (KC_D));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_combo({key_a0, key_d0}, 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // in order, wrong layer, held -> no fire
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_D));
+    EXPECT_REPORT(driver, (KC_D));
+    EXPECT_EMPTY_REPORT(driver);
+    layer_on(1);
+    tap_combo({key_a1, key_d1}, 300);
+    layer_off(1);
+    VERIFY_AND_CLEAR(driver);
+
+    // in order, layer 1 on, keys for layer 0, held -> fires
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL));
+    EXPECT_EMPTY_REPORT(driver);
+    layer_on(1);
+    tap_combo({key_a0, key_d0}, 300);
+    layer_off(1);
     VERIFY_AND_CLEAR(driver);
 }
