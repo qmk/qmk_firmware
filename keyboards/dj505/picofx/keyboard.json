@@ -1,29 +1,17 @@
 {
     "manufacturer": "dj505",
     "keyboard_name": "PicoFX",
-    "url": "https://github.com/dj505/PicoFX",
     "maintainer": "jjc1138",
-
     "bootloader": "rp2040",
     "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable, or if a version of this firmware is installed, then hold down the Service button when connecting the USB cable",
-    "processor": "RP2040",
-
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x4658",
-        "vid": "0xFEED"
-    },
-
-    "features": {
-        "bootmagic": true,
-        "extrakey": true
-    },
-
     "bootmagic": {
         "enabled": true,
         "matrix": [3, 0]
     },
-
+    "features": {
+        "bootmagic": true,
+        "extrakey": true
+    },
     "matrix_pins": {
         "direct": [
             ["GP19", null, "GP6", "GP27", null, "GP0"],
@@ -31,6 +19,13 @@
             ["GP21", null, "GP8", "GP17", null, "GP4"],
             ["GP14", "GP15"]
         ]
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/dj505/PicoFX",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4658",
+        "vid": "0xFEED"
     },
     "layouts": {
         "LAYOUT": {
