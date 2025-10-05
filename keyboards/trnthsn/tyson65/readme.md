@@ -9,11 +9,11 @@ A 65% keyboard PCB compatible with various keyboard cases. Supports a middle USB
 * Hardware Availability: [ThanhSon.Mech](https://www.facebook.com/ThanhSon.mech)
 
 Make example for this keyboard (after setting up your build environment):
-    make trnthsn/tyson65/stm32f072:default
+    make trnthsn/tyson65/stm32f103:default
 
 Flashing example for this keyboard:
 
-    make trnthsn/tyson65/stm32f072:default:flash
+    make trnthsn/tyson65/stm32f103:default:flash
 
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
