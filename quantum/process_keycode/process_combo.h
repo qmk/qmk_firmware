@@ -73,6 +73,12 @@ typedef struct combo_t {
 #    define COMBO_HOLD_TERM TAPPING_TERM
 #endif
 
+#ifdef COMBO_NO_TIMER
+#    pragma message "COMBO_NO_TIMER is deprecated and will be removed in a future version. Please define an explicit COMBO_TERM"
+#    undef COMBO_TERM
+#    define COMBO_TERM 32000
+#endif
+
 /* check if keycode is only modifiers */
 #define KEYCODE_IS_MOD(code) (IS_MODIFIER_KEYCODE(code) || (IS_QK_MODS(code) && !QK_MODS_GET_BASIC_KEYCODE(code)))
 
