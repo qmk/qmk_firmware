@@ -222,9 +222,7 @@ __attribute__((weak)) bool process_combo_key_repress(uint16_t combo_index, combo
 #endif
 
 static inline bool _get_combo_must_hold(uint16_t combo_index, combo_t *combo) {
-#ifdef COMBO_NO_TIMER
-    return false;
-#elif defined(COMBO_MUST_HOLD_PER_COMBO)
+#if defined(COMBO_MUST_HOLD_PER_COMBO)
     return get_combo_must_hold(combo_index, combo);
 #elif defined(COMBO_MUST_HOLD_MODS)
     return (KEYCODE_IS_MOD(combo->keycode) || (combo->keycode >= QK_MOMENTARY && combo->keycode <= QK_MOMENTARY_MAX));
@@ -236,7 +234,6 @@ static inline uint16_t _get_combo_term(uint16_t combo_index, combo_t *combo) {
 #if defined(COMBO_TERM_PER_COMBO)
     return get_combo_term(combo_index, combo);
 #endif
-
     return COMBO_TERM;
 }
 
