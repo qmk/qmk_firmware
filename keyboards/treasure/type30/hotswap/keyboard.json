@@ -1,0 +1,121 @@
+{
+    "manufacturer": "TREASURE",
+    "keyboard_name": "TYPE30",
+    "maintainer": "TREASURE",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+
+    "matrix_pins": {
+        "cols": ["B5", "B6", "B7", "C7", "C6", "C4", "D4", "D5", "D6", "B0", "B1", "B2"],
+        "rows": ["D2", "C5", "B3"]
+    },
+    "processor": "atmega32u2",
+    "rgb_matrix": {
+        "animations": {
+            "gradient_up_down": true,
+            "gradient_left_right": true
+        },
+        "driver": "ws2812",
+        "default": {
+            "speed": 40,
+            "animation": "gradient_left_right"
+        },
+        "layout": [
+            { "matrix": [0, 0], "x": 0,   "y": 0,  "flags": 4 },
+            { "matrix": [0, 1], "x": 20,  "y": 0,  "flags": 4 },
+            { "matrix": [0, 2], "x": 40,  "y": 0,  "flags": 4 },
+            { "matrix": [0, 3], "x": 60,  "y": 0,  "flags": 4 },
+            { "matrix": [0, 4], "x": 80,  "y": 0,  "flags": 4 },
+            { "matrix": [0, 5], "x": 100, "y": 0,  "flags": 4 },
+            { "matrix": [0, 6], "x": 120, "y": 0,  "flags": 4 },
+            { "matrix": [0, 7], "x": 140, "y": 0,  "flags": 4 },
+            { "matrix": [0, 8], "x": 160, "y": 0,  "flags": 4 },
+            { "matrix": [0, 9], "x": 180, "y": 0,  "flags": 4 },
+            { "matrix": [0,10], "x": 200, "y": 0,  "flags": 4 },
+            { "matrix": [0,11], "x": 220, "y": 0,  "flags": 4 },
+            { "matrix": [1, 0], "x": 0,   "y": 32, "flags": 4 },
+            { "matrix": [1, 1], "x": 20,  "y": 32, "flags": 4 },
+            { "matrix": [1, 2], "x": 40,  "y": 32, "flags": 4 },
+            { "matrix": [1, 3], "x": 60,  "y": 32, "flags": 4 },
+            { "matrix": [1, 4], "x": 80,  "y": 32, "flags": 4 },
+            { "matrix": [1, 5], "x": 100, "y": 32, "flags": 4 },
+            { "matrix": [1, 6], "x": 120, "y": 32, "flags": 4 },
+            { "matrix": [1, 7], "x": 140, "y": 32, "flags": 4 },
+            { "matrix": [1, 8], "x": 160, "y": 32, "flags": 4 },
+            { "matrix": [1, 9], "x": 180, "y": 32, "flags": 4 },
+            { "matrix": [1,10], "x": 200, "y": 32, "flags": 4 },
+            { "matrix": [1,11], "x": 220, "y": 32, "flags": 4 },
+            { "matrix": [2, 0], "x": 0,   "y": 64, "flags": 4 },
+            { "matrix": [2, 1], "x": 20,  "y": 64, "flags": 4 },
+            { "matrix": [2, 2], "x": 40,  "y": 64, "flags": 4 },
+            { "matrix": [2, 3], "x": 60,  "y": 64, "flags": 4 },
+            { "matrix": [2, 4], "x": 80,  "y": 64, "flags": 4 },
+            { "matrix": [2, 5], "x": 100, "y": 64, "flags": 4 },
+            { "matrix": [2, 6], "x": 120, "y": 64, "flags": 4 },
+            { "matrix": [2, 7], "x": 140, "y": 64, "flags": 4 },
+            { "matrix": [2, 8], "x": 160, "y": 64, "flags": 4 },
+            { "matrix": [2, 9], "x": 180, "y": 64, "flags": 4 },
+            { "matrix": [2,10], "x": 200, "y": 64, "flags": 4 },
+            { "matrix": [2,11], "x": 220, "y": 64, "flags": 4 }
+        ],
+        "max_brightness": 180,
+        "sleep": true
+    },
+    "url": "http://treasuretypes.com",
+    "usb": {
+        "device_version": "1.0.1",
+        "pid": "0x3330",
+        "vid": "0x5452"
+    },
+    "ws2812": {
+        "pin": "B4"
+    },
+    "layouts": {
+        "LAYOUT_ortho_3x12": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+                {"matrix": [0, 8], "x": 8, "y": 0},
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [0, 10], "x": 10, "y": 0},
+                {"matrix": [0, 11], "x": 11, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+                {"matrix": [1, 6], "x": 6, "y": 1},
+                {"matrix": [1, 7], "x": 7, "y": 1},
+                {"matrix": [1, 8], "x": 8, "y": 1},
+                {"matrix": [1, 9], "x": 9, "y": 1},
+                {"matrix": [1, 10], "x": 10, "y": 1},
+                {"matrix": [1, 11], "x": 11, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [2, 5], "x": 5, "y": 2},
+                {"matrix": [2, 6], "x": 6, "y": 2},
+                {"matrix": [2, 7], "x": 7, "y": 2},
+                {"matrix": [2, 8], "x": 8, "y": 2},
+                {"matrix": [2, 9], "x": 9, "y": 2},
+                {"matrix": [2, 10], "x": 10, "y": 2},
+                {"matrix": [2, 11], "x": 11, "y": 2}
+            ]
+        }
+    }
+}
