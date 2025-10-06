@@ -108,13 +108,13 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     // P     Q        R        S        T        U        V        W
     SK_P,    SK_Q,    SK_R,    SK_S,    SK_T,    SK_U,    SK_V,    SK_W,
     // X     Y        Z        [        \        ]        ^        _
-    SK_X,    SK_Y,    SK_Z,    SK_F,    SK_Q,    SK_G,    SK_3,    SK_MINS,
+    SK_X,    SK_Y,    SK_Z,    SK_F,    SK_Q,    SK_G,    SK_SCAR, SK_MINS,
     // `     a        b        c        d        e        f        g
-    SK_7,    SK_A,    SK_B,    SK_C,    SK_D,    SK_E,    SK_F,    SK_G,
+    SK_YACU, SK_A,    SK_B,    SK_C,    SK_D,    SK_E,    SK_F,    SK_G,
     // h     i        j        k        l        m        n        o
     SK_H,    SK_I,    SK_J,    SK_K,    SK_L,    SK_M,    SK_N,    SK_O,
     // p     q        r        s        t        u        v        w
     SK_P,    SK_Q,    SK_R,    SK_S,    SK_T,    SK_U,    SK_V,    SK_W,
     // x     y        z        {        |        }        ~        DEL
-    SK_X,    SK_Y,    SK_Z,    SK_B,    SK_W,    SK_N,    SK_1,    KC_DEL
+    SK_X,    SK_Y,    SK_Z,    SK_B,    SK_W,    SK_N,    SK_PLUS, KC_DEL
 };
