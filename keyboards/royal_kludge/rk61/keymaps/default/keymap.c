@@ -104,6 +104,6 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(59, 0, 0, 0);
         }
     }
-    return true;
+    return false;
 }
 #endif
