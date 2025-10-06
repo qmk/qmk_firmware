@@ -51,7 +51,7 @@ Bear in mind that the number of rows plus the number of columns can not exceed t
 | :------------ |:-------------:| ------:| ------ |
 | Pro Micro*    | ATmega32u4    |     20 | [link](https://learn.sparkfun.com/tutorials/pro-micro--fio-v3-hookup-guide/hardware-overview-pro-micro#Teensy++_2.0)       |
 | Teensy 2.0    | ATmega32u4    |     25 | [link](https://www.pjrc.com/teensy/pinout.html)       |
-| [QMK Proton C](https://qmk.fm/proton-c/)      | STM32F303xC   |     36 | [link 1](/RhtrAlc.png), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
+| [QMK Proton C](https://qmk.fm/proton-c/)      | STM32F303xC   |     36 | [link 1](https://qmk.fm/proton-c-pinout.jpg), [2](https://deskthority.net/wiki/QMK_Proton_C)       |
 | Teensy++ 2.0  | AT90USB1286   |     46 | [link](https://www.pjrc.com/teensy/pinout.html#Teensy_2.0)       |
 
 *Elite C is essentially the same as a Pro Micro with a USB-C instead of Micro-USB
@@ -97,11 +97,11 @@ There are a lot of soldering guides and tips available elsewhere but here are so
 
 To ensure a strong solder joint you want a good amount of contact between the solder and the two pieces of metal you are connecting. A good way of doing this (though not required) is looping around pins or twisting wires together before applying solder.
 
-<img src="/eHJjmnU.jpg" alt="Looped around rod" width="200"/> <img src="/8nbxmmr.jpg?1" alt="Looped diode leg" width="200"/>
+<img src="/eHJjmnU.jpg" alt="Looped around rod" width="400"/>
 
 If your diodes are on a packaging strip and need a bend in them (either the start of a loop or for connecting to its neighbour) this can easily done by bending it over something straight like the edge of a box, table, or ruler.  This also helps keep track of the direction of the diode as all the bends will be on the same side.
 
-<img src="/oITudbX.jpg" alt="Bent diode legs" width="200"/>
+<img src="/oITudbX.jpg" alt="Bent diode legs" width="400"/>
 
 If your iron has temperature control, set it to 315ºC (600ºF).
 
@@ -164,7 +164,7 @@ Cut wires to the length of the distance from the a point on each column/row to t
 
 Ribbon cable can be used to keep this extra tidy.  You may also want to consider routing the wires beneath the existing columns/rows.
 
-<img src="/z2QlKfB.jpg" alt="Ribbon Cable" width="350"/>
+<img src="/z2QlKfB.jpg" alt="Ribbon Cable" width="600"/>
 
 As you solder the wires to the controller make a note of which row/column is going to which pin on the controller as we'll use this data to setup the matrix when we create the firmware.
 

@@ -199,5 +199,15 @@ For vertically-offset keys, place them in KLE as if they were not offset, then e
 ![](/fmDvDzR.png)  
 *An 1800-layout keyboard as rendered in Keyboard Layout Editor, without the vertical offset applied to the arrow keys.*
 
-![](/8beYMBR.png)  
-*A Unix diff file, showing the changes needed to vertically-offset the arrow keys in our keyboard's JSON file.*
+```diff
+-{"label": "\u2191", "x", 14.25, "y": 5},
++{"label": "\u2191", "x", 14.25, "y": 5.25},
+...
+-{"label": "\u2190", "x", 13.25, "y": 6},
+-{"label": "\u2193", "x", 14.25, "y": 6},
+-{"label": "\u2192", "x", 15.25, "y": 6},
++{"label": "\u2190", "x", 13.25, "y": 6.25},
++{"label": "\u2193", "x", 14.25, "y": 6.25},
++{"label": "\u2192", "x", 15.25, "y": 6.25},
+```
+*A diff showing the changes needed to vertically-offset the arrow keys in our keyboard's JSON file.*

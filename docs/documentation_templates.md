@@ -9,7 +9,7 @@ Most keymaps have an image depicting the layout. You can use [Keyboard Layout Ed
 Below the image you should write a short description to help people understand your keymap.
 
 ```
-![Clueboard Layout Image](/7Capi8W.png)
+![Clueboard Layout Image](https://i.imgur.com/7Capi8W.png)
 
 # Default Clueboard Layout
 
@@ -24,7 +24,7 @@ the Ctrl, Alt, or GUI modifiers are held down.
 ```
 # Planck
 
-![Planck](/q2M3uEU.jpg)
+![Planck](https://i.imgur.com/q2M3uEU.jpg)
 
 A compact 40% (12x4) ortholinear keyboard kit made and sold by OLKB and Massdrop. [More info on qmk.fm](https://qmk.fm/planck/)
 

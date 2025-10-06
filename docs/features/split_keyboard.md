@@ -497,7 +497,7 @@ Once you have done that, you will want to solder the diode from the 5V pad to th
 
 You may need to use the 5V pad from the regulator block above as the pads were too small and placed too closely together to place the Schottky diode properly.
 
-![Teensy++ 2.0](/BPEC5n5.png)
+![Teensy++ 2.0](/BPEC5n5.jpg)
 
 ## Additional Resources
 

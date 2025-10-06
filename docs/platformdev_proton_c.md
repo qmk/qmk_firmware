@@ -2,7 +2,7 @@
 
 The Proton C is an Arm STM32F303xC based drop-in replacement for the Pro Micro.
 
-<img src="/GdsN1Rdh.jpg" alt="Proton C" />
+<img src="https://qmk.fm/proton-c.jpg" alt="Proton C" />
 
 #### Features
 
