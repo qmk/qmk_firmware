@@ -97,6 +97,7 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(CAPS_LOCK_LED_INDEX, 0, 0, 0);
         }
     }
+
     if (layer_state_is(LWIN_DIS)) {
         rgb_matrix_set_color(59, 255, 255, 255);
     } else {
@@ -104,6 +105,7 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(59, 0, 0, 0);
         }
     }
+
     return false;
 }
 #endif
