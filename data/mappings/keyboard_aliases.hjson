@@ -1750,7 +1750,7 @@
         "target": "durgod/dgk6x/galaxy"
     },
     "durgod/venus": {
-        "target": "durgod/dgk6x/venus"
+        "target": "durgod/dgk6x/venus_ansi"
     },
     "dztech/tofu/ii": {
         "target": "dztech/tofu/ii/v1"
