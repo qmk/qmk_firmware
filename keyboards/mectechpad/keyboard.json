@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Printronics",
+    "keyboard_name": "Mectechpad",
+    "maintainer": "jacksaxi",
+    "bootloader": "rp2040",
+    "debounce": 15,
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "rows": ["GP13", "GP26", "GP15", "GP14"],
+        "cols": ["GP29", "GP28", "GP27"]
+    },
+    "processor": "RP2040",
+    "url": "printronics.gr",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x1A2B",
+        "vid": "0x3C4D"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1}, 
+                {"matrix": [1, 1], "x": 1, "y": 1}, 
+                {"matrix": [1, 2], "x": 2, "y": 1},  
+                {"matrix": [2, 0], "x": 0, "y": 2}, 
+                {"matrix": [2, 1], "x": 1, "y": 2}, 
+                {"matrix": [2, 2], "x": 2, "y": 2},  
+                {"matrix": [3, 0], "x": 0, "y": 3}, 
+                {"matrix": [3, 1], "x": 1, "y": 3}, 
+                {"matrix": [3, 2], "x": 2, "y": 3}
+            ]
+        }
+    }
+}
