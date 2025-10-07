@@ -53,7 +53,6 @@ void record_rgbmatrix_increase(uint8_t *last_mode) {
     index = (index + 1) % (sizeof(rgbmatrix_buff) / sizeof(rgbmatrix_buff[0]));
     *last_mode = rgbmatrix_buff[index];
     rgb_matrix_mode(rgbmatrix_buff[index]);
-    //record_color_hsv(false);
     
     uint8_t rgb_hsv_index =  record_color_read_data();
     rgb_matrix_sethsv(rgb_hsvs[rgb_hsv_index][0], rgb_hsvs[rgb_hsv_index][1], rgb_matrix_get_val());
@@ -84,7 +83,6 @@ uint8_t record_color_hsv(bool status) {
 
     if (!temp) {
         temp = RGB_HSV_MAX;
-        // DEBUG("record_color_hsv ERR \r\n");
     }
 
     uint8_t rgb_hsv_index = kj_record_color_read_data();

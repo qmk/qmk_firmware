@@ -40,7 +40,7 @@ void rgblight_effect_breathing(animation_status_t *anim) {
             break;
         case 3:
             r = adjust_value(r, BREATHING_VAL, &dir);
-            b = r; // 同步变化
+            b = r;
             if (r == 0 && dir == 0) i++;
             break;
         case 4:
@@ -73,17 +73,17 @@ void rgblight_effect_rainbow_mood(animation_status_t *anim) {
 
 
     switch (i) {
-        case 0: // Red -> Green
+        case 0: 
             r = (r > 1) ? r - 2 : r - 1;
             g = (g < RAINBOW_MOOD - 1) ? g + 2 : g + 1;
             if (g >= RAINBOW_MOOD) i++;
             break;
-        case 1: // Green -> Blue
+        case 1: 
             g = (g > 1) ? g - 2 : g - 1;
             b = (b < RAINBOW_MOOD - 1) ? b + 2 : b + 1;
             if (b >= RAINBOW_MOOD) i++;
             break;
-        case 2: // Blue -> Red
+        case 2: 
             b = (b > 1) ? b - 2 : b - 1;
             r = (r < RAINBOW_MOOD - 1) ? r + 2 : r + 1;
             if (r >= RAINBOW_MOOD) i = 0;

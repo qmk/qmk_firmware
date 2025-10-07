@@ -3,8 +3,8 @@
 
 #pragma once
 
-#define USB_POWER_EN_PIN                    B1 // USB ENABLE pin
-#define LED_POWER_EN_PIN                    A8 // LED ENABLE pin
+#define USB_POWER_EN_PIN                    B1 
+#define LED_POWER_EN_PIN                    A8 
 #define WIITE_B 0x50
 #define USB_POWER_DOWN_DELAY 7000
 
@@ -14,9 +14,6 @@
 #define RGB_MATRIX_BLINK_INDEX_IND          251
 #define RGB_MATRIX_BLINK_COUNT              2
 
-// #define  KJ_RGB_INDEX_CAPS                   0
-// #define  KJ_RGB_INDEX_NUM                    0
-// #define  KJ_RGB_INDEX_SCR                    1
 #define KJ_RGB_INDEX_WIN_LOCK               59
 #define KJ_RGB_BLINK_INDEX_VAI              45
 #define KJ_RGB_BLINK_INDEX_VAD              66

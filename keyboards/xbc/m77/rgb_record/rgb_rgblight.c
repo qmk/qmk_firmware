@@ -35,7 +35,7 @@ void rgblight_set(void) {
 bool rgb_matrix_indicators_advanced_rgblight(uint8_t led_min, uint8_t led_max) {
 
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-        rgb_matrix_set_color(i + (RGB_MATRIX_LED_COUNT -RGBLED_NUM), led[i].r, led[i].g, led[i].b); // rgb light
+        rgb_matrix_set_color(i + (RGB_MATRIX_LED_COUNT -RGBLED_NUM), led[i].r, led[i].g, led[i].b); 
     }
 
     return true;

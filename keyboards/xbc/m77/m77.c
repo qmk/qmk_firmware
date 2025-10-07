@@ -102,7 +102,7 @@ void ind_indicators_hook(uint8_t index) {
             RGB rgb;
             HSV hsv = {.h = 0, .s = 0};
             hsv.v = rgb_matrix_get_val();
-            // hsv.v = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+
             rgb = hsv_to_rgb(hsv); 
             rgb_matrix_blink_set_color(index, rgb.r , rgb.g, rgb.b);
             rgb_matrix_blink_set_interval_times(index, 500, 1);
@@ -240,7 +240,7 @@ void keyboard_post_init_kb(void) {
 #ifdef CONSOLE_ENABLE
     debug_enable = true;
 #endif
-    // keymap_config.no_gui = 0;
+
     eeconfig_confinfo_init();
 
 #ifdef LED_POWER_EN_PIN
@@ -306,19 +306,19 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 
     typedef struct {
-        uint16_t base_key;    // Basic code
-        uint16_t win_key;     // Windows code
-        uint16_t mac_key;     // macOS code
-        bool is_consumer;     // consumer code
+        uint16_t base_key;    
+        uint16_t win_key;     
+        uint16_t mac_key;     
+        bool is_consumer;     
     } fnmap_t;
 
     static const fnmap_t fn_map_table[] = {
         {KC_1,   KC_F1,   KC_BRID, false},
         {KC_2,   KC_F2,   KC_BRIU, false},
-        {KC_3,   KC_F3,   KC_ZLYX, false},   // Mac: Ctrl + ↑
-        {KC_4,   KC_F4,   KC_JJSS, false},   // Mac: Cmd + Space
-        {KC_5,   KC_F5,   0x00CF,  true},    // Mac: Siri consumer code
-        {KC_6,   KC_F6,   KC_QPJT, false},   // Mac: Cmd + Shift + 3
+        {KC_3,   KC_F3,   KC_ZLYX, false},  
+        {KC_4,   KC_F4,   KC_JJSS, false},  
+        {KC_5,   KC_F5,   0x00CF,  true},   
+        {KC_6,   KC_F6,   KC_QPJT, false},  
         {KC_7,   KC_F7,   KC_MPRV, false},
         {KC_8,   KC_F8,   KC_MPLY, false},
         {KC_9,   KC_F9,   KC_MNXT, false},
@@ -327,9 +327,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         {KC_EQL, KC_F12,  KC_VOLU, false},
         {KC_F1,  KC_BRID, KC_F1,   false},
         {KC_F2,  KC_BRIU, KC_F2,   false},
-        {KC_F3,  KC_ZHCK, KC_F3,   false},   // Win: Ctrl + Alt + Tab
+        {KC_F3,  KC_ZHCK, KC_F3,   false},   
         {KC_F4,  KC_WSCH, KC_F4,   false},
-        {KC_F5,  KC_MCF,  KC_F5,   false},   // Win: Win + H
+        {KC_F5,  KC_MCF,  KC_F5,   false},   
         {KC_F6,  KC_MSEL, KC_F6,   false},
         {KC_F7,  KC_MPRV, KC_F7,   false},
         {KC_F8,  KC_MPLY, KC_F8,   false},
@@ -455,7 +455,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 			return false;
 		}
 		case KC_ESC: {
-			if (!confinfo.kj_esc_grv) { // esc 
+			if (!confinfo.kj_esc_grv) { 
 				if (record->event.pressed) {
 					register_code16(KC_ESC);
 				} else {
@@ -695,7 +695,7 @@ void kj_blink_rgb_matrix(uint8_t r, uint8_t g, uint8_t b) {
     }
 }
 
-void housekeeping_task_user(void) { // loop
+void housekeeping_task_user(void) { 
 
     if (kj_reset_flag) {
         if (timer_elapsed32(kj_reset_time) > 100) {
@@ -752,8 +752,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!keymap_is_mac_system() && keymap_config.no_gui) {
         rgb_matrix_set_color(KJ_RGB_INDEX_WIN_LOCK,RGB_WHITE);
     } 
-    
-    // rgb_matrix_start_rec();
 
     rgb_matrix_blink_task(led_min, led_max);
     return true;
