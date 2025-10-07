@@ -156,6 +156,8 @@ __attribute__((weak)) void matrix_init(void) {
         matrix[i]     = 0;
     }
 
+    debounce_init();
+
     matrix_init_kb();
 }
 

@@ -147,6 +147,7 @@ void matrix_init(void) {
         raw_matrix[i] = 0;
     }
 
+    debounce_init();
     matrix_init_kb();
 }
 

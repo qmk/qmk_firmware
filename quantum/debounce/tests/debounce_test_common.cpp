@@ -60,6 +60,7 @@ void DebounceTest::runEventsInternal() {
     bool         first    = true;
 
     /* Initialise keyboard with start time (offset to avoid testing at 0) and all keys UP */
+    debounce_init();
     set_time(time_offset_);
     simulate_async_tick(async_time_jumps_);
     std::fill(std::begin(input_matrix_), std::end(input_matrix_), 0);

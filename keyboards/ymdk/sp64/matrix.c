@@ -76,6 +76,7 @@ void matrix_init(void) {
         matrix[row]            = 0;
         matrix_debouncing[row] = 0;
     }
+    debounce_init();
     matrix_init_kb();
 }
 

@@ -57,6 +57,7 @@ static const uint8_t num_in_binary[8][3] = {
 
 static void select_col_analog(uint8_t col);
 static void mux_pin_control(const uint8_t binary[]);
+void        debounce_init(void);
 void        debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed);
 
 __attribute__((weak)) void matrix_init_user(void) {}
@@ -167,6 +168,8 @@ void matrix_init(void) {
         raw_matrix[i] = 0;
         matrix[i]     = 0;
     }
+
+    debounce_init();
 
     matrix_init_kb();
 

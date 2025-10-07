@@ -303,6 +303,8 @@ void matrix_init(void) {
     memset(matrix, 0, sizeof(matrix));
     memset(raw_matrix, 0, sizeof(raw_matrix));
 
+    debounce_init();
+
     matrix_init_kb();
 }
 

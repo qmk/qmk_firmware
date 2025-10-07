@@ -20,6 +20,8 @@
 
 #if DEBOUNCE > 0
 
+void debounce_init(void) {}
+
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed) {
     static fast_timer_t debouncing_time;
     static bool         debouncing     = false;
