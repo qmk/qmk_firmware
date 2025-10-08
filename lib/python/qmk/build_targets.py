@@ -151,11 +151,21 @@ class BuildTarget:
     def generate_compilation_database(self, build_target: str = None, skip_clean: bool = False, **env_vars) -> None:
         self.prepare_build(build_target=build_target, **env_vars)
         command = self.compile_command(build_target=build_target, dry_run=True, **env_vars)
-        output_path = QMK_FIRMWARE / 'compile_commands.json'
-        ret = write_compilation_database(command=command, output_path=output_path, skip_clean=skip_clean, **env_vars)
-        if ret and output_path.exists() and HAS_QMK_USERSPACE:
-            shutil.copy(str(output_path), str(QMK_USERSPACE / 'compile_commands.json'))
-        return ret
+        db = generate_compilation_database(command=command, skip_clean=skip_clean, **env_vars)
+        if not db:
+            return False
+        qmk_firmware_db = QMK_FIRMWARE / 'compile_commands.json'
+        if HAS_QMK_USERSPACE:
+            (QMK_USERSPACE / 'compile_commands.json').write_text(db)
+            try:
+                qmk_firmware_db.write_text(db)
+            except PermissionError:
+                # Write is best-effort; ignore a permission failure
+                cli.log.warning("Permission error, failed to write to %s", qmk_firmware_db)
+                pass
+        else:
+            qmk_firmware_db.write_text(db)
+        return True
 
     def compile(self, build_target: str = None, dry_run: bool = False, **env_vars) -> None:
         if self._clean or self._compiledb:
