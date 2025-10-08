@@ -135,6 +135,7 @@ jobs:
         run: |
           sudo -u testuser bash -c "
             export PATH=/home/testuser/.local/bin:\$PATH
+            ls -1al /home/testuser/.local/share/qmk/bin
             cd /home/testuser
             qmk setup -y -H /home/testuser/qmk_firmware  # setup implies doctor, no need to run it separately
             cd /home/testuser/qmk_firmware
