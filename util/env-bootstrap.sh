@@ -494,7 +494,7 @@ __EOT__
     }
 
     # Set the Python version we want to use with the QMK CLI
-    export PYTHON_TARGET_VERSION=3.13
+    export PYTHON_TARGET_VERSION=${PYTHON_TARGET_VERSION:-3.14}
 
     # Windows/MSYS doesn't like `/tmp` so we need to set a different temporary directory.
     # Also set the default `UV_INSTALL_DIR` and `QMK_DISTRIB_DIR` to locations which don't pollute the user's home directory, keeping the installation internal to MSYS.
