@@ -8,6 +8,7 @@ from pathlib import Path
 
 from milc import cli
 from qmk import submodules
+from qmk.commands import find_make
 
 
 class CheckStatus(Enum):
@@ -16,8 +17,10 @@ class CheckStatus(Enum):
     ERROR = 3
 
 
+WHICH_MAKE = Path(find_make()).name
+
 ESSENTIAL_BINARIES = {
-    'make': {},
+    WHICH_MAKE: {},
     'git': {},
     'dos2unix': {},
     'diff': {},
@@ -34,9 +37,9 @@ ESSENTIAL_BINARIES = {
 
 
 def _check_make_version():
-    last_line = ESSENTIAL_BINARIES['make']['output'].split('\n')[0]
+    last_line = ESSENTIAL_BINARIES[WHICH_MAKE]['output'].split('\n')[0]
     version_number = last_line.split()[2]
-    cli.log.info('Found make version %s', version_number)
+    cli.log.info('Found %s version %s', WHICH_MAKE, version_number)
 
     return CheckStatus.OK
 
@@ -201,7 +204,7 @@ def check_binary_versions():
     """Check the versions of ESSENTIAL_BINARIES
     """
     checks = {
-        'make': _check_make_version,
+        WHICH_MAKE: _check_make_version,
         'git': _check_git_version,
         'dos2unix': _check_dos2unix_version,
         'diff': _check_diff_version,
