@@ -264,8 +264,25 @@ __EOT__
             if [ -n "$(command -v brew 2>/dev/null || true)" ]; then
                 echo "It will also install the following system packages using 'brew':" >&2
                 print_package_manager_deps_and_delay
-                brew update && brew upgrade --formulae
-                brew install $(get_package_manager_deps)
+
+                brew update
+
+                local existing=""
+                local new=""
+                for dep in $(get_package_manager_deps); do
+                if brew list --formula | grep -q "^${dep}\$"; then
+                    existing="${existing:-} $dep"
+                else
+                    new="${new:-} $dep"
+                fi
+                done
+
+                if [ -n "${existing:-}" ]; then
+                    brew upgrade $existing
+                fi
+                if [ -n "${new:-}" ]; then
+                    brew install $new
+                fi
             else
                 echo "Please install 'brew' to continue. See https://brew.sh/ for more information." >&2
                 exit 1
