@@ -90,7 +90,7 @@ bool qp_tft_panel_pixdata(painter_device_t device, const void *pixel_data, uint3
 
 bool qp_tft_panel_palette_convert_rgb565_swapped(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
     for (int16_t i = 0; i < palette_size; ++i) {
-        rgb_t    rgb      = hsv_to_rgb_nocie((hsv_t){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
+        rgb_t    rgb      = hsv_to_rgb_nocie(palette[i].hsv888);
         uint16_t rgb565   = (((uint16_t)rgb.r) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.b) >> 3);
         palette[i].rgb565 = __builtin_bswap16(rgb565);
     }
@@ -99,10 +99,7 @@ bool qp_tft_panel_palette_convert_rgb565_swapped(painter_device_t device, int16_
 
 bool qp_tft_panel_palette_convert_rgb888(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
     for (int16_t i = 0; i < palette_size; ++i) {
-        rgb_t rgb           = hsv_to_rgb_nocie((hsv_t){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
-        palette[i].rgb888.r = rgb.r;
-        palette[i].rgb888.g = rgb.g;
-        palette[i].rgb888.b = rgb.b;
+        palette[i].rgb888 = hsv_to_rgb_nocie(palette[i].hsv888);
     }
     return true;
 }
