@@ -5,7 +5,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [0] = LAYOUT_reverse(
+    [0] = LAYOUT(
         KC_BSPC, KC_EQL,  LSFT(KC_9),LSFT(KC_0),
         KC_PMNS, KC_PAST, KC_PSLS, TG(1),
         KC_PPLS, KC_P7,   KC_P8,   KC_P9,
@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_PDOT,          KC_P0
     ),
 
-    [1] = LAYOUT_reverse(
+    [1] = LAYOUT(
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, KC_PGUP, KC_UP,   KC_HOME,
