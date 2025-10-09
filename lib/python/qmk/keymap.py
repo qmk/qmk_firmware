@@ -320,7 +320,7 @@ def generate_c(keymap_json):
     return new_keymap
 
 
-def write_file(keymap_filename, keymap_content):
+def write_file(keymap_filename: Path, keymap_content: str) -> Path:
     keymap_filename.parent.mkdir(parents=True, exist_ok=True)
     keymap_filename.write_text(keymap_content)
 

@@ -1,3 +1,6 @@
+import tempfile
+from pathlib import Path
+
 import qmk.keymap
 
 
@@ -44,4 +47,15 @@ def test_parse_keymap_c():
     assert parsed_keymap_c == {'layers': [{'name': '0', 'layout': 'LAYOUT_ortho_1x1', 'keycodes': ['KC_A']}]}
 
 
-# FIXME(skullydazed): Add a test for qmk.keymap.write that mocks up an FD.
+def test_keymap_write():
+    with tempfile.TemporaryDirectory() as directory:
+        keymap_file = Path(directory) / "keymap.c"
+        contents = "some random text for the test"
+
+        path = qmk.keymap.write_file(keymap_file, contents)
+
+        # in case some code uses the argument instead of return value
+        # which, so far is the same filepath, and would be weird to change
+        assert keymap_file == path
+
+        assert path.read_text() == contents
