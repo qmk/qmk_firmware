@@ -45,11 +45,12 @@ uint32_t qp_comms_spi_send_data(painter_device_t device, const void *data, uint3
     return byte_count - bytes_remaining;
 }
 
-void qp_comms_spi_stop(painter_device_t device) {
+bool qp_comms_spi_stop(painter_device_t device) {
     painter_driver_t *     driver       = (painter_driver_t *)device;
     qp_comms_spi_config_t *comms_config = (qp_comms_spi_config_t *)driver->comms_config;
     spi_stop();
     gpio_write_pin_high(comms_config->chip_select_pin);
+    return true;
 }
 
 const painter_comms_vtable_t spi_comms_vtable = {
@@ -97,14 +98,15 @@ uint32_t qp_comms_spi_dc_reset_send_data(painter_device_t device, const void *da
     return qp_comms_spi_send_data(device, data, byte_count);
 }
 
-void qp_comms_spi_dc_reset_send_command(painter_device_t device, uint8_t cmd) {
+bool qp_comms_spi_dc_reset_send_command(painter_device_t device, uint8_t cmd) {
     painter_driver_t *              driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
     gpio_write_pin_low(comms_config->dc_pin);
     spi_write(cmd);
+    return true;
 }
 
-void qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
+bool qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
     painter_driver_t *              driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
     for (size_t i = 0; i < sequence_len;) {
@@ -126,6 +128,8 @@ void qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const 
         }
         i += (3 + num_bytes);
     }
+
+    return true;
 }
 
 const painter_comms_with_command_vtable_t spi_comms_with_dc_vtable = {
