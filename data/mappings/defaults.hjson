@@ -15,6 +15,11 @@
             "bootloader": "stm32-dfu",
             "processor": "STM32F411"
         },
+        "blackpill_f446": {
+            "board": "BLACKPILL_STM32_F446",
+            "bootloader": "stm32-dfu",
+            "processor": "STM32F446"
+        },
         "blok": {
             "board": "QMK_BLOK",
             "bootloader": "rp2040",
