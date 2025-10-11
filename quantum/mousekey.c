@@ -386,7 +386,7 @@ void mousekey_task(void) {
 
 void mousekey_on(uint8_t code) {
 #    ifdef MK_KINETIC_SPEED
-    if (mouse_timer == 0) {
+    if (mouse_timer == 0 && !IS_MOUSEKEY_BUTTON(code)) {
         mouse_timer = timer_read();
     }
 #    endif
