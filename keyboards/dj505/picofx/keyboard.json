@@ -1,0 +1,48 @@
+{
+    "manufacturer": "dj505",
+    "keyboard_name": "PicoFX",
+    "maintainer": "jjc1138",
+    "bootloader": "rp2040",
+    "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable, or if a version of this firmware is installed, then hold down the Service button when connecting the USB cable",
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [3, 0]
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP19", null, "GP6", "GP27", null, "GP0"],
+            [null, "GP10", null, null, "GP2", null],
+            ["GP21", null, "GP8", "GP17", null, "GP4"],
+            ["GP14", "GP15"]
+        ]
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/dj505/PicoFX",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4658",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "P1 UL", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "P1 UR", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "P2 UL", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "P2 UR", "matrix": [0, 5], "x": 5, "y": 0},
+                {"label": "P1 CN", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "P2 CN", "matrix": [1, 4], "x": 4, "y": 1},
+                {"label": "P1 DL", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "P1 DR", "matrix": [2, 2], "x": 2, "y": 2},
+                {"label": "P2 DL", "matrix": [2, 3], "x": 3, "y": 2},
+                {"label": "P2 DR", "matrix": [2, 5], "x": 5, "y": 2},
+                {"label": "Service", "matrix": [3, 0], "x": 6.5, "y": 0.5},
+                {"label": "Test", "matrix": [3, 1], "x": 6.5, "y": 1.5}
+            ]
+        }
+    }
+}
