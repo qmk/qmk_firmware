@@ -105,6 +105,10 @@
             {"x": 0, "y": 16, "flags": 2}
         ]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "url": "https://github.com/zykrah/fuyu",
     "ws2812": {
         "driver": "vendor",
