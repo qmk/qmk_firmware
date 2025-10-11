@@ -41,44 +41,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     switch (keycode) {
-#ifdef RGB_MATRIX_ENABLE
-        case QK_RGB_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    } break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_set_flags(LED_FLAG_ALL);
-                rgb_matrix_enable();
-            }
-            return false;
-#endif
-#ifdef LED_MATRIX_ENABLE
-        case QK_LED_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (led_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        led_matrix_set_flags(LED_FLAG_NONE);
-                        led_matrix_set_value_all(0);
-                    } break;
-                    default: {
-                        led_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            if (!led_matrix_is_enabled()) {
-                led_matrix_set_flags(LED_FLAG_ALL);
-                led_matrix_enable();
-            }
-            return false;
-#endif
         case KC_OSSW:
             if (record->event.pressed) {
                 // Switches default layer between `MAC_BASE` and `WIN_BASE` (0 and 2)
