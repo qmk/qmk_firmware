@@ -1,3 +1,6 @@
+// Copyright 2019 Neil Kettle
+// SPDX-License-Identifier: GPL-2.0+
+
 #include QMK_KEYBOARD_H
 
 enum layer_names {

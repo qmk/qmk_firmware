@@ -29,16 +29,20 @@ static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+static matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+static matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 // row offsets for each hand
 uint8_t thisHand, thatHand;
 
 // user-defined overridable functions
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+__attribute__((weak)) void matrix_init_kb(void) {
+    matrix_init_user();
+}
 
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 __attribute__((weak)) void matrix_init_user(void) {}
 
@@ -46,7 +50,9 @@ __attribute__((weak)) void matrix_scan_user(void) {}
 
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
 
-matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
+matrix_row_t matrix_get_row(uint8_t row) {
+    return matrix[row];
+}
 
 void matrix_print(void) {}
 
@@ -58,13 +64,19 @@ static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
 }
 
 static inline void gpio_atomic_set_pin_input_high(pin_t pin) {
-    ATOMIC_BLOCK_FORCEON { gpio_set_pin_input_high(pin); }
+    ATOMIC_BLOCK_FORCEON {
+        gpio_set_pin_input_high(pin);
+    }
 }
 
 // matrix code
-static void select_row(uint8_t row) { gpio_atomic_set_pin_output_low(row_pins[row]); }
+static void select_row(uint8_t row) {
+    gpio_atomic_set_pin_output_low(row_pins[row]);
+}
 
-static void unselect_row(uint8_t row) { gpio_atomic_set_pin_input_high(row_pins[row]); }
+static void unselect_row(uint8_t row) {
+    gpio_atomic_set_pin_input_high(row_pins[row]);
+}
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
@@ -92,7 +104,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Unselect row
     unselect_row(current_row);
     if (current_row + 1 < MATRIX_ROWS) {
-    wait_us(30);  // wait for row signal to go HIGH
+        wait_us(30); // wait for row signal to go HIGH
     }
 
     // If the row has changed, store the row and return the changed flag.
@@ -103,9 +115,13 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return false;
 }
 
-static void select_col(uint8_t col) { gpio_atomic_set_pin_output_low(col_pins[col]); }
+static void select_col(uint8_t col) {
+    gpio_atomic_set_pin_output_low(col_pins[col]);
+}
 
-static void unselect_col(uint8_t col) { gpio_atomic_set_pin_input_high(col_pins[col]); }
+static void unselect_col(uint8_t col) {
+    gpio_atomic_set_pin_input_high(col_pins[col]);
+}
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
@@ -156,7 +172,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // Unselect col
     unselect_col(current_col);
     if (current_col + 1 < MATRIX_COLS) {
-    wait_us(30);  // wait for col signal to go HIGH
+        wait_us(30); // wait for col signal to go HIGH
     }
 
     return matrix_changed;
@@ -201,7 +217,7 @@ void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(ROWS_PER_HAND);
+    debounce_init();
 
     matrix_init_kb();
 
@@ -248,26 +264,26 @@ bool matrix_post_scan(void) {
 }
 
 uint8_t matrix_scan(void) {
-    bool local_changed = false;
-    static matrix_row_t temp_raw_matrix[MATRIX_ROWS];  // temp raw values
+    bool                local_changed = false;
+    static matrix_row_t temp_raw_matrix[MATRIX_ROWS]; // temp raw values
 
     // Set row, read cols
-    for (uint8_t current_row = 0; current_row < ROWS_PER_HAND/2; current_row++) {
+    for (uint8_t current_row = 0; current_row < ROWS_PER_HAND / 2; current_row++) {
         local_changed |= read_cols_on_row(raw_matrix, current_row);
     }
 
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
         local_changed |= read_rows_on_col(temp_raw_matrix, current_col);
-    //Updated key matrix on lines 6-10 (or lines 16-20)
-        if(local_changed) {
-            for (uint8_t i = ROWS_PER_HAND/2; i < ROWS_PER_HAND; i++) {
+        // Updated key matrix on lines 6-10 (or lines 16-20)
+        if (local_changed) {
+            for (uint8_t i = ROWS_PER_HAND / 2; i < ROWS_PER_HAND; i++) {
                 raw_matrix[i] = temp_raw_matrix[i];
             }
         }
     }
 
-    debounce(raw_matrix, matrix + thisHand, ROWS_PER_HAND, local_changed);
+    debounce(raw_matrix, matrix + thisHand, local_changed);
 
     bool remote_changed = matrix_post_scan();
     return (uint8_t)(local_changed || remote_changed);
