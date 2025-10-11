@@ -26,6 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "joystick.h"
 #endif
 
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer_driver.h"
+#endif
+
 // clang-format off
 
 /* HID report IDs */
@@ -39,7 +43,8 @@ enum hid_report_ids {
     REPORT_ID_NKRO,
     REPORT_ID_JOYSTICK,
     REPORT_ID_DIGITIZER,
-    REPORT_ID_COUNT = REPORT_ID_DIGITIZER
+    REPORT_ID_DIGITIZER_STYLUS,
+    REPORT_ID_COUNT = REPORT_ID_DIGITIZER_STYLUS
 };
 
 #define IS_VALID_REPORT_ID(id) ((id) >= REPORT_ID_ALL && (id) <= REPORT_ID_COUNT)
@@ -229,15 +234,36 @@ typedef struct {
 } PACKED report_mouse_t;
 
 typedef struct {
-#ifdef DIGITIZER_SHARED_EP
-    uint8_t report_id;
-#endif
-    bool     in_range : 1;
-    bool     tip : 1;
-    bool     barrel : 1;
+    uint8_t  report_id;
+    uint8_t  in_range : 1;
+    uint8_t  tip : 1;
+    uint8_t  barrel : 1;
     uint8_t  reserved : 5;
     uint16_t x;
     uint16_t y;
+} PACKED report_digitizer_stylus_t;
+
+typedef struct {
+    uint8_t  confidence : 1;
+    uint8_t  tip : 1;
+    uint8_t  reserved : 6;
+    uint8_t  contact_id : 3;
+    uint8_t  reserved2 : 5;
+    uint16_t x;
+    uint16_t y;
+} PACKED digitizer_finger_report_t;
+
+typedef struct {
+    uint8_t report_id;
+#ifdef DIGITIZER_FINGER_COUNT
+    digitizer_finger_report_t fingers[DIGITIZER_FINGER_COUNT];
+#endif
+    uint16_t scan_time;
+    uint8_t  contact_count : 4;
+    uint8_t  button1 : 1;
+    uint8_t  button2 : 1;
+    uint8_t  button3 : 1;
+    uint8_t  reserved2 : 1;
 } PACKED report_digitizer_t;
 
 #if JOYSTICK_AXIS_RESOLUTION > 8
