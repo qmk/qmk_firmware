@@ -16,14 +16,9 @@
 
 #include "quantum.h"
 
-#define CAPS_LOCK_ENABLE true
-#define CAPS_LOCK_COLOR HSV_GREEN
-
-#define LAYER_FN_COLOR HSV_PURPLE
-#define LAYER_MEDIA_COLOR HSV_ORANGE
-#define LAYER_GAMING_COLOR HSV_CYAN
-#define LAYER_MAC_COLOR HSV_RED
-#define LAYER_INDIC_COLOR HSV_WHITE
+/* Feature toggle blink duration */
+#define RGB_BLINK_DURATION 1000
+#define RGB_INDICATOR_LED_IDX 18
 
 enum layers {
     _BASE = 0,
@@ -36,3 +31,4 @@ enum layers {
 enum hlbKeycodes {
     LAY_INDIC_RGB = QK_KB_0,
 };
+

@@ -1,6 +1,6 @@
 {
     "manufacturer": "HLB",
-    "keyboard_name": "PoorKoi2-H",
+    "keyboard_name": "HLB60-H",
     "maintainer": "H3lli0n",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
@@ -19,7 +19,6 @@
     },
     "processor": "RP2040",
     "rgb_matrix": {
-        "max_brightness": 125,
         "sleep": true,
         "animations": {
             "alphas_mods": true,
@@ -64,29 +63,35 @@
             "solid_splash": true,
             "splash": true,
             "typing_heatmap": true
-    },
-    "driver": "ws2812",
-    "layout": [
-            {"x": 48, "y": 0, "flags": 2},
-            {"x": 80, "y": 0, "flags": 2},
-            {"x": 112, "y": 0, "flags": 2},
-            {"x": 144, "y": 0, "flags": 2},
-            {"x": 176, "y": 0, "flags": 2},
-            {"x": 208, "y": 0, "flags": 2},
-            {"x": 0, "y": 16, "flags": 2},
-            {"x": 224, "y": 16, "flags": 2},
-            {"x": 0, "y": 32, "flags": 2},
-            {"x": 16, "y": 32, "flags": 8},
-            {"x": 224, "y": 32, "flags": 2},
-            {"x": 0, "y": 48, "flags": 2},
-            {"x": 224, "y": 48, "flags": 2},
-            {"x": 48, "y": 64, "flags": 2},
-            {"x": 80, "y": 64, "flags": 2},
-            {"x": 112, "y": 64, "flags": 2},
-            {"x": 144, "y": 64, "flags": 2},
-            {"x": 176, "y": 64, "flags": 2},
-            {"x": 208, "y": 64, "flags": 2}
-        ]
+        },
+        "driver": "ws2812",
+        "layout": [
+                {"x": 48, "y": 0, "flags": 2},
+                {"x": 80, "y": 0, "flags": 2},
+                {"x": 112, "y": 0, "flags": 2},
+                {"x": 144, "y": 0, "flags": 2},
+                {"x": 176, "y": 0, "flags": 2},
+                {"x": 208, "y": 0, "flags": 2},
+                {"x": 0, "y": 16, "flags": 2},
+                {"x": 224, "y": 16, "flags": 2},
+                {"x": 0, "y": 32, "flags": 2},
+                {"x": 224, "y": 32, "flags": 2},
+                {"x": 0, "y": 48, "flags": 2},
+                {"x": 224, "y": 48, "flags": 2},
+                {"x": 48, "y": 64, "flags": 2},
+                {"x": 80, "y": 64, "flags": 2},
+                {"x": 112, "y": 64, "flags": 2},
+                {"x": 144, "y": 64, "flags": 2},
+                {"x": 176, "y": 64, "flags": 2},
+                {"x": 208, "y": 64, "flags": 2},
+                {"x": 16, "y": 32, "flags": 8}
+            ],
+        "default":{
+            "animation": "breathing",
+            "hue": 191,
+            "sat": 255,
+            "val": 255
+        }
     },
     "usb": {
         "device_version": "1.0.0",
