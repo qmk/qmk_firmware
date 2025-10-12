@@ -543,7 +543,8 @@
                         "on": {"type": "boolean"},
                         "animation": {"type": "string"},
                         "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
-                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
+                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
@@ -631,7 +632,8 @@
                         "hue": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                         "sat": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                         "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
-                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
+                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
