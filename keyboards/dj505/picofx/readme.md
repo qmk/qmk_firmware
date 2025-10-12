@@ -32,7 +32,7 @@ You can build the firmware by:
 Put the controller in bootloader mode in one of three ways:
 
 * **Physical reset button**: Hold down the BOOTSEL button on the microcontroller when connecting the USB cable.
-* **Bootmagic reset**: If a version of this firmware is already installed, hold down the Service button when connecting the USB cable.
+* **Bootmagic reset**: If a version of this firmware is already installed, hold down the top-left button on the keyboard when connecting the USB cable.
 * **Keycode in keymap**: If a version of this firmware is already installed with the 'menumode' or 'allinone' keymap, hold down the Service button and press the Test button. Or press a button mapped to `QK_BOOT` in your own keymap.
 
 ### Flashing

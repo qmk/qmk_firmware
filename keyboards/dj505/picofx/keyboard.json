@@ -3,11 +3,7 @@
     "keyboard_name": "PicoFX",
     "maintainer": "jjc1138",
     "bootloader": "rp2040",
-    "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable, or if a version of this firmware is installed, then hold down the Service button when connecting the USB cable",
-    "bootmagic": {
-        "enabled": true,
-        "matrix": [3, 0]
-    },
+    "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable, or if a version of this firmware is installed, then hold down the top-left button on the keyboard when connecting the USB cable",
     "features": {
         "bootmagic": true,
         "extrakey": true
