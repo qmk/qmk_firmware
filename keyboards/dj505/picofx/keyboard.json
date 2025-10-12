@@ -17,7 +17,7 @@
             ["GP19", null, "GP6", "GP27", null, "GP0"],
             [null, "GP10", null, null, "GP2", null],
             ["GP21", null, "GP8", "GP17", null, "GP4"],
-            ["GP14", "GP15"]
+            ["GP14", "GP15", null, null, null, null]
         ]
     },
     "processor": "RP2040",
