@@ -22,7 +22,11 @@
 };
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    HSV hsv = {0, 255, 255};
+    if (!rgb_matrix_indicators_user()){
+        return false;
+    }
+
+    hsv_t hsv = {0, 255, 255};
     
     // Light up ESC RGB LED when _FUNCTION layer is accessed
     if ((get_highest_layer(layer_state|default_layer_state)) == _FUNCTION){
@@ -33,7 +37,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         if (hsv.v > rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET) {
             hsv.v = rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET;
         }
-        RGB rgb = hsv_to_rgb(hsv);
+        rgb_t rgb = hsv_to_rgb(hsv);
 
         rgb_matrix_set_color(0, rgb.r, rgb.g, rgb.b);
     }
@@ -48,7 +52,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         if (hsv.v > rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET) {
                 hsv.v = rgb_matrix_get_val() + RGB_INDICATOR_POS_OFFSET;
         }
-        RGB rgb = hsv_to_rgb(hsv);
+        rgb_t rgb = hsv_to_rgb(hsv);
 
         rgb_matrix_set_color(30, rgb.r, rgb.g, rgb.b);
     }
