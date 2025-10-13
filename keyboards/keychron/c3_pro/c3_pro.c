@@ -16,6 +16,26 @@
 
 #include "c3_pro.h"
 
+void keyboard_post_init_kb(void) {
+    gpio_set_pin_output_push_pull(LED_MAC_OS_PIN);
+    gpio_set_pin_output_push_pull(LED_WIN_OS_PIN);
+    gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+    
+    keyboard_post_init_user();
+}
+
+void housekeeping_task_kb(void) {
+    if (get_highest_layer(default_layer_state) == 0) {
+        gpio_write_pin(LED_MAC_OS_PIN, LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+    }
+    if (get_highest_layer(default_layer_state) == 2) {
+        gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+        gpio_write_pin(LED_WIN_OS_PIN, LED_OS_PIN_ON_STATE);
+    }
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
@@ -61,9 +81,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
         case KC_OSSW:
             if (record->event.pressed) {
-                default_layer_xor(1U << 0);
-                default_layer_xor(1U << 2);
-                eeconfig_update_default_layer(default_layer_state);
+                // Switches default layer between `MAC_BASE` and `WIN_BASE` (0 and 2)
+                if (get_highest_layer(default_layer_state) == 2 ) {
+                    set_single_persistent_default_layer(0);
+                } else {
+                    set_single_persistent_default_layer(2);
+                }
             }
             return false;
         default:
@@ -71,42 +94,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-#if defined(RGB_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
-
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
-    // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
-
-    if (host_keyboard_led_state().caps_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 255, 255, 255);
-    } else {
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(CAPS_LOCK_LED_INDEX, 0, 0, 0);
-        }
-    }
-    return true;
+void suspend_power_down_kb(void) {
+    gpio_write_pin(LED_WIN_OS_PIN, !LED_OS_PIN_ON_STATE);
+    gpio_write_pin(LED_MAC_OS_PIN, !LED_OS_PIN_ON_STATE);
+    suspend_power_down_user();
 }
-
-#endif // RGB_MATRIX_ENABLE && CAPS_LOCK_LED_INDEX
-
-#if defined(LED_MATRIX_ENABLE) && defined(CAPS_LOCK_LED_INDEX)
-
-bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!led_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
-
-    if (host_keyboard_led_state().caps_lock) {
-        led_matrix_set_value(CAPS_LOCK_LED_INDEX, 255);
-
-    } else {
-        if (!led_matrix_get_flags()) {
-            led_matrix_set_value(CAPS_LOCK_LED_INDEX, 0);
-        }
-    }
-    return true;
-}
-
-#endif // LED_MATRIX_ENABLE && CAPS_LOCK_LED_INDEX

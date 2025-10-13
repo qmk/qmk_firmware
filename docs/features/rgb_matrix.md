@@ -125,13 +125,13 @@ enum rgb_matrix_effects {
     RGB_MATRIX_CYCLE_SPIRAL,        // Full gradient spinning spiral around center of keyboard
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_BEACON,      // Full tighter gradient spinning around center of keyboard
-    RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
+    RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halves of keyboard
     RGB_MATRIX_FLOWER_BLOOMING,     // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
-    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
-    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
-    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right
+    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight amount at the same time, then shifts back
+    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight amount in a wave to the right, then back to the left
+    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight amount and then back down in a wave to the right
     RGB_MATRIX_PIXEL_FRACTAL,       // Single hue fractal filled keys pulsing horizontally out to edges
     RGB_MATRIX_PIXEL_FLOW,          // Pulsing RGB flow along LED wiring with random hues
     RGB_MATRIX_PIXEL_RAIN,          // Randomly light keys with random hues
@@ -240,7 +240,7 @@ In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_H
 
 As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
 
-Limit the distance the effect spreads to surrounding keys. 
+Limit the distance the effect spreads to surrounding keys.
 
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40
@@ -365,9 +365,30 @@ These are shorthands to popular colors. The `RGB` ones can be passed to the `set
 These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
+## Naming
+
+If you wish to be able to use the name of an effect in your code -- say for a display indicator -- then you can enable the function `rgb_matrix_get_mode_name` in the following manner:
+
+In your keymap's `config.h`:
+```c
+#define RGB_MATRIX_MODE_NAME_ENABLE
+```
+
+In your `keymap.c`
+```c
+const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
+// do something with `effect_name`, like `oled_write_ln(effect_name, false);`
+```
+
+::: info
+`rgb_matrix_get_mode_name()` is not enabled by default as it increases the amount of flash memory used by the firmware based on the number of effects enabled.
+:::
+
+
 ## Additional `config.h` Options {#additional-configh-options}
 
 ```c
+#define RGB_MATRIX_MODE_NAME_ENABLE // enables rgb_matrix_get_mode_name()
 #define RGB_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
 #define RGB_MATRIX_TIMEOUT 0 // number of milliseconds to wait until rgb automatically turns off
 #define RGB_MATRIX_SLEEP // turn off effects when suspended
@@ -385,8 +406,8 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_VAL_STEP 16 // The value by which to increment the brightness per adjustment action
 #define RGB_MATRIX_SPD_STEP 16 // The value by which to increment the animation speed per adjustment action
 #define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
-#define RGB_MATRIX_SPLIT { X, Y } 	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
-                              		// If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+#define RGB_MATRIX_SPLIT { X, Y } // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
+                                  // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 #define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
 ```
 
@@ -486,7 +507,7 @@ This example sets the modifiers to be a specific color based on the layer state.
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     hsv_t hsv = {0, 255, 255};
 
-    if (layer_state_is(layer_state, 2)) {
+    if (get_highest_layer(layer_state|default_layer_state) == 2) {
         hsv = (hsv_t){130, 255, 255};
     } else {
         hsv = (hsv_t){30, 255, 255};

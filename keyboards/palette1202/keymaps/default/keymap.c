@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_CS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LGUI(KC_GRV),
       _______,      LGUI(KC_D), KC_K,         KC_F,          LGUI(KC_S),
-                    KC_LALT,    KC_I,         SGUI(KC_Z),    KC_H
+                    KC_LALT,    KC_I,         LSG(KC_Z),     KC_H
     ),
     // Photoshop
     [MAC_PS_1] = LAYOUT(
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_PS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          KC_ESC,
       _______,      LGUI(KC_D), KC_V,         LGUI(KC_T),    LGUI(KC_S),
-                    KC_LALT,    KC_I,         SGUI(KC_Z),    KC_H
+                    KC_LALT,    KC_I,         LSG(KC_Z),     KC_H
     ),
 
     // Windows
@@ -97,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [IOS_CS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LGUI(KC_EQL),
       _______,      LGUI(KC_D), KC_K,         KC_F,          LGUI(KC_S),
-                    KC_LALT,    KC_I,         SGUI(KC_Z),    KC_H
+                    KC_LALT,    KC_I,         LSG(KC_Z),     KC_H
     ),
     [SETTING] = LAYOUT(
       _______, IOS_CS, Win_CS, Mac_CS, KC_NO,

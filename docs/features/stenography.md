@@ -4,6 +4,14 @@
 
 The [Open Steno Project](https://www.openstenoproject.org/) has built an open-source program called Plover that provides real-time translation of steno strokes into words and commands. It has an established dictionary and supports
 
+## Steno Support in QMK
+
+There are three ways that QMK keyboards can support steno, with varying degrees of configuration required:
+
+1. Plover with [Arpeggiation](https://plover.wiki/index.php/Glossary#Arpeggiate) requires no changes to any keyboard and is supported by QMK as well as any other QWERTY keyboard.
+2. Plover with [NKRO](https://plover.wiki/index.php/Using_a_standard_keyboard_with_Plover#NKRO). If your keyboard supports NKRO in hardware and you have NKRO enabled as a USB endpoint, you can chord with the keyboard. Many devices will arrive stock like this and will require no changes.
+3. Steno Machine Protocols.  This requires the most configuration, but this has the advantage of allowing you to use your keyboard keys normally (either on another layer or another piece of hardware) without enabling and disabling your steno software.
+
 ## Plover with QWERTY Keyboard {#plover-with-qwerty-keyboard}
 
 Plover can work with any standard QWERTY keyboard, although it is more efficient if the keyboard supports NKRO (n-key rollover) to allow Plover to see all the pressed keys at once. An example keymap for Plover can be found in `planck/keymaps/default`. Switching to the `PLOVER` layer adjusts the position of the keyboard to support the number bar.
@@ -14,14 +22,14 @@ You may also need to adjust your layout, either in QMK or in Plover, if you have
 
 ## Plover with Steno Protocol {#plover-with-steno-protocol}
 
-Plover also understands the language of several steno machines. QMK can speak a couple of these languages: TX Bolt and GeminiPR. An example layout can be found in `planck/keymaps/steno`.
+Plover also understands the language of several steno machines. QMK can speak a couple of these languages: TX Bolt and GeminiPR. An example layout can be found in `splitography/keymaps/default`.
 
 When QMK speaks to Plover over a steno protocol, Plover will not use the keyboard as input. This means that you can switch back and forth between a standard keyboard and your steno keyboard, or even switch layers from Plover to standard and back without needing to activate/deactivate Plover.
 
 In this mode, Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard.
 
 ::: info
-Note: Due to hardware limitations, you might not be able to run both a virtual serial port and mouse emulation at the same time.
+Due to hardware limitations, you might not be able to run both a virtual serial port and other features (mouse keys, NKRO, or MIDI support) at the same time. You will likely encounter a compile time error if this is the case. Disable those other features as necessary.
 :::
 
 ::: warning
@@ -94,7 +102,7 @@ STENO_ENABLE = yes
 STENO_PROTOCOL = all
 ```
 
-If you want to switch protocols programatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](../keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
+If you want to switch protocols programmatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](../keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
 
 The default protocol is Gemini PR but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
 
@@ -156,7 +164,7 @@ At the end of this scenario given as an example, `chord` would have five bits se
 ## Keycode Reference {#keycode-reference}
 
 ::: info
-Note: TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
+TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
 :::
 
 |GeminiPR|TX Bolt|Steno Key|
