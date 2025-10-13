@@ -203,8 +203,8 @@ See also: [Basic Keycodes](keycodes_basic)
 |`KC_WWW_STOP`           |`KC_WSTP`                      |Browser Stop                           |✔            |             |✔                |
 |`KC_WWW_REFRESH`        |`KC_WREF`                      |Browser Refresh                        |✔            |             |✔                |
 |`KC_WWW_FAVORITES`      |`KC_WFAV`                      |Browser Favorites                      |✔            |             |✔                |
-|`KC_MEDIA_FAST_FORWARD` |`KC_MFFD`                      |Next Track                             |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Previous Track                         |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
+|`KC_MEDIA_FAST_FORWARD` |`KC_MFFD`                      |Fast Forward                           |✔            |✔<sup>5</sup>|✔                |
+|`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Rewind                                 |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
 |`KC_BRIGHTNESS_UP`      |`KC_BRIU`                      |Brightness Up                          |✔            |✔            |✔                |
 |`KC_BRIGHTNESS_DOWN`    |`KC_BRID`                      |Brightness Down                        |✔            |✔            |✔                |
 |`KC_CONTROL_PANEL`      |`KC_CPNL`                      |Open Control Panel                     |✔            |             |                 |
