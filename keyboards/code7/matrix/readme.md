@@ -5,7 +5,7 @@
 A rugged four-button macro pad with a per-key customisable RGB backlight. See https://zoid.com.au/matrix/ for more information.
 
 * Keyboard Maintainer: [Zoid Technology](https://github.com/ZoidTechnology)
-* Hardware Availability: [Tindie](https://www.tindie.com/products/code7/matrix/)
+* Hardware Availability: [Code7](https://code7.au/)
 
 Make example for this keyboard (after setting up your build environment):
 
