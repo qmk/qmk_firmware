@@ -88,9 +88,7 @@
             ],
         "default":{
             "animation": "breathing",
-            "hue": 191,
-            "sat": 255,
-            "val": 255
+            "hue": 191
         }
     },
     "usb": {
