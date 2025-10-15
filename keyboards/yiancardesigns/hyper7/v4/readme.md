@@ -3,7 +3,7 @@
 This is a very big pcb... It supports VIA.
 
 * Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar) 
-* Hardware Supported: A TKL keyboard with STM32F072RB 
+* Hardware Supported: A very big keyboard with STM32F072RB 
 * Hardware Availability: https://mechboards.co.uk/ 
 
 ## Instructions
@@ -29,4 +29,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 - Unplug
 - Hold F3
 - Plug In
-- Flash using QMK Toolbox or CLI (`make loki65:<keymap>:flash`)
+- Flash using QMK Toolbox or CLI (`make yiancardesigns/hyper7/v4:<keymap>:flash`)
