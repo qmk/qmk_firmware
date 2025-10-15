@@ -1,0 +1,9 @@
+# Build Options
+BOOTMAGIC_ENABLE = yes
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = yes
+NKRO_ENABLE = yes
+LTO_ENABLE = yes
+VIA_ENABLE = yes
+
+
