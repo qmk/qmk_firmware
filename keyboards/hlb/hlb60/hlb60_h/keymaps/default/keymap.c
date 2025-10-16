@@ -1,7 +1,12 @@
 // Copyright 2024 HLB
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
-#include "hlb60_h.h"
+
+enum layers {
+    _BASE,
+    _FN,
+    _MEDIA,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // main layer
