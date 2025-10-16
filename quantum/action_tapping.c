@@ -107,6 +107,7 @@ static uint16_t flow_tap_prev_keycode = KC_NO;
 static uint16_t flow_tap_prev_time    = 0;
 static bool     flow_tap_expired      = true;
 
+bool flow_tap_is_expired(void) { return flow_tap_expired; }
 static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time);
 #    endif // defined(FLOW_TAP_TERM)
 

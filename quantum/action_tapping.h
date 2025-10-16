@@ -169,6 +169,12 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
 
 /** Updates the Flow Tap last key and timer. */
 void flow_tap_update_last_event(keyrecord_t *record);
+
+/** Checks if the Flow Tap timer has expired. */
+/**
+ * @return True if the Flow Tap timer has expired; false otherwise.
+ */
+bool flow_tap_is_expired(void);
 #endif // FLOW_TAP_TERM
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
