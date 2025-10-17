@@ -25,7 +25,8 @@
             {"matrix": [0, 1], "x": 120, "y": 24, "flags": 4},
             {"matrix": [1, 0], "x": 104, "y": 40, "flags": 4},
             {"matrix": [1, 1], "x": 120, "y": 40, "flags": 4}
-        ]
+        ],
+        "sleep": true
     },
     "url": "https://zoid.com.au/matrix/",
     "usb": {
