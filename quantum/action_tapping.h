@@ -178,7 +178,7 @@ void flow_tap_update_last_event(keyrecord_t *record);
  * @param record The keyrecord of the pressed key.
  * @return True if the pressed key is within the flow tap term; false otherwise.
  */
-bool within_flow_tap_term(uint16_t keycode, keyrecord_t* record);
+bool within_flow_tap_term(uint16_t keycode, keyrecord_t *record);
 #endif // FLOW_TAP_TERM
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
