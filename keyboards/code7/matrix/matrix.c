@@ -4,17 +4,6 @@
 #include "quantum.h"
 #include "rgb_matrix_direct.h"
 
-void bootmagic_lite(void) {
-    matrix_scan();
-    wait_ms(10); // Must be equal or greater than the debounce time
-    matrix_scan();
-
-    if (matrix_get_row(0) == 3 && matrix_get_row(1) == 3) {
-        eeconfig_disable();
-        bootloader_jump();
-    }
-}
-
 #ifdef RGB_MATRIX_ENABLE
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
@@ -25,3 +14,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 };
 
 #endif
+
+bool bootmagic_should_reset(void) {
+    return matrix_get_row(0) == 3 && matrix_get_row(1) == 3;
+}
