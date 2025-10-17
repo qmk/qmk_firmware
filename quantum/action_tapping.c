@@ -885,11 +885,11 @@ static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time)
 
 // checks to see if a key is within flow tap term
 // roundabout way to see if we are currently in a flow tap state or not
-bool within_flow_tap_term(uint16_t keycode, keyrecord_t* record) {
-  uint16_t term = get_flow_tap_term(keycode, record, flow_tap_prev_keycode);
-  return !flow_tap_expired && 
-      TIMER_DIFF_16(record->event.time, flow_tap_prev_time) <= term;
+bool within_flow_tap_term(uint16_t keycode, keyrecord_t *record) {
+    uint16_t term = get_flow_tap_term(keycode, record, flow_tap_prev_keycode);
+    return !flow_tap_expired && TIMER_DIFF_16(record->event.time, flow_tap_prev_time) <= term;
 }
+
 // By default, enable Flow Tap for the keys in the main alphas area and Space.
 // This should work reasonably even if the layout is remapped on the host to an
 // alt layout or international layout (e.g. Dvorak or AZERTY), where these same
