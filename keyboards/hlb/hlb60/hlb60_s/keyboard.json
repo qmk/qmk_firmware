@@ -9,7 +9,6 @@
         "extrakey": true,
         "key_lock": true,
         "mousekey": true,
-        "encoder": false,
         "nkro": true,
         "rgb_matrix": true
     },
