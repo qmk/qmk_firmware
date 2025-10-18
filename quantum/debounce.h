@@ -13,5 +13,6 @@
  * @return true Cooked has new keychanges after debouncing
  * @return false Cooked is the same as before
  */
-void debounce_init(void);
 bool debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed);
+
+void debounce_init(void);
