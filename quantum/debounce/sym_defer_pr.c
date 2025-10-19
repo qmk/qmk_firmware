@@ -33,9 +33,9 @@ static bool               cooked_changed;
 static inline void update_debounce_counters_and_transfer_if_expired(matrix_row_t raw[], matrix_row_t cooked[], uint8_t elapsed_time);
 static inline void start_debounce_counters(matrix_row_t raw[], matrix_row_t cooked[]);
 
-void debounce_init(uint8_t num_rows) {}
+void debounce_init(void) {}
 
-bool debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed) {
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed) {
     static fast_timer_t last_time;
     bool                updated_last = false;
     cooked_changed                   = false;
