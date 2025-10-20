@@ -1,5 +1,5 @@
 /*
-Copyright 2015 Jun Wako <wakojun@gmail.com>
+Copyright 2023 Gondolindrim
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,24 +15,22 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#include "quantum.h"
 
-#define BACKLIGHT_PWM_DRIVER    PWMD3
-#define BACKLIGHT_PWM_CHANNEL   1
-#define BACKLIGHT_PAL_MODE      1
+void keyboard_post_init_kb(void) {
+    setPinOutput(CAPS_INDICATOR_PIN);
+    setPinOutput(INDICATOR_1_PIN);
+    setPinOutput(INDICATOR_2_PIN);
+    setPinOutput(INDICATOR_3_PIN);
+}
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
-/* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if(res) {
+        writePin(CAPS_INDICATOR_PIN, led_state.caps_lock   );
+        writePin(INDICATOR_1_PIN   , led_state.num_lock    );
+        writePin(INDICATOR_2_PIN   , led_state.scroll_lock );
+        writePin(INDICATOR_3_PIN   , led_state.caps_lock   );
+    }
+    return res;
+}
