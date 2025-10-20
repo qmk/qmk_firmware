@@ -16,7 +16,6 @@
     },
     "features": {
         "bootmagic": true,
-        "lto":       true,
         "mousekey":  true,
         "extrakey":  true,
         "console":   false,
@@ -26,6 +25,15 @@
         "encoder":   false,
         "nkro":      true
     },
+    "build": {
+        "lto": true 
+    },   
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true 
+        }
+    },   
     "backlight": {
         "breathing": true,
         "levels": 20,

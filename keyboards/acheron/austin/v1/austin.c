@@ -1,4 +1,6 @@
-#include "austin.h"
+#pragma once
+
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     setPinOutput(A0);
