@@ -48,9 +48,17 @@ uint8_t cur_dance(tap_dance_state_t *state);
 void ql_finished(tap_dance_state_t *state, void *user_data);
 void ql_reset(tap_dance_state_t *state, void *user_data);
 
+enum {
+    P_LSFT_CAPS,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_LSFT_CAPS] = {KC_LSFT, KC_CAPS},
+};
+
 // Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_LSFT_CAPS]),
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset),
 };
 
