@@ -102,6 +102,58 @@ def show_matrix(kb_info_json, title_caps=True):
         print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
 
 
+def show_leds(kb_info_json, title_caps=True):
+    """Render LED indices per key, using the keyboard's key layout geometry.
+
+    We build a map from (row, col) -> LED index using rgb_matrix/led_matrix layout,
+    then label each key with its LED index. Keys without an associated LED are left blank.
+    """
+    # Prefer rgb_matrix, fall back to led_matrix
+    led_feature = None
+    for feature in ('rgb_matrix', 'led_matrix'):
+        if feature in kb_info_json and isinstance(kb_info_json[feature], dict) and kb_info_json[feature].get('layout'):
+            led_feature = feature
+            break
+
+    if not led_feature:
+        cli.echo('{fg_yellow}No rgb_matrix/led_matrix layout found to derive LED indices.{fg_reset}')
+        return
+
+    led_layout = kb_info_json[led_feature]['layout']
+
+    # Build mapping from matrix position -> list of LED indices (some boards may have multiple LEDs per key)
+    by_matrix = {}
+    for idx, led in enumerate(led_layout):
+        m = led.get('matrix')
+        if isinstance(m, list) and len(m) == 2:
+            key = (m[0], m[1])
+            by_matrix.setdefault(key, []).append(idx)
+
+    # For each keyboard layout (e.g., LAYOUT), render keys labeled with LED index (or blank)
+    for layout_name, layout in kb_info_json['layouts'].items():
+        labels = []
+        for key in layout['layout']:
+            m = key.get('matrix')
+            if isinstance(m, list) and len(m) == 2:
+                indices = by_matrix.get((m[0], m[1]), [])
+                if indices:
+                    # If multiple, join a couple; otherwise single
+                    label = '/'.join(map(str, indices[:2])) if len(indices) > 1 else str(indices[0])
+                else:
+                    label = ''
+                labels.append(label)
+            else:
+                labels.append('')
+
+        # Header
+        if title_caps:
+            cli.echo('{fg_blue}LED indices for "%s"{fg_reset}:', layout_name)
+        else:
+            cli.echo('{fg_blue}leds_%s{fg_reset}:', layout_name)
+
+        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
+
+
 def print_friendly_output(kb_info_json):
     """Print the info.json in a friendly text format.
     """
@@ -169,6 +221,7 @@ def print_parsed_rules_mk(keyboard_name):
 @cli.argument('-km', '--keymap', help='Keymap to show info for (Optional).')
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
+@cli.argument('-L', '--leds', action='store_true', help='Render the LED layout with LED indices (rgb_matrix/led_matrix).')
 @cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
 @cli.argument('--ascii', action='store_true', default=not UNICODE_SUPPORT, help='Render layout box drawings in ASCII only.')
 @cli.argument('-r', '--rules-mk', action='store_true', help='Render the parsed values of the keyboard\'s rules.mk file.')
@@ -226,6 +279,9 @@ def info(cli):
 
     if cli.config.info.matrix:
         show_matrix(kb_info_json, title_caps)
+
+    if cli.config.info.leds:
+        show_leds(kb_info_json, title_caps)
 
     if cli.config.info.keymap:
         show_keymap(kb_info_json, title_caps)
