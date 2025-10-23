@@ -224,6 +224,7 @@
     "PERMISSIVE_HOLD_PER_KEY": {"info_key": "tapping.permissive_hold_per_key", "value_type": "flag"},
     "RETRO_TAPPING": {"info_key": "tapping.retro", "value_type": "flag"},
     "RETRO_TAPPING_PER_KEY": {"info_key": "tapping.retro_per_key", "value_type": "flag"},
+    "SPECULATIVE_HOLD": {"info_key": "tapping.speculative_hold", "value_type": "flag"},
     "TAP_CODE_DELAY": {"info_key": "qmk.tap_keycode_delay", "value_type": "int"},
     "TAP_HOLD_CAPS_DELAY": {"info_key": "qmk.tap_capslock_delay", "value_type": "int"},
     "TAPPING_TERM": {"info_key": "tapping.term", "value_type": "int"},
