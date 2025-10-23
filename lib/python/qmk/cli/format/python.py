@@ -12,7 +12,7 @@ py_dirs = ['lib/python', 'util/ci']
 
 def yapf_run(files):
     edit = '--diff' if cli.args.dry_run else '--in-place'
-    yapf_cmd = ['yapf', '-vv', '--recursive', edit, *files]
+    yapf_cmd = ['yapf', '-vv', '--exclude', '**/xap_client/*', '--recursive', edit, *files]
     try:
         cli.run(yapf_cmd, check=True, capture_output=False, stdin=DEVNULL)
         cli.log.info('Successfully formatted the python code.')
