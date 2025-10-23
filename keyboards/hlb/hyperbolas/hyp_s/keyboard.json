@@ -20,8 +20,8 @@
     "processor": "RP2040",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0007",
-        "vid": "0x3025"
+        "pid": "0x0014",
+        "vid": "0x8E3A"
     },
     "layouts": {
         "LAYOUT_tkl_ansi": {
