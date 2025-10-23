@@ -60,7 +60,7 @@ void DebounceTest::runEventsInternal() {
     bool         first    = true;
 
     /* Initialise keyboard with start time (offset to avoid testing at 0) and all keys UP */
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
     set_time(time_offset_);
     simulate_async_tick(async_time_jumps_);
     std::fill(std::begin(input_matrix_), std::end(input_matrix_), 0);
@@ -129,7 +129,7 @@ void DebounceTest::runDebounce(bool changed) {
 
     reset_access_counter();
 
-    bool cooked_changed = debounce(raw_matrix_, cooked_matrix_, MATRIX_ROWS, changed);
+    bool cooked_changed = debounce(raw_matrix_, cooked_matrix_, changed);
 
     if (!std::equal(std::begin(input_matrix_), std::end(input_matrix_), std::begin(raw_matrix_))) {
         FAIL() << "Fatal error: debounce() modified raw matrix at " << strTime() << "\ninput_matrix: changed=" << changed << "\n" << strMatrix(input_matrix_) << "\nraw_matrix:\n" << strMatrix(raw_matrix_);
