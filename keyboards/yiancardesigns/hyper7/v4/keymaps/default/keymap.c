@@ -24,7 +24,7 @@ enum my_keycodes {
     TRIAN,
     DIAMO,
     WRITE,
-    TTY
+    TTY,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
