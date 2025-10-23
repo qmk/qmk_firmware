@@ -21,6 +21,9 @@ qmk compile -kb handwired/ergo_v_1 -km default
 qmk flash -kb handwired/ergo_v_1 -km default
 ```
 
+> **_NOTE:_** if you get a git related error try updating submodules by running
+> <br>```git submodule update --init --recursive```
+
 then double click to reset button located upper part of front side of the keyboard
 
 ### Adding new keymaps
