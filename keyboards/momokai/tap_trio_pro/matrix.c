@@ -23,9 +23,6 @@ hybrid_key_t keys[MATRIX_ROWS][MATRIX_COLS] = {0};
 static uint16_t pressedAdcValue = 0;
 static uint16_t restAdcValue = 0;
 
-/* Matrix state: 1 = on, 0 = off */
-matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 static inline uint8_t readMatrixPin(pin_t pin) {
     if (pin != NO_PIN) {
@@ -118,5 +115,3 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     }
     return memcmp(previous_matrix, current_matrix, sizeof(previous_matrix)) != 0;
 }
-
-
