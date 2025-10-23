@@ -819,15 +819,20 @@ void speculative_key_settled(keyrecord_t *record) {
     const uint16_t keycode = get_record_keycode(record, false);
     if (IS_QK_MOD_TAP(keycode) && record->tap.count == 0) { // MT hold press.
         if (i < num_speculative_keys) {
-            const uint8_t cleared_mods = speculative_keys[i].mods;
-            speculative_mods &= ~cleared_mods;
-            // Don't call send_keyboard_report() here; allow default handling
-            // to reapply the mod before the next report.
-
-            // Remove the ith entry from speculative_keys.
             --num_speculative_keys;
-            for (uint8_t j = i; j < num_speculative_keys; ++j) {
-                speculative_keys[j] = speculative_keys[j + 1];
+            const uint8_t cleared_mods = speculative_keys[i].mods;
+
+            if (num_speculative_keys) {
+                speculative_mods &= ~cleared_mods;
+                // Don't call send_keyboard_report() here; allow default
+                // handling to reapply the mod before the next report.
+
+                // Remove the ith entry from speculative_keys.
+                for (uint8_t j = i; j < num_speculative_keys; ++j) {
+                    speculative_keys[j] = speculative_keys[j + 1];
+                }
+            } else {
+                speculative_mods = 0;
             }
 
             ac_dprintf("Speculative Hold: settled %02x, ", cleared_mods);
@@ -852,7 +857,12 @@ void speculative_key_settled(keyrecord_t *record) {
 #        endif // DUMMY_MOD_NEUTRALIZER_KEYCODE
         }
 
-        speculative_mods &= ~cleared_mods;
+        if (num_speculative_keys) {
+            speculative_mods &= ~cleared_mods;
+        } else {
+            speculative_mods = 0;
+        }
+
         send_keyboard_report();
         wait_ms(TAP_CODE_DELAY);
 
