@@ -3,10 +3,6 @@
 
 #pragma once
 
-// Make it easier to enter the bootloader
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
-
 // I2C0, onboard SSD1306 socket and I2C to Myriad module
 #define I2C_DRIVER   I2CD0
 #define I2C1_SDA_PIN GP0
@@ -50,9 +46,9 @@
 // OLED display
 #define OLED_DISPLAY_128X64
 // If someone has only one OLED display
-// and that display was on the slave side. 
-// It wouldn't work at all. This fixes that 
-// including some code in rev1.c but makes 
+// and that display was on the slave side.
+// It wouldn't work at all. This fixes that
+// including some code in rev1.c but makes
 // it so the timeout's are not synced
 // between halves.
 #undef SPLIT_OLED_ENABLE

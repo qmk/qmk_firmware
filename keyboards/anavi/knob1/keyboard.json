@@ -32,6 +32,11 @@
             "animation": "rainbow_swirl"
         }
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP17",
+        "double_tap_reset_timeout": 500
+    },
     "ws2812": {
         "pin": "GP12",
         "driver": "vendor"
