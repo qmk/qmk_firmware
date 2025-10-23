@@ -91,11 +91,11 @@ SPLIT_TRANSPORT = custom
 
 Configuring your layout in a split keyboard works slightly differently to a non-split keyboard. Take for example the following layout. The top left numbers refer to the matrix row and column, and the bottom right are the order of the keys in the layout:
 
-![Physical layout](https://i.imgur.com/QeY6kMQ.png)
+![Physical layout](/QeY6kMQ.png)
 
 Since the matrix scanning procedure operates on entire rows, it first populates the left half's rows, then the right half's. Thus, the matrix as QMK views it has double the rows instead of double the columns:
 
-![Matrix](https://i.imgur.com/4wjJzBU.png)
+![Matrix](/4wjJzBU.png)
 
 ### Setting Handedness
 
@@ -497,7 +497,7 @@ Once you have done that, you will want to solder the diode from the 5V pad to th
 
 You may need to use the 5V pad from the regulator block above as the pads were too small and placed too closely together to place the Schottky diode properly.
 
-![Teensy++ 2.0](https://i.imgur.com/BPEC5n5.png)
+![Teensy++ 2.0](/BPEC5n5.jpg)
 
 ## Additional Resources
 

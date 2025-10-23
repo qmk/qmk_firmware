@@ -95,6 +95,11 @@ tags
 *.mpeg
 *.ttf
 *.otf
+# Un-ignore limited image file formats in docs
+!docs/public/**.gif
+!docs/public/**.jpg
+!docs/public/**.jpeg
+!docs/public/**.png
 
 # Things Travis sees
 /.vs
