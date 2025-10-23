@@ -93,7 +93,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0015",
-        "vid": "0x4444"
+        "vid": "0x8E3A"
     },
     "ws2812": {
         "pin": "GP29",
