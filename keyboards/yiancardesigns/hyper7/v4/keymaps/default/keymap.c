@@ -1,4 +1,5 @@
 /* Copyright 2023 Yiancar-Designs, Bit-Shifter
+ * SPDX-License-Identifier: GPL-2.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -12,8 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-// Copyright 2023 Yiancar-Designs, Bit-Shifter
-// SPDX-License-Identifier: GPL-2.0-or-later
+ */
 #include QMK_KEYBOARD_H
 
 enum my_keycodes {
