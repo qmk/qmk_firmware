@@ -13,8 +13,8 @@
     "url": "https://github.com/H3lli0n/CantorMx-3DP-case",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x0013",
+        "vid": "0x8E3A"
     },
     "matrix_pins": {
         "direct": [
