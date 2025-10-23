@@ -751,15 +751,29 @@ static void debug_speculative_keys(void) {
     ac_dprintf("}\n");
 }
 
+// Find key in speculative_keys. Returns num_speculative_keys if not found.
+static int8_t speculative_keys_find(keypos_t key) {
+    uint8_t i;
+    for (i = 0; i < num_speculative_keys; ++i) {
+        if (KEYEQ(speculative_keys[i].key, key)) {
+            break;
+        }
+    }
+    return i;
+}
+
 static void speculative_key_press(keyrecord_t *record) {
     if (num_speculative_keys >= SPECULATIVE_KEYS_SIZE) { // Overflow!
         ac_dprintf("SPECULATIVE KEYS OVERFLOW: IGNORING EVENT\n");
-        return;
+        return; // Don't trigger: speculative_keys is full.
+    }
+    if (speculative_keys_find(record->event.key) < num_speculative_keys) {
+        return; // Don't trigger: key is already in speculative_keys.
     }
 
     const uint16_t keycode = get_record_keycode(record, false);
     if (!IS_QK_MOD_TAP(keycode)) {
-        return;
+        return; // Don't trigger: not a mod-tap key.
     }
 
     uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
@@ -767,7 +781,7 @@ static void speculative_key_press(keyrecord_t *record) {
         mods <<= 4;
     }
     if ((~(get_mods() | speculative_mods) & mods) == 0) {
-        return;
+        return; // Don't trigger: mods are already active.
     }
 
     // Don't do Speculative Hold when there are non-speculated buffered events,
@@ -807,14 +821,7 @@ void speculative_key_settled(keyrecord_t *record) {
         return; // Early return when there are no active speculative keys.
     }
 
-    // Search for the current event.key in speculative_keys.
-    const keypos_t key = record->event.key;
-    uint8_t        i;
-    for (i = 0; i < num_speculative_keys; ++i) {
-        if (KEYEQ(speculative_keys[i].key, key)) {
-            break;
-        }
-    }
+    uint8_t i = speculative_keys_find(record->event.key);
 
     const uint16_t keycode = get_record_keycode(record, false);
     if (IS_QK_MOD_TAP(keycode) && record->tap.count == 0) { // MT hold press.
