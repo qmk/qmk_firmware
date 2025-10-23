@@ -80,11 +80,12 @@ static const uint8_t rgb_matrix_flag_steps[] = RGB_MATRIX_FLAG_STEPS;
 #define RGB_MATRIX_FLAG_STEPS_COUNT ARRAY_SIZE(rgb_matrix_flag_steps)
 
 // internals
-static bool            suspend_state     = false;
-static uint8_t         rgb_last_enable   = UINT8_MAX;
-static uint8_t         rgb_last_effect   = UINT8_MAX;
-static effect_params_t rgb_effect_params = {0, LED_FLAG_ALL, false};
-static rgb_task_states rgb_task_state    = SYNCING;
+static bool            suspend_state      = false;
+static uint8_t         rgb_last_enable    = UINT8_MAX;
+static uint8_t         rgb_last_effect    = UINT8_MAX;
+static uint8_t         rgb_current_effect = 0;
+static effect_params_t rgb_effect_params  = {0, LED_FLAG_ALL, false};
+static rgb_task_states rgb_task_state     = SYNCING;
 
 // double buffers
 static uint32_t rgb_timer_buffer;
@@ -296,6 +297,17 @@ static void rgb_task_start(void) {
     g_last_hit_tracker = last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
+    // Ideally we would also stop sending zeros to the LED driver PWM buffers
+    // while suspended and just do a software shutdown. This is a cheap hack for now.
+    bool suspend_backlight = suspend_state ||
+#if RGB_MATRIX_TIMEOUT > 0
+                             (last_input_activity_elapsed() > (uint32_t)RGB_MATRIX_TIMEOUT) ||
+#endif // RGB_MATRIX_TIMEOUT > 0
+                             false;
+
+    // Set effect to be renedered
+    rgb_current_effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
+
     // next task
     rgb_task_state = RENDERING;
 }
@@ -384,15 +396,7 @@ static void rgb_task_flush(uint8_t effect) {
 void rgb_matrix_task(void) {
     rgb_task_timers();
 
-    // Ideally we would also stop sending zeros to the LED driver PWM buffers
-    // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool suspend_backlight = suspend_state ||
-#if RGB_MATRIX_TIMEOUT > 0
-                             (last_input_activity_elapsed() > (uint32_t)RGB_MATRIX_TIMEOUT) ||
-#endif // RGB_MATRIX_TIMEOUT > 0
-                             false;
-
-    uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
+    uint8_t effect = rgb_current_effect;
 
     switch (rgb_task_state) {
         case STARTING:
