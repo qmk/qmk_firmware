@@ -1,4 +1,4 @@
-# SINGA Kohaku R2 (PCB designed by Zeix)
+# SINGA Rubrehaku (PCB designed by Zeix)
 
 ![Layout Compatibility](https://i.imgur.com/jTkWkJd.png)
 

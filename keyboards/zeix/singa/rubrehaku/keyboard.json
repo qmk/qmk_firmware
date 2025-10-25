@@ -40,6 +40,7 @@
         "led_count": 16,
         "sleep": true
     },
+    "url": "https://klc-playground.com",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x8889",
