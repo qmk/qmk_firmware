@@ -3,14 +3,16 @@
     "keyboard_name": "fabiclawz/alpha_fs",
     "maintainer": "FFS2309",
     "bootloader": "rp2040",
-    "diode_direction": "ROW2COL",
+    "board": "GENERIC_RP_RP2040",
+    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true,
-        "rgblight": false
+        "rgblight": false,
+        "console_enable": true
     },
     "ws2812": {
         "driver": "vendor",
