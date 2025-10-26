@@ -24,7 +24,7 @@
 #    elif defined(PROTOCOL_CHIBIOS)
 #        include "hal.h"
 #        include "chibios_config.h"
-#        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(GD32VF103) || defined(MCU_RP)
+#        if defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(AT32F415) || defined(GD32VF103) || defined(MCU_RP)
 #            define APA102_NOPS (100 / (1000000000L / (CPU_CLOCK / 4))) // This calculates how many loops of 4 nops to run to delay 100 ns
 #        else
 #            error APA102_NOPS configuration required
@@ -53,6 +53,7 @@
         io_wait;                                          \
     } while (0)
 
+rgb_t   apa102_leds[APA102_LED_COUNT];
 uint8_t apa102_led_brightness = APA102_DEFAULT_BRIGHTNESS;
 
 static void apa102_send_byte(uint8_t byte) {
@@ -67,7 +68,9 @@ static void apa102_send_byte(uint8_t byte) {
 }
 
 static void apa102_start_frame(void) {
-    apa102_init();
+    gpio_write_pin_low(APA102_DI_PIN);
+    gpio_write_pin_low(APA102_CI_PIN);
+
     for (uint16_t i = 0; i < 4; i++) {
         apa102_send_byte(0);
     }
@@ -103,7 +106,8 @@ static void apa102_end_frame(uint16_t num_leds) {
         apa102_send_byte(0);
     }
 
-    apa102_init();
+    gpio_write_pin_low(APA102_DI_PIN);
+    gpio_write_pin_low(APA102_CI_PIN);
 }
 
 static void apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t brightness) {
@@ -116,19 +120,26 @@ static void apa102_send_frame(uint8_t red, uint8_t green, uint8_t blue, uint8_t 
 void apa102_init(void) {
     gpio_set_pin_output(APA102_DI_PIN);
     gpio_set_pin_output(APA102_CI_PIN);
-
-    gpio_write_pin_low(APA102_DI_PIN);
-    gpio_write_pin_low(APA102_CI_PIN);
 }
 
-void apa102_setleds(rgb_led_t *start_led, uint16_t num_leds) {
-    rgb_led_t *end = start_led + num_leds;
+void apa102_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    apa102_leds[index].r = red;
+    apa102_leds[index].g = green;
+    apa102_leds[index].b = blue;
+}
 
-    apa102_start_frame();
-    for (rgb_led_t *led = start_led; led < end; led++) {
-        apa102_send_frame(led->r, led->g, led->b, apa102_led_brightness);
+void apa102_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (uint16_t i = 0; i < APA102_LED_COUNT; i++) {
+        apa102_set_color(i, red, green, blue);
     }
-    apa102_end_frame(num_leds);
+}
+
+void apa102_flush(void) {
+    apa102_start_frame();
+    for (uint8_t i = 0; i < APA102_LED_COUNT; i++) {
+        apa102_send_frame(apa102_leds[i].r, apa102_leds[i].g, apa102_leds[i].b, apa102_led_brightness);
+    }
+    apa102_end_frame(APA102_LED_COUNT);
 }
 
 void apa102_set_brightness(uint8_t brightness) {

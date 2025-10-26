@@ -2,9 +2,9 @@
 
 This page details various common questions people have about troubleshooting their keyboards.
 
-## Debugging :id=debugging
+## Debugging {#debugging}
 
-Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+Your keyboard will output debug information if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DB_TOGG` keycode in your keymap, use the [Command](features/command) feature to enable debug mode, or add the following code to your keymap.
 
 ```c
 void keyboard_post_init_user(void) {
@@ -26,15 +26,15 @@ For compatible platforms, [QMK Toolbox](https://github.com/qmk/qmk_toolbox) can 
 
 ### Debugging with QMK CLI
 
-Prefer a terminal based solution? The [QMK CLI console command](cli_commands.md#qmk-console) can be used to display debug messages from your keyboard.
+Prefer a terminal based solution? The [QMK CLI console command](cli_commands#qmk-console) can be used to display debug messages from your keyboard.
 
 ### Debugging With hid_listen
 
 Something stand-alone? [hid_listen](https://www.pjrc.com/teensy/hid_listen.html), provided by PJRC, can also be used to display debug messages. Prebuilt binaries for Windows,Linux,and MacOS are available.
 
-## Sending Your Own Debug Messages :id=debug-api
+## Sending Your Own Debug Messages {#debug-api}
 
-Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions.md). Doing so is pretty simple. Start by including `print.h` at the top of your file:
+Sometimes it's useful to print debug messages from within your [custom code](custom_quantum_functions). Doing so is pretty simple. Start by including `print.h` at the top of your file:
 
 ```c
 #include "print.h"
@@ -49,7 +49,7 @@ After that you can use a few different print functions:
 
 ## Debug Examples
 
-Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug.md).
+Below is a collection of real world debugging examples. For additional information, refer to [Debugging/Troubleshooting QMK](faq_debug).
 
 ### Which matrix position is this keypress?
 
@@ -76,6 +76,17 @@ KL: kc: 174, col: 1, row: 0, pressed: 0, time: 15843, int: 0, count: 0
 KL: kc: 172, col: 2, row: 0, pressed: 1, time: 16303, int: 0, count: 0
 KL: kc: 172, col: 2, row: 0, pressed: 0, time: 16411, int: 0, count: 0
 ```
+
+### Which keycode is this keypress?
+
+Keycodes are logged in the example above as numerical codes, which may be difficult to interpret. For more readable logging, add `KEYCODE_STRING_ENABLE = yes` in your `rules.mk` and use `get_keycode_string(kc)`. For example:
+
+```c
+uprintf("kc: %s\n", get_keycode_string(keycode));
+```
+
+This logs the keycode as a human-readable string like "`LT(2,KC_D)`" rather than a numerical code like "`0x4207`." See the [Keycode String](unit_testing#keycode-string) section of the Unit Testing page for more information.
+
 
 ### How long did it take to scan for a keypress?
 
@@ -129,7 +140,7 @@ needed for older distros.
 ## Can't Get Message on Console
 Check:
 - *hid_listen* finds your device. See above.
-- Enable debug by pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard#magic-commands).
+- Enable debug by pressing **Magic**+d. See [Magic Commands](https://github.com/tmk/tmk_keyboard/wiki#magic-commands-for-debug).
 - Set `debug_enable=true`. See [Debugging](#debugging)
 - Try using `print` function instead of debug print. See **common/print.h**.
 - Disconnect other devices with console function. See [Issue #97](https://github.com/tmk/tmk_keyboard/issues/97).

@@ -14,18 +14,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
 #include "wt_mono_backlight.h"
 #include "wt_rgb_backlight_api.h" // reuse these for now
 #include "wt_rgb_backlight_keycodes.h" // reuse these for now
 
+#include <stdlib.h>
 #include <avr/interrupt.h>
 #include "i2c_master.h"
-
+#include "host.h"
 #include "progmem.h"
-#include "quantum/color.h"
 #include "eeprom.h"
 
+#include "nvm_eeprom_eeconfig_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
+#include "nvm_eeprom_via_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
 #include "via.h" // uses EEPROM address, lighting value IDs
 #define MONO_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
 
@@ -151,8 +152,8 @@ void backlight_effect_cycle_all(void)
 void backlight_effect_indicators(void)
 {
 #if defined(MONO_BACKLIGHT_WT75_A)
-    HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
-    RGB rgb = hsv_to_rgb( hsv );
+    hsv_t hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
+    rgb_t rgb = hsv_to_rgb( hsv );
     // SW7,CS8 = (6*8+7) = 55
     // SW8,CS8 = (7*8+7) = 63
     // SW9,CS8 = (8*8+7) = 71

@@ -29,15 +29,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_BOOT,   EE_CLR,    KC_NO,     KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NUM,    KC_QUOT,   KC_PEQL,    KC_NO,
     KC_CAPS,   KC_NUM,    KC_SCRL,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),
-                                     KC_LEFT,   KC_BTN3,   KC_RGHT,    S(KC_SPC),
+                                     KC_LEFT,   MS_BTN3,   KC_RGHT,    S(KC_SPC),
     KC_TRNS,   S(KC_ENT), KC_TRNS,   KC_BSPC,   KC_DOWN,   KC_DEL,     KC_TRNS,
-    KC_BTN1,   KC_ENT,    S(KC_SPC),LT(2,KC_SPC),KC_SPC,   KC_COMM,    KC_TRNS
+    MS_BTN1,   KC_ENT,    S(KC_SPC),LT(2,KC_SPC),KC_SPC,   KC_COMM,    KC_TRNS
   ),
 
   [_FN2] =LAYOUT (
-    RGB_TOG,   RGB_MOD,   RGB_RMOD,  KC_NO,
-    RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_NO,     KC_NO,     KC_NO,     KC_NO,
-    RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,
+    UG_TOGG,   UG_NEXT,   UG_PREV,   KC_NO,
+    UG_HUEU,   UG_SATU,   UG_VALU,   KC_NO,     KC_NO,     KC_NO,     KC_NO,
+    UG_HUED,   UG_SATD,   UG_VALD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,
                                      KC_NO,     KC_NO,     KC_NO,     KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO

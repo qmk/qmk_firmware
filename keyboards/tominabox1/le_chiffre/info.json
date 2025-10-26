@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Le Chiffre",
     "manufacturer": "tominabox1",
-    "url": "",
     "maintainer": "tominabox1",
     "features": {
         "bootmagic": true,
@@ -11,6 +10,12 @@
         "nkro": true,
         "oled": true,
         "rgb_matrix": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "rgblight": {
         "animations": {

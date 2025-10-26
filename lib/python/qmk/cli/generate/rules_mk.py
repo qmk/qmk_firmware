@@ -46,6 +46,15 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
     return generate_rule(rules_key, rules_value)
 
 
+def generate_features_rules(features_dict):
+    lines = []
+    for feature, enabled in features_dict.items():
+        feature = feature.upper()
+        enabled = 'yes' if enabled else 'no'
+        lines.append(generate_rule(f'{feature}_ENABLE', enabled))
+    return lines
+
+
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -80,10 +89,7 @@ def generate_rules_mk(cli):
 
     # Iterate through features to enable/disable them
     if 'features' in kb_info_json:
-        for feature, enabled in kb_info_json['features'].items():
-            feature = feature.upper()
-            enabled = 'yes' if enabled else 'no'
-            rules_mk_lines.append(generate_rule(f'{feature}_ENABLE', enabled))
+        rules_mk_lines.extend(generate_features_rules(kb_info_json['features']))
 
     # Set SPLIT_TRANSPORT, if needed
     if kb_info_json.get('split', {}).get('transport', {}).get('protocol') == 'custom':

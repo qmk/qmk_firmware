@@ -16,12 +16,6 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // I2C setup
 #define I2C1_SCL_PIN        B8
 #define I2C1_SDA_PIN        B9
@@ -40,9 +34,9 @@
 #define WS2812_PWM_DRIVER PWMD1
 #define WS2812_PWM_CHANNEL 2
 #define WS2812_PWM_PAL_MODE 1
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM6
-#define WS2812_DMA_CHANNEL 7
-#define WS2812_DMAMUX_ID STM32_DMAMUX1_TIM1_UP
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM6
+#define WS2812_PWM_DMA_CHANNEL 7
+#define WS2812_PWM_DMAMUX_ID STM32_DMAMUX1_TIM1_UP
 
 // RGB Pullup
 #define WS2812_EXTERNAL_PULLUP

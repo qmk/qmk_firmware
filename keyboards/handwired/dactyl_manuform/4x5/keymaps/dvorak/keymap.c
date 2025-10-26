@@ -15,12 +15,12 @@ extern keymap_config_t keymap_config;
 #define ALT_SPC  ALT_T(KC_SPC)
 #define SFT_ENT  SFT_T(KC_ENT)
 
-#define KC_ML KC_MS_LEFT
-#define KC_MR KC_MS_RIGHT
-#define KC_MU KC_MS_UP
-#define KC_MD KC_MS_DOWN
-#define KC_MB1 KC_MS_BTN1
-#define KC_MB2 KC_MS_BTN1
+#define KC_ML MS_LEFT
+#define KC_MR MS_RGHT
+#define KC_MU MS_UP
+#define KC_MD MS_DOWN
+#define KC_MB1 MS_BTN1
+#define KC_MB2 MS_BTN1
 
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
@@ -119,9 +119,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              ____, ____,  ____, ____
 )
 };
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-

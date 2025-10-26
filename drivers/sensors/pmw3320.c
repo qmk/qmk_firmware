@@ -21,8 +21,16 @@
 #include "wait.h"
 #include "debug.h"
 #include "gpio.h"
+#include "pointing_device_internal.h"
 
-void pmw3320_init(void) {
+const pointing_device_driver_t pmw3320_pointing_device_drivera = {
+    .init       = pmw3320_init,
+    .get_report = pmw3320_get_report,
+    .set_cpi    = pmw3320_set_cpi,
+    .get_cpi    = pmw3320_get_cpi,
+};
+
+bool pmw3320_init(void) {
     // Initialize sensor serial pins.
     gpio_set_pin_output(PMW3320_SCLK_PIN);
     gpio_set_pin_output(PMW3320_SDIO_PIN);
@@ -48,6 +56,8 @@ void pmw3320_init(void) {
     pmw3320_write_reg(REG_Led_Control, 0x4);
     // Disable rest mode
     pmw3320_write_reg(REG_Performance, 0x80);
+
+    return pmw3320_check_signature();
 }
 
 // Perform a synchronization with sensor.
@@ -184,9 +194,21 @@ void pmw3320_set_cpi(uint16_t cpi) {
     pmw3320_write_reg(REG_Resolution, 0x20 | cpival);
 }
 
-bool pmw3320_check_signature(void) {
+bool __attribute__((weak)) pmw3320_check_signature(void) {
     uint8_t pid  = pmw3320_read_reg(REG_Product_ID);
     uint8_t pid2 = pmw3320_read_reg(REG_Inverse_Product_ID);
 
     return (pid == 0x3b && pid2 == 0xc4);
+}
+
+report_mouse_t pmw3320_get_report(report_mouse_t mouse_report) {
+    report_pmw3320_t data = pmw3320_read_burst();
+
+    if (data.dx != 0 || data.dy != 0) {
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.dx, data.dy);
+        mouse_report.x = (mouse_xy_report_t)data.dx;
+        mouse_report.y = (mouse_xy_report_t)data.dy;
+    }
+
+    return mouse_report;
 }

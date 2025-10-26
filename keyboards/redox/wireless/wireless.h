@@ -19,14 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#define red_led_off   writePinHigh(F5)
-#define red_led_on    writePinLow(F5)
-#define blu_led_off   writePinHigh(F4)
-#define blu_led_on    writePinLow(F4)
-#define grn_led_off   writePinHigh(D1)
-#define grn_led_on    writePinLow(D1)
-#define wht_led_off   writePinHigh(D0)
-#define wht_led_on    writePinLow(D0)
+#define red_led_off   gpio_write_pin_high(F5)
+#define red_led_on    gpio_write_pin_low(F5)
+#define blu_led_off   gpio_write_pin_high(F4)
+#define blu_led_on    gpio_write_pin_low(F4)
+#define grn_led_off   gpio_write_pin_high(D1)
+#define grn_led_on    gpio_write_pin_low(D1)
+#define wht_led_off   gpio_write_pin_high(D0)
+#define wht_led_on    gpio_write_pin_low(D0)
 
 #define set_led_off     red_led_off; grn_led_off; blu_led_off; wht_led_off
 #define set_led_red     red_led_on;  grn_led_off; blu_led_off; wht_led_off

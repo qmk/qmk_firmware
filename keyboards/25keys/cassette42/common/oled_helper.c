@@ -1,5 +1,7 @@
 #include "oled_helper.h"
-#include "quantum.h"
+#include "progmem.h"
+#include "rgblight.h"
+#include "oled_driver.h"
 #include <stdio.h>
 #include <string.h>
 

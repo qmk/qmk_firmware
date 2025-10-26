@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "quantum.h"
+#include "dilemma.h"
 
 #ifdef SWAP_HANDS_ENABLE
 const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
@@ -48,7 +48,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     switch (index) {
         case 0: // Left-half encoder, mouse scroll.
-            tap_code(clockwise ? KC_MS_WH_DOWN : KC_MS_WH_UP);
+            tap_code(clockwise ? MS_WHLD : MS_WHLU);
             break;
         case 1: // Right-half encoder, volume control.
             tap_code(clockwise ? KC_AUDIO_VOL_UP : KC_AUDIO_VOL_DOWN);

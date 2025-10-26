@@ -72,19 +72,6 @@ def generate_matrix_size(kb_info_json, config_h_lines):
         config_h_lines.append(generate_define('MATRIX_ROWS', kb_info_json['matrix_size']['rows']))
 
 
-def generate_matrix_masked(kb_info_json, config_h_lines):
-    """"Enable matrix mask if required"""
-    mask_required = False
-
-    if 'matrix_grid' in kb_info_json.get('dip_switch', {}):
-        mask_required = True
-    if 'matrix_grid' in kb_info_json.get('split', {}).get('handedness', {}):
-        mask_required = True
-
-    if mask_required:
-        config_h_lines.append(generate_define('MATRIX_MASKED'))
-
-
 def generate_config_items(kb_info_json, config_h_lines):
     """Iterate through the info_config map to generate basic config values.
     """
@@ -135,8 +122,8 @@ def generate_encoder_config(encoder_json, config_h_lines, postfix=''):
         b_pads.append(encoder["pin_b"])
         resolutions.append(encoder.get("resolution", None))
 
-    config_h_lines.append(generate_define(f'ENCODERS_PAD_A{postfix}', f'{{ {", ".join(a_pads)} }}'))
-    config_h_lines.append(generate_define(f'ENCODERS_PAD_B{postfix}', f'{{ {", ".join(b_pads)} }}'))
+    config_h_lines.append(generate_define(f'ENCODER_A_PINS{postfix}', f'{{ {", ".join(a_pads)} }}'))
+    config_h_lines.append(generate_define(f'ENCODER_B_PINS{postfix}', f'{{ {", ".join(b_pads)} }}'))
 
     if None in resolutions:
         cli.log.debug(f"Unable to generate ENCODER_RESOLUTION{postfix} configuration")
@@ -201,8 +188,6 @@ def generate_config_h(cli):
     generate_config_items(kb_info_json, config_h_lines)
 
     generate_matrix_size(kb_info_json, config_h_lines)
-
-    generate_matrix_masked(kb_info_json, config_h_lines)
 
     if 'matrix_pins' in kb_info_json:
         config_h_lines.append(matrix_pins(kb_info_json['matrix_pins']))
