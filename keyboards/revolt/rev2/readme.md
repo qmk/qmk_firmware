@@ -1,0 +1,56 @@
+# Revolt
+
+![Imgur](https://i.imgur.com/agVoXko.jpeg)
+
+- Keyboard Maintainer: [Jacek Królikowski](https://github.com/nietaki)
+- Hardware Supported: RPI 2040, Revolt Keyboard rev2
+- Hardware Availability: 
+  - [purchase from NTK studio](https://ntkstudio.net/products/revolt-keyboard/)
+  - [make your own](https://github.com/nietaki/revolt-keyboard) (Kicad, CC-BY-SA-4.0 license)
+
+
+## TODO
+- [x] test the layout visualisation
+- [x] add other layers
+- [x] run the style check
+- [ ] layer 1 LAYER LOCK
+- [x] keyboard photo
+
+## Revisions
+
+The firmware revision you want to use is determined by the revision of the commander
+PCB. You want the largest revision number that's less than or equal to your commander PCB revision.
+
+So if you have commander PCB rev3, you want to use firmware rev2, unless rev3 is available. Firmware rev4 is likely incompatible with rev3 commander PCBs.
+
+## Building
+
+Make example for this keyboard (after setting up your build environment), using the `default` keymap:
+
+    $ make revolt/rev2:default
+    # alternatively, using qmk cli
+    $ qmk compile -kb revolt/rev2 -km default
+
+This will create a `revolt_rev2_default.uf2` file in the root `qmk_firmware` repo directory.
+
+Flash the firmware by putting the kyboard into the bootloader mode and copying the compiled `.uf2` file into the `RPI-RP2` drive that appears.
+
+## Bootloader
+
+Enter the bootloader in one of 3 ways:
+
+- **Bootmagic reset**: Hold down the top left key of the left hand board and plug in or reset the keyboard
+- **Physical reset button**: Briefly press the reset button on the top side of the Commander board
+- **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+## Contributing
+
+Make sure you have the official hardware and you're working on the correct revision.
+
+Before submitting a PR to the Revolt firmware please remember to:
+
+- test your changes on the actual hardware
+- format the C code `clang-format -i keyboards/revolt/*/*.(h|c)`
+- check the linter (`qmk lint -kb revolt/rev2`)
+- `qmk format-json -i keyboards/revolt/*/*.json`
+- when adding new features, consider adding them to the default keymap (without changing existing mappings)
