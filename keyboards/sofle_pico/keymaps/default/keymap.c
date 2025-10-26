@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         * | Esc  | Ins  | Pscr | Menu |      |      |                    |      | PWrd |  Up  | NWrd | DLine| Bspc |
         * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
         * | Tab  | LAt  | LCtl |LShift|      | Caps |-------.    ,-------|      | Left | Down | Rigth|  Del | Bspc |
-        * |------+------+------+------+------+------|  MUTE  |    |       |------+------+------+------+------+------|
+        * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
         * |Shift | Undo |  Cut | Copy | Paste|      |-------|    |-------|      | LStr |      | LEnd |      | Shift|
         * `-----------------------------------------/       /     \      \-----------------------------------------'
         *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
@@ -78,25 +78,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _______, _______, _______, _______, _______,        _______, _______, _______, _______, _______
         ),
         /* ADJUST
-        * ,-----------------------------------------.                    ,-----------------------------------------.
-        * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
-        * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-        * |QK_BOOT|     |      |      |      |      |                    |      |      |      |      |      |      |
-        * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
-        * |      |      |MACWIN|      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
-        * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
-        * |      |      |      |      |      |      |-------|    |-------|      | PREV | PLAY | NEXT |      |      |
-        * `-----------------------------------------/       /     \      \-----------------------------------------'
-        *            | LGUI | LAlt | LCTR |LOWER | /Enter  /       \Space \  |RAISE | RCTR | RAlt | RGUI |
-        *            |      |      |      |      |/       /         \      \ |      |      |      |      |
-        *            `----------------------------------'           '------''---------------------------'
+        * ,-----------------------------------------------------.                        ,-----------------------------------------------------.
+        * |        |        |        |        |        |        |                        |RGB_TOG |RGB_VAD |RGB_VAI |        |        |        |
+        * |--------+--------+--------+--------+--------+--------|                        |--------+--------+--------+--------+--------+--------|
+        * |QK_BOOT |        |        |        |        |        |                        |RGB_MOD |RGB_RMOD|        |        |        |        |
+        * |--------+--------+--------+--------+--------+--------|                        |--------+--------+--------+--------+--------+--------|
+        * |        |        | MACWIN |        |        |        |---------.    ,---------|        |  VOLDO |  MUTE  |  VOLUP |        |        |
+        * |--------+--------+--------+--------+--------+--------|   MUTE  |    |         |--------+--------+--------+--------+--------+--------|
+        * |        |        |        |        |        |        |---------|    |---------|        |  PREV  |  PLAY  | NEXT   |        |        |
+        * `-----------------------------------------------------/        /      \        \-----------------------------------------------------'
+        *              | LGUI   |   LAlt |   LCTR |  LOWER  |  / Enter  /        \ Space  \  | RAISE  |  RCTR  |  RAlt  |  RGUI  |
+        *              |        |        |        |         | /        /          \        \ |        |        |        |        |
+        *              `------------------------------------''--------'            '--------''-----------------------------------'
         */
         [_ADJUST] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, CG_TOGG, XXXXXXX,                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, CG_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
-                          _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       RGB_TOG, RGB_VAD,  RGB_VAI, XXXXXX, XXXXXXX, XXXXXXX,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, CG_TOGG, XXXXXXX,                       RGB_MOD, RGB_RMOD, XXXXXXXX, XXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, CG_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,                       XXXXXXX, KC_VOLD,  KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX, KC_MPRV,  KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+                          _______, _______, _______, _______, _______,     _______, _______, _______,  _______, _______
         )
     // clang-format on
 };
