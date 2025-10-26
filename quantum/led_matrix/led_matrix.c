@@ -78,11 +78,12 @@ static const uint8_t led_matrix_flag_steps[] = LED_MATRIX_FLAG_STEPS;
 #define LED_MATRIX_FLAG_STEPS_COUNT ARRAY_SIZE(led_matrix_flag_steps)
 
 // internals
-static bool            suspend_state     = false;
-static uint8_t         led_last_enable   = UINT8_MAX;
-static uint8_t         led_last_effect   = UINT8_MAX;
-static effect_params_t led_effect_params = {0, LED_FLAG_ALL, false};
-static led_task_states led_task_state    = SYNCING;
+static bool            suspend_state      = false;
+static uint8_t         led_last_enable    = UINT8_MAX;
+static uint8_t         led_last_effect    = UINT8_MAX;
+static uint8_t         led_current_effect = 0;
+static effect_params_t led_effect_params  = {0, LED_FLAG_ALL, false};
+static led_task_states led_task_state     = SYNCING;
 
 // double buffers
 static uint32_t led_timer_buffer;
@@ -268,6 +269,17 @@ static void led_task_start(void) {
     g_last_hit_tracker = last_hit_buffer;
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
+    // Ideally we would also stop sending zeros to the LED driver PWM buffers
+    // while suspended and just do a software shutdown. This is a cheap hack for now.
+    bool suspend_backlight = suspend_state ||
+#if LED_MATRIX_TIMEOUT > 0
+                             (last_input_activity_elapsed() > (uint32_t)LED_MATRIX_TIMEOUT) ||
+#endif // LED_MATRIX_TIMEOUT > 0
+                             false;
+
+    // Set effect to be renedered
+    led_current_effect = suspend_backlight || !led_matrix_eeconfig.enable ? 0 : led_matrix_eeconfig.mode;
+
     // next task
     led_task_state = RENDERING;
 }
@@ -349,15 +361,7 @@ static void led_task_flush(uint8_t effect) {
 void led_matrix_task(void) {
     led_task_timers();
 
-    // Ideally we would also stop sending zeros to the LED driver PWM buffers
-    // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool suspend_backlight = suspend_state ||
-#if LED_MATRIX_TIMEOUT > 0
-                             (last_input_activity_elapsed() > (uint32_t)LED_MATRIX_TIMEOUT) ||
-#endif // LED_MATRIX_TIMEOUT > 0
-                             false;
-
-    uint8_t effect = suspend_backlight || !led_matrix_eeconfig.enable ? 0 : led_matrix_eeconfig.mode;
+    uint8_t effect = led_current_effect;
 
     switch (led_task_state) {
         case STARTING:
