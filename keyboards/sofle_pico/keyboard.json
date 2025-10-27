@@ -17,8 +17,7 @@
         "mousekey": true,
         "nkro": true,
         "oled": true,
-        "rgb_matrix": true,
-        "wpm": true
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP8"],
