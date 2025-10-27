@@ -21,7 +21,7 @@
     "processor": "RP2040",
     "split": {
         "bootmagic": {
-            "matrix": [0, 0]
+            "matrix": [4, 0]
         },
         "enabled": true,
         "matrix_pins": {
@@ -38,9 +38,6 @@
             "driver": "vendor"
         },
         "transport": {
-            "sync": {
-                "matrix_state": true
-            },
             "watchdog": true
         }
     },

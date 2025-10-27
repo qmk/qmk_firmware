@@ -7,9 +7,13 @@ The cornifi keyboard is a split keyboard based on the [corne](https://github.com
 * Keyboard Maintainer: [v3lmx (github)](https://github.com/v3lmx)
 * Hardware Availability: [v3lmx/cornifi (github)](https://github.com/v3lmx/cornifi)
 
-Compile example for this keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb cornifi -km default
+    make cornifi:default
+
+Flashing example for this keyboard:
+
+    make cornifi:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
