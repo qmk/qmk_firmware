@@ -6,6 +6,7 @@
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP12
 #define SERIAL_USART_RX_PIN GP13
+#define USB_VBUS_PIN GP24
 
 /* RP2040- and hardware-specific config */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
