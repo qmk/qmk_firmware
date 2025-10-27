@@ -14,15 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <stdint.h>
-#include <stdbool.h>
 #include "wait.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
 #include "debounce.h"
-#include "quantum.h"
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header() print("\nr/c 01234567\n")
@@ -42,24 +39,36 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+static matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+static matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+__attribute__((weak)) void matrix_init_kb(void) {
+    matrix_init_user();
+}
 
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 __attribute__((weak)) void matrix_init_user(void) {}
 
 __attribute__((weak)) void matrix_scan_user(void) {}
 
-inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
+inline uint8_t matrix_rows(void) {
+    return MATRIX_ROWS;
+}
 
-inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
+inline uint8_t matrix_cols(void) {
+    return MATRIX_COLS;
+}
 
-inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
+inline bool matrix_is_on(uint8_t row, uint8_t col) {
+    return (matrix[row] & ((matrix_row_t)1 << col));
+}
 
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
+inline matrix_row_t matrix_get_row(uint8_t row) {
+    return matrix[row];
+}
 
 void matrix_print(void) {
     print_matrix_header();
@@ -97,8 +106,8 @@ void matrix_print(void) {
  */
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < 6; x++) {
-        setPinOutput(col_pins[x]);
-        writePinLow(col_pins[x]);
+        gpio_set_pin_output(col_pins[x]);
+        gpio_write_pin_low(col_pins[x]);
     }
 }
 
@@ -106,13 +115,13 @@ static void select_col(uint8_t col) {
     if (col < 16) {
         uint8_t c = col + 8;
 
-        writePin(B6, c & 0b10000);
-        writePin(C6, c & 0b01000);
-        writePin(C7, c & 0b00100);
-        writePin(F1, c & 0b00010);
-        writePin(F0, c & 0b00001);
+        gpio_write_pin(B6, c & 0b10000);
+        gpio_write_pin(C6, c & 0b01000);
+        gpio_write_pin(C7, c & 0b00100);
+        gpio_write_pin(F1, c & 0b00010);
+        gpio_write_pin(F0, c & 0b00001);
     } else {
-        writePinHigh(B5);
+        gpio_write_pin_high(B5);
     }
 }
 
@@ -125,10 +134,10 @@ static void select_col(uint8_t col) {
 static void init_pins(void) {
     unselect_cols();
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 
-    setPinInputHigh(E2);
+    gpio_set_pin_input_high(E2);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
@@ -146,7 +155,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         // Check row pin state
         // Use the otherwise unused row: 3, col: 0 for caps lock
         if (row_index == 3 && current_col == 0) {
-            if (readPin(E2) == 0) {
+            if (gpio_read_pin(E2) == 0) {
                 // Pin LO, set col bit
                 current_matrix[row_index] |= (ROW_SHIFTER << current_col);
             } else {
@@ -154,7 +163,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
                 current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
             }
         } else {
-            if (readPin(row_pins[row_index]) == 0) {
+            if (gpio_read_pin(row_pins[row_index]) == 0) {
                 // Pin HI, clear col bit
                 current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
             } else {
@@ -185,7 +194,7 @@ void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
 
     matrix_init_kb();
 }
@@ -197,7 +206,7 @@ uint8_t matrix_scan(void) {
         changed |= read_rows_on_col(raw_matrix, current_col);
     }
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, changed);
 
     matrix_scan_kb();
 

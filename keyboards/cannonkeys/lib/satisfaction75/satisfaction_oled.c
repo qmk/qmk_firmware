@@ -2,12 +2,20 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "satisfaction_core.h"
+#include "action_layer.h"
+#include "action_util.h"
+#include "timer.h"
+#include "matrix.h"
+#include "led.h"
+#include "host.h"
+#include "progmem.h"
 #include <stdio.h>
 
 void draw_default(void);
 void draw_clock(void);
 
 #ifdef OLED_ENABLE
+#include "oled_driver.h"
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_0; }
 

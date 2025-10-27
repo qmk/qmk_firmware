@@ -8,13 +8,13 @@ from pathlib import Path
 from dotty_dict import dotty
 
 from milc import cli
-from milc.questions import choice, question
+from milc.questions import choice, question, yesno
 
 from qmk.git import git_get_username
 from qmk.json_schema import load_jsonschema
 from qmk.path import keyboard
 from qmk.json_encoders import InfoJSONEncoder
-from qmk.json_schema import deep_update, json_load
+from qmk.json_schema import deep_update
 from qmk.constants import MCU2BOOTLOADER, QMK_FIRMWARE
 
 COMMUNITY = Path('layouts/default/')
@@ -74,7 +74,11 @@ def replace_placeholders(src, dest, tokens):
     dest.write_text(content)
 
 
-def augment_community_info(src, dest):
+def replace_string(src, token, value):
+    src.write_text(src.read_text().replace(token, value))
+
+
+def augment_community_info(config, src, dest):
     """Splice in any additional data into info.json
     """
     info = json.loads(src.read_text())
@@ -82,6 +86,7 @@ def augment_community_info(src, dest):
 
     # merge community with template
     deep_update(info, template)
+    deep_update(info, config)
 
     # avoid assumptions on macro name by using the first available
     first_layout = next(iter(info["layouts"].values()))["layout"]
@@ -101,7 +106,7 @@ def augment_community_info(src, dest):
     for item in first_layout:
         item["matrix"] = [int(item["y"]), int(item["x"])]
 
-    # finally write out the updated info.json
+    # finally write out the updated json
     dest.write_text(json.dumps(info, cls=InfoJSONEncoder, sort_keys=True))
 
 
@@ -126,60 +131,70 @@ def _question(*args, **kwargs):
     return ret
 
 
-def prompt_keyboard():
-    prompt = """{fg_yellow}Name Your Keyboard Project{style_reset_all}
-For more infomation, see:
-https://docs.qmk.fm/#/hardware_keyboard_guidelines?id=naming-your-keyboardproject
+def prompt_heading_subheading(heading, subheading):
+    cli.log.info(f"{{fg_yellow}}{heading}{{style_reset_all}}")
+    cli.log.info(subheading)
 
-Keyboard Name? """
+
+def prompt_keyboard():
+    prompt_heading_subheading("Name Your Keyboard Project", """For more information, see:
+https://docs.qmk.fm/hardware_keyboard_guidelines#naming-your-keyboard-project""")
 
     errmsg = 'Keyboard already exists! Please choose a different name:'
 
-    return _question(prompt, reprompt=errmsg, validate=lambda x: not keyboard(x).exists())
+    return _question("Keyboard Name?", reprompt=errmsg, validate=lambda x: not keyboard(x).exists())
 
 
 def prompt_user():
-    prompt = """
-{fg_yellow}Attribution{style_reset_all}
-Used for maintainer, copyright, etc
+    prompt_heading_subheading("Attribution", "Used for maintainer, copyright, etc.")
 
-Your GitHub Username? """
-    return question(prompt, default=git_get_username())
+    return question("Your GitHub Username?", default=git_get_username())
 
 
 def prompt_name(def_name):
-    prompt = """
-{fg_yellow}More Attribution{style_reset_all}
-Used for maintainer, copyright, etc
+    prompt_heading_subheading("More Attribution", "Used for maintainer, copyright, etc.")
 
-Your Real Name? """
-    return question(prompt, default=def_name)
+    return question("Your Real Name?", default=def_name)
 
 
 def prompt_layout():
-    prompt = """
-{fg_yellow}Pick Base Layout{style_reset_all}
-As a starting point, one of the common layouts can be used to bootstrap the process
+    prompt_heading_subheading("Pick Base Layout", """As a starting point, one of the common layouts can be used to
+bootstrap the process""")
 
-Default Layout? """
     # avoid overwhelming user - remove some?
     filtered_layouts = [x for x in available_layouts if not any(xs in x for xs in ['_split', '_blocker', '_tsangan', '_f13'])]
     filtered_layouts.append("none of the above")
 
-    return choice(prompt, filtered_layouts, default=len(filtered_layouts) - 1)
+    return choice("Default Layout?", filtered_layouts, default=len(filtered_layouts) - 1)
+
+
+def prompt_mcu_type():
+    prompt_heading_subheading(
+        "What Powers Your Project", """Is your board using a separate development board, such as a Pro Micro,
+or is the microcontroller integrated onto the PCB?
+
+For more information, see:
+https://docs.qmk.fm/compatible_microcontrollers"""
+    )
+
+    return yesno("Using a Development Board?")
+
+
+def prompt_dev_board():
+    prompt_heading_subheading("Select Development Board", """For more information, see:
+https://docs.qmk.fm/compatible_microcontrollers""")
+
+    return choice("Development Board?", dev_boards, default=dev_boards.index("promicro"))
 
 
 def prompt_mcu():
-    prompt = """
-{fg_yellow}What Powers Your Project{style_reset_all}
-For more infomation, see:
-https://docs.qmk.fm/#/compatible_microcontrollers
+    prompt_heading_subheading("Select Microcontroller", """For more information, see:
+https://docs.qmk.fm/compatible_microcontrollers""")
 
-MCU? """
     # remove any options strictly used for compatibility
-    filtered_mcu = [x for x in (dev_boards + mcu_types) if not any(xs in x for xs in ['cortex', 'unknown'])]
+    filtered_mcu = [x for x in mcu_types if not any(xs in x for xs in ['cortex', 'unknown'])]
 
-    return choice(prompt, filtered_mcu, default=filtered_mcu.index("atmega32u4"))
+    return choice("Microcontroller?", filtered_mcu, default=filtered_mcu.index("atmega32u4"))
 
 
 @cli.argument('-kb', '--keyboard', help='Specify the name for the new keyboard directory', arg_only=True, type=keyboard_name)
@@ -206,36 +221,30 @@ def new_keyboard(cli):
     user_name = cli.config.new_keyboard.name if cli.config.new_keyboard.name else prompt_user()
     real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
-    mcu = cli.args.type if cli.args.type else prompt_mcu()
 
-    # Preprocess any development_board presets
-    if mcu in dev_boards:
-        defaults_map = json_load(Path('data/mappings/defaults.hjson'))
-        board = defaults_map['development_board'][mcu]
-
-        mcu = board['processor']
-        bootloader = board['bootloader']
+    if cli.args.type:
+        mcu = cli.args.type
     else:
-        bootloader = select_default_bootloader(mcu)
+        mcu = prompt_dev_board() if prompt_mcu_type() else prompt_mcu()
+
+    config = {}
+    if mcu in dev_boards:
+        config['development_board'] = mcu
+    else:
+        config['processor'] = mcu
+        config['bootloader'] = select_default_bootloader(mcu)
+
+    detach_layout = False
+    if default_layout == 'none of the above':
+        default_layout = "ortho_4x4"
+        detach_layout = True
 
     tokens = {  # Comment here is to force multiline formatting
         'YEAR': str(date.today().year),
         'KEYBOARD': kb_name,
         'USER_NAME': user_name,
-        'REAL_NAME': real_name,
-        'LAYOUT': default_layout,
-        'MCU': mcu,
-        'BOOTLOADER': bootloader
+        'REAL_NAME': real_name
     }
-
-    if cli.config.general.verbose:
-        cli.log.info("Creating keyboard with:")
-        for key, value in tokens.items():
-            cli.echo(f"    {key.ljust(10)}:   {value}")
-
-    # TODO: detach community layout and rename to just "LAYOUT"
-    if default_layout == 'none of the above':
-        default_layout = "ortho_4x4"
 
     # begin with making the deepest folder in the tree
     keymaps_path = keyboard(kb_name) / 'keymaps/'
@@ -251,9 +260,14 @@ def new_keyboard(cli):
 
     # merge in infos
     community_info = Path(COMMUNITY / f'{default_layout}/info.json')
-    augment_community_info(community_info, keyboard(kb_name) / community_info.name)
+    augment_community_info(config, community_info, keyboard(kb_name) / 'keyboard.json')
+
+    # detach community layout and rename to just "LAYOUT"
+    if detach_layout:
+        replace_string(keyboard(kb_name) / 'keyboard.json', 'LAYOUT_ortho_4x4', 'LAYOUT')
+        replace_string(keymaps_path / 'default/keymap.c', 'LAYOUT_ortho_4x4', 'LAYOUT')
 
     cli.log.info(f'{{fg_green}}Created a new keyboard called {{fg_cyan}}{kb_name}{{fg_green}}.{{fg_reset}}')
     cli.log.info(f"Build Command: {{fg_yellow}}qmk compile -kb {kb_name} -km default{{fg_reset}}.")
-    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}},')
-    cli.log.info("{{fg_yellow}}Now update the config files to match the hardware!{{fg_reset}}")
+    cli.log.info(f'Project Location: {{fg_cyan}}{QMK_FIRMWARE}/{keyboard(kb_name)}{{fg_reset}}.')
+    cli.log.info("{fg_yellow}Now update the config files to match the hardware!{fg_reset}")

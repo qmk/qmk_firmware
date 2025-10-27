@@ -4,19 +4,14 @@
     "maintainer": "HorrorTroll",
     "usb": {
         "vid": "0xD010",
-        "pid": "0x1601",
-        "force_nkro": true
+        "pid": "0x1601"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "nkro": true,
-        "oled": true,
-        "rgb_matrix": true,
-        "encoder": true
-    },
     "build": {
         "lto": true
     },

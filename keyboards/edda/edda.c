@@ -18,32 +18,32 @@ void keyboard_pre_init_kb(void) {
   keyboard_pre_init_user();
 
   // Set our LED pins as output
-  setPinOutput(B2);
-  setPinOutput(B1);
-  setPinOutput(B0);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(B0);
 }
 
 __attribute__((weak)) layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
     case 1:
-        writePin(B2, 1);
-        writePin(B1, 0);
-        writePin(B0, 0);
+        gpio_write_pin(B2, 1);
+        gpio_write_pin(B1, 0);
+        gpio_write_pin(B0, 0);
         break;
     case 2:
-        writePin(B2, 1);
-        writePin(B1, 1);
-        writePin(B0, 0);
+        gpio_write_pin(B2, 1);
+        gpio_write_pin(B1, 1);
+        gpio_write_pin(B0, 0);
         break;
     case 3:
-        writePin(B2, 1);
-        writePin(B1, 1);
-        writePin(B0, 1);
+        gpio_write_pin(B2, 1);
+        gpio_write_pin(B1, 1);
+        gpio_write_pin(B0, 1);
         break;
     default: //  for any other layers, or the default layer
-        writePin(B2, 0);
-        writePin(B1, 0);
-        writePin(B0, 0);
+        gpio_write_pin(B2, 0);
+        gpio_write_pin(B1, 0);
+        gpio_write_pin(B0, 0);
         break;
     }
   return state;

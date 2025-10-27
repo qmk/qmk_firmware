@@ -17,8 +17,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "dip_switch": true,
         "extrakey": true,
         "mousekey": true,

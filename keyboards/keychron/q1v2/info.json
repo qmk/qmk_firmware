@@ -10,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -31,10 +29,6 @@
         "rows": ["B5", "B4", "B3", "A15", "A14", "A13"],
         "custom": true,
         "custom_lite": true
-    },
-    "matrix_size": {
-        "cols": 16,
-        "rows": 6
     },
     "diode_direction": "ROW2COL",
     "rgb_matrix": {

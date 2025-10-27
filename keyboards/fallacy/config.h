@@ -20,11 +20,3 @@
  */
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_LED_COUNT 3
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
- */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack
- */
-#define LOCKING_RESYNC_ENABLE

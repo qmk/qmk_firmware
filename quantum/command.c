@@ -28,14 +28,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "action_util.h"
 #include "eeconfig.h"
-#include "sleep_led.h"
 #include "led.h"
 #include "command.h"
 #include "quantum.h"
+#include "usb_device_state.h"
 #include "version.h"
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
+#endif
+
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
 #endif
 
 #if defined(MOUSEKEY_ENABLE)
@@ -230,8 +234,8 @@ static void print_status(void) {
         "timer_read32(): %08lX\n"
 
         , host_keyboard_leds()
-        , keyboard_protocol
-        , keyboard_idle
+        , usb_device_state_get_protocol()
+        , usb_device_state_get_idle_rate()
 #ifdef NKRO_ENABLE
         , keymap_config.nkro
 #endif
@@ -242,10 +246,10 @@ static void print_status(void) {
 
 #if !defined(NO_PRINT) && !defined(USER_PRINT)
 static void print_eeconfig(void) {
-    xprintf("eeconfig:\ndefault_layer: %u\n", eeconfig_read_default_layer());
+    xprintf("eeconfig:\ndefault_layer: %" PRIu32 "\n", (uint32_t)eeconfig_read_default_layer());
 
     debug_config_t dc;
-    dc.raw = eeconfig_read_debug();
+    eeconfig_read_debug(&dc);
     xprintf(/* clang-format off */
 
         "debug_config.raw: %02X\n"
@@ -262,7 +266,7 @@ static void print_eeconfig(void) {
     ); /* clang-format on */
 
     keymap_config_t kc;
-    kc.raw = eeconfig_read_keymap();
+    eeconfig_read_keymap(&kc);
     xprintf(/* clang-format off */
 
         "keymap_config.raw: %02X\n"
@@ -295,7 +299,7 @@ static void print_eeconfig(void) {
 #    ifdef BACKLIGHT_ENABLE
 
     backlight_config_t bc;
-    bc.raw = eeconfig_read_backlight();
+    eeconfig_read_backlight(&bc);
     xprintf(/* clang-format off */
         "backlight_config"
 

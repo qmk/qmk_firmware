@@ -14,8 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include QMK_KEYBOARD_H
 #include "pimoroni_trackball.h"
 #include "i2c_master.h"
+#include "action.h"
+#include "timer.h"
+#include "print.h"
 
 static uint8_t scrolling      = 0;
 static int16_t x_offset       = 0;
@@ -85,9 +89,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (IS_MOUSEKEY_BUTTON(keycode)) {
         report_mouse_t currentReport = pointing_device_get_report();
         if (record->event.pressed) {
-            currentReport.buttons |= 1 << (keycode - KC_MS_BTN1);
+            currentReport.buttons |= 1 << (keycode - QK_MOUSE_BUTTON_1);
         } else {
-            currentReport.buttons &= ~(1 << (keycode - KC_MS_BTN1));
+            currentReport.buttons &= ~(1 << (keycode - QK_MOUSE_BUTTON_1));
         }
         pointing_device_set_report(currentReport);
         pointing_device_send();

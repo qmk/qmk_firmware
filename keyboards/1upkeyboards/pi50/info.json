@@ -15,17 +15,18 @@
         "layer_count": 10
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
         "rgb_matrix": true,
-        "rgblight": false,
         "oled": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "matrix_pins": {
         "rows": ["GP20", "GP15", "GP19", "GP14", "GP18", "GP13", "GP17", "GP12", "GP16", "GP21"],

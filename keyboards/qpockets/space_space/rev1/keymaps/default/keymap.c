@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_NAV] = LAYOUT_default(
-    KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, QK_BOOT,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
+    KC_HOME, KC_UP,   KC_END,   KC_PGUP, KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
     KC_LEFT, KC_DOWN, KC_RIGHT, KC_PGDN, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TAB,
     KC_MPRV, KC_MPLY, KC_MNXT,  KC_TRNS, KC_TRNS, KC_LCAP, KC_TRNS, KC_TRNS, KC_VOLD, KC_VOLU, KC_ENT,
                     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS
@@ -87,9 +87,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
             default:
                 if (clockwise){
-                    tap_code(KC_WH_U);
+                    tap_code(MS_WHLU);
                 } else{
-                    tap_code(KC_WH_D);
+                    tap_code(MS_WHLD);
                 }
                 break;
       }
