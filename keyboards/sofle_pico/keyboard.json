@@ -71,7 +71,7 @@
             "typing_heatmap": true
         },
         "default": {
-            "animation": "cycle_out_in",
+            "animation": "cycle_out_in_dual",
             "speed": 16
         },
         "driver": "ws2812",
