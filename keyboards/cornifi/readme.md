@@ -1,6 +1,6 @@
 # cornifi
 
-![cornifi keyboard](https://github.com/v3lmx/cornifi/blob/fd3d2348ceabda08f919dfa9bf1ea72ef24532c1/photos/blanco1.jpg)
+![cornifi keyboard](https://i.imgur.com/Q7B3VX8.jpeg)
 
 The cornifi keyboard is a split keyboard based on the [corne](https://github.com/foostan/crkbd) with the physical layout of the [fifi](https://github.com/raychengy/fifi_split_keeb).
 
