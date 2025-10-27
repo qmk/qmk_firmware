@@ -12,9 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
-        "dynamic_tapping_term": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
