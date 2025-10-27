@@ -36,9 +36,6 @@
         },
         "serial": {
             "driver": "vendor"
-        },
-        "transport": {
-            "watchdog": true
         }
     },
     "url": "https://github.com/v3lmx/cornifi",
