@@ -7,9 +7,6 @@
         "matrix": [3, 0]
     },
     "diode_direction": "COL2ROW",
-    "dynamic_keymap": {
-        "layer_count": 30
-    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
