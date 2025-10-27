@@ -72,27 +72,71 @@ void dance_onshot_lsft(tap_dance_state_t *state, void *user_data) {
   }
 }
 
+enum {
+   P_DEL_BSPC,
+   P_ESC_GRAVE,
+   P_TAB_TILDE,
+
+   P_MINS_UNDS,
+   P_EQL_PLUS,
+
+   P_LBRC_LCBR,
+   P_RBRC_RCBR,
+
+   P_SCLN_COLN,
+   P_QUOT_DQT,
+
+   P_COMM_LABK,
+   P_DOT_RABK,
+   P_SLSH_QUES,
+   P_BSLS_PIPE,
+
+   P_3_F3,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+   [P_DEL_BSPC] = {KC_DEL, KC_BSPC},
+   [P_ESC_GRAVE] = {KC_ESC, KC_GRAVE},
+   [P_TAB_TILDE] = {KC_TAB, KC_TILDE},
+
+   [P_MINS_UNDS] = {KC_MINS, KC_UNDS},
+   [P_EQL_PLUS] = {KC_EQL, KC_PLUS},
+
+   [P_LBRC_LCBR] = {KC_LBRC, KC_LCBR},
+   [P_RBRC_RCBR] = {KC_RBRC, KC_RCBR},
+
+   [P_SCLN_COLN] = {KC_SCLN, KC_COLN},
+   [P_QUOT_DQT] = {KC_QUOT, KC_DQT},
+
+   [P_COMM_LABK] = {KC_COMM, KC_LABK},
+   [P_DOT_RABK] = {KC_DOT, KC_RABK},
+   [P_SLSH_QUES] = {KC_SLSH, KC_QUES},
+   [P_BSLS_PIPE] = {KC_BSLS, KC_PIPE},
+   
+   [P_3_F3] = {KC_3, KC_F3},
+};
+
 //Tap Dance Definitions
-tap_dance_action_t tap_dance_actions[] = {
-   [TD_DEL_BSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_BSPC),
-   [TD_ESC_GRAVE]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
-   [TD_TAB_TILDE]  = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_TILDE),
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+   [TD_DEL_BSPC] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DEL_BSPC]),
+   [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_ESC_GRAVE]),
+   [TD_TAB_TILDE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_TAB_TILDE]),
 
-   [TD_MINS_UNDS]  = ACTION_TAP_DANCE_DOUBLE(KC_MINS, KC_UNDS),
-   [TD_EQL_PLUS]  = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),
+   [TD_MINS_UNDS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_MINS_UNDS]),
+   [TD_EQL_PLUS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_EQL_PLUS]),
 
-   [TD_LBRC_LCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
-   [TD_RBRC_RCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+   [TD_LBRC_LCBR] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_LBRC_LCBR]),
+   [TD_RBRC_RCBR] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_RBRC_RCBR]),
 
-   [TD_SCLN_COLN]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),
-   [TD_QUOT_DQT]  = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQT),
+   [TD_SCLN_COLN] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SCLN_COLN]),
+   [TD_QUOT_DQT] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_QUOT_DQT]),
 
-   [TD_COMM_LABK]  = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_LABK),
-   [TD_DOT_RABK]  = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_RABK),
-   [TD_SLSH_QUES]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUES),
-   [TD_BSLS_PIPE]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_PIPE),
+   [TD_COMM_LABK] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_COMM_LABK]),
+   [TD_DOT_RABK] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DOT_RABK]),
+   [TD_SLSH_QUES] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SLSH_QUES]),
+   [TD_BSLS_PIPE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_BSLS_PIPE]),
 
-   [TD_3_F3]  = ACTION_TAP_DANCE_DOUBLE(KC_3, KC_F3),
+   [TD_3_F3] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_3_F3]),
 
    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN(dance_onshot_lsft)
 };
