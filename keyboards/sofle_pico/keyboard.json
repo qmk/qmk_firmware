@@ -24,12 +24,6 @@
         "cols": ["GP1", "GP2", "GP3", "GP4", "GP5", "GP8"],
         "rows": ["GP9", "GP10", "GP11", "GP12", "GP13"]
     },
-    "mouse_key": {
-        "delay": 10,
-        "interval": 16,
-        "max_speed": 2,
-        "time_to_max": 40
-    },
     "processor": "RP2040",
     "rgb_matrix": {
         "sleep": true,
