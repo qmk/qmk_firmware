@@ -1,2 +1,1 @@
-CONSOLE_ENABLE=yes
 SERIAL_DRIVER = vendor
