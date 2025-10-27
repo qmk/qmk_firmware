@@ -8,13 +8,14 @@
   - [purchase from NTK studio](https://ntkstudio.net/products/revolt-keyboard/)
   - [make your own](https://github.com/nietaki/revolt-keyboard) (Kicad, CC-BY-SA-4.0 license)
 
+## Non-basic functionality
 
-## TODO
-- [x] test the layout visualisation
-- [x] add other layers
-- [x] run the style check
-- [ ] layer 1 LAYER LOCK
-- [x] keyboard photo
+- backlight cycling
+- midi (advanced) functionality is enabled (although currently not mapped in the default keymap)
+- capslock indicator is mapped to the LED on the underside of the RP2040 board
+- You can use `MS_ACL0` to disable the joystick mouse and `MS_ACL1` to enable it again
+  - it can be useful in case the joystick potentiometers wear out and you don't have a spare
+  - this setting is **not** currently saved to EEPROM
 
 ## Revisions
 
@@ -42,6 +43,13 @@ Enter the bootloader in one of 3 ways:
 - **Bootmagic reset**: Hold down the top left key of the left hand board and plug in or reset the keyboard
 - **Physical reset button**: Briefly press the reset button on the top side of the Commander board
 - **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+## Planned firmware features
+- [x] backlight cycling 
+- [x] caps lock LED
+- [x] mouse disable
+- [x] MIDI layer
+- [ ] rgb layer signifier
 
 ## Contributing
 
