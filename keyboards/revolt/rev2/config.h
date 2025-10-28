@@ -2,8 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#define LED_CAPS_LOCK_PIN GP25
-
 #define BACKLIGHT_PWM_DRIVER PWMD6
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
 
