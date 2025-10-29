@@ -127,7 +127,14 @@ __EOT__
             # No need for sudo under QMK MSYS
             return
         elif [ $(id -u) -ne 0 ]; then
-            echo "sudo"
+            if [ -n "$(command -v sudo 2>/dev/null || true)" ]; then
+                echo "sudo"
+            elif [ -n "$(command -v doas 2>/dev/null || true)" ]; then
+                echo "doas"
+            else
+                echo "Please install 'sudo' or 'doas' to continue." >&2
+                exit 1
+            fi
         fi
         true
     }
