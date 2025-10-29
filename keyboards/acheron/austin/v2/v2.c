@@ -33,20 +33,4 @@ bool led_update_kb(led_t led_state) {
         writePin(INDICATOR_3_PIN   , led_state.caps_lock   );
     }
     return res;
-void keyboard_post_init_kb(void) {
-    gpio_set_pin_output(CAPS_INDICATOR_PIN);
-    gpio_set_pin_output(INDICATOR_1_PIN);
-    gpio_set_pin_output(INDICATOR_2_PIN);
-    gpio_set_pin_output(INDICATOR_3_PIN);
-}
-
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(CAPS_INDICATOR_PIN, led_state.caps_lock);
-        gpio_write_pin(INDICATOR_1_PIN, led_state.num_lock);
-        gpio_write_pin(INDICATOR_2_PIN, led_state.scroll_lock);
-        gpio_write_pin(INDICATOR_3_PIN, led_state.caps_lock);
-    }
-    return res;
 }
