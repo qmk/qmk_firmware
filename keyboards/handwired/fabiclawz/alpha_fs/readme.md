@@ -1,6 +1,6 @@
 # handwired/fabiclawz/alpha_fs
 
-![handwired/fabiclawz/alpha_fs](https://github.com/FFS2309/alpha_fs_keyboard/blob/c858e62bff3cb70aa7a356cbeac786d8b72d4e26/image.jpg)
+![handwired/fabiclawz/alpha_fs](https://i.imgur.com/FOOmKXN.jpeg)
 
 My first keyboard with custom PCB, originally designed for the Milk-V duo series of RISC-V MCUs with pin compatibility with the Raspberry Pi Pico used in this
 case for QMK.
