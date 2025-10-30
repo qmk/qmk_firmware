@@ -125,34 +125,6 @@ inline uint32_t timer_read32(void) {
     return t;
 }
 
-/** \brief timer elapsed
- *
- * FIXME: needs doc
- */
-inline uint16_t timer_elapsed(uint16_t last) {
-    uint32_t t;
-
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        t = timer_count;
-    }
-
-    return TIMER_DIFF_16((t & 0xFFFF), last);
-}
-
-/** \brief timer elapsed32
- *
- * FIXME: needs doc
- */
-inline uint32_t timer_elapsed32(uint32_t last) {
-    uint32_t t;
-
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        t = timer_count;
-    }
-
-    return TIMER_DIFF_32(t, last);
-}
-
 // excecuted once per 1ms.(excess for just timer count?)
 #ifndef __AVR_ATmega32A__
 #    define TIMER_INTERRUPT_VECTOR TIMER0_COMPA_vect

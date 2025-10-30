@@ -1,19 +1,20 @@
 {
     "keyboard_name": "S20 revA",
     "manufacturer": "polycarbdiet",
-    "url": "",
     "maintainer": "polycarbdiet",
     "usb": {
         "vid": "0x5040",
         "pid": "0x7320",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

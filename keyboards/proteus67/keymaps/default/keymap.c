@@ -18,8 +18,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
     [_LAYERB] = LAYOUT_ortho_5x14(
         UG_TOGG , UG_HUEU  ,UG_HUED   ,UG_SATU   , UG_SATD  , UG_VALU  , UG_VALD  ,                       RGB_M_P  , RGB_M_B   , RGB_M_R    , RGB_M_SW    , RGB_M_K   , RGB_M_X   , RGB_M_G ,
-        KC_TRNS , KC_TRNS, KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS  ,              KC_TRNS  , KC_TRNS , KC_BTN1    , KC_MS_U    , KC_BTN2   , KC_TRNS   ,KC_TRNS,
-        KC_TRNS, KC_TRNS  ,KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS  ,              KC_TRNS  , KC_TRNS , KC_MS_L    , KC_MS_D , KC_MS_R , KC_SCLN,KC_QUOT ,
+        KC_TRNS , KC_TRNS, KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS  ,              KC_TRNS  , KC_TRNS , MS_BTN1    , MS_UP      , MS_BTN2   , KC_TRNS   ,KC_TRNS,
+        KC_TRNS, KC_TRNS  ,KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS  ,              KC_TRNS  , KC_TRNS , MS_LEFT    , MS_DOWN , MS_RGHT , KC_SCLN,KC_QUOT ,
         KC_TRNS, KC_TRNS  ,KC_TRNS   ,KC_TRNS   , KC_TRNS  , KC_TRNS  , KC_TRNS ,               KC_TRNS  , KC_TRNS , KC_TRNS    , KC_TRNS , KC_TRNS , KC_NUBS, KC_TRNS,
              KC_TRNS  , KC_TRNS ,KC_TRNS,KC_TRNS,  KC_TRNS ,                       UG_PREV,       KC_TRNS  , KC_TRNS , KC_TRNS , KC_TRNS , KC_TRNS
 ),

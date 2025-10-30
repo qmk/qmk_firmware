@@ -51,7 +51,7 @@ The ADNS 9800 is an SPI driven optical sensor, that uses laser output for surfac
 | `ADNS9800_CS_PIN`       | (Required) Sets the Chip Select pin connected to the sensor.           | `POINTING_DEVICE_CS_PIN` |
 
 
-The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI. 
+The CPI range is 800-8200, in increments of 200. Defaults to 1800 CPI.
 
 ### Analog Joystick
 
@@ -258,7 +258,7 @@ To use the paw 3204 sensor, add this to your `rules.mk`
 POINTING_DEVICE_DRIVER = paw3204
 ```
 
-The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source. 
+The paw 3204 sensor uses a serial type protocol for communication, and requires an additional light source.
 
 | Setting (`config.h`) | Description                                                    | Default                    |
 | -------------------- |--------------------------------------------------------------- | -------------------------- |
@@ -275,7 +275,7 @@ To use the Pimoroni Trackball module, add this to your `rules.mk`:
 POINTING_DEVICE_DRIVER = pimoroni_trackball
 ```
 
-The Pimoroni Trackball module is a I2C based breakout board with an RGB enable trackball. 
+The Pimoroni Trackball module is a I2C based breakout board with an RGB enable trackball.
 
 | Setting (`config.h`)                 | Description                                                                        | Default |
 | ------------------------------------ | ---------------------------------------------------------------------------------- | ------- |
@@ -379,14 +379,14 @@ POINTING_DEVICE_DRIVER = custom
 Using the custom driver will require implementing the following functions:
 
 ```c
-void           pointing_device_driver_init(void) {}
+bool           pointing_device_driver_init(void) { return true; }
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report) { return mouse_report; }
 uint16_t       pointing_device_driver_get_cpi(void) { return 0; }
 void           pointing_device_driver_set_cpi(uint16_t cpi) {}
 ```
 
 ::: warning
-Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case. 
+Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/pointing_device_drivers.c`, but there may be cases where it's very specific to the hardware.  So these functions are provided, just in case.
 :::
 
 ## Common Configuration
@@ -413,10 +413,36 @@ Ideally, new sensor hardware should be added to `drivers/sensors/` and `quantum/
 When using `SPLIT_POINTING_ENABLE` the `POINTING_DEVICE_MOTION_PIN` functionality is not supported and `POINTING_DEVICE_TASK_THROTTLE_MS` will default to `1`. Increasing this value will increase transport performance at the cost of possible mouse responsiveness.
 :::
 
-The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` provide a convenient way to define a single pin that can be used for an interchangeable sensor config.  This allows you to have a single config, without defining each device.  Each sensor allows for this to be overridden with their own defines. 
+The `POINTING_DEVICE_CS_PIN`, `POINTING_DEVICE_SDIO_PIN`, and `POINTING_DEVICE_SCLK_PIN` provide a convenient way to define a single pin that can be used for an interchangeable sensor config.  This allows you to have a single config, without defining each device.  Each sensor allows for this to be overridden with their own defines.
 
 ::: warning
 Any pointing device with a lift/contact status can integrate inertial cursor feature into its driver, controlled by `POINTING_DEVICE_GESTURES_CURSOR_GLIDE_ENABLE`. e.g. PMW3360 can use Lift_Stat from Motion register. Note that `POINTING_DEVICE_MOTION_PIN` cannot be used with this feature; continuous polling of `get_report()` is needed to generate glide reports.
+:::
+
+## High Resolution Scrolling
+
+| Setting                                  | Description                                                                                                               | Default       |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `POINTING_DEVICE_HIRES_SCROLL_ENABLE`    | (Optional) Enables high resolution scrolling.                                                                             | _not defined_ |
+| `POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER`| (Optional) Resolution multiplier value used by high resolution scrolling. Must be between 1 and 127, inclusive.           | `120`         |
+| `POINTING_DEVICE_HIRES_SCROLL_EXPONENT`  | (Optional) Resolution exponent value used by high resolution scrolling. Must be between 0 and 127, inclusive.             | `0`           |
+
+The `POINTING_DEVICE_HIRES_SCROLL_ENABLE` setting enables smooth and continuous scrolling when using trackballs or high-end encoders as mouse wheels (as opposed to the typical stepped behavior of most mouse wheels).
+This works by adding a resolution multiplier to the HID descriptor for mouse wheel reports, causing the host computer to interpret each wheel tick sent by the keyboard as a fraction of a normal wheel tick.
+The resolution multiplier is set to `1 / (POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER * (10 ^ POINTING_DEVICE_HIRES_SCROLL_EXPONENT))`, which is `1 / 120` by default.
+If even smoother scrolling than provided by this default value is desired, first try using `#define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 1` which will result in a multiplier of `1 / 1200`.
+
+The function `pointing_device_get_hires_scroll_resolution()` can be called to get the pre-computed resolution multiplier value as a `uint16_t`.
+
+::: warning
+High resolution scrolling usually results in larger and/or more frequent mouse reports. This can result in overflow errors and overloading of the host computer's input buffer.
+To deal with these issues, define `WHEEL_EXTENDED_REPORT` and throttle the rate at which mouse reports are sent.
+:::
+
+::: warning
+Many programs, especially those that implement their own smoothing for scrolling, don't work well when they receive simultaneous vertical and horizontal wheel inputs (e.g. from high resolution drag-scroll using a trackball).
+These programs typically implement their smoothing in a way that assumes the user will only scroll in one axis at a time, resulting in slow or jittery motion when trying to scroll at an angle.
+This can be addressed by snapping scrolling to one axis at a time.
 :::
 
 ## Split Keyboard Configuration
@@ -439,22 +465,24 @@ If there is a `_RIGHT` configuration option or callback, the [common configurati
 :::
 
 
-## Callbacks and Functions 
+## Callbacks and Functions
 
-| Function                                                   | Description                                                                                                   |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| `pointing_device_init_kb(void)`                            | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
-| `pointing_device_init_user(void)`                          | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
-| `pointing_device_task_kb(mouse_report)`                    | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
-| `pointing_device_task_user(mouse_report)`                  | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
-| `pointing_device_handle_buttons(buttons, pressed, button)` | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
-| `pointing_device_get_cpi(void)`                            | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
-| `pointing_device_set_cpi(uint16_t)`                        | Sets the CPI/DPI, if supported.                                                                               |
-| `pointing_device_get_report(void)`                         | Returns the current mouse report (as a `report_mouse_t` data structure).                                      |
-| `pointing_device_set_report(mouse_report)`                 | Sets the mouse report to the assigned `report_mouse_t` data structured passed to the function.                |
-| `pointing_device_send(void)`                               | Sends the current mouse report to the host system.  Function can be replaced.                                 |
-| `has_mouse_report_changed(new_report, old_report)`         | Compares the old and new `report_mouse_t` data and returns true only if it has changed.                       |
-| `pointing_device_adjust_by_defines(mouse_report)`          | Applies rotations and invert configurations to a raw mouse report.                                            |
+| Function                                                      | Description                                                                                                   |
+| ------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `pointing_device_init_kb(void)`                               | Callback to allow for keyboard level initialization. Useful for additional hardware sensors.                  |
+| `pointing_device_init_user(void)`                             | Callback to allow for user level initialization. Useful for additional hardware sensors.                      |
+| `pointing_device_task_kb(mouse_report)`                       | Callback that sends sensor data, so keyboard code can intercept and modify the data.  Returns a mouse report. |
+| `pointing_device_task_user(mouse_report)`                     | Callback that sends sensor data, so user code can intercept and modify the data.  Returns a mouse report.     |
+| `pointing_device_handle_buttons(buttons, pressed, button)`    | Callback to handle hardware button presses. Returns a `uint8_t`.                                              |
+| `pointing_device_get_cpi(void)`                               | Gets the current CPI/DPI setting from the sensor, if supported.                                               |
+| `pointing_device_set_cpi(uint16_t)`                           | Sets the CPI/DPI, if supported.                                                                               |
+| `pointing_device_get_report(void)`                            | Returns the current mouse report (as a `report_mouse_t` data structure).                                      |
+| `pointing_device_set_report(mouse_report)`                    | Sets the mouse report to the assigned `report_mouse_t` data structured passed to the function.                |
+| `pointing_device_send(void)`                                  | Sends the current mouse report to the host system.  Function can be replaced.                                 |
+| `has_mouse_report_changed(new_report, old_report)`            | Compares the old and new `report_mouse_t` data and returns true only if it has changed.                       |
+| `pointing_device_adjust_by_defines(mouse_report)`             | Applies rotations and invert configurations to a raw mouse report.                                            |
+| `pointing_device_get_status(void)`                            | Returns device status as `pointing_device_status_t` a good return is `POINTING_DEVICE_STATUS_SUCCESS`.        |
+| `pointing_device_set_status(pointing_device_status_t status)` | Sets device status, anything other than `POINTING_DEVICE_STATUS_SUCCESS` will disable reports from the device.|
 
 
 ## Split Keyboard Callbacks and Functions
@@ -485,7 +513,7 @@ To manually manipulate the mouse reports outside of the `pointing_device_task_*`
 
 * `pointing_device_get_report()` - Returns the current report_mouse_t that represents the information sent to the host computer
 * `pointing_device_set_report(report_mouse_t mouse_report)` - Overrides and saves the report_mouse_t to be sent to the host computer
-* `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report. 
+* `pointing_device_send()` - Sends the mouse report to the host and zeroes out the report.
 
 When the mouse report is sent, the x, y, v, and h values are set to 0 (this is done in `pointing_device_send()`, which can be overridden to avoid this behavior).  This way, button states persist, but movement will only occur once.  For further customization, both `pointing_device_init` and `pointing_device_task` can be overridden.
 
@@ -520,7 +548,7 @@ Recall that the mouse report is set to zero (except the buttons) whenever it is 
 
 ### Drag Scroll or Mouse Scroll
 
-A very common implementation is to use the mouse movement to scroll instead of moving the cursor on the system.  This uses the `pointing_device_task_user` callback to intercept and modify the mouse report before it's sent to the host system. 
+A very common implementation is to use the mouse movement to scroll instead of moving the cursor on the system.  This uses the `pointing_device_task_user` callback to intercept and modify the mouse report before it's sent to the host system.
 
 ```c
 enum custom_keycodes {
@@ -547,7 +575,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.  
+This allows you to toggle between scrolling and cursor movement by pressing the DRAG_SCROLL key.
 
 ### Advanced Drag Scroll
 
@@ -683,7 +711,7 @@ If you are having issues with pointing device drivers debug messages can be enab
 ```c
 #define POINTING_DEVICE_DEBUG
 ```
- 
+
 ::: tip
 The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](../faq_debug).
 :::
@@ -692,7 +720,7 @@ The messages will be printed out to the `CONSOLE` output. For additional informa
 ---
 # Automatic Mouse Layer {#pointing-device-auto-mouse}
 
-When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active _(in motion, mouse button pressed etc.)_ and deactivate the target layer after a set time.   
+When using a pointing device combined with a keyboard the mouse buttons are often kept on a separate layer from the default keyboard layer, which requires pressing or holding a key to change layers before using the mouse. To make this easier and more efficient an additional pointing device feature may be enabled that will automatically activate a target layer as soon as the pointing device is active _(in motion, mouse button pressed etc.)_ and deactivate the target layer after a set time.
 
 Additionally if any key that is defined as a mouse key is pressed then the layer will be held as long as the key is pressed and the timer will be reset on key release. When a non-mouse key is pressed then the layer is deactivated early _(with some exceptions see below)_.  Mod, mod tap, and one shot mod keys are ignored _(i.e. don't hold or activate layer but do not deactivate the layer either)_ when sending a modifier keycode _(e.g. hold for mod tap)_ allowing for mod keys to be used with the mouse without activating the target layer when typing.
 
@@ -726,8 +754,9 @@ void pointing_device_init_user(void) {
 }
 ```
 
-Because the auto mouse feature can be disabled/enabled during runtime and starts as disabled by default it must be enabled by calling `set_auto_mouse_enable(true);` somewhere in firmware before the feature will work.   
-_Note: for setting the target layer during initialization either setting `AUTO_MOUSE_DEFAULT_LAYER` in `config.h` or calling `set_auto_mouse_layer(<mouse_layer>)` can be used._   
+Because the auto mouse feature can be disabled/enabled during runtime and starts as disabled by default it must be enabled by calling `set_auto_mouse_enable(true);` somewhere in firmware before the feature will work.
+
+_Note: for setting the target layer during initialization either setting `AUTO_MOUSE_DEFAULT_LAYER` in `config.h` or calling `set_auto_mouse_layer(<mouse_layer>)` can be used._
 
 
 ## How to Customize:
@@ -746,7 +775,7 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 
 ### Adding mouse keys
 
-While all default mouse keys and layer keys(for current mouse layer) are treated as mouse keys, additional Keyrecords can be added to mouse keys by adding them to the is_mouse_record_* stack. 
+While all default mouse keys and layer keys(for current mouse layer) are treated as mouse keys, additional Keyrecords can be added to mouse keys by adding them to the is_mouse_record_* stack.
 
 #### Callbacks for setting up additional key codes as mouse keys:
 | Callback                                                             | Description                                        |
@@ -754,7 +783,7 @@ While all default mouse keys and layer keys(for current mouse layer) are treated
 | `bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record)`     |  keyboard level callback for adding mouse keys     |
 | `bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record)`   |  user/keymap level callback for adding mouse keys  |
 
-##### To use the callback function to add mouse keys:   
+##### To use the callback function to add mouse keys:
 
 The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer).
 ```c
@@ -778,7 +807,7 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 There are several functions that allow for more advanced interaction with the auto mouse feature allowing for greater control.
 
-### Functions to control auto mouse enable and target layer:   
+### Functions to control auto mouse enable and target layer:
 | Function                                                   | Description                                                                          | Aliases                   |     Return type |
 | :--------------------------------------------------------- | ------------------------------------------------------------------------------------ | ------------------------- | --------------: |
 | `set_auto_mouse_enable(bool enable)`                       | Enable or disable auto mouse (true:enable, false:disable)                            |                           |    `void`(None) |
@@ -797,25 +826,27 @@ There are several functions that allow for more advanced interaction with the au
 | `get_auto_mouse_key_tracker(void)`                         | Gets the current count for the auto mouse key tracker.                               |                           |        `int8_t` |
 | `set_auto_mouse_key_tracker(int8_t key_tracker)`           | Sets/Overrides the current count for the auto mouse key tracker.                     |                           |    `void`(None) |
 
-_NOTES:_   
-    - _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._   
-    - _It is recommended that `remove_auto_mouse_layer` is used in the `layer_state_set_*` stack of functions and `auto_mouse_layer_off` is used everywhere else_   
-    - _`remove_auto_mouse_layer(state, false)` or `auto_mouse_layer_off()` should be called before any instance of `set_auto_mouse_enabled(false)` or `set_auto_mouse_layer(layer)` to ensure that the target layer will be removed appropriately before disabling auto mouse or changing target to avoid a stuck layer_      
-    
-### Functions for handling custom key events:   
+_NOTES:_
+
+- _Due to the nature of how some functions work, the `auto_mouse_trigger_reset`, and `auto_mouse_layer_off` functions should never be called in the `layer_state_set_*` stack as this can cause indefinite loops._
+- _It is recommended that `remove_auto_mouse_layer` is used in the `layer_state_set_*` stack of functions and `auto_mouse_layer_off` is used everywhere else_
+- _`remove_auto_mouse_layer(state, false)` or `auto_mouse_layer_off()` should be called before any instance of `set_auto_mouse_enabled(false)` or `set_auto_mouse_layer(layer)` to ensure that the target layer will be removed appropriately before disabling auto mouse or changing target to avoid a stuck layer_
+
+### Functions for handling custom key events:
 | Function                                                   | Description                                                                      |     Return type |
 | :--------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------: |
 | `auto_mouse_keyevent(bool pressed)`                        | Auto mouse mouse key event (true: key down, false: key up)                       |    `void`(None) |
 | `auto_mouse_trigger_reset(bool pressed)`                   | Reset auto mouse status on key down and start delay timer (non-mouse key event)  |    `void`(None) |
 | `auto_mouse_toggle(void)`                                  | Toggle on/off target toggle state (disables layer deactivation when true)        |    `void`(None) |
-| `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                          |          `bool` |   
+| `get_auto_mouse_toggle(void)`                              | Return value of toggling state variable                                          |          `bool` |
+
 _NOTE: Generally it would be preferable to use the `is_mouse_record_*` functions to add any additional keys that should act as mouse keys rather than adding `auto_mouse_keyevent(record.event->pressed)` to `process_records_*`_
 
-### Advanced control examples   
+### Advanced control examples
 
-#### Disable auto mouse on certain layers:   
+#### Disable auto mouse on certain layers:
 
-The auto mouse feature can be disabled any time and this can be helpful if you want to disable the auto mouse feature under certain circumstances such as when particular layers are active. One issue however is the handling of the target layer, it needs to be removed appropriately **before** disabling auto mouse _(see notes under control functions above)_. The following function would disable the auto_mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer _(ignoring target layer)_.   
+The auto mouse feature can be disabled any time and this can be helpful if you want to disable the auto mouse feature under certain circumstances such as when particular layers are active. One issue however is the handling of the target layer, it needs to be removed appropriately **before** disabling auto mouse _(see notes under control functions above)_. The following function would disable the auto_mouse feature whenever the layers `_LAYER5` through `_LAYER7` are active as the top most layer _(ignoring target layer)_.
 
 ```c
 // in keymap.c:
@@ -854,7 +885,7 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
             auto_mouse_layer_off();
             set_auto_mouse_layer(_MOUSE_LAYER_2);
             break;
-        
+
         default:
             if((AUTO_MOUSE_TARGET_LAYER) == _MOUSE_LAYER_1) break;
             auto_mouse_layer_off();
@@ -864,9 +895,11 @@ layer_state_t default_layer_state_set_user(layer_state_t state) {
 }
 ```
 
-### Use custom keys to control auto mouse:  
-Custom key records could also be created that control the auto mouse feature.   
-The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.   
+### Use custom keys to control auto mouse:
+
+Custom key records could also be created that control the auto mouse feature.
+
+The code example below would create a custom key that would toggle the auto mouse feature on and off when pressed while also setting a bool that could be used to disable other code that may turn it on such as the layer code above.
 
 ```c
 // in config.h:
@@ -895,11 +928,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
 ## Customize Target Layer Activation
 
-Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every time `pointing_device_task` is called when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active, and will evaluate pointing device level conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions _(e.g. delay time has not expired)_.   
+Layer activation can be customized by overwriting the `auto_mouse_activation` function. This function is checked every time `pointing_device_task` is called when inactive and every `AUTO_MOUSE_DEBOUNCE` ms when active, and will evaluate pointing device level conditions that trigger target layer activation. When it returns true, the target layer will be activated barring the usual exceptions _(e.g. delay time has not expired)_.
 
 By default it will return true if any of the `mouse_report` axes `x`,`y`,`h`,`v` are non zero, or if there is any mouse buttons active in `mouse_report`.
 _Note: The Cirque pinnacle track pad already implements a custom activation function that will activate on touchdown as well as movement all of the default conditions, currently this only works for the master side of split keyboards._
- 
+
 | Function                                                   | Description                                                                      |     Return type |
 | :--------------------------------------------------------- | -------------------------------------------------------------------------------- | --------------: |
 | `auto_mouse_activation(report_mouse_t mouse_report)`       | Overwritable function that controls target layer activation (when true)          |          `bool` |
@@ -911,12 +944,12 @@ When using a custom pointing device (overwriting `pointing_device_task`) the fol
 ```c
 bool pointing_device_task(void) {
     //...Custom pointing device task code
-    
+
     // handle automatic mouse layer (needs report_mouse_t as input)
     pointing_device_task_auto_mouse(local_mouse_report);
-    
+
     //...More custom pointing device task code
-    
+
     return pointing_device_send();
 }
 ```

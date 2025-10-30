@@ -69,7 +69,7 @@ static bool active_keys(effect_params_t* params) {
     return led_max < RGB_MATRIX_LED_COUNT;
 }
 
-rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT] = {0};
+extern rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT];
 
 static uint8_t normalize_component(uint8_t component) {
     uint16_t x = (uint16_t)component;

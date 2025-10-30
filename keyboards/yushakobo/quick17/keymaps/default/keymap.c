@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT,KC_X,   KC_V,   KC_B,   LT(2,KC_SPC),LCTL(KC_S)
     ),
         [_EDIT2] = LAYOUT(
-        KC_ESC, KC_Q,   KC_BTN3,KC_INS, KC_ENT, KC_DEL,
+        KC_ESC, KC_Q,   MS_BTN3,KC_INS, KC_ENT, KC_DEL,
         KC_LCTL,KC_LBRC,KC_RBRC,KC_PGDN,KC_PGUP,LCTL(KC_Y),
         KC_LSFT,TO(3),  RM_TOGG,TO(0),  _______,KC_NO
     ),
@@ -92,9 +92,9 @@ bool encoder_update_user(uint8_t index, bool clockwise){
             }
         } else { // IS_LAYER_ON(_CONTROL)
             if (clockwise) {
-                tap_code(KC_WH_U);
+                tap_code(MS_WHLU);
             } else {
-                tap_code(KC_WH_D);
+                tap_code(MS_WHLD);
             }
         }
     }
