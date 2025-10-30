@@ -228,6 +228,7 @@ __EOT__
             *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils wget unzip zip libhidapi-hidraw0 dos2unix git" ;;
             *fedora*) echo "zstd clang diffutils which gcc git wget unzip zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
             *suse*) echo "zstd clang diffutils wget unzip zip libhidapi-hidraw0 dos2unix git libusb-1_0-devel gzip which" ;;
+            *gentoo*) echo "zstd diffutils wget unzip zip dev-libs/hidapi dos2unix dev-vcs/git dev-libs/libusb app-arch/gzip which" ;;
             *)
                 echo >&2
                 echo "Sorry, we don't recognize your distribution." >&2
@@ -332,6 +333,13 @@ __EOT__
                 $(nsudo) zypper --non-interactive refresh
                 $(nsudo) zypper --non-interactive install -t pattern devel_basis devel_C_C++
                 $(nsudo) zypper --non-interactive install $(get_package_manager_deps)
+                ;;
+            *gentoo*)
+                echo "It will also install the following system packages using 'emerge':" >&2
+                print_package_manager_deps_and_delay
+                $(nsudo) emerge --sync
+                $(nsudo) emerge --noreplace --ask=n $(get_package_manager_deps | tr ' ' '\n') || signal_execution_failure
+                exit_if_execution_failed
                 ;;
             *)
                 print_package_manager_deps_and_delay

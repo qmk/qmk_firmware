@@ -49,6 +49,9 @@ jobs:
           # OpenSUSE based (we skip Tumbleweed as it has issues with package versions between pattern installs and other dependencies preinstalled into the base container)
           - opensuse/leap:latest
 
+          # Gentoo-based
+          - gentoo/stage3:latest
+
           # Arch based
           - archlinux:latest
           - cachyos/cachyos:latest
@@ -73,6 +76,10 @@ jobs:
               zypper --non-interactive refresh
               zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
               ;;
+            *gentoo*)
+              emerge --sync
+              emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
+              ;;
             *archlinux*|*cachyos*|*manjaro*)
               pacman -Syu --noconfirm
               pacman -S --noconfirm sudo git
@@ -88,8 +95,8 @@ jobs:
           sed -i 's/^session.*pam_loginuid.so/#&/' /etc/pam.d/sudo || true
           
           # Ensure proper sudoers configuration
-          echo "Defaults !requiretty" >> /etc/sudoers
-          echo "Defaults secure_path=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\"" >> /etc/sudoers
+          echo 'Defaults !requiretty' >> /etc/sudoers
+          echo 'Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' >> /etc/sudoers
 
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -102,7 +109,7 @@ jobs:
         run: |
           # Create a test user for the bootstrap script
           useradd -m -s /bin/bash -U testuser
-          echo 'testuser:testpassword' | chpasswd
+          echo 'testuser:testpassword' | chpasswd || true
           
           # Configure passwordless sudo
           echo "root ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  # some distros complain about root not being in sudoers
@@ -120,11 +127,9 @@ jobs:
           chown -R testuser:testuser /home/testuser/qmk_firmware
 
       - name: Run bootstrap script
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Ensure the bootstrap script can access sudo
-          sudo -u testuser --preserve-env=GITHUB_TOKEN bash -c "
+          sudo -u testuser bash -c "
             export CONFIRM=1
             export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
             cd /home/testuser
