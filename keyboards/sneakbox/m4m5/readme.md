@@ -1,6 +1,6 @@
 # Sneakbox M4 & M5 PCB
 
-![Sneakbox M4 & M5 PCB]([https://i.imgur.com/hVLal1m.jpeg)
+![Sneakbox M4 & M5 PCB](https://i.imgur.com/hVLal1m.jpeg)
 
 An Alice-compatible PCB with hotswap with pushbutton rotary encoder socket placed at the top left key position. This PCB is the successor to the AliceCloneRGB PCB and features RGB underglow lighting along with revised hardware components such as an additional spacebar key in the right spacebar cluster. M4M5 firmware covers two physical PCBs for the MGA project (M4 PCB and M5 PCB) namely for the MGA V3 keyboard (which uses either PCB).
 
