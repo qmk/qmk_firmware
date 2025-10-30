@@ -127,9 +127,11 @@ jobs:
           chown -R testuser:testuser /home/testuser/qmk_firmware
 
       - name: Run bootstrap script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Ensure the bootstrap script can access sudo
-          sudo -u testuser bash -c "
+          sudo -u testuser --preserve-env=GITHUB_TOKEN bash -c "
             export CONFIRM=1
             export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
             cd /home/testuser
