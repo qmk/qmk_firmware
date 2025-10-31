@@ -13,10 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include QMK_KEYBOARD_H
+#include "as5600.h"
 
 // Dummy
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
+
+uint16_t current_position = 0;
 
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
@@ -24,4 +28,47 @@ void keyboard_post_init_user(void) {
     debug_matrix=true;
     debug_keyboard=true;
     debug_mouse=true;
+
+    // Init the AS5600 controlling the Dial
+    as5600_init();
+    current_position = get_rawangle();
+}
+
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    dprintf("entering as5600 loop\n");
+    // Get AS5600 rawangle
+    uint16_t ra = get_rawangle();
+    int16_t delta = (int16_t)(ra - current_position);
+
+    // Wrap into [-2048, 2047] to get shortest direction
+    if (delta > 2048) {
+        delta -= 4096;
+    } else if (delta < -2048) {
+        delta += 4096;
+    }
+
+    if (detected_host_os() == OS_WINDOWS || detected_host_os() == OS_LINUX) {
+        // Establish a deadzone to prevent spurious inputs
+        if (delta > POINTING_DEVICE_AS5600_DEADZONE || delta < -POINTING_DEVICE_AS5600_DEADZONE) {
+            current_position = ra;
+            mouse_report.v = delta / POINTING_DEVICE_AS5600_SPEED_DIV;
+        }
+    } else {
+        // Certain operating systems, like MacOS, don't play well with the
+        // high-res scrolling implementation. For more details, see:
+        // https://github.com/qmk/qmk_firmware/issues/17585#issuecomment-2325248167
+        if (delta >= POINTING_DEVICE_AS5600_TICK_COUNT) {
+            current_position = ra;
+            mouse_report.v = 1;
+        } else if (delta <= -POINTING_DEVICE_AS5600_TICK_COUNT) {
+            current_position = ra;
+            mouse_report.v = -1;
+        }
+    }
+
+    return mouse_report;
+}
+
+bool pointing_device_driver_init(void) {
+    return true;
 }

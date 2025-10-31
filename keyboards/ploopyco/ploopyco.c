@@ -19,7 +19,6 @@
 #include "ploopyco.h"
 #include "analog.h"
 #include "opt_encoder.h"
-#include "as5600.h"
 #include "print.h"
 
 // for legacy support
@@ -60,10 +59,6 @@
 #    define ENCODER_BUTTON_COL 0
 #endif
 
-#ifdef POINTING_DEVICE_AS5600_ENABLE
-uint16_t current_position = 0;
-#endif
-
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
 #define DPI_OPTION_SIZE ARRAY_SIZE(dpi_array)
@@ -97,56 +92,14 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 void encoder_driver_init(void) {
-
-#    ifdef POINTING_DEVICE_AS5600_ENABLE
-    as5600_init();
-    current_position = get_rawangle();
-#    else
-
     for (uint8_t i = 0; i < ARRAY_SIZE(encoder_pins_a); i++) {
         gpio_set_pin_input(encoder_pins_a[i]);
         gpio_set_pin_input(encoder_pins_b[i]);
     }
     opt_encoder_init();
-#    endif
 }
 
 void encoder_driver_task(void) {
-
-#    ifdef POINTING_DEVICE_AS5600_ENABLE
-    // Get AS5600 rawangle
-    uint16_t ra = get_rawangle();
-    int16_t delta = (int16_t)(ra - current_position);
-
-    // Wrap into [-2048, 2047] to get shortest direction
-    if (delta > 2048) {
-        delta -= 4096;
-    } else if (delta < -2048) {
-        delta += 4096;
-    }
-
-    if (detected_host_os() == OS_WINDOWS || detected_host_os() == OS_LINUX) {
-        // Establish a deadzone to prevent spurious inputs
-        if (delta > POINTING_DEVICE_AS5600_DEADZONE || delta < -POINTING_DEVICE_AS5600_DEADZONE) {
-            current_position = ra;
-            //mouse_report.v = delta / POINTING_DEVICE_AS5600_SPEED_DIV;
-            encoder_queue_event(0, delta > 0);
-        }
-    } else {
-        // Certain operating systems, like MacOS, don't play well with the
-        // high-res scrolling implementation. For more details, see:
-        // https://github.com/qmk/qmk_firmware/issues/17585#issuecomment-2325248167
-        if (delta >= POINTING_DEVICE_AS5600_TICK_COUNT) {
-            current_position = ra;
-            //mouse_report.v = 1;
-            encoder_queue_event(0, delta > 0);
-        } else if (delta <= -POINTING_DEVICE_AS5600_TICK_COUNT) {
-            current_position = ra;
-            encoder_queue_event(0, delta > 0);
-        }
-    }
-#    else
-
     uint16_t p1 = analogReadPin(encoder_pins_a[0]);
     uint16_t p2 = analogReadPin(encoder_pins_b[0]);
 
@@ -173,7 +126,6 @@ void encoder_driver_task(void) {
     if (dir == 0) return;
     encoder_queue_event(0, dir > 0);
     lastScroll = timer_read();
-#    endif
 }
 #endif
 
