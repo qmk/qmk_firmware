@@ -107,7 +107,7 @@ bool paw3222_init(void) {
     // read a burst, then discard
     paw3222_read_burst();
 
-    return true;
+    return paw3222_check_signature();
 }
 
 report_paw3222_t paw3222_read_burst(void) {
@@ -167,4 +167,11 @@ report_mouse_t paw3222_get_report(report_mouse_t mouse_report) {
     }
 
     return mouse_report;
+}
+
+bool paw3222_check_signature(void) {
+    uint8_t checkval_1  = paw3222_read(0x00);
+    uint8_t checkval_2 = paw3222_read(0x01);
+
+    return (checkval_1 == 0x30 && checkval_2 == 0x02);
 }

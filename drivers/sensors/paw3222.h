@@ -54,3 +54,4 @@ uint16_t         paw3222_get_cpi(void);
 uint16_t         constrain(uint16_t);
 int16_t          convert_twoscomp_12(uint16_t);
 report_mouse_t   paw3222_get_report(report_mouse_t mouse_report);
+bool             paw3222_check_signature(void);
