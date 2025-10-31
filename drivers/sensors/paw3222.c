@@ -170,7 +170,7 @@ report_mouse_t paw3222_get_report(report_mouse_t mouse_report) {
 }
 
 bool paw3222_check_signature(void) {
-    uint8_t checkval_1  = paw3222_read(0x00);
+    uint8_t checkval_1 = paw3222_read(0x00);
     uint8_t checkval_2 = paw3222_read(0x01);
 
     return (checkval_1 == 0x30 && checkval_2 == 0x02);
