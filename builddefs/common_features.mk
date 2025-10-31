@@ -159,7 +159,6 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
             SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), paw3222)
             SPI_DRIVER_REQUIRED = yes
-            SRC += drivers/sensors/paw3222.c
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             I2C_DRIVER_REQUIRED = yes
         else ifneq ($(filter $(strip $(POINTING_DEVICE_DRIVER)),pmw3360 pmw3389),)

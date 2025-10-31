@@ -16,11 +16,9 @@
 
 #include "paw3222.h"
 #include "wait.h"
-#include "debug.h"
 #include "gpio.h"
 #include "math.h"
 #include "spi_master.h"
-#include <print.h>
 #include "pointing_device_internal.h"
 
 #define MSB1 0x80
@@ -33,6 +31,15 @@ const pointing_device_driver_t paw3222_pointing_device_driver = {
     .get_cpi    = paw3222_get_cpi,
 };
 
+// Convert a 12-bit twos complement binary-represented number into a
+// signed 12-bit integer.
+int16_t convert_twoscomp_12(uint16_t data) {
+    if ((data & 0x800) == 0x800)
+        return -2048 + (data & 0x7FF);
+    else
+        return data;
+}
+
 void paw3222_write(uint8_t reg_addr, uint8_t data) {
     spi_start(PAW3222_CS_PIN, false, 3, PAW3222_SPI_DIVISOR);
     wait_us(1); // Tncs_lead
@@ -40,7 +47,6 @@ void paw3222_write(uint8_t reg_addr, uint8_t data) {
     spi_write(data);
     wait_us(1); // Tncs_lag
     spi_stop();
-    // wait_us(10);
 }
 
 uint8_t paw3222_read(uint8_t reg_addr) {
@@ -57,7 +63,6 @@ uint8_t paw3222_read(uint8_t reg_addr) {
 
 bool paw3222_init(void) {
     gpio_set_pin_output(PAW3222_CS_PIN);
-    gpio_set_pin_input(PAW3222_MOTION_PIN);
 
     // CS must be kept low at power-up stage for at least 1ms
     gpio_write_pin_low(PAW3222_CS_PIN);
@@ -125,8 +130,6 @@ report_paw3222_t paw3222_read_burst(void) {
 
         report.dx = convert_twoscomp_12(dx);
         report.dy = convert_twoscomp_12(dy);
-
-        // dprintf("dx is %i, dy is %i\n", report.dx, report.dy);
     }
 
     return report;
@@ -146,15 +149,6 @@ void paw3222_set_cpi(uint16_t cpi) {
 uint16_t paw3222_get_cpi(void) {
     uint8_t cpival = paw3222_read(0x0D);
     return (uint16_t)(cpival * 30);
-}
-
-// Convert a 12-bit twos complement binary-represented number into a
-// signed 12-bit integer.
-int16_t convert_twoscomp_12(uint16_t data) {
-    if ((data & 0x800) == 0x800)
-        return -2048 + (data & 0x7FF);
-    else
-        return data;
 }
 
 report_mouse_t paw3222_get_report(report_mouse_t mouse_report) {

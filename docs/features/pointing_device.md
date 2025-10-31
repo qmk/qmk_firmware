@@ -277,19 +277,10 @@ POINTING_DEVICE_DRIVER = paw3222
 
 The following pins must be defined in `config.h`:
 
-| Setting (`config.h`) | Description                                                        | Default                      |
-| -------------------- | ------------------------------------------------------------------ | ---------------------------- |
-| `PAW3222_CS_PIN`     | (Required) The pin connected to the chip select pin of the sensor. | `POINTING_DEVICE_CS_PIN`     |
-| `PAW3222_MOTION_PIN` | (Required) The pin connected to the motion pin of the sensor.      | `POINTING_DEVICE_MOTION_PIN` |
-
-The PAW-3222 uses a custom 3-wire SPI implementation. The following settings may need to be defined in `config.h`, depending on your hardware configuration:
-
-| Setting (`config.h`)  | Description                                                      | Default       |
-| --------------------- | ---------------------------------------------------------------- | ------------- |
-| `PAW3222_SPI_DIVISOR` | (Required) The SPI clock divisor. This is dependent on your MCU. | _not defined_ |
-| `SPI_SCK_PIN`         | (Required) The pin connected to the clock pin of the sensor.     | _not defined_ |
-| `SPI_MISO_PIN`        | (Required) The pin connected to the MISO pin of the sensor.      | _not defined_ |
-| `SPI_MOSI_PIN`        | (Required) The pin connected to the MOSI pin of the sensor.      | _not defined_ |
+| Setting (`config.h`)  | Description                                                        | Default                      |
+| --------------------- | ------------------------------------------------------------------ | ---------------------------- |
+| `PAW3222_CS_PIN`      | (Required) The pin connected to the chip select pin of the sensor. | `POINTING_DEVICE_CS_PIN`     |
+| `PAW3222_SPI_DIVISOR` | (Required) The SPI clock divisor. This is dependent on your MCU.   | _not defined_                |
 
 The CPI range is up to 4,000. Defaults to 1,000 CPI.
 

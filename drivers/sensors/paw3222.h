@@ -28,14 +28,6 @@
 #    endif
 #endif
 
-#ifndef PAW3222_MOTION_PIN
-#    ifdef POINTING_DEVICE_MOTION_PIN
-#        define PAW3222_MOTION_PIN POINTING_DEVICE_MOTION_PIN
-#    else
-#        error "No data pin defined -- missing POINTING_DEVICE_MOTION_PIN or PAW3222_MOTION_PIN"
-#    endif
-#endif
-
 #ifndef PAW3222_SPI_DIVISOR
 #    error "No PAW3222 SPI divisor defined -- missing PAW3222_SPI_DIVISOR"
 #endif
@@ -51,7 +43,5 @@ bool             paw3222_init(void);
 report_paw3222_t paw3222_read_burst(void);
 void             paw3222_set_cpi(uint16_t cpi);
 uint16_t         paw3222_get_cpi(void);
-uint16_t         constrain(uint16_t);
-int16_t          convert_twoscomp_12(uint16_t);
 report_mouse_t   paw3222_get_report(report_mouse_t mouse_report);
 bool             paw3222_check_signature(void);
