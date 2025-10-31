@@ -16,17 +16,4 @@
 
 #pragma once
 
-#include "config_common.h"
-
-/* key matrix rows */
-#define MATRIX_ROWS 6
-#define MATRIX_ROW_PINS { A0, A1, A2, A3, A4, A5 }
-
-/* key matrix columns */
-#define MATRIX_COLS 16
-#define MATRIX_COL_PINS { B0, B1, B2, B10, B11, B12, B13, B14, B15, C6, C7, C8, C9, C10, C11, C12 }
-
-#ifdef RGB_MATRIX_ENABLE
-#define DRIVER_1_LED_TOTAL 58
-#define DRIVER_2_LED_TOTAL 26
-#endif
+#define CAPS_LED 46

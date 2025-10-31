@@ -85,9 +85,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
             default:
                 if (clockwise){
-                    tap_code(KC_WH_U);
+                    tap_code(MS_WHLU);
                 } else{
-                    tap_code(KC_WH_D);
+                    tap_code(MS_WHLD);
                 }
                 break;
       }
@@ -120,7 +120,7 @@ const uint16_t PROGMEM combo_tab[] = {KC_S, KC_D, COMBO_END};
 const uint16_t PROGMEM combo_esc[] = {KC_T, KC_Y, COMBO_END};
 const uint16_t PROGMEM combo_del[] = {KC_Q, KC_W, COMBO_END};
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
   [COMBO_BSPC] = COMBO(combo_bspc,KC_BSPC),
   [COMBO_ENT] = COMBO(combo_ent,KC_ENT),
   [COMBO_TAB] = COMBO(combo_tab,KC_TAB),

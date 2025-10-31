@@ -30,9 +30,11 @@ bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t l, uint1
 // Convert from input pixel data + palette to equivalent pixels
 typedef int16_t (*qp_internal_byte_input_callback)(void* cb_arg);
 typedef bool (*qp_internal_pixel_output_callback)(qp_pixel_t* palette, uint8_t index, void* cb_arg);
+typedef bool (*qp_internal_byte_output_callback)(uint8_t byte, void* cb_arg);
 bool qp_internal_decode_palette(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t* palette, qp_internal_pixel_output_callback output_callback, void* output_arg);
 bool qp_internal_decode_grayscale(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_internal_pixel_output_callback output_callback, void* output_arg);
 bool qp_internal_decode_recolor(painter_device_t device, uint32_t pixel_count, uint8_t bits_per_pixel, qp_internal_byte_input_callback input_callback, void* input_arg, qp_pixel_t fg_hsv888, qp_pixel_t bg_hsv888, qp_internal_pixel_output_callback output_callback, void* output_arg);
+bool qp_internal_send_bytes(painter_device_t device, uint32_t byte_count, qp_internal_byte_input_callback input_callback, void* input_arg, qp_internal_byte_output_callback output_callback, void* output_arg);
 
 // Global variable used for interpolated pixel lookup table.
 #if QUANTUM_PAINTER_SUPPORTS_256_PALETTE
@@ -61,7 +63,7 @@ enum qp_internal_rle_mode_t {
     NON_REPEATING_RUN,
 };
 
-struct qp_internal_byte_input_state {
+typedef struct qp_internal_byte_input_state_t {
     painter_device_t device;
     qp_stream_t*     src_stream;
     int16_t          curr;
@@ -72,14 +74,27 @@ struct qp_internal_byte_input_state {
             uint8_t                     remain; // number of bytes remaining in the current mode
         } rle;
     };
-};
+} qp_internal_byte_input_state_t;
 
-struct qp_internal_pixel_output_state {
+typedef struct qp_internal_pixel_output_state_t {
     painter_device_t device;
     uint32_t         pixel_write_pos;
     uint32_t         max_pixels;
-};
+} qp_internal_pixel_output_state_t;
 
 bool qp_internal_pixel_appender(qp_pixel_t* palette, uint8_t index, void* cb_arg);
 
-qp_internal_byte_input_callback qp_internal_prepare_input_state(struct qp_internal_byte_input_state* input_state, painter_compression_t compression);
+typedef struct qp_internal_byte_output_state_t {
+    painter_device_t device;
+    uint32_t         byte_write_pos;
+    uint32_t         max_bytes;
+} qp_internal_byte_output_state_t;
+
+bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg);
+
+// Helper shared between image and font rendering, sends pixels to the display using:
+//     - qp_internal_decode_palette + qp_internal_pixel_appender (bpp <= 8)
+//     - qp_internal_send_bytes                                  (bpp > 8)
+bool qp_internal_appender(painter_device_t device, uint8_t bpp, uint32_t pixel_count, qp_internal_byte_input_callback input_callback, void* input_state);
+
+qp_internal_byte_input_callback qp_internal_prepare_input_state(qp_internal_byte_input_state_t* input_state, painter_compression_t compression);

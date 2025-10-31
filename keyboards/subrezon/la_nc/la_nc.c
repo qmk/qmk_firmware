@@ -1,7 +1,7 @@
 // Copyright 2022 Daniel Osipishin (@subrezon)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "la_nc.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 

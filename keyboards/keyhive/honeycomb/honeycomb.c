@@ -2,7 +2,7 @@
 #include "pointing_device.h"
 #include "report.h"
 
-void pointing_device_task(void){
+bool pointing_device_task(void){
 	/*report_mouse_t currentReport = {};
     uint32_t timeout = 0;
 
@@ -56,16 +56,16 @@ void pointing_device_task(void){
     } else {
 	xprintf("\r\nRequested packet, data 4 was %d",uart_data[4]);
     }*/
-    pointing_device_send();
+    return pointing_device_send();
 }
 
 void led_init(void) {
-  setPinOutput(D1);
-  writePinHigh(D1);
-  setPinOutput(F4);
-  writePinHigh(F4);
-  setPinOutput(F5);
-  writePinHigh(F5);
+  gpio_set_pin_output(D1);
+  gpio_write_pin_high(D1);
+  gpio_set_pin_output(F4);
+  gpio_write_pin_high(F4);
+  gpio_set_pin_output(F5);
+  gpio_write_pin_high(F5);
 }
 
 void matrix_init_kb(void) {

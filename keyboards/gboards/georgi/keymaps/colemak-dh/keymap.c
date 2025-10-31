@@ -12,8 +12,6 @@
 
 #include QMK_KEYBOARD_H
 #include "sten.h"
-#include "keymap_steno.h"
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // Steno Layers
 #define FUNCT	( LSD | LK | LP | LH )
@@ -57,8 +55,8 @@ uint32_t processQwerty(bool lookup) {
 	P( LFT | LK  | LP  | LW,			REPEAT());
 
 	// Mouse Keys
-	/* P( LO  | LSD | LK,	CLICK_MOUSE(KC_MS_BTN2)); */
-	/* P( LO  | LR  | LW,	CLICK_MOUSE(KC_MS_BTN1)); */
+	/* P( LO  | LSD | LK,	CLICK_MOUSE(MS_BTN2)); */
+	/* P( LO  | LR  | LW,	CLICK_MOUSE(MS_BTN1)); */
 
 
 /* Function layer

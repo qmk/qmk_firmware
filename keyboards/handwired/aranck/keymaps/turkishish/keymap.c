@@ -64,7 +64,7 @@ enum {
 };
 
 // clang-format off
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
     [TR_C] = 0x00c7,
     [TR_C_L] = 0x00e7,
     [TR_I] = 0x0130,

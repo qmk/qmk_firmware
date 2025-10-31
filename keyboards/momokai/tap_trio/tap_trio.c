@@ -14,18 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "tap_trio.h"
+#include "quantum.h"
 
-// #ifdef RGB_MATRIX_ENABLE
-// led_config_t g_led_config = { {
-//     // Key Matrix to LED Index
-//     { 0, 1, 2, NO_LED, NO_LED, NO_LED}
-// }, {
-//     // LED Index to Physical Position
-//     {  56,  0}, { 112,  0}, { 168,  0}, { 0,  64}, { 224,  64}
-// }, {
-//     // LED Index to Flag
-//     4,4,4,2,2
-// } };
+#ifdef RGB_MATRIX_ENABLE
+led_config_t g_led_config = { {
+    // Key Matrix to LED Index
+    { 0, 1, 2, NO_LED, NO_LED, NO_LED}
+}, {
+    // LED Index to Physical Position
+    {  56,  0}, { 112,  0}, { 168,  0}, { 0,  64}, { 224,  64}
+}, {
+    // LED Index to Flag
+    4,4,4,2,2
+} };
 
-// #endif
+#endif

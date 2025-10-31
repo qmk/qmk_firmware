@@ -44,9 +44,9 @@ enum {
     left_enter,
 };
 
-uint8_t cur_dance(qk_tap_dance_state_t *state);
-void left_enter_finished(qk_tap_dance_state_t *state, void *user_data);
-void left_enter_reset(qk_tap_dance_state_t *state, void *user_data);
+uint8_t cur_dance(tap_dance_state_t *state);
+void left_enter_finished(tap_dance_state_t *state, void *user_data);
+void left_enter_reset(tap_dance_state_t *state, void *user_data);
 
 
 
@@ -71,15 +71,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 [3] = LAYOUT(
-    RGB_M_G,  RGB_M_T, _______,  RGB_M_P, RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD,  _______,  _______, _______, _______, _______, _______,
-    RGB_M_SN, RGB_M_K, RGB_M_X,  RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, RGB_RMOD, _______,  _______, _______, _______, _______, _______,
+    RGB_M_G,  RGB_M_T, _______,  RGB_M_P, UG_HUEU, UG_SATU, UG_VALU, UG_NEXT,  _______,  _______, _______, _______, _______, _______,
+    RGB_M_SN, RGB_M_K, RGB_M_X,  UG_TOGG, UG_HUED, UG_SATD, UG_VALD, UG_PREV,  _______,  _______, _______, _______, _______, _______,
     RGB_M_B,  RGB_M_R, RGB_M_SW,          _______, _______, _______, _______,  _______,  _______, _______, _______, _______, _______
   )
 
 };
 
 
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+uint8_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return SINGLE_TAP;
         // Key has not been interrupted, but the key is still held. Means you want to send a 'HOLD'.
@@ -95,7 +95,7 @@ static tap left_enter_tap_state = {
     .state = 0
 };
 
-void left_enter_finished(qk_tap_dance_state_t *state, void *user_data) {
+void left_enter_finished(tap_dance_state_t *state, void *user_data) {
     left_enter_tap_state.state = cur_dance(state);
     switch (left_enter_tap_state.state) {
         //case SINGLE_TAP: register_code(KC_ENT); break;
@@ -104,7 +104,7 @@ void left_enter_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void left_enter_reset(qk_tap_dance_state_t *state, void *user_data) {
+void left_enter_reset(tap_dance_state_t *state, void *user_data) {
     switch (left_enter_tap_state.state) {
         //case SINGLE_TAP: unregister_code(KC_ENT); break;
         case SINGLE_HOLD: unregister_code(KC_LSFT); break;
@@ -113,7 +113,7 @@ void left_enter_reset(qk_tap_dance_state_t *state, void *user_data) {
     left_enter_tap_state.state = 0;
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [left_enter] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, left_enter_finished, left_enter_reset)
 };
 

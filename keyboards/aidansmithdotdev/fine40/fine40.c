@@ -1,6 +1,6 @@
 // Copyright 2022 Aidan Smith (@Aidan-OS)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "fine40.h"
+#include "quantum.h"
 
 enum keyboard_layers {
 	_MAIN,
@@ -66,20 +66,5 @@ bool oled_task_kb(void) {
 	
 	//render_logo();
 	return(true);
-}
-#endif
-
-#ifdef ENCODER_ENABLE
-bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
-        return false;
-    }
-	// Volume control
-	if (clockwise) {
-		tap_code(KC_VOLU);
-	} else {
-		tap_code(KC_VOLD);
-	}
-	return false;
 }
 #endif

@@ -1,45 +1,14 @@
-/*
- * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
- * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+// Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
+// Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
-
-// clang-format off
-#if defined(KEYBOARD_bastardkb_charybdis_3x5)
-#    include "3x5.h"
-#elif defined(KEYBOARD_bastardkb_charybdis_3x6)
-#    include "3x6.h"
-#elif defined(KEYBOARD_bastardkb_charybdis_4x6)
-#    include "4x6.h"
-#else
-#    error "Unsuported format"
-#endif
-// clang-format on
 
 #include "quantum.h"
 
 #ifdef POINTING_DEVICE_ENABLE
 #    ifndef NO_CHARYBDIS_KEYCODES
 enum charybdis_keycodes {
-#        ifdef VIA_ENABLE
-    POINTER_DEFAULT_DPI_FORWARD = USER00,
-#        else
-    POINTER_DEFAULT_DPI_FORWARD = SAFE_RANGE,
-#        endif // VIA_ENABLE
+    POINTER_DEFAULT_DPI_FORWARD = QK_KB_0,
     POINTER_DEFAULT_DPI_REVERSE,
     POINTER_SNIPING_DPI_FORWARD,
     POINTER_SNIPING_DPI_REVERSE,
@@ -47,7 +16,6 @@ enum charybdis_keycodes {
     SNIPING_MODE_TOGGLE,
     DRAGSCROLL_MODE,
     DRAGSCROLL_MODE_TOGGLE,
-    CHARYBDIS_SAFE_RANGE,
 };
 
 #        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD

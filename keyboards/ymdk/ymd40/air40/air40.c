@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "air40.h"
+#include "quantum.h"
 
 #if defined(RGB_MATRIX_ENABLE)
 led_config_t g_led_config = {

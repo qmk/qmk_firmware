@@ -13,11 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "bmek.h"
+#include "quantum.h"
 
-__attribute__((weak))
-void shutdown_user() {
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
 #ifdef RGBLIGHT_ENABLE
     rgblight_setrgb(255, 0, 0);
 #endif
+    return true;
 }

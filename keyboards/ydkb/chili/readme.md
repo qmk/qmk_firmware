@@ -1,6 +1,6 @@
 # YDKB Chili
 
-[Chili PCB](https://i.imgur.com/fKi896a.jpg)
+![Chili PCB](https://i.imgur.com/fKi896ah.jpg)
 
 The YDKB Chili is a Cherry G80-3000 replacement PCB utilizing the ATmega32U4 microcontroller.
 

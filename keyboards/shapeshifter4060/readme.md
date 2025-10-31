@@ -13,7 +13,7 @@ Make example for this keyboard (after setting up your build environment):
     
 For use with the Proton C
     
-    make shapeshifter4060:default CTPC=yes
+    make shapeshifter4060:default CONVERT_TO=proton_c
     
 Flashing example for this keyboard:
 

@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "thirty.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 led_config_t g_led_config = {
@@ -46,3 +46,8 @@ led_config_t g_led_config = {
 };
 
 #endif
+
+void board_init(void) {
+    // Remap B11 AF to TIM2_CH4
+    AFIO->MAPR |= AFIO_MAPR_TIM2_REMAP_PARTIALREMAP2;
+}

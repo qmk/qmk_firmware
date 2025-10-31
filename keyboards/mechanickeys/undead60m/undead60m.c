@@ -14,7 +14,7 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */ 
 	  
-#include "undead60m.h"
+#include "quantum.h"
 bool encoder_update_kb(uint8_t index, bool clockwise) {
   if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 0) {
@@ -28,9 +28,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
           break;
         case 1: /* Layer 2: Scroll */
           if (clockwise) {
-              tap_code(KC_WH_U);
+              tap_code(MS_WHLU);
           } else {
-              tap_code(KC_WH_D);
+              tap_code(MS_WHLD);
           }
           break;
         case 2: /* Layer 3: Change Track */

@@ -15,13 +15,10 @@
  */
 #include "process_steno.h"
 #include "quantum_keycodes.h"
-#include "keymap_steno.h"
+#include "eeconfig.h"
 #include <string.h>
 #ifdef VIRTSER_ENABLE
 #    include "virtser.h"
-#endif
-#ifdef STENO_ENABLE_ALL
-#    include "eeprom.h"
 #endif
 
 // All steno keys that have been pressed to form this chord,
@@ -127,17 +124,14 @@ static const uint16_t combinedmap_second[] PROGMEM = {STN_S2, STN_KL, STN_WL, ST
 #endif
 
 #ifdef STENO_ENABLE_ALL
-void steno_init() {
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
-    }
-    mode = eeprom_read_byte(EECONFIG_STENOMODE);
+void steno_init(void) {
+    mode = eeconfig_read_steno_mode();
 }
 
 void steno_set_mode(steno_mode_t new_mode) {
     steno_clear_chord();
     mode = new_mode;
-    eeprom_update_byte(EECONFIG_STENOMODE, mode);
+    eeconfig_update_steno_mode(mode);
 }
 #endif // STENO_ENABLE_ALL
 
@@ -173,13 +167,13 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
 #ifdef STENO_ENABLE_ALL
         case QK_STENO_BOLT:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 steno_set_mode(STENO_MODE_BOLT);
             }
             return false;
 
         case QK_STENO_GEMINI:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 steno_set_mode(STENO_MODE_GEMINI);
             }
             return false;
@@ -193,7 +187,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
         }
 #endif // STENO_COMBINEDMAP
         case STN__MIN ... STN__MAX:
-            if (IS_PRESSED(record->event)) {
+            if (record->event.pressed) {
                 n_pressed_keys++;
                 switch (mode) {
 #ifdef STENO_ENABLE_BOLT

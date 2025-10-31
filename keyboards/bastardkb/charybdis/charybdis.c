@@ -1,22 +1,7 @@
-/*
- * Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
- * Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
- * Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Publicw License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+// Copyright 2020 Christopher Courtney <drashna@live.com> (@drashna)
+// Copyright 2021 Quentin LEBASTARD <qlebastard@gmail.com>
+// Copyright 2021 Charly Delay <charly@codesink.dev> (@0xcharly)
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include "charybdis.h"
 #include "transactions.h"
 #include <string.h>
@@ -304,7 +289,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 #        endif // !NO_CHARYBDIS_KEYCODES
 #    endif     // POINTING_DEVICE_ENABLE
-    if ((keycode >= POINTER_DEFAULT_DPI_FORWARD && keycode < CHARYBDIS_SAFE_RANGE) || IS_MOUSEKEY(keycode)) {
+    if (IS_QK_KB(keycode) || IS_MOUSEKEY(keycode)) {
         debug_charybdis_config_to_console(&g_charybdis_config);
     }
     return true;
@@ -371,14 +356,30 @@ void housekeeping_task_kb(void) {
 
 #if defined(KEYBOARD_bastardkb_charybdis_3x5_blackpill) || defined(KEYBOARD_bastardkb_charybdis_4x6_blackpill)
 void keyboard_pre_init_kb(void) {
-    setPinInputHigh(A0);
+    gpio_set_pin_input_high(A0);
     keyboard_pre_init_user();
 }
 
 void matrix_scan_kb(void) {
-    if (!readPin(A0)) {
+    if (!gpio_read_pin(A0)) {
         reset_keyboard();
     }
     matrix_scan_user();
 }
 #endif // KEYBOARD_bastardkb_charybdis_3x5_blackpill || KEYBOARD_bastardkb_charybdis_4x6_blackpill
+
+bool shutdown_kb(bool jump_to_bootloader) {
+    if (!shutdown_user(jump_to_bootloader)) {
+        return false;
+    }
+#ifdef RGBLIGHT_ENABLE
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_setrgb(RGB_RED);
+#endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_set_color_all(RGB_RED);
+    rgb_matrix_update_pwm_buffers();
+#endif // RGB_MATRIX_ENABLE
+    return true;
+}

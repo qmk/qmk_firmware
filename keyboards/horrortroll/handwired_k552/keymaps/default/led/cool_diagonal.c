@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-static HSV COOL_DIAGONAL_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t COOL_DIAGONAL_math(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.h = (g_led_config.point[i].x / 4) - g_led_config.point[i].y - time;
     return hsv;
 }

@@ -23,6 +23,17 @@ void eeprom_driver_init(void) {
     /* Any initialisation code */
  }
 
+void eeprom_driver_format(bool erase) {
+    /* If erase=false, then only do the absolute minimum initialisation necessary
+       to make sure that the eeprom driver is usable. It doesn't need to guarantee
+       that the content of the eeprom is reset to any particular value. For many
+       eeprom drivers this may be a no-op.
+
+       If erase=true, then in addition to making sure the eeprom driver is in a
+       usable state, also make sure that it is erased.
+     */
+}
+
 void eeprom_driver_erase(void) {
     /* Wipe out the EEPROM, setting values to zero */
 }

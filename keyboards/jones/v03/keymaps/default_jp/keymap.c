@@ -43,13 +43,13 @@ enum {
 
 // Declare the functions to be used with your tap dance key(s)
 // Function associated with all tap dances
-uint8_t cur_dance(qk_tap_dance_state_t *state);
+uint8_t cur_dance(tap_dance_state_t *state);
 // Functions associated with individual tap dances
-void ql_finished(qk_tap_dance_state_t *state, void *user_data);
-void ql_reset(qk_tap_dance_state_t *state, void *user_data);
+void ql_finished(tap_dance_state_t *state, void *user_data);
+void ql_reset(tap_dance_state_t *state, void *user_data);
 
 // Tap Dance definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_LSFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
     [TD_ESC_NUM] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset),
 };
@@ -62,12 +62,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
-
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  MAC = SAFE_RANGE,
-  WIN,
-};
 
 // Key Macro
 #define ESC_NUM TD(TD_ESC_NUM)
@@ -82,7 +76,8 @@ enum custom_keycodes {
 #define ALT_GRV LALT(KC_GRV)
 #define LOWER   MO(_LOWER)
 #define NUM     TG(_NUM)
-
+#define MAC     PDF(_MAC)
+#define WIN     PDF(_WIN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAC] = LAYOUT_jp(
@@ -128,9 +123,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     ),
     [_ADJUST] = LAYOUT_jp(
-        _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
-        _______,    _______,WIN,    _______,QK_BOOT,  _______,RGB_HUI,RGB_SAI,RGB_VAI,_______,RGB_RMOD,           _______,_______,
-        _______,    _______,_______,_______,_______,_______,RGB_HUD,RGB_SAD,RGB_VAD,RGB_TOG,RGB_MOD,_______,    _______,_______,
+        _______,UG_HUEU,UG_SATU,UG_VALU,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,
+        _______,    _______,WIN,    _______,QK_BOOT,_______,UG_HUEU,UG_SATU,UG_VALU,_______,UG_PREV,            _______,_______,
+        _______,    _______,_______,_______,_______,_______,UG_HUED,UG_SATD,UG_VALD,UG_TOGG,UG_NEXT,_______,    _______,_______,
         _______,        _______,_______,_______,_______,_______,NUM,     MAC,   _______,_______,_______,_______,_______,_______,
         _______,_______,_______,_______,        _______,        _______,        _______,_______,_______,_______,_______,_______
     )
@@ -145,26 +140,6 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_jp(
     0,   1,  2,  3,      4,      5,      6,  7,  8,  9, 10, 11
 );
 #endif
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-switch (keycode) {
-    case MAC: // Change default ayer --> Write to EEPROM
-        if (record->event.pressed) {
-            set_single_persistent_default_layer(_MAC);
-        }
-        return false;
-        break;
-    case WIN: // Change default ayer --> Write to EEPROM
-        if (record->event.pressed) {
-            set_single_persistent_default_layer(_WIN);
-        }
-        return false;
-        break;
-    default:
-        break;
-    }
-    return true;
-}
 
 //------------------------------------------------------------------------------
 // RGB Light settings
@@ -279,7 +254,7 @@ typedef struct {
 } tap;
 
 // Determine the current tap dance state
-uint8_t cur_dance(qk_tap_dance_state_t *state) {
+uint8_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (!state->pressed) {
             return SINGLE_TAP;
@@ -310,7 +285,7 @@ static tap ql_tap_state = {
 };
 
 // Functions that control what our tap dance key does
-void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
+void ql_finished(tap_dance_state_t *state, void *user_data) {
     ql_tap_state.state = cur_dance(state);
     switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM): // ESC key action
@@ -340,7 +315,7 @@ void ql_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void ql_reset(qk_tap_dance_state_t *state, void *user_data) {
+void ql_reset(tap_dance_state_t *state, void *user_data) {
     switch(TAP_DANCE_KEYCODE(state)) {
         case TD(TD_ESC_NUM):
             // If the key was held down and now is released then switch off the layer

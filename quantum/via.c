@@ -22,17 +22,43 @@
 #    error "DYNAMIC_KEYMAP_ENABLE is not enabled"
 #endif
 
-#include "quantum.h"
+#ifdef VIA_INSECURE
+#    pragma message "VIA_INSECURE is enabled - firmware is susceptible to keyloggers"
+#endif
 
 #include "via.h"
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
-#include "eeprom.h"
+#include "eeconfig.h"
+#include "matrix.h"
+#include "timer.h"
+#include "wait.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
+#include "nvm_via.h"
+
+#if defined(AUDIO_ENABLE)
+#    include "audio.h"
+#endif
+
+#if defined(BACKLIGHT_ENABLE)
+#    include "backlight.h"
+#endif
+
+#if defined(RGBLIGHT_ENABLE)
+#    include "rgblight.h"
+#endif
+
+#if (defined(RGB_MATRIX_ENABLE) || defined(LED_MATRIX_ENABLE))
+#    include <lib/lib8tion/lib8tion.h>
+#endif
 
 #if defined(RGB_MATRIX_ENABLE)
-#    include <lib/lib8tion/lib8tion.h>
+#    include "rgb_matrix.h"
+#endif
+
+#if defined(LED_MATRIX_ENABLE)
+#    include "led_matrix.h"
 #endif
 
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
@@ -43,20 +69,26 @@ bool via_eeprom_is_valid(void) {
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
 
-    return (eeprom_read_byte((void *)VIA_EEPROM_MAGIC_ADDR + 0) == magic0 && eeprom_read_byte((void *)VIA_EEPROM_MAGIC_ADDR + 1) == magic1 && eeprom_read_byte((void *)VIA_EEPROM_MAGIC_ADDR + 2) == magic2);
+    uint8_t ee_magic0;
+    uint8_t ee_magic1;
+    uint8_t ee_magic2;
+    nvm_via_read_magic(&ee_magic0, &ee_magic1, &ee_magic2);
+
+    return ee_magic0 == magic0 && ee_magic1 == magic1 && ee_magic2 == magic2;
 }
 
 // Sets VIA/keyboard level usage of EEPROM to valid/invalid
 // Keyboard level code (eg. via_init_kb()) should not call this
 void via_eeprom_set_valid(bool valid) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
-    uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
-    uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
-    uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
-
-    eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 0, valid ? magic0 : 0xFF);
-    eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 1, valid ? magic1 : 0xFF);
-    eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 2, valid ? magic2 : 0xFF);
+    if (valid) {
+        char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+        uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
+        uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
+        uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
+        nvm_via_update_magic(magic0, magic1, magic2);
+    } else {
+        nvm_via_update_magic(0xFF, 0xFF, 0xFF);
+    }
 }
 
 // Override this at the keyboard code level to check
@@ -82,6 +114,8 @@ void via_init(void) {
 }
 
 void eeconfig_init_via(void) {
+    // Erase any NVM storage if necessary
+    nvm_via_erase();
     // set the magic number to false, in case this gets interrupted
     via_eeprom_set_valid(false);
     // This resets the layout options
@@ -97,29 +131,24 @@ void eeconfig_init_via(void) {
 // This is generalized so the layout options EEPROM usage can be
 // variable, between 1 and 4 bytes.
 uint32_t via_get_layout_options(void) {
-    uint32_t value = 0;
-    // Start at the most significant byte
-    void *source = (void *)(VIA_EEPROM_LAYOUT_OPTIONS_ADDR);
-    for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {
-        value = value << 8;
-        value |= eeprom_read_byte(source);
-        source++;
-    }
-    return value;
+    return nvm_via_read_layout_options();
 }
 
 __attribute__((weak)) void via_set_layout_options_kb(uint32_t value) {}
 
 void via_set_layout_options(uint32_t value) {
     via_set_layout_options_kb(value);
-    // Start at the least significant byte
-    void *target = (void *)(VIA_EEPROM_LAYOUT_OPTIONS_ADDR + VIA_EEPROM_LAYOUT_OPTIONS_SIZE - 1);
-    for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {
-        eeprom_update_byte(target, value & 0xFF);
-        value = value >> 8;
-        target--;
-    }
+    nvm_via_update_layout_options(value);
 }
+
+#if VIA_EEPROM_CUSTOM_CONFIG_SIZE > 0
+uint32_t via_read_custom_config(void *buf, uint32_t offset, uint32_t length) {
+    return nvm_via_read_custom_config(buf, offset, length);
+}
+uint32_t via_update_custom_config(const void *buf, uint32_t offset, uint32_t length) {
+    return nvm_via_update_custom_config(buf, offset, length);
+}
+#endif
 
 #if defined(AUDIO_ENABLE)
 float via_device_indication_song[][2] = SONG(STARTUP_SOUND);
@@ -141,6 +170,9 @@ __attribute__((weak)) void via_set_device_indication(uint8_t value) {
 #if defined(RGB_MATRIX_ENABLE)
     rgb_matrix_toggle_noeeprom();
 #endif // RGB_MATRIX_ENABLE
+#if defined(LED_MATRIX_ENABLE)
+    led_matrix_toggle_noeeprom();
+#endif // LED_MATRIX_ENABLE
 #if defined(AUDIO_ENABLE)
     if (value == 0) {
         wait_ms(10);
@@ -153,38 +185,13 @@ __attribute__((weak)) void via_set_device_indication(uint8_t value) {
 bool process_record_via(uint16_t keycode, keyrecord_t *record) {
     // Handle macros
     if (record->event.pressed) {
-        if (keycode >= MACRO00 && keycode <= MACRO15) {
-            uint8_t id = keycode - MACRO00;
+        if (keycode >= QK_MACRO && keycode <= QK_MACRO_MAX) {
+            uint8_t id = keycode - QK_MACRO;
             dynamic_keymap_macro_send(id);
             return false;
         }
     }
 
-    // TODO: ideally this would be generalized and refactored into
-    // QMK core as advanced keycodes, until then, the simple case
-    // can be available here to keyboards using VIA
-    switch (keycode) {
-        case FN_MO13:
-            if (record->event.pressed) {
-                layer_on(1);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(1);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-        case FN_MO23:
-            if (record->event.pressed) {
-                layer_on(2);
-                update_tri_layer(1, 2, 3);
-            } else {
-                layer_off(2);
-                update_tri_layer(1, 2, 3);
-            }
-            return false;
-            break;
-    }
     return true;
 }
 
@@ -219,6 +226,7 @@ __attribute__((weak)) void via_custom_value_command_kb(uint8_t *data, uint8_t le
 //      id_qmk_backlight_channel    ->  via_qmk_backlight_command()
 //      id_qmk_rgblight_channel     ->  via_qmk_rgblight_command()
 //      id_qmk_rgb_matrix_channel   ->  via_qmk_rgb_matrix_command()
+//      id_qmk_led_matrix_channel   ->  via_qmk_led_matrix_command()
 //      id_qmk_audio_channel        ->  via_qmk_audio_command()
 //
 __attribute__((weak)) void via_custom_value_command(uint8_t *data, uint8_t length) {
@@ -244,7 +252,14 @@ __attribute__((weak)) void via_custom_value_command(uint8_t *data, uint8_t lengt
         via_qmk_rgb_matrix_command(data, length);
         return;
     }
-#endif // RGBLIGHT_ENABLE
+#endif // RGB_MATRIX_ENABLE
+
+#if defined(LED_MATRIX_ENABLE)
+    if (*channel_id == id_qmk_led_matrix_channel) {
+        via_qmk_led_matrix_command(data, length);
+        return;
+    }
+#endif // LED_MATRIX_ENABLE
 
 #if defined(AUDIO_ENABLE)
     if (*channel_id == id_qmk_audio_channel) {
@@ -303,25 +318,26 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     break;
                 }
                 case id_switch_matrix_state: {
-// Round up to the nearest number of bytes required to hold row state.
-// Multiply by number of rows to get the required size in bytes.
-// Guard against this being too big for the HID message.
-#if (((MATRIX_COLS + 7) / 8) * MATRIX_ROWS <= 28)
-                    uint8_t i = 1;
-                    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-                        matrix_row_t value = matrix_get_row(row);
-#    if (MATRIX_COLS > 24)
+                    uint8_t offset = command_data[1];
+                    uint8_t rows   = 28 / ((MATRIX_COLS + 7) / 8);
+                    uint8_t i      = 2;
+                    for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
+#ifdef VIA_INSECURE
+                        matrix_row_t value = matrix_get_row(row + offset);
+#else
+                        matrix_row_t value = 0;
+#endif
+#if (MATRIX_COLS > 24)
                         command_data[i++] = (value >> 24) & 0xFF;
-#    endif
-#    if (MATRIX_COLS > 16)
+#endif
+#if (MATRIX_COLS > 16)
                         command_data[i++] = (value >> 16) & 0xFF;
-#    endif
-#    if (MATRIX_COLS > 8)
+#endif
+#if (MATRIX_COLS > 8)
                         command_data[i++] = (value >> 8) & 0xFF;
-#    endif
+#endif
                         command_data[i++] = value & 0xFF;
                     }
-#endif
                     break;
                 }
                 case id_firmware_version: {
@@ -629,11 +645,6 @@ void via_qmk_rgblight_save(void) {
 
 #if defined(RGB_MATRIX_ENABLE)
 
-#    if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > UINT8_MAX
-#        undef RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#        define RGB_MATRIX_MAXIMUM_BRIGHTNESS UINT8_MAX
-#    endif
-
 void via_qmk_rgb_matrix_command(uint8_t *data, uint8_t length) {
     // data = [ command_id, channel_id, value_id, value_data ]
     uint8_t *command_id        = &(data[0]);
@@ -715,10 +726,89 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
 }
 
 void via_qmk_rgb_matrix_save(void) {
-    eeconfig_update_rgb_matrix();
+    eeconfig_force_flush_rgb_matrix();
 }
 
 #endif // RGB_MATRIX_ENABLE
+
+#if defined(LED_MATRIX_ENABLE)
+
+void via_qmk_led_matrix_command(uint8_t *data, uint8_t length) {
+    // data = [ command_id, channel_id, value_id, value_data ]
+    uint8_t *command_id        = &(data[0]);
+    uint8_t *value_id_and_data = &(data[2]);
+
+    switch (*command_id) {
+        case id_custom_set_value: {
+            via_qmk_led_matrix_set_value(value_id_and_data);
+            break;
+        }
+        case id_custom_get_value: {
+            via_qmk_led_matrix_get_value(value_id_and_data);
+            break;
+        }
+        case id_custom_save: {
+            via_qmk_led_matrix_save();
+            break;
+        }
+        default: {
+            *command_id = id_unhandled;
+            break;
+        }
+    }
+}
+
+void via_qmk_led_matrix_get_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+
+    switch (*value_id) {
+        case id_qmk_led_matrix_brightness: {
+            value_data[0] = ((uint16_t)led_matrix_get_val() * UINT8_MAX) / LED_MATRIX_MAXIMUM_BRIGHTNESS;
+            break;
+        }
+        case id_qmk_led_matrix_effect: {
+            value_data[0] = led_matrix_is_enabled() ? led_matrix_get_mode() : 0;
+            break;
+        }
+        case id_qmk_led_matrix_effect_speed: {
+            value_data[0] = led_matrix_get_speed();
+            break;
+        }
+    }
+}
+
+void via_qmk_led_matrix_set_value(uint8_t *data) {
+    // data = [ value_id, value_data ]
+    uint8_t *value_id   = &(data[0]);
+    uint8_t *value_data = &(data[1]);
+    switch (*value_id) {
+        case id_qmk_led_matrix_brightness: {
+            led_matrix_set_val_noeeprom(scale8(value_data[0], LED_MATRIX_MAXIMUM_BRIGHTNESS));
+            break;
+        }
+        case id_qmk_led_matrix_effect: {
+            if (value_data[0] == 0) {
+                led_matrix_disable_noeeprom();
+            } else {
+                led_matrix_enable_noeeprom();
+                led_matrix_mode_noeeprom(value_data[0]);
+            }
+            break;
+        }
+        case id_qmk_led_matrix_effect_speed: {
+            led_matrix_set_speed_noeeprom(value_data[0]);
+            break;
+        }
+    }
+}
+
+void via_qmk_led_matrix_save(void) {
+    eeconfig_force_flush_led_matrix();
+}
+
+#endif // LED_MATRIX_ENABLE
 
 #if defined(AUDIO_ENABLE)
 
@@ -782,7 +872,7 @@ void via_qmk_audio_set_value(uint8_t *data) {
 }
 
 void via_qmk_audio_save(void) {
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
 
 #endif // QMK_AUDIO_ENABLE

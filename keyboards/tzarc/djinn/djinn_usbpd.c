@@ -1,7 +1,5 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include <string.h>
-#include "quantum.h"
 #include "djinn.h"
 
 const char* usbpd_str(usbpd_allowance_t allowance) {

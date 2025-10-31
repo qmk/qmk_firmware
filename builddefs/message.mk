@@ -64,9 +64,10 @@ MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
 MSG_GENERATING = Generating:
+MSG_NOT_REPO = $(WARN_COLOR)WARNING:$(NO_COLOR) Target folder is not a git repo, you probably downloaded a zip file instead of cloning.\n\
+Please consider following $(BOLD)https://docs.qmk.fm/\#/newbs_getting_started$(NO_COLOR).\n\n
 MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR) Some git submodules are out of date or modified.\n\
-Please consider running $(BOLD)make git-submodule$(NO_COLOR).\n\n
-MSG_NO_CMP = $(ERROR_COLOR)Error:$(NO_COLOR)$(BOLD) cmp command not found, please install diffutils\n$(NO_COLOR)
+Please consider running $(BOLD)qmk git-submodule$(NO_COLOR).\n\n
 
 define GENERATE_MSG_MAKE_KB
     MSG_MAKE_KB_ACTUAL := Making $$(KB_SP) with keymap $(BOLD)$$(CURRENT_KM)$(NO_COLOR)
@@ -90,7 +91,6 @@ MSG_AVAILABLE_KEYMAPS = $(eval $(call GENERATE_MSG_AVAILABLE_KEYMAPS))$(MSG_AVAI
 
 MSG_BOOTLOADER_NOT_FOUND_BASE = Bootloader not found. Make sure the board is in bootloader mode. See https://docs.qmk.fm/\#/newbs_flashing\n
 MSG_CHECK_FILESIZE = Checking file size of $(TARGET).$(FIRMWARE_FORMAT)
-MSG_CHECK_FILESIZE_SKIPPED = (Firmware size check does not yet support $(MCU_ORIG); skipping)
 MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE) ($(OVER_SIZE) bytes over)\n
 MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
 MSG_FILE_JUST_RIGHT = The firmware size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(PERCENT_SIZE)%%, $(FREE_SIZE) bytes free)\n
@@ -102,6 +102,10 @@ MSG_FLASH_ARCH = $(WARN_COLOR)WARNING:$(NO_COLOR) This board's architecture is n
 MSG_BOOTLOADER_NOT_FOUND = $(ERROR_COLOR)ERROR:$(NO_COLOR) $(MSG_BOOTLOADER_NOT_FOUND_BASE) Trying again in 5s (Ctrl+C to cancel)\n
 BOOTLOADER_RETRY_TIME ?= 0.5
 MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY = $(MSG_BOOTLOADER_NOT_FOUND_BASE) Trying again every $(BOOTLOADER_RETRY_TIME)s (Ctrl+C to cancel)
+
+define WARNING_MESSAGE
+    $(shell printf "\n %-99s $(WARN_STRING)\n" "$1" >&2)
+endef
 
 define CATASTROPHIC_ERROR
     $(shell printf "\n * %-99s $(ERROR_STRING)\n" "$2" >&2)

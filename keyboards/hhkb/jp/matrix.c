@@ -71,7 +71,7 @@ void matrix_init(void)
     matrix = _matrix0;
     matrix_prev = _matrix1;
 
-    matrix_init_quantum();
+    matrix_init_kb();
 }
 
 __attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
@@ -159,7 +159,7 @@ uint8_t matrix_scan(void)
         suspend_power_down();
     }
 
-    matrix_scan_quantum();
+    matrix_scan_kb();
 
     return 1;
 }

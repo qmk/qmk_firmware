@@ -21,9 +21,7 @@
 #include <stdbool.h>
 #include <util/delay.h>
 
-#define I2C_ADDR        0b0100000
-#define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )
-#define I2C_ADDR_READ   ( (I2C_ADDR<<1) | I2C_READ  )
+#define I2C_ADDR        (0b0100000<<1)
 #define IODIRA          0x00            // i/o direction register
 #define IODIRB          0x01
 #define GPPUA           0x0C            // GPIO pull-up resistor register
@@ -38,21 +36,3 @@ extern uint8_t expander_input_pin_mask;
 extern bool i2c_initialized;
 
 void init_expander(void);
-
-#define XXX KC_NO
-
-#define LAYOUT( \
-         L12,      L14, L15, L16, L17,   R11, R12, R13, R14, R15, R16, R17, R18, R19, R1A, R1B, \
-    L21, L22, L23, L24, L25, L26, L27,   R21, R22, R23, R24, R25, R26,      R28, R29, R2A, R2B, \
-    L31, L32, L33, L34, L35, L36,        R31, R32, R33, R34, R35, R36, R37, R38, R39, R3A, R3B, \
-    L41, L42, L43, L44, L45, L46,        R41, R42, R43, R44, R45, R46,      R48, \
-    L51, L52, L53, L54, L55, L56,        R51, R52, R53, R54, R55,           R58,      R5A, \
-    L61, L62, L63,      L65,             R61,      R63,      R65, R66,      R68, R69, R6A, R6B \
-) { \
-    { XXX, L12, XXX, L14, L15, L16, L17, R11, R12, R13, R14, R15, R16, R17, R18, R19, R1A, R1B }, \
-    { L21, L22, L23, L24, L25, L26, L27, R21, R22, R23, R24, R25, R26, XXX, R28, R29, R2A, R2B }, \
-    { L31, L32, L33, L34, L35, L36, XXX, R31, R32, R33, R34, R35, R36, R37, R38, R39, R3A, R3B }, \
-    { L41, L42, L43, L44, L45, L46, XXX, R41, R42, R43, R44, R45, R46, XXX, R48, XXX, XXX, XXX }, \
-    { L51, L52, L53, L54, L55, L56, XXX, R51, R52, R53, R54, R55, XXX, XXX, R58, XXX, R5A, XXX }, \
-    { L61, L62, L63, XXX, L65, XXX, XXX, R61, XXX, R63, XXX, R65, R66, XXX, R68, R69, R6A, R6B } \
-}

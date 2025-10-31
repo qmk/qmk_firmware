@@ -1,4 +1,4 @@
-// Copyright 2022 Stefan Kerkmann
+// Copyright 2024 Stefan Kerkmann
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
@@ -8,7 +8,7 @@
  *========================**/
 
 #if !defined(I2C_DRIVER)
-#    define I2C_DRIVER I2CD2
+#    define I2C_DRIVER I2CD1
 #endif
 
 #if !defined(I2C1_SDA_PIN)
@@ -56,7 +56,31 @@
 #endif
 
 /**======================
+ **      UART Driver
+ *========================**/
+
+#if !defined(UART_DRIVER)
+#    define UART_DRIVER SIOD0
+#endif
+
+#if !defined(UART_TX_PIN)
+#    define UART_TX_PIN GP0
+#endif
+
+#if !defined(UART_RX_PIN)
+#    define UART_RX_PIN GP1
+#endif
+
+#if !defined(UART_CTS_PIN)
+#    define UART_CTS_PIN GP2
+#endif
+
+#if !defined(UART_RTS_PIN)
+#    define UART_RTS_PIN GP3
+#endif
+
+/**======================
  **    Double-tap
  *========================**/
 
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET 
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET

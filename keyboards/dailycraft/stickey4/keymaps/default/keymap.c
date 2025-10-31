@@ -25,19 +25,6 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
-        KC_A,    KC_B,    KC_C,   KC_D,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO // for encoders
-    ),
-    [_FN1] = LAYOUT(
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO
-    ),
-    [_FN2] = LAYOUT(
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO
-    ),
-    [_FN3] = LAYOUT(
-        KC_NO,   KC_NO,   KC_NO,  KC_NO,
-        KC_NO,   KC_NO,   KC_NO,  KC_NO
+        KC_A,    KC_B,    KC_C,   KC_D
     )
 };

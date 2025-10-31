@@ -1,2 +1,1 @@
-# Bootloader selection
-BOOTLOADER = halfkay
+POINTING_DEVICE_DRIVER = adns9800

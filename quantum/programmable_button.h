@@ -21,9 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 
 /**
- * \defgroup programmable_button
+ * \file
  *
- * HID Programmable Buttons
+ * \defgroup programmable_button HID Programmable Buttons
  * \{
  */
 

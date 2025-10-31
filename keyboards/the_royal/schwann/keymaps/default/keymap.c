@@ -18,7 +18,7 @@ enum {
   TD_RST
 };
 
-void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_rst_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     reset_keyboard();
     reset_tap_dance(state);
@@ -26,7 +26,7 @@ void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 //All tap dance functions would go here. Only showing this one.
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_RST] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, NULL, dance_rst_reset)
 };
 
@@ -101,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *      └────┴────┴────┴────┴─────────┴────┴────┴────┴────┘
    */
   [_OTHER] = LAYOUT_mit(
-    TD(TD_RST), _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  RGB_SAI,  RGB_HUI,  RGB_VAI,
-    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  RGB_SAD,  RGB_HUD,  RGB_VAD,
-    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  RGB_MOD,
+    TD(TD_RST), _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  UG_SATU,  UG_HUEU,  UG_VALU,
+    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  UG_SATD,  UG_HUED,  UG_VALD,
+    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  UG_NEXT,
                 _______,   _______,    _______,   _______,         _______,        _______,  _______,  _______,  _______
   )
 

@@ -1,0 +1,18 @@
+{
+    "matrix_pins": {
+        "cols": ["D7", "B5", "D1", "D0", "C6", "B6", "F0", "D2", "D3", "F4", "F1"],
+        "rows": ["B7", "D6", "C7", "F5"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "features": {
+        "bluetooth": true
+    },
+    "build": {
+        "lto": true
+    },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    }
+}

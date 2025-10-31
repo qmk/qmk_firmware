@@ -16,7 +16,10 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "action.h"
+#include "quantum_keycodes.h"
 
 #ifdef MIDI_ENABLE
 

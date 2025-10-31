@@ -312,7 +312,7 @@ ypsilon,
 zeta
 };
 
-const uint32_t PROGMEM unicode_map[] = {
+const uint32_t unicode_map[] PROGMEM = {
 	[AB_ARC] = 0x0361,  // ͡
 	[AB_LINE] = 0x0305,  // ̅
 	[AB_VEC] = 0x20d7,  // ⃗
@@ -750,9 +750,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 -------------------------------------------------
  */
 	LAYOUT_ortho_4x12(
-		KC_TRNS, KC_ACL1, KC_NO, KC_NO, KC_NO, KC_NO, KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, KC_NO, KC_NO,
-		KC_TRNS, KC_ACL2, KC_BTN2, KC_BTN3, KC_BTN1, KC_BTN1, KC_MS_L, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO, KC_NO,
-		KC_TRNS, KC_ACL0, KC_NO, KC_NO, KC_NO, KC_NO, KC_WH_D, KC_NO, KC_MS_D, KC_NO, KC_NO, KC_TRNS,
+		KC_TRNS, MS_ACL1, KC_NO, KC_NO, KC_NO, KC_NO, MS_WHLU, MS_WHLL, MS_UP, MS_WHLR, KC_NO, KC_NO,
+		KC_TRNS, MS_ACL2, MS_BTN2, MS_BTN3, MS_BTN1, MS_BTN1, MS_LEFT, MS_LEFT, MS_DOWN, MS_RGHT, KC_NO, KC_NO,
+		KC_TRNS, MS_ACL0, KC_NO, KC_NO, KC_NO, KC_NO, MS_WHLD, KC_NO, MS_DOWN, KC_NO, KC_NO, KC_TRNS,
 		TG(6), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	)
 };

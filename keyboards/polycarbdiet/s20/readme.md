@@ -17,7 +17,7 @@ Flashing example for this keyboard:
     make polycarbdiet/s20:default:flash
 
 **Reset Method:** 
-- Press the `QK_BOOT` button on the under side of the PCB  
+- Press the `RESET` button on the under side of the PCB  
 
 **Bootloader Method:** 
 - Hold down the key located at `K00`, commonly programmed as `ESC`, while plugging in the keyboard.

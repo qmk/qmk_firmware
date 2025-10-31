@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -27,20 +27,20 @@
 // entirely and just use numbers.
 
 enum layer_names {
-    _BASE = 0,
-    _WAVE = 1,
-    _FN = 2
+    _BASE,
+    _WAVE,
+    _FN,
 };
 
 // For CUSTOM_GRADIENT
-HSV gradient_0          = {205, 250, 255};
-HSV gradient_100        = {140, 215, 125};
+hsv_t gradient_0          = {205, 250, 255};
+hsv_t gradient_100        = {140, 215, 125};
 bool reflected_gradient = false;
 uint8_t gp_i            = 0;
 
 typedef struct {
-    HSV gradient_0;
-    HSV gradient_1;
+    hsv_t gradient_0;
+    hsv_t gradient_1;
     bool reflected;
 } CUSTOM_PRESETS;
 
@@ -203,7 +203,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case G_FLIP:
             if (record->event.pressed) {
-                HSV temp_color = gradient_0;
+                hsv_t temp_color = gradient_0;
                 gradient_0 = gradient_100;
                 gradient_100 = temp_color;
             }
@@ -212,12 +212,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 switch (rgb_matrix_get_mode()) {
                     case RGB_MATRIX_CUSTOM_CUSTOM_GRADIENT:
-                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_DIAGONAL);
-                        return false;
-                    case RGB_MATRIX_CUSTOM_DIAGONAL:
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_COOL_DIAGONAL);
                         return false;
                     case RGB_MATRIX_CUSTOM_COOL_DIAGONAL:
+                        rgb_matrix_mode(RGB_MATRIX_CUSTOM_FLOWER_BLOOMING);
+                        return false;
+                    case RGB_MATRIX_CUSTOM_FLOWER_BLOOMING:
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_KITT);
                         return false;
                     case RGB_MATRIX_CUSTOM_KITT:
@@ -229,7 +229,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {
@@ -255,10 +255,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool rgb_matrix_indicators_user(void) {
     uint8_t  side_leds_left[3]  = {17, 18, 19};
     uint8_t  side_leds_right[3] = { 4,  5,  6};
-    HSV      hsv = rgb_matrix_config.hsv;
+    hsv_t    hsv = rgb_matrix_config.hsv;
     uint8_t time = scale16by8(g_rgb_timer, qadd8(32, 1));
     hsv.h        = time;
-    RGB      rgb = hsv_to_rgb(hsv);
+    rgb_t    rgb = hsv_to_rgb(hsv);
 
     if ((rgb_matrix_get_flags() & LED_FLAG_ALL)) {
         if (host_keyboard_led_state().caps_lock) {

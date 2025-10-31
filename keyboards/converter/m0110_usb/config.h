@@ -25,11 +25,6 @@ Ported to QMK by Techsock <info@techsock.com>
 #define MATRIX_ROWS 14
 #define MATRIX_COLS 8
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /* magic key */
 #define IS_COMMAND() ( \
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_LALT) | MOD_BIT(KC_LGUI)) || \

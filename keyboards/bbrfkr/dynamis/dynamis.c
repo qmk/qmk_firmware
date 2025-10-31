@@ -14,15 +14,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "dynamis.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (clockwise) {
-        tap_code(layer_state == 0 ? KC_WH_D : KC_VOLD);
+        tap_code(layer_state == 0 ? MS_WHLD : KC_VOLD);
     } else {
-        tap_code(layer_state == 0 ? KC_WH_U : KC_VOLU);
+        tap_code(layer_state == 0 ? MS_WHLU : KC_VOLU);
     }
     return true;
 }

@@ -15,16 +15,26 @@
  */
 
 #include "test_keymap_key.hpp"
+#include <cstdint>
+#include <ios>
+#include "matrix.h"
 #include "test_logger.hpp"
 #include "gtest/gtest-message.h"
 #include "gtest/gtest.h"
+#include "timer.h"
 
 void KeymapKey::press() {
-    test_logger.trace() << "Key pressed:  (" << +this->position.col << "," << +this->position.row << ")" << std::endl;
+    EXPECT_FALSE(matrix_is_on(position.row, position.col)) << "tried to press key " << this->name << " that was already pressed! Check the test code." << std::endl;
+
     press_key(this->position.col, this->position.row);
+    this->timestamp_pressed = timer_read32();
+    test_logger.trace() << std::setw(10) << std::left << "pressed: " << this->name << std::endl;
 }
 
 void KeymapKey::release() {
-    test_logger.trace() << "Key released: (" << +this->position.col << "," << +this->position.row << ")" << std::endl;
+    EXPECT_TRUE(matrix_is_on(this->position.row, this->position.col)) << "tried to release key " << this->name << " that wasn't pressed before! Check the test code." << std::endl;
+
     release_key(this->position.col, this->position.row);
+    uint32_t now = timer_read32();
+    test_logger.trace() << std::setw(10) << std::left << "released: " << this->name << " was pressed for " << now - this->timestamp_pressed << "ms" << std::endl;
 }

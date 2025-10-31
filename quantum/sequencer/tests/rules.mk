@@ -8,4 +8,5 @@ sequencer_SRC := \
 	$(QUANTUM_PATH)/sequencer/tests/midi_mock.c \
 	$(QUANTUM_PATH)/sequencer/tests/sequencer_tests.cpp \
 	$(QUANTUM_PATH)/sequencer/sequencer.c \
+	$(PLATFORM_PATH)/timer.c \
 	$(PLATFORM_PATH)/$(PLATFORM_KEY)/timer.c

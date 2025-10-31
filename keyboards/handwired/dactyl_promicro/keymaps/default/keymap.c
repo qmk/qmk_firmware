@@ -1,5 +1,22 @@
-#include QMK_KEYBOARD_H
+/*
+Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2015 Jack Humbert
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _LOWER 1
@@ -40,10 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_RAISE] = LAYOUT_6x6(
         _______,_______,_______,_______,_______,_______,                                       _______,_______,_______,_______,_______,_______,
-        _______,_______,_______,KC_MS_U,_______,_______,                                       _______,_______,_______,_______,_______,_______,
-        _______,_______,KC_MS_L,KC_MS_D,KC_MS_R,_______,                                       _______,_______,_______,_______,_______,KC_MPLY,
+        _______,_______,_______,MS_UP,  _______,_______,                                       _______,_______,_______,_______,_______,_______,
+        _______,_______,MS_LEFT,MS_DOWN,MS_RGHT,_______,                                       _______,_______,_______,_______,_______,KC_MPLY,
         _______,_______,_______,_______,_______,_______,                                       _______,_______,KC_MPRV,KC_MNXT,_______,_______,
-        QK_BOOT  ,_______,_______,KC_BTN1,KC_BTN2,_______,                                       KC_WBAK,KC_VOLU,KC_VOLD,KC_MUTE,_______,_______,
+        QK_BOOT  ,_______,_______,MS_BTN1,MS_BTN2,_______,                                       KC_WBAK,KC_VOLU,KC_VOLD,KC_MUTE,_______,_______,
                                                 _______,_______,_______,       _______,_______,_______,
                                                                 _______,       _______,
                                                                 _______,       _______

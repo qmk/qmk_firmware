@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pluckey.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -28,9 +28,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     else if (index == 1) {
         if (clockwise) {
-            tap_code(KC_WH_U);
+            tap_code(MS_WHLU);
         } else {
-            tap_code(KC_WH_D);
+            tap_code(MS_WHLD);
         }
     }
     return true;

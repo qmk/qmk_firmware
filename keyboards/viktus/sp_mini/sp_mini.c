@@ -14,12 +14,12 @@
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
 
-#include "sp_mini.h"
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
     // enable built in pullups to avoid timeouts when right hand not connected
-    setPinInputHigh(D0);
-    setPinInputHigh(D1);
+    gpio_set_pin_input_high(D0);
+    gpio_set_pin_input_high(D1);
 
     keyboard_pre_init_user();
 }

@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "send_string.h"
 #include "keymap_dvorak_fr.h"
 
 // clang-format off

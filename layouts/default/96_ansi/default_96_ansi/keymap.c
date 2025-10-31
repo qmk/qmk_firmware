@@ -1,3 +1,6 @@
+// Copyright 2023 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 /* Copyright 2021 QMK
  *
  * This program is free software: you can redistribute it and/or modify

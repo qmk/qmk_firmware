@@ -1,2 +1,1 @@
-# Bootloader selection
-BOOTLOADER = qmk-dfu
+POINTING_DEVICE_DRIVER = adns9800

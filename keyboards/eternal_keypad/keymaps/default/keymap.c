@@ -58,10 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
     [_ARROW] = LAYOUT(
 		         _______, _______, _______, _______, _______, _______, _______,
-		         _______, _______, KC_UP, _______, RGB_TOG, RGB_HUI, RGB_HUD, 
-		_______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, RGB_VAI, RGB_VAD, 
-		_______, _______, _______, _______, _______, _______, RGB_MOD, RGB_RMOD, 
-		QK_BOOT,   _______, _______, _______, _______, _______
+		         _______, _______, KC_UP, _______, UG_TOGG, UG_HUEU, UG_HUED, 
+		_______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, UG_VALU, UG_VALD, 
+		_______, _______, _______, _______, _______, _______, UG_NEXT, UG_PREV,
+		QK_BOOT, _______, _______, _______, _______, _______
     ),
   /* Function Layer
    * ,-------------------------------------.

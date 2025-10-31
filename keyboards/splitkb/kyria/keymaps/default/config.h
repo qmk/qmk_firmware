@@ -35,5 +35,3 @@
 #    endif
 #endif
 
-// Lets you roll mod-tap keys
-#define IGNORE_MOD_TAP_INTERRUPT

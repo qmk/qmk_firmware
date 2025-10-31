@@ -16,10 +16,6 @@
 
 #pragma once
 
-#include "config_common.h"
-
-#define RGB_CI_PIN B1
-
 #define ADC_PIN F6
 
 #define QMK_WAITING_TEST_BUSY_PIN F6

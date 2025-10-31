@@ -23,14 +23,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * to repeating that information all over the place.
  */
 
-#include QMK_KEYBOARD_H
+#include "matrix.h"
+#include "debug.h"
+#include "wait.h"
 #include "i2c_master.h"
-#include <print.h>
 
 extern i2c_status_t mcp23017_status;
 #define MCP23017_I2C_TIMEOUT 1000
-#define I2C_WRITE 0x00
-#define I2C_READ 0x01
+
 // For a better understanding of the i2c protocol, this is a good read:
 // https://www.robot-electronics.co.uk/i2c-tutorial
 
@@ -41,9 +41,7 @@ extern i2c_status_t mcp23017_status;
 // All address pins of the mcp23017 are connected to the ground on the ferris
 // | 0  | 1  | 0  | 0  | A2 | A1 | A0 |
 // | 0  | 1  | 0  | 0  | 0  | 0  | 0  |
-#define I2C_ADDR 0b0100000
-#define I2C_ADDR_WRITE ((I2C_ADDR << 1) | I2C_WRITE)
-#define I2C_ADDR_READ ((I2C_ADDR << 1) | I2C_READ)
+#define I2C_ADDR (0b0100000 << 1)
 
 // Register addresses
 // See https://github.com/adafruit/Adafruit-MCP23017-Arduino-Library/blob/master/Adafruit_MCP23017.h
@@ -76,9 +74,9 @@ uint8_t init_mcp23017(void) {
     // - driving : output : 0
     // This means: we will read all the bits on GPIOA
     // This means: we will write to the pins 0-4 on GPIOB (in select_rows)
-    uint8_t buf[] = {IODIRA, 0b11111111, 0b11110000};
+    uint8_t buf[] = {0b11111111, 0b11110000};
     print("before transmit\n");
-    mcp23017_status = i2c_transmit(I2C_ADDR_WRITE, buf, sizeof(buf), MCP23017_I2C_TIMEOUT);
+    mcp23017_status = i2c_write_register(I2C_ADDR, IODIRA, buf, sizeof(buf), MCP23017_I2C_TIMEOUT);
     uprintf("after transmit %i\n", mcp23017_status);
     if (!mcp23017_status) {
         // set pull-up
@@ -87,8 +85,7 @@ uint8_t init_mcp23017(void) {
         // - driving : off : 0
         // This means: we will read all the bits on GPIOA
         // This means: we will write to the pins 0-4 on GPIOB (in select_rows)
-        uint8_t pullup_buf[] = {GPPUA, 0b11111111, 0b11110000};
-        mcp23017_status      = i2c_transmit(I2C_ADDR_WRITE, pullup_buf, sizeof(pullup_buf), MCP23017_I2C_TIMEOUT);
+        mcp23017_status = i2c_write_register(I2C_ADDR, GPPUA, buf, sizeof(buf), MCP23017_I2C_TIMEOUT);
         uprintf("after transmit2 %i\n", mcp23017_status);
     }
     return mcp23017_status;
@@ -175,7 +172,7 @@ static matrix_row_t read_cols(uint8_t row) {
         // For each col...
         for (uint8_t col_index = 0; col_index < MATRIX_COLS_PER_SIDE; col_index++) {
             // Select the col pin to read (active low)
-            uint8_t pin_state = readPin(matrix_col_pins_mcu[col_index]);
+            uint8_t pin_state = gpio_read_pin(matrix_col_pins_mcu[col_index]);
 
             // Populate the matrix row with the state of the col pin
             current_row_value |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
@@ -188,25 +185,20 @@ static matrix_row_t read_cols(uint8_t row) {
         if (mcp23017_status) {  // if there was an error
             return 0;
         } else {
-            uint8_t buf[]   = {MCP23017_GPIOA};
-            mcp23017_status = i2c_transmit(I2C_ADDR_WRITE, buf, sizeof(buf), MCP23017_I2C_TIMEOUT);
             // We read all the pins on GPIOA.
             // The initial state was all ones and any depressed key at a given column for the currently selected row will have its bit flipped to zero.
             // The return value is a row as represented in the generic matrix code were the rightmost bits represent the lower columns and zeroes represent non-depressed keys while ones represent depressed keys.
             // Since the pins connected to eact columns are sequential, and counting from zero up (col 5 -> GPIOA0, col 6 -> GPIOA1 and so on), the only transformation needed is a bitwise not to swap all zeroes and ones.
             uint8_t data[] = {0};
-            if (!mcp23017_status) {
-                mcp23017_status = i2c_receive(I2C_ADDR_READ, data, sizeof(data), MCP23017_I2C_TIMEOUT);
-                data[0]         = ~(data[0]);
-            }
-            return data[0];
+            mcp23017_status = i2c_read_register(I2C_ADDR, MCP23017_GPIOA, data, sizeof(data), MCP23017_I2C_TIMEOUT);
+            return ~data[0];
         }
     }
 }
 
 static void unselect_row(uint8_t row) {
     pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
-    setPinInputHigh(matrix_row_pins_mcu[row]);
+    gpio_set_pin_input_high(matrix_row_pins_mcu[row]);
 }
 
 static void unselect_rows(void) {
@@ -218,14 +210,14 @@ static void unselect_rows(void) {
     pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_ROWS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_row_pins_mcu[pin_index];
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 static void unselect_cols(void) {
     pin_t matrix_col_pins_mcu[MATRIX_COLS_PER_SIDE] = MATRIX_COL_PINS_MCU;
     for (int pin_index = 0; pin_index < MATRIX_COLS_PER_SIDE; pin_index++) {
         pin_t pin = matrix_col_pins_mcu[pin_index];
-        setPinInputHigh(pin);
+        gpio_set_pin_input_high(pin);
     }
 }
 
@@ -234,8 +226,8 @@ static void select_row(uint8_t row) {
         // select on MCU
         pin_t matrix_row_pins_mcu[MATRIX_ROWS_PER_SIDE] = MATRIX_ROW_PINS_MCU;
         pin_t pin                                       = matrix_row_pins_mcu[row];
-        setPinOutput(pin);
-        writePinLow(pin);
+        gpio_set_pin_output(pin);
+        gpio_write_pin_low(pin);
     } else {
         // select on mcp23017
         if (mcp23017_status) {  // if there was an error
@@ -243,8 +235,8 @@ static void select_row(uint8_t row) {
         } else {
             // Select the desired row by writing a byte for the entire GPIOB bus where only the bit representing the row we want to select is a zero (write instruction) and every other bit is a one.
             // Note that the row - MATRIX_ROWS_PER_SIDE reflects the fact that being on the right hand, the columns are numbered from MATRIX_ROWS_PER_SIDE to MATRIX_ROWS, but the pins we want to write to are indexed from zero up on the GPIOB bus.
-            uint8_t buf[]   = {MCP23017_GPIOB, 0xFF & ~(1 << (row - MATRIX_ROWS_PER_SIDE))};
-            mcp23017_status = i2c_transmit(I2C_ADDR_WRITE, buf, sizeof(buf), I2C_TIMEOUT);
+            uint8_t buf[]   = {0xFF & ~(1 << (row - MATRIX_ROWS_PER_SIDE))};
+            mcp23017_status = i2c_write_register(I2C_ADDR, MCP23017_GPIOB, buf, sizeof(buf), MCP23017_I2C_TIMEOUT);
         }
     }
 }

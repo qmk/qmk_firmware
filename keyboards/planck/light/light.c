@@ -14,9 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "light.h"
+#include "quantum.h"
 
-const is31_led PROGMEM g_is31_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -99,8 +99,8 @@ led_config_t g_led_config = { {
 void matrix_init_kb(void) {
 
     // Turn status LED on
-    DDRD |= (1<<6);
-    PORTD |= (1<<6);
+    gpio_set_pin_output(D6);
+    gpio_write_pin_high(D6);
 
     matrix_init_user();
 }
@@ -113,18 +113,6 @@ uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t
         return 1;
     }
     return 0;
-}
-
-void suspend_power_down_kb(void)
-{
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void)
-{
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
 }
 
 #ifdef SWAP_HANDS_ENABLE
@@ -140,3 +128,10 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {0};
 #    endif
 #endif
+
+const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = {
+    {36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47},
+    {24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35},
+    {12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23},
+    { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11}
+};

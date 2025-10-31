@@ -16,30 +16,8 @@
 
 #pragma once
 
-// `SPLIT_HAND_PIN` can currently be defined in `info.json`,
-// but can't yet be given a value
-#define SPLIT_HAND_PIN F5
-
 // Not yet available in `info.json`
 #ifdef OLED_ENABLE
 #    define OLED_DISPLAY_128X32
 #    define SPLIT_OLED_ENABLE
-#endif
-
-// Not yet available in `info.json`
-#ifdef RGB_MATRIX_ENABLE
-#    define RGB_MATRIX_MAXIMUM_BRIGHTNESS RGBLIGHT_LIMIT_VAL
-#    define RGB_MATRIX_LED_COUNT RGBLED_NUM
-#    define RGB_MATRIX_SPLIT RGBLED_SPLIT
-#    define SPLIT_TRANSPORT_MIRROR
-#endif
-
-// Not yet available in `info.json`
-#ifdef BOOTMAGIC_ENABLE
-     // Top left key on left half
-#    define BOOTMAGIC_LITE_ROW 0
-#    define BOOTMAGIC_LITE_COLUMN 0
-     // Top right key on right half
-#    define BOOTMAGIC_LITE_ROW_RIGHT    5
-#    define BOOTMAGIC_LITE_COLUMN_RIGHT 0
 #endif

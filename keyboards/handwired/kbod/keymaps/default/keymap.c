@@ -46,15 +46,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TO(0),   KC_1,    KC_2,    KC_3,    ALT_F4,  KC_5,    KC_6,    KC_P7,   KC_P8,   KC_P9,   KC_P0,   KC_PMNS, KC_PPLS, KC_BSPC,
     _______, _______, _______, _______, _______, _______, _______, KC_P4,   KC_P5,   KC_P6,   _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______,          _______,
-    _______,          _______, _______, _______, _______, _______, _______, KC_P0,   KC_PDOT, KC_BTN1, KC_MS_U,          KC_BTN2,
-    _______, _______, _______,                            _______,                            KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN3
+    _______,          _______, _______, _______, _______, _______, _______, KC_P0,   KC_PDOT, MS_BTN1, MS_UP,            MS_BTN2,
+    _______, _______, _______,                            _______,                            MS_LEFT, MS_DOWN, MS_RGHT, MS_BTN3
   ),
   LAYOUT( /* Multimedia layer */
     TO(0),   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,
     _______, _______, KC_WAKE, _______, _______, _______, _______, _______, _______, _______, KC_MSTP, KC_MPRV, KC_MNXT, _______,
     _______, _______, KC_SLEP, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-    _______,          _______, KC_PWR,  _______, _______, _______, _______, _______, _______, KC_BTN1, KC_WH_U,          KC_BTN2,
-    _______, _______, _______,                            KC_MPLY,                            KC_WH_L, KC_WH_D, KC_WH_R, KC_BTN3
+    _______,          _______, KC_PWR,  _______, _______, _______, _______, _______, _______, MS_BTN1, MS_WHLU,          MS_BTN2,
+    _______, _______, _______,                            KC_MPLY,                            MS_WHLL, MS_WHLD, MS_WHLR, MS_BTN3
   ),
 };
 
@@ -76,15 +76,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  setPinOutput(C7);
-  writePinLow(C7);
+  gpio_set_pin_output(C7);
+  gpio_write_pin_low(C7);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   if (get_highest_layer(state)) {
-    writePinHigh(C7);
+    gpio_write_pin_high(C7);
   } else {
-    writePinLow(C7);
+    gpio_write_pin_low(C7);
   }
   return state;
 }

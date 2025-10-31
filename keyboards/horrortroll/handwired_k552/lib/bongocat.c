@@ -1,4 +1,4 @@
-/* Copyright 2021 HorrorTroll <https://github.com/HorrorTroll>
+/* Copyright 2022 HorrorTroll <https://github.com/HorrorTroll>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,6 +14,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "bongocat.h"
+#include <stdlib.h>
+#include "oled_driver.h"
+#include "progmem.h"
+#include "timer.h"
+#include "wpm.h"
+#include "util.h"
+
 // WPM-responsive animation stuff here
 # define IDLE_FRAMES 5
 # define IDLE_SPEED 10  // below this wpm value your animation will idle
@@ -26,7 +34,6 @@
 # define ANIM_FRAME_RATIO 2.5 // how aggressively animation speeds up with wpm
 // #define SLEEP_TIMER 60000 // should sleep after this period of 0 wpm, needs fixing
 # define ANIM_SIZE 636  // number of bytes in array, minimize for adequate firmware size, max is 1024
-# define MAX(x, y) (((x) > (y)) ? (x) : (y)) // Math.max macro
 
 uint32_t curr_anim_duration = 0; // variable animation duration
 uint32_t bongo_timer = 0;
@@ -43,7 +50,7 @@ uint8_t current_tap_frame = 0;
 // follow this guide up to and including "CONVERT YOUR IMAGE" https://docs.splitkb.com/hc/en-us/articles/360013811280-How-do-I-convert-an-image-for-use-on-an-OLED-display-
 // replace numbers in brackets with your own
 // if you start getting errors when compiling make sure you didn't accedentally delete a bracket
-static void render_bongocat(void) {
+void render_bongocat(void) {
     static const char PROGMEM idle[IDLE_FRAMES][ANIM_SIZE] = {
         {
         //Idle 1 - 128x32

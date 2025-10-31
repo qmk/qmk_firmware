@@ -1,7 +1,8 @@
 # Absolute Designs 65 by FJLaboratories
 
 The following is the QMK Firmware for the Absolute Designs 65 PCB for [Absolute Designs](https://arnoldh93.wixsite.com/website).
-* Keyboard Maintainer: FJLaboratories
+
+* Keyboard Maintainer: [mrnoisytiger (FJLaboratories)](https://github.com/mrnoisytiger)
 * Hardware Supported: Absolute Designs 65 (AD65)
 
 Make example for this keyboard (after setting up your build environment):

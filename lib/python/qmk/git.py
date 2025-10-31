@@ -26,7 +26,7 @@ def git_get_version(repo_dir='.', check_dir='.'):
             return git_describe.stdout.strip()
 
         else:
-            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
+            cli.log.warning(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
             print(git_describe.stderr)
             return None
 
@@ -136,3 +136,11 @@ def git_get_ignored_files(check_dir='.'):
     if invalid.returncode != 0:
         return []
     return invalid.stdout.strip().splitlines()
+
+
+def git_get_qmk_hash():
+    output = cli.run(['git', 'rev-parse', '--short', 'HEAD'])
+    if output.returncode != 0:
+        return None
+
+    return output.stdout.strip()

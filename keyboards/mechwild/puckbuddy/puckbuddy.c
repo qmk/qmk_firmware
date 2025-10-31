@@ -21,7 +21,7 @@ uint16_t          dpi_array[] = GLIDEPOINT_DPI_OPTIONS;
 void board_init(void) {
     // B9 is configured as I2C1_SDA in the board file; that function must be
     // disabled before using B7 as I2C1_SDA.
-    setPinInputHigh(B9);
+    gpio_set_pin_input_high(B9);
 }
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
@@ -126,7 +126,8 @@ bool oled_task_kb(void) {
     if(!oled_task_user()) {
         return false;
     }
-    if ( IS_HOST_LED_OFF(USB_LED_NUM_LOCK) && IS_HOST_LED_OFF(USB_LED_CAPS_LOCK) && IS_HOST_LED_OFF(USB_LED_SCROLL_LOCK) && get_highest_layer(layer_state) == 0 ) {
+    led_t led_state = host_keyboard_led_state();
+    if ( !led_state.num_lock && !led_state.caps_lock && !led_state.scroll_lock && get_highest_layer(layer_state) == 0 ) {
         if (clear_screen_art == true) {
             oled_clear();
             oled_render();

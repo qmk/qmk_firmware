@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "knobgoblin.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 /* assign keycodes to the encoder rotation */

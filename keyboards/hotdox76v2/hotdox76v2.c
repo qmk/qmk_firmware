@@ -2,7 +2,7 @@
 // Copyright 2022 Drashna Jael're (@Drashna Jael're)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include QMK_KEYBOARD_H
+#include "hotdox76v2.h"
 #include <string.h>
 #include <transactions.h>
 #include "oled_font_lib/logo2.h"
@@ -20,39 +20,38 @@ led_config_t g_led_config = {
         { 13, 12, 11, 10,  9,  8,  7         },
         {   0, 1,  2,   3, 4,  5,  6         },
         /*right*/
-        { NO_LED, 72, 71, 70, 73, 75, 74     },
-        { 65, 66, 67, 68, 69, NO_LED, NO_LED },
-        { 64, 63, 62, 61, 60, 59, 58         },
-        { 52, 53, 54, 55, 56, 57, NO_LED     },
-        { 51, 50, 49, 48, 47, 46, 45         },
-        { 38, 39, 40, 41, 42, 43, 44         }
+        { NO_LED, 77, 76, 75, 78, 80, 79     },
+        { 70, 71, 72, 73, 74, NO_LED, NO_LED },
+        { 69, 68, 67, 66, 65, 64, 63         },
+        { 57, 58, 59, 60, 61, 62, NO_LED     },
+        { 56, 55, 54, 53, 52, 51, 50         },
+        { 43, 44, 45, 46, 47, 48, 49         }
     },
     {
         // LED Index to Physical Position
-        {0,0},    {17,0},  {34,0},  {52,0},  {69,0},  {86,0},  {103,0}, \
-        {103,13}, {86,13}, {69,13}, {52,13}, {34,13}, {17,13}, {0,13}, \
-        {0,26},   {17,26}, {34,26}, {52,26}, {69,26}, {86,26}, \
-        {103,38}, {86,38}, {69,38}, {52,38}, {34,38}, {17,38}, {0,38}, \
-        {0,51},   {17,51}, {34,51}, {52,51}, {69,51},  \
-                  {86,64}, {69,64}, {52,64}, {34,64}, {17,64}, {0,64}, \
-                  {69,64}, {52,64}, {34,64}, {17,64}, {0,64}, \
+        {0,0},    {17,0},  {34,0},  {52,0},  {69,0},  {86,0},  {103,0},
+        {103,13}, {86,13}, {69,13}, {52,13}, {34,13}, {17,13}, {0,13},
+        {0,26},   {17,26}, {34,26}, {52,26}, {69,26}, {86,26},
+        {103,38}, {86,38}, {69,38}, {52,38}, {34,38}, {17,38}, {0,38},
+        {0,51},   {17,51}, {34,51}, {52,51}, {69,51},
+                  {86,64}, {69,64}, {52,64}, {34,64}, {17,64}, {0,64},
+                  {69,64}, {52,64}, {34,64}, {17,64}, {0,64},
 
-                                                                                    \
-        {224,0},  {207,0},  {190,0},  {172,0},  {155,0},  {138,0},  {121,0}, \
-        {121,13}, {138,13}, {155,13}, {172,13}, {190,13}, {207,13}, {224,13}, \
-        {224,26}, {207,26}, {190,26}, {172,26}, {155,26}, {138,26}, \
-        {121,38}, {138,38}, {155,38}, {172,38}, {190,38}, {207,38}, {224,38}, \
-        {224,51}, {207,51}, {190,51}, {172,51}, {155,51},  \
-                  {138,64}, {155,64}, {172,64}, {190,64}, {207,64}, {224,64}, \
-                  {155,64}, {172,64}, {190,64}, {207,64}, {224,64}\
+        {224,0},  {207,0},  {190,0},  {172,0},  {155,0},  {138,0},  {121,0},
+        {121,13}, {138,13}, {155,13}, {172,13}, {190,13}, {207,13}, {224,13},
+        {224,26}, {207,26}, {190,26}, {172,26}, {155,26}, {138,26},
+        {121,38}, {138,38}, {155,38}, {172,38}, {190,38}, {207,38}, {224,38},
+        {224,51}, {207,51}, {190,51}, {172,51}, {155,51},
+                  {138,64}, {155,64}, {172,64}, {190,64}, {207,64}, {224,64},
+                  {155,64}, {172,64}, {190,64}, {207,64}, {224,64}
 
 
     },
     {
       // LED Index to Flag
-      4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,\
-      2,2,2,2,2,\
-      4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,\
+      4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
+      2,2,2,2,2,
+      4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,
       2,2,2,2,2
     }
 };
@@ -61,7 +60,7 @@ led_config_t g_led_config = {
 
 #ifdef OLED_ENABLE
 
-#    define UNC (94 + 0x21)
+#    define UNC (' ')
 typedef struct _master_to_slave_t {
     int  cur_alp_index;
     char current_alp[7];
@@ -116,8 +115,8 @@ void render_layer_helper_fun(uint8_t start_line, const char *data, uint8_t gap_w
     for (j = 0; j < l; ++j) {      // font index
         for (k = 0; k < 12; ++k) { // font byte index
             //                                        base + logo_w(32) + gap_w(12) +l*font_w(12)+current_byte_index
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x21][k]), start_line * 2 * 128 + 32 + gap_w + j * 12 + k);
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x21][k + 12]), start_line * 2 * 128 + 128 + 32 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x20][k]), start_line * 2 * 128 + 32 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[pgm_read_byte(&data[j]) - 0x20][k + 12]), start_line * 2 * 128 + 128 + 32 + gap_w + j * 12 + k);
         }
     }
     for (j = 0; j < gap_w; ++j) {
@@ -152,8 +151,8 @@ void render_cur_input_helper_fun(uint8_t start_line, const char *data, uint8_t g
     for (j = 0; j < l; ++j) {      // font index
         for (k = 0; k < 12; ++k) { // font byte index
             //                                        base + logo_w(0) + gap_w(12) +l*font_w(12)+current_byte_index
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x21][k]), start_line * 2 * 128 + gap_w + j * 12 + k);
-            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x21][12 + k]), start_line * 2 * 128 + 128 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x20][k]), start_line * 2 * 128 + gap_w + j * 12 + k);
+            oled_write_raw_byte(pgm_read_byte(&ext_big_font[data[j] - 0x20][12 + k]), start_line * 2 * 128 + 128 + gap_w + j * 12 + k);
         }
     }
     for (j = 0; j < gap_w; ++j) {
@@ -249,13 +248,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void matrix_scan_kb(void) {
-    if (!is_oled_on()) {
-        m2s.cur_alp_index = 1;
-    }
-    matrix_scan_user();
-}
-
 void user_sync_alpa_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
     const master_to_slave_t *m2s_p = (const master_to_slave_t *)in_data;
     s2m.cur_alp_index              = m2s_p->cur_alp_index;
@@ -271,6 +263,9 @@ void keyboard_post_init_kb(void) {
 
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
+        if (!is_oled_on()) {
+            m2s.cur_alp_index = 1;
+        }
         // Interact with slave every 200ms
         static uint32_t last_sync = 0;
         if (timer_elapsed32(last_sync) > 200) {
@@ -282,7 +277,6 @@ void housekeeping_task_kb(void) {
             }
         }
     }
-    housekeeping_task_user();
 }
 
 #endif

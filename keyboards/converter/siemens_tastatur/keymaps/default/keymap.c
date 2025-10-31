@@ -47,14 +47,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-  setPinOutput(B0);
-  writePinLow(B0);
+  gpio_set_pin_output(B0);
+  gpio_write_pin_low(B0);
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        writePinHigh(B0);
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
+        gpio_write_pin_high(B0);
     } else {
-        writePinLow(B0);
+        gpio_write_pin_low(B0);
     }
+    return false;
 }

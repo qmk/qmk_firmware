@@ -15,11 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "delta.h"
+#include "quantum.h"
 
 void board_init(void) {
-    setPinInput(B9);
-    setPinInput(B10);
+    gpio_set_pin_input(B9);
+    gpio_set_pin_input(B10);
 }
 
 led_config_t g_led_config = { {
