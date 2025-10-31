@@ -15,8 +15,12 @@
         "mousekey": true,
         "nkro": true,
         "pointing_device": true,
+        "encoder": true,
         "console": true,
         "os_detection": true
+    },
+    "encoder": {
+        "driver": "custom"
     },
     "layouts": {
         "LAYOUT": {

@@ -20,6 +20,7 @@
 #include "analog.h"
 #include "opt_encoder.h"
 #include "as5600.h"
+#include "print.h"
 
 // for legacy support
 #if defined(OPT_DEBOUNCE) && !defined(PLOOPY_SCROLL_DEBOUNCE)
@@ -96,14 +97,56 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 void encoder_driver_init(void) {
+
+#    ifdef POINTING_DEVICE_AS5600_ENABLE
+    as5600_init();
+    current_position = get_rawangle();
+#    else
+
     for (uint8_t i = 0; i < ARRAY_SIZE(encoder_pins_a); i++) {
         gpio_set_pin_input(encoder_pins_a[i]);
         gpio_set_pin_input(encoder_pins_b[i]);
     }
     opt_encoder_init();
+#    endif
 }
 
 void encoder_driver_task(void) {
+
+#    ifdef POINTING_DEVICE_AS5600_ENABLE
+    // Get AS5600 rawangle
+    uint16_t ra = get_rawangle();
+    int16_t delta = (int16_t)(ra - current_position);
+
+    // Wrap into [-2048, 2047] to get shortest direction
+    if (delta > 2048) {
+        delta -= 4096;
+    } else if (delta < -2048) {
+        delta += 4096;
+    }
+
+    if (detected_host_os() == OS_WINDOWS || detected_host_os() == OS_LINUX) {
+        // Establish a deadzone to prevent spurious inputs
+        if (delta > POINTING_DEVICE_AS5600_DEADZONE || delta < -POINTING_DEVICE_AS5600_DEADZONE) {
+            current_position = ra;
+            //mouse_report.v = delta / POINTING_DEVICE_AS5600_SPEED_DIV;
+            encoder_queue_event(0, delta > 0);
+        }
+    } else {
+        // Certain operating systems, like MacOS, don't play well with the
+        // high-res scrolling implementation. For more details, see:
+        // https://github.com/qmk/qmk_firmware/issues/17585#issuecomment-2325248167
+        if (delta >= POINTING_DEVICE_AS5600_TICK_COUNT) {
+            current_position = ra;
+            //mouse_report.v = 1;
+            encoder_queue_event(0, delta > 0);
+        } else if (delta <= -POINTING_DEVICE_AS5600_TICK_COUNT) {
+            current_position = ra;
+            encoder_queue_event(0, delta > 0);
+        }
+    }
+#    else
+
     uint16_t p1 = analogReadPin(encoder_pins_a[0]);
     uint16_t p2 = analogReadPin(encoder_pins_b[0]);
 
@@ -130,6 +173,7 @@ void encoder_driver_task(void) {
     if (dir == 0) return;
     encoder_queue_event(0, dir > 0);
     lastScroll = timer_read();
+#    endif
 }
 #endif
 
@@ -168,38 +212,6 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         mouse_report.x = 0;
         mouse_report.y = 0;
     }
-
-#ifdef POINTING_DEVICE_AS5600_ENABLE
-    // Get AS5600 rawangle
-    uint16_t ra = get_rawangle();
-    int16_t delta = (int16_t)(ra - current_position);
-
-    // Wrap into [-2048, 2047] to get shortest direction
-    if (delta > 2048) {
-        delta -= 4096;
-    } else if (delta < -2048) {
-        delta += 4096;
-    }
-
-    if (detected_host_os() == OS_WINDOWS || detected_host_os() == OS_LINUX) {
-        // Establish a deadzone to prevent spurious inputs
-        if (delta > POINTING_DEVICE_AS5600_DEADZONE || delta < -POINTING_DEVICE_AS5600_DEADZONE) {
-            current_position = ra;
-            mouse_report.v = delta / POINTING_DEVICE_AS5600_SPEED_DIV;
-        }
-    } else {
-        // Certain operating systems, like MacOS, don't play well with the
-        // high-res scrolling implementation. For more details, see:
-        // https://github.com/qmk/qmk_firmware/issues/17585#issuecomment-2325248167
-        if (delta >= POINTING_DEVICE_AS5600_TICK_COUNT) {
-            current_position = ra;
-            mouse_report.v = 1;
-        } else if (delta <= -POINTING_DEVICE_AS5600_TICK_COUNT) {
-            current_position = ra;
-            mouse_report.v = -1;
-        }
-    }
-#endif
 
     return mouse_report;
 }
@@ -240,9 +252,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    // debug_enable  = true;
+    debug_enable  = true;
     // debug_matrix  = true;
-    //debug_mouse   = true;
+    // debug_mouse   = true;
     // debug_encoder = true;
 
     /* Ground all output pins connected to ground. This provides additional
@@ -274,14 +286,6 @@ void pointing_device_init_kb(void) {
     }
     pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
 }
-
-#ifdef POINTING_DEVICE_AS5600_ENABLE
-void keyboard_post_init_kb(void) {
-    // Init the AS5600 controlling the Dial
-    as5600_init();
-    current_position = get_rawangle();
-}
-#endif
 
 void eeconfig_init_kb(void) {
     keyboard_config.dpi_config = PLOOPY_DPI_DEFAULT;
