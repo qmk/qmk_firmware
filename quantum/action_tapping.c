@@ -883,8 +883,8 @@ static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time)
     return false;
 }
 
-// checks to see if a key is within flow tap term
-// roundabout way to see if we are currently in a flow tap state or not
+// Checks both flow_tap_expired flag and elapsed time to determine
+// if the key is within the flow tap term.
 bool within_flow_tap_term(uint16_t keycode, keyrecord_t *record) {
     uint16_t term = get_flow_tap_term(keycode, record, flow_tap_prev_keycode);
     return !flow_tap_expired && TIMER_DIFF_16(record->event.time, flow_tap_prev_time) <= term;
