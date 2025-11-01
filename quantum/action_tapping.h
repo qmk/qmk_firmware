@@ -169,6 +169,16 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
 
 /** Updates the Flow Tap last key and timer. */
 void flow_tap_update_last_event(keyrecord_t *record);
+
+/**
+ * Checks if the pressed key is within the flow tap term.
+ * Can be used to avoid triggering combos or other actions within the flow tap term.
+ *
+ * @param keycode The keycode of the pressed key.
+ * @param record The keyrecord of the pressed key.
+ * @return True if the pressed key is within the flow tap term; false otherwise.
+ */
+bool within_flow_tap_term(uint16_t keycode, keyrecord_t *record);
 #endif // FLOW_TAP_TERM
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
