@@ -92,7 +92,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Get target definitions
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: targets-${{ inputs.keymap }}
           path: .
@@ -139,7 +139,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Download firmwares
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           pattern: firmware-${{ inputs.keymap }}-*
           path: .
