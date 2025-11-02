@@ -1,0 +1,13 @@
+{
+    "processor": "atmega32u4",
+    "bootloader": "halfkay",
+    "usb": {
+        "pid": "0x4974"
+    },
+    "ws2812": {
+        "pin": "D7"
+    },
+    "build": {
+        "lto": true
+    }
+}
