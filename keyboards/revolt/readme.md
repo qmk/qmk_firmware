@@ -13,7 +13,7 @@
 - backlight cycling
 - midi (advanced) functionality is enabled (although currently not mapped in the default keymap)
 - capslock indicator is mapped to the LED on the underside of the RP2040 board
-- You can use `MS_ACL0` to disable the joystick mouse and `MS_ACL1` to enable it again
+- You can use the custom keycodes: `RMS_ON` to disable the joystick mouse and `RMS_OFF` to enable it, `RMS_TOG` to toggle it.
   - it can be useful in case the joystick potentiometers wear out and you don't have a spare
   - this setting is **not** currently saved to EEPROM
 
@@ -43,22 +43,3 @@ Enter the bootloader in one of 3 ways:
 - **Bootmagic reset**: Hold down the top left key of the left hand board and plug in or reset the keyboard
 - **Physical reset button**: Briefly press the reset button on the top side of the Commander board
 - **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
-
-## Planned firmware features
-- [x] backlight cycling 
-- [x] caps lock LED
-- [x] mouse disable
-- [x] MIDI layer
-- [ ] rgb layer signifier
-
-## Contributing
-
-Make sure you have the official hardware and you're working on the correct revision.
-
-Before submitting a PR to the Revolt firmware please remember to:
-
-- test your changes on the actual hardware
-- format the C code `clang-format -i keyboards/revolt/*/*.(h|c)`
-- check the linter (`qmk lint -kb revolt/rev2`)
-- `qmk format-json -i keyboards/revolt/*/*.json`
-- when adding new features, consider adding them to the default keymap (without changing existing mappings)

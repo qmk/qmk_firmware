@@ -6,7 +6,7 @@
         "pin": "GP28"
     },
     "bootloader": "rp2040",
-    "bootloader_instructions": "hold the top-left key (or the boot button on the MCU) while plugging in the keyboard (or pressing the reset button on the top surface of the commander board)",
+    "bootloader_instructions": "hold the button on the MCU while plugging in the keyboard (or pressing the reset button on the top surface of the commander board)",
     "diode_direction": "COL2ROW",
     "dynamic_keymap": {
         "layer_count": 7
@@ -24,8 +24,23 @@
     "indicators": {
         "caps_lock": "GP25"
     },
+    "keycodes": [
+        {
+            "key": "RMS_OFF",
+            "label": "revolt mouse off"
+        },
+        {
+            "key": "RMS_ON",
+            "label": "revolt mouse on"
+        },
+        {
+            "key": "RMS_TOG",
+            "label": "revolt mouse toggle"
+        }
+    ],
     "matrix_pins": {
         "cols": ["GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP8", "GP7", "GP6", "GP3", "GP2", "GP1", "GP0", "GP14", "GP15", "GP4"],
+        "masked": true,
         "rows": ["GP13", "GP12", "GP11", "GP10", "GP9"]
     },
     "processor": "RP2040",
