@@ -7,7 +7,7 @@ The WeAct Blackpill is a popular choice for handwired boards, as it offers a pow
 * [WeAct GitHub for F4x1 Blackpill](https://github.com/WeActStudio/WeActStudio.MiniSTM32F4x1)
   * Unfortunately, due to supply issues official WeAct F411 based blackpills may not be available.
 
-![Blackpill F411](https://i.imgur.com/nCgeolTh.png)
+![Blackpill F411](/nCgeolTh.png)
 
 
 ## Pin Usage Limitations

@@ -189,15 +189,25 @@ Currently, the Configurator does not support key rotation or non-rectangular key
 
 For ISO Enter keys, QMK custom is to display it as a rectangular key, 1.25u wide and 2u high, aligned so its right edge is aligned with the right edge of the alphanumeric key block.
 
-![](https://i.imgur.com/JKngtTw.png)  
+![](/JKngtTw.png)  
 *A 60% keyboard in standard ISO layout, as rendered by QMK Configurator.*
 
 #### Vertically-offset keys
 
 For vertically-offset keys, place them in KLE as if they were not offset, then edit the Y-values as needed in the converted JSON file
 
-![](https://i.imgur.com/fmDvDzR.png)  
+![](/fmDvDzR.png)  
 *An 1800-layout keyboard as rendered in Keyboard Layout Editor, without the vertical offset applied to the arrow keys.*
 
-![](https://i.imgur.com/8beYMBR.png)  
-*A Unix diff file, showing the changes needed to vertically-offset the arrow keys in our keyboard's JSON file.*
+```diff
+-{"label": "\u2191", "x", 14.25, "y": 5},
++{"label": "\u2191", "x", 14.25, "y": 5.25},
+...
+-{"label": "\u2190", "x", 13.25, "y": 6},
+-{"label": "\u2193", "x", 14.25, "y": 6},
+-{"label": "\u2192", "x", 15.25, "y": 6},
++{"label": "\u2190", "x", 13.25, "y": 6.25},
++{"label": "\u2193", "x", 14.25, "y": 6.25},
++{"label": "\u2192", "x", 15.25, "y": 6.25},
+```
+*A diff showing the changes needed to vertically-offset the arrow keys in our keyboard's JSON file.*
