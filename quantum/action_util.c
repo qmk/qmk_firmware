@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "action_util.h"
 #include "action_layer.h"
+#include "action_tapping.h"
 #include "timer.h"
 #include "keycode_config.h"
 #include <string.h>
@@ -282,6 +283,10 @@ static uint8_t get_mods_for_report(void) {
             clear_oneshot_mods();
         }
     }
+#endif
+
+#ifdef SPECULATIVE_HOLD
+    mods |= get_speculative_mods();
 #endif
 
 #ifdef KEY_OVERRIDE_ENABLE
