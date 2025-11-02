@@ -3,7 +3,7 @@
         "0x0000": {
             "group": "internal",
             "key": "KC_NO",
-            "label": "",
+            "label": "N/A",
             "aliases": [
                 "XXXXXXX"
             ]
@@ -11,7 +11,7 @@
         "0x0001": {
             "group": "internal",
             "key": "KC_TRANSPARENT",
-            "label": "",
+            "label": "Transparent",
             "aliases": [
                 "_______",
                 "KC_TRNS"
@@ -634,7 +634,7 @@
         "0x0065": {
             "group": "basic",
             "key": "KC_APPLICATION",
-            "label": "Application",
+            "label": "App",
             "aliases": [
                 "KC_APP"
             ]
@@ -642,7 +642,7 @@
         "0x0066": {
             "group": "basic",
             "key": "KC_KB_POWER",
-            "label": "Application"
+            "label": "Power"
         },
         "0x0067": {
             "group": "basic",
@@ -1068,7 +1068,7 @@
         "0x00A5": {
             "group": "system",
             "key": "KC_SYSTEM_POWER",
-            "label": "System Power Down",
+            "label": "Power",
             "aliases": [
                 "KC_PWR"
             ]
@@ -1076,7 +1076,7 @@
         "0x00A6": {
             "group": "system",
             "key": "KC_SYSTEM_SLEEP",
-            "label": "System Sleep",
+            "label": "Sleep",
             "aliases": [
                 "KC_SLEP"
             ]
@@ -1084,7 +1084,7 @@
         "0x00A7": {
             "group": "system",
             "key": "KC_SYSTEM_WAKE",
-            "label": "System Wake",
+            "label": "Wake",
             "aliases": [
                 "KC_WAKE"
             ]
@@ -1140,7 +1140,7 @@
         "0x00AE": {
             "group": "media",
             "key": "KC_MEDIA_PLAY_PAUSE",
-            "label": "Play/Pause Track",
+            "label": "Play/Pause",
             "aliases": [
                 "KC_MPLY"
             ]
@@ -1148,7 +1148,7 @@
         "0x00AF": {
             "group": "media",
             "key": "KC_MEDIA_SELECT",
-            "label": "Launch Player",
+            "label": "Media",
             "aliases": [
                 "KC_MSEL"
             ]
@@ -1164,12 +1164,12 @@
         "0x00B1": {
             "group": "media",
             "key": "KC_MAIL",
-            "label": "Launch Mail"
+            "label": "Mail",
         },
         "0x00B2": {
             "group": "media",
             "key": "KC_CALCULATOR",
-            "label": "Launch Calculator",
+            "label": "Calculator",
             "aliases": [
                 "KC_CALC"
             ]
@@ -1177,7 +1177,7 @@
         "0x00B3": {
             "group": "media",
             "key": "KC_MY_COMPUTER",
-            "label": "Launch My Computer",
+            "label": "My Computer",
             "aliases": [
                 "KC_MYCM"
             ]
@@ -1185,7 +1185,7 @@
         "0x00B4": {
             "group": "media",
             "key": "KC_WWW_SEARCH",
-            "label": "Browser Search",
+            "label": "Search",
             "aliases": [
                 "KC_WSCH"
             ]
@@ -1193,7 +1193,7 @@
         "0x00B5": {
             "group": "media",
             "key": "KC_WWW_HOME",
-            "label": "Browser Home",
+            "label": "Home",
             "aliases": [
                 "KC_WHOM"
             ]
@@ -1201,7 +1201,7 @@
         "0x00B6": {
             "group": "media",
             "key": "KC_WWW_BACK",
-            "label": "Browser Back",
+            "label": "Back",
             "aliases": [
                 "KC_WBAK"
             ]
@@ -1209,7 +1209,7 @@
         "0x00B7": {
             "group": "media",
             "key": "KC_WWW_FORWARD",
-            "label": "Browser Forward",
+            "label": "Forward",
             "aliases": [
                 "KC_WFWD"
             ]
@@ -1217,7 +1217,7 @@
         "0x00B8": {
             "group": "media",
             "key": "KC_WWW_STOP",
-            "label": "Browser Stop",
+            "label": "Stop",
             "aliases": [
                 "KC_WSTP"
             ]
@@ -1225,7 +1225,7 @@
         "0x00B9": {
             "group": "media",
             "key": "KC_WWW_REFRESH",
-            "label": "Browser Refresh",
+            "label": "Refresh",
             "aliases": [
                 "KC_WREF"
             ]
@@ -1233,7 +1233,7 @@
         "0x00BA": {
             "group": "media",
             "key": "KC_WWW_FAVORITES",
-            "label": "Browser Favorites",
+            "label": "Favorites",
             "aliases": [
                 "KC_WFAV"
             ]
@@ -1241,7 +1241,7 @@
         "0x00BB": {
             "group": "media",
             "key": "KC_MEDIA_FAST_FORWARD",
-            "label": "Next Track",
+            "label": "Fast Forward",
             "aliases": [
                 "KC_MFFD"
             ]
@@ -1249,7 +1249,7 @@
         "0x00BC": {
             "group": "media",
             "key": "KC_MEDIA_REWIND",
-            "label": "Previous Track",
+            "label": "Rewind",
             "aliases": [
                 "KC_MRWD"
             ]
@@ -1273,7 +1273,7 @@
         "0x00BF": {
             "group": "media",
             "key": "KC_CONTROL_PANEL",
-            "label": "Open Control Panel",
+            "label": "Control Panel",
             "aliases": [
                 "KC_CPNL"
             ]
@@ -1281,7 +1281,7 @@
         "0x00C0": {
             "group": "media",
             "key": "KC_ASSISTANT",
-            "label": "Launch Assistant",
+            "label": "Assistant",
             "aliases": [
                 "KC_ASST"
             ]
