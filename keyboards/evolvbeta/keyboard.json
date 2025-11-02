@@ -1,8 +1,8 @@
 {
     "keyboard_name": "Evolv75 Beta",
     "manufacturer": "NathanAlpha",
-    "url": "",
-    "maintainer": "qmk",
+    "url": "https://archetypemade.com/evolv-is-here/",
+    "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x7865",
         "pid": "0x0E76",
