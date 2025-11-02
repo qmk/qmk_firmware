@@ -29,5 +29,3 @@ Enter the bootloader in 3 ways:
 - **Keycode in layout**: In the default layout, the `Bootloader` keycode is above home row pinky on the right side's adjust layer.
 
 Once you enter the bootloader, the keyboard will show up as a USB device on your computer, you could drag and drop a `.uf2` firmware file to flash it.
-
-[Keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/2fa0527caf2f6e527e4f46787a74a9d2)
