@@ -32,6 +32,9 @@
 bool is_joystick_push_blocked = false; // Keeps track of joystick push block
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (!process_record_user(keycode, record)) {
+        return false;
+    }
     if (record->event.key.col == 15) {
         switch (record->event.key.row) {
             case 1:
