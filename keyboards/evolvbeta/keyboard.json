@@ -26,9 +26,7 @@
     },
     "diode_direction": "COL2ROW",
     "eeprom": {
-        "driver": "wear_leveling",
         "wear_leveling": {
-            "driver": "embedded_flash",
             "logical_size": 2048,
             "backing_size": 4096
         }
