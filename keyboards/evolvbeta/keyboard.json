@@ -17,9 +17,6 @@
         "encoder": true,
         "bootmagic": true
     },
-    "build": {
-        "lto": true
-    },
     "matrix_pins": {
         "cols": ["B12", "B14", "C6" , "C7" , "C8" , "C9", "A8", "A10", "A15", "C10", "B8", "C11", "C0", "C1", "C2", "A3"],
         "rows": ["C4" , "A7", "A6" , "A5" , "C12", "B9" , "A4"] 
