@@ -16,8 +16,10 @@
 
 #include "quantum.h"
 
-/* WS2812 POWER PIN ENABLE */
 void keyboard_pre_init_kb(void) {
-    setPinOutput(B13);
-    writePinHigh(B13);
+    // WS2812 POWER PIN ENABLE
+    gpio_set_pin_output(B13);
+    gpio_write_pin_high(B13);
+    
+    keyboard_pre_init_user();
 }

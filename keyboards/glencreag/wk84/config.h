@@ -25,8 +25,5 @@
 #define SPI_MOSI_PIN A7
 #define SPI_MISO_PIN A6
 
-/* RGB Matrix */
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-
 /* WS2812 */
 #define WS2812_SPI_DRIVER SPIDM2

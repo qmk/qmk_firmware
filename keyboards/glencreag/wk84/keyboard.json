@@ -3,7 +3,6 @@
     "keyboard_name": "WK84",
     "maintainer": "Gsky",
     "bootloader": "wb32-dfu",
-    "debounce": 1,
     "diode_direction": "ROW2COL",
     "eeprom": {
         "wear_leveling": {
@@ -76,10 +75,8 @@
             "splash": true,
             "typing_heatmap": true
         },
-        "default": {
-            "sat": 255,
-            "speed": 195,
-            "val": 160
+        "default": {          
+            "speed": 195           
         },
         "driver": "ws2812",
         "layout": [
