@@ -29,13 +29,6 @@
 
 #include "quantum.h"
 
-void keyboard_post_init_kb(void) {
-    rgblight_disable_noeeprom();
-    wait_ms(20);
-    rgblight_reload_from_eeprom();
-    rgblight_enable_noeeprom();
-}
-
 bool is_joystick_push_blocked = false; // Keeps track of joystick push block
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
