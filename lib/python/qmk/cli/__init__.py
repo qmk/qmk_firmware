@@ -20,6 +20,10 @@ QMK_DISTRIB_DIR = Path(os.environ.get('QMK_DISTRIB_DIR', _default_distrib_path))
 if QMK_DISTRIB_DIR.exists():
     os.environ['PATH'] = str(QMK_DISTRIB_DIR / 'bin') + os.pathsep + os.environ['PATH']
 
+# Prepend any user-defined path prefix
+if 'QMK_PATH_PREFIX' in os.environ:
+    os.environ['PATH'] = os.environ['QMK_PATH_PREFIX'] + os.pathsep + os.environ['PATH']
+
 import_names = {
     # A mapping of package name to importable name
     'pep8-naming': 'pep8ext_naming',
