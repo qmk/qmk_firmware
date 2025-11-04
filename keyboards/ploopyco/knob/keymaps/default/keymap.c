@@ -20,23 +20,19 @@
 // Dummy
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {{{ KC_NO }}};
 
-uint16_t current_position = 0;
+static uint16_t current_position = 0;
 
 void keyboard_post_init_user(void) {
-    // Customise these values to desired behaviour
-    debug_enable=true;
-    debug_matrix=true;
-    debug_keyboard=true;
-    debug_mouse=true;
+    // debug_enable   = true;
+    // debug_matrix   = true;
+    // debug_keyboard = true;
+    // debug_mouse    = true;
 
-    // Init the AS5600 controlling the Dial
     as5600_init();
     current_position = get_rawangle();
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    dprintf("entering as5600 loop\n");
-    // Get AS5600 rawangle
     uint16_t ra = get_rawangle();
     int16_t delta = (int16_t)(ra - current_position);
 

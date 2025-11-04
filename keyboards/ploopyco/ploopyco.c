@@ -19,7 +19,6 @@
 #include "ploopyco.h"
 #include "analog.h"
 #include "opt_encoder.h"
-#include "print.h"
 
 // for legacy support
 #if defined(OPT_DEBOUNCE) && !defined(PLOOPY_SCROLL_DEBOUNCE)
@@ -204,7 +203,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
 
 // Hardware Setup
 void keyboard_pre_init_kb(void) {
-    debug_enable  = true;
+    // debug_enable  = true;
     // debug_matrix  = true;
     // debug_mouse   = true;
     // debug_encoder = true;
