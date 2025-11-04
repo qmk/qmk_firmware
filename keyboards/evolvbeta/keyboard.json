@@ -24,7 +24,6 @@
     "diode_direction": "COL2ROW",
     "eeprom": {
         "wear_leveling": {
-            "logical_size": 2048,
             "backing_size": 4096
         }
     },
