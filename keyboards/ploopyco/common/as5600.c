@@ -17,6 +17,8 @@
 #include "as5600.h"
 #include "print.h"
 
+static const uint8_t AS5600_I2C_ADDRESS = (0x36 << 1);
+
 void as5600_init(void) {
     i2c_init();
 }

@@ -19,21 +19,30 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "i2c_master.h"
+#include "compiler_support.h"
 
-#define POINTING_DEVICE_AS5600_TICK_COUNT 128
-
-// 12 was found to be a good value experimentally, balancing good
-// responsiveness with low backlash.
-#define POINTING_DEVICE_AS5600_DEADZONE 12
+// A deadzone for high-resolution scrolling. 12 was found to be a good value
+// experimentally, balancing good responsiveness with low backlash.
+#ifndef POINTING_DEVICE_AS5600_DEADZONE
+#    define POINTING_DEVICE_AS5600_DEADZONE 12
+#endif
 
 // The speed divisor decreases the speed. 1 is base speed; 2 is divided by 2,
 // 3 is divided by 3, and so forth. For best results, make sure that
 // POINTING_DEVICE_AS5600_SPEED_DIV is an integer divisor of
 // POINTING_DEVICE_AS5600_DEADZONE (i.e. 3 is an integer divisor of 12, but
 // 5 is not).
-#define POINTING_DEVICE_AS5600_SPEED_DIV 2
+#ifndef POINTING_DEVICE_AS5600_SPEED_DIV
+#    define POINTING_DEVICE_AS5600_SPEED_DIV 2
+#endif
 
-#define AS5600_I2C_ADDRESS (0x36 << 1)
+STATIC_ASSERT(POINTING_DEVICE_AS5600_DEADZONE % POINTING_DEVICE_AS5600_SPEED_DIV == 0, "POINTING_DEVICE_AS5600_SPEED_DIV must be an integer divisor of POINTING_DEVICE_AS5600_DEADZONE");
+
+// Scroll sensitivity, but only for MacOS.
+// Lower numbers make the scroll more sensitive.
+#ifndef POINTING_DEVICE_AS5600_TICK_COUNT
+#    define POINTING_DEVICE_AS5600_TICK_COUNT 128
+#endif
 
 #define REG_ZMCO        0x00
 #define REG_ZPOS        0x01
