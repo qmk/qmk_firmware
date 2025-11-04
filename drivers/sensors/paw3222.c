@@ -17,7 +17,6 @@
 #include "paw3222.h"
 #include "wait.h"
 #include "gpio.h"
-#include "math.h"
 #include "spi_master.h"
 #include "pointing_device_internal.h"
 
@@ -33,7 +32,7 @@ const pointing_device_driver_t paw3222_pointing_device_driver = {
 
 // Convert a 12-bit twos complement binary-represented number into a
 // signed 12-bit integer.
-int16_t convert_twoscomp_12(uint16_t data) {
+static int16_t convert_twoscomp_12(uint16_t data) {
     if ((data & 0x800) == 0x800)
         return -2048 + (data & 0x7FF);
     else
@@ -75,6 +74,10 @@ bool paw3222_init(void) {
     paw3222_write(0x06, 0x80);
     wait_ms(50);
 
+    if (!paw3222_check_signature()) {
+        return false;
+    }
+
     // initialize
     paw3222_write(0x09, 0x5A);
     paw3222_write(0x0D, 0x23);
@@ -112,7 +115,7 @@ bool paw3222_init(void) {
     // read a burst, then discard
     paw3222_read_burst();
 
-    return paw3222_check_signature();
+    return true;
 }
 
 report_paw3222_t paw3222_read_burst(void) {
@@ -137,8 +140,8 @@ report_paw3222_t paw3222_read_burst(void) {
 
 void paw3222_set_cpi(uint16_t cpi) {
     uint16_t cpival   = (cpi) < (480) ? (480) : ((cpi) > (4020) ? (4020) : (cpi));
-    uint8_t  cpival_x = (uint8_t)round((float)cpival / 30.0);
-    uint8_t  cpival_y = (uint8_t)round((float)cpival / 29.0);
+    uint8_t  cpival_x = (cpival + (30 / 2)) / 30;
+    uint8_t  cpival_y = (cpival + (29 / 2)) / 29;
 
     paw3222_write(0x09, 0x5A);
     paw3222_write(0x0D, cpival_x);
