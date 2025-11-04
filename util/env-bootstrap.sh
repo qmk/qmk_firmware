@@ -62,6 +62,8 @@
     --skip-udev-rules         -- Skip installing the udev rules for Linux
     --skip-windows-drivers    -- Skip installing the Windows drivers for the flashing utilities
 __EOT__
+    # Hidden:
+    # --wsl-install           -- Installs the WSL variant of qmk_flashutils
     }
 
     signal_execution_failure() {
@@ -433,10 +435,17 @@ __EOT__
     }
 
     install_flashing_tools() {
+        local osarchvariant="$(fn_os)$(fn_arch)"
+
+        # Special case for WSL
+        if [ -n "$WSL_INSTALL" ] ||  [ -n "${WSL_DISTRO_NAME:-}" ] || [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+            osarchvariant="windowsWSL"
+        fi
+
         # Get the latest flashing tools release from https://github.com/qmk/qmk_flashutils
         local latest_flashutils_release=$(github_api_call repos/qmk/qmk_flashutils/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset with a matching keyword
-        local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep $(fn_os)$(fn_arch))
+        local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep "$osarchvariant")
         if [ -z "$flashutils_url" ]; then
             echo "No flashing tools found for this OS/Arch combination." >&2
             exit 1
