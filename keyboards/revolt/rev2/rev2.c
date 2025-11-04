@@ -1,7 +1,6 @@
 // Copyright 2025 Jacek Królikowski (@nietaki)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "quantum.h"
 #include QMK_KEYBOARD_H
 
 bool mouseEnabled = true;
