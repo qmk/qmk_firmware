@@ -64,36 +64,42 @@ jobs:
     steps:
       - name: Install base dependencies
         run: |
-          case "${{ matrix.distribution }}" in
-            *ubuntu*|*debian*)
-              apt-get update
-              apt-get install -y sudo git passwd
-              ;;
-            *fedora*|*rockylinux*|*almalinux*)
-              dnf install -y sudo git passwd findutils  # findutils=xargs
-              ;;
-            *suse*)
-              zypper --non-interactive refresh
-              zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
-              ;;
-            *gentoo*)
-              emerge-webrsync
-              emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
-              ;;
-            *archlinux*|*cachyos*|*manjaro*)
-              pacman -Syu --noconfirm
-              pacman -S --noconfirm sudo git
-              ;;
-          esac
-          
+          # Attempt to run the package installation up to 10 times to mitigate transient network issues
+          for n in $(seq 1 10); do
+            {
+              echo "Attempt #$n of 10 to install base dependencies:"
+              case "${{ matrix.distribution }}" in
+                *ubuntu*|*debian*)
+                  apt-get update
+                  apt-get install -y sudo git passwd
+                  ;;
+                *fedora*|*rockylinux*|*almalinux*)
+                  dnf install -y sudo git passwd findutils  # findutils=xargs
+                  ;;
+                *suse*)
+                  zypper --non-interactive refresh
+                  zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
+                  ;;
+                *gentoo*)
+                  emerge-webrsync
+                  emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
+                  ;;
+                *archlinux*|*cachyos*|*manjaro*)
+                  pacman -Syu --noconfirm
+                  pacman -S --noconfirm sudo git
+                  ;;
+              esac
+            } && break || sleep 10
+          done
+
           # Fix PAM configuration for sudo in containers
           # Fix /etc/shadow permissions - common issue in container environments
           chmod 640 /etc/shadow || chmod 400 /etc/shadow || true
-          
+
           # Disable problematic PAM modules that commonly fail in RHEL-like containers
           sed -i 's/^session.*pam_systemd.so/#&/' /etc/pam.d/sudo || true
           sed -i 's/^session.*pam_loginuid.so/#&/' /etc/pam.d/sudo || true
-          
+
           # Ensure proper sudoers configuration
           echo 'Defaults !requiretty' >> /etc/sudoers
           echo 'Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' >> /etc/sudoers
