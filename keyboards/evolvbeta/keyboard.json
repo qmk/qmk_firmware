@@ -62,7 +62,7 @@
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
     "layouts": {
-        "LAYOUT_evolv_ansi": {
+        "LAYOUT_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
@@ -172,7 +172,7 @@
                 {"matrix": [5, 14], "x": 15, "y": 5.5}
             ]
         },
-        "LAYOUT_evolv_iso": {
+        "LAYOUT_iso": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
