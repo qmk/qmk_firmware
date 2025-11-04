@@ -1,7 +1,6 @@
 {
     "manufacturer": "DriftMechanics",
     "keyboard_name": "Forever 65 R2",
-    "url": "",
     "maintainer": "Gondolindrim",  
     "usb": {
         "vid": "0x4E53",
