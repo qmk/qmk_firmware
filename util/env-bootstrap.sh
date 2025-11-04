@@ -438,7 +438,7 @@ __EOT__
         local osarchvariant="$(fn_os)$(fn_arch)"
 
         # Special case for WSL
-        if [ -n "$WSL_INSTALL" ] ||  [ -n "${WSL_DISTRO_NAME:-}" ] || [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+        if [ -n "${WSL_INSTALL:-}" ] ||  [ -n "${WSL_DISTRO_NAME:-}" ] || [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
             osarchvariant="windowsWSL"
         fi
 
