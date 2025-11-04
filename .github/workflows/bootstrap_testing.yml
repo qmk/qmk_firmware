@@ -36,9 +36,9 @@ jobs:
           - ubuntu:24.04
 
           # RHEL/CentOS/Fedora based
-          - fedora:40
           - fedora:41
           - fedora:42
+          - fedora:43
           - rockylinux:8
           - rockylinux:9
           - rockylinux/rockylinux:10
