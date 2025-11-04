@@ -77,7 +77,7 @@ jobs:
               zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
               ;;
             *gentoo*)
-              emerge --sync
+              emerge-webrsync
               emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
               ;;
             *archlinux*|*cachyos*|*manjaro*)
