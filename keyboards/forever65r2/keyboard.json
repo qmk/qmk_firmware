@@ -14,12 +14,7 @@
        "rows": ["B1" , "B10", "B9" , "A7" , "B0"]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,
@@ -36,8 +31,7 @@
     },
     "eeprom": {
         "wear_leveling": {
-            "backing_size": 4096,
-            "logical_size": 2048
+            "backing_size": 4096
         }
     },
     "ws2812": {
