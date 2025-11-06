@@ -21,8 +21,7 @@
     "rgblight": {
         "led_count": 3,
         "sleep": true,
-        "layers":
-        {
+        "layers": {
           "enabled": true
         },
         "animations": {
