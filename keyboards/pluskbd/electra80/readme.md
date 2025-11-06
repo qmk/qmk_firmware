@@ -1,6 +1,7 @@
 # electra80
 
-![electra80](imgur.com image replace me!)
+![electra80 Solder]([img]https://i.imgur.com/5eC3RSd.png[/img])
+![electra80 Hotswap]([img]https://i.imgur.com/dcta0CK.png[/img])
 
 *A short description of the keyboard/project*
 
