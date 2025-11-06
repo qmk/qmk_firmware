@@ -43,6 +43,7 @@ const rgblight_segment_t* const PROGMEM my_rgb_layers[] = RGBLIGHT_LAYERS_LIST(
 
 void keyboard_post_init_kb(void){
     rgblight_layers = my_rgb_layers;
+    keyboard_post_init_user();
 }
 
 
