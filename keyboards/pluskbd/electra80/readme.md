@@ -10,7 +10,8 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make electra80:default
+    make electra80/hotswap:default
+    make electra80/solder:default
 
 Flashing example for this keyboard:
 
