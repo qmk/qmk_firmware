@@ -12,7 +12,7 @@
         "rgblight": true
     },
     "processor": "STM32F072",
-    "url": "",
+    "url": "https://plexkbd.com/",
     "matrix_pins": {
         "cols": ["B12", "A13", "B13", "B14", "B15", "A8", "B1", "B2", "B10", "B11", "A6", "A5", "A4", "A3", "A14", "A15", "B6", "B7"],
         "rows": ["B3", "B5", "B4", "B0", "C14", "C13"]
