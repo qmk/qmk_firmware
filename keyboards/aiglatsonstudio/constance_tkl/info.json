@@ -1,0 +1,33 @@
+{
+    "manufacturer": "aiglatsonstudio",
+    "keyboard_name": "constance_tkl",
+    "maintainer": "aiglatson",
+    "url": "https://aiglatsonstudio.com/products/gb-constance-tkl",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "A3",
+        "scroll_lock": "B3",
+        "on_state": 0
+    },
+    "matrix_pins": {
+        "cols": ["B13", "B12", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4", "A10", "A9", "A8", "B15", "B4", "C13", "C14", "B7"],
+        "rows": ["B6", "B5", "A15", "B14", "A1", "A2"]
+    },
+    "processor": "STM32F072",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "build": {
+        "lto": true
+    },
+    "usb": {
+        "vid": "0x4350",
+        "pid": "0x0013",
+        "device_version": "1.0.0"
+    }
+
+}
