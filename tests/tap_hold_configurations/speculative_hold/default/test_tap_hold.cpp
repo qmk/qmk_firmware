@@ -37,27 +37,43 @@ bool get_speculative_hold_all_keys(uint16_t keycode, keyrecord_t *record) {
     return true; // Enable Speculative Hold for all mod-tap keys.
 }
 
-// Indirection so that get_speculative_hold() can be replaced with other
-// functions in the test cases below.
+bool process_record_user_default(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+
+// Indirection so that get_speculative_hold() and process_record_user() can be
+// replaced with other functions in the test cases below.
 std::function<bool(uint16_t, keyrecord_t *)> get_speculative_hold_fun = get_speculative_hold_all_keys;
+std::function<bool(uint16_t, keyrecord_t *)> process_record_user_fun  = process_record_user_default;
 
 extern "C" bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
     return get_speculative_hold_fun(keycode, record);
+}
+
+extern "C" bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    return process_record_user_fun(keycode, record);
 }
 
 class SpeculativeHoldDefault : public TestFixture {
    public:
     void SetUp() override {
         get_speculative_hold_fun = get_speculative_hold_all_keys;
+        process_record_user_fun  = process_record_user_default;
     }
 };
 
 TEST_F(SpeculativeHoldDefault, tap_mod_tap) {
     TestDriver driver;
     InSequence s;
-    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    static int process_record_user_calls = 0;
+    auto       mod_tap_key               = KeymapKey(0, 1, 0, SFT_T(KC_P));
 
     set_keymap({mod_tap_key});
+
+    process_record_user_fun = [](uint16_t keycode, keyrecord_t *record) {
+        ++process_record_user_calls;
+        return true;
+    };
 
     // Press mod-tap-hold key. Mod is held speculatively.
     EXPECT_REPORT(driver, (KC_LSFT));
@@ -65,6 +81,9 @@ TEST_F(SpeculativeHoldDefault, tap_mod_tap) {
     idle_for(10);
     VERIFY_AND_CLEAR(driver);
     EXPECT_EQ(get_speculative_mods(), MOD_BIT_LSHIFT);
+    // Speculative mod holds and releases are made directly, bypassing regular
+    // event processing. No calls have been made yet to process_record_user().
+    EXPECT_EQ(process_record_user_calls, 0);
 
     // Release mod-tap-hold key.
     EXPECT_EMPTY_REPORT(driver); // Speculative mod canceled.
@@ -76,6 +95,8 @@ TEST_F(SpeculativeHoldDefault, tap_mod_tap) {
     // All mods are released.
     EXPECT_EQ(get_speculative_mods(), 0);
     EXPECT_EQ(get_mods(), 0);
+    // Two calls have now been made, for pressing and releasing KC_P.
+    EXPECT_EQ(process_record_user_calls, 2);
 
     // Idle for tapping term of mod tap hold key.
     idle_for(TAPPING_TERM - 10);
@@ -488,20 +509,37 @@ TEST_F(SpeculativeHoldDefault, tap_mod_tap_key_twice_and_hold_on_second_time) {
 TEST_F(SpeculativeHoldDefault, tap_and_hold_mod_tap_key) {
     TestDriver driver;
     InSequence s;
-    auto       mod_tap_key = KeymapKey(0, 1, 0, SFT_T(KC_P));
+    static int process_record_user_calls = 0;
+    auto       mod_tap_key               = KeymapKey(0, 1, 0, SFT_T(KC_P));
 
     set_keymap({mod_tap_key});
+
+    process_record_user_fun = [](uint16_t keycode, keyrecord_t *record) {
+        ++process_record_user_calls;
+        return true;
+    };
 
     // Press mod-tap-hold key.
     EXPECT_REPORT(driver, (KC_LSFT));
     mod_tap_key.press();
-    idle_for(TAPPING_TERM + 1);
+    idle_for(TAPPING_TERM - 1);
+    EXPECT_EQ(get_speculative_mods(), MOD_BIT_LSHIFT);
+    EXPECT_EQ(get_mods(), 0);
+    // Speculative mod holds and releases are made directly, bypassing regular
+    // event processing. No calls have been made yet to process_record_user().
+    EXPECT_EQ(process_record_user_calls, 0);
+    idle_for(2);
+    // Now that the key has settled, one call has been made for the hold event.
+    EXPECT_EQ(process_record_user_calls, 1);
+    EXPECT_EQ(get_speculative_mods(), 0);
+    EXPECT_EQ(get_mods(), MOD_BIT_LSHIFT);
     VERIFY_AND_CLEAR(driver);
 
     // Release mod-tap-hold key.
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_key.release();
     run_one_scan_loop();
+    EXPECT_EQ(process_record_user_calls, 2);
     VERIFY_AND_CLEAR(driver);
 }
 
