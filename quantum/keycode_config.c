@@ -162,8 +162,9 @@ __attribute__((weak)) uint8_t mod_config(uint8_t mod) {
         }
     }
     if (keymap_config.no_gui) {
-        mod &= ~MOD_LGUI;
-        mod &= ~MOD_RGUI;
+        if (mod & MOD_LGUI) {
+            mod &= ~MOD_RGUI;
+        }
     }
 
 #endif // MAGIC_ENABLE
