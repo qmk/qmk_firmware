@@ -1,6 +1,5 @@
 {
     "manufacturer": "aiglatsonstudio",
-    "keyboard_name": "constance_tkl",
     "maintainer": "aiglatson",
     "url": "https://aiglatsonstudio.com/products/gb-constance-tkl",
     "bootloader": "stm32-dfu",
@@ -26,7 +25,6 @@
     },
     "usb": {
         "vid": "0x4350",
-        "pid": "0x0013",
         "device_version": "1.0.0"
     }
 

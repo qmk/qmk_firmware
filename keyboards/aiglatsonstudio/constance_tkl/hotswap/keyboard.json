@@ -1,7 +1,10 @@
 {
-
+    "keyboard_name": "AGS_88H",
+     "usb": {
+        "pid": "0x0013"
+    },
     "layouts": {
-        "LAYOUT_hs": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
 
