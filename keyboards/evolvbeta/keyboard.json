@@ -13,7 +13,6 @@
         "mousekey": true,
         "nkro": true,
         "rgblight": true,
-        "backlight": true,
         "encoder": true,
         "bootmagic": true
     },
@@ -55,9 +54,8 @@
             "val": 200
         }
     },
-    "backlight": {
-      "pin": "B1",
-      "levels": 20
+    "indicators": {
+      "caps_lock": "B1"
     },
     "processor": "STM32F401",
     "bootloader": "stm32-dfu",
