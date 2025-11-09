@@ -39,7 +39,6 @@
     },
     "rgblight": {
         "led_count": 17,
-        "driver": "ws2812",
         "sleep": true,
         "brightness_steps": 20,
         "animations": {
