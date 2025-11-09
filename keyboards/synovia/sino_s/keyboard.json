@@ -39,7 +39,6 @@
     "backlight": {
         "pin": "B0",
         "levels": 20,
-        "breathing": false,
         "as_caps_lock": true,
         "on_state": 0
     },
