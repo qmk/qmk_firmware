@@ -15,16 +15,10 @@
        "rows": ["B5" , "C11", "C12", "D2" , "B3" , "B4" ]
     },
     "features": {
-        "audio": false,
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
-        "encoder": false,
         "extrakey": true,
-        "mousekey": false,
-        "nkro": true,
-        "rgblight": false
+        "nkro": true
     },
     "build": {
         "lto": true
@@ -33,8 +27,7 @@
         "driver" : "wear_leveling",
         "wear_leveling": {
             "driver": "embedded_flash",
-            "backing_size": 4096,
-            "logical_size": 2048
+            "backing_size": 4096
         }
     },
     "backlight": {
