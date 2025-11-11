@@ -779,6 +779,39 @@ Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bi
 
 [Auto Shift](features/auto_shift) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](features/auto_shift#retro-shift) for more information.
 
+### Speculative Hold
+
+Speculative Hold makes mod-tap keys more responsive by applying the modifier instantly on keydown, before the tap-hold decision is made. This is especially useful for actions like Shift+Click with a mouse, which can feel laggy with standard mod-taps.
+
+The firmware holds the modifier speculatively. Once the key's behavior is settled:
+
+* If held, the modifier remains active as expected until the key is released.
+* If tapped, the speculative modifier is canceled just before the tapping keycode is sent.
+
+Speculative Hold applies the modifier early but does not change the underlying tap-hold decision logic. Speculative Hold is compatible to use in combination with any other tap-hold options.
+
+To enable Speculative Hold, add the following to your `config.h`:
+
+```c
+#define SPECULATIVE_HOLD
+```
+
+By default, Speculative Hold applies to mod-taps using Shift, Ctrl, or Shift + Ctrl. You can override this behavior by defining the `get_speculative_hold()` callback in your keymap, for instance:
+
+```c
+bool get_speculative_hold(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) { // These keys may be speculatively held.
+        case LCTL_T(KC_ESC):
+        case LSFT_T(KC_Z):
+        case RSFT_T(KC_SLSH):
+            return true;
+    }
+    return false; // Disable otherwise.
+}
+```
+
+Some operating systems or applications assign actions to tapping a modifier key by itself, e.g., tapping GUI to open a start menu. Because Speculative Hold sends a lone modifier key press in some cases, it can falsely trigger these actions. To prevent this, set `DUMMY_MOD_NEUTRALIZER_KEYCODE` (and optionally `MODS_TO_NEUTRALIZE`) in your `config.h` in the same way as described above for [Retro Tapping](#retro-tapping).
+
 ## Why do we include the key record for the per key functions?
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.
