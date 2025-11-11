@@ -173,14 +173,6 @@ def _handle_invalid_features(kb, info):
     return ok
 
 
-def _handle_invalid_config(kb, info):
-    """Check for invalid keyboard level config
-    """
-    if info.get('url') == "":
-        cli.log.warning(f'{kb}: Invalid keyboard level config detected - Optional field "url" should not be empty.')
-    return True
-
-
 def _chibios_conf_includenext_check(target):
     """Check the ChibiOS conf.h for the correct inclusion of the next conf.h
     """
@@ -289,9 +281,6 @@ def keyboard_check(kb):  # noqa C901
 
     # Additional checks
     if not _handle_invalid_features(kb, kb_info):
-        ok = False
-
-    if not _handle_invalid_config(kb, kb_info):
         ok = False
 
     if not _handle_duplicating_code_defaults(kb, kb_info):
