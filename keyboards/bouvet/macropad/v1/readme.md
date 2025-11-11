@@ -1,12 +1,13 @@
 # bouvet/macropad/v1
 
-![bouvet/macropad/v1](imgur.com image replace me!)
+![bouvet/macropad/v1](https://www.kefo.no)
 
-*A short description of the keyboard/project*
+Small macropad, with two rotary encoder buttons and 14 keys.
+Optional OLED 128x16 screen, small learning and sharing project.
 
 * Keyboard Maintainer: [Kenneth Fossen](https://github.com/spydx)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Bouvet Macropad
+* Hardware Availability: [Shop](https://www.kefo.no/macropad)
 
 Make example for this keyboard (after setting up your build environment):
 
