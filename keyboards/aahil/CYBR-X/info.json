@@ -1,0 +1,32 @@
+{
+  "keyboard_name": "CYBR-X",
+  "manufacturer": "Aahil",
+  "url": "https://github.com/Aahil78/CYBR-X",
+  "usb": {
+    "vid": "0x4158",
+    "pid": "0x0001",
+    "device_version": "0.0.1"
+  },
+  "matrix_pins": {
+    "rows": [],
+    "cols": []
+  },
+  "diode_direction": "ROW2COL",
+  "encoder": {
+    "enabled": true,
+    "rotary": [
+      { "a": "GPA1", "b": "GPA2", "switch": "GPA3" },
+      { "a": "GPA4", "b": "GPA5", "switch": "GPA6" }
+    ]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x":0,"y":0}, {"x":1,"y":0}, {"x":2,"y":0}, {"x":3,"y":0},
+        {"x":0,"y":1}, {"x":1,"y":1}, {"x":2,"y":1}, {"x":3,"y":1},
+        {"x":0,"y":2}, {"x":1,"y":2}, {"x":2,"y":2}, {"x":3,"y":2},
+        {"x":0,"y":3}, {"x":1,"y":3}, {"x":2,"y":3}, {"x":3,"y":3}
+      ]
+    }
+  }
+}
