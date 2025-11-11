@@ -25,6 +25,7 @@
 #include <util/delay.h>
 #include "ws2812.h"
 #include "pin_defs.h"
+#include <stdbool.h>
 
 #define pinmask(pin) (_BV((pin)&0xF))
 
@@ -152,6 +153,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
 }
 
 ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+static bool  ws2812_dirty = false;
 
 void ws2812_init(void) {
     DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);
@@ -161,6 +163,7 @@ void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     ws2812_leds[index].r = red;
     ws2812_leds[index].g = green;
     ws2812_leds[index].b = blue;
+    ws2812_dirty         = true;
 #if defined(WS2812_RGBW)
     ws2812_rgb_to_rgbw(&ws2812_leds[index]);
 #endif
@@ -173,6 +176,8 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void ws2812_flush(void) {
+    if (!ws2812_dirty) return;
+    ws2812_dirty   = false;
     uint8_t masklo = ~(pinmask(WS2812_DI_PIN)) & PORTx_ADDRESS(WS2812_DI_PIN);
     uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
 

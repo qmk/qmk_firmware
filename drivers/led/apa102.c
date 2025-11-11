@@ -55,6 +55,7 @@
 
 rgb_t   apa102_leds[APA102_LED_COUNT];
 uint8_t apa102_led_brightness = APA102_DEFAULT_BRIGHTNESS;
+bool    apa102_dirty          = false;
 
 static void apa102_send_byte(uint8_t byte) {
     APA102_SEND_BIT(byte, 7);
@@ -126,6 +127,7 @@ void apa102_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     apa102_leds[index].r = red;
     apa102_leds[index].g = green;
     apa102_leds[index].b = blue;
+    apa102_dirty         = true;
 }
 
 void apa102_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
@@ -135,6 +137,9 @@ void apa102_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void apa102_flush(void) {
+    if (!apa102_dirty) return;
+    apa102_dirty = false;
+
     apa102_start_frame();
     for (uint8_t i = 0; i < APA102_LED_COUNT; i++) {
         apa102_send_frame(apa102_leds[i].r, apa102_leds[i].g, apa102_leds[i].b, apa102_led_brightness);
