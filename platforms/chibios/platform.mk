@@ -294,8 +294,8 @@ EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(TOP_DIR)/platforms/chibios/boards/$(BOARD)/configs \
          $(TOP_DIR)/platforms/chibios/boards/common/configs \
          $(HALCONFDIR) $(CHCONFDIR) \
-         $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) $(OSLIBINC) \
-         $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
+         $(STARTUPINC) $(KERNINC) $(PORTINC) $(ARMCOMMONINC) $(OSALINC) \
+         $(OSLIBINC) $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
          $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
 
 #
