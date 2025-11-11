@@ -1,0 +1,7 @@
+{
+    "matrix_pins": {
+        "direct": [
+            ["GP17"]
+        ]
+    }
+}
