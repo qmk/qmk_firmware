@@ -4,9 +4,9 @@
 
 A 60% keyboard with a symmetrical staggered layout, sold by CandyKeys.com.
 
-Keyboard Maintainer: [Baris Tosun](https://github.com/rominronin)  
-Hardware Supported: Katana60 PCB rev1
-Hardware Availability: the rev1 is no longer available, the rev2 can be found at [candykeys.com](https://candykeys.com/product/katana60-pcb-V2)
+* Keyboard Maintainer: [Baris Tosun](https://github.com/rominronin)
+* Hardware Supported: Katana60 PCB rev1
+* Hardware Availability: the rev1 is no longer available, the rev2 can be found at [candykeys.com](https://candykeys.com/product/katana60-pcb-V2)
 
 Make example for this keyboard (after setting up your build environment):
 
