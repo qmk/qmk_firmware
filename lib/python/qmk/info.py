@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import jsonschema
 from dotty_dict import dotty
+from enum import IntFlag
 
 from milc import cli
 
@@ -19,6 +20,15 @@ from qmk.util import maybe_exit, truthy
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
+
+
+class LedFlags(IntFlag):
+    ALL = 0xFF
+    NONE = 0x00
+    MODIFIER = 0x01
+    UNDERGLOW = 0x02
+    KEYLIGHT = 0x04
+    INDICATOR = 0x08
 
 
 def _keyboard_in_layout_name(keyboard, layout):
@@ -813,12 +823,23 @@ def _extract_led_config(info_data, keyboard):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
 
             if info_data[feature].get('layout', None) and not info_data[feature].get('flag_steps', None):
-                flags = {0xFF, 0}
+                flags = {LedFlags.ALL, LedFlags.NONE}
+                default_flags = {LedFlags.MODIFIER | LedFlags.KEYLIGHT, LedFlags.UNDERGLOW}
+
                 # if only a single flag is used, assume only all+none flags
-                unique_flags = set(x.get('flags', 0) for x in info_data[feature]['layout'])
-                if len(unique_flags) > 1:
-                    flags.update(unique_flags)
-                info_data[feature]['flag_steps'] = sorted(list(flags), reverse=True)
+                kb_flags = set(x.get('flags', LedFlags.NONE) for x in info_data[feature]['layout'])
+                if len(kb_flags) > 1:
+                    # check if any part of LED flag is with the defaults
+                    unique_flags = set()
+                    for candidate in default_flags:
+                        if any(candidate & flag for flag in kb_flags):
+                            unique_flags.add(candidate)
+
+                    # if we still have a single flag, assume only all+none
+                    if len(unique_flags) > 1:
+                        flags.update(unique_flags)
+
+                info_data[feature]['flag_steps'] = sorted([int(flag) for flag in flags], reverse=True)
 
     return info_data
 
