@@ -544,6 +544,9 @@ void keyboard_init(void) {
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
+#ifdef COMBO_ENABLE
+    combo_enable();
+#endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
     debug_enable = true;
