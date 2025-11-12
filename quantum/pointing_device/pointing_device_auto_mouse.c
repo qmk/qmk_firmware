@@ -178,7 +178,6 @@ void set_auto_mouse_debounce(uint8_t debounce) {
 /**
  * @brief Changes the timeout for the mouse auto layer to be disabled
  *
-
  * @param key_tracker
  */
 void set_auto_mouse_key_tracker(int8_t key_tracker) {
@@ -373,7 +372,6 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
         // PDF --------------------------------------------------------------------------------------------------------
         case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:
-
 #    ifndef NO_ACTION_ONESHOT
         // OSL((AUTO_MOUSE_TARGET_LAYER))------------------------------------------------------------------------------
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
