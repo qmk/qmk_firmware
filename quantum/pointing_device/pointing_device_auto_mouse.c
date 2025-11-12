@@ -114,7 +114,7 @@ int8_t get_auto_mouse_key_tracker(void) {
  * @brief Reset auto mouse context
  *
  * Clear timers and status
-
+ *
  * NOTE: this will set is_toggled to false so careful when using it
  */
 static void auto_mouse_reset(void) {
@@ -190,8 +190,7 @@ void set_auto_mouse_key_tracker(int8_t key_tracker) {
  *
  * Change state of local layer_toggled bool meant to track when the mouse layer is toggled on by other means
  *
- * NOTE: While is_toggled is true it will prevent deactiving target layer (but not
- activation)
+ * NOTE: While is_toggled is true it will prevent deactiving target layer (but not activation)
  */
 void auto_mouse_toggle(void) {
     auto_mouse_context.status.is_toggled ^= 1;
