@@ -1,4 +1,4 @@
-/* Copyright 2023 Yiancar-Designs, Bit-Shifter
+/* Copyright 2025 Yiancar-Designs, Bit-Shifter
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
