@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "Navi10",
-    "manufacturer": "emdarcher",
-    "maintainer": "emdarcher",
-    "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000"
-    }
-}

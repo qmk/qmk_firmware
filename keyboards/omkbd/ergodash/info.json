@@ -1,6 +1,0 @@
-{
-    "development_board": "promicro",
-    "split": {
-        "enabled": true
-    }
-}

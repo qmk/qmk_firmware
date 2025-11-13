@@ -1,6 +1,0 @@
-AUDIO_SUPPORTED = no
-
-CUSTOM_MATRIX = yes
-
-SRC += matrix.c
-I2C_DRIVER_REQUIRED = yes

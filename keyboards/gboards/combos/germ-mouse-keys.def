@@ -1,2 +1,0 @@
-COMB(gbClick,       MS_BTN1,         KC_G, KC_B)
-COMB(fvClick,       MS_BTN2,         KC_F, KC_V)
