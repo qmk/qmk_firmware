@@ -1,0 +1,16 @@
+{
+  "keyboard_name": "The ECO Keyboard",
+  "manufacturer": "Bishop Keyboards",
+  "maintainer": "qmk",
+  "usb": {
+    "vid": "0x1337",
+    "pid": "0x6006"
+  },
+  "development_board": "promicro",
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  }
+}

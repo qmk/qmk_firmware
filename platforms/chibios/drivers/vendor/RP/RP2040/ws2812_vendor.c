@@ -136,7 +136,7 @@ static const pio_program_t ws2812_program = {
 };
 
 static uint32_t                WS2812_BUFFER[WS2812_LED_COUNT];
-static const rp_dma_channel_t* WS2812_DMA_CHANNEL;
+static const rp_dma_channel_t* dma_channel;
 static uint32_t                RP_DMA_MODE_WS2812;
 static int                     STATE_MACHINE = -1;
 
@@ -161,7 +161,7 @@ static void ws2812_dma_callback(void* p, uint32_t ct) {
     // FIFO is already empty.
     rtcnt_t time_to_completion = (pio_sm_get_tx_fifo_level(pio, STATE_MACHINE) + 1) * MAX(WS2812_T1H + WS2812_T1L, WS2812_T0H + WS2812_T0L);
 
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
     time_to_completion *= 32;
 #else
     time_to_completion *= 24;
@@ -177,7 +177,7 @@ static void ws2812_dma_callback(void* p, uint32_t ct) {
     osalSysUnlockFromISR();
 }
 
-bool ws2812_init(void) {
+void ws2812_init(void) {
     uint pio_idx = pio_get_index(pio);
     /* Get PIOx peripheral out of reset state. */
     hal_lld_peripheral_unreset(pio_idx == 0 ? RESETS_ALLREG_PIO0 : RESETS_ALLREG_PIO1);
@@ -196,7 +196,7 @@ bool ws2812_init(void) {
     STATE_MACHINE = pio_claim_unused_sm(pio, true);
     if (STATE_MACHINE < 0) {
         dprintln("ERROR: Failed to acquire state machine for WS2812 output!");
-        return false;
+        return;
     }
 
     uint offset = pio_add_program(pio, &ws2812_program);
@@ -222,7 +222,7 @@ bool ws2812_init(void) {
     sm_config_set_sideset(&config, 1, false, false);
 #endif
 
-#if defined(RGBW)
+#if defined(WS2812_RGBW)
     sm_config_set_out_shift(&config, false, true, 32);
 #else
     sm_config_set_out_shift(&config, false, true, 24);
@@ -236,9 +236,9 @@ bool ws2812_init(void) {
     pio_sm_init(pio, STATE_MACHINE, offset, &config);
     pio_sm_set_enabled(pio, STATE_MACHINE, true);
 
-    WS2812_DMA_CHANNEL = dmaChannelAlloc(RP_DMA_CHANNEL_ID_ANY, RP_DMA_PRIORITY_WS2812, (rp_dmaisr_t)ws2812_dma_callback, NULL);
-    dmaChannelEnableInterruptX(WS2812_DMA_CHANNEL);
-    dmaChannelSetDestinationX(WS2812_DMA_CHANNEL, (uint32_t)&pio->txf[STATE_MACHINE]);
+    dma_channel = dmaChannelAlloc(RP_DMA_CHANNEL_ID_ANY, RP_DMA_PRIORITY_WS2812, (rp_dmaisr_t)ws2812_dma_callback, NULL);
+    dmaChannelEnableInterruptX(dma_channel);
+    dmaChannelSetDestinationX(dma_channel, (uint32_t)&pio->txf[STATE_MACHINE]);
 
     // clang-format off
     RP_DMA_MODE_WS2812 = DMA_CTRL_TRIG_INCR_READ |
@@ -246,8 +246,6 @@ bool ws2812_init(void) {
                          DMA_CTRL_TRIG_TREQ_SEL(pio == pio0 ? STATE_MACHINE : STATE_MACHINE + 8) |
                          DMA_CTRL_TRIG_PRIORITY(RP_DMA_PRIORITY_WS2812);
     // clang-format on
-
-    return true;
 }
 
 static inline void sync_ws2812_transfer(void) {
@@ -256,7 +254,7 @@ static inline void sync_ws2812_transfer(void) {
         // count of LEDs in milliseconds. This is safely much longer than it
         // would take to push all the data out.
         dprintln("ERROR: WS2812 DMA transfer has stalled, aborting!");
-        dmaChannelDisableX(WS2812_DMA_CHANNEL);
+        dmaChannelDisableX(dma_channel);
         pio_sm_clear_fifos(pio, STATE_MACHINE);
         pio_sm_restart(pio, STATE_MACHINE);
         chSemReset(&TRANSFER_COUNTER, 0);
@@ -268,24 +266,36 @@ static inline void sync_ws2812_transfer(void) {
     busy_wait_until(LAST_TRANSFER);
 }
 
-void ws2812_setleds(LED_TYPE* ledarray, uint16_t leds) {
-    static bool is_initialized = false;
-    if (unlikely(!is_initialized)) {
-        is_initialized = ws2812_init();
-    }
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
 
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
+
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
     sync_ws2812_transfer();
 
-    for (int i = 0; i < leds; i++) {
-#if defined(RGBW)
-        WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, ledarray[i].w);
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+#if defined(WS2812_RGBW)
+        WS2812_BUFFER[i] = rgbw8888_to_u32(ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b, ws2812_leds[i].w);
 #else
-        WS2812_BUFFER[i] = rgbw8888_to_u32(ledarray[i].r, ledarray[i].g, ledarray[i].b, 0);
+        WS2812_BUFFER[i] = rgbw8888_to_u32(ws2812_leds[i].r, ws2812_leds[i].g, ws2812_leds[i].b, 0);
 #endif
     }
 
-    dmaChannelSetSourceX(WS2812_DMA_CHANNEL, (uint32_t)WS2812_BUFFER);
-    dmaChannelSetCounterX(WS2812_DMA_CHANNEL, leds);
-    dmaChannelSetModeX(WS2812_DMA_CHANNEL, RP_DMA_MODE_WS2812);
-    dmaChannelEnableX(WS2812_DMA_CHANNEL);
+    dmaChannelSetSourceX(dma_channel, (uint32_t)WS2812_BUFFER);
+    dmaChannelSetCounterX(dma_channel, WS2812_LED_COUNT);
+    dmaChannelSetModeX(dma_channel, RP_DMA_MODE_WS2812);
+    dmaChannelEnableX(dma_channel);
 }

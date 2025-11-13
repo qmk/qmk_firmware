@@ -1,0 +1,103 @@
+{
+    "keyboard_name": "NEBULA12B",
+    "manufacturer": "Yiancar-Designs",
+    "maintainer": "yiancar",
+    "usb": {
+        "vid": "0x8968",
+        "pid": "0x5332",
+        "device_version": "0.0.1"
+    },
+    "ws2812": {
+        "pin": "D5"
+    },
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "driver": "ws2812",
+        "sleep": true
+    },
+    "build": {
+        "lto": true
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["F4", "F5", "D7"],
+        "rows": ["B7", "B4", "F7", "F6"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layout_aliases": {
+        "LAYOUT_all": "LAYOUT_ortho_4x3"
+    },
+    "layouts": {
+        "LAYOUT_ortho_4x3": {
+            "layout": [
+                {"label": "7", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "8", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "9", "matrix": [0, 2], "x": 2, "y": 0},
+
+                {"label": "4", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "5", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "6", "matrix": [1, 2], "x": 2, "y": 1},
+
+                {"label": "1", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "2", "matrix": [2, 1], "x": 1, "y": 2},
+                {"label": "3", "matrix": [2, 2], "x": 2, "y": 2},
+
+                {"label": "Fn", "matrix": [3, 0], "x": 0, "y": 3},
+                {"label": "0", "matrix": [3, 1], "x": 1, "y": 3},
+                {"label": ".", "matrix": [3, 2], "x": 2, "y": 3}
+            ]
+        }
+    }
+}

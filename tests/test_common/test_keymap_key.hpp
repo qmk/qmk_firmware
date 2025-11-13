@@ -18,10 +18,10 @@
 
 #include <cstddef>
 #include <string>
-#include "keycode_util.hpp"
 extern "C" {
 #include "keyboard.h"
 #include "test_matrix.h"
+#include "keycode_string.h"
 }
 
 #include <cassert>
@@ -29,11 +29,11 @@ extern "C" {
 typedef uint8_t layer_t;
 
 struct KeymapKey {
-    KeymapKey(layer_t layer, uint8_t col, uint8_t row, uint16_t keycode) : layer(layer), position({.col = col, .row = row}), code(keycode), report_code(keycode), name(get_keycode_identifier_or_default(keycode)) {
+    KeymapKey(layer_t layer, uint8_t col, uint8_t row, uint16_t keycode) : layer(layer), position({.col = col, .row = row}), code(keycode), report_code(keycode), name(get_keycode_string(keycode)) {
         validate();
     }
 
-    KeymapKey(layer_t layer, uint8_t col, uint8_t row, uint16_t keycode, uint16_t report_code) : layer(layer), position({.col = col, .row = row}), code(keycode), report_code(report_code), name{get_keycode_identifier_or_default(keycode)} {
+    KeymapKey(layer_t layer, uint8_t col, uint8_t row, uint16_t keycode, uint16_t report_code) : layer(layer), position({.col = col, .row = row}), code(keycode), report_code(report_code), name{get_keycode_string(keycode)} {
         validate();
     }
 

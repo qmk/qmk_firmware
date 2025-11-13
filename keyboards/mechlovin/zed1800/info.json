@@ -1,0 +1,34 @@
+{
+    "manufacturer": "Mechlovin Studio",
+    "maintainer": "Mechlovin' Studio",
+    "usb": {
+        "vid": "0x4D4C",
+        "device_version": "0.0.1"
+    },
+    "indicators": {
+        "caps_lock": "C14",
+        "num_lock": "C15"
+    },
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "rgblight": {
+        "sleep": true,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    }
+}

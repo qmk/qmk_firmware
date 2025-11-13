@@ -1,0 +1,14 @@
+{
+  "keyboard_name": "Levinson",
+  "manufacturer": "Keebio",
+  "url": "https://keeb.io",
+  "maintainer": "Keebio",
+  "usb": {
+    "vid": "0xCB10"
+  },
+  "split": {
+    "enabled": true
+  },
+  "development_board": "promicro",
+  "community_layouts": ["ortho_4x12"]
+}

@@ -44,7 +44,9 @@ __attribute__((weak)) bool qp_ssd1351_init(painter_device_t device, painter_rota
         SSD1351_DISPLAYON,             5,  0,
     };
     // clang-format on
-    qp_comms_bulk_command_sequence(device, ssd1351_init_sequence, sizeof(ssd1351_init_sequence));
+    if (!qp_comms_bulk_command_sequence(device, ssd1351_init_sequence, sizeof(ssd1351_init_sequence))) {
+        return false;
+    }
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
@@ -53,10 +55,10 @@ __attribute__((weak)) bool qp_ssd1351_init(painter_device_t device, painter_rota
         [QP_ROTATION_180] = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MX,
         [QP_ROTATION_270] = SSD1351_MADCTL_BGR | SSD1351_MADCTL_MV,
     };
-    qp_comms_command_databyte(device, SSD1351_SETREMAP, madctl[rotation]);
-    qp_comms_command_databyte(device, SSD1351_STARTLINE, (rotation == QP_ROTATION_0 || rotation == QP_ROTATION_90) ? driver->base.panel_height : 0);
-
-    return true;
+    if (!qp_comms_command_databyte(device, SSD1351_SETREMAP, madctl[rotation])) {
+        return false;
+    }
+    return qp_comms_command_databyte(device, SSD1351_STARTLINE, (rotation == QP_ROTATION_0 || rotation == QP_ROTATION_90) ? driver->base.panel_height : 0);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -107,13 +109,14 @@ painter_device_t qp_ssd1351_make_spi_device(uint16_t panel_width, uint16_t panel
             driver->base.native_bits_per_pixel = 16; // RGB565
 
             // SPI and other pin configuration
-            driver->base.comms_config                              = &driver->spi_dc_reset_config;
-            driver->spi_dc_reset_config.spi_config.chip_select_pin = chip_select_pin;
-            driver->spi_dc_reset_config.spi_config.divisor         = spi_divisor;
-            driver->spi_dc_reset_config.spi_config.lsb_first       = false;
-            driver->spi_dc_reset_config.spi_config.mode            = spi_mode;
-            driver->spi_dc_reset_config.dc_pin                     = dc_pin;
-            driver->spi_dc_reset_config.reset_pin                  = reset_pin;
+            driver->base.comms_config                                   = &driver->spi_dc_reset_config;
+            driver->spi_dc_reset_config.spi_config.chip_select_pin      = chip_select_pin;
+            driver->spi_dc_reset_config.spi_config.divisor              = spi_divisor;
+            driver->spi_dc_reset_config.spi_config.lsb_first            = false;
+            driver->spi_dc_reset_config.spi_config.mode                 = spi_mode;
+            driver->spi_dc_reset_config.dc_pin                          = dc_pin;
+            driver->spi_dc_reset_config.reset_pin                       = reset_pin;
+            driver->spi_dc_reset_config.command_params_uses_command_pin = false;
 
             if (!qp_internal_register_device((painter_device_t)driver)) {
                 memset(driver, 0, sizeof(tft_panel_dc_reset_painter_device_t));

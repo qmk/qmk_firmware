@@ -121,7 +121,7 @@ GPTConfig   gptCFG = {
     .callback  = gpt_callback,
 };
 
-void audio_driver_initialize(void) {
+void audio_driver_initialize_impl(void) {
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
     palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
@@ -138,7 +138,7 @@ void audio_driver_initialize(void) {
     gptStart(&AUDIO_STATE_TIMER, &gptCFG);
 }
 
-void audio_driver_start(void) {
+void audio_driver_start_impl(void) {
     channel_1_stop();
     channel_1_start();
 
@@ -147,7 +147,7 @@ void audio_driver_start(void) {
     }
 }
 
-void audio_driver_stop(void) {
+void audio_driver_stop_impl(void) {
     channel_1_stop();
     gptStopTimer(&AUDIO_STATE_TIMER);
 }

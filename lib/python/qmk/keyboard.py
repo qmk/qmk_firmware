@@ -30,6 +30,28 @@ BOX_DRAWING_CHARACTERS = {
         "h": "_",
     },
 }
+ENC_DRAWING_CHARACTERS = {
+    "unicode": {
+        "tl": "╭",
+        "tr": "╮",
+        "bl": "╰",
+        "br": "╯",
+        "vl": "▲",
+        "vr": "▼",
+        "v": "│",
+        "h": "─",
+    },
+    "ascii": {
+        "tl": " ",
+        "tr": " ",
+        "bl": "\\",
+        "br": "/",
+        "v": "|",
+        "vl": "/",
+        "vr": "\\",
+        "h": "_",
+    },
+}
 
 
 class AllKeyboards:
@@ -48,16 +70,25 @@ class AllKeyboards:
 base_path = os.path.join(os.getcwd(), "keyboards") + os.path.sep
 
 
+@lru_cache(maxsize=1)
+def keyboard_alias_definitions():
+    return json_load(Path('data/mappings/keyboard_aliases.hjson'))
+
+
 def is_all_keyboards(keyboard):
     """Returns True if the keyboard is an AllKeyboards object.
     """
+    if isinstance(keyboard, str):
+        return (keyboard == 'all')
     return isinstance(keyboard, AllKeyboards)
 
 
 def find_keyboard_from_dir():
     """Returns a keyboard name based on the user's current directory.
     """
-    relative_cwd = qmk.path.under_qmk_firmware()
+    relative_cwd = qmk.path.under_qmk_userspace()
+    if not relative_cwd:
+        relative_cwd = qmk.path.under_qmk_firmware()
 
     if relative_cwd and len(relative_cwd.parts) > 1 and relative_cwd.parts[0] == 'keyboards':
         # Attempt to extract the keyboard name from the current directory
@@ -88,18 +119,15 @@ def find_readme(keyboard):
 def keyboard_folder(keyboard):
     """Returns the actual keyboard folder.
 
-    This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
+    This checks aliases to resolve the actual path for a keyboard.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = keyboard_alias_definitions()
 
-    if keyboard in aliases:
+    while keyboard in aliases:
+        last_keyboard = keyboard
         keyboard = aliases[keyboard].get('target', keyboard)
-
-    rules_mk_file = Path(base_path, keyboard, 'rules.mk')
-
-    if rules_mk_file.exists():
-        rules_mk = parse_rules_mk_file(rules_mk_file)
-        keyboard = rules_mk.get('DEFAULT_FOLDER', keyboard)
+        if keyboard == last_keyboard:
+            break
 
     if not qmk.path.is_keyboard(keyboard):
         raise ValueError(f'Invalid keyboard: {keyboard}')
@@ -107,10 +135,26 @@ def keyboard_folder(keyboard):
     return keyboard
 
 
+def keyboard_aliases(keyboard):
+    """Returns the list of aliases for the supplied keyboard.
+
+    Includes the keyboard itself.
+    """
+    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+
+    if keyboard in aliases:
+        keyboard = aliases[keyboard].get('target', keyboard)
+
+    keyboards = set(filter(lambda k: aliases[k].get('target', '') == keyboard, aliases.keys()))
+    keyboards.add(keyboard)
+    keyboards = list(sorted(keyboards))
+    return keyboards
+
+
 def keyboard_folder_or_all(keyboard):
     """Returns the actual keyboard folder.
 
-    This checks aliases and DEFAULT_FOLDER to resolve the actual path for a keyboard.
+    This checks aliases to resolve the actual path for a keyboard.
     If the supplied argument is "all", it returns an AllKeyboards object.
     """
     if keyboard == 'all':
@@ -120,9 +164,9 @@ def keyboard_folder_or_all(keyboard):
 
 
 def _find_name(path):
-    """Determine the keyboard name by stripping off the base_path and rules.mk.
+    """Determine the keyboard name by stripping off the base_path and filename.
     """
-    return path.replace(base_path, "").replace(os.path.sep + "rules.mk", "")
+    return path.replace(base_path, "").rsplit(os.path.sep, 1)[0]
 
 
 def keyboard_completer(prefix, action, parser, parsed_args):
@@ -131,28 +175,16 @@ def keyboard_completer(prefix, action, parser, parsed_args):
     return list_keyboards()
 
 
-def list_keyboards(resolve_defaults=True):
-    """Returns a list of all keyboards - optionally processing any DEFAULT_FOLDER.
+def list_keyboards():
+    """Returns a list of all keyboards
     """
     # We avoid pathlib here because this is performance critical code.
-    kb_wildcard = os.path.join(base_path, "**", "rules.mk")
+    kb_wildcard = os.path.join(base_path, "**", 'keyboard.json')
     paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
     found = map(_find_name, paths)
-    if resolve_defaults:
-        found = map(resolve_keyboard, found)
 
     return sorted(set(found))
-
-
-@lru_cache(maxsize=None)
-def resolve_keyboard(keyboard):
-    cur_dir = Path('keyboards')
-    rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-    while 'DEFAULT_FOLDER' in rules and keyboard != rules['DEFAULT_FOLDER']:
-        keyboard = rules['DEFAULT_FOLDER']
-        rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
-    return keyboard
 
 
 def config_h(keyboard):
@@ -166,7 +198,7 @@ def config_h(keyboard):
     """
     config = {}
     cur_dir = Path('keyboards')
-    keyboard = Path(resolve_keyboard(keyboard))
+    keyboard = Path(keyboard)
 
     for dir in keyboard.parts:
         cur_dir = cur_dir / dir
@@ -185,7 +217,7 @@ def rules_mk(keyboard):
         a dictionary representing the content of the entire rules.mk tree for a keyboard
     """
     cur_dir = Path('keyboards')
-    keyboard = Path(resolve_keyboard(keyboard))
+    keyboard = Path(keyboard)
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
 
     for i, dir in enumerate(keyboard.parts):
@@ -214,7 +246,9 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         else:
             label = key.get('label', '')
 
-        if x >= 0.25 and w == 1.25 and h == 2:
+        if 'encoder' in key:
+            render_encoder(textpad, x, y, w, h, label, style)
+        elif x >= 0.25 and w == 1.25 and h == 2:
             render_key_isoenter(textpad, x, y, w, h, label, style)
         elif w == 1.5 and h == 2:
             render_key_baenter(textpad, x, y, w, h, label, style)
@@ -332,3 +366,32 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
     textpad[y + 3][x - 3:x + w] = crn_line
     textpad[y + 4][x - 3:x + w] = lab_line
     textpad[y + 5][x - 3:x + w] = bot_line
+
+
+def render_encoder(textpad, x, y, w, h, label, style):
+    box_chars = ENC_DRAWING_CHARACTERS[style]
+    x = ceil(x * 4)
+    y = ceil(y * 3)
+    w = ceil(w * 4)
+    h = ceil(h * 3)
+
+    label_len = w - 2
+    label_leftover = label_len - len(label)
+
+    if len(label) > label_len:
+        label = label[:label_len]
+
+    label_blank = ' ' * label_len
+    label_border = box_chars['h'] * label_len
+    label_middle = label + ' ' * label_leftover
+
+    top_line = array('u', box_chars['tl'] + label_border + box_chars['tr'])
+    lab_line = array('u', box_chars['vl'] + label_middle + box_chars['vr'])
+    mid_line = array('u', box_chars['v'] + label_blank + box_chars['v'])
+    bot_line = array('u', box_chars['bl'] + label_border + box_chars['br'])
+
+    textpad[y][x:x + w] = top_line
+    textpad[y + 1][x:x + w] = lab_line
+    for i in range(h - 3):
+        textpad[y + i + 2][x:x + w] = mid_line
+    textpad[y + h - 1][x:x + w] = bot_line

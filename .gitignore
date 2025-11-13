@@ -18,8 +18,15 @@
 *.lst
 *.map
 *.o
+*.a
+*.so
+*.dylib
+*.dll
+*.la
 *.stackdump
 *.sym
+index.html
+firmware_list.json
 
 # QMK-specific
 api_data/v1
@@ -32,6 +39,7 @@ quantum/version.h
 
 # DD config at wrong location
 /keyboards/**/keymaps/*/info.json
+/keyboards/**/keymaps/*/keyboard.json
 
 # Old-style QMK Makefiles
 /keyboards/**/Makefile
@@ -56,6 +64,7 @@ build/
 cmake-build-debug
 CMakeLists.txt
 *.pdf
+*.zip
 
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace
@@ -86,6 +95,11 @@ tags
 *.mpeg
 *.ttf
 *.otf
+# Un-ignore limited image file formats in docs
+!docs/public/**.gif
+!docs/public/**.jpg
+!docs/public/**.jpeg
+!docs/public/**.png
 
 # Things Travis sees
 /.vs
@@ -108,5 +122,7 @@ compile_commands.json
 .clangd/
 .cache/
 
-# VIA(L) json files that don't belong in QMK repo
+# VIA(L) files that don't belong in QMK repo
 via*.json
+/keyboards/**/keymaps/via/*
+/keyboards/**/keymaps/vial/*

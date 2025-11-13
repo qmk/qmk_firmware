@@ -1,0 +1,50 @@
+{
+    "manufacturer": "dlip",
+    "keyboard_name": "chouchou",
+    "maintainer": "dlip",
+    "bootloader": "rp2040",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP0", "GP1", "GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP26", "GP27", "GP28", "GP29"]
+        ]
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/dlip/chouchou",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0117",
+        "vid": "0xFABE"
+    },
+    "layouts": {
+        "LAYOUT_split_2x4_2": {
+            "layout": [
+                {"matrix": [0, 16], "x": 0, "y": 0.88},
+                {"matrix": [0, 17], "x": 1, "y": 0.38},
+                {"matrix": [0, 18], "x": 2, "y": 0},
+                {"matrix": [0, 19], "x": 3, "y": 0.38},
+                {"matrix": [0, 0], "x": 4, "y": 0.38},
+                {"matrix": [0, 1], "x": 5, "y": 0},
+                {"matrix": [0, 2], "x": 6, "y": 0.38},
+                {"matrix": [0, 3], "x": 7, "y": 0.88},
+                {"matrix": [0, 12], "x": 0, "y": 1.88},
+                {"matrix": [0, 13], "x": 1, "y": 1.38},
+                {"matrix": [0, 14], "x": 2, "y": 1},
+                {"matrix": [0, 15], "x": 3, "y": 1.38},
+                {"matrix": [0, 4], "x": 4, "y": 1.38},
+                {"matrix": [0, 5], "x": 5, "y": 1},
+                {"matrix": [0, 6], "x": 6, "y": 1.38},
+                {"matrix": [0, 7], "x": 7, "y": 1.88},
+                {"matrix": [0, 11], "x": 2, "y": 2.38},
+                {"matrix": [0, 10], "x": 3, "y": 2.5},
+                {"matrix": [0, 9], "x": 4, "y": 2.5},
+                {"matrix": [0, 8], "x": 5, "y": 2.38}
+            ]
+        }
+    }
+}
