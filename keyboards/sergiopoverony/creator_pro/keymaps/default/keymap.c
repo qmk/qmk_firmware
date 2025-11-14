@@ -39,9 +39,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 				
             case _RED:
                 if (clockwise) {
-                    tap_code(KC_MS_WH_UP);
+                    tap_code(MS_WHLU);
                 } else {
-                    tap_code(KC_MS_WH_DOWN);
+                    tap_code(MS_WHLD);
                 }
                 break;		
 				

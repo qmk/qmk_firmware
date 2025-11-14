@@ -10,6 +10,7 @@ on:
     - 'lib/arm_atsam/**'
     - 'lib/lib8tion/**'
     - 'lib/python/**'
+    - 'modules/**'
     - 'platforms/**'
     - 'quantum/**'
     - 'tests/**'
@@ -25,7 +26,7 @@ jobs:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
 
@@ -35,7 +36,7 @@ jobs:
 
     - name: Get changed files
       id: file_changes
-      uses: tj-actions/changed-files@v45
+      uses: tj-actions/changed-files@v47
       with:
         use_rest_api: true
 

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Iris Rev0",
     "manufacturer": "SonOfAres",
-    "url": "",
     "maintainer": "SonOfAres",
     "usb": {
       "vid": "0x494B",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Plaque80",
     "manufacturer": "SawnsProjects",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5350",
@@ -19,8 +18,6 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": false,
         "rgblight": true
     },

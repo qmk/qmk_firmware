@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pearl",
     "manufacturer": "Koobaczech",
-    "url": "",
     "maintainer": "Koobaczech",
     "usb": {
         "vid": "0x6963",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Momoka Ergo",
     "manufacturer": "StefanGrindelwald",
-    "url": "",
     "maintainer": "StefanGrindelwald",
     "usb": {
         "vid": "0x4F4D",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
@@ -31,7 +28,8 @@
     "split": {
         "enabled": true,
         "serial": {
-            "pin": "D1"
+            "pin": "D1",
+            "speed": 5
         }
     },
     "rgblight": {

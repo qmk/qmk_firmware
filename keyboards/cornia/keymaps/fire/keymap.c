@@ -41,11 +41,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT_split_3x6_3(
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, G(KC_L), XXXXXXX, CK_SCRL, C(KC_A), XXXXXXX,                      KC_BTN1, KC_BTN2, KC_BTN3, XXXXXXX, XXXXXXX,  KC_DEL,
+      _______, G(KC_L), XXXXXXX, CK_SCRL, C(KC_A), XXXXXXX,                      MS_BTN1, MS_BTN2, MS_BTN3, XXXXXXX, XXXXXXX,  KC_DEL,
   //|--------+--------+ GUI V  +--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      _______, C(KC_X), G(KC_V), C(KC_V), C(KC_C), C(KC_Z),                      KC_WH_U, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, 
+      _______, C(KC_X), G(KC_V), C(KC_V), C(KC_C), C(KC_Z),                      MS_WHLU, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, _______, 
   //|ALT LEFT+--------+ ALT SFT+scrnshot+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-   A(KC_LEFT),C(KC_S),S(KC_LALT), CK_SSHT,C(KC_F), C(KC_Y),                      KC_WH_D, KC_HOME, CK_SELL, CK_SELR,  KC_END, _______,
+   A(KC_LEFT),C(KC_S),S(KC_LALT), CK_SSHT,C(KC_F), C(KC_Y),                      MS_WHLD, KC_HOME, CK_SELL, CK_SELR,  KC_END, _______,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______, _______,  _______,MO(_ADJUST),_______
                                       //`--------------------------'  `--------------------------'

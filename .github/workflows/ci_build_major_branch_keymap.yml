@@ -37,7 +37,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Generate build targets
         id: generate_targets
@@ -62,7 +62,7 @@ jobs:
           echo "targets=$(jq -c 'keys' targets.json)" >> $GITHUB_OUTPUT
 
       - name: Upload targets json
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: targets-${{ inputs.keymap }}
           path: targets.json
@@ -89,10 +89,10 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Get target definitions
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: targets-${{ inputs.keymap }}
           path: .
@@ -112,7 +112,7 @@ jobs:
           qmk mass-compile -t -j $NCPUS -e DUMP_CI_METADATA=yes $(jq -r '.["${{ matrix.target }}"].targets' targets.json) || touch .failed
 
       - name: Upload binaries
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: firmware-${{ inputs.keymap }}-${{ matrix.target }}
           if-no-files-found: ignore
@@ -136,17 +136,17 @@ jobs:
 
     steps:
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Download firmwares
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           pattern: firmware-${{ inputs.keymap }}-*
           path: .
           merge-multiple: true
 
       - name: Upload all firmwares
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: firmware-${{ inputs.keymap }}
           if-no-files-found: ignore

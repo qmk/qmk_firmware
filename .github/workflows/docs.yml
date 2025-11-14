@@ -30,7 +30,7 @@ jobs:
     container: ghcr.io/qmk/qmk_cli
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 1
 
@@ -56,7 +56,7 @@ jobs:
 
     - name: Deploy
       if: ${{ github.event_name == 'push' && github.repository == 'qmk/qmk_firmware' }}
-      uses: JamesIves/github-pages-deploy-action@v4.7.2
+      uses: JamesIves/github-pages-deploy-action@v4.7.4
       with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages

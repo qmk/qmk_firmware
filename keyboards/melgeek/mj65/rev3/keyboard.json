@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MJ65",
     "manufacturer": "MelGeek",
-    "url": "",
     "maintainer": "melgeek001365",
     "usb": {
         "vid": "0xEDED",

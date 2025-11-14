@@ -8,15 +8,15 @@ This guide assumes you're somewhat comfortable with running things at the comman
 
 Start on the [QMK GitHub page](https://github.com/qmk/qmk_firmware), and you'll see a button in the upper right that says "Fork":
 
-![Fork on GitHub](https://i.imgur.com/8Toomz4.jpg)
+![Fork on GitHub](/8Toomz4.jpg)
 
 If you're a part of an organization, you'll need to choose which account to fork it to. In most circumstances, you'll want to fork it to your personal account. Once your fork is completed (sometimes this takes a little while), click the "Clone or Download" button:
 
-![Download from GitHub](https://i.imgur.com/N1NYcSz.jpg)
+![Download from GitHub](/N1NYcSz.jpg)
 
 And be sure to select "HTTPS", and select the link and copy it:
 
-![HTTPS link](https://i.imgur.com/eGO0ohO.jpg)
+![HTTPS link](/eGO0ohO.jpg)
 
 From here, enter `git clone --recurse-submodules ` into the command line, and then paste your link:
 
@@ -57,10 +57,10 @@ To https://github.com/whoeveryouare/qmk_firmware.git
 
 Your changes now exist on your fork on GitHub - if you go back there (`https://github.com/<whoeveryouare>/qmk_firmware`), you can create a "New Pull Request" by clicking this button:
 
-![New Pull Request](https://i.imgur.com/DxMHpJ8.jpg)
+![New Pull Request](/DxMHpJ8.jpg)
 
 Here you'll be able to see exactly what you've committed - if it all looks good, you can finalize it by clicking "Create Pull Request":
 
-![Create Pull Request](https://i.imgur.com/Ojydlaj.jpg)
+![Create Pull Request](/Ojydlaj.jpg)
 
 After submitting, we may talk to you about your changes, ask that you make changes, and eventually accept it! Thanks for contributing to QMK :)

@@ -1,13 +1,16 @@
 {
     "keyboard_name": "twig50",
     "manufacturer": "Twig",
-    "url": "",
     "maintainer": "nodatk",
     "usb": {
       "vid": "0xFEED",
       "pid": "0x6060",
-      "device_version": "0.2.1",
-      "force_nkro": true
+      "device_version": "0.2.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "tapping": {
         "term": 150
@@ -15,8 +18,6 @@
     "features": {
         "audio": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
