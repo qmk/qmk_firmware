@@ -472,6 +472,7 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 
     SRC += $(QUANTUM_DIR)/process_keycode/process_rgb_matrix.c
     SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix/animations/keycode_types.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix/rgb_matrix_drivers.c
     LIB8TION_ENABLE := yes

@@ -16,3 +16,6 @@
 # --------------------------------------------------------------------------------
 # Keep this file, even if it is empty, as a marker that this folder contains tests
 # --------------------------------------------------------------------------------
+
+# Provide the rgb matrix keycode helpers used by the unit tests.
+SRC += $(QUANTUM_DIR)/rgb_matrix/animations/keycode_types.c
