@@ -75,9 +75,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYSTEM] = LAYOUT_split(
   //,--------------------------------------------------------------.                 ,--------------------------------------------------------------------.    ,---------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,      XXXXXXX, XXXXXXX,  XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,      XXXXXXX, XXXXXXX,  KC_SLEP,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------|--------+--------+--------+--------+---------+----------+-----------|    +--------+--------+---------|
-      XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                    BL_TOGG,  BL_INC, BL_BRTG, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,      KC_PWR, XXXXXXX,  KC_SLEP,
+      XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI,                    BL_TOGG,  BL_INC, BL_BRTG, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,  KC_PWR,
   //|--------+--------+--------+--------+--------+--------|                 |--------|--------+--------+--------+--------+---------+----------+-----------|    `---------------------------.
       XXXXXXX, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD,                             BL_STEP,  BL_DEC, XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX,    XXXXXXX,
   //|-----------+--------+--------+--------+--------+--------+--------|              |--------+--------+--------+--------+--------+--------+--------------|             ,--------.

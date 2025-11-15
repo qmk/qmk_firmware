@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x1213
-#define PRODUCT_ID      0x0001
+#define PRODUCT_ID      0x1582
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ogkey.lab
 #define PRODUCT         ogkey.lab bakekujira
@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* RGB MATRIX stuff */
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_DISABLE_WHEN_USB_SUSPENDED false
+#define RGB_DISABLE_WHEN_USB_SUSPENDED true // false would mean my room was lit like sunlight hit the room when it was super dark
 #define RGBLIGHT_ANIMATIONS // enables all animation modes
 
 //  underglow
@@ -82,7 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define RGB_MATRIX_SAT_STEP 8
 #   define RGB_MATRIX_VAL_STEP 8
 #   define RGB_MATRIX_SPD_STEP 10
-#   define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+#   define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_ALL // good for testing all leds
 #endif
 
 /* ws2812 RGB LED */
