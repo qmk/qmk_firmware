@@ -1,4 +1,4 @@
-// Copyright 2025 QMK
+// Copyright 2024 Robert Jack Will (@matey-jack)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include <iomanip>
