@@ -11,8 +11,8 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make electra80/hotswap:default
-    make electra80/solder:default
+    make pluskbd/electra80/hotswap:default
+    make pluskbd/electra80/solder:default
 
 Flashing example for this keyboard:
 
