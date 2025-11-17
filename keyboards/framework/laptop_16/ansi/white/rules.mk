@@ -1,4 +1,5 @@
 # Custom matrix scanning code via ADC
 CUSTOM_MATRIX = lite
-SRC += matrix.c analog.c
+SRC += matrix.c
 
+ANALOG_DRIVER_REQUIRED = yes

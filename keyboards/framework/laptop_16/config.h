@@ -3,20 +3,15 @@
 
 #pragma once
 
-// Increase to 16K for more storage space
-// With 64K backing size, this spread the wear level over 4 blocks
-   //#define WEAR_LEVELING_LOGICAL_SIZE (4 * 4096)
-// Increase to 64K backing size to allow more wear leveling
-   //#define WEAR_LEVELING_BACKING_SIZE (16 * 4096)
 // We use 1MB flash
 #define PICO_FLASH_SIZE_BYTES (1 * 1024 * 1024)
 #define WEAR_LEVELING_RP2040_FLASH_SIZE PICO_FLASH_SIZE_BYTES
 // Keep the last 4K sector free for the serial number
 #define WEAR_LEVELING_RP2040_FLASH_BASE ((PICO_FLASH_SIZE_BYTES) - (WEAR_LEVELING_BACKING_SIZE + 4096))
 
-// Prints every second how many matrix scans were done (Frequency in Hz)
-// Only during debugging, since it prevents the host from going to sleep
-// #define DEBUG_MATRIX_SCAN_RATE
+#define SLEEP_GPIO GP0
+#define MUX_ENABLE_GPIO GP4
+#define BOOT_DONE_GPIO GP5
 
 // PWM single one backlight configuration
 // GPIO25 maps to PWM channel 4B of the RP2040

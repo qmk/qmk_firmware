@@ -12,20 +12,15 @@
         }
     },
     "features": {
-        "audio": false,
         "backlight": true,
-        "bootmagic": false,
-        "command": false,
         "console": true,
-        "extrakey": true,
-        "mousekey": false
+        "extrakey": true
     },
     "indicators": {
         "caps_lock": "GP24"
     },
     "usb": {
         "device_version": "0.2.2",
-        "force_nkro": true,
         "pid": "0x0012",
         "vid": "0x32AC"
     },

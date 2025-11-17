@@ -8,10 +8,8 @@
 #include "print.h"
 #include "quantum.h"
 #include "hal_adc.h"
-#include "chprintf.h"
 
 #include "matrix.h"
-#include "framework.h"
 
 #define adc10ksample_t int
 

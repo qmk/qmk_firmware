@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
-#include "framework.h"
 
 /**
  * Hook into early keyboard initialization
