@@ -1,7 +1,7 @@
 {
     "manufacturer": "PlusKBD",
-    "maintainer": "PluskbID",
     "keyboard_name": "Electra80 Solder",
+    "maintainer": "PluskbID",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
@@ -11,26 +11,12 @@
         "nkro": true,
         "rgblight": true
     },
-    "processor": "STM32F072",
-    "url": "https://plexkbd.com/",
     "matrix_pins": {
         "cols": ["A8", "B15", "B14", "B13", "B12", "A13", "B11", "B10", "B1", "B2", "A3", "A4", "A5", "A6", "A14", "A15", "B6", "B7"],
         "rows": ["B3", "B5", "B4", "A7", "C14", "C13"]
     },
-    "usb": {
-        "pid": "0x0080",
-        "device_version": "1.0.0",
-        "vid": "0x454C"
-    },
-    "ws2812": {
-    "pin": "B0"
-  },
-  "rgblight": {
-        "led_count": 3,
-        "sleep": true,
-        "layers": {
-          "enabled": true
-        },
+    "processor": "STM32F072",
+    "rgblight": {
         "animations": {
             "alternating": true,
             "breathing": true,
@@ -42,10 +28,25 @@
             "snake": true,
             "static_gradient": true,
             "twinkle": true
-        }
+        },
+        "layers": {
+            "enabled": true
+        },
+        "led_count": 3,
+        "sleep": true
     },
+    "url": "https://plexkbd.com/",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0080",
+        "vid": "0x454C"
+    },
+    "ws2812": {
+        "pin": "B0"
+    },
+    "community_layouts": ["tkl_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_ansi": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 2, "y": 0},

@@ -3,7 +3,7 @@
 ![electra80 Solder](https://i.imgur.com/5eC3RSd.png)
 ![electra80 Hotswap](https://i.imgur.com/dcta0CK.png)
 
-*A short description of the keyboard/project*
+PCB by PlusKBD, supoorts 87 and 88 layout in single PCB with standard 80% JST connector position
 
 * Keyboard Maintainer: [PluskbID](https://github.com/PluskbID)
 * Hardware Supported: Electra80 PCB, STM32F072 
