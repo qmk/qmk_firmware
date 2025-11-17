@@ -9,8 +9,6 @@
 #include "quantum.h"
 #include "hal_adc.h"
 
-#include "matrix.h"
-
 #define adc10ksample_t int
 
 // Mux GPIOs
@@ -103,9 +101,9 @@ static void mux_select_row(int row) {
     }
 
     int bits[] = {(index & 0x1) > 0, (index & 0x2) > 0, (index & 0x4) > 0};
-    writePin(MUX_A, bits[0]);
-    writePin(MUX_B, bits[1]);
-    writePin(MUX_C, bits[2]);
+    gpio_write_pin(MUX_A, bits[0]);
+    gpio_write_pin(MUX_B, bits[1]);
+    gpio_write_pin(MUX_C, bits[2]);
 }
 
 /**
@@ -198,10 +196,9 @@ void drive_col(int col, bool high) {
     }
 
     if (high) {
-        // TODO: Could set up the pins with `setPinOutputOpenDrain` instead
-        writePinHigh(gpio);
+        gpio_write_pin_high(gpio);
     } else {
-        writePinLow(gpio);
+        gpio_write_pin_low(gpio);
     }
 }
 
@@ -222,7 +219,7 @@ static adc10ksample_t read_adc(void) {
  * If the host is awake but the keyboard is idle it should enter a low-power state
  */
 bool handle_idle(void) {
-    bool           asleep      = !readPin(SLEEP_GPIO);
+    bool           asleep      = !gpio_read_pin(SLEEP_GPIO);
     static uint8_t prev_asleep = -1;
     if (prev_asleep != asleep) {
         prev_asleep = asleep;
@@ -271,12 +268,12 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
  * TODO: Do we need a de-init? Probably not.
  */
 static void adc_mux_init(void) {
-    setPinOutput(MUX_ENABLE);
-    writePinLow(MUX_ENABLE);
+    gpio_set_pin_output(MUX_ENABLE);
+    gpio_write_pin_low(MUX_ENABLE);
 
-    setPinOutput(MUX_A);
-    setPinOutput(MUX_B);
-    setPinOutput(MUX_C);
+    gpio_set_pin_output(MUX_A);
+    gpio_set_pin_output(MUX_B);
+    gpio_set_pin_output(MUX_C);
 }
 
 /**
@@ -287,25 +284,25 @@ void matrix_init_custom(void) {
     adc_gpio_init(ADC_CH2_PIN);
 
     // KS0 - KSO7 for Keyboard and Numpad
-    setPinOutput(KSO0);
-    setPinOutput(KSO1);
-    setPinOutput(KSO2);
-    setPinOutput(KSO3);
-    setPinOutput(KSO4);
-    setPinOutput(KSO5);
-    setPinOutput(KSO6);
-    setPinOutput(KSO7);
+    gpio_set_pin_output(KSO0);
+    gpio_set_pin_output(KSO1);
+    gpio_set_pin_output(KSO2);
+    gpio_set_pin_output(KSO3);
+    gpio_set_pin_output(KSO4);
+    gpio_set_pin_output(KSO5);
+    gpio_set_pin_output(KSO6);
+    gpio_set_pin_output(KSO7);
     // KS08 - KS015 for Keyboard only
-    setPinOutput(KSO8);
-    setPinOutput(KSO9);
-    setPinOutput(KSO10);
-    setPinOutput(KSO11);
-    setPinOutput(KSO12);
-    setPinOutput(KSO13);
-    setPinOutput(KSO14);
-    setPinOutput(KSO15);
+    gpio_set_pin_output(KSO8);
+    gpio_set_pin_output(KSO9);
+    gpio_set_pin_output(KSO10);
+    gpio_set_pin_output(KSO11);
+    gpio_set_pin_output(KSO12);
+    gpio_set_pin_output(KSO13);
+    gpio_set_pin_output(KSO14);
+    gpio_set_pin_output(KSO15);
 
     // Set unused pins to input to avoid interfering. They're hooked up to rows 5 and 6
-    setPinInput(GP6);
-    setPinInput(GP7);
+    gpio_set_pin_input(GP6);
+    gpio_set_pin_input(GP7);
 }

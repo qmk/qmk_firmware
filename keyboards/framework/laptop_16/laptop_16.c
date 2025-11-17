@@ -10,14 +10,14 @@ void keyboard_pre_init_kb(void) {
     // Mark boot as done.
     // Before this, when holding down both alt keys QSPI_SS is pulled low to put
     // the RP2040 in bootloader mode during reset.
-    setPinOutput(BOOT_DONE_GPIO);
-    writePinLow(BOOT_DONE_GPIO);
+    gpio_set_pin_output(BOOT_DONE_GPIO);
+    gpio_write_pin_low(BOOT_DONE_GPIO);
 
     // TODO: Do we ever need to disable it to save power?
-    setPinOutput(MUX_ENABLE_GPIO);
-    writePinHigh(MUX_ENABLE_GPIO);
+    gpio_set_pin_output(MUX_ENABLE_GPIO);
+    gpio_write_pin_high(MUX_ENABLE_GPIO);
 
-    setPinInput(SLEEP_GPIO);
+    gpio_set_pin_input(SLEEP_GPIO);
 
     keyboard_pre_init_user();
 }
