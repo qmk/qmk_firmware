@@ -1,3 +1,6 @@
+// Copyright 2024 Robert Jack Will (@matey-jack)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #ifdef ENABLE_RGB_MATRIX_KEY_GROUPS
 RGB_MATRIX_EFFECT(KEY_GROUPS)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
