@@ -1,5 +1,4 @@
 // Add your new core rgb matrix effect here, order determines enum order.
-// (New effects should go at the end or else the setting on http://usevia.app will be broken.)
 #include "solid_color_anim.h"
 #include "alpha_mods_anim.h"
 #include "gradient_up_down_anim.h"

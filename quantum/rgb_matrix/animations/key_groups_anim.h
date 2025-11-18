@@ -4,28 +4,28 @@
 #ifdef ENABLE_RGB_MATRIX_KEY_GROUPS
 RGB_MATRIX_EFFECT(KEY_GROUPS)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
-#include "keymap_common.h"
-#include "keycode_types.h"
+#        include "keymap_common.h"
+#        include "keycode_types.h"
 
-#ifndef RGB_MATRIX_KEY_GROUPS_MIN_VAL
-#define RGB_MATRIX_KEY_GROUPS_MIN_VAL 0x60
-#endif
+#        ifndef RGB_MATRIX_KEY_GROUPS_MIN_VAL
+#            define RGB_MATRIX_KEY_GROUPS_MIN_VAL 0x60
+#        endif
 
-#define SET_COLOR(rgb) (rgb_matrix_set_color(index, (rgb).r, (rgb).g, (rgb).b))
+#        define SET_COLOR(rgb) (rgb_matrix_set_color(index, (rgb).r, (rgb).g, (rgb).b))
 
 // base keys = variable hue as configured with RM_HUE* keycodes,
 // modifiers and layer toggles = shifted hues with equal distance around the color wheel.
 bool KEY_GROUPS(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     uint8_t layer = get_highest_layer(layer_state);
-    hsv_t hsv = rgb_matrix_config.hsv;
+    hsv_t   hsv   = rgb_matrix_config.hsv;
     // If the animation is active, the user can disable the lights on the default layer by decreasing val to 0,
     // and still get orientation lights on the other layers.
     if (layer > 0 && hsv.v == 0) {
         hsv.v = RGB_MATRIX_KEY_GROUPS_MIN_VAL;
     }
     uint8_t delta_hue = rgb_matrix_config.speed / 4;
-    rgb_t rgb_chars = rgb_matrix_hsv_to_rgb(hsv);
+    rgb_t   rgb_chars = rgb_matrix_hsv_to_rgb(hsv);
     hsv.h += delta_hue;
     rgb_t rgb_other = rgb_matrix_hsv_to_rgb(hsv);
     hsv.h += delta_hue;
@@ -39,7 +39,7 @@ bool KEY_GROUPS(effect_params_t* params) {
             if (!HAS_ANY_FLAGS(g_led_config.flags[index], params->flags) || index < led_min || index >= led_max) {
                 continue;
             }
-            uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col,row});
+            uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){col, row});
             if (keycode <= KC_TRANSPARENT) {
                 rgb_matrix_set_color(index, RGB_BLACK);
                 continue;
