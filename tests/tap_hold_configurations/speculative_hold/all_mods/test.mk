@@ -14,7 +14,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-KEY_OVERRIDE_ENABLE = yes
-
-INTROSPECTION_KEYMAP_C = test_keymap.c
+MAGIC_ENABLE = yes
 
