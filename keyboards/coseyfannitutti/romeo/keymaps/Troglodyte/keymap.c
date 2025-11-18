@@ -1,10 +1,12 @@
 /* ROMEO40 layout by RichardStyxx
  * 2025 update
- * v7
- * reverted to english layout
+ * v8
+ * added colon key override
  */
 
 #include QMK_KEYBOARD_H
+
+// Combo for CTRL + ALT + DELETE
 
 enum combo_events {
 	CTRL_ALT_DELETE,
@@ -31,26 +33,30 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+// Base Layer
 [0] = LAYOUT_all(
 
-	KC_TAB,         KC_Q,    KC_W,    KC_E,      KC_R, KC_T, KC_Z, KC_U, KC_I, KC_O, KC_P,      KC_BSPC,
-	LM(1,MOD_LSFT), KC_A,    KC_S,    KC_D,      KC_F, KC_G, KC_H, KC_J, KC_K, KC_L,            KC_ENT,
-	KC_LSFT,        KC_MINS, KC_Y,    KC_X,      KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH,
+	KC_TAB,         KC_Q,    KC_W,    KC_E,         KC_R,         KC_T,   KC_Y,    KC_U,         KC_I,     KC_O, KC_P,      KC_BSPC,
+	LM(1,MOD_LSFT), KC_A,    KC_S,    KC_D,         KC_F,         KC_G,   KC_H,    KC_J,         KC_K,     KC_L,            KC_ENT,
+	KC_LSFT,        KC_MINS, KC_Z,    KC_X,         KC_C,         KC_V,   KC_B,    KC_N,         KC_M,     KC_COMM, KC_DOT, KC_SLSH,
 	KC_LCTL,        KC_LGUI, KC_LALT, LT(1,KC_SPC), LT(2,KC_SPC), KC_SPC, KC_RALT, LT(2,KC_DEL), KC_RCTL ),
 
+// Numerals and Symbols
 [1] = LAYOUT_all(
 	
-	KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_MINS,
+	KC_ESC,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_EQL,
 	KC_CAPS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LBRC, KC_RBRC,  KC_SLSH,
 	KC_LSFT,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SCLN,  KC_QUOT, KC_TRNS, 
 	KC_LCTL,   KC_LGUI, KC_LALT, KC_SPC,  KC_TRNS, KC_DEL,  KC_TRNS, KC_TRNS, KC_TRNS ),
 
+
+// Arrow keys, media and F-keys
 [2] = LAYOUT_all(
 	
-	KC_ESC,    KC_MUTE, KC_UP,   KC_VOLU, KC_VOLD,       KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,   KC_EQL,  KC_MINS,
-	KC_NO,     KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,         KC_NO,   KC_NO,   KC_NO,   KC_LBRC,  KC_RBRC, KC_ENT,
-	KC_NO,     KC_F1,   KC_F2,   KC_F3,   KC_F4, KC_F5,  KC_F6,   KC_F7,   KC_F8,   KC_SCLN,  KC_QUOT, KC_RSFT,
-	KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO,  KC_TRNS, KC_TRNS, KC_TRNS )
+	KC_ESC,    KC_MUTE, KC_UP,   KC_VOLD, KC_VOLU, KC_F5,  KC_F6,    KC_F7,   KC_F8,    KC_F9,    KC_MINS, KC_EQL,
+	KC_NO,     KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,  KC_NO,    KC_NO,   KC_NO,    KC_NO,    KC_ENT,
+	KC_NO,     KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  KC_F6,    KC_F7,   KC_F8,    KC_F9,    KC_F10,  KC_F11,
+	KC_TRNS,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  KC_TRNS,  KC_TRNS, KC_TRNS )
 };
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
