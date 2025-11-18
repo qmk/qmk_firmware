@@ -45,12 +45,7 @@ TEST_F(KeycodeTypesTest, IsArrowKeycodeRejectsOtherKeys) {
 
 TEST_F(KeycodeTypesTest, IsModifierKeycodeCoversAllModifierRanges) {
     const uint16_t modifiers[] = {
-        KC_LCTL,
-        KC_RGUI,
-        OSM(MOD_LSFT),
-        OSM(MOD_RALT),
-        LSFT_T(KC_A),
-        RCTL_T(KC_B),
+        KC_LCTL, KC_RGUI, OSM(MOD_LSFT), OSM(MOD_RALT), LSFT_T(KC_A), RCTL_T(KC_B),
     };
     expect_all(modifiers, [](uint16_t keycode) { return is_modifier_keycode(keycode); }, true);
 }
@@ -80,24 +75,14 @@ TEST_F(KeycodeTypesTest, IsBaseCharacterKeycodeRejectsNonCharacters) {
 
 TEST_F(KeycodeTypesTest, IsCharacterKeycodeAcceptsBaseAndAllowedModCombos) {
     const uint16_t character_cases[] = {
-        KC_A,
-        KC_1,
-        LSFT(KC_A),
-        RSFT(KC_5),
-        RALT(KC_E),
-        S(RALT(KC_I)),
+        KC_A, KC_1, LSFT(KC_A), RSFT(KC_5), RALT(KC_E), S(RALT(KC_I)),
     };
     expect_all(character_cases, [](uint16_t keycode) { return is_character_keycode(keycode); }, true);
 }
 
 TEST_F(KeycodeTypesTest, IsCharacterKeycodeRejectsDisallowedModifiers) {
     const uint16_t disallowed[] = {
-        LALT(KC_A),
-        LGUI(KC_B),
-        RGUI(KC_C),
-        LCTL(KC_D),
-        LCTL(LSFT(KC_E)),
-        LALT(LSFT(KC_F)),
+        LALT(KC_A), LGUI(KC_B), RGUI(KC_C), LCTL(KC_D), LCTL(LSFT(KC_E)), LALT(LSFT(KC_F)),
     };
     expect_all(disallowed, [](uint16_t keycode) { return is_character_keycode(keycode); }, false);
 }

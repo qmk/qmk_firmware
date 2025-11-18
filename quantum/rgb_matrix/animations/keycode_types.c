@@ -1,8 +1,6 @@
 // Copyright 2024 Robert Jack Will (@matey-jack)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#pragma once
-
 #include "keycode_types.h"
 
 bool is_arrow_keycode(uint16_t keycode) {
