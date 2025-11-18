@@ -20,7 +20,7 @@
     },
     "ws2812": {
         "pin": "GP29",
-        "driver": "vendor",
+        "driver": "vendor"
     },
     "rgb_matrix": {
         "led_count": 40,
@@ -123,7 +123,7 @@
             {"matrix": [0, 8], "x": 200, "y": 0, "flags": 4},
             {"matrix": [0, 7], "x": 175, "y": 0, "flags": 4},
             {"matrix": [0, 6], "x": 150, "y": 0, "flags": 4},
-            {"matrix": [0, 5], "x": 125, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 125, "y": 0, "flags": 4}
 
        ],
         "driver": "ws2812"
