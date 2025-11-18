@@ -45,7 +45,7 @@ void charybdis_cycle_pointer_default_dpi(bool forward);
  * \brief Same as `charybdis_cycle_pointer_default_dpi`, but do not write to
  * EEPROM.
  *
- * This means that reseting the board will revert the value to the last
+ * This means that resetting the board will revert the value to the last
  * persisted one.
  */
 void charybdis_cycle_pointer_default_dpi_noeeprom(bool forward);
@@ -67,7 +67,7 @@ void charybdis_cycle_pointer_sniping_dpi(bool forward);
  * \brief Same as `charybdis_cycle_pointer_sniping_dpi`, but do not write to
  * EEPROM.
  *
- * This means that reseting the board will revert the value to the last
+ * This means that resetting the board will revert the value to the last
  * persisted one.
  */
 void charybdis_cycle_pointer_sniping_dpi_noeeprom(bool forward);
