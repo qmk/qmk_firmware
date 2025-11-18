@@ -1,6 +1,6 @@
 # Acai
 
-![Acai](https://camo.githubusercontent.com/90bcb74753cecdcb0ee8f867149ecef237e737e3e2cf43c41311414c82387549/68747470733a2f2f6173736574732e62696763617274656c2e636f6d2f70726f647563745f696d616765732f3337303639383537312f303030312e706e673f6175746f3d666f726d6174266669743d6d696e26773d373638)
+![Acai](https://imgur.com/eWKoH96.png)
 
 A 10x4 ortholinear keyboard made and sold by Coffee Break Keyboards. PCB designed by Snipeye. Case designed by Rain and Obabo. [More info on cbkbd.com](https://www.cbkbd.com/product/acai)
 
