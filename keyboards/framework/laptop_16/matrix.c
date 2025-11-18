@@ -195,11 +195,7 @@ void drive_col(int col, bool high) {
             return;
     }
 
-    if (high) {
-        gpio_write_pin_high(gpio);
-    } else {
-        gpio_write_pin_low(gpio);
-    }
+    gpio_write_pin(gpio, high);
 }
 
 /**
