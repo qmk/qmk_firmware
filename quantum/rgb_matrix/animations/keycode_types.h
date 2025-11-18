@@ -1,5 +1,7 @@
 // Copyright 2024 Robert Jack Will (@matey-jack)
-// SPDX-License-Identifier: GPL-2.0-or-later#pragma once
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
 
 #include "keycodes.h"
 #include "keymap_common.h"
