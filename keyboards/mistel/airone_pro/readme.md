@@ -5,7 +5,7 @@
 This is a customizable 65% and jis keyboard.
 
 * Keyboard Maintainer: [jonylee@hfd](https://github.com/jonylee1986)
-* Hardware Supported: 8s200
+* Hardware Supported: Mistel AIRONE PRO Black-JIS keyboard
 * Hardware Availability: [Mistel AIRONE PRO Black-JIS keyboard](https://mistelkeyboard.com/products/2a25e7752bf9a3d8e66548816250028a)
 
 Make example for this keyboard (after setting up your build environment):
