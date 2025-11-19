@@ -56,13 +56,7 @@
 #define RGB_MATRIX_SLEEP
 
 // BLE configuration for LUMA40
-#define USER_BlE_ID (0X0040) // LUMA40 BLE ID
-#define USER_BlE1_NAME "LUMA40-1"
-#define USER_BlE2_NAME "LUMA40-2"
-#define USER_BlE3_NAME "LUMA40-3"
-
-// Matrix configuration for LUMA40
-#define KEYBOARD_COL (16)
-#define KEYBOARD_ROL (6)
-#define MATRIX_USER_COL_PINS {D15, D14, C15, C14, C13, D3, D2, C12, C11, C10, A14, C9, C8, C7, C6, B15}
-#define MATRIX_USER_ROW_PINS {B0, B3, B4, B5, B6, B7}
+#define USER_BLE_ID (0X0040) // LUMA40 BLE ID
+#define USER_BLE1_NAME "LUMA40-1"
+#define USER_BLE2_NAME "LUMA40-2"
+#define USER_BLE3_NAME "LUMA40-3"
