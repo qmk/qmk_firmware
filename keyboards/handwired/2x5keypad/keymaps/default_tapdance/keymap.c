@@ -90,7 +90,7 @@ void dance_u_u(tap_dance_state_t *state, void *user_data)
 }
 
 /* Define the tap dance actions for the french characters */
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [A_Q] = ACTION_TAP_DANCE_FN(dance_a_q),
     [E_Q] = ACTION_TAP_DANCE_FN(dance_e_q),
     [E_U] = ACTION_TAP_DANCE_FN(dance_e_u),
@@ -101,21 +101,21 @@ tap_dance_action_t tap_dance_actions[] = {
     [O_C] = ACTION_TAP_DANCE_FN(dance_o_c),
     [U_U] = ACTION_TAP_DANCE_FN(dance_u_u)
 };
-    
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [NORMAL_LAYER] = LAYOUT(TO(1),    WIN_TAB, KC_HOME, KC_UP,   KC_END, 
+    [NORMAL_LAYER] = LAYOUT(TO(1),    WIN_TAB, KC_HOME, KC_UP,   KC_END,
 			    WIN_LOCK, KC_MUTE, KC_LEFT, KC_DOWN, KC_RGHT),
 
-    [MEDIA_LAYER]  = LAYOUT(TO(2),    KC_CALC, KC_MPRV, KC_MNXT, KC_VOLU, 
+    [MEDIA_LAYER]  = LAYOUT(TO(2),    KC_CALC, KC_MPRV, KC_MNXT, KC_VOLU,
 			    KC_TRNS,  KC_TRNS, KC_MSTP, KC_MPLY, KC_VOLD),
 
-    [TBD_LAYER2]   = LAYOUT(TO(3),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+    [TBD_LAYER2]   = LAYOUT(TO(3),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 			    KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-    [FRENCH_LAYER] = LAYOUT(TO(0),    TD(A_Q), TD(E_Q), TD(E_U), TD(E_E), 
+    [FRENCH_LAYER] = LAYOUT(TO(0),    TD(A_Q), TD(E_Q), TD(E_U), TD(E_E),
 			    KC_TRNS,  TD(A_Y), TD(I_I), TD(O_C), TD(U_U))
 };
 

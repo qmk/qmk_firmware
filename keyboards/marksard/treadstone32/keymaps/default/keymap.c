@@ -55,9 +55,19 @@ enum custom_keycodes {
 // #define KC_CODO  TD(TD_CODO)
 // #define KC_SLRO  TD(TD_SLRO)
 
-// tap_dance_action_t tap_dance_actions[] = {
-//   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_DOT),
-//   [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, JP_BSLS),
+// enum {
+//     P_CODO,
+//     P_SLRO,
+// };
+
+// const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+//     [P_CODO] = {KC_COMM, KC_DOT},
+//     [P_SLRO] = {KC_SLSH, JP_BSLS},
+// };
+
+// const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+//   [TD_CODO] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_CODO]),
+//   [TD_SLRO] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SLRO]),
 // };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

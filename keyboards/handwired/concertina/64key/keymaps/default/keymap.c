@@ -29,8 +29,16 @@ enum taps {
     PNX,  // Play/pause; next track.
 };
 
-tap_dance_action_t tap_dance_actions[] = {
-    [PNX] = ACTION_TAP_DANCE_DOUBLE(KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK),
+enum {
+    P_PNX,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_PNX] = {KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK},
+};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [PNX] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_PNX]),
 };
 
 // Shorthand:

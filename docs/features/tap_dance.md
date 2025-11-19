@@ -15,22 +15,26 @@ Optionally, you might want to set a custom `TAPPING_TERM` time by adding somethi
 ```c
 #define TAPPING_TERM 175
 #define TAPPING_TERM_PER_KEY
+#define TAP_DANCE_MAX_SIMULTANEOUS 3
 ```
 
 The `TAPPING_TERM` time is the maximum time allowed between taps of your Tap Dance key, and is measured in milliseconds. For example, if you used the above `#define` statement and set up a Tap Dance key that sends `Space` on single-tap and `Enter` on double-tap, then this key will send `ENT` only if you tap this key twice in less than 175ms. If you tap the key, wait more than 175ms, and tap the key again you'll end up sending `SPC SPC` instead. The `TAPPING_TERM_PER_KEY` definition is only needed if you control the tapping term through a [custom `get_tapping_term` function](../tap_hold#tapping_term), which may be needed because `TAPPING_TERM` affects not just tap-dance keys.
 
+`TAP_DANCE_MAX_SIMULTANEOUS` controls how many tap dance keys can be held at the same time and register keycodes. Increasing this value will use more RAM because each active tap dance needs a significant amount of state in active memory.
+
 Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro. That macro takes a number which will later be used as an index into the `tap_dance_actions` array and turns it into a tap-dance keycode.
 
-After this, you'll want to use the `tap_dance_actions` array to specify what actions shall be taken when a tap-dance key is in action. Currently, there are five possible options:
+After this, you'll want to use the `tap_dance_actions` array to specify what actions shall be taken when a tap-dance key is in action. Currently, there several possible options:
 
-* `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise. When the key is held, the appropriate keycode is registered: `kc1` when pressed and held, `kc2` when tapped once, then pressed and held.
-* `ACTION_TAP_DANCE_LAYER_MOVE(kc, layer)`: Sends the `kc` keycode when tapped once, or moves to `layer`. (this functions like the `TO` layer keycode).
-* `ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer)`: Sends the `kc` keycode when tapped once, or toggles the state of `layer`. (this functions like the `TG` layer keycode).
+* `ACTION_TAP_DANCE_DOUBLE(pair)`: Define keycode pairs in a separate `PROGMEM` array. With the pair `{kc1, kc2}`, it sends the `kc1` keycode when tapped once, `kc2` otherwise. When the key is held, the appropriate keycode is registered: `kc1` when pressed and held, `kc2` when tapped once, then pressed and held.
+* `ACTION_TAP_DANCE_DUAL_ROLE(dual_role)`: Define dual roles in a separate `PROGMEM` array. Using the following:
+  * `DUAL_ROLE_TAP_DANCE_LAYER_MOVE(kc, layer)`: Sends the `kc` keycode when tapped once, or moves to `layer`. (this functions like the `TO` layer keycode).
+  * `DUAL_ROLE_TAP_DANCE_LAYER_TOGGLE(kc, layer)`: Sends the `kc` keycode when tapped once, or toggles the state of `layer`. (this functions like the `TG` layer keycode).
 * `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
 * `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
 * `ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(on_each_tap_fn, on_each_release_fn, on_dance_finished_fn, on_dance_reset_fn)`: This macro is identical to `ACTION_TAP_DANCE_FN_ADVANCED` with the addition of `on_each_release_fn` which is invoked every time the key for the tap dance is released. It is worth noting that `on_each_release_fn` will still be called even when the key is released after the dance finishes (e.g. if the key is released after being pressed and held for longer than the `TAPPING_TERM`).
 
-The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise. 
+The first option is enough for a lot of cases that just want keys that do something different when double tapped.
 
 ::: warning
 Keep in mind that only [basic keycodes](../keycodes_basic) are supported here. Custom keycodes are not supported.
@@ -40,11 +44,49 @@ Similar to the first option, the second and third option are good for simple lay
 
 For more complicated cases, like blink the LEDs, fiddle with the backlighting, and so on, use the fourth or fifth option. Examples of each are listed below.
 
+## Custom tap dances {#custom}
+
+There are four callback functions that can be used when implementing custom tap dances:
+
+- `on_each_tap(tap_dance_state_t *state, void *user_data)`;
+- `on_dance_finished(tap_dance_state_t *state, void *user_data)`;
+- `on_reset(tap_dance_state_t *state, void *user_data)`;
+- `on_each_release(tap_dance_state_t *state, void *user_data)`;
+
+Here are some illustrations of when those functions are called during tap dances:
+
+### Double tap
+
+![](tap-dance-doube-tap.svg)
+
+
+### Interrupted double tap
+
+![](tap-dance-doube-tap-interrupted.svg)
+
+
+### Double hold
+
+![](tap-dance-doube-hold.svg)
+
+
+### Interrupted double hold
+
+![](tap-dance-doube-hold-interrupted.svg)
+
+### Skipping the finished callback
+
+It is possible to end a tap dance immediately, skipping `on_dance_finished()`, but not `on_dance_reset_fn`, by calling `reset_tap_dance(state)`. Use this if your tap dance code has completely handled the tap dance in an earlier callback and the logic in the finished callback should not get executed.
+
+### Configuration data
+
+Your custom tap dance functions can accept `user_data` with configuration. This may consist of key codes, method pointers, or boolean flags used by your custom logic. So that it doesn't constantly take up RAM, it should be marked as PROGMEM. `memcpy_P()` should be used to read the `user_data` pointer into working memory in each of your callbacks. See [example 3](#example-3) below.
+
+### Mutable state
+
+Your custom tap dance may need to store data about the state of the current dance. Because `user_data` should be kept in immutable flash memory, it is not appropriate to use it for mutable state. Instead, define a static array of your state of size `TAP_DANCE_MAX_SIMULTANEOUS`. From the callback functions, use `state->state_idx` to get the index into this array which should be used. See [example 3](#example-3) below.
+
 ## Implementation Details {#implementation}
-
-Well, that's the bulk of it! You should now be able to work through the examples below, and to develop your own Tap Dance functionality. But if you want a deeper understanding of what's going on behind the scenes, then read on for the explanation of how it all works!
-
-Let's go over the three functions mentioned in `ACTION_TAP_DANCE_FN_ADVANCED` in a little more detail. They all receive the same two arguments: a pointer to a structure that holds all dance related state information, and a pointer to a use case specific state variable. The three functions differ in when they are called. The first, `on_each_tap_fn()`, is called every time the tap dance key is *pressed*. Before it is called, the counter is incremented and the timer is reset. The second function, `on_dance_finished_fn()`, is called when the tap dance is interrupted or ends because `TAPPING_TERM` milliseconds have passed since the last tap. When the `finished` field of the dance state structure is set to `true`, the `on_dance_finished_fn()` is skipped. After `on_dance_finished_fn()` was called or would have been called, but no sooner than when the tap dance key is *released*, `on_dance_reset_fn()` is called. It is possible to end a tap dance immediately, skipping `on_dance_finished_fn()`, but not `on_dance_reset_fn`, by calling `reset_tap_dance(state)`.
 
 To accomplish this logic, the tap dance mechanics use three entry points. The main entry point is `process_tap_dance()`, called from `process_record_quantum()` *after* `process_record_kb()` and `process_record_user()`. This function is responsible for calling `on_each_tap_fn()` and `on_dance_reset_fn()`. In order to handle interruptions of a tap dance, another entry point, `preprocess_tap_dance()` is run right at the beginning of `process_record_quantum()`. This function checks whether the key pressed is a tap-dance key. If it is not, and a tap-dance was in action, we handle that first, and enqueue the newly pressed key. If it is a tap-dance key, then we check if it is the same as the already active one (if there's one active, that is). If it is not, we fire off the old one first, then register the new one. Finally, `tap_dance_task()` periodically checks whether `TAPPING_TERM` has passed since the last key press and finishes a tap dance if that is the case.
 
@@ -60,15 +102,25 @@ Here's a simple example for a single definition:
 2. In your `keymap.c` file, define the variables and definitions, then add to your keymap:
 
 ```c
-// Tap Dance declarations
+// Enumerate all tap dance pairs
+enum {
+    P_ESC_CAPS,
+};
+
+// Tap dance pair definitions
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_ESC_CAPS] = {KC_ESC, KC_CAPS},
+};
+
+// Enumerate all tap dances
 enum {
     TD_ESC_CAPS,
 };
 
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
+// Tap dance action definitions
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     // Tap once for Escape, twice for Caps Lock
-    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_ESC_CAPS]),
 };
 
 // Add tap dance item to your keymap in place of a keycode
@@ -105,7 +157,7 @@ void dance_egg(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [CT_EGG] = ACTION_TAP_DANCE_FN(dance_egg),
 };
 ```
@@ -152,8 +204,8 @@ void dance_flsh_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // All tap dances now put together. Example 2 is "CT_FLSH"
-tap_dance_action_t tap_dance_actions[] = {
-    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS),
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [TD_ESC_CAPS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_ESC_CAPS])
     [CT_EGG] = ACTION_TAP_DANCE_FN(dance_egg),
     [CT_FLSH] = ACTION_TAP_DANCE_FN_ADVANCED(dance_flsh_each, dance_flsh_finished, dance_flsh_reset)
 };
@@ -167,11 +219,34 @@ With a little effort, powerful tap-hold configurations can be implemented as tap
 typedef struct {
     uint16_t tap;
     uint16_t hold;
-    uint16_t held;
 } tap_dance_tap_hold_t;
 
+typedef struct {
+    uint16_t held;
+} tap_dance_tap_hold_state_t;
+
+static tap_dance_tap_hold_state_t tap_dance_tap_hold_states[TAP_DANCE_MAX_SIMULTANEOUS];
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    tap_dance_action_t *action;
+    tap_dance_state_t* state;
+    tap_dance_tap_hold_t tap_hold;
+
+    switch (keycode) {
+        case TD(CT_CLN):
+            action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
+            state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
+            if (!record->event.pressed && state != NULL && state->count && !state->finished) {
+                memcpy_P(&tap_hold, (tap_dance_tap_hold_t *)action->user_data, sizeof(tap_dance_tap_hold_t));
+                tap_code16(tap_hold.tap);
+            }
+    }
+    return true;
+}
+
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+    tap_dance_tap_hold_t tap_hold;
+    memcpy_P(&tap_hold, user_data, sizeof(tap_dance_tap_hold_t));
 
     if (state->pressed) {
         if (state->count == 1
@@ -179,43 +254,52 @@ void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
             && !state->interrupted
 #endif
         ) {
-            register_code16(tap_hold->hold);
-            tap_hold->held = tap_hold->hold;
+            register_code16(tap_hold.hold);
+            tap_dance_tap_hold_states[state->state_idx].held = tap_hold.hold;
         } else {
-            register_code16(tap_hold->tap);
-            tap_hold->held = tap_hold->tap;
+            register_code16(tap_hold.tap);
+            tap_dance_tap_hold_states[state->state_idx].held = tap_hold.tap;
         }
     }
 }
 
 void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
-    tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
+    tap_dance_tap_hold_t tap_hold;
+    memcpy_P(&tap_hold, user_data, sizeof(tap_dance_tap_hold_t));
 
-    if (tap_hold->held) {
-        unregister_code16(tap_hold->held);
-        tap_hold->held = 0;
+    if (tap_dance_tap_hold_states[state->state_idx].held) {
+        unregister_code16(tap_dance_tap_hold_states[state->state_idx].held);
+        tap_dance_tap_hold_states[state->state_idx].held = 0;
     }
 }
 
-#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold)                                        \
-    {                                                                               \
-        .fn        = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, \
-        .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}),               \
-    }
+#define ACTION_TAP_DANCE_TAP_HOLD(tap_hold) {{NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, (void *)&(tap_hold)}
 
-tap_dance_action_t tap_dance_actions[] = {
-    [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
+enum {
+    TH_CT_CLN,
+};
+
+const tap_dance_tap_hold_t tap_dance_tap_holds[] PROGMEM = {
+    [TH_CT_CLN] = {KC_COLN, KC_SCLN},
+};
+
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(tap_dance_tap_holds[TH_CT_CLN]),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
+    tap_dance_state_t* state;
+    tap_dance_tap_hold_t tap_hold;
 
     switch (keycode) {
-        case TD(CT_CLN): // list all tap dance keycodes with tap-hold configurations
-            action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-            if (!record->event.pressed && action->state.count && !action->state.finished) {
-                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-                tap_code16(tap_hold->tap);
+        case TD(CT_CLN):
+            action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
+            state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
+            if (!record->event.pressed && state != NULL && state->count && !state->finished) {
+                memcpy_P(&tap_hold, (tap_dance_tap_hold_t *)action->user_data, sizeof(tap_dance_tap_hold_t));
+                tap_code16(tap_hold.tap);
             }
     }
     return true;
@@ -354,7 +438,7 @@ void x_reset(tap_dance_state_t *state, void *user_data) {
     xtap_state.state = TD_NONE;
 }
 
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [X_CTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, x_finished, x_reset)
 };
 ```
@@ -450,7 +534,7 @@ void altlp_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [ALT_LP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altlp_finished, altlp_reset)
 };
 ```
@@ -544,7 +628,7 @@ void ql_reset(tap_dance_state_t *state, void *user_data) {
 }
 
 // Associate our tap dance key with its functionality
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     [QUOT_LAYR] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ql_finished, ql_reset)
 };
 

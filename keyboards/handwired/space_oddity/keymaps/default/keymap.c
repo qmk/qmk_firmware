@@ -34,10 +34,16 @@ enum {
 
 };
 
-// Tap dance actions - double tap for Caps Lock.
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
 
-  [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+  [SFT_CAPS] = {KC_LSFT, KC_CAPS},
+
+};
+
+// Tap dance actions - double tap for Caps Lock.
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+
+  [SFT_CAPS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[SFT_CAPS]),
 
 };
 

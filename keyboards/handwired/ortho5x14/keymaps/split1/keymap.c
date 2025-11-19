@@ -250,45 +250,110 @@ void lshift_reset (tap_dance_state_t *state, void *user_data) {
   lshifttap_state.state = 0;
 }
 
+enum {
+    P_DEL_BSPC,
+    P_ESC_GRAVE,
+    P_TAB_TILDE,
 
+    P_9_LPRN,
+    P_0_RPRN,
+
+    P_MINS_UNDS,
+    P_EQL_PLUS,
+
+    P_LBRC_LCBR,
+    P_RBRC_RCBR,
+
+    P_SCLN_COLN,
+    P_QUOT_DQT,
+
+    P_COMM_LABK,
+    P_DOT_RABK,
+    P_SLSH_QUES,
+    P_BSLS_PIPE,
+
+    P_PGUP_HOME,
+    P_PGDN_END,
+
+    P_SPC_ENT,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_DEL_BSPC]  = {KC_DEL, KC_BSPC},
+    [P_ESC_GRAVE] = {KC_ESC, KC_GRAVE},
+    [P_TAB_TILDE] = {KC_TAB, KC_TILDE},
+
+    [P_9_LPRN] = {KC_9, KC_LPRN},
+    [P_0_RPRN] = {KC_0, KC_RPRN},
+
+    [P_MINS_UNDS] = {KC_MINS, KC_UNDS},
+    [P_EQL_PLUS]  = {KC_EQL, KC_PLUS},
+
+    [P_LBRC_LCBR] = {KC_LBRC, KC_LCBR},
+    [P_RBRC_RCBR] = {KC_RBRC, KC_RCBR},
+
+    [P_SCLN_COLN] = {KC_SCLN, KC_COLN},
+    [P_QUOT_DQT]  = {KC_QUOT, KC_DQT},
+
+    [P_COMM_LABK] = {KC_COMM, KC_LABK},
+    [P_DOT_RABK]  = {KC_DOT, KC_RABK},
+    [P_SLSH_QUES] = {KC_SLSH, KC_QUES},
+    [P_BSLS_PIPE] = {KC_BSLS, KC_PIPE},
+
+    [P_PGUP_HOME] = {KC_PGUP, KC_HOME},
+    [P_PGDN_END]  = {KC_PGUP, KC_END},
+
+    [P_SPC_ENT] = {KC_SPACE, KC_ENT},
+};
+
+enum {
+    DR_Q_LrALT,
+    DR_R_LrKey,
+    DR_T_LrMS,
+};
+
+const tap_dance_dual_role_t tap_dance_dual_roles[] PROGMEM = {
+   [DR_Q_LrALT] = DUAL_ROLE_TAP_DANCE_LAYER_MOVE(KC_Q, _ALT),
+   [DR_R_LrKey] = DUAL_ROLE_TAP_DANCE_LAYER_MOVE(KC_R, _RAISE),
+   [DR_T_LrMS]  = DUAL_ROLE_TAP_DANCE_LAYER_MOVE(KC_T, _MOUSE),
+};
 
 //Tap Dance Definitions
-tap_dance_action_t tap_dance_actions[] = {
-   [TD_DEL_BSPC]  = ACTION_TAP_DANCE_DOUBLE(KC_DEL, KC_BSPC),
-   [TD_ESC_GRAVE]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRAVE),
-   [TD_TAB_TILDE]  = ACTION_TAP_DANCE_DOUBLE(KC_TAB, KC_TILDE),
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+   [TD_DEL_BSPC]  = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DEL_BSPC]),
+   [TD_ESC_GRAVE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_ESC_GRAVE]),
+   [TD_TAB_TILDE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_TAB_TILDE]),
 
-   [TD_9_LPRN]  = ACTION_TAP_DANCE_DOUBLE(KC_9, KC_LPRN),
-   [TD_0_RPRN]  = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_RPRN),
+   [TD_9_LPRN] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_9_LPRN]),
+   [TD_0_RPRN] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_0_RPRN]),
 
-   [TD_MINS_UNDS]  = ACTION_TAP_DANCE_DOUBLE(KC_MINS, KC_UNDS),
-   [TD_EQL_PLUS]  = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),
+   [TD_MINS_UNDS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_MINS_UNDS]),
+   [TD_EQL_PLUS]  = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_EQL_PLUS]),
 
-   [TD_LBRC_LCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),
-   [TD_RBRC_RCBR]  = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),
+   [TD_LBRC_LCBR] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_LBRC_LCBR]),
+   [TD_RBRC_RCBR] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_RBRC_RCBR]),
 
-   [TD_SCLN_COLN]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_COLN),
-   [TD_QUOT_DQT]  = ACTION_TAP_DANCE_DOUBLE(KC_QUOT, KC_DQT),
+   [TD_SCLN_COLN] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SCLN_COLN]),
+   [TD_QUOT_DQT]  = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_QUOT_DQT]),
 
-   [TD_COMM_LABK]  = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_LABK),
-   [TD_DOT_RABK]  = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_RABK),
-   [TD_SLSH_QUES]  = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_QUES),
-   [TD_BSLS_PIPE]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_PIPE),
+   [TD_COMM_LABK] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_COMM_LABK]),
+   [TD_DOT_RABK]  = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DOT_RABK]),
+   [TD_SLSH_QUES] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SLSH_QUES]),
+   [TD_BSLS_PIPE] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_BSLS_PIPE]),
 
-   [TD_PGUP_HOME]  = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_HOME),
-   [TD_PGDN_END]   = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, KC_END),
+   [TD_PGUP_HOME] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_PGUP_HOME]),
+   [TD_PGDN_END]  = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_PGDN_END]),
 
-   [TD_Q_LrALT] = ACTION_TAP_DANCE_LAYER_MOVE(KC_Q, _ALT),
-   [TD_R_LrKey] = ACTION_TAP_DANCE_LAYER_MOVE(KC_R, _RAISE),
-   [TD_T_LrMS]  = ACTION_TAP_DANCE_LAYER_MOVE(KC_T, _MOUSE),
+   [TD_Q_LrALT] = ACTION_TAP_DANCE_DUAL_ROLE(tap_dance_dual_roles[DR_Q_LrALT]),
+   [TD_R_LrKey] = ACTION_TAP_DANCE_DUAL_ROLE(tap_dance_dual_roles[DR_R_LrKey]),
+   [TD_T_LrMS]  = ACTION_TAP_DANCE_DUAL_ROLE(tap_dance_dual_roles[DR_T_LrMS]),
 
    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,lshift_finished, lshift_reset),
-   [TD_SPC_ENT]    = ACTION_TAP_DANCE_DOUBLE(KC_SPACE, KC_ENT),
+   [TD_SPC_ENT]    = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SPC_ENT]),
 
    [ALT_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,alt_finished, alt_reset),
    [CTL_OSL1]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,ctl_finished, ctl_reset),
    [TD_LayerDn]   =  ACTION_TAP_DANCE_FN_ADVANCED(NULL,layerDown_finished, layerDown_reset)
-
 };
 
 // Fillers to make layering more clear

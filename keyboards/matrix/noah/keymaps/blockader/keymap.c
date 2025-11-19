@@ -32,9 +32,19 @@ enum{
     DANCE_PGUP_TOP,
 };
 
-tap_dance_action_t tap_dance_actions[] = {
-    [DANCE_PGDN_BOTTOM] = ACTION_TAP_DANCE_DOUBLE(KC_PGDN, LGUI(KC_DOWN)),
-    [DANCE_PGUP_TOP] = ACTION_TAP_DANCE_DOUBLE(KC_PGUP, LGUI(KC_UP)),
+enum {
+    P_DANCE_PGDN_BOTTOM,
+    P_DANCE_PGUP_TOP,
+};
+
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_DANCE_PGDN_BOTTOM] = {KC_PGDN, LGUI(KC_DOWN)},
+    [P_DANCE_PGUP_TOP] = {KC_PGUP, LGUI(KC_UP)},
+};
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
+    [DANCE_PGDN_BOTTOM] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DANCE_PGDN_BOTTOM]),
+    [DANCE_PGUP_TOP] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_DANCE_PGUP_TOP]),
 };
 
 #define KEY_DANCE(a) TD(a)

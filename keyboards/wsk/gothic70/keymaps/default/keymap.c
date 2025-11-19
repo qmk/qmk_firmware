@@ -61,9 +61,16 @@ layer_state_t layer_state_set_user(layer_state_t state)
     return state;
 }
 
+enum {
+    P_SCAPS,
+};
 
-// Tap Dance Definitions
-tap_dance_action_t tap_dance_actions[] = {
+const tap_dance_pair_t tap_dance_pairs[] PROGMEM = {
+    [P_SCAPS] = {KC_LSFT, KC_CAPS},
+};
+
+// Tap Dance Definition
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
     // Tap once for
-    [TD_SCAPS] = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
+    [TD_SCAPS] = ACTION_TAP_DANCE_DOUBLE(tap_dance_pairs[P_SCAPS]),
 };

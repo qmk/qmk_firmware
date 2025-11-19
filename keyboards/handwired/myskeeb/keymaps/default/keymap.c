@@ -53,9 +53,9 @@ void tilded(tap_dance_state_t *state, void *user_data) {
 		else
 			tap_code16(KC_AT);
 	}
-} 
-  
-tap_dance_action_t tap_dance_actions[] = {
+}
+
+const tap_dance_action_t tap_dance_actions[] PROGMEM = {
 	[OP_QT] = ACTION_TAP_DANCE_FN(tri_open),
 	[CL_QT] = ACTION_TAP_DANCE_FN(tri_close),
 	[TD_DQ] = ACTION_TAP_DANCE_FN(dquote),
