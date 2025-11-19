@@ -9,7 +9,6 @@
 #    include "usb_main.h"
 
 void __attribute__((weak)) replaced_hid_send(uint8_t *data, uint8_t length) {
-
     if (length != RAW_EPSIZE) {
         return;
     }
@@ -22,7 +21,7 @@ void __attribute__((weak)) replaced_hid_send(uint8_t *data, uint8_t length) {
 }
 
 void md_receive_raw_cb(uint8_t *data, uint8_t length) {
-    void raw_hid_receive(uint8_t * data, uint8_t length);
+    void raw_hid_receive(uint8_t *data, uint8_t length);
 
     raw_hid_receive(data, length);
 }

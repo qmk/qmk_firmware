@@ -1,9 +1,9 @@
 #include "rgb_rgblight.h"
 #include "rgblight.h"
 
-LED_TYPE led[RGBLED_NUM];
+LED_TYPE                 led[RGBLED_NUM];
 extern rgblight_config_t rgblight_config;
-const uint8_t led_map[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
+const uint8_t            led_map[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21};
 
 // Make these weak so they won't clash with the main rgblight implementation
 // when the standard rgblight module is built. The strong definition in
@@ -14,7 +14,7 @@ __attribute__((weak)) void rgblight_call_driver(LED_TYPE *start_led, uint8_t num
 
 __attribute__((weak)) void rgblight_set(void) {
     LED_TYPE *start_led;
-    uint8_t num_leds = rgblight_ranges.clipping_num_leds;
+    uint8_t   num_leds = rgblight_ranges.clipping_num_leds;
 
     if (!rgblight_config.enable) {
         for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
