@@ -7,6 +7,11 @@
         "pid": "0x30C4",
         "device_version": "0.0.1"
     },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
     "matrix_pins": {
         "cols": [
             "D15",

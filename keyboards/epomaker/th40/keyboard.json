@@ -7,6 +7,11 @@
         "pid": "0x304E",
         "device_version": "0.0.4"
     },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
     "matrix_pins": {
         "cols": [
             "D15",
