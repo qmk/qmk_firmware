@@ -1,3 +1,6 @@
+// Copyright 2025 Julian Yap (@jyap808)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #define __ _______
