@@ -245,7 +245,6 @@
     "url": "https://www.epomaker.com",
     "usb": {
         "device_version": "0.4.0",
-        "force_nkro": true,
         "pid": "0xE463",
         "suspend_wakeup_delay": 1000,
         "vid": "0x342D"
