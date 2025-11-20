@@ -3,8 +3,8 @@
     "manufacturer": "Bigtuna.io",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x6060",
+        "vid": "0x21FF",
+        "pid": "0xAAEF",
         "device_version": "0.0.1"
     },
     "rgblight": {
