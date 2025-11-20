@@ -327,6 +327,22 @@ Configures the [LED Indicators](features/led_indicators) feature.
     * `scroll_lock` <Badge type="info">Pin</Badge>
         * The GPIO pin connected to the Scroll Lock LED.
 
+## (Custom) Keycodes {#keycodes}
+
+Defines [custom keycodes](custom_quantum_functions#definining-a-new-keycode) 
+directly in the `info.json` file.
+
+* `keycodes` <Badge type="info">Array: Object</Badge>
+    * List of custom keycodes used in the keyboard. Each keycode object contains:
+        * `key` <Badge type="info">String</Badge> <Badge>Required</Badge>
+            * The enum name of the custom keycode. 
+            * Example: `LAYER_CHANGE_BEEP_ON`
+        * `label` <Badge type="info">String</Badge>
+            * A short description of the custom keycode.
+        * `aliases` <Badge type="info">Array: String</Badge>
+            * A list of shortened names for the custom keycode.
+            * Example: `["LCBON", "LCB_ON"]`
+
 ## Layouts {#layouts}
 
 The `layouts` portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout names, for example `LAYOUT_60_ansi` or `LAYOUT_60_iso`.
@@ -507,7 +523,7 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * The amount of time to wait between row/col selection and col/row pin reading, in microseconds.
         * Default: `30` (30 µs)
     * `masked` <Badge type="info">Boolean</Badge>
-        * Whether configured intersections should be ignored.
+        * Whether intersections not specified in the layout should be ignored.
         * Default: `false`
     * `rows` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the matrix rows.
