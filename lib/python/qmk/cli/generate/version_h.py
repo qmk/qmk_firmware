@@ -33,7 +33,7 @@ def generate_version_h(cli):
         git_dirty = False
         git_version = "NA"
         git_qmk_hash = "NA"
-        git_bcd_version = "NA"
+        git_bcd_version = "0x00000000"
         chibios_version = "NA"
         chibios_contrib_version = "NA"
     else:
