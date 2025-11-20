@@ -7,10 +7,10 @@ import re
 
 from milc import cli
 
+TRIPLET_PATTERN = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
+
 maybe_exit_should_exit = True
 maybe_exit_reraise = False
-
-TRIPLET_PATTERN = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
 
 # Controls whether or not early `exit()` calls should be made
 def maybe_exit(rc):
