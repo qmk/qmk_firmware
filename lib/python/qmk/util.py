@@ -13,6 +13,8 @@ maybe_exit_should_exit = True
 maybe_exit_reraise = False
 
 # Controls whether or not early `exit()` calls should be made
+
+
 def maybe_exit(rc):
     if maybe_exit_should_exit:
         sys.exit(rc)
@@ -98,6 +100,7 @@ def parallel_map(*args, **kwargs):
         # before the results are returned. Returning a list ensures results are
         # materialised before any worker pool is shut down.
         return list(map_fn(*args, **kwargs))
+
 
 def triplet_to_bcd(ver: str):
     m = TRIPLET_PATTERN.match(ver)
