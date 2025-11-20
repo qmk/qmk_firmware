@@ -1,6 +1,6 @@
 # troyle/macro_keys_dual
 
-<img src="https://tom-royle.co.uk/images/troyle-macro-keyboard-v1.png" alt="troyle/macro_keys_dual" width="600"/>
+![troyle/macro_keys_dual](https://tom-royle.co.uk/images/troyle-macro-keyboard-v1.png)
 
 A pretty simple macro keyboard that can use up to 2 rotary encoders
 

@@ -1,6 +1,6 @@
 {
     "manufacturer": "troyle",
-    "keyboard_name": "troyle/macro-keys-dual",
+    "keyboard_name": "troyle/macro_keys_dual",
     "maintainer": "troyle",
     "development_board": "promicro",
     "features": {
