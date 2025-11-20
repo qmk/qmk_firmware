@@ -12,6 +12,7 @@ TRIPLET_PATTERN = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
 maybe_exit_should_exit = True
 maybe_exit_reraise = False
 
+
 # Controls whether or not early `exit()` calls should be made
 def maybe_exit(rc):
     if maybe_exit_should_exit:
