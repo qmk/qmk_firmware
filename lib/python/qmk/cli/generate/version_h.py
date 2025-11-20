@@ -40,7 +40,7 @@ def generate_version_h(cli):
         git_dirty = git_is_dirty()
         git_version = git_get_version() or current_time
         git_qmk_hash = git_get_qmk_hash() or "Unknown"
-        git_bcd_version = triplet_to_bcd(git_version) or "0x00000000"
+        git_bcd_version = triplet_to_bcd(git_version)
         chibios_version = git_get_version("chibios", "os") or current_time
         chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
 
