@@ -32,7 +32,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgblight": true
+        "rgblight": true,
+        "via": true
     },
     "qmk": {
         "locking": {
