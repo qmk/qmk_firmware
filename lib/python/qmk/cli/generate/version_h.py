@@ -51,7 +51,7 @@ def generate_version_h(cli):
         f"""
 #define QMK_VERSION "{git_version}"
 #define QMK_BUILDDATE "{current_time}"
-#define QMK_BCD_VERSION {git_bcd_version}
+#define QMK_VERSION_BCD {git_bcd_version}
 #define QMK_GIT_HASH  "{git_qmk_hash}{'*' if git_dirty else ''}"
 #define CHIBIOS_VERSION "{chibios_version}"
 #define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
