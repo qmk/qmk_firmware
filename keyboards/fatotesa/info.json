@@ -10,7 +10,9 @@
         "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder": true,
+        "caps_word": true
     },
     "split": {
         "enabled": true,
@@ -18,6 +20,10 @@
             "protocol": "serial"
         },
         "soft_serial_pin": "D2",
+        "usb_detect": {
+            "enabled": true,
+            "timeout": 2500
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F4", "F5", "F6", "C6", "F7", "B1", "B3", "B2"],

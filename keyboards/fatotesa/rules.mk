@@ -1,3 +1,1 @@
-ENCODER_ENABLE = yes
-CAPS_WORD_ENABLE = yes
-ENABLE_BOOTMAGIC = yes
+# Features configured in info.json
