@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "compiler_support.h"
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
@@ -62,7 +64,7 @@ static struct {
 } split_config;
 
 #if defined(SPLIT_USB_DETECT)
-_Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
+STATIC_ASSERT((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
 static bool usb_bus_detected(void) {
     for (uint16_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
@@ -88,9 +90,9 @@ static inline bool usb_bus_detected(void) {
 #        endif
 #    endif
 #    if defined(SPLIT_USB_DETECT)
-_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+STATIC_ASSERT(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
 #    endif
-_Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
+STATIC_ASSERT(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
 
 static uint32_t split_watchdog_started = 0;
 static bool     split_watchdog_done    = false;

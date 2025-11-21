@@ -22,16 +22,24 @@
 #    error "DYNAMIC_KEYMAP_ENABLE is not enabled"
 #endif
 
+#ifdef VIA_INSECURE
+#    pragma message "VIA_INSECURE is enabled - firmware is susceptible to keyloggers"
+#endif
+
 #include "via.h"
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "matrix.h"
 #include "timer.h"
 #include "wait.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
+#include "nvm_via.h"
+
+#if defined(SECURE_ENABLE)
+#    include "secure.h"
+#endif
 
 #if defined(AUDIO_ENABLE)
 #    include "audio.h"
@@ -65,20 +73,26 @@ bool via_eeprom_is_valid(void) {
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
 
-    return (eeprom_read_byte((void *)VIA_EEPROM_MAGIC_ADDR + 0) == magic0 && eeprom_read_byte((void *)VIA_EEPROM_MAGIC_ADDR + 1) == magic1 && eeprom_read_byte((void *)VIA_EEPROM_MAGIC_ADDR + 2) == magic2);
+    uint8_t ee_magic0;
+    uint8_t ee_magic1;
+    uint8_t ee_magic2;
+    nvm_via_read_magic(&ee_magic0, &ee_magic1, &ee_magic2);
+
+    return ee_magic0 == magic0 && ee_magic1 == magic1 && ee_magic2 == magic2;
 }
 
 // Sets VIA/keyboard level usage of EEPROM to valid/invalid
 // Keyboard level code (eg. via_init_kb()) should not call this
 void via_eeprom_set_valid(bool valid) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
-    uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
-    uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
-    uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
-
-    eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 0, valid ? magic0 : 0xFF);
-    eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 1, valid ? magic1 : 0xFF);
-    eeprom_update_byte((void *)VIA_EEPROM_MAGIC_ADDR + 2, valid ? magic2 : 0xFF);
+    if (valid) {
+        char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+        uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
+        uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
+        uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
+        nvm_via_update_magic(magic0, magic1, magic2);
+    } else {
+        nvm_via_update_magic(0xFF, 0xFF, 0xFF);
+    }
 }
 
 // Override this at the keyboard code level to check
@@ -104,6 +118,8 @@ void via_init(void) {
 }
 
 void eeconfig_init_via(void) {
+    // Erase any NVM storage if necessary
+    nvm_via_erase();
     // set the magic number to false, in case this gets interrupted
     via_eeprom_set_valid(false);
     // This resets the layout options
@@ -119,29 +135,24 @@ void eeconfig_init_via(void) {
 // This is generalized so the layout options EEPROM usage can be
 // variable, between 1 and 4 bytes.
 uint32_t via_get_layout_options(void) {
-    uint32_t value = 0;
-    // Start at the most significant byte
-    void *source = (void *)(VIA_EEPROM_LAYOUT_OPTIONS_ADDR);
-    for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {
-        value = value << 8;
-        value |= eeprom_read_byte(source);
-        source++;
-    }
-    return value;
+    return nvm_via_read_layout_options();
 }
 
 __attribute__((weak)) void via_set_layout_options_kb(uint32_t value) {}
 
 void via_set_layout_options(uint32_t value) {
     via_set_layout_options_kb(value);
-    // Start at the least significant byte
-    void *target = (void *)(VIA_EEPROM_LAYOUT_OPTIONS_ADDR + VIA_EEPROM_LAYOUT_OPTIONS_SIZE - 1);
-    for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {
-        eeprom_update_byte(target, value & 0xFF);
-        value = value >> 8;
-        target--;
-    }
+    nvm_via_update_layout_options(value);
 }
+
+#if VIA_EEPROM_CUSTOM_CONFIG_SIZE > 0
+uint32_t via_read_custom_config(void *buf, uint32_t offset, uint32_t length) {
+    return nvm_via_read_custom_config(buf, offset, length);
+}
+uint32_t via_update_custom_config(const void *buf, uint32_t offset, uint32_t length) {
+    return nvm_via_update_custom_config(buf, offset, length);
+}
+#endif
 
 #if defined(AUDIO_ENABLE)
 float via_device_indication_song[][2] = SONG(STARTUP_SOUND);
@@ -315,7 +326,16 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     uint8_t rows   = 28 / ((MATRIX_COLS + 7) / 8);
                     uint8_t i      = 2;
                     for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
+#if defined(VIA_INSECURE)
                         matrix_row_t value = matrix_get_row(row + offset);
+#elif defined(SECURE_ENABLE)
+                        matrix_row_t value = 0;
+                        if (secure_is_unlocked()) {
+                            value = matrix_get_row(row + offset);
+                        }
+#else
+                        matrix_row_t value = 0;
+#endif
 #if (MATRIX_COLS > 24)
                         command_data[i++] = (value >> 24) & 0xFF;
 #endif
@@ -715,7 +735,7 @@ void via_qmk_rgb_matrix_set_value(uint8_t *data) {
 }
 
 void via_qmk_rgb_matrix_save(void) {
-    eeconfig_update_rgb_matrix();
+    eeconfig_force_flush_rgb_matrix();
 }
 
 #endif // RGB_MATRIX_ENABLE
@@ -794,7 +814,7 @@ void via_qmk_led_matrix_set_value(uint8_t *data) {
 }
 
 void via_qmk_led_matrix_save(void) {
-    eeconfig_update_led_matrix();
+    eeconfig_force_flush_led_matrix();
 }
 
 #endif // LED_MATRIX_ENABLE
@@ -861,7 +881,7 @@ void via_qmk_audio_set_value(uint8_t *data) {
 }
 
 void via_qmk_audio_save(void) {
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
 
 #endif // QMK_AUDIO_ENABLE

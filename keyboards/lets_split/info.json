@@ -1,7 +1,5 @@
 {
-  "url": "",
   "maintainer": "qmk",
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "community_layouts": ["ortho_4x12"]
 }

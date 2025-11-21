@@ -1,13 +1,16 @@
 {
     "keyboard_name": "MagicForce",
-    "url": "",
     "maintainer": "MagicForce",
     "manufacturer": "MagicForce",
     "usb": {
         "vid": "0x1A53",
         "pid": "0x4F51",
-        "device_version": "1.0.2",
-        "force_nkro": true
+        "device_version": "1.0.2"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "indicators": {
         "num_lock": "B15"

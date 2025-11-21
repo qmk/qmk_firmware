@@ -1,7 +1,6 @@
 {
     "keyboard_name": "E6-V2 OE",
     "manufacturer": "Exclusive / E-Team",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Obelus",
   "manufacturer": "cKeys",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -11,8 +10,6 @@
   "features": {
     "audio": true,
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "midi": true,
     "mousekey": false,

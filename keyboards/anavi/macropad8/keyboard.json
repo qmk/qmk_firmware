@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Macro Pad 8",
   "manufacturer": "ANAVI",
-  "url": "",
   "maintainer": "leon-anavi",
   "usb": {
       "vid": "0xCEEB",
@@ -37,8 +36,6 @@
   "features": {
     "backlight": true,
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

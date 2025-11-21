@@ -126,22 +126,14 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 #endif // RGB_MATRIX_ENABLE
 
 // clang-format on
-enum __layers {
-    WIN_B,
-    WIN_W,
-    WIN_FN,
-    MAC_B,
-    MAC_W,
-    MAC_FN,
-};
 
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
     gpio_set_pin_output(LED_MAC_OS_PIN); // LDE2 MAC\WIN
     gpio_write_pin_low(LED_MAC_OS_PIN);
     gpio_set_pin_output(LED_WIN_LOCK_PIN); // LED3 Win Lock
     gpio_write_pin_low(LED_WIN_LOCK_PIN);
 
-    matrix_init_user();
+    keyboard_post_init_user();
 }
 
 void housekeeping_task_kb(void){
@@ -154,23 +146,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         return false;
     }
     switch (keycode) {
-        case DF(WIN_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(WIN_B);
-            }
-            return false;
-        case DF(MAC_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(MAC_B);
-                keymap_config.no_gui = 0;
-                eeconfig_update_keymap(keymap_config.raw);
-            }
-            return false;
-        case GU_TOGG:
-            if (record->event.pressed) {
-                gpio_write_pin(LED_WIN_LOCK_PIN, !keymap_config.no_gui);
-            }
-            return true;
         case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {

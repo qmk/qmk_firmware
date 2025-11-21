@@ -1,7 +1,6 @@
 {
     "keyboard_name": "i75",
     "manufacturer": "di0ib",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4025",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pachi Mini",
     "manufacturer": "Xelus",
-    "url": "",
     "maintainer": "Xelus22",
     "usb": {
         "vid": "0x5845",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

@@ -1,14 +1,17 @@
 {
     "keyboard_name": "GG86 Tai-Chi",
     "manufacturer": "Gopolar",
-    "url": "",
     "maintainer": "Gopolar",
     "usb": {
         "vid": "0x0007",
         "pid": "0x0007",
         "device_version": "0.0.1",
-        "force_nkro": true,
         "no_startup_check": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "pin": "E2"

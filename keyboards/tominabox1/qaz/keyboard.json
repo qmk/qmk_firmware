@@ -1,7 +1,6 @@
 {
   "keyboard_name": "qaz",
   "manufacturer": "whydobearsexplod",
-  "url": "",
   "maintainer": "tominabox1",
   "usb": {
     "vid": "0x7431",
@@ -30,8 +29,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
@@ -48,8 +45,7 @@
     "rows": ["F4", "D4", "C6", "E6", "D1", "D0"]
   },
   "diode_direction": "COL2ROW",
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "layouts": {
     "LAYOUT_split_space": {
       "layout": [
