@@ -15,37 +15,37 @@
 extern usb_endpoint_in_t     usb_endpoints_in[USB_ENDPOINT_IN_COUNT];
 extern usb_endpoint_in_lut_t usb_endpoint_interface_lut[TOTAL_INTERFACES];
 
-void usb_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length) {
+void usb_store_report(usb_report_t **reports, const uint8_t *data, size_t length) {
     if (*reports == NULL) {
         return;
     }
 
     (*reports)->last_report = chVTGetSystemTimeX();
     (*reports)->length      = length;
-    memcpy(&(*reports)->data, data, length);
+    memcpy((*reports)->data, data, length);
 }
 
-void usb_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report) {
+void usb_get_report(usb_report_t **reports, uint8_t report_id, usb_report_t *report) {
     (void)report_id;
     if (*reports == NULL) {
         return;
     }
 
     report->length = (*reports)->length;
-    memcpy(&report->data, &(*reports)->data, report->length);
+    memcpy(report->data, (*reports)->data, report->length);
 }
 
-void usb_reset_report(usb_fs_report_t **reports) {
+void usb_reset_report(usb_report_t **reports) {
     if (*reports == NULL) {
         return;
     }
 
-    memset(&(*reports)->data, 0, (*reports)->length);
+    memset((*reports)->data, 0, (*reports)->length);
     (*reports)->idle_rate   = 0;
     (*reports)->last_report = 0;
 }
 
-void usb_shared_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length) {
+void usb_shared_store_report(usb_report_t **reports, const uint8_t *data, size_t length) {
     uint8_t report_id = data[0];
 
     if (report_id > REPORT_ID_COUNT || reports[report_id] == NULL) {
@@ -54,24 +54,24 @@ void usb_shared_set_report(usb_fs_report_t **reports, const uint8_t *data, size_
 
     reports[report_id]->last_report = chVTGetSystemTimeX();
     reports[report_id]->length      = length;
-    memcpy(&reports[report_id]->data, data, length);
+    memcpy(reports[report_id]->data, data, length);
 }
 
-void usb_shared_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report) {
+void usb_shared_get_report(usb_report_t **reports, uint8_t report_id, usb_report_t *report) {
     if (report_id > REPORT_ID_COUNT || reports[report_id] == NULL) {
         return;
     }
 
     report->length = reports[report_id]->length;
-    memcpy(&report->data, &reports[report_id]->data, report->length);
+    memcpy(report->data, reports[report_id]->data, report->length);
 }
 
-void usb_shared_reset_report(usb_fs_report_t **reports) {
+void usb_shared_reset_report(usb_report_t **reports) {
     for (int i = 0; i <= REPORT_ID_COUNT; i++) {
         if (reports[i] == NULL) {
             continue;
         }
-        memset(&reports[i]->data, 0, reports[i]->length);
+        memset(reports[i]->data, 0, reports[i]->length);
         reports[i]->idle_rate   = 0;
         reports[i]->last_report = 0;
     }
@@ -81,8 +81,6 @@ bool usb_get_report_cb(USBDriver *driver) {
     usb_control_request_t *setup     = (usb_control_request_t *)driver->setup;
     uint8_t                interface = setup->wIndex;
     uint8_t                report_id = setup->wValue.lbyte;
-
-    static usb_fs_report_t report;
 
     if (!IS_VALID_INTERFACE(interface) || !IS_VALID_REPORT_ID(report_id)) {
         return false;
@@ -94,13 +92,19 @@ bool usb_get_report_cb(USBDriver *driver) {
         return false;
     }
 
-    usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+    usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-    if (report_storage == NULL) {
+    if (report_handler == NULL) {
         return false;
     }
 
-    report_storage->get_report(report_storage->reports, report_id, &report);
+    static _Alignas(4) uint8_t report_data[64];
+    static usb_report_t        report;
+    // always reset the report struct, as it might point to a different report
+    report.data   = (uint8_t *)report_data;
+    report.length = ARRAY_SIZE(report_data);
+
+    report_handler->get_report(report_handler->reports, report_id, &report);
 
     usbSetupTransfer(driver, (uint8_t *)report.data, report.length, NULL);
 
@@ -109,7 +113,7 @@ bool usb_get_report_cb(USBDriver *driver) {
 
 static bool run_idle_task = false;
 
-void usb_set_idle_rate(usb_fs_report_t **reports, uint8_t report_id, uint8_t idle_rate) {
+void usb_set_idle_rate(usb_report_t **reports, uint8_t report_id, uint8_t idle_rate) {
     (void)report_id;
 
     if (*reports == NULL) {
@@ -121,7 +125,7 @@ void usb_set_idle_rate(usb_fs_report_t **reports, uint8_t report_id, uint8_t idl
     run_idle_task |= idle_rate != 0;
 }
 
-uint8_t usb_get_idle_rate(usb_fs_report_t **reports, uint8_t report_id) {
+uint8_t usb_get_idle_rate(usb_report_t **reports, uint8_t report_id) {
     (void)report_id;
 
     if (*reports == NULL) {
@@ -131,7 +135,7 @@ uint8_t usb_get_idle_rate(usb_fs_report_t **reports, uint8_t report_id) {
     return (*reports)->idle_rate / 4;
 }
 
-bool usb_idle_timer_elapsed(usb_fs_report_t **reports, uint8_t report_id) {
+bool usb_idle_timer_elapsed(usb_report_t **reports, uint8_t report_id) {
     (void)report_id;
 
     if (*reports == NULL) {
@@ -150,7 +154,7 @@ bool usb_idle_timer_elapsed(usb_fs_report_t **reports, uint8_t report_id) {
     return chTimeI2MS(chVTTimeElapsedSinceX(last_report)) >= idle_rate;
 }
 
-void usb_shared_set_idle_rate(usb_fs_report_t **reports, uint8_t report_id, uint8_t idle_rate) {
+void usb_shared_set_idle_rate(usb_report_t **reports, uint8_t report_id, uint8_t idle_rate) {
     // USB spec demands that a report_id of 0 would set the idle rate for all
     // reports of that endpoint, but this can easily lead to resource
     // exhaustion, therefore we deliberalty break the spec at this point.
@@ -163,7 +167,7 @@ void usb_shared_set_idle_rate(usb_fs_report_t **reports, uint8_t report_id, uint
     run_idle_task |= idle_rate != 0;
 }
 
-uint8_t usb_shared_get_idle_rate(usb_fs_report_t **reports, uint8_t report_id) {
+uint8_t usb_shared_get_idle_rate(usb_report_t **reports, uint8_t report_id) {
     if (report_id > REPORT_ID_COUNT || reports[report_id] == NULL) {
         return 0;
     }
@@ -171,7 +175,7 @@ uint8_t usb_shared_get_idle_rate(usb_fs_report_t **reports, uint8_t report_id) {
     return reports[report_id]->idle_rate / 4;
 }
 
-bool usb_shared_idle_timer_elapsed(usb_fs_report_t **reports, uint8_t report_id) {
+bool usb_shared_idle_timer_elapsed(usb_report_t **reports, uint8_t report_id) {
     if (report_id > REPORT_ID_COUNT || reports[report_id] == NULL) {
         return false;
     }
@@ -193,13 +197,17 @@ void usb_idle_task(void) {
         return;
     }
 
-    static usb_fs_report_t report;
-    bool                   non_zero_idle_rate_found = false;
+    bool                       non_zero_idle_rate_found = false;
+    static _Alignas(4) uint8_t report_data[64];
+    static usb_report_t        report;
+    // always reset the report struct, as it might point to a different report
+    report.data   = (uint8_t *)report_data;
+    report.length = ARRAY_SIZE(report_data);
 
     for (int ep = 0; ep < USB_ENDPOINT_IN_COUNT; ep++) {
-        usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+        usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-        if (report_storage == NULL) {
+        if (report_handler == NULL) {
             continue;
         }
 
@@ -207,14 +215,14 @@ void usb_idle_task(void) {
         if (ep == USB_ENDPOINT_IN_SHARED) {
             for (int report_id = 1; report_id <= REPORT_ID_COUNT; report_id++) {
                 osalSysLock();
-                non_zero_idle_rate_found |= report_storage->get_idle(report_storage->reports, report_id) != 0;
+                non_zero_idle_rate_found |= report_handler->get_idle(report_handler->reports, report_id) != 0;
                 osalSysUnlock();
 
-                if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_storage->idle_timer_elasped(report_storage->reports, report_id)) {
+                if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_handler->idle_timer_elasped(report_handler->reports, report_id)) {
                     osalSysLock();
-                    report_storage->get_report(report_storage->reports, report_id, &report);
+                    report_handler->get_report(report_handler->reports, report_id, &report);
                     osalSysUnlock();
-                    send_report(ep, &report.data, report.length);
+                    send_report(ep, report.data, report.length);
                 }
             }
             continue;
@@ -222,14 +230,14 @@ void usb_idle_task(void) {
 #endif
 
         osalSysLock();
-        non_zero_idle_rate_found |= report_storage->get_idle(report_storage->reports, 0) != 0;
+        non_zero_idle_rate_found |= report_handler->get_idle(report_handler->reports, 0) != 0;
         osalSysUnlock();
 
-        if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_storage->idle_timer_elasped(report_storage->reports, 0)) {
+        if (usb_endpoint_in_is_inactive(&usb_endpoints_in[ep]) && report_handler->idle_timer_elasped(report_handler->reports, 0)) {
             osalSysLock();
-            report_storage->get_report(report_storage->reports, 0, &report);
+            report_handler->get_report(report_handler->reports, 0, &report);
             osalSysUnlock();
-            send_report(ep, &report.data, report.length);
+            send_report(ep, report.data, report.length);
         }
     }
 
@@ -253,13 +261,13 @@ bool usb_get_idle_cb(USBDriver *driver) {
         return false;
     }
 
-    usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+    usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-    if (report_storage == NULL) {
+    if (report_handler == NULL) {
         return false;
     }
 
-    idle_rate = report_storage->get_idle(report_storage->reports, report_id);
+    idle_rate = report_handler->get_idle(report_handler->reports, report_id);
 
     usbSetupTransfer(driver, &idle_rate, 1, NULL);
 
@@ -282,13 +290,13 @@ bool usb_set_idle_cb(USBDriver *driver) {
         return false;
     }
 
-    usb_report_storage_t *report_storage = usb_endpoints_in[ep].report_storage;
+    usb_report_handler_t *report_handler = usb_endpoints_in[ep].report_handler;
 
-    if (report_storage == NULL) {
+    if (report_handler == NULL) {
         return false;
     }
 
-    report_storage->set_idle(report_storage->reports, report_id, idle_rate);
+    report_handler->set_idle(report_handler->reports, report_id, idle_rate);
 
     usbSetupTransfer(driver, NULL, 0, NULL);
 
