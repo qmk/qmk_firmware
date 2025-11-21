@@ -25,7 +25,6 @@ void keyboard_post_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        // led_state.caps_lock ? rgblight_setrgb_range(RGB_WHITE, 0,2) : rgblight_setrgb_range(RGB_OFF, 0,2);
         uint8_t h = rgblight_get_hue();
         uint8_t s = rgblight_get_sat();
         uint8_t v = rgblight_get_val();
