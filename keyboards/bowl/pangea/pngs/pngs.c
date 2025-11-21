@@ -21,7 +21,9 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_output(C10);
     gpio_set_pin_output(A15);
     gpio_set_pin_output(C13);
-}	
+
+    keyboard_post_init_user();
+}
 
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
