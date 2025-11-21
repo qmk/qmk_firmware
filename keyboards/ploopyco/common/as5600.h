@@ -44,6 +44,10 @@ STATIC_ASSERT(POINTING_DEVICE_AS5600_DEADZONE % POINTING_DEVICE_AS5600_SPEED_DIV
 #    define POINTING_DEVICE_AS5600_TICK_COUNT 128
 #endif
 
+#ifndef POINTING_DEVICE_AS5600_I2C_TIMEOUT
+#    define POINTING_DEVICE_AS5600_I2C_TIMEOUT 10
+#endif
+
 #define REG_ZMCO        0x00
 #define REG_ZPOS        0x01
 #define REG_MPOS        0x03
@@ -57,7 +61,7 @@ STATIC_ASSERT(POINTING_DEVICE_AS5600_DEADZONE % POINTING_DEVICE_AS5600_SPEED_DIV
 #define REG_BURN        0xff
 
 void as5600_init(void);
-uint16_t get_rawangle(void);
-bool is_magnet_too_high(void);
-bool is_magnet_too_low(void);
-bool is_magnet_present(void);
+uint16_t as5600_get_rawangle(void);
+bool as5600_is_magnet_too_high(void);
+bool as5600_is_magnet_too_low(void);
+bool as5600_is_magnet_present(void);

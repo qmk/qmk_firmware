@@ -23,13 +23,13 @@ void as5600_init(void) {
     i2c_init();
 }
 
-uint16_t get_rawangle(void) {
+uint16_t as5600_get_rawangle(void) {
     uint8_t data[] = {0, 0};
-    i2c_status_t s = i2c_read_register(AS5600_I2C_ADDRESS, REG_RAWANGLE, data, 2, 100);
+    i2c_status_t s = i2c_read_register(AS5600_I2C_ADDRESS, REG_RAWANGLE, data, 2, POINTING_DEVICE_AS5600_I2C_TIMEOUT);
     if (s == I2C_STATUS_TIMEOUT) {
-        printf("Timeout on get_rawangle()\n");
+        printf("Timeout on as5600_get_rawangle()\n");
     } else if (s == I2C_STATUS_ERROR) {
-        printf("Error on get_rawangle()\n");
+        printf("Error on as5600_get_rawangle()\n");
     } else {
         ;
     }
@@ -37,7 +37,7 @@ uint16_t get_rawangle(void) {
     return rawangle;
 }
 
-bool is_magnet_too_high(void) {
+bool as5600_is_magnet_too_high(void) {
     uint8_t data[] = {0};
     i2c_read_register(AS5600_I2C_ADDRESS, REG_STATUS, data, 1, 100);
     uint8_t v = (data[0] >> 3) & 0x1;
@@ -48,7 +48,7 @@ bool is_magnet_too_high(void) {
     }
 }
 
-bool is_magnet_too_low(void) {
+bool as5600_is_magnet_too_low(void) {
     uint8_t data[] = {0};
     i2c_read_register(AS5600_I2C_ADDRESS, REG_STATUS, data, 1, 100);
     uint8_t v = (data[0] >> 4) & 0x1;
@@ -59,7 +59,7 @@ bool is_magnet_too_low(void) {
     }
 }
 
-bool is_magnet_present(void) {
+bool as5600_is_magnet_present(void) {
     uint8_t data[] = {0};
     i2c_read_register(AS5600_I2C_ADDRESS, REG_STATUS, data, 1, 100);
     uint8_t v = (data[0] >> 5) & 0x1;

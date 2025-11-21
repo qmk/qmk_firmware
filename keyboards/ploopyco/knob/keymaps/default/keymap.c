@@ -29,11 +29,11 @@ void keyboard_post_init_user(void) {
     // debug_mouse    = true;
 
     as5600_init();
-    current_position = get_rawangle();
+    current_position = as5600_get_rawangle();
 }
 
 report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
-    uint16_t ra = get_rawangle();
+    uint16_t ra = as5600_get_rawangle();
     int16_t delta = (int16_t)(ra - current_position);
 
     // Wrap into [-2048, 2047] to get shortest direction
