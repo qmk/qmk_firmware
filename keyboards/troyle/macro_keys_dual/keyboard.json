@@ -3,27 +3,25 @@
     "keyboard_name": "troyle/macro_keys_dual",
     "maintainer": "troyle",
     "development_board": "promicro",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": true
-    },
-    "matrix_pins": {
-        "direct": [
-            ["F7","F6","F5","F4"],
-            ["B6","B2","B3","B1"]
-        ]
-    },
     "encoder": {
         "rotary": [
             {"pin_a": "D1", "pin_b": "D0", "resolution": 2},
             {"pin_a": "B4", "pin_b": "B5", "resolution": 2}
         ]
     },
-    "url": "",
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["F7", "F6", "F5", "F4"],
+            ["B6", "B2", "B3", "B1"]
+        ]
+    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
