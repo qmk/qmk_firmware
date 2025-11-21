@@ -1,7 +1,6 @@
 {
     "manufacturer": "bowlxgondo",
     "keyboard_name": "PNG-S Alpha RC2",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
        "vid": "0x4257",
@@ -24,9 +23,7 @@
         "lto": true
     },
     "eeprom": {
-        "driver" : "wear_leveling",
         "wear_leveling": {
-            "driver": "embedded_flash",
             "backing_size": 4096
         }
     },

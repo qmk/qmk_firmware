@@ -1,7 +1,6 @@
 {
     "manufacturer": "bowlxgondo",
     "keyboard_name": "PNG-H Alpha RC1",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
        "vid": "0x4257",
@@ -25,18 +24,13 @@
         "lto": true
     },
     "eeprom": {
-        "driver" : "wear_leveling",
         "wear_leveling": {
-            "driver": "embedded_flash",
             "backing_size": 4096
         }
     },
     "rgblight":{
         "led_count": 3,
-        "brightness_steps": 20,
-        "default": {
-            "sat": 0
-        }
+        "brightness_steps": 20
     },
     "ws2812":{
         "driver": "pwm",
