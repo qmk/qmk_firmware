@@ -1,6 +1,6 @@
 # Ploopy Nano 2 Trackball
 
-![Ploopyco Trackball Nano](https://ploopy.co/wp-content/uploads/2021/06/2.jpg)
+![Ploopyco Trackball Nano 2](https://cdn.ploopy.co/nano2-media-assets/site-photos/_MG_2495.jpg)
 
 It's a DIY, QMK Powered Trackball...Nano!
 
@@ -11,7 +11,7 @@ It's a DIY, QMK Powered Trackball...Nano!
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb ploopyco/nano_2 -km default
+    make ploopyco/nano_2/rev2_003:default
 
 # Building Firmware
 
