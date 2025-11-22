@@ -95,3 +95,32 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [3] =   { ENCODER_CCW_CW(_______, _______), ENCODER_CCW_CW(_______, _______)  }
 };
 #endif
+
+bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t* tap_hold_record,
+                      uint16_t other_keycode, keyrecord_t* other_record) {
+    switch (tap_hold_keycode) {
+    // Thumb keys chords are always modifier
+    /* case LGUI_T(KC_): */
+    case ALT_T(KC_ESC):
+    case LCTL_T(KC_ENT):
+    case LSFT_T(KC_TAB):
+    case RSFT_T(KC_BSPC):
+    case RCTL_T(KC_SPC):
+    case ALT_T(_KC_HEN):
+    case RGUI_T(KC_APP):
+
+    /* case LGUI_T(KC_): */
+    /* case ALT_T(KC_): */
+    case LCTL_T(KC_SPC):
+    case LSFT_T(KC_BSPC):
+    case RSFT_T(KC_DEL):
+    /* case RCTL_T(KC_): */
+    case ALT_T(_KC_MHEN):
+    /* case RGUI_T(KC_): */
+
+        return true;
+    default:
+        // Otherwise defer to the opposite hands rule.
+        return get_chordal_hold_default(tap_hold_record, other_record);
+    }
+}
