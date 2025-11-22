@@ -10,10 +10,10 @@ define SEARCH_LAYOUTS_REPO
     LAYOUT_KEYMAP_JSON := $$(LAYOUT_KEYMAP_PATH)/keymap.json
     LAYOUT_KEYMAP_C := $$(LAYOUT_KEYMAP_PATH)/keymap.c
     ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_JSON))","")
-        -include $$(LAYOUT_KEYMAP_PATH)/rules.mk
         KEYMAP_JSON := $$(LAYOUT_KEYMAP_JSON)
-        KEYMAP_PATH := $$(LAYOUT_KEYMAP_PATH)
-    else ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_C))","")
+        KEYMAP_JSON_PATH := $$(LAYOUT_KEYMAP_PATH)
+    endif
+    ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_C))","")
         -include $$(LAYOUT_KEYMAP_PATH)/rules.mk
         KEYMAP_C := $$(LAYOUT_KEYMAP_C)
         KEYMAP_PATH := $$(LAYOUT_KEYMAP_PATH)
