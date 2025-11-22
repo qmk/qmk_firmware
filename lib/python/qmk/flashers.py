@@ -153,6 +153,7 @@ def _flash_atmel_dfu(mcu, file):
 
 
 def _flash_hid_bootloader(mcu, details, file):
+    cmd = None
     if details == 'halfkay':
         if shutil.which('teensy_loader_cli'):
             cmd = 'teensy_loader_cli'
