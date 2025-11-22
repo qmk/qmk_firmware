@@ -1,10 +1,7 @@
 # The Grid v2
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [PoctorDepper](https://github.com/PoctorDepper)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: Custom PCB using RP2040
 
 Make example for this keyboard (after setting up your build environment):
 
