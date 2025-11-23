@@ -37,7 +37,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Generate build targets
         id: generate_targets
@@ -89,7 +89,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Get target definitions
         uses: actions/download-artifact@v6
@@ -136,7 +136,7 @@ jobs:
 
     steps:
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Download firmwares
         uses: actions/download-artifact@v6
