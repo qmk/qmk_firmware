@@ -23,23 +23,27 @@
 #define KSI2 1
 #define KSI3 3
 
-// Columns to GPIOs
-#define KSO0 GP8
-#define KSO1 GP9
-#define KSO2 GP10
-#define KSO3 GP11
-#define KSO4 GP12
-#define KSO5 GP13
-#define KSO6 GP14
-#define KSO7 GP15
-#define KSO8 GP21
-#define KSO9 GP20
-#define KSO10 GP19
-#define KSO11 GP18
-#define KSO12 GP17
-#define KSO13 GP16
-#define KSO14 GP23
-#define KSO15 GP22
+// Keyboard matrix
+static const pin_t col_pins[MATRIX_COLS] = {
+    GP8,  // Col 0 - KSO0
+    GP9,  // Col 1 - KSO1
+    GP10, // Col 2 - KSO2
+    GP11, // Col 3 - KSO3
+    GP12, // Col 4 - KSO4
+    GP13, // Col 5 - KSO5
+    GP14, // Col 6 - KSO6
+    GP15, // Col 7 - KSO7
+#if MATRIX_COLS > 8
+    GP21, // Col 8 - KSO8
+    GP20, // Col 9 - KSO9
+    GP19, // Col 10 - KSO10
+    GP18, // Col 11 - KSO11
+    GP17, // Col 12 - KSO12
+    GP16, // Col 13 - KSO13
+    GP23, // Col 14 - KSO14
+    GP22  // Col 15 - KSO15
+#endif
+};
 
 #define ADC_CH2_PIN GP28
 
@@ -138,65 +142,11 @@ static bool interpret_adc_row(matrix_row_t cur_matrix[], adc10ksample_t voltage,
  * Drive the GPIO for a column low or high.
  */
 void drive_col(int col, bool high) {
-    assert(col >= 0 && col <= MATRIX_COLS);
-    int gpio = 0;
-    switch (col) {
-        case 0:
-            gpio = GP8;
-            break;
-        case 1:
-            gpio = GP9;
-            break;
-        case 2:
-            gpio = GP10;
-            break;
-        case 3:
-            gpio = GP11;
-            break;
-        case 4:
-            gpio = GP12;
-            break;
-        case 5:
-            gpio = GP13;
-            break;
-        case 6:
-            gpio = GP14;
-            break;
-        case 7:
-            gpio = GP15;
-            break;
-        case 8:
-            gpio = GP21;
-            break;
-        case 9:
-            gpio = GP20;
-            break;
-        case 10:
-            gpio = GP19;
-            break;
-        case 11:
-            gpio = GP18;
-            break;
-        case 12:
-            gpio = GP17;
-            break;
-        case 13:
-            gpio = GP16;
-            break;
-        case 14:
-            gpio = GP23;
-            break;
-        case 15:
-            gpio = GP22;
-            break;
-        default:
-            // Not supposed to happen
-            assert(false);
-            return;
+    for (int gpio = 0; gpio < MATRIX_COLS; gpio++) {
+      gpio_write_pin(col_pins[gpio], high);
     }
-
-    gpio_write_pin(gpio, high);
 }
+
 
 /**
  * Read a value from the ADC and print some debugging details
@@ -279,24 +229,10 @@ void matrix_init_custom(void) {
     adc_mux_init();
     adc_gpio_init(ADC_CH2_PIN);
 
-    // KS0 - KSO7 for Keyboard and Numpad
-    gpio_set_pin_output(KSO0);
-    gpio_set_pin_output(KSO1);
-    gpio_set_pin_output(KSO2);
-    gpio_set_pin_output(KSO3);
-    gpio_set_pin_output(KSO4);
-    gpio_set_pin_output(KSO5);
-    gpio_set_pin_output(KSO6);
-    gpio_set_pin_output(KSO7);
-    // KS08 - KS015 for Keyboard only
-    gpio_set_pin_output(KSO8);
-    gpio_set_pin_output(KSO9);
-    gpio_set_pin_output(KSO10);
-    gpio_set_pin_output(KSO11);
-    gpio_set_pin_output(KSO12);
-    gpio_set_pin_output(KSO13);
-    gpio_set_pin_output(KSO14);
-    gpio_set_pin_output(KSO15);
+    // Set all configured col[umn] pins (KSO0 - KS015) as outputs
+    for (int col = 0; col < MATRIX_COLS; ++col) {
+        gpio_set_pin_output(col_pins[col]);
+    }
 
     // Set unused pins to input to avoid interfering. They're hooked up to rows 5 and 6
     gpio_set_pin_input(GP6);
