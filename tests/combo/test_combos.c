@@ -6,8 +6,8 @@
 
 enum combos { modtest, osmshift, single_key };
 
-uint16_t const modtest_combo[]  = {KC_Y, KC_U, COMBO_END};
-uint16_t const osmshift_combo[] = {KC_Z, KC_X, COMBO_END};
+uint16_t const modtest_combo[]    = {KC_Y, KC_U, COMBO_END};
+uint16_t const osmshift_combo[]   = {KC_Z, KC_X, COMBO_END};
 uint16_t const single_key_combo[] = {KC_A, COMBO_END};
 
 // clang-format off
