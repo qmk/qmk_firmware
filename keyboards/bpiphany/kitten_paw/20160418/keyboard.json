@@ -1,0 +1,8 @@
+{
+    "indicators": {
+        "caps_lock": "C6",
+        "num_lock": "B7",
+        "on_state": 0,
+        "scroll_lock": "C5"
+    }
+}
