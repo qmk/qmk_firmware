@@ -2,7 +2,7 @@
 
 ![Queue.len()](https://i.imgur.com/8JKbm6Ph.png)
 
-my 65% keyboard with multiple layout support
+A 65% keyboard with multiple layout support.
 
 * Keyboard Maintainer: [Lental](https://github.com/lental)
 * Hardware Supported: Custom PCB
