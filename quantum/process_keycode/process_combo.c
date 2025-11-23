@@ -347,6 +347,10 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);
 
+            if (key_count == 1) {
+                release_combo(combo_index, combo);
+            }
+
             break;
         } else {
             // key was part of the combo but not the last one, "disable" it
