@@ -813,7 +813,7 @@ uint8_t get_speculative_mods(void) {
 
 __attribute__((weak)) bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
     const uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
-    return (mods & (MOD_LCTL | MOD_LSFT)) == mods;
+    return (mods & (MOD_LCTL | MOD_LSFT)) == (mods & (MOD_HYPR));
 }
 
 void speculative_key_settled(keyrecord_t *record) {
