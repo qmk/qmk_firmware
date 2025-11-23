@@ -1,6 +1,6 @@
 # Queue.len()
 
-![Queue.len()](https://i.imgur.com/8JKbm6Ph.png)
+![Queue.len()](https://i.imgur.com/8JKbm6P.png)
 
 A 65% keyboard with multiple layout support.
 
