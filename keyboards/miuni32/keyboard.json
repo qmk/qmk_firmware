@@ -3,7 +3,7 @@
     "manufacturer": "Bigtuna.io",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0x21FF",
+        "vid": "0x41FA",
         "pid": "0xAAEF",
         "device_version": "0.0.1"
     },
