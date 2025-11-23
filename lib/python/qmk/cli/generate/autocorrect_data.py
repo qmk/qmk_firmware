@@ -250,8 +250,8 @@ def to_hex(b: int) -> str:
 
 
 @cli.argument('filename', type=normpath, help='The autocorrection database file')
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a output file is supplied.')
+@cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a output file is supplied.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.subcommand('Generate the autocorrection data file from a dictionary file.')
@@ -263,7 +263,7 @@ def generate_autocorrect_data(cli):
     current_keyboard = cli.args.keyboard or cli.config.user.keyboard or cli.config.generate_autocorrect_data.keyboard
     current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
 
-    if current_keyboard and current_keymap:
+    if not cli.args.output and current_keyboard and current_keymap:
         cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / 'autocorrect_data.h'
 
     assert all(0 <= b <= 255 for b in data)
