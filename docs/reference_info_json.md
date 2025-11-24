@@ -329,11 +329,10 @@ Configures the [LED Indicators](features/led_indicators) feature.
 
 ## (Custom) Keycodes {#keycodes}
 
-Defines [custom keycodes](custom_quantum_functions#definining-a-new-keycode) 
-directly in the `info.json` file.
+Defines [custom keycodes](custom_quantum_functions#definining-a-new-keycode) for use within keymaps.
 
 * `keycodes` <Badge type="info">Array: Object</Badge>
-    * List of custom keycodes used in the keyboard. Each keycode object contains:
+    * A list of keycode objects.
         * `key` <Badge type="info">String</Badge> <Badge>Required</Badge>
             * The enum name of the custom keycode. 
             * Example: `LAYER_CHANGE_BEEP_ON`
