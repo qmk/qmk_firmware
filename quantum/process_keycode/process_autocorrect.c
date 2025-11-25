@@ -280,19 +280,33 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Check for typo in buffer using a trie stored in `autocorrect_data`.
+#ifdef AUTOCORRECT_LARGE_LIBRARY
+    uint32_t state = 0;
+#else
     uint16_t state = 0;
-    uint8_t  code  = pgm_read_byte(autocorrect_data + state);
+#endif // AUTOCORRECT_LARGE_LIBRARY
+    uint8_t code = pgm_read_byte(autocorrect_data + state);
     for (int8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 
         if (code & 64) { // Check for match in node with multiple children.
             code &= 63;
-            for (; code != key_i; code = pgm_read_byte(autocorrect_data + (state += 3))) {
+#ifdef AUTOCORRECT_LARGE_LIBRARY
+            for (; code != key_i; code = pgm_read_byte(autocorrect_data + (state += 5)))
+#else
+            for (; code != key_i; code = pgm_read_byte(autocorrect_data + (state += 3)))
+#endif // AUTOCORRECT_LARGE_LIBRARY
+            {
                 if (!code) return true;
             }
             // Follow link to child node.
+
+#ifdef AUTOCORRECT_LARGE_LIBRARY
+            state = (pgm_read_byte(autocorrect_data + state + 1) | pgm_read_byte(autocorrect_data + state + 2) << 8) | (pgm_read_byte(autocorrect_data + state + 3) << 16 | pgm_read_byte(autocorrect_data + state + 4) << 24);
+#else
             state = (pgm_read_byte(autocorrect_data + state + 1) | pgm_read_byte(autocorrect_data + state + 2) << 8);
-            // Check for match in node with single child.
+#endif // AUTOCORRECT_LARGE_LIBRARY
+       // Check for match in node with single child.
         } else if (code != key_i) {
             return true;
         } else if (!(code = pgm_read_byte(autocorrect_data + (++state)))) {

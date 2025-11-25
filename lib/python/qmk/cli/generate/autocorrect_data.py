@@ -227,18 +227,18 @@ def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any])
     for e in table:  # To encode links, first compute byte offset of each entry.
         e['byte_offset'] = byte_offset
         byte_offset += len(serialize(e))
-        assert 0 <= byte_offset <= 0xffff
+        assert 0 <= byte_offset <= 0xffffffff
 
     return [b for e in table for b in serialize(e)]  # Serialize final table.
 
 
 def encode_link(link: Dict[str, Any]) -> List[int]:
-    """Encodes a node link as two bytes."""
+    """Encodes a node link as four bytes."""
     byte_offset = link['byte_offset']
-    if not (0 <= byte_offset <= 0xffff):
-        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 64KB limit. Try reducing the autocorrection dict to fewer entries.')
+    if not (0 <= byte_offset <= 0xffffffff):
+        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 4GB limit. Try reducing the autocorrection dict to fewer entries.')
         maybe_exit(1)
-    return [byte_offset & 255, byte_offset >> 8]
+    return [byte_offset & 255, (byte_offset >> 8) & 255, (byte_offset >> 16) & 255, (byte_offset >> 24) & 255]
 
 
 def typo_len(e: Tuple[str, str]) -> int:
@@ -279,6 +279,7 @@ def generate_autocorrect_data(cli):
         autocorrect_data_h_lines.append(f'//   {typo:<{len(max_typo)}} -> {correction}')
 
     autocorrect_data_h_lines.append('')
+    autocorrect_data_h_lines.append('#define AUTOCORRECT_LARGE_LIBRARY // Enable large library support')
     autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MIN_LENGTH {len(min_typo)} // "{min_typo}"')
     autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MAX_LENGTH {len(max_typo)} // "{max_typo}"')
     autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {len(data)}')
