@@ -47,6 +47,7 @@ def userspace_add(cli):
             from qmk.cli.new.keymap import new_keymap
             cli.config.new_keymap.keyboard = cli.args.keyboard
             cli.config.new_keymap.keymap = cli.args.keymap
+            cli.args.skip_converter = True
             if new_keymap(cli) is not False:
                 userspace.add_target(keyboard=cli.args.keyboard, keymap=cli.args.keymap, build_env=build_env)
         else:

@@ -15,8 +15,9 @@ static bool dummy_comms_start(painter_device_t device) {
     return true;
 }
 
-static void dummy_comms_stop(painter_device_t device) {
+static bool dummy_comms_stop(painter_device_t device) {
     // No-op.
+    return true;
 }
 
 uint32_t dummy_comms_send(painter_device_t device, const void *data, uint32_t byte_count) {

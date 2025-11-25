@@ -7,6 +7,7 @@
 #    define PROGMEM
 #    define PSTR(x) x
 #    define PGM_P const char*
+#    define memcmp_P(s1, s2, n) memcmp(s1, s2, n)
 #    define memcpy_P(dest, src, n) memcpy(dest, src, n)
 #    define pgm_read_byte(address_short) *((uint8_t*)(address_short))
 #    define pgm_read_word(address_short) *((uint16_t*)(address_short))
