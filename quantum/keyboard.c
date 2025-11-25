@@ -444,6 +444,11 @@ void quantum_init(void) {
     bootmagic();
 #endif
 
+#ifdef AUTOCORRECT_ENABLE
+    // refresh autocorrect bank
+    void autocorrect_init_dict(void);
+    autocorrect_init_dict();
+#endif
     /* read here just incase bootmagic process changed its value */
     layer_state_t default_layer = (layer_state_t)eeconfig_read_default_layer();
     default_layer_set(default_layer);

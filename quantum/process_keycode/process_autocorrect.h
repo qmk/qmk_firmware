@@ -19,3 +19,6 @@ bool autocorrect_is_enabled(void);
 void autocorrect_enable(void);
 void autocorrect_disable(void);
 void autocorrect_toggle(void);
+
+void autocorrect_dict_cycle(bool forward);
+void autocorrect_init_dict(void);
