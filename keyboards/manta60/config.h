@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SELECT_SOFT_SERIAL_SPEED 1
-
 #    ifndef IOS_DEVICE_ENABLE
 #        define RGBLIGHT_VAL_STEP 16
 #        define RGBLIGHT_LIMIT_VAL 128 /* The maximum brightness level */

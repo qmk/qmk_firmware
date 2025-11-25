@@ -164,7 +164,7 @@ There are a lot of features that can be turned on or off, configured or tuned. S
 
 ### Configuration Options
 
-For available options for `config.h`, you should see the [Config Options](config_options#the-configh-file) page for more details.
+For available options for `config.h`, you should see the [Config Options](config_options#the-config-h-file) page for more details.
 
 ### Build Options
 

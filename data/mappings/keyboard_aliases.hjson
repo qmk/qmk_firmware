@@ -68,6 +68,81 @@
     "bakeneko80": {
         "target": "kkatano/bakeneko80"
     },
+    "bastardkb/charybdis/3x5/v2/elitec": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
+    "bastardkb/charybdis/3x5/v2/splinky_2": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
+    "bastardkb/charybdis/3x5/v2/splinky_3": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
+    "bastardkb/charybdis/3x5/v2/stemcell": {
+        "target": "bastardkb/charybdis/3x5/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/elitec": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/splinky_2": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/splinky_3": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/3x6/v2/stemcell": {
+        "target": "bastardkb/charybdis/3x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/elitec": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/splinky_2": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/splinky_3": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
+    "bastardkb/charybdis/4x6/v2/stemcell": {
+        "target": "bastardkb/charybdis/4x6/elitec"
+    },
+    "bastardkb/dilemma/3x5_2/splinky": {
+        "target": "bastardkb/dilemma/3x5_2/promicro"
+    },
+    "bastardkb/scylla/v2/elitec": {
+        "target": "bastardkb/scylla/promicro"
+    },
+    "bastardkb/scylla/v2/splinky_2": {
+        "target": "bastardkb/scylla/promicro"
+    },
+    "bastardkb/scylla/v2/splinky_3": {
+        "target": "bastardkb/scylla/promicro"
+    },
+    "bastardkb/scylla/v2/stemcell": {
+        "target": "bastardkb/scylla/promicro"
+    },
+    "bastardkb/skeletyl/v2/elitec": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
+    "bastardkb/skeletyl/v2/splinky_2": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
+    "bastardkb/skeletyl/v2/splinky_3": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
+    "bastardkb/skeletyl/v2/stemcell": {
+        "target": "bastardkb/skeletyl/promicro"
+    },
+    "bastardkb/tbkmini/v2/elitec": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
+    "bastardkb/tbkmini/v2/splinky_2": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
+    "bastardkb/tbkmini/v2/splinky_3": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
+    "bastardkb/tbkmini/v2/stemcell": {
+        "target": "bastardkb/tbkmini/promicro"
+    },
     "bear_face": {
         "target": "bear_face/v1"
     },
@@ -257,44 +332,11 @@
     "handwired/jscotto/scottostarter": {
         "target": "handwired/scottokeebs/scottostarter"
     },
-    "helix/pico/sc/back": {
-        "target": "helix/pico/sc"
+    "helix": {
+        "target": "helix/beta"
     },
-    "helix/pico/sc/under": {
-        "target": "helix/pico/sc"
-    },
-    "helix/rev2/back/oled": {
-        "target": "helix/rev2/back"
-    },
-    "helix/rev2/oled": {
-        "target": "helix/rev2"
-    },
-    "helix/rev2/oled/back": {
-        "target": "helix/rev2/back"
-    },
-    "helix/rev2/oled/under": {
-        "target": "helix/rev2/under"
-    },
-    "helix/rev2/sc/back": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/oled": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/oledback": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/oledunder": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/sc/under": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/under": {
-        "target": "helix/rev2/sc"
-    },
-    "helix/rev2/under/oled": {
-        "target": "helix/rev2/under"
+    "helix/rev2": {
+        "target": "helix/beta"
     },
     "honeycomb": {
         "target": "keyhive/honeycomb"
@@ -406,6 +448,9 @@
     },
     "lfkeyboards/smk65": {
         "target": "lfkeyboards/smk65/revb"
+    },
+    "ll3macorn/bongopad": {
+        "target": "ll3ma/bongopad"
     },
     "m3v3van": {
         "target": "matthewdias/m3n3van"
@@ -1881,6 +1926,12 @@
     "kin80": {
         "target": "kin80/blackpill401"
     },
+    "kprepublic/cstc40/daughterboard": {
+        "target": "kprepublic/cstc40/rev1"
+    },
+    "kprepublic/cstc40/single_pcb": {
+        "target": "kprepublic/cstc40/rev2"
+    },
     "kumaokobo/kudox_full": {
         "target": "kumaokobo/kudox_full/rev1"
     },
@@ -2214,8 +2265,17 @@
     "trnthsn/s6xty5neor2": {
         "target": "trnthsn/s6xty5neor2/stm32f103"
     },
-    "tweetydabird/lotus58": {
-        "target": "tweetydabird/lotus58/promicro"
+    "tweetydabird/lotus58/elite_c": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/nanoboot": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/promicro": {
+        "target": "tweetydabird/lotus58"
+    },
+    "tweetydabird/lotus58/rp2040_ce": {
+        "target": "tweetydabird/lotus58"
     },
     "unison": {
         "target": "unison/v04"
@@ -2258,5 +2318,54 @@
     },
     "zsa/planck_ez": {
         "target": "zsa/planck_ez/base"
+    },
+    // DEFAULT_FOLDER removed during 2025 Q3 cycle
+    "cannonkeys/satisfaction75": {
+        "target": "cannonkeys/satisfaction75/rev1"
+    },
+    "converter/adb_usb": {
+        "target": "converter/adb_usb/rev1"
+    },
+    "converter/sun_usb": {
+        "target": "converter/sun_usb/type5"
+    },
+    "converter/usb_usb": {
+        "target": "converter/usb_usb/hasu"
+    },
+    "durgod/dgk6x": {
+        "target": "durgod/dgk6x/hades_ansi"
+    },
+    "ergodox_ez": {
+        "target": "ergodox_ez/base"
+    },
+    "ferris/0_2": {
+        "target": "ferris/0_2/base"
+    },
+    "handwired/dygma/raise": {
+        "target": "handwired/dygma/raise/ansi"
+    },
+    "helix/rev3_4rows": {
+        "target": "helix/rev3"
+    },
+    "helix/rev3_5rows": {
+        "target": "helix/rev3"
+    },
+    "ibm/model_m/mschwingen": {
+        "target": "ibm/model_m/mschwingen/led_wired"
+    },
+    "mechwild/sugarglider": {
+        "target": "mechwild/sugarglider/wide_oled/f401"
+    },
+    "mechwild/sugarglider/wide_oled": {
+        "target": "mechwild/sugarglider/wide_oled/f401"
+    },
+    "novelkeys/nk65": {
+        "target": "novelkeys/nk65/v1"
+    },
+    "novelkeys/nk65/base": {
+        "target": "novelkeys/nk65/v1"
+    },
+    "sirius/uni660/rev2": {
+        "target": "sirius/uni660/rev2/ansi"
     }
 }

@@ -22,6 +22,10 @@
 #    error "DYNAMIC_KEYMAP_ENABLE is not enabled"
 #endif
 
+#ifdef VIA_INSECURE
+#    pragma message "VIA_INSECURE is enabled - firmware is susceptible to keyloggers"
+#endif
+
 #include "via.h"
 
 #include "raw_hid.h"
@@ -32,6 +36,10 @@
 #include "wait.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #include "nvm_via.h"
+
+#if defined(SECURE_ENABLE)
+#    include "secure.h"
+#endif
 
 #if defined(AUDIO_ENABLE)
 #    include "audio.h"
@@ -318,7 +326,16 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     uint8_t rows   = 28 / ((MATRIX_COLS + 7) / 8);
                     uint8_t i      = 2;
                     for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
+#if defined(VIA_INSECURE)
                         matrix_row_t value = matrix_get_row(row + offset);
+#elif defined(SECURE_ENABLE)
+                        matrix_row_t value = 0;
+                        if (secure_is_unlocked()) {
+                            value = matrix_get_row(row + offset);
+                        }
+#else
+                        matrix_row_t value = 0;
+#endif
 #if (MATRIX_COLS > 24)
                         command_data[i++] = (value >> 24) & 0xFF;
 #endif

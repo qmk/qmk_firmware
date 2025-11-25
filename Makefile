@@ -115,7 +115,7 @@ endef
 TRY_TO_MATCH_RULE_FROM_LIST = $(eval $(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER,$1))$(RULE_FOUND)
 
 # As TRY_TO_MATCH_RULE_FROM_LIST_HELPER, but with additional
-# resolution of DEFAULT_FOLDER and keyboard_aliases.hjson for provided rule 
+# resolution of keyboard_aliases.hjson for provided rule 
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER_KB
     # Split on ":", padding with empty strings to avoid indexing issues
     TOKEN1:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
@@ -255,7 +255,7 @@ endef
 # if we are going to compile all keyboards, match the rest of the rule
 # for each of them
 define PARSE_ALL_KEYBOARDS
-    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell $(QMK_BIN) list-keyboards --no-resolve-defaults)))
+    $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYBOARD,$(shell $(QMK_BIN) list-keyboards)))
 endef
 
 # Prints a list of all known keymaps for the given keyboard
@@ -447,7 +447,7 @@ git-submodules: git-submodule
 
 .PHONY: list-keyboards
 list-keyboards:
-	$(QMK_BIN) list-keyboards --no-resolve-defaults | tr '\n' ' '
+	$(QMK_BIN) list-keyboards | tr '\n' ' '
 
 .PHONY: list-tests
 list-tests:
@@ -455,7 +455,7 @@ list-tests:
 
 .PHONY: generate-keyboards-file
 generate-keyboards-file:
-	$(QMK_BIN) list-keyboards --no-resolve-defaults
+	$(QMK_BIN) list-keyboards
 
 .PHONY: clean
 clean:

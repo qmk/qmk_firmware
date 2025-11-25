@@ -43,6 +43,14 @@
     "BOOTMAGIC_ROW": {"info_key": "bootmagic.matrix.0", "value_type": "int"},
     "BOOTMAGIC_ROW_RIGHT": {"info_key": "split.bootmagic.matrix.0", "value_type": "int"},
 
+    // Battery
+    "BATTERY_SAMPLE_INTERVAL": {"info_key": "battery.sample_interval", "value_type": "int"},
+    "BATTERY_ADC_PIN": {"info_key": "battery.adc.pin"},
+    "BATTERY_ADC_REF_VOLTAGE_MV": {"info_key": "battery.adc.reference_voltage", "value_type": "int"},
+    "BATTERY_ADC_VOLTAGE_DIVIDER_R1": {"info_key": "battery.adc.divider_r1", "value_type": "int"},
+    "BATTERY_ADC_VOLTAGE_DIVIDER_R2": {"info_key": "battery.adc.divider_r2", "value_type": "int"},
+    "BATTERY_ADC_RESOLUTION": {"info_key": "battery.adc.resolution", "value_type": "int"},
+
     // Caps Word
     "BOTH_SHIFTS_TURNS_ON_CAPS_WORD": {"info_key": "caps_word.both_shifts_turns_on", "value_type": "flag"},
     "CAPS_WORD_IDLE_TIMEOUT": {"info_key": "caps_word.idle_timeout", "value_type": "int"},
@@ -120,6 +128,7 @@
     "MATRIX_HAS_GHOST": {"info_key": "matrix_pins.ghost", "value_type": "flag"},
     "MATRIX_INPUT_PRESSED_STATE": {"info_key": "matrix_pins.input_pressed_state", "value_type": "int"},
     "MATRIX_IO_DELAY": {"info_key": "matrix_pins.io_delay", "value_type": "int"},
+    "MATRIX_MASKED": {"info_key": "matrix_pins.masked", "value_type": "flag"},
 
     // Mouse Keys
     "MOUSEKEY_DELAY": {"info_key": "mousekey.delay", "value_type": "int"},
@@ -183,7 +192,7 @@
 
     // Split Keyboard
     "SOFT_SERIAL_PIN": {"info_key": "split.serial.pin"},
-    "SOFT_SERIAL_SPEED": {"info_key": "split.soft_serial_speed"},
+    "SELECT_SOFT_SERIAL_SPEED": {"info_key": "split.serial.speed"},
     "SPLIT_HAND_MATRIX_GRID": {"info_key": "split.handedness.matrix_grid", "value_type": "array", "to_c": false},
     "SPLIT_HAND_PIN": {"info_key": "split.handedness.pin"},
     "SPLIT_USB_DETECT": {"info_key": "split.usb_detect.enabled", "value_type": "flag"},
