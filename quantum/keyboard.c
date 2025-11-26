@@ -151,6 +151,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CONNECTION_ENABLE
 #    include "connection.h"
 #endif
+#ifdef AUTOCORRECT_ENABLE
+#    include "autocorrect.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -444,11 +447,6 @@ void quantum_init(void) {
     bootmagic();
 #endif
 
-#ifdef AUTOCORRECT_ENABLE
-    // refresh autocorrect bank
-    void autocorrect_init_dict(void);
-    autocorrect_init_dict();
-#endif
     /* read here just incase bootmagic process changed its value */
     layer_state_t default_layer = (layer_state_t)eeconfig_read_default_layer();
     default_layer_set(default_layer);
@@ -548,6 +546,9 @@ void keyboard_init(void) {
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_init();
+#endif
+#ifdef AUTOCORRECT_ENABLE
+    autocorrect_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)

@@ -5,6 +5,7 @@
 // Original source: https://getreuer.info/posts/keyboards/autocorrection
 
 #include "process_autocorrect.h"
+#include "autocorrect.h"
 #include <string.h>
 #include "keycodes.h"
 #include "quantum_keycodes.h"
@@ -25,74 +26,24 @@ static uint16_t       current_dict_max_length;
 static uint32_t       current_dict_size;
 
 static uint8_t typo_buffer[TYPO_BUFFER_SIZE] = {KC_SPC};
-static uint8_t typo_buffer_size              = 1;
+uint8_t typo_buffer_size;
 
-/**
- * @brief function for querying the enabled state of autocorrect
- *
- * @return true if enabled
- * @return false if disabled
- */
-bool autocorrect_is_enabled(void) {
-    return keymap_config.autocorrect_enable;
-}
-
-/**
- * @brief Enables autocorrect and saves state to eeprom
- *
- */
-void autocorrect_enable(void) {
-    keymap_config.autocorrect_enable = true;
-    eeconfig_update_keymap(&keymap_config);
-}
-
-/**
- * @brief Disables autocorrect and saves state to eeprom
- *
- */
-void autocorrect_disable(void) {
-    keymap_config.autocorrect_enable = false;
-    typo_buffer_size                 = 0;
-    eeconfig_update_keymap(&keymap_config);
-}
-
-/**
- * @brief Toggles autocorrect's status and save state to eeprom
- *
- */
-void autocorrect_toggle(void) {
-    keymap_config.autocorrect_enable = !keymap_config.autocorrect_enable;
-    typo_buffer_size                 = 0;
-    eeconfig_update_keymap(&keymap_config);
-}
-
-/**
- * @brief Cycles autocorrect's selected dict and save state to eeprom
- *
- */
-void autocorrect_dict_cycle(bool forward) {
-    if (forward) {
-        keymap_config.autocorrect_curr_dict = (keymap_config.autocorrect_curr_dict + 1) % N_DICTS;
-    } else {
-        keymap_config.autocorrect_curr_dict = MIN(keymap_config.autocorrect_curr_dict - 1, (uint8_t)(N_DICTS - 1));
-    }
-    eeconfig_update_keymap(&keymap_config);
-    autocorrect_init_dict();
-}
+const uint8_t number_dicts = N_DICTS;
 
 /**
  * @brief Configure variables according to the selected dictionary
  *
  */
 void autocorrect_init_dict(void) {
-    typo_buffer_size = 0;
+    typo_buffer[0]   = KC_SPC;
+    typo_buffer_size = 1;
 
     // make sure we dont access arbitrary addresses if eeprom has invalid state
-    if (keymap_config.autocorrect_curr_dict >= N_DICTS) {
-        keymap_config.autocorrect_curr_dict = 0;
+    if (autocorrect_config.current_dict >= number_dicts) {
+        autocorrect_config.current_dict = 0;
     }
 
-    uint8_t  dict_index = keymap_config.autocorrect_curr_dict;
+    uint8_t  dict_index = autocorrect_config.current_dict;
     uint32_t offset     = pgm_read_dword(&autocorrect_offsets[dict_index]);
 
     current_dict_data       = &(autocorrect_data[offset]);
@@ -216,20 +167,6 @@ bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record,
 }
 
 /**
- * @brief handling for when autocorrection has been triggered
- *
- * @param backspaces number of characters to remove
- * @param str pointer to PROGMEM string to replace mistyped seletion with
- * @param typo the wrong string that triggered a correction
- * @param correct what it would become after the changes
- * @return true apply correction
- * @return false user handled replacement
- */
-__attribute__((weak)) bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
-    return true;
-}
-
-/**
  * @brief Process handler for autocorrect feature
  *
  * @param keycode Keycode registered by matrix press, per keymap
@@ -259,7 +196,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (!keymap_config.autocorrect_enable) {
+    if (!autocorrect_config.enabled) {
         typo_buffer_size = 0;
         return true;
     }

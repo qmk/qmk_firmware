@@ -39,6 +39,10 @@
 #    include "connection.h"
 #endif // CONNECTION_ENABLE
 
+#ifdef AUTOCORRECT_ENABLE
+#    include "autocorrect.h"
+#endif // AUTOCORRECT_ENABLE
+
 #ifdef VIA_ENABLE
 bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
@@ -91,7 +95,6 @@ void eeconfig_init_quantum(void) {
         .swap_rctl_rgui           = false,
         .oneshot_enable           = true, // Enable oneshot by default
         .swap_escape_capslock     = false,
-        .autocorrect_enable       = true, // Enable autocorrect by default
     };
     eeconfig_update_keymap(&keymap_config);
 
@@ -139,6 +142,14 @@ void eeconfig_init_quantum(void) {
     extern void eeconfig_update_connection_default(void);
     eeconfig_update_connection_default();
 #endif // CONNECTION_ENABLE
+
+#ifdef AUTOCORRECT_ENABLE
+    autocorrect_config_t autocorrect_config = {
+        .enabled       = true,
+        .current_dict = 0,
+    };
+    eeconfig_update_autocorrect(&autocorrect_config);
+#endif // AUTOCORRECT_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
     eeconfig_init_kb_datablock();
@@ -320,6 +331,15 @@ void eeconfig_update_connection(const connection_config_t *config) {
     nvm_eeconfig_update_connection(config);
 }
 #endif // CONNECTION_ENABLE
+
+#ifdef AUTOCORRECT_ENABLE
+void eeconfig_read_autocorrect(autocorrect_config_t *autocorrect_config) {
+    nvm_eeconfig_read_autocorrect(autocorrect_config);
+}
+void eeconfig_update_autocorrect(const autocorrect_config_t *autocorrect_config) {
+    nvm_eeconfig_update_autocorrect(autocorrect_config);
+}
+#endif // AUTOCORRECT_ENABLE
 
 bool eeconfig_read_handedness(void) {
     return nvm_eeconfig_read_handedness();
