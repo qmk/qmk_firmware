@@ -20,13 +20,22 @@
 #    include "autocorrect_data_default.h"
 #endif
 
+#ifndef AUTOCORRECT_LARGE_LIBRARY
+#    define N_DICTS 1
+static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
+static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MIN_LENGTH};
+static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MAX_LENGTH};
+static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {DICTIONARY_SIZE};
+#    define TYPO_BUFFER_SIZE AUTOCORRECT_MAX_LENGTH
+#endif
+
 static const uint8_t *current_dict_data;
 static uint16_t       current_dict_min_length;
 static uint16_t       current_dict_max_length;
 static uint32_t       current_dict_size;
 
 static uint8_t typo_buffer[TYPO_BUFFER_SIZE] = {KC_SPC};
-uint8_t typo_buffer_size;
+uint8_t        typo_buffer_size;
 
 const uint8_t number_dicts = N_DICTS;
 
