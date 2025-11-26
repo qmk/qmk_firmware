@@ -21,6 +21,7 @@
 #endif
 
 #ifndef AUTOCORRECT_LARGE_LIBRARY
+#    pragma message "Autocorrect is using the legacy dictionary format. Please update to the new format."
 #    define N_DICTS 1
 static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
 static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MIN_LENGTH};
