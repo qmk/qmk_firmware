@@ -1,0 +1,251 @@
+name: Bootstrap Script Testing
+
+on:
+  push:
+    branches: [bootstrap]
+    paths:
+      - "util/env-bootstrap.sh"
+      - ".github/workflows/bootstrap_testing.yml"
+      - "lib/python/**"
+  pull_request:
+    branches: [master, develop, xap]
+    paths:
+      - "util/env-bootstrap.sh"
+      - ".github/workflows/bootstrap_testing.yml"
+      - "lib/python/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  bootstrap-test-linux:
+    name: Bootstrap (Linux)
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        distribution:
+          # Ubuntu/Debian based
+          - debian:11
+          - debian:12
+          - debian:13
+          - ubuntu:20.04
+          - ubuntu:22.04
+          - ubuntu:24.04
+
+          # RHEL/CentOS/Fedora based
+          - fedora:41
+          - fedora:42
+          - fedora:43
+          - rockylinux:8
+          - rockylinux:9
+          - rockylinux/rockylinux:10
+          - almalinux:8
+          - almalinux:9
+          - almalinux:10
+
+          # OpenSUSE based (we skip Tumbleweed as it has issues with package versions between pattern installs and other dependencies preinstalled into the base container)
+          - opensuse/leap:latest
+
+          # Gentoo-based
+          - gentoo/stage3:latest
+
+          # Arch based
+          - archlinux:latest
+          - cachyos/cachyos:latest
+          - manjarolinux/base:latest
+
+    container:
+      image: ${{ matrix.distribution }}
+      options: --privileged
+
+    steps:
+      - name: Install base dependencies
+        run: |
+          # Attempt to run the package installation up to 10 times to mitigate transient network issues
+          for n in $(seq 1 10); do
+            {
+              echo "Attempt #$n of 10 to install base dependencies:"
+              case "${{ matrix.distribution }}" in
+                *ubuntu*|*debian*)
+                  apt-get update
+                  apt-get install -y sudo git passwd
+                  ;;
+                *fedora*|*rockylinux*|*almalinux*)
+                  dnf install -y sudo git passwd findutils  # findutils=xargs
+                  ;;
+                *suse*)
+                  zypper --non-interactive refresh
+                  zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
+                  ;;
+                *gentoo*)
+                  emerge-webrsync
+                  emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
+                  ;;
+                *archlinux*|*cachyos*|*manjaro*)
+                  pacman -Syu --noconfirm
+                  pacman -S --noconfirm sudo git
+                  ;;
+              esac
+            } && break || sleep 10
+          done
+
+          # Fix PAM configuration for sudo in containers
+          # Fix /etc/shadow permissions - common issue in container environments
+          chmod 640 /etc/shadow || chmod 400 /etc/shadow || true
+
+          # Disable problematic PAM modules that commonly fail in RHEL-like containers
+          sed -i 's/^session.*pam_systemd.so/#&/' /etc/pam.d/sudo || true
+          sed -i 's/^session.*pam_loginuid.so/#&/' /etc/pam.d/sudo || true
+
+          # Ensure proper sudoers configuration
+          echo 'Defaults !requiretty' >> /etc/sudoers
+          echo 'Defaults secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' >> /etc/sudoers
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+          path: qmk_firmware
+
+      - name: Create test user
+        run: |
+          # Create a test user for the bootstrap script
+          useradd -m -s /bin/bash -U testuser
+          echo 'testuser:testpassword' | chpasswd || true
+          
+          # Configure passwordless sudo
+          echo "root ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers  # some distros complain about root not being in sudoers
+          echo "testuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+          
+          # Test sudo functionality
+          sudo -u testuser whoami || echo "Sudo test failed, but continuing..."
+
+      - name: Move QMK repository to test user home
+        run: |
+          # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
+          git -C qmk_firmware remote add upstream https://github.com/qmk/qmk_firmware.git
+          # Move the QMK repository to the test user's home directory
+          mv qmk_firmware /home/testuser/qmk_firmware
+          chown -R testuser:testuser /home/testuser/qmk_firmware
+
+      - name: Run bootstrap script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Ensure the bootstrap script can access sudo
+          sudo -u testuser --preserve-env=GITHUB_TOKEN bash -c "
+            export CONFIRM=1
+            export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            cd /home/testuser
+            bash /home/testuser/qmk_firmware/util/env-bootstrap.sh
+          "
+
+      - name: Test QMK CLI
+        run: |
+          sudo -u testuser bash -c "
+            export PATH=/home/testuser/.local/bin:\$PATH
+            cd /home/testuser
+            qmk setup -y -H /home/testuser/qmk_firmware  # setup implies doctor, no need to run it separately
+            cd /home/testuser/qmk_firmware
+            qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset -p || touch .failed  # Compile a bunch of different platforms
+          "
+          
+          cd /home/testuser/qmk_firmware
+          ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+          [ ! -e .failed ] || exit 1
+
+  bootstrap-test-macos:
+    name: Bootstrap (macOS)
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-13        # Intel x64
+          - macos-14        # Apple Silicon ARM64
+          - macos-15        # Apple Silicon ARM64
+          - macos-15-intel  # Intel x64
+          - macos-26        # Apple Silicon ARM64
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: Run bootstrap script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
+          git remote add upstream https://github.com/qmk/qmk_firmware.git
+          # Run the bootstrap script
+          export CONFIRM=1
+          sh ./util/env-bootstrap.sh
+
+      - name: Test QMK CLI
+        run: |
+          # Add QMK CLI to PATH (bootstrap script installs it to ~/.local/bin on macOS)
+          export PATH="$HOME/.local/bin:$PATH"
+          qmk setup -y -H .  # setup implies doctor, no need to run it separately
+          qmk mass-compile -j $(sysctl -n hw.ncpu) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
+          
+          ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+          [ ! -e .failed ] || exit 1
+
+  bootstrap-test-windows:
+    name: Bootstrap (Windows)
+
+    strategy:
+      fail-fast: false
+      matrix:
+        msys-variant:
+          - mingw64
+          - clang64
+          - ucrt64
+
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+
+    steps:
+      - name: Install MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: ${{ matrix.msys-variant }}
+          pacboy: >-
+            git:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: Run bootstrap script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Add upstream remote to the cloned repository so `qmk doctor` doesn't flag a warning
+          git remote add upstream https://github.com/qmk/qmk_firmware.git
+          # Run the bootstrap script
+          export CONFIRM=1
+          sh ./util/env-bootstrap.sh
+
+      - name: Test QMK CLI
+        run: |
+          # Add QMK CLI to PATH (bootstrap script installs it to /opt/uv/tools/bin on Windows MSYS2)
+          export PATH="/opt/uv/tools/bin:$PATH"
+          qmk setup -y -H .  # setup implies doctor, no need to run it separately
+          qmk mass-compile -j $(nproc) -e DUMP_CI_METADATA=yes -f 'keyboard_name==*onekey*' -km reset || touch .failed  # Compile a bunch of different platforms
+          
+          ./util/ci/generate_failure_markdown.sh > $GITHUB_STEP_SUMMARY || true
+          [ ! -e .failed ] || exit 1
+
