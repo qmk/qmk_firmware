@@ -3,7 +3,6 @@
 Check out the user's QMK environment and make sure it's ready to compile.
 """
 import platform
-from subprocess import DEVNULL
 
 from milc import cli
 from milc.questions import yesno
