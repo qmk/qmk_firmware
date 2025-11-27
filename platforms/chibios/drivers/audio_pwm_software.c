@@ -63,8 +63,8 @@ void         channel_1_set_frequency(float freq) {
     pwmChangePeriod(&AUDIO_PWM_DRIVER, period);
 
     pwmEnableChannel(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
-                     // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                     PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
+                             // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
+                             PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
 }
 
 float channel_1_get_frequency(void) {
@@ -117,8 +117,8 @@ GPTConfig   gptCFG = {
        and the .interval counts from 64 downwards - audio_update_state is
        called just often enough to not miss anything
     */
-    .frequency = 60 * 64,
-    .callback  = gpt_callback,
+      .frequency = 60 * 64,
+      .callback  = gpt_callback,
 };
 
 void audio_driver_initialize_impl(void) {
