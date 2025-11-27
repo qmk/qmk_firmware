@@ -3,6 +3,8 @@
 We list each subcommand here explicitly because all the reliable ways of searching for modules are slow and delay startup.
 """
 import os
+import platform
+import platformdirs
 import shlex
 import sys
 from importlib.util import find_spec
@@ -11,6 +13,28 @@ from subprocess import run
 
 from milc import cli, __VERSION__
 from milc.questions import yesno
+
+
+def _get_default_distrib_path():
+    if 'windows' in platform.platform().lower():
+        try:
+            result = cli.run(['cygpath', '-w', '/opt/qmk'])
+            if result.returncode == 0:
+                return result.stdout.strip()
+        except Exception:
+            pass
+
+    return platformdirs.user_data_dir('qmk')
+
+
+# Ensure the QMK distribution is on the `$PATH` if present. This must be kept in sync with qmk/qmk_cli.
+QMK_DISTRIB_DIR = Path(os.environ.get('QMK_DISTRIB_DIR', _get_default_distrib_path()))
+if QMK_DISTRIB_DIR.exists():
+    os.environ['PATH'] = str(QMK_DISTRIB_DIR / 'bin') + os.pathsep + os.environ['PATH']
+
+# Prepend any user-defined path prefix
+if 'QMK_PATH_PREFIX' in os.environ:
+    os.environ['PATH'] = os.environ['QMK_PATH_PREFIX'] + os.pathsep + os.environ['PATH']
 
 import_names = {
     # A mapping of package name to importable name

@@ -15,7 +15,7 @@ from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
-from qmk.math import compute
+from qmk.math_ops import compute
 from qmk.util import maybe_exit, truthy
 
 true_values = ['1', 'on', 'yes']
