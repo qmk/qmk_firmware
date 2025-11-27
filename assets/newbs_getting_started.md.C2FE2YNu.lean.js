@@ -98,20 +98,17 @@ const _hoisted_12 = /* @__PURE__ */ createBaseVNode("details", { class: "details
     /* @__PURE__ */ createBaseVNode("pre", { class: "shiki shiki-themes github-light github-dark vp-code" }, [
       /* @__PURE__ */ createBaseVNode("code", null, [
         /* @__PURE__ */ createBaseVNode("span", { class: "line" }, [
-          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "pacman"),
-          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " --needed"),
-          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " --noconfirm"),
-          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " --disable-download-timeout"),
-          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " -S"),
-          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " git"),
-          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " mingw-w64-x86_64-python-qmk")
+          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "curl"),
+          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " -fsSL"),
+          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " https://install.qmk.fm"),
+          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#D73A49", "--shiki-dark": "#F97583" } }, " |"),
+          /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, " sh")
         ])
       ])
     ])
   ])
 ], -1);
-const _hoisted_13 = /* @__PURE__ */ createBaseVNode("p", null, "QMK maintains a Homebrew tap and formula which will automatically install the CLI and all necessary dependencies.", -1);
-const _hoisted_14 = /* @__PURE__ */ createBaseVNode("h4", {
+const _hoisted_13 = /* @__PURE__ */ createBaseVNode("h4", {
   id: "prerequisites-2",
   tabindex: "-1"
 }, [
@@ -122,7 +119,7 @@ const _hoisted_14 = /* @__PURE__ */ createBaseVNode("h4", {
     "aria-label": 'Permalink to "Prerequisites"'
   }, "​")
 ], -1);
-const _hoisted_15 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_14 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("You will need to install Homebrew. Follow the instructions on "),
   /* @__PURE__ */ createBaseVNode("a", {
     href: "https://brew.sh",
@@ -131,11 +128,7 @@ const _hoisted_15 = /* @__PURE__ */ createBaseVNode("p", null, [
   }, "https://brew.sh"),
   /* @__PURE__ */ createTextVNode(".")
 ], -1);
-const _hoisted_16 = /* @__PURE__ */ createBaseVNode("div", { class: "tip custom-block" }, [
-  /* @__PURE__ */ createBaseVNode("p", { class: "custom-block-title" }, "TIP"),
-  /* @__PURE__ */ createBaseVNode("p", null, "If you are using an Apple Silicon machine, the installation process will take significantly longer because GitHub actions do not have native runners to build binary packages for the ARM and AVR toolchains.")
-], -1);
-const _hoisted_17 = /* @__PURE__ */ createBaseVNode("h4", {
+const _hoisted_15 = /* @__PURE__ */ createBaseVNode("h4", {
   id: "installation-1",
   tabindex: "-1"
 }, [
@@ -146,8 +139,8 @@ const _hoisted_17 = /* @__PURE__ */ createBaseVNode("h4", {
     "aria-label": 'Permalink to "Installation"'
   }, "​")
 ], -1);
-const _hoisted_18 = /* @__PURE__ */ createBaseVNode("p", null, "Install the QMK CLI by running:", -1);
-const _hoisted_19 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
+const _hoisted_16 = /* @__PURE__ */ createBaseVNode("p", null, "Install the QMK CLI by running:", -1);
+const _hoisted_17 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
   /* @__PURE__ */ createBaseVNode("button", {
     title: "Copy Code",
     class: "copy"
@@ -156,14 +149,50 @@ const _hoisted_19 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh
   /* @__PURE__ */ createBaseVNode("pre", { class: "shiki shiki-themes github-light github-dark vp-code" }, [
     /* @__PURE__ */ createBaseVNode("code", null, [
       /* @__PURE__ */ createBaseVNode("span", { class: "line" }, [
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "brew"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " install"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " qmk/qmk/qmk")
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "curl"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " -fsSL"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " https://install.qmk.fm"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#D73A49", "--shiki-dark": "#F97583" } }, " |"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, " sh")
       ])
     ])
   ])
 ], -1);
-const _hoisted_20 = /* @__PURE__ */ createBaseVNode("div", { class: "tip custom-block" }, [
+const _hoisted_18 = /* @__PURE__ */ createBaseVNode("h4", {
+  id: "installation-2",
+  tabindex: "-1"
+}, [
+  /* @__PURE__ */ createTextVNode("Installation "),
+  /* @__PURE__ */ createBaseVNode("a", {
+    class: "header-anchor",
+    href: "#installation-2",
+    "aria-label": 'Permalink to "Installation"'
+  }, "​")
+], -1);
+const _hoisted_19 = /* @__PURE__ */ createBaseVNode("div", { class: "info custom-block" }, [
+  /* @__PURE__ */ createBaseVNode("p", { class: "custom-block-title" }, "INFO"),
+  /* @__PURE__ */ createBaseVNode("p", null, "Many Linux distributions are supported, but not all. Mainstream distributions will have best success -- if possible, choose either Debian or its derivatives (such as Ubuntu, or Mint), CentOS or its derivatives (such as Fedora, or Rocky Linux), and Arch or its derivatives (such as Manjaro, or CachyOS).")
+], -1);
+const _hoisted_20 = /* @__PURE__ */ createBaseVNode("p", null, "Install the QMK CLI by running:", -1);
+const _hoisted_21 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
+  /* @__PURE__ */ createBaseVNode("button", {
+    title: "Copy Code",
+    class: "copy"
+  }),
+  /* @__PURE__ */ createBaseVNode("span", { class: "lang" }, "sh"),
+  /* @__PURE__ */ createBaseVNode("pre", { class: "shiki shiki-themes github-light github-dark vp-code" }, [
+    /* @__PURE__ */ createBaseVNode("code", null, [
+      /* @__PURE__ */ createBaseVNode("span", { class: "line" }, [
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "curl"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " -fsSL"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " https://install.qmk.fm"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#D73A49", "--shiki-dark": "#F97583" } }, " |"),
+        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, " sh")
+      ])
+    ])
+  ])
+], -1);
+const _hoisted_22 = /* @__PURE__ */ createBaseVNode("div", { class: "tip custom-block" }, [
   /* @__PURE__ */ createBaseVNode("p", { class: "custom-block-title" }, "TIP"),
   /* @__PURE__ */ createBaseVNode("p", null, [
     /* @__PURE__ */ createBaseVNode("strong", null, "Note for WSL users"),
@@ -178,157 +207,11 @@ const _hoisted_20 = /* @__PURE__ */ createBaseVNode("div", { class: "tip custom-
     /* @__PURE__ */ createTextVNode(".")
   ])
 ], -1);
-const _hoisted_21 = /* @__PURE__ */ createBaseVNode("h4", {
-  id: "prerequisites-3",
-  tabindex: "-1"
-}, [
-  /* @__PURE__ */ createTextVNode("Prerequisites "),
-  /* @__PURE__ */ createBaseVNode("a", {
-    class: "header-anchor",
-    href: "#prerequisites-3",
-    "aria-label": 'Permalink to "Prerequisites"'
-  }, "​")
-], -1);
-const _hoisted_22 = /* @__PURE__ */ createBaseVNode("p", null, "You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:", -1);
-const _hoisted_23 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createTextVNode("Debian / Ubuntu / Devuan: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "sudo apt install -y git python3-pip")
-  ]),
-  /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createTextVNode("Fedora / Red Hat / CentOS: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "sudo yum -y install git python3-pip")
-  ]),
-  /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createTextVNode("Arch / Manjaro: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "sudo pacman --needed --noconfirm -S git python-pip libffi")
-  ]),
-  /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createTextVNode("Void: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "sudo xbps-install -y git python3-pip")
-  ]),
-  /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createTextVNode("Solus: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "sudo eopkg -y install git python3")
-  ]),
-  /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createTextVNode("Sabayon: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "sudo equo install dev-vcs/git dev-python/pip")
-  ]),
-  /* @__PURE__ */ createBaseVNode("li", null, [
-    /* @__PURE__ */ createTextVNode("Gentoo: "),
-    /* @__PURE__ */ createBaseVNode("code", null, "sudo emerge dev-vcs/git dev-python/pip")
-  ])
+const _hoisted_23 = /* @__PURE__ */ createBaseVNode("div", { class: "warning custom-block" }, [
+  /* @__PURE__ */ createBaseVNode("p", { class: "custom-block-title" }, "WARNING"),
+  /* @__PURE__ */ createBaseVNode("p", null, "Any QMK packages provided by your distribution's package manager are almost certainly out of date. It is strongly suggested the installation script above is used instead.")
 ], -1);
 const _hoisted_24 = /* @__PURE__ */ createBaseVNode("h4", {
-  id: "installation-2",
-  tabindex: "-1"
-}, [
-  /* @__PURE__ */ createTextVNode("Installation "),
-  /* @__PURE__ */ createBaseVNode("a", {
-    class: "header-anchor",
-    href: "#installation-2",
-    "aria-label": 'Permalink to "Installation"'
-  }, "​")
-], -1);
-const _hoisted_25 = /* @__PURE__ */ createBaseVNode("p", null, "Install the QMK CLI by running:", -1);
-const _hoisted_26 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
-  /* @__PURE__ */ createBaseVNode("button", {
-    title: "Copy Code",
-    class: "copy"
-  }),
-  /* @__PURE__ */ createBaseVNode("span", { class: "lang" }, "sh"),
-  /* @__PURE__ */ createBaseVNode("pre", { class: "shiki shiki-themes github-light github-dark vp-code" }, [
-    /* @__PURE__ */ createBaseVNode("code", null, [
-      /* @__PURE__ */ createBaseVNode("span", { class: "line" }, [
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "python3"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " -m"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " pip"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " install"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " --user"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " qmk")
-      ])
-    ])
-  ])
-], -1);
-const _hoisted_27 = /* @__PURE__ */ createBaseVNode("p", null, [
-  /* @__PURE__ */ createTextVNode("Alternatively, install the QMK CLI as a "),
-  /* @__PURE__ */ createBaseVNode("a", {
-    href: "https://docs.astral.sh/uv/",
-    target: "_blank",
-    rel: "noreferrer"
-  }, "uv"),
-  /* @__PURE__ */ createTextVNode(" managed tool, kept isolated in a virtual environment (requires uv to be installed):")
-], -1);
-const _hoisted_28 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
-  /* @__PURE__ */ createBaseVNode("button", {
-    title: "Copy Code",
-    class: "copy"
-  }),
-  /* @__PURE__ */ createBaseVNode("span", { class: "lang" }, "sh"),
-  /* @__PURE__ */ createBaseVNode("pre", { class: "shiki shiki-themes github-light github-dark vp-code" }, [
-    /* @__PURE__ */ createBaseVNode("code", null, [
-      /* @__PURE__ */ createBaseVNode("span", { class: "line" }, [
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "uv"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " tool"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " install"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " qmk")
-      ])
-    ])
-  ])
-], -1);
-const _hoisted_29 = /* @__PURE__ */ createBaseVNode("h4", {
-  id: "community-packages",
-  tabindex: "-1"
-}, [
-  /* @__PURE__ */ createTextVNode("Community Packages "),
-  /* @__PURE__ */ createBaseVNode("a", {
-    class: "header-anchor",
-    href: "#community-packages",
-    "aria-label": 'Permalink to "Community Packages"'
-  }, "​")
-], -1);
-const _hoisted_30 = /* @__PURE__ */ createBaseVNode("p", null, "These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.", -1);
-const _hoisted_31 = /* @__PURE__ */ createBaseVNode("p", null, "On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):", -1);
-const _hoisted_32 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
-  /* @__PURE__ */ createBaseVNode("button", {
-    title: "Copy Code",
-    class: "copy"
-  }),
-  /* @__PURE__ */ createBaseVNode("span", { class: "lang" }, "sh"),
-  /* @__PURE__ */ createBaseVNode("pre", { class: "shiki shiki-themes github-light github-dark vp-code" }, [
-    /* @__PURE__ */ createBaseVNode("code", null, [
-      /* @__PURE__ */ createBaseVNode("span", { class: "line" }, [
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "sudo"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " pacman"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " -S"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " qmk")
-      ])
-    ])
-  ])
-], -1);
-const _hoisted_33 = /* @__PURE__ */ createBaseVNode("p", null, [
-  /* @__PURE__ */ createTextVNode("You can also try the "),
-  /* @__PURE__ */ createBaseVNode("code", null, "qmk-git"),
-  /* @__PURE__ */ createTextVNode(" package from AUR:")
-], -1);
-const _hoisted_34 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
-  /* @__PURE__ */ createBaseVNode("button", {
-    title: "Copy Code",
-    class: "copy"
-  }),
-  /* @__PURE__ */ createBaseVNode("span", { class: "lang" }, "sh"),
-  /* @__PURE__ */ createBaseVNode("pre", { class: "shiki shiki-themes github-light github-dark vp-code" }, [
-    /* @__PURE__ */ createBaseVNode("code", null, [
-      /* @__PURE__ */ createBaseVNode("span", { class: "line" }, [
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#6F42C1", "--shiki-dark": "#B392F0" } }, "yay"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#005CC5", "--shiki-dark": "#79B8FF" } }, " -S"),
-        /* @__PURE__ */ createBaseVNode("span", { style: { "--shiki-light": "#032F62", "--shiki-dark": "#9ECBFF" } }, " qmk-git")
-      ])
-    ])
-  ])
-], -1);
-const _hoisted_35 = /* @__PURE__ */ createBaseVNode("h4", {
   id: "installation-3",
   tabindex: "-1"
 }, [
@@ -339,8 +222,12 @@ const _hoisted_35 = /* @__PURE__ */ createBaseVNode("h4", {
     "aria-label": 'Permalink to "Installation"'
   }, "​")
 ], -1);
-const _hoisted_36 = /* @__PURE__ */ createBaseVNode("p", null, "Install the FreeBSD package for QMK CLI by running:", -1);
-const _hoisted_37 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
+const _hoisted_25 = /* @__PURE__ */ createBaseVNode("div", { class: "warning custom-block" }, [
+  /* @__PURE__ */ createBaseVNode("p", { class: "custom-block-title" }, "WARNING"),
+  /* @__PURE__ */ createBaseVNode("p", null, "FreeBSD support is provided on a best-effort basis by the community instead of the QMK maintainers. It is strongly suggested that you use either Windows, macOS, or a supported distribution of Linux instead.")
+], -1);
+const _hoisted_26 = /* @__PURE__ */ createBaseVNode("p", null, "Install the FreeBSD package for QMK CLI by running:", -1);
+const _hoisted_27 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
   /* @__PURE__ */ createBaseVNode("button", {
     title: "Copy Code",
     class: "copy"
@@ -357,12 +244,15 @@ const _hoisted_37 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh
     ])
   ])
 ], -1);
-const _hoisted_38 = /* @__PURE__ */ createBaseVNode("p", null, [
-  /* @__PURE__ */ createTextVNode("NOTE: remember to follow the instructions printed at the end of installation (use "),
-  /* @__PURE__ */ createBaseVNode("code", null, 'pkg info -Dg "py*-qmk"'),
-  /* @__PURE__ */ createTextVNode(" to show them again).")
+const _hoisted_28 = /* @__PURE__ */ createBaseVNode("div", { class: "info custom-block" }, [
+  /* @__PURE__ */ createBaseVNode("p", { class: "custom-block-title" }, "NOTE"),
+  /* @__PURE__ */ createBaseVNode("p", null, [
+    /* @__PURE__ */ createTextVNode("Remember to follow the instructions printed at the end of installation (use "),
+    /* @__PURE__ */ createBaseVNode("code", null, 'pkg info -Dg "py*-qmk"'),
+    /* @__PURE__ */ createTextVNode(" to show them again).")
+  ])
 ], -1);
-const _hoisted_39 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_29 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "set-up-qmk",
   tabindex: "-1"
 }, [
@@ -373,8 +263,8 @@ const _hoisted_39 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "3. Run QMK Setup {#set-up-qmk}"'
   }, "​")
 ], -1);
-const _hoisted_40 = /* @__PURE__ */ createBaseVNode("p", null, "Open QMK MSYS and run the following command:", -1);
-const _hoisted_41 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
+const _hoisted_30 = /* @__PURE__ */ createBaseVNode("p", null, "Open QMK MSYS and run the following command:", -1);
+const _hoisted_31 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
   /* @__PURE__ */ createBaseVNode("button", {
     title: "Copy Code",
     class: "copy"
@@ -389,13 +279,13 @@ const _hoisted_41 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh
     ])
   ])
 ], -1);
-const _hoisted_42 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_32 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("In most situations you will want to answer "),
   /* @__PURE__ */ createBaseVNode("code", null, "y"),
   /* @__PURE__ */ createTextVNode(" to all of the prompts.")
 ], -1);
-const _hoisted_43 = /* @__PURE__ */ createBaseVNode("p", null, "Open Terminal and run the following command:", -1);
-const _hoisted_44 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
+const _hoisted_33 = /* @__PURE__ */ createBaseVNode("p", null, "Open Terminal and run the following command:", -1);
+const _hoisted_34 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
   /* @__PURE__ */ createBaseVNode("button", {
     title: "Copy Code",
     class: "copy"
@@ -410,13 +300,13 @@ const _hoisted_44 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh
     ])
   ])
 ], -1);
-const _hoisted_45 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_35 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("In most situations you will want to answer "),
   /* @__PURE__ */ createBaseVNode("code", null, "y"),
   /* @__PURE__ */ createTextVNode(" to all of the prompts.")
 ], -1);
-const _hoisted_46 = /* @__PURE__ */ createBaseVNode("p", null, "Open your preferred terminal app and run the following command:", -1);
-const _hoisted_47 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
+const _hoisted_36 = /* @__PURE__ */ createBaseVNode("p", null, "Open your preferred terminal app and run the following command:", -1);
+const _hoisted_37 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
   /* @__PURE__ */ createBaseVNode("button", {
     title: "Copy Code",
     class: "copy"
@@ -431,12 +321,12 @@ const _hoisted_47 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh
     ])
   ])
 ], -1);
-const _hoisted_48 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_38 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("In most situations you will want to answer "),
   /* @__PURE__ */ createBaseVNode("code", null, "y"),
   /* @__PURE__ */ createTextVNode(" to all of the prompts.")
 ], -1);
-const _hoisted_49 = /* @__PURE__ */ createBaseVNode("div", { class: "info custom-block" }, [
+const _hoisted_39 = /* @__PURE__ */ createBaseVNode("div", { class: "info custom-block" }, [
   /* @__PURE__ */ createBaseVNode("p", { class: "custom-block-title" }, "Note on Debian, Ubuntu and their derivatives:"),
   /* @__PURE__ */ createBaseVNode("p", null, [
     /* @__PURE__ */ createTextVNode("It's possible, that you will get an error saying something like: "),
@@ -459,8 +349,8 @@ const _hoisted_49 = /* @__PURE__ */ createBaseVNode("div", { class: "info custom
     /* @__PURE__ */ createBaseVNode("code", null, `echo 'PATH="$HOME/.local/bin:$PATH"' >> $HOME/.bashrc && source $HOME/.bashrc`)
   ])
 ], -1);
-const _hoisted_50 = /* @__PURE__ */ createBaseVNode("p", null, "Open your preferred terminal app and run the following command:", -1);
-const _hoisted_51 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
+const _hoisted_40 = /* @__PURE__ */ createBaseVNode("p", null, "Open your preferred terminal app and run the following command:", -1);
+const _hoisted_41 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh vp-adaptive-theme" }, [
   /* @__PURE__ */ createBaseVNode("button", {
     title: "Copy Code",
     class: "copy"
@@ -475,12 +365,12 @@ const _hoisted_51 = /* @__PURE__ */ createBaseVNode("div", { class: "language-sh
     ])
   ])
 ], -1);
-const _hoisted_52 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_42 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("In most situations you will want to answer "),
   /* @__PURE__ */ createBaseVNode("code", null, "y"),
   /* @__PURE__ */ createTextVNode(" to all of the prompts.")
 ], -1);
-const _hoisted_53 = /* @__PURE__ */ createStaticVNode("", 12);
+const _hoisted_43 = /* @__PURE__ */ createStaticVNode("", 12);
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_PluginTabsTab = resolveComponent("PluginTabsTab");
   const _component_PluginTabs = resolveComponent("PluginTabs");
@@ -503,84 +393,74 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             _hoisted_14,
             _hoisted_15,
             _hoisted_16,
-            _hoisted_17,
-            _hoisted_18,
-            _hoisted_19
+            _hoisted_17
           ]),
           _: 1
         }),
         createVNode(_component_PluginTabsTab, { label: "Linux/WSL" }, {
           default: withCtx(() => [
+            _hoisted_18,
+            _hoisted_19,
             _hoisted_20,
             _hoisted_21,
             _hoisted_22,
-            _hoisted_23,
-            _hoisted_24,
-            _hoisted_25,
-            _hoisted_26,
-            _hoisted_27,
-            _hoisted_28,
-            _hoisted_29,
-            _hoisted_30,
-            _hoisted_31,
-            _hoisted_32,
-            _hoisted_33,
-            _hoisted_34
+            _hoisted_23
           ]),
           _: 1
         }),
         createVNode(_component_PluginTabsTab, { label: "FreeBSD" }, {
           default: withCtx(() => [
-            _hoisted_35,
-            _hoisted_36,
-            _hoisted_37,
-            _hoisted_38
+            _hoisted_24,
+            _hoisted_25,
+            _hoisted_26,
+            _hoisted_27,
+            _hoisted_28
           ]),
           _: 1
         })
       ]),
       _: 1
     }),
-    _hoisted_39,
+    _hoisted_29,
     createVNode(_component_PluginTabs, null, {
       default: withCtx(() => [
         createVNode(_component_PluginTabsTab, { label: "Windows" }, {
+          default: withCtx(() => [
+            _hoisted_30,
+            _hoisted_31,
+            _hoisted_32
+          ]),
+          _: 1
+        }),
+        createVNode(_component_PluginTabsTab, { label: "macOS" }, {
+          default: withCtx(() => [
+            _hoisted_33,
+            _hoisted_34,
+            _hoisted_35
+          ]),
+          _: 1
+        }),
+        createVNode(_component_PluginTabsTab, { label: "Linux/WSL" }, {
+          default: withCtx(() => [
+            _hoisted_36,
+            _hoisted_37,
+            _hoisted_38,
+            _hoisted_39
+          ]),
+          _: 1
+        }),
+        createVNode(_component_PluginTabsTab, { label: "FreeBSD" }, {
           default: withCtx(() => [
             _hoisted_40,
             _hoisted_41,
             _hoisted_42
           ]),
           _: 1
-        }),
-        createVNode(_component_PluginTabsTab, { label: "macOS" }, {
-          default: withCtx(() => [
-            _hoisted_43,
-            _hoisted_44,
-            _hoisted_45
-          ]),
-          _: 1
-        }),
-        createVNode(_component_PluginTabsTab, { label: "Linux/WSL" }, {
-          default: withCtx(() => [
-            _hoisted_46,
-            _hoisted_47,
-            _hoisted_48,
-            _hoisted_49
-          ]),
-          _: 1
-        }),
-        createVNode(_component_PluginTabsTab, { label: "FreeBSD" }, {
-          default: withCtx(() => [
-            _hoisted_50,
-            _hoisted_51,
-            _hoisted_52
-          ]),
-          _: 1
         })
       ]),
       _: 1
     }),
-    _hoisted_53
+    _hoisted_43
   ]);
 }
 const newbs_getting_started = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
