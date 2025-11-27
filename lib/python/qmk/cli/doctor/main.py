@@ -197,12 +197,6 @@ def doctor(cli):
 
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
-
-    if bin_ok == CheckStatus.ERROR:
-        if yesno('Would you like to install dependencies?', default=True):
-            cli.run(['util/qmk_install.sh', '-y'], stdin=DEVNULL, capture_output=False)
-            bin_ok = check_binaries()
-
     if bin_ok == CheckStatus.OK:
         cli.log.info('All dependencies are installed.')
     elif bin_ok == CheckStatus.WARNING:
@@ -219,7 +213,6 @@ def doctor(cli):
 
     # Check out the QMK submodules
     sub_ok = check_submodules()
-
     if sub_ok == CheckStatus.OK:
         cli.log.info('Submodules are up to date.')
     else:
@@ -242,6 +235,7 @@ def doctor(cli):
         cli.log.info('{fg_yellow}QMK is ready to go, but minor problems were found')
         return 1
     else:
-        cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.')
-        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/qmk) for help.')
+        cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.{fg_reset}')
+        cli.log.info('{fg_blue}If you\'re missing dependencies, try following the instructions on: https://docs.qmk.fm/newbs_getting_started{fg_reset}')
+        cli.log.info('{fg_blue}Additionally, check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/qmk) for help.{fg_reset}')
         return 2
