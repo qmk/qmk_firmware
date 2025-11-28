@@ -165,7 +165,7 @@ def check_typo_against_dictionary(typo: str, line_number: int, correct_words) ->
                 cli.log.warning('{fg_yellow}Warning:%d:{fg_reset} Typo "{fg_cyan}%s{fg_reset}" would falsely trigger on correctly spelled word "{fg_cyan}%s{fg_reset}".', line_number, typo, word)
 
 
-def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any]) -> List[int]:
+def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any]) -> Tuple[List[int], int]:
     """Serializes trie and correction data in a form readable by the C code.
   Args:
     autocorrections: List of (typo, correction) tuples.
@@ -212,7 +212,7 @@ def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any])
 
     traverse(trie)
 
-    def serialize(e: Dict[str, Any]) -> List[int]:
+    def serialize(e: Dict[str, Any], link_byte_count: int) -> List[int]:
         if not e['links']:  # Handle a leaf table entry.
             return e['data']
         elif len(e['links']) == 1:  # Handle a chain table entry.
@@ -220,25 +220,56 @@ def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any])
         else:  # Handle a branch table entry.
             data = []
             for c, link in zip(e['chars'], e['links']):
-                data += [TYPO_CHARS[c] | (0 if data else 64)] + encode_link(link)
+                data += [TYPO_CHARS[c] | (0 if data else 64)] + encode_link(link, link_byte_count)
             return data + [0]
 
-    byte_offset = 0
-    for e in table:  # To encode links, first compute byte offset of each entry.
-        e['byte_offset'] = byte_offset
-        byte_offset += len(serialize(e))
-        assert 0 <= byte_offset <= 0xffff
+    def serialized_entry_length(entry: Dict[str, Any], link_byte_count: int) -> int:
+        if not entry['links']:
+            return len(entry['data'])
+        elif len(entry['links']) == 1:
+            return len(entry['chars']) + 1
+        else:
+            return (len(entry['chars']) * (1 + link_byte_count)) + 1
 
-    return [b for e in table for b in serialize(e)]  # Serialize final table.
+    def try_assign_offsets(link_byte_count: int) -> Tuple[int, bool]:
+        byte_offset = 0
+        max_offset  = (1 << (link_byte_count * 8)) - 1
 
+        for entry in table:
+            entry['byte_offset'] = byte_offset
+            byte_offset += serialized_entry_length(entry, link_byte_count)
 
-def encode_link(link: Dict[str, Any]) -> List[int]:
-    """Encodes a node link as two bytes."""
-    byte_offset = link['byte_offset']
-    if not (0 <= byte_offset <= 0xffff):
-        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 64KB limit. Try reducing the autocorrection dict to fewer entries.')
+            if not (0 <= byte_offset <= max_offset):
+                return byte_offset, False
+
+        return byte_offset, True
+
+    link_byte_count = 2
+    byte_offset, success = try_assign_offsets(link_byte_count)
+
+    if not success:
+        cli.log.info('Autocorrection table exceeds 64KB, switching to 3-byte node links.')
+        link_byte_count = 3
+        byte_offset, success = try_assign_offsets(link_byte_count)
+
+    if not success:
+        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 16MB limit. Try reducing the autocorrection dict to fewer entries.')
         maybe_exit(1)
-    return [byte_offset & 255, byte_offset >> 8]
+
+    serialized_data = [b for e in table for b in serialize(e, link_byte_count)]  # Serialize final table.
+    assert len(serialized_data) == byte_offset
+
+    return serialized_data, link_byte_count
+
+
+def encode_link(link: Dict[str, Any], link_byte_count: int) -> List[int]:
+    """Encodes a node link using `link_byte_count` bytes."""
+    byte_offset = link['byte_offset']
+    if not (0 <= byte_offset < (1 << (link_byte_count * 8))):
+        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds the supported limit. Try reducing the autocorrection dict to fewer entries.')
+        maybe_exit(1)
+
+    return [(byte_offset >> (8 * i)) & 255 for i in range(link_byte_count)]
 
 
 def typo_len(e: Tuple[str, str]) -> int:
@@ -258,7 +289,7 @@ def to_hex(b: int) -> str:
 def generate_autocorrect_data(cli):
     autocorrections = parse_file(cli.args.filename)
     trie = make_trie(autocorrections)
-    data = serialize_trie(autocorrections, trie)
+    data, link_byte_count = serialize_trie(autocorrections, trie)
 
     current_keyboard = cli.args.keyboard or cli.config.user.keyboard or cli.config.generate_autocorrect_data.keyboard
     current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
@@ -282,6 +313,7 @@ def generate_autocorrect_data(cli):
     autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MIN_LENGTH {len(min_typo)} // "{min_typo}"')
     autocorrect_data_h_lines.append(f'#define AUTOCORRECT_MAX_LENGTH {len(max_typo)} // "{max_typo}"')
     autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {len(data)}')
+    autocorrect_data_h_lines.append(f'#define AUTOCORRECT_LINK_BYTE_COUNT {link_byte_count}')
     autocorrect_data_h_lines.append('')
     autocorrect_data_h_lines.append('static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {')
     autocorrect_data_h_lines.append(textwrap.fill('    %s' % (', '.join(map(to_hex, data))), width=100, subsequent_indent='    '))
