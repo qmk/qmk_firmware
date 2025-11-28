@@ -1,6 +1,6 @@
 # QMK Configurator
 
-[![QMK Configurator Screenshot](https://i.imgur.com/anw9cOL.png)](https://config.qmk.fm/)
+[![QMK Configurator Screenshot](/anw9cOL.png)](https://config.qmk.fm/)
 
 The [QMK Configurator](https://config.qmk.fm) is an online graphical user interface that generates QMK Firmware `.hex` or `.bin` files.
 

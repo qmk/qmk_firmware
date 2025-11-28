@@ -4,7 +4,7 @@ QMK presents itself to the host as a regular HID keyboard device, and as such re
 
 There are two notable exceptions: the Caterina bootloader, usually seen on Pro Micros, and the HalfKay bootloader shipped with PJRC Teensys, appear as a serial port and a generic HID device respectively, and so do not require a driver.
 
-We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with MSYS2, the `qmk_install.sh` script will have already installed the drivers for you.
+We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with MSYS2, the QMK CLI installation script will have already installed the drivers for you.
 
 ## Installation
 
@@ -22,7 +22,7 @@ If Zadig lists one or more devices with the `HidUsb` driver, your keyboard is pr
 
 If the arrow appears green, select the driver, and click **Install Driver**. See the [list of known bootloaders](#list-of-known-bootloaders) for the correct driver to install.
 
-![Zadig with a bootloader driver correctly installed](https://i.imgur.com/b8VgXzx.png)
+![Zadig with a bootloader driver correctly installed](/b8VgXzx.png)
 
 Finally, unplug and replug the keyboard to make sure the new driver has been loaded. If you are using the QMK Toolbox to flash, exit and restart it too, as it can sometimes fail to recognize the driver change.
 
@@ -30,15 +30,15 @@ Finally, unplug and replug the keyboard to make sure the new driver has been loa
 
 If you find that you can no longer type with the keyboard, you may have accidentally replaced the driver for the keyboard itself instead of for the bootloader. This can happen when the keyboard is not in the bootloader mode. You can easily confirm this in Zadig - a healthy keyboard has the `HidUsb` driver installed on all of its interfaces:
 
-![A healthy keyboard as seen by Zadig](https://i.imgur.com/Hx0E5kC.png)
+![A healthy keyboard as seen by Zadig](/Hx0E5kC.png)
 
 Open the Device Manager, select **View → Devices by container**, and look for an entry with your keyboard's name.
 
-![The board with the wrong driver installed, in Device Manager](https://i.imgur.com/o7WLvBl.png)
+![The board with the wrong driver installed, in Device Manager](/o7WLvBl.png)
 
 Right-click each entry and hit **Uninstall device**. Make sure to tick **Delete the driver software for this device** first if it appears.
 
-![The Device Uninstall dialog, with the "delete driver" checkbox ticked](https://i.imgur.com/aEs2RuA.png)
+![The Device Uninstall dialog, with the "delete driver" checkbox ticked](/aEs2RuA.png)
 
 Click **Action → Scan for hardware changes**. At this point, you should be able to type again. Double check in Zadig that the keyboard device(s) are using the `HidUsb` driver. If so, you're all done, and your board should be functional again! Otherwise, repeat this process until Zadig reports the correct driver.
 
@@ -54,11 +54,11 @@ Open the Device Manager, select **View → Devices by container**, and look for 
 
 Find the `Inf name` value in the Details tab of the device properties. This should generally be something like `oemXX.inf`:
 
-![Device properties showing the Inf name value](https://i.imgur.com/Bu4mk9m.png)
+![Device properties showing the Inf name value](/Bu4mk9m.png)
 
 Then, open a new Command Prompt window as an Administrator (type in `cmd` into the Start menu and press Ctrl+Shift+Enter). Run `pnputil /enum-drivers` to verify the `Inf name` matches the `Published Name` field of one of the entries:
 
-![pnputil output with matching driver highlighted](https://i.imgur.com/3RrSjzW.png)
+![pnputil output with matching driver highlighted](/3RrSjzW.png)
 
 Run `pnputil /delete-driver oemXX.inf /uninstall`. This will delete the driver and remove it from any devices using it. Note that this will not uninstall the device itself.
 
