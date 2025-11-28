@@ -1,0 +1,62 @@
+{
+    "manufacturer": "Shortcut",
+    "maintainer": "emolitor@github",
+    "url": "https://shortcutofficial.com",
+    "processor": "WB32FQ95",
+    "bootloader": "wb32-dfu",
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "suspend_wakeup_delay": 1000,
+        "no_startup_check": true
+    },
+    "diode_direction": "ROW2COL",
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "backing_size": 8192,
+            "driver": "spi_flash"
+        }
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "haptic": false,
+        "rgb_light": false,
+        "rgb_matrix": true,
+        "macros": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "tapping": {
+        "term_per_key": true
+    },
+    "matrix_pins": {
+        "cols": ["C1", "C2", "C3", "A0", "A1", "A2", "A3", "A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1"],
+        "rows": ["B15", "C6", "C7", "C8", "C9", "B14"]
+    },
+    "ws2812": {
+        "pin": "B10"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "max_brightness": 225,
+        "sleep": true,
+        "timeout": 60000
+    }
+}
