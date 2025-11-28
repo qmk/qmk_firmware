@@ -11,7 +11,6 @@ The tricky part is how to efficiently check the buffer for typos. We don’t wan
 ![An example trie](/HL5DP8H.png)
 
 Since we search whether the buffer ends in a typo, we store the trie writing in reverse. The trie is queried starting from the last letter, then second to last letter, and so on, until either a letter doesn’t match or we reach a leaf, meaning a typo was found.
-heelo
 
 ## How do I enable Autocorrection {#how-do-i-enable-autocorrection}
 
@@ -66,6 +65,8 @@ static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {85, 7, 0, 23, 
     10, 56, 0, 0, 12, 26, 0, 129, 116, 104, 0, 17, 8, 15, 0, 129, 116, 104, 0, 19, 24, 18, 0, 130, 116, 112, 117, 116,
     0};
 ```
+
+Larger dictionaries automatically switch to a 3-byte link format (defined as `AUTOCORRECT_LINK_BYTE_COUNT` in the generated file), allowing autocorrect tables to grow well beyond the previous 64KB limit while keeping smaller dictionaries compact.
 
 ### Avoiding false triggers {#avoiding-false-triggers}
 
