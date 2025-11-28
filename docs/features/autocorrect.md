@@ -1,6 +1,6 @@
 # Autocorrect
 
-There are a lot of words that are prone to being typed incorrectly, due to habit, sequence or just user error.  This feature leverages your firmware to automatically correct these errors, to help reduce typos.
+There are a lot of words that are prone to being typed incorrectly, due to habit, sequence or just user error. This feature leverages your firmware to automatically correct these errors, to help reduce typos.
 
 ## How does it work? {#how-does-it-work}
 
@@ -20,13 +20,13 @@ In your `rules.mk`, add this:
 AUTOCORRECT_ENABLE = yes
 ```
 
-Additionally, you will need a library for autocorrection.  A small sample library is included by default, so that you can get up and running right away, but you can provide a customized library.
+Additionally, you will need a library for autocorrection. A small sample library is included by default, so that you can get up and running right away, but you can provide a customized library.
 
-By default, autocorrect is disabled.  To enable it, you need to use the `AC_TOGG` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enabled it again.
+By default, autocorrect is disabled. To enable it, you need to use the `AC_TOGG` keycode to enable it. The status is stored in persistent memory, so you shouldn't need to enabled it again.
 
 ## Customizing autocorrect library {#customizing-autocorrect-library}
 
-To provide a custom library, you need to create a text file with the corrections.  For instance:
+To provide a custom library, you need to create a text file with the corrections. For instance:
 
 ```text
 :thier        -> their
@@ -44,7 +44,7 @@ Then, run:
 qmk generate-autocorrect-data autocorrect_dictionary.txt
 ```
 
-This will process the file and produce an `autocorrect_data.h` file with the trie library, in the folder that you are at.  You can specify the keyboard and keymap (eg `-kb planck/rev6 -km jackhumbert`), and it will place the file in that folder instead. But as long as the file is located in your keymap folder, or user folder, it should be picked up automatically.
+This will process the file and produce an `autocorrect_data.h` file with the trie library, in the folder that you are at. You can specify the keyboard and keymap (eg `-kb planck/rev6 -km jackhumbert`), and it will place the file in that folder instead. But as long as the file is located in your keymap folder, or user folder, it should be picked up automatically.
 
 This file will look like this:
 
@@ -55,10 +55,16 @@ This file will look like this:
 // ouput         -> output
 // widht         -> width
 
-#define AUTOCORRECT_MIN_LENGTH 5  // "ouput"
-#define AUTOCORRECT_MAX_LENGTH 6  // ":thier"
+#define N_DICTS 1
 
+static const uint16_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
+static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {5};
+static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {6};
+static const uint16_t autocorrect_sizes[N_DICTS] PROGMEM       = {74};
+
+#define AUTOCORRECT_LIBRARY_FORMAT_V2 // Enable large+multi dictionary library
 #define DICTIONARY_SIZE 74
+#define TYPO_BUFFER_SIZE 6
 
 static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {85, 7, 0, 23, 35, 0, 0, 8, 0, 76, 16, 0, 15, 25, 0, 0,
     11, 23, 44, 0, 130, 101, 105, 114, 0, 23, 12, 9, 0, 131, 108, 116, 101, 114, 0, 75, 42, 0, 24, 64, 0, 0, 71, 49, 0,
@@ -72,11 +78,11 @@ By default, typos are searched within words, to find typos within longer identif
 
 The solution is to set a word break : before and/or after the typo to constrain matching. : matches space, period, comma, underscore, digits, and most other non-alpha characters.
 
-|Text             |thier   |:thier  |thier:  |:thier: |
-|-----------------|:------:|:------:|:------:|:------:|
-|see `thier` typo |matches |matches |matches |matches |
-|it’s `thiers`    |matches |matches |no      |no      |
-|wealthier words  |matches |no      |matches |no      |
+| Text             |  thier  | :thier  | thier:  | :thier: |
+| ---------------- | :-----: | :-----: | :-----: | :-----: |
+| see `thier` typo | matches | matches | matches | matches |
+| it’s `thiers`    | matches | matches |   no    |   no    |
+| wealthier words  | matches |   no    | matches |   no    |
 
 :thier: is most restrictive, matching only when thier is a whole word.
 
@@ -85,6 +91,16 @@ The `qmk generate-autocorrect-data` commands can make an effort to check for ent
 ::: tip
 Unfortunately, this is limited to just english words, at this point.
 :::
+
+### Using multiple dictionaries
+
+Including additional dictionaries allows for on-the-fly switching between sets of autocorrection rules, useful for bilingual users or for running context-specific rulesets. `QK_AUTOCORRECT_DICT_CYCLE` can then be used to cycle the active dictionary and persist the selection to eeprom.
+
+To use this feature, you can input several files into `qmk generate-autocorrect-data:
+
+```sh
+qmk generate-autocorrect-data dict1.txt dict2.txt
+```
 
 ## Overriding Autocorrect
 
@@ -100,11 +116,12 @@ Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for 
 
 ### Keycodes {#keycodes}
 
-|Keycode                |Aliases  |Description                                   |
-|-----------------------|---------|----------------------------------------------|
-|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
-|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
-|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
+| Keycode                     | Aliases   | Description                                                       |
+| --------------------------- | --------- | ----------------------------------------------------------------- |
+| `QK_AUTOCORRECT_ON`         | `AC_ON`   | Turns on the Autocorrect feature.                                 |
+| `QK_AUTOCORRECT_OFF`        | `AC_OFF`  | Turns off the Ajutocorrect feature.                               |
+| `QK_AUTOCORRECT_TOGGLE`     | `AC_TOGG` | Toggles the status of the Autocorrect feature.                    |
+| `QK_AUTOCORRECT_DICT_CYCLE` | `AC_DICT` | Cycle through dictionaries, reverse direction when Shift is held. |
 
 ## User Callback Functions
 
@@ -207,7 +224,7 @@ In this callback function, `return false` will skip processing of that keycode f
 Additionally, `apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct)` allows for users to add additional handling to the autocorrection, or replace the functionality entirely. This passes on the number of backspaces needed to replace the words, as well as the replacement string (partial word, not the full word), and the typo and corrected strings (complete words).
 
 ::: tip
-Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`. 
+Due to the way code works (no notion of words, just a stream of letters), the `typo` and `correct` strings are a best bet and could be "wrong". For example you may get `wordtpyo` & `wordtypo` instead of the expected `tpyo` & `typo`.
 :::
 
 #### Apply Autocorrect Example
@@ -236,7 +253,7 @@ In this callback function, `return false` will stop the normal processing of aut
 :::
 
 ::: warning
-***IMPORTANT***: `str` is a pointer to `PROGMEM` data for the autocorrection.  If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` nor `SEND_STRING`.
+**_IMPORTANT_**: `str` is a pointer to `PROGMEM` data for the autocorrection. If you return false, and want to send the string, this needs to use `send_string_P` and not `send_string` nor `SEND_STRING`.
 :::
 
 You can also use `apply_autocorrect` to detect and display the event but allow internal code to execute the autocorrection with `return true`:
@@ -257,13 +274,16 @@ bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *co
 
 Additional user callback functions to manipulate Autocorrect:
 
-| Function                   | Description                                  |
-|----------------------------|----------------------------------------------|
-| `autocorrect_enable()`     | Turns Autocorrect on.                        |
-| `autocorrect_disable()`    | Turns Autocorrect off.                       |
-| `autocorrect_toggle()`     | Toggles Autocorrect.                         |
-| `autocorrect_is_enabled()` | Returns true if Autocorrect is currently on. |
-
+| Function                                    | Description                                                     |
+| ------------------------------------------- | --------------------------------------------------------------- |
+| `autocorrect_enable()`                      | Turns Autocorrect on.                                           |
+| `autocorrect_disable()`                     | Turns Autocorrect off.                                          |
+| `autocorrect_toggle()`                      | Toggles Autocorrect.                                            |
+| `autocorrect_is_enabled()`                  | Returns true if Autocorrect is currently on.                    |
+| `autocorrect_dict_cycle(bool forward)`      | Cycles through dictionaries (parameter controls the direction). |
+| `autocorrect_get_current_dictionary()`      | Returns the index of the selected dictionary.                   |
+| `autocorrect_set_current_dictionary(index)` | Sets the library to a specific index.                           |
+| `autocorrect_get_number_of_dictionaries()`  | Returns the number of total available dictionaries.             |
 
 ## Appendix: Trie binary data format {#appendix}
 
@@ -275,13 +295,13 @@ What I did here is fairly arbitrary, but it is simple to decode and gets the job
 
 All autocorrection data is stored in a single flat array autocorrect_data. Each trie node is associated with a byte offset into this array, where data for that node is encoded, beginning with root at offset 0. There are three kinds of nodes. The highest two bits of the first byte of the node indicate what kind:
 
-* 00 ⇒ chain node: a trie node with a single child.
-* 01 ⇒ branching node: a trie node with multiple children.
-* 10 ⇒ leaf node: a leaf, corresponding to a typo and storing its correction.
+-   00 ⇒ chain node: a trie node with a single child.
+-   01 ⇒ branching node: a trie node with multiple children.
+-   10 ⇒ leaf node: a leaf, corresponding to a typo and storing its correction.
 
 ![An example trie](/HL5DP8H.png)
 
-**Branching node**. Each branch is encoded with one byte for the keycode (KC_A–KC_Z) followed by a link to the child node. Links between nodes are 16-bit byte offsets relative to the beginning of the array, serialized in little endian order.
+**Branching node**. Each branch is encoded with one byte for the keycode (KC_A–KC_Z) followed by a link to the child node. Links between nodes are 32-bit byte offsets relative to the beginning of the array, serialized in little endian order.
 
 All branches are serialized this way, one after another, and terminated with a zero byte. As described above, the node is identified as a branch by setting the two high bits of the first byte to 01, done by bitwise ORing the first keycode with 64. keycode. The root node for the above figure would be serialized like:
 
@@ -313,12 +333,12 @@ If we were to encode this chain using the same format used for branching nodes, 
 
 ### Decoding {#decoding}
 
-This format is by design decodable with fairly simple logic. A 16-bit variable state represents our current position in the trie, initialized with 0 to start at the root node. Then, for each keycode, test the highest two bits in the byte at state to identify the kind of node.
+This format is by design decodable with fairly simple logic. A 16i-bit variable state represents our current position in the trie, initialized with 0 to start at the root node. Then, for each keycode, test the highest two bits in the byte at state to identify the kind of node.
 
-* 00 ⇒ **chain node**: If the node’s byte matches the keycode, increment state by one to go to the next byte. If the next byte is zero, increment again to go to the following node.
-* 01 ⇒ **branching node**: Search the branches for one that matches the keycode, and follow its node link.
-* 10 ⇒ **leaf node**: a typo has been found! We read its first byte for the number of backspaces to type, then pass its following bytes to send_string_P to type the correction.
+-   00 ⇒ **chain node**: If the node’s byte matches the keycode, increment state by one to go to the next byte. If the next byte is zero, increment again to go to the following node.
+-   01 ⇒ **branching node**: Search the branches for one that matches the keycode, and follow its node link.
+-   10 ⇒ **leaf node**: a typo has been found! We read its first byte for the number of backspaces to type, then pass its following bytes to send_string_P to type the correction.
 
 ## Credits
 
-Credit goes to [getreuer](https://github.com/getreuer) for originally implementing this [here](https://getreuer.info/posts/keyboards/autocorrection/#how-does-it-work).  As well as to [filterpaper](https://github.com/filterpaper) for converting the code to use PROGMEM, and additional improvements.
+Credit goes to [getreuer](https://github.com/getreuer) for originally implementing this [here](https://getreuer.info/posts/keyboards/autocorrection/#how-does-it-work). As well as to [filterpaper](https://github.com/filterpaper) for converting the code to use PROGMEM, and additional improvements.

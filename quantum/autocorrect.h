@@ -25,6 +25,11 @@ void autocorrect_disable(void);
 void autocorrect_toggle(void);
 
 void autocorrect_dict_cycle(bool forward);
+uint8_t autocorrect_get_current_dictionary(void);
+void autocorrect_set_current_dictionary(uint8_t dict_index);
+uint8_t autocorrect_get_number_of_dictionaries(void);
+
+
 void autocorrect_init(void);
 
 bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct);
