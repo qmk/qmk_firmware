@@ -1,10 +1,10 @@
 {
   "keyboard_name": "Keybit8",
-  "manufacturer": "Keybit8",
+  "manufacturer": "Shirogane Lab",
   "maintainer": "Shirogane Lab",
   "usb": {
-    "vid": "0xFEED",
-    "pid": "0x0000",
+    "vid": "0x5957",
+    "pid": "0x8000",
     "device_version": "0.0.1"
   },
   "bootloader": "caterina",
@@ -28,11 +28,10 @@
       "E6"
     ],
     "rows": [
-      "B5",
-      "B6"
+      "F4",
+      "F5"
     ]
   },
-  "debounce": 5,
   "layouts": {
     "LAYOUT": {
       "layout": [

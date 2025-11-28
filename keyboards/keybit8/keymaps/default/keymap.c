@@ -3,11 +3,23 @@
  * Minecraft Control Layout with Layer Support
  * 
  * Layer 0 (Base): Basic movement and actions
+ *   - W, A, S, LT(_LAYER3, KC_D), Space, Shift, LT(_LAYER2, KC_E), LT(_LAYER1, KC_1)
  * Layer 1: Hotbar 2-9 (activated by holding key 7 - KC_1)
  * Layer 2: Additional actions (activated by holding key 6 - KC_E)
+ * Layer 3: Game layer (activated by holding key 3 - KC_D)
+ *   - LEFT, UP, DOWN, RIGHT, 0, 1, 2, Space
+ * 
+ * LED Status:
+ *   - Layer 0: Green LED OFF
+ *   - Layer 1: Green LED steady ON
+ *   - Layer 2: Green LED slowly blinks (500ms period)
+ *   - Layer 3: Green LED steady ON
  * 
  * Web Game Support:
  * - LED and speaker control via Web Serial API
+ * - 8 red LEDs for game feedback
+ * - 1 green LED for layer status
+ * - Speaker for sound effects
  */
 
 #include QMK_KEYBOARD_H
