@@ -155,6 +155,12 @@ qmk compile -kb keybit8 -km default
 
 1. **キーを押して動作確認**
    - W, A, S, D などが正しく入力されるか確認
+   - レイヤー切り替え（長押し）が動作するか確認
+   - 緑LEDの状態でレイヤーを確認
+     - レイヤー0: LED OFF
+     - レイヤー1: LED ON
+     - レイヤー2: LED 点滅
+     - レイヤー3: LED ON
 
 2. **Remapで認識されるか確認**
    - [Remap](https://remap-keys.app/) にアクセス
@@ -164,4 +170,12 @@ qmk compile -kb keybit8 -km default
 ## 次のステップ
 
 書き込みが完了したら、[Remap](https://remap-keys.app/) でキーマッピングをカスタマイズできます。
+
+**Layer Tapの設定方法**:
+1. キーを選択
+2. 「Layer Tap」を選択
+3. レイヤー番号を選択（例: Layer 3）
+4. タップ時のキーを選択（例: D）
+
+これで、タップでキー入力、長押しでレイヤー切り替えが可能になります。
 
