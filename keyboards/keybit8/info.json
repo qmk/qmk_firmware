@@ -17,7 +17,9 @@
     "backlight": false,
     "rgblight": false,
     "audio": false,
-    "encoder": false
+    "encoder": false,
+    "console": true,
+    "command": false
   },
   "diode_direction": "COL2ROW",
   "matrix_pins": {
