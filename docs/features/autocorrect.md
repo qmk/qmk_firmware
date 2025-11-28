@@ -11,6 +11,7 @@ The tricky part is how to efficiently check the buffer for typos. We don’t wan
 ![An example trie](/HL5DP8H.png)
 
 Since we search whether the buffer ends in a typo, we store the trie writing in reverse. The trie is queried starting from the last letter, then second to last letter, and so on, until either a letter doesn’t match or we reach a leaf, meaning a typo was found.
+heelo
 
 ## How do I enable Autocorrection {#how-do-i-enable-autocorrection}
 
