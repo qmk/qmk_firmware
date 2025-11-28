@@ -1,5 +1,7 @@
 # Wireless / Bluetooth
 
+::: danger Incomplete At this time the Wireless support in QMK is incomplete and no further wireless keyboards will be added until the wireless code is refactored. :::
+
 ## Bluetooth Known Supported Hardware
 
 Currently Bluetooth support is limited to AVR based chips. For Bluetooth 2.1, QMK has support for RN-42 modules. For more recent BLE protocols, currently only the Adafruit Bluefruit SPI Friend is directly supported. BLE is needed to connect to iOS devices. Note iOS does not support mouse input.
