@@ -1,0 +1,83 @@
+{
+  "name": "Keybit8",
+  "vendorId": "0xFEED",
+  "productId": "0x0000",
+  "description": "Keybit8 - 2x4 Key Matrix with Layer Support",
+  "matrix": {
+    "rows": 2,
+    "cols": 4
+  },
+  "layouts": {
+    "keymap": [
+      {
+        "name": "LAYOUT",
+        "layout": [
+          {
+            "label": "k00",
+            "x": 0,
+            "y": 0,
+            "w": 1,
+            "h": 1,
+            "matrix": [0, 0]
+          },
+          {
+            "label": "k01",
+            "x": 1,
+            "y": 0,
+            "w": 1,
+            "h": 1,
+            "matrix": [0, 1]
+          },
+          {
+            "label": "k02",
+            "x": 2,
+            "y": 0,
+            "w": 1,
+            "h": 1,
+            "matrix": [0, 2]
+          },
+          {
+            "label": "k03",
+            "x": 3,
+            "y": 0,
+            "w": 1,
+            "h": 1,
+            "matrix": [0, 3]
+          },
+          {
+            "label": "k10",
+            "x": 0,
+            "y": 1,
+            "w": 1,
+            "h": 1,
+            "matrix": [1, 0]
+          },
+          {
+            "label": "k11",
+            "x": 1,
+            "y": 1,
+            "w": 1,
+            "h": 1,
+            "matrix": [1, 1]
+          },
+          {
+            "label": "k12",
+            "x": 2,
+            "y": 1,
+            "w": 1,
+            "h": 1,
+            "matrix": [1, 2]
+          },
+          {
+            "label": "k13",
+            "x": 3,
+            "y": 1,
+            "w": 1,
+            "h": 1,
+            "matrix": [1, 3]
+          }
+        ]
+      }
+    ]
+  }
+}
