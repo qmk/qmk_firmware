@@ -20,9 +20,15 @@
 #    include "autocorrect_data_default.h"
 #endif
 
-#ifndef AUTOCORRECT_LARGE_LIBRARY
+#ifdef AUTOCORRECT_LIBRARY_FORMAT_V2
+#define AUTOCORRECT_NODE_SIZE 4
+typedef uint32_t autocorrect_state_t;
+#else
 #    pragma message "Autocorrect is using the legacy dictionary format. Please update to the new format."
 #    define N_DICTS 1
+#define AUTOCORRECT_NODE_SIZE 2
+typedef uint16_t autocorrect_state_t;
+
 static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
 static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MIN_LENGTH};
 static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MAX_LENGTH};
@@ -269,32 +275,20 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Check for typo in buffer using a trie stored in `current_dict_data`.
-#ifdef AUTOCORRECT_LARGE_LIBRARY
-    uint32_t state = 0;
-#else
-    uint16_t state = 0;
-#endif // AUTOCORRECT_LARGE_LIBRARY
+    autocorrect_state_t state = 0;
     uint8_t code = pgm_read_byte(autocorrect_data + state);
     for (int8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 
         if (code & 64) { // Check for match in node with multiple children.
             code &= 63;
-#ifdef AUTOCORRECT_LARGE_LIBRARY
-            for (; code != key_i; code = pgm_read_byte(current_dict_data + (state += 5)))
-#else
-            for (; code != key_i; code = pgm_read_byte(current_dict_data + (state += 3)))
-#endif // AUTOCORRECT_LARGE_LIBRARY
+            for (; code != key_i; code = pgm_read_byte(current_dict_data + (state += (AUTOCORRECT_NODE_SIZE + 1))))
             {
                 if (!code) return true;
             }
             // Follow link to child node.
 
-#ifdef AUTOCORRECT_LARGE_LIBRARY
-            state = (pgm_read_byte(current_dict_data + state + 1) | pgm_read_byte(current_dict_data + state + 2) << 8) | (pgm_read_byte(current_dict_data + state + 3) << 16 | pgm_read_byte(current_dict_data + state + 4) << 24);
-#else
-            state = (pgm_read_byte(current_dict_data + state + 1) | pgm_read_byte(current_dict_data + state + 2) << 8);
-#endif // AUTOCORRECT_LARGE_LIBRARY
+            memcpy_P(&state, current_dict_data + state + 1, sizeof(state));
        // Check for match in node with single child.
         } else if (code != key_i) {
             return true;
