@@ -19,34 +19,19 @@
 // Layer 0: media + utilities
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_MPRV,     // Previous Track  (was Play/Pause)
+        KC_MPRV,     // Previous Track
         KC_MNXT,     // Next Track
-        KC_MPLY,     // Play / Pause    (swapped with Previous)
+        KC_MUTE,     // Mute / Unmute - encoder button
+        KC_MPLY,     // Play / Pause
         KC_CALC,     // Launch Calculator
-        KC_MAIL,     // Launch Email client
-        KC_NO        // Placeholder - encoder button handled separately
+        KC_MAIL      // Launch Email client
     )
 };
 
-// Handle encoder rotation
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_VOLU); // Volume Up
-        } else {
-            tap_code(KC_VOLD); // Volume Down
-        }
-        return false;
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CW(KC_VOLD, KC_VOLU)  },
+};
+#endif
 
-// Handle encoder press (mute system audio)
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    // Encoder button is wired into matrix position [0,5] (last key in layout)
-    if (keycode == KC_NO && record->event.pressed) {
-        tap_code(KC_MUTE);
-        return false; // stop further processing
-    }
-    return true;
-}
+
