@@ -1,0 +1,42 @@
+{
+    "manufacturer": "Soldered Electronics",
+    "keyboard_name": "Soldered Macro Pad",
+    "maintainer": "SolderedElectronics",
+    "bootloader": "rp2040",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP18", "pin_b": "GP20"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP9", "GP11", "GP19"],
+            ["GP10", "GP12", "GP13"]
+        ]
+    },
+    "processor": "RP2040",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xAB3C",
+        "vid": "0xFEED"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1}
+            ]
+        }
+    }
+}
