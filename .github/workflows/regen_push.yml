@@ -19,7 +19,7 @@ jobs:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
 
     - name: Run qmk generators
       run: |
