@@ -54,6 +54,27 @@ TEST_F(AutoCorrect, OnOffToggle) {
     VERIFY_AND_CLEAR(driver);
 }
 
+// Test that verifies enable/disable/toggling works
+TEST_F(AutoCorrect, CycleDictionaries) {
+    TestDriver driver;
+
+    EXPECT_EQ(autocorrect_get_current_dictionary(), 0);
+
+    autocorrect_dict_cycle(true);
+
+    if (autocorrect_get_number_of_dictionaries() > 1) {
+        // if multi-dictionary support is enabled, we should be on dictionary 1 now
+        EXPECT_EQ(autocorrect_get_current_dictionary(), 1);
+    } else {
+        // Otherwise, we should still be on dictionary 0
+        EXPECT_EQ(autocorrect_get_current_dictionary(), 0);
+    }
+    autocorrect_dict_cycle(true);
+    EXPECT_EQ(autocorrect_get_current_dictionary(), 0);
+
+    VERIFY_AND_CLEAR(driver);
+}
+
 // Test that typing "fales" autocorrects to "false"
 TEST_F(AutoCorrect, fales_to_false_autocorrection) {
     TestDriver driver;
@@ -108,6 +129,42 @@ TEST_F(AutoCorrect, fales_disabled_autocorrect) {
     autocorrect_disable();
     TapKeys(key_f, key_a, key_l, key_e, key_s);
     autocorrect_enable();
+
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Test that typing "fales" doesn't autocorrect if disabled
+TEST_F(AutoCorrect, fales_autocorrect_second_dicttionary) {
+    TestDriver driver;
+    auto       key_f = KeymapKey(0, 0, 0, KC_F);
+    auto       key_a = KeymapKey(0, 1, 0, KC_A);
+    auto       key_l = KeymapKey(0, 2, 0, KC_L);
+    auto       key_e = KeymapKey(0, 3, 0, KC_E);
+    auto       key_s = KeymapKey(0, 4, 0, KC_S);
+
+    set_keymap({key_f, key_a, key_l, key_e, key_s});
+
+    EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport())).Times(AnyNumber());
+    {
+        InSequence s;
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_F)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_A)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_L)));
+        EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_E)));
+        if (autocorrect_get_number_of_dictionaries() > 1) {
+            // if multi-dictionary, we should be on the second dictionary now, which does not autocorrect "fales"
+            EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_S)));
+        } else {
+            // Otherwise, we should expect autocorrection to occur
+            EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_BACKSPACE)));
+            EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_S)));
+            EXPECT_CALL(driver, send_keyboard_mock(KeyboardReport(KC_E)));
+        }
+    }
+
+    autocorrect_dict_cycle(true);
+    TapKeys(key_f, key_a, key_l, key_e, key_s);
+    autocorrect_dict_cycle(true);
 
     VERIFY_AND_CLEAR(driver);
 }
