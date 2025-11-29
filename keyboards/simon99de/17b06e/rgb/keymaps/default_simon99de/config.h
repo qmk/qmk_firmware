@@ -1,0 +1,1 @@
+#define MIDI_ADVANCED TRUE
