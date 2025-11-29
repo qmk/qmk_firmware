@@ -327,7 +327,7 @@ def generate_autocorrect_data(cli):
     autocorrect_data_h_lines.append(f'static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {{{sizes_str}}};')
 
     autocorrect_data_h_lines.append('')
-    autocorrect_data_h_lines.append('#define AUTOCORRECT_LARGE_LIBRARY // Enable large library support')
+    autocorrect_data_h_lines.append('#define AUTOCORRECT_LIBRARY_FORMAT_V2')
     autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {sum(sizes)}')
     autocorrect_data_h_lines.append(f'#define TYPO_BUFFER_SIZE {max(maxs)}')
     autocorrect_data_h_lines.append('')
