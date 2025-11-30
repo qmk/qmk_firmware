@@ -20,6 +20,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
--   **Bootmagic reset**: Hold down the key at (4,1) in the matrix and plug in the keyboard - this is somewhat unusual choice but our split halves are not symmetrical and we can't use (0,0) but instead a key that maps to the same matrix position regardless of which part is being connected to the computer and flashed.
--   **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
--   **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the key at (4,1) in the matrix and plug in the keyboard - this is somewhat unusual choice but our split halves are not symmetrical and we can't use (0,0) but instead a key that maps to the same matrix position regardless of which part is being connected to the computer and flashed.
+* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
