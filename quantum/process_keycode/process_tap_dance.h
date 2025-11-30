@@ -58,23 +58,41 @@ typedef struct {
     void (*layer_function)(uint8_t);
 } tap_dance_dual_role_t;
 
-#define ACTION_TAP_DANCE_DOUBLE(kc1, kc2) \
-    { .fn = {tap_dance_pair_on_each_tap, tap_dance_pair_finished, tap_dance_pair_reset, NULL}, .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}), }
+#define ACTION_TAP_DANCE_DOUBLE(kc1, kc2)                                                               \
+    {                                                                                                   \
+        .fn        = {tap_dance_pair_on_each_tap, tap_dance_pair_finished, tap_dance_pair_reset, NULL}, \
+        .user_data = (void *)&((tap_dance_pair_t){kc1, kc2}),                                           \
+    }
 
-#define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer) \
-    { .fn = {tap_dance_dual_role_on_each_tap, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_move}), }
+#define ACTION_TAP_DANCE_LAYER_MOVE(kc, layer)                                                                         \
+    {                                                                                                                  \
+        .fn        = {tap_dance_dual_role_on_each_tap, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, \
+        .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_move}),                                        \
+    }
 
-#define ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer) \
-    { .fn = {NULL, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_invert}), }
+#define ACTION_TAP_DANCE_LAYER_TOGGLE(kc, layer)                                            \
+    {                                                                                       \
+        .fn        = {NULL, tap_dance_dual_role_finished, tap_dance_dual_role_reset, NULL}, \
+        .user_data = (void *)&((tap_dance_dual_role_t){kc, layer, layer_invert}),           \
+    }
 
-#define ACTION_TAP_DANCE_FN(user_fn) \
-    { .fn = {NULL, user_fn, NULL, NULL}, .user_data = NULL, }
+#define ACTION_TAP_DANCE_FN(user_fn)              \
+    {                                             \
+        .fn        = {NULL, user_fn, NULL, NULL}, \
+        .user_data = NULL,                        \
+    }
 
 #define ACTION_TAP_DANCE_FN_ADVANCED(user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset) \
-    { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, NULL}, .user_data = NULL, }
+    {                                                                                                        \
+        .fn        = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, NULL},         \
+        .user_data = NULL,                                                                                   \
+    }
 
 #define ACTION_TAP_DANCE_FN_ADVANCED_WITH_RELEASE(user_fn_on_each_tap, user_fn_on_each_release, user_fn_on_dance_finished, user_fn_on_dance_reset) \
-    { .fn = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, user_fn_on_each_release}, .user_data = NULL, }
+    {                                                                                                                                              \
+        .fn        = {user_fn_on_each_tap, user_fn_on_dance_finished, user_fn_on_dance_reset, user_fn_on_each_release},                            \
+        .user_data = NULL,                                                                                                                         \
+    }
 
 #define TD_INDEX(code) QK_TAP_DANCE_GET_INDEX(code)
 #define TAP_DANCE_KEYCODE(state) TD(((tap_dance_action_t *)state) - tap_dance_actions)

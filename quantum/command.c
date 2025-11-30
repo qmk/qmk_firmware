@@ -629,7 +629,7 @@ static void mousekey_console_help(void) {
 bool mousekey_console(uint8_t code) {
     static uint8_t  param = 0;
     static uint8_t *pp    = NULL;
-    static char *   desc  = NULL;
+    static char    *desc  = NULL;
 
 #    if defined(NO_PRINT) || defined(USER_PRINT) /* -Wunused-parameter */
     (void)desc;

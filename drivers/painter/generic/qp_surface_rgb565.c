@@ -43,7 +43,7 @@ static inline void stream_pixdata_rgb565(surface_painter_device_t *surface, cons
 
 // Stream pixel data to the current write position in GRAM
 static bool qp_surface_pixdata_rgb565(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
-    painter_driver_t *        driver  = (painter_driver_t *)device;
+    painter_driver_t         *driver  = (painter_driver_t *)device;
     surface_painter_device_t *surface = (surface_painter_device_t *)driver;
     stream_pixdata_rgb565(surface, (const uint16_t *)pixel_data, native_pixel_count);
     return true;

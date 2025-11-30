@@ -20,7 +20,7 @@
 
 #define BV_64(shift) (((uint64_t)1) << (shift))
 #define GET_KEY_ARRAY(code) (((code) < 0x40) ? key_state[0] : ((code) < 0x80) ? key_state[1] : ((code) < 0xC0) ? key_state[2] : key_state[3])
-#define GET_CODE_INDEX(code) (((code) < 0x40) ? (code) : ((code) < 0x80) ? (code)-0x40 : ((code) < 0xC0) ? (code)-0x80 : (code)-0xC0)
+#define GET_CODE_INDEX(code) (((code) < 0x40) ? (code) : ((code) < 0x80) ? (code) - 0x40 : ((code) < 0xC0) ? (code) - 0x80 : (code) - 0xC0)
 #define KEY_STATE(code) (GET_KEY_ARRAY(code) & BV_64(GET_CODE_INDEX(code))) == BV_64(GET_CODE_INDEX(code))
 #define SET_KEY_ARRAY_STATE(code, val) \
     do {                               \

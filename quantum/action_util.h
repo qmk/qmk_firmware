@@ -135,8 +135,7 @@ void clear_oneshot_swaphands(void);
 void neutralize_flashing_modifiers(uint8_t active_mods);
 #endif
 #ifndef MODS_TO_NEUTRALIZE
-#    define MODS_TO_NEUTRALIZE \
-        { MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI) }
+#    define MODS_TO_NEUTRALIZE {MOD_BIT(KC_LEFT_ALT), MOD_BIT(KC_LEFT_GUI)}
 #endif
 
 #ifdef __cplusplus
