@@ -71,8 +71,7 @@ last_hit_t g_last_hit_tracker;
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 
 #ifndef LED_MATRIX_FLAG_STEPS
-#    define LED_MATRIX_FLAG_STEPS \
-        { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_NONE }
+#    define LED_MATRIX_FLAG_STEPS {LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_NONE}
 #endif
 static const uint8_t led_matrix_flag_steps[] = LED_MATRIX_FLAG_STEPS;
 #define LED_MATRIX_FLAG_STEPS_COUNT ARRAY_SIZE(led_matrix_flag_steps)

@@ -43,7 +43,7 @@ static inline void stream_pixdata_rgb888(surface_painter_device_t *surface, cons
 
 // Stream pixel data to the current write position in GRAM
 static bool qp_surface_pixdata_rgb888(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
-    painter_driver_t *        driver  = (painter_driver_t *)device;
+    painter_driver_t         *driver  = (painter_driver_t *)device;
     surface_painter_device_t *surface = (surface_painter_device_t *)driver;
     stream_pixdata_rgb888(surface, (const rgb_t *)pixel_data, native_pixel_count);
     return true;
@@ -84,7 +84,7 @@ static bool rgb888_target_pixdata_transfer(painter_driver_t *surface_driver, pai
     // Housekeeping of the amount of pixels to transfer
     uint32_t total_pixel_count = (8 * QUANTUM_PAINTER_PIXDATA_BUFFER_SIZE) / surface_driver->native_bits_per_pixel;
     uint32_t pixel_counter     = 0;
-    rgb_t *  target_buffer     = (rgb_t *)qp_internal_global_pixdata_buffer;
+    rgb_t   *target_buffer     = (rgb_t *)qp_internal_global_pixdata_buffer;
 
     // Fill the global pixdata area so that we can start transferring to the panel
     for (uint16_t y = t; y <= b; ++y) {
