@@ -168,7 +168,7 @@ static inline void process_tap_dance_action_on_dance_finished(tap_dance_action_t
 
 bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
-    tap_dance_state_t * state;
+    tap_dance_state_t  *state;
 
     if (!record->event.pressed) return false;
 
@@ -197,7 +197,7 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
     uint8_t             td_index;
     tap_dance_action_t *action;
-    tap_dance_state_t * state;
+    tap_dance_state_t  *state;
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
@@ -233,7 +233,7 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
 void tap_dance_task(void) {
     tap_dance_action_t *action;
-    tap_dance_state_t * state;
+    tap_dance_state_t  *state;
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
