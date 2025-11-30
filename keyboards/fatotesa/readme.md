@@ -4,7 +4,7 @@
 
 This is the QMK firmware for the [fat-o-tesa](https://github.com/stefangluszek/fat-o-tesa) keyboard.
 
--   Keyboard Maintainer: [Stefan Gluszek](https://github.com/stefangluszek)
+* Keyboard Maintainer: [Stefan Gluszek](https://github.com/stefangluszek)
 
 Make example for this keyboard (after setting up your build environment):
 
