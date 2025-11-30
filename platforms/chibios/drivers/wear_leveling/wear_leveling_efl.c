@@ -20,7 +20,7 @@ static flash_sector_t first_sector = UINT16_MAX;
 #endif // WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT
 
 static flash_sector_t sector_count = UINT16_MAX;
-static BaseFlash *    flash;
+static BaseFlash     *flash;
 static bool           flash_erased_is_one;
 static volatile bool  is_issuing_read    = false;
 static volatile bool  ecc_error_occurred = false;
