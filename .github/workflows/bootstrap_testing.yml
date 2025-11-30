@@ -2,17 +2,14 @@ name: Bootstrap Script Testing
 
 on:
   push:
-    branches: [bootstrap]
-    paths:
-      - "util/env-bootstrap.sh"
-      - ".github/workflows/bootstrap_testing.yml"
-      - "lib/python/**"
-  pull_request:
     branches: [master, develop, xap]
     paths:
       - "util/env-bootstrap.sh"
       - ".github/workflows/bootstrap_testing.yml"
-      - "lib/python/**"
+  pull_request:
+    paths:
+      - "util/env-bootstrap.sh"
+      - ".github/workflows/bootstrap_testing.yml"
   workflow_dispatch:
 
 permissions:
