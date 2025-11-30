@@ -72,7 +72,7 @@ bool qp_ili9486_init(painter_device_t device, painter_rotation_t rotation) {
 
 // waveshare variant needs some tweaks due to shift registers
 static bool qp_comms_spi_dc_reset_send_command_odd_cs_pulse(painter_device_t device, uint8_t cmd) {
-    painter_driver_t *              driver       = (painter_driver_t *)device;
+    painter_driver_t               *driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
     gpio_write_pin_low(comms_config->spi_config.chip_select_pin);
@@ -83,7 +83,7 @@ static bool qp_comms_spi_dc_reset_send_command_odd_cs_pulse(painter_device_t dev
 }
 
 static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, const void *data, uint32_t byte_count) {
-    painter_driver_t *              driver       = (painter_driver_t *)device;
+    painter_driver_t               *driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
     uint32_t       bytes_remaining = byte_count;
@@ -113,7 +113,7 @@ static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, con
 }
 
 static uint32_t qp_ili9486_send_data_toggling(painter_device_t device, const uint8_t *data, uint32_t byte_count) {
-    painter_driver_t *              driver       = (painter_driver_t *)device;
+    painter_driver_t               *driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
     uint32_t ret;
@@ -147,7 +147,7 @@ static bool qp_comms_spi_send_command_sequence_odd_cs_pulse(painter_device_t dev
 }
 
 static bool qp_ili9486_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    painter_driver_t *                          driver = (painter_driver_t *)device;
+    painter_driver_t                           *driver = (painter_driver_t *)device;
     tft_panel_dc_reset_painter_driver_vtable_t *vtable = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
 
     // Fix up the drawing location if required

@@ -54,7 +54,7 @@ static SPLIT_MUTABLE pin_t direct_pins[MATRIX_ROWS_PER_HAND][MATRIX_COLS] = DIRE
 static SPLIT_MUTABLE_ROW pin_t row_pins[MATRIX_ROWS_PER_HAND] = MATRIX_ROW_PINS;
 #    endif // MATRIX_ROW_PINS
 #    ifdef MATRIX_COL_PINS
-static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS]          = MATRIX_COL_PINS;
+static SPLIT_MUTABLE_COL pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #    endif // MATRIX_COL_PINS
 #endif
 
