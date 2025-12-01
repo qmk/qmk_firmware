@@ -92,7 +92,7 @@ static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, con
 
     gpio_write_pin_high(comms_config->dc_pin);
     while (bytes_remaining > 0) {
-        uint32_t bytes_this_loop = QP_MIN(bytes_remaining, max_msg_length);
+        uint32_t bytes_this_loop = MIN(bytes_remaining, max_msg_length);
         bool     odd_bytes       = bytes_this_loop & 1;
 
         // send data
