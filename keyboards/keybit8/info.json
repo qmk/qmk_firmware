@@ -1,0 +1,115 @@
+{
+  "keyboard_name": "Keybit8",
+  "manufacturer": "Shirogane Lab",
+  "maintainer": "Shirogane Lab",
+  "usb": {
+    "vid": "0xFEED",
+    "pid": "0x0000",
+    "device_version": "0.0.1"
+  },
+  "bootloader": "caterina",
+  "processor": "atmega32u4",
+  "features": {
+    "bootmagic": true,
+    "extrakey": true,
+    "mousekey": false,
+    "nkro": false,
+    "backlight": false,
+    "rgblight": false,
+    "audio": false,
+    "encoder": false,
+    "console": true,
+    "command": false
+  },
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+    "cols": [
+      "D4",
+      "C6",
+      "D7",
+      "E6"
+    ],
+    "rows": [
+      "F4",
+      "F5"
+    ]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {
+          "label": "k00",
+          "x": 0,
+          "y": 0,
+          "matrix": [
+            0,
+            0
+          ]
+        },
+        {
+          "label": "k01",
+          "x": 1,
+          "y": 0,
+          "matrix": [
+            0,
+            1
+          ]
+        },
+        {
+          "label": "k02",
+          "x": 2,
+          "y": 0,
+          "matrix": [
+            0,
+            2
+          ]
+        },
+        {
+          "label": "k03",
+          "x": 3,
+          "y": 0,
+          "matrix": [
+            0,
+            3
+          ]
+        },
+        {
+          "label": "k10",
+          "x": 0,
+          "y": 1,
+          "matrix": [
+            1,
+            0
+          ]
+        },
+        {
+          "label": "k11",
+          "x": 1,
+          "y": 1,
+          "matrix": [
+            1,
+            1
+          ]
+        },
+        {
+          "label": "k12",
+          "x": 2,
+          "y": 1,
+          "matrix": [
+            1,
+            2
+          ]
+        },
+        {
+          "label": "k13",
+          "x": 3,
+          "y": 1,
+          "matrix": [
+            1,
+            3
+          ]
+        }
+      ]
+    }
+  }
+}
