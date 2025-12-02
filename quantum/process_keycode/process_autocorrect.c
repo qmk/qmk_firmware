@@ -46,6 +46,16 @@ uint8_t        typo_buffer_size;
 
 const uint8_t number_dicts = N_DICTS;
 
+static inline autocorrect_state_t autocorrect_read_state(autocorrect_state_t state) {
+    autocorrect_state_t new_state = 0;
+
+    for (autocorrect_state_t i = 0; i < AUTOCORRECT_NODE_SIZE; ++i) {
+        new_state |= (autocorrect_state_t)pgm_read_byte(current_dict_data + state  + 1 + i) << (8 * i);
+    }
+
+    return new_state;
+}
+
 /**
  * @brief Configure variables according to the selected dictionary
  *
@@ -288,7 +298,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
             // Follow link to child node.
 
             // Check for match in node with single child.
-            memcpy_P(&state, current_dict_data + state + 1, AUTOCORRECT_NODE_SIZE);
+            state = autocorrect_read_state(state);
         } else if (code != key_i) {
             return true;
         } else if (!(code = pgm_read_byte(current_dict_data + (++state)))) {
