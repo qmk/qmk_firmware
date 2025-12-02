@@ -1,0 +1,28 @@
+{
+  "name": "Keybit8",
+  "vendorId": "0x5957",
+  "productId": "0x8000",
+  "lighting": "none",
+  "matrix": {
+    "rows": 2,
+    "cols": 4
+  },
+  "layouts": {
+    "labels": [],
+    "keymap": [
+      [
+        "0,0",
+        "0,1",
+        "0,2",
+        "0,3"
+      ],
+      [
+        "1,0",
+        "1,1",
+        "1,2",
+        "1,3"
+      ]
+    ]
+  }
+}
+
