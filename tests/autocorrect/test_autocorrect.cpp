@@ -12,6 +12,7 @@ class AutoCorrect : public TestFixture {
    public:
     void SetUp() override {
         autocorrect_enable();
+        autocorrect_init();
     }
     // Convenience function to tap `key`.
     void TapKey(KeymapKey key) {

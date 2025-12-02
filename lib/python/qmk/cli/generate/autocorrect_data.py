@@ -166,7 +166,7 @@ def check_typo_against_dictionary(typo: str, line_number: int, correct_words) ->
                 cli.log.warning('{fg_yellow}Warning:%d:{fg_reset} Typo "{fg_cyan}%s{fg_reset}" would falsely trigger on correctly spelled word "{fg_cyan}%s{fg_reset}".', line_number, typo, word)
 
 
-def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any]) -> List[int]:
+def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any]) -> Tuple[List[int], int]:
     """Serializes trie and correction data in a form readable by the C code.
   Args:
     autocorrections: List of (typo, correction) tuples.
@@ -213,7 +213,7 @@ def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any])
 
     traverse(trie)
 
-    def serialize(e: Dict[str, Any]) -> List[int]:
+    def serialize(e: Dict[str, Any], link_byte_count: int) -> List[int]:
         if not e['links']:  # Handle a leaf table entry.
             return e['data']
         elif len(e['links']) == 1:  # Handle a chain table entry.
@@ -221,25 +221,55 @@ def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any])
         else:  # Handle a branch table entry.
             data = []
             for c, link in zip(e['chars'], e['links']):
-                data += [TYPO_CHARS[c] | (0 if data else 64)] + encode_link(link)
+                data += [TYPO_CHARS[c] | (0 if data else 64)] + encode_link(link, link_byte_count)
             return data + [0]
 
-    byte_offset = 0
-    for e in table:  # To encode links, first compute byte offset of each entry.
-        e['byte_offset'] = byte_offset
-        byte_offset += len(serialize(e))
-        assert 0 <= byte_offset <= 0xffffffff
+    def serialized_entry_length(entry: Dict[str, Any], link_byte_count: int) -> int:
+        if not entry['links']:
+            return len(entry['data'])
+        elif len(entry['links']) == 1:
+            return len(entry['chars']) + 1
+        else:
+            return (len(entry['chars']) * (1 + link_byte_count)) + 1
 
-    return [b for e in table for b in serialize(e)]  # Serialize final table.
+    def try_assign_offsets(link_byte_count: int) -> Tuple[int, bool]:
+        byte_offset = 0
+        max_offset  = (1 << (link_byte_count * 8)) - 1
 
+        for entry in table:
+            entry['byte_offset'] = byte_offset
+            byte_offset += serialized_entry_length(entry, link_byte_count)
 
-def encode_link(link: Dict[str, Any]) -> List[int]:
-    """Encodes a node link as four bytes."""
-    byte_offset = link['byte_offset']
-    if not (0 <= byte_offset <= 0xffffffff):
-        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 4GB limit. Try reducing the autocorrection dict to fewer entries.')
+            if not (0 <= byte_offset <= max_offset):
+                return byte_offset, False
+
+        return byte_offset, True
+
+    link_byte_count = 2
+    byte_offset, success = try_assign_offsets(link_byte_count)
+
+    if not success:
+        cli.log.info('Autocorrection table exceeds 64KB, switching to 3-byte node links.')
+        link_byte_count = 3
+        byte_offset, success = try_assign_offsets(link_byte_count)
+
+    if not success:
+        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 16MB limit. Try reducing the autocorrection dict to fewer entries.')
         maybe_exit(1)
-    return [byte_offset & 255, (byte_offset >> 8) & 255, (byte_offset >> 16) & 255, (byte_offset >> 24) & 255]
+
+    serialized_data = [b for e in table for b in serialize(e, link_byte_count)]  # Serialize final table.
+    assert len(serialized_data) == byte_offset
+
+    return serialized_data, link_byte_count
+
+
+def encode_link(link: Dict[str, Any], link_byte_count: int) -> List[int]:
+    """Encodes a node link using `link_byte_count` bytes."""
+    byte_offset = link['byte_offset']
+    if not (0 <= byte_offset < (1 << (link_byte_count * 8))):
+        cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds the supported limit. Try reducing the autocorrection dict to fewer entries.')
+        maybe_exit(1)
+    return [(byte_offset >> (8 * i)) & 255 for i in range(link_byte_count)]
 
 
 def typo_len(e: Tuple[str, str]) -> int:
@@ -257,7 +287,8 @@ class AutocorrectDict:
         self.autocorrections = parse_file(self.path)
 
         self.trie = make_trie(self.autocorrections)
-        self.data = serialize_trie(self.autocorrections, self.trie)
+        self.data, self.link_byte_count = serialize_trie(self.autocorrections, self.trie)
+
         assert all(0 <= b <= 255 for b in self.data)
 
         self.min_typo = min(self.autocorrections, key=typo_len)[0]
@@ -290,7 +321,7 @@ def generate_autocorrect_data(cli):
     autocorrect_data_h_lines.append(f'// Autocorrection dictionary ({n_entries} entries):')
 
     # collect all information, and write the corrections as comments
-    data, maxs, mins, sizes = [], [], [], []
+    data, maxs, mins, sizes, nodes = [], [], [], [], []
 
     for dict_ in autocorrect_dicts:
         autocorrect_data_h_lines.append(f'// From {dict_.path}')
@@ -302,6 +333,7 @@ def generate_autocorrect_data(cli):
         maxs.append(len(dict_.max_typo))
         mins.append(len(dict_.min_typo))
         sizes.append(len(dict_.data))
+        nodes.append(dict_.link_byte_count)
 
     assert(sum(sizes) == len(data))
 
@@ -317,6 +349,7 @@ def generate_autocorrect_data(cli):
     maxs_str = list_to_str(maxs)
     mins_str = list_to_str(mins)
     sizes_str = list_to_str(sizes)
+    nodes_str = list_to_str(nodes)
 
     autocorrect_data_h_lines.append('')
     autocorrect_data_h_lines.append(f'#define N_DICTS {len(autocorrect_dicts)}')
@@ -325,9 +358,8 @@ def generate_autocorrect_data(cli):
     autocorrect_data_h_lines.append(f'static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {{{mins_str}}};')
     autocorrect_data_h_lines.append(f'static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {{{maxs_str}}};')
     autocorrect_data_h_lines.append(f'static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {{{sizes_str}}};')
-
+    autocorrect_data_h_lines.append(f'static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM    = {{{nodes_str}}};')
     autocorrect_data_h_lines.append('')
-    autocorrect_data_h_lines.append('#define AUTOCORRECT_LIBRARY_FORMAT_V2')
     autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {sum(sizes)}')
     autocorrect_data_h_lines.append(f'#define TYPO_BUFFER_SIZE {max(maxs)}')
     autocorrect_data_h_lines.append('')

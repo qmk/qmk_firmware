@@ -20,19 +20,16 @@
 #    include "autocorrect_data_default.h"
 #endif
 
-#ifdef AUTOCORRECT_LIBRARY_FORMAT_V2
-#    define AUTOCORRECT_NODE_SIZE 4
-typedef uint32_t autocorrect_state_t;
-#else
+#ifndef N_DICTS
 #    pragma message "Autocorrect is using the legacy dictionary format. Please update to the new format."
 #    define N_DICTS 1
-#    define AUTOCORRECT_NODE_SIZE 2
-typedef uint16_t autocorrect_state_t;
 
 static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
 static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MIN_LENGTH};
 static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MAX_LENGTH};
 static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {DICTIONARY_SIZE};
+static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM   = {2};
+
 #    define TYPO_BUFFER_SIZE AUTOCORRECT_MAX_LENGTH
 #endif
 
@@ -40,17 +37,18 @@ static const uint8_t *current_dict_data;
 static uint16_t       current_dict_min_length;
 static uint16_t       current_dict_max_length;
 static uint32_t       current_dict_size;
+static uint8_t        current_dict_node_size;
 
 static uint8_t typo_buffer[TYPO_BUFFER_SIZE] = {KC_SPC};
 uint8_t        typo_buffer_size;
 
 const uint8_t number_dicts = N_DICTS;
 
-static inline autocorrect_state_t autocorrect_read_state(autocorrect_state_t state) {
-    autocorrect_state_t new_state = 0;
+static inline uint32_t autocorrect_read_state(uint32_t state) {
+    uint32_t new_state = 0;
 
-    for (autocorrect_state_t i = 0; i < AUTOCORRECT_NODE_SIZE; ++i) {
-        new_state |= (autocorrect_state_t)pgm_read_byte(current_dict_data + state  + 1 + i) << (8 * i);
+    for (uint32_t i = 0; i < current_dict_node_size; ++i) {
+        new_state |= (uint32_t)pgm_read_byte(current_dict_data + state + 1 + i) << (8 * i);
     }
 
     return new_state;
@@ -76,6 +74,7 @@ void autocorrect_init_dict(void) {
     current_dict_min_length = pgm_read_word(&autocorrect_min_lengths[dict_index]);
     current_dict_max_length = pgm_read_word(&autocorrect_max_lengths[dict_index]);
     current_dict_size       = pgm_read_dword(&autocorrect_sizes[dict_index]);
+    current_dict_node_size  = pgm_read_byte(&autocorrect_node_size[dict_index]);
 }
 
 /**
@@ -285,14 +284,14 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Check for typo in buffer using a trie stored in `current_dict_data`.
-    autocorrect_state_t state = 0;
+    uint32_t state = 0;
     uint8_t             code  = pgm_read_byte(current_dict_data + state);
     for (int8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 
         if (code & 64) { // Check for match in node with multiple children.
             code &= 63;
-            for (; code != key_i; code = pgm_read_byte(current_dict_data + (state += (AUTOCORRECT_NODE_SIZE + 1)))) {
+            for (; code != key_i; code = pgm_read_byte(current_dict_data + (state += (current_dict_node_size + 1)))) {
                 if (!code) return true;
             }
             // Follow link to child node.
