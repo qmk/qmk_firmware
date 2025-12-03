@@ -22,7 +22,7 @@
 
 // Logo LED animation state
 static uint16_t logo_animation_timer = 0;
-static uint8_t logo_animation_step = 0;
+static uint8_t  logo_animation_step  = 0;
 
 // Logo LED effect functions
 void Logo_Led_Set_Color(uint8_t r, uint8_t g, uint8_t b) {
@@ -36,7 +36,7 @@ void Logo_Led_Effect_Solid(void) {
         Logo_Led_Set_Color(0, 0, 0);
         return;
     }
-    
+
     HSV hsv = {Keyboard_Info.Logo_Hue, Keyboard_Info.Logo_Saturation, Keyboard_Info.Logo_Brightness};
     RGB rgb = hsv_to_rgb(hsv);
     Logo_Led_Set_Color(rgb.r, rgb.g, rgb.b);
@@ -47,12 +47,12 @@ void Logo_Led_Effect_Breathe(void) {
         Logo_Led_Set_Color(0, 0, 0);
         return;
     }
-    
+
     // Breathing effect - varies brightness
     uint8_t speed_multiplier = (Keyboard_Info.Logo_Speed + 1) * 10;
-    uint8_t breath_val = Led_Wave_Pwm_Tab[(logo_animation_step * speed_multiplier / 10) % 128];
-    uint8_t scaled_val = (breath_val * Keyboard_Info.Logo_Brightness) / 255;
-    
+    uint8_t breath_val       = Led_Wave_Pwm_Tab[(logo_animation_step * speed_multiplier / 10) % 128];
+    uint8_t scaled_val       = (breath_val * Keyboard_Info.Logo_Brightness) / 255;
+
     HSV hsv = {Keyboard_Info.Logo_Hue, Keyboard_Info.Logo_Saturation, scaled_val};
     RGB rgb = hsv_to_rgb(hsv);
     Logo_Led_Set_Color(rgb.r, rgb.g, rgb.b);
@@ -63,13 +63,13 @@ void Logo_Led_Effect_Breathe_RGB(void) {
         Logo_Led_Set_Color(0, 0, 0);
         return;
     }
-    
+
     // RGB breathing - cycles through hues while breathing
     uint8_t speed_multiplier = (Keyboard_Info.Logo_Speed + 1) * 10;
-    uint8_t breath_val = Led_Wave_Pwm_Tab[(logo_animation_step * speed_multiplier / 10) % 128];
-    uint8_t scaled_val = (breath_val * Keyboard_Info.Logo_Brightness) / 255;
-    uint8_t hue = (logo_animation_step * speed_multiplier / 5) % 256;
-    
+    uint8_t breath_val       = Led_Wave_Pwm_Tab[(logo_animation_step * speed_multiplier / 10) % 128];
+    uint8_t scaled_val       = (breath_val * Keyboard_Info.Logo_Brightness) / 255;
+    uint8_t hue              = (logo_animation_step * speed_multiplier / 5) % 256;
+
     HSV hsv = {hue, Keyboard_Info.Logo_Saturation, scaled_val};
     RGB rgb = hsv_to_rgb(hsv);
     Logo_Led_Set_Color(rgb.r, rgb.g, rgb.b);
@@ -80,11 +80,11 @@ void Logo_Led_Effect_Spectrum(void) {
         Logo_Led_Set_Color(0, 0, 0);
         return;
     }
-    
+
     // Spectrum/rainbow cycle - smoothly cycles through all hues
     uint8_t speed_multiplier = (Keyboard_Info.Logo_Speed + 1) * 5;
-    uint8_t hue = (logo_animation_step * speed_multiplier / 5) % 256;
-    
+    uint8_t hue              = (logo_animation_step * speed_multiplier / 5) % 256;
+
     HSV hsv = {hue, Keyboard_Info.Logo_Saturation, Keyboard_Info.Logo_Brightness};
     RGB rgb = hsv_to_rgb(hsv);
     Logo_Led_Set_Color(rgb.r, rgb.g, rgb.b);
@@ -95,15 +95,15 @@ void Logo_Led_Effect_Wave(void) {
         Logo_Led_Set_Color(0, 0, 0);
         return;
     }
-    
+
     // Wave effect - each LED slightly offset in brightness
     uint8_t speed_multiplier = (Keyboard_Info.Logo_Speed + 1) * 10;
-    
+
     for (uint8_t i = 0; i < LOGO_LED_COUNT; i++) {
-        uint8_t offset = (logo_animation_step * speed_multiplier / 10 + i * 25) % 128;
-        uint8_t wave_val = Led_Wave_Pwm_Tab[offset];
+        uint8_t offset     = (logo_animation_step * speed_multiplier / 10 + i * 25) % 128;
+        uint8_t wave_val   = Led_Wave_Pwm_Tab[offset];
         uint8_t scaled_val = (wave_val * Keyboard_Info.Logo_Brightness) / 255;
-        
+
         HSV hsv = {Keyboard_Info.Logo_Hue, Keyboard_Info.Logo_Saturation, scaled_val};
         RGB rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(LED_LOGO_INDEX + i, rgb.r, rgb.g, rgb.b);
@@ -115,16 +115,16 @@ void Logo_Led_Effect_Wave_RGB(void) {
         Logo_Led_Set_Color(0, 0, 0);
         return;
     }
-    
+
     // Wave RGB - wave effect with cycling hues
     uint8_t speed_multiplier = (Keyboard_Info.Logo_Speed + 1) * 10;
-    
+
     for (uint8_t i = 0; i < LOGO_LED_COUNT; i++) {
-        uint8_t offset = (logo_animation_step * speed_multiplier / 10 + i * 25) % 128;
-        uint8_t wave_val = Led_Wave_Pwm_Tab[offset];
+        uint8_t offset     = (logo_animation_step * speed_multiplier / 10 + i * 25) % 128;
+        uint8_t wave_val   = Led_Wave_Pwm_Tab[offset];
         uint8_t scaled_val = (wave_val * Keyboard_Info.Logo_Brightness) / 255;
-        uint8_t hue = (logo_animation_step * speed_multiplier / 10 + i * 50) % 256;
-        
+        uint8_t hue        = (logo_animation_step * speed_multiplier / 10 + i * 50) % 256;
+
         HSV hsv = {hue, Keyboard_Info.Logo_Saturation, scaled_val};
         RGB rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(LED_LOGO_INDEX + i, rgb.r, rgb.g, rgb.b);
@@ -141,7 +141,7 @@ void Logo_Led_Update(void) {
             logo_animation_step = 0;
         }
     }
-    
+
     // Apply the current effect
     switch (Keyboard_Info.Logo_Mode) {
         case LOGO_MODE_NONE:
@@ -280,17 +280,17 @@ void via_logo_led_command(uint8_t *data, uint8_t length) {
     // data[1] is the channel ID (2 = rgblight for logo LED)
     // data[2] is the value ID
     // data[3+] is the value data
-    
+
     uint8_t *command_id = &(data[0]);
     uint8_t *channel_id = &(data[1]);
     uint8_t *value_id   = &(data[2]);
     uint8_t *value_data = &(data[3]);
-    
+
     // Only handle channel 2 (rgblight/logo LED)
     if (*channel_id != 2) {
         return;
     }
-    
+
     switch (*command_id) {
         case 0x07: // id_custom_set_value
             switch (*value_id) {
@@ -299,7 +299,7 @@ void via_logo_led_command(uint8_t *data, uint8_t length) {
                     Save_Flash_Set();
                     break;
                 case 2: // effect
-                    Keyboard_Info.Logo_Mode = value_data[0];
+                    Keyboard_Info.Logo_Mode   = value_data[0];
                     Keyboard_Info.Logo_On_Off = (value_data[0] > 0) ? 1 : 0;
                     Save_Flash_Set();
                     break;
@@ -308,7 +308,7 @@ void via_logo_led_command(uint8_t *data, uint8_t length) {
                     Save_Flash_Set();
                     break;
                 case 4: // color (HSV)
-                    Keyboard_Info.Logo_Hue = value_data[0];
+                    Keyboard_Info.Logo_Hue        = value_data[0];
                     Keyboard_Info.Logo_Saturation = value_data[1];
                     Save_Flash_Set();
                     break;

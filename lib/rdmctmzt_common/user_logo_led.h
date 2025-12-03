@@ -28,25 +28,25 @@
 #if LOGO_LED_ENABLE
 
 // Default Logo LED configuration - can be overridden in keyboard's config.h
-#ifndef LED_LOGO_INDEX
-#    define LED_LOGO_INDEX 0
-#endif
+#    ifndef LED_LOGO_INDEX
+#        define LED_LOGO_INDEX 0
+#    endif
 
-#ifndef LOGO_LED_COUNT
-#    define LOGO_LED_COUNT 1
-#endif
+#    ifndef LOGO_LED_COUNT
+#        define LOGO_LED_COUNT 1
+#    endif
 
 // Logo LED effect modes (matching VIA config)
-#define LOGO_MODE_NONE          0
-#define LOGO_MODE_WAVE          1
-#define LOGO_MODE_WAVE1         2
-#define LOGO_MODE_WAVE2         3
-#define LOGO_MODE_FIXED_WAVE    4
-#define LOGO_MODE_WAVE_RGB      5
-#define LOGO_MODE_SPECTRUM      6
-#define LOGO_MODE_BREATHE       7
-#define LOGO_MODE_BREATHE_RGB   8
-#define LOGO_MODE_LIGHT         9
+#    define LOGO_MODE_NONE 0
+#    define LOGO_MODE_WAVE 1
+#    define LOGO_MODE_WAVE1 2
+#    define LOGO_MODE_WAVE2 3
+#    define LOGO_MODE_FIXED_WAVE 4
+#    define LOGO_MODE_WAVE_RGB 5
+#    define LOGO_MODE_SPECTRUM 6
+#    define LOGO_MODE_BREATHE 7
+#    define LOGO_MODE_BREATHE_RGB 8
+#    define LOGO_MODE_LIGHT 9
 
 // Logo LED functions
 void Logo_Led_Set_Color(uint8_t r, uint8_t g, uint8_t b);
