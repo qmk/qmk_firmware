@@ -8,7 +8,7 @@
             "label": "Lighting",
             "content": [
                 {
-                    "label": "logo rgb (not working on open fw)",
+                    "label": "Logo RGB",
                     "content": [
                         {
                             "showIf": "{id_qmk_rgblight_effect} != 0",

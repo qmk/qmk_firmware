@@ -60,3 +60,8 @@
 #define USER_BLE1_NAME "EVO80 BT1"
 #define USER_BLE2_NAME "EVO80 BT2"
 #define USER_BLE3_NAME "EVO80 BT3"
+
+// Logo LED configuration
+#define LOGO_LED_ENABLE 1
+#define LED_LOGO_INDEX 91  // First non-key LED in the chain (indices 91-95 are non-key LEDs)
+#define LOGO_LED_COUNT 5   // Number of Logo LEDs (uses indices 91-95)

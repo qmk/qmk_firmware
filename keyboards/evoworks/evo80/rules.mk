@@ -37,6 +37,7 @@ SRC += rdmctmzt_common.c \
 	user_eeprom.c \
 	user_emi.c \
 	user_led_custom.c \
+	user_logo_led.c \
 	user_spi.c \
 	user_system.c
 

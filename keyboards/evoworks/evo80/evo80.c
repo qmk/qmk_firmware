@@ -427,6 +427,11 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         User_Point_Show();
     }
 
+#if LOGO_LED_ENABLE
+    // Update Logo LED effects
+    Logo_Led_Update();
+#endif
+
     return false;
 }
 
@@ -463,6 +468,13 @@ bool led_update_user(led_t led_state) {
 
     return true; // Continue with default LED handling
 }
+
+#if LOGO_LED_ENABLE
+// VIA custom handler for Logo LED settings (channel 2 - rgblight channel)
+void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
+    via_logo_led_command(data, length);
+}
+#endif // LOGO_LED_ENABLE
 
 void housekeeping_task_user(void) {
     // Check if mode indicator timer has expired
@@ -794,6 +806,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
             return true;
+#if LOGO_LED_ENABLE
+        case LOGO_TOG:
+        case LOGO_MOD:
+        case LOGO_RMOD:
+        case LOGO_HUI:
+        case LOGO_HUD:
+        case LOGO_SAI:
+        case LOGO_SAD:
+        case LOGO_VAI:
+        case LOGO_VAD:
+        case LOGO_SPI:
+        case LOGO_SPD:
+            // Handle Logo LED keycodes via library function
+            if (process_logo_led_keycodes(keycode, record)) {
+                return false; // Keycode was handled
+            }
+            return true;
+#endif // LOGO_LED_ENABLE
         default:
             return true; // Process all other keycodes normally
     }
