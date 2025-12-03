@@ -32,6 +32,7 @@ BLUETOOTH_CUSTOM = yes
 VPATH += lib/rdmctmzt_common
 EXTRAINCDIRS += $(TOP_DIR)/lib/rdmctmzt_common
 SRC += rdmctmzt_common.c \
+	keyboard_common.c \
 	three_mode.c \
 	user_battery.c \
 	user_eeprom.c \

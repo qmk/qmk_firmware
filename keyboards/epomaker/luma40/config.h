@@ -60,3 +60,14 @@
 #define USER_BLE1_NAME "LUMA40-1"
 #define USER_BLE2_NAME "LUMA40-2"
 #define USER_BLE3_NAME "LUMA40-3"
+
+// LED Index Definitions for keyboard_common library
+#define LED_CONNECTION_INDEX 11 // Connection type indicator (BLE/2.4G/USB)
+#define LED_CAP_INDEX 12        // Caps Lock indicator
+#define LED_WIN_L_INDEX 40      // Win Lock indicator
+#define LED_BATT_INDEX 36       // Battery status indicator
+#define LED_BLE_1_INDEX 1       // 'Q' key position
+#define LED_BLE_2_INDEX 2       // 'W' key position
+#define LED_BLE_3_INDEX 3       // 'E' key position
+#define LED_2P4G_INDEX 4        // 'R' key position
+#define LED_USB_INDEX 5         // 'T' key position
