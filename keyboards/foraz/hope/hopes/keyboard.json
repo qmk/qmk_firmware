@@ -1,31 +1,15 @@
 {
-    "manufacturer": "ForaZ",
     "keyboard_name": "Hope-S Alpha RC1",
-    "maintainer": "Gondolindrim",
     "usb": {
-       "vid": "0x465A",
        "pid": "0x4853",
        "device_version": "0.0.1"
     },
-    "processor": "STM32F411",
-    "bootloader": "stm32-dfu",
     "matrix_pins": {
        "cols": ["A1", "B1", "B10", "B12", "B4", "A10", "C15", "A8", "B15", "C14", "C13", "B9", "A15", "B8", "B5", "B4", "B3"],
        "rows": ["A2", "A3", "A4", "A7", "B13", "A0"]
     },
     "features": {
-        "backlight": true,
-        "bootmagic": true,
-        "extrakey": true,
-        "nkro": true
-    },
-    "build": {
-        "lto": true
-    },
-    "eeprom": {
-        "wear_leveling": {
-            "backing_size": 4096
-        }
+        "backlight": true
     },
     "backlight": {
         "levels": 20,
@@ -35,7 +19,6 @@
         "caps_lock": "A6",
         "scroll_lock": "A5"
     },
-    "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -29,9 +29,9 @@ bool led_update_kb(led_t led_state) {
         uint8_t s = rgblight_get_sat();
         uint8_t v = rgblight_get_val();
 
-        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 0) : rgblight_sethsv_at(HSV_OFF, 0); 
-        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 1) : rgblight_sethsv_at(HSV_OFF, 1); 
-        led_state.num_lock ?  rgblight_sethsv_at(h,s,v, 2) : rgblight_sethsv_at(HSV_OFF, 2); 
+        led_state.caps_lock   ? rgblight_sethsv_at(h,s,v, 0) : rgblight_sethsv_at(HSV_OFF, 0); 
+        led_state.caps_lock   ? rgblight_sethsv_at(h,s,v, 1) : rgblight_sethsv_at(HSV_OFF, 1); 
+        led_state.scroll_lock ? rgblight_sethsv_at(h,s,v, 2) : rgblight_sethsv_at(HSV_OFF, 2); 
     }   
     return res;
 }
