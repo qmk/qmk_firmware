@@ -32,6 +32,7 @@
 #include "user_eeprom.h"
 #include "user_emi.h"
 #include "user_led_custom.h"
+#include "user_logo_led.h"
 #include "user_spi.h"
 #include "user_system.h"
 
@@ -79,7 +80,20 @@ enum Custom_Keycodes {
     QMK_KB_BLE2_PAIR,
     QMK_KB_BLE3_PAIR,
     QMK_DEBUG_SWITCH,    // Debug mode switch position
-    QMK_MAC_WIN_CH       // Windows/Mac mode switch
+    QMK_MAC_WIN_CH,      // Windows/Mac mode switch
+#if LOGO_LED_ENABLE
+    LOGO_TOG,            // Toggle Logo LED on/off
+    LOGO_MOD,            // Cycle Logo LED mode forward
+    LOGO_RMOD,           // Cycle Logo LED mode reverse
+    LOGO_HUI,            // Increase Logo LED hue
+    LOGO_HUD,            // Decrease Logo LED hue
+    LOGO_SAI,            // Increase Logo LED saturation
+    LOGO_SAD,            // Decrease Logo LED saturation
+    LOGO_VAI,            // Increase Logo LED brightness
+    LOGO_VAD,            // Decrease Logo LED brightness
+    LOGO_SPI,            // Increase Logo LED effect speed
+    LOGO_SPD,            // Decrease Logo LED effect speed
+#endif
 };
 
 enum Custom_KeyModes {
@@ -100,6 +114,11 @@ enum Custom_Ble_24G_Status_S {
     BLE_24G_RETURN
 };
 
+// Logo LED feature flag - define in keyboard's config.h to enable
+#ifndef LOGO_LED_ENABLE
+#    define LOGO_LED_ENABLE 0
+#endif
+
 typedef struct {
 	uint8_t Key_Mode;
 	uint8_t Ble_Channel;
@@ -107,6 +126,14 @@ typedef struct {
 	uint8_t Nkro;
 	uint8_t Mac_Win_Mode;
 	uint8_t Win_Lock;
+#if LOGO_LED_ENABLE
+	uint8_t Logo_On_Off;        // Logo LED on/off state
+	uint8_t Logo_Mode;          // Logo LED effect mode
+	uint8_t Logo_Hue;           // Logo LED hue (0-255)
+	uint8_t Logo_Saturation;    // Logo LED saturation (0-255)
+	uint8_t Logo_Brightness;    // Logo LED brightness (0-255)
+	uint8_t Logo_Speed;         // Logo LED effect speed (0-4)
+#endif
 } Keyboard_Info_t;
 
 typedef struct {
@@ -179,6 +206,21 @@ typedef enum {
 #define TEST_CL	QMK_TEST_COLOUR
 #define DBG_SW  QMK_DEBUG_SWITCH
 #define MW_CH   QMK_MAC_WIN_CH
+
+// Logo LED shortnames (only available when LOGO_LED_ENABLE is set)
+#if LOGO_LED_ENABLE
+#define LG_TOG  LOGO_TOG
+#define LG_MOD  LOGO_MOD
+#define LG_RMOD LOGO_RMOD
+#define LG_HUI  LOGO_HUI
+#define LG_HUD  LOGO_HUD
+#define LG_SAI  LOGO_SAI
+#define LG_SAD  LOGO_SAD
+#define LG_VAI  LOGO_VAI
+#define LG_VAD  LOGO_VAD
+#define LG_SPI  LOGO_SPI
+#define LG_SPD  LOGO_SPD
+#endif
 
 extern Keyboard_Info_t Keyboard_Info;
 extern Keyboard_Status_t Keyboard_Status;

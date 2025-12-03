@@ -24,6 +24,14 @@ Keyboard_Info_t Keyboard_Info = {
     .Nkro = INIT_ALL_SIX_KEY,
     .Mac_Win_Mode = INIT_WIN_MAC_MODE,
     .Win_Lock = INIT_WIN_LOCK_NLOCK,
+#if LOGO_LED_ENABLE
+    .Logo_On_Off = 1,           // Logo LED on by default
+    .Logo_Mode = 0,             // Default mode: solid color
+    .Logo_Hue = 0,              // Default hue: red
+    .Logo_Saturation = 255,     // Full saturation
+    .Logo_Brightness = 180,     // Default brightness
+    .Logo_Speed = 2,            // Medium speed
+#endif
 };
 
 Keyboard_Status_t Keyboard_Status = {
@@ -440,6 +448,14 @@ void Init_Keyboard_Infomation(void) {
         Keyboard_Info.Nkro = INIT_ALL_KEY;
         Keyboard_Info.Mac_Win_Mode = INIT_WIN_MODE;
         Keyboard_Info.Win_Lock = INIT_WIN_NLOCK;
+#if LOGO_LED_ENABLE
+        Keyboard_Info.Logo_On_Off = 1;
+        Keyboard_Info.Logo_Mode = 0;
+        Keyboard_Info.Logo_Hue = 0;
+        Keyboard_Info.Logo_Saturation = 255;
+        Keyboard_Info.Logo_Brightness = 180;
+        Keyboard_Info.Logo_Speed = 2;
+#endif
     } else if ((Keyboard_Info.Key_Mode == 0) && (Keyboard_Info.Ble_Channel == 0) && (Keyboard_Info.Batt_Number == 0)  && (Keyboard_Info.Nkro == 0) && (Keyboard_Info.Mac_Win_Mode == 0) && (Keyboard_Info.Win_Lock == 0)) {
         Keyboard_Info.Key_Mode = INIT_WORK_MODE;
         Keyboard_Info.Ble_Channel = INIT_BLE_CHANNEL;
@@ -447,6 +463,14 @@ void Init_Keyboard_Infomation(void) {
         Keyboard_Info.Nkro = INIT_ALL_KEY;
         Keyboard_Info.Mac_Win_Mode = INIT_WIN_MODE;
         Keyboard_Info.Win_Lock = INIT_WIN_NLOCK;
+#if LOGO_LED_ENABLE
+        Keyboard_Info.Logo_On_Off = 1;
+        Keyboard_Info.Logo_Mode = 0;
+        Keyboard_Info.Logo_Hue = 0;
+        Keyboard_Info.Logo_Saturation = 255;
+        Keyboard_Info.Logo_Brightness = 180;
+        Keyboard_Info.Logo_Speed = 2;
+#endif
     } else {
         if (Keyboard_Info.Key_Mode > QMK_USB_MODE) {
             Keyboard_Info.Key_Mode = QMK_USB_MODE;
@@ -471,6 +495,20 @@ void Init_Keyboard_Infomation(void) {
         if (Keyboard_Info.Win_Lock > INIT_WIN_LOCK) {
             Keyboard_Info.Win_Lock = INIT_WIN_NLOCK;
         }
+
+#if LOGO_LED_ENABLE
+        // Validate Logo LED settings
+        if (Keyboard_Info.Logo_On_Off > 1) {
+            Keyboard_Info.Logo_On_Off = 1;
+        }
+        if (Keyboard_Info.Logo_Mode > 9) {
+            Keyboard_Info.Logo_Mode = 0;
+        }
+        if (Keyboard_Info.Logo_Speed > 4) {
+            Keyboard_Info.Logo_Speed = 2;
+        }
+        // Hue, Saturation, Brightness can be any value 0-255
+#endif
     }
 
     // Read current mode switch position and set initial mode accordingly
