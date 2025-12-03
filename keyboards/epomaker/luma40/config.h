@@ -56,7 +56,7 @@
 #define RGB_MATRIX_SLEEP
 
 // BLE configuration for LUMA40
-#define USER_BLE_ID (0X0040) // LUMA40 BLE ID
+#define USER_BLE_ID (0X00A5) // LUMA40 BLE ID
 #define USER_BLE1_NAME "LUMA40-1"
 #define USER_BLE2_NAME "LUMA40-2"
 #define USER_BLE3_NAME "LUMA40-3"
