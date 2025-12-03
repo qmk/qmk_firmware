@@ -121,7 +121,7 @@ Linear resonant actuators (LRA, also know as a linear vibrator) works different 
 
 #### DRV2605L waveform library
 
-DRV2605L comes with preloaded library of various waveform sequences that can be called and played. If writing a macro, these waveforms can be played using `DRV_pulse(*sequence name or number*)`
+DRV2605L comes with preloaded library of various waveform sequences that can be called and played. If writing a macro, these waveforms can be played using `drv2605l_pulse(*sequence name or number*)` after adding `#include "drv2605l.h"`.
 
 List of waveform sequences from the datasheet:
 

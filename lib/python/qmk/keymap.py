@@ -32,6 +32,7 @@ __INCLUDES__
 
 __KEYMAP_GOES_HERE__
 __ENCODER_MAP_GOES_HERE__
+__DIP_SWITCH_MAP_GOES_HERE__
 __MACRO_OUTPUT_GOES_HERE__
 
 #ifdef OTHER_KEYMAP_C
@@ -63,6 +64,19 @@ def _generate_encodermap_table(keymap_json):
         encoder_keycode_txt = ', '.join([f'ENCODER_CCW_CW({_strip_any(e["ccw"])}, {_strip_any(e["cw"])})' for e in layer])
         lines.append('    [%s] = {%s}' % (layer_num, encoder_keycode_txt))
     lines.extend(['};', '#endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)'])
+    return lines
+
+
+def _generate_dipswitchmap_table(keymap_json):
+    lines = [
+        '#if defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)',
+        'const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {',
+    ]
+    for index, switch in enumerate(keymap_json['dip_switches']):
+        if index != 0:
+            lines[-1] = lines[-1] + ','
+        lines.append(f'    DIP_SWITCH_OFF_ON({_strip_any(switch["off"])}, {_strip_any(switch["on"])})')
+    lines.extend(['};', '#endif // defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)'])
     return lines
 
 
@@ -285,6 +299,12 @@ def generate_c(keymap_json):
         encoder_txt = _generate_encodermap_table(keymap_json)
         encodermap = '\n'.join(encoder_txt)
     new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
+
+    dipswitchmap = ''
+    if 'dip_switches' in keymap_json and keymap_json['dip_switches'] is not None:
+        dip_txt = _generate_dipswitchmap_table(keymap_json)
+        dipswitchmap = '\n'.join(dip_txt)
+    new_keymap = new_keymap.replace('__DIP_SWITCH_MAP_GOES_HERE__', dipswitchmap)
 
     macros = ''
     if 'macros' in keymap_json and keymap_json['macros'] is not None:
