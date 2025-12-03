@@ -61,7 +61,18 @@
 #define USER_BLE2_NAME "EVO80 BT2"
 #define USER_BLE3_NAME "EVO80 BT3"
 
+// LED Index Definitions for keyboard_common library
+#define LED_CONNECTION_INDEX 0 // Connection type indicator (BLE/2.4G/USB)
+#define LED_CAP_INDEX 52       // Caps Lock indicator
+#define LED_WIN_L_INDEX 81     // Win Lock indicator
+#define LED_BATT_INDEX 86      // Battery status indicator
+#define LED_BLE_1_INDEX 18     // 'Q' key position
+#define LED_BLE_2_INDEX 19     // 'W' key position
+#define LED_BLE_3_INDEX 20     // 'E' key position
+#define LED_2P4G_INDEX 21      // 'R' key position
+#define LED_USB_INDEX 17       // 'Tab' key position
+
 // Logo LED configuration
 #define LOGO_LED_ENABLE 1
-#define LED_LOGO_INDEX 91  // First non-key LED in the chain (indices 91-95 are non-key LEDs)
-#define LOGO_LED_COUNT 5   // Number of Logo LEDs (uses indices 91-95)
+#define LED_LOGO_INDEX 91 // First non-key LED in the chain (indices 91-95 are non-key LEDs)
+#define LOGO_LED_COUNT 5  // Number of Logo LEDs (uses indices 91-95)
