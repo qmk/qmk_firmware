@@ -19,6 +19,11 @@
 
 // Custom configuration
 // LUMA40 mode indicator LED indices - using keys that should be visible
+#undef LED_BLE_1_INDEX
+#undef LED_BLE_2_INDEX
+#undef LED_BLE_3_INDEX
+#undef LED_2P4G_INDEX
+#undef LED_USB_INDEX
 #define LED_BLE_1_INDEX (13) // 'A' key position
 #define LED_BLE_2_INDEX (14) // 'S' key position
 #define LED_BLE_3_INDEX (15) // 'D' key position
