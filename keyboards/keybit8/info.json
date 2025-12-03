@@ -3,8 +3,8 @@
   "manufacturer": "Shirogane Lab",
   "maintainer": "Shirogane Lab",
   "usb": {
-    "vid": "0xFEED",
-    "pid": "0x0000",
+    "vid": "0x5957",
+    "pid": "0x8000",
     "device_version": "0.0.1"
   },
   "bootloader": "caterina",
@@ -17,9 +17,7 @@
     "backlight": false,
     "rgblight": false,
     "audio": false,
-    "encoder": false,
-    "console": true,
-    "command": false
+    "encoder": false
   },
   "diode_direction": "COL2ROW",
   "matrix_pins": {
@@ -113,3 +111,4 @@
     }
   }
 }
+
