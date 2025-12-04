@@ -42,6 +42,3 @@ def test_generate_json_pytest_basic():
 def test_parse_keymap_c():
     parsed_keymap_c = qmk.keymap.parse_keymap_c('keyboards/handwired/pytest/basic/keymaps/default/keymap.c')
     assert parsed_keymap_c == {'layers': [{'name': '0', 'layout': 'LAYOUT_ortho_1x1', 'keycodes': ['KC_A']}]}
-
-
-# FIXME(skullydazed): Add a test for qmk.keymap.write that mocks up an FD.
