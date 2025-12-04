@@ -25,9 +25,10 @@ static uint16_t logo_animation_timer = 0;
 static uint8_t  logo_animation_step  = 0;
 
 // Logo LED effect functions
+// Use rgb_matrix_driver_set_color directly to bypass RGB matrix enable state
 void Logo_Led_Set_Color(uint8_t r, uint8_t g, uint8_t b) {
     for (uint8_t i = 0; i < LOGO_LED_COUNT; i++) {
-        rgb_matrix_set_color(LED_LOGO_INDEX + i, r, g, b);
+        rgb_matrix_driver_set_color(LED_LOGO_INDEX + i, r, g, b);
     }
 }
 
@@ -106,7 +107,7 @@ void Logo_Led_Effect_Wave(void) {
 
         HSV hsv = {Keyboard_Info.Logo_Hue, Keyboard_Info.Logo_Saturation, scaled_val};
         RGB rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(LED_LOGO_INDEX + i, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_driver_set_color(LED_LOGO_INDEX + i, rgb.r, rgb.g, rgb.b);
     }
 }
 
@@ -127,7 +128,7 @@ void Logo_Led_Effect_Wave_RGB(void) {
 
         HSV hsv = {hue, Keyboard_Info.Logo_Saturation, scaled_val};
         RGB rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(LED_LOGO_INDEX + i, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_driver_set_color(LED_LOGO_INDEX + i, rgb.r, rgb.g, rgb.b);
     }
 }
 

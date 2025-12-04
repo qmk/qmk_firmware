@@ -466,6 +466,12 @@ void kb_housekeeping_task(void) {
         Show_Mode_Indicator = false;
     }
 
+#if LOGO_LED_ENABLE
+    // Update logo LEDs independently of RGB matrix state
+    // This allows logo LEDs to work even when per-key RGB is disabled
+    Logo_Led_Update();
+#endif
+
     // Handle EEPROM reset request
     if (Keyboard_Reset) {
         Keyboard_Reset = false;

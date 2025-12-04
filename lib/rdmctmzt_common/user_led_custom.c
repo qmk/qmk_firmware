@@ -109,7 +109,13 @@ void rgb_matrix_driver_flush_pwm_dma_start(void) {
         return;
     }
 
-    if (rgblight_is_enabled()) {
+    // Keep LED power on if either RGB matrix OR logo LEDs are enabled
+    bool leds_active = rgb_matrix_is_enabled();
+#if LOGO_LED_ENABLE
+    leds_active = leds_active || Keyboard_Info.Logo_On_Off;
+#endif
+
+    if (leds_active) {
         gpio_write_pin_high(ES_LED_POWER_IO);
         if (Led_Off_Start) {
             Led_Off_Start = false;

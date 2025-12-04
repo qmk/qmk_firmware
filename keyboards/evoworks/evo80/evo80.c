@@ -72,11 +72,6 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     // Call common implementation for all standard indicators
     kb_rgb_matrix_indicators_common(led_min, led_max);
 
-#if LOGO_LED_ENABLE
-    // Update Logo LED effects (EVO80-specific feature)
-    Logo_Led_Update();
-#endif
-
     return false;
 }
 
