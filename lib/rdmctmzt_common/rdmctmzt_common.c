@@ -420,13 +420,20 @@ OSAL_IRQ_HANDLER(Vector78) {
         }
 
         Func_Time_3s_Count++;
-        if (Func_Time_3s_Count >= USER_TIME_3S_TIME) {
-            Func_Time_3s_Count = 0;
-
-            if (Key_Reset_Status) {
-                Key_Reset_Status = false;
-                Keyboard_Reset   = true;
+        if (Key_Reset_Status) {
+            if (!reset_hold_phase && Func_Time_3s_Count >= USER_TIME_3S_TIME) {
+                // After 3 seconds of blinking, enter hold phase
+                reset_hold_phase   = true;
+                Func_Time_3s_Count = 0;
+            } else if (reset_hold_phase && Func_Time_3s_Count >= (100 * 1)) {
+                // After 1 second of solid hold, perform the reset
+                Func_Time_3s_Count = 0;
+                Key_Reset_Status   = false;
+                reset_hold_phase   = false;
+                Keyboard_Reset     = true;
             }
+        } else {
+            Func_Time_3s_Count = 0;
         }
     }
 

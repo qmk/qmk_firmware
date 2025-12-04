@@ -39,6 +39,11 @@ uint8_t Test_Colour = 0;
 // Caps Lock state tracking for wireless modes
 static bool local_caps_lock_state = false;
 
+// EEPROM reset visual feedback
+static uint8_t  reset_key_led_index = 0;
+static uint16_t reset_blink_timer   = 0;
+bool            reset_hold_phase    = false;
+
 // ============================================================================
 // Matrix Delay Functions (empty implementations for this platform)
 // ============================================================================
@@ -242,11 +247,12 @@ void kb_user_point_show(void) {
 
     Systick_Led_Count = 0;
 
+    // Only override LED color when state is active
+    // When inactive, let RGB Matrix handle the normal color
+
     // Caps Lock indicator
     if (kb_get_caps_lock_state()) {
         kb_set_led_color(LED_CAP_INDEX, COLOR_WHITE);
-    } else {
-        kb_led_off(LED_CAP_INDEX);
     }
 
     // Win Lock indicator
@@ -305,16 +311,62 @@ void kb_update_connection_indicator(void) {
 }
 
 void kb_update_state_indicators(void) {
+    // Only override LED color when state is active
+    // When inactive, let RGB Matrix handle the normal color
     if (kb_get_caps_lock_state()) {
         kb_set_led_color(LED_CAP_INDEX, COLOR_WHITE);
-    } else {
-        kb_led_off(LED_CAP_INDEX);
     }
 
     if (Keyboard_Info.Win_Lock) {
         kb_set_led_color(LED_WIN_L_INDEX, COLOR_WHITE);
+    }
+}
+
+void kb_show_current_connection_mode(void) {
+    // Highlight the current connection mode key when Fn is held
+    switch (Keyboard_Info.Key_Mode) {
+        case QMK_BLE_MODE:
+            switch (Keyboard_Info.Ble_Channel) {
+                case QMK_BLE_CHANNEL_1:
+                    kb_set_led_color(LED_BLE_1_INDEX, COLOR_BLUE);
+                    break;
+                case QMK_BLE_CHANNEL_2:
+                    kb_set_led_color(LED_BLE_2_INDEX, COLOR_BLUE);
+                    break;
+                case QMK_BLE_CHANNEL_3:
+                    kb_set_led_color(LED_BLE_3_INDEX, COLOR_BLUE);
+                    break;
+                default:
+                    break;
+            }
+            break;
+        case QMK_2P4G_MODE:
+            kb_set_led_color(LED_2P4G_INDEX, COLOR_GREEN);
+            break;
+        case QMK_USB_MODE:
+            kb_set_led_color(LED_USB_INDEX, COLOR_WHITE);
+            break;
+        default:
+            break;
+    }
+}
+
+void kb_show_reset_progress(void) {
+    if (reset_hold_phase) {
+        // After 3 seconds of blinking, hold solid red for 1 second before reset
+        kb_set_led_color(reset_key_led_index, COLOR_RED);
     } else {
-        kb_led_off(LED_WIN_L_INDEX);
+        // Blink the reset key LED red every 250ms while EE_CLR is held
+        if (timer_elapsed(reset_blink_timer) > 250) {
+            reset_blink_timer = timer_read();
+        }
+
+        // Blink: on for first 125ms, off for next 125ms
+        if (timer_elapsed(reset_blink_timer) < 125) {
+            kb_set_led_color(reset_key_led_index, COLOR_RED);
+        } else {
+            kb_led_off(reset_key_led_index);
+        }
     }
 }
 
@@ -323,38 +375,25 @@ void kb_update_state_indicators(void) {
 // ============================================================================
 
 bool kb_rgb_matrix_indicators_common(uint8_t led_min, uint8_t led_max) {
+    // Show EEPROM reset progress (blinking) when EE_CLR is held
+    if (Key_Reset_Status) {
+        kb_show_reset_progress();
+    }
+
 #if LED_CONNECTION_INDICATOR_ENABLE
     kb_update_connection_indicator();
 #endif
     kb_update_state_indicators();
 
+    // Show current connection mode when Fn key is held
+    if (Key_Fn_Status) {
+        kb_show_current_connection_mode();
+    }
+
     // Show temporary mode/battery indicators when triggered
     if (User_Key_Batt_Num_Show || Show_Mode_Indicator) {
-        switch (Keyboard_Info.Key_Mode) {
-            case QMK_BLE_MODE:
-                switch (Keyboard_Info.Ble_Channel) {
-                    case QMK_BLE_CHANNEL_1:
-                        kb_set_led_color(LED_BLE_1_INDEX, COLOR_BLUE);
-                        break;
-                    case QMK_BLE_CHANNEL_2:
-                        kb_set_led_color(LED_BLE_2_INDEX, COLOR_BLUE);
-                        break;
-                    case QMK_BLE_CHANNEL_3:
-                        kb_set_led_color(LED_BLE_3_INDEX, COLOR_BLUE);
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case QMK_2P4G_MODE:
-                kb_set_led_color(LED_2P4G_INDEX, COLOR_GREEN);
-                break;
-            case QMK_USB_MODE:
-                kb_set_led_color(LED_USB_INDEX, COLOR_WHITE);
-                break;
-            default:
-                break;
-        }
+        // Reuse the connection mode indicator function
+        kb_show_current_connection_mode();
 
         if (User_Key_Batt_Num_Show) {
             uint8_t battery_leds = (Keyboard_Info.Batt_Number * BATTERY_LED_COUNT) / 100;
@@ -426,6 +465,36 @@ void kb_housekeeping_task(void) {
     if (Show_Mode_Indicator && timer_elapsed(Mode_Indicator_Timer) > MODE_INDICATOR_TIMEOUT) {
         Show_Mode_Indicator = false;
     }
+
+    // Handle EEPROM reset request
+    if (Keyboard_Reset) {
+        Keyboard_Reset = false;
+
+        // Reset custom keyboard settings to defaults
+        Keyboard_Info.Key_Mode     = INIT_WORK_MODE;
+        Keyboard_Info.Ble_Channel  = INIT_BLE_CHANNEL;
+        Keyboard_Info.Batt_Number  = INIT_BATT_NUMBER;
+        Keyboard_Info.Nkro         = INIT_ALL_KEY;
+        Keyboard_Info.Mac_Win_Mode = INIT_WIN_MODE;
+        Keyboard_Info.Win_Lock     = INIT_WIN_NLOCK;
+#if LOGO_LED_ENABLE
+        Keyboard_Info.Logo_On_Off     = 1;
+        Keyboard_Info.Logo_Mode       = 1; // Wave animation
+        Keyboard_Info.Logo_Hue        = 0;
+        Keyboard_Info.Logo_Saturation = 255;
+        Keyboard_Info.Logo_Brightness = 180;
+        Keyboard_Info.Logo_Speed      = 2;
+#endif
+        // Save the reset keyboard info to EEPROM
+        eeprom_write_block_user((void *)&Keyboard_Info.Key_Mode, 0, sizeof(Keyboard_Info_t));
+
+        // Clear and reinitialize QMK's EEPROM (RGB, keymap, etc.)
+        eeconfig_init();
+
+        // Reset the keyboard
+        soft_reset_keyboard();
+    }
+
     es_chibios_user_idle_loop_hook();
 }
 
@@ -678,8 +747,13 @@ bool kb_process_record_common(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 Key_Reset_Status      = true;
                 record->event.pressed = false;
+                // Get the LED index for this key position and start blink timer
+                reset_key_led_index = g_led_config.matrix_co[record->event.key.row][record->event.key.col];
+                reset_blink_timer   = timer_read();
+                reset_hold_phase    = false;
             } else {
                 Key_Reset_Status = false;
+                reset_hold_phase = false;
             }
             Func_Time_3s_Count = 0;
         }

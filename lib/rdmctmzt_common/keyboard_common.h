@@ -133,6 +133,7 @@ void kb_user_point_show(void);
 void kb_user_test_colour_show(void);
 void kb_update_connection_indicator(void);
 void kb_update_state_indicators(void);
+void kb_show_current_connection_mode(void);
 
 // ============================================================================
 // QMK Callback Functions - Common implementations

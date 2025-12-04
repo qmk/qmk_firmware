@@ -236,6 +236,7 @@ extern bool     Key_Ble_1_Status;
 extern bool     Key_Ble_2_Status;
 extern bool     Key_Ble_3_Status;
 extern bool     Key_Reset_Status;
+extern bool     reset_hold_phase;
 extern bool     Keyboard_Reset;
 extern bool     Init_Eeprom_Flg;
 extern bool     Led_Off_Start;
