@@ -474,8 +474,10 @@ ifneq ($(wildcard $(QMK_USERSPACE)),)
 endif
 
 # If the equivalent users directory exists in userspace, use that in preference to anything currently in the main repo
-ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
-    USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
+ifneq ($(QMK_USERSPACE),)
+	ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
+    	USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
+	endif
 endif
 
 # Pull in user level rules.mk
