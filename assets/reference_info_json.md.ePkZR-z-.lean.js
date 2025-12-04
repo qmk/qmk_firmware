@@ -931,23 +931,60 @@ const _hoisted_225 = /* @__PURE__ */ createBaseVNode("code", null, "scroll_lock"
 const _hoisted_226 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The GPIO pin connected to the Scroll Lock LED.")
 ], -1);
-const _hoisted_227 = /* @__PURE__ */ createStaticVNode("", 5);
-const _hoisted_232 = /* @__PURE__ */ createBaseVNode("code", null, "community_layouts", -1);
+const _hoisted_227 = /* @__PURE__ */ createBaseVNode("h2", {
+  id: "keycodes",
+  tabindex: "-1"
+}, [
+  /* @__PURE__ */ createTextVNode("(Custom) Keycodes "),
+  /* @__PURE__ */ createBaseVNode("a", {
+    class: "header-anchor",
+    href: "#keycodes",
+    "aria-label": 'Permalink to "(Custom) Keycodes {#keycodes}"'
+  }, "​")
+], -1);
+const _hoisted_228 = /* @__PURE__ */ createBaseVNode("p", null, [
+  /* @__PURE__ */ createTextVNode("Defines "),
+  /* @__PURE__ */ createBaseVNode("a", { href: "./custom_quantum_functions#definining-a-new-keycode" }, "custom keycodes"),
+  /* @__PURE__ */ createTextVNode(" for use within keymaps.")
+], -1);
+const _hoisted_229 = /* @__PURE__ */ createBaseVNode("code", null, "keycodes", -1);
+const _hoisted_230 = /* @__PURE__ */ createBaseVNode("code", null, "key", -1);
+const _hoisted_231 = /* @__PURE__ */ createBaseVNode("ul", null, [
+  /* @__PURE__ */ createBaseVNode("li", null, "The enum name of the custom keycode."),
+  /* @__PURE__ */ createBaseVNode("li", null, [
+    /* @__PURE__ */ createTextVNode("Example: "),
+    /* @__PURE__ */ createBaseVNode("code", null, "LAYER_CHANGE_BEEP_ON")
+  ])
+], -1);
+const _hoisted_232 = /* @__PURE__ */ createBaseVNode("code", null, "label", -1);
 const _hoisted_233 = /* @__PURE__ */ createBaseVNode("ul", null, [
+  /* @__PURE__ */ createBaseVNode("li", null, "A short description of the custom keycode.")
+], -1);
+const _hoisted_234 = /* @__PURE__ */ createBaseVNode("code", null, "aliases", -1);
+const _hoisted_235 = /* @__PURE__ */ createBaseVNode("ul", null, [
+  /* @__PURE__ */ createBaseVNode("li", null, "A list of shortened names for the custom keycode."),
+  /* @__PURE__ */ createBaseVNode("li", null, [
+    /* @__PURE__ */ createTextVNode("Example: "),
+    /* @__PURE__ */ createBaseVNode("code", null, '["LCBON", "LCB_ON"]')
+  ])
+], -1);
+const _hoisted_236 = /* @__PURE__ */ createStaticVNode("", 5);
+const _hoisted_241 = /* @__PURE__ */ createBaseVNode("code", null, "community_layouts", -1);
+const _hoisted_242 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A list of community layouts supported by the keyboard."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, '["60_ansi", "60_iso"]')
   ])
 ], -1);
-const _hoisted_234 = /* @__PURE__ */ createBaseVNode("code", null, "layout_aliases", -1);
-const _hoisted_235 = /* @__PURE__ */ createStaticVNode("", 2);
-const _hoisted_237 = /* @__PURE__ */ createBaseVNode("code", null, "layouts", -1);
-const _hoisted_238 = /* @__PURE__ */ createBaseVNode("li", null, "A dictionary of layouts supported by the keyboard.", -1);
-const _hoisted_239 = /* @__PURE__ */ createBaseVNode("code", null, "LAYOUT_<layout_name>", -1);
-const _hoisted_240 = /* @__PURE__ */ createBaseVNode("code", null, "layout", -1);
-const _hoisted_241 = /* @__PURE__ */ createBaseVNode("code", null, "matrix", -1);
-const _hoisted_242 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_243 = /* @__PURE__ */ createBaseVNode("code", null, "layout_aliases", -1);
+const _hoisted_244 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_246 = /* @__PURE__ */ createBaseVNode("code", null, "layouts", -1);
+const _hoisted_247 = /* @__PURE__ */ createBaseVNode("li", null, "A dictionary of layouts supported by the keyboard.", -1);
+const _hoisted_248 = /* @__PURE__ */ createBaseVNode("code", null, "LAYOUT_<layout_name>", -1);
+const _hoisted_249 = /* @__PURE__ */ createBaseVNode("code", null, "layout", -1);
+const _hoisted_250 = /* @__PURE__ */ createBaseVNode("code", null, "matrix", -1);
+const _hoisted_251 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The matrix position for the key."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
@@ -955,16 +992,16 @@ const _hoisted_242 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (row 0, column 4)")
   ])
 ], -1);
-const _hoisted_243 = /* @__PURE__ */ createBaseVNode("code", null, "x", -1);
-const _hoisted_244 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_252 = /* @__PURE__ */ createBaseVNode("code", null, "x", -1);
+const _hoisted_253 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The absolute position of the key in the horizontal axis, in key units.")
 ], -1);
-const _hoisted_245 = /* @__PURE__ */ createBaseVNode("code", null, "y", -1);
-const _hoisted_246 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_254 = /* @__PURE__ */ createBaseVNode("code", null, "y", -1);
+const _hoisted_255 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The absolute position of the key in the vertical axis, in key units.")
 ], -1);
-const _hoisted_247 = /* @__PURE__ */ createBaseVNode("code", null, "h", -1);
-const _hoisted_248 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_256 = /* @__PURE__ */ createBaseVNode("code", null, "h", -1);
+const _hoisted_257 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The height of the key, in key units."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -972,8 +1009,8 @@ const _hoisted_248 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (1u)")
   ])
 ], -1);
-const _hoisted_249 = /* @__PURE__ */ createBaseVNode("code", null, "hand", -1);
-const _hoisted_250 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_258 = /* @__PURE__ */ createBaseVNode("code", null, "hand", -1);
+const _hoisted_259 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The handedness of the key for Chordal Hold, either "),
     /* @__PURE__ */ createBaseVNode("code", null, '"L"'),
@@ -984,8 +1021,8 @@ const _hoisted_250 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (either or exempted handedness).")
   ])
 ], -1);
-const _hoisted_251 = /* @__PURE__ */ createBaseVNode("code", null, "label", -1);
-const _hoisted_252 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_260 = /* @__PURE__ */ createBaseVNode("code", null, "label", -1);
+const _hoisted_261 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("What to name the key. This is "),
     /* @__PURE__ */ createBaseVNode("em", null, "not"),
@@ -996,20 +1033,20 @@ const _hoisted_252 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"Escape"')
   ])
 ], -1);
-const _hoisted_253 = /* @__PURE__ */ createBaseVNode("code", null, "r", -1);
-const _hoisted_254 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_262 = /* @__PURE__ */ createBaseVNode("code", null, "r", -1);
+const _hoisted_263 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The rotation angle in degrees. Currently not implemented.")
 ], -1);
-const _hoisted_255 = /* @__PURE__ */ createBaseVNode("code", null, "rx", -1);
-const _hoisted_256 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_264 = /* @__PURE__ */ createBaseVNode("code", null, "rx", -1);
+const _hoisted_265 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The absolute X position of the rotation axis. Currently not implemented.")
 ], -1);
-const _hoisted_257 = /* @__PURE__ */ createBaseVNode("code", null, "ry", -1);
-const _hoisted_258 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_266 = /* @__PURE__ */ createBaseVNode("code", null, "ry", -1);
+const _hoisted_267 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The absolute Y position of the rotation axis. Currently not implemented.")
 ], -1);
-const _hoisted_259 = /* @__PURE__ */ createBaseVNode("code", null, "w", -1);
-const _hoisted_260 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_268 = /* @__PURE__ */ createBaseVNode("code", null, "w", -1);
+const _hoisted_269 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The width of the key, in key units."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -1017,15 +1054,15 @@ const _hoisted_260 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (1u)")
   ])
 ], -1);
-const _hoisted_261 = /* @__PURE__ */ createBaseVNode("code", null, "encoder", -1);
-const _hoisted_262 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_270 = /* @__PURE__ */ createBaseVNode("code", null, "encoder", -1);
+const _hoisted_271 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The index of an encoder this key should be linked to")
 ], -1);
-const _hoisted_263 = /* @__PURE__ */ createBaseVNode("li", null, [
+const _hoisted_272 = /* @__PURE__ */ createBaseVNode("li", null, [
   /* @__PURE__ */ createTextVNode("Example: "),
   /* @__PURE__ */ createBaseVNode("code", null, '{"label": "Shift", "matrix": [4, 0], "x": 0, "y": 4.25, "w": 2.25}')
 ], -1);
-const _hoisted_264 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_273 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "leader-key",
   tabindex: "-1"
 }, [
@@ -1036,14 +1073,14 @@ const _hoisted_264 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "Leader Key {#leader-key}"'
   }, "​")
 ], -1);
-const _hoisted_265 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_274 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/leader_key" }, "Leader Key"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_266 = /* @__PURE__ */ createBaseVNode("code", null, "leader_key", -1);
-const _hoisted_267 = /* @__PURE__ */ createBaseVNode("code", null, "timing", -1);
-const _hoisted_268 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_275 = /* @__PURE__ */ createBaseVNode("code", null, "leader_key", -1);
+const _hoisted_276 = /* @__PURE__ */ createBaseVNode("code", null, "timing", -1);
+const _hoisted_277 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Reset the "),
     /* @__PURE__ */ createBaseVNode("code", null, "timeout"),
@@ -1054,16 +1091,16 @@ const _hoisted_268 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_269 = /* @__PURE__ */ createBaseVNode("code", null, "strict_processing", -1);
-const _hoisted_270 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_278 = /* @__PURE__ */ createBaseVNode("code", null, "strict_processing", -1);
+const _hoisted_279 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Do not extract the tap keycodes from Layer-Tap and Mod-Tap key events."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_271 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
-const _hoisted_272 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_280 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
+const _hoisted_281 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The amount of time to complete a leader sequence in milliseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -1071,7 +1108,7 @@ const _hoisted_272 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (300 ms)")
   ])
 ], -1);
-const _hoisted_273 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_282 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "led-matrix",
   tabindex: "-1"
 }, [
@@ -1082,33 +1119,33 @@ const _hoisted_273 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "LED Matrix {#led-matrix}"'
   }, "​")
 ], -1);
-const _hoisted_274 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_283 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/led_matrix" }, "LED Matrix"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_275 = /* @__PURE__ */ createBaseVNode("code", null, "led_matrix", -1);
-const _hoisted_276 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
-const _hoisted_277 = /* @__PURE__ */ createStaticVNode("", 2);
-const _hoisted_279 = /* @__PURE__ */ createBaseVNode("code", null, "center_point", -1);
-const _hoisted_280 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_284 = /* @__PURE__ */ createBaseVNode("code", null, "led_matrix", -1);
+const _hoisted_285 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
+const _hoisted_286 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_288 = /* @__PURE__ */ createBaseVNode("code", null, "center_point", -1);
+const _hoisted_289 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The centroid (geometric center) of the LEDs. Used for certain effects."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[112, 32]")
   ])
 ], -1);
-const _hoisted_281 = /* @__PURE__ */ createBaseVNode("code", null, "flag_steps", -1);
-const _hoisted_282 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_290 = /* @__PURE__ */ createBaseVNode("code", null, "flag_steps", -1);
+const _hoisted_291 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A list of flag bitfields that can be cycled through."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[255, 5, 0]")
   ])
 ], -1);
-const _hoisted_283 = /* @__PURE__ */ createBaseVNode("code", null, "default", -1);
-const _hoisted_284 = /* @__PURE__ */ createBaseVNode("code", null, "animation", -1);
-const _hoisted_285 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_292 = /* @__PURE__ */ createBaseVNode("code", null, "default", -1);
+const _hoisted_293 = /* @__PURE__ */ createBaseVNode("code", null, "animation", -1);
+const _hoisted_294 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The default effect. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "led_matrix.animations")
@@ -1118,123 +1155,123 @@ const _hoisted_285 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"solid"')
   ])
 ], -1);
-const _hoisted_286 = /* @__PURE__ */ createBaseVNode("code", null, "on", -1);
-const _hoisted_287 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_295 = /* @__PURE__ */ createBaseVNode("code", null, "on", -1);
+const _hoisted_296 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default enabled state."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "true")
   ])
 ], -1);
-const _hoisted_288 = /* @__PURE__ */ createBaseVNode("code", null, "val", -1);
-const _hoisted_289 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_297 = /* @__PURE__ */ createBaseVNode("code", null, "val", -1);
+const _hoisted_298 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default brightness level."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "max_brightness")
   ])
 ], -1);
-const _hoisted_290 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
-const _hoisted_291 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_299 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
+const _hoisted_300 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default animation speed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "128")
   ])
 ], -1);
-const _hoisted_292 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
-const _hoisted_293 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_301 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
+const _hoisted_302 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default LED flags."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "255")
   ])
 ], -1);
-const _hoisted_294 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_295 = /* @__PURE__ */ createStaticVNode("", 1);
-const _hoisted_296 = /* @__PURE__ */ createBaseVNode("code", null, "layout", -1);
-const _hoisted_297 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
-const _hoisted_298 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_303 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
+const _hoisted_304 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_305 = /* @__PURE__ */ createBaseVNode("code", null, "layout", -1);
+const _hoisted_306 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
+const _hoisted_307 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A bitfield of flags describing the type of LED.")
 ], -1);
-const _hoisted_299 = /* @__PURE__ */ createBaseVNode("code", null, "x", -1);
-const _hoisted_300 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_308 = /* @__PURE__ */ createBaseVNode("code", null, "x", -1);
+const _hoisted_309 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The position of the LED in the horizontal axis, from 0 to 224.")
 ], -1);
-const _hoisted_301 = /* @__PURE__ */ createBaseVNode("code", null, "y", -1);
-const _hoisted_302 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_310 = /* @__PURE__ */ createBaseVNode("code", null, "y", -1);
+const _hoisted_311 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The position of the LED in the vertical axis, from 0 to 64.")
 ], -1);
-const _hoisted_303 = /* @__PURE__ */ createBaseVNode("code", null, "matrix", -1);
-const _hoisted_304 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_312 = /* @__PURE__ */ createBaseVNode("code", null, "matrix", -1);
+const _hoisted_313 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The key matrix position associated with the LED."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[0, 2]")
   ])
 ], -1);
-const _hoisted_305 = /* @__PURE__ */ createBaseVNode("li", null, [
+const _hoisted_314 = /* @__PURE__ */ createBaseVNode("li", null, [
   /* @__PURE__ */ createTextVNode("Example: "),
   /* @__PURE__ */ createBaseVNode("code", null, '{"matrix": [2, 1], "x": 20, "y": 48, "flags": 2}')
 ], -1);
-const _hoisted_306 = /* @__PURE__ */ createBaseVNode("code", null, "led_flush_limit", -1);
-const _hoisted_307 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_315 = /* @__PURE__ */ createBaseVNode("code", null, "led_flush_limit", -1);
+const _hoisted_316 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Limits in milliseconds how frequently an animation will update the LEDs."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
   ])
 ], -1);
-const _hoisted_308 = /* @__PURE__ */ createBaseVNode("code", null, "led_process_limit", -1);
-const _hoisted_309 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_317 = /* @__PURE__ */ createBaseVNode("code", null, "led_process_limit", -1);
+const _hoisted_318 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "(led_count + 4) / 5")
   ])
 ], -1);
-const _hoisted_310 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
-const _hoisted_311 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_319 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
+const _hoisted_320 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The maximum value which brightness is scaled to, from 0 to 255."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "255")
   ])
 ], -1);
-const _hoisted_312 = /* @__PURE__ */ createBaseVNode("code", null, "react_on_keyup", -1);
-const _hoisted_313 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_321 = /* @__PURE__ */ createBaseVNode("code", null, "react_on_keyup", -1);
+const _hoisted_322 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Animations react to keyup instead of keydown."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_314 = /* @__PURE__ */ createBaseVNode("code", null, "sleep", -1);
-const _hoisted_315 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_323 = /* @__PURE__ */ createBaseVNode("code", null, "sleep", -1);
+const _hoisted_324 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Turn off the LEDs when the host goes to sleep."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_316 = /* @__PURE__ */ createBaseVNode("code", null, "speed_steps", -1);
-const _hoisted_317 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_325 = /* @__PURE__ */ createBaseVNode("code", null, "speed_steps", -1);
+const _hoisted_326 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the speed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
   ])
 ], -1);
-const _hoisted_318 = /* @__PURE__ */ createBaseVNode("code", null, "split_count", -1);
-const _hoisted_319 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_327 = /* @__PURE__ */ createBaseVNode("code", null, "split_count", -1);
+const _hoisted_328 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "For split keyboards, the number of LEDs on each half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[16, 16]")
   ])
 ], -1);
-const _hoisted_320 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
-const _hoisted_321 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_329 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
+const _hoisted_330 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The LED activity timeout in milliseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -1242,15 +1279,15 @@ const _hoisted_321 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (no timeout)")
   ])
 ], -1);
-const _hoisted_322 = /* @__PURE__ */ createBaseVNode("code", null, "val_steps", -1);
-const _hoisted_323 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_331 = /* @__PURE__ */ createBaseVNode("code", null, "val_steps", -1);
+const _hoisted_332 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the brightness."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "8")
   ])
 ], -1);
-const _hoisted_324 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_333 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "matrix",
   tabindex: "-1"
 }, [
@@ -1261,8 +1298,8 @@ const _hoisted_324 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "Matrix {#matrix}"'
   }, "​")
 ], -1);
-const _hoisted_325 = /* @__PURE__ */ createBaseVNode("code", null, "debounce", -1);
-const _hoisted_326 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_334 = /* @__PURE__ */ createBaseVNode("code", null, "debounce", -1);
+const _hoisted_335 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The debounce time in milliseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -1270,8 +1307,8 @@ const _hoisted_326 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (5 ms)")
   ])
 ], -1);
-const _hoisted_327 = /* @__PURE__ */ createBaseVNode("code", null, "diode_direction", -1);
-const _hoisted_328 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_336 = /* @__PURE__ */ createBaseVNode("code", null, "diode_direction", -1);
+const _hoisted_337 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode('Which way the diodes are "pointing". Unused for '),
     /* @__PURE__ */ createBaseVNode("code", null, "matrix_pins.direct"),
@@ -1282,43 +1319,43 @@ const _hoisted_328 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(".")
   ])
 ], -1);
-const _hoisted_329 = /* @__PURE__ */ createBaseVNode("code", null, "matrix_pins", -1);
-const _hoisted_330 = /* @__PURE__ */ createBaseVNode("code", null, "cols", -1);
-const _hoisted_331 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_338 = /* @__PURE__ */ createBaseVNode("code", null, "matrix_pins", -1);
+const _hoisted_339 = /* @__PURE__ */ createBaseVNode("code", null, "cols", -1);
+const _hoisted_340 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A list of GPIO pins connected to the matrix columns."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, '["A0", "A1", "A2"]')
   ])
 ], -1);
-const _hoisted_332 = /* @__PURE__ */ createBaseVNode("code", null, "custom", -1);
-const _hoisted_333 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_341 = /* @__PURE__ */ createBaseVNode("code", null, "custom", -1);
+const _hoisted_342 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Whether to use a custom matrix scanning implementation."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_334 = /* @__PURE__ */ createBaseVNode("code", null, "custom_lite", -1);
-const _hoisted_335 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_343 = /* @__PURE__ */ createBaseVNode("code", null, "custom_lite", -1);
+const _hoisted_344 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, 'Whether to use a "lite" custom matrix scanning implementation.'),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_336 = /* @__PURE__ */ createBaseVNode("code", null, "direct", -1);
-const _hoisted_337 = /* @__PURE__ */ createStaticVNode("", 2);
-const _hoisted_339 = /* @__PURE__ */ createBaseVNode("code", null, "ghost", -1);
-const _hoisted_340 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_345 = /* @__PURE__ */ createBaseVNode("code", null, "direct", -1);
+const _hoisted_346 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_348 = /* @__PURE__ */ createBaseVNode("code", null, "ghost", -1);
+const _hoisted_349 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Whether the matrix has no anti-ghosting diodes."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_341 = /* @__PURE__ */ createBaseVNode("code", null, "input_pressed_state", -1);
-const _hoisted_342 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_350 = /* @__PURE__ */ createBaseVNode("code", null, "input_pressed_state", -1);
+const _hoisted_351 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The logical GPIO state of the input pins when a key is pressed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -1326,8 +1363,8 @@ const _hoisted_342 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (pressed = low)")
   ])
 ], -1);
-const _hoisted_343 = /* @__PURE__ */ createBaseVNode("code", null, "io_delay", -1);
-const _hoisted_344 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_352 = /* @__PURE__ */ createBaseVNode("code", null, "io_delay", -1);
+const _hoisted_353 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The amount of time to wait between row/col selection and col/row pin reading, in microseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -1335,23 +1372,23 @@ const _hoisted_344 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (30 µs)")
   ])
 ], -1);
-const _hoisted_345 = /* @__PURE__ */ createBaseVNode("code", null, "masked", -1);
-const _hoisted_346 = /* @__PURE__ */ createBaseVNode("ul", null, [
-  /* @__PURE__ */ createBaseVNode("li", null, "Whether configured intersections should be ignored."),
+const _hoisted_354 = /* @__PURE__ */ createBaseVNode("code", null, "masked", -1);
+const _hoisted_355 = /* @__PURE__ */ createBaseVNode("ul", null, [
+  /* @__PURE__ */ createBaseVNode("li", null, "Whether unconfigured intersections should be ignored."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_347 = /* @__PURE__ */ createBaseVNode("code", null, "rows", -1);
-const _hoisted_348 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_356 = /* @__PURE__ */ createBaseVNode("code", null, "rows", -1);
+const _hoisted_357 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A list of GPIO pins connected to the matrix rows."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, '["B0", "B1", "B2"]')
   ])
 ], -1);
-const _hoisted_349 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_358 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "mouse-keys",
   tabindex: "-1"
 }, [
@@ -1362,26 +1399,26 @@ const _hoisted_349 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "Mouse Keys {#mouse-keys}"'
   }, "​")
 ], -1);
-const _hoisted_350 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_359 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/mouse_keys" }, "Mouse Keys"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_351 = /* @__PURE__ */ createBaseVNode("code", null, "mouse_key", -1);
-const _hoisted_352 = /* @__PURE__ */ createBaseVNode("code", null, "delay", -1);
-const _hoisted_353 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
-const _hoisted_354 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_360 = /* @__PURE__ */ createBaseVNode("code", null, "mouse_key", -1);
+const _hoisted_361 = /* @__PURE__ */ createBaseVNode("code", null, "delay", -1);
+const _hoisted_362 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
+const _hoisted_363 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enables the Mouse Keys feature."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_355 = /* @__PURE__ */ createBaseVNode("code", null, "interval", -1);
-const _hoisted_356 = /* @__PURE__ */ createBaseVNode("code", null, "max_speed", -1);
-const _hoisted_357 = /* @__PURE__ */ createBaseVNode("code", null, "time_to_max", -1);
-const _hoisted_358 = /* @__PURE__ */ createBaseVNode("code", null, "wheel_delay", -1);
-const _hoisted_359 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_364 = /* @__PURE__ */ createBaseVNode("code", null, "interval", -1);
+const _hoisted_365 = /* @__PURE__ */ createBaseVNode("code", null, "max_speed", -1);
+const _hoisted_366 = /* @__PURE__ */ createBaseVNode("code", null, "time_to_max", -1);
+const _hoisted_367 = /* @__PURE__ */ createBaseVNode("code", null, "wheel_delay", -1);
+const _hoisted_368 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "one-shot",
   tabindex: "-1"
 }, [
@@ -1392,21 +1429,21 @@ const _hoisted_359 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "One Shot {#one-shot}"'
   }, "​")
 ], -1);
-const _hoisted_360 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_369 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./one_shot_keys" }, "One Shot keys"),
   /* @__PURE__ */ createTextVNode(".")
 ], -1);
-const _hoisted_361 = /* @__PURE__ */ createBaseVNode("code", null, "oneshot", -1);
-const _hoisted_362 = /* @__PURE__ */ createBaseVNode("code", null, "tap_toggle", -1);
-const _hoisted_363 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_370 = /* @__PURE__ */ createBaseVNode("code", null, "oneshot", -1);
+const _hoisted_371 = /* @__PURE__ */ createBaseVNode("code", null, "tap_toggle", -1);
+const _hoisted_372 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The number of times to tap the key in order to hold it.")
 ], -1);
-const _hoisted_364 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
-const _hoisted_365 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_373 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
+const _hoisted_374 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The amount of time before the key is released in milliseconds.")
 ], -1);
-const _hoisted_366 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_375 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "ps2",
   tabindex: "-1"
 }, [
@@ -1417,30 +1454,30 @@ const _hoisted_366 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "PS/2 {#ps2}"'
   }, "​")
 ], -1);
-const _hoisted_367 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_376 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/ps2_mouse" }, "PS/2"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_368 = /* @__PURE__ */ createBaseVNode("code", null, "ps2", -1);
-const _hoisted_369 = /* @__PURE__ */ createBaseVNode("code", null, "clock_pin", -1);
-const _hoisted_370 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_377 = /* @__PURE__ */ createBaseVNode("code", null, "ps2", -1);
+const _hoisted_378 = /* @__PURE__ */ createBaseVNode("code", null, "clock_pin", -1);
+const _hoisted_379 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The GPIO pin connected to "),
     /* @__PURE__ */ createBaseVNode("code", null, "CLK"),
     /* @__PURE__ */ createTextVNode(" on the PS/2 device.")
   ])
 ], -1);
-const _hoisted_371 = /* @__PURE__ */ createBaseVNode("code", null, "data_pin", -1);
-const _hoisted_372 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_380 = /* @__PURE__ */ createBaseVNode("code", null, "data_pin", -1);
+const _hoisted_381 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The GPIO pin connected to "),
     /* @__PURE__ */ createBaseVNode("code", null, "DATA"),
     /* @__PURE__ */ createTextVNode(" on the PS/2 device.")
   ])
 ], -1);
-const _hoisted_373 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_374 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_382 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
+const _hoisted_383 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The PS/2 driver to use. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "busywait"),
@@ -1457,23 +1494,23 @@ const _hoisted_374 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"busywait"')
   ])
 ], -1);
-const _hoisted_375 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
-const _hoisted_376 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_384 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
+const _hoisted_385 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable the PS/2 feature."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_377 = /* @__PURE__ */ createBaseVNode("code", null, "mouse_enabled", -1);
-const _hoisted_378 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_386 = /* @__PURE__ */ createBaseVNode("code", null, "mouse_enabled", -1);
+const _hoisted_387 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable the PS/2 mouse handling."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_379 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_388 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "qmk-lufa-bootloader",
   tabindex: "-1"
 }, [
@@ -1484,32 +1521,32 @@ const _hoisted_379 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "QMK LUFA Bootloader {#qmk-lufa-bootloader}"'
   }, "​")
 ], -1);
-const _hoisted_380 = /* @__PURE__ */ createBaseVNode("code", null, "qmk_lufa_bootloader", -1);
-const _hoisted_381 = /* @__PURE__ */ createBaseVNode("code", null, "esc_input", -1);
-const _hoisted_382 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_389 = /* @__PURE__ */ createBaseVNode("code", null, "qmk_lufa_bootloader", -1);
+const _hoisted_390 = /* @__PURE__ */ createBaseVNode("code", null, "esc_input", -1);
+const _hoisted_391 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode(`The GPIO pin connected to the designated "exit bootloader" key's row (if `),
     /* @__PURE__ */ createBaseVNode("code", null, "COL2ROW"),
     /* @__PURE__ */ createTextVNode(").")
   ])
 ], -1);
-const _hoisted_383 = /* @__PURE__ */ createBaseVNode("code", null, "esc_output", -1);
-const _hoisted_384 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_392 = /* @__PURE__ */ createBaseVNode("code", null, "esc_output", -1);
+const _hoisted_393 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode(`The GPIO pin connected to the designated "exit bootloader" key's column (if `),
     /* @__PURE__ */ createBaseVNode("code", null, "COL2ROW"),
     /* @__PURE__ */ createTextVNode(").")
   ])
 ], -1);
-const _hoisted_385 = /* @__PURE__ */ createBaseVNode("code", null, "led", -1);
-const _hoisted_386 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_394 = /* @__PURE__ */ createBaseVNode("code", null, "led", -1);
+const _hoisted_395 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The GPIO pin connected to an LED to flash.")
 ], -1);
-const _hoisted_387 = /* @__PURE__ */ createBaseVNode("code", null, "speaker", -1);
-const _hoisted_388 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_396 = /* @__PURE__ */ createBaseVNode("code", null, "speaker", -1);
+const _hoisted_397 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The GPIO pin connected to a speaker to click (can also be used for a second LED).")
 ], -1);
-const _hoisted_389 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_398 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "rgblight",
   tabindex: "-1"
 }, [
@@ -1520,29 +1557,29 @@ const _hoisted_389 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "RGBLight {#rgblight}"'
   }, "​")
 ], -1);
-const _hoisted_390 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_399 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/rgblight" }, "RGB Lighting"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_391 = /* @__PURE__ */ createBaseVNode("code", null, "rgblight", -1);
-const _hoisted_392 = /* @__PURE__ */ createBaseVNode("code", null, "led_count", -1);
-const _hoisted_393 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_400 = /* @__PURE__ */ createBaseVNode("code", null, "rgblight", -1);
+const _hoisted_401 = /* @__PURE__ */ createBaseVNode("code", null, "led_count", -1);
+const _hoisted_402 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The number of LEDs in the chain.")
 ], -1);
-const _hoisted_394 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
-const _hoisted_395 = /* @__PURE__ */ createStaticVNode("", 2);
-const _hoisted_397 = /* @__PURE__ */ createBaseVNode("code", null, "brightness_steps", -1);
-const _hoisted_398 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_403 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
+const _hoisted_404 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_406 = /* @__PURE__ */ createBaseVNode("code", null, "brightness_steps", -1);
+const _hoisted_407 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the brightness."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "17")
   ])
 ], -1);
-const _hoisted_399 = /* @__PURE__ */ createBaseVNode("code", null, "default", -1);
-const _hoisted_400 = /* @__PURE__ */ createBaseVNode("code", null, "animation", -1);
-const _hoisted_401 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_408 = /* @__PURE__ */ createBaseVNode("code", null, "default", -1);
+const _hoisted_409 = /* @__PURE__ */ createBaseVNode("code", null, "animation", -1);
+const _hoisted_410 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The default effect. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "rgblight.animations")
@@ -1552,48 +1589,48 @@ const _hoisted_401 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"static_light"')
   ])
 ], -1);
-const _hoisted_402 = /* @__PURE__ */ createBaseVNode("code", null, "on", -1);
-const _hoisted_403 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_411 = /* @__PURE__ */ createBaseVNode("code", null, "on", -1);
+const _hoisted_412 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default enabled state."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "true")
   ])
 ], -1);
-const _hoisted_404 = /* @__PURE__ */ createBaseVNode("code", null, "hue", -1);
-const _hoisted_405 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_413 = /* @__PURE__ */ createBaseVNode("code", null, "hue", -1);
+const _hoisted_414 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default hue value."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "0")
   ])
 ], -1);
-const _hoisted_406 = /* @__PURE__ */ createBaseVNode("code", null, "sat", -1);
-const _hoisted_407 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_415 = /* @__PURE__ */ createBaseVNode("code", null, "sat", -1);
+const _hoisted_416 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default saturation value."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "255")
   ])
 ], -1);
-const _hoisted_408 = /* @__PURE__ */ createBaseVNode("code", null, "val", -1);
-const _hoisted_409 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_417 = /* @__PURE__ */ createBaseVNode("code", null, "val", -1);
+const _hoisted_418 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default brightness level."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "max_brightness")
   ])
 ], -1);
-const _hoisted_410 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
-const _hoisted_411 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_419 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
+const _hoisted_420 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default animation speed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "0")
   ])
 ], -1);
-const _hoisted_412 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_413 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_421 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
+const _hoisted_422 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The driver to use. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "apa102"),
@@ -1608,81 +1645,81 @@ const _hoisted_413 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"ws2812"')
   ])
 ], -1);
-const _hoisted_414 = /* @__PURE__ */ createBaseVNode("code", null, "hue_steps", -1);
-const _hoisted_415 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_423 = /* @__PURE__ */ createBaseVNode("code", null, "hue_steps", -1);
+const _hoisted_424 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the hue."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "8")
   ])
 ], -1);
-const _hoisted_416 = /* @__PURE__ */ createBaseVNode("code", null, "layers", -1);
-const _hoisted_417 = /* @__PURE__ */ createBaseVNode("code", null, "blink", -1);
-const _hoisted_418 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_425 = /* @__PURE__ */ createBaseVNode("code", null, "layers", -1);
+const _hoisted_426 = /* @__PURE__ */ createBaseVNode("code", null, "blink", -1);
+const _hoisted_427 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable layer blinking API."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_419 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
-const _hoisted_420 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_428 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
+const _hoisted_429 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable RGB Lighting Layers."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_421 = /* @__PURE__ */ createBaseVNode("code", null, "max", -1);
-const _hoisted_422 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_430 = /* @__PURE__ */ createBaseVNode("code", null, "max", -1);
+const _hoisted_431 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The maximum layer count, from 1 to 32."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "8")
   ])
 ], -1);
-const _hoisted_423 = /* @__PURE__ */ createBaseVNode("code", null, "led_map", -1);
-const _hoisted_424 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_432 = /* @__PURE__ */ createBaseVNode("code", null, "led_map", -1);
+const _hoisted_433 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Remap LED indices."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[4, 3, 2, 1, 0]")
   ])
 ], -1);
-const _hoisted_425 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
-const _hoisted_426 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_434 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
+const _hoisted_435 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, 'The maximum value which the HSV "V" component is scaled to, from 0 to 255.'),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "255")
   ])
 ], -1);
-const _hoisted_427 = /* @__PURE__ */ createBaseVNode("code", null, "saturation_steps", -1);
-const _hoisted_428 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_436 = /* @__PURE__ */ createBaseVNode("code", null, "saturation_steps", -1);
+const _hoisted_437 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the suturation."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "17")
   ])
 ], -1);
-const _hoisted_429 = /* @__PURE__ */ createBaseVNode("code", null, "sleep", -1);
-const _hoisted_430 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_438 = /* @__PURE__ */ createBaseVNode("code", null, "sleep", -1);
+const _hoisted_439 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Turn off the LEDs when the host goes to sleep."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_431 = /* @__PURE__ */ createBaseVNode("code", null, "split", -1);
-const _hoisted_432 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_440 = /* @__PURE__ */ createBaseVNode("code", null, "split", -1);
+const _hoisted_441 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable synchronization between split halves."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_433 = /* @__PURE__ */ createBaseVNode("code", null, "split_count", -1);
-const _hoisted_434 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_442 = /* @__PURE__ */ createBaseVNode("code", null, "split_count", -1);
+const _hoisted_443 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("When "),
     /* @__PURE__ */ createBaseVNode("code", null, "rgblight.split"),
@@ -1693,7 +1730,7 @@ const _hoisted_434 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, "[10, 10]")
   ])
 ], -1);
-const _hoisted_435 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_444 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "rgb-matrix",
   tabindex: "-1"
 }, [
@@ -1704,33 +1741,33 @@ const _hoisted_435 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "RGB Matrix {#rgb-matrix}"'
   }, "​")
 ], -1);
-const _hoisted_436 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_445 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/rgb_matrix" }, "RGB Matrix"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_437 = /* @__PURE__ */ createBaseVNode("code", null, "rgb_matrix", -1);
-const _hoisted_438 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
-const _hoisted_439 = /* @__PURE__ */ createStaticVNode("", 2);
-const _hoisted_441 = /* @__PURE__ */ createBaseVNode("code", null, "center_point", -1);
-const _hoisted_442 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_446 = /* @__PURE__ */ createBaseVNode("code", null, "rgb_matrix", -1);
+const _hoisted_447 = /* @__PURE__ */ createBaseVNode("code", null, "animations", -1);
+const _hoisted_448 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_450 = /* @__PURE__ */ createBaseVNode("code", null, "center_point", -1);
+const _hoisted_451 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The centroid (geometric center) of the LEDs. Used for certain effects."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[112, 32]")
   ])
 ], -1);
-const _hoisted_443 = /* @__PURE__ */ createBaseVNode("code", null, "flag_steps", -1);
-const _hoisted_444 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_452 = /* @__PURE__ */ createBaseVNode("code", null, "flag_steps", -1);
+const _hoisted_453 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A list of flag bitfields that can be cycled through."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[255, 5, 2, 0]")
   ])
 ], -1);
-const _hoisted_445 = /* @__PURE__ */ createBaseVNode("code", null, "default", -1);
-const _hoisted_446 = /* @__PURE__ */ createBaseVNode("code", null, "animation", -1);
-const _hoisted_447 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_454 = /* @__PURE__ */ createBaseVNode("code", null, "default", -1);
+const _hoisted_455 = /* @__PURE__ */ createBaseVNode("code", null, "animation", -1);
+const _hoisted_456 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The default effect. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "rgb_matrix.animations")
@@ -1740,155 +1777,155 @@ const _hoisted_447 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"solid_color"')
   ])
 ], -1);
-const _hoisted_448 = /* @__PURE__ */ createBaseVNode("code", null, "on", -1);
-const _hoisted_449 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_457 = /* @__PURE__ */ createBaseVNode("code", null, "on", -1);
+const _hoisted_458 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default enabled state."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "true")
   ])
 ], -1);
-const _hoisted_450 = /* @__PURE__ */ createBaseVNode("code", null, "hue", -1);
-const _hoisted_451 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_459 = /* @__PURE__ */ createBaseVNode("code", null, "hue", -1);
+const _hoisted_460 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default hue value."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "0")
   ])
 ], -1);
-const _hoisted_452 = /* @__PURE__ */ createBaseVNode("code", null, "sat", -1);
-const _hoisted_453 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_461 = /* @__PURE__ */ createBaseVNode("code", null, "sat", -1);
+const _hoisted_462 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default saturation value."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "255")
   ])
 ], -1);
-const _hoisted_454 = /* @__PURE__ */ createBaseVNode("code", null, "val", -1);
-const _hoisted_455 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_463 = /* @__PURE__ */ createBaseVNode("code", null, "val", -1);
+const _hoisted_464 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default brightness level."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "max_brightness")
   ])
 ], -1);
-const _hoisted_456 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
-const _hoisted_457 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_465 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
+const _hoisted_466 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default animation speed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "128")
   ])
 ], -1);
-const _hoisted_458 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
-const _hoisted_459 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_467 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
+const _hoisted_468 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The default LED flags."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "255")
   ])
 ], -1);
-const _hoisted_460 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_461 = /* @__PURE__ */ createStaticVNode("", 1);
-const _hoisted_462 = /* @__PURE__ */ createBaseVNode("code", null, "hue_steps", -1);
-const _hoisted_463 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_469 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
+const _hoisted_470 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_471 = /* @__PURE__ */ createBaseVNode("code", null, "hue_steps", -1);
+const _hoisted_472 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the hue."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "8")
   ])
 ], -1);
-const _hoisted_464 = /* @__PURE__ */ createBaseVNode("code", null, "layout", -1);
-const _hoisted_465 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
-const _hoisted_466 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_473 = /* @__PURE__ */ createBaseVNode("code", null, "layout", -1);
+const _hoisted_474 = /* @__PURE__ */ createBaseVNode("code", null, "flags", -1);
+const _hoisted_475 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "A bitfield of flags describing the type of LED.")
 ], -1);
-const _hoisted_467 = /* @__PURE__ */ createBaseVNode("code", null, "x", -1);
-const _hoisted_468 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_476 = /* @__PURE__ */ createBaseVNode("code", null, "x", -1);
+const _hoisted_477 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The position of the LED in the horizontal axis, from 0 to 224.")
 ], -1);
-const _hoisted_469 = /* @__PURE__ */ createBaseVNode("code", null, "y", -1);
-const _hoisted_470 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_478 = /* @__PURE__ */ createBaseVNode("code", null, "y", -1);
+const _hoisted_479 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The position of the LED in the vertical axis, from 0 to 64.")
 ], -1);
-const _hoisted_471 = /* @__PURE__ */ createBaseVNode("code", null, "matrix", -1);
-const _hoisted_472 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_480 = /* @__PURE__ */ createBaseVNode("code", null, "matrix", -1);
+const _hoisted_481 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The key matrix position associated with the LED."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[0, 2]")
   ])
 ], -1);
-const _hoisted_473 = /* @__PURE__ */ createBaseVNode("li", null, [
+const _hoisted_482 = /* @__PURE__ */ createBaseVNode("li", null, [
   /* @__PURE__ */ createTextVNode("Example: "),
   /* @__PURE__ */ createBaseVNode("code", null, '{"matrix": [2, 1], "x": 20, "y": 48, "flags": 2}')
 ], -1);
-const _hoisted_474 = /* @__PURE__ */ createBaseVNode("code", null, "led_flush_limit", -1);
-const _hoisted_475 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_483 = /* @__PURE__ */ createBaseVNode("code", null, "led_flush_limit", -1);
+const _hoisted_484 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Limits in milliseconds how frequently an animation will update the LEDs."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
   ])
 ], -1);
-const _hoisted_476 = /* @__PURE__ */ createBaseVNode("code", null, "led_process_limit", -1);
-const _hoisted_477 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_485 = /* @__PURE__ */ createBaseVNode("code", null, "led_process_limit", -1);
+const _hoisted_486 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "(led_count + 4) / 5")
   ])
 ], -1);
-const _hoisted_478 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
-const _hoisted_479 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_487 = /* @__PURE__ */ createBaseVNode("code", null, "max_brightness", -1);
+const _hoisted_488 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, 'The maximum value which the HSV "V" component is scaled to, from 0 to 255.'),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "255")
   ])
 ], -1);
-const _hoisted_480 = /* @__PURE__ */ createBaseVNode("code", null, "react_on_keyup", -1);
-const _hoisted_481 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_489 = /* @__PURE__ */ createBaseVNode("code", null, "react_on_keyup", -1);
+const _hoisted_490 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Animations react to keyup instead of keydown."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_482 = /* @__PURE__ */ createBaseVNode("code", null, "sat_steps", -1);
-const _hoisted_483 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_491 = /* @__PURE__ */ createBaseVNode("code", null, "sat_steps", -1);
+const _hoisted_492 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the saturation."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
   ])
 ], -1);
-const _hoisted_484 = /* @__PURE__ */ createBaseVNode("code", null, "sleep", -1);
-const _hoisted_485 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_493 = /* @__PURE__ */ createBaseVNode("code", null, "sleep", -1);
+const _hoisted_494 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Turn off the LEDs when the host goes to sleep."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_486 = /* @__PURE__ */ createBaseVNode("code", null, "speed_steps", -1);
-const _hoisted_487 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_495 = /* @__PURE__ */ createBaseVNode("code", null, "speed_steps", -1);
+const _hoisted_496 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the speed."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
   ])
 ], -1);
-const _hoisted_488 = /* @__PURE__ */ createBaseVNode("code", null, "split_count", -1);
-const _hoisted_489 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_497 = /* @__PURE__ */ createBaseVNode("code", null, "split_count", -1);
+const _hoisted_498 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "For split keyboards, the number of LEDs on each half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[16, 16]")
   ])
 ], -1);
-const _hoisted_490 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
-const _hoisted_491 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_499 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
+const _hoisted_500 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The LED activity timeout in milliseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -1896,15 +1933,15 @@ const _hoisted_491 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (no timeout)")
   ])
 ], -1);
-const _hoisted_492 = /* @__PURE__ */ createBaseVNode("code", null, "val_steps", -1);
-const _hoisted_493 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_501 = /* @__PURE__ */ createBaseVNode("code", null, "val_steps", -1);
+const _hoisted_502 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The value by which to increment the brightness."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "16")
   ])
 ], -1);
-const _hoisted_494 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_503 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "secure",
   tabindex: "-1"
 }, [
@@ -1915,22 +1952,22 @@ const _hoisted_494 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "Secure {#secure}"'
   }, "​")
 ], -1);
-const _hoisted_495 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_504 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/secure" }, "Secure"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_496 = /* @__PURE__ */ createBaseVNode("code", null, "secure", -1);
-const _hoisted_497 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
-const _hoisted_498 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_505 = /* @__PURE__ */ createBaseVNode("code", null, "secure", -1);
+const _hoisted_506 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
+const _hoisted_507 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable the Secure feature."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_499 = /* @__PURE__ */ createBaseVNode("code", null, "idle_timeout", -1);
-const _hoisted_500 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_508 = /* @__PURE__ */ createBaseVNode("code", null, "idle_timeout", -1);
+const _hoisted_509 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Timeout while unlocked before returning to the locked state. Set to "),
     /* @__PURE__ */ createBaseVNode("code", null, "0"),
@@ -1942,16 +1979,16 @@ const _hoisted_500 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (1 minute)")
   ])
 ], -1);
-const _hoisted_501 = /* @__PURE__ */ createBaseVNode("code", null, "unlock_sequence", -1);
-const _hoisted_502 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_510 = /* @__PURE__ */ createBaseVNode("code", null, "unlock_sequence", -1);
+const _hoisted_511 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, 'A list of up to five matrix locations comprising the "unlock sequence".'),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, "[[0, 0], [0, 1], [4, 3]]")
   ])
 ], -1);
-const _hoisted_503 = /* @__PURE__ */ createBaseVNode("code", null, "unlock_timeout", -1);
-const _hoisted_504 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_512 = /* @__PURE__ */ createBaseVNode("code", null, "unlock_timeout", -1);
+const _hoisted_513 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Timeout for the user to perform the unlock sequence. Set to "),
     /* @__PURE__ */ createBaseVNode("code", null, "0"),
@@ -1963,7 +2000,7 @@ const _hoisted_504 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (5 seconds)")
   ])
 ], -1);
-const _hoisted_505 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_514 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "split-keyboard",
   tabindex: "-1"
 }, [
@@ -1974,22 +2011,22 @@ const _hoisted_505 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "Split Keyboard {#split-keyboard}"'
   }, "​")
 ], -1);
-const _hoisted_506 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_515 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/split_keyboard" }, "Split Keyboard"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_507 = /* @__PURE__ */ createBaseVNode("code", null, "split", -1);
-const _hoisted_508 = /* @__PURE__ */ createStaticVNode("", 2);
-const _hoisted_510 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
-const _hoisted_511 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_516 = /* @__PURE__ */ createBaseVNode("code", null, "split", -1);
+const _hoisted_517 = /* @__PURE__ */ createStaticVNode("", 2);
+const _hoisted_519 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
+const _hoisted_520 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable the Split Keyboard feature."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_512 = /* @__PURE__ */ createBaseVNode("li", null, [
+const _hoisted_521 = /* @__PURE__ */ createBaseVNode("li", null, [
   /* @__PURE__ */ createBaseVNode("code", null, "encoder"),
   /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("li", null, [
@@ -2009,20 +2046,20 @@ const _hoisted_512 = /* @__PURE__ */ createBaseVNode("li", null, [
     ])
   ])
 ], -1);
-const _hoisted_513 = /* @__PURE__ */ createBaseVNode("code", null, "handedness", -1);
-const _hoisted_514 = /* @__PURE__ */ createBaseVNode("code", null, "pin", -1);
-const _hoisted_515 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_522 = /* @__PURE__ */ createBaseVNode("code", null, "handedness", -1);
+const _hoisted_523 = /* @__PURE__ */ createBaseVNode("code", null, "pin", -1);
+const _hoisted_524 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The GPIO pin connected to determine handedness.")
 ], -1);
-const _hoisted_516 = /* @__PURE__ */ createBaseVNode("code", null, "matrix_grid", -1);
-const _hoisted_517 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_525 = /* @__PURE__ */ createBaseVNode("code", null, "matrix_grid", -1);
+const _hoisted_526 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The GPIO pins of the matrix position which determines the handedness."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, '["A1", "B5"]')
   ])
 ], -1);
-const _hoisted_518 = /* @__PURE__ */ createBaseVNode("li", null, [
+const _hoisted_527 = /* @__PURE__ */ createBaseVNode("li", null, [
   /* @__PURE__ */ createBaseVNode("code", null, "matrix_pins"),
   /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("li", null, [
@@ -2037,9 +2074,9 @@ const _hoisted_518 = /* @__PURE__ */ createBaseVNode("li", null, [
     ])
   ])
 ], -1);
-const _hoisted_519 = /* @__PURE__ */ createBaseVNode("code", null, "serial", -1);
-const _hoisted_520 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_521 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_528 = /* @__PURE__ */ createBaseVNode("code", null, "serial", -1);
+const _hoisted_529 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
+const _hoisted_530 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The driver to use. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "bitbang"),
@@ -2054,12 +2091,12 @@ const _hoisted_521 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"bitbang"')
   ])
 ], -1);
-const _hoisted_522 = /* @__PURE__ */ createBaseVNode("code", null, "pin", -1);
-const _hoisted_523 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_531 = /* @__PURE__ */ createBaseVNode("code", null, "pin", -1);
+const _hoisted_532 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The GPIO pin to use for transmit and receive.")
 ], -1);
-const _hoisted_524 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
-const _hoisted_525 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_533 = /* @__PURE__ */ createBaseVNode("code", null, "speed", -1);
+const _hoisted_534 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The protocol speed, from "),
     /* @__PURE__ */ createBaseVNode("code", null, "0"),
@@ -2072,9 +2109,9 @@ const _hoisted_525 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, "1")
   ])
 ], -1);
-const _hoisted_526 = /* @__PURE__ */ createBaseVNode("code", null, "transport", -1);
-const _hoisted_527 = /* @__PURE__ */ createBaseVNode("code", null, "protocol", -1);
-const _hoisted_528 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_535 = /* @__PURE__ */ createBaseVNode("code", null, "transport", -1);
+const _hoisted_536 = /* @__PURE__ */ createBaseVNode("code", null, "protocol", -1);
+const _hoisted_537 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The split transport protocol to use. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "custom"),
@@ -2085,17 +2122,17 @@ const _hoisted_528 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(".")
   ])
 ], -1);
-const _hoisted_529 = /* @__PURE__ */ createBaseVNode("code", null, "sync", -1);
-const _hoisted_530 = /* @__PURE__ */ createBaseVNode("code", null, "activity", -1);
-const _hoisted_531 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_538 = /* @__PURE__ */ createBaseVNode("code", null, "sync", -1);
+const _hoisted_539 = /* @__PURE__ */ createBaseVNode("code", null, "activity", -1);
+const _hoisted_540 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the activity timestamps to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_532 = /* @__PURE__ */ createBaseVNode("code", null, "detected_os", -1);
-const _hoisted_533 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_541 = /* @__PURE__ */ createBaseVNode("code", null, "detected_os", -1);
+const _hoisted_542 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Mirror the "),
     /* @__PURE__ */ createBaseVNode("a", { href: "./features/os_detection" }, "detected OS"),
@@ -2106,89 +2143,89 @@ const _hoisted_533 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_534 = /* @__PURE__ */ createBaseVNode("code", null, "haptic", -1);
-const _hoisted_535 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_543 = /* @__PURE__ */ createBaseVNode("code", null, "haptic", -1);
+const _hoisted_544 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the haptic state and process haptic feedback to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_536 = /* @__PURE__ */ createBaseVNode("code", null, "layer_state", -1);
-const _hoisted_537 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_545 = /* @__PURE__ */ createBaseVNode("code", null, "layer_state", -1);
+const _hoisted_546 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the layer state to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_538 = /* @__PURE__ */ createBaseVNode("code", null, "indicators", -1);
-const _hoisted_539 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_547 = /* @__PURE__ */ createBaseVNode("code", null, "indicators", -1);
+const _hoisted_548 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the indicator state to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_540 = /* @__PURE__ */ createBaseVNode("code", null, "matrix_state", -1);
-const _hoisted_541 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_549 = /* @__PURE__ */ createBaseVNode("code", null, "matrix_state", -1);
+const _hoisted_550 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the main/primary half's matrix state to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_542 = /* @__PURE__ */ createBaseVNode("code", null, "modifiers", -1);
-const _hoisted_543 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_551 = /* @__PURE__ */ createBaseVNode("code", null, "modifiers", -1);
+const _hoisted_552 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the modifier state to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_544 = /* @__PURE__ */ createBaseVNode("code", null, "oled", -1);
-const _hoisted_545 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_553 = /* @__PURE__ */ createBaseVNode("code", null, "oled", -1);
+const _hoisted_554 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the OLED on/off status to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_546 = /* @__PURE__ */ createBaseVNode("code", null, "st7565", -1);
-const _hoisted_547 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_555 = /* @__PURE__ */ createBaseVNode("code", null, "st7565", -1);
+const _hoisted_556 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the ST7565 on/off status to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_548 = /* @__PURE__ */ createBaseVNode("code", null, "wpm", -1);
-const _hoisted_549 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_557 = /* @__PURE__ */ createBaseVNode("code", null, "wpm", -1);
+const _hoisted_558 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Mirror the current WPM value to the secondary half."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_550 = /* @__PURE__ */ createBaseVNode("code", null, "watchdog", -1);
-const _hoisted_551 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_559 = /* @__PURE__ */ createBaseVNode("code", null, "watchdog", -1);
+const _hoisted_560 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Reboot the secondary half if it loses connection."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_552 = /* @__PURE__ */ createBaseVNode("code", null, "watchdog_timeout", -1);
-const _hoisted_553 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_561 = /* @__PURE__ */ createBaseVNode("code", null, "watchdog_timeout", -1);
+const _hoisted_562 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The amount of time to wait for communication from the primary half in milliseconds.")
 ], -1);
-const _hoisted_554 = /* @__PURE__ */ createBaseVNode("code", null, "usb_detect", -1);
-const _hoisted_555 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
-const _hoisted_556 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_563 = /* @__PURE__ */ createBaseVNode("code", null, "usb_detect", -1);
+const _hoisted_564 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
+const _hoisted_565 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Detect USB connection when determining split half roles.")
 ], -1);
-const _hoisted_557 = /* @__PURE__ */ createBaseVNode("code", null, "polling_interval", -1);
-const _hoisted_558 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_566 = /* @__PURE__ */ createBaseVNode("code", null, "polling_interval", -1);
+const _hoisted_567 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The polling frequency in milliseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -2196,8 +2233,8 @@ const _hoisted_558 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (10 ms)")
   ])
 ], -1);
-const _hoisted_559 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
-const _hoisted_560 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_568 = /* @__PURE__ */ createBaseVNode("code", null, "timeout", -1);
+const _hoisted_569 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The amount of time to wait for a USB connection in milliseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -2205,7 +2242,7 @@ const _hoisted_560 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (2 seconds)")
   ])
 ], -1);
-const _hoisted_561 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_570 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "stenography",
   tabindex: "-1"
 }, [
@@ -2216,22 +2253,22 @@ const _hoisted_561 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "Stenography {#stenography}"'
   }, "​")
 ], -1);
-const _hoisted_562 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_571 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./features/stenography" }, "Stenography"),
   /* @__PURE__ */ createTextVNode(" feature.")
 ], -1);
-const _hoisted_563 = /* @__PURE__ */ createBaseVNode("code", null, "stenography", -1);
-const _hoisted_564 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
-const _hoisted_565 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_572 = /* @__PURE__ */ createBaseVNode("code", null, "stenography", -1);
+const _hoisted_573 = /* @__PURE__ */ createBaseVNode("code", null, "enabled", -1);
+const _hoisted_574 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable the Stenography feature."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_566 = /* @__PURE__ */ createBaseVNode("code", null, "protocol", -1);
-const _hoisted_567 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_575 = /* @__PURE__ */ createBaseVNode("code", null, "protocol", -1);
+const _hoisted_576 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The Steno protocol to use. Must be one of "),
     /* @__PURE__ */ createBaseVNode("code", null, "all"),
@@ -2246,7 +2283,7 @@ const _hoisted_567 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"all"')
   ])
 ], -1);
-const _hoisted_568 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_577 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "usb",
   tabindex: "-1"
 }, [
@@ -2257,9 +2294,9 @@ const _hoisted_568 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "USB {#usb}"'
   }, "​")
 ], -1);
-const _hoisted_569 = /* @__PURE__ */ createBaseVNode("code", null, "usb", -1);
-const _hoisted_570 = /* @__PURE__ */ createBaseVNode("code", null, "device_version", -1);
-const _hoisted_571 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_578 = /* @__PURE__ */ createBaseVNode("code", null, "usb", -1);
+const _hoisted_579 = /* @__PURE__ */ createBaseVNode("code", null, "device_version", -1);
+const _hoisted_580 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("A BCD version number in the format "),
     /* @__PURE__ */ createBaseVNode("code", null, "MM.m.r"),
@@ -2272,24 +2309,24 @@ const _hoisted_571 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"1.0.0"')
   ])
 ], -1);
-const _hoisted_572 = /* @__PURE__ */ createBaseVNode("code", null, "pid", -1);
-const _hoisted_573 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_581 = /* @__PURE__ */ createBaseVNode("code", null, "pid", -1);
+const _hoisted_582 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The USB product ID as a four-digit hexadecimal number."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, '"0x23B0"')
   ])
 ], -1);
-const _hoisted_574 = /* @__PURE__ */ createBaseVNode("code", null, "vid", -1);
-const _hoisted_575 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_583 = /* @__PURE__ */ createBaseVNode("code", null, "vid", -1);
+const _hoisted_584 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The USB vendor ID as a four-digit hexadecimal number."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Example: "),
     /* @__PURE__ */ createBaseVNode("code", null, '"0xC1ED"')
   ])
 ], -1);
-const _hoisted_576 = /* @__PURE__ */ createBaseVNode("code", null, "max_power", -1);
-const _hoisted_577 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_585 = /* @__PURE__ */ createBaseVNode("code", null, "max_power", -1);
+const _hoisted_586 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The maximum current draw the host should expect from the device. This does not control the actual current usage."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -2297,16 +2334,16 @@ const _hoisted_577 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (500 mA)")
   ])
 ], -1);
-const _hoisted_578 = /* @__PURE__ */ createBaseVNode("code", null, "no_startup_check", -1);
-const _hoisted_579 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_587 = /* @__PURE__ */ createBaseVNode("code", null, "no_startup_check", -1);
+const _hoisted_588 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Disable USB suspend check after keyboard startup."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_580 = /* @__PURE__ */ createBaseVNode("code", null, "polling_interval", -1);
-const _hoisted_581 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_589 = /* @__PURE__ */ createBaseVNode("code", null, "polling_interval", -1);
+const _hoisted_590 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The frequency at which the host should poll the keyboard for reports."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -2314,25 +2351,25 @@ const _hoisted_581 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (1 ms/1000 Hz)")
   ])
 ], -1);
-const _hoisted_582 = /* @__PURE__ */ createBaseVNode("code", null, "shared_endpoint", -1);
-const _hoisted_583 = /* @__PURE__ */ createBaseVNode("code", null, "keyboard", -1);
-const _hoisted_584 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_591 = /* @__PURE__ */ createBaseVNode("code", null, "shared_endpoint", -1);
+const _hoisted_592 = /* @__PURE__ */ createBaseVNode("code", null, "keyboard", -1);
+const _hoisted_593 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, 'Send keyboard reports through the "shared" USB endpoint.'),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_585 = /* @__PURE__ */ createBaseVNode("code", null, "mouse", -1);
-const _hoisted_586 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_594 = /* @__PURE__ */ createBaseVNode("code", null, "mouse", -1);
+const _hoisted_595 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, 'Send mouse reports through the "shared" USB endpoint.'),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "true")
   ])
 ], -1);
-const _hoisted_587 = /* @__PURE__ */ createBaseVNode("code", null, "suspend_wakeup_delay", -1);
-const _hoisted_588 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_596 = /* @__PURE__ */ createBaseVNode("code", null, "suspend_wakeup_delay", -1);
+const _hoisted_597 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "The amount of time to wait after sending a wakeup packet, in milliseconds."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -2340,15 +2377,15 @@ const _hoisted_588 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (disabled)")
   ])
 ], -1);
-const _hoisted_589 = /* @__PURE__ */ createBaseVNode("code", null, "wait_for_enumeration", -1);
-const _hoisted_590 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_598 = /* @__PURE__ */ createBaseVNode("code", null, "wait_for_enumeration", -1);
+const _hoisted_599 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Force the keyboard to wait for USB enumeration before starting up."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
     /* @__PURE__ */ createBaseVNode("code", null, "false")
   ])
 ], -1);
-const _hoisted_591 = /* @__PURE__ */ createBaseVNode("h2", {
+const _hoisted_600 = /* @__PURE__ */ createBaseVNode("h2", {
   id: "ws2812",
   tabindex: "-1"
 }, [
@@ -2359,16 +2396,16 @@ const _hoisted_591 = /* @__PURE__ */ createBaseVNode("h2", {
     "aria-label": 'Permalink to "WS2812 {#ws2812}"'
   }, "​")
 ], -1);
-const _hoisted_592 = /* @__PURE__ */ createBaseVNode("p", null, [
+const _hoisted_601 = /* @__PURE__ */ createBaseVNode("p", null, [
   /* @__PURE__ */ createTextVNode("Configures the "),
   /* @__PURE__ */ createBaseVNode("a", { href: "./drivers/ws2812" }, "WS2812"),
   /* @__PURE__ */ createTextVNode(" driver.")
 ], -1);
-const _hoisted_593 = /* @__PURE__ */ createBaseVNode("code", null, "ws2812", -1);
-const _hoisted_594 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
-const _hoisted_595 = /* @__PURE__ */ createStaticVNode("", 1);
-const _hoisted_596 = /* @__PURE__ */ createBaseVNode("code", null, "pin", -1);
-const _hoisted_597 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_602 = /* @__PURE__ */ createBaseVNode("code", null, "ws2812", -1);
+const _hoisted_603 = /* @__PURE__ */ createBaseVNode("code", null, "driver", -1);
+const _hoisted_604 = /* @__PURE__ */ createStaticVNode("", 1);
+const _hoisted_605 = /* @__PURE__ */ createBaseVNode("code", null, "pin", -1);
+const _hoisted_606 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The GPIO pin connected to "),
     /* @__PURE__ */ createBaseVNode("code", null, "DI"),
@@ -2383,8 +2420,8 @@ const _hoisted_597 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" drivers only).")
   ])
 ], -1);
-const _hoisted_598 = /* @__PURE__ */ createBaseVNode("code", null, "i2c_address", -1);
-const _hoisted_599 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_607 = /* @__PURE__ */ createBaseVNode("code", null, "i2c_address", -1);
+const _hoisted_608 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The I²C address of the WS2812 controller ("),
     /* @__PURE__ */ createBaseVNode("code", null, "i2c"),
@@ -2395,8 +2432,8 @@ const _hoisted_599 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createBaseVNode("code", null, '"0xB0"')
   ])
 ], -1);
-const _hoisted_600 = /* @__PURE__ */ createBaseVNode("code", null, "i2c_timeout", -1);
-const _hoisted_601 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_609 = /* @__PURE__ */ createBaseVNode("code", null, "i2c_timeout", -1);
+const _hoisted_610 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("The I²C timeout in milliseconds ("),
     /* @__PURE__ */ createBaseVNode("code", null, "i2c"),
@@ -2408,8 +2445,8 @@ const _hoisted_601 = /* @__PURE__ */ createBaseVNode("ul", null, [
     /* @__PURE__ */ createTextVNode(" (100 ms)")
   ])
 ], -1);
-const _hoisted_602 = /* @__PURE__ */ createBaseVNode("code", null, "rgbw", -1);
-const _hoisted_603 = /* @__PURE__ */ createBaseVNode("ul", null, [
+const _hoisted_611 = /* @__PURE__ */ createBaseVNode("code", null, "rgbw", -1);
+const _hoisted_612 = /* @__PURE__ */ createBaseVNode("ul", null, [
   /* @__PURE__ */ createBaseVNode("li", null, "Enable RGBW LEDs."),
   /* @__PURE__ */ createBaseVNode("li", null, [
     /* @__PURE__ */ createTextVNode("Default: "),
@@ -3620,9 +3657,70 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       ])
     ]),
     _hoisted_227,
+    _hoisted_228,
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _hoisted_232,
+        _hoisted_229,
+        createTextVNode(),
+        createVNode(_component_Badge, { type: "info" }, {
+          default: withCtx(() => [
+            createTextVNode("Array: Object")
+          ]),
+          _: 1
+        }),
+        createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            createTextVNode("A list of keycode objects. "),
+            createBaseVNode("ul", null, [
+              createBaseVNode("li", null, [
+                _hoisted_230,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("String")
+                  ]),
+                  _: 1
+                }),
+                createTextVNode(),
+                createVNode(_component_Badge, null, {
+                  default: withCtx(() => [
+                    createTextVNode("Required")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_231
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_232,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("String")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_233
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_234,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Array: String")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_235
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_236,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_241,
         createTextVNode(),
         createVNode(_component_Badge, { type: "info" }, {
           default: withCtx(() => [
@@ -3630,10 +3728,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           _: 1
         }),
-        _hoisted_233
+        _hoisted_242
       ]),
       createBaseVNode("li", null, [
-        _hoisted_234,
+        _hoisted_243,
         createTextVNode(),
         createVNode(_component_Badge, { type: "info" }, {
           default: withCtx(() => [
@@ -3641,10 +3739,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           _: 1
         }),
-        _hoisted_235
+        _hoisted_244
       ]),
       createBaseVNode("li", null, [
-        _hoisted_237,
+        _hoisted_246,
         createTextVNode(),
         createVNode(_component_Badge, { type: "info" }, {
           default: withCtx(() => [
@@ -3653,9 +3751,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           _: 1
         }),
         createBaseVNode("ul", null, [
-          _hoisted_238,
+          _hoisted_247,
           createBaseVNode("li", null, [
-            _hoisted_239,
+            _hoisted_248,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -3665,7 +3763,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             }),
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_240,
+                _hoisted_249,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -3678,7 +3776,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                     createTextVNode("A list of key dictionaries comprising the layout. Each key dictionary contains: "),
                     createBaseVNode("ul", null, [
                       createBaseVNode("li", null, [
-                        _hoisted_241,
+                        _hoisted_250,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3693,10 +3791,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_242
+                        _hoisted_251
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_243,
+                        _hoisted_252,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3711,10 +3809,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_244
+                        _hoisted_253
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_245,
+                        _hoisted_254,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3729,10 +3827,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_246
+                        _hoisted_255
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_247,
+                        _hoisted_256,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3740,10 +3838,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_248
+                        _hoisted_257
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_249,
+                        _hoisted_258,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3751,10 +3849,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_250
+                        _hoisted_259
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_251,
+                        _hoisted_260,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3762,10 +3860,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_252
+                        _hoisted_261
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_253,
+                        _hoisted_262,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3773,10 +3871,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_254
+                        _hoisted_263
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_255,
+                        _hoisted_264,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3784,10 +3882,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_256
+                        _hoisted_265
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_257,
+                        _hoisted_266,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3795,10 +3893,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_258
+                        _hoisted_267
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_259,
+                        _hoisted_268,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3806,10 +3904,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_260
+                        _hoisted_269
                       ]),
                       createBaseVNode("li", null, [
-                        _hoisted_261,
+                        _hoisted_270,
                         createTextVNode(),
                         createVNode(_component_Badge, { type: "info" }, {
                           default: withCtx(() => [
@@ -3817,56 +3915,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                           ]),
                           _: 1
                         }),
-                        _hoisted_262
+                        _hoisted_271
                       ]),
-                      _hoisted_263
+                      _hoisted_272
                     ])
                   ])
                 ])
               ])
             ])
-          ])
-        ])
-      ])
-    ]),
-    _hoisted_264,
-    _hoisted_265,
-    createBaseVNode("ul", null, [
-      createBaseVNode("li", null, [
-        _hoisted_266,
-        createBaseVNode("ul", null, [
-          createBaseVNode("li", null, [
-            _hoisted_267,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_268
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_269,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_270
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_271,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_272
           ])
         ])
       ])
@@ -3882,14 +3938,56 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Object: Boolean")
+                createTextVNode("Boolean")
               ]),
               _: 1
             }),
             _hoisted_277
           ]),
           createBaseVNode("li", null, [
-            _hoisted_279,
+            _hoisted_278,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_279
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_280,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_281
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_282,
+    _hoisted_283,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_284,
+        createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            _hoisted_285,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Object: Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_286
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_288,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -3897,10 +3995,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_280
+            _hoisted_289
           ]),
           createBaseVNode("li", null, [
-            _hoisted_281,
+            _hoisted_290,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -3908,13 +4006,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_282
+            _hoisted_291
           ]),
           createBaseVNode("li", null, [
-            _hoisted_283,
+            _hoisted_292,
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_284,
+                _hoisted_293,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -3922,10 +4020,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_285
+                _hoisted_294
               ]),
               createBaseVNode("li", null, [
-                _hoisted_286,
+                _hoisted_295,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -3933,10 +4031,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_287
+                _hoisted_296
               ]),
               createBaseVNode("li", null, [
-                _hoisted_288,
+                _hoisted_297,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -3944,10 +4042,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_289
+                _hoisted_298
               ]),
               createBaseVNode("li", null, [
-                _hoisted_290,
+                _hoisted_299,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -3955,10 +4053,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_291
+                _hoisted_300
               ]),
               createBaseVNode("li", null, [
-                _hoisted_292,
+                _hoisted_301,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -3966,12 +4064,12 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_293
+                _hoisted_302
               ])
             ])
           ]),
           createBaseVNode("li", null, [
-            _hoisted_294,
+            _hoisted_303,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -3986,10 +4084,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_295
+            _hoisted_304
           ]),
           createBaseVNode("li", null, [
-            _hoisted_296,
+            _hoisted_305,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4009,7 +4107,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 createTextVNode("List of LED configuration dictionaries. Each dictionary contains: "),
                 createBaseVNode("ul", null, [
                   createBaseVNode("li", null, [
-                    _hoisted_297,
+                    _hoisted_306,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -4024,10 +4122,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_298
+                    _hoisted_307
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_299,
+                    _hoisted_308,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -4042,10 +4140,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_300
+                    _hoisted_309
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_301,
+                    _hoisted_310,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -4060,10 +4158,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_302
+                    _hoisted_311
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_303,
+                    _hoisted_312,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -4071,15 +4169,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_304
+                    _hoisted_313
                   ]),
-                  _hoisted_305
+                  _hoisted_314
                 ])
               ])
             ])
           ]),
           createBaseVNode("li", null, [
-            _hoisted_306,
+            _hoisted_315,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4087,10 +4185,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_307
+            _hoisted_316
           ]),
           createBaseVNode("li", null, [
-            _hoisted_308,
+            _hoisted_317,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4098,10 +4196,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_309
+            _hoisted_318
           ]),
           createBaseVNode("li", null, [
-            _hoisted_310,
+            _hoisted_319,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4109,10 +4207,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_311
+            _hoisted_320
           ]),
           createBaseVNode("li", null, [
-            _hoisted_312,
+            _hoisted_321,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4120,10 +4218,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_313
+            _hoisted_322
           ]),
           createBaseVNode("li", null, [
-            _hoisted_314,
+            _hoisted_323,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4131,10 +4229,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_315
+            _hoisted_324
           ]),
           createBaseVNode("li", null, [
-            _hoisted_316,
+            _hoisted_325,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4142,10 +4240,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_317
+            _hoisted_326
           ]),
           createBaseVNode("li", null, [
-            _hoisted_318,
+            _hoisted_327,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4153,10 +4251,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_319
+            _hoisted_328
           ]),
           createBaseVNode("li", null, [
-            _hoisted_320,
+            _hoisted_329,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4164,10 +4262,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_321
+            _hoisted_330
           ]),
           createBaseVNode("li", null, [
-            _hoisted_322,
+            _hoisted_331,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4175,15 +4273,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_323
+            _hoisted_332
           ])
         ])
       ])
     ]),
-    _hoisted_324,
+    _hoisted_333,
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _hoisted_325,
+        _hoisted_334,
         createTextVNode(),
         createVNode(_component_Badge, { type: "info" }, {
           default: withCtx(() => [
@@ -4191,10 +4289,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           _: 1
         }),
-        _hoisted_326
+        _hoisted_335
       ]),
       createBaseVNode("li", null, [
-        _hoisted_327,
+        _hoisted_336,
         createTextVNode(),
         createVNode(_component_Badge, { type: "info" }, {
           default: withCtx(() => [
@@ -4202,61 +4300,17 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           _: 1
         }),
-        _hoisted_328
+        _hoisted_337
       ]),
       createBaseVNode("li", null, [
-        _hoisted_329,
+        _hoisted_338,
         createBaseVNode("ul", null, [
-          createBaseVNode("li", null, [
-            _hoisted_330,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Array: Pin")
-              ]),
-              _: 1
-            }),
-            _hoisted_331
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_332,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_333
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_334,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_335
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_336,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Array: Array: Pin")
-              ]),
-              _: 1
-            }),
-            _hoisted_337
-          ]),
           createBaseVNode("li", null, [
             _hoisted_339,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Boolean")
+                createTextVNode("Array: Pin")
               ]),
               _: 1
             }),
@@ -4267,7 +4321,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("0|1")
+                createTextVNode("Boolean")
               ]),
               _: 1
             }),
@@ -4278,7 +4332,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Number")
+                createTextVNode("Boolean")
               ]),
               _: 1
             }),
@@ -4289,32 +4343,34 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Boolean")
+                createTextVNode("Array: Array: Pin")
               ]),
               _: 1
             }),
             _hoisted_346
           ]),
           createBaseVNode("li", null, [
-            _hoisted_347,
+            _hoisted_348,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Array: Pin")
+                createTextVNode("Boolean")
               ]),
               _: 1
             }),
-            _hoisted_348
-          ])
-        ])
-      ])
-    ]),
-    _hoisted_349,
-    _hoisted_350,
-    createBaseVNode("ul", null, [
-      createBaseVNode("li", null, [
-        _hoisted_351,
-        createBaseVNode("ul", null, [
+            _hoisted_349
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_350,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("0|1")
+              ]),
+              _: 1
+            }),
+            _hoisted_351
+          ]),
           createBaseVNode("li", null, [
             _hoisted_352,
             createTextVNode(),
@@ -4323,10 +4379,11 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 createTextVNode("Number")
               ]),
               _: 1
-            })
+            }),
+            _hoisted_353
           ]),
           createBaseVNode("li", null, [
-            _hoisted_353,
+            _hoisted_354,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4334,63 +4391,44 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_354
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_355,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            })
+            _hoisted_355
           ]),
           createBaseVNode("li", null, [
             _hoisted_356,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Number")
+                createTextVNode("Array: Pin")
               ]),
               _: 1
-            })
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_357,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            })
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_358,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            })
+            }),
+            _hoisted_357
           ])
         ])
       ])
     ]),
+    _hoisted_358,
     _hoisted_359,
-    _hoisted_360,
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _hoisted_361,
+        _hoisted_360,
         createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            _hoisted_361,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            })
+          ]),
           createBaseVNode("li", null, [
             _hoisted_362,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Number")
+                createTextVNode("Boolean")
               ]),
               _: 1
             }),
@@ -4404,35 +4442,53 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 createTextVNode("Number")
               ]),
               _: 1
-            }),
-            _hoisted_365
+            })
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_365,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            })
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_366,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            })
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_367,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            })
           ])
         ])
       ])
     ]),
-    _hoisted_366,
-    _hoisted_367,
+    _hoisted_368,
+    _hoisted_369,
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _hoisted_368,
+        _hoisted_370,
         createBaseVNode("ul", null, [
-          createBaseVNode("li", null, [
-            _hoisted_369,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Pin")
-              ]),
-              _: 1
-            }),
-            _hoisted_370
-          ]),
           createBaseVNode("li", null, [
             _hoisted_371,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Pin")
+                createTextVNode("Number")
               ]),
               _: 1
             }),
@@ -4443,44 +4499,86 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("String")
+                createTextVNode("Number")
               ]),
               _: 1
             }),
             _hoisted_374
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_375,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_376
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_377,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_378
           ])
         ])
       ])
     ]),
-    _hoisted_379,
+    _hoisted_375,
+    _hoisted_376,
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _hoisted_380,
+        _hoisted_377,
         createBaseVNode("ul", null, [
           createBaseVNode("li", null, [
-            _hoisted_381,
+            _hoisted_378,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Pin")
+              ]),
+              _: 1
+            }),
+            _hoisted_379
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_380,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Pin")
+              ]),
+              _: 1
+            }),
+            _hoisted_381
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_382,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("String")
+              ]),
+              _: 1
+            }),
+            _hoisted_383
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_384,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_385
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_386,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_387
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_388,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_389,
+        createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            _hoisted_390,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4495,63 +4593,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_382
+            _hoisted_391
           ]),
-          createBaseVNode("li", null, [
-            _hoisted_383,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Pin")
-              ]),
-              _: 1
-            }),
-            createTextVNode(),
-            createVNode(_component_Badge, null, {
-              default: withCtx(() => [
-                createTextVNode("Required")
-              ]),
-              _: 1
-            }),
-            _hoisted_384
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_385,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Pin")
-              ]),
-              _: 1
-            }),
-            _hoisted_386
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_387,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Pin")
-              ]),
-              _: 1
-            }),
-            _hoisted_388
-          ])
-        ])
-      ])
-    ]),
-    _hoisted_389,
-    _hoisted_390,
-    createBaseVNode("ul", null, [
-      createBaseVNode("li", null, [
-        _hoisted_391,
-        createBaseVNode("ul", null, [
           createBaseVNode("li", null, [
             _hoisted_392,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Number")
+                createTextVNode("Pin")
               ]),
               _: 1
             }),
@@ -4569,14 +4618,34 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Object: Boolean")
+                createTextVNode("Pin")
               ]),
               _: 1
             }),
             _hoisted_395
           ]),
           createBaseVNode("li", null, [
-            _hoisted_397,
+            _hoisted_396,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Pin")
+              ]),
+              _: 1
+            }),
+            _hoisted_397
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_398,
+    _hoisted_399,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_400,
+        createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            _hoisted_401,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4584,13 +4653,42 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_398
+            createTextVNode(),
+            createVNode(_component_Badge, null, {
+              default: withCtx(() => [
+                createTextVNode("Required")
+              ]),
+              _: 1
+            }),
+            _hoisted_402
           ]),
           createBaseVNode("li", null, [
-            _hoisted_399,
+            _hoisted_403,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Object: Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_404
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_406,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_407
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_408,
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_400,
+                _hoisted_409,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -4598,10 +4696,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_401
+                _hoisted_410
               ]),
               createBaseVNode("li", null, [
-                _hoisted_402,
+                _hoisted_411,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -4609,10 +4707,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_403
+                _hoisted_412
               ]),
               createBaseVNode("li", null, [
-                _hoisted_404,
+                _hoisted_413,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -4620,10 +4718,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_405
+                _hoisted_414
               ]),
               createBaseVNode("li", null, [
-                _hoisted_406,
+                _hoisted_415,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -4631,63 +4729,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_407
+                _hoisted_416
               ]),
-              createBaseVNode("li", null, [
-                _hoisted_408,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_409
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_410,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_411
-              ])
-            ])
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_412,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("String")
-              ]),
-              _: 1
-            }),
-            _hoisted_413
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_414,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_415
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_416,
-            createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
                 _hoisted_417,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
-                    createTextVNode("Boolean")
+                    createTextVNode("Number")
                   ]),
                   _: 1
                 }),
@@ -4698,31 +4747,31 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
-                    createTextVNode("Boolean")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_420
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_421,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
                     createTextVNode("Number")
                   ]),
                   _: 1
                 }),
-                _hoisted_422
+                _hoisted_420
               ])
             ])
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_421,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("String")
+              ]),
+              _: 1
+            }),
+            _hoisted_422
           ]),
           createBaseVNode("li", null, [
             _hoisted_423,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Array: Number")
+                createTextVNode("Number")
               ]),
               _: 1
             }),
@@ -4730,117 +4779,9 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           ]),
           createBaseVNode("li", null, [
             _hoisted_425,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_426
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_427,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_428
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_429,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_430
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_431,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_432
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_433,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Array: Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_434
-          ])
-        ])
-      ])
-    ]),
-    _hoisted_435,
-    _hoisted_436,
-    createBaseVNode("ul", null, [
-      createBaseVNode("li", null, [
-        _hoisted_437,
-        createBaseVNode("ul", null, [
-          createBaseVNode("li", null, [
-            _hoisted_438,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Object: Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_439
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_441,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Array: Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_442
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_443,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Array: Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_444
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_445,
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_446,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("String")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_447
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_448,
+                _hoisted_426,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -4848,10 +4789,21 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_449
+                _hoisted_427
               ]),
               createBaseVNode("li", null, [
-                _hoisted_450,
+                _hoisted_428,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Boolean")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_429
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_430,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -4859,56 +4811,202 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_451
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_452,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_453
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_454,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_455
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_456,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_457
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_458,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_459
+                _hoisted_431
               ])
             ])
           ]),
           createBaseVNode("li", null, [
-            _hoisted_460,
+            _hoisted_432,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Array: Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_433
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_434,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_435
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_436,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_437
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_438,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_439
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_440,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_441
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_442,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Array: Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_443
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_444,
+    _hoisted_445,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_446,
+        createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            _hoisted_447,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Object: Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_448
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_450,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Array: Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_451
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_452,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Array: Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_453
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_454,
+            createBaseVNode("ul", null, [
+              createBaseVNode("li", null, [
+                _hoisted_455,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("String")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_456
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_457,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Boolean")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_458
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_459,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Number")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_460
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_461,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Number")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_462
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_463,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Number")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_464
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_465,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Number")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_466
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_467,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Number")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_468
+              ])
+            ])
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_469,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4923,10 +5021,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_461
+            _hoisted_470
           ]),
           createBaseVNode("li", null, [
-            _hoisted_462,
+            _hoisted_471,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4934,10 +5032,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_463
+            _hoisted_472
           ]),
           createBaseVNode("li", null, [
-            _hoisted_464,
+            _hoisted_473,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -4957,7 +5055,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 createTextVNode("List of LED configuration dictionaries. Each dictionary contains: "),
                 createBaseVNode("ul", null, [
                   createBaseVNode("li", null, [
-                    _hoisted_465,
+                    _hoisted_474,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -4972,10 +5070,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_466
+                    _hoisted_475
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_467,
+                    _hoisted_476,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -4990,10 +5088,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_468
+                    _hoisted_477
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_469,
+                    _hoisted_478,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5008,10 +5106,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_470
+                    _hoisted_479
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_471,
+                    _hoisted_480,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5019,15 +5117,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_472
+                    _hoisted_481
                   ]),
-                  _hoisted_473
+                  _hoisted_482
                 ])
               ])
             ])
           ]),
           createBaseVNode("li", null, [
-            _hoisted_474,
+            _hoisted_483,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5035,10 +5133,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_475
+            _hoisted_484
           ]),
           createBaseVNode("li", null, [
-            _hoisted_476,
+            _hoisted_485,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5046,10 +5144,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_477
+            _hoisted_486
           ]),
           createBaseVNode("li", null, [
-            _hoisted_478,
+            _hoisted_487,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5057,10 +5155,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_479
+            _hoisted_488
           ]),
           createBaseVNode("li", null, [
-            _hoisted_480,
+            _hoisted_489,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5068,10 +5166,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_481
+            _hoisted_490
           ]),
           createBaseVNode("li", null, [
-            _hoisted_482,
+            _hoisted_491,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5079,10 +5177,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_483
+            _hoisted_492
           ]),
           createBaseVNode("li", null, [
-            _hoisted_484,
+            _hoisted_493,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5090,10 +5188,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_485
+            _hoisted_494
           ]),
           createBaseVNode("li", null, [
-            _hoisted_486,
+            _hoisted_495,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5101,56 +5199,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_487
+            _hoisted_496
           ]),
-          createBaseVNode("li", null, [
-            _hoisted_488,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Array: Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_489
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_490,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_491
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_492,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_493
-          ])
-        ])
-      ])
-    ]),
-    _hoisted_494,
-    _hoisted_495,
-    createBaseVNode("ul", null, [
-      createBaseVNode("li", null, [
-        _hoisted_496,
-        createBaseVNode("ul", null, [
           createBaseVNode("li", null, [
             _hoisted_497,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Boolean")
+                createTextVNode("Array: Number")
               ]),
               _: 1
             }),
@@ -5172,35 +5228,23 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Array: Matrix")
-              ]),
-              _: 1
-            }),
-            _hoisted_502
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_503,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
                 createTextVNode("Number")
               ]),
               _: 1
             }),
-            _hoisted_504
+            _hoisted_502
           ])
         ])
       ])
     ]),
-    _hoisted_505,
-    _hoisted_506,
+    _hoisted_503,
+    _hoisted_504,
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _hoisted_507,
+        _hoisted_505,
         createBaseVNode("ul", null, [
-          _hoisted_508,
           createBaseVNode("li", null, [
-            _hoisted_510,
+            _hoisted_506,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5208,14 +5252,68 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
+            _hoisted_507
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_508,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_509
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_510,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Array: Matrix")
+              ]),
+              _: 1
+            }),
             _hoisted_511
           ]),
-          _hoisted_512,
           createBaseVNode("li", null, [
-            _hoisted_513,
+            _hoisted_512,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_513
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_514,
+    _hoisted_515,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_516,
+        createBaseVNode("ul", null, [
+          _hoisted_517,
+          createBaseVNode("li", null, [
+            _hoisted_519,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_520
+          ]),
+          _hoisted_521,
+          createBaseVNode("li", null, [
+            _hoisted_522,
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_514,
+                _hoisted_523,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -5223,10 +5321,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_515
+                _hoisted_524
               ]),
               createBaseVNode("li", null, [
-                _hoisted_516,
+                _hoisted_525,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -5234,16 +5332,16 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_517
+                _hoisted_526
               ])
             ])
           ]),
-          _hoisted_518,
+          _hoisted_527,
           createBaseVNode("li", null, [
-            _hoisted_519,
+            _hoisted_528,
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_520,
+                _hoisted_529,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -5251,10 +5349,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_521
+                _hoisted_530
               ]),
               createBaseVNode("li", null, [
-                _hoisted_522,
+                _hoisted_531,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -5262,10 +5360,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_523
+                _hoisted_532
               ]),
               createBaseVNode("li", null, [
-                _hoisted_524,
+                _hoisted_533,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -5273,15 +5371,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_525
+                _hoisted_534
               ])
             ])
           ]),
           createBaseVNode("li", null, [
-            _hoisted_526,
+            _hoisted_535,
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_527,
+                _hoisted_536,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -5289,13 +5387,13 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_528
+                _hoisted_537
               ]),
               createBaseVNode("li", null, [
-                _hoisted_529,
+                _hoisted_538,
                 createBaseVNode("ul", null, [
                   createBaseVNode("li", null, [
-                    _hoisted_530,
+                    _hoisted_539,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5303,10 +5401,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_531
+                    _hoisted_540
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_532,
+                    _hoisted_541,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5314,10 +5412,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_533
+                    _hoisted_542
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_534,
+                    _hoisted_543,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5325,10 +5423,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_535
+                    _hoisted_544
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_536,
+                    _hoisted_545,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5336,10 +5434,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_537
+                    _hoisted_546
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_538,
+                    _hoisted_547,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5347,10 +5445,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_539
+                    _hoisted_548
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_540,
+                    _hoisted_549,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5358,10 +5456,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_541
+                    _hoisted_550
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_542,
+                    _hoisted_551,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5369,10 +5467,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_543
+                    _hoisted_552
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_544,
+                    _hoisted_553,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5380,10 +5478,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_545
+                    _hoisted_554
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_546,
+                    _hoisted_555,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5391,10 +5489,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_547
+                    _hoisted_556
                   ]),
                   createBaseVNode("li", null, [
-                    _hoisted_548,
+                    _hoisted_557,
                     createTextVNode(),
                     createVNode(_component_Badge, { type: "info" }, {
                       default: withCtx(() => [
@@ -5402,203 +5500,39 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                       ]),
                       _: 1
                     }),
-                    _hoisted_549
+                    _hoisted_558
                   ])
                 ])
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_550,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Boolean")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_551
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_552,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_553
-              ])
-            ])
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_554,
-            createBaseVNode("ul", null, [
-              createBaseVNode("li", null, [
-                _hoisted_555,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Boolean")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_556
-              ]),
-              createBaseVNode("li", null, [
-                _hoisted_557,
-                createTextVNode(),
-                createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [
-                    createTextVNode("Number")
-                  ]),
-                  _: 1
-                }),
-                _hoisted_558
               ]),
               createBaseVNode("li", null, [
                 _hoisted_559,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
-                    createTextVNode("Number")
+                    createTextVNode("Boolean")
                   ]),
                   _: 1
                 }),
                 _hoisted_560
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_561,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Number")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_562
               ])
             ])
-          ])
-        ])
-      ])
-    ]),
-    _hoisted_561,
-    _hoisted_562,
-    createBaseVNode("ul", null, [
-      createBaseVNode("li", null, [
-        _hoisted_563,
-        createBaseVNode("ul", null, [
-          createBaseVNode("li", null, [
-            _hoisted_564,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_565
           ]),
           createBaseVNode("li", null, [
-            _hoisted_566,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("String")
-              ]),
-              _: 1
-            }),
-            _hoisted_567
-          ])
-        ])
-      ])
-    ]),
-    _hoisted_568,
-    createBaseVNode("ul", null, [
-      createBaseVNode("li", null, [
-        _hoisted_569,
-        createBaseVNode("ul", null, [
-          createBaseVNode("li", null, [
-            _hoisted_570,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("String")
-              ]),
-              _: 1
-            }),
-            createTextVNode(),
-            createVNode(_component_Badge, null, {
-              default: withCtx(() => [
-                createTextVNode("Required")
-              ]),
-              _: 1
-            }),
-            _hoisted_571
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_572,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("String")
-              ]),
-              _: 1
-            }),
-            createTextVNode(),
-            createVNode(_component_Badge, null, {
-              default: withCtx(() => [
-                createTextVNode("Required")
-              ]),
-              _: 1
-            }),
-            _hoisted_573
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_574,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("String")
-              ]),
-              _: 1
-            }),
-            createTextVNode(),
-            createVNode(_component_Badge, null, {
-              default: withCtx(() => [
-                createTextVNode("Required")
-              ]),
-              _: 1
-            }),
-            _hoisted_575
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_576,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_577
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_578,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Boolean")
-              ]),
-              _: 1
-            }),
-            _hoisted_579
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_580,
-            createTextVNode(),
-            createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [
-                createTextVNode("Number")
-              ]),
-              _: 1
-            }),
-            _hoisted_581
-          ]),
-          createBaseVNode("li", null, [
-            _hoisted_582,
+            _hoisted_563,
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _hoisted_583,
+                _hoisted_564,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
@@ -5606,27 +5540,142 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                   ]),
                   _: 1
                 }),
-                _hoisted_584
+                _hoisted_565
               ]),
               createBaseVNode("li", null, [
-                _hoisted_585,
+                _hoisted_566,
                 createTextVNode(),
                 createVNode(_component_Badge, { type: "info" }, {
                   default: withCtx(() => [
-                    createTextVNode("Boolean")
+                    createTextVNode("Number")
                   ]),
                   _: 1
                 }),
-                _hoisted_586
+                _hoisted_567
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_568,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Number")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_569
               ])
             ])
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_570,
+    _hoisted_571,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_572,
+        createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            _hoisted_573,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_574
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_575,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("String")
+              ]),
+              _: 1
+            }),
+            _hoisted_576
+          ])
+        ])
+      ])
+    ]),
+    _hoisted_577,
+    createBaseVNode("ul", null, [
+      createBaseVNode("li", null, [
+        _hoisted_578,
+        createBaseVNode("ul", null, [
+          createBaseVNode("li", null, [
+            _hoisted_579,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("String")
+              ]),
+              _: 1
+            }),
+            createTextVNode(),
+            createVNode(_component_Badge, null, {
+              default: withCtx(() => [
+                createTextVNode("Required")
+              ]),
+              _: 1
+            }),
+            _hoisted_580
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_581,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("String")
+              ]),
+              _: 1
+            }),
+            createTextVNode(),
+            createVNode(_component_Badge, null, {
+              default: withCtx(() => [
+                createTextVNode("Required")
+              ]),
+              _: 1
+            }),
+            _hoisted_582
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_583,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("String")
+              ]),
+              _: 1
+            }),
+            createTextVNode(),
+            createVNode(_component_Badge, null, {
+              default: withCtx(() => [
+                createTextVNode("Required")
+              ]),
+              _: 1
+            }),
+            _hoisted_584
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_585,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_586
           ]),
           createBaseVNode("li", null, [
             _hoisted_587,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Number")
+                createTextVNode("Boolean")
               ]),
               _: 1
             }),
@@ -5637,23 +5686,72 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
-                createTextVNode("Boolean")
+                createTextVNode("Number")
               ]),
               _: 1
             }),
             _hoisted_590
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_591,
+            createBaseVNode("ul", null, [
+              createBaseVNode("li", null, [
+                _hoisted_592,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Boolean")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_593
+              ]),
+              createBaseVNode("li", null, [
+                _hoisted_594,
+                createTextVNode(),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [
+                    createTextVNode("Boolean")
+                  ]),
+                  _: 1
+                }),
+                _hoisted_595
+              ])
+            ])
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_596,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Number")
+              ]),
+              _: 1
+            }),
+            _hoisted_597
+          ]),
+          createBaseVNode("li", null, [
+            _hoisted_598,
+            createTextVNode(),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [
+                createTextVNode("Boolean")
+              ]),
+              _: 1
+            }),
+            _hoisted_599
           ])
         ])
       ])
     ]),
-    _hoisted_591,
-    _hoisted_592,
+    _hoisted_600,
+    _hoisted_601,
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _hoisted_593,
+        _hoisted_602,
         createBaseVNode("ul", null, [
           createBaseVNode("li", null, [
-            _hoisted_594,
+            _hoisted_603,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5661,10 +5759,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_595
+            _hoisted_604
           ]),
           createBaseVNode("li", null, [
-            _hoisted_596,
+            _hoisted_605,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5679,10 +5777,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_597
+            _hoisted_606
           ]),
           createBaseVNode("li", null, [
-            _hoisted_598,
+            _hoisted_607,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5690,10 +5788,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_599
+            _hoisted_608
           ]),
           createBaseVNode("li", null, [
-            _hoisted_600,
+            _hoisted_609,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5701,10 +5799,10 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_601
+            _hoisted_610
           ]),
           createBaseVNode("li", null, [
-            _hoisted_602,
+            _hoisted_611,
             createTextVNode(),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [
@@ -5712,7 +5810,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ]),
               _: 1
             }),
-            _hoisted_603
+            _hoisted_612
           ])
         ])
       ])
