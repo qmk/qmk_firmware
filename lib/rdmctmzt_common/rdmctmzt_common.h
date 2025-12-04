@@ -179,6 +179,13 @@ typedef enum {
 #    define USB_AUTO_SWITCH_ENABLE 1
 #endif
 
+// Connection Indicator LED
+// When enabled, LED_CONNECTION_INDEX always shows the current connection type
+// Set to 1 in keyboard's config.h to enable this feature
+#ifndef LED_CONNECTION_INDICATOR_ENABLE
+#    define LED_CONNECTION_INDICATOR_ENABLE 0
+#endif
+
 #define KC_K29 KC_BACKSLASH
 #define KC_K42 KC_NONUS_HASH
 #define KC_K45 KC_NONUS_BACKSLASH
