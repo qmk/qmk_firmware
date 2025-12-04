@@ -172,6 +172,20 @@ typedef enum {
 #define MODE_SWITCH_DEBOUNCE_TIME 100 // 100ms debounce
 #define MODE_INDICATOR_TIMEOUT 1000   // Show for 1000ms (1 second)
 
+// USB Auto-Switch Feature
+// When enabled, keyboard automatically switches to USB mode when USB cable is plugged in
+// Set to 0 in keyboard's config.h to disable this feature
+#ifndef USB_AUTO_SWITCH_ENABLE
+#    define USB_AUTO_SWITCH_ENABLE 1
+#endif
+
+// Connection Indicator LED
+// When enabled, LED_CONNECTION_INDEX always shows the current connection type
+// Set to 1 in keyboard's config.h to enable this feature
+#ifndef LED_CONNECTION_INDICATOR_ENABLE
+#    define LED_CONNECTION_INDICATOR_ENABLE 0
+#endif
+
 #define KC_K29 KC_BACKSLASH
 #define KC_K42 KC_NONUS_HASH
 #define KC_K45 KC_NONUS_BACKSLASH

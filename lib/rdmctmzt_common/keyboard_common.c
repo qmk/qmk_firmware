@@ -323,7 +323,9 @@ void kb_update_state_indicators(void) {
 // ============================================================================
 
 bool kb_rgb_matrix_indicators_common(uint8_t led_min, uint8_t led_max) {
+#if LED_CONNECTION_INDICATOR_ENABLE
     kb_update_connection_indicator();
+#endif
     kb_update_state_indicators();
 
     // Show temporary mode/battery indicators when triggered
