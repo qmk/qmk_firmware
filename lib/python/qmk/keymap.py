@@ -320,40 +320,6 @@ def generate_c(keymap_json):
     return new_keymap
 
 
-def write_file(keymap_filename, keymap_content):
-    keymap_filename.parent.mkdir(parents=True, exist_ok=True)
-    keymap_filename.write_text(keymap_content)
-
-    cli.log.info('Wrote keymap to {fg_cyan}%s', keymap_filename)
-
-    return keymap_filename
-
-
-def write_json(keyboard, keymap, layout, layers, macros=None):
-    """Generate the `keymap.json` and write it to disk.
-
-    Returns the filename written to.
-
-    Args:
-        keyboard
-            The name of the keyboard
-
-        keymap
-            The name of the keymap
-
-        layout
-            The LAYOUT macro this keymap uses.
-
-        layers
-            An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
-    """
-    keymap_json = generate_json(keyboard, keymap, layout, layers, macros=None)
-    keymap_content = json.dumps(keymap_json)
-    keymap_file = qmk.path.keymaps(keyboard)[0] / keymap / 'keymap.json'
-
-    return write_file(keymap_file, keymap_content)
-
-
 def locate_keymap(keyboard, keymap, force_layout=None):
     """Returns the path to a keymap for a specific keyboard.
     """
