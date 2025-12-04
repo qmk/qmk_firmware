@@ -1,0 +1,11 @@
+{
+  "name": "NB2040A",
+  "url": "https://github.com/peterbacsip/qmk_firmware/tree/main/keyboards/nb2040a",
+  "maintainer": "peterbacsip",
+  "layouts": {
+    "LAYOUT_96_ansi": {
+      "label": "8x16",
+      "key_count": 128
+    }
+  }
+}
