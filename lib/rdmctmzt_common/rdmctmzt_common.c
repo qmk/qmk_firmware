@@ -26,7 +26,7 @@ Keyboard_Info_t Keyboard_Info = {
     .Win_Lock     = INIT_WIN_LOCK_NLOCK,
 #if LOGO_LED_ENABLE
     .Logo_On_Off     = 1,   // Logo LED on by default
-    .Logo_Mode       = 0,   // Default mode: solid color
+    .Logo_Mode       = 1,   // Default mode: wave animation (LOGO_MODE_WAVE)
     .Logo_Hue        = 0,   // Default hue: red
     .Logo_Saturation = 255, // Full saturation
     .Logo_Brightness = 180, // Default brightness
@@ -456,7 +456,7 @@ void Init_Keyboard_Infomation(void) {
         Keyboard_Info.Win_Lock     = INIT_WIN_NLOCK;
 #if LOGO_LED_ENABLE
         Keyboard_Info.Logo_On_Off     = 1;
-        Keyboard_Info.Logo_Mode       = 0;
+        Keyboard_Info.Logo_Mode       = 1;  // Wave animation (LOGO_MODE_WAVE)
         Keyboard_Info.Logo_Hue        = 0;
         Keyboard_Info.Logo_Saturation = 255;
         Keyboard_Info.Logo_Brightness = 180;
@@ -471,7 +471,7 @@ void Init_Keyboard_Infomation(void) {
         Keyboard_Info.Win_Lock     = INIT_WIN_NLOCK;
 #if LOGO_LED_ENABLE
         Keyboard_Info.Logo_On_Off     = 1;
-        Keyboard_Info.Logo_Mode       = 0;
+        Keyboard_Info.Logo_Mode       = 1;  // Wave animation (LOGO_MODE_WAVE)
         Keyboard_Info.Logo_Hue        = 0;
         Keyboard_Info.Logo_Saturation = 255;
         Keyboard_Info.Logo_Brightness = 180;
