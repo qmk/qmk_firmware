@@ -1,20 +1,8 @@
 // Copyright 2025 FabiClawZ (@FFS2309)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "oled_driver.h"
-#include "action_layer.h"
 #include QMK_KEYBOARD_H
-#include "progmem.h"
 #include "layer_select_4.h"
-#include "print.h"
 
-#define CHECK_BIT(var,pos) ((var) & (1<<(pos)))
-
-void xor_layers(char * layer1, const char * layer2){
-    if(sizeof(layer1) != sizeof(layer2)) return;
-    for(int i = 0; i < sizeof(layer1); i++){
-        layer1[i] = layer1[i] ^ layer2[i];
-    }
-};
 
 
 void render_layer_status(void){
