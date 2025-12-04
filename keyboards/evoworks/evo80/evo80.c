@@ -28,7 +28,7 @@
 // ===========================================================================
 
 // Battery indicator LED indices (first row)
-const uint8_t Led_Batt_Index_Tab[BATTERY_LED_COUNT] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+const uint8_t Led_Batt_Index_Tab[BATTERY_LED_COUNT] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
 // ===========================================================================
 // LED Matrix Configuration (keyboard-specific)
