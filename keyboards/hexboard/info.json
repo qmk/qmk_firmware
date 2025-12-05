@@ -1,0 +1,36 @@
+{
+    "manufacturer": "Shaping The Silence",
+    "keyboard_name": "HexBoard",
+    "maintainer": "earboxer",
+    "audio": {
+        "pins": ["GP23"],
+        "voices": true
+    },
+    "board": "GENERIC_RP_RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP21", "pin_b": "GP20"}
+        ]
+    },
+    "features": {
+        "audio": true,
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "midi": true,
+        "mousekey": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
+    "processor": "RP2040",
+    "rgb_matrix": {
+        "driver": "ws2812"
+    },
+    "url": "https://shapingthesilence.com/tech/hexboard-midi-controller/",
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP22"
+    }
+}
