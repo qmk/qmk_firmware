@@ -1,11 +1,10 @@
-Iris
-====
+# Iris
 
 A split ergo 4x6 keyboard with 3 or 4 thumb keys made and sold by Keebio. [More info at Keebio](https://keeb.io).
 
-Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)  
-Hardware Supported: Pro Micro, ATmega32u4  
-Hardware Availability: [Keebio](https://keeb.io)  
+* Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)
+* Hardware Supported: Pro Micro, ATmega32u4
+* Hardware Availability: [Keebio](https://keeb.io)
 
 Make example for this keyboard (after setting up your build environment):
 

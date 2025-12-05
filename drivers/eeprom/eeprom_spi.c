@@ -154,7 +154,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
     bool      res;
-    uint8_t * read_buf    = (uint8_t *)buf;
+    uint8_t  *read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;
 
     while (len > 0) {
