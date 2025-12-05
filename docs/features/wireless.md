@@ -1,6 +1,8 @@
 # Wireless / Bluetooth
 
-::: danger Incomplete At this time the wireless support in QMK is incomplete and no further wireless keyboards will be added until the wireless code is refactored. :::
+::: danger Incomplete
+The wireless support in QMK is currently incomplete, and no further wireless keyboards will be added until the wireless code is refactored.
+:::
 
 ## Bluetooth Known Supported Hardware
 
