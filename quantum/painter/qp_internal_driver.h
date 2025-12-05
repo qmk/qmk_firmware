@@ -60,7 +60,7 @@ typedef struct painter_comms_with_command_vtable_t {
 
 typedef struct painter_driver_t {
     const painter_driver_vtable_t *driver_vtable;
-    const painter_comms_vtable_t * comms_vtable;
+    const painter_comms_vtable_t  *comms_vtable;
 
     // Flag signifying if validation was successful
     bool validate_ok;

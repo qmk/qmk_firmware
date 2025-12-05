@@ -96,6 +96,8 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`QK_RGB_MATRIX_VALUE_DOWN`     |`RM_VALD`|Decrease the brightness level      |
 |`QK_RGB_MATRIX_SPEED_UP`       |`RM_SPDU`|Increase the animation speed       |
 |`QK_RGB_MATRIX_SPEED_DOWN`     |`RM_SPDD`|Decrease the animation speed       |
+|`QK_RGB_MATRIX_FLAG_NEXT`      |`RM_FLGN`|Cycle through flags                |
+|`QK_RGB_MATRIX_FLAG_PREVIOUS`  |`RM_FLGP`|Cycle through flags in reverse     |
 
 ## RGB Matrix Effects {#rgb-matrix-effects}
 
@@ -409,6 +411,7 @@ const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
 #define RGB_MATRIX_SPLIT { X, Y } // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                                   // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 #define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
+#define RGB_MATRIX_FLAG_STEPS { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE } // Sets the flags which can be cycled through.
 ```
 
 ## EEPROM storage {#eeprom-storage}
@@ -849,6 +852,62 @@ Get the current effect speed.
 #### Return Value {#api-rgb-matrix-get-speed-return}
 
 The current effect speed, from 0 to 255.
+
+---
+
+### `void rgb_matrix_set_flags(led_flags_t flags)` {#api-rgb-matrix-set-flags}
+
+Set the global effect flags.
+
+#### Arguments {#api-rgb-matrix-set-flags-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void rgb_matrix_set_flags_noeeprom(led_flags_t flags)` {#api-rgb-matrix-set-flags-noeeprom}
+
+Set the global effect flags. New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-set-flags-noeeprom-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void rgb_matrix_flags_step(void)` {#api-rgb-matrix-flags-step}
+
+Move to the next flag combination.
+
+---
+
+### `void rgb_matrix_flags_step_noeeprom(void)` {#api-rgb-matrix-flags-step-noeeprom}
+
+Move to the next flag combination. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_flags_step_reverse(void)` {#api-rgb-matrix-flags-step-reverse}
+
+Move to the previous flag combination.
+
+---
+
+### `void rgb_matrix_flags_step_reverse_noeeprom(void)` {#api-rgb-matrix-flags-step-reverse-noeeprom}
+
+Move to the previous flag combination. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_flags(void)` {#api-rgb-matrix-get-flags}
+
+Get the current global effect flags.
+
+#### Return Value {#api-rgb-matrix-get-flags-return}
+
+The current effect [flags](#flags).
 
 ---
 
