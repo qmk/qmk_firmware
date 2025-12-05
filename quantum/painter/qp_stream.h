@@ -62,7 +62,7 @@ typedef struct qp_stream_t {
 
 typedef struct qp_memory_stream_t {
     qp_stream_t base;
-    uint8_t *   buffer;
+    uint8_t    *buffer;
     int32_t     length;
     int32_t     position;
     bool        is_eof;
@@ -77,7 +77,7 @@ qp_memory_stream_t qp_make_memory_stream(void *buffer, int32_t length);
 
 typedef struct qp_file_stream_t {
     qp_stream_t base;
-    FILE *      file;
+    FILE       *file;
 } qp_file_stream_t;
 
 qp_file_stream_t qp_make_file_stream(FILE *f);
