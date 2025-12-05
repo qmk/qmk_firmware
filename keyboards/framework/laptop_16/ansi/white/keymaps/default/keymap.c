@@ -5,7 +5,7 @@
 
 enum framework_keycodes {
     // Function lock button
-    FN_LOCK = QK_KB,
+    FN_LOCK = QK_USER,
 };
 
 // clang-format off
