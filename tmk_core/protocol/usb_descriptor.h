@@ -144,6 +144,14 @@ typedef struct {
     USB_HID_Descriptor_HID_t   Digitizer_HID;
     USB_Descriptor_Endpoint_t  Digitizer_INEndpoint;
 #endif
+
+#ifdef XAP_ENABLE
+    // XAP HID Interface
+    USB_Descriptor_Interface_t Xap_Interface;
+    USB_HID_Descriptor_HID_t   Xap_HID;
+    USB_Descriptor_Endpoint_t  Xap_INEndpoint;
+    USB_Descriptor_Endpoint_t  Xap_OUTEndpoint;
+#endif
 } USB_Descriptor_Configuration_t;
 
 /*
@@ -192,6 +200,10 @@ enum usb_interfaces {
 
 #if defined(DIGITIZER_ENABLE) && !defined(DIGITIZER_SHARED_EP)
     DIGITIZER_INTERFACE,
+#endif
+
+#ifdef XAP_ENABLE
+    XAP_INTERFACE,
 #endif
     TOTAL_INTERFACES
 };
@@ -269,6 +281,15 @@ enum usb_endpoints {
 #        define DIGITIZER_IN_EPNUM SHARED_IN_EPNUM
 #    endif
 #endif
+
+#ifdef XAP_ENABLE
+    XAP_IN_EPNUM = NEXT_EPNUM,
+#    if STM32_USB_USE_OTG1
+#        define XAP_OUT_EPNUM XAP_IN_EPNUM
+#    else
+    XAP_OUT_EPNUM         = NEXT_EPNUM,
+#    endif
+#endif
 };
 
 #ifdef PROTOCOL_LUFA
@@ -280,7 +301,7 @@ enum usb_endpoints {
 #endif
 
 #if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
-#    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
+#    error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno, XAP
 #endif
 
 #define KEYBOARD_EPSIZE 8
@@ -293,5 +314,6 @@ enum usb_endpoints {
 #define CDC_EPSIZE 16
 #define JOYSTICK_EPSIZE 8
 #define DIGITIZER_EPSIZE 8
+#define XAP_EPSIZE 64
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress);
