@@ -138,75 +138,12 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/keyboard.json)","")
     DD_CONFIG_FILES += $(KEYBOARD_PATH_5)/keyboard.json
 endif
 
-MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
-
 # Pull in rules from DD keyboard config
 INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --keyboard $(KEYBOARD) --output $(INTERMEDIATE_OUTPUT)/src/info_rules.mk)
 include $(INFO_RULES_MK)
 
-# Check for keymap.json first, so we can regenerate keymap.c
-include $(BUILDDEFS_PATH)/build_json.mk
-
-# Pull in keymap level rules.mk
-ifeq ("$(wildcard $(KEYMAP_PATH))", "")
-    # Look through the possible keymap folders until we find a matching keymap.c
-    ifneq ($(QMK_USERSPACE),)
-        ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)/rules.mk
-            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)/keymap.c
-            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_1)
-        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)/keymap.c)","")
-            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)/rules.mk
-            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)/keymap.c
-            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_2)
-        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)/rules.mk
-            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)/keymap.c
-            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_3)
-        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)/rules.mk
-            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)/keymap.c
-            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_4)
-        else ifneq ("$(wildcard $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-            -include $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)/rules.mk
-            KEYMAP_C := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)/keymap.c
-            KEYMAP_PATH := $(QMK_USERSPACE)/$(MAIN_KEYMAP_PATH_5)
-        endif
-    endif
-    ifeq ($(KEYMAP_PATH),)
-        ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-            -include $(MAIN_KEYMAP_PATH_1)/rules.mk
-            KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
-            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
-        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
-            -include $(MAIN_KEYMAP_PATH_2)/rules.mk
-            KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
-            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
-        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-            -include $(MAIN_KEYMAP_PATH_3)/rules.mk
-            KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
-            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
-        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-            -include $(MAIN_KEYMAP_PATH_4)/rules.mk
-            KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
-            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
-        else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-            -include $(MAIN_KEYMAP_PATH_5)/rules.mk
-            KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
-            KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
-        else ifneq ($(LAYOUTS),)
-            # If we haven't found a keymap yet fall back to community layouts
-            include $(BUILDDEFS_PATH)/build_layout.mk
-        else ifeq ("$(wildcard $(KEYMAP_JSON_PATH))", "") # Not finding keymap.c is fine if we found a keymap.json
-            $(call CATASTROPHIC_ERROR,Invalid keymap,Could not find keymap)
-            # this state should never be reached
-        endif
-    endif
-endif
+include $(BUILDDEFS_PATH)/locate_keymap.mk
+-include $(KEYMAP_PATH)/rules.mk
 
 # Have we found a keymap.json?
 ifneq ("$(wildcard $(KEYMAP_JSON))", "")
@@ -217,15 +154,8 @@ ifneq ("$(wildcard $(KEYMAP_JSON))", "")
         OPT_DEFS += -DOTHER_KEYMAP_C=\"$(OTHER_KEYMAP_C)\"
     endif
 
-    KEYMAP_PATH := $(KEYMAP_JSON_PATH)
-
     KEYMAP_C := $(INTERMEDIATE_OUTPUT)/src/keymap.c
     KEYMAP_H := $(INTERMEDIATE_OUTPUT)/src/config.h
-
-    ifeq ($(OTHER_KEYMAP_C),)
-        # Load the keymap-level rules.mk if exists (and we havent already loaded it for keymap.c)
-        -include $(KEYMAP_PATH)/rules.mk
-    endif
 
     # Load any rules.mk content from keymap.json
     INFO_RULES_MK = $(shell $(QMK_BIN) generate-rules-mk --quiet --escape --output $(INTERMEDIATE_OUTPUT)/src/rules.mk $(KEYMAP_JSON))

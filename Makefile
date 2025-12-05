@@ -190,41 +190,9 @@ endef
 # Parses a rule in the format <keymap>:<target>
 # the keyboard is already known when entering this function
 define PARSE_KEYBOARD
-    # If we want to compile the default subproject, then we need to
-    # include the correct makefile to determine the actual name of it
     CURRENT_KB := $1
 
-    # 5/4/3/2/1
-    KEYBOARD_FOLDER_PATH_1 := $$(CURRENT_KB)
-    KEYBOARD_FOLDER_PATH_2 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_1)))
-    KEYBOARD_FOLDER_PATH_3 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_2)))
-    KEYBOARD_FOLDER_PATH_4 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_3)))
-    KEYBOARD_FOLDER_PATH_5 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_4)))
-
-    KEYMAPS :=
-    # get a list of all keymaps
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
-    KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
-
-    ifneq ($(QMK_USERSPACE),)
-        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/.)))
-        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/.)))
-        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
-        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
-        KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
-    endif
-
-    KEYBOARD_LAYOUTS := $(shell $(QMK_BIN) list-layouts --keyboard $1)
-    LAYOUT_KEYMAPS :=
-    $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
-    ifneq ($(QMK_USERSPACE),)
-        $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(QMK_USERSPACE)/layouts/$$(LAYOUT)/*/.)))))
-    endif
-
-    KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
+    KEYMAPS := $(shell $(QMK_BIN) list-keymaps --keyboard $1)
 
     # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
     # compile all the keymaps
