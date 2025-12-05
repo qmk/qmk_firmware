@@ -1,7 +1,7 @@
 {
     "keyboard_name": "Keyote Wily-H625",
     "usb": {
-        "pid": "0x5052",
+        "pid": "0x5053",
         "device_version": "0.0.1"
     }, 
     "matrix_pins": {
