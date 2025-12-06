@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Raise",
     "manufacturer": "Dygma",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/dygma/raise",
     "maintainer": "ibash",
     "usb": {
         "vid": "0x1209",

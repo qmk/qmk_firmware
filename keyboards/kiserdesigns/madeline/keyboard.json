@@ -28,7 +28,6 @@
             "resync": true
         }
     },
-    "url": "https://qmk.fm/keyboards",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x6D64",

@@ -41,7 +41,6 @@
         "saturation_steps": 8,
         "sleep": true
     },
-    "url": "NONE",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x4A16",
