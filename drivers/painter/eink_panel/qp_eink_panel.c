@@ -71,7 +71,7 @@ static inline uint16_t hsv_distance(HSV hsv1, HSV hsv2) {
 
 // Power control
 bool qp_eink_panel_power(painter_device_t device, bool power_on) {
-    painter_driver_t *                           driver = (painter_driver_t *)device;
+    painter_driver_t                            *driver = (painter_driver_t *)device;
     eink_panel_dc_reset_painter_driver_vtable_t *vtable = (eink_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
 
     qp_comms_command(device, power_on ? vtable->opcodes.display_on : vtable->opcodes.display_off);
@@ -87,10 +87,10 @@ bool qp_eink_panel_clear(painter_device_t device) {
 
 // Screen flush
 bool qp_eink_panel_flush(painter_device_t device) {
-    eink_panel_dc_reset_painter_device_t *       driver  = (eink_panel_dc_reset_painter_device_t *)device;
+    eink_panel_dc_reset_painter_device_t        *driver  = (eink_panel_dc_reset_painter_device_t *)device;
     eink_panel_dc_reset_painter_driver_vtable_t *vtable  = (eink_panel_dc_reset_painter_driver_vtable_t *)driver->base.driver_vtable;
-    surface_painter_device_t *                   black   = (surface_painter_device_t *)driver->black_surface;
-    surface_painter_device_t *                   color   = (surface_painter_device_t *)driver->color_surface;
+    surface_painter_device_t                    *black   = (surface_painter_device_t *)driver->black_surface;
+    surface_painter_device_t                    *color   = (surface_painter_device_t *)driver->color_surface;
     uint32_t                                     n_bytes = SURFACE_REQUIRED_BUFFER_BYTE_SIZE(driver->base.panel_width, driver->base.panel_height, 1);
 
     if (!black->dirty.is_dirty && !color->dirty.is_dirty) {
@@ -133,22 +133,20 @@ bool qp_eink_panel_viewport(painter_device_t device, uint16_t left, uint16_t top
 // Stream pixel data to the current write position
 bool qp_eink_panel_pixdata(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
     eink_panel_dc_reset_painter_device_t *driver = (eink_panel_dc_reset_painter_device_t *)device;
-    uint8_t *                             pixels = (uint8_t *)pixel_data;
+    uint8_t                              *pixels = (uint8_t *)pixel_data;
 
-    uint32_t i   = 0;
-    bool     ret = true;
+    uint32_t i = 0;
     uint8_t  black_data, color_data;
     while (i < native_pixel_count) {
         // at most, 8 pixels per cycle
-        uint8_t  pixels_this_loop = QP_MIN(native_pixel_count - i, 8);
+        uint8_t  pixels_this_loop = MIN(native_pixel_count - i, 8);
         uint32_t byte             = i / 4;
 
         // stream data to display
         decode_masked_pixels(pixels, byte, &black_data, &color_data);
 
         // this is very slow with debugging on, should maybe call the vtable's function directly
-        ret &= qp_pixdata(driver->black_surface, (const void *)&black_data, pixels_this_loop);
-        ret &= qp_pixdata(driver->color_surface, (const void *)&color_data, pixels_this_loop);
+        bool ret = qp_pixdata(driver->black_surface, (const void *)&black_data, pixels_this_loop) & qp_pixdata(driver->color_surface, (const void *)&color_data, pixels_this_loop);
 
         if (!ret) {
             qp_dprintf("qp_eink_panel_pixdata: something went wrong, quitting\n");
@@ -159,7 +157,7 @@ bool qp_eink_panel_pixdata(painter_device_t device, const void *pixel_data, uint
         i += pixels_this_loop;
     }
 
-    return ret;
+    return true;
 }
 
 // Convert supplied palette entries into their native equivalents
@@ -176,7 +174,7 @@ bool qp_eink_panel_palette_convert(painter_device_t device, int16_t palette_size
         bool black = false;
         bool color = false;
 
-        uint32_t min_distance = QP_MIN(white_distance, QP_MIN(black_distance, color_distance));
+        uint32_t min_distance = MIN(white_distance, MIN(black_distance, color_distance));
         if (min_distance == black_distance)
             black = true;
         else if (min_distance == color_distance)
