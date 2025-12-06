@@ -17,6 +17,11 @@
         "nkro": true,
         "rgblight": true
     },
+    "backlight": {
+        "pin": "GP26",
+        "driver": "pwm",
+        "levels": 3
+    },
     "rgblight": {
         "led_count": 4,
         "hue_steps": 10,
@@ -61,6 +66,6 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x9A25",
-        "vid": "0xFEED"
+        "vid": "0x414E"
     }
 }
