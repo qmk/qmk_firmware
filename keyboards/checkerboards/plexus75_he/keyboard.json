@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Plexus75 HE",
     "manufacturer": "Nasp",
-    "url": "https://www.github.com/qmk/qmk_firmware/tree/master/keyboards/checkerboards/plexus75_he",
     "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",
