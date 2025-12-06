@@ -80,7 +80,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         return false;
     }
 #    ifdef MOUSEKEY_ENABLE
-    tap_code(clockwise ? KC_WH_U : KC_WH_D);
+    tap_code(clockwise ? MS_WHLU : MS_WHLD);
 #    else
     report_mouse_t mouse_report = pointing_device_get_report();
     mouse_report.v              = clockwise ? 1 : -1;
@@ -128,7 +128,18 @@ void encoder_driver_task(void) {
 }
 #endif
 
+void toggle_drag_scroll(void) {
+    is_drag_scroll ^= 1;
+}
+
+void cycle_dpi(void) {
+    keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
+    eeconfig_update_kb(keyboard_config.raw);
+    pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
+}
+
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
+    mouse_report = pointing_device_task_user(mouse_report);
     if (is_drag_scroll) {
         scroll_accumulated_h += (float)mouse_report.x / PLOOPY_DRAGSCROLL_DIVISOR_H;
         scroll_accumulated_v += (float)mouse_report.y / PLOOPY_DRAGSCROLL_DIVISOR_V;
@@ -153,7 +164,7 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         mouse_report.y = 0;
     }
 
-    return pointing_device_task_user(mouse_report);
+    return mouse_report;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
@@ -174,9 +185,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     }
 
     if (keycode == DPI_CONFIG && record->event.pressed) {
-        keyboard_config.dpi_config = (keyboard_config.dpi_config + 1) % DPI_OPTION_SIZE;
-        eeconfig_update_kb(keyboard_config.raw);
-        pointing_device_set_cpi(dpi_array[keyboard_config.dpi_config]);
+        cycle_dpi();
     }
 
     if (keycode == DRAG_SCROLL) {
@@ -184,7 +193,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
         is_drag_scroll = record->event.pressed;
 #else
         if (record->event.pressed) {
-            is_drag_scroll ^= 1;
+            toggle_drag_scroll();
         }
 #endif
     }

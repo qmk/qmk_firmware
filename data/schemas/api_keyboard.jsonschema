@@ -1,7 +1,7 @@
 {
     "$id": "qmk.api.keyboard.v1",
     "allOf": [
-        {"$ref": "qmk.keyboard.v1"},
+        {"$ref": "./keyboard.jsonschema#"},
         {
             "properties": {
                 "keymaps": {
@@ -10,8 +10,8 @@
                         "url": {"type": "string"}
                     }
                 },
-                "parse_errors": {"$ref": "qmk.definitions.v1#/string_array"},
-                "parse_warnings": {"$ref": "qmk.definitions.v1#/string_array"},
+                "parse_errors": {"$ref": "./definitions.jsonschema#/string_array"},
+                "parse_warnings": {"$ref": "./definitions.jsonschema#/string_array"},
                 "processor_type": {"type": "string"},
                 "protocol": {"type": "string"},
                 "keyboard_folder": {"type": "string"},

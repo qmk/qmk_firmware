@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -22,7 +20,6 @@
         "rows": ["A8", "A9", "B5", "B3"]
     },
     "processor": "STM32F103", // GD32F303CCT6
-    "url": "",
     "usb": {
         "device_version": "0.0.2",
         "pid": "0x016C",

@@ -40,6 +40,10 @@ Similar to the first option, the second and third option are good for simple lay
 
 For more complicated cases, like blink the LEDs, fiddle with the backlighting, and so on, use the fourth or fifth option. Examples of each are listed below.
 
+::: tip 
+If too many tap dances are active at the same time, later ones won't have any effect. You need to increase `TAP_DANCE_MAX_SIMULTANEOUS` by adding `#define TAP_DANCE_MAX_SIMULTANEOUS 5` (or higher) to your keymap's `config.h` file if you expect that users may hold down many tap dance keys simultaneously. By default, only 3 tap dance keys can be used together at the same time.
+:::
+
 ## Implementation Details {#implementation}
 
 Well, that's the bulk of it! You should now be able to work through the examples below, and to develop your own Tap Dance functionality. But if you want a deeper understanding of what's going on behind the scenes, then read on for the explanation of how it all works!
@@ -170,20 +174,6 @@ typedef struct {
     uint16_t held;
 } tap_dance_tap_hold_t;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    tap_dance_action_t *action;
-
-    switch (keycode) {
-        case TD(CT_CLN):  // list all tap dance keycodes with tap-hold configurations
-            action = &tap_dance_actions[QK_TAP_DANCE_GET_INDEX(keycode)];
-            if (!record->event.pressed && action->state.count && !action->state.finished) {
-                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
-                tap_code16(tap_hold->tap);
-            }
-    }
-    return true;
-}
-
 void tap_dance_tap_hold_finished(tap_dance_state_t *state, void *user_data) {
     tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)user_data;
 
@@ -211,12 +201,31 @@ void tap_dance_tap_hold_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold) \
-    { .fn = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}), }
+#define ACTION_TAP_DANCE_TAP_HOLD(tap, hold)                                        \
+    {                                                                               \
+        .fn        = {NULL, tap_dance_tap_hold_finished, tap_dance_tap_hold_reset}, \
+        .user_data = (void *)&((tap_dance_tap_hold_t){tap, hold, 0}),               \
+    }
 
 tap_dance_action_t tap_dance_actions[] = {
     [CT_CLN] = ACTION_TAP_DANCE_TAP_HOLD(KC_COLN, KC_SCLN),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    tap_dance_action_t *action;
+    tap_dance_state_t* state;
+
+    switch (keycode) {
+        case TD(CT_CLN):
+            action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
+            state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
+            if (!record->event.pressed && state != NULL && state->count && !state->finished) {
+                tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
+                tap_code16(tap_hold->tap);
+            }
+    }
+    return true;
+}
 ```
 
 #### Example 4: 'Quad Function Tap-Dance' {#example-4}
@@ -273,12 +282,12 @@ Now, at the bottom of your `keymap.c` file, you'll need to add the following:
  * How to figure out tap dance state: interrupted and pressed.
  *
  * Interrupted: If the state of a dance is "interrupted", that means that another key has been hit
- *  under the tapping term. This is typically indicitive that you are trying to "tap" the key.
+ *  under the tapping term. This is typically indicative that you are trying to "tap" the key.
  *
  * Pressed: Whether or not the key is still being pressed. If this value is true, that means the tapping term
  *  has ended, but the key is still being pressed down. This generally means the key is being "held".
  *
- * One thing that is currenlty not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
+ * One thing that is currently not possible with qmk software in regards to tap dance is to mimic the "permissive hold"
  *  feature. In general, advanced tap dances do not work well if they are used with commonly typed letters.
  *  For example "A". Tap dances are best used on non-letter keys that are not hit while typing letters.
  *
@@ -290,7 +299,7 @@ Now, at the bottom of your `keymap.c` file, you'll need to add the following:
  *  Not a key that is used frequently to double tap, for example 'tab' is often double tapped in a terminal, or
  *    in a web form. So 'tab' would be a poor choice for a tap dance.
  *  Letters used in common words as a double. For example 'p' in 'pepper'. If a tap dance function existed on the
- *    letter 'p', the word 'pepper' would be quite frustating to type.
+ *    letter 'p', the word 'pepper' would be quite frustrating to type.
  *
  * For the third point, there does exist the 'TD_DOUBLE_SINGLE_TAP', however this is not fully tested
  *

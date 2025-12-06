@@ -3,8 +3,11 @@
 import contextlib
 import multiprocessing
 import sys
+import re
 
 from milc import cli
+
+TRIPLET_PATTERN = re.compile(r'^(\d+)\.(\d+)\.(\d+)')
 
 maybe_exit_should_exit = True
 maybe_exit_reraise = False
@@ -25,6 +28,27 @@ def maybe_exit_config(should_exit: bool = True, should_reraise: bool = False):
     global maybe_exit_reraise
     maybe_exit_should_exit = should_exit
     maybe_exit_reraise = should_reraise
+
+
+def truthy(value, value_if_unknown=False):
+    """Returns True if the value is truthy, False otherwise.
+
+    Deals with:
+        True: 1, true, t, yes, y, on
+        False: 0, false, f, no, n, off
+    """
+    if value in {False, True}:
+        return bool(value)
+
+    test_value = str(value).strip().lower()
+
+    if test_value in {"1", "true", "t", "yes", "y", "on"}:
+        return True
+
+    if test_value in {"0", "false", "f", "no", "n", "off"}:
+        return False
+
+    return value_if_unknown
 
 
 @contextlib.contextmanager
@@ -75,3 +99,10 @@ def parallel_map(*args, **kwargs):
         # before the results are returned. Returning a list ensures results are
         # materialised before any worker pool is shut down.
         return list(map_fn(*args, **kwargs))
+
+
+def triplet_to_bcd(ver: str):
+    m = TRIPLET_PATTERN.match(ver)
+    if not m:
+        return '0x00000000'
+    return f'0x{int(m.group(1)):02d}{int(m.group(2)):02d}{int(m.group(3)):04d}'

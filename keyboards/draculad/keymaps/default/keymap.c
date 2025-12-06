@@ -49,15 +49,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_MUS] = LAYOUT(
         KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC_LALT, KC_BTN3, KC_BTN2, KC_BTN1, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LALT, MS_BTN3, MS_BTN2, MS_BTN1, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                             XXXXXXX,                      XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     ),
     [_ADJ] = LAYOUT(
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
+        EE_CLR,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UG_NEXT,  UG_HUEU, UG_SATU, UG_VALU, UG_TOGG,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      UG_PREV,  UG_HUED, UG_SATD, UG_VALD, _______,
                                             XXXXXXX,                      _______,
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
     )
@@ -218,9 +218,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     else if (index == 3  ) {
         // Page up/Page down
         if (clockwise) {
-          tap_code(KC_WH_U);
+          tap_code(MS_WHLU);
         } else {
-          tap_code(KC_WH_D);
+          tap_code(MS_WHLD);
         }
     }
     return true;

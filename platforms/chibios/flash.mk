@@ -77,10 +77,10 @@ st-flash: $(BUILD_DIR)/$(TARGET).hex sizeafter
 
 # Autodetect teensy loader
 ifndef TEENSY_LOADER_CLI
-    ifneq (, $(shell which teensy-loader-cli 2>/dev/null))
-        TEENSY_LOADER_CLI ?= teensy-loader-cli
-    else
+    ifneq (, $(shell which teensy_loader_cli 2>/dev/null))
         TEENSY_LOADER_CLI ?= teensy_loader_cli
+    else
+        TEENSY_LOADER_CLI ?= teensy-loader-cli
     endif
 endif
 
@@ -113,6 +113,8 @@ else ifeq ($(strip $(MCU_FAMILY)),STM32)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),WB32)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_WB32_DFU_UPDATER)
+else ifeq ($(strip $(MCU_FAMILY)),AT32)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),GD32V)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else

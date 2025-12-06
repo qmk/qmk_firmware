@@ -386,23 +386,24 @@ void mousekey_task(void) {
 
 void mousekey_on(uint8_t code) {
 #    ifdef MK_KINETIC_SPEED
-    if (mouse_timer == 0) {
+    // Start kinetic timer when movement keycodes are pressed
+    if (mouse_timer == 0 && (IS_MOUSEKEY_MOVE(code) || IS_MOUSEKEY_WHEEL(code))) {
         mouse_timer = timer_read();
     }
 #    endif
 
-#    ifndef MOUSEKEY_INERTIA
+#    if defined(MOUSEKEY_OVERLAP_RESET) && !defined(MOUSEKEY_INERTIA)
     // If mouse report is not zero, the current mousekey press is overlapping
     // with another. Restart acceleration for smoother directional transition.
     if (mouse_report.x || mouse_report.y || mouse_report.h || mouse_report.v) {
 #        ifdef MK_KINETIC_SPEED
-        mouse_timer = timer_read() - (MOUSEKEY_INTERVAL << 2);
+        mouse_timer = timer_read() - MOUSEKEY_OVERLAP_INTERVAL;
 #        else
-        mousekey_repeat       = MOUSEKEY_MOVE_DELTA;
-        mousekey_wheel_repeat = MOUSEKEY_WHEEL_DELTA;
+        mousekey_repeat       = MOUSEKEY_OVERLAP_MOVE_DELTA;
+        mousekey_wheel_repeat = MOUSEKEY_OVERLAP_WHEEL_DELTA;
 #        endif
     }
-#    endif // ifndef MOUSEKEY_INERTIA
+#    endif // defined(MOUSEKEY_OVERLAP_RESET) && !defined(MOUSEKEY_INERTIA)
 
 #    ifdef MOUSEKEY_INERTIA
 
@@ -501,7 +502,7 @@ void mousekey_off(uint8_t code) {
 
 enum { mkspd_unmod, mkspd_0, mkspd_1, mkspd_2, mkspd_COUNT };
 #    ifndef MK_MOMENTARY_ACCEL
-static uint8_t  mk_speed                 = mkspd_1;
+static uint8_t mk_speed = mkspd_1;
 #    else
 static uint8_t mk_speed      = mkspd_unmod;
 static uint8_t mkspd_DEFAULT = mkspd_unmod;

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "miniMACRO5",
   "manufacturer": "leafcutterlabs",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xCEEB",
@@ -35,12 +34,9 @@
       {"pin_a": "C6", "pin_b": "E6", "resolution": 2}
     ]
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "features": {
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "encoder": true,
     "extrakey": true,
     "mousekey": true,

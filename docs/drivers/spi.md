@@ -32,20 +32,25 @@ You may use more than one slave select pin, not just the `SS` pin. This is usefu
 
 You'll need to determine which pins can be used for SPI -- as an example, STM32 parts generally have multiple SPI peripherals, labeled SPI1, SPI2, SPI3 etc.
 
-To enable SPI, modify your board's `halconf.h` to enable SPI:
+To enable SPI, modify your board's `halconf.h` to enable SPI, then modify your board's `mcuconf.h` to enable the peripheral you've chosen:
 
-```c
-#define HAL_USE_SPI TRUE
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD
+::: code-group
+```c [halconf.h]
+#pragma once
+
+#define HAL_USE_SPI TRUE // [!code focus]
+
+#include_next <halconf.h>
 ```
+```c [mcuconf.h]
+#pragma once
 
-Then, modify your board's `mcuconf.h` to enable the peripheral you've chosen, for example:
+#include_next <mcuconf.h>
 
-```c
-#undef STM32_SPI_USE_SPI2
-#define STM32_SPI_USE_SPI2 TRUE
+#undef STM32_SPI_USE_SPI2 // [!code focus]
+#define STM32_SPI_USE_SPI2 TRUE // [!code focus]
 ```
+:::
 
 Configuration-wise, you'll need to set up the peripheral as per your MCU's datasheet -- the defaults match the pins for a Proton-C, i.e. STM32F303.
 
@@ -81,7 +86,7 @@ Start an SPI transaction.
 #### Arguments {#api-spi-start-arguments}
 
  - `pin_t slavePin`  
-   The QMK pin to assert as the slave select pin, eg. `B4`.
+   The GPIO pin connected to the desired device's `SS` line.
  - `bool lsbFirst`  
    Determines the endianness of the transmission. If `true`, the least significant bit of each byte is sent first.
  - `uint8_t mode`  
@@ -99,7 +104,7 @@ Start an SPI transaction.
 
 #### Return Value {#api-spi-start-return}
 
-`false` if the supplied parameters are invalid or the SPI peripheral is already in use, or `true`.
+`true` if the operation was successful, otherwise `false` if the supplied parameters are invalid or the SPI peripheral is already in use.
 
 ---
 
@@ -124,7 +129,7 @@ Read a byte from the selected SPI device.
 
 #### Return Value {#api-spi-read-return}
 
-`SPI_STATUS_TIMEOUT` if the timeout period elapses, or the byte read from the device.
+`SPI_STATUS_TIMEOUT` if the timeout period elapses, otherwise the byte read from the device.
 
 ---
 
@@ -152,7 +157,7 @@ Receive multiple bytes from the selected SPI device.
 #### Arguments {#api-spi-receive-arguments}
 
  - `uint8_t *data`  
-   A pointer to the buffer to read into.
+   A pointer to a buffer to read into.
  - `uint16_t length`  
    The number of bytes to read. Take care not to overrun the length of `data`.
 

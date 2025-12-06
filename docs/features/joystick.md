@@ -1,6 +1,6 @@
 # Joystick {#joystick}
 
-This feature provides game controller input as a joystick device supporting up to 6 axes and 32 buttons. Axes can be read either from an [ADC-capable input pin](../drivers/adc), or can be virtual, so that its value is provided by your code.
+This feature provides game controller input as a joystick device supporting up to 6 axes, 32 buttons and a hat switch. Axes can be read either from an [ADC-capable input pin](../drivers/adc), or can be virtual, so that its value is provided by your code.
 
 An analog device such as a [potentiometer](https://en.wikipedia.org/wiki/Potentiometer) found on an analog joystick's axes is based on a voltage divider, where adjusting the movable wiper controls the output voltage which can then be read by the microcontroller's ADC.
 
@@ -18,6 +18,8 @@ By default the joystick driver is `analog`, but you can change this with:
 JOYSTICK_DRIVER = digital
 ```
 
+When using `analog` with ARM, [you must use 3.3v with your Joystick](../drivers/adc). Although ARM boards such as the [Helios](https://keeb.supply/products/0xcb-helios) have 5v pin output, the ADC driver does not support it.
+
 ## Configuration {#configuration}
 
 By default, two axes and eight buttons are defined, with a reported resolution of 8 bits (-127 to +127). This can be changed in your `config.h`:
@@ -34,6 +36,42 @@ By default, two axes and eight buttons are defined, with a reported resolution o
 ::: tip
 You must define at least one button or axis. Also note that the maximum ADC resolution of the supported AVR MCUs is 10-bit, and 12-bit for most STM32 MCUs.
 :::
+
+### Hat Switch {#hat-switch}
+
+To enable the 8-way hat switch, add the following to your `config.h`:
+
+```c
+#define JOYSTICK_HAS_HAT
+````
+
+The position can be set by calling `joystick_set_hat(value)`. The range of values moves clockwise from the top (ie. north), with the default "center" position represented by a value of `-1`:
+
+```
+         0
+ 7       N       1
+   NW .--'--. NE
+     /       \
+6 W |   -1    | E 2
+     \       /
+   SW '--.--' SE
+ 5       S       3
+         4
+```
+
+Alternatively you can use these predefined names:
+
+|Define                  |Value|Angle|
+|------------------------|-----|-----|
+|`JOYSTICK_HAT_CENTER`   |`-1` |     |
+|`JOYSTICK_HAT_NORTH`    |`0`  |0°   |
+|`JOYSTICK_HAT_NORTHEAST`|`1`  |45°  |
+|`JOYSTICK_HAT_EAST`     |`2`  |90°  |
+|`JOYSTICK_HAT_SOUTHEAST`|`3`  |135° |
+|`JOYSTICK_HAT_SOUTH`    |`4`  |180° |
+|`JOYSTICK_HAT_SOUTHWEST`|`5`  |225° |
+|`JOYSTICK_HAT_WEST`     |`6`  |270° |
+|`JOYSTICK_HAT_NORTHWEST`|`7`  |315° |
 
 ### Axes {#axes}
 
@@ -147,6 +185,8 @@ Contains the state of the joystick.
    A bit-packed array containing the joystick button states. The size is calculated as `(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1`.
  - `int16_t axes[]`  
    An array of analog values for each defined axis.
+ - `int8_t hat`  
+   The hat switch position.
  - `bool dirty`  
    Whether the current state needs to be sent to the host.
 
@@ -220,3 +260,14 @@ Set the value of the given axis.
    The axis to set the value of.
  - `int16_t value`  
    The value to set.
+
+---
+
+### `void joystick_set_hat(int8_t value)` {#api-joystick-set-hat}
+
+Set the position of the hat switch.
+
+#### Arguments {#api-joystick-set-hat-arguments}
+
+ - `int8_t value`  
+   The hat switch position to set.
