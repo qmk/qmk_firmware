@@ -1,5 +1,4 @@
 # GitHub Copilot Instructions for QMK Pull Request Review
-
 This document provides automated review guidance based on the [QMK PR Checklist](https://docs.qmk.fm/pr_checklist).
 
 ## General PR Requirements
@@ -31,9 +30,8 @@ This document provides automated review guidance based on the [QMK PR Checklist]
 - **Recommended**: GPL2/GPL3 for consistency
 - **Format**: Check for proper GPL2+ header or SPDX identifier
   ```c
-  /* Copyright 2024 Your Name (@yourgithub)
-   * SPDX-License-Identifier: GPL-2.0-or-later
-   */
+  // Copyright 2024 Your Name (@yourgithub)
+  // SPDX-License-Identifier: GPL-2.0-or-later
   ```
 - **Exception**: Simple assignment-only `rules.mk` files don't need headers
 - **Flag**: Missing or ambiguous license headers (blocks merge)
@@ -50,7 +48,7 @@ This document provides automated review guidance based on the [QMK PR Checklist]
   1. Prototype in own keyboard first
   2. Discuss with QMK Collaborators on Discord
   3. Refactor as separate core change
-  4. Remove specific copy from board
+  4. Remove the keyboard-specific implementation from board
 
 ---
 
@@ -214,7 +212,7 @@ This document provides automated review guidance based on the [QMK PR Checklist]
   - Large refactoring PRs affecting other keymaps raised separately
 
 ### Testing Requirements
-- **New Hardware Support**: Requires test board under `keyboards/handwired/onekey`
+- **New Hardware Support**: Requires test keyboard under `keyboards/handwired/onekey`
   - New MCUs: Add child keyboard targeting new MCU for build verification
   - New hardware (displays, matrix, peripherals): Provide associated keymap
   - Exception: If existing keymap can leverage functionality (consult Collaborators)
