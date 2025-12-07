@@ -54,6 +54,8 @@ This document provides automated review guidance based on the [QMK PR Checklist]
 
 ## Keymap PR Reviews
 
+**Scope**: These rules apply to files within `keyboards/*/keymaps/*` subdirectories.
+
 ### Note on Personal Keymaps
 - **Policy Change**: Personal keymap submissions no longer accepted
 - **Permitted**: Vendor-specific keymaps only
@@ -71,6 +73,14 @@ This document provides automated review guidance based on the [QMK PR Checklist]
 ---
 
 ## Keyboard PR Reviews
+
+**Scope**: These rules apply to keyboard-level files in `keyboards/*` directories, excluding files within the `keymaps/` subdirectories. This includes:
+- `info.json` or `keyboard.json` (keyboard root or variant level)
+- `readme.md` (keyboard level)
+- `rules.mk` (keyboard level)
+- `config.h` (keyboard level, not keymap level)
+- `<keyboard>.c` and `<keyboard>.h` files
+- Hardware configuration files (`halconf.h`, `mcuconf.h`, `chconf.h`)
 
 ### Branch Targeting
 - **New Keyboards**: Target `master` branch
@@ -127,7 +137,7 @@ This document provides automated review guidance based on the [QMK PR Checklist]
   - Alternate bootloader lists if one specified
   - MCU parameter re-definitions matching defaults in `mcu_selection.mk`
 - **Comment Updates**: Change bootloader comments to generic
-- **Forbidden Features** (keymap-only):
+- **Forbidden Features at Keyboard Level** (these belong in keymap-level `rules.mk` only):
   - `COMBO_ENABLE`
   - `ENCODER_MAP_ENABLE`
 
@@ -161,6 +171,9 @@ This document provides automated review guidance based on the [QMK PR Checklist]
 - **Layout Macros**: Move to `info.json` or `keyboard.json` (no longer in header)
 
 ### Default Keymap Standards
+
+**Scope**: These rules specifically apply to files within `keyboards/*/keymaps/default/` directories.
+
 - **Pristine Requirement**: Bare minimum clean slate
   - No custom keycodes
   - No advanced features (tap dance, macros)
