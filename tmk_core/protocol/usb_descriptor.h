@@ -287,7 +287,7 @@ enum usb_endpoints {
 #    if STM32_USB_USE_OTG1
 #        define XAP_OUT_EPNUM XAP_IN_EPNUM
 #    else
-    XAP_OUT_EPNUM         = NEXT_EPNUM,
+    XAP_OUT_EPNUM = NEXT_EPNUM,
 #    endif
 #endif
 };

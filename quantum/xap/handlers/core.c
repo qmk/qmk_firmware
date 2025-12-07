@@ -8,7 +8,7 @@
 bool xap_execute_get_config_blob_chunk(xap_token_t token, uint16_t offset) {
     xap_route_qmk_config_blob_chunk_t ret = {0};
 
-    bool get_config_blob_chunk(uint16_t offset, uint8_t * data, uint8_t data_len);
+    bool get_config_blob_chunk(uint16_t offset, uint8_t *data, uint8_t data_len);
     if (!get_config_blob_chunk(offset, (uint8_t *)&ret, sizeof(ret))) {
         return false;
     }

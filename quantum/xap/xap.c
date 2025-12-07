@@ -78,7 +78,7 @@ typedef struct __attribute__((packed)) xap_route_flags_t {
 _Static_assert(TOTAL_XAP_ROUTE_TYPES <= (1 << (XAP_ROUTE_TYPE_BIT_COUNT)), "Number of XAP route types is too large for XAP_ROUTE_TYPE_BITS.");
 _Static_assert(sizeof(xap_route_flags_t) == 1, "xap_route_flags_t is not length of 1");
 
-typedef struct xap_route_t xap_route_t;
+typedef struct xap_route_t     xap_route_t;
 struct __attribute__((packed)) xap_route_t {
     const xap_route_flags_t flags;
     union {
@@ -93,7 +93,7 @@ struct __attribute__((packed)) xap_route_t {
 
         // XAP_VALUE / XAP_CONST_MEM
         struct {
-            const void *  const_data;
+            const void   *const_data;
             const uint8_t const_data_len;
         };
     };
