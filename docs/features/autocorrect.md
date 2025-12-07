@@ -62,7 +62,6 @@ static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {5};
 static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {6};
 static const uint16_t autocorrect_sizes[N_DICTS] PROGMEM       = {74};
 
-#define AUTOCORRECT_LIBRARY_FORMAT_V2 // Enable large+multi dictionary library
 #define DICTIONARY_SIZE 74
 #define TYPO_BUFFER_SIZE 6
 
