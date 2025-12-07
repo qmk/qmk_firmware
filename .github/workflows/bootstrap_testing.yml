@@ -141,6 +141,12 @@ jobs:
             bash /home/testuser/qmk_firmware/util/env-bootstrap.sh
           "
 
+      - name: Install dependencies
+        run: |
+          sudo -u testuser bash -c "
+            /home/testuser/.local/share/uv/tools/qmk/bin/python -m pip install -r /home/testuser/qmk_firmware/requirements.txt
+          "
+
       - name: Test QMK CLI
         run: |
           sudo -u testuser bash -c "
@@ -184,6 +190,10 @@ jobs:
           # Run the bootstrap script
           export CONFIRM=1
           sh ./util/env-bootstrap.sh
+
+      - name: Install dependencies
+        run: |
+          $HOME/.local/share/uv/tools/qmk/bin/python -m pip install -r requirements.txt
 
       - name: Test QMK CLI
         run: |
@@ -234,6 +244,10 @@ jobs:
           # Run the bootstrap script
           export CONFIRM=1
           sh ./util/env-bootstrap.sh
+
+      - name: Install dependencies
+        run: |
+          /opt/uv/tools/qmk/Scripts/python -m pip install -r requirements.txt
 
       - name: Test QMK CLI
         run: |
