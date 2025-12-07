@@ -1,5 +1,10 @@
+---
+applyTo: "**"
+excludeAgent:
+  - "coding-agent"
+---
 # GitHub Copilot Instructions for QMK Pull Request Review
-This document provides automated review guidance based on the [QMK PR Checklist](https://docs.qmk.fm/pr_checklist).
+This document provides automated review guidance based on the [QMK PR Checklist](https://docs.qmk.fm/pr_checklist) and it is intended only for use by GitHub Copilot code-review agent during pull request reviews.
 
 ## General PR Requirements
 
