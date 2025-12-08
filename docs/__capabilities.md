@@ -2,6 +2,8 @@
 
 This page lays out the capabilities used by the QMK Firmware documentation, in order to aid future transitions to other page generators. Focuses mainly on things other than normal Markdown, as it's assumed that markdown generators should still function accordingly.
 
+test
+
 ## Overall capabilities
 
 Unrelated to styling, high-level tech.
