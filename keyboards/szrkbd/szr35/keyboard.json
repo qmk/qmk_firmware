@@ -15,7 +15,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true,
+        "rgb_matrix": true
     },
     "dynamic_keymap": {
         "layer_count": 9
