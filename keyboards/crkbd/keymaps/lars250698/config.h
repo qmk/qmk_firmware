@@ -53,10 +53,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef DEDICATED_SHIFT
+#define RETRO_TAPPING
+#define RETRO_TAPPING_PER_KEY
 #define TAPPING_TERM_PER_KEY
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 #define TAPPING_TERM_SHIFT 200
-#define COMBO_TERM 70
+#define TAPPING_TERM_THUMB 100
+#define COMBO_TERM 50
 #endif
 
 #ifdef AUTO_SHIFT
@@ -64,9 +67,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RETRO_SHIFT 500
 #define NO_AUTO_SHIFT_TAB
 #endif
-
-
-#define CAPS_WORD_INVERT_ON_SHIFT
 
 #define LAYER_LOCK_IDLE_TIMEOUT 60000
 
