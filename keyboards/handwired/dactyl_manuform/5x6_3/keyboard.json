@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Dactyl-Manuform (5x6) 3 Thumb",
     "manufacturer": "tshort",
-    "url": "https://github.com/jyap808/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/5x6_3",
     "maintainer": "jyap808",
     "usb": {
         "vid": "0x444D",
