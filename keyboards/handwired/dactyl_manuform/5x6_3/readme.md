@@ -1,6 +1,6 @@
 # Dactyl Manuform (5x6) with 3 thumb cluster
 
-![Dactyl Manuform (5x6) with 3 thumb cluster](https://julianyap.com/posts/2025-11-16-1763340628/my_cosmos2.jpg)
+![Dactyl Manuform (5x6) with 3 thumb cluster](https://i.imgur.com/q7OX3Fq.jpeg)
 
 [Build log](https://julianyap.com/posts/2025-11-16-1763340628/)
 
