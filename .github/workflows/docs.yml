@@ -63,16 +63,3 @@ jobs:
           folder: .build/docs
           git-config-name: QMK Bot
           git-config-email: hello@qmk.fm
-
-    - name: Deploy Develop
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/develop' && github.repository == 'qmk/qmk_firmware' }}
-      uses: actions/github-script@v6
-      with:
-        github-token: ${{ secrets.QMK_BOT_TOKEN }}
-        script: |
-          const result = await github.rest.actions.createWorkflowDispatch({
-            owner: 'qmk',
-            repo: 'qmk_docs_devel',
-            workflow_id: 'develop.yml',
-            ref: 'main',
-          })
