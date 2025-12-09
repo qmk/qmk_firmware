@@ -97,12 +97,29 @@ int16_t axisCoordinate(pin_t pin, uint16_t origin, uint8_t axis) {
 }
 
 int8_t axisToMouseComponent(pin_t pin, int16_t origin, uint8_t maxSpeed, uint8_t axis) {
-    int16_t coordinate = axisCoordinate(pin, origin, axis);
+    int32_t coordinate = axisCoordinate(pin, origin, axis);
     int8_t  result;
+    if (abs(coordinate) < (pin == ANALOG_JOYSTICK_X_AXIS_PIN ? ANALOG_JOYSTICK_X_AXIS_DEADZONE : ANALOG_JOYSTICK_Y_AXIS_DEADZONE)) {
+        coordinate = 0;
+    };
 #ifndef ANALOG_JOYSTICK_WEIGHTS
+    int8_t scale = 100;
+    coordinate *= scale;
     if (coordinate != 0) {
-        float percent = (float)coordinate / 100;
-        result        = percent * maxCursorSpeed * (abs(coordinate) / speedRegulator);
+        int32_t component = (coordinate / 100 * maxCursorSpeed * abs(coordinate)) / (speedRegulator * scale);
+
+        int32_t sign = (component > 0) ? 1 : -1;
+        if (abs(component) < scale) {
+            /* Can't return less than 1, or it will be floored to 0 by
+            integer division when we descale. To maintain
+            sensitivity for small ranges, instead boost it to a
+             minimum of 1  i f th ere is some sort of signal.
+             */
+            component = sign * scale;
+        }
+
+        component /= scale;
+        result = (int8_t)component;
     } else {
         return 0;
     }
