@@ -34,39 +34,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PERMISSIVE_HOLD
 #define CHORDAL_HOLD
+#define COMBO_TERM_PER_COMBO
 
-// Enable auto shift instead of home row mod shifting.
-//#define AUTO_SHIFT
-
-// Enables shift optimizations for home row mods.
-// #define HRM_SHIFT
-
-// Enables dedicated shift
-#define DEDICATED_SHIFT
-
-#ifdef HRM_SHIFT
-#define TAPPING_TERM_SHIFT 140
-#define TAPPING_TERM_PER_KEY
-#define RETRO_TAPPING
-#define RETRO_TAPPING_PER_KEY
-#define PERMISSIVE_HOLD_PER_KEY
-#endif
-
-#ifdef DEDICATED_SHIFT
 #define RETRO_TAPPING
 #define RETRO_TAPPING_PER_KEY
 #define TAPPING_TERM_PER_KEY
 #define DOUBLE_TAP_SHIFT_TURNS_ON_CAPS_WORD
 #define TAPPING_TERM_SHIFT 200
 #define TAPPING_TERM_THUMB 100
-#define COMBO_TERM 50
-#endif
-
-#ifdef AUTO_SHIFT
-#define AUTO_SHIFT_TIMEOUT 135
-#define RETRO_SHIFT 500
-#define NO_AUTO_SHIFT_TAB
-#endif
 
 #define LAYER_LOCK_IDLE_TIMEOUT 60000
 

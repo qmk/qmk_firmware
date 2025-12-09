@@ -7,7 +7,9 @@ enum custom_keycodes {
     DE_AE = SAFE_RANGE, // Ä
     DE_OE,              // Ö
     DE_UE,              // Ü
-    DE_SS               // ß
+    DE_SS,              // ß
+    DE_EURO,
+    DE_PARA
 };
 
 // Left-hand home row mods
@@ -67,30 +69,32 @@ enum custom_keycodes {
 #define LT_RALT LT(1, OSM_RALT)
 #define LT_TAB LT(2,KC_TAB)
 
-// #ifdef DEDICATED_SHIFT
-// const uint16_t PROGMEM ralt_combo[] = {KC_SPC, OSM_LSFT, COMBO_END};
-// combo_t key_combos[] = {
-//     COMBO(ralt_combo, OSM_RALT),
-// };
-// #endif
+enum combo_events {
+    AE_COMBO,
+    OE_COMBO,
+    UE_COMBO,
+    SS_COMBO
+};
+
+const uint16_t PROGMEM combo_ae_seq[] = {HOME_R, HOME_S, COMBO_END}; // A+R = Ä
+const uint16_t PROGMEM combo_oe_seq[] = {HOME_E, HOME_I, COMBO_END}; // I+O = Ö
+const uint16_t PROGMEM combo_ue_seq[] = {KC_U,   KC_Y,   COMBO_END}; // L+U = Ü
+const uint16_t PROGMEM combo_ss_seq[] = {HOME_S, HOME_T, COMBO_END}; // S+T = ß
+
+combo_t key_combos[] = {
+    [AE_COMBO] = COMBO(combo_ae_seq, DE_AE),
+    [OE_COMBO] = COMBO(combo_oe_seq, DE_OE),
+    [UE_COMBO] = COMBO(combo_ue_seq, DE_UE),
+    [SS_COMBO] = COMBO(combo_ss_seq, DE_SS)
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    #if defined AUTO_SHIFT || defined HRM_SHIFT
-    [0] = LAYOUT_split_3x6_3_ex2(
-        KC_LBRC, KC_Q,   KC_W,   KC_F,   KC_P,   KC_B,   KC_GRV,   KC_SLEP, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_RBRC,
-        CW_TOGG, HOME_A, HOME_R, HOME_S, HOME_T, KC_G,   MO(3),    MO(3),   KC_M,    HOME_N,  HOME_E,  HOME_I,  HOME_O,  KC_QUOT,
-        KC_LPRN, KC_Z,   KC_X,   KC_C,   KC_D,   KC_V,                      KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH, KC_RPRN,
-                                 KC_ESC, KC_SPC, LT_TAB,                    LT_ENT,  KC_BSPC, OSM_RALT
-    ),
-    #endif
-    #ifdef DEDICATED_SHIFT
     [0] = LAYOUT_split_3x6_3_ex2(
         KC_LBRC, KC_Q,   KC_W,     KC_F,     KC_P,   KC_B,   KC_DEL,   KC_SLEP,  KC_J,    KC_L,     KC_U,    KC_Y,    KC_SCLN, KC_RBRC,
-        KC_GRV,  HOME_A, HOME_R,   HOME_S,   HOME_T, KC_G,   KC_LSFT,  OSL(4),   KC_M,    HOME_N,   HOME_E,  HOME_I,  HOME_O,  KC_QUOT,
+        KC_GRV,  HOME_A, HOME_R,   HOME_S,   HOME_T, KC_G,   KC_LSFT,  KC_RALT,  KC_M,    HOME_N,   HOME_E,  HOME_I,  HOME_O,  KC_QUOT,
         KC_LPRN, KC_Z,   KC_X,     KC_C,     KC_D,   KC_V,                       KC_K,    KC_H,     KC_COMM, KC_DOT,  KC_SLSH, KC_RPRN,
                                    KC_ESC,   KC_SPC, LT_TAB,                     LT_ENT,  OSM_LSFT, KC_BSPC
     ),
-    #endif
     [1] = LAYOUT_split_3x6_3_ex2(
         KC_NO, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_NO,    KC_PGUP, KC_6,      KC_7,      KC_8,    KC_9,       KC_0,    KC_NO,
         KC_NO, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO,   KC_NO,    KC_PGDN, KC_LEFT,   HOME_DOWN, HOME_UP, HOME_RIGHT, KC_RGUI, KC_NO,
@@ -98,22 +102,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                  KC_TRNS, KC_TRNS, MO(3),                      KC_TRNS,   KC_TRNS,   KC_TRNS
     ),
     [2] = LAYOUT_split_3x6_3_ex2(
-        KC_NO, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO,    KC_NO, KC_CIRC,   KC_AMPR,  KC_ASTR,   KC_LPRN,   KC_RPRN,   KC_NO,
-        KC_NO, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO,   KC_NO,    KC_NO, KC_MINS,   HOME_EQL, HOME_LBRC, HOME_RBRC, HOME_BSLS, KC_GRV,
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                    KC_UNDS,   KC_PLUS,  KC_LCBR,   KC_RCBR,   KC_PIPE,   KC_TILD,
-                                 KC_TRNS, KC_TRNS, KC_TRNS,                  MO(3),     KC_TRNS,  KC_TRNS
+        DE_PARA, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO,    KC_NO, KC_CIRC,   KC_AMPR,  KC_ASTR,   KC_LPRN,   KC_RPRN,   DE_EURO,
+        KC_NO,   KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO,   KC_NO,    KC_NO, KC_MINS,   HOME_EQL, HOME_LBRC, HOME_RBRC, HOME_BSLS, KC_GRV,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                    KC_UNDS,   KC_PLUS,  KC_LCBR,   KC_RCBR,   KC_PIPE,   KC_TILD,
+                                   KC_TRNS, KC_TRNS, KC_TRNS,                  MO(3),     KC_TRNS,  KC_TRNS
     ),
     [3] = LAYOUT_split_3x6_3_ex2(
         KC_F1,   KC_F2,   KC_F3,     KC_F4,     KC_F5,     KC_F6, KC_NO,    QK_BOOT, KC_F7,   KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,
         RGB_VAI, KC_LGUI, HOME_MUTE, HOME_VOLD, HOME_VOLU, KC_NO, KC_TRNS,  KC_TRNS, KC_NO,   HOME_MPRV, HOME_MPLY, HOME_MNXT, KC_RGUI, KC_NO,
         RGB_VAD, RGB_MOD, RGB_TOG,   KC_NO,     KC_NO,     KC_NO,                    KC_NO,   KC_NO,     KC_NO,     KC_NO,     KC_NO,   KC_NO,
                                      KC_NO,     KC_NO,     KC_TRNS,                  KC_TRNS, KC_NO,     KC_NO
-    ),
-    [4] = LAYOUT_split_3x6_3_ex2(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_UE,   KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, DE_AE,   KC_TRNS, DE_SS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DE_OE,   KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                   KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
     ),
 };
 
@@ -125,14 +123,22 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
                        '*', '*', '*',            '*', '*', '*'
     );
 
+#ifdef COMBO_TERM_PER_COMBO
+uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
+    switch (combo_index) {
+        case AE_COMBO:
+        case OE_COMBO:
+        case UE_COMBO:
+        case SS_COMBO:
+            return 30;
+    }
+
+    return COMBO_TERM;
+}
+#endif
+
 bool is_flow_tap_key(uint16_t keycode) {
     switch (keycode) {
-        #ifdef HRM_SHIFT
-        case HOME_S:
-        case HOME_E:
-        case HOME_UP:
-        case HOME_LBRC:
-        #endif
         case LT_ENT:
         case LT_TAB:
             return false;
@@ -141,77 +147,6 @@ bool is_flow_tap_key(uint16_t keycode) {
     }
 }
 
-#ifdef AUTO_SHIFT
-bool get_custom_auto_shifted_key(uint16_t keycode, keyrecord_t *record) {
-    switch(keycode) {
-        case HOME_A:
-        case HOME_R:
-        case HOME_S:
-        case HOME_T:
-        case HOME_N:
-        case HOME_E:
-        case HOME_I:
-        case HOME_O:
-        case KC_LBRC:
-        case KC_RBRC:
-            return true;
-        default:
-            return false;
-    }
-}
-#endif
-
-#ifdef HRM_SHIFT
-uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case HOME_S:
-        case HOME_E:
-            return 0;
-        default:
-            return QUICK_TAP_TERM;
-    }
-}
-
-uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case HOME_S:
-        case HOME_E:
-        case HOME_UP:
-        case HOME_LBRC:
-        case LT_ENT:
-        case LT_TAB:
-            return TAPPING_TERM_SHIFT;
-        default:
-            return TAPPING_TERM;
-    }
-}
-
-bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case HOME_S:
-        case HOME_E:
-        case HOME_UP:
-        case HOME_LBRC:
-            return true;
-        default:
-            return false;
-    }
-}
-
-bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case HOME_S:
-        case HOME_E:
-        case HOME_UP:
-        case HOME_LBRC:
-            return true;
-        default:
-            return false;
-    }
-}
-#endif
-
-#ifdef DEDICATED_SHIFT
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LT_TAB:
@@ -234,8 +169,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
             return TAPPING_TERM;
     }
 }
-#endif
-
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     for (uint8_t i = led_min; i < led_max; i++) {
@@ -272,6 +205,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // Combine them to see if we should capitalize
                 bool is_shifted = (mods | os_mods) & MOD_MASK_SHIFT;
 
+                // Caps is active if OS Caps Lock is on OR QMK Caps Word is on
+                bool is_caps = host_keyboard_led_state().caps_lock || is_caps_word_on();
+
+                // XOR Logic: Capitalize if Shift OR Caps is on, but not both (Inversion)
+                bool send_upper = is_shifted ^ is_caps;
+
                 // 2. CLEAR SHIFT INTERFERENCE
                 // If physical shift is held, we must release it for the Opt+u shortcut
                 if (mods & MOD_MASK_SHIFT) {
@@ -289,9 +228,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap_code(KC_U);
                 unregister_code(KC_RALT);
 
-                // Critical delay for macOS to switch modes
-                wait_ms(30);
-
                 // 4. DETERMINE LETTER
                 uint16_t target_keycode;
                 switch(keycode) {
@@ -301,7 +237,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
 
                 // 5. SEND LETTER
-                if (is_shifted) {
+                if (send_upper) {
                     register_code(KC_LSFT);
                     tap_code(target_keycode);
                     unregister_code(KC_LSFT);
@@ -319,10 +255,113 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case DE_SS:
             if (record->event.pressed) {
-                // ß is Option + s
-                register_code(KC_RALT);
-                tap_code(KC_S);
+                // 1. GET SHIFT STATE (Held OR One-Shot)
+                uint8_t mods = get_mods();
+                uint8_t os_mods = get_oneshot_mods();
+
+                // Combine them to see if we should capitalize
+                bool is_shifted = (mods | os_mods) & MOD_MASK_SHIFT;
+
+                // Caps is active if OS Caps Lock is on OR QMK Caps Word is on
+                bool is_caps = host_keyboard_led_state().caps_lock || is_caps_word_on();
+
+                // XOR Logic: Capitalize if Shift OR Caps is on, but not both (Inversion)
+                bool send_upper = is_shifted ^ is_caps;
+
+                // 2. CLEANUP ONE-SHOT SHIFT
+                // We must always consume this so it doesn't affect the NEXT key
+                if (os_mods & MOD_MASK_SHIFT) {
+                    del_oneshot_mods(MOD_MASK_SHIFT);
+                }
+
+                if (send_upper) {
+                    // --- SEND "S" ---
+                    // If Caps is OFF, we need to manually hold Shift to get "S"
+                    if (!is_caps) {
+                        register_code(KC_LSFT);
+                    }
+                    // If Caps is ON, and we are holding Shift (Inversion),
+                    // we must Release Shift to get "S" (because Shift+Caps = lowercase)
+                    else if (mods & MOD_MASK_SHIFT) {
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_RSFT);
+                    }
+
+                    tap_code(KC_S);
+
+                    // Restore state
+                    if (!is_caps) {
+                        unregister_code(KC_LSFT);
+                    } else if (mods & MOD_MASK_SHIFT) {
+                        set_mods(mods); // Restore held shift
+                    }
+
+                } else {
+                    // --- SEND "ß" (Option + s) ---
+                    // We must remove Shift, otherwise Opt+Shift+s might trigger other symbols
+                    if (mods & MOD_MASK_SHIFT) {
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_RSFT);
+                    }
+
+                    register_code(KC_RALT);
+                    tap_code(KC_S);
+                    unregister_code(KC_RALT);
+
+                    // Restore held shift
+                    if (mods & MOD_MASK_SHIFT) {
+                        set_mods(mods);
+                    }
+                }
+            }
+            return false;
+        case DE_EURO:
+            if (record->event.pressed) {
+                // 1. Save current Shift state
+                uint8_t mods = get_mods();
+
+                // 2. Clear held Shift
+                // We do this to ensure we control exactly when Shift is pressed
+                // for the shortcut logic below.
+                if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
+                }
+
+                // 3. Send the Shortcut: Option (RALT) + Shift + 2
+                register_code(KC_RALT); // Option
+                register_code(KC_LSFT); // Shift
+                tap_code(KC_2);         // 2
+                unregister_code(KC_LSFT);
                 unregister_code(KC_RALT);
+
+                // 4. Restore Shift if it was originally held
+                if (mods & MOD_MASK_SHIFT) {
+                    set_mods(mods);
+                }
+            }
+            return false;
+        case DE_PARA:
+            if (record->event.pressed) {
+                // 1. Save current Shift state
+                uint8_t mods = get_mods();
+
+                // 2. Clear held Shift
+                // We must force Shift OFF, because Option+Shift+6 often produces '‚' (low single quote)
+                if (mods & MOD_MASK_SHIFT) {
+                    unregister_code(KC_LSFT);
+                    unregister_code(KC_RSFT);
+                }
+
+                // 3. Send the Shortcut: Option (RALT) + 6
+                register_code(KC_RALT);
+                tap_code(KC_6);
+                unregister_code(KC_RALT);
+
+                // 4. Restore Shift if it was originally held
+                if (mods & MOD_MASK_SHIFT) {
+                    set_mods(mods);
+                }
             }
             return false;
     }
