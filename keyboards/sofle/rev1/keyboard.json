@@ -2,7 +2,7 @@
     "manufacturer": "JosefAdamcik",
     "url": "https://github.com/josefadamcik/SofleKeyboard",
     "maintainer": "Josef Adamcik <josef.adamcik@gmail.com>",
-    "development_board": "promicro",
+    "development_board": "elite_c",
     "usb": {
         "pid": "0x0287",
         "device_version": "0.0.1"
