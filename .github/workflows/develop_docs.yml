@@ -22,7 +22,7 @@ jobs:
     steps:
     - name: Deploy Develop
       if: ${{ github.repository == 'qmk/qmk_firmware' }}
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       with:
         github-token: ${{ secrets.QMK_BOT_TOKEN }}
         script: |
