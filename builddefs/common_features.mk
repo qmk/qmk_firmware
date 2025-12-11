@@ -815,6 +815,10 @@ ifeq ($(strip $(UNICODE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_unicode.c
 endif
 
+ifeq ($(strip $(UNICODE_COMMON_ENABLE)), yes)
+    UNICODE_COMMON := yes
+endif
+
 ifeq ($(strip $(UNICODE_COMMON)), yes)
     OPT_DEFS += -DUNICODE_COMMON_ENABLE
     COMMON_VPATH += $(QUANTUM_DIR)/unicode
