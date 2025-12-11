@@ -33,6 +33,12 @@ static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM   = {2};
 #    define TYPO_BUFFER_SIZE AUTOCORRECT_MAX_LENGTH
 #endif
 
+#if DICTIONARY_SIZE > UINT16_MAX
+#    define AUTOCORRECT_PGM_READ_BYTE(offset) pgm_read_byte_far((uint32_t)current_dict_data + (offset))
+#else
+#    define AUTOCORRECT_PGM_READ_BYTE(offset) pgm_read_byte(current_dict_data + (offset))
+#endif
+
 static const uint8_t *current_dict_data;
 static uint16_t       current_dict_min_length;
 static uint16_t       current_dict_max_length;
@@ -47,8 +53,8 @@ const uint8_t number_dicts = N_DICTS;
 static inline uint32_t autocorrect_read_state(uint32_t state) {
     uint32_t new_state = 0;
 
-    for (uint32_t i = 0; i < current_dict_node_size; ++i) {
-        new_state |= (uint32_t)pgm_read_byte(current_dict_data + state + 1 + i) << (8 * i);
+    for (uint8_t i = 0; i < current_dict_node_size; ++i) {
+        new_state |= (uint32_t)AUTOCORRECT_PGM_READ_BYTE(state + 1 + i) << (8 * i);
     }
 
     return new_state;
@@ -285,13 +291,13 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
 
     // Check for typo in buffer using a trie stored in `current_dict_data`.
     uint32_t state = 0;
-    uint8_t             code  = pgm_read_byte(current_dict_data + state);
+    uint8_t  code  = AUTOCORRECT_PGM_READ_BYTE(state);
     for (int8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 
         if (code & 64) { // Check for match in node with multiple children.
             code &= 63;
-            for (; code != key_i; code = pgm_read_byte(current_dict_data + (state += (current_dict_node_size + 1)))) {
+            for (; code != key_i; code = AUTOCORRECT_PGM_READ_BYTE(state += (current_dict_node_size + 1))) {
                 if (!code) return true;
             }
             // Follow link to child node.
@@ -300,7 +306,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
             state = autocorrect_read_state(state);
         } else if (code != key_i) {
             return true;
-        } else if (!(code = pgm_read_byte(current_dict_data + (++state)))) {
+        } else if (!(code = AUTOCORRECT_PGM_READ_BYTE(++state))) {
             ++state;
         }
 
@@ -310,7 +316,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
             return true;
         }
 
-        code = pgm_read_byte(current_dict_data + state);
+        code = AUTOCORRECT_PGM_READ_BYTE(state);
 
         if (code & 128) { // A typo was found! Apply autocorrect.
             const uint8_t backspaces = (code & 63) + !record->event.pressed;

@@ -57,10 +57,11 @@ This file will look like this:
 
 #define N_DICTS 1
 
-static const uint16_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
+static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
 static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {5};
 static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {6};
-static const uint16_t autocorrect_sizes[N_DICTS] PROGMEM       = {74};
+static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {74};
+static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM   = {2};
 
 #define DICTIONARY_SIZE 74
 #define TYPO_BUFFER_SIZE 6
