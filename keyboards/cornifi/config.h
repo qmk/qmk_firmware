@@ -1,0 +1,14 @@
+// Copyright 2024-2025 QMK
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+#pragma once
+
+#define SERIAL_USART_FULL_DUPLEX
+#define SERIAL_USART_TX_PIN GP12
+#define SERIAL_USART_RX_PIN GP13
+#define USB_VBUS_PIN GP24
+
+/* RP2040- and hardware-specific config */
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
+#define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64

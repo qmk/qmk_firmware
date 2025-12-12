@@ -203,8 +203,8 @@ See also: [Basic Keycodes](keycodes_basic)
 |`KC_WWW_STOP`           |`KC_WSTP`                      |Browser Stop                           |✔            |             |✔                |
 |`KC_WWW_REFRESH`        |`KC_WREF`                      |Browser Refresh                        |✔            |             |✔                |
 |`KC_WWW_FAVORITES`      |`KC_WFAV`                      |Browser Favorites                      |✔            |             |✔                |
-|`KC_MEDIA_FAST_FORWARD` |`KC_MFFD`                      |Next Track                             |✔            |✔<sup>5</sup>|✔                |
-|`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Previous Track                         |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
+|`KC_MEDIA_FAST_FORWARD` |`KC_MFFD`                      |Fast Forward                           |✔            |✔<sup>5</sup>|✔                |
+|`KC_MEDIA_REWIND`       |`KC_MRWD`                      |Rewind                                 |✔<sup>6</sup>|✔<sup>5</sup>|✔                |
 |`KC_BRIGHTNESS_UP`      |`KC_BRIU`                      |Brightness Up                          |✔            |✔            |✔                |
 |`KC_BRIGHTNESS_DOWN`    |`KC_BRID`                      |Brightness Down                        |✔            |✔            |✔                |
 |`KC_CONTROL_PANEL`      |`KC_CPNL`                      |Open Control Panel                     |✔            |             |                 |
@@ -433,6 +433,8 @@ See also: [LED Matrix](features/led_matrix)
 |`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
 |`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
 |`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
+|`QK_LED_MATRIX_FLAG_NEXT`      |`LM_FLGN`|Cycle through flags                |
+|`QK_LED_MATRIX_FLAG_PREVIOUS`  |`LM_FLGP`|Cycle through flags in reverse     |
 
 ## Magic Keycodes {#magic-keycodes}
 
@@ -783,6 +785,8 @@ See also: [RGB Matrix](features/rgb_matrix)
 |`QK_RGB_MATRIX_VALUE_DOWN`     |`RM_VALD`|Decrease the brightness level      |
 |`QK_RGB_MATRIX_SPEED_UP`       |`RM_SPDU`|Increase the animation speed       |
 |`QK_RGB_MATRIX_SPEED_DOWN`     |`RM_SPDD`|Decrease the animation speed       |
+|`QK_RGB_MATRIX_FLAG_NEXT`      |`RM_FLGN`|Cycle through flags                |
+|`QK_RGB_MATRIX_FLAG_PREVIOUS`  |`RM_FLGP`|Cycle through flags in reverse     |
 
 ## US ANSI Shifted Symbols {#us-ansi-shifted-symbols}
 

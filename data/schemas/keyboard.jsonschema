@@ -543,7 +543,8 @@
                         "on": {"type": "boolean"},
                         "animation": {"type": "string"},
                         "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
-                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
+                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
@@ -569,6 +570,11 @@
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 2,
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
+                },
+                "flag_steps": {
+                    "type": "array",
+                    "minItems": 1,
                     "items": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                 },
                 "max_brightness": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
@@ -626,7 +632,8 @@
                         "hue": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                         "sat": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                         "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
-                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
+                        "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
+                        "flags": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
@@ -654,6 +661,11 @@
                     "type": "array",
                     "minItems": 2,
                     "maxItems": 2,
+                    "items": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
+                },
+                "flag_steps": {
+                    "type": "array",
+                    "minItems": 1,
                     "items": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                 },
                 "max_brightness": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
