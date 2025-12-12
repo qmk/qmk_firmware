@@ -87,7 +87,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download firmwares
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           pattern: firmware-*
           path: .
