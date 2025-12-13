@@ -1,6 +1,8 @@
 ADB-to-USB Keyboard Converter
 =============================
-This firmware converts Apple Desktop Bus (ADB) keyboard protocol to USB so that you can use an ADB keyboard on a modern computer. It works on the PJRC Teensy 2.0 and other USB AVR MCUs (ATMega32U4, AT90USB64/128, etc) and needs at least 10KB of flash memory.
+This firmware converts Apple Desktop Bus (ADB) keyboard protocol to USB so that you can use an ADB keyboard on a modern computer. It works on:
+- **AVR**: PJRC Teensy 2.0 and other USB AVR MCUs (ATMega32U4, AT90USB64/128, etc) - needs at least 10KB of flash memory
+- **ARM/RP2040**: RP2040-Zero and other ARM-based boards (ChibiOS platforms)
 
 
 This is a port of the TMK ADB-to-USB converter to QMK. For information on QMK, please consult the following:
@@ -10,6 +12,9 @@ https://docs.qmk.fm
 
 Wiring
 ------
+
+### AVR Version (Teensy 2.0, Pro Micro, etc.)
+
 Connect the VCC, GND, and DATA lines of the ADB keyboard to the controller (Teensy 2.0 or similar). By default the DATA line uses port PD0. The Power SW line is unused by the converter.
 
 ADB female socket from the front:
@@ -41,18 +46,36 @@ Define following macros for ADB connection in config.h if you use other than por
 
     ADB_PORT, ADB_PIN, ADB_DDR, ADB_DATA_BIT
 
+### ARM/RP2040 Version
+
+For detailed ARM/RP2040 wiring instructions, safety notes, and hardware requirements, see [rp2040/readme.md](rp2040/readme.md).
+
+**Quick summary**: Connect the ADB keyboard's DATA line via a 1K-10K pull-up resistor to 3.3V (typically GP15 on RP2040). Connect VCC to 5V and GND to GND. See the RP2040 readme for important voltage tolerance warnings and pin configuration.
+
 
 Building the Firmware
 ------------------------------------------
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-
-Keymap
-------
-To build the default keymap run this command:
+### AVR Versions
 
     $ make converter/adb_usb/rev1:default # Pro Micro-based
     $ make converter/adb_usb/rev2:default # Hasu 32U2 PCB
+
+### ARM/RP2040 Version
+
+    $ qmk compile -kb converter/adb_usb/rp2040 -km default
+
+This will generate a `.uf2` file that can be drag-and-dropped onto the RP2040 bootloader drive. For other ARM platforms, you may need to create a variant-specific configuration. See [rp2040/readme.md](rp2040/readme.md) for more details.
+
+
+Keymap
+------
+To build with the default keymap:
+
+    $ make converter/adb_usb/rev1:default      # Pro Micro-based (AVR)
+    $ make converter/adb_usb/rev2:default      # Hasu 32U2 PCB (AVR)
+    $ qmk compile -kb converter/adb_usb/rp2040 -km default  # ARM/RP2040
 
 Locking Caps Lock
 ----------------
@@ -74,3 +97,4 @@ QMK Port Changelog
 ---------
 - 2018/09/16 - Initial release.
 - 2018/12/23 - Fixed lock LED support.
+- 2025/01/13 - Added RP2040/ARM support (Noah Patel).
