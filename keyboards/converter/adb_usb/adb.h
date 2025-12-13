@@ -1,6 +1,6 @@
 /*
 Copyright 2011-19 Jun WAKO <wakojun@gmail.com>
-Copyright 2025 Noah Patel <Noah@imnoah.com>
+Copyright 2025 Noah Patel <ImNoahDev@imnoah.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,

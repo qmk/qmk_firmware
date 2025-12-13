@@ -1,6 +1,6 @@
 /*
 Copyright 2011 Jun Wako <wakojun@gmail.com>
-Copyright 2025 Noah Patel <Noah@imnoah.com>
+Copyright 2025 Noah Patel <ImNoahDev@imnoah.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Ported to QMK by Peter Roe <pete@13bit.me>
-RP2040 platform support by Noah Patel <Noah@imnoah.com>
+RP2040 platform support by Noah Patel <ImNoahDev@imnoah.com>
 */
 
 #include <stdint.h>

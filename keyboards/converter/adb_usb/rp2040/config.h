@@ -1,6 +1,6 @@
 /*
 Copyright 2011 Jun Wako <wakojun@gmail.com>
-Copyright 2025 Noah Patel <Noah@imnoah.com>
+Copyright 2025 Noah Patel <ImNoahDev@imnoah.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
