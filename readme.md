@@ -8,6 +8,37 @@
 
 This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the Clueboard product line.
 
+## 🚨 Forked firmware remarks
+
+**This fork holds keyboards not officially supported by the official QMK tree and have been incorporated by myself from other sources and/or adjusted to compile. Not all keyboards here have been tested and work 100% as the original firmware. Always know what you are doing and have a backup plan in case it doesn't work (know how to but your keyboard in BOOTLOADER mode and have the official firmware to revert).**
+
+Also there might be different revisions of the same keyboard so I can't assure the firmware works for all keyboards of a specific model.
+
+They keyboards that have been incorporated are:
+
+### Tested Keyboards
+
+- Epomaker TH40
+- Epomaker Luma40
+- Akko Monsgeek M1 V5
+- Evoworks EVO80
+
+These are keyboards I own or have been tested and reported back to work. There might be differences to the official firmware in keymaps, sleep times, battery consumption and other factors but the main features should work as the original (wireless, LEDs, etc).
+
+### Untested Keyboards
+
+- Epomaker Tide Alice66
+- Epomaker Tide65
+- Epomaker Tide75
+- Epomaker Galaxy100
+- Epomaker Luma84
+- Epomaker Tide49
+- Chosfox Geonix R2 (still on a PR)
+
+These untested keyboards compile but haven't been tested for all it's functionality so wireless, backlights, RGB or other functions might not work as expected or as the official firmware.
+
+I welcome testers and PRs to have a broad open-source support of them.
+
 ## Documentation
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
