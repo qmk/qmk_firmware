@@ -30,5 +30,6 @@ jobs:
 
     - name: Install dependencies
       run: pip3 install -r requirements-dev.txt
+
     - name: Run tests
       run: qmk pytest
