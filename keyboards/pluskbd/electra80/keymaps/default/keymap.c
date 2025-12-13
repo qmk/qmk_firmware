@@ -32,7 +32,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-extern rgblight_config_t rgblight_config;
 void keyboard_post_init_user(void) {
     rgblight_sethsv_range(HSV_BLUE, 1,1);
 }
