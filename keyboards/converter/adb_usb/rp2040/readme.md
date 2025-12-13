@@ -11,26 +11,23 @@ This firmware converts Apple Desktop Bus (ADB) keyboard protocol to USB, allowin
 - **RP2040-Zero** (or compatible RP2040 board)
 - ADB keyboard
 - **1K-10K pull-up resistor** (required!)
-- Optional: Bidirectional level shifter (recommended for long-term reliability)
 
 ## Pin Configuration
 
 | Signal | RP2040 Pin | Notes |
 |--------|------------|-------|
-| ADB Data | GP15 | Directly connected via pull-up resistor |
+| ADB Data | GP15 | Connected via pull-up resistor |
 | VCC | 5V | Powers the ADB keyboard |
 | GND | GND | Common ground |
 
 ## Wiring
-
-### Basic Wiring (with pull-up to 3.3V)
 
 ```
 ADB Keyboard          RP2040-Zero
 ┌────────┐            ┌──────────┐
 │  VCC   │────────────│ 5V       │
 │  GND   │────────────│ GND      │
-│  DATA  │──[1kΩ]─┬───│ GP15     │
+│  DATA  │────────┬───│ GP15     │
 │        │        │   │          │
 │        │       [R]  │          │
 │        │        │   │          │
@@ -63,20 +60,6 @@ The ADB protocol uses 5V logic levels, but the RP2040 can only handle 3.3V on it
 1. **ADB uses open-drain signaling** - devices only pull the line LOW, never drive it HIGH
 2. **The pull-up resistor is connected to 3.3V** - when the line is released, it only goes to 3.3V (safe for RP2040)
 3. **The RP2040 can safely pull the line LOW** - the ADB keyboard will still see this as a valid low signal
-
-### Recommended: Level Shifter
-
-For maximum safety and long-term reliability, consider using a **bidirectional level shifter**:
-
-```
-ADB Keyboard          Level Shifter     RP2040-Zero
-┌────────┐            ┌──────────┐      ┌──────────┐
-│  VCC   │────────────│ HV (5V)  │──────│ 5V       │
-│  GND   │────────────│ GND      │──────│ GND      │
-│  DATA  │────────────│ HV1   LV1│──────│ GP15     │
-│        │            │ LV (3.3V)│──────│ 3.3V     │
-└────────┘            └──────────┘      └──────────┘
-```
 
 ### Pull-up Resistor
 
