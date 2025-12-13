@@ -66,6 +66,8 @@ static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {85, 7, 0, 23, 
     0};
 ```
 
+Larger dictionaries automatically switch to a 3-byte link format (defined as `AUTOCORRECT_LINK_BYTE_COUNT` in the generated file), allowing autocorrect tables to grow well beyond the previous 64KB limit while keeping smaller dictionaries compact.
+
 ### Avoiding false triggers {#avoiding-false-triggers}
 
 By default, typos are searched within words, to find typos within longer identifiers like maxFitlerOuput. While this is useful, a consequence is that autocorrection will falsely trigger when a typo happens to be a substring of a correctly-spelled word. For instance, if we had thier -> their as an entry, it would falsely trigger on (correct, though relatively uncommon) words like “wealthier” and “filthier.”
