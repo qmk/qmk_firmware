@@ -1,6 +1,7 @@
 /*
 Copyright 2011-19 Jun WAKO <wakojun@gmail.com>
 Copyright 2013 Shay Green <gblargg@gmail.com>
+Copyright 2025 Noah Patel <Noah@imnoah.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -37,16 +38,48 @@ POSSIBILITY OF SUCH DAMAGE.
 */
 
 #include <stdbool.h>
-#include <util/delay.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
 #include "adb.h"
 #include "print.h"
+#include "wait.h"
+#include "gpio.h"
 
-// GCC doesn't inline functions normally
-#define data_lo() (ADB_DDR |= (1 << ADB_DATA_BIT))
-#define data_hi() (ADB_DDR &= ~(1 << ADB_DATA_BIT))
-#define data_in() (ADB_PIN & (1 << ADB_DATA_BIT))
+/* Platform-specific includes and GPIO macros */
+#if defined(ADB_DATA_PIN)
+    /* Platform-agnostic implementation (RP2040, ARM, etc.) */
+    #include "atomic_util.h"
+
+    // Set pin as output low (directly drive low)
+    #define data_lo() do { gpio_set_pin_output(ADB_DATA_PIN); gpio_write_pin_low(ADB_DATA_PIN); } while(0)
+    // Set pin as input with pull-up (release line, let pull-up bring it high)
+    #define data_hi() gpio_set_pin_input_high(ADB_DATA_PIN)
+    // Read the pin state
+    #define data_in() gpio_read_pin(ADB_DATA_PIN)
+
+    // Interrupt control for ChibiOS/ARM platforms
+    #define adb_int_disable() chSysLock()
+    #define adb_int_enable()  chSysUnlock()
+
+    // Timing - use QMK's wait_us
+    #define adb_delay_us(us) wait_us(us)
+
+#else
+    /* AVR-specific implementation */
+    #include <util/delay.h>
+    #include <avr/io.h>
+    #include <avr/interrupt.h>
+
+    // GCC doesn't inline functions normally
+    #define data_lo() (ADB_DDR |= (1 << ADB_DATA_BIT))
+    #define data_hi() (ADB_DDR &= ~(1 << ADB_DATA_BIT))
+    #define data_in() (ADB_PIN & (1 << ADB_DATA_BIT))
+
+    // Interrupt control for AVR
+    #define adb_int_disable() cli()
+    #define adb_int_enable()  sei()
+
+    // Timing - use AVR's _delay_us
+    #define adb_delay_us(us) _delay_us(us)
+#endif
 
 #ifdef ADB_PSW_BIT
 static inline void psw_lo(void);
@@ -62,8 +95,14 @@ static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
 
 void adb_host_init(void) {
+#if defined(ADB_DATA_PIN)
+    /* Platform-agnostic: set pin as input with pull-up (idle state) */
+    data_hi();
+#else
+    /* AVR: clear port bit and set as input (pull-up via DDR) */
     ADB_PORT &= ~(1 << ADB_DATA_BIT);
     data_hi();
+#endif
 #ifdef ADB_PSW_BIT
     psw_hi();
 #endif
@@ -91,7 +130,7 @@ uint16_t adb_host_mouse_recv(void) { return adb_host_talk(ADB_ADDR_MOUSE, ADB_RE
 uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len) {
     for (int8_t i = 0; i < len; i++) buf[i] = 0;
 
-    cli();
+    adb_int_disable();
     attention();
     send_byte((addr << 4) | ADB_CMD_TALK | reg);
     place_bit0();  // Stopbit(0)
@@ -141,23 +180,23 @@ uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len) 
     // http://ww1.microchip.com/downloads/en/AppNotes/00591b.pdf
     if (!wait_data_hi(500)) {  // Service Request(310us Adjustable Keyboard): just ignored
         xprintf("R");
-        sei();
+        adb_int_enable();
         return 0;
     }
     if (!wait_data_lo(500)) {  // Tlt/Stop to Start(140-260us)
-        sei();
+        adb_int_enable();
         return 0;  // No data from device(not error);
     }
 
     // start bit(1)
     if (!wait_data_hi(40)) {
         xprintf("S");
-        sei();
+        adb_int_enable();
         return 0;
     }
     if (!wait_data_lo(100)) {
         xprintf("s");
-        sei();
+        adb_int_enable();
         return 0;
     }
 
@@ -187,7 +226,7 @@ uint8_t adb_host_talk_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len) 
     } while (++n);
 
 error:
-    sei();
+    adb_int_enable();
     return n / 8;
 }
 
@@ -200,19 +239,19 @@ uint16_t adb_host_talk(uint8_t addr, uint8_t reg) {
 }
 
 void adb_host_listen_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len) {
-    cli();
+    adb_int_disable();
     attention();
     send_byte((addr << 4) | ADB_CMD_LISTEN | reg);
     place_bit0();  // Stopbit(0)
     // TODO: Service Request
-    _delay_us(200);  // Tlt/Stop to Start
+    adb_delay_us(200);  // Tlt/Stop to Start
     place_bit1();    // Startbit(1)
     for (int8_t i = 0; i < len; i++) {
         send_byte(buf[i]);
         // xprintf("%02X ", buf[i]);
     }
     place_bit0();  // Stopbit(0);
-    sei();
+    adb_int_enable();
 }
 
 void adb_host_listen(uint8_t addr, uint8_t reg, uint8_t data_h, uint8_t data_l) {
@@ -221,12 +260,12 @@ void adb_host_listen(uint8_t addr, uint8_t reg, uint8_t data_h, uint8_t data_l) 
 }
 
 void adb_host_flush(uint8_t addr) {
-    cli();
+    adb_int_disable();
     attention();
     send_byte((addr << 4) | ADB_CMD_FLUSH);
     place_bit0();    // Stopbit(0)
-    _delay_us(200);  // Tlt/Stop to Start
-    sei();
+    adb_delay_us(200);  // Tlt/Stop to Start
+    adb_int_enable();
 }
 
 // send state of LEDs
@@ -255,22 +294,22 @@ static inline bool psw_in(void) {
 
 static inline void attention(void) {
     data_lo();
-    _delay_us(800 - 35);  // bit1 holds lo for 35 more
+    adb_delay_us(800 - 35);  // bit1 holds lo for 35 more
     place_bit1();
 }
 
 static inline void place_bit0(void) {
     data_lo();
-    _delay_us(65);
+    adb_delay_us(65);
     data_hi();
-    _delay_us(35);
+    adb_delay_us(35);
 }
 
 static inline void place_bit1(void) {
     data_lo();
-    _delay_us(35);
+    adb_delay_us(35);
     data_hi();
-    _delay_us(65);
+    adb_delay_us(65);
 }
 
 static inline void send_byte(uint8_t data) {
@@ -282,8 +321,26 @@ static inline void send_byte(uint8_t data) {
     }
 }
 
-// These are carefully coded to take 6 cycles of overhead.
-// inline asm approach became too convoluted
+// Wait functions with platform-specific timing compensation
+#if defined(ADB_DATA_PIN)
+// Platform-agnostic: simpler timing since modern MCUs are faster
+static inline uint16_t wait_data_lo(uint16_t us) {
+    do {
+        if (!data_in()) break;
+        wait_us(1);
+    } while (--us);
+    return us;
+}
+
+static inline uint16_t wait_data_hi(uint16_t us) {
+    do {
+        if (data_in()) break;
+        wait_us(1);
+    } while (--us);
+    return us;
+}
+#else
+// AVR: carefully coded to take 6 cycles of overhead
 static inline uint16_t wait_data_lo(uint16_t us) {
     do {
         if (!data_in()) break;
@@ -299,6 +356,7 @@ static inline uint16_t wait_data_hi(uint16_t us) {
     } while (--us);
     return us;
 }
+#endif
 
 /*
 ADB Protocol

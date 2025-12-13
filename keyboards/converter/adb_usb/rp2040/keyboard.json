@@ -1,0 +1,6 @@
+{
+    "keyboard_name": "ADB to USB Keyboard Converter (RP2040)",
+    "processor": "RP2040",
+    "bootloader": "rp2040"
+}
+

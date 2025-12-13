@@ -1,5 +1,6 @@
 /*
 Copyright 2011-19 Jun WAKO <wakojun@gmail.com>
+Copyright 2025 Noah Patel <Noah@imnoah.com>
 
 This software is licensed with a Modified BSD License.
 All of this is supposed to be Free Software, Open Source, DFSG-free,
@@ -40,8 +41,13 @@ POSSIBILITY OF SUCH DAMAGE.
 #include <stdint.h>
 #include <stdbool.h>
 
-#if !(defined(ADB_PORT) && defined(ADB_PIN) && defined(ADB_DDR) && defined(ADB_DATA_BIT))
-#    error "ADB port setting is required in config.h"
+/* Check for either AVR-style or platform-agnostic pin definitions */
+#if defined(ADB_DATA_PIN)
+    /* Platform-agnostic pin definition (RP2040, ARM, etc.) */
+#elif defined(ADB_PORT) && defined(ADB_PIN) && defined(ADB_DDR) && defined(ADB_DATA_BIT)
+    /* AVR-style pin definitions */
+#else
+#    error "ADB port setting is required in config.h (define ADB_DATA_PIN for RP2040/ARM or ADB_PORT/ADB_PIN/ADB_DDR/ADB_DATA_BIT for AVR)"
 #endif
 
 #define ADB_POWER 0x7F

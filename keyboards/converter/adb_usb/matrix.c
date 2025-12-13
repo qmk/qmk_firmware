@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2025 Noah Patel <Noah@imnoah.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,12 +16,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Ported to QMK by Peter Roe <pete@13bit.me>
+RP2040 platform support by Noah Patel <Noah@imnoah.com>
 */
 
 #include <stdint.h>
 #include <stdbool.h>
-#include <avr/io.h>
-#include <util/delay.h>
 #include "print.h"
 #include "util.h"
 #include "debug.h"
@@ -30,6 +30,7 @@ Ported to QMK by Peter Roe <pete@13bit.me>
 #include "host.h"
 #include "led.h"
 #include "timer.h"
+#include "wait.h"
 
 #ifndef ADB_MOUSE_MAXACC
 #    define ADB_MOUSE_MAXACC 8
@@ -65,7 +66,7 @@ void matrix_init(void)
     adb_host_init();
 
     // wait for keyboard to boot up and receive command
-    _delay_ms(2000);
+    wait_ms(2000);
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;

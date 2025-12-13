@@ -15,21 +15,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-Ported to QMK by Peter Roe <pete@13bit.me>
-RP2040 platform support by Noah Patel <Noah@imnoah.com>
+RP2040 port for RP2040-Zero board
 */
 
 #pragma once
 
-/* matrix size */
-#define MATRIX_ROWS 16  // keycode bit: 3-0
-#define MATRIX_COLS 8   // keycode bit: 6-4
+/* ADB port setting for RP2040 */
+#define ADB_DATA_PIN GP15
 
-/* ADB port setting - AVR only (RP2040 uses ADB_DATA_PIN in variant config.h) */
-#if !defined(ADB_DATA_PIN)
-#define ADB_PORT        PORTD
-#define ADB_PIN         PIND
-#define ADB_DDR         DDRD
-#define ADB_DATA_BIT    0
-//#define ADB_PSW_BIT     1       // optional
-#endif
+/* RP2040 double-tap reset bootloader configuration */
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
+
