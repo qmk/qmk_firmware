@@ -27,17 +27,15 @@ jobs:
       targets: ${{ steps.generate_targets.outputs.targets }}
 
     steps:
-      - name: Install prerequisites
-        run: |
-          apt-get update
-          apt-get install -y jq
-
       - name: Disable safe.directory check
         run: |
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
         uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: pip3 install -r requirements-dev.txt
 
       - name: Generate build targets
         id: generate_targets
@@ -79,17 +77,15 @@ jobs:
         target: ${{ fromJson(needs.generate_targets.outputs.targets) }}
 
     steps:
-      - name: Install prerequisites
-        run: |
-          apt-get update
-          apt-get install -y jq
-
       - name: Disable safe.directory check
         run: |
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
         uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: pip3 install -r requirements-dev.txt
 
       - name: Get target definitions
         uses: actions/download-artifact@v7
