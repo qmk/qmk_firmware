@@ -17,6 +17,9 @@
     },
     "processor": "STM32F072",
     "rgblight": {
+        "default":{
+            "animation": "breathing"
+        },
         "animations": {
             "alternating": true,
             "breathing": true,
