@@ -2,10 +2,10 @@
     "manufacturer": "GEIST",
     "keyboard_name": "TOTEM",
     "maintainer": "qmk",
+    "bootloader": "rp2040",
     "build": {
         "lto": true
     },
-    "development_board": "promicro_rp2040",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
@@ -16,6 +16,7 @@
         "cols": ["GP6", "GP7", "GP3", "GP4", "GP2"],
         "rows": ["GP26", "GP27", "GP28", "GP29"]
     },
+    "processor": "RP2040",
     "split": {
         "enabled": true,
         "serial": {
