@@ -3,9 +3,6 @@
     "keyboard_name": "TOTEM",
     "maintainer": "qmk",
     "bootloader": "rp2040",
-    "build": {
-        "lto": true
-    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
