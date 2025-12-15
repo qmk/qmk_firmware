@@ -41,7 +41,17 @@
     "driver": "pwm"
   },
   "rgb_matrix": {
-    "driver": "ws2812"
+    "driver": "ws2812",
+    "layout": [
+        {"matrix": [3, 5], "x": 94, "y": 60, "flags": 255},
+        {"matrix": [2, 2], "x": 18, "y": 44, "flags": 255},
+        {"matrix": [1, 2], "x": 8, "y": 10, "flags": 255},
+        {"matrix": [1, 5], "x": 94, "y": 10, "flags": 255},
+        {"matrix": [1, 8], "x": 130, "y": 10, "flags": 255},
+        {"matrix": [1, 11], "x": 216, "y": 10, "flags": 255},
+        {"matrix": [2, 11], "x": 208, "y": 44, "flags": 255},
+        {"matrix": [3, 8], "x": 130, "y": 60, "flags": 255}
+    ]
   },
   "matrix_pins": {
     "cols": ["A14", "A15", "B13", "B14", "B15", "A13", "A0", "A1", "A2", "A3", "A6", "A7"],
