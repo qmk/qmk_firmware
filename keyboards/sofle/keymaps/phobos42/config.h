@@ -90,6 +90,10 @@
 #    define RGB_MATRIX_VAL_STEP 8
 #    define RGB_MATRIX_SPD_STEP 10
 
+#ifdef OLED_ENABLE
+#   define OLED_FONT_H "keyboards/splitkb/aurora/sofle_v2/glcdfont.c"
+#endif
+
 /* Disable the animations you don't want/need.  You will need to disable a good number of these    *
  * because they take up a lot of space.  Disable until you can successfully compile your firmware. */
 // #   define DISABLE_RGB_MATRIX_ALPHAS_MODS
