@@ -1,7 +1,7 @@
 /* ROMEO40 layout by RichardStyxx
  * 2025 update
  * v8
- * added colon key override
+ * tidying up, removed colon key override
  */
 
 #include QMK_KEYBOARD_H
