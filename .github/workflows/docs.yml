@@ -35,9 +35,10 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
+      run: pip3 install -r requirements-dev.txt
+
+    - name: Install nvm
       run: |
-        apt-get update && apt-get install -y rsync doxygen
-        # install nvm
         touch $HOME/.bashrc
         wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
@@ -56,7 +57,7 @@ jobs:
 
     - name: Deploy
       if: ${{ github.event_name == 'push' && github.repository == 'qmk/qmk_firmware' }}
-      uses: JamesIves/github-pages-deploy-action@v4.7.4
+      uses: JamesIves/github-pages-deploy-action@v4.7.6
       with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
