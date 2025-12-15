@@ -22,8 +22,7 @@ jobs:
     - uses: actions/checkout@v6
 
     - name: Install dependencies
-      run: |
-        pip3 install -r requirements-dev.txt
+      run: pip3 install -r requirements-dev.txt
 
     - name: Run qmk generators
       run: |
