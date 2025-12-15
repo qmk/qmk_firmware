@@ -25,5 +25,4 @@ RP2040 port for RP2040-Zero board
 
 /* RP2040 double-tap reset bootloader configuration */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
 
