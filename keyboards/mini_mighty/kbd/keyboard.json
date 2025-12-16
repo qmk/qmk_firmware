@@ -3,10 +3,17 @@
     "keyboard_name": "mini-mighty-kbd",
     "maintainer": "dimitrix-llc",
     "bootloader": "atmel-dfu",
+    "build": {
+        "lto": true
+    },
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
+        "grave_esc": false,
+        "magic": false,
+        "os_detection": true,
+        "space_cadet": false
     },
     "matrix_pins": {
         "cols": ["B2", "B1", "B3", "B4", "C5", "C4", "D5", "D6", "D7", "C2", "D3", "D2", "D1", "D0"],
