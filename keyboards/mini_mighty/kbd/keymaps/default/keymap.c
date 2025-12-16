@@ -4,9 +4,9 @@
 #include QMK_KEYBOARD_H
 
 enum LAYER {
-  _PC = 0,
-  _MAC = 1,
-  _FN = 2
+  _PC,
+  _MAC,
+  _FN,
 };
 
 // clang-format off
