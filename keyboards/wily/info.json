@@ -3,7 +3,6 @@
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x5750",
-        "pid": "0x5051",
         "device_version": "0.0.1"
     }, 
     "features": {
