@@ -47,7 +47,7 @@ def generate_version_h(cli):
         git_bcd_version = triplet_to_bcd(git_version)
         chibios_version = git_get_version(Path('lib') / "chibios", "os") or current_time
         chibios_contrib_version = git_get_version(Path('lib') / "chibios-contrib") or current_time
-        if cli.config.user.overlay_dir is not None:
+        if HAS_QMK_USERSPACE:
             userspace_version = git_get_version(Path(QMK_USERSPACE).resolve()) or current_time
         else:
             userspace_version = "None"
