@@ -4,12 +4,12 @@ on:
   push:
     branches: [master, develop, xap]
     paths:
-      - "util/env-bootstrap.sh"
-      - ".github/workflows/bootstrap_testing.yml"
+    - "util/env-bootstrap.sh"
+    - ".github/workflows/bootstrap_testing.yml"
   pull_request:
     paths:
-      - "util/env-bootstrap.sh"
-      - ".github/workflows/bootstrap_testing.yml"
+    - "util/env-bootstrap.sh"
+    - ".github/workflows/bootstrap_testing.yml"
   workflow_dispatch:
 
 permissions:
