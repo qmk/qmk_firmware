@@ -16,8 +16,30 @@ permissions:
   contents: read
 
 jobs:
+  prep:
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event_name == 'pull_request' }}
+
+    outputs:
+      any_changed: ${{ steps.file_changes.outputs.any_changed }}
+
+    steps:
+    - name: Get changed files
+      id: file_changes
+      uses: tj-actions/changed-files@v47
+      with:
+        use_rest_api: true
+        files: |
+          util/env-bootstrap.sh
+          .github/workflows/bootstrap_testing.yml
+
   bootstrap-test-linux:
     name: Bootstrap (Linux)
+
+    needs: prep
+    if: ${{ github.event_name != 'pull_request' || needs.prep.outputs.any_changed == 'true' }}
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -163,6 +185,12 @@ jobs:
 
   bootstrap-test-macos:
     name: Bootstrap (macOS)
+
+    needs: prep
+    if: ${{ github.event_name != 'pull_request' || needs.prep.outputs.any_changed == 'true' }}
+
+    runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
@@ -207,6 +235,11 @@ jobs:
 
   bootstrap-test-windows:
     name: Bootstrap (Windows)
+
+    needs: prep
+    if: ${{ github.event_name != 'pull_request' || needs.prep.outputs.any_changed == 'true' }}
+
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
