@@ -5,6 +5,8 @@ from pathlib import Path
 
 from milc import cli
 
+from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
+
 from qmk.path import normpath
 from qmk.commands import dump_lines
 from qmk.git import git_get_qmk_hash, git_get_version, git_is_dirty
