@@ -59,12 +59,8 @@ POSSIBILITY OF SUCH DAMAGE.
     #define adb_int_disable() chSysLock()
     #define adb_int_enable()  chSysUnlock()
 
-    // Timing - use QMK's wait_us
-    #define adb_delay_us(us) wait_us(us)
-
 #else
     /* AVR-specific implementation */
-    #include <util/delay.h>
     #include <avr/io.h>
     #include <avr/interrupt.h>
 
@@ -76,9 +72,6 @@ POSSIBILITY OF SUCH DAMAGE.
     // Interrupt control for AVR
     #define adb_int_disable() cli()
     #define adb_int_enable()  sei()
-
-    // Timing - use AVR's _delay_us
-    #define adb_delay_us(us) _delay_us(us)
 #endif
 
 #ifdef ADB_PSW_BIT
@@ -244,7 +237,7 @@ void adb_host_listen_buf(uint8_t addr, uint8_t reg, uint8_t *buf, uint8_t len) {
     send_byte((addr << 4) | ADB_CMD_LISTEN | reg);
     place_bit0();  // Stopbit(0)
     // TODO: Service Request
-    adb_delay_us(200);  // Tlt/Stop to Start
+    wait_us(200);  // Tlt/Stop to Start
     place_bit1();    // Startbit(1)
     for (int8_t i = 0; i < len; i++) {
         send_byte(buf[i]);
@@ -264,7 +257,7 @@ void adb_host_flush(uint8_t addr) {
     attention();
     send_byte((addr << 4) | ADB_CMD_FLUSH);
     place_bit0();    // Stopbit(0)
-    adb_delay_us(200);  // Tlt/Stop to Start
+    wait_us(200);  // Tlt/Stop to Start
     adb_int_enable();
 }
 
@@ -294,22 +287,22 @@ static inline bool psw_in(void) {
 
 static inline void attention(void) {
     data_lo();
-    adb_delay_us(800 - 35);  // bit1 holds lo for 35 more
+    wait_us(800 - 35);  // bit1 holds lo for 35 more
     place_bit1();
 }
 
 static inline void place_bit0(void) {
     data_lo();
-    adb_delay_us(65);
+    wait_us(65);
     data_hi();
-    adb_delay_us(35);
+    wait_us(35);
 }
 
 static inline void place_bit1(void) {
     data_lo();
-    adb_delay_us(35);
+    wait_us(35);
     data_hi();
-    adb_delay_us(65);
+    wait_us(65);
 }
 
 static inline void send_byte(uint8_t data) {
@@ -344,7 +337,7 @@ static inline uint16_t wait_data_hi(uint16_t us) {
 static inline uint16_t wait_data_lo(uint16_t us) {
     do {
         if (!data_in()) break;
-        _delay_us(1 - (6 * 1000000.0 / F_CPU));
+        wait_us(1 - (6 * 1000000.0 / F_CPU));
     } while (--us);
     return us;
 }
@@ -352,7 +345,7 @@ static inline uint16_t wait_data_lo(uint16_t us) {
 static inline uint16_t wait_data_hi(uint16_t us) {
     do {
         if (data_in()) break;
-        _delay_us(1 - (6 * 1000000.0 / F_CPU));
+        wait_us(1 - (6 * 1000000.0 / F_CPU));
     } while (--us);
     return us;
 }
