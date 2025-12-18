@@ -38,8 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-bool process_detected_host_os_user(os_variant_t os)
-{
+bool process_detected_host_os_user(os_variant_t os) {
 #ifdef CONSOLE_ENABLE
     switch (os) {
         case OS_MACOS:
