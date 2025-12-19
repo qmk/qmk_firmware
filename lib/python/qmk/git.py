@@ -13,9 +13,6 @@ def git_get_version(repo_dir='.', check_dir='.'):
     """
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
 
-    if repo_dir != '.':
-        repo_dir = Path('lib') / repo_dir
-
     if check_dir != '.':
         check_dir = repo_dir / check_dir
 
