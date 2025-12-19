@@ -19,14 +19,13 @@ jobs:
   prep:
     runs-on: ubuntu-latest
 
-    if: ${{ github.event_name == 'pull_request' }}
-
     outputs:
       any_changed: ${{ steps.file_changes.outputs.any_changed }}
 
     steps:
     - name: Get changed files
       id: file_changes
+      if: ${{ github.event_name == 'pull_request' }}
       uses: tj-actions/changed-files@v47
       with:
         use_rest_api: true
