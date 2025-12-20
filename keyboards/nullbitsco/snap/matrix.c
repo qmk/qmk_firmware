@@ -13,8 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "matrix.h"
 #include <string.h>
+#include "matrix.h"
+#include "keyboard.h"
 #include "split_util.h"
 #include "wait.h"
 
