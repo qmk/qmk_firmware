@@ -51,7 +51,7 @@ static void init_pins(void) {
     }
 
     // Set extended pin (only on right side)
-    if (!isLeftHand) {
+    if (!is_keyboard_left()) {
         // Set extended pin to input, pullup
         gpio_set_pin_input_high(MATRIX_EXT_PIN_RIGHT);
     }
@@ -81,7 +81,7 @@ static void read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
 static void read_ext_pin(matrix_row_t current_matrix[]) {
     // Read the state of the extended matrix pin
-    if (!isLeftHand) {
+    if (!is_keyboard_left()) {
         if (gpio_read_pin(MATRIX_EXT_PIN_RIGHT) == 0) {
             current_matrix[EXT_PIN_ROW] |= (COL_SHIFTER << EXT_PIN_COL);
         } else {
@@ -91,7 +91,7 @@ static void read_ext_pin(matrix_row_t current_matrix[]) {
 }
 
 void matrix_init_custom(void) {
-    if (!isLeftHand) {
+    if (!is_keyboard_left()) {
         row_pins = row_pins_right;
         col_pins = col_pins_right;
     }
