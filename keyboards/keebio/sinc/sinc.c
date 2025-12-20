@@ -17,12 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "split_util.h"
 
+#ifdef LED_CAPS_LOCK_PIN
 void led_update_ports(led_t led_state) {
     // Only update if left half
     if (is_keyboard_left()) {
         gpio_write_pin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
     }
 }
+#endif
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
