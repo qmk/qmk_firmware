@@ -1,6 +1,23 @@
+/*
+Copyright 2025 JEEBIS <jeebis.iox@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include QMK_KEYBOARD_H
 #include "os_detection.h"
-#include "a2j/translate_ansi_to_jis.h"
+#include "keymap_japanese.h"
 
 // レイヤー定義（enumの値を0から連番で確保する）
 enum layer_names {
@@ -9,6 +26,7 @@ enum layer_names {
     _NUMBER,
     _FUNCTION,
 };
+
 enum custom_keycodes {
     KC_DZ = SAFE_RANGE,  // 00キー
     TG_JIS,  // JISモード切替キー
@@ -21,6 +39,49 @@ typedef union {
     };
 } user_config_t;
 user_config_t user_config;
+
+// shift+2  " -> @
+const key_override_t kor_at = ko_make_with_layers(MOD_MASK_SHIFT, KC_2, JP_AT, 1);
+// shift+6  & -> ^
+const key_override_t kor_circ = ko_make_with_layers(MOD_MASK_SHIFT, KC_6, JP_CIRC, 1);
+// shift+7  ' -> &
+const key_override_t kor_ampr = ko_make_with_layers(MOD_MASK_SHIFT, KC_7, JP_AMPR, 1);
+// shift+8  ( -> *
+const key_override_t kor_astr = ko_make_with_layers(MOD_MASK_SHIFT, KC_8, JP_ASTR, 1);
+// shift+9  ) -> (
+const key_override_t kor_lprn = ko_make_with_layers(MOD_MASK_SHIFT, KC_9, JP_LPRN, 1);
+// shift+0    -> )
+const key_override_t kor_rprn = ko_make_with_layers(MOD_MASK_SHIFT, KC_0, JP_RPRN, 1);
+// shift+-  = -> _
+const key_override_t kor_unds = ko_make_with_layers(MOD_MASK_SHIFT, KC_MINS, JP_UNDS, 1);
+// =        ^ -> =
+// shift+=  ~ -> +
+const key_override_t kor_eql = ko_make_with_layers_and_negmods(0, JP_CIRC, JP_EQL, 1, MOD_MASK_SHIFT);
+const key_override_t kor_plus = ko_make_with_layers(MOD_MASK_SHIFT, JP_CIRC, JP_PLUS, 1);
+/* \        ] -> \ */
+/* shift+\  } -> | */
+const key_override_t kor_bsls = ko_make_with_layers_and_negmods(0, KC_BSLS, JP_BSLS, 1, MOD_MASK_SHIFT);
+const key_override_t kor_pipe = ko_make_with_layers(MOD_MASK_SHIFT, KC_BSLS, JP_PIPE, 1);
+// [        @ -> [
+// shift+[  ` -> {
+const key_override_t kor_lbrc = ko_make_with_layers_and_negmods(0, JP_AT, JP_LBRC, 1, MOD_MASK_SHIFT);
+const key_override_t kor_lcbr = ko_make_with_layers(MOD_MASK_SHIFT, JP_AT, JP_LCBR, 1);
+// ]        [ -> ]
+// shift+]  { -> }
+const key_override_t kor_rbrc = ko_make_with_layers_and_negmods(0, JP_LBRC, JP_RBRC, 1, MOD_MASK_SHIFT);
+const key_override_t kor_rcbr = ko_make_with_layers(MOD_MASK_SHIFT, JP_LBRC, JP_RCBR, 1);
+// shift+;  + -> :
+const key_override_t kor_coln = ko_make_with_layers(MOD_MASK_SHIFT, KC_SCLN, JP_COLN, 1);
+// '        : -> '
+// shift+'  * -> "
+const key_override_t kor_quot = ko_make_with_layers_and_negmods(0, KC_QUOT, JP_QUOT, 1, MOD_MASK_SHIFT);
+const key_override_t kor_dquo = ko_make_with_layers(MOD_MASK_SHIFT, KC_QUOT, JP_DQUO, 1);
+// `        全角半角 -> `
+// shift+`  shift+全角半角 -> ~
+const key_override_t kor_grv = ko_make_with_layers_and_negmods(0, JP_ZKHK, JP_GRV, 1, MOD_MASK_SHIFT);
+const key_override_t kor_tild = ko_make_with_layers(MOD_MASK_SHIFT, JP_ZKHK, JP_TILD, 1);
+// Caps     英数 -> Caps
+const key_override_t kor_caps = ko_make_with_layers_and_negmods(0, JP_EISU, JP_CAPS, 1, MOD_MASK_SHIFT);
 
 #define MT_SPC MT(MOD_LSFT, KC_SPC)  // タップでSpace、ホールドでShift
 #define MT_ENT MT(MOD_LSFT, KC_ENT)  // タップでEnter、ホールドでShift
@@ -41,13 +102,60 @@ void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
 }
 
+const key_override_t *key_overrides[] = {
+    &kor_at,
+    &kor_circ,
+    &kor_ampr,
+    &kor_astr,
+    &kor_lprn,
+    &kor_rprn,
+    &kor_unds,
+    &kor_eql,
+    &kor_plus,
+    &kor_bsls,
+    &kor_pipe,
+    &kor_lbrc,
+    &kor_lcbr,
+    &kor_rbrc,
+    &kor_rcbr,
+    &kor_coln,
+    &kor_quot,
+    &kor_dquo,
+    &kor_grv,
+    &kor_tild,
+    &kor_caps,
+    NULL
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     os_variant_t os = detected_host_os();
     bool is_mac = (os == OS_MACOS || os == OS_IOS);
-
-    bool ime_mod_pressed = get_mods() & (MOD_BIT(KC_LALT) | MOD_BIT(KC_LCTL) | MOD_BIT(KC_RALT) | MOD_BIT(KC_RCTL));
     
+    // Mod-Tap shift に対応したシフト+数字キーの処理
+    if (IS_LAYER_ON(_NUMBER) && record->event.pressed && (get_mods() & MOD_MASK_SHIFT)) {
+        uint16_t shifted_code = KC_NO;
+        switch (keycode) {
+            case KC_2: shifted_code = JP_AT; break;       // Shift+2 -> @
+            case KC_6: shifted_code = JP_CIRC; break;     // Shift+6 -> ^
+            case KC_7: shifted_code = JP_AMPR; break;     // Shift+7 -> &
+            case KC_8: shifted_code = JP_ASTR; break;     // Shift+8 -> *
+            case KC_9: shifted_code = JP_LPRN; break;     // Shift+9 -> (
+            case KC_0: shifted_code = JP_RPRN; break;     // Shift+0 -> )
+            case KC_MINS: shifted_code = JP_UNDS; break;  // Shift+- -> _
+            case KC_SCLN: shifted_code = JP_COLN; break;  // Shift+; -> :
+            default: break;
+        }
+        if (shifted_code != KC_NO) {
+            // 修飾キーを一度削除して、記号キーを送信
+            uint8_t mods = get_mods();
+            del_mods(MOD_MASK_SHIFT);
+            tap_code16(shifted_code);
+            add_mods(mods);
+            return false;
+        }
+    }
+
     switch (keycode) {
         case MT_TGL:  // MT_TGLキー
             if (record->tap.count > 0) {
@@ -66,29 +174,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             return true;
+        case TG_JIS:
+            if (record->event.pressed) {
+                // 押された瞬間にJISモードをトグル
+                user_config.is_jis_mode = !user_config.is_jis_mode;
+                eeconfig_update_user(user_config.raw);
+                // 状態に応じてキーオーバーライドをON/OFF
+                if (user_config.is_jis_mode) {
+                    tap_code16(QK_KEY_OVERRIDE_ON);
+                } else {
+                    tap_code16(QK_KEY_OVERRIDE_OFF);
+                }
+            }
+            return false;
         case KC_DZ:
             if (record->event.pressed) {
                 // 押された瞬間に0を2回送信
                 SEND_STRING("00");
             }
             return true;
-        case TG_JIS:
-            if (record->event.pressed) {
-                // 押された瞬間にJISモードをトグル
-                user_config.is_jis_mode = !user_config.is_jis_mode;
-                eeconfig_update_user(user_config.raw);
-            }
-            return false;
-        case KC_GRV:
-            if(user_config.is_jis_mode) {
-                if (ime_mod_pressed) {
-                    return true;
-                }
-                else{
-                    break;
-                }
-            }
-            break;
         case KC_LCTL:
             if (is_mac) {
                 // Macの場合はCommandとして振る舞わせる
@@ -171,12 +275,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
     }
-    // JISモードの場合、ANSIからJISへの変換処理を呼び出す
-    if (user_config.is_jis_mode) {
-        return process_record_user_a2j(keycode, record); 
-    }
-    
-    // JISモードでない場合は、通常のQMK処理を続行させる
     return true;
 }
 // ..................................................................... Keymaps
