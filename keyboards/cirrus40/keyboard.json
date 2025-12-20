@@ -15,9 +15,6 @@
     "extrakey": true,
     "nkro": true
   },
-  "build": {
-    "lto": true
-  },
   "host": {
     "default": {
       "nkro": true
