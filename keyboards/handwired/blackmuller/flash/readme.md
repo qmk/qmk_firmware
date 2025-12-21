@@ -20,11 +20,10 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Keyboard Layer drivers
 
-Special drivers are required to full layer support. 
+Special drivers are required for full layer support. 
 On Windows: https://github.com/JakeEMuller/FlashBangLayerApp
 On Linux: N/A
 On Mac: N/A
-
 
 ## Bootloader
 
