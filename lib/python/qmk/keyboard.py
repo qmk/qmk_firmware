@@ -270,7 +270,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
             label = key_labels.pop(0)
             if label in k2l:
                 label = k2l[label]
-            if label.startswith('KC_'):
+            if label.startswith('KC_') or label.startswith('QK_'):
                 label = label[3:]
         else:
             label = key.get('label', '')
@@ -306,9 +306,9 @@ def render_layouts(info_json, render_ascii):
 
 def render_key_rect(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
-    x = ceil(x * 4)
+    x = ceil(x * 9)
     y = ceil(y * 3)
-    w = ceil(w * 4)
+    w = ceil(w * 8)
     h = ceil(h * 3)
 
     label_len = w - 2
@@ -335,9 +335,9 @@ def render_key_rect(textpad, x, y, w, h, label, style):
 
 def render_key_isoenter(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
-    x = ceil(x * 4)
+    x = ceil(x * 9)
     y = ceil(y * 3)
-    w = ceil(w * 4)
+    w = ceil(w * 8)
     h = ceil(h * 3)
 
     label_len = w - 1
@@ -367,9 +367,9 @@ def render_key_isoenter(textpad, x, y, w, h, label, style):
 
 def render_key_baenter(textpad, x, y, w, h, label, style):
     box_chars = BOX_DRAWING_CHARACTERS[style]
-    x = ceil(x * 4)
+    x = ceil(x * 9)
     y = ceil(y * 3)
-    w = ceil(w * 4)
+    w = ceil(w * 8)
     h = ceil(h * 3)
 
     label_len = w + 1
@@ -399,9 +399,9 @@ def render_key_baenter(textpad, x, y, w, h, label, style):
 
 def render_encoder(textpad, x, y, w, h, label, style):
     box_chars = ENC_DRAWING_CHARACTERS[style]
-    x = ceil(x * 4)
+    x = ceil(x * 9)
     y = ceil(y * 3)
-    w = ceil(w * 4)
+    w = ceil(w * 8)
     h = ceil(h * 3)
 
     label_len = w - 2
