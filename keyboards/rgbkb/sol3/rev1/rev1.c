@@ -43,7 +43,7 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
         }
         case 1: {
             // Handle RGB Encoder switch press
-            action_exec(MAKE_KEYEVENT(isLeftHand ? 4 : 10, 6, active));
+            action_exec(MAKE_KEYEVENT(is_keyboard_left() ? 4 : 10, 6, active));
             break;
         }
     }
