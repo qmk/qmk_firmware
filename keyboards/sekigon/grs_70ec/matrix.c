@@ -52,7 +52,7 @@ void matrix_init_custom(void) {
 
     ecsm_init(&ecsm_config);
 
-    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
+    thisHand = is_keyboard_left() ? 0 : (ROWS_PER_HAND);
     thatHand = ROWS_PER_HAND - thisHand;
 
     split_post_init();

@@ -182,7 +182,7 @@ void matrix_init(void) {
     split_pre_init();
 
     // Set pinout for right half if pinout for that half is defined
-    if (!isLeftHand) {
+    if (!is_keyboard_left()) {
 #ifdef DIRECT_PINS_RIGHT
         const pin_t direct_pins_right[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS_RIGHT;
         for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
@@ -205,7 +205,7 @@ void matrix_init(void) {
 #endif
     }
 
-    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
+    thisHand = is_keyboard_left() ? 0 : (ROWS_PER_HAND);
     thatHand = ROWS_PER_HAND - thisHand;
 
     // initialize key pins
