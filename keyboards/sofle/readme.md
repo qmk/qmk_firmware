@@ -25,7 +25,7 @@ Flashing example for this keyboard:
     make sofle/rev1:default:flash
     make sofle/keyhive:default:flash
 
-Press reset button on he keyboard when asked.
+Press reset button on the keyboard when asked.
 
 Disconnect the first half, connect the second one and repeat the process.
 
@@ -38,3 +38,14 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix
 * **Physical reset button**: Briefly press the button near the TRRS connector. Quickly double-tap if you are using Pro Micro.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+
+## Troubleshooting
+
+If left/right halves are not communicating or broken when connected:
+
+- double check TRRS cable connection
+- add `#define SPLIT_USB_DETECT` to `config.h` to enable handedness detection on both halves and reflash firmware.
+
+If RGBs and/or keyboard are frozen:
+
+- Clear EEPROM using QMK Toolbox.
