@@ -10,7 +10,7 @@ from milc import cli
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk
+from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, render_layouts_kle, rules_mk
 from qmk.info import info_json, keymap_json
 from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard
@@ -68,6 +68,8 @@ def show_keymap(kb_info_json, title_caps=True):
 
             print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
+        cli.echo('{fg_cyan}Combined KLE{fg_reset}:')
+        print(render_layouts_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers']))
 
 def show_layouts(kb_info_json, title_caps=True):
     """Render the layouts with info.json labels.
