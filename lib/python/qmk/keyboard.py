@@ -12,7 +12,7 @@ from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
 
-from qmk.keycodes import load_spec                                                                                                                                                                                                                                                                                                     
+from qmk.keycodes import load_spec
 
 import math
 import json
@@ -324,7 +324,7 @@ def render_layouts_kle(layout_data, layers=None):
                 layer_labels.append(layer_label)
                 lif = max(1, min(4,math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
                 layer_fa.append(lif)
-    
+
         label = '\n'.join(layer_labels)
 
         kle_key_attributes = {}
@@ -338,14 +338,14 @@ def render_layouts_kle(layout_data, layers=None):
                 kle_rows.append(kle_row)
                 kle_x = 0
                 kle_row = []
-            y_incr = y - (kle_y + 1)
+            y_incr = round(y - (kle_y + 1),4)
             kle_y = y
             if y_incr != 0:
                 kle_key_attributes['y'] = y_incr
 
         x_incr = 0
         if x != kle_x:
-            x_incr = x - kle_x
+            x_incr = round(x - kle_x,4)
             if x_incr != 0:
                 kle_key_attributes['x'] = x_incr
 
@@ -353,6 +353,19 @@ def render_layouts_kle(layout_data, layers=None):
             kle_key_attributes['w'] = w
         if h != 1:
             kle_key_attributes['h'] = h
+
+        # ISO Enter
+        if x >= 0.25 and w == 1.25 and h == 2:
+            kle_key_attributes['w2'] = 1.5
+            kle_key_attributes['h2'] = 1
+            kle_key_attributes['x2'] = -0.25
+
+        # BA Enter
+        if w == 1.5 and h == 2:
+            kle_key_attributes['w2'] = 2.25
+            kle_key_attributes['h2'] = 1
+            kle_key_attributes['x2'] = -0.75
+            kle_key_attributes['y2'] = 1
 
         if len(kle_key_attributes) > 0:
             kle_row.append(kle_key_attributes)
