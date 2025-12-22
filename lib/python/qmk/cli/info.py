@@ -68,11 +68,21 @@ def show_keymap(kb_info_json, title_caps=True):
 
             print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
+        manufacturer = kb_info_json.get('manufacturer', 'Unknown')
+        kb_name = kb_info_json.get('keyboard_name', 'Unknown')
+        name = f"{manufacturer} {kb_name} {layout_name} {cli.config.info.keymap}"
+
+        maintainer = kb_info_json.get('maintainer', 'QMK Community')
+        if maintainer == "qmk": maintainer = 'QMK Community'
+
+        kle_json = render_layouts_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers'])
+        kle_json.insert(0,{ "name": name, "author": maintainer })
+
         if title_caps:
             cli.echo('{fg_cyan}Keymap %s Combined KLE{fg_reset}:', cli.config.info.keymap)
         else:
             cli.echo('{fg_cyan}keymap.%s.kle{fg_reset}:', cli.config.info.keymap)
-        print(render_layouts_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers']))
+        print(json.dumps(kle_json,separators=(',', ':')))
 
 def show_layouts(kb_info_json, title_caps=True):
     """Render the layouts with info.json labels.
