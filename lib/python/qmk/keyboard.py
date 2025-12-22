@@ -270,13 +270,15 @@ KEY_ICONS = {
     "KC_APP": '☰',
 }
 
-@lru_cache(maxsize=1)
-def get_kc_idx():
+@lru_cache(maxsize=2)
+def get_kc_idx(render_ascii = False):
     kc_spec = load_spec('latest')
     kc_idx = {}
     for value in kc_spec['keycodes'].values():
         key = value['key']
-        label = KEY_ICONS.get(key,value.get('label'))
+        label = value.get('label')
+        if render_ascii == False:
+            label = KEY_ICONS.get(key,label)
         if label == None or len(label) == 0:
            label = key
            if 'aliases' in value:
@@ -294,10 +296,6 @@ def render_layouts_kle(layout_data, layers=None):
     """Renders all keymap layers into KLE-compatible format
     """
 
-    clean = str.maketrans({
-        '\\':  r'\\',
-        '"':  r'\"'
-    })
     kle_rows = []
     kle_row = []
     kle_x = 0
@@ -322,12 +320,12 @@ def render_layouts_kle(layout_data, layers=None):
                 layer_label = layers[li][ki]
                 if layer_label in kc_idx:
                     layer_label = kc_idx[layer_label]
-                layer_label = layer_label.translate(clean).strip()
+                layer_label = layer_label.strip()
                 layer_labels.append(layer_label)
                 lif = max(1, min(4,math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
                 layer_fa.append(lif)
     
-        label = r'\n'.join(layer_labels)
+        label = '\n'.join(layer_labels)
 
         kle_key_attributes = {}
 
@@ -365,7 +363,7 @@ def render_layouts_kle(layout_data, layers=None):
     if len(kle_row) > 0:
         kle_rows.append(kle_row)
 
-    return json.dumps(kle_rows,separators=(',', ':')).replace(r'\\', '\\').replace('],[','],\n[')[1:-1]
+    return kle_rows;
 
 def render_layout(layout_data, render_ascii, key_labels=None):
     """Renders a single layout.
@@ -373,7 +371,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
     textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
 
-    kc_idx = get_kc_idx()
+    kc_idx = get_kc_idx(render_ascii)
 
     for ki, key in enumerate(layout_data):
         x = key.get('x', 0)
@@ -405,7 +403,10 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         if line.tounicode().strip():
             lines.append(line.tounicode().rstrip())
 
-    return '\n'.join(lines) + '\n' + render_layouts_kle(layout_data, [key_labels]) + '\n'
+    kle = render_layouts_kle(layout_data, [key_labels])
+    kle_json = json.dumps(kle,ensure_ascii=render_ascii,separators=(',', ':')).replace('],[','],\n[')[1:-1]
+
+    return '\n'.join(lines) + '\nKLE raw data:\n[\n    ' + kle_json.replace('\n','\n    ') + '\n]\n'
 
 
 def render_layouts(info_json, render_ascii):
