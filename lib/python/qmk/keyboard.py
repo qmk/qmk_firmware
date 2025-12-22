@@ -313,21 +313,20 @@ def render_layouts_kle(layout_data, layers=None):
         w = key.get('w', 1)
         h = key.get('h', 1)
 
-        f = 99
-
         layer_labels = []
         layer_fa = []
-        layer_f = 0
-        for li, layer in enumerate(layers):
-            layer_label = layers[li][ki]
-            if layer_label in kc_idx:
-                layer_label = kc_idx[layer_label]
-            layer_label = layer_label.translate(clean).strip()
-            layer_labels.append(layer_label)
-            lif = max(1, min(4,math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
-            layer_fa.append(lif)
-            f = min(f, lif)
-
+        if layers != None:
+            for li, layer in enumerate(layers):
+                if layer == None:
+                    break
+                layer_label = layers[li][ki]
+                if layer_label in kc_idx:
+                    layer_label = kc_idx[layer_label]
+                layer_label = layer_label.translate(clean).strip()
+                layer_labels.append(layer_label)
+                lif = max(1, min(4,math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
+                layer_fa.append(lif)
+    
         label = r'\n'.join(layer_labels)
 
         kle_key_attributes = {}

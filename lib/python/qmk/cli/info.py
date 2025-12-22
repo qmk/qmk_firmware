@@ -68,7 +68,10 @@ def show_keymap(kb_info_json, title_caps=True):
 
             print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
-        cli.echo('{fg_cyan}Combined KLE{fg_reset}:')
+        if title_caps:
+            cli.echo('{fg_cyan}Keymap %s Combined KLE{fg_reset}:', cli.config.info.keymap)
+        else:
+            cli.echo('{fg_cyan}keymap.%s.kle{fg_reset}:', cli.config.info.keymap)
         print(render_layouts_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers']))
 
 def show_layouts(kb_info_json, title_caps=True):
