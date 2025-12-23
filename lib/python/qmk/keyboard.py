@@ -15,7 +15,6 @@ from qmk.makefile import parse_rules_mk_file
 from qmk.keycodes import load_spec
 
 import math
-import json
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -264,7 +263,7 @@ KEY_ICONS = {
     "KC_LEFT_GUI": '◊',   "KC_RIGHT_GUI": '◊',
     "KC_LEFT_ALT": '⌥',   "KC_RIGHT_ALT": '⌥',
 
-    "KC_CAPS_LOCK": '⇩',
+    "KC_CAPS_LOCK": '⇩A',
     "KC_NUM_LOCK": '⇩#',
 
     "KC_APP": '☰',
@@ -292,7 +291,7 @@ def get_kc_idx(render_ascii = False):
 
     return kc_idx
 
-def render_layouts_kle(layout_data, layers=None):
+def render_kle(layout_data, layers=None, decode_keys=True):
     """Renders all keymap layers into KLE-compatible format
     """
 
@@ -318,8 +317,9 @@ def render_layouts_kle(layout_data, layers=None):
                 if layer == None:
                     break
                 layer_label = layers[li][ki]
-                if layer_label in kc_idx:
-                    layer_label = kc_idx[layer_label]
+                layer_label = kc_idx.get(layer_label, layer_label);
+                if layer_label.startswith('KC_') or layer_label.startswith('QK_'):
+                    layer_label = layer_label[3:]
                 layer_label = layer_label.strip()
                 layer_labels.append(layer_label)
                 lif = max(1, min(4,math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
@@ -378,6 +378,19 @@ def render_layouts_kle(layout_data, layers=None):
 
     return kle_rows;
 
+def render_layouts_kle(info_json, labels=None):
+    """Renders all the layouts from an `info_json` structure in KLE format
+    """
+
+    layouts = []
+
+    for layout in info_json['layouts']:
+        layout_data = info_json['layouts'][layout]['layout']
+        layouts += [[{"a":4,"w":10,"d":True},"\n" + layout]]
+        layouts += render_kle(layout_data, labels, decode_keys=False)
+
+    return layouts
+
 def render_layout(layout_data, render_ascii, key_labels=None):
     """Renders a single layout.
     """
@@ -394,8 +407,9 @@ def render_layout(layout_data, render_ascii, key_labels=None):
 
         if key_labels:
             label = key_labels[ki]
-            if label in kc_idx:
-               label = kc_idx[label] 
+            label = kc_idx.get(label, label);
+            if label.startswith('KC_') or label.startswith('QK_'):
+                label = label[3:]
         else:
             label = key.get('label', '')
 
@@ -416,10 +430,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
         if line.tounicode().strip():
             lines.append(line.tounicode().rstrip())
 
-    kle = render_layouts_kle(layout_data, [key_labels])
-    kle_json = json.dumps(kle,ensure_ascii=render_ascii,separators=(',', ':')).replace('],[','],\n[')[1:-1]
-
-    return '\n'.join(lines) + '\nKLE raw data:\n[\n    ' + kle_json.replace('\n','\n    ') + '\n]\n'
+    return '\n'.join(lines)
 
 
 def render_layouts(info_json, render_ascii):

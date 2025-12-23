@@ -10,7 +10,7 @@ from milc import cli
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
-from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, render_layouts_kle, rules_mk
+from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, render_kle, render_layouts_kle, rules_mk
 from qmk.info import info_json, keymap_json
 from qmk.keymap import locate_keymap
 from qmk.path import is_keyboard
@@ -68,21 +68,6 @@ def show_keymap(kb_info_json, title_caps=True):
 
             print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
-        manufacturer = kb_info_json.get('manufacturer', 'Unknown')
-        kb_name = kb_info_json.get('keyboard_name', 'Unknown')
-        name = f"{manufacturer} {kb_name} {layout_name} {cli.config.info.keymap}"
-
-        maintainer = kb_info_json.get('maintainer', 'QMK Community')
-        if maintainer == "qmk": maintainer = 'QMK Community'
-
-        kle = render_layouts_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers'])
-        kle.insert(0,{ "name": name, "author": maintainer })
-
-        if title_caps:
-            cli.echo('{fg_cyan}Keymap %s Combined KLE{fg_reset}:', cli.config.info.keymap)
-        else:
-            cli.echo('{fg_cyan}keymap.%s.kle{fg_reset}:', cli.config.info.keymap)
-        print(json.dumps(kle,separators=(',', ':')))
 
 def show_layouts(kb_info_json, title_caps=True):
     """Render the layouts with info.json labels.
@@ -93,9 +78,10 @@ def show_layouts(kb_info_json, title_caps=True):
         print(layout_art)  # Avoid passing dirty data to cli.echo()
 
 
-def show_matrix(kb_info_json, title_caps=True):
+def show_matrix(kb_info_json, title_caps=True, kle=False):
     """Render the layout with matrix labels in ascii art.
     """
+    kle_out = []
     for layout_name, layout in kb_info_json['layouts'].items():
         # Build our label list
         labels = []
@@ -108,16 +94,23 @@ def show_matrix(kb_info_json, title_caps=True):
             else:
                 labels.append('')
 
-        # Print the header
-        if title_caps:
-            cli.echo('{fg_blue}Matrix for "%s"{fg_reset}:', layout_name)
+        if kle:
+            kle_out += [[{"a":4,"w":10,"d":True},"\n" + layout_name + " (Matrix)"]]
+            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels])
         else:
-            cli.echo('{fg_blue}matrix_%s{fg_reset}:', layout_name)
+            # Print the header
+            if title_caps:
+                cli.echo('{fg_blue}Matrix for "%s"{fg_reset}:', layout_name)
+            else:
+                cli.echo('{fg_blue}matrix_%s{fg_reset}:', layout_name)
+ 
+            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
 
-        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
+    if kle:
+        return kle_out
 
 
-def show_leds(kb_info_json, title_caps=True):
+def show_leds(kb_info_json, title_caps=True, kle=False):
     """Render LED indices per key, using the keyboard's key layout geometry.
 
     We build a map from (row, col) -> LED index using rgb_matrix/led_matrix layout,
@@ -131,8 +124,8 @@ def show_leds(kb_info_json, title_caps=True):
             break
 
     if not led_feature:
-        cli.echo('{fg_yellow}No rgb_matrix/led_matrix layout found to derive LED indices.{fg_reset}')
-        return
+        cli.log.error('{fg_yellow}No rgb_matrix/led_matrix layout found to derive LED indices.{fg_reset}')
+        return []
 
     # Build mapping from matrix position -> LED indices for faster lookup later
     by_matrix = {}
@@ -140,6 +133,8 @@ def show_leds(kb_info_json, title_caps=True):
         if 'matrix' in led:
             led_key = tuple(led.get('matrix'))
             by_matrix[led_key] = idx
+
+    kle_out = []
 
     # For each keyboard layout (e.g., LAYOUT), render keys labeled with LED index (or blank)
     for layout_name, layout in kb_info_json['layouts'].items():
@@ -150,14 +145,20 @@ def show_leds(kb_info_json, title_caps=True):
 
             labels.append(label)
 
-        # Header
-        if title_caps:
-            cli.echo('{fg_blue}LED indices for "%s"{fg_reset}:', layout_name)
+        if kle:
+            kle_out += [[{"a":4,"w":10,"d":True},"\n" + layout_name + " (LEDs)"]]
+            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels])
         else:
-            cli.echo('{fg_blue}leds_%s{fg_reset}:', layout_name)
+            # Header
+            if title_caps:
+                cli.echo('{fg_blue}LED indices for "%s"{fg_reset}:', layout_name)
+            else:
+                cli.echo('{fg_blue}leds_%s{fg_reset}:', layout_name)
 
-        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
+            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
 
+    if kle:
+        return kle_out
 
 def print_friendly_output(kb_info_json):
     """Print the info.json in a friendly text format.
@@ -214,6 +215,43 @@ def print_dotted_output(kb_info_json, prefix=''):
         else:
             cli.echo('{fg_blue}%s{fg_reset}: %s', new_prefix, kb_info_json[key])
 
+def print_kle_output(kb_info_json):
+    """Print the info.json in KLE json format.
+    """
+
+    manufacturer = kb_info_json.get('manufacturer', 'Unknown')
+    kb_name = kb_info_json.get('keyboard_name', 'Unknown')
+    maintainer = kb_info_json.get('maintainer', 'QMK Community')
+    if maintainer == "qmk": maintainer = 'QMK Community'
+    name = f"{manufacturer} {kb_name}"
+
+    kle = []
+
+    if cli.config.info.layouts:
+        kle += render_layouts_kle(kb_info_json)
+
+    if cli.config.info.matrix:
+        kle += show_matrix(kb_info_json, kle=True);
+
+    if cli.config.info.leds:
+        kle += show_leds(kb_info_json, kle=True);
+
+    if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
+        keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
+        if keymap_path and keymap_path.suffix == '.json':
+            keymap_data = json.load(keymap_path.open(encoding='utf-8'))
+            # cater for layout-less keymap.json
+            if 'layout' in keymap_data:
+                layout_name = keymap_data['layout']
+                layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
+                if len(kle) != 0:
+                    kle += [[{"a":4,"w":10,"d":True},"\nKEYMAP"]]
+                kle += render_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers'])
+                name += f" {layout_name} {cli.config.info.keymap}"
+
+    kle.insert(0, { "name": name, "author": maintainer })
+
+    print(json.dumps(kle,separators=(',', ':')))
 
 def print_parsed_rules_mk(keyboard_name):
     rules = rules_mk(keyboard_name)
@@ -227,7 +265,7 @@ def print_parsed_rules_mk(keyboard_name):
 @cli.argument('-l', '--layouts', action='store_true', help='Render the layouts.')
 @cli.argument('-m', '--matrix', action='store_true', help='Render the layouts with matrix information.')
 @cli.argument('-L', '--leds', action='store_true', help='Render the LED layout with LED indices (rgb_matrix/led_matrix).')
-@cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json) (Default: friendly).')
+@cli.argument('-f', '--format', default='friendly', arg_only=True, help='Format to display the data in (friendly, text, json, kle) (Default: friendly).')
 @cli.argument('--ascii', action='store_true', default=not UNICODE_SUPPORT, help='Render layout box drawings in ASCII only.')
 @cli.argument('-r', '--rules-mk', action='store_true', help='Render the parsed values of the keyboard\'s rules.mk file.')
 @cli.argument('-a', '--api', action='store_true', help='Show fully processed info intended for API consumption.')
@@ -267,6 +305,9 @@ def info(cli):
     # Output in the requested format
     if cli.args.format == 'json':
         print(json.dumps(kb_info_json, cls=InfoJSONEncoder, sort_keys=True))
+        return True
+    elif cli.args.format == 'kle':
+        print_kle_output(kb_info_json)
         return True
     elif cli.args.format == 'text':
         print_dotted_output(kb_info_json)
