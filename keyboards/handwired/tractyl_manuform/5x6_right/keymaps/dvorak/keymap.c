@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_5x6_right(
 
                         KC_TILD,     KC_F1,    KC_F2,    KC_F3,         KC_F4,     KC_F5,        KC_F6,   KC_F7,     KC_F8,     KC_F9,       KC_F10,     KC_DEL ,
-                        _______,    _______, _______,  _______,       _______,   KC_LCBR,        KC_RCBR, KC_BTN2,   _______,   _______  ,   _______ ,   _______,
+                        _______,    _______, _______,  _______,       _______,   KC_LCBR,        KC_RCBR, MS_BTN2,   _______,   _______  ,   _______ ,   _______,
                         _______,    _______, _______,  RAISE,     KC_DEL,   KC_LPRN,        KC_RPRN, KC_LEFT ,  KC_UP,     KC_DOWN,     KC_RGHT,    KC_PIPE,
-                        KC_CAPS ,   _______, _______,  LCTL(KC_X), LCTL(KC_C),LCTL(KC_V),        _______, KC_BTN1  , _______,   _______,     _______,    _______,
+                        KC_CAPS ,   _______, _______,  LCTL(KC_X), LCTL(KC_C),LCTL(KC_V),        _______, MS_BTN1  , _______,   _______,     _______,    _______,
                                            _______,_______,                                                       _______,_______,
                                                                  _______,_______,                         _______,
                                                                  _______,_______,                         _______,
