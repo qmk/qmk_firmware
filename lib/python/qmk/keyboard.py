@@ -299,8 +299,9 @@ def render_kle(layout_data, layers=None, decode_keys=True):
     kle_row = []
     kle_x = 0
     kle_y = 0
-    kle_w = 1
     kle_fa = None
+
+    kle_r = kle_rx = kle_ry = None
 
     kc_idx = get_kc_idx()
 
@@ -309,6 +310,13 @@ def render_kle(layout_data, layers=None, decode_keys=True):
         y = key.get('y', 0)
         w = key.get('w', 1)
         h = key.get('h', 1)
+
+        r = key.get('r')
+        rx = key.get('rx')
+        ry = key.get('ry')
+
+        have_r = (r != None) or (rx != None) or (ry != None)
+        same_r = (r == kle_r) and (rx == kle_rx) and (ry == kle_ry)
 
         layer_labels = []
         layer_fa = []
@@ -333,7 +341,7 @@ def render_kle(layout_data, layers=None, decode_keys=True):
             kle_key_attributes['fa'] = layer_fa
             kle_fa = layer_fa
 
-        if (y != kle_y) or (x < kle_x):
+        if not same_r or y != kle_y:
             if len(kle_row) > 0:
                 kle_rows.append(kle_row)
                 kle_x = 0
@@ -343,16 +351,19 @@ def render_kle(layout_data, layers=None, decode_keys=True):
             if y_incr != 0:
                 kle_key_attributes['y'] = y_incr
 
+        if have_r and len(kle_row) == 0:
+            kle_key_attributes['r'] = r
+            kle_key_attributes['rx'] = rx
+            kle_key_attributes['ry'] = ry
+
         x_incr = 0
         if x != kle_x:
             x_incr = round(x - kle_x,4)
             if x_incr != 0:
                 kle_key_attributes['x'] = x_incr
 
-        if w != kle_w:
-            kle_key_attributes['w'] = w
-        if h != 1:
-            kle_key_attributes['h'] = h
+        if w != 1:   kle_key_attributes['w'] = w
+        if h != 1:   kle_key_attributes['h'] = h
 
         # ISO Enter
         if x >= 0.25 and w == 1.25 and h == 2:
@@ -370,7 +381,11 @@ def render_kle(layout_data, layers=None, decode_keys=True):
         if len(kle_key_attributes) > 0:
             kle_row.append(kle_key_attributes)
         kle_row.append(label)
+
         kle_x += w + x_incr;
+        kle_r = r
+        kle_rx = rx
+        kle_ry = ry
 
     # Don't forget to emit the last row
     if len(kle_row) > 0:
