@@ -6,6 +6,7 @@ from math import ceil
 from pathlib import Path
 import os
 from glob import glob
+from operator import itemgetter
 
 import qmk.path
 from qmk.c_parse import parse_config_h_file
@@ -15,6 +16,7 @@ from qmk.makefile import parse_rules_mk_file
 from qmk.keycodes import load_spec
 
 import math
+import json
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -291,33 +293,50 @@ def get_kc_idx(render_ascii = False):
 
     return kc_idx
 
-def render_kle(layout_data, layers=None, decode_keys=True):
+# Credit: This logic ported from Keyboard Layout Editor (Ian Prest)
+# https://github.com/ijprest/keyboard-layout-editor/blob/580b916084e69e600b2144b0217c8b1d9710daa0/serial.js#L166
+def render_kle(layout_data, layers=None, title=None, y_offset=0):
     """Renders all keymap layers into KLE-compatible format
     """
 
     kle_rows = []
-    kle_row = []
-    kle_x = 0
-    kle_y = 0
-    kle_fa = None
 
-    kle_r = kle_rx = kle_ry = None
+    if title != None:
+        kle_rows.append([{"r":0,"rx":0,"ry":y_offset,"w":10,"h":0.5,"d":True},"\n" + title])
+        y_offset += 0.5
+
+    cur_row = []
+    cur_r = 0
+    cur_rx = 0
+    cur_ry = y_offset - 1
+    cur_x = 0
+    cur_y = y_offset - 1 # will be incremented on first row
+    cur_fa = []
+    new_row = True
+    cluster_r = 0
+    cluster_rx = 0
+    cluster_ry = y_offset
 
     kc_idx = get_kc_idx()
 
-    for ki, key in enumerate(layout_data):
+    # The sort order is important!
+    # KLE does care!
+    # Clusters (defined by r, rx, ry) must not be broken up
+    # Don't forget to normalize rotation angle to 0-360
+
+    for ki, key in enumerate(sorted(layout_data, key=lambda k: ((k.get('r',0)+360)%360, k.get('rx',0), k.get('ry',0), k.get('y',0), k.get('x',0)))):
+
+        # Get defaulted values
         x = key.get('x', 0)
-        y = key.get('y', 0)
+        y = key.get('y', 0) + y_offset
         w = key.get('w', 1)
         h = key.get('h', 1)
+        r = key.get('r', 0)
+        r = (r+360)%360 # normalize
+        rx = key.get('rx', 0)
+        ry = key.get('ry', 0) + y_offset
 
-        r = key.get('r')
-        rx = key.get('rx')
-        ry = key.get('ry')
-
-        have_r = (r != None) or (rx != None) or (ry != None)
-        same_r = (r == kle_r) and (rx == kle_rx) and (ry == kle_ry)
-
+        # Build the labels
         layer_labels = []
         layer_fa = []
         if layers != None:
@@ -333,67 +352,74 @@ def render_kle(layout_data, layers=None, decode_keys=True):
                 lif = max(1, min(4,math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
                 layer_fa.append(lif)
 
-        label = '\n'.join(layer_labels)
+        cluster_changed = (r != cur_r) or (rx != cur_rx) or (ry != cur_ry)
+        row_changed = y != cur_y
 
-        kle_key_attributes = {}
+        props = {}
+        def _set_prop(key, val, default_val=None):
+            if val != default_val:
+                props[key] = val
+            return val
 
-        if layer_fa != kle_fa:
-            kle_key_attributes['fa'] = layer_fa
-            kle_fa = layer_fa
+        if (len(cur_row) > 0) and (row_changed or cluster_changed):
+            kle_rows.append(cur_row)
+            cur_row = []
+            new_row = True
 
-        if not same_r or y != kle_y:
-            if len(kle_row) > 0:
-                kle_rows.append(kle_row)
-                kle_x = 0
-                kle_row = []
-            y_incr = round(y - (kle_y + 1),4)
-            kle_y = y
-            if y_incr != 0:
-                kle_key_attributes['y'] = y_incr
+        if new_row:
+            # Set up for the new row
+            cur_y += 1
 
-        if have_r and len(kle_row) == 0:
-            kle_key_attributes['r'] = r
-            kle_key_attributes['rx'] = rx
-            kle_key_attributes['ry'] = ry
+            # 'y' is reset if *either* 'rx' or 'ry' are changed
+            if (ry != cluster_ry) or (rx != cluster_rx):
+                invert = 1 if r > 90 and r < 270 else -1
+                cur_y = ry + invert
 
-        x_incr = 0
-        if x != kle_x:
-            x_incr = round(x - kle_x,4)
-            if x_incr != 0:
-                kle_key_attributes['x'] = x_incr
+            cur_x = rx # Always reset x to rx (which defaults to zero)
 
-        if w != 1:   kle_key_attributes['w'] = w
-        if h != 1:   kle_key_attributes['h'] = h
+            # Update the current cluster
+            cluster_r = r
+            cluster_rx = rx
+            cluster_ry = ry
+
+            new_row = False
+
+        cur_r  = _set_prop('r',  r,  cur_r)
+        cur_rx = _set_prop('rx', rx, cur_rx)
+        cur_ry = _set_prop('ry', ry, cur_ry)
+        cur_y += _set_prop('y',  round(y - cur_y,4), 0)
+        cur_x += _set_prop('x',  round(x - cur_x,4), 0) + w
+
+        _set_prop('w', w, 1)
+        _set_prop('h', h, 1)
 
         # ISO Enter
         if x >= 0.25 and w == 1.25 and h == 2:
-            kle_key_attributes['w2'] = 1.5
-            kle_key_attributes['h2'] = 1
-            kle_key_attributes['x2'] = -0.25
+            _set_prop('w2', 1.5)
+            _set_prop('h2', 1)
+            _set_prop('x2', -0.25)
 
         # BA Enter
         if w == 1.5 and h == 2:
-            kle_key_attributes['w2'] = 2.25
-            kle_key_attributes['h2'] = 1
-            kle_key_attributes['x2'] = -0.75
-            kle_key_attributes['y2'] = 1
+            _set_prop('w2', 2.25)
+            _set_prop('h2', 1)
+            _set_prop('x2', -0.75)
+            _set_prop('y2', 1)
 
-        if len(kle_key_attributes) > 0:
-            kle_row.append(kle_key_attributes)
-        kle_row.append(label)
+        cur_fa = _set_prop('fa', layer_fa, cur_fa)
 
-        kle_x += w + x_incr;
-        kle_r = r
-        kle_rx = rx
-        kle_ry = ry
+        if len(props) > 0:
+            cur_row.append(props)
+
+        cur_row.append('\n'.join(layer_labels))
 
     # Don't forget to emit the last row
-    if len(kle_row) > 0:
-        kle_rows.append(kle_row)
+    if len(cur_row) > 0:
+        kle_rows.append(cur_row)
 
     return kle_rows;
 
-def render_layouts_kle(info_json, labels=None):
+def render_layouts_kle(info_json, labels=None, y_offset=0):
     """Renders all the layouts from an `info_json` structure in KLE format
     """
 
@@ -401,8 +427,7 @@ def render_layouts_kle(info_json, labels=None):
 
     for layout in info_json['layouts']:
         layout_data = info_json['layouts'][layout]['layout']
-        layouts += [[{"a":4,"w":10,"d":True},"\n" + layout]]
-        layouts += render_kle(layout_data, labels, decode_keys=False)
+        layouts += render_kle(layout_data, labels, title=layout, y_offset=y_offset+len(layouts))
 
     return layouts
 

@@ -78,7 +78,7 @@ def show_layouts(kb_info_json, title_caps=True):
         print(layout_art)  # Avoid passing dirty data to cli.echo()
 
 
-def show_matrix(kb_info_json, title_caps=True, kle=False):
+def show_matrix(kb_info_json, title_caps=True, kle=False, kle_y_offset=0):
     """Render the layout with matrix labels in ascii art.
     """
     kle_out = []
@@ -95,8 +95,7 @@ def show_matrix(kb_info_json, title_caps=True, kle=False):
                 labels.append('')
 
         if kle:
-            kle_out += [[{"a":4,"w":10,"d":True},"\n" + layout_name + " (Matrix)"]]
-            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels])
+            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels], title=layout_name+" (Matrix)", y_offset=kle_y_offset+len(kle_out))
         else:
             # Print the header
             if title_caps:
@@ -110,7 +109,7 @@ def show_matrix(kb_info_json, title_caps=True, kle=False):
         return kle_out
 
 
-def show_leds(kb_info_json, title_caps=True, kle=False):
+def show_leds(kb_info_json, title_caps=True, kle=False, kle_y_offset=0):
     """Render LED indices per key, using the keyboard's key layout geometry.
 
     We build a map from (row, col) -> LED index using rgb_matrix/led_matrix layout,
@@ -146,8 +145,7 @@ def show_leds(kb_info_json, title_caps=True, kle=False):
             labels.append(label)
 
         if kle:
-            kle_out += [[{"a":4,"w":10,"d":True},"\n" + layout_name + " (LEDs)"]]
-            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels])
+            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels], title=layout_name+" (LEDs)", y_offset=kle_y_offset)
         else:
             # Header
             if title_caps:
@@ -228,13 +226,13 @@ def print_kle_output(kb_info_json):
     kle = []
 
     if cli.config.info.layouts:
-        kle += render_layouts_kle(kb_info_json)
+        kle += render_layouts_kle(kb_info_json, y_offset=len(kle))
 
     if cli.config.info.matrix:
-        kle += show_matrix(kb_info_json, kle=True);
+        kle += show_matrix(kb_info_json, kle=True, kle_y_offset=len(kle));
 
     if cli.config.info.leds:
-        kle += show_leds(kb_info_json, kle=True);
+        kle += show_leds(kb_info_json, kle=True, kle_y_offset=len(kle));
 
     if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
         keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
@@ -244,14 +242,17 @@ def print_kle_output(kb_info_json):
             if 'layout' in keymap_data:
                 layout_name = keymap_data['layout']
                 layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
-                if len(kle) != 0:
-                    kle += [[{"a":4,"w":10,"d":True},"\nKEYMAP"]]
-                kle += render_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers'])
+                keymap_title = None if len(kle) == 0 else layout_name + " " +  cli.config.info.keymap
+                kle += render_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers'], title=keymap_title, y_offset=len(kle))
                 name += f" {layout_name} {cli.config.info.keymap}"
 
     kle.insert(0, { "name": name, "author": maintainer })
 
-    print(json.dumps(kle,separators=(',', ':')))
+    # Try to prettify the KLE format a bit to make it [somewhat] readable
+    print("[")
+    print(",\n".join(["    "+json.dumps(row,separators=(',', ':')) for row in kle]))
+    print("]")
+
 
 def print_parsed_rules_mk(keyboard_name):
     rules = rules_mk(keyboard_name)
