@@ -79,7 +79,7 @@ def show_layouts(kb_info_json, title_caps=True):
 
 
 def show_matrix(kb_info_json, title_caps=True, kle=False, kle_y_offset=0):
-    """Render the layout with matrix labels in ascii art.
+    """Render the layout with matrix labels
     """
     kle_out = []
     for layout_name, layout in kb_info_json['layouts'].items():
@@ -95,14 +95,14 @@ def show_matrix(kb_info_json, title_caps=True, kle=False, kle_y_offset=0):
                 labels.append('')
 
         if kle:
-            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels], title=layout_name+" (Matrix)", y_offset=kle_y_offset+len(kle_out))
+            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels], title=layout_name + " (Matrix)", y_offset=kle_y_offset + len(kle_out))
         else:
             # Print the header
             if title_caps:
                 cli.echo('{fg_blue}Matrix for "%s"{fg_reset}:', layout_name)
             else:
                 cli.echo('{fg_blue}matrix_%s{fg_reset}:', layout_name)
- 
+
             print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, labels))
 
     if kle:
@@ -145,7 +145,7 @@ def show_leds(kb_info_json, title_caps=True, kle=False, kle_y_offset=0):
             labels.append(label)
 
         if kle:
-            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels], title=layout_name+" (LEDs)", y_offset=kle_y_offset)
+            kle_out += render_kle(kb_info_json['layouts'][layout_name]['layout'], [labels], title=layout_name + " (LEDs)", y_offset=kle_y_offset)
         else:
             # Header
             if title_caps:
@@ -157,6 +157,7 @@ def show_leds(kb_info_json, title_caps=True, kle=False, kle_y_offset=0):
 
     if kle:
         return kle_out
+
 
 def print_friendly_output(kb_info_json):
     """Print the info.json in a friendly text format.
@@ -213,6 +214,7 @@ def print_dotted_output(kb_info_json, prefix=''):
         else:
             cli.echo('{fg_blue}%s{fg_reset}: %s', new_prefix, kb_info_json[key])
 
+
 def print_kle_output(kb_info_json):
     """Print the info.json in KLE json format.
     """
@@ -220,7 +222,8 @@ def print_kle_output(kb_info_json):
     manufacturer = kb_info_json.get('manufacturer', 'Unknown')
     kb_name = kb_info_json.get('keyboard_name', 'Unknown')
     maintainer = kb_info_json.get('maintainer', 'QMK Community')
-    if maintainer == "qmk": maintainer = 'QMK Community'
+    if maintainer == "qmk":
+        maintainer = 'QMK Community'
     name = f"{manufacturer} {kb_name}"
 
     kle = []
@@ -229,10 +232,10 @@ def print_kle_output(kb_info_json):
         kle += render_layouts_kle(kb_info_json, y_offset=len(kle))
 
     if cli.config.info.matrix:
-        kle += show_matrix(kb_info_json, kle=True, kle_y_offset=len(kle));
+        kle += show_matrix(kb_info_json, kle=True, kle_y_offset=len(kle))
 
     if cli.config.info.leds:
-        kle += show_leds(kb_info_json, kle=True, kle_y_offset=len(kle));
+        kle += show_leds(kb_info_json, kle=True, kle_y_offset=len(kle))
 
     if cli.config_source.info.keymap and cli.config_source.info.keymap != 'config_file':
         keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
@@ -242,15 +245,15 @@ def print_kle_output(kb_info_json):
             if 'layout' in keymap_data:
                 layout_name = keymap_data['layout']
                 layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
-                keymap_title = None if len(kle) == 0 else layout_name + " " +  cli.config.info.keymap
+                keymap_title = None if len(kle) == 0 else layout_name + " " + cli.config.info.keymap
                 kle += render_kle(kb_info_json['layouts'][layout_name]['layout'], keymap_data['layers'], title=keymap_title, y_offset=len(kle))
                 name += f" {layout_name} {cli.config.info.keymap}"
 
-    kle.insert(0, { "name": name, "author": maintainer })
+    kle.insert(0, {"name": name, "author": maintainer})
 
     # Try to prettify the KLE format a bit to make it [somewhat] readable
     print("[")
-    print(",\n".join(["    "+json.dumps(row,separators=(',', ':')) for row in kle]))
+    print(",\n".join(["    " + json.dumps(row, separators=(',', ':')) for row in kle]))
     print("]")
 
 
