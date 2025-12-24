@@ -324,7 +324,6 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
     cur_y = y_offset - 1  # will be incremented on first row
     cur_fa = []
     new_row = True
-    cluster_r = 0
     cluster_rx = 0
     cluster_ry = y_offset
 
@@ -392,7 +391,6 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
             cur_x = rx  # Always reset x to rx (which defaults to zero)
 
             # Update the current cluster
-            cluster_r = r
             cluster_rx = rx
             cluster_ry = ry
 
