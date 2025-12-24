@@ -6,7 +6,6 @@ from math import ceil
 from pathlib import Path
 import os
 from glob import glob
-from operator import itemgetter
 
 import qmk.path
 from qmk.c_parse import parse_config_h_file
@@ -16,7 +15,6 @@ from qmk.makefile import parse_rules_mk_file
 from qmk.keycodes import load_spec
 
 import math
-import json
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -59,6 +57,53 @@ ENC_DRAWING_CHARACTERS = {
     },
 }
 
+KEY_DRAWING_CHARACTERS = {
+    "KC_NO": ' ',               # ☒
+    "KC_TRANSPARENT": ' ',      #▽
+    "KC_SPACE": '␣',
+    "QK_GRAVE_ESCAPE": '⎋ `',
+    "KC_ESC": '⎋',
+    "KC_LEFT": '⬅',
+    "KC_UP": '⬆',
+    "KC_RIGHT": '⮕',
+    "KC_DOWN": '⬇',
+
+    "KC_TAB": '⭾',
+    "KC_ENTER": '⮐',
+    "KC_BACKSPACE": '⌫',
+    "KC_INSERT": '⎀',
+    "KC_DELETE": '⌦',
+
+    "KC_HOME": '⤒',
+    "KC_END": '⤓',
+    "KC_PAGE_UP": '⇞',
+    "KC_PAGE_DOWN": '⇟',
+
+    "KC_LEFT_SHIFT": '⇧', "KC_RIGHT_SHIFT": '⇧',
+    "KC_LEFT_CTRL": '⮹',  "KC_RIGHT_CTRL": '⮹', # ∧
+    "KC_LEFT_GUI": '◊',   "KC_RIGHT_GUI": '◊',
+    "KC_LEFT_ALT": '⌥',   "KC_RIGHT_ALT": '⌥',
+
+    "KC_CAPS_LOCK": '🅰',
+    "KC_NUM_LOCK": '①',
+
+    "KC_APPLICATION": '☰',
+
+    "KC_SYSTEM_SLEEP": '⏾',
+    "KC_SYSTEM_POWER": '⏻',
+
+    "KC_BRIGHTNESS_DOWN": '🔅',
+    "KC_BRIGHTNESS_UP": '🔆',
+    "KC_AUDIO_VOL_DOWN": '🕩',
+    "KC_AUDIO_VOL_UP": '🕪',
+    "KC_AUDIO_MUTE": '🔇',
+
+    "KC_MEDIA_PLAY_PAUSE": '⏯',
+    "KC_MEDIA_NEXT_TRACK": '⏭',
+    "KC_MEDIA_PREV_TRACK": '⏮',
+
+    "KC_PRINT_SCREEN": '⎙',
+}
 
 class AllKeyboards:
     """Represents all keyboards.
@@ -236,41 +281,6 @@ def rules_mk(keyboard):
 
     return rules
 
-KEY_ICONS = {
-    # "KC_NO": '☒',
-    # "KC_TRANSPARENT": '▽',
-    "KC_NO": ' ',
-    "KC_TRANSPARENT": ' ',
-    "KC_SPACE": '␣',
-    "QK_GRAVE_ESCAPE": '⎋ `',
-    "KC_ESC": '⎋',
-    "KC_LEFT": '←',
-    "KC_UP": '↑',
-    "KC_RIGHT": '→',
-    "KC_DOWN": '↓',
-
-    "KC_TAB": '⭾',
-    "KC_ENTER": '⮐',
-    "KC_BACKSPACE": '⌫',
-    "KC_INSERT": '⎀',
-    "KC_DELETE": '⌦',
-
-    "KC_HOME": '⤒',
-    "KC_END": '⤓',
-    "KC_PAGE_UP": '⇞',
-    "KC_PAGE_DOWN": '⇟',
-
-    "KC_LEFT_SHIFT": '⇧', "KC_RIGHT_SHIFT": '⇧',
-    "KC_LEFT_CTRL": '∧',  "KC_RIGHT_CTRL": '∧',
-    "KC_LEFT_GUI": '◊',   "KC_RIGHT_GUI": '◊',
-    "KC_LEFT_ALT": '⌥',   "KC_RIGHT_ALT": '⌥',
-
-    "KC_CAPS_LOCK": '⇩A',
-    "KC_NUM_LOCK": '⇩#',
-
-    "KC_APP": '☰',
-}
-
 @lru_cache(maxsize=2)
 def get_kc_idx(render_ascii = False):
     kc_spec = load_spec('latest')
@@ -279,7 +289,7 @@ def get_kc_idx(render_ascii = False):
         key = value['key']
         label = value.get('label')
         if render_ascii == False:
-            label = KEY_ICONS.get(key,label)
+            label = KEY_DRAWING_CHARACTERS.get(key,label)
         if label == None or len(label) == 0:
            label = key
            if 'aliases' in value:
@@ -347,6 +357,8 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
                 layer_label = kc_idx.get(layer_label, layer_label);
                 if layer_label.startswith('KC_') or layer_label.startswith('QK_'):
                     layer_label = layer_label[3:]
+                layer_label = layer_label.replace("(","<br>(", count=1)
+                layer_label = layer_label.replace("_","<br>", count=1)
                 layer_label = layer_label.strip()
                 layer_labels.append(layer_label)
                 lif = max(1, min(4,math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
