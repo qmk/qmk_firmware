@@ -80,12 +80,12 @@ KEY_DRAWING_CHARACTERS = {
     "KC_PAGE_DOWN": '⇟',
 
     "KC_LEFT_SHIFT": '⇧', "KC_RIGHT_SHIFT": '⇧',
-    "KC_LEFT_CTRL": '⮹',  "KC_RIGHT_CTRL": '⮹', # ∧
-    "KC_LEFT_GUI": '◊',   "KC_RIGHT_GUI": '◊',
+    "KC_LEFT_CTRL": '∧',  "KC_RIGHT_CTRL": '∧', # ⮹
+    "KC_LEFT_GUI": '⬦',   "KC_RIGHT_GUI": '⬦',
     "KC_LEFT_ALT": '⌥',   "KC_RIGHT_ALT": '⌥',
 
     "KC_CAPS_LOCK": '🅰',
-    "KC_NUM_LOCK": '①',
+    "KC_NUM_LOCK": '❶',
 
     "KC_APPLICATION": '☰',
 
