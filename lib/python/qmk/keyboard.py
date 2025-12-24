@@ -59,7 +59,7 @@ ENC_DRAWING_CHARACTERS = {
 
 KEY_DRAWING_CHARACTERS = {
     "KC_NO": ' ',  # ☒
-    "KC_TRANSPARENT": ' ',  #▽
+    "KC_TRANSPARENT": ' ',  # ▽
     "KC_SPACE": '␣',
     "QK_GRAVE_ESCAPE": '⎋ `',
     "KC_ESC": '⎋',
@@ -288,9 +288,9 @@ def get_kc_idx(render_ascii=False):
     for value in kc_spec['keycodes'].values():
         key = value['key']
         label = value.get('label')
-        if render_ascii == False:
+        if not render_ascii:
             label = KEY_DRAWING_CHARACTERS.get(key, label)
-        if label == None or len(label) == 0:
+        if label is None or len(label) == 0:
             label = key
             if 'aliases' in value:
                 for alias in value['aliases']:
@@ -312,7 +312,7 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
 
     kle_rows = []
 
-    if title != None:
+    if title is not None:
         kle_rows.append([{"r": 0, "rx": 0, "ry": y_offset, "w": 10, "h": 0.5, "d": True}, "\n" + title])
         y_offset += 0.5
 
@@ -350,9 +350,9 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
         # Build the labels
         layer_labels = []
         layer_fa = []
-        if layers != None:
+        if layers is not None:
             for li, layer in enumerate(layers):
-                if layer == None:
+                if layer is None:
                     break
                 layer_label = layers[li][ki]
                 layer_label = kc_idx.get(layer_label, layer_label)
