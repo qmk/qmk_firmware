@@ -306,6 +306,76 @@ uint8_t read_source_layers_cache(keypos_t key) {
 #    endif // ENCODER_MAP_ENABLE
     return 0;
 }
+
+#    ifdef KEYCODE_CACHE_ENABLE
+#        ifndef KEYCODE_CACHE_LIMIT
+#define KEYCODE_CACHE_LIMIT (MATRIX_ROWS * MATRIX_COLS)
+#        endif
+
+typedef struct historical_keycode_t {
+    uint8_t row;
+    uint8_t col;
+    uint16_t keycode;
+} historical_keycode_t;
+static historical_keycode_t keycode_cache[KEYCODE_CACHE_LIMIT];
+static uint16_t keycode_cache_count = 0;
+
+/** \brief find keycode cache index
+ *
+ * returns index of keycode_cache for given key
+ */
+static int16_t find_keycode_cache_index(keypos_t key) {
+    for (uint16_t keycode_cache_idx = 0; keycode_cache_idx < keycode_cache_count; ++keycode_cache_idx) {
+        if (keycode_cache[keycode_cache_idx].row == key.row && keycode_cache[keycode_cache_idx].col == key.col) {
+            return keycode_cache_idx;
+        }
+    }
+    return -1;
+}
+
+/** \brief add keycode cache
+ *
+ * add to cache of keycodes after a key is pressed down
+ */
+static void add_keycode_cache(keypos_t key, uint16_t keycode) {
+    int16_t keycode_cache_idx = find_keycode_cache_index(key);
+    if (keycode_cache_idx >= 0) {
+        keycode_cache[keycode_cache_idx].keycode = keycode;
+        return;
+    }
+    if (keycode_cache_count < KEYCODE_CACHE_LIMIT) {
+        keycode_cache[keycode_cache_count].row = key.row;
+        keycode_cache[keycode_cache_count].col = key.col;
+        keycode_cache[keycode_cache_count].keycode = keycode;
+        keycode_cache_count++;
+    }
+}
+
+/** \brief remove keycode cache
+ *
+ * remove from cache of keycodes after a key is released
+ */
+static void remove_keycode_cache(keypos_t key) {
+    int16_t keycode_cache_idx = find_keycode_cache_index(key);
+    if (keycode_cache_idx >= 0) {
+        keycode_cache[keycode_cache_idx] = keycode_cache[keycode_cache_count - 1];
+        keycode_cache_count--;
+    }
+}
+
+/** \brief read keycode cache
+ *
+ * reads from cache of keycodes for when a key is releasing
+ */
+static uint16_t read_keycode_cache(keypos_t key) {
+    int16_t keycode_cache_idx = find_keycode_cache_index(key);
+    if (keycode_cache_idx >= 0) {
+        return keycode_cache[keycode_cache_idx].keycode;
+    }
+    return KC_NO;
+}
+#    endif
+
 #endif
 
 /** \brief Store or get action (FIXME: Needs better summary)
@@ -322,14 +392,37 @@ action_t store_or_get_action(bool pressed, keypos_t key) {
     }
 
     uint8_t layer;
-
+#    ifdef KEYCODE_CACHE_ENABLE
+    uint16_t keycode;
+    bool cache_used = false;
+#    endif
     if (pressed) {
         layer = layer_switch_get_layer(key);
         update_source_layers_cache(key, layer);
+#    ifdef KEYCODE_CACHE_ENABLE
+        keycode = keymap_key_to_keycode(layer, key);
+        if (keycode_cache_count < KEYCODE_CACHE_LIMIT) {
+            add_keycode_cache(key, keycode);
+            cache_used = true;
+        }
+#    endif
     } else {
         layer = read_source_layers_cache(key);
+#    ifdef KEYCODE_CACHE_ENABLE
+        keycode = read_keycode_cache(key);
+        remove_keycode_cache(key);
+        cache_used = (keycode != KC_NO);
+#    endif
     }
+#    ifndef KEYCODE_CACHE_ENABLE
     return action_for_key(layer, key);
+#    else
+    if (cache_used) {
+        return action_for_keycode(keycode);
+    } else {
+        return action_for_key(layer, key);
+    }
+#    endif
 #else
     return layer_switch_get_action(key);
 #endif
