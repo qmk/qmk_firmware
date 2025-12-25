@@ -12,6 +12,10 @@ from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
 
+from qmk.keycodes import load_spec
+
+import math
+
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
         "tl": "┌",
@@ -51,6 +55,49 @@ ENC_DRAWING_CHARACTERS = {
         "vr": "\\",
         "h": "_",
     },
+}
+
+KEY_DRAWING_CHARACTERS = {
+    "KC_NO": ' ',  # ☒
+    "KC_TRANSPARENT": ' ',  # ▽
+    "KC_SPACE": '␣',
+    "QK_GRAVE_ESCAPE": '⎋ `',
+    "KC_ESC": '⎋',
+    "KC_LEFT": '⬅',
+    "KC_UP": '⬆',
+    "KC_RIGHT": '⮕',
+    "KC_DOWN": '⬇',
+    "KC_TAB": '⭾',
+    "KC_ENTER": '⮐',
+    "KC_BACKSPACE": '⌫',
+    "KC_INSERT": '⎀',
+    "KC_DELETE": '⌦',
+    "KC_HOME": '⤒',
+    "KC_END": '⤓',
+    "KC_PAGE_UP": '⇞',
+    "KC_PAGE_DOWN": '⇟',
+    "KC_LEFT_SHIFT": '⇧',
+    "KC_RIGHT_SHIFT": '⇧',
+    "KC_LEFT_CTRL": '∧',
+    "KC_RIGHT_CTRL": '∧',  # ⮹
+    "KC_LEFT_GUI": '⬦',
+    "KC_RIGHT_GUI": '⬦',
+    "KC_LEFT_ALT": '⌥',
+    "KC_RIGHT_ALT": '⌥',
+    "KC_CAPS_LOCK": '🅰',
+    "KC_NUM_LOCK": '❶',
+    "KC_APPLICATION": '☰',
+    "KC_SYSTEM_SLEEP": '⏾',
+    "KC_SYSTEM_POWER": '⏻',
+    "KC_BRIGHTNESS_DOWN": '🔅',
+    "KC_BRIGHTNESS_UP": '🔆',
+    "KC_AUDIO_VOL_DOWN": '🕩',
+    "KC_AUDIO_VOL_UP": '🕪',
+    "KC_AUDIO_MUTE": '🔇',
+    "KC_MEDIA_PLAY_PAUSE": '⏯',
+    "KC_MEDIA_NEXT_TRACK": '⏭',
+    "KC_MEDIA_PREV_TRACK": '⏮',
+    "KC_PRINT_SCREEN": '⎙',
 }
 
 
@@ -231,24 +278,197 @@ def rules_mk(keyboard):
     return rules
 
 
+@lru_cache(maxsize=2)
+def get_kc_idx(render_ascii=False):
+    """Populates the cache of mappings from keycode names to labels
+    """
+
+    kc_spec = load_spec('latest')
+    kc_idx = {}
+    for value in kc_spec['keycodes'].values():
+        key = value['key']
+        label = value.get('label')
+        if not render_ascii:
+            label = KEY_DRAWING_CHARACTERS.get(key, label)
+        if label is None or len(label) == 0:
+            label = key
+            if 'aliases' in value:
+                for alias in value['aliases']:
+                    if len(alias) < len(label):
+                        label = alias
+        kc_idx[key] = label
+        if 'aliases' in value:
+            for alias in value['aliases']:
+                kc_idx[alias] = label
+
+    return kc_idx
+
+
+# Credit: This logic ported from Keyboard Layout Editor (Ian Prest)
+# https://github.com/ijprest/keyboard-layout-editor/blob/580b916084e69e600b2144b0217c8b1d9710daa0/serial.js#L166
+def render_kle(layout_data, layers=None, title=None, y_offset=0):
+    """Renders all keymap layers into KLE-compatible format
+    """
+
+    kle_rows = []
+
+    if title is not None:
+        kle_rows.append([{"r": 0, "rx": 0, "ry": y_offset, "w": 10, "h": 0.5, "d": True}, "\n" + title])
+        y_offset += 0.5
+
+    cur_row = []
+    cur_r = 0
+    cur_rx = 0
+    cur_ry = y_offset - 1
+    cur_x = 0
+    cur_y = y_offset - 1  # will be incremented on first row
+    cur_fa = []
+    new_row = True
+    cluster_rx = 0
+    cluster_ry = y_offset
+
+    kc_idx = get_kc_idx()
+
+    # The sort order is important!
+    # KLE does care!
+    # Clusters (defined by r, rx, ry) must not be broken up
+    # Don't forget to normalize rotation angle to 0-360
+
+    for ki, key in enumerate(sorted(layout_data, key=lambda k: ((k.get('r', 0) + 360) % 360, k.get('rx', 0), k.get('ry', 0), k.get('y', 0), k.get('x', 0)))):
+
+        # Get defaulted values
+        x = key.get('x', 0)
+        y = key.get('y', 0) + y_offset
+        w = key.get('w', 1)
+        h = key.get('h', 1)
+        r = key.get('r', 0)
+        r = (r + 360) % 360  # normalize
+        rx = key.get('rx', 0)
+        ry = key.get('ry', 0) + y_offset
+
+        # Build the labels
+        layer_labels = []
+        layer_fa = []
+        if layers is not None:
+            for li, layer in enumerate(layers):
+                if layer is None:
+                    break
+                layer_label = layers[li][ki]
+                layer_label = kc_idx.get(layer_label, layer_label)
+                if layer_label.startswith('KC_') or layer_label.startswith('QK_'):
+                    layer_label = layer_label[3:]
+                layer_label = layer_label.replace("(", "<br>(", count=1)
+                layer_label = layer_label.replace("_", "<br>", count=1)
+                layer_label = layer_label.strip()
+                layer_labels.append(layer_label)
+                lif = max(1, min(4, math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
+                layer_fa.append(lif)
+
+        cluster_changed = (r != cur_r) or (rx != cur_rx) or (ry != cur_ry)
+        row_changed = y != cur_y
+
+        props = {}
+
+        def _set_prop(key, val, default_val=None):
+            if val != default_val:
+                props[key] = val
+            return val
+
+        if (len(cur_row) > 0) and (row_changed or cluster_changed):
+            kle_rows.append(cur_row)
+            cur_row = []
+            new_row = True
+
+        if new_row:
+            # Set up for the new row
+            cur_y += 1
+
+            # 'y' is reset if *either* 'rx' or 'ry' are changed
+            if (ry != cluster_ry) or (rx != cluster_rx):
+                invert = 1 if r > 90 and r < 270 else -1
+                cur_y = ry + invert
+
+            cur_x = rx  # Always reset x to rx (which defaults to zero)
+
+            # Update the current cluster
+            cluster_rx = rx
+            cluster_ry = ry
+
+            new_row = False
+
+        cur_r = _set_prop('r', r, cur_r)
+        cur_rx = _set_prop('rx', rx, cur_rx)
+        cur_ry = _set_prop('ry', ry, cur_ry)
+        cur_y += _set_prop('y', round(y - cur_y, 4), 0)
+        cur_x += _set_prop('x', round(x - cur_x, 4), 0) + w
+
+        _set_prop('w', w, 1)
+        _set_prop('h', h, 1)
+
+        # ISO Enter
+        if x >= 0.25 and w == 1.25 and h == 2:
+            _set_prop('w2', 1.5)
+            _set_prop('h2', 1)
+            _set_prop('x2', -0.25)
+
+        # BA Enter
+        if w == 1.5 and h == 2:
+            _set_prop('w2', 2.25)
+            _set_prop('h2', 1)
+            _set_prop('x2', -0.75)
+            _set_prop('y2', 1)
+
+        cur_fa = _set_prop('fa', layer_fa, cur_fa)
+
+        if len(props) > 0:
+            cur_row.append(props)
+
+        cur_row.append('\n'.join(layer_labels))
+
+    # Don't forget to emit the last row
+    if len(cur_row) > 0:
+        kle_rows.append(cur_row)
+
+    return kle_rows
+
+
+def render_layouts_kle(info_json, labels=None, y_offset=0):
+    """Renders all the layouts from an `info_json` structure in KLE format
+    """
+
+    layouts = []
+
+    for layout in info_json['layouts']:
+        layout_data = info_json['layouts'][layout]['layout']
+        layouts += render_kle(layout_data, labels, title=layout, y_offset=y_offset + len(layouts))
+
+    return layouts
+
+
 def render_layout(layout_data, render_ascii, key_labels=None):
     """Renders a single layout.
     """
     textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
 
-    for key in layout_data:
+    kc_idx = get_kc_idx(render_ascii)
+
+    for ki, key in enumerate(layout_data):
         x = key.get('x', 0)
         y = key.get('y', 0)
         w = key.get('w', 1)
         h = key.get('h', 1)
 
         if key_labels:
-            label = key_labels.pop(0)
-            if label.startswith('KC_'):
+            label = key_labels[ki]
+            label = kc_idx.get(label, label)
+            if label.startswith('KC_') or label.startswith('QK_'):
                 label = label[3:]
         else:
             label = key.get('label', '')
+
+        if len(label) == 0:
+            label = ' '
 
         if 'encoder' in key:
             render_encoder(textpad, x, y, w, h, label, style)
