@@ -64,6 +64,7 @@ build/
 cmake-build-debug
 CMakeLists.txt
 *.pdf
+*.zip
 
 # Let these ones be user specific, since we have so many different configurations
 *.code-workspace
@@ -94,6 +95,11 @@ tags
 *.mpeg
 *.ttf
 *.otf
+# Un-ignore limited image file formats in docs
+!docs/public/**.gif
+!docs/public/**.jpg
+!docs/public/**.jpeg
+!docs/public/**.png
 
 # Things Travis sees
 /.vs

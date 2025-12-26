@@ -200,11 +200,17 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "A0"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B2", "B1", "B0", "B12", "B13", "A7", "B6", "C13", "C14"],
                 "rows": ["A5", "A4", "A3", "B5", "F1"]
             }
+        },
+        "serial": {
+            "driver": "usart"
         },
         "transport": {
             "sync": {

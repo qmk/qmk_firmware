@@ -30,7 +30,7 @@ const pointing_device_driver_t pmw3320_pointing_device_drivera = {
     .get_cpi    = pmw3320_get_cpi,
 };
 
-void pmw3320_init(void) {
+bool pmw3320_init(void) {
     // Initialize sensor serial pins.
     gpio_set_pin_output(PMW3320_SCLK_PIN);
     gpio_set_pin_output(PMW3320_SDIO_PIN);
@@ -56,6 +56,8 @@ void pmw3320_init(void) {
     pmw3320_write_reg(REG_Led_Control, 0x4);
     // Disable rest mode
     pmw3320_write_reg(REG_Performance, 0x80);
+
+    return pmw3320_check_signature();
 }
 
 // Perform a synchronization with sensor.
@@ -192,7 +194,7 @@ void pmw3320_set_cpi(uint16_t cpi) {
     pmw3320_write_reg(REG_Resolution, 0x20 | cpival);
 }
 
-bool pmw3320_check_signature(void) {
+bool __attribute__((weak)) pmw3320_check_signature(void) {
     uint8_t pid  = pmw3320_read_reg(REG_Product_ID);
     uint8_t pid2 = pmw3320_read_reg(REG_Inverse_Product_ID);
 

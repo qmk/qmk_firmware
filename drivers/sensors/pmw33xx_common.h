@@ -72,14 +72,12 @@ STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motio
 #    ifndef PMW33XX_CS_PIN
 #        ifdef POINTING_DEVICE_CS_PIN
 #            define PMW33XX_CS_PIN POINTING_DEVICE_CS_PIN
-#            define PMW33XX_CS_PINS \
-                { PMW33XX_CS_PIN }
+#            define PMW33XX_CS_PINS {PMW33XX_CS_PIN}
 #        else
 #            error "No chip select pin defined -- missing PMW33XX_CS_PIN or PMW33XX_CS_PINS"
 #        endif
 #    else
-#        define PMW33XX_CS_PINS \
-            { PMW33XX_CS_PIN }
+#        define PMW33XX_CS_PINS {PMW33XX_CS_PIN}
 #    endif
 #endif
 
@@ -88,8 +86,7 @@ STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motio
 #    if !defined(PMW33XX_CS_PIN_RIGHT)
 #        define PMW33XX_CS_PIN_RIGHT PMW33XX_CS_PIN
 #    endif
-#    define PMW33XX_CS_PINS_RIGHT \
-        { PMW33XX_CS_PIN_RIGHT }
+#    define PMW33XX_CS_PINS_RIGHT {PMW33XX_CS_PIN_RIGHT}
 #endif
 
 // Defines so the old variable names are swapped by the appropiate value on each half
@@ -106,7 +103,7 @@ STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motio
 
 #define pmw3360_pointing_device_driver pmw33xx_pointing_device_driver;
 #define pmw3389_pointing_device_driver pmw33xx_pointing_device_driver;
-const pointing_device_driver_t pmw33xx_pointing_device_driver;
+extern const pointing_device_driver_t pmw33xx_pointing_device_driver;
 
 /**
  * @brief Initializes the given sensor so it is in a working state and ready to
@@ -177,7 +174,7 @@ uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr);
  */
 bool pmw33xx_write(uint8_t sensor, uint8_t reg_addr, uint8_t data);
 
-void           pmw33xx_init_wrapper(void);
+bool           pmw33xx_init_wrapper(void);
 void           pmw33xx_set_cpi_wrapper(uint16_t cpi);
 uint16_t       pmw33xx_get_cpi_wrapper(void);
 report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report);
