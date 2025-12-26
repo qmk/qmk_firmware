@@ -105,7 +105,12 @@ jobs:
         continue-on-error: true
         run: |
           export NCPUS=$(( $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null) -1 ))
-          qmk mass-compile -t -j $NCPUS -e DUMP_CI_METADATA=yes $(jq -r '.["${{ matrix.target }}"].targets' targets.json) || touch .failed
+          targets=$(jq -r '.["${{ matrix.target }}"].targets' targets.json | tr ' ' '\n' | sort)
+          if [ -z "${targets}" ]; then
+            echo "Zero build targets detected"
+            exit 0
+          fi
+          qmk mass-compile -t -j $NCPUS -e DUMP_CI_METADATA=yes $targets || touch .failed
 
       - name: Upload binaries
         uses: actions/upload-artifact@v6
