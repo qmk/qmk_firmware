@@ -153,11 +153,12 @@ def _flash_atmel_dfu(mcu, file):
 
 
 def _flash_hid_bootloader(mcu, details, file):
+    cmd = None
     if details == 'halfkay':
-        if shutil.which('teensy-loader-cli'):
-            cmd = 'teensy-loader-cli'
-        elif shutil.which('teensy_loader_cli'):
+        if shutil.which('teensy_loader_cli'):
             cmd = 'teensy_loader_cli'
+        elif shutil.which('teensy-loader-cli'):
+            cmd = 'teensy-loader-cli'
 
     # Use 'hid_bootloader_cli' for QMK HID and as a fallback for HalfKay
     if not cmd:

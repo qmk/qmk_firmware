@@ -45,7 +45,9 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
     };
     // clang-format on
 
-    qp_comms_bulk_command_sequence(device, gc9a01_init_sequence, sizeof(gc9a01_init_sequence));
+    if (!qp_comms_bulk_command_sequence(device, gc9a01_init_sequence, sizeof(gc9a01_init_sequence))) {
+        return false;
+    }
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
@@ -54,9 +56,7 @@ __attribute__((weak)) bool qp_gc9a01_init(painter_device_t device, painter_rotat
         [QP_ROTATION_180] = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MX | GC9XXX_MADCTL_MY,
         [QP_ROTATION_270] = GC9XXX_MADCTL_BGR | GC9XXX_MADCTL_MV | GC9XXX_MADCTL_MY,
     };
-    qp_comms_command_databyte(device, GC9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
-
-    return true;
+    return qp_comms_command_databyte(device, GC9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

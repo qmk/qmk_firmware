@@ -20,7 +20,15 @@
         "driver": "drv2605l"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 3], "x": 188, "y": 16, "flags": 4},
+            {"matrix": [2, 3], "x": 187, "y": 48, "flags": 4},
+            {"matrix": [3, 3], "x": 149, "y": 64, "flags": 4},
+            {"matrix": [3, 0], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [2, 0], "x": 37, "y": 48, "flags": 4},
+            {"matrix": [0, 0], "x": 38, "y": 16, "flags": 4}
+        ]
     },
     "matrix_pins": {
         "cols": ["A7", "A8", "B2", "B10"],

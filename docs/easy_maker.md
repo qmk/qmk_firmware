@@ -24,7 +24,7 @@ As its name implies Direct Pin works by connecting one switch per pin. The other
 
 Here is a schematic showing how we connect a single button to pin A3 on a ProMicro:
 
-![Schematic diagram showing a ProMicro with a wire coming out of A3, connecting to the left side of a switch. Another wire comes out of the right side of the switch to connect to the Ground Plane.](https://i.imgur.com/JcDhZll.png)
+![Schematic diagram showing a ProMicro with a wire coming out of A3, connecting to the left side of a switch. Another wire comes out of the right side of the switch to connect to the Ground Plane.](/JcDhZll.png)
 
 Once you have wired your switches you can assign keycodes to each pin and build a firmware by selecting the MCU you are using from the Keyboard dropdown. Use this link to show only Easy Maker Direct Pin:
 
