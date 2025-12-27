@@ -357,6 +357,25 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     command_data[4] = value & 0xFF;
                     break;
                 }
+                case id_keycodes_version: {
+                    uint32_t value  = QMK_KEYCODES_VERSION_BCD;
+                    command_data[1] = (value >> 24) & 0xFF;
+                    command_data[2] = (value >> 16) & 0xFF;
+                    command_data[3] = (value >> 8) & 0xFF;
+                    command_data[4] = value & 0xFF;
+                    break;
+                }
+                case id_secure_status: {
+#if defined(VIA_INSECURE)
+                    command_data[1] = 0;
+#elif defined(SECURE_ENABLE)
+                    command_data[1] = secure_is_unlocked() ? 0 : 1;
+
+#else
+                    command_data[1] = 1;
+#endif
+                    break;
+                }
                 default: {
                     // The value ID is not known
                     // Return the unhandled state
