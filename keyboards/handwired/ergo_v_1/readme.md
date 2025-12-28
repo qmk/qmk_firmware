@@ -11,21 +11,19 @@ This keyboard is practically identical to the orignal one with some differences
 * Improved switch cutouts, compatible with kailh style switches
 * unlike Ergo-S-1 this is a wired keyboard based on qmk
 
-### Instructions
-QMK firmware for Ergo-V-1 is heavily influenced by dactyl manuform and especially [5x6 variant](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform/5x6)
-so the flashing process is very similar
+Make example for this keyboard (after setting up your build environment):
 
-run these commands
-```
-qmk compile -kb handwired/ergo_v_1 -km default
-qmk flash -kb handwired/ergo_v_1 -km default
-```
+`make handwired/ergo_v_1:default`
 
-> **_NOTE:_** if you get a git related error try updating submodules by running
-> <br>```git submodule update --init --recursive```
+Flashing example for this keyboard:
 
-then double click to reset button located upper part of front side of the keyboard
+`make handwired/ergo_v_1:default:flash`
 
-### Adding new keymaps
-To add your own variant go to Ergo-V-1 base directory then keymaps and add sibling folder to `default/`
-After that you can put whatever you want in your `keymap.c`
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Bootloader
+
+Enter the bootloader in 2 ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
