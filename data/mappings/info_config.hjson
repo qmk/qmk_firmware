@@ -188,6 +188,7 @@
     "RGBLIGHT_DEFAULT_SAT": {"info_key": "rgblight.default.sat", "value_type": "int"},
     "RGBLIGHT_DEFAULT_VAL": {"info_key": "rgblight.default.val", "value_type": "int"},
     "RGBLIGHT_DEFAULT_SPD": {"info_key": "rgblight.default.speed", "value_type": "int"},
+    "RGBLIGHT_DEFAULT_SPD_MAX": {"info_key": "rgblight.default.speed_max", "value_type": "int"},
 
     // Secure
     "SECURE_IDLE_TIMEOUT": {"info_key": "secure.idle_timeout", "value_type": "int"},

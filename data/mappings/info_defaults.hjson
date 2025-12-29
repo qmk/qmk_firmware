@@ -39,7 +39,8 @@
             "hue": 0,
             "sat": 255,
             "val": 255,
-            "speed": 0
+            "speed": 0,
+            "speed_max": 3
         },
         "brightness_steps": 17,
         "hue_steps": 8,

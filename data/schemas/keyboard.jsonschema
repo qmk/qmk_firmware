@@ -728,6 +728,7 @@
                         "sat": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                         "val": {"$ref": "./definitions.jsonschema#/unsigned_int_8"},
                         "speed": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
+                        "speed_max": {"$ref": "./definitions.jsonschema#/unsigned_int_8"}
                     }
                 },
                 "driver": {
