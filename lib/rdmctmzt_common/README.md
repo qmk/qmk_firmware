@@ -37,6 +37,7 @@ The library manages power states, battery monitoring, LED indicators, mode switc
 | TH40      | Epomaker     | 40% layout           |
 | EVO80     | Evoworks     | 80% layout, Logo LED |
 | Geonix r2 | Chosfox      | 40% layout ortho     |
+| Galaxy 68 | Epomaker     | 65% layout           |
 
 ---
 
