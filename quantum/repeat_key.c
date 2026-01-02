@@ -25,6 +25,22 @@ static int8_t last_repeat_count = 0;
 // The repeat_count, but set to 0 outside of repeat_key_invoke() so that it is
 // nonzero only while a repeated key is being processed.
 static int8_t processing_repeat_count = 0;
+// It is possible (e.g. in rolled presses) that the last key changes while
+// the Repeat Key is pressed. To prevent stuck keys, it is important to
+// remember separately what key record was processed on press so that the
+// the corresponding record is generated on release.
+static keyrecord_t registered_record_repeat_key = {0};
+static int8_t      registered_repeat_count_repeat_key = 0;
+
+
+void reset_repeat_key_state(void) {
+    last_record = (keyrecord_t){0};
+    last_mods = 0;
+    last_repeat_count = 0;
+    processing_repeat_count = 0;
+    registered_record_repeat_key = (keyrecord_t){0};
+    registered_repeat_count_repeat_key = 0;
+}
 
 uint16_t get_last_keycode(void) {
     return last_record.keycode;
@@ -67,12 +83,6 @@ int8_t get_repeat_key_count(void) {
 }
 
 void repeat_key_invoke(const keyevent_t* event) {
-    // It is possible (e.g. in rolled presses) that the last key changes while
-    // the Repeat Key is pressed. To prevent stuck keys, it is important to
-    // remember separately what key record was processed on press so that the
-    // the corresponding record is generated on release.
-    static keyrecord_t registered_record       = {0};
-    static int8_t      registered_repeat_count = 0;
     // Since this function calls process_record(), it may recursively call
     // itself. We return early if `processing_repeat_count` is nonzero to
     // prevent infinite recursion.
@@ -84,14 +94,14 @@ void repeat_key_invoke(const keyevent_t* event) {
         update_last_repeat_count(1);
         // On press, apply the last mods state, stacking on top of current mods.
         register_weak_mods(last_mods);
-        registered_record       = last_record;
-        registered_repeat_count = last_repeat_count;
+        registered_record_repeat_key       = last_record;
+        registered_repeat_count_repeat_key = last_repeat_count;
     }
 
     // Generate a keyrecord and plumb it into the event pipeline.
-    registered_record.event = *event;
-    processing_repeat_count = registered_repeat_count;
-    process_record(&registered_record);
+    registered_record_repeat_key.event = *event;
+    processing_repeat_count = registered_repeat_count_repeat_key;
+    process_record(&registered_record_repeat_key);
     processing_repeat_count = 0;
 
     // On release, restore the mods state.
