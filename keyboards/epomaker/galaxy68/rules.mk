@@ -35,7 +35,6 @@ BLUETOOTH_CUSTOM = yes
 
 # Silence header-guard mismatch warnings from upstream CMSIS headers (not editable here).
 # Treat header-guard warning as non-fatal so it doesn't stop the build.
-# CFLAGS += -Wno-error=header-guard -Wno-error=implicit-function-declaration
 
 ENCODER_MAP_ENABLE = yes
 DEBOUNCE_TYPE = asym_eager_defer_pk
