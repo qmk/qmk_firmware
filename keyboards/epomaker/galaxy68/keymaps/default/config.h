@@ -19,19 +19,3 @@
 // Enable VIA's built-in QMK RGB Matrix Lighting feature (Channel 4)
 // The keyboard uses QMK's standard RGB Matrix state tracking with a custom output driver
 #define VIA_QMK_RGB_MATRIX_ENABLE 1
-
-#define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR  1151
-#define EEPROM_SIZE 1152
-
-#define FEE_PAGE_SIZE (0x200)
-#define FEE_PAGE_COUNT (8)
-
-#define FEE_PAGE_BASE_ADDRESS (0x1F000)
-#define FEE_MCU_FLASH_SIZE (0x1000)
-
-#define EECONFIG_USER_DATA_SIZE 4
-
-#define EECONFIG_KB_DATA_SIZE 1
-
-#define TRANSIENT_EEPROM_SIZE 4096
-

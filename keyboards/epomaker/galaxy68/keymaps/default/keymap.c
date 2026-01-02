@@ -1,4 +1,4 @@
-/* Copyright 2023 Yiancar-Designs
+/* Copyright 2024 EPOMAKER
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
