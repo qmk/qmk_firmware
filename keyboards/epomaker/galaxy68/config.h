@@ -42,7 +42,7 @@
  * power-up.
  *
  */
-// #define FORCE_NKRO // deprecated in favor of host.default.nkro in info.json
+// #define FORCE_NKRO // deprecated in favor of host.default.nkro in keyboard.json
 /*
  * Feature disable options
  * These options are also useful to firmware size reduction.
