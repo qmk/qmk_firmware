@@ -793,7 +793,7 @@ Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bi
 
 [Auto Shift](features/auto_shift) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](features/auto_shift#retro-shift) for more information.
 
-### Speculative Hold
+## Speculative Hold
 
 Speculative Hold makes mod-tap keys more responsive by applying the modifier instantly on keydown, before the tap-hold decision is made. This is especially useful for actions like Shift+Click with a mouse, which can feel laggy with standard mod-taps.
 
