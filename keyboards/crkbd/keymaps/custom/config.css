@@ -1,0 +1,240 @@
+svg.keymap {
+    /*
+        * ====================
+        * Theme Variables
+        * ====================
+        */
+
+    --logo-path: none;
+    --logo-size: 12%;
+    --logo-position: 49.5% 5%;
+
+    /* === Colors === */
+
+    --color--material--blue--50: rgb(227, 242, 253);
+    --color--material--blue--100: rgb(187, 222, 251);
+    --color--material--blue--200: rgb(144, 202, 249);
+    --color--material--blue--300: rgb(100, 181, 246);
+    --color--material--blue--400: rgb(66, 165, 245);
+    --color--material--blue--500: rgb(33, 150, 243);
+    --color--material--blue--600: rgb(30, 136, 229);
+    --color--material--blue--700: rgb(25, 118, 210);
+    --color--material--blue--800: rgb(21, 101, 192);
+    --color--material--blue--900: rgb(13, 71, 161);
+    --color--material--blue--a100: rgb(130, 177, 255);
+    --color--material--blue--a200: rgb(68, 138, 255);
+    --color--material--blue--a400: rgb(41, 121, 255);
+    --color--material--blue--a700: rgb(41, 98, 255);
+
+    --color--material--blue-gray--50: rgb(236, 239, 241);
+    --color--material--blue-gray--100: rgb(207, 216, 220);
+    --color--material--blue-gray--200: rgb(176, 190, 197);
+    --color--material--blue-gray--300: rgb(144, 164, 174);
+    --color--material--blue-gray--400: rgb(120, 144, 156);
+    --color--material--blue-gray--500: rgb(96, 125, 139);
+    --color--material--blue-gray--600: rgb(84, 110, 122);
+    --color--material--blue-gray--700: rgb(69, 90, 100);
+    --color--material--blue-gray--800: rgb(55, 71, 79);
+    --color--material--blue-gray--900: rgb(38, 50, 56);
+
+    --color--material--blue-light--50: rgb(225, 245, 254);
+    --color--material--blue-light--100: rgb(179, 229, 252);
+    --color--material--blue-light--200: rgb(129, 212, 250);
+    --color--material--blue-light--300: rgb(79, 195, 247);
+    --color--material--blue-light--400: rgb(41, 182, 246);
+    --color--material--blue-light--500: rgb(3, 169, 244);
+    --color--material--blue-light--600: rgb(3, 155, 229);
+    --color--material--blue-light--700: rgb(2, 136, 209);
+    --color--material--blue-light--800: rgb(2, 119, 189);
+    --color--material--blue-light--900: rgb(1, 87, 155);
+    --color--material--blue-light--a100: rgb(128, 216, 255);
+    --color--material--blue-light--a200: rgb(64, 196, 255);
+    --color--material--blue-light--a400: rgb(0, 176, 255);
+    --color--material--blue-light--a700: rgb(0, 145, 234);
+
+    --color--material--purple--50: rgb(243, 229, 245);
+    --color--material--purple--100: rgb(225, 190, 231);
+    --color--material--purple--200: rgb(206, 147, 216);
+    --color--material--purple--300: rgb(186, 104, 200);
+    --color--material--purple--400: rgb(171, 71, 188);
+    --color--material--purple--500: rgb(156, 39, 176);
+    --color--material--purple--600: rgb(142, 36, 170);
+    --color--material--purple--700: rgb(123, 31, 162);
+    --color--material--purple--800: rgb(106, 27, 154);
+    --color--material--purple--900: rgb(74, 20, 140);
+    --color--material--purple--a100: rgb(234, 128, 252);
+    --color--material--purple--a200: rgb(224, 64, 251);
+    --color--material--purple--a400: rgb(213, 0, 249);
+    --color--material--purple--a700: rgb(170, 0, 255);
+
+    --color--material--red--50: rgb(255, 235, 238);
+    --color--material--red--100: rgb(255, 205, 210);
+    --color--material--red--200: rgb(239, 154, 154);
+    --color--material--red--300: rgb(229, 115, 115);
+    --color--material--red--400: rgb(239, 83, 80);
+    --color--material--red--500: rgb(244, 67, 54);
+    --color--material--red--600: rgb(229, 57, 53);
+    --color--material--red--700: rgb(211, 47, 47);
+    --color--material--red--800: rgb(198, 40, 40);
+    --color--material--red--900: rgb(183, 28, 28);
+    --color--material--red--a100: rgb(255, 138, 128);
+    --color--material--red--a200: rgb(255, 82, 82);
+    --color--material--red--a400: rgb(255, 23, 68);
+    --color--material--red--a700: rgb(213, 0, 0);
+
+    --color--material--teal--50: rgb(224, 242, 241);
+    --color--material--teal--100: rgb(178, 223, 219);
+    --color--material--teal--200: rgb(128, 203, 196);
+    --color--material--teal--300: rgb(77, 182, 172);
+    --color--material--teal--400: rgb(38, 166, 154);
+    --color--material--teal--500: rgb(0, 150, 136);
+    --color--material--teal--600: rgb(0, 137, 123);
+    --color--material--teal--700: rgb(0, 121, 107);
+    --color--material--teal--800: rgb(0, 105, 92);
+    --color--material--teal--900: rgb(0, 77, 64);
+    --color--material--teal--a100: rgb(167, 255, 235);
+    --color--material--teal--a200: rgb(100, 255, 218);
+    --color--material--teal--a400: rgb(29, 233, 182);
+    --color--material--teal--a700: rgb(0, 191, 165);
+
+    --color--material--yellow--50: rgb(255, 253, 231);
+    --color--material--yellow--100: rgb(255, 249, 196);
+    --color--material--yellow--200: rgb(255, 245, 157);
+    --color--material--yellow--300: rgb(255, 241, 118);
+    --color--material--yellow--400: rgb(255, 238, 88);
+    --color--material--yellow--500: rgb(255, 235, 59);
+    --color--material--yellow--600: rgb(253, 216, 53);
+    --color--material--yellow--700: rgb(251, 192, 45);
+    --color--material--yellow--800: rgb(249, 168, 37);
+    --color--material--yellow--900: rgb(245, 127, 23);
+    --color--material--yellow--a100: rgb(255, 255, 141);
+    --color--material--yellow--a200: rgb(255, 255, 0);
+    --color--material--yellow--a400: rgb(255, 234, 0);
+    --color--material--yellow--a700: rgb(255, 214, 0);
+
+    --color--turquoise--500: rgb(51, 204, 204);
+
+    --color--bg: transparent;
+    --color--text: var(--color--material--blue-gray--900);
+
+    --color--layer--text: var(--color--material--blue-gray--400);
+
+    --color--key--bg: var(--color--material--blue-gray--50);
+    --color--key--border: white;
+    --color--key--text--tap: var(--color--text);
+    --color--key--text--shifted: var(--color--material--blue-gray--400);
+    --color--key--text--hold: var(--color--material--blue-gray--400);
+
+    --color--combo--bg: var(--color--material--blue-gray--100);
+    --color--combo--border: var(--color--combo--bg);
+    --color--combo--dendron: var(--color--combo--border);
+    --color--combo--text--tap: var(--color--material--blue-gray--800);
+    --color--combo--text--shifted: var(--color--material--blue-gray--400);
+    --color--combo--text--hold: var(--color--combo--text--tap);
+
+    /*
+        * ====================
+        * /End Theme Variables
+        * ====================
+        */
+
+    font-family: system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    font-kerning: normal;
+    text-rendering: optimizeLegibility;
+    fill: var(--color--text);
+    background-color: var(--color--bg);
+    background-image: var(--logo-path);
+    background-repeat: no-repeat;
+    background-position: var(--logo-position);
+    background-size: var(--logo-size) auto;
+}
+
+rect,
+path {
+    shape-rendering: geometricPrecision;
+}
+
+text {
+    text-anchor: middle;
+    dominant-baseline: middle;
+    line-height: 1;
+}
+
+text.label {
+    font-size: 36px;
+    text-anchor: middle;
+    paint-order: stroke;
+    fill: var(--color--layer--text);
+    translate: 420px 146px;
+}
+
+/* Keys */
+rect.key,
+rect.combo {
+    fill: #313244; /* === key fill color === */
+    stroke: none;
+}
+
+.tap {
+    fill: #89b4fa; /* === legend color === */
+    font-size: 14px;
+}
+
+.hold {
+    dominant-baseline: ideographic;
+    fill: var(--color--material--teal--700);
+    font-size: 12px;
+}
+
+.hold.glyph {
+    translate: 26px 2px;
+}
+
+/*
+* Combos
+*/
+.combo {
+    --color--key--bg: #1e1e2e;
+    --color--key--border: var(--color--combo--border);
+    --color--key--text--tap: var(--color--combo--text--tap);
+    --color--key--text--shifted: var(--color--combo--text--shifted);
+    --color--key--text--hold: var(--color--material--red--500);
+}
+rect.combo {
+    stroke-width: 0;
+    fill: #1e1e2e;
+}
+path.combo {
+    stroke-width: 1;
+    stroke: var(--color--combo--dendron);
+    fill: none;
+}
+.combo.tap {
+    font-size: 12px;
+}
+
+.combo.hold {
+    font-size: 16px;
+    translate: 0 0;
+}
+
+/*
+* Transparent, None, and Ghost Keys
+*/
+.trans,
+.none,
+.ghost {
+    opacity: 1;
+}
+
+.keypos-5 .mod,
+.keypos-29 .mod,
+.keypos-38 .mod,
+.keypos-39 .mod,
+.keypos-40 .mod {
+    --color--key--bg: var(--color--material--teal--200);
+    --color--key--border: var(--color--material--teal--100);
+    fill: #89b4fa;
+}
