@@ -604,6 +604,20 @@ Or if the two keys are on opposite hands and the `PERMISSIVE_HOLD` option is
 enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when that
 `KC_C` is released.
 
+As an exception to the opposite hands rule, Chordal Hold supports combining
+multiple same-side modifiers within the tapping term. This is useful for
+multi-mod hotkeys like Ctrl + Shift + V. For instance with Chordal Hold together
+with either Permissive Hold or Hold On Other Key Press, the following input
+results in Ctrl + Shift + V being sent, supposing `J` and `K` are on the right
+hand side and `V` is on the left hand side:
+
+- `SFT_T(KC_J)` Down
+- `CTL_T(KC_K)` Down
+- `KC_V` Down
+- `KC_V` Up
+- `SFT_T(KC_J)` Up
+- `CTL_T(KC_K)` Up
+
 ### Chordal Hold Handedness
 
 Determining whether keys are on the same or opposite hands involves defining the
@@ -779,7 +793,7 @@ Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bi
 
 [Auto Shift](features/auto_shift) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](features/auto_shift#retro-shift) for more information.
 
-### Speculative Hold
+## Speculative Hold
 
 Speculative Hold makes mod-tap keys more responsive by applying the modifier instantly on keydown, before the tap-hold decision is made. This is especially useful for actions like Shift+Click with a mouse, which can feel laggy with standard mod-taps.
 
