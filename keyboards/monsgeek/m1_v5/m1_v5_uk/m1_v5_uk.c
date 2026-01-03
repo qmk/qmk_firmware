@@ -21,6 +21,7 @@ typedef union {
         uint8_t last_btdevs : 3;
         uint8_t dir_flag : 1;
         uint8_t ctrl_app_flag : 1;
+        uint8_t last_wireless_dev : 3; // Save last wireless device (BT or 2.4G)
     };
 } confinfo_t;
 confinfo_t confinfo;
@@ -83,12 +84,13 @@ uint32_t eeconfig_confinfo_read(void) {
 }
 
 void eeconfig_confinfo_default(void) {
-    confinfo.flag             = true;
-    confinfo.record_channel   = 0;
-    confinfo.record_last_mode = 0xff;
-    confinfo.last_btdevs      = 1;
-    confinfo.dir_flag         = 0;
-    confinfo.ctrl_app_flag    = 0;
+    confinfo.flag              = true;
+    confinfo.record_channel    = 0;
+    confinfo.record_last_mode  = 0xff;
+    confinfo.last_btdevs       = 1;
+    confinfo.dir_flag          = 0;
+    confinfo.ctrl_app_flag     = 0;
+    confinfo.last_wireless_dev = 1; // Default to BT1
     // #ifdef WIRELESS_ENABLE
     //     confinfo.devs = DEVS_USB;
     // #endif
@@ -105,6 +107,11 @@ void eeconfig_confinfo_init(void) {
     confinfo.raw = eeconfig_confinfo_read();
     if (!confinfo.raw) {
         eeconfig_confinfo_default();
+    }
+    // Initialize last_wireless_dev if not set
+    if (confinfo.last_wireless_dev == 0) {
+        confinfo.last_wireless_dev = (confinfo.devs == DEVS_2G4) ? DEVS_2G4 : confinfo.last_btdevs;
+        eeconfig_confinfo_update(confinfo.raw);
     }
 }
 
@@ -212,7 +219,7 @@ void wireless_post_task(void) {
         post_init_timer = 0x00;
     }
 
-    hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
+    hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs, confinfo.last_wireless_dev);
 }
 
 uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
@@ -220,31 +227,31 @@ uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
 
     switch (keycode) {
         case KC_BT1: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_BT1, true);
             }
 
         } break;
         case KC_BT2: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_BT2, true);
             }
         } break;
         case KC_BT3: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_BT3, true);
             }
         } break;
         case KC_2G4: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_2G4, true);
             }
         } break;
@@ -282,43 +289,43 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case KC_BT1: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_BT1);
                 hs_rgb_blink_set_timer(timer_read32());
             }
 
         } break;
         case KC_BT2: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_BT2);
                 hs_rgb_blink_set_timer(timer_read32());
             }
         } break;
         case KC_BT3: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_BT3);
                 hs_rgb_blink_set_timer(timer_read32());
             }
         } break;
         case KC_2G4: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_2G4);
                 hs_rgb_blink_set_timer(timer_read32());
             }
         } break;
 
         case KC_USB: {
-            uint8_t mode = confinfo.devs;
-            hs_modeio_detection(true, &mode, confinfo.last_btdevs);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_btdevs, confinfo.last_wireless_dev);
+            if ((mode == hs_usb) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_USB);
                 hs_rgb_blink_set_timer(timer_read32());
             }
@@ -973,6 +980,12 @@ void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {
     if (confinfo.devs != wireless_get_current_devs()) {
         confinfo.devs = wireless_get_current_devs();
         if (confinfo.devs > 0 && confinfo.devs < 4) confinfo.last_btdevs = confinfo.devs;
+        // Save last wireless device (BT or 2.4G) for restoring when switching back to wireless
+        if (confinfo.devs >= DEVS_BT1 && confinfo.devs <= DEVS_BT3) {
+            confinfo.last_wireless_dev = confinfo.devs;
+        } else if (confinfo.devs == DEVS_2G4) {
+            confinfo.last_wireless_dev = DEVS_2G4;
+        }
         eeconfig_confinfo_update(confinfo.raw);
     }
 
@@ -1311,7 +1324,7 @@ void hs_reset_settings(void) {
 }
 
 void lpwr_wakeup_hook(void) {
-    hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
+    hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs, confinfo.last_wireless_dev);
 
     if (rgb_matrix_get_val() != 0)
         gpio_write_pin_high(LED_POWER_EN_PIN);

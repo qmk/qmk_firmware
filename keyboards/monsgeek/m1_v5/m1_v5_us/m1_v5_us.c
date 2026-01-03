@@ -58,6 +58,7 @@ typedef union {
         uint8_t flag : 1; // used to make sure the eeprom has initialized at least once
         uint8_t current_dev : 3;
         uint8_t last_bt_dev : 3;
+        uint8_t last_wireless_dev : 3; // Save last wireless device (BT or 2.4G)
     };
 } confinfo_t;
 confinfo_t confinfo;
@@ -96,10 +97,16 @@ void keyboard_post_init_kb(void) {
 
     confinfo.raw = eeconfig_read_kb();
     if (!confinfo.raw) {
-        confinfo.flag        = true;
-        confinfo.last_bt_dev = 1;
+        confinfo.flag              = true;
+        confinfo.last_bt_dev       = 1;
+        confinfo.last_wireless_dev = 1; // Default to BT1
 
         eeconfig_init_user();
+        eeconfig_update_kb(confinfo.raw);
+    }
+    // Initialize last_wireless_dev if not set
+    if (confinfo.last_wireless_dev == 0) {
+        confinfo.last_wireless_dev = (confinfo.current_dev == DEVS_2G4) ? DEVS_2G4 : confinfo.last_bt_dev;
         eeconfig_update_kb(confinfo.raw);
     }
 
@@ -198,7 +205,7 @@ void wireless_post_task(void) {
         post_init_timer = 0x00;
     }
 
-    hs_mode_scan(false, confinfo.current_dev, confinfo.last_bt_dev);
+    hs_mode_scan(false, confinfo.current_dev, confinfo.last_bt_dev, confinfo.last_wireless_dev);
 }
 
 // i don't know what this does
@@ -211,31 +218,35 @@ static uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
 
     switch (keycode) {
         case KC_BT1: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow BT1 pairing when physical switch is in any wireless position
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_BT1, true);
             }
 
         } break;
         case KC_BT2: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow BT2 pairing when physical switch is in any wireless position
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_BT2, true);
             }
         } break;
         case KC_BT3: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow BT3 pairing when physical switch is in any wireless position
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_BT3, true);
             }
         } break;
         case KC_2G4: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow 2.4G pairing when physical switch is in any wireless position
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 wireless_devs_change(wireless_get_current_devs(), DEVS_2G4, true);
             }
         } break;
@@ -271,43 +282,48 @@ static bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         case KC_BT1: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow BT1 when physical switch is in any wireless position (Mac or Windows)
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_BT1);
                 hs_rgb_blink_set_timer(timer_read32());
             }
 
         } break;
         case KC_BT2: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow BT2 when physical switch is in any wireless position (Mac or Windows)
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_BT2);
                 hs_rgb_blink_set_timer(timer_read32());
             }
         } break;
         case KC_BT3: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_bt) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow BT3 when physical switch is in any wireless position (Mac or Windows)
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_BT3);
                 hs_rgb_blink_set_timer(timer_read32());
             }
         } break;
         case KC_2G4: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow 2.4G when physical switch is in any wireless position (Mac or Windows)
+            if ((mode == hs_mac_wireless) || (mode == hs_win_wireless) || (mode == hs_wireless) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_2G4);
                 hs_rgb_blink_set_timer(timer_read32());
             }
         } break;
 
         case KC_USB: {
-            uint8_t mode = confinfo.current_dev;
-            hs_modeio_detection(true, &mode, confinfo.last_bt_dev);
-            if ((mode == hs_2g4) || (mode == hs_wireless) || (mode == hs_none)) {
+            uint8_t mode = hs_none;
+            hs_modeio_detection(true, &mode, confinfo.last_bt_dev, confinfo.last_wireless_dev);
+            // Allow USB when physical switch is in USB position
+            if ((mode == hs_usb) || (mode == hs_none)) {
                 WLS_KEYCODE_EXEC(DEVS_USB);
                 hs_rgb_blink_set_timer(timer_read32());
             }
@@ -561,6 +577,12 @@ void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {
     if (confinfo.current_dev != wireless_get_current_devs()) {
         confinfo.current_dev = wireless_get_current_devs();
         if (confinfo.current_dev > 0 && confinfo.current_dev < 4) confinfo.last_bt_dev = confinfo.current_dev;
+        // Save last wireless device (BT or 2.4G) for restoring when switching back to wireless
+        if (confinfo.current_dev >= DEVS_BT1 && confinfo.current_dev <= DEVS_BT3) {
+            confinfo.last_wireless_dev = confinfo.current_dev;
+        } else if (confinfo.current_dev == DEVS_2G4) {
+            confinfo.last_wireless_dev = DEVS_2G4;
+        }
         eeconfig_update_kb(confinfo.raw);
     }
 
@@ -752,7 +774,7 @@ bool rgb_matrix_indicators_kb() {
 }
 
 void lpwr_wakeup_hook(void) {
-    hs_mode_scan(false, confinfo.current_dev, confinfo.last_bt_dev);
+    hs_mode_scan(false, confinfo.current_dev, confinfo.last_bt_dev, confinfo.last_wireless_dev);
 
     gpio_write_pin_high(LED_POWER_EN_PIN);
     gpio_write_pin_high(HS_LED_BOOSTING_PIN);
