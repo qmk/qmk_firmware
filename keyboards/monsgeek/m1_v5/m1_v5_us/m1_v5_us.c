@@ -31,6 +31,11 @@ static uint32_t battery_wave_timer  = 0;
 bool hs_bat_req_flag = false;
 bool hs_fn_key_held  = false;
 
+// Track if status indicators forced LEDs on
+static bool    status_indicators_forced_leds = false;
+static bool    status_indicators_forced_rgb  = false;
+static uint8_t saved_rgb_val                 = 0;
+
 // Visual feedback blink timer
 static uint32_t kb_blink_timer = 0;
 
@@ -424,6 +429,38 @@ void housekeeping_task_kb(void) { // loop
     charging_state    = gpio_read_pin(HS_BAT_CABLE_PIN);
     battery_full_flag = gpio_read_pin(BAT_FULL_PIN);
 
+    // Manage LED power and RGB matrix for status indicators
+    // Enable LEDs when showing connection or battery status, even if RGB is off
+    bool status_indicators_active = hs_fn_key_held || hs_bat_req_flag;
+
+    if (status_indicators_active && !status_indicators_forced_leds) {
+        // Status indicators just became active
+        status_indicators_forced_leds = true;
+
+        // Save current RGB state and temporarily enable if needed
+        if (!rgb_matrix_is_enabled() || rgb_matrix_get_val() == 0) {
+            saved_rgb_val                = rgb_matrix_get_val();
+            status_indicators_forced_rgb = true;
+            rgb_matrix_enable_noeeprom();
+            if (rgb_matrix_get_val() == 0) {
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), RGB_MATRIX_VAL_STEP);
+            }
+        }
+        gpio_write_pin_high(LED_POWER_EN_PIN);
+    } else if (!status_indicators_active && status_indicators_forced_leds) {
+        // Status indicators just became inactive - restore previous state
+        status_indicators_forced_leds = false;
+
+        if (status_indicators_forced_rgb) {
+            status_indicators_forced_rgb = false;
+            // Restore previous RGB state
+            if (saved_rgb_val == 0) {
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), 0);
+                gpio_write_pin_low(LED_POWER_EN_PIN);
+            }
+        }
+    }
+
     if (!hs_current_time || timer_elapsed32(hs_current_time) > 1000) {
         uint8_t hs_now_mode;
         if (charging_state && battery_full_flag) {
@@ -568,6 +605,9 @@ static void rgb_matrix_wls_indicator(void) {
 #endif
 
 bool rgb_matrix_indicators_kb() {
+    // Force LEDs on for status indicators even if RGB is disabled
+    bool status_indicators_active = hs_fn_key_held || hs_bat_req_flag;
+
     // Visual feedback blink (white flash)
     if (kb_blink_timer) {
         if ((timer_elapsed32(kb_blink_timer) / 250) % 2 == 0) {
@@ -581,7 +621,11 @@ bool rgb_matrix_indicators_kb() {
         return false;
     }
 
-    if (!rgb_matrix_indicators_user()) {
+    // Let user indicators run first (but don't block status indicators)
+    bool user_result = rgb_matrix_indicators_user();
+
+    // Only respect user return value if we're not showing status indicators
+    if (!user_result && !status_indicators_active) {
         return false;
     }
 
@@ -592,7 +636,13 @@ bool rgb_matrix_indicators_kb() {
     rgb_matrix_wls_indicator();
 
     // Show current connection mode indicator when Fn is held
+    // This works even if RGB is off
     if (hs_fn_key_held) {
+        // Turn off all other LEDs when showing connection indicator (if RGB was forced on)
+        if (status_indicators_forced_rgb) {
+            rgb_matrix_set_color_all(0x00, 0x00, 0x00);
+        }
+
         uint8_t current_dev = wireless_get_current_devs();
         switch (current_dev) {
             case DEVS_USB:
@@ -614,7 +664,13 @@ bool rgb_matrix_indicators_kb() {
     }
 
     // Show battery status when HS_BATQ is held and NOT charging (wireless mode)
+    // This works even if RGB is off
     if (hs_bat_req_flag && !charging_state) {
+        // Turn off all other LEDs when showing battery indicator (if RGB was forced on)
+        if (status_indicators_forced_rgb) {
+            rgb_matrix_set_color_all(0x00, 0x00, 0x00);
+        }
+
         uint8_t battery_pct = *md_getp_bat();
 
         // Normal battery display with proportional LEDs and color thresholds
@@ -648,6 +704,11 @@ bool rgb_matrix_indicators_kb() {
     }
     // Show wave animation when HS_BATQ is held AND charging
     else if (hs_bat_req_flag && charging_state && !battery_full_flag) {
+        // Turn off all other LEDs when showing battery indicator (if RGB was forced on)
+        if (status_indicators_forced_rgb) {
+            rgb_matrix_set_color_all(0x00, 0x00, 0x00);
+        }
+
         if (timer_elapsed32(battery_wave_timer) > 30) {
             battery_wave_timer  = timer_read32();
             battery_wave_offset = (battery_wave_offset > 3) ? (battery_wave_offset - 3) : 127;
@@ -661,6 +722,11 @@ bool rgb_matrix_indicators_kb() {
     }
     // Show solid green when HS_BATQ is held AND fully charged
     else if (hs_bat_req_flag && charging_state && battery_full_flag) {
+        // Turn off all other LEDs when showing battery indicator (if RGB was forced on)
+        if (status_indicators_forced_rgb) {
+            rgb_matrix_set_color_all(0x00, 0x00, 0x00);
+        }
+
         for (uint8_t i = 0; i < 10; i++) {
             rgb_matrix_set_color(battery_led_indices[i], 0x00, RGB_MATRIX_BAT_VAL, 0x00);
         }

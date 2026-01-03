@@ -26,12 +26,12 @@ typedef union {
 confinfo_t confinfo;
 
 typedef struct {
-    bool active;
+    bool     active;
     uint32_t timer;
     uint32_t interval;
     uint32_t times;
-    uint8_t index;
-    RGB rgb;
+    uint8_t  index;
+    RGB      rgb;
     void (*blink_cb)(uint8_t);
 } hs_rgb_indicator_t;
 
@@ -55,33 +55,34 @@ void rgb_matrix_hs_set_remain_time(uint8_t index, uint8_t remain_time);
 #define keymap_is_mac_system() ((get_highest_layer(default_layer_state) == _MBL) || (get_highest_layer(default_layer_state) == _MFL))
 #define keymap_is_base_layer() ((get_highest_layer(default_layer_state) == _BL) || (get_highest_layer(default_layer_state) == _FL))
 
-uint32_t post_init_timer     = 0x00;
-bool inqbat_flag             = false;
-bool mac_status              = false;
-bool charging_state          = false;
-bool bat_full_flag           = false;
-bool enable_bat_indicators   = true;
-uint32_t bat_indicator_cnt   = true;
-static uint32_t ee_clr_timer = 0;
+uint32_t        post_init_timer       = 0x00;
+bool            inqbat_flag           = false;
+bool            mac_status            = false;
+bool            charging_state        = false;
+bool            bat_full_flag         = false;
+bool            enable_bat_indicators = true;
+uint32_t        bat_indicator_cnt     = true;
+static uint32_t ee_clr_timer          = 0;
 static uint32_t rec_time;
-bool test_white_light_flag = false;
-HSV start_hsv;
-bool no_record_fg;
-bool lower_sleep = false;
-uint8_t buff[]   = {14, 8, 2, 1, 1, 1, 1, 1, 1, 1, 0};
+bool            test_white_light_flag = false;
+HSV             start_hsv;
+bool            no_record_fg;
+bool            lower_sleep = false;
+// Track if status indicators forced LEDs on
+static bool    status_indicators_forced_leds = false;
+static bool    status_indicators_forced_rgb  = false;
+static uint8_t saved_rgb_val                 = 0;
+uint8_t        buff[]                        = {14, 8, 2, 1, 1, 1, 1, 1, 1, 1, 0};
 
 void eeconfig_confinfo_update(uint32_t raw) {
-
     eeconfig_update_kb(raw);
 }
 
 uint32_t eeconfig_confinfo_read(void) {
-
     return eeconfig_read_kb();
 }
 
 void eeconfig_confinfo_default(void) {
-
     confinfo.flag             = true;
     confinfo.record_channel   = 0;
     confinfo.record_last_mode = 0xff;
@@ -101,7 +102,6 @@ void eeconfig_confinfo_default(void) {
 }
 
 void eeconfig_confinfo_init(void) {
-
     confinfo.raw = eeconfig_confinfo_read();
     if (!confinfo.raw) {
         eeconfig_confinfo_default();
@@ -109,7 +109,6 @@ void eeconfig_confinfo_init(void) {
 }
 
 void keyboard_post_init_kb(void) {
-
 #ifdef CONSOLE_ENABLE
     debug_enable = true;
 #endif
@@ -166,21 +165,18 @@ void keyboard_post_init_kb(void) {
 #ifdef WIRELESS_ENABLE
 
 void usb_power_connect(void) {
-
 #    ifdef USB_POWER_EN_PIN
     gpio_write_pin_low(USB_POWER_EN_PIN);
 #    endif
 }
 
 void usb_power_disconnect(void) {
-
 #    ifdef USB_POWER_EN_PIN
     gpio_write_pin_high(USB_POWER_EN_PIN);
 #    endif
 }
 
 void suspend_power_down_kb(void) {
-
 #    ifdef LED_POWER_EN_PIN
     gpio_write_pin_low(LED_POWER_EN_PIN);
 #    endif
@@ -189,7 +185,6 @@ void suspend_power_down_kb(void) {
 }
 
 void suspend_wakeup_init_kb(void) {
-
 #    ifdef LED_POWER_EN_PIN
     if (rgb_matrix_get_val() != 0) gpio_write_pin_high(LED_POWER_EN_PIN);
 #    endif
@@ -200,7 +195,6 @@ void suspend_wakeup_init_kb(void) {
 }
 
 bool lpwr_is_allow_timeout_hook(void) {
-
     if (wireless_get_current_devs() == DEVS_USB) {
         return false;
     }
@@ -209,10 +203,8 @@ bool lpwr_is_allow_timeout_hook(void) {
 }
 
 void wireless_post_task(void) {
-
     // auto switching devs
     if (post_init_timer && timer_elapsed32(post_init_timer) >= 100) {
-
         md_send_devctrl(MD_SND_CMD_DEVCTRL_FW_VERSION);   // get the module fw version.
         md_send_devctrl(MD_SND_CMD_DEVCTRL_SLEEP_BT_EN);  // timeout 30min to sleep in bt mode, enable
         md_send_devctrl(MD_SND_CMD_DEVCTRL_SLEEP_2G4_EN); // timeout 30min to sleep in 2.4g mode, enable
@@ -221,7 +213,6 @@ void wireless_post_task(void) {
     }
 
     hs_mode_scan(false, confinfo.devs, confinfo.last_btdevs);
-
 }
 
 uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
@@ -258,7 +249,6 @@ uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
             }
         } break;
         case EE_CLR: {
-
         } break;
         default:
             break;
@@ -268,7 +258,7 @@ uint32_t wls_process_long_press(uint32_t trigger_time, void *cb_arg) {
 }
 
 bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
-    static uint16_t keycode_shadow                     = 0x00;
+    static uint16_t       keycode_shadow               = 0x00;
     static deferred_token wls_process_long_press_token = INVALID_DEFERRED_TOKEN;
 
     keycode_shadow = keycode;
@@ -280,8 +270,7 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 #    define WLS_KEYCODE_EXEC(wls_dev)                                                                                          \
         do {                                                                                                                   \
             if (record->event.pressed) {                                                                                       \
-                if (wireless_get_current_devs() != wls_dev)                                                                    \
-                    wireless_devs_change(wireless_get_current_devs(), wls_dev, false);                                         \
+                if (wireless_get_current_devs() != wls_dev) wireless_devs_change(wireless_get_current_devs(), wls_dev, false); \
                 if (wls_process_long_press_token == INVALID_DEFERRED_TOKEN) {                                                  \
                     wls_process_long_press_token = defer_exec(WLS_KEYCODE_PAIR_TIME, wls_process_long_press, &keycode_shadow); \
                 }                                                                                                              \
@@ -343,7 +332,6 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
     if (test_white_light_flag && record->event.pressed) {
         test_white_light_flag = false;
         rgb_matrix_set_color_all(0x00, 0x00, 0x00);
@@ -383,7 +371,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 
     if (rgbrec_is_started() && (!(keycode == RP_P0 || keycode == RP_P1 || keycode == RP_P2 || keycode == RP_END || keycode == RGB_MOD || keycode == MO(_FL) || keycode == MO(_MFL)))) {
-
         return false;
     }
 
@@ -391,8 +378,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void im_rgblight_increase(void) {
-    HSV rgb;
-    uint8_t moude;
+    HSV            rgb;
+    uint8_t        moude;
     static uint8_t mode = 0;
 
     moude = rgblight_get_mode();
@@ -467,9 +454,8 @@ void im_rgblight_increase(void) {
 }
 
 uint32_t hs_ct_time;
-RGB rgb_test_open;
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-
+RGB      rgb_test_open;
+bool     process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (process_record_user(keycode, record) != true) {
         return false;
     }
@@ -496,7 +482,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         } break;
         case NK_TOGG: {
             if (rgbrec_is_started()) {
-
                 return false;
             }
             if (record->event.pressed) {
@@ -505,7 +490,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         } break;
         case RL_MOD: {
             if (rgbrec_is_started()) {
-
                 return false;
             }
             if (record->event.pressed) {
@@ -533,8 +517,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RGB_SPD: {
             if (record->event.pressed) {
                 if (rgb_matrix_get_speed() <= RGB_MATRIX_SPD_STEP * 2) {
-                    if (rgb_matrix_get_speed() != RGB_MATRIX_SPD_STEP)
-                        rgb_blink_dir();
+                    if (rgb_matrix_get_speed() != RGB_MATRIX_SPD_STEP) rgb_blink_dir();
                     rgb_matrix_set_speed(RGB_MATRIX_SPD_STEP);
 
                     return false;
@@ -567,7 +550,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 if ((index != 0xFF)) {
                     rgb_blink_dir();
                 }
-                
             }
             return false;
         } break;
@@ -642,7 +624,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         case RP_END: {
             if (record->event.pressed) {
                 if (rgb_matrix_get_mode() != RGB_MATRIX_CUSTOM_RGBR_PLAY) {
-
                     return false;
                 }
                 if (!rgbrec_is_started()) {
@@ -885,12 +866,45 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_user(void) { // loop
-    uint8_t hs_now_mode;
+    uint8_t         hs_now_mode;
     static uint32_t hs_current_time;
 
     charging_state = readPin(HS_BAT_CABLE_PIN);
 
     bat_full_flag = readPin(BAT_FULL_PIN);
+
+    // Manage LED power and RGB matrix for status indicators
+    // Enable LEDs when showing battery status, even if RGB is off
+    extern bool rk_bat_req_flag;
+    bool        status_indicators_active = rk_bat_req_flag || (wls_rgb_indicator_timer != 0x00);
+
+    if (status_indicators_active && !status_indicators_forced_leds) {
+        // Status indicators just became active
+        status_indicators_forced_leds = true;
+
+        // Save current RGB state and temporarily enable if needed
+        if (!rgb_matrix_is_enabled() || rgb_matrix_get_val() == 0) {
+            saved_rgb_val                = rgb_matrix_get_val();
+            status_indicators_forced_rgb = true;
+            rgb_matrix_enable_noeeprom();
+            if (rgb_matrix_get_val() == 0) {
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), RGB_MATRIX_VAL_STEP);
+            }
+        }
+        gpio_write_pin_high(LED_POWER_EN_PIN);
+    } else if (!status_indicators_active && status_indicators_forced_leds) {
+        // Status indicators just became inactive - restore previous state
+        status_indicators_forced_leds = false;
+
+        if (status_indicators_forced_rgb) {
+            status_indicators_forced_rgb = false;
+            // Restore previous RGB state
+            if (saved_rgb_val == 0) {
+                rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), 0);
+                gpio_write_pin_low(LED_POWER_EN_PIN);
+            }
+        }
+    }
 
     if (charging_state && (bat_full_flag)) {
         hs_now_mode = MD_SND_CMD_DEVCTRL_CHARGING_DONE;
@@ -901,7 +915,6 @@ void housekeeping_task_user(void) { // loop
     }
 
     if (!hs_current_time || timer_elapsed32(hs_current_time) > 1000) {
-
         hs_current_time = timer_read32();
         md_send_devctrl(hs_now_mode);
         md_send_devctrl(MD_SND_CMD_DEVCTRL_INQVOL);
@@ -938,15 +951,14 @@ void housekeeping_task_user(void) { // loop
 #ifdef RGB_MATRIX_ENABLE
 
 #    ifdef WIRELESS_ENABLE
-bool wls_rgb_indicator_reset        = false;
+bool     wls_rgb_indicator_reset    = false;
 uint32_t wls_rgb_indicator_timer    = 0x00;
 uint32_t wls_rgb_indicator_interval = 0;
 uint32_t wls_rgb_indicator_times    = 0;
 uint32_t wls_rgb_indicator_index    = 0;
-RGB wls_rgb_indicator_rgb           = {0};
+RGB      wls_rgb_indicator_rgb      = {0};
 
 void rgb_matrix_wls_indicator_set(uint8_t index, RGB rgb, uint32_t interval, uint8_t times) {
-
     wls_rgb_indicator_timer = timer_read32();
 
     wls_rgb_indicator_index    = index;
@@ -956,7 +968,6 @@ void rgb_matrix_wls_indicator_set(uint8_t index, RGB rgb, uint32_t interval, uin
 }
 
 void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {
-
     wls_rgb_indicator_reset = reset;
 
     if (confinfo.devs != wireless_get_current_devs()) {
@@ -1021,7 +1032,6 @@ void wireless_devs_change_kb(uint8_t old_devs, uint8_t new_devs, bool reset) {
 }
 
 bool rgb_matrix_wls_indicator_cb(void) {
-
     if (*md_getp_state() != MD_STATE_CONNECTED) {
         if (!(wireless_get_current_devs() == DEVS_USB && USB_DRIVER.state == USB_ACTIVE)) wireless_devs_change_kb(wireless_get_current_devs(), wireless_get_current_devs(), wls_rgb_indicator_reset);
         return true;
@@ -1034,9 +1044,7 @@ bool rgb_matrix_wls_indicator_cb(void) {
 }
 
 void rgb_matrix_wls_indicator(void) {
-
     if (wls_rgb_indicator_timer) {
-
         if (timer_elapsed32(wls_rgb_indicator_timer) >= wls_rgb_indicator_interval) {
             wls_rgb_indicator_timer = timer_read32();
 
@@ -1105,11 +1113,9 @@ void bat_indicators(void) {
     if (charging_state && (bat_full_flag)) {
         battery_process_time = 0;
     } else if (charging_state) {
-
         battery_process_time = 0;
         rgb_matrix_set_color(HS_MATRIX_BLINK_INDEX_BAT, 0x00, 0xFF, 0x00);
     } else if (*md_getp_bat() <= BATTERY_CAPACITY_LOW) {
-
         rgb_matrix_hs_bat_set(HS_MATRIX_BLINK_INDEX_BAT, (RGB){0xFF, 0x00, 0x00}, 250, 1);
 
         if (*md_getp_bat() <= BATTERY_CAPACITY_STOP) {
@@ -1137,26 +1143,21 @@ void rgb_blink_dir(void) {
 }
 
 bool hs_reset_settings_user(void) {
-
     rgb_matrix_hs_indicator_set(0xFF, (RGB){0x10, 0x10, 0x10}, 250, 3);
 
     return true;
 }
 
 void nkr_indicators_hook(uint8_t index) {
-
     if ((hs_rgb_indicators[index].rgb.r == 0x6E) && (hs_rgb_indicators[index].rgb.g == 0x00) && (hs_rgb_indicators[index].rgb.b == 0x00)) {
-
         rgb_matrix_hs_indicator_set(0xFF, (RGB){0x6E, 0x00, 0x00}, 250, 1);
 
     } else if ((hs_rgb_indicators[index].rgb.r == 0x00) && (hs_rgb_indicators[index].rgb.g == 0x6E) && (hs_rgb_indicators[index].rgb.b == 0x00)) {
-
         rgb_matrix_hs_indicator_set(0xFF, (RGB){0x00, 0x00, 0x6F}, 250, 1);
     }
 }
 
 void rgb_matrix_hs_indicator_set(uint8_t index, RGB rgb, uint32_t interval, uint8_t times) {
-
     for (int i = 0; i < HS_RGB_INDICATOR_COUNT; i++) {
         if (!hs_rgb_indicators[i].active) {
             hs_rgb_indicators[i].active   = true;
@@ -1176,7 +1177,6 @@ void rgb_matrix_hs_indicator_set(uint8_t index, RGB rgb, uint32_t interval, uint
 }
 
 void rgb_matrix_hs_set_remain_time(uint8_t index, uint8_t remain_time) {
-
     for (int i = 0; i < HS_RGB_INDICATOR_COUNT; i++) {
         if (hs_rgb_indicators[i].index == index) {
             hs_rgb_indicators[i].times  = 0;
@@ -1187,7 +1187,6 @@ void rgb_matrix_hs_set_remain_time(uint8_t index, uint8_t remain_time) {
 }
 
 void rgb_matrix_hs_indicator(void) {
-
     for (int i = 0; i < HS_RGB_INDICATOR_COUNT; i++) {
         if (hs_rgb_indicators[i].active) {
             if (timer_elapsed32(hs_rgb_indicators[i].timer) >= hs_rgb_indicators[i].interval) {
@@ -1200,8 +1199,7 @@ void rgb_matrix_hs_indicator(void) {
                 if (hs_rgb_indicators[i].times <= 0) {
                     hs_rgb_indicators[i].active = false;
                     hs_rgb_indicators[i].timer  = 0x00;
-                    if (hs_rgb_indicators[i].blink_cb != NULL)
-                        hs_rgb_indicators[i].blink_cb(i);
+                    if (hs_rgb_indicators[i].blink_cb != NULL) hs_rgb_indicators[i].blink_cb(i);
                     continue;
                 }
             }
@@ -1224,6 +1222,9 @@ void rgb_matrix_hs_indicator(void) {
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
+    // Check if status indicators are active
+    extern bool rk_bat_req_flag;
+    bool        status_indicators_active = rk_bat_req_flag || (wls_rgb_indicator_timer != 0x00);
 
     if (test_white_light_flag) {
         RGB rgb_test_open = hsv_to_rgb((HSV){.h = 0, .s = 0, .v = RGB_MATRIX_VAL_STEP * 5});
@@ -1232,8 +1233,9 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         return false;
     }
 #ifdef RGBLIGHT_ENABLE
-    if (rgb_matrix_indicators_advanced_user(led_min, led_max) != true) {
-
+    bool user_result = rgb_matrix_indicators_advanced_user(led_min, led_max);
+    // Only respect user return value if we're not showing status indicators
+    if (!user_result && !status_indicators_active) {
         return false;
     }
 #endif
@@ -1243,16 +1245,12 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         ee_clr_timer = 0;
     }
 
-    if (host_keyboard_led_state().caps_lock)
-        rgb_matrix_set_color(HS_RGB_INDEX_CAPS, 0x20, 0x20, 0x20);
-  
-    if (!keymap_is_mac_system() && keymap_config.no_gui)
-        rgb_matrix_set_color(HS_RGB_INDEX_WIN_LOCK, 0x20, 0x20, 0x20);
+    if (host_keyboard_led_state().caps_lock) rgb_matrix_set_color(HS_RGB_INDEX_CAPS, 0x20, 0x20, 0x20);
 
+    if (!keymap_is_mac_system() && keymap_config.no_gui) rgb_matrix_set_color(HS_RGB_INDEX_WIN_LOCK, 0x20, 0x20, 0x20);
 
 #ifdef RGBLIGHT_ENABLE
     if (rgb_matrix_indicators_advanced_rgblight(led_min, led_max) != true) {
-
         return false;
     }
 #endif
@@ -1306,7 +1304,6 @@ void hs_reset_settings(void) {
     // #endif
 
     if (hs_reset_settings_user() != true) {
-
         return;
     }
     hs_rgb_blink_set_timer(timer_read32());

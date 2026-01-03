@@ -5,13 +5,13 @@
 #include "rgb_matrix.h"
 #include "eeprom.h"
 
-#define RGBREC_STATE_ON  1
+#define RGBREC_STATE_ON 1
 #define RGBREC_STATE_OFF 0
 #define RGBREC_COLOR_NUM (sizeof(rgbrec_hs_lists) / sizeof(rgbrec_hs_lists[0]))
 
 typedef struct {
-    uint8_t state;
-    uint8_t channel;
+    uint8_t  state;
+    uint8_t  channel;
     uint16_t value;
 } rgbrec_info_t;
 
@@ -20,17 +20,13 @@ typedef uint16_t (*rgbrec_effects_t)[MATRIX_COLS];
 rgbrec_effects_t p_rgbrec_effects = NULL;
 
 static uint16_t rgbrec_hs_lists[] = RGB_RECORD_HS_LISTS;
-static uint8_t rgbrec_buffer[MATRIX_ROWS * MATRIX_COLS * 2];
+static uint8_t  rgbrec_buffer[MATRIX_ROWS * MATRIX_COLS * 2];
 
 //clang-format off
-static const uint8_t rgbmatrix_buff[]   = {13, 15, 16, 24, 25, 26, 29, 37, 33, 34, 35, 43, 2, 5, 6, 9};
-static const uint8_t sixth_gear_buff[]  = {6, 13, 15, 16, 25, 26, 34};
-static uint8_t rgb_hsvs[RGB_HSV_MAX][2] = {
-    {0,   255},
-    {64,  255},
-    {128, 255},
-    {192, 255},
-    {0,   0  },
+static const uint8_t rgbmatrix_buff[]         = {13, 15, 16, 24, 25, 26, 29, 37, 33, 34, 35, 43, 2, 5, 6, 9};
+static const uint8_t sixth_gear_buff[]        = {6, 13, 15, 16, 25, 26, 34};
+static uint8_t       rgb_hsvs[RGB_HSV_MAX][2] = {
+    {0, 255}, {64, 255}, {128, 255}, {192, 255}, {0, 0},
 };
 
 //clang-format on
@@ -40,7 +36,7 @@ static rgbrec_info_t rgbrec_info = {
     .value   = 0xFF,
 };
 
-static uint8_t rgbrec_buffer[MATRIX_ROWS * MATRIX_COLS * 2];
+static uint8_t                rgbrec_buffer[MATRIX_ROWS * MATRIX_COLS * 2];
 extern const uint16_t PROGMEM rgbrec_default_effects[RGBREC_CHANNEL_NUM][MATRIX_ROWS][MATRIX_COLS];
 
 static bool find_matrix_row_col(uint8_t index, uint8_t *row, uint8_t *col) {
@@ -63,7 +59,6 @@ static bool find_matrix_row_col(uint8_t index, uint8_t *row, uint8_t *col) {
 }
 
 static inline RGB hs_to_rgb(uint8_t h, uint8_t s) {
-
     if ((h == 0) && (s == 0)) {
         return hsv_to_rgb((HSV){0, 0, 0});
     } else if ((h == 1) && (s == 1)) {
@@ -74,7 +69,6 @@ static inline RGB hs_to_rgb(uint8_t h, uint8_t s) {
 }
 
 void rgbrec_init(uint8_t channel) {
-
     p_rgbrec_effects    = (rgbrec_effects_t)rgbrec_buffer;
     rgbrec_info.state   = RGBREC_STATE_OFF;
     rgbrec_info.channel = channel;
@@ -84,7 +78,6 @@ void rgbrec_init(uint8_t channel) {
 }
 
 bool rgbrec_show(uint8_t channel) {
-
     if (channel >= RGBREC_CHANNEL_NUM) {
         return false;
     }
@@ -100,9 +93,7 @@ bool rgbrec_show(uint8_t channel) {
 }
 
 bool rgbrec_start(uint8_t channel) {
-
     if (channel >= RGBREC_CHANNEL_NUM) {
-
         return false;
     }
 
@@ -132,9 +123,7 @@ void rgbrec_update_current_channel(uint8_t channel) {
 }
 
 bool rgbrec_end(uint8_t channel) {
-
     if (channel >= RGBREC_CHANNEL_NUM) {
-
         return false;
     }
 
@@ -149,13 +138,12 @@ bool rgbrec_end(uint8_t channel) {
 }
 
 static inline void rgb_matrix_set_hs(int index, uint16_t hs) {
-
     RGB rgb = hs_to_rgb(HS_GET_H(hs), HS_GET_S(hs));
     rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
 }
 
 void rgbrec_play(uint8_t led_min, uint8_t led_max) {
-    uint8_t row = 0xFF, col = 0xFF;
+    uint8_t  row = 0xFF, col = 0xFF;
     uint16_t hs_color;
 
     rgbrec_info.value = rgb_matrix_get_val();
@@ -171,7 +159,6 @@ void rgbrec_play(uint8_t led_min, uint8_t led_max) {
 }
 
 void rgbrec_set_close_all(uint8_t h, uint8_t s, uint8_t v) {
-
     if (!h && !s && !v) {
         memset(rgbrec_buffer, 0, sizeof(rgbrec_buffer));
     } else {
@@ -188,7 +175,6 @@ void rgbrec_read_current_channel(uint8_t channel) {
     uint32_t addr = 0;
 
     if (channel >= RGBREC_CHANNEL_NUM) {
-
         return;
     }
 
@@ -197,14 +183,11 @@ void rgbrec_read_current_channel(uint8_t channel) {
 }
 
 bool rgbrec_is_started(void) {
-
     return (rgbrec_info.state == RGBREC_STATE_ON);
 }
 
 static inline void cycle_rgb_next_color(uint8_t row, uint8_t col) {
-
     if (p_rgbrec_effects == NULL) {
-
         return;
     }
 
@@ -240,10 +223,8 @@ void eeconfig_init_user_datablock(void) {
 }
 
 uint8_t find_index(void) {
-
     for (uint8_t index = 0; index < (sizeof(rgbmatrix_buff) / sizeof(rgbmatrix_buff[0])); index++) {
         if (rgb_matrix_get_mode() == rgbmatrix_buff[index]) {
-
             return index;
         }
     }
@@ -252,9 +233,9 @@ uint8_t find_index(void) {
 }
 
 uint8_t record_color_read_data(void) {
-    uint8_t hs_mode    = find_index();
-    const uint8_t *ptr = (const uint8_t *)(((uint32_t)CONFINFO_EECONFIG_ADDR + 4) + hs_mode);
-    uint8_t hs_c       = eeprom_read_byte(ptr);
+    uint8_t        hs_mode = find_index();
+    const uint8_t *ptr     = (const uint8_t *)(((uint32_t)CONFINFO_EECONFIG_ADDR + 4) + hs_mode);
+    uint8_t        hs_c    = eeprom_read_byte(ptr);
 
     if (hs_c > RGB_HSV_MAX) {
         return 0;
@@ -272,8 +253,8 @@ void record_rgbmatrix_increase(uint8_t *last_mode) {
     }
     *last_mode = rgbmatrix_buff[index];
     rgb_matrix_mode(rgbmatrix_buff[index]);
-    //record_color_hsv(false);
-    uint8_t rgb_hsv_index =  record_color_read_data();
+    // record_color_hsv(false);
+    uint8_t rgb_hsv_index = record_color_read_data();
     rgb_matrix_sethsv(rgb_hsvs[rgb_hsv_index][0], rgb_hsvs[rgb_hsv_index][1], rgb_matrix_get_val());
 }
 
@@ -313,13 +294,8 @@ bool rk_bat_req_flag;
 
 void query(void) {
     if (rk_bat_req_flag) {
-#ifdef RGBLIGHT_ENABLE
-        for (uint8_t i = 0; i < (RGB_MATRIX_LED_COUNT - RGBLED_NUM); i++) {
-            rgb_matrix_set_color(i, 0, 0, 0);
-        }
-#else
+        // Always clear all LEDs when showing battery to ensure clean display
         rgb_matrix_set_color_all(0x00, 0x00, 0x00);
-#endif
         for (uint8_t i = 0; i < 10; i++) {
             uint8_t mi_index[10] = RGB_MATRIX_BAT_INDEX_MAP;
             if ((i < (*md_getp_bat() / 10)) || (i < 1)) {
