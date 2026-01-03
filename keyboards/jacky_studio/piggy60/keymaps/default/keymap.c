@@ -32,9 +32,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_60_ansi_tsangan_split_bs_rshift(
         KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,     KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_INS,   KC_PSCR,
-        KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,  KC_PGUP,  KC_HOME,  KC_TRNS,   KC_VOLU,  KC_BRIU,  KC_TRNS,  KC_WH_U,  KC_TRNS,  KC_TRNS,  KC_DEL,
-        KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_PGDN,  KC_END,   KC_TRNS,   KC_VOLD,  KC_BRID,  KC_TRNS,  KC_WH_D,  KC_TRNS,            KC_TRNS,
-        RGB_TOG,            RGB_MOD,  RGB_HUI,  RGB_SAI,  RGB_VAI,  RGB_SPI,   KC_TRNS,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
+        KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,  KC_PGUP,  KC_HOME,  KC_TRNS,   KC_VOLU,  KC_BRIU,  KC_TRNS,  MS_WHLU,  KC_TRNS,  KC_TRNS,  KC_DEL,
+        KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_PGDN,  KC_END,   KC_TRNS,   KC_VOLD,  KC_BRID,  KC_TRNS,  MS_WHLD,  KC_TRNS,            KC_TRNS,
+        RM_TOGG,            RM_NEXT,  RM_HUEU,  RM_SATU,  RM_VALU,  RM_SPDU,   KC_TRNS,  KC_MUTE,  KC_TRNS,  KC_TRNS,  KC_TRNS,            KC_TRNS,  KC_TRNS,
         KC_TRNS,  KC_TRNS,  KC_TRNS,                                           KC_TRNS,                      KC_TRNS,            KC_TRNS,  KC_TRNS
     )
 };

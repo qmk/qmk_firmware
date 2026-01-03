@@ -26,7 +26,7 @@ bool qgf_validate_block_header(qgf_block_header_v1_t *desc, uint8_t expected_typ
 
 bool qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette, bool *is_panel_native) {
     // clang-format off
-    static const struct QP_PACKED {
+    static const struct PACKED {
         uint8_t bpp;
         bool    has_palette;
         bool is_panel_native;
@@ -255,10 +255,10 @@ bool qgf_validate_stream(qp_stream_t *stream) {
     // Read and validate all the frames (automatically validates the frame offset descriptor in the process)
     for (uint16_t i = 0; i < frame_count; ++i) {
         // Validate the frame descriptor block
-        uint8_t bpp;
-        bool    has_palette;
-        bool    is_panel_native;
-        bool    has_delta;
+        uint8_t bpp             = 0;
+        bool    has_palette     = false;
+        bool    is_panel_native = false;
+        bool    has_delta       = false;
         if (!qgf_validate_frame_descriptor(stream, i, &bpp, &has_palette, &is_panel_native, &has_delta)) {
             return false;
         }

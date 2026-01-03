@@ -10,10 +10,12 @@
 
 #pragma once
 
+#include "compiler_support.h"
 #include "keyboard.h"
 #include <stdint.h>
 #include "spi_master.h"
 #include "util.h"
+#include "pointing_device.h"
 
 #if defined(POINTING_DEVICE_DRIVER_pmw3360)
 #    include "pmw3360.h"
@@ -38,8 +40,8 @@ typedef struct __attribute__((packed)) {
     int16_t delta_y; // displacement on y directions.
 } pmw33xx_report_t;
 
-_Static_assert(sizeof(pmw33xx_report_t) == 6, "pmw33xx_report_t must be 6 bytes in size");
-_Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motion must be 1 byte in size");
+STATIC_ASSERT(sizeof(pmw33xx_report_t) == 6, "pmw33xx_report_t must be 6 bytes in size");
+STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motion must be 1 byte in size");
 
 #if !defined(PMW33XX_CLOCK_SPEED)
 #    define PMW33XX_CLOCK_SPEED 2000000
@@ -70,14 +72,12 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 #    ifndef PMW33XX_CS_PIN
 #        ifdef POINTING_DEVICE_CS_PIN
 #            define PMW33XX_CS_PIN POINTING_DEVICE_CS_PIN
-#            define PMW33XX_CS_PINS \
-                { PMW33XX_CS_PIN }
+#            define PMW33XX_CS_PINS {PMW33XX_CS_PIN}
 #        else
 #            error "No chip select pin defined -- missing PMW33XX_CS_PIN or PMW33XX_CS_PINS"
 #        endif
 #    else
-#        define PMW33XX_CS_PINS \
-            { PMW33XX_CS_PIN }
+#        define PMW33XX_CS_PINS {PMW33XX_CS_PIN}
 #    endif
 #endif
 
@@ -86,8 +86,7 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 #    if !defined(PMW33XX_CS_PIN_RIGHT)
 #        define PMW33XX_CS_PIN_RIGHT PMW33XX_CS_PIN
 #    endif
-#    define PMW33XX_CS_PINS_RIGHT \
-        { PMW33XX_CS_PIN_RIGHT }
+#    define PMW33XX_CS_PINS_RIGHT {PMW33XX_CS_PIN_RIGHT}
 #endif
 
 // Defines so the old variable names are swapped by the appropiate value on each half
@@ -101,6 +100,10 @@ _Static_assert(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.moti
 #endif
 
 #define CONSTRAIN(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
+
+#define pmw3360_pointing_device_driver pmw33xx_pointing_device_driver;
+#define pmw3389_pointing_device_driver pmw33xx_pointing_device_driver;
+extern const pointing_device_driver_t pmw33xx_pointing_device_driver;
 
 /**
  * @brief Initializes the given sensor so it is in a working state and ready to
@@ -170,3 +173,8 @@ uint8_t pmw33xx_read(uint8_t sensor, uint8_t reg_addr);
  * @return false Write failed, do not proceed operation
  */
 bool pmw33xx_write(uint8_t sensor, uint8_t reg_addr, uint8_t data);
+
+bool           pmw33xx_init_wrapper(void);
+void           pmw33xx_set_cpi_wrapper(uint16_t cpi);
+uint16_t       pmw33xx_get_cpi_wrapper(void);
+report_mouse_t pmw33xx_get_report(report_mouse_t mouse_report);

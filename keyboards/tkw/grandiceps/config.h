@@ -15,8 +15,6 @@
  */
 #pragma once
 
-#define SELECT_SOFT_SERIAL_SPEED 1
-
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 4
 #define WS2812_PWM_PAL_MODE 2

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Bookerboard",
     "manufacturer": "AlisGraveNil",
-    "url": "",
     "maintainer": "AlisGraveNil",
     "usb": {
         "vid": "0xFEED",

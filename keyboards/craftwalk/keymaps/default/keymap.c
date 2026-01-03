@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
                  KC_Q,    KC_W,    KC_E,
         KC_LCTL, KC_A,    KC_S,    KC_D,
-        KC_LSFT, MO_ADJ,  KC_WH_U, KC_WH_D, KC_F,    MO_NUM,  KC_SPC
+        KC_LSFT, MO_ADJ,  MS_WHLU, MS_WHLD, KC_F,    MO_NUM,  KC_SPC
     ),
     /* Number */
     [_NUM] = LAYOUT(

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Contra",
   "manufacturer": "Cartel",
-  "url": "",
   "maintainer": "qmk",
   "features": {
     "bootmagic": true,
@@ -14,8 +13,7 @@
     "pid": "0x0001",
     "device_version": "0.0.1"
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "diode_direction": "COL2ROW",
   "matrix_pins": {
     "cols": ["F4", "F5", "B5", "B4", "E6", "D7", "C6", "D4", "D0", "D1", "D2", "D3"],
