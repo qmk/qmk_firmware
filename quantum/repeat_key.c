@@ -98,15 +98,21 @@ void repeat_key_invoke(const keyevent_t* event) {
         registered_repeat_count_repeat_key = last_repeat_count;
     }
 
-    // Generate a keyrecord and plumb it into the event pipeline.
-    registered_record_repeat_key.event = *event;
-    processing_repeat_count = registered_repeat_count_repeat_key;
-    process_record(&registered_record_repeat_key);
-    processing_repeat_count = 0;
+    // It is possible for this to be zero here in the case of pressing
+    // repeat key before any other after reset, pressing another key while
+    // holding repeat key, and then releasing repeat key. Must guard against
+    // this to prevent infinite recursion.
+    if (registered_repeat_count_repeat_key) {
+        // Generate a keyrecord and plumb it into the event pipeline.
+        registered_record_repeat_key.event = *event;
+        processing_repeat_count = registered_repeat_count_repeat_key;
+        process_record(&registered_record_repeat_key);
+        processing_repeat_count = 0;
 
-    // On release, restore the mods state.
-    if (!event->pressed) {
-        unregister_weak_mods(last_mods);
+        // On release, restore the mods state.
+        if (!event->pressed) {
+            unregister_weak_mods(last_mods);
+        }
     }
 }
 
