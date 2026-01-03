@@ -4,6 +4,7 @@
 #include <hal.h>
 #include "timer.h"
 #include "wear_leveling.h"
+#include "wear_leveling_efl_config.h"
 #include "wear_leveling_internal.h"
 
 static flash_offset_t base_offset = UINT32_MAX;
@@ -19,7 +20,7 @@ static flash_sector_t first_sector = UINT16_MAX;
 #endif // WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT
 
 static flash_sector_t sector_count = UINT16_MAX;
-static BaseFlash *    flash;
+static BaseFlash     *flash;
 static bool           flash_erased_is_one;
 static volatile bool  is_issuing_read    = false;
 static volatile bool  ecc_error_occurred = false;
@@ -33,7 +34,7 @@ static inline uint32_t detect_flash_size(void) {
 #elif defined(FLASH_SIZE)
     return FLASH_SIZE;
 #elif defined(FLASHSIZE_BASE)
-#    if defined(QMK_MCU_SERIES_STM32F0XX) || defined(QMK_MCU_SERIES_STM32F1XX) || defined(QMK_MCU_SERIES_STM32F3XX) || defined(QMK_MCU_SERIES_STM32F4XX) || defined(QMK_MCU_SERIES_STM32G4XX) || defined(QMK_MCU_SERIES_STM32L0XX) || defined(QMK_MCU_SERIES_STM32L4XX) || defined(QMK_MCU_SERIES_GD32VF103)
+#    if defined(QMK_MCU_SERIES_STM32F0XX) || defined(QMK_MCU_SERIES_STM32F1XX) || defined(QMK_MCU_SERIES_STM32F3XX) || defined(QMK_MCU_SERIES_STM32F4XX) || defined(QMK_MCU_SERIES_STM32G4XX) || defined(QMK_MCU_SERIES_STM32L0XX) || defined(QMK_MCU_SERIES_STM32L4XX) || defined(QMK_MCU_SERIES_AT32F415) || defined(QMK_MCU_SERIES_GD32VF103)
     return ((*(uint32_t *)FLASHSIZE_BASE) & 0xFFFFU) << 10U; // this register has the flash size in kB, so we convert it to bytes
 #    elif defined(QMK_MCU_SERIES_STM32L1XX)
 #        error This MCU family has an uncommon flash size register definition and has not been implemented. Perhaps try using the true EEPROM on the MCU instead?

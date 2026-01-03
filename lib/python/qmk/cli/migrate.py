@@ -6,14 +6,14 @@ from dotty_dict import dotty
 
 from milc import cli
 
-from qmk.keyboard import keyboard_completer, keyboard_folder, resolve_keyboard
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.info import info_json, find_info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import json_load
 
 
 def _candidate_files(keyboard):
-    kb_dir = Path(resolve_keyboard(keyboard))
+    kb_dir = Path(keyboard)
 
     cur_dir = Path('keyboards')
     files = []

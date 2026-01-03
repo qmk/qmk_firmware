@@ -122,9 +122,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  Left hand                                                                                          Right hand
     XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,      XXXXXXX,      XXXXXXX,       XXXXXXX,     XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,
     KC_SLEP,    KC_BRID,    KC_BRIU,    XXXXXXX,    XXXXXXX,      XXXXXXX,      KC_EJCT,       XXXXXXX,     KC_MPRV,    KC_MPLY,    KC_MNXT,  KC_MUTE,    KC_VOLD,    KC_VOLU,
-    XXXXXXX,    XXXXXXX,    KC_BTN1,    KC_MS_U,    KC_BTN2,      KC_WH_U,      XXXXXXX,       XXXXXXX,     XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,
-    QK_BOOT,    XXXXXXX,    KC_MS_L,    KC_MS_D,    KC_MS_R,      KC_WH_D,      XXXXXXX,       XXXXXXX,     XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,
-    _______,    XXXXXXX,    KC_WH_L,    XXXXXXX,    KC_WH_R,      XXXXXXX,                                  DF(SYMB),   XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,
+    XXXXXXX,    XXXXXXX,    MS_BTN1,    MS_UP,      MS_BTN2,      MS_WHLU,      XXXXXXX,       XXXXXXX,     XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,
+    QK_BOOT,    XXXXXXX,    MS_LEFT,    MS_DOWN,    MS_RGHT,      MS_WHLD,      XXXXXXX,       XXXXXXX,     XXXXXXX,    XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,
+    _______,    XXXXXXX,    MS_WHLL,    XXXXXXX,    MS_WHLR,      XXXXXXX,                                  DF(SYMB),   XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,
     _______,    _______,    _______,    _______,    _______,                                                            _______,    _______,  XXXXXXX,    XXXXXXX,    DF(BASE),
                                                                        _______, _______,        _______, _______,
                                                                                 _______,        _______,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KBD67 Rev2",
     "manufacturer": "KBDfans",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B42",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

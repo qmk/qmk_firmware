@@ -16,7 +16,9 @@ static const pin_t backlight_pins[] = BACKLIGHT_PINS;
 #    define FOR_EACH_LED(x)                                 \
         for (uint8_t i = 0; i < BACKLIGHT_LED_COUNT; i++) { \
             pin_t backlight_pin = backlight_pins[i];        \
-            { x }                                           \
+            {                                               \
+                x                                           \
+            }                                               \
         }
 #else
 // we support only one backlight pin

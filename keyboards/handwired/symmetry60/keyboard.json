@@ -1,7 +1,6 @@
 {
   "Keyboard_name": "Symmetry60",
   "manufacturer": "Marhalloweenvt",
-  "url": "",
   "maintainer": "marhalloweenvt",
   "usb": {
     "vid": "0xFEED",
@@ -33,7 +32,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
     "console": true,
     "extrakey": true,
     "mousekey": true,

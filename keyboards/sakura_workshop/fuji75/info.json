@@ -1,6 +1,5 @@
 {
     "manufacturer": "SakuraWorkshop",
-    "url": "",
     "maintainer": "Freather",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

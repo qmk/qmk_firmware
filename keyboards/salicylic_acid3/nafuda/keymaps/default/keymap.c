@@ -33,9 +33,9 @@ LT(_ADJUST, KC_BSPC),          KC_UP,TG(_BROWSER),
   //|-------------------------------------------|
                           TG(_MOUSE),
   //|---------------+---------------+-----------|
-             KC_BTN1,        KC_MS_U,    KC_BTN2,
+             MS_BTN1,        MS_UP,      MS_BTN2,
   //|---------------+---------------+-----------|
-             KC_MS_L,        KC_MS_D,    KC_MS_R
+             MS_LEFT,        MS_DOWN,    MS_RGHT
   //|-------------------------------------------|
   ),
 
@@ -43,9 +43,9 @@ LT(_ADJUST, KC_BSPC),          KC_UP,TG(_BROWSER),
   //|-------------------------------------------|
                           LCTL(KC_W),
   //|---------------+---------------+-----------|
-    LCTL(LSFT(KC_T)),        KC_WH_U,TG(_BROWSER),
+    LCTL(LSFT(KC_T)),        MS_WHLU,TG(_BROWSER),
   //|---------------+---------------+-----------|
-  LCTL(LSFT(KC_TAB)),        KC_WH_D,LCTL(KC_TAB)
+  LCTL(LSFT(KC_TAB)),        MS_WHLD,LCTL(KC_TAB)
   //|-------------------------------------------|
   ),
 
