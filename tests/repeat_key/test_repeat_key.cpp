@@ -815,9 +815,7 @@ TEST_F(RepeatKey, RepeatKeyHeldAfterBoot) {
 
             std::_Exit(0);
         },
-        ::testing::ExitedWithCode(0),
-        ""
-    );
+        ::testing::ExitedWithCode(0), "");
 }
 
 } // namespace

@@ -29,16 +29,15 @@ static int8_t processing_repeat_count = 0;
 // the Repeat Key is pressed. To prevent stuck keys, it is important to
 // remember separately what key record was processed on press so that the
 // the corresponding record is generated on release.
-static keyrecord_t registered_record_repeat_key = {0};
+static keyrecord_t registered_record_repeat_key       = {0};
 static int8_t      registered_repeat_count_repeat_key = 0;
 
-
 void reset_repeat_key_state(void) {
-    last_record = (keyrecord_t){0};
-    last_mods = 0;
-    last_repeat_count = 0;
-    processing_repeat_count = 0;
-    registered_record_repeat_key = (keyrecord_t){0};
+    last_record                        = (keyrecord_t){0};
+    last_mods                          = 0;
+    last_repeat_count                  = 0;
+    processing_repeat_count            = 0;
+    registered_record_repeat_key       = (keyrecord_t){0};
     registered_repeat_count_repeat_key = 0;
 }
 
@@ -105,7 +104,7 @@ void repeat_key_invoke(const keyevent_t* event) {
     if (registered_repeat_count_repeat_key) {
         // Generate a keyrecord and plumb it into the event pipeline.
         registered_record_repeat_key.event = *event;
-        processing_repeat_count = registered_repeat_count_repeat_key;
+        processing_repeat_count            = registered_repeat_count_repeat_key;
         process_record(&registered_record_repeat_key);
         processing_repeat_count = 0;
 
