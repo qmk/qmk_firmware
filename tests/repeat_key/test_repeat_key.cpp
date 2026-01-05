@@ -54,6 +54,7 @@ class RepeatKey : public TestFixture {
     bool process_record_user_was_called_;
 
     void SetUp() override {
+        reset_repeat_key_state();
         autoshift_disable();
         process_record_user_fun    = process_record_user_default;
         remember_last_key_user_fun = remember_last_key_user_default;
@@ -786,36 +787,24 @@ TEST_F(RepeatKey, IgnoredKeys) {
 
 // Check that on fresh boot, repeat press, another key, repeat release doesn't hang
 TEST_F(RepeatKey, RepeatKeyHeldAfterBoot) {
-    EXPECT_EXIT(
-        {
-            TestDriver driver;
-            KeymapKey  key_a(0, 1, 0, KC_A);
-            KeymapKey  key_repeat(0, 2, 0, QK_REP);
-            set_keymap({key_a, key_repeat});
-            int process_record_call_count = 0;
+    TestDriver driver;
+    KeymapKey  key_a(0, 1, 0, KC_A);
+    KeymapKey  key_repeat(0, 2, 0, QK_REP);
+    set_keymap({key_a, key_repeat});
 
-            clear_all_keys();
-            clear_keyboard();
-            // Need to start with repeat key static data in fresh boot state
-            reset_repeat_key_state();
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
+    ExpectString(driver, "a");
 
-            EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
-            ExpectString(driver, "a");
-
-            // Press and hold repeat key, then press and release 'a' key, then release repeat key
-            key_repeat.press();
-            run_one_scan_loop();
-            key_a.press();
-            run_one_scan_loop();
-            key_a.release();
-            run_one_scan_loop();
-            key_repeat.release();
-            run_one_scan_loop();
-            testing::Mock::VerifyAndClearExpectations(&driver);
-
-            std::_Exit(0);
-        },
-        ::testing::ExitedWithCode(0), "");
+    // Press and hold repeat key, then press and release 'a' key, then release repeat key
+    key_repeat.press();
+    run_one_scan_loop();
+    key_a.press();
+    run_one_scan_loop();
+    key_a.release();
+    run_one_scan_loop();
+    key_repeat.release();
+    run_one_scan_loop();
+    testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
 } // namespace
