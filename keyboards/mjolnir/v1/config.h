@@ -1,4 +1,4 @@
-// Copyright 2024 QMK
+// Copyright 2026 QMK
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
