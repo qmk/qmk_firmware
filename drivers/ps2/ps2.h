@@ -41,6 +41,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "wait.h"
 #include "ps2_io.h"
 #include "print.h"
+#include "gpio.h"
 
 /*
  * Primitive PS/2 Library for AVR
@@ -83,6 +84,17 @@ POSSIBILITY OF SUCH DAMAGE.
 #define PS2_LED_CAPS_LOCK 2
 
 extern uint8_t ps2_error;
+
+#define PS2_POWER_ON_RESET_TIME 600
+
+static inline void ps2_host_power_on_reset(void) {
+#ifdef PS2_RESET_PIN
+    setPinOutput(PS2_RESET_PIN);
+    writePinHigh(PS2_RESET_PIN);
+    wait_ms(PS2_POWER_ON_RESET_TIME);
+    writePinLow(PS2_RESET_PIN);
+#endif
+}
 
 void    ps2_host_init(void);
 uint8_t ps2_host_send(uint8_t data);
