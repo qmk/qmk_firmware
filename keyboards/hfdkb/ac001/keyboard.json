@@ -21,6 +21,13 @@
             "multisplash": true
         },
         "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [0, 1], "x": 224, "y": 64, "flags": 4},
+            {"matrix": [0, 2], "x": 224, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 0, "y": 64, "flags": 4}
+        ],
         "react_on_keyup": true,
         "sleep": true
     },

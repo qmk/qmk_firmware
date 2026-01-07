@@ -386,7 +386,8 @@ void mousekey_task(void) {
 
 void mousekey_on(uint8_t code) {
 #    ifdef MK_KINETIC_SPEED
-    if (mouse_timer == 0) {
+    // Start kinetic timer when movement keycodes are pressed
+    if (mouse_timer == 0 && (IS_MOUSEKEY_MOVE(code) || IS_MOUSEKEY_WHEEL(code))) {
         mouse_timer = timer_read();
     }
 #    endif
@@ -501,7 +502,7 @@ void mousekey_off(uint8_t code) {
 
 enum { mkspd_unmod, mkspd_0, mkspd_1, mkspd_2, mkspd_COUNT };
 #    ifndef MK_MOMENTARY_ACCEL
-static uint8_t  mk_speed                 = mkspd_1;
+static uint8_t mk_speed = mkspd_1;
 #    else
 static uint8_t mk_speed      = mkspd_unmod;
 static uint8_t mkspd_DEFAULT = mkspd_unmod;

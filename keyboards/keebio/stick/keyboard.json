@@ -54,7 +54,21 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 20, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 40, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 60, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 80, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 100, "y": 0, "flags": 4},
+            {"matrix": [0, 6], "x": 120, "y": 0, "flags": 4},
+            {"matrix": [0, 7], "x": 140, "y": 0, "flags": 4},
+            {"matrix": [0, 8], "x": 160, "y": 0, "flags": 4},
+            {"matrix": [0, 9], "x": 180, "y": 0, "flags": 4},
+            {"matrix": [0, 10], "x": 200, "y": 0, "flags": 4},
+            {"matrix": [0, 11], "x": 220, "y": 0, "flags": 4}
+        ]
     },
     "encoder": {
         "rotary": [
