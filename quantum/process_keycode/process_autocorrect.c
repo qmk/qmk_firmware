@@ -309,7 +309,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
 
         if (code & 128) { // A typo was found! Apply autocorrect.
             const uint8_t backspaces = (code & 63) + !record->event.pressed;
-            const char *  changes    = (const char *)(autocorrect_data + state + 1);
+            const char   *changes    = (const char *)(autocorrect_data + state + 1);
 
             /* Gather info about the typo'd word
              *

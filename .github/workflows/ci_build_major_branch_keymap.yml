@@ -27,17 +27,15 @@ jobs:
       targets: ${{ steps.generate_targets.outputs.targets }}
 
     steps:
-      - name: Install prerequisites
-        run: |
-          apt-get update
-          apt-get install -y jq
-
       - name: Disable safe.directory check
         run: |
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: pip3 install -r requirements-dev.txt
 
       - name: Generate build targets
         id: generate_targets
@@ -62,7 +60,7 @@ jobs:
           echo "targets=$(jq -c 'keys' targets.json)" >> $GITHUB_OUTPUT
 
       - name: Upload targets json
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: targets-${{ inputs.keymap }}
           path: targets.json
@@ -79,20 +77,18 @@ jobs:
         target: ${{ fromJson(needs.generate_targets.outputs.targets) }}
 
     steps:
-      - name: Install prerequisites
-        run: |
-          apt-get update
-          apt-get install -y jq
-
       - name: Disable safe.directory check
         run: |
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: pip3 install -r requirements-dev.txt
 
       - name: Get target definitions
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           name: targets-${{ inputs.keymap }}
           path: .
@@ -109,10 +105,15 @@ jobs:
         continue-on-error: true
         run: |
           export NCPUS=$(( $(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null) -1 ))
-          qmk mass-compile -t -j $NCPUS -e DUMP_CI_METADATA=yes $(jq -r '.["${{ matrix.target }}"].targets' targets.json) || touch .failed
+          targets=$(jq -r '.["${{ matrix.target }}"].targets' targets.json | tr ' ' '\n' | sort)
+          if [ -z "${targets}" ]; then
+            echo "Zero build targets detected"
+            exit 0
+          fi
+          qmk mass-compile -t -j $NCPUS -e DUMP_CI_METADATA=yes $targets || touch .failed
 
       - name: Upload binaries
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: firmware-${{ inputs.keymap }}-${{ matrix.target }}
           if-no-files-found: ignore
@@ -136,17 +137,17 @@ jobs:
 
     steps:
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Download firmwares
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v7
         with:
           pattern: firmware-${{ inputs.keymap }}-*
           path: .
           merge-multiple: true
 
       - name: Upload all firmwares
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: firmware-${{ inputs.keymap }}
           if-no-files-found: ignore
