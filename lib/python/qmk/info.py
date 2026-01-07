@@ -211,6 +211,32 @@ def _validate_encoders(keyboard, info_data):
         _log_error(info_data, f'Layout "{layout_name}" contains {reason} encoder index {encoder_index}.')
 
 
+def _validate_bootmagic(keyboard, info_data):
+    """Non schema checks
+    """
+    # bootmagic matrix indexes must be in range
+    rows = info_data.get('matrix_size', {}).get('rows', 0)
+    cols = info_data.get('matrix_size', {}).get('cols', 0)
+
+    bootmagic_row, bootmagic_col = info_data.get('bootmagic', {}).get('matrix', [0, 0])
+    bootmagic_right_row, bootmagic_right_col = info_data.get('split', {}).get('bootmagic', {}).get('matrix', [rows // 2, cols - 1])
+
+    if not info_data.get('split', {}).get('enabled', False):
+        if bootmagic_row >= rows:
+            _log_error(info_data, f'Bootmagic row ({bootmagic_row}) must be in the range 0-{rows - 1}')
+        if bootmagic_col >= cols:
+            _log_error(info_data, f'Bootmagic col ({bootmagic_col}) must be in the range 0-{cols - 1}')
+    else:
+        if bootmagic_row >= rows // 2:
+            _log_error(info_data, f'Bootmagic left row ({bootmagic_row}) must be in the range 0-{rows // 2 - 1}')
+        if bootmagic_col >= cols:
+            _log_error(info_data, f'Bootmagic left col ({bootmagic_col}) must be in the range 0-{cols - 1}')
+        if bootmagic_right_row < rows // 2 or bootmagic_right_row >= rows:
+            _log_error(info_data, f'Bootmagic right row ({bootmagic_right_row}) must be in the range {rows // 2}-{rows - 1}')
+        if bootmagic_right_col >= cols:
+            _log_error(info_data, f'Bootmagic right col ({bootmagic_right_col}) must be in the range 0-{cols - 1}')
+
+
 def _validate(keyboard, info_data):
     """Perform various validation on the provided info.json data
     """
@@ -223,6 +249,7 @@ def _validate(keyboard, info_data):
         _validate_layouts(keyboard, info_data)
         _validate_keycodes(keyboard, info_data)
         _validate_encoders(keyboard, info_data)
+        _validate_bootmagic(keyboard, info_data)
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
