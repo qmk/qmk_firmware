@@ -395,11 +395,11 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
-#if defined(UNICODE_COMMON_ENABLE)
-            process_unicode_common(keycode, record) &&
-#endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
+#endif
+#if defined(UNICODE_COMMON_ENABLE)
+            process_unicode_common(keycode, record) &&
 #endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&
