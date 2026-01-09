@@ -1,7 +1,7 @@
 # Build Options
 #   change yes to no to disable
 #
-VIA_ENABLE = no            # VIA keyboard configurator support (disabled for custom Raw HID)
+VIA_ENABLE = yes           # VIA keyboard configurator support
 RAW_ENABLE = yes           # Raw HID for custom host communication
 ENCODER_ENABLE = yes       # Enable rotary encoder support
 LTO_ENABLE = yes           # Link Time Optimization (reduces firmware size)

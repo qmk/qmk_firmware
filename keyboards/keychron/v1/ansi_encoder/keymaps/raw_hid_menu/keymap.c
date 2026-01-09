@@ -35,7 +35,7 @@ enum layers{
 // ========================================
 
 // Device -> Host Event Types
-#define HID_EVT_MARKER      0x01
+#define HID_EVT_MARKER      0xFD
 #define EVT_ENCODER_CW      0x01
 #define EVT_ENCODER_CCW     0x02
 #define EVT_ENCODER_PRESS   0x03
@@ -44,7 +44,7 @@ enum layers{
 #define EVT_ENCODER_DOUBLE  0x06
 
 // Host -> Device Command Types
-#define HID_CMD_MARKER      0x02
+#define HID_CMD_MARKER      0xFE
 #define CMD_SET_MODE        0x10
 #define CMD_SET_COLOR       0x11
 
@@ -198,8 +198,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // RAW HID RECEIVE (Host -> Device Commands)
 // ========================================
 
-void raw_hid_receive(uint8_t *data, uint8_t length) {
+bool via_command_kb(uint8_t *data, uint8_t length) {
     // Check if this is our custom protocol (not VIA)
+    // We use 0xFE (HID_CMD_MARKER) to differentiate from VIA commands
     if (data[0] == HID_CMD_MARKER) {
         uint8_t sub_command = data[1];
         
@@ -214,8 +215,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                 current_color.b = data[4];
                 break;
         }
+        // Return true to indicate we handled this packet
+        // and VIA should not process it further
+        return true;
     }
-    // If not our protocol, let VIA handle it (if VIA is processing Raw HID)
+    
+    // Return false to let VIA process this packet
+    return false;
 }
 
 // ========================================
