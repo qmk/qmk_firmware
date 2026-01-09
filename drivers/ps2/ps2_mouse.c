@@ -101,8 +101,7 @@ void ps2_mouse_task(void) {
 #    endif
     } else {
         if (debug_mouse) print("ps2_mouse: fail to get mouse packet\n");
-        /* return here to avoid updating the mouse button state */
-        return;
+        /* do NOT returning here or it would cause #24455 #24599  */
     }
 #endif
 
