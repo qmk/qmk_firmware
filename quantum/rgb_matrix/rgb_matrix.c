@@ -153,7 +153,6 @@ __attribute__((weak)) int rgb_matrix_led_index(int index) {
         if (index_in_left_side) {
             return index;
         }
-
         return -1;
     }
 
