@@ -24,7 +24,7 @@ def git_get_version(repo_dir='.', check_dir='.'):
 
         else:
             cli.log.warning(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
-            print(git_describe.stderr)
+            cli.log.warning(git_describe.stderr)
             return None
 
     return None
@@ -116,6 +116,18 @@ def git_check_repo():
     dot_git_dir = QMK_FIRMWARE / '.git'
 
     return dot_git_dir.is_dir()
+
+
+def git_check_safe(repo_dir='.'):
+    """Checks if a directory passes the git safe.directory checks
+    """
+    if repo_dir != '.':
+        git_cmd = ['git', '-C', repo_dir, 'status']
+    else:
+        git_cmd = ['git', 'status']
+
+    status = cli.run(git_cmd)
+    return '--add safe.directory' not in status.stderr
 
 
 def git_check_deviation(active_branch):
