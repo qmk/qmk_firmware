@@ -121,6 +121,30 @@ This document provides automated review guidance based on the [QMK PR Checklist]
   - LED Indicator, RGB Light, RGB Matrix configs
 - **Format**: Run `qmk format-json -i` before submitting
 
+### USB VID/PID Uniqueness
+VID+PID combination must be unique across all keyboards. Individual VID or PID values can be reused with different partners.
+**Validation Steps:**
+1. Extract VID and PID from keyboard.json/info.json in the PR
+2. Search for existing usage: `grep -r '"vid".*"0xVVVV"' keyboards/ --include="*.json" | grep -l '"pid".*"0xPPPP"'`
+3. If results found: Check if BOTH VID AND PID match in same file
+   - Both match = **COLLISION** - request different PID
+   - Only one matches = **OK** - different keyboards can share individual values
+4. For keyboard variants/revisions: Each must have different PID under same VID
+**Quick Reference:**
+- Same PID + Different VID = Valid
+- Same VID + Different PID = Valid
+- Same VID + Same PID = Invalid
+**Review Response:**
+For collision:
+```
+VID+PID collision: 0xVVVV:0xPPPP already used by keyboards/[path]/file.json
++Please assign a different PID. VID can remain the same.
+```
+For uniqueness confirmed:
+```
+VID+PID validation: 0xVVVV:0xPPPP is unique (no collisions found)
+```
+
 ### readme.md Requirements
 - **Template**: Must follow [official template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
 - **Flash Command**: Present with `:flash` at end
