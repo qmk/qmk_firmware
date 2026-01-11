@@ -25,27 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FAST_TYPE_WPM 200 //Switch to fast animation when over words per minute
 #define ANIM_FRAME_TIME 45
 
-#define MOD_SCLN SFT_T(KC_SCLN)
-#define MOD_ENT LT(layer4, KC_ENT)
-#define MOD_TAB GUI_T(KC_TAB)
-#define ALT_TAB LALT(KC_TAB)
 #define PRNT_WIN LGUI(LSFT(KC_S))
 #define PRNT_UBU LCTL(KC_LBRC)
-#define GUI_L LGUI(KC_L)
 #define ALT_F4 RALT(KC_F4)
 #define SFT_TAB LSFT(KC_TAB)
 #define CS_C RCS(KC_C)
 #define CS_ESC RCS(KC_ESC)
-#define SFT_CPY RCS(KC_C)
-#define SFT_PST RCS(KC_V)
-#define CTRL_A C(KC_A)
-#define ALT_SPC ALT_T(KC_SPC)
-#define ALT_4 LALT(KC_4)
-#define ALT_5 LALT(KC_5)
-#define ALT_6 LALT(KC_6)
-#define ALT_SFL LALT(KC_LBRC)
-#define ALT_SFR LALT(KC_RBRC)
-#define ALT_PLU LALT(KC_EQL)
+#define SPC_2 LT(2, KC_SPC)
+#define ENT_KM1 LT(6, KC_ENT)
 
 enum layers {
     layer0,
@@ -56,7 +43,6 @@ enum layers {
     layer5,
     layer6,
     layer7,
-    layer8,
 };
 
 enum custom_keycodes {
@@ -86,8 +72,15 @@ enum custom_keycodes {
     F13_3,
     F13_2,
     F13_1,
+    F13_PM,
+    F13_PS,
     F13_SMIN,
     F13_SPLU,
+    F13_TMN,
+    F13_TF,
+    F13_RT,
+    REDO,
+    ENT_F13,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -95,11 +88,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_HOME,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,MOD_SCLN,  KC_END,
+      KC_LSFT,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,  KC_END,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_LCTL,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_LGUI,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,  KC_ENT,   MO(1),      MO(3),  KC_SPC, KC_RCTL
+                                          KC_LALT, ENT_KM1,   MO(1),      MO(3),   SPC_2, KC_RCTL
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -107,24 +100,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       [layer1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   MO(8),                      XXXXXXX,    KC_9,    KC_8,    KC_7, XXXXXXX, XXXXXXX,
+       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,   MO(8), XXXXXXX,                      KC_COMM,    KC_9,    KC_8,    KC_7, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, KC_LGUI, KC_LALT, KC_RCTL, KC_LSFT, XXXXXXX,                       KC_DOT,    KC_6,    KC_5,    KC_4,    KC_0, XXXXXXX,
+      XXXXXXX, KC_LGUI, KC_LALT, KC_RCTL, KC_LSFT, KC_MINS,                       KC_DOT,    KC_6,    KC_5,    KC_4, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   MO(6),                      XXXXXXX,    KC_3,    KC_2,    KC_1, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX,   MO(7),   MO(6), KC_SLSH,                         KC_0,    KC_3,    KC_2,    KC_1, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,  KC_ENT, _______,      MO(4),   MO(2), KC_RCTL
+                                          KC_LALT,  KC_ENT, _______,      MO(4), XXXXXXX, KC_RCTL
                                       //`--------------------------'  `--------------------------'
   ),
 
 
      [layer2] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   MO(8),                       KC_F12,   KC_F9,   KC_F8,   KC_F7, XXXXXXX, XXXXXXX,
+       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F12,   KC_F9,   KC_F8,   KC_F7, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_LGUI, KC_LALT, KC_RCTL, KC_LSFT, XXXXXXX,                       KC_F11,   KC_F6,   KC_F5,   KC_F4, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   MO(6),                       KC_F10,   KC_F3,   KC_F2,   KC_F1, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       KC_F10,   KC_F3,   KC_F2,   KC_F1, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT,  KC_ENT, _______,    _______, _______, KC_RCTL
                                       //`--------------------------'  `--------------------------'
@@ -133,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       [layer3] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     PRNT_UBU, KC_PGUP,   GUI_L,    CS_C, XXXXXXX, XXXXXXX,
+       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     PRNT_UBU, KC_PGUP, XXXXXXX,    CS_C, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_LGUI, KC_LALT, KC_RCTL, KC_LSFT, XXXXXXX,                      KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT, SFT_TAB, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
@@ -172,39 +165,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [layer6] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      F13_MIN, F13_ENT,   F13_I,   F13_Q, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX,F13_SMIN,F13_SPLU, XXXXXXX,                       F13_PM, F13_SFL, F13_SFR,   F13_Q, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        F13_H,   F13_J,   F13_K,   F13_L, F13_UNS, XXXXXXX,
+      XXXXXXX,  F13_TF, XXXXXXX,   MO(7), KC_LSFT, F13_TMN,                        F13_H,   F13_J,   F13_K,   F13_L,   F13_I, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      F13_PLU, F13_SFL, F13_SFR, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, F13_MIN, F13_PLU, XXXXXXX,                        F13_4,   F13_3,   F13_2,   F13_1,  F13_PS, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,  KC_ENT, _______,      MO(7), KC_LSFT, KC_RCTL
+                                          KC_LALT, _______, _______,    F13_UNS,  F13_RT, KC_RCTL
                                       //`--------------------------'  `--------------------------'
   ),
 
 
     [layer7] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     F13_SMIN,   F13_X,   F13_Y, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, F13_SFL, F13_SFR, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      F13_LFT, F13_DWN,  F13_UP, F13_RGT, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                     F13_SPLU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,   F13_X,   F13_Y, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,  KC_ENT, _______,    _______, KC_LSFT, KC_RCTL
-                                      //`--------------------------'  `--------------------------'
-  ),
-
-
-    [layer8] = LAYOUT_split_3x6_3(
-  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        F13_8,   F13_7,   F13_6,   F13_5, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        F13_4,   F13_3,   F13_2,   F13_1, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LALT,  KC_ENT, _______,    _______,  KC_LSFT, KC_RCTL
+                                          XXXXXXX, XXXXXXX, XXXXXXX,    F13_UNS,  F13_RT, KC_RCTL
                                       //`--------------------------'  `--------------------------'
   )
 };
@@ -212,30 +192,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // combos
 const uint16_t PROGMEM esc_combo[] = {KC_D, KC_F, COMBO_END};
 const uint16_t PROGMEM back_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM back2_combo[] = {KC_F5, KC_F6, COMBO_END};
 const uint16_t PROGMEM copy_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM paste_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cut_combo[] = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM ent_combo[] = {KC_L, KC_K, COMBO_END};
 const uint16_t PROGMEM undo_combo[] = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM gui_combo[] = {KC_Z, KC_X, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM del2_combo[] = {KC_F2, KC_F3, COMBO_END};
-const uint16_t PROGMEM select_all_combo[] = {KC_F5, KC_F6, COMBO_END};
+const uint16_t PROGMEM righ_alt[] = {KC_DOT, KC_SLASH, COMBO_END};
+const uint16_t PROGMEM right_sft[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM spc_combo[] = {KC_S, KC_F, COMBO_END};
 
 combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
     COMBO(back_combo, KC_BSPC),
-    COMBO(back2_combo, KC_BSPC),
-    COMBO(copy_combo, KC_COPY),
-    COMBO(cut_combo, KC_CUT),
-    COMBO(paste_combo, KC_PASTE),
+    COMBO(copy_combo, LCTL(KC_C)),
+    COMBO(cut_combo, LCTL(KC_X)),
+    COMBO(paste_combo, LCTL(KC_V)),
     COMBO(ent_combo, KC_ENT),
-    COMBO(undo_combo, KC_UNDO),
-    COMBO(gui_combo, KC_LGUI),
+    COMBO(undo_combo, LCTL(KC_Z)),
     COMBO(del_combo, KC_DEL),
-    COMBO(del2_combo, KC_DEL),
-    COMBO(select_all_combo, CTRL_A),
+    COMBO(righ_alt, KC_RALT),
+    COMBO(right_sft, KC_RSFT),
+    COMBO(spc_combo, KC_SPC),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -245,59 +223,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 
     switch (keycode) {
-        case KC_COPY:
+        case REDO:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_LCTL);
-                register_code(KC_C);
-            } else {
-                unregister_code(KC_C);
-                unregister_code(KC_LCTL);
-            }
-            return false; // Skip further processing of KC_COPY
-        case KC_CUT:
-            if (record->event.pressed) {
-                // Send Ctrl + C
-                register_code(KC_LCTL);
-                register_code(KC_X);
-            } else {
-                unregister_code(KC_X);
-                unregister_code(KC_LCTL);
-            }
-            return false;
-        case KC_PASTE:
-            if (record->event.pressed) {
-                // Send Ctrl + C
-                register_code(KC_LCTL);
-                register_code(KC_V);
-            } else {
-                unregister_code(KC_V);
-                unregister_code(KC_LCTL);
-            }
-            return false; // Skip further processing of KC_COPY
-        case KC_FIND:
-            if (record->event.pressed) {
-                // Send Ctrl + C
-                register_code(KC_LCTL);
-                register_code(KC_F);
-            } else {
-                unregister_code(KC_F);
-                unregister_code(KC_LCTL);
-            }
-            return false; // Skip further processing of KC_COPY
-        case KC_UNDO:
-            if (record->event.pressed) {
-                // Send Ctrl + C
-                register_code(KC_LCTL);
+                register_code(KC_LSFT);
                 register_code(KC_Z);
             } else {
                 unregister_code(KC_Z);
+                unregister_code(KC_LSFT);
                 unregister_code(KC_LCTL);
             }
-            return false; // Skip further processing of KC_COPY
+            return false;
         case F13_L:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_L);
             } else {
@@ -307,7 +245,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_UNS:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_SCLN);
             } else {
@@ -317,7 +254,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_K:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_K);
             } else {
@@ -327,7 +263,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_J:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_J);
             } else {
@@ -337,7 +272,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_H:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_H);
             } else {
@@ -347,7 +281,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_I:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_I);
             } else {
@@ -357,7 +290,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_Q:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_Q);
             } else {
@@ -367,7 +299,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_MIN:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_MINS);
             } else {
@@ -378,15 +309,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case F13_PLU:
           if (record->event.pressed) {
               register_code(KC_F13);
-              register_code16(KC_PLUS);
+              register_code16(KC_EQL);
           } else {
               unregister_code16(KC_PLUS);
-              unregister_code(KC_F13);
+              unregister_code(KC_EQL);
           }
           return false;
         case F13_SFL:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_LBRC);
             } else {
@@ -396,7 +326,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_SFR:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_RBRC);
             } else {
@@ -406,7 +335,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_X:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_X);
             } else {
@@ -416,7 +345,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_Y:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_Y);
             } else {
@@ -426,7 +355,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_LFT:
             if (record->event.pressed) {
-                // Send Ctrl + C
                 register_code(KC_F13);
                 register_code(KC_LEFT);
             } else {
@@ -436,7 +364,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_DWN:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_DOWN);
             } else {
@@ -446,7 +374,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_UP:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_UP);
             } else {
@@ -456,7 +384,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_RGT:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_RIGHT);
             } else {
@@ -466,7 +394,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_8:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_8);
             } else {
@@ -476,7 +404,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_7:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_7);
             } else {
@@ -486,7 +414,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_6:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_6);
             } else {
@@ -496,7 +424,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_5:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_5);
             } else {
@@ -506,7 +434,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_4:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_4);
             } else {
@@ -516,7 +444,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_3:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_3);
             } else {
@@ -526,7 +454,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_2:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_2);
             } else {
@@ -536,7 +464,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_1:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_1);
             } else {
@@ -546,7 +474,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case F13_ENT:
             if (record->event.pressed) {
-                // Send Ctrl + C
+
                 register_code(KC_F13);
                 register_code(KC_ENT);
             } else {
@@ -568,18 +496,69 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case F13_SPLU:
             if (record->event.pressed) {
                 register_code(KC_F13);
-                register_code(KC_LSFT);
                 register_code16(KC_PLUS);
             } else {
                 unregister_code16(KC_PLUS);
+                unregister_code(KC_F13);
+            }
+            return false;
+        case F13_PM:
+            if (record->event.pressed) {
+                register_code(KC_F13);
+                register_code(KC_LSFT);
+                register_code(KC_ENT);
+            } else {
+                unregister_code(KC_ENT);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_F13);
+            }
+            return false;
+        case F13_PS:
+            if (record->event.pressed) {
+                register_code(KC_F13);
+                register_code(KC_P);
+            } else {
+                unregister_code(KC_P);
+                unregister_code(KC_F13);
+            }
+            return false;
+        case F13_TMN:
+            if (record->event.pressed) {
+                register_code(KC_F13);
+                register_code(KC_LSFT);
+                register_code(KC_F);
+            } else {
+                unregister_code(KC_F);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_F13);
+            }
+            return false;
+        case F13_TF:
+            if (record->event.pressed) {
+                register_code(KC_F13);
+                register_code(KC_LSFT);
+                register_code(KC_T);
+            } else {
+                unregister_code(KC_T);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_F13);
+            }
+            return false;
+          case F13_RT:
+            if (record->event.pressed) {
+                register_code(KC_F13);
+                register_code(KC_LSFT);
+                register_code(KC_R);
+            } else {
+                unregister_code(KC_R);
                 unregister_code(KC_LSFT);
                 unregister_code(KC_F13);
             }
             return false;
     }
+
     return true;
 }
-
 
 #ifdef OLED_ENABLE
 #include "ame.c"
@@ -593,14 +572,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_user() {
-//   static const char PROGMEM imageL[] = {
-//     // 'amelia', 32x128px
-// 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,192,224,240, 56,220,252,248,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,224,224, 96,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-// 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 32, 48,112,112, 48, 48, 48,176,240,240,120, 60, 63, 55, 51, 49,240,252,255, 63, 49, 48,112,240,224,192,  0,128,224,240,240,240, 32,128,192,192,192,  0,  0,  0,  0,128,192,192,192,128,  0,192,248,255, 63,  7,  0,  0,216,222, 31,  6,  0,  0,  0,128,192,192,192,192,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-// 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,224,240,124, 62, 15,  7,  3,  0,  0,  0,  0,192,248,255, 63,  7,  0,  0,  0, 48,126,127, 63, 28,  6, 11, 63, 63, 31, 12,  7, 11, 31, 63, 51, 24, 12, 30, 63, 55, 55, 55, 27, 12, 30, 63,127, 99, 48, 24, 12, 31, 63, 63, 48, 24, 28, 62, 63, 27, 13, 15, 63, 63, 49, 24, 12,  6,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-// 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 32,120,126, 31,  7,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4, 31, 31,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-//   };
-
   static const char PROGMEM imageR[]  = {
     // 'watson', 32x128px
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,192,248,248,112,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,128,224,248,254, 62, 14,128,128,128,128,128,128,128,128,128,192,240,240,160,128,128,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -610,12 +581,8 @@ bool oled_task_user() {
   };
 
   if (!is_keyboard_master()) {
-    // oled_write_raw_P(imageR, sizeof(imageR));
     oled_write_raw_P(imageR, sizeof(imageR));
-    // oled_scroll_left();
   } else {
-    // oled_write_raw_P(imageL, sizeof(imageL));
-    // oled_write_raw_P(imageL, sizeof(imageL));
     oled_render_anim();
   }
   return false;
