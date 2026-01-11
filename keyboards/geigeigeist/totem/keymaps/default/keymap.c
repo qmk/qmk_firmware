@@ -18,14 +18,6 @@ enum totem_layers { ALP, NUM, FUN, NAV };
 #define _KC_BSPC LT(NUM, KC_BSPC)
 #define _KC_DEL LT(FUN, KC_DEL)
 
-const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM = LAYOUT(
-                   'L',       'L',       'L',       'L',       'L',                   'R',       'R',       'R',       'R',       'R',
-                   'L',       'L',       'L',       'L',       'L',                   'R',       'R',       'R',       'R',       'R',
-        'L',       'L',       'L',       'L',       'L',       'L',                   'R',       'R',       'R',       'R',       'R',       'R',
-                                         '*',       '*',       '*',                   '*',       '*',       '*'
-);
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [ALP] = LAYOUT(
                    KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,                  KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,
