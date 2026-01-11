@@ -5,6 +5,7 @@
         "0x7200": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_ON",
+            "label": "Sequencer On",
             "aliases": [
                 "SQ_ON"
             ]
@@ -12,6 +13,7 @@
         "0x7201": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_OFF",
+            "label": "Sequencer Off",
             "aliases": [
                 "SQ_OFF"
             ]
@@ -19,6 +21,7 @@
         "0x7202": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_TOGGLE",
+            "label": "Toggle Sequencer",
             "aliases": [
                 "SQ_TOGG"
             ]
@@ -26,6 +29,7 @@
         "0x7203": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_TEMPO_DOWN",
+            "label": "Tempo Down",
             "aliases": [
                 "SQ_TMPD"
             ]
@@ -33,6 +37,7 @@
         "0x7204": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_TEMPO_UP",
+            "label": "Tempo Up",
             "aliases": [
                 "SQ_TMPU"
             ]
@@ -40,6 +45,7 @@
         "0x7205": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_RESOLUTION_DOWN",
+            "label": "Resolution Down",
             "aliases": [
                 "SQ_RESD"
             ]
@@ -47,6 +53,7 @@
         "0x7206": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_RESOLUTION_UP",
+            "label": "Resolution Up",
             "aliases": [
                 "SQ_RESU"
             ]
@@ -54,6 +61,7 @@
         "0x7207": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_STEPS_ALL",
+            "label": "All Steps",
             "aliases": [
                 "SQ_SALL"
             ]
@@ -61,6 +69,7 @@
         "0x7208": {
             "group": "sequencer",
             "key": "QK_SEQUENCER_STEPS_CLEAR",
+            "label": "Clear Steps",
             "aliases": [
                 "SQ_SCLR"
             ]
