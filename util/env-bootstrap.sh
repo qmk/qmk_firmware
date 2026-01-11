@@ -230,7 +230,7 @@ __EOT__
             *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils wget unzip zip libhidapi-hidraw0 dos2unix git" ;;
             *fedora*) echo "zstd clang diffutils which gcc git wget unzip zip hidapi dos2unix libusb-devel libusb1-devel libusb-compat-0.1-devel libusb0-devel git epel-release" ;;
             *suse*) echo "zstd clang diffutils wget unzip zip libhidapi-hidraw0 dos2unix git libusb-1_0-devel gzip which" ;;
-            *gentoo*) echo "zstd diffutils wget unzip zip dev-libs/hidapi dos2unix dev-vcs/git dev-libs/libusb app-arch/gzip which" ;;
+            *gentoo*) echo "zstd sys-apps/diffutils wget unzip zip dev-libs/hidapi dos2unix dev-vcs/git dev-libs/libusb app-arch/gzip which" ;;
             *)
                 echo >&2
                 echo "Sorry, we don't recognize your distribution." >&2
