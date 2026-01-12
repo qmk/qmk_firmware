@@ -18,7 +18,7 @@
 
 void keyboard_post_init_kb(void) {
     led_update_kb(host_keyboard_led_state());
-
+    rgblight_set_effect_range(0, 33);
     keyboard_post_init_user();
 }
 
@@ -29,8 +29,8 @@ bool led_update_kb(led_t led_state) {
         uint8_t s = rgblight_get_sat();
         uint8_t v = rgblight_get_val();
 
-        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 35) : rgblight_sethsv_at(HSV_OFF, 36); 
-        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 36) : rgblight_sethsv_at(HSV_OFF, 35); 
+        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 34) : rgblight_sethsv_at(HSV_OFF, 34); 
+        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 35) : rgblight_sethsv_at(HSV_OFF, 35); 
     }   
     return res;
 }
