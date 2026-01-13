@@ -30,6 +30,7 @@
     },
     "rgb_matrix": {
         "max_brightness": 180,
+        "driver": "ws2812",
         "sleep": true,
         "animations": {
             "gradient_left_right": true,
