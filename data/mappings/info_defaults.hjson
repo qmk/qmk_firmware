@@ -11,6 +11,9 @@
         "on_state": 1
     },
     "debounce": 5,
+    "dynamic_keymap": {
+        "layer_count": 4
+    },
     "features": {
         "command": false,
         "console": false
