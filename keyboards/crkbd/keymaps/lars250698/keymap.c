@@ -13,52 +13,36 @@ enum custom_keycodes {
 };
 
 // Left-hand home row mods
-#define HOME_GRV RALT_T(KC_GRV)
-#define HOME_A LGUI_T(KC_A)
-#define HOME_R LALT_T(KC_R)
-#define HOME_S LSFT_T(KC_S)
-#define HOME_T LCTL_T(KC_T)
-#define HOME_G HYPR_T(KC_G)
+#define HM_A LGUI_T(KC_A)
+#define HM_R LALT_T(KC_R)
+#define HM_S LSFT_T(KC_S)
+#define HM_T LCTL_T(KC_T)
 
 // Right-hand home row mods
-#define HOME_M HYPR_T(KC_M)
-#define HOME_N RCTL_T(KC_N)
-#define HOME_E LSFT_T(KC_E)
-#define HOME_I LALT_T(KC_I)
-#define HOME_O RGUI_T(KC_O)
-#define HOME_QUOT RALT_T(KC_QUOT)
+#define HM_N RCTL_T(KC_N)
+#define HM_E LSFT_T(KC_E)
+#define HM_I LALT_T(KC_I)
+#define HM_O RGUI_T(KC_O)
 
 // Right-hand home row mods layer 1
-#define HOME_LEFT HYPR_T(KC_LEFT)
-#define HOME_DOWN RCTL_T(KC_DOWN)
-#define HOME_UP LSFT_T(KC_UP)
-#define HOME_RIGHT LALT_T(KC_RIGHT)
-
-// Left-hand home row mods layer 2
-#define HOME_1 LGUI_T(KC_1)
-#define HOME_2 LALT_T(KC_2)
-#define HOME_3 LSFT_T(KC_3)
-#define HOME_4 LCTL_T(KC_4)
-#define HOME_5 HYPR_T(KC_5)
+#define HM_DOWN RCTL_T(KC_DOWN)
+#define HM_UP LSFT_T(KC_UP)
+#define HM_RIGHT LALT_T(KC_RIGHT)
 
 // Right-hand home row mods layer 2
-#define HOME_MINS HYPR_T(KC_MINS)
-#define HOME_EQL RCTL_T(KC_EQL)
-#define HOME_LBRC LSFT_T(KC_LBRC)
-#define HOME_RBRC LALT_T(KC_RBRC)
-#define HOME_BSLS RGUI_T(KC_BSLS)
+#define HM_MINS RCTL_T(KC_MINS)
+#define HM_EQL LSFT_T(KC_EQL)
+#define HM_BSLS LALT_T(KC_BSLS)
 
-// Left-hand home row mods layer 2
-// #define HOME_1 LGUI_T(KC_1)
-#define HOME_MUTE LALT_T(KC_MUTE)
-#define HOME_VOLD LSFT_T(KC_VOLD)
-#define HOME_VOLU LCTL_T(KC_VOLU)
+// Left-hand home row mods layer 3
+#define HM_MUTE LALT_T(KC_MUTE)
+#define HM_VOLD LSFT_T(KC_VOLD)
+#define HM_VOLU LCTL_T(KC_VOLU)
 
-// Right-hand home row mods layer 2
-#define HOME_MPRV RCTL_T(KC_MPRV)
-#define HOME_MPLY LSFT_T(KC_MPLY)
-#define HOME_MNXT LALT_T(KC_MNXT)
-// #define HOME_BSLS RGUI_T(KC_BSLS)
+// Right-hand home row mods layer 3
+#define HM_MPRV RCTL_T(KC_MPRV)
+#define HM_MPLY LSFT_T(KC_MPLY)
+#define HM_MNXT LALT_T(KC_MNXT)
 
 // One-shot modifiers
 #define OSM_RALT OSM(MOD_RALT)
@@ -66,8 +50,10 @@ enum custom_keycodes {
 
 // Space and enter
 #define LT_ENT LT(1,KC_ENT)
-#define LT_RALT LT(1, OSM_RALT)
 #define LT_TAB LT(2,KC_TAB)
+
+// Extras
+#define TM_MUTE LGUI(LSFT(KC_M))
 
 enum combo_events {
     AE_COMBO,
@@ -76,10 +62,10 @@ enum combo_events {
     SS_COMBO
 };
 
-const uint16_t PROGMEM combo_ae_seq[] = {HOME_R, HOME_S, COMBO_END}; // A+R = Ä
-const uint16_t PROGMEM combo_oe_seq[] = {HOME_E, HOME_I, COMBO_END}; // I+O = Ö
+const uint16_t PROGMEM combo_ae_seq[] = {HM_R, HM_S, COMBO_END}; // A+R = Ä
+const uint16_t PROGMEM combo_oe_seq[] = {HM_E, HM_I, COMBO_END}; // I+O = Ö
 const uint16_t PROGMEM combo_ue_seq[] = {KC_U,   KC_Y,   COMBO_END}; // L+U = Ü
-const uint16_t PROGMEM combo_ss_seq[] = {HOME_S, HOME_T, COMBO_END}; // S+T = ß
+const uint16_t PROGMEM combo_ss_seq[] = {HM_S, HM_T, COMBO_END}; // S+T = ß
 
 combo_t key_combos[] = {
     [AE_COMBO] = COMBO(combo_ae_seq, DE_AE),
@@ -90,28 +76,28 @@ combo_t key_combos[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3_ex2(
-        KC_LBRC, KC_Q,   KC_W,     KC_F,     KC_P,   KC_B,   KC_DEL,   KC_SLEP,  KC_J,    KC_L,     KC_U,    KC_Y,    KC_SCLN, KC_RBRC,
-        KC_GRV,  HOME_A, HOME_R,   HOME_S,   HOME_T, KC_G,   KC_LSFT,  KC_RALT,  KC_M,    HOME_N,   HOME_E,  HOME_I,  HOME_O,  KC_QUOT,
-        KC_LPRN, KC_Z,   KC_X,     KC_C,     KC_D,   KC_V,                       KC_K,    KC_H,     KC_COMM, KC_DOT,  KC_SLSH, KC_RPRN,
-                                   KC_ESC,   KC_SPC, LT_TAB,                     LT_ENT,  OSM_LSFT, KC_BSPC
+        KC_LBRC, KC_Q, KC_W, KC_F,   KC_P,   KC_B,   KC_DEL,   KC_SLEP,  KC_J,   KC_L,     KC_U,    KC_Y,   KC_SCLN, KC_RBRC,
+        KC_GRV,  HM_A, HM_R, HM_S,   HM_T,   KC_G,   KC_LSFT,  KC_RALT,  KC_M,   HM_N,     HM_E,    HM_I,   HM_O,    KC_QUOT,
+        KC_LPRN, KC_Z, KC_X, KC_C,   KC_D,   KC_V,                       KC_K,   KC_H,     KC_COMM, KC_DOT, KC_SLSH, KC_RPRN,
+                             KC_ESC, KC_SPC, LT_TAB,                     LT_ENT, OSM_LSFT, KC_BSPC
     ),
     [1] = LAYOUT_split_3x6_3_ex2(
-        KC_NO, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_NO,    KC_PGUP, KC_6,      KC_7,      KC_8,    KC_9,       KC_0,    KC_NO,
-        KC_NO, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO,   KC_NO,    KC_PGDN, KC_LEFT,   HOME_DOWN, HOME_UP, HOME_RIGHT, KC_RGUI, KC_NO,
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                      KC_NO,     KC_NO,     KC_COMM, KC_DOT,     KC_NO,   KC_NO,
-                                 KC_TRNS, KC_TRNS, MO(3),                      KC_TRNS,   KC_TRNS,   KC_TRNS
+        KC_NO, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_NO, KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_NO,
+        KC_NO, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO, KC_NO, KC_PGDN, KC_LEFT, HM_DOWN, HM_UP,   HM_RIGHT, KC_RGUI, KC_NO,
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                 KC_NO,   KC_NO,   KC_COMM, KC_DOT,   KC_NO,   KC_NO,
+                                 KC_TRNS, KC_TRNS, MO(3),                 KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [2] = LAYOUT_split_3x6_3_ex2(
-        DE_PARA, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO,    KC_NO, KC_CIRC,   KC_AMPR,  KC_ASTR,   KC_LPRN,   KC_RPRN,   DE_EURO,
-        KC_NO,   KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO,   KC_NO,    KC_NO, KC_MINS,   HOME_EQL, HOME_LBRC, HOME_RBRC, HOME_BSLS, KC_GRV,
-        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                    KC_UNDS,   KC_PLUS,  KC_LCBR,   KC_RCBR,   KC_PIPE,   KC_TILD,
-                                   KC_TRNS, KC_TRNS, KC_TRNS,                  MO(3),     KC_TRNS,  KC_TRNS
+        KC_NO, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO, KC_NO, KC_CIRC, KC_AMPR, KC_ASTR, DE_PARA, DE_EURO, KC_NO,
+        KC_NO, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO,   KC_NO, KC_NO, KC_NO,   HM_MINS, HM_EQL,  HM_BSLS, KC_RGUI, KC_NO,
+        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                 KC_NO,   KC_UNDS, KC_PLUS, KC_PIPE, KC_NO,   KC_NO,
+                                 KC_TRNS, KC_TRNS, KC_TRNS,               MO(3),   KC_TRNS, KC_TRNS
     ),
     [3] = LAYOUT_split_3x6_3_ex2(
-        KC_F1,   KC_F2,   KC_F3,     KC_F4,     KC_F5,     KC_F6, KC_NO,    QK_BOOT, KC_F7,   KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,
-        RGB_VAI, KC_LGUI, HOME_MUTE, HOME_VOLD, HOME_VOLU, KC_NO, KC_TRNS,  KC_TRNS, KC_NO,   HOME_MPRV, HOME_MPLY, HOME_MNXT, KC_RGUI, KC_NO,
-        RGB_VAD, RGB_MOD, RGB_TOG,   KC_NO,     KC_NO,     KC_NO,                    KC_NO,   KC_NO,     KC_NO,     KC_NO,     KC_NO,   KC_NO,
-                                     KC_NO,     KC_NO,     KC_TRNS,                  KC_TRNS, KC_NO,     KC_NO
+        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, KC_NO, QK_BOOT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+        KC_NO,   KC_LGUI, HM_MUTE, HM_VOLD, HM_VOLU, KC_NO, KC_NO, KC_NO,   KC_NO,   HM_MPRV, HM_MPLY, HM_MNXT, KC_RGUI, KC_NO,
+        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                 KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                                   KC_NO,   KC_NO,   KC_TRNS,               KC_TRNS, KC_NO,   KC_NO
     ),
 };
 
@@ -126,11 +112,11 @@ const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
 #ifdef COMBO_TERM_PER_COMBO
 uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
     switch (combo_index) {
-        case AE_COMBO:
-        case OE_COMBO:
         case UE_COMBO:
         case SS_COMBO:
-            return 30;
+        case OE_COMBO:
+        case AE_COMBO:
+            return 20;
     }
 
     return COMBO_TERM;
