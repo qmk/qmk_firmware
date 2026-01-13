@@ -23,6 +23,11 @@
 #include "action_layer.h"
 #include "matrix.h"
 
+// Allow rule_lighting to set buffer size before defaults
+#if defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD)
+#    include "rule_lighting.h"
+#endif
+
 #ifndef RPC_M2S_BUFFER_SIZE
 #    define RPC_M2S_BUFFER_SIZE 32
 #endif // RPC_M2S_BUFFER_SIZE
@@ -132,7 +137,7 @@ typedef struct _split_slave_activity_sync_t {
 } split_slave_activity_sync_t;
 #endif // defined(SPLIT_ACTIVITY_ENABLE)
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER) || (defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD))
 typedef struct _rpc_sync_info_t {
     uint8_t checksum;
     struct {
@@ -141,7 +146,7 @@ typedef struct _rpc_sync_info_t {
         uint8_t s2m_length;
     } payload;
 } rpc_sync_info_t;
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER) || (defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD))
 
 #if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 #    include "os_detection.h"
@@ -222,11 +227,11 @@ typedef struct _split_shared_memory_t {
     split_slave_activity_sync_t activity_sync;
 #endif // defined(SPLIT_ACTIVITY_ENABLE)
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER) || (defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD))
     rpc_sync_info_t rpc_info;
     uint8_t         rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];
     uint8_t         rpc_s2m_buffer[RPC_S2M_BUFFER_SIZE];
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER) || (defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD))
 
 #if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
     os_variant_t detected_os;

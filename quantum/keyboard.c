@@ -61,6 +61,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif
+#if defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD)
+#    include "rule_lighting.h"
+#endif
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
 #endif
@@ -530,6 +533,9 @@ void keyboard_init(void) {
 #endif
 #ifdef SPLIT_KEYBOARD
     split_post_init();
+#endif
+#if defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD) && defined(DYNAMIC_KEYMAP_ENABLE)
+    rule_lighting_post_init();
 #endif
 #ifdef POINTING_DEVICE_ENABLE
     // init after split init
