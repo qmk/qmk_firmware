@@ -15,7 +15,7 @@
     "url": "https://github.com/morningstar1/pttbutton",
     "usb": {
         "device_version": "1.0.0",
-        "vid": "0xFEED",
+        "vid": "0x736D",
         "pid": "0xAFFE"
     },
     "layouts": {
