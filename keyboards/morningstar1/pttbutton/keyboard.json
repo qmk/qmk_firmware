@@ -1,0 +1,28 @@
+{
+    "manufacturer": "Sebastian Morgenstern",
+    "keyboard_name": "pttbutton",
+    "maintainer": "morningstar1",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "extrakey": true
+    },
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["A0"]
+    },
+    "processor": "STM32F042",
+    "url": "https://github.com/morningstar1/pttbutton",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0xFEED",
+        "pid": "0xAFFE"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0}
+            ]
+        }
+    }
+}
