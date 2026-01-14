@@ -205,12 +205,12 @@ VID+PID validation: 0xVVVV:0xPPPP is unique (no collisions found)
 
 - **Pristine Requirement**: Bare minimum clean slate
   - No custom keycodes
-  - No advanced features (tap dance, macros)
+  - No advanced features (non-exhaustive list of examples: tap dance, macros)
   - Basic mod taps and home row mods acceptable when necessary
   - Standard layouts preferred
 - **Removed Examples**: Delete `QMKBEST`/`QMKURL` macros
 - **Tri Layer**: Use Tri Layer feature instead of manual `layer_on/off()` + `update_tri_layer()`
-- **Encoder Map**: Use encoder map feature, not `encoder_update_user()`
+- **Encoder Map**: Use encoder map feature, `encoder_update_user()` may not be present
 - **No VIA**: Default keymap should not enable VIA
 - **Additional Keymaps**: Example/bells-and-whistles keymaps acceptable in same PR (separate from default)
 
@@ -219,11 +219,13 @@ VID+PID validation: 0xVVVV:0xPPPP is unique (no collisions found)
 - **No KLE JSON**: Not used within QMK
 - **No Cross-Keyboard Sources**: Don't include files from other keyboard vendors
   - Exception: Core files (e.g., `drivers/sensors/pmw3360.c`)
-  - Vendor-specific code (e.g., `wilba_tech/wt_main.c`) only in vendor folders
-  - Multi-board code is candidate for core refactoring
+  - Use of vendor-specific code (e.g., `wilba_tech/wt_main.c`) only when keyboard exists in the same enclosing vendor folder (e.g. a `wilba_tech` keyboard)
+  - Multi-board code is candidate for core refactoring when intended for use by multiple vendors
 
 ### Wireless Keyboards
-- **Policy**: Wireless/Bluetooth PRs rejected without wireless code
+- **Policy**: Wireless/Bluetooth PRs rejected without complete wireless code
+  - Wireless code may not include anything resembling precompiled data such as `*.a` files or other libraries
+  - Firmware blobs are not permitted in raw form or as compiled C-style arrays either.
   - GPL2+ license requires full source disclosure
   - Historically abused for VIA compatibility without releasing sources
   - PRs without wireless capability will be held indefinitely
@@ -238,8 +240,8 @@ VID+PID validation: 0xVVVV:0xPPPP is unique (no collisions found)
   - Must NOT be embedded in keyboard PR
   - Submit as separate Core PR
   - `board.c` must have standard `__early_init()` and empty `boardInit()`
-  - Migrate `__early_init()` → `early_hardware_init_pre/post()`
-  - Migrate `boardInit()` → `board_init()`
+  	- Migrate code intended for `__early_init()` → keyboard-local `early_hardware_init_pre/post()`
+    - Migrate code intended for `boardInit()` → keyboard-local `board_init()`
 
 ---
 
@@ -274,14 +276,15 @@ VID+PID validation: 0xVVVV:0xPPPP is unique (no collisions found)
 When reviewing PRs, check the following systematically:
 
 ### File Changes Review
-1. **License headers** on all C/H files (GPL2+ preferred, SPDX acceptable)
+1. **License headers** on all C/H files (GPL2+ preferred, others must be GPL2+ compatible, SPDX format preferred)
 2. **File naming** lowercase (flag exceptions needing justification)
 3. **Include guards** use `#pragma once`
-4. **No low-level hardware access** (GPIO, I2C, SPI direct calls)
+4. **No low-level hardware access** (GPIO, I2C, SPI direct register writes)
 5. **Timing abstractions** (`wait_ms()`, `timer_read()` usage)
 
 ### info.json and keyboard.json Validation
-1. **Schema Compliance**: Validates against `data/schemas/keyboard.jsonschema`
+1. **Schema Compliance**: `keyboard.json` and `info.json` files validate against `data/schemas/keyboard.jsonschema`
+  - Both files are identical syntax, however the `keyboard.json` dictates a buildable target, `info.json` does not
    - Run `qmk lint -kb <keyboard>` to check schema validation
    - Check for proper data types (strings, integers, arrays, objects)
    - Verify required fields are present
