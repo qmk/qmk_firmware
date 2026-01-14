@@ -129,7 +129,9 @@ VID+PID combination must be unique across all keyboards. Individual VID or PID v
 3. If results found: Check if BOTH VID AND PID match in same file
    - Both match = **COLLISION** - request different PID
    - Only one matches = **OK** - different keyboards can share individual values
-4. For keyboard variants/revisions: Each must have different PID under same VID
+4. For keyboard variants/revisions under same keyboard folder:
+   - Different PID recommended for functionally different variants
+   - Same PID acceptable if revisions only differ in hardware routing/pin assignments
 **Quick Reference:**
 - Same PID + Different VID = Valid
 - Same VID + Different PID = Valid
@@ -207,7 +209,7 @@ VID+PID validation: 0xVVVV:0xPPPP is unique (no collisions found)
   - No custom keycodes
   - No advanced features (non-exhaustive list of examples: tap dance, macros)
   - Basic mod taps and home row mods acceptable when necessary
-  - Standard layouts preferred
+  - Standard layouts preferred -- see examples in `layouts/default/` and `layouts/community/`
 - **Removed Examples**: Delete `QMKBEST`/`QMKURL` macros
 - **Tri Layer**: Use Tri Layer feature instead of manual `layer_on/off()` + `update_tri_layer()`
 - **Encoder Map**: Use encoder map feature, `encoder_update_user()` may not be present
