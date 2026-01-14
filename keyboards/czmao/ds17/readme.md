@@ -8,6 +8,11 @@ A right-hand number pad keyboard with RGB matrix lighting.
 Make example for this keyboard (after setting up your build environment):
 
     make czmao/ds17:default
+    
+Flashing example for this keyboard:
+    make czmao/ds17:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
@@ -17,10 +22,4 @@ Enter the bootloader in 3 ways:
 * **Physical reset button**: Briefly short the reset pins on the back of the PCB
 * **Keycode**: Press `FN` + `Num Lock` (if configured in keymap)
 
-## Building
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
-
-## Changelog
-
-2026-01-11: Fixed LED initialization issue to prevent green light when plugged in after turning off

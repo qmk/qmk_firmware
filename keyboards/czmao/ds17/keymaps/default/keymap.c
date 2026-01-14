@@ -2,36 +2,22 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
-#ifdef RGB_MATRIX_ENABLE
-void keyboard_pre_init_user(void) {
-    // Initialize RGB pin to prevent unwanted lighting
-    setPinOutput(B13);
-    writePinLow(B13);
-    wait_ms(10);
-}
-
-void matrix_init_user(void) {
-    // Turn off all RGB on startup
-    rgb_matrix_set_color_all(0, 0, 0);
-}
-#endif
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
+    [0] = LAYOUT_numpad_5x4(
         LT(1, KC_NUM), KC_PSLS, KC_PAST, KC_PMNS,
         KC_P7,         KC_P8,   KC_P9,
         KC_P4,         KC_P5,   KC_P6,   KC_PPLS,
         KC_P1,         KC_P2,   KC_P3,
         KC_P0,                  KC_PDOT, KC_PENT
     ),
-    [1] = LAYOUT(
+    [1] = LAYOUT_numpad_5x4(
         KC_TRNS, KC_TRNS, MO(2),   RM_VALU,
         RM_TOGG,  RM_SATU, KC_TRNS,
         RM_HUED, KC_TRNS, RM_HUEU, RM_VALD,
         KC_TRNS, RM_SATD, KC_TRNS,
         RM_NEXT,          KC_TRNS, KC_TRNS
     ),
-    [2] = LAYOUT(
+    [2] = LAYOUT_numpad_5x4(
         KC_TRNS, KC_TRNS, KC_TRNS, NK_TOGG,
         KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
