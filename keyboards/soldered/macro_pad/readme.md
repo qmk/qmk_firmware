@@ -1,6 +1,6 @@
 # Soldered Macro Pad
 
-![soldered_macro_pad](https://i.imgur.com/0v4hgx4.jpeg)
+![soldered_macro_pad](https://i.imgur.com/Sj12LhW.jpeg)
 
 Make your own Macro Pad! Soldered Macro Pad Solder Kit is a soldering kit which - when finished - turns into a functional macro pad! Using the pre-loaded QMK firmware, you can map the buttons to any custom function. Easily connect via USB-C. Soldered makes open source products for makers of all skill levels - so we thought to make a 'learn to solder' kit which leaves you with a functional result you can use in your day-to-day computing.
 
