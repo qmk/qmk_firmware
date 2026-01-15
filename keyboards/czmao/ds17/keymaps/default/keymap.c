@@ -28,28 +28,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef RGB_MATRIX_ENABLE
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-    // Num Lock indicator (first LED)
-    if (host_keyboard_led_state().num_lock) {
-        rgb_matrix_set_color(0, 0, 255, 255);  // Cyan color
-    }
-
     // Layer indicators
     uint8_t layer = get_highest_layer(layer_state);
     
     for (uint8_t i = led_min; i < led_max; i++) {
         switch(layer) {
             case 1:
-                rgb_matrix_set_color(i, 255, 0, 0);      // Red
+                rgb_matrix_set_color(i, RGB_RED);
                 break;
             case 2:
-                rgb_matrix_set_color(i, 0, 255, 0);      // Green
+                rgb_matrix_set_color(i, RGB_GREEN);
                 break;
             default:
                 // Keep default RGB effect for base layer
                 break;
         }
     }
-    
+    // Num Lock indicator (first LED)
+    if (host_keyboard_led_state().num_lock) {
+        rgb_matrix_set_color(0, RGB_CYAN);
+    }
     return false;
 }
 #endif
