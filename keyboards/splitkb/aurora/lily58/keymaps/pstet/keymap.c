@@ -38,7 +38,7 @@ enum layers {
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_COLEMAK] = LAYOUT(
-        _______, _______, _______, KC_VOLD, KC_VOLU, _______,                       _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,
+        _______, _______, _______, KC_VOLD, KC_VOLU, _______,                       _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, KC_RCTL,
         KC_TAB , KC_Q   , KC_W   , KC_F   , KC_P   , KC_B   ,                       KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN, KC_ESC ,
         KC_LCTL, KC_A   , KC_R   , KC_S   , KC_T   , KC_G   ,                       KC_M   , KC_N   , KC_E   , KC_I   , KC_O   , KC_QUOT,
         KC_LSFT, KC_Z   , KC_X   , KC_C   , KC_D   , KC_V   , ADJUST ,     _______, KC_K   , KC_H   , KC_COMM, KC_DOT , KC_SLSH, KC_LALT,
