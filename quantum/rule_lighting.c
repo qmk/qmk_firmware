@@ -14,6 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifdef RGB_MATRIX_ENABLE
+
 #include "rule_lighting.h"
 #include "keymap_introspection.h"
 #include <string.h>
@@ -24,8 +26,6 @@
 #    include "timer.h"
 #    include "split_util.h"
 #endif
-
-#ifdef RGB_MATRIX_ENABLE
 
 /**
  * Rules array defined by user in keymap.c

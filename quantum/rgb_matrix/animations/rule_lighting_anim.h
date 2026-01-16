@@ -33,18 +33,13 @@ static int8_t rule_lighting_find_match(uint16_t keycode, uint8_t current_layer, 
     for (uint8_t i = 0; i < RULE_LIGHTING_ENTRIES; i++) {
         const rule_lighting_entry_t *rule = &rules[i];
 
-        /* Skip empty entries */
-        if (!RGB_MATRIX_SAT_IS_ON(rule->sat_idle) && !RGB_MATRIX_SAT_IS_ON(rule->sat_pressed)) {
-            continue;
-        }
-
         /* Layer check */
         if (rule->layer_enable && current_layer != rule->layer) {
             continue;
         }
 
-        /* Mods check (OR logic) */
-        if (rule->mods != 0 && (current_mods & rule->mods) == 0) {
+        /* Mods check, if any mod in rule, exact match */
+        if (rule->mods != 0 && rule->mods != current_mods) {
             continue;
         }
 

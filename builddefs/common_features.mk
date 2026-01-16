@@ -578,26 +578,19 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
         OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
     endif
-endif
 
-RULE_LIGHTING_ENABLE ?= no
+	RULE_LIGHTING_ENABLE ?= no
+	ifeq ($(strip $(RULE_LIGHTING_ENABLE)), yes)
+		OPT_DEFS += -DRULE_LIGHTING_ENABLE
+		SRC += $(QUANTUM_DIR)/rule_lighting.c
 
-ifeq ($(strip $(RULE_LIGHTING_ENABLE)), yes)
-    # Requires RGB Matrix
-    ifneq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-        $(call CATASTROPHIC_ERROR,Invalid RULE_LIGHTING_ENABLE configuration,RULE_LIGHTING_ENABLE requires RGB_MATRIX_ENABLE)
-    endif
+		# Automatically enable required split state syncing for split keyboards
+		# These MUST be enabled for rule lighting to work on split keyboards
+		ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+			OPT_DEFS += -DSPLIT_LAYER_STATE_ENABLE -DSPLIT_LED_STATE_ENABLE -DSPLIT_MODS_ENABLE
+		endif
+	endif
 
-    OPT_DEFS += -DRULE_LIGHTING_ENABLE
-    SRC += $(QUANTUM_DIR)/rule_lighting.c
-
-    # Automatically enable required split state syncing for split keyboards
-    # These MUST be enabled for rule lighting to work on split keyboards
-    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-        SPLIT_LAYER_STATE_ENABLE := yes
-        SPLIT_LED_STATE_ENABLE := yes
-        SPLIT_MODS_ENABLE := yes
-    endif
 endif
 
 VARIABLE_TRACE ?= no

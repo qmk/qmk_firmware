@@ -19,11 +19,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef RGB_MATRIX_ENABLE
+#if defined(RGB_MATRIX_ENABLE) && defined(RULE_LIGHTING_ENABLE)
 
 /* Maximum number of rule lighting entries
  * This is an internal constant for split sync buffer sizing
  * Limited to 31 entries max (248 bytes) due to split transaction buffer limit (uint8_t = 255 max)
+ * Can be easily increased but I didn't see the usecase.
  * Users can define any number of rules up to this limit in their keymap
  */
 #    ifndef RULE_LIGHTING_ENTRIES
@@ -38,7 +39,7 @@
  * RPC sync is only needed when DYNAMIC_KEYMAP is enabled (each half has independent EEPROM).
  * For static keymaps, both halves read rules directly from flash.
  */
-#    if defined(SPLIT_KEYBOARD) && defined(RULE_LIGHTING_ENABLE) && defined(DYNAMIC_KEYMAP_ENABLE)
+#    if defined(SPLIT_KEYBOARD) && defined(DYNAMIC_KEYMAP_ENABLE)
 
 /*
  * RPC buffer size must fit the rules array
@@ -55,7 +56,7 @@
 
 /* Split state syncing is automatically enabled by builddefs/common_features.mk */
 
-#    endif /* SPLIT_KEYBOARD && RULE_LIGHTING_ENABLE && DYNAMIC_KEYMAP_ENABLE */
+#    endif /* SPLIT_KEYBOARD && DYNAMIC_KEYMAP_ENABLE */
 
 /**
  * Saturation modes (2 bits)

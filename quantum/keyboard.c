@@ -61,7 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
 #endif
-#if defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD)
+#ifdef RULE_LIGHTING_ENABLE
 #    include "rule_lighting.h"
 #endif
 #ifdef ENCODER_ENABLE
