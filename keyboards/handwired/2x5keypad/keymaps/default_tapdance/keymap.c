@@ -119,20 +119,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			    KC_TRNS,  TD(A_Y), TD(I_I), TD(O_C), TD(U_U))
 };
 
-
-/* DISABLED
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-*/
-
-
 void matrix_init_user(void)
 {
     set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);  /* See https://jayliu50.github.io/qmk-cheatsheet/ */

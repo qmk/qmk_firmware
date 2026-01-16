@@ -34,10 +34,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case DBLZERO:
       if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
         SEND_STRING("00");
-      } else {
-        // when keycode QMKBEST is released
       }
       break;
   }

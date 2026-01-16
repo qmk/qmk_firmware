@@ -1,0 +1,596 @@
+{
+    "aliases": {
+/*
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ` │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ - │ = │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ Q │ W │ E │ R │ T │ Y │ U │ I │ O │ P │ [ │ ] │  \  │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+ * │      │ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │        │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
+ * │        │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │          │
+ * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "KC_GRV": {
+            "key": "EU_GRV",
+            "label": "`",
+        }
+        "KC_1": {
+            "key": "EU_1",
+            "label": "1",
+        }
+        "KC_2": {
+            "key": "EU_2",
+            "label": "2",
+        }
+        "KC_3": {
+            "key": "EU_3",
+            "label": "3",
+        }
+        "KC_4": {
+            "key": "EU_4",
+            "label": "4",
+        }
+        "KC_5": {
+            "key": "EU_5",
+            "label": "5",
+        }
+        "KC_6": {
+            "key": "EU_6",
+            "label": "6",
+        }
+        "KC_7": {
+            "key": "EU_7",
+            "label": "7",
+        }
+        "KC_8": {
+            "key": "EU_8",
+            "label": "8",
+        }
+        "KC_9": {
+            "key": "EU_9",
+            "label": "9",
+        }
+        "KC_0": {
+            "key": "EU_0",
+            "label": "0",
+        }
+        "KC_MINS": {
+            "key": "EU_MINS",
+            "label": "-",
+        }
+        "KC_EQL": {
+            "key": "EU_EQL",
+            "label": "=",
+        }
+        "KC_Q": {
+            "key": "EU_Q",
+            "label": "Q",
+        }
+        "KC_W": {
+            "key": "EU_W",
+            "label": "W",
+        }
+        "KC_E": {
+            "key": "EU_E",
+            "label": "E",
+        }
+        "KC_R": {
+            "key": "EU_R",
+            "label": "R",
+        }
+        "KC_T": {
+            "key": "EU_T",
+            "label": "T",
+        }
+        "KC_Y": {
+            "key": "EU_Y",
+            "label": "Y",
+        }
+        "KC_U": {
+            "key": "EU_U",
+            "label": "U",
+        }
+        "KC_I": {
+            "key": "EU_I",
+            "label": "I",
+        }
+        "KC_O": {
+            "key": "EU_O",
+            "label": "O",
+        }
+        "KC_P": {
+            "key": "EU_P",
+            "label": "P",
+        }
+        "KC_LBRC": {
+            "key": "EU_LBRC",
+            "label": "[",
+        }
+        "KC_RBRC": {
+            "key": "EU_RBRC",
+            "label": "]",
+        }
+        "KC_BSLS": {
+            "key": "EU_BSLS",
+            "label": "\\",
+        }
+        "KC_A": {
+            "key": "EU_A",
+            "label": "A",
+        }
+        "KC_S": {
+            "key": "EU_S",
+            "label": "S",
+        }
+        "KC_D": {
+            "key": "EU_D",
+            "label": "D",
+        }
+        "KC_F": {
+            "key": "EU_F",
+            "label": "F",
+        }
+        "KC_G": {
+            "key": "EU_G",
+            "label": "G",
+        }
+        "KC_H": {
+            "key": "EU_H",
+            "label": "H",
+        }
+        "KC_J": {
+            "key": "EU_J",
+            "label": "J",
+        }
+        "KC_K": {
+            "key": "EU_K",
+            "label": "K",
+        }
+        "KC_L": {
+            "key": "EU_L",
+            "label": "L",
+        }
+        "KC_SCLN": {
+            "key": "EU_SCLN",
+            "label": ";",
+        }
+        "KC_QUOT": {
+            "key": "EU_QUOT",
+            "label": "'",
+        }
+        "KC_Z": {
+            "key": "EU_Z",
+            "label": "Z",
+        }
+        "KC_X": {
+            "key": "EU_X",
+            "label": "X",
+        }
+        "KC_C": {
+            "key": "EU_C",
+            "label": "C",
+        }
+        "KC_V": {
+            "key": "EU_V",
+            "label": "V",
+        }
+        "KC_B": {
+            "key": "EU_B",
+            "label": "B",
+        }
+        "KC_N": {
+            "key": "EU_N",
+            "label": "N",
+        }
+        "KC_M": {
+            "key": "EU_M",
+            "label": "M",
+        }
+        "KC_COMM": {
+            "key": "EU_COMM",
+            "label": ",",
+        }
+        "KC_DOT": {
+            "key": "EU_DOT",
+            "label": ".",
+        }
+        "KC_SLSH": {
+            "key": "EU_SLSH",
+            "label": "/",
+        }
+/* Shifted symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ~ │ ! │ @ │ # │ $ │ % │ ^ │ & │ * │ ( │ ) │ _ │ + │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │ { │ } │  |  │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+ * │      │   │   │   │   │   │   │   │   │   │ : │ " │        │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
+ * │        │   │   │   │   │   │   │   │ < │ > │ ? │          │
+ * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "S(EU_GRV)": {
+            "key": "EU_TILD",
+            "label": "~",
+        }
+        "S(EU_1)": {
+            "key": "EU_EXLM",
+            "label": "!",
+        }
+        "S(EU_2)": {
+            "key": "EU_AT",
+            "label": "@",
+        }
+        "S(EU_3)": {
+            "key": "EU_HASH",
+            "label": "#",
+        }
+        "S(EU_4)": {
+            "key": "EU_DLR",
+            "label": "$",
+        }
+        "S(EU_5)": {
+            "key": "EU_PERC",
+            "label": "%",
+        }
+        "S(EU_6)": {
+            "key": "EU_CIRC",
+            "label": "^",
+        }
+        "S(EU_7)": {
+            "key": "EU_AMPR",
+            "label": "&",
+        }
+        "S(EU_8)": {
+            "key": "EU_ASTR",
+            "label": "*",
+        }
+        "S(EU_9)": {
+            "key": "EU_LPRN",
+            "label": "(",
+        }
+        "S(EU_0)": {
+            "key": "EU_RPRN",
+            "label": ")",
+        }
+        "S(EU_MINS)": {
+            "key": "EU_UNDS",
+            "label": "_",
+        }
+        "S(EU_EQL)": {
+            "key": "EU_PLUS",
+            "label": "+",
+        }
+        "S(EU_LBRC)": {
+            "key": "EU_LCBR",
+            "label": "{",
+        }
+        "S(EU_RBRC)": {
+            "key": "EU_RCBR",
+            "label": "}",
+        }
+        "S(EU_BSLS)": {
+            "key": "EU_PIPE",
+            "label": "|",
+        }
+        "S(EU_SCLN)": {
+            "key": "EU_COLN",
+            "label": ":",
+        }
+        "S(EU_QUOT)": {
+            "key": "EU_DQUO",
+            "label": "\"",
+        }
+        "S(EU_COMM)": {
+            "key": "EU_LABK",
+            "label": "<",
+        }
+        "S(EU_DOT)": {
+            "key": "EU_RABK",
+            "label": ">",
+        }
+        "S(EU_SLSH)": {
+            "key": "EU_QUES",
+            "label": "?",
+        }
+/* AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ` │ ¡ │ ª │ º │ £ │ € │ ^ │ ˚ │ „ │ “ │ ” │ – │ × │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │ æ │ å │ ë │ ý │ þ │ ÿ │ ü │ ï │ ö │ œ │ « │ » │  ¬  │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+ * │      │ ä │ ß │ ð │ è │ é │ ù │ ú │ ĳ │ ø │ ° │ ´ │        │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
+ * │        │ à │ á │ ç │ ì │ í │ ñ │ μ │ ò │ ó │ ¿ │          │
+ * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(EU_GRV)": {
+            "key": "EU_DGRV",
+            "label": "` (dead)",
+        }
+        "ALGR(EU_1)": {
+            "key": "EU_IEXL",
+            "label": "¡",
+        }
+        "ALGR(EU_2)": {
+            "key": "EU_FORD",
+            "label": "ª",
+        }
+        "ALGR(EU_3)": {
+            "key": "EU_MORD",
+            "label": "º",
+        }
+        "ALGR(EU_4)": {
+            "key": "EU_PND",
+            "label": "£",
+        }
+        "ALGR(EU_5)": {
+            "key": "EU_EURO",
+            "label": "€",
+        }
+        "ALGR(EU_6)": {
+            "key": "EU_DCIR",
+            "label": "^ (dead)",
+        }
+        "ALGR(EU_7)": {
+            "key": "EU_RNGA",
+            "label": "˚ (dead)",
+        }
+        "ALGR(EU_8)": {
+            "key": "EU_DLQU",
+            "label": "„",
+        }
+        "ALGR(EU_9)": {
+            "key": "EU_LDQU",
+            "label": "“",
+        }
+        "ALGR(EU_0)": {
+            "key": "EU_RDQU",
+            "label": "”",
+        }
+        "ALGR(EU_MINS)": {
+            "key": "EU_NDSH",
+            "label": "–",
+        }
+        "ALGR(EU_EQL)": {
+            "key": "EU_MUL",
+            "label": "×",
+        }
+        "ALGR(EU_Q)": {
+            "key": "EU_AE",
+            "label": "æ",
+        }
+        "ALGR(EU_W)": {
+            "key": "EU_ARNG",
+            "label": "Å",
+        }
+        "ALGR(EU_E)": {
+            "key": "EU_EDIA",
+            "label": "Ë",
+        }
+        "ALGR(EU_R)": {
+            "key": "EU_YACU",
+            "label": "Ý",
+        }
+        "ALGR(EU_T)": {
+            "key": "EU_THRN",
+            "label": "Þ",
+        }
+        "ALGR(EU_Y)": {
+            "key": "EU_YDIA",
+            "label": "Ÿ",
+        }
+        "ALGR(EU_U)": {
+            "key": "EU_UDIA",
+            "label": "Ü",
+        }
+        "ALGR(EU_I)": {
+            "key": "EU_IDIA",
+            "label": "Ï",
+        }
+        "ALGR(EU_O)": {
+            "key": "EU_ODIA",
+            "label": "Ö",
+        }
+        "ALGR(EU_P)": {
+            "key": "EU_OE",
+            "label": "Œ",
+        }
+        "ALGR(EU_LBRC)": {
+            "key": "EU_LDAQ",
+            "label": "«",
+        }
+        "ALGR(EU_RBRC)": {
+            "key": "EU_RDAQ",
+            "label": "»",
+        }
+        "ALGR(EU_BSLS)": {
+            "key": "EU_NOT",
+            "label": "¬",
+        }
+        "ALGR(EU_A)": {
+            "key": "EU_ADIA",
+            "label": "Ä",
+        }
+        "ALGR(EU_S)": {
+            "key": "EU_SS",
+            "label": "ß",
+        }
+        "ALGR(EU_D)": {
+            "key": "EU_ETH",
+            "label": "Ð",
+        }
+        "ALGR(EU_F)": {
+            "key": "EU_EGRV",
+            "label": "È",
+        }
+        "ALGR(EU_G)": {
+            "key": "EU_EACU",
+            "label": "É",
+        }
+        "ALGR(EU_H)": {
+            "key": "EU_UGRV",
+            "label": "Ù",
+        }
+        "ALGR(EU_J)": {
+            "key": "EU_UACU",
+            "label": "Ú",
+        }
+        "ALGR(EU_K)": {
+            "key": "EU_IJ",
+            "label": "Ĳ",
+        }
+        "ALGR(EU_L)": {
+            "key": "EU_OSTR",
+            "label": "Ø",
+        }
+        "ALGR(EU_SCLN)": {
+            "key": "EU_DEG",
+            "label": "°",
+        }
+        "ALGR(EU_QUOT)": {
+            "key": "EU_ACUT",
+            "label": "´ (dead)",
+        }
+        "ALGR(EU_Z)": {
+            "key": "EU_AGRV",
+            "label": "À",
+        }
+        "ALGR(EU_X)": {
+            "key": "EU_AACU",
+            "label": "Á",
+        }
+        "ALGR(EU_C)": {
+            "key": "EU_CCED",
+            "label": "Ç",
+        }
+        "ALGR(EU_V)": {
+            "key": "EU_IGRV",
+            "label": "Ì",
+        }
+        "ALGR(EU_B)": {
+            "key": "EU_IACU",
+            "label": "Í",
+        }
+        "ALGR(EU_N)": {
+            "key": "EU_NTIL",
+            "label": "Ñ",
+        }
+        "ALGR(EU_M)": {
+            "key": "EU_DGRK",
+            "label": "μ (dead Greek key)",
+        }
+        "ALGR(EU_COMM)": {
+            "key": "EU_OGRV",
+            "label": "Ò",
+        }
+        "ALGR(EU_DOT)": {
+            "key": "EU_OACU",
+            "label": "Ó",
+        }
+        "ALGR(EU_SLSH)": {
+            "key": "EU_IQUE",
+            "label": "¿",
+        }
+/* Shift+AltGr symbols
+ * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───────┐
+ * │ ~ │ ¹ │ ² │ ³ │ ¥ │ ¢ │ ˇ │ ¯ │ ‚ │ ‘ │ ’ │ — │ ÷ │       │
+ * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─────┤
+ * │     │   │   │   │   │   │   │   │   │   │   │ ‹ │ › │  ¦  │
+ * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
+ * │      │   │ § │   │   │   │   │   │   │   │ · │ ¨ │        │
+ * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────────┤
+ * │        │   │   │   │   │   │   │   │   │   │ … │          │
+ * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬────┬────┤
+ * │    │    │    │                        │    │    │    │    │
+ * └────┴────┴────┴────────────────────────┴────┴────┴────┴────┘
+ */
+        "ALGR(EU_TILD)": {
+            "key": "EU_DTIL",
+            "label": "~ (dead)",
+        }
+        "S(ALGR(EU_1))": {
+            "key": "EU_SUP1",
+            "label": "¹",
+        }
+        "S(ALGR(EU_2))": {
+            "key": "EU_SUP2",
+            "label": "²",
+        }
+        "S(ALGR(EU_3))": {
+            "key": "EU_SUP3",
+            "label": "³",
+        }
+        "ALGR(EU_DLR)": {
+            "key": "EU_YEN",
+            "label": "¥",
+        }
+        "S(EU_EURO)": {
+            "key": "EU_CENT",
+            "label": "¢",
+        }
+        "S(EU_DCIR)": {
+            "key": "EU_CARN",
+            "label": "ˇ (dead)",
+        }
+        "S(ALGR(EU_7))": {
+            "key": "EU_MACR",
+            "label": "¯ (dead)",
+        }
+        "S(EU_DLQU)": {
+            "key": "EU_SLQU",
+            "label": "‚",
+        }
+        "S(EU_LDQU)": {
+            "key": "EU_LSQU",
+            "label": "‘",
+        }
+        "S(EU_RDQU)": {
+            "key": "EU_RSQU",
+            "label": "’",
+        }
+        "S(EU_NDSH)": {
+            "key": "EU_MDSH",
+            "label": "—",
+        }
+        "S(EU_MUL)": {
+            "key": "EU_DIV",
+            "label": "÷",
+        }
+        "S(EU_LDAQ)": {
+            "key": "EU_LSAQ",
+            "label": "‹",
+        }
+        "S(EU_RDAQ)": {
+            "key": "EU_RSAQ",
+            "label": "›",
+        }
+        "S(ALGR(EU_BSLS))": {
+            "key": "EU_BRKP",
+            "label": "¦",
+        }
+        "S(ALGR(EU_S))": {
+            "key": "EU_SECT",
+            "label": "§",
+        }
+        "S(ALGR(EU_SCLN))": {
+            "key": "EU_MDDT",
+            "label": "·",
+        }
+        "ALGR(EU_DQUO)": {
+            "key": "EU_DIAE",
+            "label": "¨ (dead)",
+        }
+        "ALGR(EU_QUES)": {
+            "key": "EU_ELLP",
+            "label": "…",
+        }
+    }
+}

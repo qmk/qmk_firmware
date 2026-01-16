@@ -17,8 +17,10 @@
 #include "audio.h"
 #include "eeconfig.h"
 #include "timer.h"
+#include "debug.h"
 #include "wait.h"
 #include "util.h"
+#include "gpio.h"
 
 /* audio system:
  *
@@ -61,6 +63,13 @@
  * musical_notes.h, OR in ms; keyboards create SONGs with the former, while
  * the internal state of the audio system does its calculations with the later - ms
  */
+
+#ifndef AUDIO_DEFAULT_ON
+#    define AUDIO_DEFAULT_ON true
+#endif
+#ifndef AUDIO_DEFAULT_CLICKY_ON
+#    define AUDIO_DEFAULT_CLICKY_ON true
+#endif
 
 #ifndef AUDIO_TONE_STACKSIZE
 #    define AUDIO_TONE_STACKSIZE 8
@@ -113,8 +122,41 @@ static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
 audio_config_t audio_config;
 
+#ifndef AUDIO_POWER_CONTROL_PIN_ON_STATE
+#    define AUDIO_POWER_CONTROL_PIN_ON_STATE 1
+#endif
+
+void audio_driver_initialize(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_set_pin_output_push_pull(AUDIO_POWER_CONTROL_PIN);
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_initialize_impl();
+}
+
+void audio_driver_stop(void) {
+    audio_driver_stop_impl();
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, !AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+}
+
+void audio_driver_start(void) {
+#ifdef AUDIO_POWER_CONTROL_PIN
+    gpio_write_pin(AUDIO_POWER_CONTROL_PIN, AUDIO_POWER_CONTROL_PIN_ON_STATE);
+#endif
+    audio_driver_start_impl();
+}
+
 void eeconfig_update_audio_current(void) {
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
+}
+
+void eeconfig_update_audio_default(void) {
+    audio_config.valid         = true;
+    audio_config.enable        = AUDIO_DEFAULT_ON;
+    audio_config.clicky_enable = AUDIO_DEFAULT_CLICKY_ON;
+    eeconfig_update_audio(&audio_config);
 }
 
 void audio_init(void) {
@@ -122,30 +164,41 @@ void audio_init(void) {
         return;
     }
 
-    // Check EEPROM
-#ifdef EEPROM_ENABLE
-    if (!eeconfig_is_enabled()) {
-        eeconfig_init();
+    eeconfig_read_audio(&audio_config);
+    if (!audio_config.valid) {
+        dprintf("audio_init audio_config.valid = 0. Write default values to EEPROM.\n");
+        eeconfig_update_audio_default();
     }
-    audio_config.raw = eeconfig_read_audio();
-#else // EEPROM settings
-    audio_config.enable        = true;
-#    ifdef AUDIO_CLICKY_ON
-    audio_config.clicky_enable = true;
-#    endif
-#endif // EEPROM settings
 
     for (uint8_t i = 0; i < AUDIO_TONE_STACKSIZE; i++) {
         tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
     }
 
-    if (!audio_initialized) {
-        audio_driver_initialize();
-        audio_initialized = true;
-    }
+    audio_driver_initialize();
+    audio_initialized = true;
+
     stop_all_notes();
 #ifndef AUDIO_INIT_DELAY
     audio_startup();
+#endif
+}
+
+void audio_task(void) {
+#ifdef AUDIO_INIT_DELAY
+    // startup song potentially needs to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
 #endif
 }
 
@@ -162,7 +215,7 @@ void audio_toggle(void) {
         stop_all_notes();
     }
     audio_config.enable ^= 1;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
     if (audio_config.enable) {
         audio_on_user();
     } else {
@@ -172,7 +225,7 @@ void audio_toggle(void) {
 
 void audio_on(void) {
     audio_config.enable = 1;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
     audio_on_user();
     PLAY_SONG(audio_on_song);
 }
@@ -183,7 +236,7 @@ void audio_off(void) {
     wait_ms(100);
     audio_stop_all();
     audio_config.enable = 0;
-    eeconfig_update_audio(audio_config.raw);
+    eeconfig_update_audio(&audio_config);
 }
 
 bool audio_is_on(void) {
@@ -224,11 +277,10 @@ void audio_stop_tone(float pitch) {
         for (int i = AUDIO_TONE_STACKSIZE - 1; i >= 0; i--) {
             found = (tones[i].pitch == pitch);
             if (found) {
-                tones[i] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
                 for (int j = i; (j < AUDIO_TONE_STACKSIZE - 1); j++) {
-                    tones[j]     = tones[j + 1];
-                    tones[j + 1] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
+                    tones[j] = tones[j + 1];
                 }
+                tones[AUDIO_TONE_STACKSIZE - 1] = (musical_tone_t){.time_started = 0, .pitch = -1.0f, .duration = 0};
                 break;
             }
         }
@@ -338,8 +390,9 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     melody_current_note_duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
 }
 
-float click[2][2];
-void  audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
+void audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
+    static float click[2][2];
+
     uint16_t duration_tone  = audio_ms_to_duration(duration);
     uint16_t duration_delay = audio_ms_to_duration(delay);
 

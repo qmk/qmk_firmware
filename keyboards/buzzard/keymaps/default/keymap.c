@@ -52,13 +52,13 @@ enum layers {
 #define SFT_TAB  MT(MOD_LSFT, KC_TAB)
 
 // Thumbcluster
-#define UC_TL1 KC_BTN1
+#define UC_TL1 MS_BTN1
 #define UC_TL2 LT(NAVR, KC_SPC)
 #define UC_TL3 LT(NUMR, KC_TAB)
 
 #define UC_TR3 LT(FUNL, KC_BSPC)
 #define UC_TR2 LT(SYMB, KC_ENT)
-#define UC_TR1 KC_BTN2
+#define UC_TR1 MS_BTN2
 
 // Shortcuts
 #define UC_COPY LCTL(KC_C)
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   ,                                        KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ,
       UC_OSFT, GUI_A  , ALT_S  , CTL_D  , SFT_F  , KC_G   ,                                        KC_H   , SFT_J  , CTL_K  , ALT_L  , GUI_SCL, KC_DEL,
       CTL_ESC, KC_Z   , RALT_X , KC_C   , KC_V   , KC_B   ,                                        KC_N   , KC_M   , KC_COMM, RALT_DT, KC_SLSH, ADJL  ,
-                                                   KC_BTN1, UC_TL2 , UC_TL3 ,    UC_TR3 , UC_TR2 , UC_TR1
+                                                   MS_BTN1, UC_TL2 , UC_TL3 ,    UC_TR3 , UC_TR2 , UC_TR1
     ),
 
 // /*
@@ -113,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAVR] = LAYOUT(
                _______, _______, _______, _______, _______,                                        KC_INS , UC_CUT , KC_PGUP, KC_PGDN, _______,
       _______, _______, _______, _______, _______, _______,                                        UC_COPY, KC_LEFT, KC_UP  , KC_DOWN, KC_RGHT, _______,
-      _______, _______, _______, _______, _______, _______,                                        UC_PSTE, KC_HOME, KC_WH_U, KC_WH_D, KC_END , _______,
+      _______, _______, _______, _______, _______, _______,                                        UC_PSTE, KC_HOME, MS_WHLU, MS_WHLD, KC_END , _______,
                                                    _______, _______, _______,    KC_BSPC, KC_ENT , _______
     ),
 // --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -264,7 +264,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 bool get_haptic_enabled_key(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case KC_BTN1 ... KC_BTN5:
+        case MS_BTN1 ... MS_BTN5:
             return true;
             break;
     }

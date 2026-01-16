@@ -18,6 +18,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "compiler_support.h"
 #include "color.h"
 #include "util.h"
 
@@ -73,15 +75,15 @@ typedef struct PACKED {
     uint8_t     flags[RGB_MATRIX_LED_COUNT];
 } led_config_t;
 
-typedef union {
+typedef union rgb_config_t {
     uint64_t raw;
     struct PACKED {
         uint8_t     enable : 2;
         uint8_t     mode : 6;
-        HSV         hsv;
+        hsv_t       hsv;
         uint8_t     speed;
         led_flags_t flags;
     };
 } rgb_config_t;
 
-_Static_assert(sizeof(rgb_config_t) == sizeof(uint64_t), "RGB Matrix EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(rgb_config_t) == sizeof(uint64_t), "RGB Matrix EECONFIG out of spec.");

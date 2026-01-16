@@ -17,34 +17,34 @@
 #include "quantum.h"
 
 void keyoard_post_init_kb(void) {
-    setPinOutput(LED_CAPS_LOCK_PIN);
-    setPinOutput(LED_INDICATOR_1);
-    setPinOutput(LED_INDICATOR_2);
-    setPinOutput(LED_INDICATOR_3);
-    setPinOutput(LED_INDICATOR_4);
-    setPinOutput(LED_INDICATOR_5);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_set_pin_output(LED_INDICATOR_1);
+    gpio_set_pin_output(LED_INDICATOR_2);
+    gpio_set_pin_output(LED_INDICATOR_3);
+    gpio_set_pin_output(LED_INDICATOR_4);
+    gpio_set_pin_output(LED_INDICATOR_5);
 #ifndef LED_CAPS_LOCK_PIN
-    writePin(LED_CAPS_LOCK_PIN, 0);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, 0);
 #endif
 
 #ifndef LED_INDICATOR_1
-    writePin(LED_INDICATOR_1, 0);
+    gpio_write_pin(LED_INDICATOR_1, 0);
 #endif
 
 #ifndef LED_INDICATOR_2
-    writePin(LED_INDICATOR_2, 0);
+    gpio_write_pin(LED_INDICATOR_2, 0);
 #endif
 
 #ifndef LED_INDICATOR_3
-    writePin(LED_INDICATOR_3, 0);
+    gpio_write_pin(LED_INDICATOR_3, 0);
 #endif
 
 #ifndef LED_INDICATOR_4
-    writePin(LED_INDICATOR_4, 0);
+    gpio_write_pin(LED_INDICATOR_4, 0);
 #endif
 
 #ifndef LED_INDICATOR_5
-    writePin(LED_INDICATOR_5, 0);
+    gpio_write_pin(LED_INDICATOR_5, 0);
 #endif
     keyboard_post_init_user();
 }
@@ -53,39 +53,39 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
         switch (get_highest_layer(state)) {
         case 1:
 #ifdef LED_INDICATOR_4
-            writePin(LED_INDICATOR_4, 1);
+            gpio_write_pin(LED_INDICATOR_4, 1);
 #endif
 
 #ifdef LED_INDICATOR_5
-            writePin(LED_INDICATOR_5, 1);
+            gpio_write_pin(LED_INDICATOR_5, 1);
 #endif
             break;
         case 2:
 #ifdef LED_INDICATOR_1
-            writePin(LED_INDICATOR_1, 1);
+            gpio_write_pin(LED_INDICATOR_1, 1);
 #endif
 #ifdef LED_INDICATOR_2
-            writePin(LED_INDICATOR_2, 1);
+            gpio_write_pin(LED_INDICATOR_2, 1);
 #endif
 #ifdef LED_INDICATOR_3
-            writePin(LED_INDICATOR_3, 1);
+            gpio_write_pin(LED_INDICATOR_3, 1);
 #endif
             break;
         default:
 #ifdef LED_INDICATOR_1
-            writePin(LED_INDICATOR_1, 0);
+            gpio_write_pin(LED_INDICATOR_1, 0);
 #endif
 #ifdef LED_INDICATOR_2
-            writePin(LED_INDICATOR_2, 0);
+            gpio_write_pin(LED_INDICATOR_2, 0);
 #endif
 #ifdef LED_INDICATOR_3
-            writePin(LED_INDICATOR_3, 0);
+            gpio_write_pin(LED_INDICATOR_3, 0);
 #endif
 #ifdef LED_INDICATOR_4
-            writePin(LED_INDICATOR_4, 0);
+            gpio_write_pin(LED_INDICATOR_4, 0);
 #endif
 #ifdef LED_INDICATOR_5
-            writePin(LED_INDICATOR_5, 0);
+            gpio_write_pin(LED_INDICATOR_5, 0);
 #endif
             break;
     }

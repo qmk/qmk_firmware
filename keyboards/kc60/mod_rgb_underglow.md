@@ -9,8 +9,8 @@ By default, the source is set up for 16 LEDs on the F5 breakout pin. See [includ
 ```c
 #pragma once
 
-#undef RGBLED_NUM
-#define RGBLED_NUM <number of leds>
+#undef RGBLIGHT_LED_COUNT
+#define RGBLIGHT_LED_COUNT <number of leds>
 ```
 
 To enable RGB Underglow, simply add a `rules.mk` file containing `RGBLIGHT_ENABLE = yes` alongside your `keymap.c` file, and compile as normal:

@@ -1,9 +1,0 @@
-{
-    "keyboard": "handwired/pytest/has_template",
-    "keymap": "default_json",
-    "layout": "LAYOUT_ortho_1x1",
-    "layers": [["KC_A"]],
-    "author": "qmk",
-    "notes": "This file is a keymap.json file for handwired/pytest/has_template",
-    "version": 1
-}

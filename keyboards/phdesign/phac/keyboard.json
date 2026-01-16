@@ -1,0 +1,43 @@
+{
+    "manufacturer": "PHDesign",
+    "keyboard_name": "phac",
+    "maintainer": "nonameCCC",
+    "bootloader": "rp2040",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP7", "pin_b": "GP8", "resolution": 1},
+            {"pin_a": "GP10", "pin_b": "GP9", "resolution": 1}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP1", "GP6", "GP5", "GP4", "GP3", "GP2", "GP0"]
+        ]
+    },
+    "processor": "RP2040",
+    "usb": {
+        "device_version": "2.2.0",
+        "pid": "0x0001",
+        "vid": "0x5048"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 2.5, "y": 0},
+                {"matrix": [0, 1], "x": 0, "y": 1, "w": 1.5},
+                {"matrix": [0, 2], "x": 1.5, "y": 1, "w": 1.5},
+                {"matrix": [0, 3], "x": 3, "y": 1, "w": 1.5},
+                {"matrix": [0, 4], "x": 4.5, "y": 1, "w": 1.5},
+                {"matrix": [0, 5], "x": 0.375, "y": 2, "w": 2.25},
+                {"matrix": [0, 6], "x": 3.375, "y": 2, "w": 2.25}
+            ]
+        }
+    }
+}

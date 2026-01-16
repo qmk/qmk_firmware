@@ -9,6 +9,7 @@
 #include <math.h>
 
 static painter_image_handle_t reverb_logo;
+static painter_image_handle_t splash_image;
 static deferred_token         display_task_token;
 static uint32_t               key_pressed_count = 0;
 
@@ -32,7 +33,6 @@ void display_init_kb(void) {
     if (!display_init_user()) {
         return;
     }
-    painter_image_handle_t splash_image;
     splash_image = qp_load_image_mem(gfx_splash);
     reverb_logo  = qp_load_image_mem(gfx_reverb);
     qp_drawimage(reverb_display, 0, 0, splash_image);

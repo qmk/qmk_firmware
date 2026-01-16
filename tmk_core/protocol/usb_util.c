@@ -26,9 +26,9 @@ __attribute__((weak)) bool usb_connected_state(void) {
 
 __attribute__((weak)) bool usb_vbus_state(void) {
 #ifdef USB_VBUS_PIN
-    setPinInput(USB_VBUS_PIN);
+    gpio_set_pin_input(USB_VBUS_PIN);
     wait_us(5);
-    return readPin(USB_VBUS_PIN);
+    return gpio_read_pin(USB_VBUS_PIN);
 #else
     return true;
 #endif

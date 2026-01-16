@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "compiler_support.h"
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
@@ -62,8 +64,8 @@ static struct {
 } split_config;
 
 #if defined(SPLIT_USB_DETECT)
-_Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
-static bool usbIsActive(void) {
+STATIC_ASSERT((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
+static bool usb_bus_detected(void) {
     for (uint16_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
         if (usb_connected_state()) {
@@ -74,7 +76,7 @@ static bool usbIsActive(void) {
     return false;
 }
 #else
-static inline bool usbIsActive(void) {
+static inline bool usb_bus_detected(void) {
     return usb_vbus_state();
 }
 #endif
@@ -88,9 +90,9 @@ static inline bool usbIsActive(void) {
 #        endif
 #    endif
 #    if defined(SPLIT_USB_DETECT)
-_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+STATIC_ASSERT(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
 #    endif
-_Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
+STATIC_ASSERT(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
 
 static uint32_t split_watchdog_started = 0;
 static bool     split_watchdog_done    = false;
@@ -123,14 +125,14 @@ void split_watchdog_task(void) {
 void matrix_io_delay(void);
 
 static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
-    setPinInputHigh(in_pin);
-    setPinOutput(out_pin);
-    writePinLow(out_pin);
+    gpio_set_pin_input_high(in_pin);
+    gpio_set_pin_output(out_pin);
+    gpio_write_pin_low(out_pin);
     // It's almost unnecessary, but wait until it's down to low, just in case.
     wait_us(1);
-    uint8_t pin_state = readPin(in_pin);
+    uint8_t pin_state = gpio_read_pin(in_pin);
     // Set out_pin to a setting that is less susceptible to noise.
-    setPinInputHigh(out_pin);
+    gpio_set_pin_input_high(out_pin);
     matrix_io_delay(); // Wait for the pull-up to go HIGH.
     return pin_state;
 }
@@ -138,19 +140,19 @@ static uint8_t peek_matrix_intersection(pin_t out_pin, pin_t in_pin) {
 
 __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #if defined(SPLIT_HAND_PIN)
-    setPinInput(SPLIT_HAND_PIN);
+    gpio_set_pin_input(SPLIT_HAND_PIN);
     wait_us(100);
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
 #    ifdef SPLIT_HAND_PIN_LOW_IS_LEFT
-    return !readPin(SPLIT_HAND_PIN);
+    return !gpio_read_pin(SPLIT_HAND_PIN);
 #    else
-    return readPin(SPLIT_HAND_PIN);
+    return gpio_read_pin(SPLIT_HAND_PIN);
 #    endif
 #elif defined(SPLIT_HAND_MATRIX_GRID)
-#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_RIGHT
-    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
-#    else
+#    ifdef SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
     return !peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
+#    else
+    return peek_matrix_intersection(SPLIT_HAND_MATRIX_GRID);
 #    endif
 #elif defined(EE_HANDS)
     if (!eeconfig_is_enabled()) {
@@ -165,7 +167,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #            pragma message "Faking EE_HANDS for right hand"
     const bool should_be_left = false;
 #        endif
-    bool       is_left        = eeconfig_read_handedness();
+    bool is_left = eeconfig_read_handedness();
     if (is_left != should_be_left) {
         eeconfig_update_handedness(should_be_left);
     }
@@ -179,7 +181,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 }
 
 __attribute__((weak)) bool is_keyboard_master_impl(void) {
-    bool is_master = usbIsActive();
+    bool is_master = usb_bus_detected();
 
     // Avoid NO_USB_STARTUP_CHECK - Disable USB as the previous checks seem to enable it somehow
     if (!is_master) {

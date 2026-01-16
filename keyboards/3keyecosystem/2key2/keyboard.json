@@ -1,0 +1,98 @@
+{
+    "keyboard_name": "2key2",
+    "manufacturer": "3-Key-Ecosystem",
+    "url": "https://github.com/softplus/3keyecosystem/tree/main/2key2",
+    "maintainer": "softplus",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x3304",
+        "device_version": "0.0.1"
+    },
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        },
+        "default": {
+            "animation": "solid_reactive",
+            "hue": 90,
+            "speed": 20,
+            "val": 128
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 32, "flags": 255},
+            {"matrix": [0, 1], "x": 224, "y": 32, "flags": 255}
+        ],
+        "sleep": true
+    },
+
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": false,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "cols": ["F4", "D7"],
+        "rows": ["F6"]
+    },
+    "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "B7"
+    },
+    "ws2812": {
+        "pin": "B2"
+    },
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0}
+            ]
+        }
+    }
+}

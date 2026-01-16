@@ -19,12 +19,13 @@
 
 enum layer_number { _QWERTY = 0, _COLEMAK, _DVORAK, _LOWER, _RAISE, _ADJUST };
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK };
-
 #define LOWER  MO(_LOWER)
 #define RAISE  MO(_RAISE)
 #define ADJUST MO(_ADJUST)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -139,27 +140,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
-            }
-            return false;
-    }
-    return true;
 }
 
 bool led_update_user(led_t led_state) {

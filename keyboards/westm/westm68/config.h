@@ -19,8 +19,3 @@
 
 /* Ensure we jump to bootloader if the QK_BOOT keycode was pressed */
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

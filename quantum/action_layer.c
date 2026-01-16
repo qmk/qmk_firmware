@@ -27,11 +27,20 @@ __attribute__((weak)) layer_state_t default_layer_state_set_kb(layer_state_t sta
     return default_layer_state_set_user(state);
 }
 
+/** \brief Default Layer State Set At Module Level
+ *
+ * Run module code on default layer state change
+ */
+__attribute__((weak)) layer_state_t default_layer_state_set_modules(layer_state_t state) {
+    return state;
+}
+
 /** \brief Default Layer State Set
  *
  * Static function to set the default layer state, prints debug info and clears keys
  */
 static void default_layer_state_set(layer_state_t state) {
+    state = default_layer_state_set_modules(state);
     state = default_layer_state_set_kb(state);
     ac_dprintf("default_layer_state: ");
     default_layer_debug();
@@ -51,7 +60,7 @@ static void default_layer_state_set(layer_state_t state) {
  * Print out the hex value of the 32-bit default layer state, as well as the value of the highest bit.
  */
 void default_layer_debug(void) {
-    ac_dprintf("%08hX(%u)", default_layer_state, get_highest_layer(default_layer_state));
+    ac_dprintf("%08lX(%u)", (uint32_t)default_layer_state, get_highest_layer(default_layer_state));
 }
 
 /** \brief Default Layer Set
@@ -107,11 +116,21 @@ __attribute__((weak)) layer_state_t layer_state_set_kb(layer_state_t state) {
     return layer_state_set_user(state);
 }
 
+/** \brief Layer state set modules
+ *
+ * Runs module code on layer state change
+ */
+
+__attribute__((weak)) layer_state_t layer_state_set_modules(layer_state_t state) {
+    return state;
+}
+
 /** \brief Layer state set
  *
  * Sets the layer to match the specified state (a bitmask)
  */
 void layer_state_set(layer_state_t state) {
+    state = layer_state_set_modules(state);
     state = layer_state_set_kb(state);
     ac_dprintf("layer_state: ");
     layer_debug();
@@ -212,7 +231,7 @@ void layer_xor(layer_state_t state) {
  * Print out the hex value of the 32-bit layer state, as well as the value of the highest bit.
  */
 void layer_debug(void) {
-    ac_dprintf("%08hX(%u)", layer_state, get_highest_layer(layer_state));
+    ac_dprintf("%08lX(%u)", (uint32_t)layer_state, get_highest_layer(layer_state));
 }
 #endif
 

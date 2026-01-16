@@ -17,8 +17,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT(
     KC_TILD,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,          KC_6,    KC_7,    KC_8,    KC_9,    KC_0, KC_MINS, KC_EQL,             KC_PAUS,
-    _______, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______,       _______, _______, _______, _______, KC_SCLN, KC_BSLS,                       KC_MUTE,
-    _______, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, _______,       _______, _______, _______, _______, _______, _______,          KC_PGUP,       KC_MPLY,
+    _______, UG_NEXT, UG_HUEU, UG_SATU, UG_VALU, _______,       _______, _______, _______, _______, KC_SCLN, KC_BSLS,                       KC_MUTE,
+    _______, UG_TOGG, UG_HUED, UG_SATD, UG_VALD, _______,       _______, _______, _______, _______, _______, _______,          KC_PGUP,       KC_MPLY,
     _______, _______,          _______, _______, _______,       _______, _______, _______,                            KC_HOME, KC_PGDN, KC_END
   ),
 
@@ -32,21 +32,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   // set CapsLock LED to output and low
-  setPinOutput(F6);
-  writePinLow(F6);
+  gpio_set_pin_output(F6);
+  gpio_write_pin_low(F6);
   // set NumLock LED to output and low
-  setPinOutput(F5);
-  writePinLow(F5);
+  gpio_set_pin_output(F5);
+  gpio_write_pin_low(F5);
   // set ScrollLock LED to output and low
-  setPinOutput(F4);
-  writePinLow(F4);
+  gpio_set_pin_output(F4);
+  gpio_write_pin_low(F4);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    writePin(F4, (state & 0x1));
-    writePin(F5, (state & 0x2));
-    writePin(F6, (state & 0x4));
+    gpio_write_pin(F4, (state & 0x1));
+    gpio_write_pin(F5, (state & 0x2));
+    gpio_write_pin(F6, (state & 0x4));
     return state;
 }
 

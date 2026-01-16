@@ -1,1 +1,0 @@
-SPLIT_KEYBOARD = no

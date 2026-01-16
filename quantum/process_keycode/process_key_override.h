@@ -55,7 +55,7 @@ typedef enum {
 } ko_option_t;
 
 /** Defines a single key override */
-typedef struct {
+typedef struct key_override_t {
     // The non-modifier keycode that triggers the override. This keycode, and the necessary modifiers (trigger_mods) must be pressed to activate this override. Set this to the keycode of the key that should activate the override. Set to KC_NO to require only the necessary modifiers to be pressed and no non-modifier.
     uint16_t trigger;
 
@@ -86,9 +86,6 @@ typedef struct {
     // If this points to false this override will not be used. Set to NULL to always have this override enabled.
     bool *enabled;
 } key_override_t;
-
-/** Define this as a null-terminated array of pointers to key overrides. These key overrides will be used by qmk. */
-extern const key_override_t **key_overrides;
 
 /** Turns key overrides on */
 void key_override_on(void);

@@ -37,20 +37,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MUTE,  MO(_FN3), MO(_FN2), MO(_FN1),       LGUI(KC_D),
     MO(_FN2),                                     KC_HOME,
     MO(_FN3),                                     KC_END,
-    KC_BTN3,                                      DPI_FINE,
-              KC_BTN1, KC_BTN2, KC_BTN2, KC_BTN1
+    MS_BTN3,                                      DPI_FINE,
+              MS_BTN1, MS_BTN2, MS_BTN2, MS_BTN1
     ),
     [_FN1] = LAYOUT(
-    RGB_TOG, KC_TRNS, KC_TRNS, KC_TRNS,          TAP_TOG,
+    UG_TOGG, KC_TRNS, KC_TRNS, KC_TRNS,          TAP_TOG,
     DPI_UP,                                      TAP_UP,
     DPI_DN,                                      TAP_DN,
     KC_TRNS,                                     KC_TRNS,
              KC_HOME, KC_PGUP, KC_PGDN, KC_END
     ),
     [_FN2] = LAYOUT(
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          RGB_TOG,
-    KC_TRNS,                                     RGB_MOD,
-    KC_TRNS,                                     RGB_RMOD,
+    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          UG_TOGG,
+    KC_TRNS,                                     UG_NEXT,
+    KC_TRNS,                                     UG_PREV,
     KC_TRNS,                                     KC_TRNS,
              KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     ),

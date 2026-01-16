@@ -343,14 +343,14 @@ typedef struct code_point_iter_drawglyph_state_t {
     int16_t                           xpos;
     int16_t                           ypos;
     qp_internal_byte_input_callback   input_callback;
-    qp_internal_byte_input_state_t *  input_state;
+    qp_internal_byte_input_state_t   *input_state;
     qp_internal_pixel_output_state_t *output_state;
 } code_point_iter_drawglyph_state_t;
 
 // Codepoint handler callback: drawing
 static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_font, uint32_t code_point, uint8_t width, uint8_t height, void *cb_arg) {
     code_point_iter_drawglyph_state_t *state  = (code_point_iter_drawglyph_state_t *)cb_arg;
-    painter_driver_t *                 driver = (painter_driver_t *)state->device;
+    painter_driver_t                  *driver = (painter_driver_t *)state->device;
 
     // Reset the input state's RLE mode -- the stream should already be correctly positioned by qp_iterate_code_points()
     state->input_state->rle.mode = MARKER_BYTE; // ignored if not using RLE
@@ -364,16 +364,9 @@ static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_f
     // Move the x-position for the next glyph
     state->xpos += width;
 
-    // Decode the pixel data for the glyph
+    // Decode the pixel data for the glyph, and stream it
     uint32_t pixel_count = ((uint32_t)width) * height;
-    bool     ret         = qp_internal_decode_palette(state->device, pixel_count, qff_font->bpp, state->input_callback, state->input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, state->output_state);
-
-    // Any leftovers need transmission as well.
-    if (ret && state->output_state->pixel_write_pos > 0) {
-        ret &= driver->driver_vtable->pixdata(state->device, qp_internal_global_pixdata_buffer, state->output_state->pixel_write_pos);
-    }
-
-    return ret;
+    return qp_internal_appender(state->device, qff_font->bpp, pixel_count, state->input_callback, state->input_state);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

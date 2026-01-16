@@ -18,11 +18,9 @@
 #define L_CURBR LSFT(KC_LBRC)
 #define R_CURBR LSFT(KC_RBRC)
 
-enum custom_keycodes {
-  DVORAK = SAFE_RANGE,
-  QWERTY,
-  COLEMAK
-};
+#define QWERTY PDF(_QW)
+#define COLEMAK PDF(_CM)
+#define DVORAK PDF(_DV)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QW] = LAYOUT( /* Qwerty */
@@ -61,32 +59,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______,
     _______, KC_LSFT, KC_B,                      KC_SPC,  KC_C,                      _______, _______, _______
   )
-};
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-      switch(keycode) {
-        case DVORAK:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DV);
-          }
-          return false;
-        case QWERTY:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QW);
-          }
-          return false;
-        case COLEMAK:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_CM);
-          }
-          return false;
-        default:
-          return true;
-      }
-    return true;
 };

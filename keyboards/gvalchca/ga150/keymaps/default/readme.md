@@ -1,1 +1,0 @@
-# The default keymap for GA15.0

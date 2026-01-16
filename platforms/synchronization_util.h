@@ -10,8 +10,8 @@ void split_shared_memory_unlock(void);
 #    endif
 #else
 #    if defined(SPLIT_KEYBOARD)
-inline void split_shared_memory_lock(void){};
-inline void split_shared_memory_unlock(void){};
+inline void split_shared_memory_lock(void) {};
+inline void split_shared_memory_unlock(void) {};
 #    endif
 #endif
 

@@ -3,16 +3,6 @@
     "maintainer": "depermana12",
     "diode_direction": "COL2ROW",
     "development_board": "promicro",
-    "features": {
-        "bootmagic": true,
-        "command": false,
-        "console": false,
-        "extrakey": true,
-        "encoder": true,
-        "oled": true,
-        "mousekey": false,
-        "nkro": false
-    },
     "build": {
         "lto": true
     },

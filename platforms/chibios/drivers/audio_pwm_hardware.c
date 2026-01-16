@@ -22,6 +22,12 @@
 #    define AUDIO_PWM_COUNTER_FREQUENCY 100000
 #endif
 
+#ifndef AUDIO_PWM_COMPLEMENTARY_OUTPUT
+#    define AUDIO_PWM_OUTPUT_MODE PWM_OUTPUT_ACTIVE_HIGH
+#else
+#    define AUDIO_PWM_OUTPUT_MODE PWM_COMPLEMENTARY_OUTPUT_ACTIVE_HIGH
+#endif
+
 extern bool    playing_note;
 extern bool    playing_melody;
 extern uint8_t note_timbre;
@@ -29,24 +35,25 @@ extern uint8_t note_timbre;
 static PWMConfig pwmCFG = {.frequency = AUDIO_PWM_COUNTER_FREQUENCY, /* PWM clock frequency  */
                            .period    = 2,
                            .callback  = NULL,
-                           .channels  = {[(AUDIO_PWM_CHANNEL - 1)] = {.mode = PWM_OUTPUT_ACTIVE_HIGH, .callback = NULL}}};
+                           .channels  = {[(AUDIO_PWM_CHANNEL - 1)] = {.mode = AUDIO_PWM_OUTPUT_MODE, .callback = NULL}}};
 
 static float channel_1_frequency = 0.0f;
 
 void channel_1_set_frequency(float freq) {
     channel_1_frequency = freq;
+    pwmcnt_t period;
+    pwmcnt_t width;
 
     if (freq <= 0.0) {
-        // a pause/rest has freq=0
-        return;
+        period = 2;
+        width  = 0;
+    } else {
+        period = (pwmCFG.frequency / freq);
+        width  = (pwmcnt_t)(((period) * (pwmcnt_t)((100 - note_timbre) * 100)) / (pwmcnt_t)(10000));
     }
-
-    pwmcnt_t period = (pwmCFG.frequency / freq);
     chSysLockFromISR();
     pwmChangePeriodI(&AUDIO_PWM_DRIVER, period);
-    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
-                      // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                      PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
+    pwmEnableChannelI(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1, width);
     chSysUnlockFromISR();
 }
 
@@ -60,6 +67,9 @@ void channel_1_start(void) {
 }
 
 void channel_1_stop(void) {
+    pwmStop(&AUDIO_PWM_DRIVER);
+    pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
+    pwmEnableChannel(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1, 0);
     pwmStop(&AUDIO_PWM_DRIVER);
 }
 
@@ -81,7 +91,7 @@ static void audio_callback(virtual_timer_t *vtp, void *p) {
     chSysUnlockFromISR();
 }
 
-void audio_driver_initialize(void) {
+void audio_driver_initialize_impl(void) {
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
     // connect the AUDIO_PIN to the PWM hardware
@@ -94,7 +104,7 @@ void audio_driver_initialize(void) {
     chVTObjectInit(&audio_vt);
 }
 
-void audio_driver_start(void) {
+void audio_driver_start_impl(void) {
     channel_1_stop();
     channel_1_start();
 
@@ -109,7 +119,7 @@ void audio_driver_start(void) {
     }
 }
 
-void audio_driver_stop(void) {
+void audio_driver_stop_impl(void) {
     channel_1_stop();
     chVTReset(&audio_vt);
 }

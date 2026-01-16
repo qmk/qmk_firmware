@@ -39,7 +39,7 @@ uint8_t init_mcp23018(void)
   data[0] = IODIRA;
   data[1] = 0b00000000;
   data[2] = 0b11111111;
-  mcp23018_status = i2c_transmit(I2C_ADDR_WRITE, (uint8_t *)data, 3, MCP23018_I2C_TIMEOUT);
+  mcp23018_status = i2c_transmit(I2C_ADDR, (uint8_t *)data, 3, MCP23018_I2C_TIMEOUT);
   if (mcp23018_status != I2C_STATUS_SUCCESS)
     goto out;
 
@@ -50,7 +50,7 @@ uint8_t init_mcp23018(void)
   data[0] = GPPUA;
   data[1] = 0b00000000;
   data[2] = 0b11111111;
-  mcp23018_status = i2c_transmit(I2C_ADDR_WRITE, (uint8_t *)data, 3, MCP23018_I2C_TIMEOUT);
+  mcp23018_status = i2c_transmit(I2C_ADDR, (uint8_t *)data, 3, MCP23018_I2C_TIMEOUT);
   if (mcp23018_status != I2C_STATUS_SUCCESS)
     goto out;
 
@@ -61,7 +61,7 @@ uint8_t init_mcp23018(void)
   data[0] = OLATA;
   data[1] = 0b11111111;
   data[2] = 0b11111111;
-  mcp23018_status = i2c_transmit(I2C_ADDR_WRITE, (uint8_t *)data, 3, MCP23018_I2C_TIMEOUT);
+  mcp23018_status = i2c_transmit(I2C_ADDR, (uint8_t *)data, 3, MCP23018_I2C_TIMEOUT);
 
 out:
   return (mcp23018_status);

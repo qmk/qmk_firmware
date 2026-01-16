@@ -3,6 +3,14 @@
     "manufacturer": "Input:Club",
     "url": "https://input.club/devices/infinity-keyboard/",
     "maintainer": "qmk",
+    "features": {
+        "bootmagic": false,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
     "usb": {
         "vid": "0x1C11",
         "pid": "0xB04D",

@@ -44,10 +44,10 @@ uint8_t backlight_state_led = 1<<STATE_LED_LAYER_0;
 
 void backlight_toggle_rgb(bool enabled)
 {
-  uint8_t rgb[RGBLED_NUM][3] = { 0 };
+  uint8_t rgb[RGBLIGHT_LED_COUNT][3] = { 0 };
 
   if(enabled) {
-    for(uint8_t i = 0; i < RGBLED_NUM; ++i) {
+    for(uint8_t i = 0; i < RGBLIGHT_LED_COUNT; ++i) {
       rgb[i][0] = backlight_rgb_r;
       rgb[i][1] = backlight_rgb_g;
       rgb[i][2] = backlight_rgb_b;
@@ -56,10 +56,10 @@ void backlight_toggle_rgb(bool enabled)
   backlight_set_rgb(rgb);
 }
 
-void backlight_set_rgb(uint8_t cfg[RGBLED_NUM][3])
+void backlight_set_rgb(uint8_t cfg[RGBLIGHT_LED_COUNT][3])
 {
   cli();
-  for(uint8_t i = 0; i < RGBLED_NUM; ++i) {
+  for(uint8_t i = 0; i < RGBLIGHT_LED_COUNT; ++i) {
     send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
   }
   sei();

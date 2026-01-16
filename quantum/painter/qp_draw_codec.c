@@ -1,4 +1,5 @@
 // Copyright 2021 Nick Brassel (@tzarc)
+// Copyright 2023 Pablo Martinez (@elpekenin) <elpekenin@elpekenin.dev>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "qp_internal.h"
@@ -162,6 +163,45 @@ bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg) {
     }
 
     return true;
+}
+
+// Helper shared between image and font rendering -- uses either (qp_internal_decode_palette + qp_internal_pixel_appender) or (qp_internal_send_bytes) to send data data to the display based on the asset's native-ness
+bool qp_internal_appender(painter_device_t device, uint8_t bpp, uint32_t pixel_count, qp_internal_byte_input_callback input_callback, void* input_state) {
+    painter_driver_t* driver = (painter_driver_t*)device;
+
+    bool ret = false;
+
+    // Non-native pixel format
+    if (bpp <= 8) {
+        // Set up the output state
+        qp_internal_pixel_output_state_t output_state = {.device = device, .pixel_write_pos = 0, .max_pixels = qp_internal_num_pixels_in_buffer(device)};
+
+        // Decode the pixel data and stream to the display
+        ret = qp_internal_decode_palette(device, pixel_count, bpp, input_callback, input_state, qp_internal_global_pixel_lookup_table, qp_internal_pixel_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.pixel_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.pixel_write_pos);
+        }
+    }
+
+    // Native pixel format
+    else if (bpp != driver->native_bits_per_pixel) {
+        qp_dprintf("Asset's bpp (%d) doesn't match the target display's native_bits_per_pixel (%d)\n", bpp, driver->native_bits_per_pixel);
+        return false;
+    } else {
+        // Set up the output state
+        qp_internal_byte_output_state_t output_state = {.device = device, .byte_write_pos = 0, .max_bytes = qp_internal_num_pixels_in_buffer(device) * driver->native_bits_per_pixel / 8};
+
+        // Stream the raw pixel data to the display
+        uint32_t byte_count = pixel_count * bpp / 8;
+        ret                 = qp_internal_send_bytes(device, byte_count, input_callback, input_state, qp_internal_byte_appender, &output_state);
+        // Any leftovers need transmission as well.
+        if (ret && output_state.byte_write_pos > 0) {
+            ret &= driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, output_state.byte_write_pos * 8 / driver->native_bits_per_pixel);
+        }
+    }
+
+    return ret;
 }
 
 qp_internal_byte_input_callback qp_internal_prepare_input_state(qp_internal_byte_input_state_t* input_state, painter_compression_t compression) {

@@ -19,37 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
-#include "eeprom.h"
-
-#ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE6 // When changing, decrement this value to avoid future re-init issues
-#endif
-#define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
-
-/* EEPROM parameter address */
-#define EECONFIG_MAGIC (uint16_t *)0
-#define EECONFIG_DEBUG (uint8_t *)2
-#define EECONFIG_DEFAULT_LAYER (uint8_t *)3
-#define EECONFIG_KEYMAP (uint16_t *)4
-#define EECONFIG_BACKLIGHT (uint8_t *)6
-#define EECONFIG_AUDIO (uint8_t *)7
-#define EECONFIG_RGBLIGHT (uint32_t *)8
-#define EECONFIG_UNICODEMODE (uint8_t *)12
-#define EECONFIG_STENOMODE (uint8_t *)13
-// EEHANDS for two handed boards
-#define EECONFIG_HANDEDNESS (uint8_t *)14
-#define EECONFIG_KEYBOARD (uint32_t *)15
-#define EECONFIG_USER (uint32_t *)19
-#define EECONFIG_UNUSED (uint8_t *)23
-// Mutually exclusive
-#define EECONFIG_LED_MATRIX (uint32_t *)24
-#define EECONFIG_RGB_MATRIX (uint64_t *)24
-
-#define EECONFIG_HAPTIC (uint32_t *)32
-#define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)36
-
-// Size of EEPROM being used for core data storage
-#define EECONFIG_BASE_SIZE 37
+#include <stddef.h>       // offsetof
+#include "action_layer.h" // layer_state_t
 
 // Size of EEPROM dedicated to keyboard- and user-specific data
 #ifndef EECONFIG_KB_DATA_SIZE
@@ -64,12 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef EECONFIG_USER_DATA_VERSION
 #    define EECONFIG_USER_DATA_VERSION (EECONFIG_USER_DATA_SIZE)
 #endif
-
-#define EECONFIG_KB_DATABLOCK ((uint8_t *)(EECONFIG_BASE_SIZE))
-#define EECONFIG_USER_DATABLOCK ((uint8_t *)((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE)))
-
-// Size of EEPROM being used, other code can refer to this for available EEPROM
-#define EECONFIG_SIZE ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE))
 
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE (1 << 0)
@@ -96,22 +61,59 @@ void eeconfig_init_kb(void);
 void eeconfig_init_user(void);
 
 void eeconfig_enable(void);
-
 void eeconfig_disable(void);
 
-uint8_t eeconfig_read_debug(void);
-void    eeconfig_update_debug(uint8_t val);
+typedef union debug_config_t debug_config_t;
+void                         eeconfig_read_debug(debug_config_t *debug_config) __attribute__((nonnull));
+void                         eeconfig_update_debug(const debug_config_t *debug_config) __attribute__((nonnull));
 
-uint8_t eeconfig_read_default_layer(void);
-void    eeconfig_update_default_layer(uint8_t val);
+layer_state_t eeconfig_read_default_layer(void);
+void          eeconfig_update_default_layer(layer_state_t state);
 
-uint16_t eeconfig_read_keymap(void);
-void     eeconfig_update_keymap(uint16_t val);
+typedef union keymap_config_t keymap_config_t;
+void                          eeconfig_read_keymap(keymap_config_t *keymap_config) __attribute__((nonnull));
+void                          eeconfig_update_keymap(const keymap_config_t *keymap_config) __attribute__((nonnull));
 
 #ifdef AUDIO_ENABLE
-uint8_t eeconfig_read_audio(void);
-void    eeconfig_update_audio(uint8_t val);
-#endif
+typedef union audio_config_t audio_config_t;
+void                         eeconfig_read_audio(audio_config_t *audio_config) __attribute__((nonnull));
+void                         eeconfig_update_audio(const audio_config_t *audio_config) __attribute__((nonnull));
+#endif // AUDIO_ENABLE
+
+#ifdef UNICODE_COMMON_ENABLE
+typedef union unicode_config_t unicode_config_t;
+void                           eeconfig_read_unicode_mode(unicode_config_t *unicode_config) __attribute__((nonnull));
+void                           eeconfig_update_unicode_mode(const unicode_config_t *unicode_config) __attribute__((nonnull));
+#endif // UNICODE_COMMON_ENABLE
+
+#ifdef BACKLIGHT_ENABLE
+typedef union backlight_config_t backlight_config_t;
+void                             eeconfig_read_backlight(backlight_config_t *backlight_config) __attribute__((nonnull));
+void                             eeconfig_update_backlight(const backlight_config_t *backlight_config) __attribute__((nonnull));
+#endif // BACKLIGHT_ENABLE
+
+#ifdef STENO_ENABLE
+uint8_t eeconfig_read_steno_mode(void);
+void    eeconfig_update_steno_mode(uint8_t val);
+#endif // STENO_ENABLE
+
+#ifdef RGB_MATRIX_ENABLE
+typedef union rgb_config_t rgb_config_t;
+void                       eeconfig_read_rgb_matrix(rgb_config_t *rgb_matrix_config) __attribute__((nonnull));
+void                       eeconfig_update_rgb_matrix(const rgb_config_t *rgb_matrix_config) __attribute__((nonnull));
+#endif // RGB_MATRIX_ENABLE
+
+#ifdef LED_MATRIX_ENABLE
+typedef union led_eeconfig_t led_eeconfig_t;
+void                         eeconfig_read_led_matrix(led_eeconfig_t *led_matrix_config) __attribute__((nonnull));
+void                         eeconfig_update_led_matrix(const led_eeconfig_t *led_matrix_config) __attribute__((nonnull));
+#endif // LED_MATRIX_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+typedef union rgblight_config_t rgblight_config_t;
+void                            eeconfig_read_rgblight(rgblight_config_t *rgblight_config) __attribute__((nonnull));
+void                            eeconfig_update_rgblight(const rgblight_config_t *rgblight_config) __attribute__((nonnull));
+#endif // RGBLIGHT_ENABLE
 
 #if (EECONFIG_KB_DATA_SIZE) == 0
 uint32_t eeconfig_read_kb(void);
@@ -124,31 +126,42 @@ void     eeconfig_update_user(uint32_t val);
 #endif // (EECONFIG_USER_DATA_SIZE) == 0
 
 #ifdef HAPTIC_ENABLE
-uint32_t eeconfig_read_haptic(void);
-void     eeconfig_update_haptic(uint32_t val);
+typedef union haptic_config_t haptic_config_t;
+void                          eeconfig_read_haptic(haptic_config_t *haptic_config) __attribute__((nonnull));
+void                          eeconfig_update_haptic(const haptic_config_t *haptic_config) __attribute__((nonnull));
+#endif
+
+#ifdef CONNECTION_ENABLE
+typedef union connection_config_t connection_config_t;
+void                              eeconfig_read_connection(connection_config_t *config);
+void                              eeconfig_update_connection(const connection_config_t *config);
 #endif
 
 bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
 
 #if (EECONFIG_KB_DATA_SIZE) > 0
-bool eeconfig_is_kb_datablock_valid(void);
-void eeconfig_read_kb_datablock(void *data);
-void eeconfig_update_kb_datablock(const void *data);
-void eeconfig_init_kb_datablock(void);
+bool     eeconfig_is_kb_datablock_valid(void);
+uint32_t eeconfig_read_kb_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
+uint32_t eeconfig_update_kb_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
+void     eeconfig_init_kb_datablock(void);
+#    define eeconfig_read_kb_datablock_field(__object, __field) eeconfig_read_kb_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))
+#    define eeconfig_update_kb_datablock_field(__object, __field) eeconfig_update_kb_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))
 #endif // (EECONFIG_KB_DATA_SIZE) > 0
 
 #if (EECONFIG_USER_DATA_SIZE) > 0
-bool eeconfig_is_user_datablock_valid(void);
-void eeconfig_read_user_datablock(void *data);
-void eeconfig_update_user_datablock(const void *data);
-void eeconfig_init_user_datablock(void);
+bool     eeconfig_is_user_datablock_valid(void);
+uint32_t eeconfig_read_user_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
+uint32_t eeconfig_update_user_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));
+void     eeconfig_init_user_datablock(void);
+#    define eeconfig_read_user_datablock_field(__object, __field) eeconfig_read_user_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))
+#    define eeconfig_update_user_datablock_field(__object, __field) eeconfig_update_user_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
 
 // Any "checked" debounce variant used requires implementation of:
 //    -- bool eeconfig_check_valid_##name(void)
 //    -- void eeconfig_post_flush_##name(void)
-#define EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config)          \
+#define EECONFIG_DEBOUNCE_HELPER_CHECKED(name, config)                  \
     static uint8_t dirty_##name = false;                                \
                                                                         \
     bool eeconfig_check_valid_##name(void);                             \
@@ -157,13 +170,13 @@ void eeconfig_init_user_datablock(void);
     static inline void eeconfig_init_##name(void) {                     \
         dirty_##name = true;                                            \
         if (eeconfig_check_valid_##name()) {                            \
-            eeprom_read_block(&config, offset, sizeof(config));         \
+            eeconfig_read_##name(&config);                              \
             dirty_##name = false;                                       \
         }                                                               \
     }                                                                   \
     static inline void eeconfig_flush_##name(bool force) {              \
         if (force || dirty_##name) {                                    \
-            eeprom_update_block(&config, offset, sizeof(config));       \
+            eeconfig_update_##name(&config);                            \
             eeconfig_post_flush_##name();                               \
             dirty_##name = false;                                       \
         }                                                               \
@@ -185,10 +198,10 @@ void eeconfig_init_user_datablock(void);
         }                                                               \
     }
 
-#define EECONFIG_DEBOUNCE_HELPER(name, offset, config)     \
-    EECONFIG_DEBOUNCE_HELPER_CHECKED(name, offset, config) \
-                                                           \
-    bool eeconfig_check_valid_##name(void) {               \
-        return true;                                       \
-    }                                                      \
+#define EECONFIG_DEBOUNCE_HELPER(name, config)     \
+    EECONFIG_DEBOUNCE_HELPER_CHECKED(name, config) \
+                                                   \
+    bool eeconfig_check_valid_##name(void) {       \
+        return true;                               \
+    }                                              \
     void eeconfig_post_flush_##name(void) {}

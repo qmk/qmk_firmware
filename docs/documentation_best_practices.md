@@ -25,22 +25,30 @@ You can have styled hint blocks drawn around text to draw attention to it.
 ### Important
 
 ```
-!> This is important
+::: warning
+This is important
+:::
 ```
 
 Renders as:
 
-!> This is important
+::: warning
+This is important
+:::
 
 ### General Tips
 
 ```
-?> This is a helpful tip.
+::: tip
+This is a helpful tip.
+:::
 ```
 
 Renders as:
 
-?> This is a helpful tip.
+::: tip
+This is a helpful tip.
+:::
 
 
 # Documenting Features
@@ -61,4 +69,4 @@ This page describes my cool feature. You can use my cool feature to make coffee 
 |KC_SUGAR||Order Sugar|
 ```
 
-Place your documentation into `docs/feature_<my_cool_feature>.md`, and add that file to the appropriate place in `docs/_summary.md`. If you have added any keycodes be sure to add them to `docs/keycodes.md` with a link back to your feature page.
+Place your documentation into `docs/features/<my_cool_feature>.md`, and add that file to the appropriate place in `docs/_sidebar.json`. If you have added any keycodes be sure to add them to `docs/keycodes.md` with a link back to your feature page.

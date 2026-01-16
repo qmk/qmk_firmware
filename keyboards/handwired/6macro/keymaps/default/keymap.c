@@ -31,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* LAYER 1
   * ,-----------------------.
-  * |RGB_TOG|RGBMOD+|       |
+  * |UG_TOGG|RGBMOD+|       |
   * |-------+-------+-------|
   * |RGBHUE+|RGBBRI+|Spec FN|   Hold along with previous to access special funtions (QK_BOOT)
   * `-------+-------+-------'
   */
   [1] = LAYOUT(
-    RGB_TOG, RGB_MOD, KC_TRNS,
-    RGB_HUI, RGB_VAI, MO(2)
+    UG_TOGG, UG_NEXT, KC_TRNS,
+    UG_HUEU, UG_VALU, MO(2)
   ),
 
   /* LAYER 2
@@ -49,8 +49,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-------+-------+-------'
   */
   [2] = LAYOUT(
-    QK_BOOT, RGB_RMOD, KC_NO,
-    RGB_HUD, RGB_VAD, KC_TRNS
+    QK_BOOT, UG_PREV, KC_NO,
+    UG_HUED, UG_VALD, KC_TRNS
   )
   
 };

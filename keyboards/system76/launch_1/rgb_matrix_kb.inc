@@ -46,7 +46,7 @@ static bool active_keys(effect_params_t* params) {
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     uint8_t layer = get_highest_layer(layer_state);
-    RGB rgb = hsv_to_rgb(rgb_matrix_config.hsv);
+    rgb_t rgb = hsv_to_rgb(rgb_matrix_config.hsv);
 
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
@@ -69,7 +69,7 @@ static bool active_keys(effect_params_t* params) {
     return led_max < RGB_MATRIX_LED_COUNT;
 }
 
-RGB raw_rgb_data[RGB_MATRIX_LED_COUNT] = {0};
+extern rgb_t raw_rgb_data[RGB_MATRIX_LED_COUNT];
 
 static uint8_t normalize_component(uint8_t component) {
     uint16_t x = (uint16_t)component;
@@ -78,9 +78,9 @@ static uint8_t normalize_component(uint8_t component) {
     return (uint8_t)x;
 }
 
-static RGB normalize_index(uint8_t i) {
-    RGB raw = raw_rgb_data[i];
-    RGB rgb = {
+static rgb_t normalize_index(uint8_t i) {
+    rgb_t raw = raw_rgb_data[i];
+    rgb_t rgb = {
         .r = normalize_component(raw.r),
         .g = normalize_component(raw.g),
         .b = normalize_component(raw.b),
@@ -92,7 +92,7 @@ static bool raw_rgb(effect_params_t* params) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
-        RGB rgb = normalize_index(i);
+        rgb_t rgb = normalize_index(i);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < RGB_MATRIX_LED_COUNT;
@@ -137,7 +137,7 @@ static bool unlocked(effect_params_t* params) {
     for (uint8_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
 
-        HSV hsv = {
+        hsv_t hsv = {
             .h = i + unlocked_ticks,
             .s = 0xFF,
             .v = 0x70,
@@ -149,7 +149,7 @@ static bool unlocked(effect_params_t* params) {
             }
         }
 
-        RGB rgb = hsv_to_rgb(hsv);
+        rgb_t rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
     }
     return led_max < RGB_MATRIX_LED_COUNT;

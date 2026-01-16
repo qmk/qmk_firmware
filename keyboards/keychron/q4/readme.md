@@ -16,7 +16,7 @@ Make example for this keyboard (after setting up your build environment):
     make keychron/q4/ansi/v2:default
     make keychron/q4/iso:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make keychron/q4/ansi/v1:default:flash
     make keychron/q4/ansi/v2:default:flash

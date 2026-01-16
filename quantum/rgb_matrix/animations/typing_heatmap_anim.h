@@ -32,7 +32,7 @@ void process_rgb_matrix_typing_heatmap(uint8_t row, uint8_t col) {
             if (i_row == row && i_col == col) {
                 g_rgb_frame_buffer[row][col] = qadd8(g_rgb_frame_buffer[row][col], RGB_MATRIX_TYPING_HEATMAP_INCREASE_STEP);
             } else {
-#            define LED_DISTANCE(led_a, led_b) sqrt16(((int16_t)(led_a.x - led_b.x) * (int16_t)(led_a.x - led_b.x)) + ((int16_t)(led_a.y - led_b.y) * (int16_t)(led_a.y - led_b.y)))
+#            define LED_DISTANCE(led_a, led_b) sqrt16(((int32_t)(led_a.x - led_b.x) * (int32_t)(led_a.x - led_b.x)) + ((int32_t)(led_a.y - led_b.y) * (int32_t)(led_a.y - led_b.y)))
                 uint8_t distance = LED_DISTANCE(g_led_config.point[g_led_config.matrix_co[row][col]], g_led_config.point[g_led_config.matrix_co[i_row][i_col]]);
 #            undef LED_DISTANCE
                 if (distance <= RGB_MATRIX_TYPING_HEATMAP_SPREAD) {
@@ -82,8 +82,8 @@ bool TYPING_HEATMAP(effect_params_t* params) {
                 uint8_t val = g_rgb_frame_buffer[row][col];
                 if (!HAS_ANY_FLAGS(g_led_config.flags[g_led_config.matrix_co[row][col]], params->flags)) continue;
 
-                HSV hsv = {170 - qsub8(val, 85), rgb_matrix_config.hsv.s, scale8((qadd8(170, val) - 170) * 3, rgb_matrix_config.hsv.v)};
-                RGB rgb = rgb_matrix_hsv_to_rgb(hsv);
+                hsv_t hsv = {170 - qsub8(val, 85), rgb_matrix_config.hsv.s, scale8((qadd8(170, val) - 170) * 3, rgb_matrix_config.hsv.v)};
+                rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
                 rgb_matrix_set_color(g_led_config.matrix_co[row][col], rgb.r, rgb.g, rgb.b);
 
                 if (decrease_heatmap_values) {

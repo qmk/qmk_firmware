@@ -16,7 +16,7 @@
 RGB_MATRIX_EFFECT(RGB_TESTING)
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV RGB_TESTING_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t RGB_TESTING_math(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.v = 255;
     hsv.s = 255;
 

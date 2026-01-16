@@ -25,7 +25,6 @@ Choose any key from the corrosponding row and column and solder it to the pin on
 _NOTE: Some of the keys had mislabled columns and rows, so make sure the columns are all connected without diodes to one another, and that the rows are soldered after the diode_
 
 * Keyboard Maintainer: [NaCly](https://github.com/Na-Cly)
-* Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: Leopold FC200RT + Teensy 2.0
 
 Make example for this keyboard (after setting up your build environment):

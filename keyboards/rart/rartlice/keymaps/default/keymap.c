@@ -25,9 +25,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_LCTL,          KC_LALT,          KC_SPC,  MO(1),            KC_SPC,           KC_RALT,          KC_LEFT, KC_DOWN, KC_RGHT
     ),
   [1] = LAYOUT(
-        KC_NUM,  RGB_TOG, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
-        KC_SCRL, _______, RGB_MOD,  RGB_HUI, RGB_SAI, RGB_VAI, _______, KC_P7,   KC_P8,   KC_P9,   KC_P0,   _______, _______, _______, _______,
-        _______, _______, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, _______, KC_P4,   KC_P5,   KC_P6,   _______, _______, _______, _______,
+        KC_NUM,  UG_TOGG, KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______,
+        KC_SCRL, _______, UG_NEXT,  UG_HUEU, UG_SATU, UG_VALU, _______, KC_P7,   KC_P8,   KC_P9,   KC_P0,   _______, _______, _______, _______,
+        _______, _______, UG_PREV,  UG_HUED, UG_SATD, UG_VALD, _______, KC_P4,   KC_P5,   KC_P6,   _______, _______, _______, _______,
                  _______, _______,  _______, _______, _______, _______, KC_P1,   KC_P2,   KC_P3,   _______, _______, _______,          _______,
                  _______,           _______,          _______, _______,          _______,          _______,          _______, _______, _______
     ),

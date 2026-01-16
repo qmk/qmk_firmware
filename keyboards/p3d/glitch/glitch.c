@@ -21,10 +21,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         return false;
     }
     if (clockwise) {
-        // tap_code(RGB_MOD);
         rgblight_step();
     } else {
-        // tap_code(RGB_RMOD);
         rgblight_step_reverse();
     }
 

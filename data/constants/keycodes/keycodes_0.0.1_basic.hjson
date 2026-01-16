@@ -1140,7 +1140,7 @@
         "0x00AE": {
             "group": "media",
             "key": "KC_MEDIA_PLAY_PAUSE",
-            "label": "Mute",
+            "label": "Play/Pause Track",
             "aliases": [
                 "KC_MPLY"
             ]

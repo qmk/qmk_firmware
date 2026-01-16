@@ -346,10 +346,10 @@ static void USB2422_write_block(void) {
 
 void USB2422_init(void) {
 #ifdef USB2422_RESET_PIN
-    setPinOutput(USB2422_RESET_PIN);
+    gpio_set_pin_output(USB2422_RESET_PIN);
 #endif
 #ifdef USB2422_ACTIVE_PIN
-    setPinInput(USB2422_ACTIVE_PIN);
+    gpio_set_pin_input(USB2422_ACTIVE_PIN);
 #endif
 
     i2c_init(); // IC2 clk must be high at USB2422 reset release time to signal SMB configuration
@@ -387,15 +387,15 @@ void USB2422_configure(void) {
 
 void USB2422_reset(void) {
 #ifdef USB2422_RESET_PIN
-    writePinLow(USB2422_RESET_PIN);
+    gpio_write_pin_low(USB2422_RESET_PIN);
     wait_us(2);
-    writePinHigh(USB2422_RESET_PIN);
+    gpio_write_pin_high(USB2422_RESET_PIN);
 #endif
 }
 
 bool USB2422_active(void) {
 #ifdef USB2422_ACTIVE_PIN
-    return readPin(USB2422_ACTIVE_PIN);
+    return gpio_read_pin(USB2422_ACTIVE_PIN);
 #else
     return 1;
 #endif

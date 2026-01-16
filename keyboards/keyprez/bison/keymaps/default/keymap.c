@@ -25,14 +25,6 @@ enum layer_names {
     _FN,
 };
 
-enum custom_keycodes {
-    KC_QWRTY = SAFE_RANGE,
-    KC_COLMK,
-    KC_HRM,
-    KC_PRVWD,
-    KC_NXTWD
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 #define FN MO(_FN)
@@ -45,6 +37,13 @@ enum custom_keycodes {
 #define HRM_RA MT(MOD_RALT, KC_L)
 #define HRM_RC MT(MOD_RCTL, KC_K)
 #define HRM_RS MT(MOD_RSFT, KC_J)
+
+#define KC_QWRTY PDF(_QWERTY)
+#define KC_COLMK PDF(_COLEMAK)
+#define KC_HRM PDF(_HRM)
+
+#define KC_PRVWD LCTL(KC_LEFT)
+#define KC_NXTWD LCTL(KC_RGHT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
@@ -185,42 +184,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           _______,_______, _______,       _______,              _______,      _______, _______, _______
     ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case KC_QWRTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case KC_COLMK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-        case KC_HRM:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_HRM);
-            }
-            return false;
-        case KC_PRVWD:
-            if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_LEFT);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_LEFT);
-            }
-            break;
-        case KC_NXTWD:
-             if (record->event.pressed) {
-                register_mods(mod_config(MOD_LCTL));
-                register_code(KC_RIGHT);
-            } else {
-                unregister_mods(mod_config(MOD_LCTL));
-                unregister_code(KC_RIGHT);
-            }
-            break;
-    }
-    return true;
-}

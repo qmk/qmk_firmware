@@ -4,13 +4,10 @@
 # Configuration
 
 # The ChibiOS branches to mirror
-chibios_branches="trunk stable_20.3.x stable_21.11.x"
-
-# The ChibiOS tags to mirror
-chibios_tags="ver20.3.1 ver20.3.2 ver20.3.3 ver20.3.4 ver21.11.1 ver21.11.2 ver21.11.3"
+chibios_branches="trunk stable_21.11.x"
 
 # The ChibiOS-Contrib branches to mirror
-contrib_branches="chibios-20.3.x chibios-21.11.x"
+contrib_branches="chibios-21.11.x"
 
 ################################
 # Actions
@@ -46,6 +43,12 @@ fi
 echo "Updating remotes..."
 git fetch --all --tags --prune
 
+echo "Ensure refs actually match up..."
+for branch in $chibios_branches ; do
+    echo "Matching $branch..."
+    git update-ref refs/remotes/svn/$branch refs/remotes/qmk/svn-mirror/$branch
+done
+
 echo "Fetching latest from subversion..."
 git svn fetch
 
@@ -54,13 +57,6 @@ for branch in $chibios_branches ; do
     echo "Creating branch 'svn-mirror/$branch' from 'svn/$branch'..."
     git branch -f svn-mirror/$branch svn/$branch \
         && git push qmk svn-mirror/$branch
-done
-
-echo "Updating ChibiOS tags..."
-for tagname in $chibios_tags ; do
-    echo "Creating tag 'svn-mirror/$tagname' from 'svn/tags/$tagname'..."
-    GIT_COMMITTER_DATE="$(git log -n1 --pretty=format:'%ad' svn/tags/$tagname)" git tag -f -a -m "Tagging $tagname" svn-mirror/$tagname svn/tags/$tagname
-    git push qmk svn-mirror/$tagname
 done
 
 cd "$contrib_dir"

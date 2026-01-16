@@ -31,9 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include <LUFA/Drivers/Peripheral/SPI.h>
 
-#include "config.h"
-
-
 #ifndef DEBOUNCE
 #   define DEBOUNCE 5
 #endif
@@ -82,17 +79,17 @@ void matrix_scan_user(void) {
 // switch, and then into the diode, then into one of the columns into the 
 // matrix. the reset pin can be used to reset the entire counter.
 
-#define RESET _BV(PB0)
-#define SCLK  _BV(PB1)
-#define SDATA _BV(PB3)
-#define LED   _BV(PD6) 
+#define HP_46010A_RESET_PIN B0
+#define HP_46010A_SCLK_PIN  B1
+#define HP_46010A_SDATA_PIN B3
+#define HP_46010A_LED_PIN   D6
 
 inline
 static
 void SCLK_increment(void) {
-    PORTB &= ~SCLK ;
+    gpio_write_pin_low(HP_46010A_SCLK_PIN);
     _delay_us( 4 ) ; // make sure the line is stable
-    PORTB |= SCLK ;
+    gpio_write_pin_high(HP_46010A_SCLK_PIN);
     _delay_us( 4 ) ;
     
     return ;
@@ -101,9 +98,9 @@ void SCLK_increment(void) {
 inline
 static
 void Matrix_Reset(void) {
-    PORTB |= RESET ;
+    gpio_write_pin_high(HP_46010A_RESET_PIN);
     _delay_us( 4 ) ; // make sure the line is stable
-    PORTB &= ~RESET ;
+    gpio_write_pin_low(HP_46010A_RESET_PIN);
     
     return ;
 }
@@ -116,7 +113,7 @@ uint8_t Matrix_ReceiveByte (void) {
     for ( uint8_t bit = 0; bit < MATRIX_COLS; ++bit ) {
         // toggle the clock
         SCLK_increment();
-        temp      = (PINB & SDATA) << 4 ;
+        temp      = gpio_read_pin(HP_46010A_SDATA_PIN) << 4 ;
         received |= temp >> bit ;
     }
 
@@ -138,18 +135,19 @@ void Matrix_ThrowByte(void) {
 void matrix_init (void) {
     // debug_matrix = 1;
     // PB0 (SS) and PB1 (SCLK) set to outputs
-    DDRB |= RESET | SCLK ;
+    gpio_set_pin_output(HP_46010A_RESET_PIN);
+    gpio_set_pin_output(HP_46010A_SCLK_PIN);
     // PB2, is unused, and PB3 is our serial input
-    DDRB &= ~SDATA ;
+    gpio_set_pin_input(HP_46010A_SDATA_PIN);
     
     // SS is reset for this board, and is active High
     // SCLK is the serial clock and is active High
-    PORTB &= ~RESET ;
-    PORTB |= SCLK   ;
+    gpio_write_pin_low(HP_46010A_RESET_PIN);
+    gpio_write_pin_high(HP_46010A_SCLK_PIN);
 
     // led pin
-    DDRD  |= LED ;
-    PORTD &= ~LED ;
+    gpio_set_pin_output(HP_46010A_LED_PIN);
+    gpio_write_pin_low(HP_46010A_LED_PIN);
 
     matrix_init_kb();
 

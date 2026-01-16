@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "action_util.h"
 #include "action_layer.h"
+#include "action_tapping.h"
 #include "timer.h"
 #include "keycode_config.h"
 #include <string.h>
@@ -46,8 +47,19 @@ extern inline void clear_keys(void);
 #ifndef NO_ACTION_ONESHOT
 static uint8_t oneshot_mods        = 0;
 static uint8_t oneshot_locked_mods = 0;
-uint8_t        get_oneshot_locked_mods(void) {
+/**
+ * @brief Retrieve current state of locked oneshot modifiers.
+ *
+ * @return Current state of the locked oneshot modifier keys as a bitmask.
+ */
+uint8_t get_oneshot_locked_mods(void) {
     return oneshot_locked_mods;
+}
+/**
+ * Same as \ref get_oneshot_locked_mods but returns \ref mod_t for convenience.
+ */
+mod_t get_oneshot_locked_mod_state(void) {
+    return (mod_t)get_oneshot_locked_mods();
 }
 void add_oneshot_locked_mods(uint8_t mods) {
     if ((oneshot_locked_mods & mods) != mods) {
@@ -219,7 +231,7 @@ bool is_oneshot_layer_active(void) {
 void oneshot_set(bool active) {
     if (keymap_config.oneshot_enable != active) {
         keymap_config.oneshot_enable = active;
-        eeconfig_update_keymap(keymap_config.raw);
+        eeconfig_update_keymap(&keymap_config);
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         dprintf("Oneshot: active: %d\n", active);
     }
@@ -273,6 +285,10 @@ static uint8_t get_mods_for_report(void) {
     }
 #endif
 
+#ifdef SPECULATIVE_HOLD
+    mods |= get_speculative_mods();
+#endif
+
 #ifdef KEY_OVERRIDE_ENABLE
     // These need to be last to be able to properly control key overrides
     mods &= ~suppressed_mods;
@@ -318,22 +334,27 @@ void send_nkro_report(void) {
  */
 void send_keyboard_report(void) {
 #ifdef NKRO_ENABLE
-    if (keyboard_protocol && keymap_config.nkro) {
+    if (host_can_send_nkro() && keymap_config.nkro) {
         send_nkro_report();
-    } else {
-        send_6kro_report();
+        return;
     }
-#else
-    send_6kro_report();
 #endif
+    send_6kro_report();
 }
 
-/** \brief Get mods
+/**
+ * @brief Retrieve current state of modifiers.
  *
- * FIXME: needs doc
+ * @return Current state of the modifier keys as a bitmask.
  */
 uint8_t get_mods(void) {
     return real_mods;
+}
+/**
+ * Same as \ref get_mods but returns \ref mod_t for convenience.
+ */
+mod_t get_mod_state(void) {
+    return (mod_t)get_mods();
 }
 /** \brief add mods
  *
@@ -364,12 +385,19 @@ void clear_mods(void) {
     real_mods = 0;
 }
 
-/** \brief get weak mods
+/**
+ * @brief Retrieve current state of weak modifiers.
  *
- * FIXME: needs doc
+ * @return Current state of the weak modifier keys as a bitmask.
  */
 uint8_t get_weak_mods(void) {
     return weak_mods;
+}
+/**
+ * Same as \ref get_weak_mods but returns \ref mod_t for convenience.
+ */
+mod_t get_weak_mod_state(void) {
+    return (mod_t)get_weak_mods();
 }
 /** \brief add weak mods
  *
@@ -425,12 +453,20 @@ void clear_suppressed_override_mods(void) {
 #endif
 
 #ifndef NO_ACTION_ONESHOT
-/** \brief get oneshot mods
+/**
+ * @brief Retrieve current state of oneshot modifiers.
  *
- * FIXME: needs doc
+ * @return Current state of the oneshot modifier keys as a bitmask.
  */
 uint8_t get_oneshot_mods(void) {
     return oneshot_mods;
+}
+
+/**
+ * Same as \ref get_oneshot_mods but returns \ref mod_t for convenience.
+ */
+mod_t get_oneshot_mod_state(void) {
+    return (mod_t)get_oneshot_mods();
 }
 
 void add_oneshot_mods(uint8_t mods) {

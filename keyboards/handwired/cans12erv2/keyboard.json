@@ -1,0 +1,49 @@
+{
+    "manufacturer": "Can Baytok",
+    "keyboard_name": "Cans12erV2",
+    "maintainer": "canbaytok",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP14", "pin_b": "GP15"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP9", "GP10", "GP11", "GP12"],
+        "rows": ["GP13", "GP7", "GP8"]
+    },
+    "host_language": "german",
+    "processor": "RP2040",
+    "url": "https://github.com/canbaytok/Cans12erV2",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xABC0",
+        "vid": "0x4342"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0, "encoder": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2}
+            ]
+        }
+    }
+}

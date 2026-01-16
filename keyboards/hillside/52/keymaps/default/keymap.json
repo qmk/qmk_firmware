@@ -74,10 +74,10 @@
          "KC_NO"       , "KC_PSCR" , "KC_NO"  , "KC_NO"  , "KC_NO"  , "KC_NO",
 
          "KC_NO"       , "KC_NO"   , "KC_BRIU", "KC_NO"  , "AG_NORM", "CG_NORM",
-         "RGB_MOD"     , "RGB_VAI" , "RGB_HUI", "RGB_SAI", "KC_NO"  , "KC_NO",
+         "UG_NEXT"     , "UG_VALU" , "UG_HUEU", "UG_SATU", "KC_NO"  , "KC_NO",
 
          "QK_BOOT"     , "KC_NO"   , "KC_BRID", "KC_NO"  , "KC_NO"  , "KC_NO"        , "EE_CLR",
-         "RGB_TOG"     , "RGB_RMOD", "RGB_VAD", "RGB_HUD", "RGB_SAD", "KC_NO"        , "KC_NO",
+         "UG_TOGG"     , "UG_PREV" , "UG_VALD", "UG_HUED", "UG_SATD", "KC_NO"        , "KC_NO",
 
          "KC_NO"       , "KC_NO"   , "KC_NO"  , "KC_NO"  , "KC_NO"  , "KC_NO"        , "KC_TRNS",
          "KC_TRNS"     , "KC_NO"   , "KC_NO"  , "KC_NO"  , "KC_NO"  , "KC_NO"        , "KC_NO"
