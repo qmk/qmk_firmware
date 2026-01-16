@@ -217,9 +217,14 @@ $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc: $(KEYMAP_JSON) $(DD
 	$(eval CMD=$(QMK_BIN) generate-rgb-matrix-community-modules-inc -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
+$(INTERMEDIATE_OUTPUT)/src/split_transaction_id_community_modules.inc: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
+	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
+	$(eval CMD=$(QMK_BIN) generate-split-transaction-id-community-modules-inc -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/split_transaction_id_community_modules.inc $(KEYMAP_JSON))
+	@$(BUILD_CMD)
+
 SRC += $(INTERMEDIATE_OUTPUT)/src/community_modules.c
 
-generated-files: $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h $(INTERMEDIATE_OUTPUT)/src/led_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc
+generated-files: $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h $(INTERMEDIATE_OUTPUT)/src/led_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/split_transaction_id_community_modules.inc
 
 endif
 

@@ -243,6 +243,16 @@ def generate_community_modules_h(cli):
         lines.append('// Core wrapper')
         for api in api_list:
             lines.extend(_render_api_declarations(api, 'modules', user_kb=False))
+        lines.append('')
+
+        lines.append('// Split transactions')
+        for module in modules:
+            lines.extend([
+                f'#ifndef SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()}',
+                '#    define SPLIT_TRANSACTION_RPC',
+                '#endif',
+            ])
+        lines.append('')
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
@@ -339,3 +349,26 @@ def generate_rgb_matrix_community_modules_inc(cli):
     """Creates an rgb_matrix_community_modules.inc from a keymap.json file
     """
     _generate_include_per_module(cli, 'rgb_matrix_module.inc')
+
+
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate split_transaction_id_community_modules.inc for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates an split_transaction_id_community_modules.inc from a keymap.json file.')
+def generate_split_transaction_id_community_modules_inc(cli):
+    """Creates an split_transaction_id_community_modules.inc from a keymap.json file
+    """
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE]
+
+    for module in get_modules(cli.args.keyboard, cli.args.filename):
+        lines.extend([
+            f'#ifdef SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()}',
+            f'    SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()},',
+            '#endif',
+        ])
+
+    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
