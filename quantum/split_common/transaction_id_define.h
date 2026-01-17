@@ -18,10 +18,6 @@
 
 #include "compiler_support.h"
 
-#ifdef COMMUNITY_MODULES_ENABLE
-#    include "community_modules.h" // Might also enable SPLIT_TRANSACTION_RPC
-#endif
-
 #if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
 #    define SPLIT_TRANSACTION_RPC
 #endif

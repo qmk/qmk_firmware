@@ -196,6 +196,38 @@ def generate_community_modules_rules_mk(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_config.h for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates a community_config.h from a keymap.json file.')
+def generate_community_config_h(cli):
+    """Creates a community_config.h from a keymap.json file
+    """
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    lines = [
+        GPL2_HEADER_C_LIKE,
+        GENERATED_HEADER_C_LIKE,
+        '#pragma once',
+        '',
+    ]
+
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    if len(modules) > 0:
+        lines.append('// Split transactions')
+        for module in modules:
+            lines.extend([
+                f'#ifndef SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()}',
+                '#    define SPLIT_TRANSACTION_RPC',
+                '#endif',
+            ])
+        lines.append('')
+
+    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules.h from a keymap.json file.')
@@ -243,16 +275,6 @@ def generate_community_modules_h(cli):
         lines.append('// Core wrapper')
         for api in api_list:
             lines.extend(_render_api_declarations(api, 'modules', user_kb=False))
-        lines.append('')
-
-        lines.append('// Split transactions')
-        for module in modules:
-            lines.extend([
-                f'#ifndef SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()}',
-                '#    define SPLIT_TRANSACTION_RPC',
-                '#endif',
-            ])
-        lines.append('')
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
