@@ -100,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       [layer1] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,   MO(8), XXXXXXX,                      KC_COMM,    KC_9,    KC_8,    KC_7, XXXXXXX, XXXXXXX,
+       KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX,  KC_SPC, XXXXXXX,                      KC_COMM,    KC_9,    KC_8,    KC_7, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       XXXXXXX, KC_LGUI, KC_LALT, KC_RCTL, KC_LSFT, KC_MINS,                       KC_DOT,    KC_6,    KC_5,    KC_4, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX,   MO(7),   MO(6), KC_SLSH,                         KC_0,    KC_3,    KC_2,    KC_1, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SLSH,                         KC_0,    KC_3,    KC_2,    KC_1, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LALT,  KC_ENT, _______,      MO(4), XXXXXXX, KC_RCTL
                                       //`--------------------------'  `--------------------------'
@@ -197,9 +197,9 @@ const uint16_t PROGMEM paste_combo[] = {KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM cut_combo[] = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM ent_combo[] = {KC_L, KC_K, COMBO_END};
 const uint16_t PROGMEM undo_combo[] = {KC_S, KC_D, COMBO_END};
-const uint16_t PROGMEM del_combo[] = {KC_M, KC_COMM, COMBO_END};
-const uint16_t PROGMEM righ_alt[] = {KC_DOT, KC_SLASH, COMBO_END};
-const uint16_t PROGMEM right_sft[] = {KC_L, KC_SCLN, COMBO_END};
+const uint16_t PROGMEM del_combo[] = {KC_M, KC_COMM, COMBO_END}:;
+const uint16_t PROGMEM righ_alt[] = {KC_N, KC_M, COMBO_END};
+const uint16_t PROGMEM right_sft[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM spc_combo[] = {KC_S, KC_F, COMBO_END};
 
 combo_t key_combos[] = {
