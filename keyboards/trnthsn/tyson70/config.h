@@ -1,4 +1,4 @@
-// Copyright 2025 Tyson.Keebs
+// Copyright 2026 Tyson.Keebs
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
