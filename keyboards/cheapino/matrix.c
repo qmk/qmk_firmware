@@ -116,7 +116,7 @@ void matrix_init_custom(void) {
     // initialize key pins
     unselect_cols();
     unselect_rows();
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
 }
 
 void store_old_matrix(matrix_row_t current_matrix[]) {
