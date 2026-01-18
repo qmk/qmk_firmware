@@ -1,0 +1,12 @@
+[project]
+name = "dansteeves-cheapinov2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "qmk>=1.2.0",
+]
