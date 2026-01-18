@@ -18,12 +18,12 @@ management and tompi's QMK fork.
 ### 1.1 Fork and Clone QMK Firmware
 
 ```bash
-cd /Users/dan/code/keyboard
+cd /Users/dan/code/
 
 # Fork the official qmk_firmware repo to your GitHub account
 gh repo fork qmk/qmk_firmware --clone
 
-# This creates /Users/dan/code/keyboard/qmk_firmware
+# This creates /Users/dan/code/qmk_firmware
 cd qmk_firmware
 ```
 
@@ -41,10 +41,10 @@ git fetch tompi cheapinov2
 
 ```bash
 # Create a new branch based on tompi's cheapinov2 (so you can commit/push)
-git checkout -b dan/cheapinov2 tompi/cheapinov2
+git checkout -b dansteeves/cheapinov2 tompi/cheapinov2
 
 # Push to your fork to set up tracking
-git push -u origin dan/cheapinov2
+git push -u origin dansteeves/cheapinov2
 ```
 
 ---
@@ -54,13 +54,13 @@ git push -u origin dan/cheapinov2
 ### 2.1 Initialize uv Project
 
 ```bash
-cd /Users/dan/code/keyboard
+cd /Users/dan/code/qmk_firmware
 
 # Initialize a new uv project (in parent of qmk_firmware)
-uv init --name cheapino-firmware
+uv init --name dansteeves-cheapino
 
 # Add qmk as a dependency
-uv add qmk
+uv add --dev qmk
 
 # Activate the virtual environment
 source .venv/bin/activate
@@ -70,10 +70,10 @@ source .venv/bin/activate
 
 ```bash
 # Set QMK home to your cloned fork
-qmk config user.qmk_home=/Users/dan/code/keyboard/qmk_firmware
+qmk config user.qmk_home=/Users/dan/code/qmk_firmware
 
 # Run QMK setup (will use existing clone, answer 'n' to re-clone prompt)
-qmk setup -H /Users/dan/code/keyboard/qmk_firmware
+qmk setup -H /Users/dan/code/qmk_firmware
 ```
 
 ---
