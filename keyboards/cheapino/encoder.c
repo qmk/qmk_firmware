@@ -12,18 +12,31 @@ static bool colABPressed   = false;
 static bool encoderPressed = false;
 
 void clicked(void) {
-    tap_code(KC_MPLY);
+    // Button only active on layer 0
+    if (IS_LAYER_ON(3)) {
+        // No action on layer 3
+    } else if (IS_LAYER_ON(2)) {
+        // No action on layer 2
+    } else if (IS_LAYER_ON(1)) {
+        // No action on layer 1
+    } else {
+        tap_code(KC_MPLY);  // Layer 0: Media Play/Pause
+    }
 }
 
 void turned(bool clockwise) {
-    if (IS_LAYER_ON(6)) {
-        tap_code(clockwise ? KC_VOLU : KC_VOLD);
-    } else if (IS_LAYER_ON(3)) {
-        tap_code16(clockwise ? LCTL(KC_TAB) : LCTL(LSFT(KC_TAB)));
-    } else if (IS_LAYER_ON(5)) {
-        tap_code16(clockwise ? LGUI(KC_Y) : LGUI(KC_Z));
+    if (IS_LAYER_ON(3)) {
+        // Layer 3: Brightness Down/Up
+        tap_code(clockwise ? KC_BRIU : KC_BRID);
+    } else if (IS_LAYER_ON(2)) {
+        // Layer 2: Scroll Left/Right (horizontal mouse wheel)
+        tap_code(clockwise ? MS_WHLR : MS_WHLL);
+    } else if (IS_LAYER_ON(1)) {
+        // Layer 1: Scroll Down/Up (mouse wheel)
+        tap_code(clockwise ? MS_WHLU : MS_WHLD);
     } else {
-        tap_code16(clockwise ? KC_PGDN : KC_PGUP);
+        // Layer 0: Volume Down/Up
+        tap_code(clockwise ? KC_VOLU : KC_VOLD);
     }
 }
 
