@@ -4,20 +4,41 @@ on:
   push:
     branches: [master, develop, xap]
     paths:
-      - "util/env-bootstrap.sh"
-      - ".github/workflows/bootstrap_testing.yml"
+    - 'util/env-bootstrap.sh'
+    - '.github/workflows/bootstrap_testing.yml'
   pull_request:
     paths:
-      - "util/env-bootstrap.sh"
-      - ".github/workflows/bootstrap_testing.yml"
+    - 'util/env-bootstrap.sh'
+    - '.github/workflows/bootstrap_testing.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
+  prep:
+    runs-on: ubuntu-latest
+
+    outputs:
+      any_changed: ${{ steps.file_changes.outputs.any_changed }}
+
+    steps:
+    - name: Get changed files
+      id: file_changes
+      if: ${{ github.event_name == 'pull_request' }}
+      uses: tj-actions/changed-files@v47
+      with:
+        use_rest_api: true
+        files: |
+          util/env-bootstrap.sh
+          .github/workflows/bootstrap_testing.yml
+
   bootstrap-test-linux:
     name: Bootstrap (Linux)
+
+    needs: prep
+    if: ${{ github.event_name != 'pull_request' || needs.prep.outputs.any_changed == 'true' }}
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -141,6 +162,12 @@ jobs:
             bash /home/testuser/qmk_firmware/util/env-bootstrap.sh
           "
 
+      - name: Install dependencies
+        run: |
+          sudo -u testuser bash -c "
+            /home/testuser/.local/share/uv/tools/qmk/bin/python -m pip install -r /home/testuser/qmk_firmware/requirements.txt
+          "
+
       - name: Test QMK CLI
         run: |
           sudo -u testuser bash -c "
@@ -157,6 +184,10 @@ jobs:
 
   bootstrap-test-macos:
     name: Bootstrap (macOS)
+
+    needs: prep
+    if: ${{ github.event_name != 'pull_request' || needs.prep.outputs.any_changed == 'true' }}
+
     strategy:
       fail-fast: false
       matrix:
@@ -185,6 +216,10 @@ jobs:
           export CONFIRM=1
           sh ./util/env-bootstrap.sh
 
+      - name: Install dependencies
+        run: |
+          $HOME/.local/share/uv/tools/qmk/bin/python -m pip install -r requirements.txt
+
       - name: Test QMK CLI
         run: |
           # Add QMK CLI to PATH (bootstrap script installs it to ~/.local/bin on macOS)
@@ -197,6 +232,9 @@ jobs:
 
   bootstrap-test-windows:
     name: Bootstrap (Windows)
+
+    needs: prep
+    if: ${{ github.event_name != 'pull_request' || needs.prep.outputs.any_changed == 'true' }}
 
     strategy:
       fail-fast: false
@@ -234,6 +272,10 @@ jobs:
           # Run the bootstrap script
           export CONFIRM=1
           sh ./util/env-bootstrap.sh
+
+      - name: Install dependencies
+        run: |
+          /opt/uv/tools/qmk/Scripts/python -m pip install -r requirements.txt
 
       - name: Test QMK CLI
         run: |
