@@ -34,6 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeconfig.h"
 #include "action_layer.h"
 #include "suspend.h"
+#include "bootloader.h"
+
 #ifdef BOOTMAGIC_ENABLE
 #    include "bootmagic.h"
 #endif
@@ -426,6 +428,8 @@ void housekeeping_task(void) {
     housekeeping_task_user();
 }
 
+__attribute__((weak)) void pre_mcu_reset_user(void) {}
+
 /** \brief quantum_init
  *
  * Init global state
@@ -709,6 +713,9 @@ void quantum_task(void) {
 
 /** \brief Main task that is repeatedly called as fast as possible. */
 void keyboard_task(void) {
+    // defer a reset until the end of this task, to allow user-code, leds and screen to update before resetting.
+    uint8_t reset_pending = false;
+
     __attribute__((unused)) bool activity_has_occurred = false;
     if (matrix_task()) {
         last_matrix_activity_trigger();
@@ -719,6 +726,7 @@ void keyboard_task(void) {
 
 #if defined(SPLIT_WATCHDOG_ENABLE)
     split_watchdog_task();
+    reset_pending |= split_mcu_reset_is_pending();
 #endif
 
 #if defined(RGBLIGHT_ENABLE)
@@ -801,5 +809,11 @@ void keyboard_task(void) {
 
 #ifdef OS_DETECTION_ENABLE
     os_detection_task();
+	reset_pending |= os_detection_mcu_reset_is_pending();
 #endif
+
+    if (reset_pending) {
+        pre_mcu_reset_user();
+        mcu_reset();
+    }
 }
