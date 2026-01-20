@@ -3,6 +3,7 @@
 #include <hal.h>
 #include <string.h>
 #include "eeconfig.h"
+#include "split_util.h"
 
 #define RED_PIN 1
 #define GREEN_PIN 2
@@ -291,3 +292,7 @@ void usart_slave_init(SerialDriver **driver) {
     *driver = &SD2;
 }
 #endif
+
+void pre_mcu_reset_user() {
+    ergodox_infinity_lcd_color(UINT16_MAX, UINT16_MAX, 0);
+}
