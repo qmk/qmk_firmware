@@ -105,9 +105,12 @@ __attribute__ ((weak)) void matrix_scan_user(void) {
 }
 
 void keyboard_pre_init_kb(void) {
-    // The backlight always has to be initialized, otherwise it will stay lit
+    // The backlight always has to be initialized, otherwise it will stay lit at 100% - adding a delay here proves this
+    //wait_ms(500);
+
     lcd_backlight_hal_init();
 #ifdef ST7565_ENABLE
+    // backlight to 50% brightness
     ergodox_infinity_lcd_color(UINT16_MAX / 2, UINT16_MAX / 2, UINT16_MAX / 2);
 #endif
     keyboard_pre_init_user();
