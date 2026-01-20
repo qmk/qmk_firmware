@@ -4,6 +4,7 @@
 #include <string.h>
 #include "eeconfig.h"
 #include "split_util.h"
+#include "usb_util.h"
 
 #define RED_PIN 1
 #define GREEN_PIN 2
@@ -92,8 +93,16 @@ void ergodox_infinity_lcd_color(uint16_t r, uint16_t g, uint16_t b) {
 
 __attribute__ ((weak)) void matrix_init_user(void) {}
 
-__attribute__ ((weak)) void matrix_scan_user(void) {}
+__attribute__ ((weak)) void matrix_scan_user(void) {
+	if (!usb_connected_state()) {
+		static uint8_t index = 255;
 
+    	ergodox_infinity_lcd_color(index << 8, index << 8, index << 8);
+
+    	// allow overflow
+		index--;
+	}
+}
 
 void keyboard_pre_init_kb(void) {
     // The backlight always has to be initialized, otherwise it will stay lit
@@ -245,7 +254,7 @@ static void format_layer_bitmap_string(char* buffer, uint8_t offset) {
     *buffer = 0;
 }
 
-__attribute__((weak)) void st7565_task_user(void) {
+__attribute__((weak)) void st7565_task_user_original(void) {
     if (is_keyboard_master()) {
         // Draw led and layer status
         led_t leds = host_keyboard_led_state();
@@ -274,6 +283,34 @@ __attribute__((weak)) void st7565_task_user(void) {
         st7565_write(qmk_logo, false);
         st7565_write("  Infinity  Ergodox  ", false);
     }
+}
+
+__attribute__((weak)) void st7565_task_user(void) {
+    static uint16_t ticker = 0;
+
+    // Draw led and layer status
+    led_t leds = host_keyboard_led_state();
+    if(leds.num_lock) { st7565_write("Num ", false); }
+    if(leds.caps_lock) { st7565_write("Cap ", false); }
+    if(leds.scroll_lock) { st7565_write("Scrl ", false); }
+    if(leds.compose) { st7565_write("Com ", false); }
+    if(leds.kana) { st7565_write("Kana", false); }
+    st7565_advance_page(true);
+
+    char layer_buffer[16 + 5];  // 3 spaces and one null terminator
+    st7565_set_cursor(0, 1);
+    format_layer_bitmap_string(layer_buffer, 0);
+    st7565_write_ln(layer_buffer, false);
+    format_layer_bitmap_string(layer_buffer, 16);
+    st7565_write_ln(layer_buffer, false);
+
+    if (is_keyboard_master()) { st7565_write("Master ", false); } else { st7565_write("Slave ", false); }
+    sprintf(layer_buffer, "%d ", ticker);
+    st7565_write(layer_buffer, false);
+
+    if (split_mcu_reset_is_pending()) { st7565_write("RESET", TRUE); }
+
+    ticker++;
 }
 #endif
 
