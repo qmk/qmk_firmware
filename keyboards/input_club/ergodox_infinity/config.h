@@ -86,8 +86,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define EE_HANDS
 #define SPLIT_USB_DETECT
-#define SPLIT_USB_TIMEOUT 2000
+#define SPLIT_USB_TIMEOUT 1000
 #define SPLIT_WATCHDOG_ENABLE
-#define SPLIT_WATCHDOG_TIMEOUT 10000
+#define SPLIT_WATCHDOG_TIMEOUT 2000
 #define NO_USB_STARTUP_CHECK
 #define USB_SUSPEND_WAKEUP_DELAY 200
