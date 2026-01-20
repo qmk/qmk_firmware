@@ -50,10 +50,10 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 	CFLAGS 	 += -ggdb3
 	CXXFLAGS += -ggdb3
 	ASFLAGS  += -ggdb3
-# Create a map file when debugging
-	LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
 
+# Always create a map file, this is helpful when simply investing what got compiled in and where.
+LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 
 #---------------- C Compiler Options ----------------
 
