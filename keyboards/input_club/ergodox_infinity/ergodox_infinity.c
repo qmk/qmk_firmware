@@ -5,6 +5,7 @@
 #include "eeconfig.h"
 #include "split_util.h"
 #include "usb_util.h"
+#include "color.h"
 
 #define RED_PIN 1
 #define GREEN_PIN 2
@@ -89,6 +90,15 @@ void ergodox_infinity_lcd_color(uint16_t r, uint16_t g, uint16_t b) {
     CHANNEL_RED.CnV   = cie_lightness(r);
     CHANNEL_GREEN.CnV = cie_lightness(g);
     CHANNEL_BLUE.CnV  = cie_lightness(b);
+}
+
+void led_set_backlight_color(rgb_t color) {
+    // Convert 8-bit to 16-bit by shifting left 8 bits
+    ergodox_infinity_lcd_color(
+        (uint16_t)color.r << 8,
+        (uint16_t)color.g << 8,
+        (uint16_t)color.b << 8
+    );
 }
 
 __attribute__ ((weak)) void matrix_init_user(void) {}
