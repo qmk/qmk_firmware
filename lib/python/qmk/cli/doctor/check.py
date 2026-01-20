@@ -152,8 +152,10 @@ def _check_avr_gcc_installation():
 
 
 def _check_avrdude_version():
-    last_line = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')[-2]
-    version_number = last_line.split()[2][:-1]
+    lines = ESSENTIAL_BINARIES['avrdude']['output'].split('\n')
+    # avrdude version text is currently not translated, however we fall back to old behaviour of assuming a line
+    version_line = next((line for line in lines if 'version' in line), lines[-2])
+    version_number = version_line.split()[2][:-1]
     cli.log.info('Found avrdude version %s', version_number)
 
     return CheckStatus.OK
