@@ -16,3 +16,4 @@ bool is_transport_connected(void);
 void split_watchdog_update(bool done);
 void split_watchdog_task(void);
 bool split_watchdog_check(void);
+bool split_mcu_reset_is_pending(void);
