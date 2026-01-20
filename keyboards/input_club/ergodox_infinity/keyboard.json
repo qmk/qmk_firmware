@@ -130,10 +130,10 @@
         "extrakey": true,
         "command": true,
         "nkro": true,
-        "led_matrix": true,
+        "led_matrix": false,
         "unicode": true,
         "swap_hands": true,
-        "sleep_led": true,
+        "sleep_led": false,
         "st7565": true
     },
     "qmk": {
