@@ -18,6 +18,7 @@
 #include "timer.h"
 #include "debug.h"
 #include "gpio.h"
+#include "color.h"
 
 #ifdef BACKLIGHT_CAPS_LOCK
 #    ifdef BACKLIGHT_ENABLE
@@ -162,6 +163,15 @@ void led_suspend(void) {
  */
 void led_wakeup(void) {
     led_set(host_keyboard_leds());
+}
+
+__attribute__((weak)) void led_set_backlight_color(rgb_t color) {}
+
+// Advances the backlight to the next saturated color
+void led_cycle_backlight_color(void)
+{
+    rgb_t color = next_saturated_color();
+    led_set_backlight_color(color);
 }
 
 /** \brief set host led state

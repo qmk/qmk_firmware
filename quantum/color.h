@@ -95,3 +95,5 @@ typedef hsv_t HSV;
 
 rgb_t hsv_to_rgb(hsv_t hsv);
 rgb_t hsv_to_rgb_nocie(hsv_t hsv);
+
+rgb_t next_saturated_color(void);

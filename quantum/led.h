@@ -46,6 +46,7 @@ void led_suspend(void);
 
 void led_wakeup(void);
 
+void led_cycle_backlight_color(void);
 void led_task(void);
 
 /* Callbacks */

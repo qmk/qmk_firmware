@@ -108,3 +108,28 @@ rgb_t hsv_to_rgb(hsv_t hsv) {
 rgb_t hsv_to_rgb_nocie(hsv_t hsv) {
     return hsv_to_rgb_impl(hsv, false);
 }
+
+// Fully saturated colors, no two colors should be similar. Useful for hardware debugging, see `next_saturated_color`
+static const rgb_t color_table[] = {
+    { RGB_RED     },  // 255,   0,   0
+    { RGB_YELLOW  },  // 255, 255,   0
+    { RGB_GREEN   },  //   0, 255,   0
+    { RGB_CYAN    },  //   0, 255, 255
+    { RGB_BLUE    },  //   0,   0, 255
+    { RGB_MAGENTA }   // 255,   0, 255
+};
+
+#define COLOR_COUNT (sizeof(color_table) / sizeof(color_table[0]))
+
+// Returns the next fully saturated color in the cycle
+rgb_t next_saturated_color(void) {
+    static uint8_t index = 0;
+    rgb_t color = color_table[index];
+
+    index++;
+    if (index >= COLOR_COUNT) {
+        index = 0;
+    }
+
+    return color;
+}
