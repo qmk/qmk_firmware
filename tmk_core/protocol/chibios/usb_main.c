@@ -27,6 +27,7 @@
 #include "usb_descriptor.h"
 #include "usb_driver.h"
 #include "usb_types.h"
+#include "led.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -339,11 +340,23 @@ void init_usb_driver(USBDriver *usbp) {
      * Note, a delay is inserted in order to not have to disconnect the cable
      * after a reset.
      */
+    osalSysLock();
+    led_cycle_backlight_color();
     usbDisconnectBus(usbp);
+    led_cycle_backlight_color();
     usbStop(usbp);
+    led_cycle_backlight_color();
+    osalSysUnlock();
+
     wait_ms(50);
+
+    osalSysLock();
+    led_cycle_backlight_color();
     usbStart(usbp, &usbcfg);
+    led_cycle_backlight_color();
     usbConnectBus(usbp);
+    osalSysUnlock();
+    led_cycle_backlight_color();
 }
 
 __attribute__((weak)) void restart_usb_driver(USBDriver *usbp) {

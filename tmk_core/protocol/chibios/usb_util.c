@@ -16,10 +16,16 @@
 #include <hal.h>
 #include "usb_main.h"
 #include "usb_util.h"
+#include "led.h"
 
 void usb_disconnect(void) {
+    osalSysLock();
+    led_cycle_backlight_color();
     usbDisconnectBus(&USB_DRIVER);
+    led_cycle_backlight_color();
     usbStop(&USB_DRIVER);
+    led_cycle_backlight_color();
+    osalSysUnlock();
 }
 
 bool usb_connected_state(void) {
