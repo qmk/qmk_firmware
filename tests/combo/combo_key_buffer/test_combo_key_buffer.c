@@ -15,6 +15,6 @@ combo_t key_combos[] = {
 };
 // clang-format on
 
-bool is_combo_contiguous(uint16_t index, combo_t *combo, keyrecord_t *record, uint8_t n_unpressed_keys) {
+bool is_combo_contiguous(uint16_t index, combo_t *combo, uint16_t keycode, keyrecord_t *record, uint8_t n_unpressed_keys) {
     return false; // No combos are contiguous in this test
 }

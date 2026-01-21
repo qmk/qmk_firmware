@@ -30,83 +30,96 @@
 /* Enabled at matrix initialization, when linked lists are initialized */
 static bool b_combo_enable = false;
 
-/* Combo statuses:
- * Inactive: no triggering key presses are available for legal assignment to
- * this combo
- *  - moves to partial status on the next triggering key press
+/*
+ * COMBO STATE MACHINE
+ * ===================
  *
- * Partial: some, but not all, triggering key presses are available for
- * legal assignment to this combo
- *  - moves to inactive status if any triggering key is released, if any
- *    triggering key press expires, or if any non-triggering key is pressed
- *    and the combo is not contiguous
- *  - moves to complete status if all triggering keys are pressed
+ * Each combo progresses through the following states:
  *
- * Complete: all triggering keys have been pressed, but either the combo
- * term has not yet elapsed, or a tap is required but has not yet occurred, or a
- * hold is required but the hold term has not yet elapsed
- *  - moves to ripe status if combo/hold term elapses or tap occurs,
- *    according to combo requirements
- *  - moves to inactive status if tap occurs for "must hold" combos, or
- *    combo term elapses with no tap for "must tap" combos
+ *   Inactive --> Partial --> Complete --> Ripe --> Ready --> Active
+ *       ^           |            |          |                   |
+ *       +-----------+------------+----------+-------------------+
+ *                        (various failure conditions)
  *
- * Ripe: all triggering keys have been pressed, the combo term or hold term
- * has elapsed if required, and a tap has occurred if required
- *  - moves to ready status if this is the highest priority combo among all
- *    overlapping ripe combos, and if there is no higher-priority complete
- *    (but unripe) combo whose keys form a superset
- *  - moves to inactive status if a higher priority overlapping combo is
- *    ripened
+ * State Descriptions:
+ * -------------------
+ * INACTIVE: No triggering key presses are available for this combo.
+ *   Stored in: inactive_head linked list
+ *   Transitions to PARTIAL: when first triggering key is pressed
  *
- * Ready: the combo is ready to be activated at the appropriate point in the
- * key sequence. Trigger keys are committed to this combo
- *  - moves to active status when the first triggering key press is the
- *    oldest key press in the buffer
+ * PARTIAL: Some (but not all) triggering keys have been pressed.
+ *   Stored in: linked list headed by the oldest relevant queued_record_t
+ *   State bits: number of remaining keys needed (> 0)
+ *   Transitions to COMPLETE: when all triggering keys are pressed
+ *   Transitions to INACTIVE: if a key is released, expires, or
+ *     a non-triggering key interrupts (for contiguous combos)
  *
- * Active: the combo's event has already been processed, and some its keys
- * have not yet been released
- *  - moves to inactive status when the last of its keys is released
+ * COMPLETE: All triggering keys pressed, but timing requirements not met.
+ *   Stored in: linked list headed by the oldest relevant queued_record_t
+ *   State bits: 0 (no remaining keys)
+ *   Transitions to RIPE: when combo/hold term elapses or tap occurs
+ *   Transitions to INACTIVE: wrong tap/hold behavior for combo requirements
  *
- * Combo status is not recorded directly in the combo_t structure. Instead,
- * all combos of each status are organized into linked lists. There are
- * separate linked lists for inactive, active, and ripe combos. In addition,
- * each queued key record in the key buffer gives the index of any ready
- * combo that will consume that key. Alternatively, if the key record has
- * not (yet) been assigned to a ready combo, then the record has a linked
- * list of all the (partial and complete, but unripe) combos for which that
- * record is the oldest relevant press event.
+ * RIPE: Ready to activate, pending conflict resolution with other combos.
+ *   Stored in: ripe_head linked list (sorted by priority, highest first)
+ *   Transitions to READY: when no higher-priority overlapping combo exists
+ *   Transitions to INACTIVE: if outprioritized by another combo
  *
- * For combos that are partial or complete, the low bits of the combo state
- * give the number of remaining triggering key presses until the combo
- * activates.
+ * READY: Will activate when its trigger key reaches front of buffer.
+ *   Stored in: the triggering queued_record_t (combo index in high bits)
+ *   Key record state: COMBO_KEY_TRIGGER or COMBO_KEY_CONSUMED
+ *   Transitions to ACTIVE: when combo event is processed
  *
- * We use linked lists to organize combos by state, instead of recording
- * state directly in the combo_t structure, because we generally want to do
- * something with all combos of a particular state, rather than determine
- * what the state is of a particular combo. In particular, in order
- * handle expiration and ripening of combos, it is convenient to already
- * have each combo organized according to its oldest key press, rather than
- * having to iterate over all combo/key pairs. It is also convenient to be
- * able to sort ripe combos by priority.
+ * ACTIVE: Combo event has fired, waiting for all keys to be released.
+ *   Stored in: active_head linked list
+ *   Detailed key state: active_buffer[] tracks which keys still pressed
+ *   Transitions to INACTIVE: when last key is released
  *
- * For the small number of active combos, more detailed state recording the
- * identity of each still-pressed key is required; this is stored in a
- * separate buffer.
+ * Data Structure Relationships:
+ * -----------------------------
+ * - inactive_head: linked list of all inactive combos
+ * - ripe_head: linked list of ripe combos, sorted by decreasing priority
+ * - active_head: linked list of currently active combos
+ * - key_buffer[]: circular buffer of queued key events
+ *   - Each unresolved key press heads a linked list of partial/complete combos
+ *     for which it is the oldest triggering key
+ *   - Resolved key presses store the combo index they will trigger/consume
+ * - active_buffer[]: tracks which keys are still pressed for each active combo
  */
 
-#define COMBO_NULL_INDEX (((combo_state_t)-1) >> COMBO_STATE_BITS)
+#define COMBO_NULL_INDEX (((combo_state_t) - 1) >> COMBO_STATE_BITS)
 #define COMBO_NULL_STATE ((COMBO_NULL_INDEX << COMBO_STATE_BITS))
 
-/* Used by combo queue iterators */
-#define GET_NEXT_COMBO_DIRECT(state_ptr) ((*state_ptr) >> COMBO_STATE_BITS)
-#define SET_NEXT_COMBO_DIRECT(state_ptr, index) *state_ptr = ((index << COMBO_STATE_BITS) | ((*state_ptr) & ((1 << COMBO_STATE_BITS) - 1)))
+/* Mask for extracting the low state bits from a combo_state_t */
+#define COMBO_STATE_MASK ((1 << COMBO_STATE_BITS) - 1)
 
-/* Used when we have a combo_t or keyrecord_t */
-#define GET_STATE(key_or_combo) (key_or_combo->state & ((1 << COMBO_STATE_BITS) - 1))
-#define SET_STATE(key_or_combo, value) key_or_combo->state = ((key_or_combo->state & ~((1 << COMBO_STATE_BITS) - 1)) | value)
+/*
+ * Combo state and key record state are stored in combo_state_t values.
+ * The low COMBO_STATE_BITS bits store state information:
+ *   - For combos: the number of remaining keys needed to complete the combo
+ *   - For queued key records: a queued_record_state enum value
+ * The high bits store a combo index, used as a "next" pointer for intrusive
+ * linked lists that organize combos by their current status.
+ *
+ * These macros provide access to the packed state. The "DIRECT" variants
+ * operate on combo_state_t pointers (for queue heads), while the others
+ * operate on structs with a 'state' field (combo_t or queued_record_t).
+ */
+
+/* Used by combo queue iterators - operate on combo_state_t pointers */
+#define GET_NEXT_COMBO_DIRECT(state_ptr) ((*state_ptr) >> COMBO_STATE_BITS)
+#define SET_NEXT_COMBO_DIRECT(state_ptr, index) *state_ptr = ((index << COMBO_STATE_BITS) | ((*state_ptr) & COMBO_STATE_MASK))
+
+/* Used when we have a combo_t or queued_record_t - operate on structs with 'state' field */
+#define GET_STATE(key_or_combo) (key_or_combo->state & COMBO_STATE_MASK)
+#define SET_STATE(key_or_combo, value) key_or_combo->state = ((key_or_combo->state & ~COMBO_STATE_MASK) | value)
 #define GET_NEXT_COMBO(key_or_combo) (key_or_combo->state >> COMBO_STATE_BITS)
 #define SET_NEXT_COMBO(key_or_combo, index) key_or_combo->state = ((index << COMBO_STATE_BITS) | GET_STATE(key_or_combo))
-/* DANGER: no guard against underflow on the state bits */
+
+/*
+ * Decrement the remaining key count for a combo. Only valid when
+ * GET_STATE(combo) > 0. No underflow protection is provided.
+ */
 #define DECREMENT_STATE(key_or_combo) key_or_combo->state--;
 
 static combo_state_t inactive_head;
@@ -124,34 +137,23 @@ typedef struct {
 static active_combo_t active_buffer[COMBO_BUFFER_LENGTH];
 static uint8_t        active_combo_count = 0;
 
-/* Queued key record state is given by a combo_state_t. Like the
- * combo_state_t that holds combo_t state, its high bits give a combo index,
- * which can be used for a linked list of combos. Its low bits (the "state"
- * bits) encode the following possible statuses:
- *      COMBO_KEY_BASE - any key release. Also, presses that might help
- *          activate a combo, but require additional presses or ripening
- *          conditions. If this is the oldest key press in the buffer, and
- *          the high bits encode COMBO_NULL_INDEX, then the key press is not
- *          used by any combo and can be emitted as an ordinary press
- *      COMBO_KEY_RIPE - presses that will be used to activate a combo, but
- *          for which the specific combo has not yet been determined (e.g.,
- *          because we are waiting for an unripe high priority combo)
- *      COMBO_KEY_CONSUMED - presses that are being used to activate a
- *          combo, but will not trigger its event. The high bits indicate
- *          the combo being activated.
- *      COMBO_KEY_TRIGGER - the key press that actually triggers a combo
- *          event. The high bits indicate the combo being activated.
+/*
+ * Queued Key Record States
+ * ------------------------
+ * Each queued key record has a combo_state_t with the same bit-packing as combos:
+ * - Low bits: one of the queued_record_state enum values below
+ * - High bits: either a linked list of partial/complete combos (for BASE/RIPE),
+ *   or the specific combo this key will activate (for CONSUMED/TRIGGER)
  *
- * Keys with status COMBO_KEY_CONSUMED or COMBO_KEY_TRIGGER can safely be
- * used in the appropriate manner when they reach the front of the key
- * buffer, as can keys with status COMBO_KEY_BASE whose high state bits
- * encode COMBO_NULL_INDEX.
+ * A key record is "resolved" and can be processed when:
+ * - high and low bits == COMBO_NULL_STATE (no combos care about this key), OR
+ * - low bits >= COMBO_KEY_CONSUMED (committed to a specific combo)
  */
 enum queued_record_state {
-    COMBO_KEY_BASE,
-    COMBO_KEY_RIPE,
-    COMBO_KEY_CONSUMED,
-    COMBO_KEY_TRIGGER,
+    COMBO_KEY_BASE,     /* A key release, or an unresolved press awaiting more keys/ripening, or COMBO_NULL_STATE */
+    COMBO_KEY_RIPE,     /* Unresolved: press will activate a combo, but which one is TBD */
+    COMBO_KEY_CONSUMED, /* Resolved: press consumed by combo in high bits (not the trigger) */
+    COMBO_KEY_TRIGGER,  /* Resolved: press triggers the combo in high bits */
 };
 
 typedef struct {
@@ -164,6 +166,7 @@ static uint8_t         key_buffer_head = 0;
 static uint8_t         key_buffer_size = 0;
 static uint16_t        next_expiration = 0;
 
+/* Access key record at logical index i (0 = oldest) in circular buffer */
 #define GET_QUEUED_RECORD(i) &key_buffer[(key_buffer_head + i) % COMBO_KEY_BUFFER_LENGTH]
 
 /* Returns true if this key is ready to be dumped from the buffer */
@@ -300,8 +303,8 @@ bool does_combo_overlap(combo_t *combo1, combo_t *combo2) {
  * Default behavior: prefer longer combos, and break ties by preferring combos with higher indices */
 __attribute__((weak)) bool is_combo_preferred(uint16_t combo_index1, uint16_t combo_index2, uint8_t combo_length1) {
     uint8_t combo_length2 = _get_combo_length(combo_get(combo_index2));
-    if (combo_length1 > combo_length2) {
-        return true;
+    if (combo_length1 != combo_length2) {
+        return combo_length1 > combo_length2;
     }
     return combo_index1 > combo_index2;
 }
@@ -350,7 +353,7 @@ bool is_combo_interrupted(uint16_t index, combo_t *combo, uint16_t keycode, keyr
  *************************/
 
 typedef struct {
-    combo_t *      combo;
+    combo_t       *combo;
     combo_state_t  combo_index;
     combo_state_t *prev_combo;
     bool           removed;
@@ -451,7 +454,7 @@ void process_active_buffer_overflow(void) {
         }
     }
     uint16_t              combo_index = iter.combo_index;
-    combo_t *             combo       = iter.combo;
+    combo_t              *combo       = iter.combo;
     combo_active_state_t *combo_state = NULL;
     if (combo != NULL) {
         combo_state = get_combo_active_state(iter.combo_index);
@@ -740,7 +743,7 @@ void dump_keyrecord(keyrecord_t *record) {
 /* Insert combo into active queue and process the combo's outcome */
 void activate_combo(queued_record_t *qrecord) {
     combo_state_t         combo_index = GET_NEXT_COMBO(qrecord);
-    combo_t *             combo       = combo_get(combo_index);
+    combo_t              *combo       = combo_get(combo_index);
     combo_active_state_t *combo_state = init_combo_active_state(combo_index);
     if (combo_state == NULL) {
         /* This should never happen! */
