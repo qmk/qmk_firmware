@@ -217,7 +217,7 @@ def generate_community_config_h(cli):
         lines.append('// Split transactions')
         for module in modules:
             lines.extend([
-                f'#ifndef SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()}',
+                f'#ifdef SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()}',
                 '#    define SPLIT_TRANSACTION_RPC',
                 '#endif',
             ])
