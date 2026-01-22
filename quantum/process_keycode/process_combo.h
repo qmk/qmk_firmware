@@ -22,39 +22,47 @@
 #include "keycodes.h"
 #include "quantum_keycodes.h"
 
-#ifdef EXTRA_SHORT_COMBOS
-#    define MAX_COMBO_LENGTH 6
-#elif defined(EXTRA_EXTRA_LONG_COMBOS)
+/* COMBO_BUFFER_LENGTH defines the maximum number of simulatenously active combos. */
+#ifndef COMBO_BUFFER_LENGTH
+#    define COMBO_BUFFER_LENGTH 4
+#endif
+
+#if defined(EXTRA_EXTRA_LONG_COMBOS)
 #    define MAX_COMBO_LENGTH 32
+#    define COMBO_STATE_BITS 5
+typedef uint32_t combo_active_state_t;
 #elif defined(EXTRA_LONG_COMBOS)
 #    define MAX_COMBO_LENGTH 16
+#    define COMBO_STATE_BITS 4
+typedef uint16_t combo_active_state_t;
+#elif defined(EXTRA_SMALL_COMBOS)
+#    define MAX_COMBO_LENGTH 4
+#    define COMBO_STATE_BITS 2
+typedef uint8_t combo_active_state_t;
 #else
+#    ifdef EXTRA_SHORT_COMBOS
+#        pragma message "EXTRA_SHORT_COMBOS is no longer supported. Falling back to default MAX_COMBO_LENGTH of 8. Use EXTRA_SMALL_COMBOS to reduce MAX_COMBO_LENGTH to 4."
+#    endif
 #    define MAX_COMBO_LENGTH 8
+#    define COMBO_STATE_BITS 3
+typedef uint8_t combo_active_state_t;
+#endif
+
+#ifdef COMBO_COMPRESSED
+/* If combo_count() < (256/MAX_COMBO_LENGTH) - 1, this can be defined to save some space */
+typedef uint8_t combo_state_t;
+#else
+typedef uint16_t combo_state_t;
 #endif
 
 #ifndef COMBO_KEY_BUFFER_LENGTH
-#    define COMBO_KEY_BUFFER_LENGTH MAX_COMBO_LENGTH
-#endif
-#ifndef COMBO_BUFFER_LENGTH
-#    define COMBO_BUFFER_LENGTH 4
+#    define COMBO_KEY_BUFFER_LENGTH (MAX_COMBO_LENGTH + 4)
 #endif
 
 typedef struct combo_t {
     const uint16_t *keys;
     uint16_t        keycode;
-#ifdef EXTRA_SHORT_COMBOS
-    uint8_t state;
-#else
-    bool disabled;
-    bool active;
-#    if defined(EXTRA_EXTRA_LONG_COMBOS)
-    uint32_t state;
-#    elif defined(EXTRA_LONG_COMBOS)
-    uint16_t state;
-#    else
-    uint8_t state;
-#    endif
-#endif
+    combo_state_t   state;
 } combo_t;
 
 #define COMBO(ck, ca) {.keys = &(ck)[0], .keycode = (ca)}
@@ -62,10 +70,16 @@ typedef struct combo_t {
 
 #define COMBO_END 0
 #ifndef COMBO_TERM
-#    define COMBO_TERM 50
+#    define COMBO_TERM TAPPING_TERM
 #endif
 #ifndef COMBO_HOLD_TERM
 #    define COMBO_HOLD_TERM TAPPING_TERM
+#endif
+
+#ifdef COMBO_NO_TIMER
+#    pragma message "COMBO_NO_TIMER is deprecated and will be removed in a future version. Please define an explicit COMBO_TERM"
+#    undef COMBO_TERM
+#    define COMBO_TERM 32000
 #endif
 
 /* check if keycode is only modifiers */
