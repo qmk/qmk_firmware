@@ -1,0 +1,82 @@
+
+// S上
+      register_code(KC_LSFT);
+      ng_right(1);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// S左
+      register_code(KC_LSFT);
+      ng_up(1);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// S下
+      register_code(KC_LSFT);
+      ng_left(1);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// S右
+      register_code(KC_LSFT);
+      ng_down(1);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// 行選択
+      ng_home();
+      register_code(KC_LSFT);
+      ng_end();
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// S5上
+      register_code(KC_LSFT);
+      ng_right(5);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// S5下
+      register_code(KC_LSFT);
+      ng_left(5);
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// cmd+d
+      tap_code16(LCMD(KC_D));
+      henshu_done = true;
+      return true;
+      break;
+
+// S行頭
+      tap_code(KC_ESC);
+      register_code(KC_LSFT);
+      ng_home();
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+
+// S行末
+      tap_code(KC_ESC);
+      register_code(KC_LSFT);
+      ng_end();
+      unregister_code(KC_LSFT);
+      henshu_done = true;
+      return true;
+      break;
+

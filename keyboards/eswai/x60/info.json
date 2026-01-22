@@ -1,0 +1,9 @@
+{
+  "keyboard_name": "X60",
+  "manufacturer": "eswai",
+  "usb": {
+      "vid": "0xE2A1",
+      "pid": "0x0060",
+      "device_version": "0.0.1"
+  }
+}

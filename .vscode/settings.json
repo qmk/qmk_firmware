@@ -33,6 +33,7 @@
     },
     "python.formatting.provider": "yapf",
     "[json]": {
+<<<<<<< HEAD
         "editor.formatOnSave": false
     },
     "clangd.arguments": ["--header-insertion=never"],
@@ -54,4 +55,8 @@
             "url": "./data/schemas/keymap.jsonschema"
         }
     ]
+=======
+	    "editor.formatOnSave": false
+    }
+>>>>>>> eswai/master
 }

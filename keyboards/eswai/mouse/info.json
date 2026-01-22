@@ -1,0 +1,35 @@
+{
+    "manufacturer": "eswai",
+    "keyboard_name": "eswai/mouse",
+    "maintainer": "eswai",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": false,
+        "console": false,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP10", "GP11", "GP12"],
+        "rows": ["GP13"]
+    },
+    "processor": "RP2040",
+    "url": "",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0001",
+        "vid": "0xE2A1"
+    },
+    "layouts": {
+        "LAYOUT_ortho_1x3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0}
+            ]
+        }
+    }
+}

@@ -1,0 +1,50 @@
+// 上
+      ng_right(1);
+      henshu_done = true;
+      return true;
+      break;
+
+
+// 左
+      ng_up(1);
+      henshu_done = true;
+      return true;
+      break;
+
+// 下
+      ng_left(1);
+      henshu_done = true;
+      return true;
+      break;
+
+// 右
+      ng_down(1);
+      henshu_done = true;
+      return true;
+      break;
+
+// 5上
+      ng_right(5);
+      henshu_done = true;
+      return true;
+      break;
+
+//  5下
+      ng_left(5);
+      henshu_done = true;
+      return true;
+      break;
+
+// 行頭
+      ng_home();
+      henshu_done = true;
+      return true;
+      break;
+
+// 行末
+      ng_end();
+      henshu_done = true;
+      return true;
+      break;
+
+

@@ -1,0 +1,161 @@
+
+// 〜
+      ng_send_unicode_string_P(PSTR("〜"));
+      henshu_done = true;
+      return true;
+      break;
+
+// ？{改行}
+      ng_send_unicode_string_P(PSTR("？"));
+      henshu_done = true;
+      return true;
+      break;
+
+// ()
+      ng_send_unicode_string_P(PSTR("()"));
+      ng_up(1);
+      henshu_done = true;
+      return true;
+      break;
+
+// (選択)
+      ng_cut();
+      ng_send_unicode_string_P(PSTR("()"));
+      ng_up(1);
+      ng_paste();
+      ng_down(1);
+      henshu_done = true;
+      return true;
+      break;
+
+// /int
+      ng_send_unicode_string_P(PSTR("・"));
+      henshu_done = true;
+      return true;
+      break;
+
+// /ext
+      ng_send_unicode_string_P(PSTR("○"));
+      henshu_done = true;
+      return true;
+      break;
+
+// ！{改行}
+      ng_send_unicode_string_P(PSTR("！"));
+      henshu_done = true;
+      return true;
+      break;
+
+// 「」
+      ng_send_unicode_string_P(PSTR("「」"));
+      ng_up(1);
+      henshu_done = true;
+      return true;
+      break;
+
+// 「選択」
+      ng_cut();
+      ng_send_unicode_string_P(PSTR("「」"));
+      ng_up(1);
+      ng_paste();
+      ng_down(1);
+      henshu_done = true;
+      return true;
+      break;
+
+// ①
+      ng_send_unicode_string_P(PSTR("①"));
+      henshu_done = true;
+      return true;
+      break;
+
+// ②
+      ng_send_unicode_string_P(PSTR("②"));
+      henshu_done = true;
+      return true;
+      break;
+
+// ③
+      ng_send_unicode_string_P(PSTR("③"));
+      henshu_done = true;
+      return true;
+      break;
+
+// ④
+      ng_send_unicode_string_P(PSTR("④"));
+      henshu_done = true;
+      return true;
+      break;
+
+// ⑤
+      ng_send_unicode_string_P(PSTR("⑤"));
+      henshu_done = true;
+      return true;
+      break;
+
+// (1)
+      ng_send_unicode_string_P(PSTR("(1) "));
+      henshu_done = true;
+      return true;
+      break;
+
+// 1.
+      ng_send_unicode_string_P(PSTR("1. "));
+      henshu_done = true;
+      return true;
+      break;
+
+// * 
+      ng_send_unicode_string_P(PSTR("* "));
+      henshu_done = true;
+      return true;
+      break;
+
+// ・
+      ng_send_unicode_string_P(PSTR("・"));
+      henshu_done = true;
+      return true;
+      break;
+
+// -
+      ng_send_unicode_string_P(PSTR("- "));
+      henshu_done = true;
+      return true;
+      break;
+
+// 　　![]()
+      ng_send_unicode_string_P(PSTR("![]()"));
+      ng_up(3);
+      henshu_done = true;
+      return true;
+      break;
+
+// []()
+      ng_send_unicode_string_P(PSTR("[]()"));
+      ng_up(3);
+      henshu_done = true;
+      return true;
+      break;
+
+// 表
+      ng_send_unicode_string_P(PSTR("|   A   |   B   |   C   |"));
+      tap_code(KC_ENTER);
+      ng_send_unicode_string_P(PSTR("|-------|-------|-------|"));
+      tap_code(KC_ENTER);
+      ng_send_unicode_string_P(PSTR("|   A   |   B   |   C   |"));
+      tap_code(KC_ENTER);
+      henshu_done = true;
+      return true;
+      break;
+
+// ℃
+      ng_send_unicode_string_P(PSTR("℃"));
+      henshu_done = true;
+      return true;
+      break;
+
+// °
+      ng_send_unicode_string_P(PSTR("°"));
+      henshu_done = true;
+      return true;
+      break;

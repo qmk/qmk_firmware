@@ -1,0 +1,2 @@
+BOOTLOADER = qmk-dfu
+COMBO_ENABLE = yes

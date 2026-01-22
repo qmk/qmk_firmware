@@ -1,0 +1,90 @@
+
+// EOF
+      ng_eof();
+      henshu_done = true;
+      return true;
+      break;
+
+// 保存
+      ng_save();
+      henshu_done = true;
+      return true;
+      break;
+
+// スクショ
+      tap_code16(LSFT(LCMD(KC_4))); // Mac
+      henshu_done = true;
+      return true;
+      break;
+
+// redo
+      ng_redo();
+      henshu_done = true;
+      return true;
+      break;
+
+// undo
+      ng_undo();
+      henshu_done = true;
+      return true;
+      break;
+
+// del
+      tap_code(KC_DEL);
+      henshu_done = true;
+      return true;
+      break;
+
+// 文末消去
+      register_code(KC_LSFT);
+      ng_end();
+      unregister_code(KC_LSFT);
+      tap_code(KC_BSPC);
+      henshu_done = true;
+      return true;
+      break;
+
+// 入力キャンセル
+      tap_code(KC_ESC);
+      tap_code(KC_ESC);
+      tap_code(KC_ESC);
+      henshu_done = true;
+      return true;
+      break;
+
+// カタカナ
+      ng_katakana();
+      henshu_done = true;
+      return true;
+      break;
+
+// ひらがな
+      ng_hiragana();
+      henshu_done = true;
+      return true;
+      break;
+
+// 再変換
+      ng_saihenkan();
+      henshu_done = true;
+      return true;
+      break;
+
+// cut
+      ng_cut();
+      henshu_done = true;
+      return true;
+      break;
+
+// copy
+      ng_copy();
+      henshu_done = true;
+      return true;
+      break;
+
+// paste
+      ng_paste();
+      henshu_done = true;
+      return true;
+      break;
+
