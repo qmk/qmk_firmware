@@ -275,6 +275,18 @@
     "ergodone": {
         "target": "ktec/ergodone"
     },
+    "ergodox_ez": {
+        "target": "ergodox"
+    },
+    "ergodox_ez/base": {
+        "target": "zsa/ergodox_ez/m32u4"
+    },
+    "ergodox_ez/glow": {
+        "target": "zsa/ergodox_ez/m32u4"
+    },
+    "ergodox_ez/shine": {
+        "target": "zsa/ergodox_ez/m32u4"
+    },
     "ergodox_stm32": {
         "target": "handwired/ergodox_stm32"
     },
@@ -2349,9 +2361,6 @@
     },
     "durgod/dgk6x": {
         "target": "durgod/dgk6x/hades_ansi"
-    },
-    "ergodox_ez": {
-        "target": "ergodox_ez/base"
     },
     "ferris/0_2": {
         "target": "ferris/0_2/base"
