@@ -168,13 +168,17 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     bool changed = matrix_scan_custom(matrix);
 #endif
 
-#if DEBOUNCE > 0
-#    ifdef SPLIT_KEYBOARD
-    changed = debounce(raw_matrix, matrix + thisHand, changed) | matrix_post_scan();
+#ifdef SPLIT_KEYBOARD
+#    if DEBOUNCE > 0
+    changed = debounce(raw_matrix, matrix + thisHand, changed) || matrix_post_scan();
 #    else
-    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
-    matrix_scan_kb();
+    changed = matrix_post_scan();
 #    endif
+#else
+#    if DEBOUNCE > 0
+    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+#    endif
+    matrix_scan_kb();
 #endif
 
     return changed;
