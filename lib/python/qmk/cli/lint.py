@@ -22,15 +22,10 @@ INVALID_KM_NAMES = ['via', 'vial']
 def _list_defaultish_keymaps(kb):
     """Return default like keymaps for a given keyboard
     """
-    defaultish = ['ansi', 'iso']
+    keymaps = set(list_keymaps(kb, include_userspace=False, include_community=False))
 
-    # This is only here to flag it as "testable", so it doesn't fly under the radar during PR
-    defaultish.extend(INVALID_KM_NAMES)
-
-    keymaps = set()
-    for x in list_keymaps(kb, include_userspace=False):
-        if x in defaultish or x.startswith('default'):
-            keymaps.add(x)
+    # Ensure that at least a 'default' keymap always exists
+    keymaps.add('default')
 
     return keymaps
 
@@ -360,6 +355,11 @@ def lint(cli):
         cli.print_help()
         return False
 
+    # milc config handling of user.keymap breaks running lint without keymap argument
+    # so we have to disable that while still allowing a default to be set with lint.keymap
+    if 'keymap' not in cli.config_source.lint.keys() and cli.config.lint.keymap:
+        cli.config.lint.keymap = None
+
     if isinstance(cli.config.lint.keyboard, str):
         # if provided via config - string not array
         keyboard_list = [cli.config.lint.keyboard]
@@ -375,12 +375,12 @@ def lint(cli):
         # Determine keymaps to also check
         if cli.args.keymap == 'all':
             keymaps = list_keymaps(kb)
+        elif cli.args.keymap:
+            keymaps = {cli.args.keymap}
         elif cli.config.lint.keymap:
             keymaps = {cli.config.lint.keymap}
         else:
             keymaps = _list_defaultish_keymaps(kb)
-            # Ensure that at least a 'default' keymap always exists
-            keymaps.add('default')
 
         ok = True
 

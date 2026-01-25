@@ -381,7 +381,7 @@ def is_keymap_target(keyboard, keymap):
     return False
 
 
-def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False, include_userspace=True):
+def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False, include_userspace=True, include_community=True):
     """List the available keymaps for a keyboard.
 
     Args:
@@ -402,6 +402,9 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
 
         include_userspace
             When set to True, also search userspace for available keymaps
+
+        include_community
+            When set to True, also search community layouts folder for available keymaps
 
     Returns:
         a sorted list of valid keymap names.
@@ -426,21 +429,22 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
 
             kb_path = kb_path.parent
 
-    # Check community layouts as a fallback
-    info = info_json(keyboard)
+    if include_community:
+        # Check community layouts as a fallback
+        info = info_json(keyboard)
 
-    community_parents = list(Path('layouts').glob('*/'))
-    if has_userspace and (Path(QMK_USERSPACE) / "layouts").exists():
-        community_parents.append(Path(QMK_USERSPACE) / "layouts")
+        community_parents = list(Path('layouts').glob('*/'))
+        if has_userspace and (Path(QMK_USERSPACE) / "layouts").exists():
+            community_parents.append(Path(QMK_USERSPACE) / "layouts")
 
-    for community_parent in community_parents:
-        for layout in info.get("community_layouts", []):
-            cl_path = community_parent / layout
-            if cl_path.is_dir():
-                for keymap in cl_path.iterdir():
-                    if is_keymap_dir(keymap, c, json, additional_files):
-                        keymap = keymap if fullpath else keymap.name
-                        names.add(keymap)
+        for community_parent in community_parents:
+            for layout in info.get("community_layouts", []):
+                cl_path = community_parent / layout
+                if cl_path.is_dir():
+                    for keymap in cl_path.iterdir():
+                        if is_keymap_dir(keymap, c, json, additional_files):
+                            keymap = keymap if fullpath else keymap.name
+                            names.add(keymap)
 
     return sorted(names)
 
