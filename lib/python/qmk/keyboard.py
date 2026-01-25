@@ -12,8 +12,6 @@ from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
 
-from qmk.keycodes import load_spec
-
 import re
 
 BOX_DRAWING_CHARACTERS = {
