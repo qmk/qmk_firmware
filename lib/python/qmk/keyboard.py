@@ -2,7 +2,7 @@
 """
 from array import array
 from functools import lru_cache
-from math import ceil
+from math import ceil, floor
 from pathlib import Path
 import os
 from glob import glob
@@ -14,7 +14,8 @@ from qmk.makefile import parse_rules_mk_file
 
 from qmk.keycodes import load_spec
 
-import math
+import re
+
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -56,50 +57,6 @@ ENC_DRAWING_CHARACTERS = {
         "h": "_",
     },
 }
-
-KEY_DRAWING_CHARACTERS = {
-    "KC_NO": ' ',  # ☒
-    "KC_TRANSPARENT": ' ',  # ▽
-    "KC_SPACE": '␣',
-    "QK_GRAVE_ESCAPE": '⎋ `',
-    "KC_ESC": '⎋',
-    "KC_LEFT": '⬅',
-    "KC_UP": '⬆',
-    "KC_RIGHT": '⮕',
-    "KC_DOWN": '⬇',
-    "KC_TAB": '⭾',
-    "KC_ENTER": '⮐',
-    "KC_BACKSPACE": '⌫',
-    "KC_INSERT": '⎀',
-    "KC_DELETE": '⌦',
-    "KC_HOME": '⤒',
-    "KC_END": '⤓',
-    "KC_PAGE_UP": '⇞',
-    "KC_PAGE_DOWN": '⇟',
-    "KC_LEFT_SHIFT": '⇧',
-    "KC_RIGHT_SHIFT": '⇧',
-    "KC_LEFT_CTRL": '∧',
-    "KC_RIGHT_CTRL": '∧',  # ⮹
-    "KC_LEFT_GUI": '⬦',
-    "KC_RIGHT_GUI": '⬦',
-    "KC_LEFT_ALT": '⌥',
-    "KC_RIGHT_ALT": '⌥',
-    "KC_CAPS_LOCK": '🅰',
-    "KC_NUM_LOCK": '❶',
-    "KC_APPLICATION": '☰',
-    "KC_SYSTEM_SLEEP": '⏾',
-    "KC_SYSTEM_POWER": '⏻',
-    "KC_BRIGHTNESS_DOWN": '🔅',
-    "KC_BRIGHTNESS_UP": '🔆',
-    "KC_AUDIO_VOL_DOWN": '🕩',
-    "KC_AUDIO_VOL_UP": '🕪',
-    "KC_AUDIO_MUTE": '🔇',
-    "KC_MEDIA_PLAY_PAUSE": '⏯',
-    "KC_MEDIA_NEXT_TRACK": '⏭',
-    "KC_MEDIA_PREV_TRACK": '⏮',
-    "KC_PRINT_SCREEN": '⎙',
-}
-
 
 class AllKeyboards:
     """Represents all keyboards.
@@ -278,32 +235,6 @@ def rules_mk(keyboard):
     return rules
 
 
-@lru_cache(maxsize=2)
-def get_kc_idx(render_ascii=False):
-    """Populates the cache of mappings from keycode names to labels
-    """
-
-    kc_spec = load_spec('latest')
-    kc_idx = {}
-    for value in kc_spec['keycodes'].values():
-        key = value['key']
-        label = value.get('label')
-        if not render_ascii:
-            label = KEY_DRAWING_CHARACTERS.get(key, label)
-        if label is None or len(label) == 0:
-            label = key
-            if 'aliases' in value:
-                for alias in value['aliases']:
-                    if len(alias) < len(label):
-                        label = alias
-        kc_idx[key] = label
-        if 'aliases' in value:
-            for alias in value['aliases']:
-                kc_idx[alias] = label
-
-    return kc_idx
-
-
 # Credit: This logic ported from Keyboard Layout Editor (Ian Prest)
 # https://github.com/ijprest/keyboard-layout-editor/blob/580b916084e69e600b2144b0217c8b1d9710daa0/serial.js#L166
 def render_kle(layout_data, layers=None, title=None, y_offset=0):
@@ -326,8 +257,6 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
     new_row = True
     cluster_rx = 0
     cluster_ry = y_offset
-
-    kc_idx = get_kc_idx()
 
     # The sort order is important!
     # KLE does care!
@@ -354,14 +283,17 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
                 if layer is None:
                     break
                 layer_label = layers[li][ki]
-                layer_label = kc_idx.get(layer_label, layer_label)
-                if layer_label.startswith('KC_') or layer_label.startswith('QK_'):
+                if re.match("^(KC_NO|XXXXXXX)$", layer_label):
+                    layer_label = ""
+                if re.match("^(KC_TRANSPARENT|KC_TRNS|_______)$", layer_label):
+                    layer_label = "▿"
+                if re.match("^(KC|QK)_", layer_label):
                     layer_label = layer_label[3:]
                 layer_label = layer_label.replace("(", "<br>(", count=1)
                 layer_label = layer_label.replace("_", "<br>", count=1)
                 layer_label = layer_label.strip()
                 layer_labels.append(layer_label)
-                lif = max(1, min(4, math.floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
+                lif = max(1, min(4, floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
                 layer_fa.append(lif)
 
         cluster_changed = (r != cur_r) or (rx != cur_rx) or (ry != cur_ry)
@@ -451,8 +383,6 @@ def render_layout(layout_data, render_ascii, key_labels=None):
     textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
 
-    kc_idx = get_kc_idx(render_ascii)
-
     for ki, key in enumerate(layout_data):
         x = key.get('x', 0)
         y = key.get('y', 0)
@@ -461,8 +391,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
 
         if key_labels:
             label = key_labels[ki]
-            label = kc_idx.get(label, label)
-            if label.startswith('KC_') or label.startswith('QK_'):
+            if re.match("^(KC|QK)_", label):
                 label = label[3:]
         else:
             label = key.get('label', '')
