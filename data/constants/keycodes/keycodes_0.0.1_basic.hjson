@@ -11,7 +11,7 @@
         "0x0001": {
             "group": "internal",
             "key": "KC_TRANSPARENT",
-            "label": "▽",
+            "label": "▿",
             "aliases": [
                 "_______",
                 "KC_TRNS"
