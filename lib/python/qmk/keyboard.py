@@ -233,6 +233,33 @@ def rules_mk(keyboard):
     return rules
 
 
+def _render_kle_layout_sorter(k):
+    """Sort order for keys to meet KLE's requirements
+    """
+    return (
+        (k.get('r', 0) + 360) % 360,
+        k.get('rx', 0),
+        k.get('ry', 0),
+        k.get('y', 0),
+        k.get('x', 0)
+    )
+
+
+def _render_kle_massage_label(layer_label):
+    """Massage the key label to make it fit better in KLE
+    """
+    if re.match("^(KC_NO|XXXXXXX)$", layer_label):
+        layer_label = ""
+    if re.match("^(KC_TRANSPARENT|KC_TRNS|_______)$", layer_label):
+        layer_label = "▿"
+    if re.match("^(KC|QK)_", layer_label):
+        layer_label = layer_label[3:]
+    layer_label = layer_label.replace("(", "<br>(", count=1)
+    layer_label = layer_label.replace("_", "<br>", count=1)
+    layer_label = layer_label.strip()
+    return layer_label
+
+
 # Credit: This logic ported from Keyboard Layout Editor (Ian Prest)
 # https://github.com/ijprest/keyboard-layout-editor/blob/580b916084e69e600b2144b0217c8b1d9710daa0/serial.js#L166
 def render_kle(layout_data, layers=None, title=None, y_offset=0):
@@ -261,7 +288,7 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
     # Clusters (defined by r, rx, ry) must not be broken up
     # Don't forget to normalize rotation angle to 0-360
 
-    for ki, key in enumerate(sorted(layout_data, key=lambda k: ((k.get('r', 0) + 360) % 360, k.get('rx', 0), k.get('ry', 0), k.get('y', 0), k.get('x', 0)))):
+    for ki, key in enumerate(sorted(layout_data, key=lambda k: _render_kle_layout_sorter(k))):
 
         # Get defaulted values
         x = key.get('x', 0)
@@ -280,16 +307,7 @@ def render_kle(layout_data, layers=None, title=None, y_offset=0):
             for li, layer in enumerate(layers):
                 if layer is None:
                     break
-                layer_label = layers[li][ki]
-                if re.match("^(KC_NO|XXXXXXX)$", layer_label):
-                    layer_label = ""
-                if re.match("^(KC_TRANSPARENT|KC_TRNS|_______)$", layer_label):
-                    layer_label = "▿"
-                if re.match("^(KC|QK)_", layer_label):
-                    layer_label = layer_label[3:]
-                layer_label = layer_label.replace("(", "<br>(", count=1)
-                layer_label = layer_label.replace("_", "<br>", count=1)
-                layer_label = layer_label.strip()
+                layer_label = _render_kle_massage_label(layers[li][ki])
                 layer_labels.append(layer_label)
                 lif = max(1, min(4, floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
                 layer_fa.append(lif)
