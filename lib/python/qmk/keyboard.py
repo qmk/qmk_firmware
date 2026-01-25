@@ -16,7 +16,6 @@ from qmk.keycodes import load_spec
 
 import re
 
-
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
         "tl": "┌",
@@ -57,6 +56,7 @@ ENC_DRAWING_CHARACTERS = {
         "h": "_",
     },
 }
+
 
 class AllKeyboards:
     """Represents all keyboards.
