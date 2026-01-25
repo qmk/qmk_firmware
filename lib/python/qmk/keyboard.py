@@ -236,13 +236,7 @@ def rules_mk(keyboard):
 def _render_kle_layout_sorter(k):
     """Sort order for keys to meet KLE's requirements
     """
-    return (
-        (k.get('r', 0) + 360) % 360,
-        k.get('rx', 0),
-        k.get('ry', 0),
-        k.get('y', 0),
-        k.get('x', 0)
-    )
+    return ((k.get('r', 0) + 360) % 360, k.get('rx', 0), k.get('ry', 0), k.get('y', 0), k.get('x', 0))
 
 
 def _render_kle_massage_label(layer_label):
