@@ -595,8 +595,13 @@ static bool matrix_task(void) {
         return false;
     }
 
-    matrix_scan();
-    bool matrix_changed = false;
+    // copy current matrix to previous
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        matrix_previous[row] = matrix_get_row(row);
+    }
+
+    uint8_t matrix_changed = matrix_scan();
+
     for (uint8_t row = 0; row < MATRIX_ROWS && !matrix_changed; row++) {
         matrix_changed |= matrix_previous[row] ^ matrix_get_row(row);
     }
@@ -635,8 +640,6 @@ static bool matrix_task(void) {
                 switch_events(row, col, key_pressed);
             }
         }
-
-        matrix_previous[row] = current_row;
     }
 
     return matrix_changed;
