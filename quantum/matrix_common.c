@@ -176,7 +176,7 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
 #    endif
 #else
 #    if DEBOUNCE > 0
-    changed = debounce(raw_matrix, matrix, ROWS_PER_HAND, changed);
+    changed = debounce(raw_matrix, matrix, changed);
 #    endif
     matrix_scan_kb();
 #endif

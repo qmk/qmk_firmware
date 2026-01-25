@@ -336,9 +336,15 @@ uint8_t matrix_scan(void) {
     if (changed) memcpy(raw_matrix, curr_matrix, sizeof(curr_matrix));
 
 #ifdef SPLIT_KEYBOARD
-    changed = debounce(raw_matrix, matrix + thisHand, changed) | matrix_post_scan();
+#    if DEBOUNCE > 0
+    changed = debounce(raw_matrix, matrix + thisHand, changed) || matrix_post_scan();
+#    else
+    changed = matrix_post_scan();
+#    endif
 #else
+#    if DEBOUNCE > 0
     changed = debounce(raw_matrix, matrix, changed);
+#    endif
     matrix_scan_kb();
 #endif
     return (uint8_t)changed;
