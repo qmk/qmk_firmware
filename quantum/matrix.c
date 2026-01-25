@@ -339,7 +339,7 @@ uint8_t matrix_scan(void) {
 #    if DEBOUNCE > 0
     changed = debounce(raw_matrix, matrix + thisHand, changed) || matrix_post_scan();
 #    else
-    changed = matrix_post_scan();
+    changed = changed || matrix_post_scan();
 #    endif
 #else
 #    if DEBOUNCE > 0
