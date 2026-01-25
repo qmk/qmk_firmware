@@ -3,7 +3,7 @@
         "0x0000": {
             "group": "internal",
             "key": "KC_NO",
-            "label": "N/A",
+            "label": " ",
             "aliases": [
                 "XXXXXXX"
             ]
@@ -11,7 +11,7 @@
         "0x0001": {
             "group": "internal",
             "key": "KC_TRANSPARENT",
-            "label": "Transparent",
+            "label": "▽",
             "aliases": [
                 "_______",
                 "KC_TRNS"
@@ -200,7 +200,7 @@
         "0x0028": {
             "group": "basic",
             "key": "KC_ENTER",
-            "label": "Enter",
+            "label": "⮐",
             "aliases": [
                 "KC_ENT"
             ]
@@ -208,7 +208,7 @@
         "0x0029": {
             "group": "basic",
             "key": "KC_ESCAPE",
-            "label": "Esc",
+            "label": "⎋",
             "aliases": [
                 "KC_ESC"
             ]
@@ -216,7 +216,7 @@
         "0x002A": {
             "group": "basic",
             "key": "KC_BACKSPACE",
-            "label": "Backspace",
+            "label": "⌫",
             "aliases": [
                 "KC_BSPC"
             ]
@@ -224,12 +224,12 @@
         "0x002B": {
             "group": "basic",
             "key": "KC_TAB",
-            "label": "Tab"
+            "label": "⇥"
         },
         "0x002C": {
             "group": "basic",
             "key": "KC_SPACE",
-            "label": "Spacebar",
+            "label": "␣",
             "aliases": [
                 "KC_SPC"
             ]
@@ -330,7 +330,7 @@
         "0x0039": {
             "group": "basic",
             "key": "KC_CAPS_LOCK",
-            "label": "Caps Lock",
+            "label": "🅰",
             "aliases": [
                 "KC_CAPS"
             ]
@@ -398,7 +398,7 @@
         "0x0046": {
             "group": "basic",
             "key": "KC_PRINT_SCREEN",
-            "label": "Print Screen",
+            "label": "⎙",
             "aliases": [
                 "KC_PSCR"
             ]
@@ -425,7 +425,7 @@
         "0x0049": {
             "group": "basic",
             "key": "KC_INSERT",
-            "label": "Insert",
+            "label": "⎀",
             "aliases": [
                 "KC_INS"
             ]
@@ -433,12 +433,12 @@
         "0x004A": {
             "group": "basic",
             "key": "KC_HOME",
-            "label": "Home"
+            "label": "⤒"
         },
         "0x004B": {
             "group": "basic",
             "key": "KC_PAGE_UP",
-            "label": "Page Up",
+            "label": "⎗:",
             "aliases": [
                 "KC_PGUP"
             ]
@@ -446,7 +446,7 @@
         "0x004C": {
             "group": "basic",
             "key": "KC_DELETE",
-            "label": "Delete",
+            "label": "⌦",
             "aliases": [
                 "KC_DEL"
             ]
@@ -454,12 +454,12 @@
         "0x004D": {
             "group": "basic",
             "key": "KC_END",
-            "label": "End"
+            "label": "⤓"
         },
         "0x004E": {
             "group": "basic",
             "key": "KC_PAGE_DOWN",
-            "label": "Page Down",
+            "label": "⎘",
             "aliases": [
                 "KC_PGDN"
             ]
@@ -467,7 +467,7 @@
         "0x004F": {
             "group": "basic",
             "key": "KC_RIGHT",
-            "label": "Right",
+            "label": "⮕",
             "aliases": [
                 "KC_RGHT"
             ]
@@ -475,22 +475,22 @@
         "0x0050": {
             "group": "basic",
             "key": "KC_LEFT",
-            "label": "Left"
+            "label": "⬅"
         },
         "0x0051": {
             "group": "basic",
             "key": "KC_DOWN",
-            "label": "Down"
+            "label": "⬇"
         },
         "0x0052": {
             "group": "basic",
             "key": "KC_UP",
-            "label": "Up"
+            "label": "⬆"
         },
         "0x0053": {
             "group": "basic",
             "key": "KC_NUM_LOCK",
-            "label": "Num Lock",
+            "label": "❶",
             "aliases": [
                 "KC_NUM"
             ]
@@ -634,7 +634,7 @@
         "0x0065": {
             "group": "basic",
             "key": "KC_APPLICATION",
-            "label": "App",
+            "label": "☰",
             "aliases": [
                 "KC_APP"
             ]
@@ -1068,7 +1068,7 @@
         "0x00A5": {
             "group": "system",
             "key": "KC_SYSTEM_POWER",
-            "label": "Power",
+            "label": "⏻",
             "aliases": [
                 "KC_PWR"
             ]
@@ -1076,7 +1076,7 @@
         "0x00A6": {
             "group": "system",
             "key": "KC_SYSTEM_SLEEP",
-            "label": "Sleep",
+            "label": "⏾",
             "aliases": [
                 "KC_SLEP"
             ]
@@ -1092,7 +1092,7 @@
         "0x00A8": {
             "group": "media",
             "key": "KC_AUDIO_MUTE",
-            "label": "Mute",
+            "label": "🕨",
             "aliases": [
                 "KC_MUTE"
             ]
@@ -1100,7 +1100,7 @@
         "0x00A9": {
             "group": "media",
             "key": "KC_AUDIO_VOL_UP",
-            "label": "Volume Up",
+            "label": "🕪",
             "aliases": [
                 "KC_VOLU"
             ]
@@ -1108,7 +1108,7 @@
         "0x00AA": {
             "group": "media",
             "key": "KC_AUDIO_VOL_DOWN",
-            "label": "Volume Down",
+            "label": "🕩",
             "aliases": [
                 "KC_VOLD"
             ]
@@ -1116,7 +1116,7 @@
         "0x00AB": {
             "group": "media",
             "key": "KC_MEDIA_NEXT_TRACK",
-            "label": "Next",
+            "label": "⏭",
             "aliases": [
                 "KC_MNXT"
             ]
@@ -1124,7 +1124,7 @@
         "0x00AC": {
             "group": "media",
             "key": "KC_MEDIA_PREV_TRACK",
-            "label": "Previous",
+            "label": "⏮",
             "aliases": [
                 "KC_MPRV"
             ]
@@ -1140,7 +1140,7 @@
         "0x00AE": {
             "group": "media",
             "key": "KC_MEDIA_PLAY_PAUSE",
-            "label": "Play/Pause",
+            "label": "⏯",
             "aliases": [
                 "KC_MPLY"
             ]
@@ -1257,7 +1257,7 @@
         "0x00BD": {
             "group": "media",
             "key": "KC_BRIGHTNESS_UP",
-            "label": "Brightness Up",
+            "label": "🔆",
             "aliases": [
                 "KC_BRIU"
             ]
@@ -1265,7 +1265,7 @@
         "0x00BE": {
             "group": "media",
             "key": "KC_BRIGHTNESS_DOWN",
-            "label": "Brightness Down",
+            "label": "🔅",
             "aliases": [
                 "KC_BRID"
             ]
@@ -1443,7 +1443,7 @@
         "0x00E0": {
             "group": "modifiers",
             "key": "KC_LEFT_CTRL",
-            "label": "Left Control",
+            "label": "∧",
             "aliases": [
                 "KC_LCTL"
             ]
@@ -1451,7 +1451,7 @@
         "0x00E1": {
             "group": "modifiers",
             "key": "KC_LEFT_SHIFT",
-            "label": "Left Shift",
+            "label": "⇧",
             "aliases": [
                 "KC_LSFT"
             ]
@@ -1459,7 +1459,7 @@
         "0x00E2": {
             "group": "modifiers",
             "key": "KC_LEFT_ALT",
-            "label": "Left Alt",
+            "label": "⌥",
             "aliases": [
                 "KC_LALT",
                 "KC_LOPT"
@@ -1468,7 +1468,7 @@
         "0x00E3": {
             "group": "modifiers",
             "key": "KC_LEFT_GUI",
-            "label": "Left GUI",
+            "label": "⬦",
             "aliases": [
                 "KC_LGUI",
                 "KC_LCMD",
@@ -1478,7 +1478,7 @@
         "0x00E4": {
             "group": "modifiers",
             "key": "KC_RIGHT_CTRL",
-            "label": "Right Control",
+            "label": "∧",
             "aliases": [
                 "KC_RCTL"
             ]
@@ -1486,7 +1486,7 @@
         "0x00E5": {
             "group": "modifiers",
             "key": "KC_RIGHT_SHIFT",
-            "label": "Right Shift",
+            "label": "⇧",
             "aliases": [
                 "KC_RSFT"
             ]
@@ -1494,7 +1494,7 @@
         "0x00E6": {
             "group": "modifiers",
             "key": "KC_RIGHT_ALT",
-            "label": "Right Alt",
+            "label": "⌥",
             "aliases": [
                 "KC_RALT",
                 "KC_ROPT",
@@ -1504,7 +1504,7 @@
         "0x00E7": {
             "group": "modifiers",
             "key": "KC_RIGHT_GUI",
-            "label": "Right GUI",
+            "label": "⬦",
             "aliases": [
                 "KC_RGUI",
                 "KC_RCMD",

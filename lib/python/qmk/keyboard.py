@@ -12,6 +12,8 @@ from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
 
+from qmk.keycodes import load_spec
+
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
         "tl": "┌",
@@ -231,11 +233,32 @@ def rules_mk(keyboard):
     return rules
 
 
+@lru_cache(maxsize=1)
+def _key_to_label():
+    """Get a mapping from key name (or alias) to its label
+
+    Returns:
+        a dictionary mapping keys to their labels
+    """
+    idx = {}
+    spec = load_spec("latest")
+    for kc, key in spec['keycodes'].items():
+        if 'label' in key:
+            idx[key['key']] = key['label']
+            if 'aliases' in key:
+                for alias in key['aliases']:
+                    idx[alias] = key['label']
+
+    return idx
+
+
 def render_layout(layout_data, render_ascii, key_labels=None):
     """Renders a single layout.
     """
     textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
+
+    k2l = _key_to_label()
 
     for key in layout_data:
         x = key.get('x', 0)
@@ -245,6 +268,8 @@ def render_layout(layout_data, render_ascii, key_labels=None):
 
         if key_labels:
             label = key_labels.pop(0)
+            if label in k2l:
+                label = k2l[label]
             if label.startswith('KC_'):
                 label = label[3:]
         else:
