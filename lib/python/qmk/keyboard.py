@@ -268,7 +268,7 @@ def render_layout(layout_data, render_ascii, key_labels=None):
 
         if key_labels:
             label = key_labels.pop(0)
-            if label in k2l:
+            if style == "unicode" and label in k2l:
                 label = k2l[label]
             if label.startswith('KC_') or label.startswith('QK_'):
                 label = label[3:]
