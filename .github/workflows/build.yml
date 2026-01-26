@@ -1,0 +1,18 @@
+name: Build QMK
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: qmkfm/qmk_cli
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Compile
+        run: qmk compile -kb mechlovin/infinity87/rev2 -km default
+      - uses: actions/upload-artifact@v3
+        with:
+          name: infinity87_firmware
+          path: ./*.bin
