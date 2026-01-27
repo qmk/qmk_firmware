@@ -26,6 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define TAPPING_TERM 100
 
 #define EE_HANDS
+// #define USE_SERIAL_PD2
+#define SPLIT_LAYER_STATE_ENABLE
+#define SPLIT_LED_STATE_ENABLE
+#define SPLIT_MODS_ENABLE
+// #define SPLIT_WPM_ENABLE
 
 #define MOUSEKEY_INTERVAL 20
 #define MOUSEKEY_DELAY 0
@@ -36,7 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-// #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP17
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U
 
 #ifdef RGB_MATRIX_ENABLE
@@ -51,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     #define RGB_MATRIX_KEYPRESSES
     // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-    // #   define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+    #define RGB_DISABLE_TIMEOUT 120000 // number of ticks to wait until disabling effects
     #define RGB_DISABLE_WHEN_USB_SUSPENDED true  // turn off effects when suspended
 
     #define RGB_MATRIX_KEYPRESSES // reacts to keypresses
