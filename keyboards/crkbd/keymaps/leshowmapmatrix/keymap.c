@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //,-----------------------------------------.                ,-----------------------------------------.
      MEDIA, KC_Q, KC_W, KC_E, KC_R, KC_T,                       KC_Y, KC_U, KC_I, KC_O, KC_P, KC_BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      GTAB, KC_A, KC_S, KC_D, ARROW, KC_G,                        KC_H, KC_J, KC_K, KC_L, KC_SCLN, GQUOT,\
+      GTAB, S_A, KC_S, KC_D, ARROW, KC_G,                        KC_H, KC_J, KC_K, KC_L, S_SCLN, GQUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       SC_LSPO, LCTLZ, LALTX, KC_C, MOUSE, KC_B,                 KC_N, KC_M, KC_COMM, RALTD, RCTLS, SC_RSPC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -239,62 +239,79 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 //     return process_record_user(keycode, record);
 // }
 
-__attribute__((weak)) void oled_render_logo(void) {
-    // clang-format off
-    static const char PROGMEM crkbd_logo[] = {
-        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8a, 0x8b, 0x8c, 0x8d, 0x8e, 0x8f, 0x90, 0x91, 0x92, 0x93, 0x94,
-        0xa0, 0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6, 0xa7, 0xa8, 0xa9, 0xaa, 0xab, 0xac, 0xad, 0xae, 0xaf, 0xb0, 0xb1, 0xb2, 0xb3, 0xb4,
-        0xc0, 0xc1, 0xc2, 0xc3, 0xc4, 0xc5, 0xc6, 0xc7, 0xc8, 0xc9, 0xca, 0xcb, 0xcc, 0xcd, 0xce, 0xcf, 0xd0, 0xd1, 0xd2, 0xd3, 0xd4,
-        0};
-    // clang-format on
-    oled_write_P(crkbd_logo, false);
-}
 
+
+// Override oled_render_logo to show QMK logo instead of Corne logo
+void oled_render_logo(void) {
+    static const char PROGMEM qmk_logo[] = {
+        0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0x93, 0x94,
+        0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xB3, 0xB4,
+        0xC0, 0xC1, 0xC2, 0xC3, 0xC4, 0xC5, 0xC6, 0xC7, 0xC8, 0xC9, 0xCA, 0xCB, 0xCC, 0xCD, 0xCE, 0xCF, 0xD0, 0xD1, 0xD2, 0xD3, 0xD4, 0x00
+    };
+    oled_write_P(qmk_logo, false);
+}
 
 bool oled_task_user(void) {
     // oled_write_P(PSTR("Layer: "), false);
+    // Host Keyboard LED Status
     if (is_keyboard_master()) {
         switch (get_highest_layer(layer_state)) {
             case _DEFAULT:
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("^"), false);
                 oled_write_ln_P(PSTR("DEFAULT"), false);
                 break;
             case _SYMB:
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("  ^"), false);
                 oled_write_ln_P(PSTR("SYMBOL"), false);
                 break;
+            case _NUM:
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("    ^"), false);
+                oled_write_ln_P(PSTR("NUM"), false);
+                break;
             case _ARROW:
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("      ^"), false);
                 oled_write_ln_P(PSTR("ARROW"), false);
                 break;
             case _MOUSE:
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("        ^"), false);
                 oled_write_ln_P(PSTR("MOUSE"), false);
                 break;
             case _MEDIA:
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("          ^"), false);
                 oled_write_ln_P(PSTR("MEDIA"), false);
                 break;
-            case _NUM:
-                oled_write_ln_P(PSTR("NUM"), false);
-                break;
             case _ADJUST:
-                oled_write_ln_P(PSTR("RGB"), false);
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("            ^"), false);
+                oled_write_ln_P(PSTR("ADJUST"), false);
                 break;
             case _QWERTY:
+                oled_write_ln_P(PSTR("1 2 3 4 5 6 7 8"), false);
+                oled_write_ln_P(PSTR("              ^"), false);
                 oled_write_ln_P(PSTR("GAMING"), false);
                 break;
             default:
                 oled_write_ln_P(PSTR("Unknown"), false);
                 break;
         }
+        // Host Keyboard LED Status
+        led_t led_state = host_keyboard_led_state();
+        oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
+        oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
+        oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
         // oled_render_keylog();
+        // oled_render_logo();
     } else {
+        // oled_render_logo();
         oled_render_logo();
     }
 
-    //     // Host Keyboard LED Status
-    // led_t led_state = host_keyboard_led_state();
-    // oled_write_P(led_state.num_lock ? PSTR("NUM ") : PSTR("    "), false);
-    // oled_write_P(led_state.caps_lock ? PSTR("CAP ") : PSTR("    "), false);
-    // oled_write_P(led_state.scroll_lock ? PSTR("SCR ") : PSTR("    "), false);
-
-    // oled_write(read_logo(), false);
     return false;
 }
 

@@ -13,3 +13,6 @@ CONSOLE_ENABLE = no
 COMMAND_ENABLE = no
 
 LTO_ENABLE = yes
+
+# Use custom font from keymap directory
+OLED_FONT_H = "keyboards/crkbd/keymaps/leshowmapmatrix/glcdfont.c"

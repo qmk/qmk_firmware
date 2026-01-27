@@ -83,7 +83,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (clockwise) {
       tap_code_delay(KC_VOLU, 10);
     } else {
-      tap_code_delay(KC_VOLD, 10);  
+      tap_code_delay(KC_VOLD, 10);
     }
   } else {
     if (clockwise) {
