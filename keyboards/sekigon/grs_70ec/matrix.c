@@ -35,10 +35,6 @@
 
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
-/* matrix state(1:on, 0:off) */
-extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
-
 // row offsets for each hand
 static uint8_t thisHand, thatHand;
 
