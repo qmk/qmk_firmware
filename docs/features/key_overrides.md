@@ -101,7 +101,7 @@ const key_override_t *key_overrides[] = {
 ```
 
 ### Flexible macOS-friendly Grave Escape {#flexible-macos-friendly-grave-escape}
-The [Grave Escape feature](grave_esc) is limited in its configurability and has [bugs when used on macOS](grave_esc#caveats). Key overrides can be used to achieve a similar functionality as Grave Escape, but with more customization and without bugs on macOS.
+The [Grave Escape feature](grave_esc) is limited in its configurability and has [bugs when used on macOS](grave_esc.md#caveats). Key overrides can be used to achieve a similar functionality as Grave Escape, but with more customization and without bugs on macOS.
 
 ```c
 // Shift + esc = ~
