@@ -39,6 +39,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LALTX LALT_T(KC_X)
 #define ESC_CTL LCTL_T(KC_ESC)
 #define CTL_NUM LT(_MEDIA, KC_LCTL)
+// homerow mods
+#define S_A LSFT_T(KC_A)
+#define S_SCLN RSFT_T(KC_SCLN)
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
