@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+// Use custom OLED font from keymap directory
+#define OLED_FONT_H "keyboards/crkbd/keymaps/leshowmapmatrix/glcdfont.c"
+
 //#define USE_MATRIX_I2C
 
 //#define QUICK_TAP_TERM 0
