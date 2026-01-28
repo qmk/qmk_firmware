@@ -333,6 +333,17 @@
                 }
             }
         },
+        "dynamic_keymap": {
+            "type": "object",
+            "properties": {
+                "eeprom_max_addr": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "layer_count": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 32
+                }
+            }
+        },
         "eeprom": {
             "properties": {
                 "driver": {"type": "string"},
