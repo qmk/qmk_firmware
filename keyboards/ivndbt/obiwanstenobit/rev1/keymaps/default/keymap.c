@@ -24,18 +24,17 @@ enum layers {
     _QWERTY
 };
 
-#define LOWER MO(_LOWER)
-#define RAISE MO(_RAISE)
-#define CONTROL MO(_CONTROL)
+#define LOWER TL_LOWR
+#define RAISE TL_UPPR
 #define QWERTY TG(_QWERTY)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Plover layer
  *
- * | Lower |  S  |  T  |  P  |  H  |  *  |   |  *  |  F  |  P  |  L  |  T  |  D  |
- * | Raise |  S  |  K  |  W  |  R  |  *  |   |  *  |  R  |  B  |  G  |  S  |  Z  |
+ * |Lower|  S  |  T  |  P  |  H  |  *  |   |  *  |  F  |  P  |  L  |  T  |  D  |
+ * |Raise|  S  |  K  |  W  |  R  |  *  |   |  *  |  R  |  B  |  G  |  S  |  Z  |
  *                                                                              
- *                     |  #  |  A  |  O  |   |  E  |  U  |  #  |  
+ *                   |  #  |  A  |  O  |   |  E  |  U  |  #  |  
  */
 [_PLOVER] = LAYOUT(
     LOWER,  STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,    STN_ST3, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
@@ -45,36 +44,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower layer
  *
- * |       |     |     |     |     |     |   |     |     |     |     |     |     |
- * |Control|     |     |     |     |     |   |     |     |     |     |     |     |
+ * |     |     |     |     |     | Del |   | Esc |     | Up  |     |PgUp |     |
+ * |     |     |     |     |     |     |   | Tab |Left |Down |Right|PgDn |     |
  *                                                                              
- *                     |     |     |     |   |     |     |     |  
+ *                   |     |     |     |   |Home | End |     |  
  */
 [_LOWER] = LAYOUT(
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    CONTROL,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-                                  _______,  _______,  _______,  _______,  _______,  _______
+    _______,  _______,  _______,  _______,  _______,  KC_DEL,   KC_ESC,   _______,  KC_UP,    _______,  KC_PGUP,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,  KC_TAB,   KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_PGDN,  _______,
+                                  _______,  _______,  _______,  KC_HOME,  KC_END,   _______
   ),
 
 /* Raise layer
  *
- * |Control|     |     |     |     |     |   |     |     |     |     |     |     |
- * |       |     |     |     |     |     |   |     |     |     |     |     |     |
+ * |     |     |     |     |     |     |   |Mute |Vol- |Vol+ |     |     |     |
+ * |     |     |     |     |     |     |   |     |Bri- |Bri+ |     |     |     |
  *                                                                              
- *                     |     |     |     |   |     |     |     | 
+ *                   |     |     |     |   |Prev |Play |Next | 
  */
 [_RAISE] = LAYOUT(
-    CONTROL,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-                                  _______,  _______,  _______,  _______,  _______,  _______
+    _______,  _______,  _______,  _______,  _______,  _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,
+    _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_BRID,  KC_BRIU,  _______,  _______,  _______,
+                                  _______,  _______,  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT
   ),
 
 /* Control layer
  *
- * |       |     |     |     |     |Btldr|   |     |     |     |     |     |Qwerty|
- * |Control|     |     |     |     |Rboot|   |     |     |     |     |     |      |
+ * |     |     |     |     |     |Btldr|   |     |     |     |     |     |Qwerty|
+ * |     |     |     |     |     |Rboot|   |     |     |     |     |     |      |
  *                                                                              
- *                     |     |     |     |   |     |     |     | 
+ *                   |     |     |     |   |     |     |     | 
  */
 [_CONTROL] = LAYOUT(
     _______,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  QK_BOOT,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  QWERTY,
@@ -84,10 +83,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty layer
  *
- * |Space |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U  |  I  |  O  |  P  |Qwerty|
- * |Bckspc|  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |  Z  |Enter |
+ * |Space|  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U  |  I  |  O  |  P  |Qwerty|
+ * |Bkspc|  A  |  S  |  D  |  F  |  G  |   |  H  |  J  |  K  |  L  |  Z  |Enter |
  *                                                                              
- *                    |  X  |  C  |  V  |   |  B  |  N  |  M  | 
+ *                   |  X  |  C  |  V  |   |  B  |  N  |  M  | 
  */
 [_QWERTY] = LAYOUT(
     KC_BSPC,  KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, QWERTY,

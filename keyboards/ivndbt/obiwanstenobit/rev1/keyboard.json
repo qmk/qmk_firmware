@@ -1,5 +1,8 @@
 {
     "usb": {
         "device_version": "0.1.1"
+    },
+    "features": {
+        "tri_layer": true
     }
 }
