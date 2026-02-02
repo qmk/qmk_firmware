@@ -5,7 +5,8 @@
     "maintainer": "ivndbt",
     "usb": {
         "vid": "0x6961",
-        "pid": "0x3033"
+        "pid": "0x3033",
+        "device_version": "0.1.1"
     },
     "development_board": "promicro_rp2040",
     "diode_direction": "COL2ROW",

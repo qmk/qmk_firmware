@@ -10,11 +10,11 @@ Open-source steno keyboard with a pseudo-split layout, designed to be compact, p
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ivndbt/obiwanstenobit/rev1:default
+    make ivndbt/obiwanstenobit:default
 
 Flashing example for this keyboard:
 
-    make ivndbt/obiwanstenobit/rev1:default:flash
+    make ivndbt/obiwanstenobit:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
