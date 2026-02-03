@@ -3,11 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-#include "quantum.h"
-
 #ifdef ENCODER_ENABLE
-extern volatile bool isLeftHand;
-// It would be nice if QMK would expose these:
 static bool encoder_pins_are_initialized = false;  // Whether custom initialization ran.
 static pin_t encoders_pad_a_l[] = ENCODER_A_PINS;
 static pin_t encoders_pad_b_l[] = ENCODER_B_PINS;
@@ -30,8 +26,8 @@ void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {
     static_assert(sizeof(encoders_pad_b_l) / sizeof(encoders_pad_b_l[0]) == 1);
     static_assert(sizeof(encoders_pad_a_r) / sizeof(encoders_pad_a_r[0]) == 1);
     static_assert(sizeof(encoders_pad_b_r) / sizeof(encoders_pad_b_r[0]) == 1);
-    encoders_pad_a = isLeftHand ? encoders_pad_a_l : encoders_pad_a_r;
-    encoders_pad_b = isLeftHand ? encoders_pad_b_l : encoders_pad_b_r;
+    encoders_pad_a = is_keyboard_left() ? encoders_pad_a_l : encoders_pad_a_r;
+    encoders_pad_b = is_keyboard_left() ? encoders_pad_b_l : encoders_pad_b_r;
     encoder_pins_are_initialized = true;
   }
   assert(index == 0);

@@ -11,6 +11,7 @@
   "development_board": "promicro_rp2040",
   "diode_direction": "COL2ROW",
   "features": {
+    "bootmagic": true,
     "encoder": true,
     "extrakey": true,
     "nkro": true
@@ -34,9 +35,6 @@
   },
   "split": {
     "enabled": true,
-    "usb_detect": {
-      "enabled": true
-    },
     "encoder": {
       "right": {
         "rotary": [
