@@ -86,14 +86,14 @@
         {"label": ".", "matrix": [6, 1], "hand": "R", "x": 11, "y": 2.25},
         {"label": "?", "matrix": [6, 0], "hand": "R", "x": 12, "y": 2.5},
 
-        {"label": "Left ENC",     "matrix": [3, 1], "hand": "*", "encoder": 0, "x": 0.5, "y": 3.25},
+        {"label": "Left ENC",     "matrix": [3, 1], "hand": "*", "encoder": 0, "x": 0.5, "y": 3.5},
         {"label": "Left Thumb1",  "matrix": [3, 2], "hand": "*", "x": 1.5, "y": 3.25},
         {"label": "Left Thumb2",  "matrix": [3, 3], "hand": "*", "x": 2.5, "y": 3.25},
         {"label": "Left Thumb3",  "matrix": [3, 4], "hand": "*", "x": 3.5, "y": 3.5},
         {"label": "Right Thumb3", "matrix": [7, 4], "hand": "*", "x": 8.5, "y": 3.5},
         {"label": "Right Thumb2", "matrix": [7, 3], "hand": "*", "x": 9.5, "y": 3.25},
         {"label": "Right Thumb1", "matrix": [7, 2], "hand": "*", "x": 10.5, "y": 3.25},
-        {"label": "Right ENC",    "matrix": [7, 1], "hand": "*", "encoder": 1, "x": 11.5, "y": 3.25}
+        {"label": "Right ENC",    "matrix": [7, 1], "hand": "*", "encoder": 1, "x": 11.5, "y": 3.5}
       ]
     }
   }

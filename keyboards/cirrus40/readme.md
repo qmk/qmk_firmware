@@ -1,6 +1,6 @@
 # Cirrus40
 
-![Cirrus40](https://github.com/schuay/cirrus40/blob/main/img/cirrus40.jpg?raw=true)
+![Cirrus40](https://i.imgur.com/LmCXtwU.jpeg)
 
 A 40% (3x5+3) split ortholinear keyboard with a focus on usable encoders. [More info](https://github.com/schuay/cirrus40)
 
