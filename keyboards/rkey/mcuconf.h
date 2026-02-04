@@ -6,4 +6,7 @@
 
 /* 12 MHz crystal on board */
 #undef STM32_PLLMUL_VALUE
-#define STM32_PLLMUL_VALUE		6
+#define STM32_PLLMUL_VALUE      6
+
+#undef STM32_SPI_USE_SPI1
+#define STM32_SPI_USE_SPI1 TRUE
