@@ -1,5 +1,4 @@
 # RN42 Bluetooth Support
-# add HHKB_RN42_ENABLE = yes to rules.mk to enable
 
 ifeq ($(strip $(HHKB_RN42_ENABLE)), yes)
     OPT_DEFS += -DHHKB_RN42_ENABLE
