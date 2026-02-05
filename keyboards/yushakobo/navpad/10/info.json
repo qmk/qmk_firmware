@@ -7,6 +7,14 @@
         "vid": "0x3265",
         "pid": "0x0008"
     },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B5", "pin_b": "B6"}
@@ -29,6 +37,5 @@
             "rgb_test": true
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "development_board": "promicro"
 }

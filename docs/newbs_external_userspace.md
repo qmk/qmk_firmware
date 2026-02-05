@@ -4,31 +4,39 @@ QMK Firmware now officially supports storing user keymaps outside of the normal 
 
 External Userspace mirrors the structure of the main QMK Firmware repository, but only contains the keymaps that you wish to build. You can still use `keyboards/<my keyboard>/keymaps/<my keymap>` to store your keymaps, or you can use the `layouts/<my layout>/<my keymap>` system as before -- they're just stored external to QMK Firmware.
 
-The build system will still honor the use of `users/<my keymap>` if you rely on the traditional QMK Firmware [userspace feature](feature_userspace.md) -- it's now supported externally too, using the same location inside the External Userspace directory.
+The build system will still honor the use of `users/<my keymap>` if you rely on the traditional QMK Firmware [userspace feature](feature_userspace) -- it's now supported externally too, using the same location inside the External Userspace directory.
 
 Additionally, there is first-class support for using GitHub Actions to build your keymaps, allowing you to automatically compile your keymaps whenever you push changes to your External Userspace repository.
 
-!> External Userspace is new functionality and may have issues. Tighter integration with the `qmk` command will occur over time.
+::: warning
+External Userspace is new functionality and may have issues. Tighter integration with the `qmk` command will occur over time.
+:::
 
-?> Historical keymap.json and GitHub-based firmware build instructions can be found [here](newbs_building_firmware_workflow.md). This document supersedes those instructions, but they should still function correctly.
+::: tip
+Historical keymap.json and GitHub-based firmware build instructions can be found [here](newbs_building_firmware_workflow). This document supersedes those instructions, but they should still function correctly.
+:::
 
 ## Setting up QMK Locally
 
-If you wish to build on your local machine, you will need to set up QMK locally. This is a one-time process, and is documented in the [newbs setup guide](https://docs.qmk.fm/#/newbs).
+If you wish to build on your local machine, you will need to set up QMK locally. This is a one-time process, and is documented in the [newbs setup guide](newbs).
 
-!> If you wish to use any QMK CLI commands related to manipulating External Userspace definitions, you will currently need a copy of QMK Firmware as well.
+::: warning
+If you wish to use any QMK CLI commands related to manipulating External Userspace definitions, you will currently need a copy of QMK Firmware as well.
+:::
 
-!> Building locally has a much shorter turnaround time than waiting for GitHub Actions to complete.
+::: warning
+Building locally has a much shorter turnaround time than waiting for GitHub Actions to complete.
+:::
 
 ## External Userspace Repository Setup (forked on GitHub)
 
 A basic skeleton External Userspace repository can be found [here](https://github.com/qmk/qmk_userspace). If you wish to keep your keymaps on GitHub (strongly recommended!), you can fork the repository and use it as a base:
 
-![Userspace Fork](https://i.imgur.com/hcegguh.png)
+![Userspace Fork](/hcegguh.png)
 
 Going ahead with your fork will copy it to your account, at which point you can clone it to your local machine and begin adding your keymaps:
 
-![Userspace Clone](https://i.imgur.com/CWYmsk8.png)
+![Userspace Clone](/CWYmsk8.png)
 
 ```sh
 cd $HOME
@@ -60,7 +68,9 @@ After creating your new keymap, building the keymap matches normal QMK usage:
 qmk compile -kb <keyboard> -km <keymap>
 ```
 
-!> The `qmk config user.overlay_dir=...` command must have been run when cloning the External Userspace repository for this to work correctly.
+::: warning
+The `qmk config user.overlay_dir=...` command must have been run when cloning the External Userspace repository for this to work correctly.
+:::
 
 ## Adding the keymap to External Userspace build targets
 
@@ -89,8 +99,8 @@ All firmware builds you've added to the External Userspace build targets will be
 
 GitHub Actions can be used to automatically build your keymaps whenever you push changes to your External Userspace repository. If you have set up your list of build targets, this is as simple as enabling workflows in the GitHub repository settings:
 
-![Repo Settings](https://i.imgur.com/EVkxOt1.png)
+![Repo Settings](/EVkxOt1.png)
 
 Any push will result in compilation of all configured builds, and once completed a new release containing the newly-minted firmware files will be created on GitHub, which you can subsequently download and flash to your keyboard:
 
-![Releases](https://i.imgur.com/zmwOL5P.png)
+![Releases](/zmwOL5P.png)

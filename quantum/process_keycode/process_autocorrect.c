@@ -38,7 +38,7 @@ bool autocorrect_is_enabled(void) {
  */
 void autocorrect_enable(void) {
     keymap_config.autocorrect_enable = true;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 }
 
 /**
@@ -48,7 +48,7 @@ void autocorrect_enable(void) {
 void autocorrect_disable(void) {
     keymap_config.autocorrect_enable = false;
     typo_buffer_size                 = 0;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 }
 
 /**
@@ -58,7 +58,7 @@ void autocorrect_disable(void) {
 void autocorrect_toggle(void) {
     keymap_config.autocorrect_enable = !keymap_config.autocorrect_enable;
     typo_buffer_size                 = 0;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
 }
 
 /**
@@ -98,6 +98,7 @@ bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record,
         case QK_TO ... QK_TO_MAX:
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
+        case QK_PERSISTENT_DEF_LAYER ... QK_PERSISTENT_DEF_LAYER_MAX:
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
         case QK_ONE_SHOT_LAYER ... QK_ONE_SHOT_LAYER_MAX:
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
@@ -308,7 +309,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
 
         if (code & 128) { // A typo was found! Apply autocorrect.
             const uint8_t backspaces = (code & 63) + !record->event.pressed;
-            const char *  changes    = (const char *)(autocorrect_data + state + 1);
+            const char   *changes    = (const char *)(autocorrect_data + state + 1);
 
             /* Gather info about the typo'd word
              *

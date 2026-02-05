@@ -26,27 +26,7 @@
 #include "ws2812.h"
 #include "pin_defs.h"
 
-#define pinmask(pin) (_BV((pin)&0xF))
-
-/*
- * Forward declare internal functions
- *
- * The functions take a byte-array and send to the data output as WS2812 bitstream.
- * The length is the number of bytes to send - three per LED.
- */
-
-static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t masklo, uint8_t maskhi);
-
-void ws2812_setleds(rgb_led_t *ledarray, uint16_t number_of_leds) {
-    DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);
-
-    uint8_t masklo = ~(pinmask(WS2812_DI_PIN)) & PORTx_ADDRESS(WS2812_DI_PIN);
-    uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
-
-    ws2812_sendarray_mask((uint8_t *)ledarray, number_of_leds * sizeof(rgb_led_t), masklo, maskhi);
-
-    _delay_us(WS2812_TRST_US);
-}
+#define pinmask(pin) (_BV((pin) & 0xF))
 
 /*
   This routine writes an array of bytes with RGB values to the Dataout pin
@@ -125,7 +105,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                  w_nop8
 #endif
 #if (w1_nops & 16)
-                                     w_nop16
+                     w_nop16
 #endif
                      "       sbrs  %1,7  \n\t" //  '1' [03] '0' [02]
                      "       out   %2,%4 \n\t" //  '1' [--] '0' [03] - fe-low
@@ -143,7 +123,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                  w_nop8
 #endif
 #if (w2_nops & 16)
-                                     w_nop16
+                     w_nop16
 #endif
                      "       out   %2,%4 \n\t" //  '1' [+1] '0' [+1] - fe-high
 #if (w3_nops & 1)
@@ -159,7 +139,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                  w_nop8
 #endif
 #if (w3_nops & 16)
-                                     w_nop16
+                     w_nop16
 #endif
 
                      "       dec   %0    \n\t" //  '1' [+2] '0' [+2]
@@ -169,4 +149,34 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
     }
 
     SREG = sreg_prev;
+}
+
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+
+void ws2812_init(void) {
+    DDRx_ADDRESS(WS2812_DI_PIN) |= pinmask(WS2812_DI_PIN);
+}
+
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
+
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
+    uint8_t masklo = ~(pinmask(WS2812_DI_PIN))&PORTx_ADDRESS(WS2812_DI_PIN);
+    uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
+
+    ws2812_sendarray_mask((uint8_t *)ws2812_leds, WS2812_LED_COUNT * sizeof(ws2812_led_t), masklo, maskhi);
+
+    _delay_us(WS2812_TRST_US);
 }

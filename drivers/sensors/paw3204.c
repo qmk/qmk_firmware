@@ -20,6 +20,7 @@
 #include "wait.h"
 #include "debug.h"
 #include "gpio.h"
+#include "pointing_device_internal.h"
 
 #define REG_PID1 0x00
 #define REG_PID2 0x01
@@ -50,7 +51,22 @@ void    paw3204_serial_write(uint8_t reg_addr);
 uint8_t paw3204_read_reg(uint8_t reg_addr);
 void    paw3204_write_reg(uint8_t reg_addr, uint8_t data);
 
-void paw3204_init(void) {
+const pointing_device_driver_t paw3204_pointing_device_driver = {
+    .init       = paw3204_init,
+    .get_report = paw3204_get_report,
+    .set_cpi    = paw3204_set_cpi,
+    .get_cpi    = paw3204_get_cpi,
+};
+
+uint8_t read_pid_paw3204(void) {
+    return paw3204_read_reg(REG_PID1);
+}
+
+bool __attribute__((weak)) paw3204_check_signature(void) {
+    return (read_pid_paw3204() == 0x30);
+}
+
+bool paw3204_init(void) {
     gpio_set_pin_output(PAW3204_SCLK_PIN);     // setclockpin to output
     gpio_set_pin_input_high(PAW3204_SDIO_PIN); // set datapin input high
 
@@ -61,6 +77,8 @@ void paw3204_init(void) {
     paw3204_read_reg(0x01); // read id2
     // PAW3204_write_reg(REG_SETUP,0x06);  // dont reset sensor and set cpi 1600
     paw3204_write_reg(REG_IMGTRASH, 0x32); // write image trashhold
+
+    return paw3204_check_signature();
 }
 
 uint8_t paw3204_serial_read(void) {
@@ -167,6 +185,14 @@ uint16_t paw3204_get_cpi(void) {
     return cpival;
 }
 
-uint8_t read_pid_paw3204(void) {
-    return paw3204_read_reg(REG_PID1);
+report_mouse_t paw3204_get_report(report_mouse_t mouse_report) {
+    report_paw3204_t data = paw3204_read();
+    if (data.isMotion) {
+        pd_dprintf("Raw ] X: %d, Y: %d\n", data.x, data.y);
+
+        mouse_report.x = data.x;
+        mouse_report.y = data.y;
+    }
+
+    return mouse_report;
 }

@@ -64,4 +64,8 @@ bool pca9505_set_output(uint8_t slave_addr, pca9505_port_t port, uint8_t conf);
 /**
  * Read state of a given port
  */
-bool pca9505_readPins(uint8_t slave_addr, pca9505_port_t port, uint8_t* ret);
+bool pca9505_read_pins(uint8_t slave_addr, pca9505_port_t port, uint8_t* ret);
+
+// DEPRECATED - DO NOT USE
+
+#define pca9505_readPins pca9505_read_pins

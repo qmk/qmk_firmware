@@ -1,0 +1,118 @@
+{
+    "keyboard_name": "Dactyl Minidox",
+    "manufacturer": "dlford",
+    "url": "https://www.dlford.io/keyboard-build-guide-per-key-rgb-leds/",
+    "maintainer": "dlford",
+    "usb": {
+        "vid": "0x444D",
+        "pid": "0x3536",
+        "device_version": "0.0.3"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "split_count": [18, 18],
+        "layout": [
+            {"matrix": [3, 4], "x": 102, "y": 64, "flags": 4},
+            {"matrix": [3, 3], "x": 82, "y": 64, "flags": 4},
+            {"matrix": [3, 2], "x": 61, "y": 64, "flags": 4},
+            {"matrix": [2, 4], "x": 82, "y": 43, "flags": 4},
+            {"matrix": [1, 4], "x": 82, "y": 22, "flags": 4},
+            {"matrix": [0, 4], "x": 82, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 61, "y": 0, "flags": 4},
+            {"matrix": [1, 3], "x": 61, "y": 22, "flags": 4},
+            {"matrix": [2, 3], "x": 61, "y": 43, "flags": 4},
+            {"matrix": [2, 2], "x": 41, "y": 43, "flags": 4},
+            {"matrix": [1, 2], "x": 41, "y": 22, "flags": 4},
+            {"matrix": [0, 2], "x": 41, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 21, "y": 0, "flags": 4},
+            {"matrix": [1, 1], "x": 21, "y": 22, "flags": 4},
+            {"matrix": [2, 1], "x": 21, "y": 43, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 43, "flags": 4},
+            {"matrix": [1, 0], "x": 0, "y": 22, "flags": 4},
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [7, 0], "x": 123, "y": 64, "flags": 4},
+            {"matrix": [7, 1], "x": 143, "y": 64, "flags": 4},
+            {"matrix": [7, 2], "x": 163, "y": 64, "flags": 4},
+            {"matrix": [6, 0], "x": 143, "y": 43, "flags": 4},
+            {"matrix": [5, 0], "x": 143, "y": 22, "flags": 4},
+            {"matrix": [4, 0], "x": 143, "y": 0, "flags": 4},
+            {"matrix": [4, 1], "x": 163, "y": 0, "flags": 4},
+            {"matrix": [5, 1], "x": 163, "y": 22, "flags": 4},
+            {"matrix": [6, 1], "x": 163, "y": 43, "flags": 4},
+            {"matrix": [6, 2], "x": 184, "y": 43, "flags": 4},
+            {"matrix": [5, 2], "x": 184, "y": 22, "flags": 4},
+            {"matrix": [4, 2], "x": 184, "y": 0, "flags": 4},
+            {"matrix": [4, 3], "x": 204, "y": 0, "flags": 4},
+            {"matrix": [5, 3], "x": 204, "y": 22, "flags": 4},
+            {"matrix": [6, 3], "x": 204, "y": 43, "flags": 4},
+            {"matrix": [6, 4], "x": 224, "y": 43, "flags": 4},
+            {"matrix": [5, 4], "x": 224, "y": 22, "flags": 4},
+            {"matrix": [4, 4], "x": 224, "y": 0, "flags": 4}
+        ]
+    },
+    "matrix_pins": {
+        "cols": ["C6", "D7", "E6", "B4", "B5"],
+        "rows": ["B1", "B3", "B2", "B6"]
+    },
+    "diode_direction": "ROW2COL",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "D0"
+        }
+    },
+    "development_board": "promicro",
+    "community_layouts": ["split_3x5_3"],
+    "layouts": {
+        "LAYOUT_split_3x5_3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [4, 0], "x": 10, "y": 0},
+                {"matrix": [4, 1], "x": 11, "y": 0},
+                {"matrix": [4, 2], "x": 12, "y": 0},
+                {"matrix": [4, 3], "x": 13, "y": 0},
+                {"matrix": [4, 4], "x": 14, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [5, 0], "x": 10, "y": 1},
+                {"matrix": [5, 1], "x": 11, "y": 1},
+                {"matrix": [5, 2], "x": 12, "y": 1},
+                {"matrix": [5, 3], "x": 13, "y": 1},
+                {"matrix": [5, 4], "x": 14, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [6, 0], "x": 10, "y": 2},
+                {"matrix": [6, 1], "x": 11, "y": 2},
+                {"matrix": [6, 2], "x": 12, "y": 2},
+                {"matrix": [6, 3], "x": 13, "y": 2},
+                {"matrix": [6, 4], "x": 14, "y": 2},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+                {"matrix": [7, 0], "x": 10, "y": 3},
+                {"matrix": [7, 1], "x": 11, "y": 3},
+                {"matrix": [7, 2], "x": 12, "y": 3}
+            ]
+        }
+    }
+}

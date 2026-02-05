@@ -99,13 +99,13 @@ void tk_finished(tap_dance_state_t *state, void *user_data){
                 layer_off(_ML1);
                 //turn off the indicator LED
                 //set LED HI to turn it off
-                writePinHigh(INDICATOR_LED);
+                gpio_write_pin_high(INDICATOR_LED);
             } else {
                 //turn on the media layer
                 layer_on(_ML1);
                 //turn on the indicator LED
                 //set LED pin to LOW to turn it on
-                writePinLow(INDICATOR_LED);
+                gpio_write_pin_low(INDICATOR_LED);
             }
             break;
         case SINGLE_HOLD:

@@ -18,22 +18,22 @@
 
 
 void led_init_ports(void) {
-  setPinOutput(C0);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(C1);
-  setPinOutput(C6);
-  setPinOutput(B0);
-  setPinOutput(B1);
-  setPinOutput(B2);
+  gpio_set_pin_output(C0);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(C1);
+  gpio_set_pin_output(C6);
+  gpio_set_pin_output(B0);
+  gpio_set_pin_output(B1);
+  gpio_set_pin_output(B2);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    writePin(D1, layer_state_cmp(state, 1));
-    writePin(D0, layer_state_cmp(state, 2));
-    writePin(C1, layer_state_cmp(state, 3));
-    writePin(C0, layer_state_cmp(state, 4));
-    writePin(C6, layer_state_cmp(state, 5));
+    gpio_write_pin(D1, layer_state_cmp(state, 1));
+    gpio_write_pin(D0, layer_state_cmp(state, 2));
+    gpio_write_pin(C1, layer_state_cmp(state, 3));
+    gpio_write_pin(C0, layer_state_cmp(state, 4));
+    gpio_write_pin(C6, layer_state_cmp(state, 5));
 
     return state;
 }

@@ -47,8 +47,7 @@
 
 #ifndef SOLENOID_PINS
 #    ifdef SOLENOID_PIN
-#        define SOLENOID_PINS \
-            { SOLENOID_PIN }
+#        define SOLENOID_PINS {SOLENOID_PIN}
 #    else
 #        error SOLENOID_PINS array not defined
 #    endif

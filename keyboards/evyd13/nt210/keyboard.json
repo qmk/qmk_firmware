@@ -1,0 +1,82 @@
+{
+    "manufacturer": "Evelien Dekkers",
+    "keyboard_name": "nt210",
+    "maintainer": "evyd13",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["B0", "D6", "D5", "D4"],
+        "rows": ["C4", "C5", "C6", "C7", "B7", "B6"]
+    },
+    "processor": "atmega32u2",
+    "url": "https://github.com/evyd13/nt-series/tree/main/nt-210",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4705",
+        "vid": "0xCC3F"
+    },
+    "indicators": {
+        "num_lock": "B4"
+    },
+    "layouts": {
+        "LAYOUT_numpad_6x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1.5},
+                {"matrix": [1, 1], "x": 1, "y": 1.5},
+                {"matrix": [1, 2], "x": 2, "y": 1.5},
+                {"matrix": [1, 3], "x": 3, "y": 1.5},
+                {"matrix": [2, 0], "x": 0, "y": 2.5},
+                {"matrix": [2, 1], "x": 1, "y": 2.5},
+                {"matrix": [2, 2], "x": 2, "y": 2.5},
+                {"h": 2, "matrix": [2, 3], "x": 3, "y": 2.5},
+                {"matrix": [3, 0], "x": 0, "y": 3.5},
+                {"matrix": [3, 1], "x": 1, "y": 3.5},
+                {"matrix": [3, 2], "x": 2, "y": 3.5},
+                {"matrix": [4, 0], "x": 0, "y": 4.5},
+                {"matrix": [4, 1], "x": 1, "y": 4.5},
+                {"matrix": [4, 2], "x": 2, "y": 4.5},
+                {"h": 2, "matrix": [4, 3], "x": 3, "y": 4.5},
+                {"matrix": [5, 0], "w": 2, "x": 0, "y": 5.5},
+                {"matrix": [5, 2], "x": 2, "y": 5.5}
+            ]
+        },
+        "LAYOUT_ortho_6x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1.5},
+                {"matrix": [1, 1], "x": 1, "y": 1.5},
+                {"matrix": [1, 2], "x": 2, "y": 1.5},
+                {"matrix": [1, 3], "x": 3, "y": 1.5},
+                {"matrix": [2, 0], "x": 0, "y": 2.5},
+                {"matrix": [2, 1], "x": 1, "y": 2.5},
+                {"matrix": [2, 2], "x": 2, "y": 2.5},
+                {"matrix": [2, 3], "x": 3, "y": 2.5},
+                {"matrix": [3, 0], "x": 0, "y": 3.5},
+                {"matrix": [3, 1], "x": 1, "y": 3.5},
+                {"matrix": [3, 2], "x": 2, "y": 3.5},
+                {"matrix": [3, 3], "x": 3, "y": 3.5},
+                {"matrix": [4, 0], "x": 0, "y": 4.5},
+                {"matrix": [4, 1], "x": 1, "y": 4.5},
+                {"matrix": [4, 2], "x": 2, "y": 4.5},
+                {"matrix": [4, 3], "x": 3, "y": 4.5},
+                {"matrix": [5, 0], "x": 0, "y": 5.5},
+                {"matrix": [5, 1], "x": 1, "y": 5.5},
+                {"matrix": [5, 2], "x": 2, "y": 5.5},
+                {"matrix": [5, 3], "x": 3, "y": 5.5}
+            ]
+        }
+    }
+}

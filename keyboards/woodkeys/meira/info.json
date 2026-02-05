@@ -1,15 +1,15 @@
 {
     "keyboard_name": "Meira",
     "manufacturer": "WoodKeys.click",
-    "url": "",
     "maintainer": "colemarkham",
     "usb": {
         "vid": "0xFEED",
         "pid": "0x6061",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "features": {
+        "extrakey": true
+    },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_ortho_4x12"
     },

@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     
     // 8: LED
     LAYOUT(
-        KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, KC_TRNS, KC_TRNS, KC_TRNS, DF(0), DF(3), KC_TRNS,
+        KC_TRNS, UG_TOGG, UG_NEXT, UG_HUEU, UG_SATU, UG_VALU, KC_TRNS, KC_TRNS, KC_TRNS, DF(0), DF(3), KC_TRNS,
         KC_TRNS, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, GOAT51, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, RGB_M_K, RGB_M_X, RGB_M_G, KC_TRNS, KC_TRNS, QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -114,9 +114,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 bool encoder_update_user(uint8_t index, bool clockwise) {
 
     if (clockwise) {
-        tap_code(KC_MS_WH_DOWN);
+        tap_code(MS_WHLD);
     } else {
-        tap_code(KC_MS_WH_UP);
+        tap_code(MS_WHLU);
     }
 
     return true;
