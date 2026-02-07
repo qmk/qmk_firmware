@@ -42,9 +42,10 @@ typedef struct surface_painter_device_t {
 
     // The target buffer
     union {
-        void *    buffer;
-        uint8_t * u8buffer;
+        void     *buffer;
+        uint8_t  *u8buffer;
         uint16_t *u16buffer;
+        rgb_t    *rgbbuffer;
     };
 
     // Manually manage the viewport for streaming pixel data to the display

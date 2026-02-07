@@ -25,7 +25,7 @@ If you have `ORYX_CONFIGURATOR` defined in your keymap's `config.h`, this enable
 
 ### Indicator LEDs
 
-You can use the `LED_LEVEL` keycode to cycle through the brightness levels for the LEDs on the top right of the keyboard.  These settings are saved in eeprom (persistant memory). 
+You can use the `LED_LEVEL` keycode to cycle through the brightness levels for the LEDs on the top right of the keyboard.  These settings are saved in eeprom (persistent memory). 
 
 Alternatively, you can set the brightness by calling the following functions: 
 

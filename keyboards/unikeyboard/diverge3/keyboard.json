@@ -34,7 +34,8 @@
   "split": {
     "enabled": true,
     "serial": {
-      "pin": "D0"
+      "pin": "D0",
+      "speed": 3
     }
   },
   "development_board": "promicro",

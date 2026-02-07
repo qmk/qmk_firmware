@@ -85,9 +85,9 @@ _______, _______, _______,  _______, _______, _______,  _______, _______, ______
 #endif
 
 [FUNCTION_MOUSE] = LAYOUT(
-         KC_F2,                     KC_F4,                  KC_F6,                   KC_MS_U,                      KC_MS_U,                    KC_F8,                   KC_F10,                  KC_PGUP,
-_______, KC_NO, KC_SCRL,   _______, KC_BTN3, NLK,  KC_BTN1, MS, KC_BTN2,    KC_MS_L, KC_BTN1, KC_MS_R,    KC_MS_L, KC_BTN2, KC_MS_R,   KC_END, AR,  KC_LSFT,    KC_INS, KC_9,  KC_ENT,   KC_F11, KC_0,   KC_F12,
-         KC_F1,                     KC_F3,                  KC_F5,                   KC_MS_D,                      KC_MS_D,                    KC_F7,                   KC_F9,                   KC_PGDN,
+         KC_F2,                     KC_F4,                  KC_F6,                   MS_UP,                        MS_UP,                      KC_F8,                   KC_F10,                  KC_PGUP,
+_______, KC_NO, KC_SCRL,   _______, MS_BTN3, NLK,  MS_BTN1, MS, MS_BTN2,    MS_LEFT, MS_BTN1, MS_RGHT,    MS_LEFT, MS_BTN2, MS_RGHT,   KC_END, AR,  KC_LSFT,    KC_INS, KC_9,  KC_ENT,   KC_F11, KC_0,   KC_F12,
+         KC_F1,                     KC_F3,                  KC_F5,                   MS_DOWN,                      MS_DOWN,                    KC_F7,                   KC_F9,                   KC_PGDN,
                                                                                              _______,   _______,   _______,   _______,
                                                                                                   _______,              _______,
                                                                                                   _______,              _______,

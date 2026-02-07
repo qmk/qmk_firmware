@@ -24,7 +24,7 @@ Support for WS2811/WS2812{a,b,c} LED's. For more information see the [RGB Light]
 
 ## IS31FL3731
 
-Support for up to 2 drivers. Each driver impliments 2 charlieplex matrices to individually address LEDs using I2C. This allows up to 144 same color LEDs or 32 RGB LEDs. For more information on how to setup the driver see the [RGB Matrix](features/rgb_matrix) page.
+Support for up to 2 drivers. Each driver implements 2 charlieplex matrices to individually address LEDs using I2C. This allows up to 144 same color LEDs or 32 RGB LEDs. For more information on how to setup the driver see the [RGB Matrix](features/rgb_matrix) page.
 
 ## IS31FL3733
 
