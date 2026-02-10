@@ -14,6 +14,14 @@ from qmk.path import normpath, FileType
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
+def generate_flag(define, value=None):
+    # TODO: Change behavior to always use is_keymap logic for keyboard level config
+    is_keymap = cli.args.filename
+    if is_keymap:
+        return f'\n#define {define}' if value else f'\n#undef {define}'
+    return f'\n#define {define}' if value else ''
+
+
 def generate_define(define, value=None):
     is_keymap = cli.args.filename
     value = f' {value}' if value is not None else ''
@@ -97,8 +105,7 @@ def generate_config_items(kb_info_json, config_h_lines):
         elif key_type == 'bool':
             config_h_lines.append(generate_define(config_key, 'true' if config_value else 'false'))
         elif key_type == 'flag':
-            if config_value:
-                config_h_lines.append(generate_define(config_key))
+            config_h_lines.append(generate_flag(config_key, config_value))
         elif key_type == 'mapping':
             for key, value in config_value.items():
                 config_h_lines.append(generate_define(key, value))
@@ -160,8 +167,7 @@ def generate_led_animations_config(feature, led_feature_json, config_h_lines, en
         config_h_lines.append(generate_define(f'{feature.upper()}_DEFAULT_MODE', f'{animation_prefix}{led_feature_json["default"]["animation"].upper()}'))
 
     for animation in led_feature_json.get('animations', {}):
-        if led_feature_json['animations'][animation]:
-            config_h_lines.append(generate_define(f'{enable_prefix}{animation.upper()}'))
+        config_h_lines.append(generate_flag(f'{enable_prefix}{animation.upper()}', led_feature_json['animations'][animation]))
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
