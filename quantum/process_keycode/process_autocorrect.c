@@ -39,6 +39,8 @@ static const uint8_t  autocorrect_node_size[AUTOCORRECT_NUM_OF_DICTS] PROGMEM   
 #    define AUTOCORRECT_PGM_READ_BYTE(offset) pgm_read_byte(current_dict_data + (offset))
 #endif
 
+extern autocorrect_config_t autocorrect_config;
+
 static const uint8_t *current_dict_data;
 static uint16_t       current_dict_min_length;
 static uint16_t       current_dict_max_length;

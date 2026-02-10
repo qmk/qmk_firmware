@@ -17,8 +17,6 @@ typedef union autocorrect_config_t {
 
 STATIC_ASSERT(sizeof(autocorrect_config_t) == sizeof(uint8_t), "Keycode (magic) EECONFIG out of spec.");
 
-extern autocorrect_config_t autocorrect_config;
-
 bool autocorrect_is_enabled(void);
 void autocorrect_enable(void);
 void autocorrect_disable(void);
