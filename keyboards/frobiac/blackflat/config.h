@@ -3,7 +3,7 @@
 
 #pragma once
 
-#ifdef PS2_MOUSE_ENABLE
+#ifdef POINTING_DEVICE_DRIVER_PS2_MOUSE
 #    define PS2_DATA_PIN D4
 #    define PS2_CLOCK_PIN B3
 

@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgbsps.h"
 #include "rgbtheme.h"
 #endif
-#ifdef PS2_MOUSE_ENABLE
-#include "ps2_mouse.h"
+#ifdef POINTING_DEVICE_DRIVER_PS2_MOUSE
+#include "drivers/sensors/ps2_mouse.h"
 #include "ps2.h"
 #endif
 #ifdef FAUXCLICKY_ENABLE
@@ -1315,8 +1315,8 @@ void turn_off_capslock(void) {
   }
 #endif
 
-#ifdef PS2_MOUSE_ENABLE
-  void ps2_mouse_init_user(void) {
+#ifdef POINTING_DEVICE_DRIVER_PS2_MOUSE
+  void pointing_device_init_user(void) {
       uint8_t rcv;
 
       // set TrackPoint sensitivity

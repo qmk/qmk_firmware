@@ -385,6 +385,249 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 
 ```
 
+### PS/2 mouse {#pointing-device-ps2-mouse}
+
+It is possible to attach a PS/2 mouse (for example touchpad or trackpoint) to your keyboard, and use it as a pointing device.
+
+To use the PS/2 mouse sensor, add the following to your `rules.mk`
+
+```make
+POINTING_DEVICE_DRIVER = ps2_mouse
+PS2_DRIVER = <usart|interrupt|busywait|vendor>
+```
+
+In addition, `PS2_CLOCK_PIN` and `PS2_DATA_PIN` must be defined in `config.h`.
+
+
+| Setting (`config.h`)          | Description                                                                    | Default       |
+| ----------------------------- | ------------------------------------------------------------------------------ | ------------- |
+| `PS2_CLOCK_PIN`               | (Required) The pin connected to the clock pin of the PS/2 mouse.               | `POINTING_DEVICE_SCLK_PIN` |
+| `PS2_DATA_PIN`                | (Required) The pin connected to the data pin of the PS/2 mouse.                | `POINTING_DEVICE_SDIO_PIN` |
+| `PS2_MOUSE_USE_REMOTE_MODE`   | (Optional) Use remote mode instead of the default stream mode                  | _not defined_ |
+| `PS2_MOUSE_ENABLE_SCROLLING`  | (Optional) Enable the scrollwheel or scroll gesture on your mouse or touchpad  | _not defined_ |
+| `PS2_MOUSE_SCROLL_MASK`       | (Optional) Some mice will need a scroll mask to be configured                  | `0xFF`        |
+| `PS2_MOUSE_USE_2_1_SCALING`   | (Optional) Applies 2:1 scaling to the movement before sending to the host      | _not defined_ |
+| `PS2_MOUSE_INIT_DELAY`        | (Optional) Time to wait (in ms) after initializing the PS/2 host               | `1000`        |
+| `PS2_MOUSE_X_MULTIPLIER`      | (Optional) Multiplier for horizontal mouse events                              | `1`           |
+| `PS2_MOUSE_Y_MULTIPLIER`      | (Optional) Multiplier for vertical mouse events                                | `1`           |
+| `PS2_MOUSE_V_MULTIPLIER`      | (Optional) Multiplier for scroll movements                                     | `1`           |
+| `PS2_MOUSE_INVERT_BUTTONS`    | (Optional) Invert the left & right buttons                                     | _not defined_ |
+| `PS2_MOUSE_SAMPLE_RATE`       | (Optional) Set the sample rate in samples/sec (stream mode only)               | `100`         |
+
+PS/2 mice use counts/mm instead of CPI, where the only valid values are 1, 2, 4 and 8.
+Defaults to 4 counts/mm.
+
+Valid sample rates are 10, 20, 40, 60, 80, 100, and 200 samples/sec.
+
+For more information on the PS/2 mouse protocol, see [this document on archive](https://web.archive.org/web/20040404065904/http://panda.cs.ndsu.nodak.edu/~achapwes/PICmicro/mouse/mouse.html).
+
+#### PS/2 circuitry
+
+The PS/2 clock and data lines require pullup resistors.
+External 4.7K resistors may be added between Vcc (5V or 3.3V) and the clock and data pin.
+
+Note: not all MCUs (e.g. RP2040) have 5V tolerant I/O, in which case level shifters should be used if the PS/2 device operates at 5V.
+
+#### PS/2 drivers
+
+Driver selection can be configured in `rules.mk` as `PS2_DRIVER`, or in `info.json` as `ps2.driver`.
+Valid values are `busywait` (default), `interrupt`, `usart`, or `vendor`.
+See below for information on individual drivers.
+
+##### Busywait driver
+
+This driver is not recommended, you may encounter jerky movement or unsent inputs.
+Please use any of the other drivers, if possible.
+
+In `rules.mk`:
+
+```make
+PS2_DRIVER = busywait
+```
+
+In your keyboard `config.h`:
+
+```c
+#ifdef PS2_DRIVER_BUSYWAIT
+# define PS2_CLOCK_PIN   D1
+# define PS2_DATA_PIN    D2
+#endif
+```
+
+##### Interrupt driver: AVR/ATMega32u4
+
+You can use any `INT` or `PCINT` pin for clock, and any pin for data.
+The example below uses `D2` for clock and `D5` for data. 
+
+In `rules.mk`:
+
+```make
+PS2_DRIVER = interrupt
+```
+
+In your keyboard `config.h`:
+
+```c
+#ifdef PS2_DRIVER_INTERRUPT
+#define PS2_CLOCK_PIN   D2
+#define PS2_DATA_PIN    D5
+
+#define PS2_INT_INIT()  do {    \
+    EICRA |= ((1<<ISC21) |      \
+              (0<<ISC20));      \
+} while (0)
+#define PS2_INT_ON()  do {      \
+    EIMSK |= (1<<INT2);         \
+} while (0)
+#define PS2_INT_OFF() do {      \
+    EIMSK &= ~(1<<INT2);        \
+} while (0)
+#define PS2_INT_VECT   INT2_vect
+#endif
+```
+
+##### Interrupt driver: ARM chibios
+
+Pretty much any two pins can be used for the (software) interrupt variant on ARM cores.
+The example below uses `A8` for clock, and `A9` for data.
+
+In `rules.mk`:
+
+```make
+PS2_DRIVER = interrupt
+```
+
+In your keyboard `config.h`:
+
+```c
+#ifdef PS2_DRIVER_INTERRUPT
+#define PS2_CLOCK_PIN A8
+#define PS2_DATA_PIN  A9
+#endif
+```
+
+And in the ChibiOS specific `halconf.h`:
+
+```c
+#pragma once
+
+#define PAL_USE_CALLBACKS TRUE // [!code focus]
+
+#include_next <halconf.h>
+```
+
+##### USART driver: AVR/ATMega32u4
+
+To use USART on the ATMega32u4, you have to use `D5` for clock and `D2` for data.
+If one of those are unavailable, you need to use interrupt version.
+
+In `rules.mk`:
+
+```make
+PS2_DRIVER = usart
+```
+
+In your keyboard `config.h`:
+
+```c
+#ifdef PS2_DRIVER_USART
+#define PS2_CLOCK_PIN   D5
+#define PS2_DATA_PIN    D2
+
+/* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
+/* set DDR of CLOCK as input to be slave */
+#define PS2_USART_INIT() do {   \
+    PS2_CLOCK_DDR &= ~(1<<PS2_CLOCK_BIT);   \
+    PS2_DATA_DDR &= ~(1<<PS2_DATA_BIT);     \
+    UCSR1C = ((1 << UMSEL10) |  \
+              (3 << UPM10)   |  \
+              (0 << USBS1)   |  \
+              (3 << UCSZ10)  |  \
+              (0 << UCPOL1));   \
+    UCSR1A = 0;                 \
+    UBRR1H = 0;                 \
+    UBRR1L = 0;                 \
+} while (0)
+#define PS2_USART_RX_INT_ON() do {  \
+    UCSR1B = ((1 << RXCIE1) |       \
+              (1 << RXEN1));        \
+} while (0)
+#define PS2_USART_RX_POLL_ON() do { \
+    UCSR1B = (1 << RXEN1);          \
+} while (0)
+#define PS2_USART_OFF() do {    \
+    UCSR1C = 0;                 \
+    UCSR1B &= ~((1 << RXEN1) |  \
+                (1 << TXEN1));  \
+} while (0)
+#define PS2_USART_RX_READY      (UCSR1A & (1<<RXC1))
+#define PS2_USART_RX_DATA       UDR1
+#define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
+#define PS2_USART_RX_VECT       USART1_RX_vect
+#endif
+```
+
+##### RP2040 PIO driver
+
+The `PIO` subsystem is a Raspberry Pi RP2040 specific implementation, using the integrated PIO peripheral and is therefore only available on this MCU.
+
+```make
+PS2_DRIVER = vendor
+```
+
+In your keyboard `config.h`:
+
+```c
+#ifdef PS2_DRIVER_VENDOR
+# define PS2_CLOCK_PIN   GP1
+# define PS2_DATA_PIN    GP0
+#endif
+```
+
+There are strict requirements for pin ordering but any pair of GPIO pins can be used.
+The GPIO used for clock must be directly after data.
+See also the `info.json` snippet below for an example of correct order.
+
+Example `info.json` content:
+
+```json
+    "ps2": {
+        "clock_pin": "GP1",
+        "data_pin": "GP0",
+        "driver": "vendor",
+        "enabled": true,
+    }
+```
+
+You may optionally switch the PIO peripheral used with the following define in `config.h`:
+
+```c
+#define PS2_PIO_USE_PIO1 // Force the usage of PIO1 peripheral, by default the PS2 implementation uses the PIO0 peripheral
+```
+
+#### Advanced PS/2 control
+User code may call the following functions from `sensors/ps2_mouse.h` to change settings at runtime:
+
+```c
+void ps2_mouse_disable_data_reporting(void);
+void ps2_mouse_enable_data_reporting(void);
+void ps2_mouse_set_remote_mode(void);
+void ps2_mouse_set_stream_mode(void);
+void ps2_mouse_set_scaling_2_1(void);
+void ps2_mouse_set_scaling_1_1(void);
+void ps2_mouse_set_resolution(ps2_mouse_resolution_t resolution);
+void ps2_mouse_set_sample_rate(ps2_mouse_sample_rate_t sample_rate);
+```
+
+In addition, the macros `PS2_MOUSE_SEND()` and `PS2_MOUSE_RECEIVE()` are available for sending custom PS/2 commands to the mouse:
+
+```c
+#define PS2_MOUSE_SEND(command, message)
+#define PS2_MOUSE_RECEIVE(message)
+```
+
+Note: `message` is a user-provided string which is only used for debugging purposes when the results of the commands are output to the console (when `POINTING_DEVICE_DEBUG` is enabled).
+
 ### Custom Driver
 
 If you have a sensor type that isn't supported above, a custom option is available by adding the following to your `rules.mk`

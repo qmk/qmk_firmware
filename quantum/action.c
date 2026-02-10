@@ -44,8 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "encoder.h"
 #endif
 
-int tp_buttons;
-
 #if defined(RETRO_TAPPING) || defined(RETRO_TAPPING_PER_KEY) || (defined(AUTO_SHIFT_ENABLE) && defined(RETRO_SHIFT))
 bool     retro_tap_primed   = false;
 uint16_t retro_tap_curr_key = 0;
@@ -347,7 +345,7 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
     }
     // should mousekeys send report, or does something else handle this?
     switch (mouse_keycode) {
-#    if defined(PS2_MOUSE_ENABLE) || defined(POINTING_DEVICE_ENABLE)
+#    if defined(POINTING_DEVICE_ENABLE)
         case QK_MOUSE_BUTTON_1 ... QK_MOUSE_BUTTON_8:
             // let pointing device handle the buttons
             // expand if/when it handles more of the code
@@ -365,14 +363,6 @@ void register_mouse(uint8_t mouse_keycode, bool pressed) {
     // let pointing device do all the heavy lifting, then
     if (IS_MOUSE_KEYCODE(mouse_keycode)) {
         pointing_device_keycode_handler(mouse_keycode, pressed);
-    }
-#endif
-
-#ifdef PS2_MOUSE_ENABLE
-    // make sure that ps2 mouse has button report synced
-    if (QK_MOUSE_BUTTON_1 <= mouse_keycode && mouse_keycode <= QK_MOUSE_BUTTON_3) {
-        uint8_t tmp_button_msk = MOUSE_BTN_MASK(mouse_keycode - QK_MOUSE_BUTTON_1);
-        tp_buttons             = pressed ? tp_buttons | tmp_button_msk : tp_buttons & ~tmp_button_msk;
     }
 #endif
 }

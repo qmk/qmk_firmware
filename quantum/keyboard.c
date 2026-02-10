@@ -49,9 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MOUSEKEY_ENABLE
 #    include "mousekey.h"
 #endif
-#ifdef PS2_MOUSE_ENABLE
-#    include "ps2_mouse.h"
-#endif
 #ifdef RGBLIGHT_ENABLE
 #    include "rgblight.h"
 #endif
@@ -499,9 +496,6 @@ void keyboard_init(void) {
 #ifdef ST7565_ENABLE
     st7565_init(DISPLAY_ROTATION_0);
 #endif
-#ifdef PS2_MOUSE_ENABLE
-    ps2_mouse_init();
-#endif
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif
@@ -771,10 +765,6 @@ void keyboard_task(void) {
 #ifdef MOUSEKEY_ENABLE
     // mousekey repeat & acceleration
     mousekey_task();
-#endif
-
-#ifdef PS2_MOUSE_ENABLE
-    ps2_mouse_task();
 #endif
 
 #ifdef MIDI_ENABLE

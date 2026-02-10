@@ -825,7 +825,6 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
-                "mouse_enabled": {"type": "boolean"},
                 "clock_pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                 "data_pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                 "driver": {

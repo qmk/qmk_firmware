@@ -78,6 +78,8 @@ typedef struct {
 #    include "spi_master.h"
 #    include "drivers/sensors/pmw33xx_common.h"
 #    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
+#elif defined(POINTING_DEVICE_DRIVER_ps2_mouse)
+#    include "drivers/sensors/ps2_mouse.h"
 #else
 bool           pointing_device_driver_init(void);
 report_mouse_t pointing_device_driver_get_report(report_mouse_t mouse_report);

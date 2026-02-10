@@ -125,7 +125,7 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     MOUSE_ENABLE := yes
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 paw3222 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 paw3222 pmw3320 pmw3360 pmw3389 pimoroni_trackball ps2_mouse custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid POINTING_DEVICE_DRIVER,POINTING_DEVICE_DRIVER="$(POINTING_DEVICE_DRIVER)" is not a valid pointing device type)
@@ -164,6 +164,8 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         else ifneq ($(filter $(strip $(POINTING_DEVICE_DRIVER)),pmw3360 pmw3389),)
             SPI_DRIVER_REQUIRED = yes
             SRC += drivers/sensors/pmw33xx_common.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), ps2_mouse)
+            PS2_ENABLE := yes
         endif
     endif
 endif
@@ -824,10 +826,7 @@ ifeq ($(strip $(UNICODE_COMMON)), yes)
 endif
 
 ifeq ($(strip $(PS2_MOUSE_ENABLE)), yes)
-    PS2_ENABLE := yes
-    MOUSE_ENABLE := yes
-    SRC += ps2_mouse.c
-    OPT_DEFS += -DPS2_MOUSE_ENABLE
+    $(call CATASTROPHIC_ERROR,PS2_MOUSE has migrated to pointing device,Please see docs/feature_pointing_device.md for more information.)
 endif
 
 VALID_PS2_DRIVER_TYPES := busywait interrupt usart vendor

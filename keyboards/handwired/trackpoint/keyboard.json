@@ -20,8 +20,7 @@
         "extrakey": true,
         "console": true,
         "command": true,
-        "ps2": true,
-        "ps2_mouse": true
+        "pointing_device": true,
     },
     "qmk": {
         "locking": {
