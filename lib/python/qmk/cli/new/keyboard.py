@@ -184,7 +184,10 @@ def prompt_dev_board():
     prompt_heading_subheading("Select Development Board", """For more information, see:
 https://docs.qmk.fm/compatible_microcontrollers""")
 
-    return choice("Development Board?", dev_boards, default=dev_boards.index("promicro"))
+    filtered_dev_boards = dev_boards.copy()
+    filtered_dev_boards.append("none of the above")
+
+    return choice("Development Board?", filtered_dev_boards, default=len(filtered_dev_boards) - 1)
 
 
 def prompt_mcu():
@@ -222,10 +225,14 @@ def new_keyboard(cli):
     real_name = cli.args.realname or cli.config.new_keyboard.name if cli.args.realname or cli.config.new_keyboard.name else prompt_name(user_name)
     default_layout = cli.args.layout if cli.args.layout else prompt_layout()
 
+    mcu = None
     if cli.args.type:
         mcu = cli.args.type
     else:
-        mcu = prompt_dev_board() if prompt_mcu_type() else prompt_mcu()
+        if prompt_mcu_type():
+            mcu = prompt_dev_board()
+        if not mcu or mcu == "none of the above":
+            mcu =  prompt_mcu()
 
     config = {}
     if mcu in dev_boards:
