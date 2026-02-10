@@ -21,3 +21,6 @@
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 30
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+// Enable Unicode mode and pick your input mode(s)
+#define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE
