@@ -42,7 +42,7 @@ static inline void ps2_mouse_enable_scrolling(void);
 /* ============================= IMPLEMENTATION ============================ */
 
 /* supports only 3 button mouse at this time */
-void ps2_mouse_init(void) {
+bool ps2_mouse_init(void) {
     ps2_host_init();
 
     wait_ms(PS2_MOUSE_INIT_DELAY); // wait for powering up
@@ -70,6 +70,8 @@ void ps2_mouse_init(void) {
 #ifdef PS2_MOUSE_SAMPLE_RATE
     ps2_mouse_set_sample_rate(PS2_MOUSE_SAMPLE_RATE);
 #endif
+
+    return true;
 }
 
 report_mouse_t ps2_mouse_get_report(report_mouse_t mouse_report) {
@@ -206,8 +208,8 @@ static inline void ps2_mouse_convert_report_to_hid(ps2_mouse_report_t *ps2_repor
     y *= PS2_MOUSE_Y_MULTIPLIER;
 
     // Constrain xy values to valid range
-    mouse_report->x = min(max(XY_REPORT_MIN, x), XY_REPORT_MAX);
-    mouse_report->y = min(max(XY_REPORT_MIN, y), XY_REPORT_MAX);
+    mouse_report->x = min(max(MOUSE_REPORT_XY_MIN, x), MOUSE_REPORT_XY_MAX);
+    mouse_report->y = min(max(MOUSE_REPORT_XY_MIN, y), MOUSE_REPORT_XY_MAX);
 
     // invert coordinate of y to conform to USB HID mouse
     mouse_report->y = -mouse_report->y;

@@ -174,7 +174,7 @@ typedef enum ps2_mouse_sample_rate_e {
 
 const pointing_device_driver_t ps2_mouse_pointing_device_driver;
 
-void ps2_mouse_init(void);
+bool ps2_mouse_init(void);
 
 void ps2_mouse_disable_data_reporting(void);
 
