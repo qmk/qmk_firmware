@@ -38,13 +38,13 @@
 //   :laso:    -> also
 // ---------------
 
-#define N_DICTS 2
+#define AUTOCORRECT_NUM_OF_DICTS 2
 
-static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0, 26};
-static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {5, 6};
-static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {5, 9};
-static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {26, 85};
-static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM    = {2, 2};
+static const uint32_t autocorrect_offsets[AUTOCORRECT_NUM_OF_DICTS] PROGMEM     = {0, 26};
+static const uint16_t autocorrect_min_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {5, 6};
+static const uint16_t autocorrect_max_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {5, 9};
+static const uint32_t autocorrect_sizes[AUTOCORRECT_NUM_OF_DICTS] PROGMEM       = {26, 85};
+static const uint8_t  autocorrect_node_size[AUTOCORRECT_NUM_OF_DICTS] PROGMEM   = {2, 2};
 
 #define DICTIONARY_SIZE 111
 #define TYPO_BUFFER_SIZE 9
