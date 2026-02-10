@@ -77,13 +77,13 @@
 //   widht      -> width
 // ---------------
 
-#define N_DICTS 1
+#define AUTOCORRECT_NUM_OF_DICTS 1
 
-static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
-static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {5};
-static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {10};
-static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {1120};
-static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM    = {2};
+static const uint32_t autocorrect_offsets[AUTOCORRECT_NUM_OF_DICTS] PROGMEM     = {0};
+static const uint16_t autocorrect_min_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {5};
+static const uint16_t autocorrect_max_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {10};
+static const uint32_t autocorrect_sizes[AUTOCORRECT_NUM_OF_DICTS] PROGMEM       = {1120};
+static const uint8_t  autocorrect_node_size[AUTOCORRECT_NUM_OF_DICTS] PROGMEM   = {2};
 
 #define DICTIONARY_SIZE 1120
 #define TYPO_BUFFER_SIZE 10

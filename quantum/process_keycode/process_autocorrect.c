@@ -20,15 +20,15 @@
 #    include "autocorrect_data_default.h"
 #endif
 
-#ifndef N_DICTS
+#ifndef AUTOCORRECT_NUM_OF_DICTS
 #    pragma message "Autocorrect is using the legacy dictionary format. Please update to the new format."
-#    define N_DICTS 1
+#    define AUTOCORRECT_NUM_OF_DICTS 1
 
-static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
-static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MIN_LENGTH};
-static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {AUTOCORRECT_MAX_LENGTH};
-static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {DICTIONARY_SIZE};
-static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM   = {2};
+static const uint32_t autocorrect_offsets[AUTOCORRECT_NUM_OF_DICTS] PROGMEM     = {0};
+static const uint16_t autocorrect_min_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {AUTOCORRECT_MIN_LENGTH};
+static const uint16_t autocorrect_max_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {AUTOCORRECT_MAX_LENGTH};
+static const uint32_t autocorrect_sizes[AUTOCORRECT_NUM_OF_DICTS] PROGMEM       = {DICTIONARY_SIZE};
+static const uint8_t  autocorrect_node_size[AUTOCORRECT_NUM_OF_DICTS] PROGMEM   = {2};
 
 #    define TYPO_BUFFER_SIZE AUTOCORRECT_MAX_LENGTH
 #endif
@@ -48,7 +48,7 @@ static uint8_t        current_dict_node_size;
 static uint8_t typo_buffer[TYPO_BUFFER_SIZE] = {KC_SPC};
 uint8_t        typo_buffer_size;
 
-const uint8_t number_dicts = N_DICTS;
+const uint8_t number_dicts = AUTOCORRECT_NUM_OF_DICTS;
 
 static inline uint32_t autocorrect_read_state(uint32_t state) {
     uint32_t new_state = 0;
