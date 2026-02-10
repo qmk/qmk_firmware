@@ -16,8 +16,6 @@
     "features": {
         "rgb_matrix": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -34,7 +32,9 @@
             "pin": "E6"
         },
         "transport": {
-            "sync_matrix_state": true
+            "sync": {
+                "matrix_state": true
+            }
         },
         "usb_detect":{
             "enabled": true

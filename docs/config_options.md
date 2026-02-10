@@ -140,8 +140,6 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define ENABLE_COMPILE_KEYCODE`
   * Enables the `QK_MAKE` keycode
-* `#define FORCE_NKRO`
-  * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
   * force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
 
@@ -366,8 +364,6 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 
 ## Build Options
 
-* `DEFAULT_FOLDER`
-  * Used to specify a default folder when a keyboard has more than one sub-folder.
 * `FIRMWARE_FORMAT`
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
@@ -401,6 +397,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `atmel-dfu`
   * `lufa-dfu`
   * `qmk-dfu`
+  * `qmk-hid`
   * `halfkay`
   * `caterina`
   * `bootloadhid`

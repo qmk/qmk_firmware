@@ -1,7 +1,6 @@
 {
     "keyboard_name": "N60A",
     "manufacturer": "Nix Studio",
-    "url": "",
     "maintainer": "Nix Studio",
     "usb": {
         "vid": "0x6E78",

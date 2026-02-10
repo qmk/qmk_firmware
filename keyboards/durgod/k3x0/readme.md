@@ -5,8 +5,8 @@ K310 full-sized 104/105-key and K320 TKL 87/88-key keyboards.
 
 * Keyboard Maintainers: [dkjer](https://github.com/dkjer) and [tylert](https://github.com/tylert)
 * Hardware Supported:
-  * [Durgod Taurus K310 with STM32F070RBT6](https://www.durgod.com/page9?product_id=53&_l=en "Taurus K310 Product Page | Durgod.com")
-  * [Durgod Taurus K320 with STM32F070RBT6](https://www.durgod.com/page9?product_id=47&_l=en "Taurus K320 Product Page | Durgod.com")
+  * [Durgod Taurus K310 with STM32F070RBT6](https://www.durgod.com/product/k310-space-gray/)
+  * [Durgod Taurus K320 with STM32F070RBT6](https://www.durgod.com/product/k320-space-gray/)
 * Hardware Availability:
   * [K310 on Amazon.com](https://www.amazon.com/Durgod-Taurus-K310-Mechanical-Keyboard/dp/B07TXB4XF3)
   * [K320 on Amazon.com](https://www.amazon.com/Durgod-Taurus-Corona-Mechanical-Keyboard/dp/B078H3WPHM)
@@ -16,8 +16,8 @@ K310 full-sized 104/105-key and K320 TKL 87/88-key keyboards.
 ### Build
 
 Instructions for building the K310 and K320 firmware can be found here:
-* [K310](k310/readme.md)
-* [K320](k320/readme.md)
+* [K310](../k310/readme.md)
+* [K320](../k320/readme.md)
 
 ### Initial Flash
 
@@ -67,10 +67,10 @@ dfu-util -a 0 -d 0483:DF11 -s 0x08000000 -U k3x0_original.bin
 
 ```bash
 # k310
-qmk flash -kb durgod/k3x0/k310 -km default
+qmk flash -kb durgod/k310 -km default
 
 # k320
-qmk flash -kb durgod/k3x0/k320 -km default
+qmk flash -kb durgod/k320 -km default
 ```
 
 ### Subsequent Flashing

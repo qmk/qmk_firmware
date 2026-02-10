@@ -1,12 +1,9 @@
 {
   "keyboard_name": "Sweet16",
   "manufacturer": "1up Keyboards",
-  "url": "",
   "maintainer": "skullydazed",
   "features": {
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true

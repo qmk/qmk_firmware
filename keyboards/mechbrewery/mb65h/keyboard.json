@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MB65H",
     "manufacturer": "MechBrewery",
-    "url": "",
     "maintainer": "AnthonyNguyen168",
     "usb": {
         "vid": "0x4252",
@@ -13,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

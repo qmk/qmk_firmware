@@ -45,7 +45,7 @@ jobs:
           stale-pr-label: stale
           days-before-pr-stale: 45
           days-before-pr-close: 30
-          exempt-pr-labels: bug,awaiting review,breaking_change,in progress,on hold
+          exempt-pr-labels: bug,awaiting review,breaking_change,in progress,on hold,needs-core-wireless,crippled-firmware
 
           stale-pr-message: >
             Thank you for your contribution!

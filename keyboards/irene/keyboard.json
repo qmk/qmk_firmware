@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Irene",
     "manufacturer": "Andrei Collado",
-    "url": "",
     "maintainer": "Andrei Collado",
     "usb": {
         "vid": "0x1434",
@@ -28,8 +27,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

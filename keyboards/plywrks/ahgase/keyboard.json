@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ahgase",
     "manufacturer": "plywrks",
-    "url": "",
     "maintainer": "Ramon Imbao (ramonimbao)",
     "usb": {
         "vid": "0x706C",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

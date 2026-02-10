@@ -1,7 +1,6 @@
 {
     "keyboard_name": "navpad 1.0 with helix keyboard",
     "manufacturer": "yushakobo",
-    "url": "",
     "maintainer": "yushakobo",
     "usb": {
         "vid": "0x3265",
@@ -64,8 +63,7 @@
             "rgb_test": true
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

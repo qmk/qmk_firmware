@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ibis 80",
     "manufacturer": "Mokey",
-    "url": "",
     "maintainer": "Runheme",
     "usb": {
         "vid": "0x6653",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

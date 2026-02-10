@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Ergoinu",
   "manufacturer": "Dm9Records",
-  "url": "",
   "maintainer": "hsgw(Takuya Urakawa)",
   "usb": {
     "vid": "0x04D8",
@@ -26,8 +25,7 @@
   "ws2812": {
     "pin": "B6"
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "features": {
     "bootmagic": true,
     "mousekey": true,

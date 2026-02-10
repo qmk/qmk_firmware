@@ -44,8 +44,7 @@
         "max_brightness": 120,
         "split_count": [36, 36]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "build": {
         "lto": true
     },

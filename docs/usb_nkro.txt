@@ -58,7 +58,7 @@ USB NKRO methods
 
 Report Format
 -------------
-Other report formats than followings are possible, though these format are typical one.
+Other report formats than following are possible, though these format are typical one.
 
 1. Standard             8bytes
     modifiers(bitmap)       1byte

@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -24,9 +22,13 @@
     "url": "https://github.com/lendunistus/rpneko65",
     "usb": {
         "device_version": "1.0.0",
-        "force_nkro": true,
         "pid": "0x0001",
         "vid": "0x6C75"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "driver": "vendor",

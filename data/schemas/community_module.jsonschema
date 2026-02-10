@@ -1,0 +1,18 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
+    "$id": "qmk.community_module.v1",
+    "title": "Community Module Information",
+    "type": "object",
+    "required": ["module_name", "maintainer"],
+    "properties": {
+        "module_name": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "maintainer": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "license": {"type": "string"},
+        "url": {
+            "type": "string",
+            "format": "uri"
+        },
+        "keycodes": {"$ref": "./definitions.jsonschema#/keycode_decl_array"},
+        "features": {"$ref": "./keyboard.jsonschema#/definitions/features_config"}
+    }
+}

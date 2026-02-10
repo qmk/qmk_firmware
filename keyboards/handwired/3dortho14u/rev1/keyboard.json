@@ -1,14 +1,12 @@
 {
     "manufacturer": "xia0",
     "keyboard_name": "3dortho14u",
-    "url": "",
     "maintainer": "xia0",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
     "features": {
       "bootmagic": true,
-      "command": false,
       "console": true,
       "extrakey": true,
       "mousekey": true,

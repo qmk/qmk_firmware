@@ -10,8 +10,6 @@
   },
   "features": {
       "bootmagic": false,
-      "command": false,
-      "console": false,
       "extrakey": false,
       "key_lock": true,
       "mousekey": true,
@@ -42,8 +40,7 @@
       "resync": true
     }
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "debounce": 3,
   "tapping": {
     "toggle": 3

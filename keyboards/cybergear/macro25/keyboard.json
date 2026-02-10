@@ -8,8 +8,7 @@
         "pid": "0x69A1",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "layouts": {
         "LAYOUT_ortho_2x5": {
@@ -30,8 +29,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

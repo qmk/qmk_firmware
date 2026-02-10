@@ -1,7 +1,6 @@
 {
   "keyboard_name": "108Key-TrackPoint",
   "manufacturer": "QMK",
-  "url": "",
   "maintainer": "mkem114",
   "usb": {
     "vid": "0x1234",

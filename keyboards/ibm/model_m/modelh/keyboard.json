@@ -4,10 +4,11 @@
     "maintainer": "jhawthorn",
     "bootloader": "stm32duino",
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 3
+    },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false
@@ -35,7 +36,7 @@
         "device_version": "1.0.0",
         "max_power": 100,
         "pid": "0xB155",
-        "vid": "0xFEED"
+        "vid": "0xBDE0"
     },
     "layouts": {
         "LAYOUT_fullsize_ansi_wkl": {

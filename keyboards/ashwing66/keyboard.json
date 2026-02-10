@@ -75,7 +75,6 @@
             {"matrix": [0, 14], "x": 206, "y": 1, "flags": 4},
             {"matrix": [0, 15], "x": 223, "y": 0, "flags": 4}
         ],
-        "led_flush_limit": 16,
         "led_process_limit": 5,
         "max_brightness": 125,
         "sleep": true

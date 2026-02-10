@@ -42,11 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_NAV] = LAYOUT(
   //,--------+--------+--------+--------+--------+--------+--------.        ,--------+--------+--------+--------+--------+--------+--------.
-     KC_ESC,  KC_NO,   KC_ACL0, KC_ACL1, KC_ACL2, KC_WH_L, KC_WH_R,          KC_ESC,  KC_NO,   KC_UP,   KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS,
+     KC_ESC,  KC_NO,   MS_ACL0, MS_ACL1, MS_ACL2, MS_WHLL, MS_WHLR,          KC_ESC,  KC_NO,   KC_UP,   KC_PSLS, KC_PAST, KC_PMNS, KC_PPLS,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-     KC_NO,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_WH_U,                   KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,   KC_NO,
+     KC_NO,   KC_Z,    KC_X,    KC_C,    KC_V,    MS_WHLU,                   KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, KC_NO,   KC_NO,   KC_NO,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
-     KC_INS,  KC_HOME, KC_PGUP, KC_BTN1, KC_BTN2, KC_WH_D,                            KC_MS_L, KC_MS_U, KC_MS_D, KC_MS_R, KC_NO,   KC_NO,
+     KC_INS,  KC_HOME, KC_PGUP, MS_BTN1, MS_BTN2, MS_WHLD,                            MS_LEFT, MS_UP,   MS_DOWN, MS_RGHT, KC_NO,   KC_NO,
   //|--------+--------+--------+--------+--------+--------+--------|        |--------+--------+--------+--------+--------+--------+--------|
      KC_DEL,  KC_END,  KC_PGDN, nav,     KC_LCTL, KC_SPC,  TO(0),            TO(1),   KC_LSFT, KC_BSPC, KC_NO,   KC_NO,   KC_NO,   QK_BOOT
   //`--------+--------+--------+--------+--------+--------+--------/        \--------+--------+--------+--------+--------+--------+--------'

@@ -178,9 +178,9 @@ class KeymapJSONEncoder(QMKJSONEncoder):
                     else:
                         layer[-1].append(f'"{key}"')
 
-            layer = [f"{self.indent_str*indent_level}{', '.join(row)}" for row in layer]
+            layer = [f"{self.indent_str * indent_level}{', '.join(row)}" for row in layer]
 
-            return f"{self.indent_str}[\n{newline.join(layer)}\n{self.indent_str*self.indentation_level}]"
+            return f"{self.indent_str}[\n{newline.join(layer)}\n{self.indent_str * self.indentation_level}]"
 
         elif self.primitives_only(obj):
             return "[" + ", ".join(self.encode(element) for element in obj) + "]"
@@ -233,5 +233,35 @@ class UserspaceJSONEncoder(QMKJSONEncoder):
 
             if key == 'build_targets':
                 return '01build_targets'
+
+        return key
+
+
+class CommunityModuleJSONEncoder(QMKJSONEncoder):
+    """Custom encoder to make qmk_module.json's a little nicer to work with.
+    """
+    def sort_dict(self, item):
+        """Sorts the hashes in a nice way.
+        """
+        key = item[0]
+
+        if self.indentation_level == 1:
+            if key == 'module_name':
+                return '00module_name'
+            if key == 'maintainer':
+                return '01maintainer'
+            if key == 'license':
+                return '02license'
+            if key == 'url':
+                return '03url'
+            if key == 'features':
+                return '04features'
+            if key == 'keycodes':
+                return '05keycodes'
+        elif self.indentation_level == 3:  # keycodes
+            if key == 'key':
+                return '00key'
+            if key == 'aliases':
+                return '01aliases'
 
         return key

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Skeletn87",
     "manufacturer": "BredWorks",
-    "url": "",
     "maintainer": "kb-elmo<mail@elmo.space>",
     "usb": {
         "vid": "0xF984",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

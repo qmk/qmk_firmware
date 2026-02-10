@@ -2,18 +2,18 @@
 
 The Mod-Tap key `MT(mod, kc)` acts like a modifier when held, and a regular keycode when tapped. In other words, you can have a key that sends Escape when you tap it, but functions as a Control or Shift key when you hold it down.
 
-The modifiers this keycode and `OSM()` accept are prefixed with `MOD_`, not `KC_`:
+The modifiers (`mod`) argument to the `MT()` macro are prefixed with `MOD_`, not `KC_`:
 
 |Modifier  |Description                             |
 |----------|----------------------------------------|
 |`MOD_LCTL`|Left Control                            |
 |`MOD_LSFT`|Left Shift                              |
 |`MOD_LALT`|Left Alt                                |
-|`MOD_LGUI`|Left GUI (Windows/Command/Meta key)     |
+|`MOD_LGUI`|Left GUI (Windows/Command/Super key)    |
 |`MOD_RCTL`|Right Control                           |
 |`MOD_RSFT`|Right Shift                             |
 |`MOD_RALT`|Right Alt (AltGr)                       |
-|`MOD_RGUI`|Right GUI (Windows/Command/Meta key)    |
+|`MOD_RGUI`|Right GUI (Windows/Command/Super key)   |
 |`MOD_HYPR`|Hyper (Left Control, Shift, Alt and GUI)|
 |`MOD_MEH` |Meh (Left Control, Shift, and Alt)      |
 
@@ -27,29 +27,38 @@ This key would activate Left Control and Left Shift when held, and send Escape w
 
 For convenience, QMK includes some Mod-Tap shortcuts to make common combinations more compact in your keymap:
 
-|Key         |Aliases                                                          |Description                                                   |
-|------------|-----------------------------------------------------------------|--------------------------------------------------------------|
-|`LCTL_T(kc)`|`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                      |
-|`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                        |
-|`LALT_T(kc)`|`LOPT_T(kc)`, `ALT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                          |
-|`LGUI_T(kc)`|`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                          |
-|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped                     |
-|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                       |
-|`RALT_T(kc)`|`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                         |
-|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                         |
-|`LSG_T(kc)` |`SGUI_T(kc)`, `SCMD_T(kc)`, `SWIN_T(kc)`                         |Left Shift and GUI when held, `kc` when tapped                |
-|`LAG_T(kc)` |                                                                 |Left Alt and GUI when held, `kc` when tapped                  |
-|`RSG_T(kc)` |                                                                 |Right Shift and GUI when held, `kc` when tapped               |
-|`RAG_T(kc)` |                                                                 |Right Alt and GUI when held, `kc` when tapped                 |
-|`LCA_T(kc)` |                                                                 |Left Control and Alt when held, `kc` when tapped              |
-|`LSA_T(kc)` |                                                                 |Left Shift and Alt when held, `kc` when tapped                |
-|`RSA_T(kc)` |`SAGR_T(kc)`                                                     |Right Shift and Right Alt (AltGr) when held, `kc` when tapped |
-|`RCS_T(kc)` |                                                                 |Right Control and Right Shift when held, `kc` when tapped     |
-|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped         |
-|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped        |
-|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped            |
-|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped       |
-|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|Key         |Aliases                                                          |Description                                                                            |
+|------------|-----------------------------------------------------------------|---------------------------------------------------------------------------------------|
+|`LCTL_T(kc)`|`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped                                               |
+|`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                                                 |
+|`LALT_T(kc)`|`ALT_T(kc)`, `LOPT_T(kc)`, `OPT_T(kc)`                           |Left Alt when held, `kc` when tapped                                                   |
+|`LGUI_T(kc)`|`GUI_T(kc)`, `LCMD_T(kc)`, `LWIN_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                                                   |
+|`LCS_T(kc)` |                                                                 |Left Control and Left Shift when held, `kc` when tapped                                |
+|`LCA_T(kc)` |                                                                 |Left Control and Left Alt when held, `kc` when tapped                                  |
+|`LCG_T(kc)` |                                                                 |Left Control and Left GUI when held, `kc` when tapped                                  |
+|`LSA_T(kc)` |                                                                 |Left Shift and Left Alt when held, `kc` when tapped                                    |
+|`LSG_T(kc)` |                                                                 |Left Shift and Left GUI when held, `kc` when tapped                                    |
+|`LAG_T(kc)` |                                                                 |Left Alt and Left GUI when held, `kc` when tapped                                      |
+|`LCSG_T(kc)`|                                                                 |Left Control, Left Shift and Left GUI when held, `kc` when tapped                      |
+|`LCAG_T(kc)`|                                                                 |Left Control, Left Alt and Left GUI when held, `kc` when tapped                        |
+|`LSAG_T(kc)`|                                                                 |Left Shift, Left Alt and Left GUI when held, `kc` when tapped                          |
+|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped                                              |
+|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                                                |
+|`RALT_T(kc)`|`ROPT_T(kc)`, `ALGR_T(kc)`                                       |Right Alt when held, `kc` when tapped                                                  |
+|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                                                  |
+|`RCS_T(kc)` |                                                                 |Right Control and Right Shift when held, `kc` when tapped                              |
+|`RCA_T(kc)` |                                                                 |Right Control and Right Alt when held, `kc` when tapped                                |
+|`RCG_T(kc)` |                                                                 |Right Control and Right GUI when held, `kc` when tapped                                |
+|`RSA_T(kc)` |                                                                 |Right Shift and Right Alt when held, `kc` when tapped                                  |
+|`RSG_T(kc)` |                                                                 |Right Shift and Right GUI when held, `kc` when tapped                                  |
+|`RAG_T(kc)` |                                                                 |Right Alt and Right GUI when held, `kc` when tapped                                    |
+|`RCSG_T(kc)`|                                                                 |Right Control, Right Shift and Right GUI when held, `kc` when tapped                   |
+|`RCAG_T(kc)`|                                                                 |Right Control, Right Alt and Right GUI when held, `kc` when tapped                     |
+|`RSAG_T(kc)`|                                                                 |Right Shift, Right Alt and Right GUI when held, `kc` when tapped                       |
+|`MEH_T(kc)` |                                                                 |Left Control, Left Shift and Left Alt when held, `kc` when tapped                      |
+|`HYPR_T(kc)`|                                                                 |Left Control, Left Shift, Left Alt and Left GUI when held, `kc` when tapped<sup>1</sup>|
+
+<sup>1. More information on the Hyper key can be found on [this blog post by Brett Terpstra](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/).</sup>
 
 ## Caveats
 

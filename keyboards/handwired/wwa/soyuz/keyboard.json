@@ -6,22 +6,27 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "encoder" : true
     },
     "matrix_pins": {
         "cols": ["GP0", "GP1", "GP2", "GP3", "GP4", "GP5", "GP6"],
         "rows": ["GP7", "GP8", "GP9"]
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0004",
         "vid": "0x5757"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP16", "pin_b": "GP17"},
+            {"pin_a": "GP18", "pin_b": "GP19"},
+            {"pin_a": "GP20", "pin_b": "GP21"}
+        ]
     },
     "layouts": {
         "LAYOUT": {

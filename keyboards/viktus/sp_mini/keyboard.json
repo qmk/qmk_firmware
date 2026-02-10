@@ -1,7 +1,6 @@
 {
     "keyboard_name": "SP_Mini",
     "manufacturer": "Viktus Design LLC",
-    "url": "",
     "maintainer": "jrfhoutx",
     "usb": {
         "vid": "0x5644",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,

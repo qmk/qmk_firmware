@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -24,7 +22,6 @@
         "rows": ["GP3", "GP4", "GP1", "GP2", "GP5", "GP29", "GP20", "GP19", "GP17", "GP16", "GP13", "GP12"]
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x8803",
@@ -36,7 +33,6 @@
     },
     "rgblight": {
         "led_count": 24,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
         "max_brightness": 200,

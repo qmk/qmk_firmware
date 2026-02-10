@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BM43A",
     "manufacturer": "KPRepublic",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

@@ -1,0 +1,67 @@
+{
+    "manufacturer": "Hazel",
+    "keyboard_name": "Bad Wings v2",
+    "maintainer": "jasonhazel",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "pointing_device": true
+    },
+    "matrix_pins": {
+        "cols": ["F1", "F0", "C15", "C14", "C13"],
+        "rows": ["B11", "B10", "B2", "B1", "B3", "B4", "B5", "B6"]
+    },
+    "processor": "STM32F072",
+    "url": "https://github.com/hazels-garage/bad-wings/tree/master/v2",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4258",
+        "vid": "0x4A48"
+    },
+    "community_layouts": ["split_3x5_3"],
+    "layouts": {
+        "LAYOUT_split_3x5_3": {
+            "layout": [
+                {"label": "00", "matrix": [0, 0], "x": 0, "y": 0.75, "w": 1},
+                {"label": "01", "matrix": [0, 1], "x": 1, "y": 0.5, "w": 1},
+                {"label": "02", "matrix": [0, 2], "x": 2, "y": 0, "w": 1},
+                {"label": "03", "matrix": [0, 3], "x": 3, "y": 0.25, "w": 1},
+                {"label": "04", "matrix": [0, 4], "x": 4, "y": 0.36, "w": 1},
+                {"label": "44", "matrix": [4, 4], "x": 8, "y": 0.36, "w": 1},
+                {"label": "43", "matrix": [4, 3], "x": 9, "y": 0.25, "w": 1},
+                {"label": "42", "matrix": [4, 2], "x": 10, "y": 0, "w": 1},
+                {"label": "41", "matrix": [4, 1], "x": 11, "y": 0.5, "w": 1},
+                {"label": "40", "matrix": [4, 0], "x": 12, "y": 0.75, "w": 1},
+                {"label": "10", "matrix": [1, 0], "x": 0, "y": 1.75, "w": 1},
+                {"label": "11", "matrix": [1, 1], "x": 1, "y": 1.5, "w": 1},
+                {"label": "12", "matrix": [1, 2], "x": 2, "y": 1, "w": 1},
+                {"label": "13", "matrix": [1, 3], "x": 3, "y": 1.25, "w": 1},
+                {"label": "14", "matrix": [1, 4], "x": 4, "y": 1.36, "w": 1},
+                {"label": "54", "matrix": [5, 4], "x": 8, "y": 1.36, "w": 1},
+                {"label": "53", "matrix": [5, 3], "x": 9, "y": 1.25, "w": 1},
+                {"label": "52", "matrix": [5, 2], "x": 10, "y": 1, "w": 1},
+                {"label": "51", "matrix": [5, 1], "x": 11, "y": 1.5, "w": 1},
+                {"label": "50", "matrix": [5, 0], "x": 12, "y": 1.75, "w": 1},
+                {"label": "20", "matrix": [2, 0], "x": 0, "y": 2.75, "w": 1},
+                {"label": "21", "matrix": [2, 1], "x": 1, "y": 2.5, "w": 1},
+                {"label": "22", "matrix": [2, 2], "x": 2, "y": 2, "w": 1},
+                {"label": "23", "matrix": [2, 3], "x": 3, "y": 2.25, "w": 1},
+                {"label": "24", "matrix": [2, 4], "x": 4, "y": 2.36, "w": 1},
+                {"label": "64", "matrix": [6, 4], "x": 8, "y": 2.36, "w": 1},
+                {"label": "63", "matrix": [6, 3], "x": 9, "y": 2.25, "w": 1},
+                {"label": "62", "matrix": [6, 2], "x": 10, "y": 2, "w": 1},
+                {"label": "61", "matrix": [6, 1], "x": 11, "y": 2.5, "w": 1},
+                {"label": "60", "matrix": [6, 0], "x": 12, "y": 2.75, "w": 1},
+                {"label": "32", "matrix": [3, 2], "x": 3, "y": 3.25, "w": 1},
+                {"label": "33", "matrix": [3, 3], "x": 4, "y": 3.36, "w": 1},
+                {"label": "34", "matrix": [3, 4], "x": 5, "y": 3.47, "w": 1},
+                {"label": "74", "matrix": [7, 4], "x": 7, "y": 3.47, "w": 1},
+                {"label": "73", "matrix": [7, 3], "x": 8, "y": 3.36, "w": 1},
+                {"label": "72", "matrix": [7, 2], "x": 9, "y": 3.25, "w": 1}
+            ]
+        }
+    }
+}

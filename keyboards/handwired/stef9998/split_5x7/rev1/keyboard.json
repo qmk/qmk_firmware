@@ -1,6 +1,5 @@
 {
   "keyboard_name": "Split_5x7",
-  "url": "",
   "maintainer": "stef9998",
   "manufacturer": "Stef9998",
   "usb": {
@@ -11,7 +10,6 @@
   "features": {
     "bootmagic": false,
     "command": true,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false

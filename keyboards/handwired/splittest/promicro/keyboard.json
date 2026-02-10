@@ -8,7 +8,9 @@
         "handedness": {
             "pin": "F6"
         },
-        "soft_serial_pin": "D1"
+        "serial": {
+            "pin": "D1"
+        }
     },
     "ws2812": {
         "pin": "D3"

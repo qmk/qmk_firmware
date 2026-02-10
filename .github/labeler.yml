@@ -54,3 +54,7 @@ dd:
       - data/constants/**
       - data/mappings/**
       - data/schemas/**
+community_module:
+  - changed-files:
+    - any-glob-to-any-file:
+      - modules/**

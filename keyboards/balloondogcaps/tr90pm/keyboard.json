@@ -2,12 +2,10 @@
     "manufacturer": "Balloondog",
     "keyboard_name": "TR90PM",
     "maintainer": "balloondogcaps",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -16,8 +14,6 @@
         "cols": ["D1", "D0", "D4"],
         "rows": ["C6", "D7", "E6"]
     },
-    "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0002",

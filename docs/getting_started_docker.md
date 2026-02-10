@@ -50,6 +50,13 @@ By default docker or podman are automatically detected and docker is preferred o
 RUNTIME="podman" util/docker_build.sh keyboard:keymap:target
 ```
 
+If flashing is not required, it's possible to run the container as unprivileged (on Linux), and without docker-machine (on Windows/macOS):
+
+```
+SKIP_FLASHING_SUPPORT=1 util/docker_build.sh keyboard:keymap:target
+```
+
+
 ## FAQ
 
 ### Why can't I flash on Windows/macOS

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Wete R2",
     "manufacturer": "RMI-KB",
-    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",

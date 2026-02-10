@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Genesis Solder",
     "manufacturer": "GG Keyboards",
-    "url": "",
     "maintainer": "Spooknik",
     "usb": {
         "vid": "0xBB00",

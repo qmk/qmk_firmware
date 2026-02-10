@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include "compiler_support.h"
 #include "i2c_master.h"
 #include "pointing_device.h"
 #include "util.h"
@@ -79,7 +80,7 @@ typedef struct {
     azoteq_iqs5xx_relative_xy_t      y;
 } azoteq_iqs5xx_base_data_t;
 
-_Static_assert(sizeof(azoteq_iqs5xx_base_data_t) == 10, "azoteq_iqs5xx_basic_report_t should be 10 bytes");
+STATIC_ASSERT(sizeof(azoteq_iqs5xx_base_data_t) == 10, "azoteq_iqs5xx_basic_report_t should be 10 bytes");
 
 typedef struct {
     uint8_t                     number_of_fingers;
@@ -87,7 +88,7 @@ typedef struct {
     azoteq_iqs5xx_relative_xy_t y;
 } azoteq_iqs5xx_report_data_t;
 
-_Static_assert(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
+STATIC_ASSERT(sizeof(azoteq_iqs5xx_report_data_t) == 5, "azoteq_iqs5xx_report_data_t should be 5 bytes");
 
 typedef struct PACKED {
     bool sw_input : 1;
@@ -159,7 +160,7 @@ typedef struct PACKED {
     uint16_t                                     zoom_consecutive_distance;
 } azoteq_iqs5xx_gesture_config_t;
 
-_Static_assert(sizeof(azoteq_iqs5xx_gesture_config_t) == 24, "azoteq_iqs5xx_gesture_config_t should be 24 bytes");
+STATIC_ASSERT(sizeof(azoteq_iqs5xx_gesture_config_t) == 24, "azoteq_iqs5xx_gesture_config_t should be 24 bytes");
 
 typedef struct {
     uint16_t x_resolution;
@@ -173,12 +174,13 @@ typedef struct {
 #    define AZOTEQ_IQS5XX_REPORT_RATE 10
 #endif
 #if !defined(POINTING_DEVICE_TASK_THROTTLE_MS) && !defined(POINTING_DEVICE_MOTION_PIN)
-#    define POINTING_DEVICE_TASK_THROTTLE_MS AZOTEQ_IQS5XX_REPORT_RATE
+// Polling the Azoteq isn't recommended, ensuring we only poll after the report is ready stops any unexpected NACKs
+#    define POINTING_DEVICE_TASK_THROTTLE_MS AZOTEQ_IQS5XX_REPORT_RATE + 1
 #endif
 
-const pointing_device_driver_t azoteq_iqs5xx_pointing_device_driver;
+extern const pointing_device_driver_t azoteq_iqs5xx_pointing_device_driver;
 
-void           azoteq_iqs5xx_init(void);
+bool           azoteq_iqs5xx_init(void);
 i2c_status_t   azoteq_iqs5xx_wake(void);
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report);
 i2c_status_t   azoteq_iqs5xx_get_report_rate(azoteq_iqs5xx_report_rate_t *report_rate, azoteq_iqs5xx_charging_modes_t mode, bool end_session);

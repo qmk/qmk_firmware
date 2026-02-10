@@ -40,7 +40,7 @@ extern matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
 extern matrix_row_t matrix[MATRIX_ROWS];      // debounced values
 
 // row offsets for each hand
-uint8_t thisHand, thatHand;
+static uint8_t thisHand, thatHand;
 
 // user-defined overridable functions
 __attribute__((weak)) void matrix_slave_scan_user(void) {}
@@ -52,7 +52,7 @@ void matrix_init_custom(void) {
 
     ecsm_init(&ecsm_config);
 
-    thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
+    thisHand = is_keyboard_left() ? 0 : (ROWS_PER_HAND);
     thatHand = ROWS_PER_HAND - thisHand;
 
     split_post_init();

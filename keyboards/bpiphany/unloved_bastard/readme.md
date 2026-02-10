@@ -1,9 +1,5 @@
 # unloved_bastard
 
-![unloved_bastard](imgur.com image replace me!)
-
-A short description of the keyboard/project
-
 Keyboard Maintainer: [Alexander Fougner](https://github.com/fougner)  
 Hardware Supported: CoolerMaster Masterkeys S PBT (Not the Pro versions with backlighting etc)  
 Hardware Availability: Pretty much anywhere

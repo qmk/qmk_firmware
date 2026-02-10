@@ -5,8 +5,6 @@
 To reset and put into bootloader mode, please use the hardware reset button on the botton of the PCB. If the PCB is on the default firmware, software reset is available by holding the bottom left corner key and pressing `B` in the standard qwerty layout.
 
 * Keyboard Maintainer: [melonbred](https://github.com/melonbred)
-* Hardware Supported: The PCBs, controllers supported
-* Hardware Availability: Links to where you can find this hardware
 
 Make example for this keyboard (after setting up your build environment):
 

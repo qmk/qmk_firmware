@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Promethium",
   "manufacturer": "Priyadi",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x17EF",
@@ -10,6 +9,12 @@
   },
   "ws2812": {
     "pin": "B5"
+  },
+  "battery": {
+    "driver": "adc",
+    "adc": {
+        "pin": "B5"
+    }
   },
   "bluetooth": {
     "driver": "bluefruit_le"
@@ -22,6 +27,7 @@
     "extrakey": true,
     "nkro": true,
     "pointing_device": true,
+    "battery": true,
     "bluetooth": true
   },
   "build": {

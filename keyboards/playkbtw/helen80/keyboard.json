@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Helen 80",
   "manufacturer": "Play Keyboard",
-  "url": "",
   "maintainer": "yj7272098",
   "usb": {
     "vid": "0x706B",
@@ -13,8 +12,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

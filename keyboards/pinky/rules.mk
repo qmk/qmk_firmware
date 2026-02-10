@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = pinky/3

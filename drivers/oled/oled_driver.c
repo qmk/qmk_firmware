@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #        include "keyboard.h"
 #    endif
 #endif
+
+#include "compiler_support.h"
 #include "oled_driver.h"
 #include OLED_FONT_H
 #include "timer.h"
@@ -144,7 +146,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // parts of the display unusable or don't get cleared correctly
 // and also allows for drawing & inverting
 uint8_t         oled_buffer[OLED_MATRIX_SIZE];
-uint8_t *       oled_cursor;
+uint8_t        *oled_cursor;
 OLED_BLOCK_TYPE oled_dirty          = 0;
 bool            oled_initialized    = false;
 bool            oled_active         = false;
@@ -299,24 +301,18 @@ bool oled_init(oled_rotation_t rotation) {
     oled_driver_init();
 
     static const uint8_t PROGMEM display_setup1[] = {
-        I2C_CMD,
-        DISPLAY_OFF,
-        DISPLAY_CLOCK,
-        OLED_DISPLAY_CLOCK,
-        MULTIPLEX_RATIO,
+        I2C_CMD, DISPLAY_OFF, DISPLAY_CLOCK, OLED_DISPLAY_CLOCK, MULTIPLEX_RATIO,
 #if OLED_IC_COM_PINS_ARE_COLUMNS
         OLED_DISPLAY_WIDTH - 1,
 #else
         OLED_DISPLAY_HEIGHT - 1,
 #endif
 #if OLED_IC == OLED_IC_SH1107
-        SH1107_DISPLAY_START_LINE,
-        0x00,
+        SH1107_DISPLAY_START_LINE, 0x00,
 #else
         DISPLAY_START_LINE | 0x00,
 #endif
-        CHARGE_PUMP,
-        0x14,
+        CHARGE_PUMP, 0x14,
 #if OLED_IC_HAS_HORIZONTAL_MODE
         // MEMORY_MODE is unsupported on SH1106 (Page Addressing only)
         MEMORY_MODE,
@@ -601,7 +597,7 @@ void oled_write_char(const char data, bool invert) {
     static uint8_t oled_temp_buffer[OLED_FONT_WIDTH];
     memcpy(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH);
 
-    _Static_assert(sizeof(font) >= ((OLED_FONT_END + 1 - OLED_FONT_START) * OLED_FONT_WIDTH), "OLED_FONT_END references outside array");
+    STATIC_ASSERT(sizeof(font) >= ((OLED_FONT_END + 1 - OLED_FONT_START) * OLED_FONT_WIDTH), "OLED_FONT_END references outside array");
 
     // set the reder buffer data
     uint8_t cast_data = (uint8_t)data; // font based on unsigned type for index

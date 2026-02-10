@@ -1,7 +1,6 @@
 {
     "keyboard_name": "G_IDB60",
     "manufacturer": "Nasp",
-    "url": "",
     "maintainer": "npspears",
     "usb": {
         "vid": "0x7070",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

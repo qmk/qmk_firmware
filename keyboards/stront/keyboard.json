@@ -75,17 +75,12 @@
     },
     "encoder": {
         "rotary": [
-            {
-                "pin_a": "GP7",
-                "pin_b": "GP8",
-                "resolution": 4
-            }
+            {"pin_a": "GP7", "pin_b": "GP8"}
         ]
     },
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "nkro": false,

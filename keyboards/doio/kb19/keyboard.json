@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KB19-01",
     "manufacturer": "DOIO",
-    "url": "",
     "maintainer": "DOIO2022",
     "usb": {
         "vid": "0xD010",
@@ -13,8 +12,6 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "encoder": true,
         "nkro": false,
         "rgblight": true

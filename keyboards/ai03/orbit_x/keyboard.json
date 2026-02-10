@@ -1,7 +1,6 @@
 {
     "keyboard_name": "OrbitX",
     "manufacturer": "ai03 Design Studio",
-    "url": "",
     "maintainer": "ai03",
     "usb": {
         "vid": "0xA103",

@@ -1,0 +1,50 @@
+{
+    "manufacturer": "CannonKeys",
+    "maintainer": "awkannan",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["B0", "C15", "C14", "A7", "A5", "C13", "A4", "A2", "A1", "A0", "B9", "B8", "B7", "A3", "B6", "B4", "B3", "A15"],
+        "rows": ["B11", "B10", "B2", "F0", "B5"]
+    },
+    "processor": "STM32F072",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 4
+    },
+    "url": "https://cannonkeys.com",
+    "usb": {
+        "device_version": "0.0.1",
+        "vid": "0xCA04"
+    },
+    "ws2812": {
+        "driver": "spi",
+        "pin": "B15"
+    }
+}

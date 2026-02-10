@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Flygone60 Rev3",
     "manufacturer": "ShandonCodes",
-    "url": "https://qmk.fm/keyboards/",
     "maintainer": "ShandonCodes",
     "usb": {
         "vid": "0x7877",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

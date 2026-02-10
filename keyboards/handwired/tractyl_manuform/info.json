@@ -2,6 +2,10 @@
     "manufacturer": "QMK Community",
     "maintainer": "Drashna Jael're",
     "usb": {
-        "vid": "0x44DD"
+        "vid": "0x44DD",
+        "shared_endpoint": {
+            "keyboard": true,
+            "mouse": true
+        }
     }
 }

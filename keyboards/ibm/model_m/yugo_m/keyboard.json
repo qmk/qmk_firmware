@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Yugo-M (IBM Model M replacment controller)",
     "manufacturer": "IBM",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m/yugo_m",
     "maintainer": "Nidzo Tomic",
     "usb": {
         "vid": "0xFEED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

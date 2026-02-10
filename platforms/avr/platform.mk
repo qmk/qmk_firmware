@@ -12,9 +12,10 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
-ifeq ("$(shell echo "int main(){}" | $(CC) --param=min-pagesize=0 -x c - -o /dev/null 2>&1)", "")
-COMPILEFLAGS += --param=min-pagesize=0
-endif
+COMPILEFLAGS += $(call cc-option,--param=min-pagesize=0)
+
+# Fix ICE's: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116389
+COMPILEFLAGS += $(call cc-option,-mlra)
 
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
@@ -25,10 +26,12 @@ COMPILEFLAGS += -fshort-enums
 COMPILEFLAGS += -mcall-prologues
 COMPILEFLAGS += -fno-builtin-printf
 
-# Linker relaxation is only possible if
-# link time optimizations are not enabled.
+# On older compilers, linker relaxation is only possible if link time optimizations are not enabled.
 ifeq ($(strip $(LTO_ENABLE)), no)
 	COMPILEFLAGS += -mrelax
+else
+	# Newer compilers may support both, so quickly check before adding `-mrelax`.
+	COMPILEFLAGS += $(call cc-option,-mrelax,,-flto=auto)
 endif
 
 ASFLAGS += $(AVR_ASFLAGS)

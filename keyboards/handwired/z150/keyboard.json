@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Z150",
     "manufacturer": "ALPS",
-    "url": "",
     "maintainer": "DmNosachev",
     "usb": {
         "vid": "0xFEED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

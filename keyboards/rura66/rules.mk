@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = rura66/rev1

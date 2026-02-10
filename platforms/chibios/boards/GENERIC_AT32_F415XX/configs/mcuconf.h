@@ -1,7 +1,7 @@
 /*
     ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
-    ChibiOS - Copyright (C) 2023..2024 HorrorTroll
-    ChibiOS - Copyright (C) 2023..2024 Zhaqian
+    ChibiOS - Copyright (C) 2023..2025 HorrorTroll
+    ChibiOS - Copyright (C) 2023..2025 Zhaqian
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -63,7 +63,7 @@
 #define AT32_USBDIV                         AT32_USBDIV_DIV3
 #define AT32_CLKOUT_SEL                     AT32_CLKOUT_SEL_NOCLOCK
 #define AT32_CLKOUTDIV                      AT32_CLKOUTDIV_DIV1
-#define AT32_ERTCSEL                        AT32_ERTCSEL_HEXTDIV
+#define AT32_ERTCSEL                        AT32_ERTCSEL_NOCLOCK
 #define AT32_PVM_ENABLE                     FALSE
 #define AT32_PVMSEL                         AT32_PVMSEL_LEV1
 
@@ -136,10 +136,10 @@
 #define AT32_I2C_USE_I2C1                   FALSE
 #define AT32_I2C_USE_I2C2                   FALSE
 #define AT32_I2C_BUSY_TIMEOUT               50
-#define AT32_I2C_I2C1_IRQ_PRIORITY          5
-#define AT32_I2C_I2C2_IRQ_PRIORITY          5
 #define AT32_I2C_I2C1_DMA_PRIORITY          3
 #define AT32_I2C_I2C2_DMA_PRIORITY          3
+#define AT32_I2C_I2C1_IRQ_PRIORITY          5
+#define AT32_I2C_I2C2_IRQ_PRIORITY          5
 #define AT32_I2C_DMA_ERROR_HOOK(i2cp)       osalSysHalt("DMA failure")
 
 /*
@@ -151,8 +151,6 @@
 #define AT32_ICU_USE_TMR4                   FALSE
 #define AT32_ICU_USE_TMR5                   FALSE
 #define AT32_ICU_USE_TMR9                   FALSE
-#define AT32_ICU_USE_TMR10                  FALSE
-#define AT32_ICU_USE_TMR11                  FALSE
 
 /*
  * PWM driver system settings.
@@ -216,9 +214,13 @@
 #define AT32_UART_USE_USART1                FALSE
 #define AT32_UART_USE_USART2                FALSE
 #define AT32_UART_USE_USART3                FALSE
+#define AT32_UART_USE_UART4                 FALSE
+#define AT32_UART_USE_UART5                 FALSE
 #define AT32_UART_USART1_DMA_PRIORITY       0
 #define AT32_UART_USART2_DMA_PRIORITY       0
 #define AT32_UART_USART3_DMA_PRIORITY       0
+#define AT32_UART_UART4_DMA_PRIORITY        0
+#define AT32_UART_UART5_DMA_PRIORITY        0
 #define AT32_UART_DMA_ERROR_HOOK(uartp)     osalSysHalt("DMA failure")
 
 /*

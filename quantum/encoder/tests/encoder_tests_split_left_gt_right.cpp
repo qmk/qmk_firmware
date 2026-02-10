@@ -41,6 +41,10 @@ bool is_keyboard_master(void) {
     return isMaster;
 }
 
+bool is_keyboard_left(void) {
+    return isLeftHand;
+}
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!is_keyboard_master()) {
         // this method has no effect on slave half

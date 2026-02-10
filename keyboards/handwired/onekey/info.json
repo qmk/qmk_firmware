@@ -1,6 +1,5 @@
 {
     "manufacturer": "QMK",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -12,8 +11,6 @@
         "bootmagic": false,
         "mousekey": false,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": false
     },
     "qmk": {
@@ -29,5 +26,17 @@
                 {"x": 0, "y": 0, "matrix": [0, 0]}
             ]
         }
+    },
+    "led_matrix": {
+        "driver": "snled27351",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1}
+        ]
+    },
+    "rgb_matrix": {
+        "driver": "snled27351",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1}
+        ]
     }
 }

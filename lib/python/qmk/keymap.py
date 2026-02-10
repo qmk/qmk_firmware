@@ -1,6 +1,5 @@
 """Functions that help you work with QMK keymaps.
 """
-import json
 import sys
 from pathlib import Path
 from subprocess import DEVNULL
@@ -32,6 +31,7 @@ __INCLUDES__
 
 __KEYMAP_GOES_HERE__
 __ENCODER_MAP_GOES_HERE__
+__DIP_SWITCH_MAP_GOES_HERE__
 __MACRO_OUTPUT_GOES_HERE__
 
 #ifdef OTHER_KEYMAP_C
@@ -63,6 +63,19 @@ def _generate_encodermap_table(keymap_json):
         encoder_keycode_txt = ', '.join([f'ENCODER_CCW_CW({_strip_any(e["ccw"])}, {_strip_any(e["cw"])})' for e in layer])
         lines.append('    [%s] = {%s}' % (layer_num, encoder_keycode_txt))
     lines.extend(['};', '#endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)'])
+    return lines
+
+
+def _generate_dipswitchmap_table(keymap_json):
+    lines = [
+        '#if defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)',
+        'const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {',
+    ]
+    for index, switch in enumerate(keymap_json['dip_switches']):
+        if index != 0:
+            lines[-1] = lines[-1] + ','
+        lines.append(f'    DIP_SWITCH_OFF_ON({_strip_any(switch["off"])}, {_strip_any(switch["on"])})')
+    lines.extend(['};', '#endif // defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)'])
     return lines
 
 
@@ -286,6 +299,12 @@ def generate_c(keymap_json):
         encodermap = '\n'.join(encoder_txt)
     new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
 
+    dipswitchmap = ''
+    if 'dip_switches' in keymap_json and keymap_json['dip_switches'] is not None:
+        dip_txt = _generate_dipswitchmap_table(keymap_json)
+        dipswitchmap = '\n'.join(dip_txt)
+    new_keymap = new_keymap.replace('__DIP_SWITCH_MAP_GOES_HERE__', dipswitchmap)
+
     macros = ''
     if 'macros' in keymap_json and keymap_json['macros'] is not None:
         macro_txt = _generate_macros_function(keymap_json)
@@ -300,67 +319,6 @@ def generate_c(keymap_json):
     return new_keymap
 
 
-def write_file(keymap_filename, keymap_content):
-    keymap_filename.parent.mkdir(parents=True, exist_ok=True)
-    keymap_filename.write_text(keymap_content)
-
-    cli.log.info('Wrote keymap to {fg_cyan}%s', keymap_filename)
-
-    return keymap_filename
-
-
-def write_json(keyboard, keymap, layout, layers, macros=None):
-    """Generate the `keymap.json` and write it to disk.
-
-    Returns the filename written to.
-
-    Args:
-        keyboard
-            The name of the keyboard
-
-        keymap
-            The name of the keymap
-
-        layout
-            The LAYOUT macro this keymap uses.
-
-        layers
-            An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
-    """
-    keymap_json = generate_json(keyboard, keymap, layout, layers, macros=None)
-    keymap_content = json.dumps(keymap_json)
-    keymap_file = qmk.path.keymaps(keyboard)[0] / keymap / 'keymap.json'
-
-    return write_file(keymap_file, keymap_content)
-
-
-def write(keymap_json):
-    """Generate the `keymap.c` and write it to disk.
-
-    Returns the filename written to.
-
-    `keymap_json` should be a dict with the following keys:
-        keyboard
-            The name of the keyboard
-
-        keymap
-            The name of the keymap
-
-        layout
-            The LAYOUT macro this keymap uses.
-
-        layers
-            An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
-
-        macros
-            A list of macros for this keymap.
-    """
-    keymap_content = generate_c(keymap_json)
-    keymap_file = qmk.path.keymaps(keymap_json['keyboard'])[0] / keymap_json['keymap'] / 'keymap.c'
-
-    return write_file(keymap_file, keymap_content)
-
-
 def locate_keymap(keyboard, keymap, force_layout=None):
     """Returns the path to a keymap for a specific keyboard.
     """
@@ -370,24 +328,21 @@ def locate_keymap(keyboard, keymap, force_layout=None):
     # Check the keyboard folder first, last match wins
     keymap_path = ''
 
-    search_dirs = [QMK_FIRMWARE]
-    keyboard_dirs = [keyboard_folder(keyboard)]
+    search_conf = {QMK_FIRMWARE: [keyboard_folder(keyboard)]}
     if HAS_QMK_USERSPACE:
         # When we've got userspace, check there _last_ as we want them to override anything in the main repo.
-        search_dirs.append(QMK_USERSPACE)
         # We also want to search for any aliases as QMK's folder structure may have changed, with an alias, but the user
         # hasn't updated their keymap location yet.
-        keyboard_dirs.extend(keyboard_aliases(keyboard))
-        keyboard_dirs = list(set(keyboard_dirs))
+        search_conf[QMK_USERSPACE] = list(set([keyboard_folder(keyboard), *keyboard_aliases(keyboard)]))
 
-    for search_dir in search_dirs:
+    for search_dir, keyboard_dirs in search_conf.items():
         for keyboard_dir in keyboard_dirs:
             checked_dirs = ''
-            for dir in keyboard_dir.split('/'):
+            for folder_name in keyboard_dir.split('/'):
                 if checked_dirs:
-                    checked_dirs = '/'.join((checked_dirs, dir))
+                    checked_dirs = '/'.join((checked_dirs, folder_name))
                 else:
-                    checked_dirs = dir
+                    checked_dirs = folder_name
 
                 keymap_dir = Path(search_dir) / Path('keyboards') / checked_dirs / 'keymaps'
 
@@ -426,7 +381,7 @@ def is_keymap_target(keyboard, keymap):
     return False
 
 
-def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False):
+def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=False, include_userspace=True):
     """List the available keymaps for a keyboard.
 
     Args:
@@ -445,14 +400,19 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
         fullpath
             When set to True the full path of the keymap relative to the `qmk_firmware` root will be provided.
 
+        include_userspace
+            When set to True, also search userspace for available keymaps
+
     Returns:
         a sorted list of valid keymap names.
     """
     names = set()
 
+    has_userspace = HAS_QMK_USERSPACE and include_userspace
+
     # walk up the directory tree until keyboards_dir
     # and collect all directories' name with keymap.c file in it
-    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE] if HAS_QMK_USERSPACE else [QMK_FIRMWARE]:
+    for search_dir in [QMK_FIRMWARE, QMK_USERSPACE] if has_userspace else [QMK_FIRMWARE]:
         keyboards_dir = search_dir / Path('keyboards')
         kb_path = keyboards_dir / keyboard
 
@@ -470,7 +430,7 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     info = info_json(keyboard)
 
     community_parents = list(Path('layouts').glob('*/'))
-    if HAS_QMK_USERSPACE and (Path(QMK_USERSPACE) / "layouts").exists():
+    if has_userspace and (Path(QMK_USERSPACE) / "layouts").exists():
         community_parents.append(Path(QMK_USERSPACE) / "layouts")
 
     for community_parent in community_parents:

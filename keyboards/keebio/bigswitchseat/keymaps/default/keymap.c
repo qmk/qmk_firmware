@@ -5,23 +5,11 @@
 
 // Defines names for use in layer keycodes and the keymap
 enum layer_names {
-    _MAIN,
-    _FN1,
-    _FN2,
-    _FN3
+    _MAIN
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MAIN] = LAYOUT(
         KC_A
-    ),
-    [_FN1] = LAYOUT(
-        _______
-    ),
-    [_FN2] = LAYOUT(
-        _______
-    ),
-    [_FN3] = LAYOUT(
-        _______
     )
 };

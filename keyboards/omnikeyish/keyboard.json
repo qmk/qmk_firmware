@@ -6,8 +6,12 @@
     "usb": {
         "vid": "0xFEED",
         "pid": "0x0666",
-        "device_version": "13.3.7",
-        "force_nkro": true
+        "device_version": "13.3.7"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

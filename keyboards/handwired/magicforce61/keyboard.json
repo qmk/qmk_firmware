@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Magicforce 61",
   "manufacturer": "Hexwire",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

@@ -21,6 +21,10 @@ __attribute__((weak)) void leader_start_user(void) {}
 
 __attribute__((weak)) void leader_end_user(void) {}
 
+__attribute__((weak)) bool leader_add_user(uint16_t keycode) {
+    return false;
+}
+
 void leader_start(void) {
     if (leading) {
         return;
@@ -61,6 +65,9 @@ bool leader_sequence_add(uint16_t keycode) {
     leader_sequence[leader_sequence_size] = keycode;
     leader_sequence_size++;
 
+    if (leader_add_user(keycode)) {
+        leader_end();
+    }
     return true;
 }
 

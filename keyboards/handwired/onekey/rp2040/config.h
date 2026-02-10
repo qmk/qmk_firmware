@@ -17,3 +17,14 @@
 #define AUDIO_PWM_CHANNEL RP2040_PWM_CHANNEL_A
 
 #define ADC_PIN GP26
+
+/* LCD configs */
+#define LCD_RST_PIN GP0
+#define LCD_DC_PIN GP1
+#define LCD_CS_PIN GP2
+
+/* SPI pins */
+#define SPI_DRIVER SPID0
+#define SPI_SCK_PIN GP18
+#define SPI_MOSI_PIN GP19
+#define SPI_MISO_PIN GP20

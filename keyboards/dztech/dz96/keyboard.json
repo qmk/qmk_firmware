@@ -1,7 +1,6 @@
 {
   "keyboard_name": "DZ96",
   "manufacturer": "DZTECH",
-  "url": "",
   "maintainer": "kb-elmo",
   "usb": {
     "vid": "0x445A",
@@ -11,8 +10,6 @@
   "features": {
     "backlight": true,
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": false

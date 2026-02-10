@@ -1,14 +1,17 @@
 {
     "keyboard_name": "bubble75",
-    "url": "",
     "manufacturer": "phl",
     "maintainer": "velocifire",
     "usb": {
         "vid": "0x4242",
         "pid": "0x5A4C",
         "device_version": "0.0.1",
-        "force_nkro": true,
         "no_startup_check": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

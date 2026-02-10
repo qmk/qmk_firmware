@@ -1,5 +1,5 @@
 # custom matrix setup
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = lite
 
 VPATH += drivers/gpio
 SRC += pca9555.c matrix.c

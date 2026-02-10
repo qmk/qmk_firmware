@@ -30,8 +30,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -54,9 +52,8 @@
             {"pin_a": "D2", "pin_b": "D1", "resolution": 1}
         ]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
-   "layouts": {
+    "development_board": "promicro",
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 1.5},

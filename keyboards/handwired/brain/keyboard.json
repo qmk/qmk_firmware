@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Brain",
     "manufacturer": "Klackygears",
-    "url": "",
     "maintainer": "Klackygears",
     "usb": {
         "vid": "0x4A53",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

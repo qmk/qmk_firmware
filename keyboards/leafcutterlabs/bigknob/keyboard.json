@@ -1,7 +1,6 @@
 {
   "keyboard_name": "bigKNOB",
   "manufacturer": "leafcutterlabs",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xCEEB",
@@ -35,8 +34,6 @@
   "bootloader": "caterina",
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "encoder": true,
     "extrakey": true,
     "mousekey": true,

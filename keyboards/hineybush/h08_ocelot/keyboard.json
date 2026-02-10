@@ -1,7 +1,6 @@
 {
     "keyboard_name": "h08",
     "manufacturer": "Hiney LLC",
-    "url": "",
     "maintainer": "hineybush",
     "usb": {
         "vid": "0x04D8",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

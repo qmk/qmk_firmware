@@ -1,13 +1,16 @@
 {
     "keyboard_name": "ARC60",
     "manufacturer": "vertex",
-    "url": "",
     "maintainer": "EasonQian1, Vertex-kb",
     "usb": {
         "vid": "0x8354",
         "pid": "0x8370",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": false,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Launch Pad",
     "manufacturer": "Maple Computing",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x1337",
@@ -31,8 +30,7 @@
         "rows": ["C6", "B1", "B3", "D7"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": false,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Iron165R2",
     "manufacturer": "SmithRune",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x8384",

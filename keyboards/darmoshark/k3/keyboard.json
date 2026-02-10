@@ -2,7 +2,6 @@
     "manufacturer": "Darmoshark",
     "keyboard_name": "K3 QMK",
     "maintainer": "Proceee",
-    "url": "",
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",
     "usb": {
@@ -14,8 +13,6 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -33,8 +30,7 @@
         "cols": ["B1", "C7", "C13", "B9"]
     },
     "indicators": {
-        "num_lock": "C5",
-        "on_state": 1
+        "num_lock": "C5"
     },
     "ws2812": {
         "pin": "A8"

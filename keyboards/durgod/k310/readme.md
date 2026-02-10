@@ -6,7 +6,7 @@ This is a standard off-the-shelf Durgod Taurus K310 full-sized 104/105-key
 keyboard without backlight.  This supports both the ANSI and ISO variants.
 
 * Keyboard Maintainers: [dkjer](https://github.com/dkjer) and [tylert](https://github.com/tylert)
-* Hardware Supported: [Durgod Taurus K310 board with STM32F070RBT6](https://www.durgod.com/page9?product_id=53&_l=en "Durgod.com Product Page")
+* Hardware Supported: [Durgod Taurus K310 board with STM32F070RBT6](https://www.durgod.com/product/k310-space-gray/)
 * Hardware Availability: [Amazon.com](https://www.amazon.com/Durgod-Taurus-K310-Mechanical-Keyboard/dp/B07TXB4XF3)
 
 ## Instructions

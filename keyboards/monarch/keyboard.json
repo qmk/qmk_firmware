@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Monarch",
     "manufacturer": "DoCallMeKing",
-    "url": "",
     "maintainer": "Ramon Imbao",
     "usb": {
         "vid": "0x4011",

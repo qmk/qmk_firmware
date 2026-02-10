@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ehan",
     "manufacturer": "Suavity Designs",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5344",

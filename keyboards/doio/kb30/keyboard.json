@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KB30-01",
     "manufacturer": "DOIO",
-    "url": "",
     "maintainer": "DOIO2022",
     "usb": {
         "vid": "0xD010",
@@ -93,8 +92,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "IBM Model M Space-Saving Keyboard",
     "manufacturer": "tiltowait",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m_ssk/teensypp_ssk",
     "maintainer": "tiltowait",
     "usb": {
         "vid": "0xFEED",
@@ -11,7 +10,6 @@
     "features": {
         "bootmagic": false,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "XOX 70",
     "manufacturer": "Mokey",
-    "url": "",
     "maintainer": "Mokey",
     "usb": {
         "vid": "0x6653",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

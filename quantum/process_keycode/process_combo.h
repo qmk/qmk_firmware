@@ -45,8 +45,8 @@ typedef struct combo_t {
 #ifdef EXTRA_SHORT_COMBOS
     uint8_t state;
 #else
-    bool     disabled;
-    bool     active;
+    bool disabled;
+    bool active;
 #    if defined(EXTRA_EXTRA_LONG_COMBOS)
     uint32_t state;
 #    elif defined(EXTRA_LONG_COMBOS)
@@ -57,10 +57,8 @@ typedef struct combo_t {
 #endif
 } combo_t;
 
-#define COMBO(ck, ca) \
-    { .keys = &(ck)[0], .keycode = (ca) }
-#define COMBO_ACTION(ck) \
-    { .keys = &(ck)[0] }
+#define COMBO(ck, ca) {.keys = &(ck)[0], .keycode = (ca)}
+#define COMBO_ACTION(ck) {.keys = &(ck)[0]}
 
 #define COMBO_END 0
 #ifndef COMBO_TERM

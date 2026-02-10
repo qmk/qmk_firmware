@@ -20,7 +20,9 @@
 #include <stdint.h>
 #include "host.h"
 #include "keyboard_report_util.hpp"
-#include "keycode_util.hpp"
+extern "C" {
+#include "keycode_string.h"
+}
 #include "test_logger.hpp"
 
 class TestDriver {
@@ -146,11 +148,11 @@ class TestDriver {
 /** @brief Tests whether keycode `actual` is equal to `expected`. */
 #define EXPECT_KEYCODE_EQ(actual, expected) EXPECT_THAT((actual), KeycodeEq((expected)))
 
-MATCHER_P(KeycodeEq, expected_keycode, "is equal to " + testing::PrintToString(expected_keycode) + ", keycode " + get_keycode_identifier_or_default(expected_keycode)) {
+MATCHER_P(KeycodeEq, expected_keycode, "is equal to " + testing::PrintToString(expected_keycode) + ", keycode " + get_keycode_string(expected_keycode)) {
     if (arg == expected_keycode) {
         return true;
     }
-    *result_listener << "keycode " << get_keycode_identifier_or_default(arg);
+    *result_listener << "keycode " << get_keycode_string(arg);
     return false;
 }
 

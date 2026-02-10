@@ -751,4 +751,37 @@ TEST_F(RepeatKey, RepeatKeyInvoke) {
     testing::Mock::VerifyAndClearExpectations(&driver);
 }
 
+// Check that mods and Layer Lock are not remembered.
+TEST_F(RepeatKey, IgnoredKeys) {
+    TestDriver driver;
+    KeymapKey  regular_key(0, 0, 0, KC_A);
+    KeymapKey  key_repeat(0, 1, 0, QK_REP);
+    KeymapKey  key_lsft(0, 2, 0, KC_LSFT);
+    KeymapKey  key_lctl(0, 3, 0, KC_LCTL);
+    KeymapKey  key_llck(0, 4, 0, QK_LAYER_LOCK);
+    set_keymap({regular_key, key_repeat, key_lsft, key_lctl, key_llck});
+
+    // Allow any number of empty reports.
+    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
+    {
+        InSequence seq;
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_REPORT(driver, (KC_LSFT));
+        EXPECT_REPORT(driver, (KC_LCTL));
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_REPORT(driver, (KC_A));
+    }
+
+    tap_key(regular_key); // Taps the KC_A key.
+
+    // Tap Shift, Ctrl, and Layer Lock keys, which should not be remembered.
+    tap_keys(key_lsft, key_lctl, key_llck);
+    EXPECT_KEYCODE_EQ(get_last_keycode(), KC_A);
+
+    // Tapping the Repeat Key should still reproduce KC_A.
+    tap_keys(key_repeat, key_repeat);
+
+    testing::Mock::VerifyAndClearExpectations(&driver);
+}
+
 } // namespace

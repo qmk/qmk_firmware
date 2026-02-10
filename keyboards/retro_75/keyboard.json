@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Retro75",
     "manufacturer": "PheonixStarr",
-    "url": "",
     "maintainer": "zvecr",
     "usb": {
         "vid": "0xFEED",
@@ -28,8 +27,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

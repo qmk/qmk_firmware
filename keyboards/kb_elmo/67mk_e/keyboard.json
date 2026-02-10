@@ -1,7 +1,6 @@
 {
     "keyboard_name": "67mk_E",
     "manufacturer": "kb_elmo",
-    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0xA68C",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

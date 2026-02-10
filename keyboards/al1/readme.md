@@ -1,7 +1,5 @@
 # TriangleLabs AL1
 
-![AL1](imgur.com image replace me!)
-
 * Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Olivia](https://github.com/olivia)
 * Hardware Supported: AL1 PCB
 * Hardware Availability: [GroupBuy](https://geekhack.org/index.php?topic=93258.0)

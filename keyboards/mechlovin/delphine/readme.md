@@ -1,7 +1,5 @@
 # delphine
 
-![delphine](imgur.com image replace me!)
-
 A Number-Pad PCB, Mono backlight and RGB backlight version, Dolpad compatible.
 
 * Keyboard Maintainer: [Mechlovin'](https://github.com/mechlovin)

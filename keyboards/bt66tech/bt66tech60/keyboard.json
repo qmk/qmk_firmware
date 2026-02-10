@@ -1,13 +1,16 @@
 {
     "keyboard_name": "bt66tech 60%",
     "manufacturer": "bt66tech",
-    "url": "",
     "maintainer": "bt66tech",
     "usb": {
         "vid": "0x4254",
         "pid": "0x7070",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "backlight": true,

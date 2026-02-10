@@ -1,7 +1,6 @@
 {
     "keyboard_name": "wanten",
     "manufacturer": "qpockets",
-    "url": "",
     "maintainer": "qpockets",
     "usb": {
         "vid": "0x7170",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

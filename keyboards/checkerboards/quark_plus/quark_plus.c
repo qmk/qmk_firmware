@@ -20,9 +20,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) { return false; }
     if (index == 1) { /* left encoder*/
                 if (clockwise){
-                    tap_code(KC_WH_U);
+                    tap_code(MS_WHLU);
                 } else {
-                    tap_code(KC_WH_D);
+                    tap_code(MS_WHLD);
                 }
     } else if (index == 0) { /* right encoder */
                 if (clockwise){

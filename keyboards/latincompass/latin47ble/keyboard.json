@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Latin47BLE",
     "manufacturer": "latincompass",
-    "url": "",
     "maintainer": "latincompass",
     "usb": {
         "vid": "0x6C63",

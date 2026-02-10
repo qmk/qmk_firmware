@@ -32,7 +32,7 @@
 #define APA102_MAX_BRIGHTNESS 31
 
 void apa102_init(void);
-void apa102_set_color(uint16_t index, uint8_t red, uint8_t green, uint8_t blue);
+void apa102_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 void apa102_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void apa102_flush(void);
 

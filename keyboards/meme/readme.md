@@ -1,7 +1,5 @@
 # Meme
 
-![meme](imgur.com image replace me!)
-
 65% gasket mount keyboard.   
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)   

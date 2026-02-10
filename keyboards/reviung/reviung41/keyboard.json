@@ -1,7 +1,6 @@
 {
     "keyboard_name": "reviung41",
     "manufacturer": "gtips",
-    "url": "",
     "maintainer": "gtips",
     "usb": {
         "vid": "0x7807",
@@ -50,8 +49,7 @@
         "rows": ["F4", "F5", "F6", "F7", "B1", "B3", "B2"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layout_aliases": {
         "LAYOUT_reviung41": "LAYOUT"
     },

@@ -3,7 +3,19 @@
         "device_version": "0.0.3"
     },
     "rgb_matrix": {
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [1, 13], "x": 195, "y": 3, "flags": 4},
+            {"matrix": [4, 13], "x": 195, "y": 16, "flags": 4},
+            {"matrix": [4, 10], "x": 150, "y": 16, "flags": 4},
+            {"matrix": [4, 7], "x": 105, "y": 16, "flags": 4},
+            {"matrix": [4, 4], "x": 60, "y": 16, "flags": 4},
+            {"matrix": [4, 1], "x": 15, "y": 16, "flags": 4},
+            {"matrix": [1, 1], "x": 15, "y": 3, "flags": 4},
+            {"matrix": [1, 4], "x": 60, "y": 3, "flags": 4},
+            {"matrix": [1, 7], "x": 105, "y": 3, "flags": 4},
+            {"matrix": [1, 10], "x": 150, "y": 3, "flags": 4}
+        ]
     },
     "matrix_pins": {
         "cols": ["B8", "B2", "B10", "A0", "A1", "A2", "B0", "A3", "B1", "A6", "A7", "B12", "C13", "B11", "B9"],

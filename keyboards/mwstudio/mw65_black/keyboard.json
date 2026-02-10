@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MW65 Black",
     "manufacturer": "MWStudio",
-    "url": "",
     "maintainer": "TW59420",
     "usb": {
         "vid": "0x7BA1",
@@ -18,8 +17,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

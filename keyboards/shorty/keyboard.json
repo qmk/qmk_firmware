@@ -22,7 +22,6 @@
         "rows": ["GP11", "GP10", "GP9", "GP29", "GP2"]
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5400",

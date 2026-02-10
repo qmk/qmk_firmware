@@ -106,10 +106,10 @@ enum my_keycodes {
 Before opening a pull request, you can preview your changes if you have set up the development environment by running this command from the `qmk_firmware/` folder:
 
 ```
-qmk docs
+qmk docs -b
 ```
 
-and navigating to `http://localhost:5173/`.
+Which should automatically open your browser; otherwise, navigate to `http://localhost:8936/`.
 
 ## Keyboards
 

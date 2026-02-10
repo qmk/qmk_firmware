@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Macroboard",
     "manufacturer": "QMK",
-    "url": "",
     "maintainer": "Micha\u0142 Szczepaniak",
     "usb": {
         "vid": "0xFEED",

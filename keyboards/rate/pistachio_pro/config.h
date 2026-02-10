@@ -42,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* OLED */
 #define OLED_DISPLAY_128X64
-#define OLED_FONT_H "keyboards/rate/pistachio_pro/lib/glcdfont.c"
 
 #define OLED_FONT_WIDTH 6
 #define OLED_FONT_HEIGHT 6

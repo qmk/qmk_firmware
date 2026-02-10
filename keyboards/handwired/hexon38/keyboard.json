@@ -1,7 +1,6 @@
 {
     "keyboard_name": "hexon38",
     "manufacturer": "pepaslabs",
-    "url": "",
     "maintainer": "cellularmitosis",
     "usb": {
         "vid": "0xFEED",

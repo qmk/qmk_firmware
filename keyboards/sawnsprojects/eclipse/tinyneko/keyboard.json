@@ -1,7 +1,6 @@
 {
     "keyboard_name": "tinyneko",
     "manufacturer": "Salane",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x534C",
@@ -19,17 +18,13 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": false,
         "rgblight": true
     },
     "rgblight": {
         "led_count": 18,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
-        "max_brightness": 255,
         "sleep": true,
         "animations": {
             "alternating": true,

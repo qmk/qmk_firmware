@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_MOUSEKEY_WHEEL(code) (QK_MOUSE_WHEEL_UP <= (code) && (code) <= QK_MOUSE_WHEEL_RIGHT)
 #define IS_MOUSEKEY_ACCEL(code) (QK_MOUSE_ACCELERATION_0 <= (code) && (code) <= QK_MOUSE_ACCELERATION_2)
 
-#define MOD_BIT(code) (1 << ((code)&0x07))
+#define MOD_BIT(code) (1 << ((code) & 0x07))
 
 // clang-format off
 

@@ -1,3 +1,5 @@
+// Copyright 2019 Mathias Andersson <wraul@dbox.se>
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 
 // clang-format off

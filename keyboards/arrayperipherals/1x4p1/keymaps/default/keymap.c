@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
-      tap_code(KC_MS_WH_UP);
+      tap_code(MS_WHLU);
     } else {
-      tap_code(KC_MS_WH_DOWN);
+      tap_code(MS_WHLD);
     }
   }
     return true;

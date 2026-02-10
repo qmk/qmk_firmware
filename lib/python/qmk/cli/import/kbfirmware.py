@@ -15,7 +15,7 @@ def import_kbfirmware(cli):
     cli.log.info(f'{{style_bright}}Importing {filename.name}.{{style_normal}}')
     cli.echo('')
 
-    cli.log.warn("Support here is basic - Consider using 'qmk new-keyboard' instead")
+    cli.log.warning("Support here is basic - Consider using 'qmk new-keyboard' instead")
 
     kb_name = _import_kbfirmware(data)
 

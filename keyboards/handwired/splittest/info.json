@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Split Tester",
     "manufacturer": "Keebio",
-    "url": "",
     "maintainer": "nooges",
     "usb": {
         "vid": "0xCB10",

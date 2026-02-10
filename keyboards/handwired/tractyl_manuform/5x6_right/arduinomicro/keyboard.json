@@ -6,7 +6,9 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D0",
+        "serial": {
+            "pin": "D0"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["D6", "D7", "B4", "D3", "C6", "C7"],

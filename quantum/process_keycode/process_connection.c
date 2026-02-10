@@ -1,24 +1,34 @@
 // Copyright 2024 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "outputselect.h"
+#include "connection.h"
 #include "process_connection.h"
 
 bool process_connection(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case QK_OUTPUT_NEXT:
-                set_output(OUTPUT_AUTO); // This should cycle through the outputs going forward. Ensure `docs/keycodes.md`, `docs/features/bluetooth.md` are updated when it does.
+                connection_next_host();
                 return false;
-            case QK_OUTPUT_USB:
-                set_output(OUTPUT_USB);
-                return false;
-            case QK_OUTPUT_BLUETOOTH:
-                set_output(OUTPUT_BLUETOOTH);
+            case QK_OUTPUT_PREV:
+                connection_prev_host();
                 return false;
 
-            case QK_OUTPUT_PREV:
+            case QK_OUTPUT_AUTO:
+                connection_set_host(CONNECTION_HOST_AUTO);
+                return false;
             case QK_OUTPUT_NONE:
+                connection_set_host(CONNECTION_HOST_NONE);
+                return false;
+            case QK_OUTPUT_USB:
+                connection_set_host(CONNECTION_HOST_USB);
+                return false;
+            case QK_OUTPUT_BLUETOOTH:
+                connection_set_host(CONNECTION_HOST_BLUETOOTH);
+                return false;
             case QK_OUTPUT_2P4GHZ:
+                connection_set_host(CONNECTION_HOST_2P4GHZ);
+                return false;
+
             case QK_BLUETOOTH_PROFILE_NEXT:
             case QK_BLUETOOTH_PROFILE_PREV:
             case QK_BLUETOOTH_UNPAIR:

@@ -21,6 +21,8 @@
 #include <util/delay.h>
 #pragma GCC diagnostic pop
 
+extern void __builtin_avr_delay_cycles(uint32_t);
+
 // http://ww1.microchip.com/downloads/en/devicedoc/atmel-0856-avr-instruction-set-manual.pdf
 // page 22: Table 4-2. Arithmetic and Logic Instructions
 /*

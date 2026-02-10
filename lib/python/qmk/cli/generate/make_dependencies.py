@@ -8,7 +8,7 @@ from argcomplete.completers import FilesCompleter
 from qmk.commands import dump_lines
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.keymap import keymap_completer, locate_keymap
-from qmk.path import normpath, FileType
+from qmk.path import normpath, FileType, unix_style_path
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON.')
@@ -53,4 +53,4 @@ def generate_make_dependencies(cli):
     for file in interesting_files:
         check_files.append(Path('users') / cli.args.keymap / file)
 
-    dump_lines(cli.args.output, [f'generated-files: $(wildcard {found})\n' for found in check_files])
+    dump_lines(cli.args.output, [f'generated-files: $(wildcard {unix_style_path(found)})\n' for found in check_files])

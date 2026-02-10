@@ -36,9 +36,13 @@
     "url": "https://www.mmkeyboard.com/products/mm-class60-retro-custom-mechanical-keyboard",
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0x3876",
         "vid": "0x4F66"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "community_layouts": [
         "60_ansi",

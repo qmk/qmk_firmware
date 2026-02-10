@@ -6,7 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "extrakey": false,
         "mousekey": false,
@@ -21,7 +20,6 @@
         "rows": ["D0", "B7", "B5", "C6", "D1", "B6", "D7", "D6"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x239A",

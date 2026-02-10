@@ -1,0 +1,37 @@
+{
+    "manufacturer": "Binepad",
+    "keyboard_name": "KN01",
+    "maintainer": "Binpad",
+    "bootloader": "stm32duino",
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B3", "pin_b": "B4"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "cols": ["A15"],
+        "rows": ["A8"]
+    },
+    "processor": "STM32F103",
+    "url": "http://binepad.com",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4040",
+        "vid": "0x4249"
+    },
+    "community_layouts": ["ortho_1x1"],
+    "layouts": {
+        "LAYOUT_ortho_1x1": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 2, "h": 2}
+            ]
+        }
+    }
+}

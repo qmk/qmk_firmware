@@ -19,8 +19,11 @@
 #include "uart.h"
 #include "print.h"
 #include "sendchar.h"
-#include "ws2812.h"
 #include "sleep_led.h"
+
+#ifdef KEYBOARD_ibm_model_m_mschwingen_led_ws2812
+#include "ws2812.h"
+#endif
 
 #ifdef UART_DEBUG
 #    undef sendchar

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Odelia",
     "manufacturer": "InterpolKeeb",
-    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0x6BE3",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

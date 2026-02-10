@@ -1,7 +1,6 @@
 {
     "keyboard_name": "EK87",
     "manufacturer": "Eniigma Keyboards",
-    "url": "",
     "maintainer": "adamws",
     "usb": {
         "vid": "0x454B",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false
