@@ -1,6 +1,7 @@
 """Functions that help you work with QMK keymaps.
 """
 import sys
+import re
 from pathlib import Path
 from subprocess import DEVNULL
 
@@ -237,6 +238,13 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
                         return False
 
             return True
+
+
+def is_valid_keymap_name(name):
+    """Returns True if the given keymap name contains only valid characters.
+    """
+    regex = re.compile(r'^[a-z0-9][a-z0-9_]+$')
+    return bool(regex.match(name))
 
 
 def generate_json(keymap, keyboard, layout, layers, macros=None):
