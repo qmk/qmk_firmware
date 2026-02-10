@@ -55,13 +55,13 @@ This file will look like this:
 // ouput         -> output
 // widht         -> width
 
-#define N_DICTS 1
+#define AUTOCORRECT_NUM_OF_DICTS 1
 
-static const uint32_t autocorrect_offsets[N_DICTS] PROGMEM     = {0};
-static const uint16_t autocorrect_min_lengths[N_DICTS] PROGMEM = {5};
-static const uint16_t autocorrect_max_lengths[N_DICTS] PROGMEM = {6};
-static const uint32_t autocorrect_sizes[N_DICTS] PROGMEM       = {74};
-static const uint8_t  autocorrect_node_size[N_DICTS] PROGMEM   = {2};
+static const uint32_t autocorrect_offsets[AUTOCORRECT_NUM_OF_DICTS] PROGMEM     = {0};
+static const uint16_t autocorrect_min_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {5};
+static const uint16_t autocorrect_max_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {6};
+static const uint32_t autocorrect_sizes[AUTOCORRECT_NUM_OF_DICTS] PROGMEM       = {74};
+static const uint8_t  autocorrect_node_size[AUTOCORRECT_NUM_OF_DICTS] PROGMEM   = {2};
 
 #define DICTIONARY_SIZE 74
 #define TYPO_BUFFER_SIZE 6
@@ -301,9 +301,9 @@ All autocorrection data is stored in a single flat array autocorrect_data. Each 
 
 ![An example trie](/HL5DP8H.png)
 
-**Branching node**. Each branch is encoded with one byte for the keycode (KC_A–KC_Z) followed by a link to the child node. Links between nodes are 32-bit byte offsets relative to the beginning of the array, serialized in little endian order.
+**Branching node**. Each branch is encoded with one byte for the keycode (KC_A–KC_Z) followed by a link to the child node. Links between nodes are 16 or 24 bit offsets relative to the beginning of the array, serialized in little endian order.
 
-All branches are serialized this way, one after another, and terminated with a zero byte. As described above, the node is identified as a branch by setting the two high bits of the first byte to 01, done by bitwise ORing the first keycode with 64. keycode. The root node for the above figure would be serialized like:
+All branches are serialized this way, one after another, and terminated with a zero byte. As described above, the node is identified as a branch by setting the two high bits of the first byte to 01, done by bitwise ORing the first keycode with 64. The root node for the above figure would be serialized like:
 
 ```
 +-------+-------+-------+-------+-------+-------+-------+
@@ -323,7 +323,7 @@ In the figure above, the f-i-t-l chain is encoded as
 
 If we were to encode this chain using the same format used for branching nodes, we would encode a 16-bit node link with every node, costing 8 more bytes in this example. Across the whole trie, this adds up. Conveniently, we can point to intermediate points in the chain and interpret the bytes in the same way as before. E.g. starting at the i instead of the l, and the subchain has the same format.
 
-**Leaf node**. A leaf node corresponds to a particular typo and stores data to correct the typo. The leaf begins with a byte for the number of backspaces to type, and is followed by a null-terminated ASCII string of the replacement text. The idea is, after tapping backspace the indicated number of times, we can simply pass this string to the `send_string_P` function. For fitler, we need to tap backspace 3 times (not 4, because we catch the typo as the final ‘r’ is pressed) and replace it with lter. To identify the node as a leaf, the two high bits are set to 10 by ORing the backspace count with 128:
+**Leaf node**. A leaf node corresponds to a particular typo and stores data to correct the typo. The leaf begins with a byte for the number of backspaces to type, and is followed by a null-terminated ASCII string of the replacement text. The idea is, after tapping backspace the indicated number of times, we can simply pass this string to the `send_string_P` function. For fitler, we need to tap backspace 3 times (not 4, because we catch the typo as the final 'r' is pressed) and replace it with lter. To identify the node as a leaf, the two high bits are set to 10 by ORing the backspace count with 128:
 
 ```
 +-------+-------+-------+-------+-------+-------+
@@ -333,11 +333,12 @@ If we were to encode this chain using the same format used for branching nodes, 
 
 ### Decoding {#decoding}
 
-This format is by design decodable with fairly simple logic. A 16i-bit variable state represents our current position in the trie, initialized with 0 to start at the root node. Then, for each keycode, test the highest two bits in the byte at state to identify the kind of node.
+This format is by design decodable with fairly simple logic. A 16-bit variable state represents our current position in the trie, initialized with 0 to start at the root node. Node links may be either 2 or 3 bytes in size, depending on the dictionary size. Then, for each keycode, test the highest two bits in the byte at state to identify the kind of node.
 
--   00 ⇒ **chain node**: If the node’s byte matches the keycode, increment state by one to go to the next byte. If the next byte is zero, increment again to go to the following node.
--   01 ⇒ **branching node**: Search the branches for one that matches the keycode, and follow its node link.
+-   00 ⇒ **chain node**: If the node's byte matches the keycode, increment state by one to go to the next byte. If the next byte is zero, increment again and skip past the node link to go to the following node.
+-   01 ⇒ **branching node**: Search the branches for one that matches the keycode, and follow its node link (2 or 3 bytes depending on dictionary size).
 -   10 ⇒ **leaf node**: a typo has been found! We read its first byte for the number of backspaces to type, then pass its following bytes to send_string_P to type the correction.
+
 
 ## Credits
 
