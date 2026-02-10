@@ -232,7 +232,7 @@ def new_keyboard(cli):
         if prompt_mcu_type():
             mcu = prompt_dev_board()
         if not mcu or mcu == "none of the above":
-            mcu =  prompt_mcu()
+            mcu = prompt_mcu()
 
     config = {}
     if mcu in dev_boards:
