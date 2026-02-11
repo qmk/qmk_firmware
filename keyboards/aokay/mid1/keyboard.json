@@ -50,7 +50,7 @@
         }
     },
     "processor": "atmega32u4",
-    "url": "https://oneillseanm.github.io/kb40a/",
+    "url": "https://www.aokay.cool/mid-1",
     "usb": {
         "device_version": "0.1.0",
         "pid": "0x414F",

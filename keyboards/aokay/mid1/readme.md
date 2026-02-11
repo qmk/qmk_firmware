@@ -8,7 +8,7 @@ A 40% keyboard with a staggered 4x12 layout and hotswap PCB.
 
 * Keyboard Maintainer: [Sean O'Neill](https://github.com/oneillseanm)
 * Hardware Supported: MID.1
-* Hardware Availability: [A.Okay! product page](https://www.aokay.cool)
+* Hardware Availability: [MID.1 product page](https://www.aokay.cool/mid-1)
 
 ## Setup
 
