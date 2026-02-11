@@ -52,3 +52,13 @@ enum mods_8bit {
 #define MOD_MASK_CAG (MOD_MASK_CTRL | MOD_MASK_ALT | MOD_MASK_GUI)
 #define MOD_MASK_SAG (MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
 #define MOD_MASK_CSAG (MOD_MASK_CTRL | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
+
+#define HAS_SHIFT_MOD(keycode) (((((keycode) >> 8) & MOD_LSFT) == MOD_LSFT))
+#define HAS_ALT_MOD(keycode) (((((keycode) >> 8) & MOD_LALT) == MOD_LALT))
+#define HAS_CTRL_MOD(keycode) (((((keycode) >> 8) & MOD_LCTL) == MOD_LCTL))
+#define HAS_GUI_MOD(keycode) (((((keycode) >> 8) & MOD_LGUI) == MOD_LGUI))
+
+// The right-hand Alt key, also known as AltGr, is the only one with commonly different behavior.
+// Note that checking for a right modifier excludes the left one, but checking for the left one,
+// includes both left and right.
+#define HAS_RIGHT_ALT_MOD(keycode) (((((keycode) >> 8) & MOD_RALT) == MOD_RALT))

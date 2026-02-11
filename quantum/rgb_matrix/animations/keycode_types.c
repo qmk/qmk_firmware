@@ -28,6 +28,9 @@ bool is_media_keycode(uint8_t keycode) {
 }
 
 bool is_base_character_keycode(uint8_t keycode) {
+    // Note that this is valid for most international layouts even with checking only ANSI keycodes.
+    // This is because the non-character keys don't change with the international layouts
+    // and characters are just different characters, but they are still characters.
     switch (keycode) {
         case KC_A ... KC_Z:
         case KC_1 ... KC_0:
@@ -43,7 +46,9 @@ bool is_base_character_keycode(uint8_t keycode) {
 bool is_character_keycode(uint16_t keycode) {
     if (IS_QK_BASIC(keycode)) return is_base_character_keycode(keycode);
     if (!IS_QK_MODS(keycode)) return false;
-    if (HAS_CTRL_OR_GUI_MOD(keycode)) return false;
+    if (HAS_CTRL_MOD(keycode) || HAS_GUI_MOD(keycode)) return false;
     if (HAS_ALT_MOD(keycode) && !HAS_RIGHT_ALT_MOD(keycode)) return false;
+    // Now the only modifiers left are Shift and AltGr, which map any character to another character,
+    // so we check the base keycode.
     return is_base_character_keycode(keycode & 0xff);
 }
