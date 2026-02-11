@@ -3,24 +3,11 @@
 
 #include "keycode_types.h"
 
-bool is_arrow_keycode(uint16_t keycode) {
-    return (KC_RGHT <= keycode && keycode <= KC_UP);
-}
-
 bool is_modifier_keycode(uint16_t keycode) {
     switch (keycode) {
         case KC_LCTL ... KC_RGUI:
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX:
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-            return true;
-        default:
-            return false;
-    }
-}
-
-bool is_media_keycode(uint8_t keycode) {
-    switch (keycode) {
-        case KC_MUTE ... KC_MPLY:
             return true;
         default:
             return false;
@@ -51,4 +38,17 @@ bool is_character_keycode(uint16_t keycode) {
     // Now the only modifiers left are Shift and AltGr, which map any character to another character,
     // so we check the base keycode.
     return is_base_character_keycode(keycode & 0xff);
+}
+
+bool is_arrow_keycode(uint16_t keycode) {
+    return (KC_RGHT <= keycode && keycode <= KC_UP);
+}
+
+bool is_media_keycode(uint8_t keycode) {
+    switch (keycode) {
+        case KC_MUTE ... KC_MPLY:
+            return true;
+        default:
+            return false;
+    }
 }

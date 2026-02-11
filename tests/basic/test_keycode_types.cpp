@@ -9,7 +9,7 @@
 #include "test_common.hpp"
 
 extern "C" {
-#include "quantum/rgb_matrix/animations/keycode_types.h"
+#include "quantum/keycode_types.h"
 #include "quantum/keycode_string.h"
 }
 
@@ -112,16 +112,17 @@ TEST_F(KeycodeModifierMacroTest, ShiftMacroRejectsKeysWithoutShift) {
     EXPECT_FALSE(HAS_SHIFT_MOD(LCTL(KC_D)));
 }
 
-TEST_F(KeycodeModifierMacroTest, CtrlOrGuiMacroDetectsCtrl) {
-    EXPECT_TRUE(HAS_CTRL_OR_GUI_MOD(LCTL(KC_E)));
+TEST_F(KeycodeModifierMacroTest, CtrlMacroDetectsCtrl) {
+    EXPECT_TRUE(HAS_CTRL_MOD(LCTL(KC_E)));
 }
 
-TEST_F(KeycodeModifierMacroTest, CtrlOrGuiMacroDetectsGui) {
-    EXPECT_TRUE(HAS_CTRL_OR_GUI_MOD(RGUI(KC_F)));
+TEST_F(KeycodeModifierMacroTest, GuiMacroDetectsGui) {
+    EXPECT_TRUE(HAS_GUI_MOD(RGUI(KC_F)));
 }
 
-TEST_F(KeycodeModifierMacroTest, CtrlOrGuiMacroRejectsPlainKeys) {
-    EXPECT_FALSE(HAS_CTRL_OR_GUI_MOD(KC_G));
+TEST_F(KeycodeModifierMacroTest, CtrlAndGuiMacroRejectPlainKeys) {
+    EXPECT_FALSE(HAS_CTRL_MOD(KC_G));
+    EXPECT_FALSE(HAS_GUI_MOD(KC_G));
 }
 
 TEST_F(KeycodeModifierMacroTest, AltMacroDetectsLeftAlt) {
