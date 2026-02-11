@@ -7,7 +7,6 @@ from milc import cli
 from qmk.path import normpath, is_relative_to
 from qmk.commands import get_chunks
 
-
 IGNORE_SUFFIXES = [
     'hex',
     'ico',
