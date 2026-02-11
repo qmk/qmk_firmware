@@ -32,24 +32,6 @@ enum layer_names {
     _FN,
 };
 
-enum user_rgb_mode {
-    RGB_MODE_ALL,
-    RGB_MODE_KEYLIGHT,
-    RGB_MODE_UNDERGLOW,
-    RGB_MODE_NONE,
-};
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t rgb_mode :8;
-    };
-} user_config_t;
-
-user_config_t user_config;
-
-// enum layer_keycodes { };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
@@ -107,66 +89,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______, _______,                   _______,                            _______, _______, RM_SPDD, RM_VALD, RM_SPDU
             ),
 };
-
-void keyboard_post_init_user(void) {
-    user_config.raw = eeconfig_read_user();
-    switch (user_config.rgb_mode) {
-        case RGB_MODE_ALL:
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
-            break;
-        case RGB_MODE_KEYLIGHT:
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_UNDERGLOW:
-            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-        case RGB_MODE_NONE:
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-    }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QK_RGB_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_KEYLIGHT;
-                    }
-                    break;
-                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_UNDERGLOW;
-                    }
-                    break;
-                    case (LED_FLAG_UNDERGLOW): {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_NONE;
-                    }
-                    break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable_noeeprom();
-                        user_config.rgb_mode = RGB_MODE_ALL;
-                    }
-                    break;
-                }
-                eeconfig_update_user(user_config.raw);
-            }
-            return false;
-	}
-
-    return true;
-}
 
 bool rgb_matrix_indicators_user(void) {
     hsv_t    hsv = rgb_matrix_config.hsv;
