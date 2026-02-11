@@ -8,7 +8,7 @@
 autocorrect_config_t autocorrect_config;
 
 extern const uint8_t number_dicts;
-extern uint8_t typo_buffer_size;
+extern uint8_t       typo_buffer_size;
 
 void autocorrect_init_dict(void);
 
@@ -37,7 +37,7 @@ void autocorrect_enable(void) {
  */
 void autocorrect_disable(void) {
     autocorrect_config.enabled = false;
-    typo_buffer_size                      = 0;
+    typo_buffer_size           = 0;
     eeconfig_update_autocorrect(&autocorrect_config);
 }
 
@@ -47,7 +47,7 @@ void autocorrect_disable(void) {
  */
 void autocorrect_toggle(void) {
     autocorrect_config.enabled = !autocorrect_config.enabled;
-    typo_buffer_size                      = 0;
+    typo_buffer_size           = 0;
     eeconfig_update_autocorrect(&autocorrect_config);
 }
 

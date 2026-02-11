@@ -41,7 +41,6 @@ typedef union keymap_config_t {
         bool swap_rctl_rgui : 1;
         bool oneshot_enable : 1;
         bool swap_escape_capslock : 1;
-        uint8_t reserved : 4;
     };
 } keymap_config_t;
 

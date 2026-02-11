@@ -234,7 +234,7 @@ def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any])
 
     def try_assign_offsets(link_byte_count: int) -> Tuple[int, bool]:
         byte_offset = 0
-        max_offset  = (1 << (link_byte_count * 8)) - 1
+        max_offset = (1 << (link_byte_count * 8)) - 1
 
         for entry in table:
             entry['byte_offset'] = byte_offset
@@ -335,7 +335,7 @@ def generate_autocorrect_data(cli):
         sizes.append(len(dict_.data))
         nodes.append(dict_.link_byte_count)
 
-    assert(sum(sizes) == len(data))
+    assert (sum(sizes) == len(data))
 
     offsets = [0]
     for size in sizes[:-1]:

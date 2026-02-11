@@ -10,7 +10,7 @@
 typedef union autocorrect_config_t {
     uint8_t raw;
     struct {
-        bool enabled : 1;
+        bool    enabled : 1;
         uint8_t current_dict : 3;
     };
 } autocorrect_config_t;
@@ -22,11 +22,10 @@ void autocorrect_enable(void);
 void autocorrect_disable(void);
 void autocorrect_toggle(void);
 
-void autocorrect_dict_cycle(bool forward);
+void    autocorrect_dict_cycle(bool forward);
 uint8_t autocorrect_get_current_dictionary(void);
-void autocorrect_set_current_dictionary(uint8_t dict_index);
+void    autocorrect_set_current_dictionary(uint8_t dict_index);
 uint8_t autocorrect_get_number_of_dictionaries(void);
-
 
 void autocorrect_init(void);
 
