@@ -28,6 +28,7 @@ For full documentation, see QMK Docs
 """
 
 import textwrap
+import sys
 from pathlib import Path
 from typing import Any, Dict, Iterator, List, Tuple
 
@@ -166,6 +167,97 @@ def check_typo_against_dictionary(typo: str, line_number: int, correct_words) ->
                 cli.log.warning('{fg_yellow}Warning:%d:{fg_reset} Typo "{fg_cyan}%s{fg_reset}" would falsely trigger on correctly spelled word "{fg_cyan}%s{fg_reset}".', line_number, typo, word)
 
 
+def _create_leaf_entry(typo: str, correction: str) -> Dict[str, Any]:
+    """Creates a leaf entry for the trie table."""
+    word_boundary_ending = typo[-1] == ':'
+    typo = typo.strip(':')
+    i = 0
+    while i < min(len(typo), len(correction)) and typo[i] == correction[i]:
+        i += 1
+    backspaces = len(typo) - i - 1 + word_boundary_ending
+    assert 0 <= backspaces <= 63
+    correction = correction[i:]
+    bs_count = [backspaces + 128]
+    data = bs_count + list(bytes(correction, 'ascii')) + [0]
+    return {'data': data, 'links': [], 'byte_offset': 0}
+
+
+def _create_chain_entry(trie_node: Dict[str, Any]) -> Tuple[Dict[str, Any], Dict[str, Any]]:
+    """Creates a chain entry for single-child nodes."""
+    c, child_node = next(iter(trie_node.items()))
+    entry = {'chars': c, 'byte_offset': 0}
+
+    # Find the whole chain of single-child nodes for efficient serialization.
+    while len(child_node) == 1 and 'LEAF' not in child_node:
+        c, child_node = next(iter(child_node.items()))
+        entry['chars'] += c
+
+    return entry, child_node
+
+
+def _create_branch_entry(trie_node: Dict[str, Any]) -> Dict[str, Any]:
+    """Creates a branch entry for multi-child nodes."""
+    return {'chars': ''.join(sorted(trie_node.keys())), 'byte_offset': 0}
+
+
+def _traverse_trie(trie: Dict[str, Any], table: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Traverses trie in depth-first order and builds table entries."""
+    if 'LEAF' in trie:
+        typo, correction = trie['LEAF']
+        entry = _create_leaf_entry(typo, correction)
+        table.append(entry)
+        return entry
+
+    if len(trie) == 1:
+        entry, child_node = _create_chain_entry(trie)
+        table.append(entry)
+        entry['links'] = [_traverse_trie(child_node, table)]
+        return entry
+
+    entry = _create_branch_entry(trie)
+    table.append(entry)
+    entry['links'] = [_traverse_trie(trie[c], table) for c in entry['chars']]
+    return entry
+
+
+def _serialize_entry(entry: Dict[str, Any], link_byte_count: int) -> List[int]:
+    """Serializes a single table entry."""
+    if not entry['links']:
+        return entry['data']
+
+    if len(entry['links']) == 1:
+        return [TYPO_CHARS[c] for c in entry['chars']] + [0]
+
+    data = []
+    for c, link in zip(entry['chars'], entry['links']):
+        data += [TYPO_CHARS[c] | (0 if data else 64)] + encode_link(link, link_byte_count)
+    return data + [0]
+
+
+def _get_serialized_entry_length(entry: Dict[str, Any], link_byte_count: int) -> int:
+    """Gets the serialized length of a table entry."""
+    if not entry['links']:
+        return len(entry['data'])
+    if len(entry['links']) == 1:
+        return len(entry['chars']) + 1
+    return (len(entry['chars']) * (1 + link_byte_count)) + 1
+
+
+def _try_assign_offsets(table: List[Dict[str, Any]], link_byte_count: int) -> Tuple[int, bool]:
+    """Tries to assign byte offsets to table entries with given link byte count."""
+    byte_offset = 0
+    max_offset = (1 << (link_byte_count * 8)) - 1
+
+    for entry in table:
+        entry['byte_offset'] = byte_offset
+        byte_offset += _get_serialized_entry_length(entry, link_byte_count)
+
+        if not (0 <= byte_offset <= max_offset):
+            return byte_offset, False
+
+    return byte_offset, True
+
+
 def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any]) -> Tuple[List[int], int]:
     """Serializes trie and correction data in a form readable by the C code.
   Args:
@@ -175,89 +267,21 @@ def serialize_trie(autocorrections: List[Tuple[str, str]], trie: Dict[str, Any])
     List of ints in the range 0-255.
   """
     table = []
-
-    # Traverse trie in depth first order.
-    def traverse(trie_node):
-        if 'LEAF' in trie_node:  # Handle a leaf trie node.
-            typo, correction = trie_node['LEAF']
-            word_boundary_ending = typo[-1] == ':'
-            typo = typo.strip(':')
-            i = 0  # Make the autocorrection data for this entry and serialize it.
-            while i < min(len(typo), len(correction)) and typo[i] == correction[i]:
-                i += 1
-            backspaces = len(typo) - i - 1 + word_boundary_ending
-            assert 0 <= backspaces <= 63
-            correction = correction[i:]
-            bs_count = [backspaces + 128]
-            data = bs_count + list(bytes(correction, 'ascii')) + [0]
-
-            entry = {'data': data, 'links': [], 'byte_offset': 0}
-            table.append(entry)
-        elif len(trie_node) == 1:  # Handle trie node with a single child.
-            c, trie_node = next(iter(trie_node.items()))
-            entry = {'chars': c, 'byte_offset': 0}
-
-            # It's common for a trie to have long chains of single-child nodes. We
-            # find the whole chain so that we can serialize it more efficiently.
-            while len(trie_node) == 1 and 'LEAF' not in trie_node:
-                c, trie_node = next(iter(trie_node.items()))
-                entry['chars'] += c
-
-            table.append(entry)
-            entry['links'] = [traverse(trie_node)]
-        else:  # Handle trie node with multiple children.
-            entry = {'chars': ''.join(sorted(trie_node.keys())), 'byte_offset': 0}
-            table.append(entry)
-            entry['links'] = [traverse(trie_node[c]) for c in entry['chars']]
-        return entry
-
-    traverse(trie)
-
-    def serialize(e: Dict[str, Any], link_byte_count: int) -> List[int]:
-        if not e['links']:  # Handle a leaf table entry.
-            return e['data']
-        elif len(e['links']) == 1:  # Handle a chain table entry.
-            return [TYPO_CHARS[c] for c in e['chars']] + [0]  # + encode_link(e['links'][0]))
-        else:  # Handle a branch table entry.
-            data = []
-            for c, link in zip(e['chars'], e['links']):
-                data += [TYPO_CHARS[c] | (0 if data else 64)] + encode_link(link, link_byte_count)
-            return data + [0]
-
-    def serialized_entry_length(entry: Dict[str, Any], link_byte_count: int) -> int:
-        if not entry['links']:
-            return len(entry['data'])
-        elif len(entry['links']) == 1:
-            return len(entry['chars']) + 1
-        else:
-            return (len(entry['chars']) * (1 + link_byte_count)) + 1
-
-    def try_assign_offsets(link_byte_count: int) -> Tuple[int, bool]:
-        byte_offset = 0
-        max_offset = (1 << (link_byte_count * 8)) - 1
-
-        for entry in table:
-            entry['byte_offset'] = byte_offset
-            byte_offset += serialized_entry_length(entry, link_byte_count)
-
-            if not (0 <= byte_offset <= max_offset):
-                return byte_offset, False
-
-        return byte_offset, True
+    _traverse_trie(trie, table)
 
     link_byte_count = 2
-    byte_offset, success = try_assign_offsets(link_byte_count)
+    byte_offset, success = _try_assign_offsets(table, link_byte_count)
 
     if not success:
         cli.log.info('Autocorrection table exceeds 64KB, switching to 3-byte node links.')
         link_byte_count = 3
-        byte_offset, success = try_assign_offsets(link_byte_count)
+        byte_offset, success = _try_assign_offsets(table, link_byte_count)
 
     if not success:
         cli.log.error('{fg_red}Error:{fg_reset} The autocorrection table is too large, a node link exceeds 16MB limit. Try reducing the autocorrection dict to fewer entries.')
         maybe_exit(1)
 
-    serialized_data = [b for e in table for b in serialize(e, link_byte_count)]  # Serialize final table.
+    serialized_data = [b for e in table for b in _serialize_entry(e, link_byte_count)]
     assert len(serialized_data) == byte_offset
 
     return serialized_data, link_byte_count
@@ -312,7 +336,7 @@ def generate_autocorrect_data(cli):
     current_keymap = cli.args.keymap or cli.config.user.keymap or cli.config.generate_autocorrect_data.keymap
 
     if not cli.args.output and current_keyboard and current_keymap:
-        cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / file_name
+        cli.args.output = locate_keymap(current_keyboard, current_keymap).parent / 'autocorrect_data.h'
 
     # Build the autocorrect_data.h file.
     autocorrect_data_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '']
@@ -363,7 +387,7 @@ def generate_autocorrect_data(cli):
     autocorrect_data_h_lines.append(f'#define DICTIONARY_SIZE {sum(sizes)}')
     autocorrect_data_h_lines.append(f'#define TYPO_BUFFER_SIZE {max(maxs)}')
     autocorrect_data_h_lines.append('')
-    autocorrect_data_h_lines.append(f'static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {{')
+    autocorrect_data_h_lines.append('static const uint8_t autocorrect_data[DICTIONARY_SIZE] PROGMEM = {')
     autocorrect_data_h_lines.append(textwrap.fill('    %s' % (', '.join(map(to_hex, data))), width=100, subsequent_indent='    '))
     autocorrect_data_h_lines.append('};')
 
