@@ -43,7 +43,7 @@ static inline void stream_pixdata_rgb565(surface_painter_device_t *surface, cons
 
 // Stream pixel data to the current write position in GRAM
 static bool qp_surface_pixdata_rgb565(painter_device_t device, const void *pixel_data, uint32_t native_pixel_count) {
-    painter_driver_t *        driver  = (painter_driver_t *)device;
+    painter_driver_t         *driver  = (painter_driver_t *)device;
     surface_painter_device_t *surface = (surface_painter_device_t *)driver;
     stream_pixdata_rgb565(surface, (const uint16_t *)pixel_data, native_pixel_count);
     return true;
@@ -52,7 +52,7 @@ static bool qp_surface_pixdata_rgb565(painter_device_t device, const void *pixel
 // Pixel colour conversion
 static bool qp_surface_palette_convert_rgb565_swapped(painter_device_t device, int16_t palette_size, qp_pixel_t *palette) {
     for (int16_t i = 0; i < palette_size; ++i) {
-        rgb_t    rgb      = hsv_to_rgb_nocie((hsv_t){palette[i].hsv888.h, palette[i].hsv888.s, palette[i].hsv888.v});
+        rgb_t    rgb      = hsv_to_rgb_nocie(palette[i].hsv888);
         uint16_t rgb565   = (((uint16_t)rgb.r) >> 3) << 11 | (((uint16_t)rgb.g) >> 2) << 5 | (((uint16_t)rgb.b) >> 3);
         palette[i].rgb565 = __builtin_bswap16(rgb565);
     }

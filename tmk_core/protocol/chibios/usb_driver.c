@@ -186,7 +186,7 @@ void usb_endpoint_out_configure_cb(usb_endpoint_out_t *endpoint) {
 void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep) {
     usb_endpoint_in_t *endpoint = usbp->in_params[ep - 1U];
     size_t             n;
-    uint8_t *          buffer;
+    uint8_t           *buffer;
 
     if (endpoint == NULL) {
         return;

@@ -35,17 +35,15 @@ jobs:
       slice_length: ${{ steps.generate_slice_length.outputs.slice_length }}
 
     steps:
-      - name: Install prerequisites
-        run: |
-          apt-get update
-          apt-get install -y jq
-
       - name: Disable safe.directory check
         run: |
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
         uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: pip3 install -r requirements-dev.txt
 
       - name: Determine concurrency
         id: generate_slice_length
@@ -87,7 +85,7 @@ jobs:
           fetch-depth: 0
 
       - name: Download firmwares
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v7
         with:
           pattern: firmware-*
           path: .

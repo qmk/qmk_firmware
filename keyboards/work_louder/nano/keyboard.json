@@ -56,6 +56,10 @@
             "digital_rain": true
         },
         "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 2], "x": 103, "y": 32, "flags": 4},
+            {"matrix": [0, 1], "x": 122, "y": 32, "flags": 4}
+        ],
         "max_brightness": 120,
         "sleep": true
     },

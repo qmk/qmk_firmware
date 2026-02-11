@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import jsonschema
 from dotty_dict import dotty
+from enum import IntFlag
 
 from milc import cli
 
@@ -14,11 +15,20 @@ from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
-from qmk.math import compute
+from qmk.math_ops import compute
 from qmk.util import maybe_exit, truthy
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
+
+
+class LedFlags(IntFlag):
+    ALL = 0xFF
+    NONE = 0x00
+    MODIFIER = 0x01
+    UNDERGLOW = 0x02
+    KEYLIGHT = 0x04
+    INDICATOR = 0x08
 
 
 def _keyboard_in_layout_name(keyboard, layout):
@@ -302,6 +312,24 @@ def _extract_features(info_data, rules):
     return info_data
 
 
+def _extract_matrix_rules(info_data, rules):
+    """Find all the features enabled in rules.mk.
+    """
+    if rules.get('CUSTOM_MATRIX', 'no') != 'no':
+        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
+            _log_warning(info_data, 'Custom Matrix is specified in both info.json and rules.mk, the rules.mk values win.')
+
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
+        if rules['CUSTOM_MATRIX'] == 'lite':
+            info_data['matrix_pins']['custom_lite'] = True
+        else:
+            info_data['matrix_pins']['custom'] = True
+
+    return info_data
+
+
 def _pin_name(pin):
     """Returns the proper representation for a pin.
     """
@@ -552,7 +580,6 @@ def _extract_matrix_info(info_data, config_c):
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
-    info_snippet = {}
 
     if 'MATRIX_ROWS' in config_c and 'MATRIX_COLS' in config_c:
         if 'matrix_size' in info_data:
@@ -567,26 +594,20 @@ def _extract_matrix_info(info_data, config_c):
         if 'matrix_pins' in info_data and 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_snippet['cols'] = _extract_pins(col_pins)
-        info_snippet['rows'] = _extract_pins(row_pins)
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
+        info_data['matrix_pins']['cols'] = _extract_pins(col_pins)
+        info_data['matrix_pins']['rows'] = _extract_pins(row_pins)
 
     if direct_pins:
         if 'matrix_pins' in info_data and 'direct' in info_data['matrix_pins']:
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_snippet['direct'] = _extract_direct_matrix(direct_pins)
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
 
-    if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
-        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
-            _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
-
-        info_snippet['custom'] = True
-
-        if config_c['CUSTOM_MATRIX'] == 'lite':
-            info_snippet['custom_lite'] = True
-
-    if info_snippet:
-        info_data['matrix_pins'] = info_snippet
+        info_data['matrix_pins']['direct'] = _extract_direct_matrix(direct_pins)
 
     return info_data
 
@@ -755,6 +776,7 @@ def _extract_rules_mk(info_data, rules):
 
     # Merge in config values that can't be easily mapped
     _extract_features(info_data, rules)
+    _extract_matrix_rules(info_data, rules)
 
     return info_data
 
@@ -799,6 +821,25 @@ def _extract_led_config(info_data, keyboard):
 
             if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
+
+            if info_data[feature].get('layout', None) and not info_data[feature].get('flag_steps', None):
+                flags = {LedFlags.ALL, LedFlags.NONE}
+                default_flags = {LedFlags.MODIFIER | LedFlags.KEYLIGHT, LedFlags.UNDERGLOW}
+
+                # if only a single flag is used, assume only all+none flags
+                kb_flags = set(x.get('flags', LedFlags.NONE) for x in info_data[feature]['layout'])
+                if len(kb_flags) > 1:
+                    # check if any part of LED flag is with the defaults
+                    unique_flags = set()
+                    for candidate in default_flags:
+                        if any(candidate & flag for flag in kb_flags):
+                            unique_flags.add(candidate)
+
+                    # if we still have a single flag, assume only all+none
+                    if len(unique_flags) > 1:
+                        flags.update(unique_flags)
+
+                info_data[feature]['flag_steps'] = sorted([int(flag) for flag in flags], reverse=True)
 
     return info_data
 

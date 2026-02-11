@@ -39,7 +39,30 @@
             "pixel_fractal": true,
             "pixel_rain": true
         },
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "layout": [
+            {"x": 105, "y": 60, "flags": 1},
+            {"x": 70, "y": 60, "flags": 1},
+            {"x": 35, "y": 60, "flags": 1},
+            {"x": 0, "y": 60, "flags": 1},
+            {"x": 0, "y": 40, "flags": 1},
+            {"x": 0, "y": 20, "flags": 1},
+            {"x": 0, "y": 0, "flags": 1},
+            {"x": 42, "y": 0, "flags": 1},
+            {"x": 84, "y": 0, "flags": 1},
+            {"x": 126, "y": 0, "flags": 1},
+            {"x": 168, "y": 0, "flags": 1},
+            {"x": 210, "y": 0, "flags": 1},
+            {"x": 210, "y": 20, "flags": 1},
+            {"x": 210, "y": 40, "flags": 1},
+            {"x": 40, "y": 20, "flags": 1},
+            {"x": 120, "y": 20, "flags": 1},
+            {"x": 40, "y": 40, "flags": 1},
+            {"x": 120, "y": 40, "flags": 1},
+            {"x": 210, "y": 60, "flags": 1},
+            {"x": 175, "y": 60, "flags": 1},
+            {"x": 140, "y": 60, "flags": 1}
+        ]
     },
     "features": {
         "bootmagic": true,

@@ -291,7 +291,7 @@ flash_status_t flash_erase_block(uint32_t addr) {
 
 flash_status_t flash_read_range(uint32_t addr, void *buf, size_t len) {
     flash_status_t response = FLASH_STATUS_SUCCESS;
-    uint8_t *      read_buf = (uint8_t *)buf;
+    uint8_t       *read_buf = (uint8_t *)buf;
 
     /* Wait for the write-in-progress bit to be cleared. */
     response = spi_flash_wait_while_busy();
@@ -322,7 +322,7 @@ flash_status_t flash_read_range(uint32_t addr, void *buf, size_t len) {
 
 flash_status_t flash_write_range(uint32_t addr, const void *buf, size_t len) {
     flash_status_t response  = FLASH_STATUS_SUCCESS;
-    uint8_t *      write_buf = (uint8_t *)buf;
+    uint8_t       *write_buf = (uint8_t *)buf;
 
     while (len > 0) {
         uint32_t page_offset  = addr % EXTERNAL_FLASH_PAGE_SIZE;

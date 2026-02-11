@@ -50,7 +50,7 @@ uint32_t qp_comms_send(painter_device_t device, const void *data, uint32_t byte_
 // Comms APIs that use a D/C pin
 
 bool qp_comms_command(painter_device_t device, uint8_t cmd) {
-    painter_driver_t *                   driver       = (painter_driver_t *)device;
+    painter_driver_t                    *driver       = (painter_driver_t *)device;
     painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)driver->comms_vtable;
     return comms_vtable->send_command(device, cmd);
 }
@@ -66,7 +66,7 @@ uint32_t qp_comms_command_databuf(painter_device_t device, uint8_t cmd, const vo
 }
 
 bool qp_comms_bulk_command_sequence(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
-    painter_driver_t *                   driver       = (painter_driver_t *)device;
+    painter_driver_t                    *driver       = (painter_driver_t *)device;
     painter_comms_with_command_vtable_t *comms_vtable = (painter_comms_with_command_vtable_t *)driver->comms_vtable;
     return comms_vtable->bulk_command_sequence(device, sequence, sequence_len);
 }

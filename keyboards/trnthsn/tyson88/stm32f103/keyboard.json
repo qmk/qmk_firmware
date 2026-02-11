@@ -1,0 +1,4 @@
+{
+    "processor": "STM32F103",
+    "bootloader": "uf2boot"
+}

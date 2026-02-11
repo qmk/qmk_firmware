@@ -49,7 +49,6 @@ void dip_switch_task(void);
 
 #ifdef DIP_SWITCH_MAP_ENABLE
 #    define NUM_DIP_STATES 2
-#    define DIP_SWITCH_OFF_ON(off, on) \
-        { (off), (on) }
+#    define DIP_SWITCH_OFF_ON(off, on) {(off), (on)}
 extern const uint16_t dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES];
 #endif // DIP_SWITCH_MAP_ENABLE
