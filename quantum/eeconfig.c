@@ -145,7 +145,7 @@ void eeconfig_init_quantum(void) {
 
 #ifdef AUTOCORRECT_ENABLE
     autocorrect_config_t autocorrect_config = {
-        .enabled       = true,
+        .enabled      = true,
         .current_dict = 0,
     };
     eeconfig_update_autocorrect(&autocorrect_config);
