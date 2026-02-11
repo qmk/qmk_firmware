@@ -1,6 +1,6 @@
 # MeowyPad
 
-![MeowyPad](https://i.imgur.com/placeholder.png)
+![MeowyPad](https://i.imgur.com/meowy_pad.png)
 
 A cute 3x3 macropad with OLED display, powered by Seeed XIAO RP2040.
 

@@ -10,18 +10,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Z, KC_X, KC_C
     )
 };
-
-#ifdef OLED_ENABLE
-bool oled_task_user(void) {
-    // Display MeowyPad logo/text
-    oled_write_ln_P(PSTR("MeowyPad"), false);
-    oled_write_ln_P(PSTR("by silly group"), false);
-    oled_write_ln_P(PSTR(""), false);
-    
-    // Display current layer
-    oled_write_P(PSTR("Layer: "), false);
-    oled_write_ln_P(PSTR("0"), false);
-    
-    return false;
-}
-#endif
