@@ -23,6 +23,9 @@
         "pid": "0x8020",
         "vid": "0xFEED"
     },
+    "indicators": {
+        "caps_lock": "F7"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

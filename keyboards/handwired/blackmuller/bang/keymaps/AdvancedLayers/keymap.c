@@ -16,15 +16,16 @@
 
 #include QMK_KEYBOARD_H
 
-enum eDriverCMD
-{
+enum eDriverCMD {
     defaultLayer = 0x1,
     layer1 = 0x2
 };
 
-void raw_hid_receive(uint8_t *data, uint8_t length)
-{
-    if (length < 1) return;
+void raw_hid_receive(uint8_t *data, uint8_t length) {
+    if (length < 1) {
+        return;
+    }
+    
     switch (data[0]) {
         case defaultLayer:
             layer_move(0);

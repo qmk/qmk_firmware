@@ -23,6 +23,14 @@
         "pid": "0x8021",
         "vid": "0xFEED"
     },
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "indicators": {
+        "caps_lock": "F6",
+        "scroll_lock": "F5",
+        "num_lock": "F7"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
