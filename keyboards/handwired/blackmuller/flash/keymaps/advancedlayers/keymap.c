@@ -18,20 +18,17 @@
 
 #define RAW_HID_MSG_LEN 32
 
-enum custom_keycodes
-{
+enum custom_keycodes {
     LAYER_SYNC = SAFE_RANGE,
 };
 
-enum eDriverCMD
-{
+enum eDriverCMD {
     defaultLayer = 0x1,
     layer1 = 0x2
 };
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case LAYER_SYNC:
 
