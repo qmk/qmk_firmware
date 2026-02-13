@@ -12,6 +12,10 @@
 #ifdef QUANTUM_PAINTER_ENABLE
 #  include <qp.h>
 #  include "imgs/logo.qgf.h"
+#  include "imgs/logo1.qgf.h"
+#  include "imgs/logo2.qgf.h"
+#  include "imgs/logo3.qgf.h"
+#  include "imgs/logo4.qgf.h"
 #  include "imgs/big_font.qff.h"
 #endif
 
@@ -82,6 +86,11 @@ HSV fade_hsv;        // current HSV
 
 static painter_font_handle_t my_font;
 static painter_image_handle_t logo;
+static painter_image_handle_t logo1;
+static painter_image_handle_t logo2;
+static painter_image_handle_t logo3;
+static painter_image_handle_t logo4;
+
 painter_device_t lcd;
 #endif
 
@@ -295,6 +304,10 @@ void keyboard_post_init_kb(void) {
 #ifdef QUANTUM_PAINTER_ENABLE
     // Initialise the display
     logo = qp_load_image_mem(gfx_logo);
+    logo1 = qp_load_image_mem(gfx_logo1);
+    logo2 = qp_load_image_mem(gfx_logo2);
+    logo3 = qp_load_image_mem(gfx_logo3);
+    logo4 = qp_load_image_mem(gfx_logo4);
     my_font = qp_load_font_mem(big_font);
     lcd = qp_gc9a01_make_spi_device(240, 240, LCD_CS_PIN, LCD_DC_PIN, LCD_RST_PIN, 4, 0);         // Create the display
     qp_init(lcd, QP_ROTATION_0);
@@ -305,7 +318,8 @@ void keyboard_post_init_kb(void) {
         // Turn on the LCD and clear the display
         qp_power(lcd, true);
         qp_rect(lcd, 0, 0, 240, 240 ,HSV_WHITE, true);
-        qp_drawimage(lcd, 5, 10, logo);
+        // qp_drawimage(lcd, 5, 10, logo);
+        qp_drawimage(lcd, 0, 0, logo3);
 
         // Turn on the LCD backlight
         backlight_level(5);
@@ -314,7 +328,7 @@ void keyboard_post_init_kb(void) {
     }else
     {
         qp_rect(lcd, 0, 0, 240, 240 ,HSV_WHITE, true);
-        qp_drawimage(lcd, 5, 10, logo);
+        qp_drawimage(lcd, 0, 0, logo4);
 
     }
 
@@ -766,7 +780,7 @@ void housekeeping_task_user(void) {
 
     if (timer_elapsed32(last_draw) > 33) { // Throttle to 15fps
         last_draw = timer_read32();
-        if (is_keyboard_master()) {
+        if (!is_keyboard_master()) {
 
             bool            layer_state_redraw = false;
             static uint32_t last_layer_state   = 0;
@@ -781,10 +795,10 @@ void housekeeping_task_user(void) {
             uint8_t wpm = get_current_wpm();
             if (last_wpm!=wpm || first_draw)
             {
-                qp_rect(lcd, 115, 65,143 ,65 + my_font->line_height ,HSV_WHITE, true);
+                qp_rect(lcd, 115, 105,143 ,105 + my_font->line_height ,HSV_WHITE, true);
                 last_wpm = wpm;
                 snprintf(&buf[5], 4, "%d", wpm);
-                qp_drawtext_recolor(lcd, 80, 65, my_font, buf,HSV_BLACK,HSV_WHITE);
+                qp_drawtext_recolor(lcd, 80, 105, my_font, buf,HSV_BLACK,HSV_WHITE);
 
             }
 
@@ -793,10 +807,10 @@ void housekeeping_task_user(void) {
             {
                 const char        *layer_name;
                 layer_name = current_layer_name();
-                qp_rect(lcd, 100, 80,161 ,80 + my_font->line_height ,HSV_WHITE, true);
+                qp_rect(lcd, 100, 120,161 ,120 + my_font->line_height ,HSV_WHITE, true);
                 snprintf(&buf[0],20, "layer: %s", layer_name);
 
-                qp_drawtext_recolor(lcd, 63, 80, my_font, buf,HSV_BLACK,HSV_WHITE);
+                qp_drawtext_recolor(lcd, 63, 120, my_font, buf,HSV_BLACK,HSV_WHITE);
             }
 
 
