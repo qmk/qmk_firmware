@@ -8,6 +8,8 @@
       "pid": "0x5269",
       "device_version": "1.0.0"
     },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
     "layouts": {
       "LAYOUT": {
         "layout": [
