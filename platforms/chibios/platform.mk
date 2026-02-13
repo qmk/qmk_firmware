@@ -423,8 +423,23 @@ else
     TOOLCHAIN ?= arm-none-eabi-
 
     # Toolchain specific Linker flags
-    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning \
-                        --specs=nano.specs
+    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning
+
+    # Default to compiling with picolibc for ARM targets if available, which
+    # is available by default on distributions based on Debian 11+.
+    ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
+        # Toolchain specific Compiler flags Note that we still link with our own
+        # linker script by providing it via the -T flag in SHARED_LDFLAGS.
+        TOOLCHAIN_CFLAGS = --specs=picolibc.specs
+
+        # picolibc internally uses __heap_start and __heap_end instead of the
+        # defacto chibios linker script standard __heap_base__ and __heap_end__
+        # therefore we introduce these symbols as an alias.
+        TOOLCHAIN_LDSYMBOLS = -Wl,--defsym=__heap_start=__heap_base__,--defsym=__heap_end=__heap_end__
+
+        # Tell QMK that we are compiling with picolibc.
+        OPT_DEFS += -DUSE_PICOLIBC
+    endif
 
     # MCU architecture flags
     MCUFLAGS = -mcpu=$(MCU) \
