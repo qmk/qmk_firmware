@@ -382,7 +382,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 
 
 // bootloader
-void bootloader (qk_tap_dance_state_t *state, void *user_data) {
+void bootloader (tap_dance_state_t *state, void *user_data) {
   if (state->count >= 6)
   {
     reset_keyboard();
@@ -390,7 +390,7 @@ void bootloader (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 // reset
-// void layer_rot (qk_tap_dance_state_t *state, void *user_data) {
+// void layer_rot (tap_dance_state_t *state, void *user_data) {
 //   if (state->count == 1)
 //   {
 //     reset_keyboard();
@@ -399,7 +399,7 @@ void bootloader (qk_tap_dance_state_t *state, void *user_data) {
 
 // Start Tap Dance
 
-td_state_t cur_dance(qk_tap_dance_state_t *state){
+td_state_t cur_dance(tap_dance_state_t *state){
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
         else return TD_SINGLE_HOLD;
@@ -421,7 +421,7 @@ td_state_t cur_dance(qk_tap_dance_state_t *state){
 }
 
 
-void td_l_layers_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_l_layers_finished(tap_dance_state_t *state, void *user_data) {
     td_state_l_layers = cur_dance(state);
     switch(td_state_l_layers){
         default:  break;
@@ -459,7 +459,7 @@ void td_l_layers_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_l_layers_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_l_layers_reset(tap_dance_state_t *state, void *user_data) {
     switch(td_state_l_layers){
         case TD_SINGLE_HOLD:
             // if(no_layer_clear){
@@ -477,7 +477,7 @@ void td_l_layers_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state_l_layers = TD_NONE;
 }
 
-void td_r_layers_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_r_layers_finished(tap_dance_state_t *state, void *user_data) {
     td_state_r_layers = cur_dance(state);
     switch(td_state_r_layers){
         default:  break;
@@ -509,7 +509,7 @@ void td_r_layers_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_r_layers_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_r_layers_reset(tap_dance_state_t *state, void *user_data) {
     // wait_ms(10);
     switch(td_state_r_layers){
         case TD_SINGLE_HOLD:
@@ -522,7 +522,7 @@ void td_r_layers_reset(qk_tap_dance_state_t *state, void *user_data) {
     td_state_r_layers = TD_NONE;
 }
 
-void td_r_enter_finished(qk_tap_dance_state_t *state, void *user_data) {
+void td_r_enter_finished(tap_dance_state_t *state, void *user_data) {
     td_state_r_layers = cur_dance(state);
     switch(td_state_r_layers){
         default:  break;
@@ -554,7 +554,7 @@ void td_r_enter_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void td_r_enter_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_r_enter_reset(tap_dance_state_t *state, void *user_data) {
 
     switch(td_state_r_layers){
         case TD_SINGLE_TAP:
@@ -582,7 +582,7 @@ void td_r_enter_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 
-void td_lbrs_finished(qk_tap_dance_state_t *state, void *user_data){
+void td_lbrs_finished(tap_dance_state_t *state, void *user_data){
     td_state_lbrs = cur_dance(state);
     switch(td_state_lbrs){
         case TD_SINGLE_TAP:
@@ -600,7 +600,7 @@ void td_lbrs_finished(qk_tap_dance_state_t *state, void *user_data){
     }
 }
 
-void td_lbrs_reset(qk_tap_dance_state_t *state, void *user_data){
+void td_lbrs_reset(tap_dance_state_t *state, void *user_data){
     switch(td_state_lbrs){
         case TD_SINGLE_TAP:
         case TD_SINGLE_HOLD:
@@ -618,7 +618,7 @@ void td_lbrs_reset(qk_tap_dance_state_t *state, void *user_data){
     td_state_lbrs = TD_NONE;
 }
 
-void td_rbrs_finished(qk_tap_dance_state_t *state, void *user_data){
+void td_rbrs_finished(tap_dance_state_t *state, void *user_data){
     td_state_rbrs = cur_dance(state);
     switch(td_state_rbrs){
         case TD_SINGLE_TAP:
@@ -636,7 +636,7 @@ void td_rbrs_finished(qk_tap_dance_state_t *state, void *user_data){
     }
 }
 
-void td_rbrs_reset(qk_tap_dance_state_t *state, void *user_data){
+void td_rbrs_reset(tap_dance_state_t *state, void *user_data){
     switch(td_state_rbrs){
         case TD_SINGLE_TAP:
         case TD_SINGLE_HOLD:
