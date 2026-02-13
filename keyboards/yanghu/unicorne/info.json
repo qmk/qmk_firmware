@@ -4,9 +4,9 @@
   "url": "https://github.com/yanghu/unicorne",
   "maintainer": "yanghu",
   "usb": {
-    "vid": "0xFEED",
-    "pid": "0x0204",
-    "device_version": "0.0.1"
+    "vid": "0x1209",
+    "pid": "0x9779",
+    "device_version": "0.0.2"
   },
   "features": {
     "audio": true,
