@@ -7,5 +7,5 @@
 
 #include <qp.h>
 
-extern const uint32_t font_big_font1_length;
-extern const uint8_t  font_big_font1[2585];
+extern const uint32_t big_font_length;
+extern const uint8_t  big_font[2585];
