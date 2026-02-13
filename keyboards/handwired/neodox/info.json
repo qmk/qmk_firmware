@@ -55,6 +55,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "matrix_grid": ["GP5", "GP15"],
+        },
         "transport": {
             "sync_matrix_state": true,
             "watchdog": true
