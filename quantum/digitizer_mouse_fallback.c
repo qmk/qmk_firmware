@@ -95,8 +95,7 @@ const pointing_device_driver_t digitizer_pointing_device_driver = {.init = digit
  *
  * @return report_mouse_t
  */
-static bool digitizer_mouse_fallback_init(void)
-{
+static bool digitizer_mouse_fallback_init(void) {
     // TODO: Return false here, if we have a physical digitizer device and its initialization failed.
     return true;
 }
