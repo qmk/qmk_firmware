@@ -2,45 +2,9 @@
     "manufacturer": "MatteoDM",
     "keyboard_name": "Neodox",
     "maintainer": "MatteoDM",
-    "backlight": {
-        "driver": "pwm",
-        "levels": 10,
-        "pin": "GP28"
-    },
     "bootloader": "rp2040",
     "bootmagic": {
         "enabled": true
-    },
-    "build": {
-        "debounce_type": "asym_eager_defer_pk"
-    },
-    "config_h_features": {
-        "audio": false,
-        "backlight": true,
-        "bootmagic": true,
-        "command": true,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": false,
-        "quantum_painter": true,
-        "rgblight": true,
-        "wpm": true
-    },
-    "debounce": 5,
-    "diode_direction": "COL2ROW",
-    "features": {
-        "audio": false,
-        "backlight": true,
-        "bootmagic": true,
-        "command": true,
-        "console": false,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": false,
-        "quantum_painter": true,
-        "rgblight": true,
-        "wpm": true
     },
     "keyboard_folder": "handwired/neodox",
     "keymaps": {},
@@ -52,33 +16,12 @@
         "cols": 7,
         "rows": 10
     },
-    "mouse_key": {
-        "enabled": true
-    },
     "parse_errors": [],
     "parse_warnings": [],
     "platform_key": "chibios",
     "processor": "RP2040",
     "processor_type": "arm",
     "protocol": "ChibiOS",
-    "rgblight": {
-        "led_count": 15,
-        "pin": "GP23"
-    },
-    "split": {
-        "enabled": true,
-        "main": "matrix_grid",
-        "matrix_grid": ["GP5", "GP15"],
-        "transport": {
-            "protocol": "serial",
-            "sync_matrix_state": false,
-            "watchdog": false
-        }
-    },
-    "tapping": {
-        "term": 200,
-        "term_per_key": false
-    },
     "url": "https://gitlab.com/neodox/neodox",
     "usb": {
         "device_version": "1.0.0",
