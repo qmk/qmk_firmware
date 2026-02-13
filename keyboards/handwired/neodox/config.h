@@ -3,8 +3,6 @@
 
 #pragma once
 
-
-
 /* Handness */
 #define SPLIT_HAND_MATRIX_GRID GP5, GP15    /* row first because the board is col2row */
 
@@ -21,13 +19,8 @@
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 
-/* RGB pin */
-#define WS2812_DI_PIN GP23
 /* Force the usage of PIO1 peripheral, by default the WS2812 implementation uses the PIO0 peripheral */
 #define WS2812_PIO_USE_PIO1
-
-/* Number of LEDs */
-#define RGBLED_NUM 15
 
 /* LCD Configuration */
 #define SPI_DRIVER   SPID0
@@ -39,9 +32,7 @@
 #define LCD_CS_PIN GP17
 #define LCD_DC_PIN GP21
 
-/* Backlight LCD Configuration */
-#define BACKLIGHT_LEVELS 10
-#define BACKLIGHT_PIN GP28
+
 /* #define BACKLIGHT_ON_STATE 1 */
 #define BACKLIGHT_PWM_DRIVER PWMD6
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
@@ -51,10 +42,15 @@
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
+
+/* Tap dance setup */
+#define TAPPING_TERM_PER_KEY
+
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_HUE_STEP  8
 #    define RGBLIGHT_SAT_STEP  8
 #    define RGBLIGHT_VAL_STEP  8
+#    define RGBLIGHT_DEFAULT_VAL 35
 #    define RGBLIGHT_LIMIT_VAL 150
 #    define RGBLIGHT_SLEEP
 #    define RGBLIGHT_SPLIT

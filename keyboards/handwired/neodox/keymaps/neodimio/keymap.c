@@ -44,18 +44,25 @@ enum custom_keycodes {
     FD_TIME,
     FD_HUE,
     FD_SAT,
-    FD_VAL
+    FD_VAL,
+    FD_VALM
 };
 
 #ifdef RGBLIGHT_ENABLE
 // limit time to reach fade_rgb.end
 #define FADE_TIME_OPTIONS_NUMBER 10
-uint8_t fade_time_option_index = 2;
-uint16_t fade_time_options[] = { 0, 50, 100, 175, 250, 500, 750, 1000, 1500, 2500};
+uint8_t fade_time_option_index = 1;
+uint16_t fade_time_options[FADE_TIME_OPTIONS_NUMBER] = { 0, 50, 100, 175, 250, 500, 750, 1000, 1500, 2500};
 uint16_t fade_time = 100;
 uint16_t fade_timer = 0;
 
-HSV fade_default_hsv = {0, 255, 255};
+#define HSV_V_OPTIONS_NUMBER 7
+int8_t hsv_v_option_index = 1;
+uint16_t hsv_v_options[HSV_V_OPTIONS_NUMBER] = { 0, RGBLIGHT_DEFAULT_VAL, RGBLIGHT_LIMIT_VAL-60,         \
+                                                 RGBLIGHT_LIMIT_VAL-50, RGBLIGHT_LIMIT_VAL-40,  \
+                                                 RGBLIGHT_LIMIT_VAL-20, RGBLIGHT_LIMIT_VAL};
+
+HSV fade_default_hsv = {0, 255, RGBLIGHT_DEFAULT_VAL};
 
 typedef struct {
     uint16_t cur;     // current RGB value
@@ -152,6 +159,18 @@ static td_state_t td_state_rbrs;
 #define OSM_LCLS    OSM(MOD_LCTL|MOD_LSFT)
 #define OSM_RCRS    OSM(MOD_RCTL|MOD_RSFT)
 
+// QWERTY Home Row Left
+#define KC_GUIA LGUI_T(KC_A)
+#define KC_ALTS LALT_T(KC_S)
+#define KC_CTLD LCTL_T(KC_D)
+#define KC_SFTF LSFT_T(KC_F)
+
+// QWERTY Home Row Right
+#define KC_GUIR    RGUI_T(KC_SCLN)
+#define KC_ALTL    LALT_T(KC_L)
+#define KC_CTLK    RCTL_T(KC_K)
+#define KC_SFTJ    RSFT_T(KC_J)
+
 #define KC_ALAS     LALT_T(KC_PAST)
 #define KC_CTPL     LCTL_T(KC_BSLS)
 #define KC_LADEL    LALT_T(KC_DEL)
@@ -181,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼                                           ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,                                            KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_EQL  ,
   //├────────┼────────┼────────┼────────┼────────┼────────                                            ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LSGR ,KC_A    ,KC_S    ,KC_D    ,KC_F    ,KC_G    ,                                            KC_H    ,KC_J    ,KC_K    ,KC_L    ,KC_SCLN ,KC_RSGQT,
+     KC_LSGR ,KC_GUIA ,KC_ALTS ,KC_CTLD ,KC_SFTF ,KC_G    ,                                            KC_H    ,KC_SFTJ ,KC_CTLK ,KC_ALTL ,KC_GUIR ,KC_RSGQT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐       ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LCTL ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,KC_PGUP ,KC_PGDN ,        KC_HOME ,KC_ADEN ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RCTL ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -273,7 +292,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┤                                           ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TRNS ,FD_TIME ,FD_HUE  ,FD_SAT  ,FD_VAL  ,KC_NO   ,                                            RGB_TOG ,RGB_HUI ,RGB_SAI ,RGB_VAI ,RGB_MOD ,RGB_M_P ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┬────────┐       ┌────────┬────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,        KC_NO   ,KC_NO   ,RGB_M_T ,RGB_HUD ,RGB_SAD ,RGB_VAD ,RGB_RMOD,RGB_M_R ,
+     KC_NO   ,KC_NO   ,KC_NO   ,KC_NO   ,FD_VALM ,KC_NO   ,KC_NO   ,KC_NO   ,        KC_NO   ,KC_NO   ,RGB_M_T ,RGB_HUD ,RGB_SAD ,RGB_VAD ,RGB_RMOD,RGB_M_R ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
      KC_NO   ,KC_NO   ,TD_L_LAY,KC_NO   ,     KC_NO   ,    KC_NO   ,KC_NO   ,        KC_NO   ,KC_NO   ,    KC_NO   ,     TD_L_LAY,KC_NO   ,KC_NO   ,KC_NO
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
@@ -327,17 +346,16 @@ void keyboard_post_init_kb(void) {
 
 
 // Fine tuning of TAPPING_TERM valuer on some home row modifiers to avoid errors during typing.
+// Fine tuning of TAPPING_TERM valuer on some home row modifiers to avoid errors during typing.
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
-//   // Ring fingers
-//   case KC_AL_I:
-//   case KC_AL_R:
-//   case KC_AR_X:
-//   case KC_AR_DO:
-//     return TAPPING_TERM + 200;
+  // Ring fingers
+  // Pinkies
+  // Middle fingers
+  // Right thumb for "symbols" layer
+  // Left thumb for delete/gui/mouse combo
 
-//   // Pinkies
   case TD_L_LAY:
     return TAPPING_TERM + 0 ;
   case TD_R_LAY:
@@ -345,19 +363,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
   case TD_ENT:
     return TAPPING_TERM - 80;
 
-//   // Middle fingers
-//   case KC_CT_S:
-//   case KC_CT_E:
-//     return TAPPING_TERM - 30;
-
-//   // Right thumb for "symbols" layer
-//   case KC_SYBS:
-//     return TAPPING_TERM - 50;
-
-//   // Left thumb for delete/gui/mouse combo
-//   case KC_CTTA:
-//   case KC_FUEN:
-//     return TAPPING_TERM - 20;
+  case KC_CTLK:
+  case KC_SFTJ:
+  case KC_CTLD:
+  case KC_SFTF:
+    return TAPPING_TERM + 30;
+  case KC_GUIA:
+  case KC_GUIR:
+  case KC_ALTL:
+  case KC_ALTS:
+    return TAPPING_TERM + 30;
 
   // All other keys
   default:
@@ -374,13 +389,6 @@ void bootloader (tap_dance_state_t *state, void *user_data) {
   }
 }
 
-// reset
-// void layer_rot (tap_dance_state_t *state, void *user_data) {
-//   if (state->count == 1)
-//   {
-//     reset_keyboard();
-//   }
-// }
 
 // Start Tap Dance
 
@@ -447,10 +455,6 @@ void td_l_layers_finished(tap_dance_state_t *state, void *user_data) {
 void td_l_layers_reset(tap_dance_state_t *state, void *user_data) {
     switch(td_state_l_layers){
         case TD_SINGLE_HOLD:
-            // if(no_layer_clear){
-            //     no_layer_clear = 0;
-            //     break; // avoid layer_clear()
-            // }
             layer_off(_SYMB);
         case TD_DOUBLE_HOLD:
             layer_off(_FUNC);
@@ -481,13 +485,11 @@ void td_r_layers_finished(tap_dance_state_t *state, void *user_data) {
         case TD_DOUBLE_SINGLE_TAP:
             break;
         case TD_DOUBLE_HOLD:
-            // layer_move(_FUNC);
             break;
 
         case TD_TRIPLE_TAP:
         break;
         case TD_TRIPLE_SINGLE_TAP:
-            //  layer_move(_GAMING);
              break;
         case TD_TRIPLE_HOLD:
             break;
@@ -495,7 +497,6 @@ void td_r_layers_finished(tap_dance_state_t *state, void *user_data) {
 }
 
 void td_r_layers_reset(tap_dance_state_t *state, void *user_data) {
-    // wait_ms(10);
     switch(td_state_r_layers){
         case TD_SINGLE_HOLD:
         case TD_DOUBLE_HOLD:
@@ -644,31 +645,45 @@ tap_dance_action_t tap_dance_actions[] = {
     [_TD_L_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_l_layers_finished, td_l_layers_reset),
     [_TD_R_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_r_layers_finished, td_r_layers_reset),
     [_TD_R_ENTER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_r_enter_finished, td_r_enter_reset),
-    // [_TD_LBRS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lbrs_finished, td_lbrs_reset),
-    // [_TD_RBRS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_rbrs_finished, td_rbrs_reset),
 };
 
 
-
+#ifdef BACKLIGHT_ENABLE
 static uint8_t last_backlight = 255;
+#endif
 void suspend_power_down_user(void) {
+
+#ifdef BACKLIGHT_ENABLE
     if (last_backlight == 255) {
         last_backlight = get_backlight_level();
     }
     backlight_set(0);
-    // rgb_matrix_set_suspend_state(true);
+#endif
+#ifdef RGB_LIGHT_ENABLE
+    rgblight_set_suspend_state(true);
+#endif
+
+#ifdef QUANTUM_PAINTER_ENABLE
     qp_power(lcd, false);
+    #endif
 }
 
 void suspend_wakeup_init_user(void) {
+
+#ifdef QUANTUM_PAINTER_ENABLE
     qp_power(lcd, true);
-    // rgb_matrix_set_suspend_state(false);
+    #endif
+#ifdef RGB_LIGHT_ENABLE
+    rgblight_set_suspend_state(false);
+#endif
+#ifdef BACKLIGHT_ENABLE
     if (last_backlight != 255) {
         backlight_set(last_backlight);
     }
     last_backlight = 255;
-}
+#endif
 
+}
 
 
 void housekeeping_task_user(void) {
@@ -760,6 +775,11 @@ const char *current_layer_name(void) {
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
+
+    #ifdef CONSOLE_ENABLE
+    //useful for getting matrix right
+     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+    #endif
     // process custom keycodes
     if (record->event.pressed) {
         switch(keycode) {
@@ -783,19 +803,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 //         fade_default_hsv.h = 0;
                 return false;
             case FD_SAT:
-                fade_default_hsv.s+=16;
+                fade_default_hsv.s+=20;
                 if(fade_default_hsv.s == 0)
                     fade_default_hsv.s = 255;
-                else if(fade_default_hsv.s == 15)
+                else if(fade_default_hsv.s == 20)
                         fade_default_hsv.s = 0;
                 return false;
             case FD_VAL:
-                fade_default_hsv.v+=16;
-                if(fade_default_hsv.v == 0)
-                    fade_default_hsv.v = 255;
-                else if(fade_default_hsv.v == 15)
-                        fade_default_hsv.v = 0;
+                if(++hsv_v_option_index>=HSV_V_OPTIONS_NUMBER)
+                    hsv_v_option_index = 0;
+                fade_default_hsv.v = hsv_v_options[hsv_v_option_index];
                 return false;
+
+            case FD_VALM:
+                if(--hsv_v_option_index<=0)
+                    hsv_v_option_index = HSV_V_OPTIONS_NUMBER;
+                fade_default_hsv.v = hsv_v_options[hsv_v_option_index];
+                return false;
+
 #endif
         }
     }
@@ -805,8 +830,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
 
 
 #ifdef RGBLIGHT_ENABLE
-
-
 void rgb_to_hsv(fade_rgb_t *rgb, HSV *hsv){
     int32_t min, max, delta, hue =0;
     int32_t R = rgb->r.cur>>8;
@@ -951,10 +974,27 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 #endif
 
+uint32_t decimation_factor=0U;
 void matrix_scan_user(){ // called every 1ms
+
+
+if (decimation_factor==5)
+{
+
 #ifdef RGBLIGHT_ENABLE
+if(rgblight_get_mode()==RGBLIGHT_MODE_STATIC_LIGHT)
+{
     fade_rgb_scan();
+}
+
 #endif
+decimation_factor=0;
+
+}else
+{
+    decimation_factor++;
+}
+
 }
 
 void keyboard_pre_init_user(){
@@ -962,5 +1002,16 @@ void keyboard_pre_init_user(){
 #ifdef RGBLIGHT_ENABLE
     fade_init();
     fade_goto(RGB_WHITE);
+#endif
+}
+
+
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+#ifdef CONSOLE_ENABLE
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
+  debug_mouse=true;
 #endif
 }
