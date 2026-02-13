@@ -15,13 +15,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "matrix.h"
-#include "wait.h"
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-
-extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
 static void select_row(uint8_t row) {
     gpio_set_pin_output(row_pins[row]);
@@ -59,7 +55,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     current_matrix[current_row] = 0;
 
     select_row(current_row);
-    wait_us(30);
+    matrix_io_delay();
 
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
@@ -101,14 +97,14 @@ void matrix_init_custom(void) {
     init_pins();
 }
 
-bool matrix_scan_custom(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
 
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        changed |= read_cols_on_row(raw_matrix, current_row);
+        changed |= read_cols_on_row(current_matrix, current_row);
     }
 
-    changed |= read_encoder_switches(raw_matrix);
+    changed |= read_encoder_switches(current_matrix);
 
     return changed;
 }
