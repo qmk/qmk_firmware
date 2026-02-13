@@ -30,6 +30,8 @@ Enter the bootloader when prompted by doing one of the following:
 
 Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
+Keymap example : [neodimio keymap](https://gitlab.com/neodox/neodox/-/tree/new_keymap/keymaps/neodimio?ref_type=heads)  
+
 Handwiring specification:
 
 |RP2040 PIN|  FUNTIONALITY  |  COMMENTS                                                                   |
