@@ -32,11 +32,7 @@ Enter the bootloader when prompted by doing one of the following:
 **Physical boot button**: Unplug your keyboard then press the BOOT button on the microcontroller PCB
 **Keycode in layout**: Press the key mapped to `QK_BOOT` if you have a layout that has one.
 
-Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
-
-Keymap example : [neodimio keymap](https://gitlab.com/neodox/neodox/-/tree/new_keymap/keymaps/neodimio?ref_type=heads)  
-
-Handwiring specification:
+## Handwiring specification
 
 |RP2040 PIN|  FUNTIONALITY  |  COMMENTS                                                                   |
 |----------|----------------|-----------------------------------------------------------------------------|
