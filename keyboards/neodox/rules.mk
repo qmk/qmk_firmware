@@ -28,7 +28,7 @@ BACKLIGHT_ENABLE = yes
 BACKLIGHT_DRIVER = pwm
 #Quantum painter
 QUANTUM_PAINTER_ENABLE = yes
-# Words per minute counter 
+# Words per minute counter
 WPM_ENABLE = yes
 
 BOOTMAGIC_ENABLE = no       				# Enable Bootmagic Lite
@@ -38,6 +38,6 @@ CONSOLE_ENABLE = no         				# Console for debug
 COMMAND_ENABLE = yes        				# Commands for debug and configuration
 NKRO_ENABLE = no            				# Enable N-Key Rollover
 AUDIO_ENABLE = no           				# Audio output
-LTO_ENABLE = yes            				# link time optimizations
-TAP_DANCE_ENABLE = no				
-DEBOUNCE_TYPE = asym_eager_defer_pk			
+LTO_ENABLE = no            				# link time optimizations
+TAP_DANCE_ENABLE = no
+DEBOUNCE_TYPE = asym_eager_defer_pk

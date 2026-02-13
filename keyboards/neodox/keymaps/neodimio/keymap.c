@@ -1062,7 +1062,7 @@ const uint8_t exp_curve[256] =
 */
 
 void rgb_to_hsv(fade_rgb_t *rgb, HSV *hsv){
-    int32_t min, max, delta, hue;
+    int32_t min, max, delta, hue =0;
     int32_t R = rgb->r.cur>>8;
     int32_t G = rgb->g.cur>>8;
     int32_t B = rgb->b.cur>>8;
