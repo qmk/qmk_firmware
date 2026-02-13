@@ -35,8 +35,6 @@
     },
     "split": {
         "enabled": true,
-        "main": "matrix_grid",
-        "matrix_grid": ["GP5", "GP15"],
         "transport": {
             "protocol": "serial",
             "sync_matrix_state": false,
