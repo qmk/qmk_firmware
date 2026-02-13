@@ -3,9 +3,7 @@
     "keyboard_name": "Neodox",
     "maintainer": "MatteoDM",
     "bootloader": "rp2040",
-
-    "keyboard_folder": "handwired/neodox",
-    "keymaps": {},
+    "diode_direction": "COL2ROW",
     "matrix_pins": {
         "cols": ["GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
         "rows": ["GP4", "GP5", "GP6", "GP7", "GP8"]
