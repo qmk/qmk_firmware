@@ -2,6 +2,8 @@
 
 Inspired by Redox from Mattia Dal Ben
 
+![neodox](https://cdn.thingiverse.com/assets/ad/77/08/64/49/featured_preview_7aee6907-81ff-45b6-98e5-c9c35ca20e80.jpg)
+
 **Neodox** project.
 
 - Keyboard Maintainer: [MatteoDM](https://github.com/MatteoDM)  
@@ -11,7 +13,11 @@ Inspired by Redox from Mattia Dal Ben
 
 Make example for this keyboard (after setting up your build environment):
 
-    make neodox:default
+    make handwired/neodox:default
+
+Flashing example for this keyboard:
+
+    make handwired/neodox:default:flash
 
 Enter the bootloader when prompted by doing one of the following:
 * **Physical boot button**: Unplug your keyboard then press the BOOT button on the microcontroller PCB
