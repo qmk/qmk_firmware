@@ -9,7 +9,7 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_LED GP25
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
 
-/* Serial comunication for split keyboards */
+/* Serial communication for split keyboards */
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
