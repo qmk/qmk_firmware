@@ -4,7 +4,7 @@ Inspired by Redox from Mattia Dal Ben
 
 **Neodox** project.
 
-- Keyboard Maintainer: [MatteoDM](todo)  
+- Keyboard Maintainer: [MatteoDM](https://github.com/MatteoDM)  
 - Hardware Supported: rp2040 ,ws2812b, GC9A01, [handwire 3D printed case](https://www.thingiverse.com/thing:5625196)
 - Hardware Availability: handwire at the moment
 
