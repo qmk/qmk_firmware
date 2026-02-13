@@ -17,7 +17,6 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
         "quantum_painter": true,
         "rgblight": true,
         "wpm": true
