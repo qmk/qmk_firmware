@@ -2,7 +2,7 @@
 
 Inspired by Redox from Mattia Dal Ben
 
-![neodox](https://imgur.com/sA6O45J.jpg)
+![neodox](https://i.imgur.com/sA6O45Jh.jpg)
 
 **Neodox** project.
 
