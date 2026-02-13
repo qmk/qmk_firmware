@@ -43,8 +43,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* Tap dance setup */
-#define TAPPING_TERM_PER_KEY
 
 #ifdef RGBLIGHT_ENABLE
 #    define RGBLIGHT_HUE_STEP  8
@@ -62,5 +60,3 @@
 #define SPLIT_LAYER_STATE_ENABLE
 #define SPLIT_LED_STATE_ENABLE
 #define SPLIT_WPM_ENABLE
-
-#define SPLIT_WATCHDOG_ENABLE
