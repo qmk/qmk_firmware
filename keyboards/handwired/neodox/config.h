@@ -3,11 +3,6 @@
 
 #pragma once
 
-/* Handness */
-#define SPLIT_HAND_MATRIX_GRID GP5, GP15    /* row first because the board is col2row */
-
-/* Disable diode intersection in matrix data */
-#define MATRIX_MASKED
 
 /* Bootloader settings */
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
