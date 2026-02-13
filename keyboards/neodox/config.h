@@ -62,7 +62,6 @@
 
 
 /* Debounce time in ms for matrix scans */
-#undef DEBOUNCE
 #define DEBOUNCE 5
 
 /* sets the number of milliseconds to pause after sending a wakeup packet.
