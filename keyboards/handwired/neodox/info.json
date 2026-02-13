@@ -13,7 +13,6 @@
     },
     "diode_direction": "COL2ROW",
     "features": {
-        "audio": false,
         "backlight": true,
         "bootmagic": true,
         "command": false,
