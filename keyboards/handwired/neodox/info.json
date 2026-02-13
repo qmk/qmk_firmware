@@ -8,13 +8,6 @@
         "cols": ["GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15"],
         "rows": ["GP4", "GP5", "GP6", "GP7", "GP8"]
     },
-    "matrix_size": {
-        "cols": 7,
-        "rows": 10
-    },
-    "parse_errors": [],
-    "parse_warnings": [],
-    "platform_key": "chibios",
     "processor": "RP2040",
     "processor_type": "arm",
     "protocol": "ChibiOS",
