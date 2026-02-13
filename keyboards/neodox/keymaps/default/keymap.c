@@ -12,12 +12,6 @@
 #define _NAV 2
 #define _ADJUST 3
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  SYMB,
-  NAV,
-  ADJUST,
-};
  
 // Shortcut to make keymap more readable
 
