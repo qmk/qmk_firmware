@@ -4,16 +4,12 @@ Inspired by Redox from Mattia Dal Ben
 
 ![neodox](https://i.imgur.com/sA6O45Jh.jpg)
 
-**Neodox** project.
-
-Keyboard Maintainer: [MatteoDM](https://github.com/MatteoDM)  
-
-Hardware Supported:
-
-- Raspberry Pi Pico microcontroller
-- ws2812b
-- GC9A01 Round display
-- Hardware Availability: [Case files](https://www.thingiverse.com/thing:5625196)
+* Keyboard Maintainer: [MatteoDM](https://github.com/MatteoDM)  
+* Hardware Supported:
+  - Raspberry Pi Pico microcontroller
+  - ws2812b
+  - GC9A01 Round display
+  - Hardware Availability: [Case files](https://www.thingiverse.com/thing:5625196)
 
 Make example for this keyboard (after setting up your build environment):
 
