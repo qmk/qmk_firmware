@@ -344,15 +344,15 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_LOGICAL_MINIMUM(8, 0x0),
             HID_RI_LOGICAL_MAXIMUM(16, DIGITIZER_RESOLUTION_X),
             HID_RI_REPORT_SIZE(8, 16),
-            HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
+            HID_RI_UNIT_EXPONENT(8, 0x0F), // -1
             HID_RI_UNIT(8, 0x11),          // CM, English Linear
             HID_RI_USAGE(8, 0x30),         // X
             HID_RI_PHYSICAL_MINIMUM(8, 0x0),
-            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_WIDTH_MM * 10)),
+            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_WIDTH_MM)),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
             HID_RI_LOGICAL_MAXIMUM(16, DIGITIZER_RESOLUTION_Y),
-            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_HEIGHT_MM * 10)),
+            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_HEIGHT_MM)),
             HID_RI_USAGE(8, 0x31),         // Y
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
             HID_RI_POP(0),
@@ -402,15 +402,15 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_LOGICAL_MINIMUM(8, 0x0),                                      \
             HID_RI_LOGICAL_MAXIMUM(16, DIGITIZER_RESOLUTION_X),                  \
             HID_RI_REPORT_SIZE(8, 16),                                           \
-            HID_RI_UNIT_EXPONENT(8, 0x0E), /*  -2 */                             \
+            HID_RI_UNIT_EXPONENT(8, 0x0F), /*  -1 */                             \
             HID_RI_UNIT(8, 0x11),          /*  CM, English Linear */             \
             HID_RI_USAGE(8, 0x30),         /*  X */                              \
             HID_RI_PHYSICAL_MINIMUM(8, 0x0),                                     \
-            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_WIDTH_MM * 10)),              \
+            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_WIDTH_MM)),                   \
             HID_RI_REPORT_COUNT(8, 0x01),                                        \
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
             HID_RI_LOGICAL_MAXIMUM(16, DIGITIZER_RESOLUTION_Y),                  \
-            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_HEIGHT_MM * 10)),             \
+            HID_RI_PHYSICAL_MAXIMUM(16, (DIGITIZER_HEIGHT_MM)),                  \
             HID_RI_USAGE(8, 0x31),         /*  Y */                              \
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE), \
             HID_RI_POP(0),                                                       \
@@ -450,12 +450,12 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 
         // Buttons
         HID_RI_USAGE_PAGE(8, 0x09),    // Buttons
-        HID_RI_USAGE(8, 0x01),         // Button 1
-        HID_RI_USAGE(8, 0x02),         // Button 2
-        HID_RI_USAGE(8, 0x03),         // Button 3
-        HID_RI_LOGICAL_MAXIMUM(8, 1),
-        HID_RI_REPORT_SIZE(8, 1),
-        HID_RI_REPORT_COUNT(8, 3),
+        HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
+        HID_RI_USAGE_MAXIMUM(8, 0x03), // Button 3
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+        HID_RI_REPORT_COUNT(8, 0x03),
+        HID_RI_REPORT_SIZE(8, 0x01),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 
         // Padding (1 bits)
