@@ -1,7 +1,6 @@
 {
     "keyboard_name": "S245 Streamdeck",
     "manufacturer": "sector245",
-    "url": "",
     "maintainer": "sector245",
     "processor": "RP2040",
     "bootloader": "rp2040",
