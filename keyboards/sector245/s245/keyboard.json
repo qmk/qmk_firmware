@@ -4,6 +4,8 @@
     "maintainer": "sector245",
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "debounce": 20,
+
     "usb": {
         "vid": "0x5345",
         "pid": "0x0001",
