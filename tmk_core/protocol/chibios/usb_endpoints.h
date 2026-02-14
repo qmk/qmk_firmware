@@ -139,6 +139,9 @@ typedef enum {
 #if defined(RAW_ENABLE)
     USB_ENDPOINT_OUT_RAW,
 #endif
+#if defined(PLOVER_HID_ENABLE)
+    USB_ENDPOINT_OUT_PLOVER_HID,
+#endif
 #if defined(MIDI_ENABLE)
     USB_ENDPOINT_OUT_MIDI,
 #endif
