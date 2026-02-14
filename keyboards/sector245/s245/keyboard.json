@@ -25,6 +25,10 @@
             }
         ]
     },
+    "features": {
+        "encoder": true,
+        "extrakey": true
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
