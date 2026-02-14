@@ -50,7 +50,6 @@ uint16_t repTimer 		= 0;
 bool	inMouse 		= false;
 int8_t	mousePress;
 
-#ifdef STENO_ENABLE
 // All processing done at chordUp goes through here
 bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) { 
 	// Check for mousekeys, this is release
@@ -147,7 +146,6 @@ out:
 
 	return false;
 }
-#endif
 
 // Update Chord State 
 bool process_steno_user(uint16_t keycode, keyrecord_t *record) { 
