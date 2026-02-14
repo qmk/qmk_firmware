@@ -4,9 +4,7 @@ bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 
 void matrix_init_kb(void) {
-#ifdef STENO_ENABLE
   	steno_set_mode(STENO_MODE_GEMINI); // or STENO_MODE_BOLT
-#endif
 
     // (tied to Vcc for hardware convenience)
     //gpio_set_pin_input(B4);  // set B(4) as input, internal pull-up disabled
