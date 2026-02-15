@@ -1,14 +1,13 @@
-# keynet
+# KeyNet
 
 ![keynet](https://i.imgur.com/SHSUUh8.jpeg)
 
 ![keynet](https://i.imgur.com/XOig87S.jpeg)
 
-*A short description of the keyboard/project*
+Keynet is a split, ortholinear (column-staggered) keyboard powered by an Atmega32u4 microcontroller. It uses the Caterina bootloader and features support for rotary encoders, mouse keys, and NKRO. The firmware is configured for a split matrix layout with a custom hand-swap configuration.
 
 * Keyboard Maintainer: [Arthur Frangyan](https://github.com/ArthurFrangyan)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Addtional Information: [Github](https://github.com/ArthurFrangyan/KeyNet)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -23,8 +22,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`, Menu + (0,0) key
+* **Physical reset button**: A small hole on the front of the keyboard provides access to the reset (RST) contact. Touching it with a conductive object such as a needle or SIM ejector tool while holding the object is enough to trigger a reset.
