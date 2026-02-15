@@ -22,3 +22,16 @@ When researching QMK features, check **docs.qmk.fm** first before searching sour
 - https://docs.qmk.fm/#/keycodes - keycodes reference
 
 Use source code for verifying defaults, implementation details, or when docs are unclear.
+
+## GitHub Actions
+
+The repo is a fork at `dansteeves68/qmk_firmware` on branch `dansteeves/cheapinov2`.
+
+Useful commands:
+
+```bash
+gh workflow list -R dansteeves68/qmk_firmware
+gh run list -R dansteeves68/qmk_firmware -w "Build Cheapino Firmware" --limit 1
+gh run view <run-id> -R dansteeves68/qmk_firmware --log-failed
+gh run watch -R dansteeves68/qmk_firmware
+```
