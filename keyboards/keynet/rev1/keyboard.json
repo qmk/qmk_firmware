@@ -6,6 +6,31 @@
     },
     "processor": "atmega32u4",
     "bootloader": "caterina",
+    "matrix_pins": {
+        "cols": ["F5", "C6", "B6", "D7", "E6", "D0", "B4", "D1"],
+        "rows": ["F4", "F6", "B1", "B2", "B5"]
+    },
+    "diode_direction": "COL2ROW",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "D3"
+        },
+        "transport": {
+            "watchdog": true,
+            "watchdog_timeout": 800
+        },
+        "usb_detect": {
+            "enabled": true,
+            "timeout": 500
+        },
+        "matrix_pins": {
+            "right": {
+                "cols": ["F7", "D0", "B1", "D7", "B2", "D1", "D4", "B4"],
+                "rows": ["C6", "E6", "B5", "B3", "B6"]
+            }
+        }
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
