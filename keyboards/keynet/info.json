@@ -1,0 +1,31 @@
+{
+    "manufacturer": "Arthur Frangyan",
+    "url": "",
+    "maintainer": "Arthur Frangyan",
+    "usb": {
+        "vid": "0xFEED"
+    },
+    "split": {
+        "enabled": true,
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {
+                        "pin_a": "F6",
+                        "pin_b": "F5",
+                        "resolution": 2
+                    }
+                ]
+            }
+        }
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "B3",
+                "pin_b": "F7",
+                "resolution": 2
+            }
+        ]
+    }
+}
