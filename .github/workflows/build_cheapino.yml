@@ -1,0 +1,35 @@
+name: Build Cheapino Firmware
+
+on:
+  push:
+    branches: [dansteeves/cheapinov2]
+  workflow_dispatch:
+
+concurrency:
+  group: build-cheapino-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Build Cheapino UF2
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+      - name: Disable safe.directory check
+        run: git config --global --add safe.directory '*'
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install dependencies
+        run: pip3 install -r requirements-dev.txt
+
+      - name: Compile firmware
+        run: qmk compile -kb cheapino -km default
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: cheapino-firmware
+          path: "*.uf2"
