@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2025 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@
 #define STM32_NO_INIT                       FALSE
 #define STM32_CLOCK_DYNAMIC                 TRUE
 #define STM32_VOS                           STM32_VOS_RANGE1
-#define STM32_PWR_CR2                       (STM32_PVDRT_LEV0 | STM32_PVDFT_LEV0 | STM32_PVDE_DISABLED)
+#define STM32_PWR_CR2                       STM32_PWR_CR3=(PWR_CR3_EIWUL)
 #define STM32_PWR_CR3                       (PWR_CR3_EIWUL)
 #define STM32_PWR_CR4                       (0U)
 #define STM32_PWR_PUCRA                     (0U)
@@ -73,6 +73,8 @@
 #define STM32_PPRE                          STM32_PPRE_DIV1
 #define STM32_MCOSEL                        STM32_MCOSEL_NOCLOCK
 #define STM32_MCOPRE                        STM32_MCOPRE_DIV1
+#define STM32_MCO2SEL                       STM32_MCOSEL_NOCLOCK
+#define STM32_MCO2PRE                       STM32_MCOPRE_DIV1
 #define STM32_LSCOSEL                       STM32_LSCOSEL_NOCLOCK
 
 /*
