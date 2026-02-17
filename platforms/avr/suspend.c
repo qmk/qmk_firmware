@@ -13,9 +13,7 @@
 #    include "vusb.h"
 #endif
 
-// TODO: This needs some cleanup
-
-#if !defined(NO_SUSPEND_POWER_DOWN) && defined(WDT_vect)
+#if !defined(NO_SUSPEND_POWER_DOWN) && !defined(DISABLE_AVR_DEEP_SLEEP) && defined(WDT_vect)
 
 // clang-format off
 #define wdt_intr_enable(value) \
@@ -105,7 +103,7 @@ void suspend_power_down(void) {
 
 #ifndef NO_SUSPEND_POWER_DOWN
     // Enter sleep state if possible (ie, the MCU has a watchdog timeout interrupt)
-#    if defined(WDT_vect)
+#    if defined(WDT_vect) && !defined(DISABLE_AVR_DEEP_SLEEP)
     power_down(WDTO_15MS);
 #    endif
 #endif
