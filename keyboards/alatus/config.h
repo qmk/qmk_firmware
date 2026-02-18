@@ -18,6 +18,3 @@
 
 // Trackpoint
 #define PS2_PIO_USE_PIO1
-// For right trackpoint, adjust based on hardware.
-#define PS2_MOUSE_ROTATE 90
-#define SPLIT_POINTING_ENABLE
