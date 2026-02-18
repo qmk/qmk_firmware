@@ -1,0 +1,12 @@
+{
+    "manufacturer": "Framework",
+    "maintainer": "JohnAZoidberg",
+    "bootloader": "rp2040",
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "processor": "RP2040",
+    "url": "https://frame.work/laptop16"
+}
