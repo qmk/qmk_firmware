@@ -99,12 +99,18 @@ enum serial_transaction_id {
     PUT_ACTIVITY,
 #endif // SPLIT_ACTIVITY_ENABLE
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER) || (defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD))
     PUT_RPC_INFO,
     PUT_RPC_REQ_DATA,
     EXECUTE_RPC,
     GET_RPC_RESP_DATA,
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER) || (defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD))
+
+// Rule lighting transaction IDs (must come AFTER GET_RPC_RESP_DATA for validation)
+#if defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD)
+    SPLIT_RULE_LIGHTING_SYNC_ID,
+    SPLIT_KEYMAP_SYNC_ID,
+#endif // defined(RULE_LIGHTING_ENABLE) && defined(SPLIT_KEYBOARD)
 
 // keyboard-specific
 #ifdef SPLIT_TRANSACTION_IDS_KB

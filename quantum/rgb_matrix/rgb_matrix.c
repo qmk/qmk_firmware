@@ -22,11 +22,16 @@
 #include "keyboard.h"
 #include "sync_timer.h"
 #include "debug.h"
+#include "print.h"
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
 
 #include <lib/lib8tion/lib8tion.h>
+
+#ifdef RULE_LIGHTING_ENABLE
+#    include "rule_lighting.h"
+#endif
 
 #ifndef RGB_MATRIX_CENTER
 const led_point_t k_rgb_matrix_center = {112, 32};
@@ -411,6 +416,10 @@ static void rgb_task_flush(uint8_t effect) {
 void rgb_matrix_task(void) {
     rgb_task_timers();
 
+#ifdef RULE_LIGHTING_ENABLE
+    rule_lighting_task();
+#endif
+
     uint8_t effect = rgb_current_effect;
 
     switch (rgb_task_state) {
@@ -523,6 +532,10 @@ void rgb_matrix_init(void) {
         dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
         eeconfig_update_rgb_matrix_default();
     }
+#ifdef RULE_LIGHTING_ENABLE
+    // Initialize rule_lighting - registers split RPC handlers for flash-based rules
+    rule_lighting_init();
+#endif
     eeconfig_debug_rgb_matrix(); // display current eeprom values
 }
 
