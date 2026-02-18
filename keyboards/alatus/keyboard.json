@@ -33,6 +33,12 @@
         },
         "bootmagic": {
             "matrix": [4,4]
+        },
+        "encoder": {
+            // Not required, but lets the right encoder have the correct notion of cw/ccw.
+            "right": {
+                "rotary": [{"pin_a": "GP26", "pin_b": "GP22"}]
+            }
         }
     },
     "diode_direction": "COL2ROW",
