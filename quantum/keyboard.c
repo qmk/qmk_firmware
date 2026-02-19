@@ -150,6 +150,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CONNECTION_ENABLE
 #    include "connection.h"
 #endif
+#ifdef AUTOCORRECT_ENABLE
+#    include "autocorrect.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -542,6 +545,9 @@ void keyboard_init(void) {
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_init();
+#endif
+#ifdef AUTOCORRECT_ENABLE
+    autocorrect_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)
