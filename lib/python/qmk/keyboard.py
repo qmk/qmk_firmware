@@ -2,7 +2,7 @@
 """
 from array import array
 from functools import lru_cache
-from math import ceil
+from math import ceil, floor
 from pathlib import Path
 import os
 from glob import glob
@@ -11,6 +11,8 @@ import qmk.path
 from qmk.c_parse import parse_config_h_file
 from qmk.json_schema import json_load
 from qmk.makefile import parse_rules_mk_file
+
+import re
 
 BOX_DRAWING_CHARACTERS = {
     "unicode": {
@@ -231,24 +233,181 @@ def rules_mk(keyboard):
     return rules
 
 
+def _render_kle_layout_sorter(k):
+    """Sort order for keys to meet KLE's requirements
+    """
+    return ((k.get('r', 0) + 360) % 360, k.get('rx', 0), k.get('ry', 0), k.get('y', 0), k.get('x', 0))
+
+
+def _render_kle_massage_label(layer_label):
+    """Massage the key label to make it fit better in KLE
+    """
+    if re.match("^(KC_NO|XXXXXXX)$", layer_label):
+        layer_label = ""
+    if re.match("^(KC_TRANSPARENT|KC_TRNS|_______)$", layer_label):
+        layer_label = "▿"
+    if re.match("^(KC|QK)_", layer_label):
+        layer_label = layer_label[3:]
+    layer_label = layer_label.replace("(", "<br>(", count=1)
+    layer_label = layer_label.replace("_", "<br>", count=1)
+    layer_label = layer_label.strip()
+    return layer_label
+
+
+# Credit: This logic ported from Keyboard Layout Editor (Ian Prest)
+# https://github.com/ijprest/keyboard-layout-editor/blob/580b916084e69e600b2144b0217c8b1d9710daa0/serial.js#L166
+def render_kle(layout_data, layers=None, title=None, y_offset=0):
+    """Renders all keymap layers into KLE-compatible format
+    """
+
+    kle_rows = []
+
+    if title is not None:
+        kle_rows.append([{"r": 0, "rx": 0, "ry": y_offset, "w": 10, "h": 0.5, "d": True}, "\n" + title])
+        y_offset += 0.5
+
+    cur_row = []
+    cur_r = 0
+    cur_rx = 0
+    cur_ry = y_offset - 1
+    cur_x = 0
+    cur_y = y_offset - 1  # will be incremented on first row
+    cur_fa = []
+    new_row = True
+    cluster_rx = 0
+    cluster_ry = y_offset
+
+    # The sort order is important!
+    # KLE does care!
+    # Clusters (defined by r, rx, ry) must not be broken up
+    # Don't forget to normalize rotation angle to 0-360
+
+    for ki, key in enumerate(sorted(layout_data, key=lambda k: _render_kle_layout_sorter(k))):
+
+        # Get defaulted values
+        x = key.get('x', 0)
+        y = key.get('y', 0) + y_offset
+        w = key.get('w', 1)
+        h = key.get('h', 1)
+        r = key.get('r', 0)
+        r = (r + 360) % 360  # normalize
+        rx = key.get('rx', 0)
+        ry = key.get('ry', 0) + y_offset
+
+        # Build the labels
+        layer_labels = []
+        layer_fa = []
+        if layers is not None:
+            for li, layer in enumerate(layers):
+                if layer is None:
+                    break
+                layer_label = _render_kle_massage_label(layers[li][ki])
+                layer_labels.append(layer_label)
+                lif = max(1, min(4, floor(w * 8 / len(layer_label)))) if layer_label != '' else 4
+                layer_fa.append(lif)
+
+        cluster_changed = (r != cur_r) or (rx != cur_rx) or (ry != cur_ry)
+        row_changed = y != cur_y
+
+        props = {}
+
+        def _set_prop(key, val, default_val=None):
+            if val != default_val:
+                props[key] = val
+            return val
+
+        if (len(cur_row) > 0) and (row_changed or cluster_changed):
+            kle_rows.append(cur_row)
+            cur_row = []
+            new_row = True
+
+        if new_row:
+            # Set up for the new row
+            cur_y += 1
+
+            # 'y' is reset if *either* 'rx' or 'ry' are changed
+            if (ry != cluster_ry) or (rx != cluster_rx):
+                invert = 1 if r > 90 and r < 270 else -1
+                cur_y = ry + invert
+
+            cur_x = rx  # Always reset x to rx (which defaults to zero)
+
+            # Update the current cluster
+            cluster_rx = rx
+            cluster_ry = ry
+
+            new_row = False
+
+        cur_r = _set_prop('r', r, cur_r)
+        cur_rx = _set_prop('rx', rx, cur_rx)
+        cur_ry = _set_prop('ry', ry, cur_ry)
+        cur_y += _set_prop('y', round(y - cur_y, 4), 0)
+        cur_x += _set_prop('x', round(x - cur_x, 4), 0) + w
+
+        _set_prop('w', w, 1)
+        _set_prop('h', h, 1)
+
+        # ISO Enter
+        if x >= 0.25 and w == 1.25 and h == 2:
+            _set_prop('w2', 1.5)
+            _set_prop('h2', 1)
+            _set_prop('x2', -0.25)
+
+        # BA Enter
+        if w == 1.5 and h == 2:
+            _set_prop('w2', 2.25)
+            _set_prop('h2', 1)
+            _set_prop('x2', -0.75)
+            _set_prop('y2', 1)
+
+        cur_fa = _set_prop('fa', layer_fa, cur_fa)
+
+        if len(props) > 0:
+            cur_row.append(props)
+
+        cur_row.append('\n'.join(layer_labels))
+
+    # Don't forget to emit the last row
+    if len(cur_row) > 0:
+        kle_rows.append(cur_row)
+
+    return kle_rows
+
+
+def render_layouts_kle(info_json, labels=None, y_offset=0):
+    """Renders all the layouts from an `info_json` structure in KLE format
+    """
+
+    layouts = []
+
+    for layout in info_json['layouts']:
+        layout_data = info_json['layouts'][layout]['layout']
+        layouts += render_kle(layout_data, labels, title=layout, y_offset=y_offset + len(layouts))
+
+    return layouts
+
+
 def render_layout(layout_data, render_ascii, key_labels=None):
     """Renders a single layout.
     """
     textpad = [array('u', ' ' * 200) for x in range(100)]
     style = 'ascii' if render_ascii else 'unicode'
 
-    for key in layout_data:
+    for ki, key in enumerate(layout_data):
         x = key.get('x', 0)
         y = key.get('y', 0)
         w = key.get('w', 1)
         h = key.get('h', 1)
 
         if key_labels:
-            label = key_labels.pop(0)
-            if label.startswith('KC_'):
+            label = key_labels[ki]
+            if re.match("^(KC|QK)_", label):
                 label = label[3:]
         else:
             label = key.get('label', '')
+
+        if len(label) == 0:
+            label = ' '
 
         if 'encoder' in key:
             render_encoder(textpad, x, y, w, h, label, style)
