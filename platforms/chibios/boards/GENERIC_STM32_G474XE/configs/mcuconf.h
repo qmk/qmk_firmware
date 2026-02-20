@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2025 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -184,6 +184,7 @@
 #define STM32_CAN_USE_FDCAN1                FALSE
 #define STM32_CAN_USE_FDCAN2                FALSE
 #define STM32_CAN_USE_FDCAN3                FALSE
+#define STM32_CAN_FDCAN_PRESC               FDCAN_CONFIG_CKDIV_PDIV_20
 
 /*
  * DAC driver system settings.

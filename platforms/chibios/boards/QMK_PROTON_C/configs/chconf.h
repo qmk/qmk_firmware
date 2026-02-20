@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006..2025 Giovanni Di Sirio
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -47,19 +47,6 @@
  */
 #if !defined(CH_CFG_SMP_MODE)
 #define CH_CFG_SMP_MODE                     FALSE
-#endif
-
-/**
- * @brief   Kernel hardening level.
- * @details This option is the level of functional-safety checks enabled
- *          in the kerkel. The meaning is:
- *          - 0: No checks, maximum performance.
- *          - 1: Reasonable checks.
- *          - 2: All checks.
- *          .
- */
-#if !defined(CH_CFG_HARDENING_LEVEL)
-#define CH_CFG_HARDENING_LEVEL              0
 #endif
 
 /** @} */
@@ -371,16 +358,6 @@
  */
 #if !defined(CH_CFG_USE_MAILBOXES)
 #define CH_CFG_USE_MAILBOXES                TRUE
-#endif
-
-/**
- * @brief   Memory checks APIs.
- * @details If enabled then the memory checks APIs are included in the kernel.
- *
- * @note    The default is @p TRUE.
- */
-#if !defined(CH_CFG_USE_MEMCHECKS)
-#define CH_CFG_USE_MEMCHECKS                TRUE
 #endif
 
 /**
