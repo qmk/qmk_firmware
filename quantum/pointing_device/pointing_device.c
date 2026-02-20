@@ -183,10 +183,12 @@ __attribute__((weak)) void pointing_device_init(void) {
     if ((POINTING_DEVICE_THIS_SIDE))
 #endif
     {
-        if (pointing_device_driver->init()) {
-            pointing_device_status = POINTING_DEVICE_STATUS_SUCCESS;
-        } else {
-            pointing_device_status = POINTING_DEVICE_STATUS_INIT_FAILED;
+        if (pointing_device_driver->init) {
+            if (pointing_device_driver->init()) {
+                pointing_device_status = POINTING_DEVICE_STATUS_SUCCESS;
+            } else {
+                pointing_device_status = POINTING_DEVICE_STATUS_INIT_FAILED;
+            }
         }
 #ifdef POINTING_DEVICE_MOTION_PIN
 #    ifdef POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
@@ -327,7 +329,6 @@ __attribute__((weak)) bool pointing_device_task(void) {
 #    endif
     {
 #endif
-
 #if defined(SPLIT_POINTING_ENABLE)
 #    if defined(POINTING_DEVICE_COMBINED)
         static uint8_t old_buttons = 0;
