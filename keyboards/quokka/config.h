@@ -14,9 +14,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 150U
-
 #define WS2812_PIO_USE_PIO1
 
 #define I2C_DRIVER I2CD1

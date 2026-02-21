@@ -26,6 +26,10 @@
         "scroll_lock": "GP1",
         "on_state": 0
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

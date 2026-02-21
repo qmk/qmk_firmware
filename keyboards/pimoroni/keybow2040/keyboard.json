@@ -84,6 +84,9 @@
             {"matrix": [3, 3], "x": 224, "y": 224, "flags": 4}
         ]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true
+    },
     "matrix_pins": {
         "direct": [
             ["GP18", "GP14", "GP10", "GP6"],

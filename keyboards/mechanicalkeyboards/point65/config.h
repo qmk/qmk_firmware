@@ -16,9 +16,5 @@
 
 #pragma once
 
-/* Double tap the side button to enter bootloader */
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
-
 /* couple of defaults */
 #define RGB_INDICATOR_POS_OFFSET    48      /* Indicator LEDs additional brightness */
