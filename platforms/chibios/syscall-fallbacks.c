@@ -18,6 +18,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#ifndef __PICOLIBC__
 /* To compile the ChibiOS syscall stubs with picolibc
  * the _reent struct has to be defined. */
 #if defined(USE_PICOLIBC)
@@ -113,3 +114,4 @@ __attribute__((weak, used)) void __cxa_pure_virtual(void) {
 }
 
 #pragma GCC diagnostic pop
+#endif
