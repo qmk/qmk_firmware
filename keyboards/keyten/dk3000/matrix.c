@@ -1,3 +1,6 @@
+// Copyright 2026 key10iq
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "quantum.h"
 #include "matrix.h"
 
