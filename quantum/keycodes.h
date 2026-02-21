@@ -64,6 +64,8 @@ enum qk_keycode_ranges {
     QK_SWAP_HANDS_MAX              = 0x56FF,
     QK_TAP_DANCE                   = 0x5700,
     QK_TAP_DANCE_MAX               = 0x57FF,
+    QK_PLOVER_HID                  = 0x5A40,
+    QK_PLOVER_HID_MAX              = 0xB4C0,
     QK_MAGIC                       = 0x7000,
     QK_MAGIC_MAX                   = 0x70FF,
     QK_MIDI                        = 0x7100,
@@ -1483,6 +1485,7 @@ enum qk_keycode_defines {
 #define IS_QK_PERSISTENT_DEF_LAYER(code) ((code) >= QK_PERSISTENT_DEF_LAYER && (code) <= QK_PERSISTENT_DEF_LAYER_MAX)
 #define IS_QK_SWAP_HANDS(code) ((code) >= QK_SWAP_HANDS && (code) <= QK_SWAP_HANDS_MAX)
 #define IS_QK_TAP_DANCE(code) ((code) >= QK_TAP_DANCE && (code) <= QK_TAP_DANCE_MAX)
+#define IS_QK_PLOVER_HID(code) ((code) >= QK_PLOVER_HID && (code) <= QK_PLOVER_HID_MAX)
 #define IS_QK_MAGIC(code) ((code) >= QK_MAGIC && (code) <= QK_MAGIC_MAX)
 #define IS_QK_MIDI(code) ((code) >= QK_MIDI && (code) <= QK_MIDI_MAX)
 #define IS_QK_SEQUENCER(code) ((code) >= QK_SEQUENCER && (code) <= QK_SEQUENCER_MAX)
