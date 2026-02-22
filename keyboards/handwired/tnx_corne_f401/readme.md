@@ -7,7 +7,7 @@
 - **Hardware Availability:** The Blackpill F401 and Bluepill F103 are readily available in my area. I used an EC11 encoder and 3D-printed the housing, keycaps, and encoder knob. You can find the files below. For tenting, I do not recommend my solution; instead, I suggest using MagSafe stands with magnets attached to the keyboard. For the wires, I used an old IDE cable as a doner but you could use an ehternet cable as well.
 
 > **NOTE:** This is more of a DIY project than a polished keyboard. I had to modify the 3D-printed case with a soldering iron to fit the controller and encoders. Proceed with caution if you follow this project.
-> If you need help, I highly recommend following [Joe Scotto’s YouTube channel](https://www.youtube.com/@joe_scotto)—it helped me a lot!
+> If you need help, I highly recommend checking out [Joe Scotto’s YouTube channel](https://www.youtube.com/@joe_scotto) and the [QMK Discord](https://discord.com/invite/qmk)—both were incredibly helpful! Special thanks to [zvecr](https://github.com/zvecr) for assisting me multiple times.
 
 ---
 
