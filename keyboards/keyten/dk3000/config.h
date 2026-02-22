@@ -1,6 +1,8 @@
 // Copyright 2026 key10iq
 // SPDX-License-Identifier: GPL-2.0-or-later
 
+#pragma once
+
 #define FEE_PAGE_SIZE 0x800
 #define FEE_PAGE_COUNT 8
 #define FEE_MCU_FLASH_SIZE 128
