@@ -15,13 +15,11 @@
         "mousekey": true,
         "nkro": true
     },
-    "matrix_size": {
-        "cols": 24, 
-        "rows": 9   
-    }, 	
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 8
+    },
 	"matrix_pins": {
-		"custom": true,
 		"custom_lite": true
 	},
     "layouts": {
