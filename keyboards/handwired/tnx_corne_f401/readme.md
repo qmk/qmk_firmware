@@ -49,8 +49,8 @@ You need to flash the controllers with [tinyuf2](https://github.com/adafruit/tin
 
 ## 3D-printed Parts Files
 
-Case: https://www.printables.com/model/347524-corne-keyboard-case-5-and-6-columns
-Keycaps and encoder knobs: Choose any prefered design you want available online.
+- Case: https://www.printables.com/model/347524-corne-keyboard-case-5-and-6-columns.
+- Keycaps and encoder knobs: Choose any prefered design you want available online.
 
 ---
 
