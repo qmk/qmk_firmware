@@ -57,8 +57,9 @@ void led_update_ports(led_t led_state) {
     update_layer_leds();
 }
 
-layer_state_t layer_state_set_user(layer_state_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     current_layer_state = state;
     update_layer_leds();
-    return current_layer_state;
+	
+    return layer_state_set_user(state);
 }
