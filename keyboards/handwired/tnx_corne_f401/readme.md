@@ -3,7 +3,7 @@
 *A handwired Corne keyboard using STM32F401, with support for encoders and 3D-printed parts.*
 
 - **Hardware Supported:** STM32 (I used the Blackpill F401, but any STM32F401, F411, or F103 development board should work, provided the USB supports HID).
-- **Hardware Availability:** The Blackpill F401 and Bluepill F103 are readily available in my area. I used an EC11 encoder, Outemu Blue switches, and a TRRS male-to-male cable, along with female headers to connect the two halves and enable I2C communication.
+- **Hardware Availability:** The Blackpill F401 and Bluepill F103 are readily available in my area. I used an EC11 encoder, Outemu Blue switches, and a TRRS male-to-male cable, along with female headers to connect the two halves and enable I2C communication. For the wires, I used an old IDE cable as a doner but you could use an ehternet cable as well.
 - **Flashing:** To flash the controllers with [tinyuf2](https://github.com/adafruit/tinyuf2), you will need an FTDI module or an ST-Link. These tools are essential for both the initial tinyuf2 flashing and any subsequent firmware updates.
 
 > **NOTE:** This is more of a DIY project than a polished keyboard. I had to modify the 3D-printed case with a soldering iron to fit the controller and encoders. Proceed with caution if you follow this project.
