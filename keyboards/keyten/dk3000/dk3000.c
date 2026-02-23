@@ -3,10 +3,6 @@
 
 #include "quantum.h"
 
-#define LED_CAPS_LOCK_PIN B14
-#define LED_NUM_LOCK_PIN B10  
-#define LED_SCROLL_LOCK_PIN B15
-
 #define ALARM_LED_PIN C7
 #define D3000PC_LED_PIN B11
 #define DESKPC_LED_PIN B2
