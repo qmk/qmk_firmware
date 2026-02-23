@@ -312,10 +312,17 @@ Displays information about keyboards and keymaps in QMK. You can use this to get
 **Usage**:
 
 ```
-qmk info [-f FORMAT] [-m] [-l] [-km KEYMAP] [-kb KEYBOARD]
+qmk info [-f FORMAT] [-m] [-l] [-L] [-km KEYMAP] [-kb KEYBOARD]
 ```
 
 This command is directory aware. It will automatically fill in KEYBOARD and/or KEYMAP if you are in a keyboard or keymap directory.
+
+The `-f` option can be used to specify the output format:
+
+* `friendly` - Uses Unicode for more legible text output (default)
+* `text` - Plain ascii
+* `json` - QMK JSON format
+* `kle` - JSON for import into [KLE](https://www.keyboard-layout-editor.com/)
 
 **Examples**:
 
