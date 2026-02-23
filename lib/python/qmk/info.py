@@ -324,9 +324,6 @@ def _extract_features(info_data, rules):
             if key in ['lto']:
                 continue
 
-            if 'config_h_features' not in info_data:
-                info_data['config_h_features'] = {}
-
             if 'features' not in info_data:
                 info_data['features'] = {}
 
@@ -334,7 +331,6 @@ def _extract_features(info_data, rules):
                 _log_warning(info_data, 'Feature %s is specified in both info.json (%s) and rules.mk (%s). The rules.mk value wins.' % (key, info_data['features'], value))
 
             info_data['features'][key] = value
-            info_data['config_h_features'][key] = value
 
     return info_data
 

@@ -24,7 +24,6 @@ def _strip_api_content(info_json):
     info_json.pop('platform_key', None)
     info_json.pop('processor_type', None)
     info_json.pop('protocol', None)
-    info_json.pop('config_h_features', None)
     info_json.pop('keymaps', None)
     info_json.pop('keyboard_folder', None)
     info_json.pop('parse_errors', None)
