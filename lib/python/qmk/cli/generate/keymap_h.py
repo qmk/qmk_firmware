@@ -43,6 +43,13 @@ def generate_keymap_h(cli):
 
     keymap_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '// clang-format off']
 
+    # Allow a potential keymap level keymap.h for items like user defined keycode aliases used within a keymap.json keymap
+    keymap_h_lines += [
+        '#if __has_include_next("keymap.h")',
+        '#    include_next "keymap.h"',
+        '#endif',
+    ]
+
     keymap_json = parse_configurator_json(cli.args.filename)
 
     if 'keycodes' in keymap_json and keymap_json['keycodes'] is not None:

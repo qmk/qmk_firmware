@@ -1,11 +1,10 @@
-Levinson
-========
+# Levinson
 
 A split 40% split 4x12 ortholinear keyboard made and sold by Keebio. It's essentially a Let's Split with LED backlight support and 2u thumb key support. [More info at Keebio](https://keeb.io).
 
-Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)  
-Hardware Supported: Pro Micro, Elite-C  
-Hardware Availability: [Keebio](https://keeb.io)  
+* Keyboard Maintainer: [Bakingpy/nooges](https://github.com/nooges)
+* Hardware Supported: Pro Micro, Elite-C
+* Hardware Availability: [Keebio](https://keeb.io)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -13,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
 Example of flashing this keyboard with Pro micro:
 
-    make keebio/levinson/rev3:default:avrdude
+    make keebio/levinson/rev3:default:flash
 
 Example of flashing this keyboard with Elite-C:
 

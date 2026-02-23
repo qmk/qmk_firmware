@@ -88,6 +88,8 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
 |`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
 |`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
+|`QK_LED_MATRIX_FLAG_NEXT`      |`LM_FLGN`|Cycle through flags                |
+|`QK_LED_MATRIX_FLAG_PREVIOUS`  |`LM_FLGP`|Cycle through flags in reverse     |
 
 ## LED Matrix Effects {#led-matrix-effects}
 
@@ -253,6 +255,7 @@ const char* effect_name = led_matrix_get_mode_name(led_matrix_get_mode());
 #define LED_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
 #define LED_MATRIX_SPLIT { X, Y }   // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                                     // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+#define LED_MATRIX_FLAG_STEPS { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_NONE } // Sets the flags which can be cycled through.
 ```
 
 ## EEPROM storage {#eeprom-storage}
@@ -502,6 +505,62 @@ Get the current effect speed.
 #### Return Value {#api-led-matrix-get-speed-return}
 
 The current effect speed, from 0 to 255.
+
+---
+
+### `void led_matrix_set_flags(led_flags_t flags)` {#api-led-matrix-set-flags}
+
+Set the global effect flags.
+
+#### Arguments {#api-led-matrix-set-flags-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void led_matrix_set_flags_noeeprom(led_flags_t flags)` {#api-led-matrix-set-flags-noeeprom}
+
+Set the global effect flags. New state is not written to EEPROM.
+
+#### Arguments {#api-led-matrix-set-flags-noeeprom-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void led_matrix_flags_step(void)` {#api-led-matrix-flags-step}
+
+Move to the next flag combination.
+
+---
+
+### `void led_matrix_flags_step_noeeprom(void)` {#api-led-matrix-flags-step-noeeprom}
+
+Move to the next flag combination. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_flags_step_reverse(void)` {#api-led-matrix-flags-step-reverse}
+
+Move to the previous flag combination.
+
+---
+
+### `void led_matrix_flags_step_reverse_noeeprom(void)` {#api-led-matrix-flags-step-reverse-noeeprom}
+
+Move to the previous flag combination. New state is not written to EEPROM.
+
+---
+
+### `uint8_t led_matrix_get_flags(void)` {#api-led-matrix-get-flags}
+
+Get the current global effect flags.
+
+#### Return Value {#api-led-matrix-get-flags-return}
+
+The current effect [flags](#flags).
 
 ---
 

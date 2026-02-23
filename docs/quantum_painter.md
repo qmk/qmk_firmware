@@ -534,6 +534,8 @@ QUANTUM_PAINTER_DRIVERS += surface
 Creating a surface in firmware can then be done with the following APIs:
 
 ```c
+// 24bpp RGB888 surface:
+painter_device_t qp_make_rgb888_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
 // 16bpp RGB565 surface:
 painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
 // 1bpp monochrome surface:

@@ -19,7 +19,7 @@
 /////////////////////////////////////////
 // Common block header
 
-typedef struct QP_PACKED qgf_block_header_v1_t {
+typedef struct PACKED qgf_block_header_v1_t {
     uint8_t  type_id;     // See each respective block type below.
     uint8_t  neg_type_id; // Negated type ID, used for detecting parsing errors.
     uint32_t length : 24; // 24-bit blob length, allowing for block sizes of a maximum of 16MB.
@@ -32,7 +32,7 @@ STATIC_ASSERT(sizeof(qgf_block_header_v1_t) == 5, "qgf_block_header_v1_t must be
 
 #define QGF_GRAPHICS_DESCRIPTOR_TYPEID 0x00
 
-typedef struct QP_PACKED qgf_graphics_descriptor_v1_t {
+typedef struct PACKED qgf_graphics_descriptor_v1_t {
     qgf_block_header_v1_t header;              // = { .type_id = 0x00, .neg_type_id = (~0x00), .length = 18 }
     uint32_t              magic : 24;          // constant, equal to 0x464751 ("QGF")
     uint8_t               qgf_version;         // constant, equal to 0x01
@@ -52,7 +52,7 @@ STATIC_ASSERT(sizeof(qgf_graphics_descriptor_v1_t) == (sizeof(qgf_block_header_v
 
 #define QGF_FRAME_OFFSET_DESCRIPTOR_TYPEID 0x01
 
-typedef struct QP_PACKED qgf_frame_offsets_v1_t {
+typedef struct PACKED qgf_frame_offsets_v1_t {
     qgf_block_header_v1_t header;    // = { .type_id = 0x01, .neg_type_id = (~0x01), .length = (N * sizeof(uint32_t)) }
     uint32_t              offset[0]; // '0' signifies that this struct is immediately followed by the frame offsets
 } qgf_frame_offsets_v1_t;
@@ -64,7 +64,7 @@ STATIC_ASSERT(sizeof(qgf_frame_offsets_v1_t) == sizeof(qgf_block_header_v1_t), "
 
 #define QGF_FRAME_DESCRIPTOR_TYPEID 0x02
 
-typedef struct QP_PACKED qgf_frame_v1_t {
+typedef struct PACKED qgf_frame_v1_t {
     qgf_block_header_v1_t header;                 // = { .type_id = 0x02, .neg_type_id = (~0x02), .length = 6 }
     qp_image_format_t     format : 8;             // Frame format, see qp_internal_formats.h.
     uint8_t               flags;                  // Frame flags, see below.
@@ -83,7 +83,7 @@ STATIC_ASSERT(sizeof(qgf_frame_v1_t) == (sizeof(qgf_block_header_v1_t) + 6), "qg
 
 #define QGF_FRAME_PALETTE_DESCRIPTOR_TYPEID 0x03
 
-typedef struct QP_PACKED qgf_palette_entry_v1_t {
+typedef struct PACKED qgf_palette_entry_v1_t {
     uint8_t h; // hue component: `[0,360)` degrees is mapped to `[0,255]` uint8_t.
     uint8_t s; // saturation component: `[0,1]` is mapped to `[0,255]` uint8_t.
     uint8_t v; // value component: `[0,1]` is mapped to `[0,255]` uint8_t.
@@ -91,7 +91,7 @@ typedef struct QP_PACKED qgf_palette_entry_v1_t {
 
 STATIC_ASSERT(sizeof(qgf_palette_entry_v1_t) == 3, "Palette entry is not 3 bytes in size");
 
-typedef struct QP_PACKED qgf_palette_v1_t {
+typedef struct PACKED qgf_palette_v1_t {
     qgf_block_header_v1_t  header; // = { .type_id = 0x03, .neg_type_id = (~0x03), .length = (N * 3 * sizeof(uint8_t)) }
     qgf_palette_entry_v1_t hsv[0]; // N * hsv, where N is the number of palette entries depending on the frame format in the descriptor
 } qgf_palette_v1_t;
@@ -103,7 +103,7 @@ STATIC_ASSERT(sizeof(qgf_palette_v1_t) == sizeof(qgf_block_header_v1_t), "qgf_pa
 
 #define QGF_FRAME_DELTA_DESCRIPTOR_TYPEID 0x04
 
-typedef struct QP_PACKED qgf_delta_v1_t {
+typedef struct PACKED qgf_delta_v1_t {
     qgf_block_header_v1_t header; // = { .type_id = 0x04, .neg_type_id = (~0x04), .length = 8 }
     uint16_t              left;   // The left pixel location to draw the delta image
     uint16_t              top;    // The top pixel location to draw the delta image
@@ -118,7 +118,7 @@ STATIC_ASSERT(sizeof(qgf_delta_v1_t) == (sizeof(qgf_block_header_v1_t) + 8), "qg
 
 #define QGF_FRAME_DATA_DESCRIPTOR_TYPEID 0x05
 
-typedef struct QP_PACKED qgf_data_v1_t {
+typedef struct PACKED qgf_data_v1_t {
     qgf_block_header_v1_t header;  // = { .type_id = 0x05, .neg_type_id = (~0x05), .length = N }
     uint8_t               data[0]; // 0 signifies that this struct is immediately followed by the length of data specified in the header
 } qgf_data_v1_t;

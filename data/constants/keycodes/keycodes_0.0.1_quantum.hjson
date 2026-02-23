@@ -3,6 +3,7 @@
         "0x7C00": {
             "group": "quantum",
             "key": "QK_BOOTLOADER",
+            "label": "Bootloader",
             "aliases": [
                 "QK_BOOT"
             ]
@@ -10,6 +11,7 @@
         "0x7C01": {
             "group": "quantum",
             "key": "QK_REBOOT",
+            "label": "Reboot",
             "aliases": [
                 "QK_RBT"
             ]
@@ -17,6 +19,7 @@
         "0x7C02": {
             "group": "quantum",
             "key": "QK_DEBUG_TOGGLE",
+            "label": "Toggle Debug",
             "aliases": [
                 "DB_TOGG"
             ]
@@ -24,18 +27,21 @@
         "0x7C03": {
             "group": "quantum",
             "key": "QK_CLEAR_EEPROM",
+            "label": "Clear EEPROM",
             "aliases": [
                 "EE_CLR"
             ]
         },
         "0x7C04": {
             "group": "quantum",
-            "key": "QK_MAKE"
+            "key": "QK_MAKE",
+            "label": "Make"
         },
 
         "0x7C10": {
             "group": "quantum",
             "key": "QK_AUTO_SHIFT_DOWN",
+            "label": "Auto Shift Down",
             "aliases": [
                 "AS_DOWN"
             ]
@@ -43,6 +49,7 @@
         "0x7C11": {
             "group": "quantum",
             "key": "QK_AUTO_SHIFT_UP",
+            "label": "Auto Shift Up",
             "aliases": [
                 "AS_UP"
             ]
@@ -50,6 +57,7 @@
         "0x7C12": {
             "group": "quantum",
             "key": "QK_AUTO_SHIFT_REPORT",
+            "label": "Auto Shift Report",
             "aliases": [
                 "AS_RPT"
             ]
@@ -57,6 +65,7 @@
         "0x7C13": {
             "group": "quantum",
             "key": "QK_AUTO_SHIFT_ON",
+            "label": "Auto Shift On",
             "aliases": [
                 "AS_ON"
             ]
@@ -64,6 +73,7 @@
         "0x7C14": {
             "group": "quantum",
             "key": "QK_AUTO_SHIFT_OFF",
+            "label": "Auto Shift Off",
             "aliases": [
                 "AS_OFF"
             ]
@@ -71,6 +81,7 @@
         "0x7C15": {
             "group": "quantum",
             "key": "QK_AUTO_SHIFT_TOGGLE",
+            "label": "Toggle Auto Shift",
             "aliases": [
                 "AS_TOGG"
             ]
@@ -79,6 +90,7 @@
         "0x7C16": {
             "group": "quantum",
             "key": "QK_GRAVE_ESCAPE",
+            "label": "Grave Esc",
             "aliases": [
                 "QK_GESC"
             ]
@@ -95,6 +107,7 @@
         "0x7C18": {
             "group": "quantum",
             "key": "QK_SPACE_CADET_LEFT_CTRL_PARENTHESIS_OPEN",
+            "label": "LCtl/(",
             "aliases": [
                 "SC_LCPO"
             ]
@@ -102,6 +115,7 @@
         "0x7C19": {
             "group": "quantum",
             "key": "QK_SPACE_CADET_RIGHT_CTRL_PARENTHESIS_CLOSE",
+            "label": "RCtl/)",
             "aliases": [
                 "SC_RCPC"
             ]
@@ -109,6 +123,7 @@
         "0x7C1A": {
             "group": "quantum",
             "key": "QK_SPACE_CADET_LEFT_SHIFT_PARENTHESIS_OPEN",
+            "label": "LSft/)",
             "aliases": [
                 "SC_LSPO"
             ]
@@ -116,6 +131,7 @@
         "0x7C1B": {
             "group": "quantum",
             "key": "QK_SPACE_CADET_RIGHT_SHIFT_PARENTHESIS_CLOSE",
+            "label": "RSft/)",
             "aliases": [
                 "SC_RSPC"
             ]
@@ -123,6 +139,7 @@
         "0x7C1C": {
             "group": "quantum",
             "key": "QK_SPACE_CADET_LEFT_ALT_PARENTHESIS_OPEN",
+            "label": "LAlt/(",
             "aliases": [
                 "SC_LAPO"
             ]
@@ -130,6 +147,7 @@
         "0x7C1D": {
             "group": "quantum",
             "key": "QK_SPACE_CADET_RIGHT_ALT_PARENTHESIS_CLOSE",
+            "label": "RAlt/)",
             "aliases": [
                 "SC_RAPC"
             ]
@@ -137,6 +155,7 @@
         "0x7C1E": {
             "group": "quantum",
             "key": "QK_SPACE_CADET_RIGHT_SHIFT_ENTER",
+            "label": "RSft/Ent",
             "aliases": [
                 "SC_SENT"
             ]
@@ -167,6 +186,7 @@
         "0x7C30": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_NEXT",
+            "label": "Unicode Mode Next",
             "aliases": [
                 "UC_NEXT"
             ]
@@ -174,6 +194,7 @@
         "0x7C31": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_PREVIOUS",
+            "label": "Unicode Mode Previous",
             "aliases": [
                 "UC_PREV"
             ]
@@ -181,6 +202,7 @@
         "0x7C32": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_MACOS",
+            "label": "Unicode Mode macOS",
             "aliases": [
                 "UC_MAC"
             ]
@@ -188,6 +210,7 @@
         "0x7C33": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_LINUX",
+            "label": "Unicode Mode Linux",
             "aliases": [
                 "UC_LINX"
             ]
@@ -195,6 +218,7 @@
         "0x7C34": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_WINDOWS",
+            "label": "Unicode Mode Windows",
             "aliases": [
                 "UC_WIN"
             ]
@@ -202,6 +226,7 @@
         "0x7C35": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_BSD",
+            "label": "Unicode Mode BSD",
             "aliases": [
                 "UC_BSD"
             ]
@@ -209,6 +234,7 @@
         "0x7C36": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_WINCOMPOSE",
+            "label": "Unicode Mode WinCompose",
             "aliases": [
                 "UC_WINC"
             ]
@@ -216,6 +242,7 @@
         "0x7C37": {
             "group": "quantum",
             "key": "QK_UNICODE_MODE_EMACS",
+            "label": "Unicode Mode emacs",
             "aliases": [
                 "UC_EMAC"
             ]
@@ -224,6 +251,7 @@
         "0x7C40": {
             "group": "quantum",
             "key": "QK_HAPTIC_ON",
+            "label": "Haptic On",
             "aliases": [
                 "HF_ON"
             ]
@@ -231,6 +259,7 @@
         "0x7C41": {
             "group": "quantum",
             "key": "QK_HAPTIC_OFF",
+            "label": "Haptic Off",
             "aliases": [
                 "HF_OFF"
             ]
@@ -238,6 +267,7 @@
         "0x7C42": {
             "group": "quantum",
             "key": "QK_HAPTIC_TOGGLE",
+            "label": "Toggle Haptic",
             "aliases": [
                 "HF_TOGG"
             ]
@@ -245,6 +275,7 @@
         "0x7C43": {
             "group": "quantum",
             "key": "QK_HAPTIC_RESET",
+            "label": "Haptic Reset",
             "aliases": [
                 "HF_RST"
             ]
@@ -252,6 +283,7 @@
         "0x7C44": {
             "group": "quantum",
             "key": "QK_HAPTIC_FEEDBACK_TOGGLE",
+            "label": "Toggle Haptic Feedback",
             "aliases": [
                 "HF_FDBK"
             ]
@@ -259,6 +291,7 @@
         "0x7C45": {
             "group": "quantum",
             "key": "QK_HAPTIC_BUZZ_TOGGLE",
+            "label": "Toggle Haptic Buzz",
             "aliases": [
                 "HF_BUZZ"
             ]
@@ -266,6 +299,7 @@
         "0x7C46": {
             "group": "quantum",
             "key": "QK_HAPTIC_MODE_NEXT",
+            "label": "Haptic Mode Next",
             "aliases": [
                 "HF_NEXT"
             ]
@@ -273,6 +307,7 @@
         "0x7C47": {
             "group": "quantum",
             "key": "QK_HAPTIC_MODE_PREVIOUS",
+            "label": "Haptic Mode Previous",
             "aliases": [
                 "HF_PREV"
             ]
@@ -280,6 +315,7 @@
         "0x7C48": {
             "group": "quantum",
             "key": "QK_HAPTIC_CONTINUOUS_TOGGLE",
+            "label": "Toggle Haptic Continuous",
             "aliases": [
                 "HF_CONT"
             ]
@@ -287,6 +323,7 @@
         "0x7C49": {
             "group": "quantum",
             "key": "QK_HAPTIC_CONTINUOUS_UP",
+            "label": "Haptic Continuous Up",
             "aliases": [
                 "HF_CONU"
             ]
@@ -294,6 +331,7 @@
         "0x7C4A": {
             "group": "quantum",
             "key": "QK_HAPTIC_CONTINUOUS_DOWN",
+            "label": "Haptic Continuous Down",
             "aliases": [
                 "HF_COND"
             ]
@@ -301,6 +339,7 @@
         "0x7C4B": {
             "group": "quantum",
             "key": "QK_HAPTIC_DWELL_UP",
+            "label": "Haptic Dwell Up",
             "aliases": [
                 "HF_DWLU"
             ]
@@ -308,6 +347,7 @@
         "0x7C4C": {
             "group": "quantum",
             "key": "QK_HAPTIC_DWELL_DOWN",
+            "label": "Haptic Dwell Down",
             "aliases": [
                 "HF_DWLD"
             ]
@@ -316,6 +356,7 @@
         "0x7C50": {
             "group": "quantum",
             "key": "QK_COMBO_ON",
+            "label": "Combo On",
             "aliases": [
                 "CM_ON"
             ]
@@ -323,6 +364,7 @@
         "0x7C51": {
             "group": "quantum",
             "key": "QK_COMBO_OFF",
+            "label": "Combo Off",
             "aliases": [
                 "CM_OFF"
             ]
@@ -330,6 +372,7 @@
         "0x7C52": {
             "group": "quantum",
             "key": "QK_COMBO_TOGGLE",
+            "label": "Toggle Combo",
             "aliases": [
                 "CM_TOGG"
             ]
@@ -338,6 +381,7 @@
         "0x7C53": {
             "group": "quantum",
             "key": "QK_DYNAMIC_MACRO_RECORD_START_1",
+            "label": "Dynamic Macro Record 1",
             "aliases": [
                 "DM_REC1"
             ]
@@ -345,6 +389,7 @@
         "0x7C54": {
             "group": "quantum",
             "key": "QK_DYNAMIC_MACRO_RECORD_START_2",
+            "label": "Dynamic Macro Record 2",
             "aliases": [
                 "DM_REC2"
             ]
@@ -352,6 +397,7 @@
         "0x7C55": {
             "group": "quantum",
             "key": "QK_DYNAMIC_MACRO_RECORD_STOP",
+            "label": "Dynamic Macro Stop Recording",
             "aliases": [
                 "DM_RSTP"
             ]
@@ -359,6 +405,7 @@
         "0x7C56": {
             "group": "quantum",
             "key": "QK_DYNAMIC_MACRO_PLAY_1",
+            "label": "Dynamic Macro Play 1",
             "aliases": [
                 "DM_PLY1"
             ]
@@ -366,6 +413,7 @@
         "0x7C57": {
             "group": "quantum",
             "key": "QK_DYNAMIC_MACRO_PLAY_2",
+            "label": "Dynamic Macro Play 2",
             "aliases": [
                 "DM_PLY2"
             ]
@@ -374,6 +422,7 @@
         "0x7C58": {
             "group": "quantum",
             "key": "QK_LEADER",
+            "label": "Leader",
             "aliases": [
                 "QK_LEAD"
             ]
@@ -381,12 +430,14 @@
 
         "0x7C59": {
             "group": "quantum",
-            "key": "QK_LOCK"
+            "key": "QK_LOCK",
+            "label": "Lock"
         },
 
         "0x7C5A": {
             "group": "quantum",
             "key": "QK_ONE_SHOT_ON",
+            "label": "One Shot On",
             "aliases": [
                 "OS_ON"
             ]
@@ -394,6 +445,7 @@
         "0x7C5B": {
             "group": "quantum",
             "key": "QK_ONE_SHOT_OFF",
+            "label": "One Shot Off",
             "aliases": [
                 "OS_OFF"
             ]
@@ -401,6 +453,7 @@
         "0x7C5C": {
             "group": "quantum",
             "key": "QK_ONE_SHOT_TOGGLE",
+            "label": "Toggle One Shot",
             "aliases": [
                 "OS_TOGG"
             ]
@@ -409,6 +462,7 @@
         "0x7C5D": {
             "group": "quantum",
             "key": "QK_KEY_OVERRIDE_TOGGLE",
+            "label": "Toggle Key Overrides",
             "aliases": [
                 "KO_TOGG"
             ]
@@ -416,6 +470,7 @@
         "0x7C5E": {
             "group": "quantum",
             "key": "QK_KEY_OVERRIDE_ON",
+            "label": "Key Overrides On",
             "aliases": [
                 "KO_ON"
             ]
@@ -423,6 +478,7 @@
         "0x7C5F": {
             "group": "quantum",
             "key": "QK_KEY_OVERRIDE_OFF",
+            "label": "Key Overrides Off",
             "aliases": [
                 "KO_OFF"
             ]
@@ -431,6 +487,7 @@
         "0x7C60": {
             "group": "quantum",
             "key": "QK_SECURE_LOCK",
+            "label": "Lock",
             "aliases": [
                 "SE_LOCK"
             ]
@@ -438,6 +495,7 @@
         "0x7C61": {
             "group": "quantum",
             "key": "QK_SECURE_UNLOCK",
+            "label": "Unlock",
             "aliases": [
                 "SE_UNLK"
             ]
@@ -445,6 +503,7 @@
         "0x7C62": {
             "group": "quantum",
             "key": "QK_SECURE_TOGGLE",
+            "label": "Toggle Lock",
             "aliases": [
                 "SE_TOGG"
             ]
@@ -452,6 +511,7 @@
         "0x7C63": {
             "group": "quantum",
             "key": "QK_SECURE_REQUEST",
+            "label": "Request Unlock",
             "aliases": [
                 "SE_REQ"
             ]
@@ -460,6 +520,7 @@
         "0x7C70": {
             "group": "quantum",
             "key": "QK_DYNAMIC_TAPPING_TERM_PRINT",
+            "label": "Print Dynamic Tapping Term",
             "aliases": [
                 "DT_PRNT"
             ]
@@ -467,6 +528,7 @@
         "0x7C71": {
             "group": "quantum",
             "key": "QK_DYNAMIC_TAPPING_TERM_UP",
+            "label": "Dynamic Tapping Term Up",
             "aliases": [
                 "DT_UP"
             ]
@@ -474,6 +536,7 @@
         "0x7C72": {
             "group": "quantum",
             "key": "QK_DYNAMIC_TAPPING_TERM_DOWN",
+            "label": "Dynamic Tapping Term Down",
             "aliases": [
                 "DT_DOWN"
             ]
@@ -482,6 +545,7 @@
         "0x7C73": {
             "group": "quantum",
             "key": "QK_CAPS_WORD_TOGGLE",
+            "label": "Toggle Caps Word",
             "aliases": [
                 "CW_TOGG"
             ]
@@ -490,6 +554,7 @@
         "0x7C74": {
             "group": "quantum",
             "key": "QK_AUTOCORRECT_ON",
+            "label": "Autocorrect On",
             "aliases": [
                 "AC_ON"
             ]
@@ -497,6 +562,7 @@
         "0x7C75": {
             "group": "quantum",
             "key": "QK_AUTOCORRECT_OFF",
+            "label": "Autocorrect Off",
             "aliases": [
                 "AC_OFF"
             ]
@@ -504,6 +570,7 @@
         "0x7C76": {
             "group": "quantum",
             "key": "QK_AUTOCORRECT_TOGGLE",
+            "label": "Toggle Autocorrect",
             "aliases": [
                 "AC_TOGG"
             ]

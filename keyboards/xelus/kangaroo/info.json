@@ -1,6 +1,5 @@
 {
     "manufacturer": "Xelus",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/xelus/kangaroo",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5845",

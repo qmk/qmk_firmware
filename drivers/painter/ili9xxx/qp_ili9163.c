@@ -41,7 +41,9 @@ __attribute__((weak)) bool qp_ili9163_init(painter_device_t device, painter_rota
         ILI9XXX_CMD_DISPLAY_ON,        20,  0
     };
     // clang-format on
-    qp_comms_bulk_command_sequence(device, ili9163_init_sequence, sizeof(ili9163_init_sequence));
+    if (!qp_comms_bulk_command_sequence(device, ili9163_init_sequence, sizeof(ili9163_init_sequence))) {
+        return false;
+    }
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
@@ -50,9 +52,7 @@ __attribute__((weak)) bool qp_ili9163_init(painter_device_t device, painter_rota
         [QP_ROTATION_180] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MX | ILI9XXX_MADCTL_MY,
         [QP_ROTATION_270] = ILI9XXX_MADCTL_BGR | ILI9XXX_MADCTL_MV | ILI9XXX_MADCTL_MY,
     };
-    qp_comms_command_databyte(device, ILI9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
-
-    return true;
+    return qp_comms_command_databyte(device, ILI9XXX_SET_MEM_ACS_CTL, madctl[rotation]);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

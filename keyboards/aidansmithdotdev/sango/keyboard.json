@@ -117,7 +117,7 @@
     },
     "split": {
         "bootmagic": {
-            "matrix": [4, 7]
+            "matrix": [5, 7]
         },
         "enabled": true,
         "matrix_pins": {

@@ -108,7 +108,7 @@ __attribute__((weak)) bool pmw33xx_check_signature(uint8_t sensor) {
         pmw33xx_read(sensor, REG_Inverse_Product_ID),
     };
 
-    return memcmp(pmw33xx_firmware_signature, signature_dump, sizeof(signature_dump)) == 0;
+    return memcmp_P(signature_dump, pmw33xx_firmware_signature, sizeof(signature_dump)) == 0;
 }
 
 bool pmw33xx_upload_firmware(uint8_t sensor) {

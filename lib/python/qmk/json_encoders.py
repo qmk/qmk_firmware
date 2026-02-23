@@ -178,9 +178,9 @@ class KeymapJSONEncoder(QMKJSONEncoder):
                     else:
                         layer[-1].append(f'"{key}"')
 
-            layer = [f"{self.indent_str*indent_level}{', '.join(row)}" for row in layer]
+            layer = [f"{self.indent_str * indent_level}{', '.join(row)}" for row in layer]
 
-            return f"{self.indent_str}[\n{newline.join(layer)}\n{self.indent_str*self.indentation_level}]"
+            return f"{self.indent_str}[\n{newline.join(layer)}\n{self.indent_str * self.indentation_level}]"
 
         elif self.primitives_only(obj):
             return "[" + ", ".join(self.encode(element) for element in obj) + "]"

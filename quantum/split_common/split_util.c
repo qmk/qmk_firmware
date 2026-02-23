@@ -167,7 +167,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #            pragma message "Faking EE_HANDS for right hand"
     const bool should_be_left = false;
 #        endif
-    bool       is_left        = eeconfig_read_handedness();
+    bool is_left = eeconfig_read_handedness();
     if (is_left != should_be_left) {
         eeconfig_update_handedness(should_be_left);
     }

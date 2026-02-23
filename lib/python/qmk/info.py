@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import jsonschema
 from dotty_dict import dotty
+from enum import IntFlag
 
 from milc import cli
 
@@ -14,11 +15,20 @@ from qmk.json_schema import deep_update, json_load, validate
 from qmk.keyboard import config_h, rules_mk
 from qmk.commands import parse_configurator_json
 from qmk.makefile import parse_rules_mk_file
-from qmk.math import compute
+from qmk.math_ops import compute
 from qmk.util import maybe_exit, truthy
 
 true_values = ['1', 'on', 'yes']
 false_values = ['0', 'off', 'no']
+
+
+class LedFlags(IntFlag):
+    ALL = 0xFF
+    NONE = 0x00
+    MODIFIER = 0x01
+    UNDERGLOW = 0x02
+    KEYLIGHT = 0x04
+    INDICATOR = 0x08
 
 
 def _keyboard_in_layout_name(keyboard, layout):
@@ -201,6 +211,32 @@ def _validate_encoders(keyboard, info_data):
         _log_error(info_data, f'Layout "{layout_name}" contains {reason} encoder index {encoder_index}.')
 
 
+def _validate_bootmagic(keyboard, info_data):
+    """Non schema checks
+    """
+    # bootmagic matrix indexes must be in range
+    rows = info_data.get('matrix_size', {}).get('rows', 0)
+    cols = info_data.get('matrix_size', {}).get('cols', 0)
+
+    bootmagic_row, bootmagic_col = info_data.get('bootmagic', {}).get('matrix', [0, 0])
+    bootmagic_right_row, bootmagic_right_col = info_data.get('split', {}).get('bootmagic', {}).get('matrix', [rows // 2, cols - 1])
+
+    if not info_data.get('split', {}).get('enabled', False):
+        if bootmagic_row >= rows:
+            _log_error(info_data, f'Bootmagic row ({bootmagic_row}) must be in the range 0-{rows - 1}')
+        if bootmagic_col >= cols:
+            _log_error(info_data, f'Bootmagic col ({bootmagic_col}) must be in the range 0-{cols - 1}')
+    else:
+        if bootmagic_row >= rows // 2:
+            _log_error(info_data, f'Bootmagic left row ({bootmagic_row}) must be in the range 0-{rows // 2 - 1}')
+        if bootmagic_col >= cols:
+            _log_error(info_data, f'Bootmagic left col ({bootmagic_col}) must be in the range 0-{cols - 1}')
+        if bootmagic_right_row < rows // 2 or bootmagic_right_row >= rows:
+            _log_error(info_data, f'Bootmagic right row ({bootmagic_right_row}) must be in the range {rows // 2}-{rows - 1}')
+        if bootmagic_right_col >= cols:
+            _log_error(info_data, f'Bootmagic right col ({bootmagic_right_col}) must be in the range 0-{cols - 1}')
+
+
 def _validate(keyboard, info_data):
     """Perform various validation on the provided info.json data
     """
@@ -213,6 +249,7 @@ def _validate(keyboard, info_data):
         _validate_layouts(keyboard, info_data)
         _validate_keycodes(keyboard, info_data)
         _validate_encoders(keyboard, info_data)
+        _validate_bootmagic(keyboard, info_data)
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
@@ -287,9 +324,6 @@ def _extract_features(info_data, rules):
             if key in ['lto']:
                 continue
 
-            if 'config_h_features' not in info_data:
-                info_data['config_h_features'] = {}
-
             if 'features' not in info_data:
                 info_data['features'] = {}
 
@@ -297,7 +331,24 @@ def _extract_features(info_data, rules):
                 _log_warning(info_data, 'Feature %s is specified in both info.json (%s) and rules.mk (%s). The rules.mk value wins.' % (key, info_data['features'], value))
 
             info_data['features'][key] = value
-            info_data['config_h_features'][key] = value
+
+    return info_data
+
+
+def _extract_matrix_rules(info_data, rules):
+    """Find all the features enabled in rules.mk.
+    """
+    if rules.get('CUSTOM_MATRIX', 'no') != 'no':
+        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
+            _log_warning(info_data, 'Custom Matrix is specified in both info.json and rules.mk, the rules.mk values win.')
+
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
+        if rules['CUSTOM_MATRIX'] == 'lite':
+            info_data['matrix_pins']['custom_lite'] = True
+        else:
+            info_data['matrix_pins']['custom'] = True
 
     return info_data
 
@@ -552,7 +603,6 @@ def _extract_matrix_info(info_data, config_c):
     row_pins = config_c.get('MATRIX_ROW_PINS', '').replace('{', '').replace('}', '').strip()
     col_pins = config_c.get('MATRIX_COL_PINS', '').replace('{', '').replace('}', '').strip()
     direct_pins = config_c.get('DIRECT_PINS', '').replace(' ', '')[1:-1]
-    info_snippet = {}
 
     if 'MATRIX_ROWS' in config_c and 'MATRIX_COLS' in config_c:
         if 'matrix_size' in info_data:
@@ -567,26 +617,20 @@ def _extract_matrix_info(info_data, config_c):
         if 'matrix_pins' in info_data and 'cols' in info_data['matrix_pins'] and 'rows' in info_data['matrix_pins']:
             _log_warning(info_data, 'Matrix pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_snippet['cols'] = _extract_pins(col_pins)
-        info_snippet['rows'] = _extract_pins(row_pins)
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
+
+        info_data['matrix_pins']['cols'] = _extract_pins(col_pins)
+        info_data['matrix_pins']['rows'] = _extract_pins(row_pins)
 
     if direct_pins:
         if 'matrix_pins' in info_data and 'direct' in info_data['matrix_pins']:
             _log_warning(info_data, 'Direct pins are specified in both info.json and config.h, the config.h values win.')
 
-        info_snippet['direct'] = _extract_direct_matrix(direct_pins)
+        if 'matrix_pins' not in info_data:
+            info_data['matrix_pins'] = {}
 
-    if config_c.get('CUSTOM_MATRIX', 'no') != 'no':
-        if 'matrix_pins' in info_data and 'custom' in info_data['matrix_pins']:
-            _log_warning(info_data, 'Custom Matrix is specified in both info.json and config.h, the config.h values win.')
-
-        info_snippet['custom'] = True
-
-        if config_c['CUSTOM_MATRIX'] == 'lite':
-            info_snippet['custom_lite'] = True
-
-    if info_snippet:
-        info_data['matrix_pins'] = info_snippet
+        info_data['matrix_pins']['direct'] = _extract_direct_matrix(direct_pins)
 
     return info_data
 
@@ -755,6 +799,7 @@ def _extract_rules_mk(info_data, rules):
 
     # Merge in config values that can't be easily mapped
     _extract_features(info_data, rules)
+    _extract_matrix_rules(info_data, rules)
 
     return info_data
 
@@ -799,6 +844,25 @@ def _extract_led_config(info_data, keyboard):
 
             if info_data[feature].get('layout', None) and not info_data[feature].get('led_count', None):
                 info_data[feature]['led_count'] = len(info_data[feature]['layout'])
+
+            if info_data[feature].get('layout', None) and not info_data[feature].get('flag_steps', None):
+                flags = {LedFlags.ALL, LedFlags.NONE}
+                default_flags = {LedFlags.MODIFIER | LedFlags.KEYLIGHT, LedFlags.UNDERGLOW}
+
+                # if only a single flag is used, assume only all+none flags
+                kb_flags = set(x.get('flags', LedFlags.NONE) for x in info_data[feature]['layout'])
+                if len(kb_flags) > 1:
+                    # check if any part of LED flag is with the defaults
+                    unique_flags = set()
+                    for candidate in default_flags:
+                        if any(candidate & flag for flag in kb_flags):
+                            unique_flags.add(candidate)
+
+                    # if we still have a single flag, assume only all+none
+                    if len(unique_flags) > 1:
+                        flags.update(unique_flags)
+
+                info_data[feature]['flag_steps'] = sorted([int(flag) for flag in flags], reverse=True)
 
     return info_data
 

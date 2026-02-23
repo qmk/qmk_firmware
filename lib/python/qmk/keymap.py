@@ -1,7 +1,7 @@
 """Functions that help you work with QMK keymaps.
 """
-import json
 import sys
+import re
 from pathlib import Path
 from subprocess import DEVNULL
 
@@ -32,6 +32,7 @@ __INCLUDES__
 
 __KEYMAP_GOES_HERE__
 __ENCODER_MAP_GOES_HERE__
+__DIP_SWITCH_MAP_GOES_HERE__
 __MACRO_OUTPUT_GOES_HERE__
 
 #ifdef OTHER_KEYMAP_C
@@ -63,6 +64,19 @@ def _generate_encodermap_table(keymap_json):
         encoder_keycode_txt = ', '.join([f'ENCODER_CCW_CW({_strip_any(e["ccw"])}, {_strip_any(e["cw"])})' for e in layer])
         lines.append('    [%s] = {%s}' % (layer_num, encoder_keycode_txt))
     lines.extend(['};', '#endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)'])
+    return lines
+
+
+def _generate_dipswitchmap_table(keymap_json):
+    lines = [
+        '#if defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)',
+        'const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {',
+    ]
+    for index, switch in enumerate(keymap_json['dip_switches']):
+        if index != 0:
+            lines[-1] = lines[-1] + ','
+        lines.append(f'    DIP_SWITCH_OFF_ON({_strip_any(switch["off"])}, {_strip_any(switch["on"])})')
+    lines.extend(['};', '#endif // defined(DIP_SWITCH_ENABLE) && defined(DIP_SWITCH_MAP_ENABLE)'])
     return lines
 
 
@@ -226,6 +240,13 @@ def is_keymap_dir(keymap, c=True, json=True, additional_files=None):
             return True
 
 
+def is_valid_keymap_name(name):
+    """Returns True if the given keymap name contains only valid characters.
+    """
+    regex = re.compile(r'^[a-z0-9][a-z0-9_]+$')
+    return bool(regex.match(name))
+
+
 def generate_json(keymap, keyboard, layout, layers, macros=None):
     """Returns a `keymap.json` for the specified keyboard, layout, and layers.
 
@@ -286,6 +307,12 @@ def generate_c(keymap_json):
         encodermap = '\n'.join(encoder_txt)
     new_keymap = new_keymap.replace('__ENCODER_MAP_GOES_HERE__', encodermap)
 
+    dipswitchmap = ''
+    if 'dip_switches' in keymap_json and keymap_json['dip_switches'] is not None:
+        dip_txt = _generate_dipswitchmap_table(keymap_json)
+        dipswitchmap = '\n'.join(dip_txt)
+    new_keymap = new_keymap.replace('__DIP_SWITCH_MAP_GOES_HERE__', dipswitchmap)
+
     macros = ''
     if 'macros' in keymap_json and keymap_json['macros'] is not None:
         macro_txt = _generate_macros_function(keymap_json)
@@ -298,40 +325,6 @@ def generate_c(keymap_json):
     new_keymap = new_keymap.replace('__INCLUDES__', hostlang)
 
     return new_keymap
-
-
-def write_file(keymap_filename, keymap_content):
-    keymap_filename.parent.mkdir(parents=True, exist_ok=True)
-    keymap_filename.write_text(keymap_content)
-
-    cli.log.info('Wrote keymap to {fg_cyan}%s', keymap_filename)
-
-    return keymap_filename
-
-
-def write_json(keyboard, keymap, layout, layers, macros=None):
-    """Generate the `keymap.json` and write it to disk.
-
-    Returns the filename written to.
-
-    Args:
-        keyboard
-            The name of the keyboard
-
-        keymap
-            The name of the keymap
-
-        layout
-            The LAYOUT macro this keymap uses.
-
-        layers
-            An array of arrays describing the keymap. Each item in the inner array should be a string that is a valid QMK keycode.
-    """
-    keymap_json = generate_json(keyboard, keymap, layout, layers, macros=None)
-    keymap_content = json.dumps(keymap_json)
-    keymap_file = qmk.path.keymaps(keyboard)[0] / keymap / 'keymap.json'
-
-    return write_file(keymap_file, keymap_content)
 
 
 def locate_keymap(keyboard, keymap, force_layout=None):

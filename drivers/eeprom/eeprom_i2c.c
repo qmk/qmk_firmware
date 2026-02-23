@@ -104,7 +104,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
     uint8_t   complete_packet[EXTERNAL_EEPROM_ADDRESS_SIZE + EXTERNAL_EEPROM_PAGE_SIZE];
-    uint8_t * read_buf    = (uint8_t *)buf;
+    uint8_t  *read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;
 
 #if defined(EXTERNAL_EEPROM_WP_PIN)
