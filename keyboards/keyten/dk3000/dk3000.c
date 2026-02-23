@@ -51,15 +51,21 @@ void led_init_ports(void) {
     gpio_write_pin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
 }
 
-	
-    gpio_write_pin(CAPS_LOCK_PIN, led_state.caps_lock);
-    gpio_write_pin(NUM_LOCK_PIN, led_state.num_lock);
-    gpio_write_pin(SCROLL_LOCK_PIN, led_state.scroll_lock);
-    
+
+void led_update_ports(led_t led_state) {
+#if LED_PIN_ON_STATE == 0
+    // invert the whole thing to avoid having to conditionally !led_state.x later
+    led_state.raw = ~led_state.raw;
+#endif
+
+    gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
+    gpio_write_pin(LED_NUM_LOCK_PIN, led_state.num_lock);
+    gpio_write_pin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
+
 	// Alarm LED is constantly on
     set_inverted_led_state(ALARM_LED_PIN, true);
-	
-    update_layer_leds();
+
+        update_layer_leds();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
