@@ -89,10 +89,10 @@ extern uint8_t ps2_error;
 
 static inline void ps2_host_power_on_reset(void) {
 #ifdef PS2_RESET_PIN
-    setPinOutput(PS2_RESET_PIN);
-    writePinHigh(PS2_RESET_PIN);
+    gpio_set_pin_output(PS2_RESET_PIN);
+    gpio_write_pin_high(PS2_RESET_PIN);
     wait_ms(PS2_POWER_ON_RESET_TIME);
-    writePinLow(PS2_RESET_PIN);
+    gpio_write_pin_low(PS2_RESET_PIN);
 #endif
 }
 
