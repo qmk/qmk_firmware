@@ -38,14 +38,19 @@ void update_layer_leds(void) {
     }
 }
 
-void led_update_ports(led_t led_state) {
+void led_init_ports(void) {
     gpio_set_pin_output_open_drain(ALARM_LED_PIN);
     gpio_set_pin_output_open_drain(D3000PC_LED_PIN);
     gpio_set_pin_output_open_drain(DESKPC_LED_PIN);
     
-    gpio_set_pin_output(CAPS_LOCK_PIN);
-    gpio_set_pin_output(NUM_LOCK_PIN);
-    gpio_set_pin_output(SCROLL_LOCK_PIN);
+    gpio_set_pin_output(LED_NUM_LOCK_PIN);
+    gpio_write_pin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE);
+    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
+    gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
+    gpio_write_pin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
+}
+
 	
     gpio_write_pin(CAPS_LOCK_PIN, led_state.caps_lock);
     gpio_write_pin(NUM_LOCK_PIN, led_state.num_lock);
