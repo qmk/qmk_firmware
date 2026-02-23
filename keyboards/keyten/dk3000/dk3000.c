@@ -3,9 +3,9 @@
 
 #include "quantum.h"
 
-#define CAPS_LOCK_PIN B14
-#define NUM_LOCK_PIN B10  
-#define SCROLL_LOCK_PIN B15
+#define LED_CAPS_LOCK_PIN B14
+#define LED_NUM_LOCK_PIN B10  
+#define LED_SCROLL_LOCK_PIN B15
 
 #define ALARM_LED_PIN C7
 #define D3000PC_LED_PIN B11
