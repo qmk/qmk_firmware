@@ -18,6 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+// When Ctrl is held, always send Escape (prevents Ctrl+Shift+Esc from turning into `~`)
+#define GRAVE_ESC_CTRL_OVERRIDE
+
 #define VIAL_KEYBOARD_UID {0x3B, 0x6B, 0xA0, 0x29, 0x80, 0x56, 0xED, 0xD1}
 #define VIAL_UNLOCK_COMBO_ROWS {0, 0}
 #define VIAL_UNLOCK_COMBO_COLS {0, 1}
@@ -32,6 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define USE_SERIAL
 #endif
 
+#undef OLED_TIMEOUT
+#define OLED_TIMEOUT 0
 /* Select hand configuration */
 #define SPLIT_OLED_ENABLE
 #define MASTER_LEFT
