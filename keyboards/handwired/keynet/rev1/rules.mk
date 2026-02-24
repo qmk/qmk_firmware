@@ -3,16 +3,12 @@
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-# CONSOLE_ENABLE = yes        # Console for debug
 COMMAND_ENABLE = no         # Commands for debug and configuration
-# BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 AUDIO_ENABLE = no           # Audio output
-# RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SERIAL_DRIVER = bitbang
 ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
 MOUSEKEY_ENABLE = yes
-# ENCODER_MAP_ENABLE = yes
 
 # STENO_ENABLE = yes
 # STENO_PROTOCOL = geminipr

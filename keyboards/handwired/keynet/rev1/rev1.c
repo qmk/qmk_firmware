@@ -38,27 +38,3 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = { 1, 0 };
 #endif
 #endif
-
-/*
-#define ___ KC_NO 
-#define LAYOUT( \
-    L00, L01, L02, L03, L04, L05, L06, L07,                         R57, R56, R55, R54, R53, R52, R51, R50,\
-    L10, L11, L12, L13, L14, L15, L16, L17,                         R67, R66, R65, R64, R63, R62, R61, R60,\
-    L20, L21, L22, L23, L24, L25, L26,                                   R76, R75, R74, R73, R72, R71, R70,\
-    L30, L31, L32, L33, L34, L35, L36, E37, L47,               R96, E87, R86, R85, R84, R83, R82, R81, R80,\
-                   L40, L41, L43, L44, L45, L46,               R95, R94, R93, R92, R91, R90\
-    ) \
-    { \
-        { L00, L01, L02, L03, L04, L05, L06, L07 }, \
-        { L10, L11, L12, L13, L14, L15, L16, L17 }, \
-        { L20, L21, L22, L23, L24, L25, L26, ___ }, \
-        { L30, L31, L32, L33, L34, L35, L36, E37 }, \
-        { L40, L41, ___, L43, L44, L45, L46, L47 }, \
-        \
-        { R50, R51, R52, R53, R54, R55, R56, R57 },\
-        { R60, R61, R62, R63, R64, R65, R66, R67 }, \
-        { R70, R71, R72, R73, R74, R75, R76, ___ }, \
-        { R80, R81, R82, R83, R84, R85, R86, E87 }, \
-        { R90, R91, R92, R93, R94, R95, R96, ___ } \
-    }
-*/
