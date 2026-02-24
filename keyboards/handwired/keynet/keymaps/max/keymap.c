@@ -807,72 +807,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-#ifdef ENCODER_ENABLE
-
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-      if (IS_LAYER_ON(_LOWER)) {
-          if (clockwise) {
-              tap_code(KC_UP);
-          } else {
-              tap_code(KC_DOWN);
-          }
-      }
-      else if (IS_LAYER_ON(_RAISE)) {
-          if (clockwise) {
-              tap_code(KC_BRIU);
-          } else {
-              tap_code(KC_BRID);
-          }
-      }
-      else if (IS_LAYER_ON(_MENU)  ) {
-          if (clockwise) {
-              tap_code(KC_VOLU);
-          } else {
-              tap_code(KC_VOLD);
-          }
-      }
-      else {
-          if (clockwise) {
-              tap_code(MS_WHLU);
-          } else {
-              tap_code(MS_WHLD);
-          }
-       }
-    } 
-    else if (index == 1) {
-      if (IS_LAYER_ON(_LOWER)) {
-          if (clockwise) {
-              tap_code(KC_RIGHT);
-          } else {
-              tap_code(KC_LEFT);
-          }
-      }
-      /*else if (IS_LAYER_ON(_RAISE)) {
-          if (clockwise) {
-              tap_code(KC_BRIU);
-          } else {
-              tap_code(KC_BRID);
-          }
-      }*/
-      else if (IS_LAYER_ON(_MENU)  ) {
-          if (clockwise) {
-              tap_code(KC_BRIU);
-          } else {
-              tap_code(KC_BRID);
-          }
-      }
-      else {
-          if (clockwise) {
-              tap_code(MS_WHLR);
-          } else {
-              tap_code(MS_WHLL);
-          }
-       }
-    }
-    return false;
-}
-
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [_QWERTY] = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU),  ENCODER_CCW_CW(MS_WHLL, MS_WHLR)  },
+    [_MENU] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(KC_BRID, KC_BRIU)  },
+    [_LOWER] = { ENCODER_CCW_CW(KC_DOWN, KC_UP),  ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)  },
+    [_RAISE] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU),  ENCODER_CCW_CW(_______, _______)  },
+    [_ADJUST] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_GEMINI] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_GAME_R] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_GAME] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_GAME_2] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_GAME_N] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_BRUSH] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_NUMPAD] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_RREZ] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+    [_FN] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+};
 #endif
 
 /*#if defined(ENCODER_MAP_ENABLE)
