@@ -184,6 +184,10 @@ void rgb_matrix_reload_from_eeprom(void);
 
 void        rgb_matrix_set_suspend_state(bool state);
 bool        rgb_matrix_get_suspend_state(void);
+#if defined(RGB_MATRIX_SPLIT) && defined(RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE)
+bool rgb_matrix_split_should_write_eeprom(void);
+void rgb_matrix_split_clear_write_eeprom(void);
+#endif
 void        rgb_matrix_toggle(void);
 void        rgb_matrix_toggle_noeeprom(void);
 void        rgb_matrix_enable(void);

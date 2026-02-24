@@ -42,6 +42,10 @@
 #endif
 #ifdef RGB_MATRIX_ENABLE
 #    include "rgb_matrix.h"
+#    ifdef RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE
+#        include "eeconfig.h"
+#        include "rgb_matrix_split_eeprom_sync.h"
+#    endif
 #endif
 #ifdef OLED_ENABLE
 #    include "oled_driver.h"
@@ -573,19 +577,47 @@ static void led_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t
 
 static bool rgb_matrix_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     static uint32_t   last_update = 0;
-    rgb_matrix_sync_t rgb_matrix_sync;
+    rgb_matrix_sync_t rgb_matrix_sync = {0};
     memcpy(&rgb_matrix_sync.rgb_matrix, &rgb_matrix_config, sizeof(rgb_config_t));
     rgb_matrix_sync.rgb_suspend_state = rgb_matrix_get_suspend_state();
-    return send_if_data_mismatch(PUT_RGB_MATRIX, &last_update, &rgb_matrix_sync, &split_shmem->rgb_matrix_sync, sizeof(rgb_matrix_sync));
+#    if defined(RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE)
+    rgb_matrix_sync.rgb_write_to_eeprom = rgb_matrix_split_should_write_eeprom();
+#    endif
+
+    bool rgb_matrix_sync_changed = memcmp(&rgb_matrix_sync, &split_shmem->rgb_matrix_sync, sizeof(rgb_matrix_sync)) != 0;
+#    if defined(RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE)
+    bool should_send = timer_elapsed32(last_update) >= FORCED_SYNC_THROTTLE_MS || rgb_matrix_sync_changed;
+#    endif
+
+    bool okay = send_if_condition(PUT_RGB_MATRIX, &last_update, rgb_matrix_sync_changed, &rgb_matrix_sync, sizeof(rgb_matrix_sync));
+
+#    if defined(RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE)
+    if (okay && should_send && rgb_matrix_sync.rgb_write_to_eeprom) {
+        rgb_matrix_split_clear_write_eeprom();
+    }
+#    endif
+
+    return okay;
 }
 
 static void rgb_matrix_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
     split_shared_memory_lock();
-    memcpy(&rgb_matrix_config, &split_shmem->rgb_matrix_sync.rgb_matrix, sizeof(rgb_config_t));
+    rgb_config_t rgb_matrix_sync  = split_shmem->rgb_matrix_sync.rgb_matrix;
     bool rgb_suspend_state = split_shmem->rgb_matrix_sync.rgb_suspend_state;
+#    if defined(RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE)
+    bool rgb_write_to_eeprom = rgb_matrix_split_eeprom_sync_flag_take(&split_shmem->rgb_matrix_sync.rgb_write_to_eeprom);
+#    endif
     split_shared_memory_unlock();
 
+    memcpy(&rgb_matrix_config, &rgb_matrix_sync, sizeof(rgb_config_t));
+
     rgb_matrix_set_suspend_state(rgb_suspend_state);
+
+#    if defined(RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE)
+    if (rgb_write_to_eeprom) {
+        eeconfig_update_rgb_matrix(&rgb_matrix_sync);
+    }
+#    endif
 }
 
 #    define TRANSACTIONS_RGB_MATRIX_MASTER() TRANSACTION_HANDLER_MASTER(rgb_matrix)
