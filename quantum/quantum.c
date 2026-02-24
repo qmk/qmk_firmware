@@ -621,5 +621,9 @@ void secure_hook_quantum(secure_status_t secure_status) {
         clear_keyboard();
         layer_clear();
     }
+
+#    if defined(XAP_ENABLE)
+    xap_broadcast_secure_status(secure_status);
+#    endif
 }
 #endif

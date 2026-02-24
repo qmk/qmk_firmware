@@ -1,0 +1,5 @@
+| Name | Definition |
+| -- | -- |
+{% for type, definition in xap.type_docs | dictsort %}
+| _{{ type }}_ | {{ definition }} |
+{% endfor %}

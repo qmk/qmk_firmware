@@ -1,0 +1,8 @@
+| Name | Definition |
+| -- | -- |
+{% for type, definition in xap.term_definitions | dictsort %}
+| _{{ type }}_ | {{ definition }} |
+{% endfor %}
+{% for type, definition in xap.type_definitions | dictsort %}
+| _{{ definition.name }}_ | {{ definition.description }}{% if 'struct' == definition.type %} Takes the format:{% for item in definition.struct_members %}<br>`{{ item.type }}` - {{ item.name }}{%- endfor %}{% endif %} |
+{% endfor %}

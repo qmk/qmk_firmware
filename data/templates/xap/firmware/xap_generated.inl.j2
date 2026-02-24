@@ -1,0 +1,166 @@
+{{ constants.GPL2_HEADER_C_LIKE }}
+{{ constants.GENERATED_HEADER_C_LIKE }}
+
+{% macro route_conditions(route_stack) %}
+{% set conditions = [] %}
+{% for data in route_stack %}
+{% if 'enable_if_preprocessor' in data %}
+{{ conditions.append(data.enable_if_preprocessor) or '' }}
+{% endif %}
+{% endfor %}
+
+{% if conditions %}
+#if ({{ conditions | join(' && ') }})
+{% endif %}
+{{ caller() }}
+{%- if conditions %}
+#endif // ({{ conditions | join(' && ') }})
+{% endif %}
+{% endmacro %}
+
+////////////////////////////////////////////////////////////////////////////////
+// Broadcast
+
+{% for message_id,data in xap.broadcast_messages.messages | dictsort %}
+{% if 'return_type' in data %}
+void {{ xap.broadcast_messages.define_prefix | lower }}_{{ data.define | to_snake | lower }}({{ data.return_type | type_to_c('value') }}) { xap_broadcast({{ message_id }}, &value, sizeof(value)); }
+{% else %}
+void {{ xap.broadcast_messages.define_prefix | lower }}_{{ data.define | to_snake | lower }}(const void *data, size_t length) { xap_broadcast({{ message_id }}, data, length); }
+{% endif %}
+{% endfor %}
+
+////////////////////////////////////////////////////////////////////////////////
+// Decl
+
+{% macro export_route_declaration(prefix, container) %}
+{% if 'routes' in container %}
+{% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
+{% set this_prefix_lc = this_prefix_uc | lower %}
+{% if 'return_execute' in data %}
+
+{% if 'request_struct_members' in data %}
+{% set arg_type = ( this_prefix_lc | to_snake | lower ) + '_arg_t' %}
+{% set arg_var = arg_type + ' arg' %}
+{% elif 'request_type' in data %}
+{% set arg_type = data.request_type | type_to_c() %}
+{% set arg_var = data.request_type | type_to_c('arg') %}
+{% endif %}
+
+__attribute__((weak)) bool xap_execute_{{ data.return_execute }}(xap_token_t token{% if arg_type %}, {{ (arg_type + '* arg') if 'xap_route' in arg_type else arg_var }}{% endif %}) { return false; }
+__attribute__((weak)) bool xap_respond_{{ data.return_execute }}(xap_token_t token, const uint8_t *data, size_t data_len) {
+{% if arg_type %}
+    if (data_len != sizeof({{ arg_type }})) {
+        return false;
+    }
+    {{ arg_var }};
+    memcpy(&arg, data, sizeof({{ arg_type }}));
+{% endif %}
+
+    return xap_execute_{{ data.return_execute }}(token{% if arg_type %}, {{ '&' if 'xap_route' in arg_type else '' }}arg{% endif %});
+}
+{% endif %}
+{{ export_route_declaration(this_prefix_lc, data) }}
+{% endfor %}
+{% endif %}
+{% endmacro %}
+
+{{ export_route_declaration('xap_route', xap) }}
+
+////////////////////////////////////////////////////////////////////////////////
+// Data
+
+{% macro export_route_data(prefix, container, route_stack) %}
+{% set this_route_stack = route_stack.copy() %}
+{{ this_route_stack.append(container) or '' }}
+{% if 'routes' in container %}
+    {% for route, data in container.routes | dictsort %}
+        {% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
+        {% set this_prefix_lc = this_prefix_uc | lower %}
+        {% if 'return_constant' in data %}
+            {% if data.return_type == 'struct' %}
+{% call route_conditions(this_route_stack) %}
+static const {{ this_prefix_lc }}_t {{ this_prefix_lc }}_data PROGMEM = {
+{% for member in data.return_constant %}
+    {{ member }},
+{% endfor %}
+};
+{% endcall %}
+            {% elif data.return_type == 'string' %}
+{% call route_conditions(this_route_stack) %}
+static const char {{ this_prefix_lc }}_str[] PROGMEM = {{ data.return_constant }};
+{% endcall %}
+            {% else %}
+{% call route_conditions(this_route_stack) %}
+static const {{ data.return_type | type_to_c_before }} {{ this_prefix_lc }}_data PROGMEM = {{ data.return_constant }};
+{% endcall %}
+            {% endif %}
+        {% endif %}
+{{ export_route_data(this_prefix_lc, data, this_route_stack) }}
+    {% endfor %}
+{% endif %}
+{% endmacro %}
+
+{{ export_route_data('XAP_ROUTE', xap, []) }}
+
+////////////////////////////////////////////////////////////////////////////////
+// Routes
+
+{% macro append_routing_table(prefix, container, route_stack) %}
+{% set this_route_stack = route_stack.copy() %}
+{{ this_route_stack.append(container) or '' }}
+{% if 'routes' in container %}
+{% for route, data in container.routes | dictsort %}
+{% set this_prefix_uc = (prefix + '_' + data.define) | upper %}
+{% set this_prefix_lc = this_prefix_uc | lower %}
+{{ append_routing_table(this_prefix_lc, data, this_route_stack) }}
+{% endfor %}
+{% call route_conditions(this_route_stack) %}
+static const xap_route_t {{ prefix | lower}}_table[] PROGMEM = {
+{% for route, data in container.routes | dictsort %}
+{% set inner_route_stack = this_route_stack.copy() %}
+{{ inner_route_stack.append(data) or '' }}
+{% if 'permissions' in data %}
+{% set secure_status = 'ROUTE_PERMISSIONS_SECURE' %}
+{% else %}
+{% set secure_status = 'ROUTE_PERMISSIONS_INSECURE' %}
+{% endif %}
+{% call route_conditions(inner_route_stack) %}
+    [{{ prefix | upper }}_{{ data.define }}] = {
+{% if 'routes' in data %}
+        .flags = {
+            .type = XAP_ROUTE,
+            .secure = {{ secure_status }},
+        },
+        .child_routes = {{ prefix | lower }}_{{ data.define | lower }}_table,
+        .child_routes_len = sizeof({{ prefix | lower }}_{{ data.define | lower }}_table)/sizeof(xap_route_t),
+{% elif 'return_execute' in data %}
+        .flags = {
+            .type = XAP_EXECUTE,
+            .secure = {{ secure_status }},
+        },
+        .handler = xap_respond_{{ data.return_execute | lower }},
+{% elif 'return_constant' in data and data.return_type == 'string' %}
+        .flags = {
+            .type = XAP_CONST_MEM,
+            .secure = {{ secure_status }},
+        },
+        .const_data = {{ prefix | lower }}_{{ data.define | lower }}_str,
+        .const_data_len = sizeof({{ prefix | lower }}_{{ data.define | lower }}_str) - 1,
+{% elif 'return_constant' in data %}
+        .flags = {
+            .type = XAP_CONST_MEM,
+            .secure = {{ secure_status }},
+        },
+        .const_data = &{{ prefix | lower }}_{{ data.define | lower }}_data,
+        .const_data_len = sizeof({{ prefix | lower }}_{{ data.define | lower }}_data),
+{% endif %}
+    },
+{% endcall %}
+{% endfor %}
+};
+{% endcall %}
+{% endif %}
+{% endmacro %}
+
+{{ append_routing_table("xap_route", xap, []) }}

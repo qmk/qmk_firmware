@@ -1,0 +1,255 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "qmk.xap.v1",
+    "title": "XAP Spec",
+    "definitions": {
+        "data_type": {
+            "oneOf": [
+                {
+                    "enum": [
+                        "bool",
+                        "u8",
+                        "u16",
+                        "u32",
+                        "u64",
+                        "struct",
+                        "string"
+                    ]
+                },
+                {
+                    "type": "string",
+                    "pattern": "^u\\d{1,2}\\[\\d{1,2}\\]*$"
+                }
+            ]
+        },
+        "router_type": {
+            "enum": [
+                "command",
+                "router"
+            ]
+        },
+        "permission": {
+            "enum": [
+                "secure"
+            ]
+        },
+        "struct": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                    "name",
+                    "type"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "route": {
+            "type": "object",
+            "propertyNames": {
+                "$ref": "qmk.definitions.v1#/hex_number_2d"
+            },
+            "additionalProperties": {
+                "type": "object",
+                "required": [
+                    "type",
+                    "define"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                    "type": {
+                        "$ref": "#/definitions/router_type"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "define": {
+                        "$ref": "qmk.definitions.v1#/define"
+                    },
+                    "permissions": {
+                        "$ref": "#/definitions/permission"
+                    },
+                    "enable_if_preprocessor": {
+                        "type": "string"
+                    },
+                    "request_type": {
+                        "$ref": "#/definitions/data_type"
+                    },
+                    "request_struct_length": {
+                        "type": "number"
+                    },
+                    "request_purpose": {
+                        "type": "string"
+                    },
+                    "return_type": {
+                        "$ref": "#/definitions/data_type"
+                    },
+                    "request_struct_members": {
+                        "$ref": "#definitions/struct"
+                    },
+                    "return_struct_length": {
+                        "type": "number"
+                    },
+                    "return_constant": {
+                        "type": [
+                            "array",
+                            "string"
+                        ]
+                    },
+                    "return_struct_members": {
+                        "$ref": "#definitions/struct"
+                    },
+                    "return_purpose": {
+                        "type": "string"
+                    },
+                    "return_execute": {
+                        "type": "string"
+                    },
+                    "routes": {
+                        "$ref": "#/definitions/route"
+                    }
+                }
+            }
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "version"
+    ],
+    "properties": {
+        "version": {
+            "$ref": "qmk.definitions.v1#/bcd_version"
+        },
+        "define": {
+            "$ref": "qmk.definitions.v1#/define"
+        },
+        "documentation": {
+            "type": "object",
+            "properties": {
+                "order": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "term_definitions": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "type_docs": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "type_definitions": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "type": {
+                        "$ref": "#/definitions/data_type"
+                    },
+                    "struct_length": {
+                        "type": "number"
+                    },
+                    "struct_members": {
+                        "$ref": "#definitions/struct"
+                    }
+                }
+            }
+        },
+        "response_flags": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "define_prefix": {
+                    "$ref": "qmk.definitions.v1#/define"
+                },
+                "bits": {
+                    "type": "object",
+                    "propertyNames": {
+                        "$ref": "qmk.definitions.v1#/text_unsigned_int"
+                    },
+                    "additionalProperties": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "define": {
+                                "$ref": "qmk.definitions.v1#/define"
+                            },
+                            "description": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "broadcast_messages": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "define_prefix": {
+                    "$ref": "qmk.definitions.v1#/define"
+                },
+                "messages": {
+                    "type": "object",
+                    "propertyNames": {
+                        "$ref": "qmk.definitions.v1#/hex_number_2d"
+                    },
+                    "additionalProperties": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "define": {
+                                "$ref": "qmk.definitions.v1#/define"
+                            },
+                            "description": {
+                                "type": "string"
+                            },
+                            "return_type": {
+                                "$ref": "#/definitions/data_type"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "routes": {
+            "$ref": "#/definitions/route"
+        }
+    }
+}
