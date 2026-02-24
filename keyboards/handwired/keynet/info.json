@@ -1,6 +1,6 @@
 {
     "manufacturer": "Arthur Frangyan",
-    "url": "",
+    "url": "https://github.com/ArthurFrangyan/KeyNet",
     "maintainer": "Arthur Frangyan",
     "usb": {
         "vid": "0xFEED"

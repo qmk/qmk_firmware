@@ -12,7 +12,6 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "enabled": true,
         "serial": {
             "pin": "D3"
         },

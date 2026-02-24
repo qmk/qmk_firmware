@@ -3,11 +3,8 @@
 #
 BOOTMAGIC_ENABLE = no       # Enable Bootmagic Lite
 EXTRAKEY_ENABLE = yes       # Audio control and System control
-COMMAND_ENABLE = no         # Commands for debug and configuration
 AUDIO_ENABLE = no           # Audio output
-SERIAL_DRIVER = bitbang
 ENCODER_ENABLE = yes
-ENCODER_MAP_ENABLE = yes
 MOUSEKEY_ENABLE = yes
 
 # STENO_ENABLE = yes
