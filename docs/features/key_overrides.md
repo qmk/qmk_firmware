@@ -50,8 +50,7 @@ const key_override_t *key_overrides[] = {
 This second example inverts or swaps semicolon and colon on ANSI and many other layouts.  That means pressing the key alone sends `shift` + `semicolon` giving `colon` (`S(KP_SCLN)` aka `KC_COLN`), but when pressing the key with shift, the shift modifier is suppressed (see `suppressed_mods` below), sending only `semicolon` (`KC_SCLN`):
 
 ```c
-const key_override_t semicolon_colon_key_override =
-    ko_make_basic(MOD_MASK_SHIFT, KC_COLN, KC_SCLN);
+const key_override_t semicolon_colon_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COLN, KC_SCLN);
 
 // This globally defines all key overrides to be used
 const key_override_t *key_overrides[] = {
