@@ -1,0 +1,11 @@
+{
+    "bootloader": "custom",
+    "processor": "STM32F303",
+    "usb": {
+        "pid": "0x2030"
+    },
+    "ws2812": {
+        "pin": "B8",
+        "driver": "pwm"
+    }
+}
