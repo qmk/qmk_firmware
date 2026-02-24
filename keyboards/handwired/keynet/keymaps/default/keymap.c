@@ -5,8 +5,11 @@
 
 
 enum layers {
-  _QWERTY
+  _QWERTY,
+  _MENU
 };
+
+#define MENU MO(_MENU)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
@@ -17,14 +20,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_DEL,  KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                                                          KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_BSLS,
   //├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_MPLY,  XXXXXXX,               XXXXXXX,  XXXXXXX,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RCTL,
+     KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_MPLY,  MENU,                  MENU,     XXXXXXX,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RCTL,
   //└────────┴────────┴────────┼────────┼────────┼────────┼─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
                                 KC_LWIN, KC_LALT, KC_TAB,    KC_SPC,  KC_ENT,  XXXXXXX,               KC_ENT,  KC_BSPC, KC_SPC,    KC_DEL,  KC_RALT, KC_RWIN
+  //                           └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
+  ),
+  [_MENU] = LAYOUT(
+  //┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+     QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, EC_NORM, EC_SWAP, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, NK_OFF,  NK_ON,   XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
+  //├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┤                                   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,                                                      XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  //├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,  _______,               _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+  //└────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
+                                XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,               XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX
   //                           └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
   )
 };
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_QWERTY] = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU),  ENCODER_CCW_CW(MS_WHLL, MS_WHLR)  }
+    [_QWERTY] = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU),  ENCODER_CCW_CW(MS_WHLL, MS_WHLR)  },
+    [_MENU] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),  ENCODER_CCW_CW(KC_BRID, KC_BRIU)  }
 };
 #endif
