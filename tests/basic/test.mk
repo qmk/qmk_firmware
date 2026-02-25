@@ -16,3 +16,5 @@
 # --------------------------------------------------------------------------------
 # Keep this file, even if it is empty, as a marker that this folder contains tests
 # --------------------------------------------------------------------------------
+
+SRC += $(QUANTUM_DIR)/keycode_types.c

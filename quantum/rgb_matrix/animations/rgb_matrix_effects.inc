@@ -1,4 +1,4 @@
-// Add your new core rgb matrix effect here, order determines enum order
+// Add your new core rgb matrix effect here, order determines enum order.
 #include "solid_color_anim.h"
 #include "alpha_mods_anim.h"
 #include "gradient_up_down_anim.h"
@@ -44,3 +44,4 @@
 #include "starlight_dual_sat_anim.h"
 #include "starlight_dual_hue_anim.h"
 #include "riverflow_anim.h"
+#include "key_groups_anim.h"
