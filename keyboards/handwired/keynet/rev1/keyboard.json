@@ -1,17 +1,24 @@
 {
     "keyboard_name": "Keynet",
+    "manufacturer": "Arthur Frangyan",
+    "url": "https://github.com/ArthurFrangyan/KeyNet",
+    "maintainer": "Arthur Frangyan",
     "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        },
         "device_version": "1.0.0",
+        "vid": "0xFEED",
         "pid": "0x6406"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "matrix_pins": {
         "cols": ["F5", "C6", "B6", "D7", "E6", "D0", "B4", "D1"],
         "rows": ["F4", "F6", "B1", "B2", "B5"]
     },
     "diode_direction": "COL2ROW",
     "split": {
+        "enabled": true,
         "serial": {
             "pin": "D3"
         },
@@ -49,6 +56,13 @@
                 "resolution": 2
             }
         ]
+    },
+    "features": {
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "swap_hands": true
     },
     "layouts": {
         "LAYOUT": {
