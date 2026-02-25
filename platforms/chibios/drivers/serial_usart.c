@@ -11,7 +11,11 @@
 static QMKSerialConfig serial_config = SERIAL_USART_CONFIG;
 #elif defined(MCU_AT32) /* AT32 MCUs */
 static QMKSerialConfig serial_config = {
+#    if HAL_USE_SERIAL
     .speed = (SERIAL_USART_SPEED),
+#    else
+    .baud  = (SERIAL_USART_SPEED),
+#    endif
     .ctrl1 = (SERIAL_USART_CTRL1),
     .ctrl2 = (SERIAL_USART_CTRL2),
 #    if !defined(SERIAL_USART_FULL_DUPLEX)
@@ -242,6 +246,8 @@ void serial_transport_driver_master_init(void) {
 
 #if defined(MCU_STM32) && defined(SERIAL_USART_PIN_SWAP)
     serial_config.cr2 |= USART_CR2_SWAP; // master has swapped TX/RX pins
+#elif defined(AT32F402_405) && defined(SERIAL_USART_PIN_SWAP)
+    serial_config.ctrl2 |= USART_CTRL2_TRPSWAP; // master has swapped TX/RX pins
 #endif
 
     usart_driver_start();
