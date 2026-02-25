@@ -34,34 +34,25 @@ void update_layer_leds(void) {
     }
 }
 
-void led_init_ports(void) {
+void keyboard_pre_init_kb(void) {
     gpio_set_pin_output_open_drain(ALARM_LED_PIN);
     gpio_set_pin_output_open_drain(D3000PC_LED_PIN);
     gpio_set_pin_output_open_drain(DESKPC_LED_PIN);
-    
-    gpio_set_pin_output(LED_NUM_LOCK_PIN);
-    gpio_write_pin(LED_NUM_LOCK_PIN, !LED_PIN_ON_STATE);
-    gpio_set_pin_output(LED_CAPS_LOCK_PIN);
-    gpio_write_pin(LED_CAPS_LOCK_PIN, !LED_PIN_ON_STATE);
-    gpio_set_pin_output(LED_SCROLL_LOCK_PIN);
-    gpio_write_pin(LED_SCROLL_LOCK_PIN, !LED_PIN_ON_STATE);
-}
-
-
-void led_update_ports(led_t led_state) {
-#if LED_PIN_ON_STATE == 0
-    // invert the whole thing to avoid having to conditionally !led_state.x later
-    led_state.raw = ~led_state.raw;
-#endif
-
-    gpio_write_pin(LED_CAPS_LOCK_PIN, led_state.caps_lock);
-    gpio_write_pin(LED_NUM_LOCK_PIN, led_state.num_lock);
-    gpio_write_pin(LED_SCROLL_LOCK_PIN, led_state.scroll_lock);
 
 	// Alarm LED is constantly on
     set_inverted_led_state(ALARM_LED_PIN, true);
 
-    update_layer_leds();
+    keyboard_pre_init_user();
+}
+
+bool led_update_kb(led_t led_state) {
+    bool res = led_update_user(led_state);
+    if (res) {
+        led_update_ports(led_state);
+
+        update_layer_leds();
+    }
+    return res;
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
