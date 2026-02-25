@@ -1,0 +1,50 @@
+{
+    "keyboard_name": "S245 Streamdeck",
+    "manufacturer": "sector245",
+    "maintainer": "sector245",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "debounce": 20,
+    "usb": {
+        "vid": "0x5345",
+        "pid": "0x0001",
+        "device_version": "1.0.0"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "encoder": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP2", "GP3", "GP13"],
+            ["GP4", "GP5", "GP6"],
+            ["GP7", "GP8", "GP9"]
+        ]
+    },
+    "encoder": {
+        "rotary": [
+            {
+                "pin_a": "GP10",
+                "pin_b": "GP11",
+                "resolution": 2
+            }
+        ]
+    },
+    "community_layouts": ["ortho_3x3"],
+    "layouts": {
+        "LAYOUT_ortho_3x3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0, "encoder": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2}
+            ]
+        }
+    }
+}
