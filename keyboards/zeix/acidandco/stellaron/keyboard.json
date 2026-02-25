@@ -13,6 +13,10 @@
         "rows": ["GP2", "GP3", "GP4", "GP29", "GP12", "GP13"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x2902",

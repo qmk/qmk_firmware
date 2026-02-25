@@ -21,8 +21,5 @@
 
 #define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
 
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET // Activates the double-tap behavior
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 1000U // Timeout window in ms in which the double tap can occur.
-
 #define BACKLIGHT_PWM_DRIVER PWMD0
 #define BACKLIGHT_PWM_CHANNEL RP2040_PWM_CHANNEL_A
