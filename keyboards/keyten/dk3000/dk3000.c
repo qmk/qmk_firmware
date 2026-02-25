@@ -61,7 +61,7 @@ void led_update_ports(led_t led_state) {
 	// Alarm LED is constantly on
     set_inverted_led_state(ALARM_LED_PIN, true);
 
-        update_layer_leds();
+    update_layer_leds();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
