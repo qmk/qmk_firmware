@@ -145,6 +145,9 @@ void ps2_host_init(void) {
     // clang-format off
     iomode_t pin_mode = PAL_RP_PAD_IE |
                         PAL_RP_GPIO_OE |
+#ifdef PS2_PINMODE_PULL_UP
+                        PAL_RP_PAD_PUE |
+#endif
                         PAL_RP_PAD_SLEWFAST |
                         PAL_RP_PAD_DRIVE12 |
                         // Invert output enable so that pindirs=1 means input
