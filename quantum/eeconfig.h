@@ -137,6 +137,12 @@ void                              eeconfig_read_connection(connection_config_t *
 void                              eeconfig_update_connection(const connection_config_t *config);
 #endif
 
+#ifdef AUTOCORRECT_ENABLE
+typedef union autocorrect_config_t autocorrect_config_t;
+void                               eeconfig_read_autocorrect(autocorrect_config_t *autocorrect_config) __attribute__((nonnull));
+void                               eeconfig_update_autocorrect(const autocorrect_config_t *autocorrect_config) __attribute__((nonnull));
+#endif
+
 bool eeconfig_read_handedness(void);
 void eeconfig_update_handedness(bool val);
 

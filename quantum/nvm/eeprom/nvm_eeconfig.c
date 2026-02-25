@@ -45,6 +45,10 @@
 #    include "connection.h"
 #endif
 
+#ifdef AUTOCORRECT_ENABLE
+#    include "autocorrect.h"
+#endif
+
 void nvm_eeconfig_erase(void) {
 #ifdef EEPROM_DRIVER
     eeprom_driver_format(false);
@@ -208,6 +212,15 @@ void nvm_eeconfig_update_connection(const connection_config_t *config) {
     eeprom_update_byte(EECONFIG_CONNECTION, config->raw);
 }
 #endif // CONNECTION_ENABLE
+
+#ifdef AUTOCORRECT_ENABLE
+void nvm_eeconfig_read_autocorrect(autocorrect_config_t *autocorrect_config) {
+    autocorrect_config->raw = eeprom_read_byte(EECONFIG_AUTOCORRECT);
+}
+void nvm_eeconfig_update_autocorrect(const autocorrect_config_t *autocorrect_config) {
+    eeprom_update_byte(EECONFIG_AUTOCORRECT, autocorrect_config->raw);
+}
+#endif // AUTOCORRECT_ENABLE
 
 bool nvm_eeconfig_read_handedness(void) {
     return !!eeprom_read_byte(EECONFIG_HANDEDNESS);

@@ -229,7 +229,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef AUTOCORRECT_ENABLE
-#    include "process_autocorrect.h"
+#    include "autocorrect.h"
 #endif
 
 #ifdef TRI_LAYER_ENABLE
