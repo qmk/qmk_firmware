@@ -19,7 +19,7 @@
         "cols": 24, 
         "rows": 9   
     },
-	"diode_direction": "COL2ROW",
+    "diode_direction": "COL2ROW",
     "indicators": {
         "caps_lock": "B14",
         "num_lock": "B10",
