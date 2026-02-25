@@ -19,5 +19,7 @@
 #define OLED_FONT_H "keymaps/default/glcdfont.c"
 #define OLED_TIMEOUT 600000 // Turn of after 10 minutes
 
+#define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 5)
+
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYER_BLINK

@@ -20,11 +20,11 @@ joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     [0] = JOYSTICK_AXIS_VIRTUAL
 };
 
-bool encoder_update_kb(uint8_t index, bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     joystick_position += (clockwise ? 2 : -2) * (full_joystick_value / pulses_per_revolution);  // +2 and -2 are used, since +1.0 and -1.0 axis output refers to positions at half of a full rotation
     joystick_set_axis(0, joystick_position);
 
-    return true;
+    return false;
 }
 
 #endif

@@ -81,11 +81,13 @@ typedef struct {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
+    tap_dance_state_t* state;
 
     switch (keycode) {
         case TD(CT_CLN):
             action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(keycode));
-            if (!record->event.pressed && action->state.count && !action->state.finished) {
+            state = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(keycode));
+            if (!record->event.pressed && state != NULL && state->count && !state->finished) {
                 tap_dance_tap_hold_t *tap_hold = (tap_dance_tap_hold_t *)action->user_data;
                 tap_code16(tap_hold->tap);
             }

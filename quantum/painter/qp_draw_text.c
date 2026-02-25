@@ -343,14 +343,14 @@ typedef struct code_point_iter_drawglyph_state_t {
     int16_t                           xpos;
     int16_t                           ypos;
     qp_internal_byte_input_callback   input_callback;
-    qp_internal_byte_input_state_t *  input_state;
+    qp_internal_byte_input_state_t   *input_state;
     qp_internal_pixel_output_state_t *output_state;
 } code_point_iter_drawglyph_state_t;
 
 // Codepoint handler callback: drawing
 static inline bool qp_font_code_point_handler_drawglyph(qff_font_handle_t *qff_font, uint32_t code_point, uint8_t width, uint8_t height, void *cb_arg) {
     code_point_iter_drawglyph_state_t *state  = (code_point_iter_drawglyph_state_t *)cb_arg;
-    painter_driver_t *                 driver = (painter_driver_t *)state->device;
+    painter_driver_t                  *driver = (painter_driver_t *)state->device;
 
     // Reset the input state's RLE mode -- the stream should already be correctly positioned by qp_iterate_code_points()
     state->input_state->rle.mode = MARKER_BYTE; // ignored if not using RLE
