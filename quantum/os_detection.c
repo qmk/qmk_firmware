@@ -18,9 +18,6 @@
 
 #include <string.h>
 #include "timer.h"
-#ifdef OS_DETECTION_KEYBOARD_RESET
-#    include "quantum.h"
-#endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
 #    include "nvm_eeprom_eeconfig_internal.h"
@@ -85,14 +82,10 @@ bool process_detected_host_os_modules(os_variant_t os);
 
 void os_detection_task(void) {
 #ifdef OS_DETECTION_KEYBOARD_RESET
-    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
-    if (reset_pending) {
-        soft_reset_keyboard();
-    }
     // reset the keyboard if it is stuck in the init state for longer than debounce duration, which can happen with some KVMs
     if (current_usb_device_state.configure_state <= USB_DEVICE_STATE_INIT && maxprev_usb_device_state.configure_state >= USB_DEVICE_STATE_CONFIGURED) {
         if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
-            soft_reset_keyboard();
+            reset_pending = true;
         }
         return;
     }
@@ -206,12 +199,23 @@ void os_detection_notify_usb_device_state_change(struct usb_device_state usb_dev
     } else if (current_usb_device_state.configure_state == USB_DEVICE_STATE_INIT) {
         // reset the keyboard only if it's been stable for at least debounce duration, to avoid issues with some KVMs
         if (configured_since > 0 && timer_elapsed_fast(configured_since) >= OS_DETECTION_RESET_DEBOUNCE) {
+            // resetting the keyboard on the USB device state change callback results in instability
+            // so set a flag to be checked later
             reset_pending = true;
         }
         configured_since = 0;
     }
 #endif
 }
+
+bool os_detection_mcu_reset_is_pending(void) {
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    return reset_pending;
+#else
+    return false;
+#endif
+}
+
 
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os) {
