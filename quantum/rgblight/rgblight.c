@@ -84,6 +84,10 @@ static uint8_t mode_base_table[] = {
 #    define RGBLIGHT_DEFAULT_SPD 0
 #endif
 
+#if !defined(RGBLIGHT_DEFAULT_SPD_MAX)
+#    define RGBLIGHT_DEFAULT_SPD_MAX 3
+#endif
+
 #if !defined(RGBLIGHT_DEFAULT_ON)
 #    define RGBLIGHT_DEFAULT_ON true
 #endif
@@ -187,6 +191,7 @@ void eeconfig_update_rgblight_default(void) {
     rgblight_config.sat       = RGBLIGHT_DEFAULT_SAT;
     rgblight_config.val       = RGBLIGHT_DEFAULT_VAL;
     rgblight_config.speed     = RGBLIGHT_DEFAULT_SPD;
+    rgblight_config.speed_max = RGBLIGHT_DEFAULT_SPD_MAX;
     RGBLIGHT_SPLIT_SET_CHANGE_MODEHSVS;
     eeconfig_update_rgblight(&rgblight_config);
 }
@@ -200,6 +205,7 @@ void eeconfig_debug_rgblight(void) {
     dprintf("rgblight_config.sat = %d\n", rgblight_config.sat);
     dprintf("rgblight_config.val = %d\n", rgblight_config.val);
     dprintf("rgblight_config.speed = %d\n", rgblight_config.speed);
+    dprintf("rgblight_config.speed_max = %d\n", rgblight_config.speed_max);
 }
 
 void rgblight_init(void) {
@@ -467,10 +473,8 @@ void rgblight_decrease_val(void) {
 }
 
 void rgblight_increase_speed_helper(bool write_to_eeprom) {
-    if (rgblight_config.speed < 3) rgblight_config.speed++;
-    // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
-    if (write_to_eeprom) {
-        eeconfig_update_rgblight(&rgblight_config);
+    if (rgblight_config.speed < rgblight_config.speed_max) {
+        rgblight_set_speed_eeprom_helper(qadd8(rgblight_config.speed, 1), write_to_eeprom);
     }
 }
 void rgblight_increase_speed(void) {
@@ -481,11 +485,7 @@ void rgblight_increase_speed_noeeprom(void) {
 }
 
 void rgblight_decrease_speed_helper(bool write_to_eeprom) {
-    if (rgblight_config.speed > 0) rgblight_config.speed--;
-    // RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
-    if (write_to_eeprom) {
-        eeconfig_update_rgblight(&rgblight_config);
-    }
+    rgblight_set_speed_eeprom_helper(qsub8(rgblight_config.speed, 1), write_to_eeprom);
 }
 void rgblight_decrease_speed(void) {
     rgblight_decrease_speed_helper(true);
@@ -588,14 +588,26 @@ uint8_t rgblight_get_speed(void) {
     return rgblight_config.speed;
 }
 
+uint8_t rgblight_get_speed_max(void) {
+    return rgblight_config.speed_max;
+}
+
 void rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom) {
     rgblight_config.speed = speed;
+
     if (write_to_eeprom) {
         eeconfig_update_rgblight(&rgblight_config);
-        dprintf("rgblight set speed [EEPROM]: %u\n", rgblight_config.speed);
-    } else {
-        dprintf("rgblight set speed [NOEEPROM]: %u\n", rgblight_config.speed);
     }
+    dprintf("rgblight set speed [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgblight_config.speed);
+}
+
+void rgblight_set_speed_max_eeprom_helper(uint8_t speed_max, bool write_to_eeprom) {
+    rgblight_config.speed_max = speed_max;
+
+    if (write_to_eeprom) {
+        eeconfig_update_rgblight(&rgblight_config);
+    }
+    dprintf("rgblight set speed max [%s]: %u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgblight_config.speed_max);
 }
 
 void rgblight_set_speed(uint8_t speed) {
