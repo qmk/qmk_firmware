@@ -23,8 +23,7 @@
     "indicators": {
         "caps_lock": "B14",
         "num_lock": "B10",
-        "scroll_lock": "B15",
-	    "on_state": 1
+        "scroll_lock": "B15"
     },
     "dynamic_keymap": {
         "layer_count": 8
