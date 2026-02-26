@@ -1,0 +1,10 @@
+{
+    "usb": {
+        "device_version": "1.0.0"
+    },
+    "matrix_pins": {
+        "direct": [
+            [null]
+        ]
+    }
+}
