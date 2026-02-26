@@ -6,7 +6,6 @@
 
 enum layers {
   _QWERTY,
-  _GEMINI,
   _GAME_QWERTY, // qwerty without mod-tap
   _GAME,
   _GAME_COPR,
@@ -28,7 +27,6 @@ enum custom_keycodes {
   MKC_00
 };
 
-#define GEMINI TO(_GEMINI)
 #define GAME_QWRT TO(_GAME_QWERTY)
 #define NUMPAD TO(_NUMPAD)
 #define BRUSH TO(_BRUSH)
@@ -90,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
     QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, EC_NORM, EC_SWAP, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, NK_OFF,  NK_ON,   XXXXXXX, XXXXXXX, XXXXXXX, QK_BOOT,
 // ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┤                                   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, XXXXXXX, XXXXXXX, GEMINI,  LOWER_F, RAISE_F,GAME_QWRT,XXXXXXX,                                     XXXXXXX,GAME_QWRT,RAISE_F, LOWER_F, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LOWER_F, RAISE_F,GAME_QWRT,XXXXXXX,                                     XXXXXXX,GAME_QWRT,RAISE_F, LOWER_F, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 // ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     XXXXXXX, _______, PAD,     BRUSH,   NUMPAD,  QWERTY,  GAME,                                                          GAME,    QWERTY,  NUMPAD,  BRUSH,   PAD,     _______, XXXXXXX,
 // ├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -251,7 +249,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [_LOWER] = { ENCODER_CCW_CW(KC_DOWN, KC_UP),  ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)  },
   [_RAISE] = { ENCODER_CCW_CW(KC_BRID, KC_BRIU),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  },
   [_ADJUST] = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU),  ENCODER_CCW_CW(MS_WHLL, MS_WHLR)  },
-  [_GEMINI] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
   [_GAME_QWERTY] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
   [_GAME] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
   [_GAME_COPR] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
