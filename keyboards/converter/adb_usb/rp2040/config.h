@@ -14,14 +14,15 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+RP2040 port for RP2040-Zero board
 */
 
-#include <stdint.h>
-#include "adb.h"
-#include "led.h"
+#pragma once
 
+/* ADB port setting for RP2040 */
+#define ADB_DATA_PIN GP15
 
-void led_set(uint8_t usb_led)
-{
-    adb_host_kbd_led(~usb_led);
-}
+/* RP2040 double-tap reset bootloader configuration */
+#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+
