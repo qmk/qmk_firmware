@@ -73,13 +73,16 @@
 
 #define sizeof_member(type, member) sizeof(((type *)NULL)->member)
 
-#define trans_initiator2target_initializer_cb(member, cb) {sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb}
+#define trans_initiator2target_initializer_cb(member, cb) \
+    { sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb }
 #define trans_initiator2target_initializer(member) trans_initiator2target_initializer_cb(member, NULL)
 
-#define trans_target2initiator_initializer_cb(member, cb) {0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb}
+#define trans_target2initiator_initializer_cb(member, cb) \
+    { 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
 #define trans_target2initiator_initializer(member) trans_target2initiator_initializer_cb(member, NULL)
 
-#define trans_initiator2target_cb(cb) {0, 0, 0, 0, cb}
+#define trans_initiator2target_cb(cb) \
+    { 0, 0, 0, 0, cb }
 
 #define transport_write(id, data, length) transport_execute_transaction(id, data, length, NULL, 0)
 #define transport_read(id, data, length) transport_execute_transaction(id, NULL, 0, data, length)
@@ -783,6 +786,69 @@ static void pointing_handlers_slave(matrix_row_t master_matrix[], matrix_row_t s
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
 ////////////////////////////////////////////////////
+// DIGITIZER
+
+#if defined(DIGITIZER_ENABLE) && defined(SPLIT_DIGITIZER_ENABLE)
+
+static bool digitizer_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#    if defined(DIGITIZER_LEFT)
+    if (is_keyboard_left()) {
+        return true;
+    }
+#    elif defined(DIGITIZER_RIGHT)
+    if (!is_keyboard_left()) {
+        return true;
+    }
+#    endif
+    static uint32_t last_update = 0;
+    digitizer_t     temp_state;
+    bool            okay = read_if_checksum_mismatch(GET_DIGITIZER_CHECKSUM, GET_DIGITIZER_DATA, &last_update, &temp_state, &split_shmem->digitizer.report, sizeof(temp_state));
+    if (okay) digitizer_set_shared_report(temp_state);
+    return okay;
+}
+
+static void digitizer_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+#    if defined(DIGITIZER_LEFT)
+    if (!is_keyboard_left()) {
+        return;
+    }
+#    elif defined(DIGITIZER_RIGHT)
+    if (is_keyboard_left()) {
+        return;
+    }
+#    endif
+#    if (DIGITIZER_TASK_THROTTLE_MS > 0)
+    static uint32_t last_exec = 0;
+    if (timer_elapsed32(last_exec) < DIGITIZER_TASK_THROTTLE_MS) {
+        return;
+    }
+    last_exec = timer_read32();
+#    endif
+
+    split_slave_digitizer_sync_t digitizer = {};
+    digitizer.report                       = digitizer_get_state();
+
+    // Now update the checksum given that the digitizer report has been written to
+    digitizer.checksum = crc8(&digitizer.report, sizeof(digitizer_t));
+
+    split_shared_memory_lock();
+    memcpy(&split_shmem->digitizer, &digitizer, sizeof(split_slave_digitizer_sync_t));
+    split_shared_memory_unlock();
+}
+
+#    define TRANSACTIONS_DIGITIZER_MASTER() TRANSACTION_HANDLER_MASTER(digitizer)
+#    define TRANSACTIONS_DIGITIZER_SLAVE() TRANSACTION_HANDLER_SLAVE(digitizer)
+#    define TRANSACTIONS_DIGITIZER_REGISTRATIONS [GET_DIGITIZER_CHECKSUM] = trans_target2initiator_initializer(digitizer.checksum), [GET_DIGITIZER_DATA] = trans_target2initiator_initializer(digitizer.report),
+
+#else // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+#    define TRANSACTIONS_DIGITIZER_MASTER()
+#    define TRANSACTIONS_DIGITIZER_SLAVE()
+#    define TRANSACTIONS_DIGITIZER_REGISTRATIONS
+
+#endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
+
+////////////////////////////////////////////////////
 // WATCHDOG
 
 #if defined(SPLIT_WATCHDOG_ENABLE)
@@ -862,11 +928,12 @@ static bool activity_handlers_master(matrix_row_t master_matrix[], matrix_row_t 
     activity_sync.matrix_timestamp          = last_matrix_activity_time();
     activity_sync.encoder_timestamp         = last_encoder_activity_time();
     activity_sync.pointing_device_timestamp = last_pointing_device_activity_time();
+    activity_sync.digitizer_timestamp       = last_digitizer_activity_time();
     return send_if_data_mismatch(PUT_ACTIVITY, &last_update, &activity_sync, &split_shmem->activity_sync, sizeof(activity_sync));
 }
 
 static void activity_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
-    set_activity_timestamps(split_shmem->activity_sync.matrix_timestamp, split_shmem->activity_sync.encoder_timestamp, split_shmem->activity_sync.pointing_device_timestamp);
+    set_activity_timestamps(split_shmem->activity_sync.matrix_timestamp, split_shmem->activity_sync.encoder_timestamp, split_shmem->activity_sync.pointing_device_timestamp, split_shmem->activity_sync.digitizer_timestamp);
 }
 
 // clang-format off
@@ -937,6 +1004,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_OLED_REGISTRATIONS
     TRANSACTIONS_ST7565_REGISTRATIONS
     TRANSACTIONS_POINTING_REGISTRATIONS
+    TRANSACTIONS_DIGITIZER_REGISTRATIONS
     TRANSACTIONS_WATCHDOG_REGISTRATIONS
     TRANSACTIONS_HAPTIC_REGISTRATIONS
     TRANSACTIONS_ACTIVITY_REGISTRATIONS
@@ -967,6 +1035,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_OLED_MASTER();
     TRANSACTIONS_ST7565_MASTER();
     TRANSACTIONS_POINTING_MASTER();
+    TRANSACTIONS_DIGITIZER_MASTER();
     TRANSACTIONS_WATCHDOG_MASTER();
     TRANSACTIONS_HAPTIC_MASTER();
     TRANSACTIONS_ACTIVITY_MASTER();
@@ -990,6 +1059,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_OLED_SLAVE();
     TRANSACTIONS_ST7565_SLAVE();
     TRANSACTIONS_POINTING_SLAVE();
+    TRANSACTIONS_DIGITIZER_SLAVE();
     TRANSACTIONS_WATCHDOG_SLAVE();
     TRANSACTIONS_HAPTIC_SLAVE();
     TRANSACTIONS_ACTIVITY_SLAVE();

@@ -87,6 +87,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef POINTING_DEVICE_ENABLE
 #    include "pointing_device.h"
 #endif
+#ifdef DIGITIZER_ENABLE
+#    include "digitizer.h"
+#endif
 #ifdef MIDI_ENABLE
 #    include "process_midi.h"
 #endif
@@ -192,11 +195,23 @@ void last_pointing_device_activity_trigger(void) {
     last_pointing_device_modification_time = last_input_modification_time = sync_timer_read32();
 }
 
-void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp, uint32_t pointing_device_timestamp) {
+static uint32_t last_digitizer_modification_time = 0;
+uint32_t        last_digitizer_activity_time(void) {
+    return last_digitizer_modification_time;
+}
+uint32_t last_digitizer_activity_elapsed(void) {
+    return sync_timer_elapsed32(last_digitizer_modification_time);
+}
+void last_digitizer_activity_trigger(void) {
+    last_digitizer_modification_time = last_input_modification_time = sync_timer_read32();
+}
+
+void set_activity_timestamps(uint32_t matrix_timestamp, uint32_t encoder_timestamp, uint32_t pointing_device_timestamp, uint32_t digitizer_timestamp) {
     last_matrix_modification_time          = matrix_timestamp;
     last_encoder_modification_time         = encoder_timestamp;
     last_pointing_device_modification_time = pointing_device_timestamp;
-    last_input_modification_time           = MAX(matrix_timestamp, MAX(encoder_timestamp, pointing_device_timestamp));
+    last_digitizer_modification_time       = digitizer_timestamp;
+    last_input_modification_time           = MAX(matrix_timestamp, MAX(encoder_timestamp, MAX(pointing_device_timestamp, digitizer_timestamp)));
 }
 
 // Only enable this if console is enabled to print to
@@ -530,6 +545,10 @@ void keyboard_init(void) {
 #ifdef SPLIT_KEYBOARD
     split_post_init();
 #endif
+#ifdef DIGITIZER_ENABLE
+    // init before pointing device
+    digitizer_init();
+#endif
 #ifdef POINTING_DEVICE_ENABLE
     // init after split init
     pointing_device_init();
@@ -740,6 +759,14 @@ void keyboard_task(void) {
 #ifdef ENCODER_ENABLE
     if (encoder_task()) {
         last_encoder_activity_trigger();
+        activity_has_occurred = true;
+    }
+#endif
+
+#ifdef DIGITIZER_ENABLE
+    // The digitizer may be a pointing device driver, so update its state before the pointing device
+    if (digitizer_task()) {
+        last_digitizer_activity_trigger();
         activity_has_occurred = true;
     }
 #endif
