@@ -91,16 +91,21 @@ def augment_community_info(config, src, dest):
     # avoid assumptions on macro name by using the first available
     first_layout = next(iter(info["layouts"].values()))["layout"]
 
-    # guess at width and height now its optional
-    width, height = (0, 0)
-    for item in first_layout:
-        width = max(width, int(item["x"]) + 1)
-        height = max(height, int(item["y"]) + 1)
+    matrix_type = prompt_matrix_type()
+    (rows, cols) = prompt_matrix_size(len(first_layout))
 
-    info["matrix_pins"] = {
-        "cols": ["C2"] * width,
-        "rows": ["D1"] * height,
-    }
+    if matrix_type == 'direct':
+        info["matrix_pins"] = {
+            "direct": [
+                ["C2"] * cols,
+            ] * rows,
+        }
+    elif matrix_type in ['COL2ROW', 'ROW2COL']:
+        info["diode_direction"] = matrix_type
+        info["matrix_pins"] = {
+            "cols": ["C2"] * cols,
+            "rows": ["D1"] * rows,
+        }
 
     # assume a 1:1 mapping on matrix to electrical
     for item in first_layout:
@@ -134,6 +139,32 @@ def _question(*args, **kwargs):
 def prompt_heading_subheading(heading, subheading):
     cli.log.info(f"{{fg_yellow}}{heading}{{style_reset_all}}")
     cli.log.info(subheading)
+
+
+def prompt_matrix_type():
+    prompt_heading_subheading("Specify Matrix Type", "")
+
+    matrix_types = ['COL2ROW', 'ROW2COL', 'direct', 'custom']
+
+    return choice("Matrix type?", matrix_types)
+
+
+def prompt_matrix_size(key_count):
+    prompt_heading_subheading("Specify Matrix Dimensions", "The number of rows and columns in the electrical matrix")
+
+    errmsg = 'Need at least one row or column!'
+
+    ret = True
+    while ret:
+        rows = int(_question("Rows:", reprompt=errmsg, validate=lambda x: int(x) > 0))
+        cols = int(_question("Cols:", reprompt=errmsg, validate=lambda x: int(x) > 0))
+
+        if rows * cols >= key_count:
+            ret = False
+        else:
+            cli.log.error(f"Number of rows ({rows}) * number of cols ({cols}) is not sufficient for the number of keys in the selected layout ({key_count})!")
+
+    return (rows, cols)
 
 
 def prompt_keyboard():
