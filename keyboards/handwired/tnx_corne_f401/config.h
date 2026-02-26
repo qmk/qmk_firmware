@@ -26,6 +26,3 @@
 #define MOUSEKEY_MAX_SPEED      6
 #undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX    64
-
-// Polling Rate
-#define USB_POLLING_INTERVAL_MS 1
