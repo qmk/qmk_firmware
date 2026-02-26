@@ -16,21 +16,18 @@ enum layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _MENU,
   _RREZ,
-  _FN
+  _FN,
+  _SET,
+  _MENU
 };
 uint8_t _PAD_index = _NUMPAD;
-bool isSetOn = false;
-#define SET_BUFF_KEYS 10
-uint16_t SetKey[SET_BUFF_KEYS];
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
   PAD,
-  MKC_00,
-  SET
+  MKC_00
 };
 
 #define GEMINI TO(_GEMINI)
@@ -44,6 +41,7 @@ enum custom_keycodes {
 #define GAME_NPAD MO(_GAME_NPAD)
 #define MENU MO(_MENU)
 #define ADJUST MO(_ADJUST)
+#define SET MO(_SET)
 
 
 #define C_BSPC C(KC_BSPC)
@@ -55,7 +53,7 @@ enum custom_keycodes {
 
 #define SPC_LOW LT(_LOWER, KC_SPC)
 #define ENT_SWP SH_T(KC_ENT)
-#define TAB_SET LT(0, KC_TAB)
+#define TAB_SET LT(_SET, KC_TAB)
 
 #define SPC_REZ LT(_RAISE, KC_SPC)
 #define DEL_RSFT RSFT_T(KC_DEL)
@@ -86,12 +84,6 @@ enum custom_keycodes {
 #define CngLngD S(KC_LALT) // LALT(KC_LSFT)
 #define CngLngU RSFT(KC_LALT) // LALT(KC_RSFT)
 #define CngLngG S(KC_LCTL)
-
-void mod_modKey(uint8_t, uint8_t, bool, bool);
-void modKey(uint8_t , uint8_t , bool);
-bool pushSetKey(uint16_t);
-bool popSetKey(uint16_t);
-void normolizeMatrix(uint8_t* row, uint8_t* col);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MENU] = LAYOUT(
@@ -133,17 +125,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_LCTL, KC_LWIN, KC_V,      KC_C,    KC_V,    LOWER,                 RAISE,   KC_N,    KC_M,      KC_N,    KC_RALT, KC_RWIN
 //                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
 ),
-[_RREZ] = LAYOUT(
+[_NUMPAD] = LAYOUT(
 // ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 // ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┤                                   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, KC_TAB,  KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PERC, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0,   KC_PSLS, XXXXXXX,
 // ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, MENU,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, ESC_M_,  KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,                                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PMNS, KC_PAST, KC_PIPE,
 // ├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,  _______,               _______,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+    XXXXXXX, KC_EQL,  KC_PPLS, KC_P1,   KC_P2,   KC_P3,   KC_PENT,  _______,  MENU,                  MENU,     _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_PEQL, XXXXXXX,
 // └────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
-                               XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,               XXXXXXX, _______, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX
+                               XXXXXXX, XXXXXXX, KC_0,      SPC_LOW, _______, _______,               KC_ENT, BSPC_RREZ,SPC_REZ,   KC_PDOT, KC_P0,   KC_PDOT
 //                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
 ),
 [_LOWER] = LAYOUT(
@@ -159,19 +151,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_LWIN, KC_LCTL, KC_LALT,   _______, _______, _______,               _______, BSPC_RREZ,_______,  KC_0,    MKC_00,  KC_PDOT
 //                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
 ),
-[_NUMPAD] = LAYOUT(
-// ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┤                                   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, KC_TAB,  KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_PERC, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_P0,   KC_PSLS, XXXXXXX,
-// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, ESC_M_,  KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,                                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PMNS, KC_PAST, KC_PIPE,
-// ├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    XXXXXXX, KC_EQL,  KC_PPLS, KC_P1,   KC_P2,   KC_P3,   KC_PENT,  _______,  MENU,                  MENU,     _______,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_PEQL, XXXXXXX,
-// └────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
-                               XXXXXXX, XXXXXXX, KC_0,      SPC_LOW, _______, _______,               KC_ENT, BSPC_RREZ,SPC_REZ,   KC_PDOT, KC_P0,   KC_PDOT
-//                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
-),
 [_RAISE] = LAYOUT(
 // ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
     _______, _______, _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______, _______, _______,
@@ -181,6 +160,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_GRV,  KC_PIPE, KC_MINS, KC_PLUS, KC_LPRN, KC_LBRC,                                                       KC_RBRC, KC_RPRN, KC_EQL,  KC_UNDS, KC_BSLS, _______, _______,
 // ├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
     _______, _______, _______, KC_TILD, _______, KC_LCBR, _______,  _______,  _______,               _______,  _______,  _______, KC_RCBR, _______, _______, _______, _______, _______,
+// └────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
+                               _______, _______, _______,   _______, _______, _______,               _______, _______, _______,   _______, _______, _______
+//                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
+),
+[_ADJUST] = LAYOUT(
+// ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+    _______, _______, _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______, _______, _______,
+// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┤                                   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    _______, _______, _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______, _______, _______,
+// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    _______, _______, _______, MS_BTN4, MS_BTN5, MS_WHLU, _______,                                                       _______, _______, _______, _______, _______, _______, _______,
+// ├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    _______, _______, _______, _______, _______, MS_WHLD, _______,  XXXXXXX,  _______,               _______,  XXXXXXX,  _______, _______, _______, _______, _______, _______, _______, 
 // └────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
                                _______, _______, _______,   _______, _______, _______,               _______, _______, _______,   _______, _______, _______
 //                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
@@ -250,19 +242,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_LWIN, SET,     KC_LALT,   KC_SPC,  ENT_SWP, LOWER,                 KC_ENT,  BSPC_RREZ,SPC_REZ,  DEL_RSFT,KC_RALT, KC_RWIN
 //                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
 ),
-[_ADJUST] = LAYOUT(
-// ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
-    _______, _______, _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______, _______, _______,
-// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┤                                   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, _______, _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______, _______, _______,
-// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, _______, _______, MS_BTN4, MS_BTN5, MS_WHLU, _______,                                                       _______, _______, _______, _______, _______, _______, _______,
-// ├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-    _______, _______, _______, _______, _______, MS_WHLD, _______,  XXXXXXX,  _______,               _______,  XXXXXXX,  _______, _______, _______, _______, _______, _______, _______, 
-// └────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
-                               _______, _______, _______,   _______, _______, _______,               _______, _______, _______,   _______, _______, _______
-//                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
-),
 [_GAME_QWERTY] = LAYOUT(
 // ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
     KC_CAPS, KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,                                        KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,
@@ -274,6 +253,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     KC_MPLY,  MENU,                 GAME_QWRT,XXXXXXX,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, KC_RCTL,
 // └────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
                                KC_LWIN, SET,     KC_LALT,   KC_SPC,  ENT_SWP, LOWER,                 KC_ENT,  BSPC_RREZ,SPC_REZ,  DEL_RSFT,KC_RALT, KC_RWIN
+//                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
+),
+[_SET] = LAYOUT(
+// ┌──────────┬──────────┬────────┬────────┬────────┬────────┬────────┬────────┐                           ┌──────────┬───────────┬───────────┬───────────┬──────────────┬──────────────┬──────────────┬──────────────┐
+    G(KC_CAPS),G(KC_GRV), G(KC_1), A(KC_2), C(KC_3), S(KC_4), S(KC_5), S(KC_6),                             RSFT(KC_5),RSFT(KC_6),RSFT(KC_7),  RCTL(KC_8), RALT(KC_9),    RGUI(KC_0),    RGUI(KC_MINS), RGUI(KC_EQL),
+// ├──────────├──────────┼────────┼────────┼────────┼────────┼────────┬────────┤                           ├──────────┼───────────┼───────────┼───────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    G(KC_BSPC),G(KC_TAB), G(KC_Q), A(KC_W), C(KC_E), S(KC_R), S(KC_T), XXXXXXX,                             XXXXXXX,   RSFT(KC_Y), RSFT(KC_U), RCTL(KC_I), RALT(KC_O),    RGUI(KC_P),    RGUI(KC_LBRC), RGUI(KC_RBRC),
+// ├──────────├──────────┼────────┼────────┼────────┼────────┼────────┬────────┘                           └──────────┼───────────┼───────────┼───────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    G(KC_DEL), G(KC_ESC), G(KC_A), A(KC_S), C(KC_D), S(KC_F), S(KC_G),                                                 RSFT(KC_H), RSFT(KC_J), RCTL(KC_K), RALT(KC_L),    RGUI(KC_SCLN), RGUI(KC_QUOT), RGUI(KC_BSLS),
+// ├──────────├──────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐       ┌────────┐┌────────┐├───────────┼───────────┼───────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+    XXXXXXX,   XXXXXXX,   G(KC_Z), A(KC_X), C(KC_C), S(KC_V), S(KC_B),  XXXXXXX,  _______,         _______,  XXXXXXX,  RSFT(KC_M), RSFT(KC_M),RCTL(KC_COMM),RALT(KC_DOT), RGUI(KC_SLSH), XXXXXXX,       XXXXXXX,
+// └──────────┴──────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤       ├────────┼┴───────┬┴┴──────┬─┬──┴─────┬─────┴──┬────────┼──────────────┴──────────────┴──────────────┴──────────────┘
+                                   _______, _______, _______,   _______, _______, _______,         _______, _______, _______,   KC_LALT, KC_LWIN, KC_LCTL
+//                                └────────┴────────┴────────┘ └────────┴────────┴────────┘       └────────┴────────┴────────┘ └────────┴────────┴────────┘
+),
+[_RREZ] = LAYOUT(
+// ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐                                   ┌────────┬────────┬────────┬────────┬────────┬────────┬────────┬────────┐
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┤                                   ├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+// ├────────├────────┼────────┼────────┼────────┼────────┼────────┬────────┘                                   └────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    XXXXXXX, MENU,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+// ├────────├────────┼────────┼────────┼────────┼────────┼────────┤┌────────┐┌────────┐             ┌────────┐┌────────┐├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,  _______,               _______,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+// └────────┴────────┴────────┼────────┴────────┴────────┴─┬──────┴┴┬───────┴┼────────┤             ├────────┼┴───────┬┴┴──────┬─┼────────┼────────┼────────┼────────┴────────┴────────┘
+                               XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,               XXXXXXX, _______, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX
 //                            └────────┴────────┴────────┘ └────────┴────────┴────────┘             └────────┴────────┴────────┘ └────────┴────────┴────────┘
 )
 };
@@ -294,152 +299,12 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [_NUMPAD] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
   [_RREZ] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
   [_FN] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
+  [_SET] = { ENCODER_CCW_CW(_______, _______),  ENCODER_CCW_CW(_______, _______)  },
 };
 #endif
 
-bool isSetKey(uint16_t);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(keycode == TAB_SET) {
-    if(record->event.pressed) {
-      if (!record->tap.count) {
-        isSetOn = true;
-      }
-    } else {
-      if (!record->tap.count) {
-        isSetOn = false;
-      }
-    }
-    return true;
-  } else if(keycode == SET) {
-    if(record->event.pressed) {
-      isSetOn = true;
-    } else {
-      isSetOn = false;
-    }
-    return true;
-  }
-  if((isSetOn && record->event.pressed) || isSetKey(keycode)) {
-    uint8_t modIndex;
-    uint8_t keyIndex = keycode;
-
-    bool isKeyPressed = true;
-    bool isKeyComplicated = true;
-
-    uint8_t col = record->event.key.col;
-    uint8_t row = record->event.key.row;
-    normolizeMatrix(&row, &col);
-
-    switch (keycode) {
-      case F_:
-        keyIndex = KC_F;
-        break;
-      case D_:
-        keyIndex = KC_D;
-        break;
-      case S_:
-        keyIndex = KC_S;
-        break;
-      case A_:
-        keyIndex = KC_A;
-        break;
-      case C_:
-        keyIndex = KC_C;
-        break;
-      case X_:
-        keyIndex = KC_X;
-        break;
-      case V_:
-        keyIndex = KC_V;
-        break;
-
-      case J_:
-        keyIndex = KC_J;
-        break;
-      case K_:
-        keyIndex = KC_K;
-        break;
-      case L_:
-        keyIndex = KC_L;
-        break;
-      case SCLN_:
-        keyIndex = KC_SCLN;
-        break;
-      case COMM_:
-        keyIndex = KC_COMM;
-        break;
-      case DOT_:
-        keyIndex = KC_DOT;
-        break;
-      case ESC_M_:
-        keyIndex = (uint8_t)KC_ESC;
-        break;
-      default:
-        isKeyComplicated = false;
-        break;
-    }
-    if(row < 4) {
-      switch (col) {
-        case 0:
-        case 1:
-        case 2:
-          modIndex = KC_LWIN;
-          break;
-        case 3:
-          modIndex = KC_LALT;
-          break;
-        case 4:
-          modIndex = KC_LCTL;
-          break;
-        case 5:
-        case 6:
-          modIndex = KC_LSFT;
-          break;
-        default:
-          isKeyPressed = false;
-          break;
-      }
-    } else if(row > 4 && row < 9) {
-      switch (col)
-      {
-        case 0:
-        case 1:
-        case 2:
-          modIndex = KC_RWIN;
-          break;
-        case 3:
-          modIndex = KC_RALT;
-          break;
-        case 4:
-          modIndex = KC_RCTL;
-          break;
-        case 5:
-        case 6:
-          modIndex = KC_RSFT;
-          break;
-        default:
-          isKeyPressed = false;
-          break;
-      }
-    } else {
-      isKeyPressed = false;
-    } if(isKeyPressed) {
-      bool success;
-      if(record->event.pressed) {
-        success = pushSetKey(keycode);
-      } else {
-        success = popSetKey(keycode);
-      } if(success) {
-        if((row == 2 || row == 7) && col > 1 && col < 6 && isKeyComplicated) {
-          // modKey(modIndex, keyIndex, record->event.pressed);
-          mod_modKey(modIndex, keyIndex, record->event.pressed, record->tap.count);
-        } else {
-          modKey(modIndex, keyIndex, record->event.pressed);
-        }
-        return false;
-      }
-    }
-  }
   switch (keycode) {
     case MKC_00:
       if (record->event.pressed) {
@@ -461,7 +326,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_LOWER);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-        // layer_off(_SWP_HND);
       }
       return false;
     case SPC_LOW:
@@ -529,83 +393,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
   }
-    return true;
-}
-
-void mod_modKey(uint8_t mod, uint8_t key, bool isPressed, bool isTapped)
-{
-  if(isPressed) {
-    if (isTapped) {
-      register_code(mod);
-      register_code(key);
-    } else {
-      register_code(mod);
-    }
-  }
-  else {
-    if (isTapped) {
-      unregister_code(mod);
-      unregister_code(key);
-    } else {
-      unregister_code(mod);
-    }
-  }
-}
-
-void modKey(uint8_t mod, uint8_t key, bool isPressed)
-{
-  if(isPressed) {
-    register_code(mod);
-    register_code(key);
-  } else {
-    unregister_code(mod);
-    unregister_code(key);
-  }
-}
-
-void normolizeMatrix(uint8_t* row, uint8_t* col)
-{
-  if(*row == 4 && *col == 7) {
-    *row = 3;
-    *col = 8;
-  } else if(*row == 9 && *col == 6) {
-    *col = 8;
-  } else if(*row == 4) {
-    if(*col == 0 || *col == 1)
-      *col += 1;
-    *col += 2;
-  } else if(*row == 9) {
-    *col+=3;
-  }
-}
-bool pushSetKey(uint16_t value)
-{
-  for (int i = 0; i < SET_BUFF_KEYS; ++i) {
-    if(SetKey[i] == 0) {
-      SetKey[i] = value;
-      return true;
-    }
-  }
-  return false;
-}
-
-bool popSetKey(uint16_t value)
-{
-  for (int i = 0; i < SET_BUFF_KEYS; ++i) {
-    if(SetKey[i] == value) {
-      SetKey[i] = 0;
-      return true;
-    }
-  }
-  return false;
-}
-
-bool isSetKey(uint16_t value)
-{
-  for (int i = 0; i < SET_BUFF_KEYS; ++i) {
-    if(SetKey[i] == value) {
-      return true;
-    }
-  }
-  return false;
+  return true;
 }
