@@ -3,8 +3,10 @@
     "keyboard_name": "handwired/tnx_corne_f401",
     "maintainer": "ToYoNiX",
     "development_board": "blackpill_f401",
+    "bootloader": "tinyuf2",
     "diode_direction": "COL2ROW",
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "B9", "pin_b": "B8", "resolution": 2}
         ]
@@ -13,6 +15,9 @@
         "enabled": true,
         "serial": {
             "driver": "usart"
+        },
+        "transport": {
+            "watchdog": true
         },
         "encoder": {
             "right": {
@@ -29,6 +34,11 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "matrix_pins": {
         "cols": ["A8", "B15", "B14", "B13", "B12"],
