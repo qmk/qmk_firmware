@@ -31,8 +31,6 @@ enum layer_names {
     _FN,
 };
 
-// enum layer_keycodes { };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
@@ -90,38 +88,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______, _______,          _______,                   _______,                            _______, _______, KC_APP,  RM_SPDD, RM_VALD, RM_SPDU
             ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QK_RGB_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    case (LED_FLAG_UNDERGLOW): {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable_noeeprom();
-                    }
-                    break;
-                }
-            }
-            return false;
-	}
-    return true;
-}
 
 bool rgb_matrix_indicators_user(void) {
     hsv_t    hsv = rgb_matrix_config.hsv;

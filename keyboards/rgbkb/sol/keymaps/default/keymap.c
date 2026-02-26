@@ -129,61 +129,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-// For RGBRST Keycode
-#if defined(RGB_MATRIX_ENABLE)
-void rgb_matrix_increase_flags(void)
-{
-    switch (rgb_matrix_get_flags()) {
-        case LED_FLAG_ALL: {
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
-            rgb_matrix_set_color_all(0, 0, 0);
-            }
-            break;
-        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
-            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-            rgb_matrix_set_color_all(0, 0, 0);
-            }
-            break;
-        case LED_FLAG_UNDERGLOW: {
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_disable_noeeprom();
-            }
-            break;
-        default: {
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
-            }
-            break;
-    }
-}
-
-void rgb_matrix_decrease_flags(void)
-{
-    switch (rgb_matrix_get_flags()) {
-        case LED_FLAG_ALL: {
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_disable_noeeprom();
-            }
-            break;
-        case LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER: {
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_set_color_all(0, 0, 0);
-            }
-            break;
-        case LED_FLAG_UNDERGLOW: {
-            rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER);
-            rgb_matrix_set_color_all(0, 0, 0);
-            }
-            break;
-        default: {
-            rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-            rgb_matrix_enable_noeeprom();
-            }
-            break;
-    }
-}
-#endif
-
 #ifdef RGB_OLED_MENU
 uint8_t rgb_encoder_state = 4;
 
@@ -195,7 +140,7 @@ const rgb_matrix_f rgb_matrix_functions[6][2] = {
     { rgb_matrix_increase_val, rgb_matrix_decrease_val },
     { rgb_matrix_increase_speed, rgb_matrix_decrease_speed },
     { rgb_matrix_step, rgb_matrix_step_reverse },
-    { rgb_matrix_increase_flags, rgb_matrix_decrease_flags }
+    { rgb_matrix_flags_step, rgb_matrix_flags_step_reverse }
 };
 #endif
 
@@ -272,13 +217,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           }
       }
       return false;
-#if defined(RGB_MATRIX_ENABLE) && defined(KEYBOARD_rgbkb_sol_rev2)
-    case QK_RGB_MATRIX_TOGGLE:
-      if (record->event.pressed) {
-        rgb_matrix_increase_flags();
-      }
-      return false;
-#endif
     case RGB_MENU:
 #ifdef RGB_OLED_MENU
       if (record->event.pressed) {

@@ -18,8 +18,3 @@ void render_layer_status(void);
 void render_leds_status(void);
 void render_touch_status(void);
 void render_audio_status(void);
-
-#ifdef RGB_MATRIX_ENABLE
-// utility function to cycle active led zones
-void rgb_matrix_increase_flags(void);
-#endif
