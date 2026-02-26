@@ -366,13 +366,13 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
                 schedule_deferred_register(mod_free_replacement);
                 send_keyboard_report();
             } else {
+                send_keyboard_report();
+                // On macOS there seems to be a race condition when it comes to the keyboard report and consumer keycodes. It seems the OS may recognize a consumer keycode before an updated keyboard report, even if the keyboard report is actually sent before the consumer key. I assume it is some sort of race condition because it happens infrequently and very irregularly. Waiting for about at least 10ms between sending the keyboard report and sending the consumer code has shown to fix this.
+                wait_ms(10);
                 if (IS_BASIC_KEYCODE(mod_free_replacement)) {
                     add_key(mod_free_replacement);
                 } else {
                     key_override_printf("NOT KEY 2\n");
-                    send_keyboard_report();
-                    // On macOS there seems to be a race condition when it comes to the keyboard report and consumer keycodes. It seems the OS may recognize a consumer keycode before an updated keyboard report, even if the keyboard report is actually sent before the consumer key. I assume it is some sort of race condition because it happens infrequently and very irregularly. Waiting for about at least 10ms between sending the keyboard report and sending the consumer code has shown to fix this.
-                    wait_ms(10);
                     register_code(mod_free_replacement);
                 }
             }
