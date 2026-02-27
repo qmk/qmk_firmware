@@ -418,7 +418,7 @@ __EOT__
         # Get the latest toolchain release from https://github.com/qmk/qmk_toolchains
         local latest_toolchains_release=$(github_api_call repos/qmk/qmk_toolchains/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset with a matching keyword
-        local toolchain_url=$(github_api_call repos/qmk/qmk_toolchains/releases/tags/$latest_toolchains_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep $(fn_os)$(fn_arch))
+        local toolchain_url=$(github_api_call repos/qmk/qmk_toolchains/releases/tags/$latest_toolchains_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep -E "qmk_toolchains-.*$(fn_os)$(fn_arch)")
         if [ -z "$toolchain_url" ]; then
             echo "No toolchain found for this OS/Arch combination." >&2
             exit 1
@@ -445,7 +445,7 @@ __EOT__
         # Get the latest flashing tools release from https://github.com/qmk/qmk_flashutils
         local latest_flashutils_release=$(github_api_call repos/qmk/qmk_flashutils/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset with a matching keyword
-        local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep "$osarchvariant")
+        local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep -E "qmk_flashutils-.*$osarchvariant")
         if [ -z "$flashutils_url" ]; then
             echo "No flashing tools found for this OS/Arch combination." >&2
             exit 1
