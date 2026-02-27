@@ -420,7 +420,7 @@
                 {"label": ">", "matrix": [3, 10], "x": 10.25, "y": 3},
                 {"label": "?", "matrix": [3, 11], "x": 11.25, "y": 3},
                 {"label": "Shift", "matrix": [3, 13], "x": 12.25, "y": 3, "w": 2.75},
-				{"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
+                {"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "Win", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "Alt", "matrix": [4, 3], "x": 2.5, "y": 4, "w": 1.25},
                 {"label": "Space", "matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
