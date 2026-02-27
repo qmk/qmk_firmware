@@ -290,7 +290,7 @@
                 {"label": "?", "matrix": [3, 11], "x": 11.25, "y": 3},
                 {"label": "Shift", "matrix": [3, 12], "x": 12.25, "y": 3, "w": 1.75},
                 {"label": "Fn", "matrix": [3, 14], "x": 14, "y": 3},
-				{"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
+                {"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.5},
                 {"label": "Win", "matrix": [4, 1], "x": 1.5, "y": 4},
                 {"label": "Alt", "matrix": [4, 3], "x": 2.5, "y": 4, "w": 1.5},
                 {"label": "Space", "matrix": [4, 6], "x": 4, "y": 4, "w": 7},
