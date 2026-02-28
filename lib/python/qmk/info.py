@@ -1025,7 +1025,7 @@ def merge_info_jsons(keyboard, info_data):
     """
     config_files = find_info_json(keyboard)
 
-    for info_file in config_files:
+    for info_file in reversed(config_files):
         # Load and validate the JSON data
         new_info_data = json_load(info_file)
 
