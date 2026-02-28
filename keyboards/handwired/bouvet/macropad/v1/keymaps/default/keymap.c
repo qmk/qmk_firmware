@@ -1,4 +1,4 @@
-// Copyright 2023 Kenneth Fossen
+// Copyright 2026 Kenneth Fossen
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
