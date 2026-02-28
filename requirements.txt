@@ -1,6 +1,7 @@
 # Python requirements
 # platformdirs
 argcomplete
+asciimatics==1.15.0
 colorama
 dotty-dict
 hid
