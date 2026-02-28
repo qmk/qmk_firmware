@@ -64,6 +64,7 @@ subcommands = [
     'qmk.cli.compile',
     'qmk.cli.docs',
     'qmk.cli.doctor',
+    'qmk.cli.edit',
     'qmk.cli.find',
     'qmk.cli.flash',
     'qmk.cli.format.c',

@@ -295,6 +295,24 @@ Check your environment and report problems only:
 qmk doctor -n
 ```
 
+## `qmk edit`
+
+This command opens a terminal UI for editing a keyboard's `info.json` configuration. It provides schema-aware field editing with validation, navigation into nested objects and arrays, and search.
+
+This command is directory aware. It will automatically fill in KEYBOARD if you are in a keyboard directory.
+
+**Usage**:
+
+```
+qmk edit [-kb KEYBOARD] [--no-confirm-delete]
+```
+
+**Example**:
+
+```
+$ qmk edit -kb planck/rev6
+```
+
 ## `qmk format-json`
 
 Formats a JSON file in a (mostly) human-friendly way. Will usually correctly detect the format of the JSON (info.json or keymap.json) but you can override this with `--format` if necessary.
