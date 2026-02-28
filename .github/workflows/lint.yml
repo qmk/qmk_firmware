@@ -31,7 +31,7 @@ jobs:
       with:
         use_rest_api: true
 
-    - name: Print info
+    - name: Print git info
       run: |
         git rev-parse --short HEAD
         echo ${{ github.event.pull_request.base.sha }}
@@ -57,7 +57,7 @@ jobs:
           if [[ $KEYMAP_ONLY -gt 0 ]]; then
             echo "linting ${KB}"
 
-            qmk lint --keyboard ${KB} && qmk info -l --keyboard ${KB}
+            qmk lint --strict --keyboard ${KB} && qmk info -l --keyboard ${KB}
             exit_code=$(($exit_code + $?))
           fi
         done
@@ -78,10 +78,37 @@ jobs:
         fi
         exit $exit_code
 
-    - name: Verify keyboard aliases
+    - name: Reset git repo
       if: always()
       shell: 'bash {0}'
       run: |
         git reset --hard
         git clean -xfd
+
+    - name: Verify keyboard targets
+      if: always()
+      shell: 'bash {0}'
+      run: |
+        exit_code=0
+
+        for file in $(find keyboards/ -name rules.mk | grep -v /keymaps/ | grep -v /common/ | grep -v /lib/); do
+            dir=$(dirname $file)
+
+            $(find $dir -name keyboard.json -exec false {} +)
+            if [[ $? == 0 ]]; then
+                echo "$dir::Legacy target detected"
+
+                ((++exit_code))
+            fi
+        done
+
+        if [[ $exit_code -gt 255 ]]; then
+            exit 255
+        fi
+        exit $exit_code
+
+    - name: Verify keyboard aliases
+      if: always()
+      shell: 'bash {0}'
+      run: |
         qmk ci-validate-aliases
