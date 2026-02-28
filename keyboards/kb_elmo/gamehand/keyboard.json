@@ -6,8 +6,12 @@
     "usb": {
         "vid": "0xA68C",
         "pid": "0x4D90",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",

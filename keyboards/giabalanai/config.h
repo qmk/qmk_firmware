@@ -17,16 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define SELECT_SOFT_SERIAL_SPEED 1
-/*Sets the protocol speed when using serial communication*/
-//Speeds:
-//0: about 189kbps (Experimental only)
-//1: about 137kbps (default)
-//2: about 75kbps
-//3: about 39kbps
-//4: about 26kbps
-//5: about 20kbps
-
 // Right side has to be the master since 1, LED data is output from right side, and 2, Audio pin is prepared on right side as a reserve.
 #define MASTER_RIGHT
 

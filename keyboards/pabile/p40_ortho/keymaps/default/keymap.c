@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_END,  KC_NO,   KC_NO,   KC_NO,   KC_NO,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO),
   [4] = LAYOUT_ortho_4x10(
-    KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_BTN1, KC_MS_U, KC_BTN2, KC_DEL,
-    KC_TAB,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,
-    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_WH_D, KC_NO,   KC_NO,   KC_NO,   KC_NO,
+    KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MS_BTN1, MS_UP,   MS_BTN2, KC_DEL,
+    KC_TAB,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   MS_WHLU, MS_LEFT, MS_DOWN, MS_RGHT, KC_NO,
+    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MS_WHLD, KC_NO,   KC_NO,   KC_NO,   KC_NO,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO)
 };

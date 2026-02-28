@@ -6,8 +6,12 @@
         "vid": "0x7BA1",
         "pid": "0x6505",
         "device_version": "0.0.1",
-        "force_nkro": true,
         "polling_interval": 2
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

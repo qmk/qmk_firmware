@@ -1,7 +1,6 @@
 {
     "keyboard_name": "XIIX",
     "manufacturer": "ASH",
-    "url": "config.qmk.fm",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

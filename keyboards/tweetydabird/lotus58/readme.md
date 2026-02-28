@@ -9,22 +9,13 @@
 * Hardware Availability: [Lectronz Store](https://lectronz.com/stores/tweetys-wild-thinking)
 * Hardware Design: [GitHub](https://github.com/TweetyDaBird/Lotus58)
 
-
-#### This keyboard firmware contains three different versions, all for the same PCB/hardware, but depending on your choice of controller/bootloader. 
-
-
-* promicro - This uses the default Caterina bootloader.
-* elite_c - This uses the Atmel-DFU bootloader.
-* nanoBoot - A tiny 512 byte bootloader giving far more usable memory for features (can be used on both Elite C and Pro Micro).
-
-
 Make example for this keyboard (after setting up your build environment):
 
-    make tweetydabird/lotus58/promicro:default
+    make tweetydabird/lotus58:default
 
 Flashing example for this keyboard:
 
-    make tweetydabird/lotus58/elite_c:default:flash
+    make tweetydabird/lotus58:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

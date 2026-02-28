@@ -1,7 +1,6 @@
 {
     "keyboard_name": "teclado_oscar",
     "manufacturer": "Gamdias",
-    "url": "https://github.com/andresteare/qmk_firmware",
     "maintainer": "andresteare",
     "usb": {
         "vid": "0x9856",

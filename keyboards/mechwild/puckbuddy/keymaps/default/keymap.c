@@ -37,8 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MUTE,  MO(_FN3), MO(_FN2), MO(_FN1),       LGUI(KC_D),
     MO(_FN2),                                     KC_HOME,
     MO(_FN3),                                     KC_END,
-    KC_BTN3,                                      DPI_FINE,
-              KC_BTN1, KC_BTN2, KC_BTN2, KC_BTN1
+    MS_BTN3,                                      DPI_FINE,
+              MS_BTN1, MS_BTN2, MS_BTN2, MS_BTN1
     ),
     [_FN1] = LAYOUT(
     UG_TOGG, KC_TRNS, KC_TRNS, KC_TRNS,          TAP_TOG,

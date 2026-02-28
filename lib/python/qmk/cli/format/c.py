@@ -6,18 +6,12 @@ from subprocess import CalledProcessError, DEVNULL, Popen, PIPE
 from argcomplete.completers import FilesCompleter
 from milc import cli
 
-from qmk.path import normpath
+from qmk.path import normpath, is_relative_to
 from qmk.c_parse import c_source_files
 
 c_file_suffixes = ('c', 'h', 'cpp', 'hpp')
 core_dirs = ('drivers', 'quantum', 'tests', 'tmk_core', 'platforms', 'modules')
 ignored = ('tmk_core/protocol/usb_hid', 'platforms/chibios/boards')
-
-
-def is_relative_to(file, other):
-    """Provide similar behavior to PurePath.is_relative_to in Python > 3.9
-    """
-    return str(normpath(file).resolve()).startswith(str(normpath(other).resolve()))
 
 
 def find_clang_format():
@@ -105,7 +99,7 @@ def format_c(cli):
 
         if not files:
             cli.log.error('No C files in filelist: %s', ', '.join(map(str, cli.args.files)))
-            exit(0)
+            return False
 
         if cli.args.all_files:
             cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(map(str, files)))

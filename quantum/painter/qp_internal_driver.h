@@ -36,7 +36,7 @@ typedef struct painter_driver_vtable_t {
 
 typedef bool (*painter_driver_comms_init_func)(painter_device_t device);
 typedef bool (*painter_driver_comms_start_func)(painter_device_t device);
-typedef void (*painter_driver_comms_stop_func)(painter_device_t device);
+typedef bool (*painter_driver_comms_stop_func)(painter_device_t device);
 typedef uint32_t (*painter_driver_comms_send_func)(painter_device_t device, const void *data, uint32_t byte_count);
 
 typedef struct painter_comms_vtable_t {
@@ -46,8 +46,8 @@ typedef struct painter_comms_vtable_t {
     painter_driver_comms_send_func  comms_send;
 } painter_comms_vtable_t;
 
-typedef void (*painter_driver_comms_send_command_func)(painter_device_t device, uint8_t cmd);
-typedef void (*painter_driver_comms_bulk_command_sequence)(painter_device_t device, const uint8_t *sequence, size_t sequence_len);
+typedef bool (*painter_driver_comms_send_command_func)(painter_device_t device, uint8_t cmd);
+typedef bool (*painter_driver_comms_bulk_command_sequence)(painter_device_t device, const uint8_t *sequence, size_t sequence_len);
 
 typedef struct painter_comms_with_command_vtable_t {
     painter_comms_vtable_t                     base; // must be first, so this object can be cast from the painter_comms_vtable_t* type
@@ -60,7 +60,7 @@ typedef struct painter_comms_with_command_vtable_t {
 
 typedef struct painter_driver_t {
     const painter_driver_vtable_t *driver_vtable;
-    const painter_comms_vtable_t * comms_vtable;
+    const painter_comms_vtable_t  *comms_vtable;
 
     // Flag signifying if validation was successful
     bool validate_ok;

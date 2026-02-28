@@ -63,6 +63,10 @@
 #    include "bootmagic.h"
 #endif
 
+#ifdef BATTERY_ENABLE
+#    include "battery.h"
+#endif
+
 #ifdef DEFERRED_EXEC_ENABLE
 #    include "deferred_exec.h"
 #endif

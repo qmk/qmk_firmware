@@ -17,12 +17,12 @@ qmk compile [-c] <configuratorExport.json>
 **Usage for Keymaps**:
 
 ```
-qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] [--compiledb] -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] [--compiledb] -kb <keyboard> -km <keymap>
 ```
 
 **Usage in Keyboard Directory**:
 
-Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
+Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap>`
 ```
 qmk compile
 ```
@@ -30,7 +30,7 @@ qmk compile
 **Usage for building all keyboards that support a specific keymap**:
 
 ```
-qmk compile -kb all -km <keymap_name>
+qmk compile -kb all -km <keymap>
 ```
 
 **Example**:
@@ -62,7 +62,7 @@ $ qmk compile
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
-qmk compile -kb <keyboard_name>
+qmk compile -kb <keyboard>
 ```
 
 **Example**:
@@ -77,11 +77,11 @@ $ qmk compile -kb dz60
 
 It is possible to speed up compilation by adding the `-j`/`--parallel` flag.
 ```
-qmk compile -j <num_jobs> -kb <keyboard_name>
+qmk compile -j <num_jobs> -kb <keyboard>
 ```
 The `num_jobs` argument determines the maximum number of jobs that can be used. Setting it to zero will enable parallel compilation without limiting the maximum number of jobs.
 ```
-qmk compile -j 0 -kb <keyboard_name>
+qmk compile -j 0 -kb <keyboard>
 ```
 
 **Compilation Database**:
@@ -120,7 +120,7 @@ qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>] <configurat
 **Usage for Keymaps**:
 
 ```
-qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
+qmk flash -kb <keyboard> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
 ```
 
 **Usage for pre-compiled firmwares**:
@@ -631,14 +631,15 @@ This command compiles all the External Userspace build targets.
 **Usage**:
 
 ```
-qmk userspace-compile [-h] [-e ENV] [-n] [-c] [-j PARALLEL] [-t]
+qmk userspace-compile [-h] [-e ENV] [-p] [-n] [-c] [-j PARALLEL] [-t]
 
 options:
   -h, --help            show this help message and exit
-  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -e, --env ENV         Set a variable to be passed to make. May be passed multiple times.
+  -p, --print-failures  Print failed builds.
   -n, --dry-run         Don't actually build, just show the commands to be run.
   -c, --clean           Remove object files before compiling.
-  -j PARALLEL, --parallel PARALLEL
+  -j, --parallel PARALLEL
                         Set the number of parallel make jobs; 0 means unlimited.
   -t, --no-temp         Remove temporary files during build.
 ```

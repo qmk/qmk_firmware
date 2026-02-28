@@ -2,8 +2,12 @@
     "keyboard_name": "zhou65",
     "usb": {
         "pid": "0xAAAD",
-        "device_version": "1.0.0",
-        "force_nkro": true
+        "device_version": "1.0.0"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

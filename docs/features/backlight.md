@@ -227,7 +227,7 @@ In this typical example, the backlight LEDs are all connected in parallel toward
 A pulldown resistor is also placed between the gate pin and ground to keep it at a defined state when it is not otherwise being driven by the MCU.
 The values of these resistors are not critical - see [this Electronics StackExchange question](https://electronics.stackexchange.com/q/68748) for more information.
 
-![Backlight example circuit](https://i.imgur.com/BmAvoUC.png)
+![Backlight example circuit](/BmAvoUC.png)
 
 ## API {#api}
 

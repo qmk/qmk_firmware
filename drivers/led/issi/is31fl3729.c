@@ -107,7 +107,7 @@ void is31fl3729_write_pwm_buffer(uint8_t index) {
     // Transmit PWM registers in 11 transfers of 13 bytes.
 
     // Iterate over the pwm_buffer contents at 13 byte intervals.
-    for (uint8_t i = 0; i <= IS31FL3729_PWM_REGISTER_COUNT; i += 13) {
+    for (uint8_t i = 0; i < IS31FL3729_PWM_REGISTER_COUNT; i += 13) {
 #if IS31FL3729_I2C_PERSISTENCE > 0
         for (uint8_t j = 0; j < IS31FL3729_I2C_PERSISTENCE; j++) {
             if (i2c_write_register(i2c_addresses[index] << 1, IS31FL3729_REG_PWM + i, driver_buffers[index].pwm_buffer + i, 13, IS31FL3729_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
@@ -184,9 +184,9 @@ void is31fl3729_set_scaling_register(uint8_t index, uint8_t red, uint8_t green, 
     // need to do a bit of checking here since 3729 scaling is per CS pin.
     // not the usual per RGB key as per other ISSI drivers
     // only enable them, since they should be default disabled
-    int cs_red   = (led.r & 0x0F) - 1;
-    int cs_green = (led.g & 0x0F) - 1;
-    int cs_blue  = (led.b & 0x0F) - 1;
+    int cs_red   = (led.r & 0x0F);
+    int cs_green = (led.g & 0x0F);
+    int cs_blue  = (led.b & 0x0F);
 
     driver_buffers[led.driver].scaling_buffer[cs_red]   = red;
     driver_buffers[led.driver].scaling_buffer[cs_green] = green;

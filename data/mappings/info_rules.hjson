@@ -13,6 +13,7 @@
 
     "AUDIO_DRIVER": {"info_key": "audio.driver"},
     "BACKLIGHT_DRIVER": {"info_key": "backlight.driver"},
+    "BATTERY_DRIVER": {"info_key": "battery.driver"},
     "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
@@ -53,8 +54,8 @@
     "WS2812_DRIVER": {"info_key": "ws2812.driver"},
 
     // Items we want flagged in lint
-    "DEFAULT_FOLDER": {"info_key": "_deprecated.default_folder", "deprecated": true},
     "CTPC": {"info_key": "_invalid.ctpc", "invalid": true, "replace_with": "CONVERT_TO=proton_c"},
     "CONVERT_TO_PROTON_C": {"info_key": "_invalid.ctpc", "invalid": true, "replace_with": "CONVERT_TO=proton_c"},
+    "DEFAULT_FOLDER": {"info_key": "_invalid.default_folder", "invalid": true},
     "VIAL_ENABLE": {"info_key": "_invalid.vial", "invalid": true}
 }

@@ -183,6 +183,10 @@ void        led_matrix_decrease_speed_noeeprom(void);
 led_flags_t led_matrix_get_flags(void);
 void        led_matrix_set_flags(led_flags_t flags);
 void        led_matrix_set_flags_noeeprom(led_flags_t flags);
+void        led_matrix_flags_step_noeeprom(void);
+void        led_matrix_flags_step(void);
+void        led_matrix_flags_step_reverse_noeeprom(void);
+void        led_matrix_flags_step_reverse(void);
 
 #ifdef LED_MATRIX_MODE_NAME_ENABLE
 const char *led_matrix_get_mode_name(uint8_t mode);

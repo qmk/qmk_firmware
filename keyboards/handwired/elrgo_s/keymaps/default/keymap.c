@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     
     [_RAISE] = LAYOUT_split_3x6_5(
-        KC_ESC  ,     KC_PDOT   ,   M_BBSLS , KC_BSLS   , LSFT(KC_MINS), LSFT(KC_EQL),                  KC_HOME , KC_WH_L ,  KC_UP  , KC_WH_R , KC_PGUP , KC_BSPC ,
+        KC_ESC  ,     KC_PDOT   ,   M_BBSLS , KC_BSLS   , LSFT(KC_MINS), LSFT(KC_EQL),                  KC_HOME , MS_WHLL ,  KC_UP  , MS_WHLR , KC_PGUP , KC_BSPC ,
         KC_TAB  ,     LSFT(KC_1), LSFT(KC_2), LSFT(KC_3),  LSFT(KC_4)  , LSFT(KC_5)  ,                  M_FLEFT , KC_LEFT , KC_DOWN , KC_RIGHT, M_FRIGHT, KC_DEL  ,
         LSFT(KC_TAB), LSFT(KC_6), LSFT(KC_7), LSFT(KC_8),  LSFT(KC_9)  , LSFT(KC_0)  ,                   KC_END , KC_F22 ,  KC_F23  , KC_CAPS , KC_PGDN , MO(_ADJUST),
                         KC_LGUI , KC_LCTL   , KC_LSFT   ,  KC_LALT    , M_SHLL       ,                  M_SHLA  , KC_TRNS , KC_SPC  , KC_RALT , KC_ENT

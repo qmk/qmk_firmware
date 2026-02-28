@@ -62,7 +62,7 @@ uint8_t get_first_key(void) {
 /** \brief Checks if a key is pressed in the report
  *
  * Returns true if the keyboard_report reports that the key is pressed, otherwise false
- * Note: The function doesn't support modifers currently, and it returns false for KC_NO
+ * Note: The function doesn't support modifiers currently, and it returns false for KC_NO
  */
 bool is_key_pressed(uint8_t key) {
     if (key == KC_NO) {

@@ -24,9 +24,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------|
    */
 [0] = LAYOUT(
-  KC_MS_BTN4,   KC_MS_BTN2,   KC_MS_UP,    KC_MS_BTN1,
-  KC_MS_BTN5,   KC_MS_LEFT,   KC_MS_DOWN,  KC_MS_RIGHT,
-  KC_MS_ACCEL0, KC_MS_ACCEL1, KC_MS_ACCEL2
+  MS_BTN4, MS_BTN2, MS_UP,   MS_BTN1,
+  MS_BTN5, MS_LEFT, MS_DOWN, MS_RGHT,
+  MS_ACL0, MS_ACL1, MS_ACL2
   )
 };
 
@@ -41,9 +41,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_MS_WH_UP);
+            tap_code(MS_WHLU);
         } else {
-            tap_code(KC_MS_WH_DOWN);
+            tap_code(MS_WHLD);
         }
     }
     return true;
@@ -76,10 +76,10 @@ void matrix_scan_user(void) {
     }
     if (enc2Center != enc2CenterPrev) {
         if (enc2Center < ENC_TILT_THRESHOLD) {
-            register_code16(KC_MS_BTN3);
+            register_code16(MS_BTN3);
         }
         else {
-            unregister_code16(KC_MS_BTN3);
+            unregister_code16(MS_BTN3);
         }
         /*
          * Encoder sets ALL values when center is pressed so bail out at this point

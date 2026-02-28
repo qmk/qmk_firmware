@@ -380,12 +380,12 @@ qmk_dict = {
     # Layer Switching missing, Lx -> MO(x), Tx -> TG(x)
     "qwertz": "DF(0)", "neo": "DF(2)",
     # Mouse Keys
-    "^ Mouse": "KC_MS_U", "v Mouse": "KC_MS_D", "< Mouse": "KC_MS_L",
-    "> Mouse": "KC_MS_R", "Mouse 1": "KC_BTN1", "Mouse 2": "KC_BTN2",
-    "Mouse 3": "KC_BTN3", "Mouse 4": "KC_BTN4", "Mouse 5": "KC_BTN5",
-    "^ Wheel": "KC_WH_U", "v Wheel": "KC_WH_D", "< Wheel": "KC_WH_L",
-    "> Wheel": "KC_WH_R", "acc0": "KC_ACL0", "acc1": "KC_ACL1",
-    "acc2": "KC_ACL2",
+    "^ Mouse": "MS_UP", "v Mouse": "MS_DOWN", "< Mouse": "MS_LEFT",
+    "> Mouse": "MS_RGHT", "Mouse 1": "MS_BTN1", "Mouse 2": "MS_BTN2",
+    "Mouse 3": "MS_BTN3", "Mouse 4": "MS_BTN4", "Mouse 5": "MS_BTN5",
+    "^ Wheel": "MS_WHLU", "v Wheel": "MS_WHLD", "< Wheel": "MS_WHLL",
+    "> Wheel": "MS_WHLR", "acc0": "MS_ACL0", "acc1": "MS_ACL1",
+    "acc2": "MS_ACL2",
     # Modifiers missinng, add entry for each specific application
     # Mod-Tap Keys missing, add entry for each specific application
     "_Sh_swp": "LSFT_T(SH_TOGG)",

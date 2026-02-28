@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0x5845",
         "pid": "0x5052",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgb_matrix": {
         "animations": {

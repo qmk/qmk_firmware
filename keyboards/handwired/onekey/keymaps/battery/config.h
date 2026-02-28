@@ -3,4 +3,4 @@
 
 #pragma once
 
-#define BATTERY_PIN ADC_PIN
+#define BATTERY_ADC_PIN ADC_PIN

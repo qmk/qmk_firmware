@@ -27,16 +27,3 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     return true;
 }
 #endif
-
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = {
-    {
-        {  NO_LED, 1, 0 }
-    }, {
-        {  103,  32 }, {  122,  32 }
-    }, {
-        4, 4
-    }
-};
-
-#endif

@@ -12,9 +12,13 @@
     },
     "usb": {
         "device_version": "1.0.0",
-        "force_nkro": true,
         "vid": "0x3A54",
         "pid": "0x4F5D"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

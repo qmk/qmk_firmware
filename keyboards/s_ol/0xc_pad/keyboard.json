@@ -39,8 +39,21 @@
             "solid_reactive": true,
             "splash": true
         },
-        "center_point": [112, 63],
-        "driver": "ws2812"
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 74, "y": 0, "flags": 4},
+            {"matrix": [1, 0], "x": 148, "y": 0, "flags": 4},
+            {"matrix": [2, 0], "x": 37, "y": 21, "flags": 4},
+            {"matrix": [3, 1], "x": 111, "y": 21, "flags": 4},
+            {"matrix": [2, 1], "x": 185, "y": 21, "flags": 4},
+            {"matrix": [1, 1], "x": 0, "y": 42, "flags": 4},
+            {"matrix": [0, 1], "x": 74, "y": 42, "flags": 4},
+            {"matrix": [1, 2], "x": 148, "y": 42, "flags": 4},
+            {"matrix": [2, 2], "x": 224, "y": 42, "flags": 4},
+            {"matrix": [3, 2], "x": 37, "y": 64, "flags": 4},
+            {"matrix": [3, 3], "x": 111, "y": 64, "flags": 4},
+            {"matrix": [2, 3], "x": 185, "y": 64, "flags": 4}
+        ]
     },
     "layouts": {
         "LAYOUT": {

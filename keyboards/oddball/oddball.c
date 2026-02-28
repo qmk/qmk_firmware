@@ -107,23 +107,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // handle mouse drag and scroll
 
     switch (keycode) {
-        case KC_BTN1:
+        case MS_BTN1:
             on_mouse_button(MOUSE_BTN1, record);
             return false;
 
-        case KC_BTN2:
+        case MS_BTN2:
             on_mouse_button(MOUSE_BTN2, record);
             return false;
 
-        case KC_BTN3:
+        case MS_BTN3:
             on_mouse_button(MOUSE_BTN3, record);
             return false;
 
-        case KC_BTN4:
+        case MS_BTN4:
             on_mouse_button(MOUSE_BTN4, record);
             return false;
 
-        case KC_BTN5:
+        case MS_BTN5:
             on_mouse_button(MOUSE_BTN5, record);
             return false;
 

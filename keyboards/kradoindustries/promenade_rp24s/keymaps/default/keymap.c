@@ -93,7 +93,7 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0]       = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU),       ENCODER_CCW_CW(UG_NEXT, UG_PREV),                                               
                   ENCODER_CCW_CW(KC_LBRC, KC_RBRC),       ENCODER_CCW_CW(C(KC_MINS), C(KC_EQL)),                                           
                   ENCODER_CCW_CW(C(KC_Z), C(S(KC_Z))),    ENCODER_CCW_CW(KC_PGUP, KC_PGDN),        
-                  ENCODER_CCW_CW(KC_WH_U, KC_WH_D),       ENCODER_CCW_CW(KC_UP, KC_DOWN)},
+                  ENCODER_CCW_CW(MS_WHLU, MS_WHLD),       ENCODER_CCW_CW(KC_UP, KC_DOWN)},
     [1 ... 3] = { ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),                                               
                   ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),                                               
                   ENCODER_CCW_CW(_______, _______),       ENCODER_CCW_CW(_______, _______),       
