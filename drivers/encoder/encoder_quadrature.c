@@ -113,7 +113,7 @@ void encoder_driver_init(void) {
     thisCount = isLeftHand ? NUM_ENCODERS_LEFT : NUM_ENCODERS_RIGHT;
     thatCount = isLeftHand ? NUM_ENCODERS_RIGHT : NUM_ENCODERS_LEFT;
 #else // SPLIT_KEYBOARD
-    thisCount                = NUM_ENCODERS;
+    thisCount = NUM_ENCODERS;
 #endif
 
 #ifdef ENCODER_TESTS

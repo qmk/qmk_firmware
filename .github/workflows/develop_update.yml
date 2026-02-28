@@ -15,7 +15,7 @@ jobs:
     if: github.repository == 'qmk/qmk_firmware'
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}
         fetch-depth: 0

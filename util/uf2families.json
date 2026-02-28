@@ -35,6 +35,11 @@
         "description": "ST STM32WLxx"
     },
     {
+        "id": "0x22e0d6fc",
+        "short_name": "RTL8710B",
+        "description": "Realtek AmebaZ RTL8710B"
+    },
+    {
         "id": "0x2abc77ec",
         "short_name": "LPC55",
         "description": "NXP LPC55xx"
@@ -50,6 +55,11 @@
         "description": "GD32F350"
     },
     {
+        "id": "0x3379CFE2",
+        "short_name": "RTL8720D",
+        "description": "Realtek AmebaD RTL8720D"
+    },
+    {
         "id": "0x04240bdf",
         "short_name": "STM32L5",
         "description": "ST STM32L5xx"
@@ -63,6 +73,11 @@
         "id": "0x4fb2d5bd",
         "short_name": "MIMXRT10XX",
         "description": "NXP i.MX RT10XX"
+    },
+    {
+        "id": "0x51e903a8",
+        "short_name": "XR809",
+        "description": "Xradiotech 809"
     },
     {
         "id": "0x53b80f00",
@@ -105,9 +120,19 @@
         "description": "ST STM32F0xx"
     },
     {
+        "id": "0x675a40b0",
+        "short_name": "BK7231U",
+        "description": "Beken 7231U/7231T"
+    },
+    {
         "id": "0x68ed2b88",
         "short_name": "SAMD21",
         "description": "Microchip (Atmel) SAMD21"
+    },
+    {
+        "id": "0x6a82cc42",
+        "short_name": "BK7251",
+        "description": "Beken 7251/7252"
     },
     {
         "id": "0x6b846188",
@@ -120,6 +145,11 @@
         "description": "ST STM32F407"
     },
     {
+        "id": "0x4e8f1c5d",
+        "short_name": "STM32H5",
+        "description": "ST STM32H5xx"
+    },
+    {
         "id": "0x6db66082",
         "short_name": "STM32H7",
         "description": "ST STM32H7xx"
@@ -128,6 +158,11 @@
         "id": "0x70d16653",
         "short_name": "STM32WB",
         "description": "ST STM32WBxx"
+    },
+    {
+        "id": "0x7b3ef230",
+        "short_name": "BK7231N",
+        "description": "Beken 7231N"
     },
     {
         "id": "0x7eab61ed",
@@ -145,9 +180,19 @@
         "description": "ST STM32F407VG"
     },
     {
+        "id": "0x9fffd543",
+        "short_name": "RTL8710A",
+        "description": "Realtek Ameba1 RTL8710A"
+    },
+    {
         "id": "0xada52840",
         "short_name": "NRF52840",
         "description": "Nordic NRF52840"
+    },
+    {
+        "id": "0x820d9a5f",
+        "short_name": "NRF52820",
+        "description": "Nordic NRF52820_xxAA"
     },
     {
         "id": "0xbfdd4eee",
@@ -193,6 +238,26 @@
         "id": "0x77d850c4",
         "short_name": "ESP32C61",
         "description": "ESP32-C61"
+    },
+    {
+        "id": "0xb6dd00af",
+        "short_name": "ESP32H21",
+        "description": "ESP32-H21"
+    },
+    {
+        "id": "0x9e0baa8a",
+        "short_name": "ESP32H4",
+        "description": "ESP32-H4"
+    },
+    {
+        "id": "0xde1270b7",
+        "short_name": "BL602",
+        "description": "Boufallo 602"
+    },
+    {
+        "id": "0xe08f7564",
+        "short_name": "RTL8720C",
+        "description": "Realtek AmebaZ2 RTL8720C"
     },
     {
         "id": "0xe48bff56",
@@ -293,5 +358,25 @@
         "id": "0x7be8976d",
         "short_name": "RA4M1",
         "description": "Renesas RA4M1"
+    },
+    {
+        "id": "0x7410520a",
+        "short_name": "MAX32690",
+        "description": "Analog Devices MAX32690"
+    },
+    {
+        "id": "0xd63f8632",
+        "short_name": "MAX32650",
+        "description": "Analog Devices MAX32650/1/2"
+    },
+    {
+        "id": "0xf0c30d71",
+        "short_name": "MAX32666",
+        "description": "Analog Devices MAX32665/6"
+    },
+    {
+        "id": "0x91d3fd18",
+        "short_name": "MAX78002",
+        "description": "Analog Devices MAX78002"
     }
 ]

@@ -24,7 +24,7 @@
  * @brief Computes the rounded up result of a division of two integers at
  * compile time.
  */
-#    define CEILING(dividend, divisor) (((dividend) + (divisor)-1) / (divisor))
+#    define CEILING(dividend, divisor) (((dividend) + (divisor) - 1) / (divisor))
 #endif
 
 #if !defined(IS_ARRAY)

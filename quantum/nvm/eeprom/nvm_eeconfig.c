@@ -246,8 +246,8 @@ uint32_t nvm_eeconfig_update_kb_datablock(const void *data, uint32_t offset, uin
 void nvm_eeconfig_init_kb_datablock(void) {
     eeprom_update_dword(EECONFIG_KEYBOARD, (EECONFIG_KB_DATA_VERSION));
 
-    void *  start     = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK);
-    void *  end       = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK + EECONFIG_KB_DATA_SIZE);
+    void   *start     = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK);
+    void   *end       = (void *)(uintptr_t)(EECONFIG_KB_DATABLOCK + EECONFIG_KB_DATA_SIZE);
     long    remaining = end - start;
     uint8_t dummy[16] = {0};
     for (int i = 0; i < EECONFIG_KB_DATA_SIZE; i += sizeof(dummy)) {
@@ -290,8 +290,8 @@ uint32_t nvm_eeconfig_update_user_datablock(const void *data, uint32_t offset, u
 void nvm_eeconfig_init_user_datablock(void) {
     eeprom_update_dword(EECONFIG_USER, (EECONFIG_USER_DATA_VERSION));
 
-    void *  start     = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK);
-    void *  end       = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK + EECONFIG_USER_DATA_SIZE);
+    void   *start     = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK);
+    void   *end       = (void *)(uintptr_t)(EECONFIG_USER_DATABLOCK + EECONFIG_USER_DATA_SIZE);
     long    remaining = end - start;
     uint8_t dummy[16] = {0};
     for (int i = 0; i < EECONFIG_USER_DATA_SIZE; i += sizeof(dummy)) {

@@ -255,6 +255,8 @@ endif
 COMMUNITY_RULES_MK = $(shell $(QMK_BIN) generate-community-modules-rules-mk -kb $(KEYBOARD) --quiet --escape --output $(INTERMEDIATE_OUTPUT)/src/community_rules.mk $(KEYMAP_JSON))
 include $(COMMUNITY_RULES_MK)
 
+ifneq ($(COMMUNITY_MODULES),)
+
 $(INTERMEDIATE_OUTPUT)/src/community_modules.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
 	$(eval CMD=$(QMK_BIN) generate-community-modules-h -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(KEYMAP_JSON))
@@ -288,6 +290,8 @@ $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc: $(KEYMAP_JSON) $(DD
 SRC += $(INTERMEDIATE_OUTPUT)/src/community_modules.c
 
 generated-files: $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h $(INTERMEDIATE_OUTPUT)/src/led_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc
+
+endif
 
 include $(BUILDDEFS_PATH)/converters.mk
 
@@ -470,8 +474,10 @@ ifneq ($(wildcard $(QMK_USERSPACE)),)
 endif
 
 # If the equivalent users directory exists in userspace, use that in preference to anything currently in the main repo
-ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
-    USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
+ifneq ($(QMK_USERSPACE),)
+	ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
+    	USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
+	endif
 endif
 
 # Pull in user level rules.mk

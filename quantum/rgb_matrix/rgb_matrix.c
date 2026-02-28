@@ -72,12 +72,19 @@ uint8_t g_rgb_frame_buffer[MATRIX_ROWS][MATRIX_COLS] = {{0}};
 last_hit_t g_last_hit_tracker;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
+#ifndef RGB_MATRIX_FLAG_STEPS
+#    define RGB_MATRIX_FLAG_STEPS {LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE}
+#endif
+static const uint8_t rgb_matrix_flag_steps[] = RGB_MATRIX_FLAG_STEPS;
+#define RGB_MATRIX_FLAG_STEPS_COUNT ARRAY_SIZE(rgb_matrix_flag_steps)
+
 // internals
-static bool            suspend_state     = false;
-static uint8_t         rgb_last_enable   = UINT8_MAX;
-static uint8_t         rgb_last_effect   = UINT8_MAX;
-static effect_params_t rgb_effect_params = {0, LED_FLAG_ALL, false};
-static rgb_task_states rgb_task_state    = SYNCING;
+static bool            suspend_state      = false;
+static uint8_t         rgb_last_enable    = UINT8_MAX;
+static uint8_t         rgb_last_effect    = UINT8_MAX;
+static uint8_t         rgb_current_effect = 0;
+static effect_params_t rgb_effect_params  = {0, LED_FLAG_ALL, false};
+static rgb_task_states rgb_task_state     = SYNCING;
 
 // double buffers
 static uint32_t rgb_timer_buffer;
@@ -289,6 +296,17 @@ static void rgb_task_start(void) {
     g_last_hit_tracker = last_hit_buffer;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
+    // Ideally we would also stop sending zeros to the LED driver PWM buffers
+    // while suspended and just do a software shutdown. This is a cheap hack for now.
+    bool suspend_backlight = suspend_state ||
+#if RGB_MATRIX_TIMEOUT > 0
+                             (last_input_activity_elapsed() > (uint32_t)RGB_MATRIX_TIMEOUT) ||
+#endif // RGB_MATRIX_TIMEOUT > 0
+                             false;
+
+    // Set effect to be renedered
+    rgb_current_effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
+
     // next task
     rgb_task_state = RENDERING;
 }
@@ -377,15 +395,7 @@ static void rgb_task_flush(uint8_t effect) {
 void rgb_matrix_task(void) {
     rgb_task_timers();
 
-    // Ideally we would also stop sending zeros to the LED driver PWM buffers
-    // while suspended and just do a software shutdown. This is a cheap hack for now.
-    bool suspend_backlight = suspend_state ||
-#if RGB_MATRIX_TIMEOUT > 0
-                             (last_input_activity_elapsed() > (uint32_t)RGB_MATRIX_TIMEOUT) ||
-#endif // RGB_MATRIX_TIMEOUT > 0
-                             false;
-
-    uint8_t effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
+    uint8_t effect = rgb_current_effect;
 
     switch (rgb_task_state) {
         case STARTING:
@@ -745,6 +755,50 @@ void rgb_matrix_set_flags(led_flags_t flags) {
 
 void rgb_matrix_set_flags_noeeprom(led_flags_t flags) {
     rgb_matrix_set_flags_eeprom_helper(flags, false);
+}
+
+void rgb_matrix_flags_step_helper(bool write_to_eeprom) {
+    led_flags_t flags = rgb_matrix_get_flags();
+
+    uint8_t next = 0;
+    for (uint8_t i = 0; i < RGB_MATRIX_FLAG_STEPS_COUNT; i++) {
+        if (rgb_matrix_flag_steps[i] == flags) {
+            next = i == RGB_MATRIX_FLAG_STEPS_COUNT - 1 ? 0 : i + 1;
+            break;
+        }
+    }
+
+    rgb_matrix_set_flags_eeprom_helper(rgb_matrix_flag_steps[next], write_to_eeprom);
+}
+
+void rgb_matrix_flags_step_noeeprom(void) {
+    rgb_matrix_flags_step_helper(false);
+}
+
+void rgb_matrix_flags_step(void) {
+    rgb_matrix_flags_step_helper(true);
+}
+
+void rgb_matrix_flags_step_reverse_helper(bool write_to_eeprom) {
+    led_flags_t flags = rgb_matrix_get_flags();
+
+    uint8_t next = 0;
+    for (uint8_t i = 0; i < RGB_MATRIX_FLAG_STEPS_COUNT; i++) {
+        if (rgb_matrix_flag_steps[i] == flags) {
+            next = i == 0 ? RGB_MATRIX_FLAG_STEPS_COUNT - 1 : i - 1;
+            break;
+        }
+    }
+
+    rgb_matrix_set_flags_eeprom_helper(rgb_matrix_flag_steps[next], write_to_eeprom);
+}
+
+void rgb_matrix_flags_step_reverse_noeeprom(void) {
+    rgb_matrix_flags_step_reverse_helper(false);
+}
+
+void rgb_matrix_flags_step_reverse(void) {
+    rgb_matrix_flags_step_reverse_helper(true);
 }
 
 //----------------------------------------------------------

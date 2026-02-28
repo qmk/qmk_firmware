@@ -21,7 +21,7 @@ jobs:
         - riot
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}
         fetch-depth: 0
