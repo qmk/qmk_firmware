@@ -54,3 +54,18 @@ TEST_F(Combo, combo_osmshift_tapped) {
     tap_key(key_i);
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(Combo, combo_single_key_twice) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 1, KC_A);
+    set_keymap({key_a});
+
+    EXPECT_REPORT(driver, (KC_B));
+    tap_combo({key_a});
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_B));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_combo({key_a});
+    VERIFY_AND_CLEAR(driver);
+}

@@ -1,0 +1,37 @@
+{
+    "keycodes": {
+        "0x7819": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_FLAG_NEXT",
+            "label": "LED Matrix Flag Next",
+            "aliases": [
+                "LM_FLGN"
+            ]
+        },
+        "0x781A": {
+            "group": "led_matrix",
+            "key": "QK_LED_MATRIX_FLAG_PREVIOUS",
+            "label": "LED Matrix Flag Previous",
+            "aliases": [
+                "LM_FLGP"
+            ]
+        },
+
+        "0x784D": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_FLAG_NEXT",
+            "label": "RGB Matrix Flag Next",
+            "aliases": [
+                "RM_FLGN"
+            ]
+        },
+        "0x784E": {
+            "group": "rgb_matrix",
+            "key": "QK_RGB_MATRIX_FLAG_PREVIOUS",
+            "label": "RGB Matrix Flag Previous",
+            "aliases": [
+                "RM_FLGP"
+            ]
+        }
+    }
+}

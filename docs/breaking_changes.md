@@ -10,25 +10,25 @@ Practically, this means QMK merges the `develop` branch into the `master` branch
 
 ## What has been included in past Breaking Changes?
 
+* [2025 Nov 30](ChangeLog/20251130)
 * [2025 Aug 31](ChangeLog/20250831)
 * [2025 May 25](ChangeLog/20250525)
-* [2025 Feb 23](ChangeLog/20250223)
 * [Older Breaking Changes](breaking_changes_history)
 
 ## When is the next Breaking Change?
 
-The next Breaking Change is scheduled for November 30, 2025.
+The next Breaking Change is scheduled for February 22, 2026.
 
 ### Important Dates
 
-* 2025 Aug 31 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
-* 2025 Nov 2 - `develop` closed to new PRs.
-* 2025 Nov 2 - Call for testers.
-* 2025 Nov 16 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
-* 2025 Nov 23 - `develop` is locked, only critical bugfix PRs merged.
-* 2025 Nov 28 - `master` is locked, no PRs merged.
-* 2025 Nov 30 - Merge `develop` to `master`.
-* 2025 Nov 30 - `master` is unlocked. PRs can be merged again.
+* 2025 Nov 30 - `develop` is tagged with a new release version. Each push to `master` is subsequently merged to `develop` by GitHub actions.
+* 2026 Jan 25 - `develop` closed to new PRs.
+* 2026 Jan 25 - Call for testers.
+* 2026 Feb 8 - Last day for merges -- after this point `develop` is locked for testing and accepts only bugfixes
+* 2026 Feb 15 - `develop` is locked, only critical bugfix PRs merged.
+* 2026 Feb 20 - `master` is locked, no PRs merged.
+* 2026 Feb 22 - Merge `develop` to `master`.
+* 2026 Feb 22 - `master` is unlocked. PRs can be merged again.
 
 ## What changes will be included?
 

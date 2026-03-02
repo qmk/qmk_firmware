@@ -477,9 +477,9 @@ report_mouse_t cirque_pinnacle_get_report(report_mouse_t mouse_report) {
 
     if (touchData.valid) {
         mouse_report.buttons = touchData.buttons;
-        mouse_report.x = CONSTRAIN_HID_XY(touchData.xDelta);
-        mouse_report.y = CONSTRAIN_HID_XY(touchData.yDelta);
-        mouse_report.v = touchData.wheelCount;
+        mouse_report.x       = CONSTRAIN_HID_XY(touchData.xDelta);
+        mouse_report.y       = CONSTRAIN_HID_XY(touchData.yDelta);
+        mouse_report.v       = touchData.wheelCount;
     }
     return mouse_report;
 }

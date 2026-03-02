@@ -3,7 +3,6 @@
 Check out the user's QMK environment and make sure it's ready to compile.
 """
 import platform
-from subprocess import DEVNULL
 
 from milc import cli
 from milc.questions import yesno
@@ -14,6 +13,60 @@ from .check import CheckStatus, check_binaries, check_binary_versions, check_sub
 from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
 from qmk.commands import in_virtualenv
 from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, UserspaceValidationError
+
+
+def distrib_tests():
+    def _load_kvp_file(file):
+        """Load a simple key=value file into a dictionary
+        """
+        vars = {}
+        with open(file, 'r') as f:
+            for line in f:
+                if '=' in line:
+                    key, value = line.split('=', 1)
+                    vars[key.strip()] = value.strip()
+        return vars
+
+    def _parse_toolchain_release_file(file):
+        """Parse the QMK toolchain release info file
+        """
+        try:
+            vars = _load_kvp_file(file)
+            return f'{vars.get("TOOLCHAIN_HOST", "unknown")}:{vars.get("TOOLCHAIN_TARGET", "unknown")}:{vars.get("COMMIT_HASH", "unknown")}'
+        except Exception as e:
+            cli.log.warning('Error reading QMK toolchain release info file: %s', e)
+            return f'Unknown toolchain release info file: {file}'
+
+    def _parse_flashutils_release_file(file):
+        """Parse the QMK flashutils release info file
+        """
+        try:
+            vars = _load_kvp_file(file)
+            return f'{vars.get("FLASHUTILS_HOST", "unknown")}:{vars.get("COMMIT_HASH", "unknown")}'
+        except Exception as e:
+            cli.log.warning('Error reading QMK flashutils release info file: %s', e)
+            return f'Unknown flashutils release info file: {file}'
+
+    try:
+        from qmk.cli import QMK_DISTRIB_DIR
+        if (QMK_DISTRIB_DIR / 'etc').exists():
+            cli.log.info('Found QMK tools distribution directory: {fg_cyan}%s', QMK_DISTRIB_DIR)
+
+            toolchains = [_parse_toolchain_release_file(file) for file in (QMK_DISTRIB_DIR / 'etc').glob('toolchain_release_*')]
+            if len(toolchains) > 0:
+                cli.log.info('Found QMK toolchains: {fg_cyan}%s', ', '.join(toolchains))
+            else:
+                cli.log.warning('No QMK toolchains manifest found.')
+
+            flashutils = [_parse_flashutils_release_file(file) for file in (QMK_DISTRIB_DIR / 'etc').glob('flashutils_release_*')]
+            if len(flashutils) > 0:
+                cli.log.info('Found QMK flashutils: {fg_cyan}%s', ', '.join(flashutils))
+            else:
+                cli.log.warning('No QMK flashutils manifest found.')
+    except ImportError:
+        cli.log.info('QMK tools distribution not found.')
+
+    return CheckStatus.OK
 
 
 def os_tests():
@@ -124,10 +177,12 @@ def doctor(cli):
         * [ ] Compile a trivial program with each compiler
     """
     cli.log.info('QMK Doctor is checking your environment.')
+    cli.log.info('Python version: %s', platform.python_version())
     cli.log.info('CLI version: %s', cli.version)
     cli.log.info('QMK home: {fg_cyan}%s', QMK_FIRMWARE)
 
     status = os_status = os_tests()
+    distrib_tests()
 
     userspace_tests(None)
 
@@ -141,12 +196,6 @@ def doctor(cli):
 
     # Make sure the basic CLI tools we need are available and can be executed.
     bin_ok = check_binaries()
-
-    if bin_ok == CheckStatus.ERROR:
-        if yesno('Would you like to install dependencies?', default=True):
-            cli.run(['util/qmk_install.sh', '-y'], stdin=DEVNULL, capture_output=False)
-            bin_ok = check_binaries()
-
     if bin_ok == CheckStatus.OK:
         cli.log.info('All dependencies are installed.')
     elif bin_ok == CheckStatus.WARNING:
@@ -163,7 +212,6 @@ def doctor(cli):
 
     # Check out the QMK submodules
     sub_ok = check_submodules()
-
     if sub_ok == CheckStatus.OK:
         cli.log.info('Submodules are up to date.')
     else:
@@ -186,6 +234,7 @@ def doctor(cli):
         cli.log.info('{fg_yellow}QMK is ready to go, but minor problems were found')
         return 1
     else:
-        cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.')
-        cli.log.info('{fg_blue}Check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/qmk) for help.')
+        cli.log.info('{fg_red}Major problems detected, please fix these problems before proceeding.{fg_reset}')
+        cli.log.info('{fg_blue}If you\'re missing dependencies, try following the instructions on: https://docs.qmk.fm/newbs_getting_started{fg_reset}')
+        cli.log.info('{fg_blue}Additionally, check out the FAQ (https://docs.qmk.fm/#/faq_build) or join the QMK Discord (https://discord.gg/qmk) for help.{fg_reset}')
         return 2

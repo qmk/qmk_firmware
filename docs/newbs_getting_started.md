@@ -50,82 +50,54 @@ You will need to install [MSYS2](https://www.msys2.org). Once installed, close a
 Install the QMK CLI by running:
 
 ```sh
-pacman --needed --noconfirm --disable-download-timeout -S git mingw-w64-x86_64-python-qmk
+curl -fsSL https://install.qmk.fm | sh
 ```
 
 ::::
 
 ==== macOS
 
-QMK maintains a Homebrew tap and formula which will automatically install the CLI and all necessary dependencies.
-
 #### Prerequisites
 
 You will need to install Homebrew. Follow the instructions on https://brew.sh.
-
-::: tip
-If you are using an Apple Silicon machine, the installation process will take significantly longer because GitHub actions do not have native runners to build binary packages for the ARM and AVR toolchains.
-:::
 
 #### Installation
 
 Install the QMK CLI by running:
 
 ```sh
-brew install qmk/qmk/qmk
+curl -fsSL https://install.qmk.fm | sh
 ```
 
 ==== Linux/WSL
+
+#### Installation
+
+::: info
+Many Linux distributions are supported, but not all. Mainstream distributions will have best success -- if possible, choose either Debian or its derivatives (such as Ubuntu, or Mint), CentOS or its derivatives (such as Fedora, or Rocky Linux), and Arch or its derivatives (such as Manjaro, or CachyOS).
+:::
+
+Install the QMK CLI by running:
+
+```sh
+curl -fsSL https://install.qmk.fm | sh
+```
 
 ::: tip
 **Note for WSL users**: By default, the installation process will clone the QMK repository into your WSL home directory, but if you have cloned manually, ensure that it is located inside the WSL instance instead of the Windows filesystem (ie. not in `/mnt`), as accessing it is currently [extremely slow](https://github.com/microsoft/WSL/issues/4197).
 :::
 
-#### Prerequisites
-
-You will need to install Git and Python. It's very likely that you already have both, but if not, one of the following commands should install them:
-
-* Debian / Ubuntu / Devuan: `sudo apt install -y git python3-pip`
-* Fedora / Red Hat / CentOS: `sudo yum -y install git python3-pip`
-* Arch / Manjaro: `sudo pacman --needed --noconfirm -S git python-pip libffi`
-* Void: `sudo xbps-install -y git python3-pip`
-* Solus: `sudo eopkg -y install git python3`
-* Sabayon: `sudo equo install dev-vcs/git dev-python/pip`
-* Gentoo: `sudo emerge dev-vcs/git dev-python/pip`
-
-#### Installation
-
-Install the QMK CLI by running:
-
-```sh
-python3 -m pip install --user qmk
-```
-
-Alternatively, install the QMK CLI as a [uv](https://docs.astral.sh/uv/) managed tool, kept isolated in a virtual environment (requires uv to be installed):
-
-```sh
-uv tool install qmk
-```
-
-#### Community Packages
-
-These packages are maintained by community members, so may not be up to date or completely functional. If you encounter problems, please report them to their respective maintainers.
-
-On Arch-based distros you can install the CLI from the official repositories (NOTE: at the time of writing this package marks some dependencies as optional that should not be):
-
-```sh
-sudo pacman -S qmk
-```
-
-You can also try the `qmk-git` package from AUR:
-
-```sh
-yay -S qmk-git
-```
+::: warning
+Any QMK packages provided by your distribution's package manager are almost certainly out of date. It is strongly suggested the installation script above is used instead.
+:::
 
 ==== FreeBSD
 
 #### Installation
+
+::: warning
+FreeBSD support is provided on a best-effort basis by the community instead of the QMK maintainers. It is strongly suggested that you use either Windows, macOS, or a supported distribution of Linux instead.
+:::
 
 Install the FreeBSD package for QMK CLI by running:
 
@@ -133,7 +105,9 @@ Install the FreeBSD package for QMK CLI by running:
 pkg install -g "py*-qmk"
 ```
 
-NOTE: remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
+::: info NOTE
+Remember to follow the instructions printed at the end of installation (use `pkg info -Dg "py*-qmk"` to show them again).
+:::
 
 :::::
 

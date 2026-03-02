@@ -1,0 +1,20 @@
+{
+    "manufacturer": "KKC",
+    "maintainer": "Gondolindrim",
+    "usb": {
+        "vid": "0x5750",
+        "device_version": "0.0.1"
+    }, 
+    "features": {
+        "bootmagic": true,
+        "mousekey":  true,
+        "extrakey":  true,
+        "nkro":      true
+    },
+    "build": {
+        "lto": true
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "STM32F411",
+    "bootloader": "stm32-dfu"
+}  

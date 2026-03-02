@@ -304,6 +304,10 @@ def keyboard_check(kb):  # noqa C901
         cli.log.error(f'{kb}: The file "{file}" should not exist!')
         ok = False
 
+    if not _get_readme_files(kb):
+        cli.log.error(f'{kb}: Is missing a readme.md file!')
+        ok = False
+
     for file in _get_readme_files(kb):
         if _is_invalid_readme(file):
             cli.log.error(f'{kb}: The file "{file}" still contains template tokens!')

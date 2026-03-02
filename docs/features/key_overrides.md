@@ -14,7 +14,7 @@ You can use key overrides in a similar way to momentary layer/fn keys to activat
 
 To enable this feature, you need to add `KEY_OVERRIDE_ENABLE = yes` to your `rules.mk`.
 
-Then, in your `keymap.c` file, you'll need to define the array `key_overrides`, which defines all key overrides to be used. Each override is a value of type `key_override_t`. The array `key_overrides`contains pointers to `key_override_t` values (`const key_override_t **`).
+Then, in your `keymap.c` file, you'll need to define the `key_overrides` config. See below for more details.
 
 ## Creating Key Overrides {#creating-key-overrides}
 

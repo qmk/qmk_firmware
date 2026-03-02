@@ -68,7 +68,7 @@
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
 bool via_eeprom_is_valid(void) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -85,7 +85,7 @@ bool via_eeprom_is_valid(void) {
 // Keyboard level code (eg. via_init_kb()) should not call this
 void via_eeprom_set_valid(bool valid) {
     if (valid) {
-        char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+        char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
         uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
         uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
         uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);

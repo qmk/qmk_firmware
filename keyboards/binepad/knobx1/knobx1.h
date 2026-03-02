@@ -38,12 +38,6 @@ static inline void x1_led_3_off(void) { gpio_write_pin_low(IND3_LED); }
 static inline void x1_led_4_off(void) { gpio_write_pin_low(IND4_LED); }
 // clang-format on
 
-static inline void x1_layer_led(uint8_t lyr) {
-    gpio_write_pin(IND1_LED, lyr >= 0);
-    gpio_write_pin(IND2_LED, lyr >= 1);
-    gpio_write_pin(IND3_LED, lyr >= 2);
-    gpio_write_pin(IND4_LED, lyr >= 3);
-}
-
+void x1_layer_led(uint8_t lyr);
 bool process_x1_layer_up(keyrecord_t *record);
 bool process_x1_layer_down(keyrecord_t *record);

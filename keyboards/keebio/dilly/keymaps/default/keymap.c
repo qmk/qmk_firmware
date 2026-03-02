@@ -1,5 +1,7 @@
-#include QMK_KEYBOARD_H
+// Copyright 2025 Keebio (@keebio)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
+#include QMK_KEYBOARD_H
 
 #define _BASE 0
 #define _FN1 1

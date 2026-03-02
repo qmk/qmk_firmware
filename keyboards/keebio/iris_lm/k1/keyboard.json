@@ -18,6 +18,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "A0"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["C11", "C13", "B6", "B9", "B12", "B2"],

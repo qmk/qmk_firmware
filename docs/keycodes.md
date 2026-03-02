@@ -433,6 +433,8 @@ See also: [LED Matrix](features/led_matrix)
 |`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
 |`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
 |`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
+|`QK_LED_MATRIX_FLAG_NEXT`      |`LM_FLGN`|Cycle through flags                |
+|`QK_LED_MATRIX_FLAG_PREVIOUS`  |`LM_FLGP`|Cycle through flags in reverse     |
 
 ## Magic Keycodes {#magic-keycodes}
 
@@ -783,6 +785,8 @@ See also: [RGB Matrix](features/rgb_matrix)
 |`QK_RGB_MATRIX_VALUE_DOWN`     |`RM_VALD`|Decrease the brightness level      |
 |`QK_RGB_MATRIX_SPEED_UP`       |`RM_SPDU`|Increase the animation speed       |
 |`QK_RGB_MATRIX_SPEED_DOWN`     |`RM_SPDD`|Decrease the animation speed       |
+|`QK_RGB_MATRIX_FLAG_NEXT`      |`RM_FLGN`|Cycle through flags                |
+|`QK_RGB_MATRIX_FLAG_PREVIOUS`  |`RM_FLGP`|Cycle through flags in reverse     |
 
 ## US ANSI Shifted Symbols {#us-ansi-shifted-symbols}
 

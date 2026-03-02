@@ -1,0 +1,34 @@
+name: Generate Develop Docs
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+    - develop
+    paths:
+    - 'builddefs/docsgen/**'
+    - 'tmk_core/**'
+    - 'quantum/**'
+    - 'platforms/**'
+    - 'docs/**'
+    - '.github/workflows/docs.yml'
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy Develop
+      if: ${{ github.repository == 'qmk/qmk_firmware' }}
+      uses: actions/github-script@v8
+      with:
+        github-token: ${{ secrets.QMK_BOT_TOKEN }}
+        script: |
+          const result = await github.rest.actions.createWorkflowDispatch({
+            owner: 'qmk',
+            repo: 'qmk_docs_devel',
+            workflow_id: 'develop.yml',
+            ref: 'main',
+          })

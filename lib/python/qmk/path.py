@@ -177,5 +177,17 @@ class FileType(argparse.FileType):
         """normalize and check exists
             otherwise magic strings like '-' for stdin resolve to bad paths
         """
+        # TODO: This should not return both Path and TextIOWrapper as consumers
+        # assume that they can call Path.as_posix without checking type
+
+        # Handle absolute paths and relative paths to CWD
         norm = normpath(string)
-        return norm if norm.exists() else super().__call__(string)
+        if norm.exists():
+            return norm
+
+        # Handle relative paths to QMK_HOME
+        relative = Path(string)
+        if relative.exists():
+            return relative
+
+        return super().__call__(string)

@@ -1,0 +1,5 @@
+MCU_LDSCRIPT = STM32F103xB_uf2boot
+
+POINTING_DEVICE_DRIVER = pmw3389
+
+SRC += rgblight_custom.c

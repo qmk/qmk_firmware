@@ -25,7 +25,7 @@ enum custom_keycodes {
    */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QW] = LAYOUT_pcb_down( /* Workman */
+  [_QW] = LAYOUT( /* Workman */
     KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,                      KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN,
     KC_A,    KC_S,    KC_H,    KC_T,    KC_G,                      KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,
     KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,                      KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_SLSH,
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * menu    caps   <      >     del       ||       _                    0      =
    */
 
-  [_RS] = LAYOUT_pcb_down( /* [> RAISE <] */
+  [_RS] = LAYOUT( /* [> RAISE <] */
     KC_EXLM, KC_AT,   KC_LCBR, KC_RCBR, KC_PIPE,                   KC_MINS, KC_7,    KC_8,    KC_9, KC_ASTR,
     KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,                    KC_DOT,  KC_4,    KC_5,    KC_6, KC_PLUS,
     KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                   KC_AMPR, KC_1,    KC_2,    KC_3, KC_BSLS,
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                       ||        –                    ¨    reset
    */
 
-  [_LW] = LAYOUT_pcb_down( /* [> LOWER <] */
+  [_LW] = LAYOUT( /* [> LOWER <] */
     KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP,                   KC_VOLU, KC_F7,   KC_F8,   KC_F9,   KC_F10,
     KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                   KC_VOLD, KC_F4,   KC_F5,   KC_F6,   KC_F11,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_MUTE, KC_F1,   KC_F2,   KC_F3,   KC_F12,

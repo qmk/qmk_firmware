@@ -39,24 +39,36 @@ static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
+static matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
+static matrix_row_t matrix[MATRIX_ROWS];     // debounced values
 
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
+__attribute__((weak)) void matrix_init_kb(void) {
+    matrix_init_user();
+}
 
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 __attribute__((weak)) void matrix_init_user(void) {}
 
 __attribute__((weak)) void matrix_scan_user(void) {}
 
-inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
+inline uint8_t matrix_rows(void) {
+    return MATRIX_ROWS;
+}
 
-inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
+inline uint8_t matrix_cols(void) {
+    return MATRIX_COLS;
+}
 
-inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
+inline bool matrix_is_on(uint8_t row, uint8_t col) {
+    return (matrix[row] & ((matrix_row_t)1 << col));
+}
 
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
+inline matrix_row_t matrix_get_row(uint8_t row) {
+    return matrix[row];
+}
 
 void matrix_print(void) {
     print_matrix_header();
@@ -182,7 +194,7 @@ void matrix_init(void) {
         matrix[i]     = 0;
     }
 
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
 
     matrix_init_kb();
 }
@@ -194,7 +206,7 @@ uint8_t matrix_scan(void) {
         changed |= read_rows_on_col(raw_matrix, current_col);
     }
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, changed);
 
     matrix_scan_kb();
 

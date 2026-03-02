@@ -1381,7 +1381,7 @@ void rgblight_effect_twinkle(animation_status_t *anim) {
 
     for (uint8_t i = 0; i < rgblight_ranges.effect_num_leds; i++) {
         TwinkleState *t = &(led_twinkle_state[i]);
-        hsv_t *       c = &(t->hsv);
+        hsv_t        *c = &(t->hsv);
 
         if (!random_color) {
             c->h = rgblight_config.hue;

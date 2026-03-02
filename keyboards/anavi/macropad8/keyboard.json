@@ -20,10 +20,8 @@
       "breathing": true,
       "rainbow_mood": true,
       "rainbow_swirl": true,
-      "snake": true,
       "knight": true,
       "static_gradient": true,
-      "rgb_test": true,
       "alternating": true,
       "twinkle": true
     }

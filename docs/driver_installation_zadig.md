@@ -4,7 +4,7 @@ QMK presents itself to the host as a regular HID keyboard device, and as such re
 
 There are two notable exceptions: the Caterina bootloader, usually seen on Pro Micros, and the HalfKay bootloader shipped with PJRC Teensys, appear as a serial port and a generic HID device respectively, and so do not require a driver.
 
-We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with MSYS2, the `qmk_install.sh` script will have already installed the drivers for you.
+We recommend the use of the [Zadig](https://zadig.akeo.ie/) utility. If you have set up the development environment with MSYS2, the QMK CLI installation script will have already installed the drivers for you.
 
 ## Installation
 
