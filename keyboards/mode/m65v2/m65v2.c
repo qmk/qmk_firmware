@@ -18,7 +18,7 @@
 
 void keyboard_post_init_kb(void) {
     led_update_kb(host_keyboard_led_state());
-    rgblight_set_effect_range(0, 33);
+    rgblight_set_effect_range(0, 34);
     keyboard_post_init_user();
 }
 
