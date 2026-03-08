@@ -1,6 +1,6 @@
 # nullpad v1
 
-![sp]()
+![sp](https://i.imgur.com/069rfPe.png)
 
 Numpad tray mount PCB with RGB per key.
 
