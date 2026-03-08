@@ -22,12 +22,11 @@ void matrix_init_kb(void) {
     matrix_init_user();
 }
 
-bool led_update_kb(led_t led_state) {
+void led_update_ports(led_t led_state) {
     // Only update if left half
-    if (led_update_user(led_state) && isLeftHand) {
+    if (is_keyboard_left()) {
         gpio_write_pin(CAPS_LOCK_LED_PIN, !led_state.caps_lock);
     }
-    return true;
 }
 
 #ifdef ENCODER_ENABLE

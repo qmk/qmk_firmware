@@ -218,6 +218,8 @@ uint16_t audio_ms_to_duration(uint16_t duration_ms);
 
 void audio_startup(void);
 
+void audio_shutdown(void);
+
 // hardware interface
 
 // implementation in the driver_avr/arm_* respective parts

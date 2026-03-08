@@ -5,7 +5,6 @@
     "development_board": "elite_c",
     "pin_compatible": "elite_c",
     "diode_direction": "COL2ROW",
-    "url": "https://qmk.fm/keyboards/",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x4930",

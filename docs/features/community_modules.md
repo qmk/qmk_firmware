@@ -95,6 +95,10 @@ The use of `features` matches the definition normally provided within `keyboard.
 
 The `keycodes` array allows a module to provide new keycodes (as well as corresponding aliases) to a keymap.
 
+### `config.h`
+
+This file will be automatically added to the build as if it were present in the keyboard or keymap.
+
 ### `rules.mk` / `post_rules.mk`
 
 These two files follows standard QMK build system logic, allowing for `Makefile`-style customisation as if it were present in the keyboard or keymap.
@@ -130,6 +134,10 @@ This file defines LED matrix effects in the same form as used with `led_matrix_k
 ### `rgb_matrix_module.inc`
 
 This file defines RGB matrix effects in the same form as used with `rgb_matrix_kb.inc` and `rgb_matrix_user.inc` (see [Custom RGB Matrix Effects](rgb_matrix#custom-rgb-matrix-effects)). Effect mode names are prepended with `RGB_MATRIX_COMMUNITY_MODULE_`.
+
+### Custom split keyboard data sync
+
+Defines follow the convention, `SPLIT_TRANSACTION_IDS_MODULE_<MODULE>` (see [Custom LED Matrix Effects](split_keyboard#custom-data-sync)). 
 
 ### Compatible APIs
 

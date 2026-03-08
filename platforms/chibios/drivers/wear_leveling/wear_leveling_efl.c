@@ -84,19 +84,33 @@ bool backing_store_init(void) {
 #else // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)
 
     // Work out how many sectors we want to use, working backwards from the end of the flash
-    flash_sector_t last_sector = desc->sectors_count - WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT;
+    flash_sector_t last_sector = desc->sectors_count;
+
+    // skip sectors that are past the actual flash size
+    while (flashGetSectorOffset(flash, last_sector - 1) >= flash_size) {
+        if (--last_sector == 0) {
+            chSysHalt("No sector in available flash range");
+        }
+    }
+
+    if (WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT >= last_sector) {
+        chSysHalt("Last sector intended to be used with wear_leveling is beyond available flash descriptor range");
+    }
+
+    last_sector -= WEAR_LEVELING_EFL_OMIT_LAST_SECTOR_COUNT;
+
     for (flash_sector_t i = 0; i < last_sector; ++i) {
         first_sector = last_sector - i - 1;
-        if (flashGetSectorOffset(flash, first_sector) >= flash_size) {
-            last_sector = first_sector;
-            continue;
-        }
         counter += flashGetSectorSize(flash, first_sector);
         if (counter >= (WEAR_LEVELING_BACKING_SIZE)) {
             sector_count = last_sector - first_sector;
             base_offset  = flashGetSectorOffset(flash, first_sector);
             break;
         }
+    }
+
+    if (counter < WEAR_LEVELING_BACKING_SIZE) {
+        chSysHalt("Not enough flash is available for the requested wear_leveling size");
     }
 
 #endif // defined(WEAR_LEVELING_EFL_FIRST_SECTOR)

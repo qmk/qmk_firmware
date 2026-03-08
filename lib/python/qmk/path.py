@@ -144,6 +144,12 @@ def normpath(path):
     return Path(os.environ['ORIG_CWD']) / path
 
 
+def is_relative_to(file, other):
+    """Provide normpath behavior to Path.is_relative_to
+    """
+    return normpath(file).is_relative_to(normpath(other))
+
+
 def unix_style_path(path):
     """Converts a Windows-style path with drive letter to a Unix path.
 
