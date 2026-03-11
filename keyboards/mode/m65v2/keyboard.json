@@ -3,9 +3,6 @@
     "keyboard_name": "Mode M65 V2",
     "maintainer": "Gondolindrim",
     "bootloader": "stm32-dfu",
-    "build": {
-        "lto": true
-    },
     "diode_direction": "COL2ROW",
     "eeprom": {
         "wear_leveling": {
