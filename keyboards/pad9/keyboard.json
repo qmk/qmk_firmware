@@ -2,8 +2,9 @@
     "manufacturer": "prkrln",
     "keyboard_name": "pad9",
     "maintainer": "prkrln",
-    "development_board": "promicro_rp2040",
     "diode_direction": "COL2ROW",
+    "bootloader": "rp2040",
+    "processor": "RP2040",
     "features": {
         "bootmagic": true,
         "encoder": true,
@@ -23,16 +24,16 @@
             ["GP28", "GP0", "GP2"]
         ]
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5009",
         "vid": "0x504B"
     },
+    "community_layouts": ["ortho_3x3"],
     "layouts": {
         "LAYOUT_ortho_3x3": {
             "layout": [
-                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 0], "x": 0, "y": 0, "encoder": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
                 {"matrix": [0, 2], "x": 2, "y": 0},
                 {"matrix": [1, 0], "x": 0, "y": 1},
