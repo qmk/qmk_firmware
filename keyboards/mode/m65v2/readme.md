@@ -1,6 +1,6 @@
 # Mode M65 PCB V2
 
-![Image Gallery](https://cdn.shopify.com/s/files/1/0279/3426/1330/files/Group_95_1024x1024.jpg)
+![Image Gallery](https://i.imgur.com/D2hUT7y.jpeg)
 
 The Mode M65 V2 is 65% PCB for the Mode line of keyboards. As of march 2026, the models compatible with this PCB are the Encore Envoy and SixtyFive. This firmware fits both solderable and hotswap variants.
 
