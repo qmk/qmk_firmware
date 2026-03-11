@@ -25,12 +25,9 @@ void keyboard_post_init_kb(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
-        uint8_t h = rgblight_get_hue();
-        uint8_t s = rgblight_get_sat();
-        uint8_t v = rgblight_get_val();
-
-        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 34) : rgblight_sethsv_at(HSV_OFF, 34); 
-        led_state.caps_lock ? rgblight_sethsv_at(h,s,v, 35) : rgblight_sethsv_at(HSV_OFF, 35); 
+        hsv_t current_color = rgblight_get_hsv();
+        led_state.caps_lock ? rgblight_setcurrent_color_at(current_color.h, current_color.s, current_color.v, 34) : rgblight_setcurrent_color_at(HSV_OFF, 34); 
+        led_state.caps_lock ? rgblight_setcurrent_color_at(current_color.h, current_color.s, current_color.v, 35) : rgblight_setcurrent_color_at(HSV_OFF, 35); 
     }   
     return res;
 }
