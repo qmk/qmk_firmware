@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2025 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006-2026 Giovanni Di Sirio.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -29,9 +29,16 @@
 #define HALCONF_H
 
 #define _CHIBIOS_HAL_CONF_
-#define _CHIBIOS_HAL_CONF_VER_9_0_
+#define _CHIBIOS_HAL_CONF_VER_9_1_
 
 #include <mcuconf.h>
+
+/**
+ * @brief   Enables the HAL safety subsystem.
+ */
+#if !defined(HAL_USE_SAFETY) || defined(__DOXYGEN__)
+#define HAL_USE_SAFETY                      FALSE
+#endif
 
 /**
  * @brief   Enables the PAL subsystem.
