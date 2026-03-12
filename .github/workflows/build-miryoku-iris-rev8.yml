@@ -1,0 +1,111 @@
+# Copyright 2019 Manna Harbour
+# https://github.com/manna-harbour/miryoku
+# Build workflow for Miryoku layout on Keebio Iris Rev8 (RP2040)
+#
+# This workflow fetches the Miryoku userspace from manna-harbour/miryoku_qmk
+# at build time and compiles it against this QMK firmware fork, which contains
+# the Iris Rev8 keyboard definition not present in the older miryoku_qmk fork.
+#
+# Background: manna-harbour/miryoku_qmk is a fork of an older QMK version that
+# only has Iris up to rev7. The Iris Rev8 (RP2040-based) lives in current QMK
+# (this repo). We bridge the two by fetching only the Miryoku userspace files
+# at build time and compiling against the rev8 keyboard definition here.
+#
+# See: https://github.com/manna-harbour/miryoku_qmk/pull/43
+
+name: Build Miryoku for Iris Rev8
+
+on:
+  workflow_dispatch:
+    inputs:
+      alphas:
+        description: >
+          Alpha layout. Options: QWERTY, COLEMAK_DH, COLEMAK, DVORAK,
+          WORKMAN, NORMAN, MALTRON, EUCALYN, CARPALX.
+        default: 'QWERTY'
+        required: false
+      nav:
+        description: >
+          Nav cluster layout. Options: INVERTEDT (default), FORWARDSLATINT,
+          FORWARDSLATINBGR, MIRYOKU (vim-style).
+        default: 'INVERTEDT'
+        required: false
+      clipboard:
+        description: >
+          Clipboard shortcuts. Options: NONE (default), WIN (Ctrl+Z/X/C/V),
+          MAC (Cmd+Z/X/C/V).
+        default: 'NONE'
+        required: false
+      layers:
+        description: >
+          Layer customisation. Options: FLIP (swap number/symbol layers),
+          NOMEDIA (remove media keys).
+        default: ''
+        required: false
+      mapping:
+        description: >
+          Key mapping for keyboards wider than 5 columns. For the Iris (6 cols
+          per side) use HHKB to mirror the outer column, or leave blank to use
+          the inner 5 columns only.
+        default: 'HHKB'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Miryoku — Iris Rev8 (${{ inputs.alphas || 'QWERTY' }})
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+      - name: Disable safe.directory check
+        run: git config --global --add safe.directory '*'
+
+      - name: Checkout QMK Firmware (this fork)
+        uses: actions/checkout@v4
+
+      - name: Fetch Miryoku userspace from manna-harbour/miryoku_qmk
+        # The miryoku_qmk repo is a QMK fork that carries the Miryoku userspace
+        # (users/manna-harbour_miryoku/). We cherry-pick only that directory so
+        # that our rev8 keyboard definition is used for the compile.
+        run: |
+          git remote add miryoku_qmk https://github.com/manna-harbour/miryoku_qmk.git
+          git fetch miryoku_qmk miryoku --depth=1
+          git checkout FETCH_HEAD -- users/manna-harbour_miryoku
+
+      - name: Write custom rules
+        # Inject user-selected options into custom_rules.mk. The Miryoku
+        # post_rules.mk reads these via ?= so they only override the defaults.
+        run: |
+          {
+            [ -n "${{ inputs.alphas }}" ]   && echo "MIRYOKU_ALPHAS    ?= ${{ inputs.alphas }}"
+            [ -n "${{ inputs.nav }}" ]      && echo "MIRYOKU_NAV       ?= ${{ inputs.nav }}"
+            [ -n "${{ inputs.clipboard }}" ] && echo "MIRYOKU_CLIPBOARD ?= ${{ inputs.clipboard }}"
+            [ -n "${{ inputs.layers }}" ]   && echo "MIRYOKU_LAYERS    ?= ${{ inputs.layers }}"
+            [ -n "${{ inputs.mapping }}" ]  && echo "MIRYOKU_MAPPING   ?= ${{ inputs.mapping }}"
+          } > users/manna-harbour_miryoku/custom_rules.mk
+          echo "--- custom_rules.mk ---"
+          cat users/manna-harbour_miryoku/custom_rules.mk
+
+      - name: Install Python dependencies
+        run: pip3 install -r requirements.txt
+
+      - name: Initialise QMK submodules
+        run: qmk git-submodule
+
+      - name: Compile firmware
+        run: |
+          qmk compile -kb keebio/iris/rev8 -km manna-harbour_miryoku
+
+      - name: Upload firmware artifact
+        uses: actions/upload-artifact@v4
+        with:
+          # Artifact name encodes the keyboard and alpha layout chosen
+          name: miryoku-iris-rev8-${{ inputs.alphas || 'QWERTY' }}
+          if-no-files-found: error
+          path: |
+            *.uf2
+            *.hex
+            *.bin
