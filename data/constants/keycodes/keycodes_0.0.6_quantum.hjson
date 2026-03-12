@@ -6,6 +6,7 @@
         "0x7C7B": {
             "group": "quantum",
             "key": "QK_LAYER_LOCK",
+            "label": "Layer Lock",
             "aliases": [
                 "QK_LLCK"
             ]

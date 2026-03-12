@@ -81,7 +81,7 @@
             "pin": "D3"
         },
         "bootmagic": {
-            "matrix": [4, 5]
+            "matrix": [5, 5]
         }
     },
     "ws2812": {

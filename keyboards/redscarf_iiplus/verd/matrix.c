@@ -24,15 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header() print("\nr/c 01234567\n")
 #    define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
-#    define ROW_SHIFTER ((uint8_t)1)
 #elif (MATRIX_COLS <= 16)
 #    define print_matrix_header() print("\nr/c 0123456789ABCDEF\n")
 #    define print_matrix_row(row) print_bin_reverse16(matrix_get_row(row))
-#    define ROW_SHIFTER ((uint16_t)1)
 #elif (MATRIX_COLS <= 32)
 #    define print_matrix_header() print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
 #    define print_matrix_row(row) print_bin_reverse32(matrix_get_row(row))
-#    define ROW_SHIFTER ((uint32_t)1)
 #endif
 
 #ifdef MATRIX_MASKED
@@ -115,7 +112,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
         pin_t pin = direct_pins[current_row][col_index];
         if (pin != NO_PIN) {
-            current_matrix[current_row] |= gpio_read_pin(pin) ? 0 : (ROW_SHIFTER << col_index);
+            current_matrix[current_row] |= gpio_read_pin(pin) ? 0 : (MATRIX_ROW_SHIFTER << col_index);
         }
     }
 
@@ -224,7 +221,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         uint8_t pin_state = gpio_read_pin(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
-        current_matrix[current_row] |= pin_state ? 0 : (ROW_SHIFTER << col_index);
+        current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
 
     // Unselect row
@@ -272,10 +269,10 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         // Check row pin state
         if (gpio_read_pin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
-            current_matrix[row_index] |= (ROW_SHIFTER << current_col);
+            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
             // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state

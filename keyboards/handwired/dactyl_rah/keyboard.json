@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Dactyl RAH",
   "manufacturer": "ralphie02",
-  "url": "https://qmk.fm/keyboards/",
   "maintainer": "ralphie02",
   "usb": {
     "vid": "0xFEED",

@@ -10,7 +10,7 @@ from milc.questions import yesno
 from qmk import submodules
 from qmk.constants import QMK_FIRMWARE, QMK_FIRMWARE_UPSTREAM, QMK_USERSPACE, HAS_QMK_USERSPACE
 from .check import CheckStatus, check_binaries, check_binary_versions, check_submodules
-from qmk.git import git_check_repo, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
+from qmk.git import git_check_repo, git_check_safe, git_get_branch, git_get_tag, git_get_last_log_entry, git_get_common_ancestor, git_is_dirty, git_get_remotes, git_check_deviation
 from qmk.commands import in_virtualenv
 from qmk.userspace import qmk_userspace_paths, qmk_userspace_validate, UserspaceValidationError
 
@@ -91,39 +91,47 @@ def os_tests():
 def git_tests():
     """Run Git-related checks
     """
-    status = CheckStatus.OK
-
     # Make sure our QMK home is a Git repo
     git_ok = git_check_repo()
     if not git_ok:
         cli.log.warning("{fg_yellow}QMK home does not appear to be a Git repository! (no .git folder)")
+        return CheckStatus.WARNING
+
+    git_safe = git_check_safe()
+    if not git_safe:
+        cli.log.warning("{fg_yellow}Detected dubious ownership in repository!")
+        return CheckStatus.WARNING
+
+    git_branch = git_get_branch()
+    if not git_branch:
+        cli.log.warning("{fg_yellow}Failed to query Git repository!")
+        return CheckStatus.WARNING
+
+    cli.log.info('Git branch: %s', git_branch)
+
+    repo_version = git_get_tag()
+    if repo_version:
+        cli.log.info('Repo version: %s', repo_version)
+
+    status = CheckStatus.OK
+    git_dirty = git_is_dirty()
+    if git_dirty:
+        cli.log.warning('{fg_yellow}Git has unstashed/uncommitted changes.')
+        status = CheckStatus.WARNING
+
+    git_remotes = git_get_remotes()
+    if 'upstream' not in git_remotes.keys() or QMK_FIRMWARE_UPSTREAM not in git_remotes['upstream'].get('url', ''):
+        cli.log.warning('{fg_yellow}The official repository does not seem to be configured as git remote "upstream".')
         status = CheckStatus.WARNING
     else:
-        git_branch = git_get_branch()
-        if git_branch:
-            cli.log.info('Git branch: %s', git_branch)
-
-            repo_version = git_get_tag()
-            if repo_version:
-                cli.log.info('Repo version: %s', repo_version)
-
-            git_dirty = git_is_dirty()
-            if git_dirty:
-                cli.log.warning('{fg_yellow}Git has unstashed/uncommitted changes.')
-                status = CheckStatus.WARNING
-            git_remotes = git_get_remotes()
-            if 'upstream' not in git_remotes.keys() or QMK_FIRMWARE_UPSTREAM not in git_remotes['upstream'].get('url', ''):
-                cli.log.warning('{fg_yellow}The official repository does not seem to be configured as git remote "upstream".')
-                status = CheckStatus.WARNING
-            else:
-                git_deviation = git_check_deviation(git_branch)
-                if git_branch in ['master', 'develop'] and git_deviation:
-                    cli.log.warning('{fg_yellow}The local "%s" branch contains commits not found in the upstream branch.', git_branch)
-                    status = CheckStatus.WARNING
-                for branch in [git_branch, 'upstream/master', 'upstream/develop']:
-                    cli.log.info('- Latest %s: %s', branch, git_get_last_log_entry(branch))
-                for branch in ['upstream/master', 'upstream/develop']:
-                    cli.log.info('- Common ancestor with %s: %s', branch, git_get_common_ancestor(branch, 'HEAD'))
+        git_deviation = git_check_deviation(git_branch)
+        if git_branch in ['master', 'develop'] and git_deviation:
+            cli.log.warning('{fg_yellow}The local "%s" branch contains commits not found in the upstream branch.', git_branch)
+            status = CheckStatus.WARNING
+        for branch in [git_branch, 'upstream/master', 'upstream/develop']:
+            cli.log.info('- Latest %s: %s', branch, git_get_last_log_entry(branch))
+        for branch in ['upstream/master', 'upstream/develop']:
+            cli.log.info('- Common ancestor with %s: %s', branch, git_get_common_ancestor(branch, 'HEAD'))
 
     return status
 
@@ -140,10 +148,12 @@ def output_submodule_status():
             sub_shorthash = sub_info['shorthash'] if 'shorthash' in sub_info else ''
             sub_describe = sub_info['describe'] if 'describe' in sub_info else ''
             sub_last_log_timestamp = sub_info['last_log_timestamp'] if 'last_log_timestamp' in sub_info else ''
-            if sub_last_log_timestamp != '':
-                cli.log.info(f'- {sub_name}: {sub_last_log_timestamp} -- {sub_describe} ({sub_shorthash})')
-            else:
+            if not git_check_safe(sub_name):
+                cli.log.error(f'- {sub_name}: <<< dubious ownership in repository >>>')
+            elif sub_last_log_timestamp == '':
                 cli.log.error(f'- {sub_name}: <<< missing or unknown >>>')
+            else:
+                cli.log.info(f'- {sub_name}: {sub_last_log_timestamp} -- {sub_describe} ({sub_shorthash})')
 
 
 def userspace_tests(qmk_firmware):
