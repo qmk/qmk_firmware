@@ -234,12 +234,15 @@ def _handle_duplicating_code_defaults(kb, info):
     defaults_map = json_load(Path('data/mappings/info_defaults.hjson'))
     dotty_info = dotty(info)
 
+    ok = True
+
     for key, v_default in _collect_dotted_output(defaults_map):
         v_info = dotty_info.get(key)
         if v_default == v_info:
-            cli.log.warning(f'{kb}: Option "{key}" duplicates default value of "{v_default}"')
+            cli.log.error(f'{kb}: Option "{key}" duplicates default value of "{v_default}"')
+            ok = False
 
-    return True
+    return ok
 
 
 def keymap_check(kb, km):
