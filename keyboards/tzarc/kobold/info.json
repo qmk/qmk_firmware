@@ -13,7 +13,7 @@
     "eeprom": {
         "driver": "wear_leveling",
         "wear_leveling": {
-            "backing_size": 32768,
+            "backing_size": 16384,
             "driver": "spi_flash"
         }
     },
