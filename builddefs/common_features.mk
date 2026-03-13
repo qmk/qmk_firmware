@@ -676,7 +676,7 @@ ifneq ($(strip $(DEBOUNCE_TYPE)), custom)
 endif
 
 
-VALID_SERIAL_DRIVER_TYPES := bitbang usart vendor
+VALID_SERIAL_DRIVER_TYPES := bitbang usart fdcan vendor
 
 SERIAL_DRIVER ?= bitbang
 ifeq ($(filter $(SERIAL_DRIVER),$(VALID_SERIAL_DRIVER_TYPES)),)
