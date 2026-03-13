@@ -221,6 +221,13 @@ def test_info():
     assert 'k0' not in result.stdout
 
 
+def test_info_override():
+    result = check_subcommand('info', '-kb', 'handwired/pytest/override')
+    check_returncode(result)
+    assert 'Keyboard Name: pytest_override' in result.stdout
+    assert 'Processor: atmega32u4' in result.stdout
+
+
 def test_info_keyboard_render():
     result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-l')
     check_returncode(result)
