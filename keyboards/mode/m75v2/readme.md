@@ -4,7 +4,7 @@
 
 (Image credits: wilkinblair on imgur)
 
-The Mode M65 V2 is a 75% PCB for the Mode line of keyboards. As of march 2026, the model compatible with this PCB is the mode Sonnet. This firmware fits both solderable and hotswap variants.
+The Mode M75 V2 is a 75% PCB for the Mode line of keyboards. As of march 2026, the model compatible with this PCB is the mode Sonnet. This firmware fits both solderable and hotswap variants.
 
 * Keyboard Maintainer: [Gondolindrim](https://github.com/gondolindrim)
 * Hardware Supported: proprietary PCB using STM32F401 controller
