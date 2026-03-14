@@ -156,7 +156,7 @@ uint8_t crot(uint8_t a, int8_t n) {
 }
 
 void st7565_render(void) {
-    if (!st7565_initialized) {
+    if (!st7565_initialized || !st7565_active) {
         return;
     }
 
