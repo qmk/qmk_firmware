@@ -1,10 +1,8 @@
 {
   "license": "GPL-2.0-or-later",
   "devDependencies": {
-    "vite": "^5.4.21",
-    "vitepress": "^1.1.0",
-    "vitepress-plugin-tabs": "^0.5.0",
-    "vue": "^3.4.24"
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-tabs": "^0.8.0"
   },
   "scripts": {
     "docs:dev": "vitepress dev --host 0.0.0.0",
