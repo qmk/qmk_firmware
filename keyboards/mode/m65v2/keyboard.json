@@ -13,7 +13,6 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false,
         "rgblight": true
     },
     "matrix_pins": {
