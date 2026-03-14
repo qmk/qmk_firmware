@@ -23,7 +23,6 @@
 #include "wait.h"
 #include "debug.h"
 #include "usb_util.h"
-#include "bootloader.h"
 
 #ifdef EE_HANDS
 #    include "eeconfig.h"
@@ -94,8 +93,9 @@ STATIC_ASSERT(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOU
 #    endif
 STATIC_ASSERT(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
 
-static uint32_t split_watchdog_started = 0;
-static bool     split_watchdog_done    = false;
+static uint32_t split_watchdog_started  = 0;
+static bool     split_watchdog_done     = false;
+static bool     split_mcu_reset_pending = false;
 
 void split_watchdog_init(void) {
     split_watchdog_started = timer_read32();
@@ -115,9 +115,13 @@ bool split_watchdog_check(void) {
 void split_watchdog_task(void) {
     if (!split_watchdog_done && !is_keyboard_master()) {
         if (timer_elapsed32(split_watchdog_started) > SPLIT_WATCHDOG_TIMEOUT) {
-            mcu_reset();
+            split_mcu_reset_pending = true;
         }
     }
+}
+
+bool split_mcu_reset_is_pending(void) {
+    return split_mcu_reset_pending;
 }
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
 
