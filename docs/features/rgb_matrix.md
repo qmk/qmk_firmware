@@ -410,6 +410,7 @@ const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
 #define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
 #define RGB_MATRIX_SPLIT { X, Y } // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                                   // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+#define RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE // (Optional) On split keyboards, mirrors RGB Matrix EEPROM writes to the slave half.
 #define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
 #define RGB_MATRIX_FLAG_STEPS { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE } // Sets the flags which can be cycled through.
 ```
@@ -417,6 +418,8 @@ const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
 ## EEPROM storage {#eeprom-storage}
 
 The EEPROM for it is currently shared with the LED Matrix system (it's generally assumed only one feature would be used at a time).
+
+For split keyboards, `RGB_MATRIX_SPLIT_EEPROM_SYNC_ENABLE` can be used to mirror RGB Matrix EEPROM writes to the slave half. This is disabled by default.
 
 ## Callbacks {#callbacks}
 
