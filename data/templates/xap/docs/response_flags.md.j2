@@ -1,0 +1,12 @@
+|{% for bitnum, bitinfo in xap.response_flags.bits | dictsort | reverse %} Bit {{ bitnum }} |{% endfor %}
+
+|{% for bitnum, bitinfo in xap.response_flags.bits | dictsort | reverse %} -- |{% endfor %}
+
+|{% for bitnum, bitinfo in xap.response_flags.bits | dictsort | reverse %} `{{ bitinfo.define }}` |{% endfor %}
+
+
+{% for bitnum, bitinfo in xap.response_flags.bits | dictsort | reverse %}
+{% if bitinfo.define != "-" -%}
+* Bit {{ bitnum }} (`{{ bitinfo.define }}`): {{ bitinfo.description }}
+{% endif %}
+{% endfor %}
