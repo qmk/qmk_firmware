@@ -256,6 +256,7 @@ typedef union rgblight_config_t {
         uint8_t sat : 8;
         uint8_t val : 8;
         uint8_t speed : 8;
+        uint8_t speed_max : 8;
     };
 } rgblight_config_t;
 
@@ -350,6 +351,7 @@ void rgblight_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val);
 uint8_t rgblight_get_speed(void);
 void    rgblight_set_speed(uint8_t speed);
 void    rgblight_set_speed_noeeprom(uint8_t speed);
+void    rgblight_set_speed_eeprom_helper(uint8_t speed, bool write_to_eeprom);
 
 /*   reset */
 void rgblight_reload_from_eeprom(void);
