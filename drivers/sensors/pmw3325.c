@@ -23,10 +23,11 @@ const pointing_device_driver_t pmw3325_pointing_device_driver = {
 static int16_t convert_twoscomp_16(uint8_t high, uint8_t low) {
     uint16_t data = (high << 8) | low;
 
-    if ((data & 0x8000) == 0x8000)
+    if ((data & 0x8000) == 0x8000) {
         return -32768 + (data & 0x7FFF);
-    else
+    } else {
         return data;
+    }
 }
 
 void pmw3325_write(uint8_t reg_addr, uint8_t data) {
@@ -150,8 +151,9 @@ uint16_t pmw3325_get_cpi(void) {
     uint8_t cpival = pmw3325_read(0x1B);
 
     for (uint8_t cpi = 0; cpi < 50; cpi++) {
-        if (pmw3325_cpi_lut[cpi] == cpival)
+        if (pmw3325_cpi_lut[cpi] == cpival) {
             return (cpi + 1) * PMW3325_CPI_STEP;
+        }
     }
 
     return 0;
