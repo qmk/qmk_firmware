@@ -11,8 +11,7 @@
     "bootmagic": true,
     "extrakey": true,
     "mousekey": true,
-    "rgblight": true,
-    "nkro": false
+    "rgblight": true
   },
   "qmk": {
     "locking": {
