@@ -22,6 +22,10 @@
         "rows": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "url": "https://github.com/TrojanPinata/Model-B",
     "usb": {
         "device_version": "1.0.0",
