@@ -1,0 +1,19 @@
+{
+    "manufacturer": "Konstantin Goncharuk",
+    "keyboard_name": "Splinter 65",
+    "maintainer": "kooler",
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "url": "https://github.com/kooler/splinter",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4242",
+        "vid": "0x4B42"
+    }
+}
