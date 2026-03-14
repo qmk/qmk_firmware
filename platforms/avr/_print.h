@@ -24,3 +24,9 @@
 #pragma once
 
 #include "avr/xprintf.h"
+
+// TODO: Remove xprintf due to conflicts/assumptions on direct library usage
+#undef xprintf
+
+// Export main print function
+#define print_printf(fmt, ...) __xprintf(PSTR(fmt), ##__VA_ARGS__)
