@@ -152,12 +152,12 @@ __attribute__((weak)) void bootloader_jump(void) {
     // Setting both A8 and A9 high will charge the capacitor quickly.
     // Setting A9 low before reset will cause the capacitor to discharge
     // thus making the bootloder unlikely to trigger twice between power cycles.
-    setPinOutputPushPull(A9);
-    setPinOutputPushPull(A8);
-    writePinHigh(A9);
-    writePinHigh(A8);
+    gpio_set_pin_output_push_pull(A9);
+    gpio_set_pin_output_push_pull(A8);
+    gpio_write_pin_high(A9);
+    gpio_write_pin_high(A8);
     wait_ms(500);
-    writePinLow(A9);
+    gpio_write_pin_low(A9);
 
     NVIC_SystemReset();
 }
