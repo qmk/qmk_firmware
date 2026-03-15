@@ -19,7 +19,10 @@ jobs:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
+
+    - name: Install dependencies
+      run: pip3 install -r requirements-dev.txt
 
     - name: Run qmk generators
       run: |
@@ -34,7 +37,7 @@ jobs:
         git config user.email 'hello@qmk.fm'
 
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v7
+      uses: peter-evans/create-pull-request@v8
       if: ${{ github.repository == 'qmk/qmk_firmware'}}
       with:
         token: ${{ secrets.QMK_BOT_TOKEN }}

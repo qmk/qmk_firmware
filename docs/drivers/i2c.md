@@ -221,6 +221,31 @@ Receive multiple bytes from the selected I2C device.
 
 ---
 
+### `i2c_status_t i2c_transmit_and_receive(uint8_t address, const uint8_t* tx_data, uint16_t tx_length, uint8_t* rx_data, uint16_t rx_length, uint16_t timeout)` {#api-i2c-transmit-and-receive}
+
+Send and receive multiple bytes from the selected I2C device.
+
+#### Arguments {#api-i2c-transmit-and-receive-arguments}
+
+ - `uint8_t address`
+   The 7-bit I2C address of the device.
+ - `const uint8_t* tx_data`
+   A pointer to the data to transmit.
+ - `uint16_t tx_length`
+   The number of bytes to write. Take care not to overrun the length of `tx_data`.
+ - `uint8_t* rx_data`
+   A pointer to a buffer to read into.
+ - `uint16_t rx_length`
+   The number of bytes to read. Take care not to overrun the length of `data`.
+ - `uint16_t timeout`
+   The time in milliseconds to wait for a response from the target device.
+
+#### Return Value {#api-i2c-transmit-and-receive-return}
+
+`I2C_STATUS_TIMEOUT` if the timeout period elapses, `I2C_STATUS_ERROR` if some other error occurs, otherwise `I2C_STATUS_SUCCESS`.
+
+---
+
 ### `i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)` {#api-i2c-write-register}
 
 Write to a register with an 8-bit address on the I2C device.

@@ -14,10 +14,7 @@
 #endif
 
 #ifndef SECURE_UNLOCK_SEQUENCE
-#    define SECURE_UNLOCK_SEQUENCE \
-        {                          \
-            { 0, 0 }               \
-        }
+#    define SECURE_UNLOCK_SEQUENCE {{0, 0}}
 #endif
 
 static secure_status_t secure_status = SECURE_LOCKED;

@@ -146,7 +146,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // parts of the display unusable or don't get cleared correctly
 // and also allows for drawing & inverting
 uint8_t         oled_buffer[OLED_MATRIX_SIZE];
-uint8_t *       oled_cursor;
+uint8_t        *oled_cursor;
 OLED_BLOCK_TYPE oled_dirty          = 0;
 bool            oled_initialized    = false;
 bool            oled_active         = false;
@@ -301,24 +301,18 @@ bool oled_init(oled_rotation_t rotation) {
     oled_driver_init();
 
     static const uint8_t PROGMEM display_setup1[] = {
-        I2C_CMD,
-        DISPLAY_OFF,
-        DISPLAY_CLOCK,
-        OLED_DISPLAY_CLOCK,
-        MULTIPLEX_RATIO,
+        I2C_CMD, DISPLAY_OFF, DISPLAY_CLOCK, OLED_DISPLAY_CLOCK, MULTIPLEX_RATIO,
 #if OLED_IC_COM_PINS_ARE_COLUMNS
         OLED_DISPLAY_WIDTH - 1,
 #else
         OLED_DISPLAY_HEIGHT - 1,
 #endif
 #if OLED_IC == OLED_IC_SH1107
-        SH1107_DISPLAY_START_LINE,
-        0x00,
+        SH1107_DISPLAY_START_LINE, 0x00,
 #else
         DISPLAY_START_LINE | 0x00,
 #endif
-        CHARGE_PUMP,
-        0x14,
+        CHARGE_PUMP, 0x14,
 #if OLED_IC_HAS_HORIZONTAL_MODE
         // MEMORY_MODE is unsupported on SH1106 (Page Addressing only)
         MEMORY_MODE,

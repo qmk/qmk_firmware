@@ -8,13 +8,13 @@
 
 /* Here, "pins" from 0 to 31 are allowed. */
 #define ENCODER_A_PINS \
-    {}
+    {                  \
+    }
 #define ENCODER_B_PINS \
-    {}
-#define ENCODER_A_PINS_RIGHT \
-    { 0, 2 }
-#define ENCODER_B_PINS_RIGHT \
-    { 1, 3 }
+    {                  \
+    }
+#define ENCODER_A_PINS_RIGHT {0, 2}
+#define ENCODER_B_PINS_RIGHT {1, 3}
 
 #ifdef __cplusplus
 extern "C" {

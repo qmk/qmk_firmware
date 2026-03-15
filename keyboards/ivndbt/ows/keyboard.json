@@ -1,0 +1,74 @@
+{
+    "keyboard_name": "OWS",
+    "manufacturer": "ivndbt",
+    "url": "https://github.com/ivndbt/obiwanstenobit",
+    "maintainer": "ivndbt",
+    "usb": {
+        "vid": "0x6961",
+        "pid": "0x3033",
+        "device_version": "0.1.1"
+    },
+    "development_board": "promicro_rp2040",
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["GP4", "GP5", "GP6", "GP8", "GP7", "GP22", "GP26", "GP21", "GP23", "GP20"],
+        "rows": ["GP9", "GP28", "GP27"]
+    },
+    "features": {
+        "bootmagic": true,
+        "nkro": true,
+        "steno": true,
+        "mousekey": false,
+        "extrakey": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "stenography": {
+        "enabled": true,
+        "protocol": "geminipr"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [2, 8], "x": 0, "y": 0},
+                {"matrix": [0, 9], "x": 1, "y": 0},
+                {"matrix": [0, 8], "x": 2, "y": 0},
+                {"matrix": [0, 7], "x": 3, "y": 0},
+                {"matrix": [0, 6], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+
+                {"matrix": [0, 0], "x": 8, "y": 0},
+                {"matrix": [0, 1], "x": 9, "y": 0},
+                {"matrix": [0, 2], "x": 10, "y": 0},
+                {"matrix": [0, 3], "x": 11, "y": 0},
+                {"matrix": [0, 4], "x": 12, "y": 0},
+                {"matrix": [2, 3], "x": 13, "y": 0},
+
+                {"matrix": [2, 9], "x": 0, "y": 1},
+                {"matrix": [1, 9], "x": 1, "y": 1},
+                {"matrix": [1, 8], "x": 2, "y": 1},
+                {"matrix": [1, 7], "x": 3, "y": 1},
+                {"matrix": [1, 6], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+
+                {"matrix": [1, 0], "x": 8, "y": 1},
+                {"matrix": [1, 1], "x": 9, "y": 1},
+                {"matrix": [1, 2], "x": 10, "y": 1},
+                {"matrix": [1, 3], "x": 11, "y": 1},
+                {"matrix": [1, 4], "x": 12, "y": 1},
+                {"matrix": [2, 4], "x": 13, "y": 1},
+
+                {"matrix": [2, 7], "x": 3, "y": 3},
+                {"matrix": [2, 6], "x": 4, "y": 3},
+                {"matrix": [2, 5], "x": 5, "y": 3},
+                
+                {"matrix": [2, 0], "x": 8, "y": 3},
+                {"matrix": [2, 1], "x": 9, "y": 3},
+                {"matrix": [2, 2], "x": 10, "y": 3}
+            ]
+        }
+    }
+}

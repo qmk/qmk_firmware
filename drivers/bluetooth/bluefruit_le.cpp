@@ -364,7 +364,7 @@ static bool read_response(char *resp, uint16_t resplen, bool verbose) {
 }
 
 static bool at_command(const char *cmd, char *resp, uint16_t resplen, bool verbose, uint16_t timeout) {
-    const char *    end = cmd + strlen(cmd);
+    const char     *end = cmd + strlen(cmd);
     struct sdep_msg msg;
 
     if (verbose) {

@@ -39,6 +39,10 @@ typedef struct {
 #elif defined(POINTING_DEVICE_DRIVER_pmw3320)
 #    include "drivers/sensors/pmw3320.h"
 #    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
+#elif defined(POINTING_DEVICE_DRIVER_paw3222)
+#    include "spi_master.h"
+#    include "drivers/sensors/paw3222.h"
+#    define POINTING_DEVICE_MOTION_PIN_ACTIVE_LOW
 #elif defined(POINTING_DEVICE_DRIVER_adns9800)
 #    include "spi_master.h"
 #    include "drivers/sensors/adns9800.h"

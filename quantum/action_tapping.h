@@ -46,6 +46,36 @@ bool     get_permissive_hold(uint16_t keycode, keyrecord_t *record);
 bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 
+#ifdef SPECULATIVE_HOLD
+/** Gets the currently active speculative mods. */
+uint8_t get_speculative_mods(void);
+
+/**
+ * Callback to say if a mod-tap key may be speculatively held.
+ *
+ * By default, speculative hold is enabled for mod-tap keys where the mod is
+ * Ctrl, Shift, and Ctrl+Shift for either hand.
+ *
+ * @param keycode  Keycode of the mod-tap key.
+ * @param record   Record associated with the mod-tap press event.
+ * @return True if the mod-tap key may be speculatively held.
+ */
+bool get_speculative_hold(uint16_t keycode, keyrecord_t *record);
+
+/**
+ * Handler to be called on press events after tap-holds are settled.
+ *
+ * This function is to be called in process_record() in action.c, that is, just
+ * after tap-hold events are settled as either tapped or held. When `record`
+ * corresponds to a speculatively-held key, the speculative mod is cleared.
+ *
+ * @param record   Record associated with the mod-tap press event.
+ */
+void speculative_key_settled(keyrecord_t *record);
+#else
+#    define get_speculative_mods() 0
+#endif // SPECULATIVE_HOLD
+
 #ifdef CHORDAL_HOLD
 /**
  * Callback to say when a key chord before the tapping term may be held.
@@ -169,6 +199,16 @@ uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_
 
 /** Updates the Flow Tap last key and timer. */
 void flow_tap_update_last_event(keyrecord_t *record);
+
+/**
+ * Checks if the pressed key is within the flow tap term.
+ * Can be used to avoid triggering combos or other actions within the flow tap term.
+ *
+ * @param keycode The keycode of the pressed key.
+ * @param record The keyrecord of the pressed key.
+ * @return True if the pressed key is within the flow tap term; false otherwise.
+ */
+bool within_flow_tap_term(uint16_t keycode, keyrecord_t *record);
 #endif // FLOW_TAP_TERM
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE

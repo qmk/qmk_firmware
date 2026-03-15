@@ -55,7 +55,7 @@ Changing the **Hue** cycles around the circle.<br>
 Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.<br>
 Changing the **Value** sets the overall brightness.<br>
 
-![QMK Color Wheel with HSV Values](https://i.imgur.com/vkYVo66.jpg)
+![QMK Color Wheel with HSV Values](/vkYVo66.jpg)
 
 ## Keycodes
 

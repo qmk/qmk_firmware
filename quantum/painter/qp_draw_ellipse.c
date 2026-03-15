@@ -75,7 +75,7 @@ bool qp_ellipse(painter_device_t device, uint16_t x, uint16_t y, uint16_t sizex,
     int16_t dx = 0;
     int16_t dy = ((int16_t)sizey);
 
-    qp_internal_fill_pixdata(device, QP_MAX(sizex, sizey), hue, sat, val);
+    qp_internal_fill_pixdata(device, MAX(sizex, sizey), hue, sat, val);
 
     if (!qp_comms_start(device)) {
         qp_dprintf("qp_ellipse: fail (could not start comms)\n");

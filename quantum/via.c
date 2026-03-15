@@ -37,6 +37,10 @@
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #include "nvm_via.h"
 
+#if defined(SECURE_ENABLE)
+#    include "secure.h"
+#endif
+
 #if defined(AUDIO_ENABLE)
 #    include "audio.h"
 #endif
@@ -64,7 +68,7 @@
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
 bool via_eeprom_is_valid(void) {
-    char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+    char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
     uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -81,7 +85,7 @@ bool via_eeprom_is_valid(void) {
 // Keyboard level code (eg. via_init_kb()) should not call this
 void via_eeprom_set_valid(bool valid) {
     if (valid) {
-        char *  p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
+        char   *p      = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
         uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
         uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
         uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
@@ -322,8 +326,13 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
                     uint8_t rows   = 28 / ((MATRIX_COLS + 7) / 8);
                     uint8_t i      = 2;
                     for (uint8_t row = 0; row < rows && row + offset < MATRIX_ROWS; row++) {
-#ifdef VIA_INSECURE
+#if defined(VIA_INSECURE)
                         matrix_row_t value = matrix_get_row(row + offset);
+#elif defined(SECURE_ENABLE)
+                        matrix_row_t value = 0;
+                        if (secure_is_unlocked()) {
+                            value = matrix_get_row(row + offset);
+                        }
 #else
                         matrix_row_t value = 0;
 #endif
