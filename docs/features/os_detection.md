@@ -142,19 +142,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-Add both `STORE_SETUPS` and `PRINT_SETUPS` to your keyboard's layout.
-Connect the keyboard to the problematic device where the OS was not recognised,
-and press the `STORE_SETUPS` key to capture and record the fingerprint.
-On you development computer run one of the suggested [console debugging tools](/faq_debug#debugging-tools),
-connect the keyboard, and press the `PRINT_SETUPS` key.
-You should see multiple lines of data in the console window from the last time `STORE_SETUPS` was used.
+Add both `STORE_SETUPS` and `PRINT_SETUPS` to your keyboard's layout. Connect the keyboard to the problematic device where the OS was not recognised, and press the `STORE_SETUPS` key to capture and record the fingerprint. On you development computer run one of the suggested [console debugging tools](/faq_debug#debugging-tools), connect the keyboard, and press the `PRINT_SETUPS` key. You should see multiple lines of data in the console window from the last time `STORE_SETUPS` was used.
 
-Then please open an issue on Github with this information (copied from the console),
-and tell us the OS that was not detected correctly (including the version if possible),
-and if you have any intermediate devices between keyboard and the device (like a USB hub).
+Then please open an issue on Github with this information (copied from the console), and tell us the OS that was not detected correctly (including the version if possible), and if you have any intermediate devices between keyboard and the device (like a USB hub).
 
-Note that using the `PRINT_SETUPS` key without ever having used `STORE_SETUPS` will
-report whatever random numbers were already in the controller's EEPROM.
+Note that using the `PRINT_SETUPS` key without ever having used `STORE_SETUPS` will report whatever random numbers were already in the controller's EEPROM.
 
 ## Credits
 
