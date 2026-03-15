@@ -130,7 +130,7 @@ def new_keymap(cli):
         return False
 
     if not validate_keymap_name(user_name):
-        cli.log.error('Keymap names must contain only {fg_cyan}a-z{fg_reset}, {fg_cyan}0-9{fg_reset} and {fg_cyan}_{fg_reset}! Please choose a different name.')
+        cli.log.error(f'Keymap name {{fg_cyan}}{user_name}{{fg_reset}} must contain only {{fg_cyan}}a-z{{fg_reset}}, {{fg_cyan}}0-9{{fg_reset}} and {{fg_cyan}}_{{fg_reset}}! Please choose a different name.')
         return False
 
     if keymap_path_new.exists():
