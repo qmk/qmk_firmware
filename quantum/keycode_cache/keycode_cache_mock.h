@@ -21,7 +21,7 @@
 
 // Mock function declarations
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key);
-void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode);
+void     dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode);
 uint16_t dynamic_keymap_get_keycode(uint8_t layer, uint8_t row, uint8_t column);
 action_t action_for_keycode(uint16_t keycode);
 action_t action_for_key(uint8_t layer, keypos_t key);

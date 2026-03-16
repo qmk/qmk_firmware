@@ -1,1 +1,2 @@
-TEST_LIST += keycode_cache
+TEST_LIST += \
+	keycode_cache \
