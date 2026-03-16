@@ -52,7 +52,7 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 	ASFLAGS  += -ggdb3
 endif
 
-# Always create a map file, this is helpful when simply investing what got compiled in and where.
+# Always create a map file to see what was compiled and where.
 LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 
 #---------------- C Compiler Options ----------------
