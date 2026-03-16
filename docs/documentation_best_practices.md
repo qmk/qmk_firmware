@@ -16,7 +16,7 @@ This page covers my super cool feature. You can use this feature to make coffee,
 
 # Paragraphs
 
-We do not use hard line breaks within the raw Markdown for each paragraph. These are optional in Markdown, and have no effect on the rendered output. This means each raw paragraph will be a single long line in your editor (best viewed with line wrapping enabled).
+Do not use hard line breaks within the raw Markdown for each paragraph. These are optional in Markdown, and have no effect on the rendered output. This means each raw paragraph will be a single long line in your editor (best viewed with line wrapping enabled).
 
 # Headings
 
