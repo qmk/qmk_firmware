@@ -123,14 +123,7 @@ jobs:
           SOURCE_DIR: .
           DEST_DIR: ${{ inputs.branch || github.ref_name }}/latest
 
-      - name: Check if failure marker file exists
-        id: check_failure_marker
-        uses: andstor/file-existence-action@v3
-        with:
-          files: ./.failed
-
       - name: Fail build if needed
-        if: steps.check_failure_marker.outputs.files_exists == 'true'
         run: |
           # Exit with failure if the compilation stage failed
-          exit 1
+          [ ! -e .failed ] || exit 1
