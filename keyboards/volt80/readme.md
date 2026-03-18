@@ -1,12 +1,12 @@
 # volt80
 
-![volt80](https://i.imgur.com/HWPZ0i1.jpeg)
+![volt80](https://i.imgur.com/nQAFCH0.png)
 
 *This code is specifically for the aftermarket QMK PCB maintained by Jubakuba that enables QMK for the Volt80*
 
 * Keyboard Maintainer: [Mike Tihonovich](https://github.com/Jubakuba)
 * Hardware Supported: Custom PCB
-* Hardware Availability: https://github.com/Jubakuba
+* Hardware Availability: https://github.com/Jubakuba/Volt-80-Kicad
 
 Make example for this keyboard (after setting up your build environment):
 
