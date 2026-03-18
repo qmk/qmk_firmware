@@ -1,0 +1,13 @@
+{
+    "module_name": "Doubleclick",
+    "maintainer": "ZSA",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "mousekey": true
+    },
+    "keycodes": [
+        {
+            "key": "KC_MS_DBL_CLICK"
+        }
+    ]
+}

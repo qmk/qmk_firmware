@@ -1,0 +1,8 @@
+{
+    "maintainer": "ZSA",
+    "module_name": "oryx",
+    "features": {
+        "raw": true,
+        "via": false
+    }
+}

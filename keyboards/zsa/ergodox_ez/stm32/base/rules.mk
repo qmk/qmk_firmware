@@ -1,0 +1,2 @@
+DFU_SUFFIX_ARGS = -v 3297 -p 2002
+DFU_ARGS = -d 3297:2002 -a 0 -s 0x08002000:leave

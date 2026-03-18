@@ -1,0 +1,14 @@
+{
+    "module_name": "Automouse",
+    "maintainer": "ZSA",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "pointing_device": true
+    },
+    "keycodes": [
+        {
+            "key": "KC_AUTOMOUSE_TOGGLE",
+            "aliases": ["AM_TOGG"]
+        }
+    ]
+}

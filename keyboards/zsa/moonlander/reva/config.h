@@ -18,34 +18,23 @@
 
 #pragma once
 
-#include "quantum.h"
+/* key matrix size */
+#define MATRIX_ROWS 12
+#define MATRIX_COLS 7
 
-extern bool mcp23018_leds[];
+#define MCP23018_TIMEOUT 10
+#define EEPROM_I2C_24LC128
 
-#define MCP23018_DEFAULT_ADDRESS 0b0100000
+#define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
+#define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
+#define IS31FL3731_I2C_TIMEOUT 5
 
-#define STATUS_LED_1(status) gpio_write_pin(B5, (bool)status)
-#define STATUS_LED_2(status) gpio_write_pin(B4, (bool)status)
-#define STATUS_LED_3(status) gpio_write_pin(B3, (bool)status)
+#define MUSIC_MAP
 
-#define STATUS_LED_4(status) mcp23018_leds[0] = (bool)status
-#define STATUS_LED_5(status) mcp23018_leds[1] = (bool)status
-#define STATUS_LED_6(status) mcp23018_leds[2] = (bool)status
+#define FIRMWARE_VERSION_SIZE 17
+#define DYNAMIC_KEYMAP_EEPROM_ADDR (EECONFIG_SIZE + FIRMWARE_VERSION_SIZE)
 
-#ifndef WEBUSB_ENABLE
-#    define WEBUSB_PAIR KC_NO
-#endif
-
-typedef union {
-  uint32_t raw;
-  struct {
-    bool         disable_layer_led   :1;
-    bool         rgb_matrix_enable   :1;
-    bool         led_level           :1;
-    uint8_t      led_level_res       :2; // DO NOT REMOVE
-  };
-} keyboard_config_t;
-
-extern keyboard_config_t keyboard_config;
-
-bool is_transport_connected(void);
+#define AUDIO_PIN A5
+#define AUDIO_PIN_ALT A4
+#define AUDIO_PIN_ALT_AS_NEGATIVE
+#define AUDIO_INIT_DELAY 100

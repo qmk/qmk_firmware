@@ -9,13 +9,17 @@ A next-gen split, ergonomic keyboard with an active left side, USB type C, integ
 * Hardware Supported: Moonlander MK 1 (STM32F303xC)
 * Hardware Availability: [ZSA Store](https://zsa.io/moonlander/)
 
+Starting from mid-December 2025, ZSA started shipping a new version of the Moonlander (revision B).
+
+To figure out which revision you have, when in bootloader mode, revision A will show up as `STM Device in DFU Mode` or `STM32 Bootloader` and revision B will show up as `Moonlander Bootloader`.
+
 Make example for this keyboard (after setting up your build environment):
 
-    make zsa/moonlander:default
+    make zsa/moonlander/reva:default or make zsa/moonlander/revb:default
 
 Flashing example for this keyboard:
 
-    make zsa/moonlander:default:flash
+    make zsa/moonlander/reva:default:flash or make zsa/moonlander/revb:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

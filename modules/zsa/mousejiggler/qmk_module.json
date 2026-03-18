@@ -1,0 +1,14 @@
+{
+    "module_name": "Mouse Jiggler",
+    "maintainer": "ZSA",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "mousekey": true
+    },
+    "keycodes": [
+        {
+            "key": "KC_MS_JIGGLER_TOGGLE",
+            "aliases": ["MJ_TOGG"]
+        }
+    ]
+}

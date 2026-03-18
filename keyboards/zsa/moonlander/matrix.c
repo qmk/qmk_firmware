@@ -18,6 +18,7 @@
 
 #include "moonlander.h"
 #include "mcp23018.h"
+#include "i2c_master.h"
 
 #pragma GCC push_options
 #pragma GCC optimize("-O3")
@@ -34,6 +35,9 @@ extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
 static matrix_row_t raw_matrix_right[MATRIX_ROWS];
 
 #define MCP_ROWS_PER_HAND (MATRIX_ROWS / 2)
+#ifndef I2C_DRIVER
+#    define I2C_DRIVER I2CD1
+#endif
 
 extern bool mcp23018_leds[3];
 extern bool is_launching;
@@ -44,6 +48,25 @@ uint8_t         mcp23018_errors;
 bool io_expander_ready(void) {
     uint8_t tx;
     return mcp23018_read_pins(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, &tx);
+}
+
+uint8_t mcp23018_init_local(bool first_run) {
+    if (!first_run) {
+        i2cStop(&I2C_DRIVER);
+    }
+    wait_ms(10);
+    // Try releasing special pins for a short time
+    palSetLineMode(B6, PAL_MODE_INPUT);
+    palSetLineMode(B7, PAL_MODE_INPUT);
+    wait_ms(10);
+    palSetLineMode(B6, PAL_MODE_ALTERNATE(4) | PAL_OUTPUT_TYPE_OPENDRAIN);
+    palSetLineMode(B7, PAL_MODE_ALTERNATE(4) | PAL_OUTPUT_TYPE_OPENDRAIN);
+
+    uint8_t errors = 0;
+    errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b00000000);
+    errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, 0b00111111);
+
+    return errors;
 }
 
 void matrix_init_custom(void) {
@@ -64,9 +87,7 @@ void matrix_init_custom(void) {
     gpio_set_pin_input_low(A7);
     gpio_set_pin_input_low(B0);
 
-    mcp23018_init(MCP23018_DEFAULT_ADDRESS);
-    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTA, 0b00000000);
-    mcp23018_errors += !mcp23018_set_config(MCP23018_DEFAULT_ADDRESS, mcp23018_PORTB, 0b00111111);
+    mcp23018_errors = mcp23018_init_local(true);
 
     if (!mcp23018_errors) {
         is_launching = true;
@@ -80,8 +101,14 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         if (++mcp23018_reset_loop > 0x1FFF) {
             if (io_expander_ready()) {
                 // If we managed to initialize the mcp23018 - we need to reinitialize the matrix / layer state. During an electric discharge the i2c peripherals might be in a weird state. Giving a delay and resetting the MCU allows to recover from this.
-                wait_ms(200);
-                mcu_reset();
+                mcp23018_reset_loop = 0;
+                mcp23018_errors     = mcp23018_init_local(false);
+#ifdef RGB_MATRIX_ENABLE
+                rgb_matrix_init();
+                if (rgb_matrix_get_mode() == 1 && keyboard_config.rgb_matrix_enable) {
+                    rgb_matrix_set_color_all(0, 0, 0);
+                }
+#endif
             }
         }
     }
@@ -191,12 +218,12 @@ void matrix_power_up(void) {
 
     is_launching = temp_launching;
     if (!is_launching) {
-        ML_LED_1(false);
-        ML_LED_2(false);
-        ML_LED_3(false);
-        ML_LED_4(false);
-        ML_LED_5(false);
-        ML_LED_6(false);
+        STATUS_LED_1(false);
+        STATUS_LED_2(false);
+        STATUS_LED_3(false);
+        STATUS_LED_4(false);
+        STATUS_LED_5(false);
+        STATUS_LED_6(false);
     }
 
     // initialize matrix state: all keys off

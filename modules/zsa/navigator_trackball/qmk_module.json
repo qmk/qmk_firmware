@@ -1,0 +1,16 @@
+{
+    "module_name": "Navigator Trackball",
+    "maintainer": "ZSA",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "pointing_device": true
+    },
+    "keycodes": [
+        { "key": "NAVIGATOR_INC_CPI", "aliases": ["NV_CPIU"] },
+        { "key": "NAVIGATOR_DEC_CPI", "aliases": ["NV_CPID"] },
+        { "key": "NAVIGATOR_TURBO",   "aliases": ["NV_TRBO"] },
+        { "key": "NAVIGATOR_AIM",     "aliases": ["NV_AIM"] },
+        { "key": "DRAG_SCROLL",       "aliases": ["NV_DSCR"] },
+        { "key": "TOGGLE_SCROLL",     "aliases": ["NV_TSCR"] }
+    ]
+}
