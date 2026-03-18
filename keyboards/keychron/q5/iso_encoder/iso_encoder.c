@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2021 @ Keychron (https://www.keychron.com)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -132,5 +132,4 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
     {1, CB12_CA2,    CB10_CA2,    CB11_CA2},
     {1, CB12_CA7,    CB10_CA7,    CB11_CA7}
 };
-
 #endif // RGB_MATRIX_ENABLE

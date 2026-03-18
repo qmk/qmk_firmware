@@ -1,9 +1,28 @@
 {
+    "keyboard_name": "Keychron V5",
+    "manufacturer": "Keychron",
+    "url": "https://github.com/Keychron",
+    "maintainer": "lalalademaxiya1",
+    "usb": {
+        "vid": "0x3434",
+        "pid": "0x0353",
+        "device_version": "1.0.0"
+    },
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "C14", "pin_b": "A2"}
         ]
+    },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "encoder": true,
+        "dip_switch": true
     },
     "rgb_matrix": {
         "layout": [
@@ -108,10 +127,6 @@
             {"matrix": [5, 5], "x": 224, "y": 55, "flags": 1}
         ]
     },
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0153"
-    },
     "layouts": {
         "LAYOUT_iso_99": {
             "layout": [
@@ -132,6 +147,7 @@
                 {"matrix": [0, 16], "x": 16.25, "y": 0},
                 {"matrix": [0, 17], "x": 17.25, "y": 0},
                 {"matrix": [3, 12], "x": 18.5, "y": 0},
+
                 {"matrix": [1, 0], "x": 0, "y": 1.25},
                 {"matrix": [1, 1], "x": 1, "y": 1.25},
                 {"matrix": [1, 2], "x": 2, "y": 1.25},
@@ -150,6 +166,7 @@
                 {"matrix": [1, 16], "x": 16.5, "y": 1.25},
                 {"matrix": [1, 17], "x": 17.5, "y": 1.25},
                 {"matrix": [3, 14], "x": 18.5, "y": 1.25},
+
                 {"matrix": [2, 0], "x": 0, "y": 2.25, "w": 1.5},
                 {"matrix": [2, 1], "x": 1.5, "y": 2.25},
                 {"matrix": [2, 2], "x": 2.5, "y": 2.25},
@@ -166,6 +183,7 @@
                 {"matrix": [2, 15], "x": 15.5, "y": 2.25},
                 {"matrix": [2, 16], "x": 16.5, "y": 2.25},
                 {"matrix": [2, 17], "x": 17.5, "y": 2.25},
+
                 {"matrix": [3, 0], "x": 0, "y": 3.25, "w": 1.75},
                 {"matrix": [3, 1], "x": 1.75, "y": 3.25},
                 {"matrix": [3, 2], "x": 2.75, "y": 3.25},
@@ -184,6 +202,7 @@
                 {"matrix": [3, 16], "x": 16.5, "y": 3.25},
                 {"matrix": [3, 17], "x": 17.5, "y": 3.25},
                 {"matrix": [2, 14], "x": 18.5, "y": 2.25, "h": 2},
+
                 {"matrix": [4, 0], "x": 0, "y": 4.25, "w": 1.25},
                 {"matrix": [4, 1], "x": 1.25, "y": 4.25},
                 {"matrix": [4, 2], "x": 2.25, "y": 4.25},
@@ -201,6 +220,7 @@
                 {"matrix": [4, 15], "x": 15.5, "y": 4.25},
                 {"matrix": [4, 16], "x": 16.5, "y": 4.25},
                 {"matrix": [4, 17], "x": 17.5, "y": 4.25},
+
                 {"matrix": [5, 0], "x": 0, "y": 5.25, "w": 1.25},
                 {"matrix": [5, 1], "x": 1.25, "y": 5.25, "w": 1.25},
                 {"matrix": [5, 2], "x": 2.5, "y": 5.25, "w": 1.25},

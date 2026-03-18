@@ -1,4 +1,23 @@
 {
+    "keyboard_name": "Keychron V5",
+    "manufacturer": "Keychron",
+    "url": "https://github.com/Keychron",
+    "maintainer": "lalalademaxiya1",
+    "usb": {
+        "vid": "0x3434",
+        "pid": "0x0350",
+        "device_version": "1.0.0"
+    },
+    "processor": "STM32L432",
+    "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "dip_switch": true
+    },
     "rgb_matrix": {
         "layout": [
             {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
@@ -103,10 +122,6 @@
             {"matrix": [5, 5], "x": 224, "y": 55, "flags": 1}
         ]
     },
-    "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x0150"
-    },
     "layouts": {
         "LAYOUT_ansi_100": {
             "layout": [
@@ -201,6 +216,7 @@
                 {"matrix": [4, 15], "x": 15.5, "y": 4.25},
                 {"matrix": [4, 16], "x": 16.5, "y": 4.25},
                 {"matrix": [4, 17], "x": 17.5, "y": 4.25},
+
                 {"matrix": [5, 0], "x": 0, "y": 5.25, "w": 1.25},
                 {"matrix": [5, 1], "x": 1.25, "y": 5.25, "w": 1.25},
                 {"matrix": [5, 2], "x": 2.5, "y": 5.25, "w": 1.25},
