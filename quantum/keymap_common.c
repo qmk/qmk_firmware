@@ -70,7 +70,12 @@ action_t action_for_keycode(uint16_t keycode) {
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
             break;
         case CONSUMER_KEYCODE_RANGE:
-            action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
+            // Unfortunate override for macOS DND button, because there's no space in the system page.
+            if (keycode == KC_DO_NOT_DISTURB) {
+                action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
+            } else {
+                action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
+            }
             break;
 #endif
         case MOUSE_KEYCODE_RANGE:

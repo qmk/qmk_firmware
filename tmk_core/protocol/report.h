@@ -128,6 +128,7 @@ enum desktop_usages {
     SYSTEM_SLEEP                  = 0x82,
     SYSTEM_WAKE_UP                = 0x83,
     SYSTEM_RESTART                = 0x8F,
+    SYSTEM_DO_NOT_DISTURB         = 0x9B,
     // 4.10 System Display Controls
     SYSTEM_DISPLAY_TOGGLE_INT_EXT = 0xB5
 };
@@ -273,6 +274,8 @@ static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
             return SYSTEM_SLEEP;
         case KC_SYSTEM_WAKE:
             return SYSTEM_WAKE_UP;
+        case KC_DO_NOT_DISTURB:
+            return SYSTEM_DO_NOT_DISTURB;
         default:
             return 0;
     }
