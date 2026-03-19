@@ -956,6 +956,7 @@ enum qk_keycode_defines {
     KC_ASST    = KC_ASSISTANT,
     KC_MCTL    = KC_MISSION_CONTROL,
     KC_LPAD    = KC_LAUNCHPAD,
+    KC_DND     = KC_DO_NOT_DISTURB,
     MS_UP      = QK_MOUSE_CURSOR_UP,
     MS_DOWN    = QK_MOUSE_CURSOR_DOWN,
     MS_LEFT    = QK_MOUSE_CURSOR_LEFT,
