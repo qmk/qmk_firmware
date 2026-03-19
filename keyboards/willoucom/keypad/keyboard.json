@@ -22,9 +22,13 @@
     },
     "usb": {
         "device_version": "1.0.0",
-        "force_nkro": true,
         "pid": "0x4B50",
         "vid": "0x574A"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "layouts": {
         "LAYOUT": {

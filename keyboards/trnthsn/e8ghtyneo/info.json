@@ -10,8 +10,8 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["A9", "A8", "B14", "B12", "B11", "B10", "B0", "A7", "A6", "A4", "A3", "A2", "A1", "A0", "C13", "B9", "B7"],
-        "rows": ["B8", "A10", "B1", "A5", "C15", "C14"]
+        "cols": ["A9", "A8", "B14", "B12", "B11", "B10", "B0", "A7", "A6", "A5", "A3", "A2", "A1", "A0", "C13", "B9", "B7"],
+        "rows": ["B8", "A10", "B1", "A4", "C15", "C14"]
     },
     "rgblight": {
         "animations": {
@@ -27,6 +27,9 @@
         },
         "default": {
             "animation": "rainbow_mood"
+        },
+        "layers": {
+            "enabled": true,
         },
         "led_count": 4,
         "sleep": true

@@ -5,8 +5,12 @@
   "usb": {
     "vid": "0x4131",
     "pid": "0x5141",
-    "device_version": "0.0.1",
-    "force_nkro": true
+    "device_version": "0.0.1"
+  },
+  "host": {
+    "default": {
+      "nkro": true
+    }
   },
   "build": {
     "debounce_type": "sym_eager_pk"

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Cajal",
     "manufacturer": "Walletburner",
-    "url": "https://qmk.fm/keyboards/",
     "maintainer": "worldspawn00",
     "usb": {
         "vid": "0x5742",

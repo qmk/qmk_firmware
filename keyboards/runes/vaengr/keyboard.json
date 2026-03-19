@@ -6,8 +6,12 @@
     "usb": {
         "vid": "0x726E",
         "pid": "0x7661",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgblight": {
         "hue_steps": 10,

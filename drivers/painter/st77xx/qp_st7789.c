@@ -60,7 +60,9 @@ __attribute__((weak)) bool qp_st7789_init(painter_device_t device, painter_rotat
         ST77XX_CMD_DISPLAY_ON,        20,  0
     };
     // clang-format on
-    qp_comms_bulk_command_sequence(device, st7789_init_sequence, sizeof(st7789_init_sequence));
+    if (!qp_comms_bulk_command_sequence(device, st7789_init_sequence, sizeof(st7789_init_sequence))) {
+        return false;
+    }
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
@@ -69,7 +71,9 @@ __attribute__((weak)) bool qp_st7789_init(painter_device_t device, painter_rotat
         [QP_ROTATION_180] = ST77XX_MADCTL_RGB | ST77XX_MADCTL_MX | ST77XX_MADCTL_MY,
         [QP_ROTATION_270] = ST77XX_MADCTL_RGB | ST77XX_MADCTL_MV | ST77XX_MADCTL_MY,
     };
-    qp_comms_command_databyte(device, ST77XX_SET_MADCTL, madctl[rotation]);
+    if (!qp_comms_command_databyte(device, ST77XX_SET_MADCTL, madctl[rotation])) {
+        return false;
+    }
 
 #ifndef ST7789_NO_AUTOMATIC_VIEWPORT_OFFSETS
     st7789_automatic_viewport_offsets(device, rotation);

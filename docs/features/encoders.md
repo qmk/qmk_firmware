@@ -68,7 +68,7 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 ```
 
 ::: warning
-Keep in mind that whenver you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
+Keep in mind that whenever you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
 :::
 
 ## Encoder map {#encoder-map}

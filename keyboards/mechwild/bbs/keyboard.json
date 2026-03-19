@@ -44,12 +44,16 @@
     "url": "https://mechwild.com/product/bb-steno/",
     "usb": {
         "device_version": "1.1.0",
-        "force_nkro": true,
         "pid": "0x170E",
         "shared_endpoint": {
             "keyboard": true
         },
         "vid": "0x6D77"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "driver": "pwm",

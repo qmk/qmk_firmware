@@ -21,11 +21,9 @@ def is_keyboard(keyboard_name):
     if Path(keyboard_name).is_absolute():
         return False
 
-    keyboard_path = QMK_FIRMWARE / 'keyboards' / keyboard_name
-    rules_mk = keyboard_path / 'rules.mk'
-    keyboard_json = keyboard_path / 'keyboard.json'
+    keyboard_json = QMK_FIRMWARE / 'keyboards' / keyboard_name / 'keyboard.json'
 
-    return rules_mk.exists() or keyboard_json.exists()
+    return keyboard_json.exists()
 
 
 def under_qmk_firmware(path=Path(os.environ['ORIG_CWD'])):
@@ -146,6 +144,12 @@ def normpath(path):
     return Path(os.environ['ORIG_CWD']) / path
 
 
+def is_relative_to(file, other):
+    """Provide normpath behavior to Path.is_relative_to
+    """
+    return normpath(file).is_relative_to(normpath(other))
+
+
 def unix_style_path(path):
     """Converts a Windows-style path with drive letter to a Unix path.
 
@@ -179,5 +183,17 @@ class FileType(argparse.FileType):
         """normalize and check exists
             otherwise magic strings like '-' for stdin resolve to bad paths
         """
+        # TODO: This should not return both Path and TextIOWrapper as consumers
+        # assume that they can call Path.as_posix without checking type
+
+        # Handle absolute paths and relative paths to CWD
         norm = normpath(string)
-        return norm if norm.exists() else super().__call__(string)
+        if norm.exists():
+            return norm
+
+        # Handle relative paths to QMK_HOME
+        relative = Path(string)
+        if relative.exists():
+            return relative
+
+        return super().__call__(string)

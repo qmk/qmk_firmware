@@ -40,6 +40,12 @@ bool process_led_matrix(uint16_t keycode, keyrecord_t *record) {
             case QK_LED_MATRIX_SPEED_DOWN:
                 led_matrix_decrease_speed();
                 return false;
+            case QK_LED_MATRIX_FLAG_NEXT:
+                led_matrix_flags_step();
+                return false;
+            case QK_LED_MATRIX_FLAG_PREVIOUS:
+                led_matrix_flags_step_reverse();
+                return false;
         }
     }
 

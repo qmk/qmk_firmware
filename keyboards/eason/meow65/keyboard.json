@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0x68F4",
         "pid": "0x70A0",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

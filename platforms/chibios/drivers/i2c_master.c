@@ -160,6 +160,12 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
     return i2c_epilogue(status);
 }
 
+i2c_status_t i2c_transmit_and_receive(uint8_t address, const uint8_t* tx_data, uint16_t tx_length, uint8_t* rx_data, uint16_t rx_length, uint16_t timeout) {
+    i2cStart(&I2C_DRIVER, &i2cconfig);
+    msg_t status = i2cMasterTransmitTimeout(&I2C_DRIVER, (address >> 1), tx_data, tx_length, rx_data, rx_length, TIME_MS2I(timeout));
+    return i2c_epilogue(status);
+}
+
 i2c_status_t i2c_write_register(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
     i2cStart(&I2C_DRIVER, &i2cconfig);
 

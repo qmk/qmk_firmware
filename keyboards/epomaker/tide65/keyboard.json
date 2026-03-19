@@ -143,10 +143,14 @@
     },
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0xE463",
         "suspend_wakeup_delay": 1000,
         "vid": "0x342D"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "pin": "B15"

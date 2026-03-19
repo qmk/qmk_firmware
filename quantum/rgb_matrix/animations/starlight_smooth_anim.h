@@ -9,7 +9,7 @@ static uint8_t phase_offsets[RGB_MATRIX_LED_COUNT];
 
 hsv_t STARLIGHT_SMOOTH_math(hsv_t hsv, uint8_t i, uint8_t time) {
     if (phase_offsets[i] == 0) {
-        phase_offsets[i] = rand() % 255;
+        phase_offsets[i] = random8();
     }
     hsv.v = scale8(abs8(sin8((time + phase_offsets[i]) / 2) - 128) * 2, hsv.v);
     return hsv;

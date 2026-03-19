@@ -7,5 +7,3 @@ CUSTOM_MATRIX = lite
 
 I2C_DRIVER_REQUIRED = yes
 SRC += matrix.c
-
-DEFAULT_FOLDER = handwired/dygma/raise/ansi

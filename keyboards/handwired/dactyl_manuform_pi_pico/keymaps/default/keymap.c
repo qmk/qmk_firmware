@@ -54,11 +54,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_WINMGR] = LAYOUT(
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-    KC_TRNS,     KC_F1, LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), KC_F4,                          KC_F7, SGUI(KC_7), SGUI(KC_8), SGUI(KC_9), KC_F10, KC_TRNS,
-    TO(_QWERTY), KC_F2, LGUI(KC_4), LGUI(KC_5), LGUI(KC_6), KC_F5,                          KC_F8, SGUI(KC_4), SGUI(KC_5), SGUI(KC_6), KC_F11, KC_TRNS,
-    KC_TRNS,     KC_F3, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), KC_F6,                          KC_F9, SGUI(KC_1), SGUI(KC_2), SGUI(KC_3), KC_F12, KC_TRNS,
-                KC_TRNS, LGUI(KC_0),                                                                SGUI(KC_0), KC_TRNS,
-                                  LGUI(KC_0), KC_TRNS,                              KC_TRNS, SGUI(KC_0),
+    KC_TRNS,     KC_F1, LGUI(KC_7), LGUI(KC_8), LGUI(KC_9), KC_F4,                          KC_F7, LSG(KC_7),  LSG(KC_8),  LSG(KC_9),  KC_F10, KC_TRNS,
+    TO(_QWERTY), KC_F2, LGUI(KC_4), LGUI(KC_5), LGUI(KC_6), KC_F5,                          KC_F8, LSG(KC_4),  LSG(KC_5),  LSG(KC_6),  KC_F11, KC_TRNS,
+    KC_TRNS,     KC_F3, LGUI(KC_1), LGUI(KC_2), LGUI(KC_3), KC_F6,                          KC_F9, LSG(KC_1),  LSG(KC_2),  LSG(KC_3),  KC_F12, KC_TRNS,
+                KC_TRNS, LGUI(KC_0),                                                                LSG(KC_0),  KC_TRNS,
+                                  LGUI(KC_0), KC_TRNS,                              KC_TRNS, LSG(KC_0),
                                   KC_TRNS, KC_TRNS,                                 KC_TRNS, KC_TRNS,
                                   LCTL(LGUI(KC_Q)), KC_TRNS,                        KC_TRNS, KC_TRNS)
 };

@@ -81,9 +81,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         switch (get_highest_layer(layer_state)) {
             case 0:
                 if (clockwise) {
-                    tap_code(KC_MS_R);
+                    tap_code(MS_RGHT);
                 } else {
-                    tap_code(KC_MS_L);
+                    tap_code(MS_LEFT);
                 }
                 break;
 

@@ -69,7 +69,11 @@ void eeconfig_update_audio_current(void);
  * @post audio system (and hardware) initialized and ready to play tones
  */
 void audio_init(void);
-void audio_startup(void);
+
+/**
+ * \brief Handle various subsystem background tasks.
+ */
+void audio_task(void);
 
 /**
  * @brief en-/disable audio output, save this choice to the eeprom
@@ -213,6 +217,8 @@ uint16_t audio_duration_to_ms(uint16_t duration_bpm);
 uint16_t audio_ms_to_duration(uint16_t duration_ms);
 
 void audio_startup(void);
+
+void audio_shutdown(void);
 
 // hardware interface
 

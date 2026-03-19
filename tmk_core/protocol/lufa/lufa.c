@@ -44,9 +44,6 @@
 #include "led.h"
 #include "sendchar.h"
 #include "debug.h"
-#ifdef SLEEP_LED_ENABLE
-#    include "sleep_led.h"
-#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -278,10 +275,6 @@ void EVENT_USB_Device_Reset(void) {
 void EVENT_USB_Device_Suspend(void) {
     print("[S]");
     usb_device_state_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_enable();
-#endif
 }
 
 /** \brief Event USB Device Connect
@@ -295,12 +288,6 @@ void EVENT_USB_Device_WakeUp(void) {
 #endif
 
     usb_device_state_set_resume(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_disable();
-    // NOTE: converters may not accept this
-    led_set(host_keyboard_leds());
-#endif
 }
 
 #ifdef CONSOLE_ENABLE
@@ -839,6 +826,9 @@ void protocol_pre_task(void) {
                 //
                 // Pause for a while to let things settle...
                 wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+                // ...and then update the wakeup matrix again as the waking key
+                // might have been released during the delay
+                update_matrix_state_after_wakeup();
 #    endif
             }
         }

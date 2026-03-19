@@ -8,7 +8,7 @@ The feature maintains a small buffer of recent key presses. On each key press, i
 
 The tricky part is how to efficiently check the buffer for typos. We don’t want to spend too much memory or time on storing or searching the typos. A good solution is to represent the typos with a trie data structure. A trie is a tree data structure where each node is a letter, and words are formed by following a path to one of the leaves.
 
-![An example trie](https://i.imgur.com/HL5DP8H.png)
+![An example trie](/HL5DP8H.png)
 
 Since we search whether the buffer ends in a typo, we store the trie writing in reverse. The trie is queried starting from the last letter, then second to last letter, and so on, until either a letter doesn’t match or we reach a leaf, meaning a typo was found.
 
@@ -279,7 +279,7 @@ All autocorrection data is stored in a single flat array autocorrect_data. Each 
 * 01 ⇒ branching node: a trie node with multiple children.
 * 10 ⇒ leaf node: a leaf, corresponding to a typo and storing its correction.
 
-![An example trie](https://i.imgur.com/HL5DP8H.png)
+![An example trie](/HL5DP8H.png)
 
 **Branching node**. Each branch is encoded with one byte for the keycode (KC_A–KC_Z) followed by a link to the child node. Links between nodes are 16-bit byte offsets relative to the beginning of the array, serialized in little endian order.
 

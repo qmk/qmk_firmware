@@ -2,131 +2,163 @@
     "keycodes": {
         "0x7E40": {
             "group": "user",
-            "key": "QK_USER_0"
+            "key": "QK_USER_0",
+            "label": "User 0"
         },
         "0x7E41": {
             "group": "user",
-            "key": "QK_USER_1"
+            "key": "QK_USER_1",
+            "label": "User 1"
         },
         "0x7E42": {
             "group": "user",
-            "key": "QK_USER_2"
+            "key": "QK_USER_2",
+            "label": "User 2"
         },
         "0x7E43": {
             "group": "user",
-            "key": "QK_USER_3"
+            "key": "QK_USER_3",
+            "label": "User 3"
         },
         "0x7E44": {
             "group": "user",
-            "key": "QK_USER_4"
+            "key": "QK_USER_4",
+            "label": "User 4"
         },
         "0x7E45": {
             "group": "user",
-            "key": "QK_USER_5"
+            "key": "QK_USER_5",
+            "label": "User 5"
         },
         "0x7E46": {
             "group": "user",
-            "key": "QK_USER_6"
+            "key": "QK_USER_6",
+            "label": "User 6"
         },
         "0x7E47": {
             "group": "user",
-            "key": "QK_USER_7"
+            "key": "QK_USER_7",
+            "label": "User 7"
         },
         "0x7E48": {
             "group": "user",
-            "key": "QK_USER_8"
+            "key": "QK_USER_8",
+            "label": "User 8"
         },
         "0x7E49": {
             "group": "user",
-            "key": "QK_USER_9"
+            "key": "QK_USER_9",
+            "label": "User 9"
         },
         "0x7E4A": {
             "group": "user",
-            "key": "QK_USER_10"
+            "key": "QK_USER_10",
+            "label": "User 10"
         },
         "0x7E4B": {
             "group": "user",
-            "key": "QK_USER_11"
+            "key": "QK_USER_11",
+            "label": "User 11"
         },
         "0x7E4C": {
             "group": "user",
-            "key": "QK_USER_12"
+            "key": "QK_USER_12",
+            "label": "User 12"
         },
         "0x7E4D": {
             "group": "user",
-            "key": "QK_USER_13"
+            "key": "QK_USER_13",
+            "label": "User 13"
         },
         "0x7E4E": {
             "group": "user",
-            "key": "QK_USER_14"
+            "key": "QK_USER_14",
+            "label": "User 14"
         },
         "0x7E4F": {
             "group": "user",
-            "key": "QK_USER_15"
+            "key": "QK_USER_15",
+            "label": "User 15"
         },
         "0x7E50": {
             "group": "user",
-            "key": "QK_USER_16"
+            "key": "QK_USER_16",
+            "label": "User 16"
         },
         "0x7E51": {
             "group": "user",
-            "key": "QK_USER_17"
+            "key": "QK_USER_17",
+            "label": "User 17"
         },
          "0x7E52": {
             "group": "user",
-            "key": "QK_USER_18"
+            "key": "QK_USER_18",
+            "label": "User 18"
         },
         "0x7E53": {
             "group": "user",
-            "key": "QK_USER_19"
+            "key": "QK_USER_19",
+            "label": "User 19"
         },
         "0x7E54": {
             "group": "user",
-            "key": "QK_USER_20"
+            "key": "QK_USER_20",
+            "label": "User 20"
         },
         "0x7E55": {
             "group": "user",
-            "key": "QK_USER_21"
+            "key": "QK_USER_21",
+            "label": "User 21"
         },
         "0x7E56": {
             "group": "user",
-            "key": "QK_USER_22"
+            "key": "QK_USER_22",
+            "label": "User 22"
         },
         "0x7E57": {
             "group": "user",
-            "key": "QK_USER_23"
+            "key": "QK_USER_23",
+            "label": "User 23"
         },
         "0x7E58": {
             "group": "user",
-            "key": "QK_USER_24"
+            "key": "QK_USER_24",
+            "label": "User 24"
         },
         "0x7E59": {
             "group": "user",
-            "key": "QK_USER_25"
+            "key": "QK_USER_25",
+            "label": "User 25"
         },
         "0x7E5A": {
             "group": "user",
-            "key": "QK_USER_26"
+            "key": "QK_USER_26",
+            "label": "User 26"
         },
         "0x7E5B": {
             "group": "user",
-            "key": "QK_USER_27"
+            "key": "QK_USER_27",
+            "label": "User 27"
         },
         "0x7E5C": {
             "group": "user",
-            "key": "QK_USER_28"
+            "key": "QK_USER_28",
+            "label": "User 28"
         },
         "0x7E5D": {
             "group": "user",
-            "key": "QK_USER_29"
+            "key": "QK_USER_29",
+            "label": "User 29"
         },
         "0x7E5E": {
             "group": "user",
-            "key": "QK_USER_30"
+            "key": "QK_USER_30",
+            "label": "User 30"
         },
         "0x7E5F": {
             "group": "user",
-            "key": "QK_USER_31"
+            "key": "QK_USER_31",
+            "label": "User 31"
         }
     }
 }

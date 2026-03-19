@@ -37,7 +37,9 @@ bool qp_ili9486_init(painter_device_t device, painter_rotation_t rotation) {
         ILI9XXX_SET_INVERSION_CTL,      0,  1, 0x02,
     };
     // clang-format on
-    qp_comms_bulk_command_sequence(device, ili9486_init_sequence, sizeof(ili9486_init_sequence));
+    if (!qp_comms_bulk_command_sequence(device, ili9486_init_sequence, sizeof(ili9486_init_sequence))) {
+        return false;
+    }
 
     // Configure the rotation (i.e. the ordering and direction of memory writes in GRAM)
     const uint8_t madctl[] = {
@@ -62,26 +64,26 @@ bool qp_ili9486_init(painter_device_t device, painter_rotation_t rotation) {
         ILI9XXX_CMD_DISPLAY_ON,         5,  0,
     };
     // clang-format on
-    qp_comms_bulk_command_sequence(device, rotation_sequence, sizeof(rotation_sequence));
-
-    return true;
+    return qp_comms_bulk_command_sequence(device, rotation_sequence, sizeof(rotation_sequence));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Driver vtable
 
 // waveshare variant needs some tweaks due to shift registers
-static void qp_comms_spi_dc_reset_send_command_odd_cs_pulse(painter_device_t device, uint8_t cmd) {
-    painter_driver_t *              driver       = (painter_driver_t *)device;
+static bool qp_comms_spi_dc_reset_send_command_odd_cs_pulse(painter_device_t device, uint8_t cmd) {
+    painter_driver_t               *driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
     gpio_write_pin_low(comms_config->spi_config.chip_select_pin);
     qp_comms_spi_dc_reset_send_command(device, cmd);
     gpio_write_pin_high(comms_config->spi_config.chip_select_pin);
+
+    return true;
 }
 
 static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, const void *data, uint32_t byte_count) {
-    painter_driver_t *              driver       = (painter_driver_t *)device;
+    painter_driver_t               *driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
     uint32_t       bytes_remaining = byte_count;
@@ -90,7 +92,7 @@ static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, con
 
     gpio_write_pin_high(comms_config->dc_pin);
     while (bytes_remaining > 0) {
-        uint32_t bytes_this_loop = QP_MIN(bytes_remaining, max_msg_length);
+        uint32_t bytes_this_loop = MIN(bytes_remaining, max_msg_length);
         bool     odd_bytes       = bytes_this_loop & 1;
 
         // send data
@@ -111,7 +113,7 @@ static uint32_t qp_comms_spi_send_data_odd_cs_pulse(painter_device_t device, con
 }
 
 static uint32_t qp_ili9486_send_data_toggling(painter_device_t device, const uint8_t *data, uint32_t byte_count) {
-    painter_driver_t *              driver       = (painter_driver_t *)device;
+    painter_driver_t               *driver       = (painter_driver_t *)device;
     qp_comms_spi_dc_reset_config_t *comms_config = (qp_comms_spi_dc_reset_config_t *)driver->comms_config;
 
     uint32_t ret;
@@ -124,7 +126,7 @@ static uint32_t qp_ili9486_send_data_toggling(painter_device_t device, const uin
     return ret;
 }
 
-static void qp_comms_spi_send_command_sequence_odd_cs_pulse(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
+static bool qp_comms_spi_send_command_sequence_odd_cs_pulse(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
     for (size_t i = 0; i < sequence_len;) {
         uint8_t command   = sequence[i];
         uint8_t delay     = sequence[i + 1];
@@ -140,10 +142,12 @@ static void qp_comms_spi_send_command_sequence_odd_cs_pulse(painter_device_t dev
         }
         i += (3 + num_bytes);
     }
+
+    return true;
 }
 
 static bool qp_ili9486_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    painter_driver_t *                          driver = (painter_driver_t *)device;
+    painter_driver_t                           *driver = (painter_driver_t *)device;
     tft_panel_dc_reset_painter_driver_vtable_t *vtable = (tft_panel_dc_reset_painter_driver_vtable_t *)driver->driver_vtable;
 
     // Fix up the drawing location if required

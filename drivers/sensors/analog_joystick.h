@@ -43,7 +43,7 @@
 #    define ANALOG_JOYSTICK_SPEED_MAX 2
 #endif
 
-const pointing_device_driver_t analog_joystick_pointing_device_driver;
+extern const pointing_device_driver_t analog_joystick_pointing_device_driver;
 
 typedef struct {
     int8_t x;
@@ -51,5 +51,5 @@ typedef struct {
     bool   button;
 } report_analog_joystick_t;
 report_analog_joystick_t analog_joystick_read(void);
-void                     analog_joystick_init(void);
+bool                     analog_joystick_init(void);
 report_mouse_t           analog_joystick_get_report(report_mouse_t mouse_report);

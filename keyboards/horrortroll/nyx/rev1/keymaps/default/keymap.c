@@ -77,8 +77,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13       14     */
     [_FN]   = LAYOUT_65_ansi_blocker(
                 KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, RM_TOGG,
-                QK_BOOT, _______, KC_MS_U, _______, _______, _______, _______, _______, _______, RM_SATD, RM_SATU, RM_SPDD, RM_SPDU, _______, RM_NEXT,
-                _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+                QK_BOOT, _______, MS_UP,   _______, _______, _______, _______, _______, _______, RM_SATD, RM_SATU, RM_SPDD, RM_SPDU, _______, RM_NEXT,
+                _______, MS_LEFT, MS_DOWN, MS_RGHT, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
                 _______,          _______, _______, KC_CALC, _______, _______, NK_TOGG, _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, RM_VALU, _______,
                 _______, _______, _______,                            _______,                   _______, _______,          RM_HUED, RM_VALD, RM_HUEU
             )
