@@ -344,17 +344,13 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
 
     switch (keycode) {
         // Skip Mod keys, KC_NO, and layer lock to avoid layer reset
-        case KC_NO:
         case KC_LEFT_CTRL ... KC_RIGHT_GUI:
         case QK_MODS ... QK_MODS_MAX:
-        case QK_LLCK:
             break;
         // TO((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
         case QK_TO ... QK_TO_MAX:
             if (QK_TO_GET_LAYER(keycode) == (AUTO_MOUSE_TARGET_LAYER)) {
                 if (!(record->event.pressed)) auto_mouse_toggle();
-            } else {
-                auto_mouse_context.status.is_toggled = false;
             }
             break;
         // TG((AUTO_MOUSE_TARGET_LAYER))-------------------------------------------------------------------------------
@@ -412,6 +408,10 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
         // MT(kc) only skip on hold
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             if (!record->tap.count) break;
+#    endif
+#    ifdef LAYER_LOCK_ENABLE
+        case QK_LLCK:
+            break;
 #    endif
         // QK_MODS goes to default
         default:
