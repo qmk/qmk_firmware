@@ -58,6 +58,11 @@
             "solid_multisplash": true
         },
         "driver": "ws2812",
+        "layout": [
+            {"x": 224, "y": 0, "flags": 4},
+            {"x": 0, "y": 0, "flags": 1},
+            {"x": 6, "y": 38, "flags": 8}
+        ],
         "max_brightness": 200
     },
     "features": {

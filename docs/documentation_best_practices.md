@@ -14,6 +14,10 @@ Example:
 This page covers my super cool feature. You can use this feature to make coffee, squeeze fresh oj, and have an egg mcmuffin and hashbrowns delivered from your local macca's by drone.
 ```
 
+# Paragraphs
+
+Do not use hard line breaks within the raw Markdown for each paragraph. These are optional in Markdown, and have no effect on the rendered output. This means each raw paragraph will be a single long line in your editor (best viewed with line wrapping enabled).
+
 # Headings
 
 Your page should generally have multiple "H1" headings. Only H1 and H2 headings will included in the Table of Contents, so plan them out appropriately. Excess width should be avoided in H1 and H2 headings to prevent the Table of Contents from getting too wide.

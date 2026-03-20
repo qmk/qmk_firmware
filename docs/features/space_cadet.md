@@ -32,7 +32,7 @@ COMMAND_ENABLE = no
 
 ## Configuration
 
-By default Space Cadet assumes a US ANSI layout, but if your layout uses different keys for parentheses, you can redefine them in your `config.h`. In addition, you can redefine the modifier to send on tap, or even send no modifier at all. The new configuration defines bundle all options up into a single define of 3 key codes in this order: the `Modifier` when held or when used with other keys, the `Tap Modifer` sent when tapped (no modifier if `KC_TRNS`), finally the `Keycode` sent when tapped. Now keep in mind, mods from other keys will still apply to the `Keycode` if say `KC_RSFT` is held while tapping `SC_LSPO` key with `KC_TRNS` as the `Tap Modifer`.
+By default Space Cadet assumes a US ANSI layout, but if your layout uses different keys for parentheses, you can redefine them in your `config.h`. In addition, you can redefine the modifier to send on tap, or even send no modifier at all. The new configuration defines bundle all options up into a single define of 3 key codes in this order: the `Modifier` when held or when used with other keys, the `Tap Modifier` sent when tapped (no modifier if `KC_TRNS`), finally the `Keycode` sent when tapped. Now keep in mind, mods from other keys will still apply to the `Keycode` if say `KC_RSFT` is held while tapping `SC_LSPO` key with `KC_TRNS` as the `Tap Modifier`.
 
 |Define          |Default                        |Description                                                                      |
 |----------------|-------------------------------|---------------------------------------------------------------------------------|

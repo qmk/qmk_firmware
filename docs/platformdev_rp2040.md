@@ -17,8 +17,8 @@ The following table shows the current driver status for peripherals on RP2040 MC
 
 ## GPIO
 
-<img alt="Raspberry Pi Pico pinout" src="https://i.imgur.com/nLaiYDE.jpg" width="48%"/>
-<img alt="Sparkfun RP2040 Pro Micro pinout" src="https://i.imgur.com/1TPAhrs.jpg" width="48%"/>
+<img alt="Raspberry Pi Pico pinout" src="/nLaiYDE.jpg" width="48%"/>
+<img alt="Sparkfun RP2040 Pro Micro pinout" src="/1TPAhrs.jpg" width="48%"/>
 
 ::: warning
 The GPIO pins of the RP2040 are not 5V tolerant!

@@ -61,9 +61,6 @@ static bool starting_up = false;
 #define ENC_BONGO 9
 #endif //bongocat
 
-
-extern matrix_row_t matrix[MATRIX_ROWS];
-
 char* enc_mode_str[] = {
 #ifdef BONGOCAT
     /* Splash */ "",
@@ -394,7 +391,7 @@ void write_bongochar_at_pixel_xy(uint8_t x, uint8_t y, uint8_t data, bool invert
 
 bool is_key_down(void) {
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] > 0) {
+        if (matrix_get_row(i) > 0) {
             return true;
         }
     }
@@ -488,10 +485,10 @@ bool is_new_tap(void) {
     static matrix_row_t old_matrix[] = { 0, 0, 0, 0, 0, 0 };
     bool new_tap = false;
     for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-        if (matrix[i] > old_matrix[i]) { // more 1's detected, there was a new tap
+        if (matrix_get_row(i) > old_matrix[i]) { // more 1's detected, there was a new tap
             new_tap = true;
         }
-        old_matrix[i] = matrix[i];
+        old_matrix[i] = matrix_get_row(i);
     }
     return new_tap;
 }

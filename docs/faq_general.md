@@ -38,7 +38,7 @@ Awesome! Open up a Pull Request for it. We'll review the code, and merge it!
 
 That's amazing! We would love to assist you with that!
 
-In fact, we have a [whole page](https://qmk.fm/powered/) dedicated to adding QMK Branding to your page and keyboard. This covers pretty much everything you need (knowledge and images) to officially support QMK.
+In fact, we have a [whole page](https://qmk.fm/trademark) dedicated to adding QMK Branding to your page and keyboard. This covers pretty much everything you need (knowledge and images) to officially support QMK.
 
 If you have any questions about this, open an issue or head to [Discord](https://discord.gg/qmk).
 

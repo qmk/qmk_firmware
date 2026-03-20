@@ -87,7 +87,7 @@ def check_udev_rules():
                     line = line.strip()
                     if not line.startswith("#") and len(line):
                         current_rules.add(line)
-            except PermissionError:
+            except (PermissionError, FileNotFoundError):
                 cli.log.debug("Failed to read: %s", rule_file)
 
         # Check if the desired rules are among the currently present rules

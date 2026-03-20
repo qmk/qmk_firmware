@@ -631,14 +631,15 @@ This command compiles all the External Userspace build targets.
 **Usage**:
 
 ```
-qmk userspace-compile [-h] [-e ENV] [-n] [-c] [-j PARALLEL] [-t]
+qmk userspace-compile [-h] [-e ENV] [-p] [-n] [-c] [-j PARALLEL] [-t]
 
 options:
   -h, --help            show this help message and exit
-  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -e, --env ENV         Set a variable to be passed to make. May be passed multiple times.
+  -p, --print-failures  Print failed builds.
   -n, --dry-run         Don't actually build, just show the commands to be run.
   -c, --clean           Remove object files before compiling.
-  -j PARALLEL, --parallel PARALLEL
+  -j, --parallel PARALLEL
                         Set the number of parallel make jobs; 0 means unlimited.
   -t, --no-temp         Remove temporary files during build.
 ```
