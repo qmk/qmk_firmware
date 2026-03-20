@@ -1001,6 +1001,8 @@
                 "permissive_hold_per_key": {"type": "boolean"},
                 "retro": {"type": "boolean"},
                 "retro_per_key": {"type": "boolean"},
+                "speculative_hold_flow_term": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "speculative_hold_one_key": {"type": "boolean"},
                 "term": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "term_per_key": {"type": "boolean"},
                 "toggle": {"$ref": "./definitions.jsonschema#/unsigned_int"}
