@@ -290,7 +290,8 @@ void auto_mouse_keyevent(bool pressed) {
     } else {
         auto_mouse_context.status.mouse_key_tracker--;
     }
-    auto_mouse_context.timer.delay = 0;
+    auto_mouse_context.timer.active = timer_read();
+    auto_mouse_context.timer.delay  = 0;
 }
 
 /**
