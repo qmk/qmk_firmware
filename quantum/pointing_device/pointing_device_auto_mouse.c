@@ -445,13 +445,6 @@ bool process_auto_mouse(uint16_t keycode, keyrecord_t* record) {
 static bool is_mouse_record(uint16_t keycode, keyrecord_t* record) {
     // allow for keyboard to hook in and override if need be
     if (is_mouse_record_kb(keycode, record)) return true;
-
-    // if it's a mouse key, only treat it as a mouse record if we're currently on the auto mouse target layer
-    // this prevents mouse keys from activating the auto mouse layer when pressed on other layers
-    if (IS_MOUSEKEY(keycode)) {
-        return layer_state_is((AUTO_MOUSE_TARGET_LAYER));
-    }
-
     return false;
 }
 
@@ -478,7 +471,7 @@ __attribute__((weak)) bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* rec
  * @return bool true: keyrecord is defined as mouse key false: keyrecord is not defined as mouse key
  */
 __attribute__((weak)) bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
-    return false;
+    return IS_MOUSE_KEYCODE(keycode);
 }
 
 #endif // POINTING_DEVICE_AUTO_MOUSE_ENABLE

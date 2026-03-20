@@ -821,8 +821,8 @@ While all default mouse keys and layer keys(for current mouse layer) are treated
 ##### To use the callback function to add mouse keys:
 
 The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer).
-```c
 
+```c
 // in <keyboard>.c:
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
     switch(keycode) {
@@ -831,9 +831,21 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
         case KC_RIGHT ... KC_UP:
             return true;
         default:
-            return false;
+            return is_mouse_record_user(keycode, record);
     }
-    return  is_mouse_record_user(keycode, record);
+}
+```
+
+##### Skip activation Mousekeys on non-mouse layer:
+
+This will prevent activation of the mouse layer when hitting mousekeys on a non-automouse layer.
+
+```c
+bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
+    if (IS_MOUSE_KEYCODE(keycode)) {
+        return layer_state_is(AUTO_MOUSE_TARGET_LAYER);
+    }
+    return is_mouse_record_user(keycode, record);
 }
 ```
 
