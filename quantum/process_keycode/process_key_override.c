@@ -250,7 +250,7 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
         return true;
     }
 
-    for (uint8_t i = 0; i < key_override_count(); i++) {
+    for (uint16_t i = 0; i < key_override_count(); i++) {
         const key_override_t *const override = key_override_get(i);
 
         // End of array
