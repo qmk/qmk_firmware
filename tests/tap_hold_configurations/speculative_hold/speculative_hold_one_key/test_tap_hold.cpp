@@ -70,8 +70,8 @@ extern "C" bool get_speculative_hold(uint16_t keycode, keyrecord_t *record) {
 class SpeculativeHoldOneKey : public TestFixture {};
 
 TEST_F(SpeculativeHoldOneKey, modtap_dont_speculate) {
-    TestDriver    driver;
-    InSequence    s;
+    TestDriver driver;
+    InSequence s;
 
     struct Params {
         uint8_t  initial_mods;
@@ -118,7 +118,6 @@ TEST_F(SpeculativeHoldOneKey, modtap_dont_speculate) {
         mod_tap_key.release();
         run_one_scan_loop();
         VERIFY_AND_CLEAR(driver);
-
     }
 
     EXPECT_EMPTY_REPORT(driver);
@@ -128,8 +127,8 @@ TEST_F(SpeculativeHoldOneKey, modtap_dont_speculate) {
 }
 
 TEST_F(SpeculativeHoldOneKey, two_modtaps_dont_speculate_second_key) {
-    TestDriver    driver;
-    InSequence    s;
+    TestDriver driver;
+    InSequence s;
 
     for (auto keys : std::vector<std::pair<uint16_t, uint16_t>>({
              {LSFT_T(KC_A), LCTL_T(KC_1)},

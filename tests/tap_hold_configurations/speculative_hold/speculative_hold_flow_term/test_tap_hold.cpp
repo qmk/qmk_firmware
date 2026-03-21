@@ -31,10 +31,10 @@ namespace {
 class SpeculativeHoldFlowTerm : public TestFixture {};
 
 TEST_F(SpeculativeHoldFlowTerm, within_flow_term_one_modtap) {
-    TestDriver    driver;
-    InSequence    s;
-    auto regular_key = KeymapKey(0, 1, 0, KC_SPC);
-    auto mod_tap_key = KeymapKey(0, 2, 0, RSFT_T(KC_B));
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key = KeymapKey(0, 1, 0, KC_SPC);
+    auto       mod_tap_key = KeymapKey(0, 2, 0, RSFT_T(KC_B));
     set_keymap({regular_key, mod_tap_key});
 
     // Tap regular key.
@@ -111,10 +111,10 @@ TEST_F(SpeculativeHoldFlowTerm, within_flow_term_two_modtaps) {
 }
 
 TEST_F(SpeculativeHoldFlowTerm, after_flow_term_one_modtap) {
-    TestDriver    driver;
-    InSequence    s;
-    auto regular_key = KeymapKey(0, 1, 0, KC_SPC);
-    auto mod_tap_key = KeymapKey(0, 2, 0, RSFT_T(KC_B));
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key = KeymapKey(0, 1, 0, KC_SPC);
+    auto       mod_tap_key = KeymapKey(0, 2, 0, RSFT_T(KC_B));
     set_keymap({regular_key, mod_tap_key});
 
     // Tap regular key.
@@ -146,11 +146,11 @@ TEST_F(SpeculativeHoldFlowTerm, after_flow_term_one_modtap) {
 }
 
 TEST_F(SpeculativeHoldFlowTerm, after_flow_term_two_modtaps) {
-    TestDriver    driver;
-    InSequence    s;
-    auto regular_key  = KeymapKey(0, 1, 0, KC_SPC);
-    auto mod_tap_key1 = KeymapKey(0, 2, 0, RSFT_T(KC_B));
-    auto mod_tap_key2 = KeymapKey(0, 3, 0, RCTL_T(KC_C));
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key  = KeymapKey(0, 1, 0, KC_SPC);
+    auto       mod_tap_key1 = KeymapKey(0, 2, 0, RSFT_T(KC_B));
+    auto       mod_tap_key2 = KeymapKey(0, 3, 0, RCTL_T(KC_C));
     set_keymap({regular_key, mod_tap_key1, mod_tap_key2});
 
     // Tap regular key.
@@ -191,6 +191,5 @@ TEST_F(SpeculativeHoldFlowTerm, after_flow_term_two_modtaps) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
-
 
 } // namespace

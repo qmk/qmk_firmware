@@ -772,24 +772,24 @@ static void speculative_key_press(keyrecord_t *record) {
     if (speculative_keys_find(record->event.key) < num_speculative_keys) {
         return; // Don't trigger: key is already in speculative_keys.
     }
-#       ifdef SPECULATIVE_HOLD_FLOW_TERM
+#        ifdef SPECULATIVE_HOLD_FLOW_TERM
     if (!flow_tap_expired && TIMER_DIFF_16(record->event.time, flow_tap_prev_time) <= SPECULATIVE_HOLD_FLOW_TERM) {
         return; // Don't trigger: within flow term of previous key.
     }
-#       endif // SPECULATIVE_HOLD_FLOW_TERM
+#        endif // SPECULATIVE_HOLD_FLOW_TERM
 
     const uint16_t keycode = get_record_keycode(record, false);
     if (!IS_QK_MOD_TAP(keycode)) {
         return; // Don't trigger: not a mod-tap key.
     }
 
-    uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+    uint8_t       mods        = mod_config(QK_MOD_TAP_GET_MODS(keycode));
     const uint8_t active_mods = get_mods() | speculative_mods;
 #        ifdef SPECULATIVE_HOLD_ONE_KEY
     if (active_mods != 0) {
         return; // Don't trigger: some mod is already active.
     }
-#        endif // SPECULATIVE_HOLD_ONE_KEY
+#        endif                // SPECULATIVE_HOLD_ONE_KEY
     if ((mods & 0x10) != 0) { // Unpack 5-bit mods to 8-bit representation.
         mods <<= 4;
     }
