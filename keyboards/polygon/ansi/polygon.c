@@ -1,24 +1,7 @@
-/* Copyright 2020 Adam Naldal
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#include "quantum.h"
 
-#include "polygon65_ansi.h"
-#include "is31fl3741.h"
-
-// POSITIONS FOR ANSI BOARD
-const is31fl3741_led_t PROGMEM g_is31fl3741_leds[DRIVER_LED_TOTAL] = {
+#ifdef RGB_MATRIX_ENABLE
+const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -76,7 +59,8 @@ const is31fl3741_led_t PROGMEM g_is31fl3741_leds[DRIVER_LED_TOTAL] = {
 
     // ROW 4
     {0, SW3_CS1,    SW3_CS2,    SW3_CS3}, //RGB 44
-    {0, SW3_CS7,    SW3_CS8,    SW3_CS9}, //RGB 46 (NOT A MISCOUNT)
+    {0, SW3_CS4,    SW3_CS5,    SW3_CS6}, //RGB 45
+    {0, SW3_CS7,    SW3_CS8,    SW3_CS9}, //RGB 46
     {0, SW2_CS10,   SW2_CS11,   SW2_CS12}, //RGB 47
     {0, SW3_CS10,   SW3_CS11,   SW3_CS12}, //RGB 48
     {0, SW2_CS13,   SW2_CS14,   SW2_CS15}, //RGB 49
@@ -101,26 +85,4 @@ const is31fl3741_led_t PROGMEM g_is31fl3741_leds[DRIVER_LED_TOTAL] = {
     {0, SW1_CS36,   SW1_CS35,   SW1_CS34}, //RGB 69
     {0, SW1_CS39,   SW1_CS38,   SW1_CS37} //RGB 70
 };
-led_config_t g_led_config = {
-	{
-		/* C0     C1      C2      C3      C4      C5      C6      C7      C8      C9       C10      C11     C12     C13      C14     C15*/
-		{  0,      1,      2,      3,     4,       5,      6,      7,      8,      9,       10,      11,     12,     NO_LED, 13,     NO_LED, }, /* R0 */
-		{ 14,     15,     16,     17,     18,     19,     20,     21,     22,     23,       24,      25,     26,     27,     NO_LED, 28,     }, /* R1 */
-		{ 29,     30,     31,     32,     33,     34,     35,     36,     37,     38,       39,      40,     NO_LED, NO_LED, 41,     42,     }, /* R2 */
-		{ 43,     NO_LED, 44,     45,     46,     47,     48,     49,     50,     51,       52,      53,     54,     NO_LED, 55,     56,     }, /* R3 */
-		{ 57,     58,     59,     NO_LED, NO_LED, NO_LED, 60,     NO_LED, NO_LED, NO_LED,   61,      62,     NO_LED, 63,     64,     65,     }, /* R4 */
-    }, {
-        {0,  0},  {14,  0},  {29,  0}, {43,  0}, {58,  0}, {72,  0}, {87,  0}, {101,  0}, {116,  0}, {130,  0}, {145,  0}, {159,  0}, {173,  0},   {195,  0},
-		    {11, 30},  {25, 30},  {40, 30}, {54, 30}, {69, 30}, {83, 30}, {98, 30}, {112, 30}, {126, 30}, {141, 30}, {155, 30}, {170, 30}, {186, 30},                 {224, 30},
-		    {16,15},  {22, 15},  {36, 15}, {51, 15}, {65, 15}, {79, 15}, {94, 15}, {108, 15}, {123, 15}, {137, 15}, {152, 15}, {166, 15}, {181, 15}, {191, 15},       {224, 15},
-		    {13, 45},   {33, 45}, {47, 45}, {61, 45}, {76, 45}, {90, 45},  {105, 45}, {119, 45}, {134, 45}, {148, 45}, {163, 45}, {181, 45},    {206, 49},     {224, 45},
-		    {9, 60},    {27, 60},   {45, 60},                             {98, 60},                                  {155, 60},   {177, 60},  {191, 64}, {206, 64}, {220, 64},
-	}, {
-	     4,       4,         4,        4,        4,        4,        4,        4,          4,         4,         4,          4,        4,         4,
-		   4,       4,         4,        4,        4,        4,        4,        4,          4,         4,         4,          4,        4,         4,        4,
-		   4,       4,         4,        4,        4,        4,        4,        4,          4,         4,         4,          4,                   4,        4,
-		   4,                  4,        4,        4,        4,        4,        4,          4,         4,         4,          4,        4,         4,        4,
-		   4,       4,         4,                                      4,                                          4,          4,        4,         4,        4,
-	}
-};
-
+#endif
