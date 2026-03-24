@@ -370,11 +370,11 @@ uint8_t has_anykey(void);
 uint8_t get_first_key(void);
 bool    is_key_pressed(uint8_t key);
 
-void add_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
-void del_key_byte(report_keyboard_t* keyboard_report, uint8_t code);
+void add_key_byte(report_keyboard_t *keyboard_report, uint8_t code);
+void del_key_byte(report_keyboard_t *keyboard_report, uint8_t code);
 #ifdef NKRO_ENABLE
-void add_key_bit(report_nkro_t* nkro_report, uint8_t code);
-void del_key_bit(report_nkro_t* nkro_report, uint8_t code);
+void add_key_bit(report_nkro_t *nkro_report, uint8_t code);
+void del_key_bit(report_nkro_t *nkro_report, uint8_t code);
 #endif
 
 void add_key_to_report(uint8_t key);
@@ -382,7 +382,7 @@ void del_key_from_report(uint8_t key);
 void clear_keys_from_report(void);
 
 #ifdef MOUSE_ENABLE
-bool has_mouse_report_changed(report_mouse_t* new_report, report_mouse_t* old_report);
+bool has_mouse_report_changed(report_mouse_t *new_report, report_mouse_t *old_report);
 #endif
 
 #ifdef __cplusplus

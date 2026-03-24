@@ -1288,11 +1288,11 @@ void set_serial_number_descriptor(void) {
 
     static const char        hex_str[] = "0123456789ABCDEF";
     hardware_id_t            id        = get_hardware_id();
-    USB_Descriptor_String_t* desc      = (USB_Descriptor_String_t*)SerialNumberString;
+    USB_Descriptor_String_t *desc      = (USB_Descriptor_String_t *)SerialNumberString;
 
     // Copy across nibbles from the hardware ID as unicode hex characters
     int      length = MIN(sizeof(id) * 2, SERIAL_NUMBER_LENGTH);
-    uint8_t* p      = (uint8_t*)&id;
+    uint8_t *p      = (uint8_t *)&id;
     for (int i = 0; i < length; i += 2) {
         desc->UnicodeString[i + 0] = hex_str[p[i / 2] >> 4];
         desc->UnicodeString[i + 1] = hex_str[p[i / 2] & 0xF];
@@ -1313,10 +1313,10 @@ void set_serial_number_descriptor(void) {
  * is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  * USB host.
  */
-uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress) {
+uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void **const DescriptorAddress) {
     const uint8_t DescriptorType  = (wValue >> 8);
     const uint8_t DescriptorIndex = (wValue & 0xFF);
-    const void*   Address         = NULL;
+    const void   *Address         = NULL;
     uint16_t      Size            = NO_DESCRIPTOR;
 
     switch (DescriptorType) {
@@ -1349,12 +1349,12 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     break;
 #ifdef HAS_SERIAL_NUMBER
                 case 0x03:
-                    Address = (const USB_Descriptor_String_t*)&SerialNumberString;
+                    Address = (const USB_Descriptor_String_t *)&SerialNumberString;
 #    if defined(SERIAL_NUMBER)
                     Size = pgm_read_byte(&SerialNumberString.Header.Size);
 #    else
                     set_serial_number_descriptor();
-                    Size = ((const USB_Descriptor_String_t*)SerialNumberString)->Header.Size;
+                    Size = ((const USB_Descriptor_String_t *)SerialNumberString)->Header.Size;
 #    endif
 
                     break;

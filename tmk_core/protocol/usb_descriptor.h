@@ -298,4 +298,4 @@ enum usb_endpoints {
 #define JOYSTICK_EPSIZE 8
 #define DIGITIZER_EPSIZE 64
 
-uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress);
+uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void **const DescriptorAddress);
