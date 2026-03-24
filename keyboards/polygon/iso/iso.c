@@ -83,6 +83,6 @@ const is31fl3741_led_t PROGMEM g_is31fl3741_leds[IS31FL3741_LED_COUNT] = {
     {0, SW1_CS25,   SW1_CS26,   SW1_CS27}, //RGB 67
     {0, SW1_CS31,   SW1_CS32,   SW1_CS33}, //RGB 68
     {0, SW1_CS36,   SW1_CS35,   SW1_CS34}, //RGB 69
-    {0, SW1_CS39,   SW1_CS38,   SW1_CS37} //RGB 70
+    {0, SW1_CS39,   SW1_CS38,   SW1_CS37}, //RGB 70
 };
 #endif
