@@ -10,7 +10,7 @@
 // Helpers
 
 static uint32_t qp_comms_i2c_send_raw(painter_device_t device, const void *data, uint32_t byte_count) {
-    painter_driver_t *     driver       = (painter_driver_t *)device;
+    painter_driver_t      *driver       = (painter_driver_t *)device;
     qp_comms_i2c_config_t *comms_config = (qp_comms_i2c_config_t *)driver->comms_config;
     i2c_status_t           res          = i2c_transmit(comms_config->chip_address << 1, data, byte_count, I2C_TIMEOUT);
     if (res < 0) {

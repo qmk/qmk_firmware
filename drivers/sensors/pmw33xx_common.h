@@ -72,14 +72,12 @@ STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motio
 #    ifndef PMW33XX_CS_PIN
 #        ifdef POINTING_DEVICE_CS_PIN
 #            define PMW33XX_CS_PIN POINTING_DEVICE_CS_PIN
-#            define PMW33XX_CS_PINS \
-                { PMW33XX_CS_PIN }
+#            define PMW33XX_CS_PINS {PMW33XX_CS_PIN}
 #        else
 #            error "No chip select pin defined -- missing PMW33XX_CS_PIN or PMW33XX_CS_PINS"
 #        endif
 #    else
-#        define PMW33XX_CS_PINS \
-            { PMW33XX_CS_PIN }
+#        define PMW33XX_CS_PINS {PMW33XX_CS_PIN}
 #    endif
 #endif
 
@@ -88,8 +86,7 @@ STATIC_ASSERT(sizeof((pmw33xx_report_t){0}.motion) == 1, "pmw33xx_report_t.motio
 #    if !defined(PMW33XX_CS_PIN_RIGHT)
 #        define PMW33XX_CS_PIN_RIGHT PMW33XX_CS_PIN
 #    endif
-#    define PMW33XX_CS_PINS_RIGHT \
-        { PMW33XX_CS_PIN_RIGHT }
+#    define PMW33XX_CS_PINS_RIGHT {PMW33XX_CS_PIN_RIGHT}
 #endif
 
 // Defines so the old variable names are swapped by the appropiate value on each half

@@ -247,7 +247,8 @@ ifeq ($(strip $(QUANTUM_PAINTER_NEEDS_SURFACE)), yes)
     SRC += \
         $(DRIVER_PATH)/painter/generic/qp_surface_common.c \
         $(DRIVER_PATH)/painter/generic/qp_surface_mono1bpp.c \
-        $(DRIVER_PATH)/painter/generic/qp_surface_rgb565.c
+        $(DRIVER_PATH)/painter/generic/qp_surface_rgb565.c \
+        $(DRIVER_PATH)/painter/generic/qp_surface_rgb888.c
 endif
 
 # If dummy comms is needed, set up the required files

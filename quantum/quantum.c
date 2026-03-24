@@ -94,10 +94,6 @@
 #endif
 
 #ifdef AUDIO_ENABLE
-#    ifndef GOODBYE_SONG
-#        define GOODBYE_SONG SONG(GOODBYE_SOUND)
-#    endif
-float goodbye_song[][2] = GOODBYE_SONG;
 #    ifdef DEFAULT_LAYER_SONGS
 float default_layer_songs[][16][2] = DEFAULT_LAYER_SONGS;
 #    endif
@@ -157,9 +153,7 @@ __attribute__((weak)) void unregister_code16(uint16_t code) {
  */
 __attribute__((weak)) void tap_code16_delay(uint16_t code, uint16_t delay) {
     register_code16(code);
-    for (uint16_t i = delay; i > 0; i--) {
-        wait_ms(1);
-    }
+    wait_ms(delay);
     unregister_code16(code);
 }
 
@@ -220,18 +214,16 @@ void shutdown_quantum(bool jump_to_bootloader) {
 #    ifndef NO_MUSIC_MODE
     music_all_notes_off();
 #    endif
-    uint16_t timer_start = timer_read();
-    PLAY_SONG(goodbye_song);
-    shutdown_modules(jump_to_bootloader);
-    shutdown_kb(jump_to_bootloader);
-    while (timer_elapsed(timer_start) < 250)
-        wait_ms(1);
-    stop_all_notes();
-#else
-    shutdown_modules(jump_to_bootloader);
-    shutdown_kb(jump_to_bootloader);
-    wait_ms(250);
+    audio_shutdown();
 #endif
+
+    shutdown_modules(jump_to_bootloader);
+    shutdown_kb(jump_to_bootloader);
+
+#if SHUTDOWN_DELAY > 0
+    wait_ms(SHUTDOWN_DELAY);
+#endif
+
 #ifdef HAPTIC_ENABLE
     haptic_shutdown();
 #endif

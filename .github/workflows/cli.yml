@@ -24,11 +24,12 @@ jobs:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         submodules: recursive
 
     - name: Install dependencies
       run: pip3 install -r requirements-dev.txt
+
     - name: Run tests
       run: qmk pytest

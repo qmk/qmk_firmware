@@ -153,7 +153,7 @@
     },
     "split": {
         "bootmagic": {
-            "matrix": [5, 8]
+            "matrix": [5, 7]
         },
         "enabled": true,
         "handedness": {

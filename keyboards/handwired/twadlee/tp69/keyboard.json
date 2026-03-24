@@ -1,7 +1,6 @@
 {
     "keyboard_name": "TP69",
     "manufacturer": "Tracy Wadleigh",
-    "url": "https://github.com/twadleigh/qmk_firmware",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xBEEF",
