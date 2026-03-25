@@ -1,7 +1,5 @@
 # KHS-01
 
-![viktus/khs01]()
-
 A small run TKL.
 
 * Keyboard Maintainer: [BlindAssassin111](https://github.com/blindassassin111)
