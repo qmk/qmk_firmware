@@ -5,7 +5,7 @@
 *This code is specifically for the aftermarket QMK PCB maintained by Jubakuba that enables QMK for the Volt80 by Percent Studio.  This firmware should NOT be flashed on the stock PCB.  The PCB needs to be ordered using a PCB provider using the hardware link below.  This PCB will fit in the Volt 80 keyboard and work as expected.*
 
 * Keyboard Maintainer: [Mike Tihonovich](https://github.com/Jubakuba)
-* Hardware Supported: Custom PCB
+* Hardware Supported: [Custom PCB](https://github.com/Jubakuba/Volt-80-Kicad)
 * Hardware Availability: https://github.com/Jubakuba/Volt-80-Kicad
 
 Make example for this keyboard (after setting up your build environment):
