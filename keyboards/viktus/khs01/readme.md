@@ -8,7 +8,7 @@ A small run TKL.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make viktus/tkla:default
+    make viktus/khs01:default
 
 Flashing example for this keyboard:
 
