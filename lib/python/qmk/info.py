@@ -420,19 +420,6 @@ def _extract_direct_matrix(direct_pins):
     return direct_pin_array
 
 
-def _extract_audio(info_data, config_c):
-    """Populate data about the audio configuration
-    """
-    audio_pins = []
-
-    for pin in 'B5', 'B6', 'B7', 'C4', 'C5', 'C6':
-        if config_c.get(f'{pin}_AUDIO'):
-            audio_pins.append(pin)
-
-    if audio_pins:
-        info_data['audio'] = {'pins': audio_pins}
-
-
 def _extract_encoders_values(config_c, postfix=''):
     """Common encoder extraction logic
     """
@@ -718,7 +705,6 @@ def _extract_config_h(info_data, config_c):
 
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
-    _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
     _extract_split_handedness(info_data, config_c)
     _extract_split_serial(info_data, config_c)
