@@ -35,7 +35,7 @@
             "matrix": [4,4]
         },
         "encoder": {
-            // Not required, but lets the right encoder have the correct notion of cw/ccw.
+            // Flip pins for correct orientation.
             "right": {
                 "rotary": [{"pin_a": "GP26", "pin_b": "GP22"}]
             }
@@ -107,6 +107,12 @@
         "enabled": true,
         "mouse_enabled": true
     },
+    "rgblight": {
+        "led_count": 54,
+        "split": true,
+        "split_count": [27,27],
+        "max_brightness": 128
+    }
     "ws2812": {
         "pin": "GP0",
         "driver": "vendor"
@@ -114,61 +120,73 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "layout": [
-            {"flags": 8, "x": 0, "y": 0},
-            {"flags": 8, "x": 0, "y": 0},
-            {"flags": 4, "matrix": [3, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [3, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [3, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [3, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [2, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [2, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [2, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [2, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [2, 4], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [1, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [1, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [1, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [1, 4], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [0, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [0, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [0, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [0, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [0, 4], "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
+            // L Status
+            {"flags": 8, "x": 90, "y": 33},
+            {"flags": 8, "x": 90, "y": 49},
+            // L Thumbs
+            {"flags": 4, "matrix": [3, 4], "x": 85, "y": 51},
+            {"flags": 4, "matrix": [3, 3], "x": 64, "y": 46},
+            {"flags": 4, "matrix": [3, 2], "x": 44, "y": 43},
+            {"flags": 4, "matrix": [3, 1], "x": 26, "y": 43},
+            // L Bottom
+            {"flags": 4, "matrix": [2, 4], "x": 72, "y": 31},
+            {"flags": 4, "matrix": [2, 3], "x": 54, "y": 29},
+            {"flags": 4, "matrix": [2, 2], "x": 36, "y": 24},
+            {"flags": 4, "matrix": [2, 1], "x": 18, "y": 28},
+            {"flags": 4, "matrix": [2, 0], "x": 0, "y": 36},
+            // L Home
+            {"flags": 4, "matrix": [1, 4], "x": 72, "y": 19},
+            {"flags": 4, "matrix": [1, 3], "x": 54, "y": 17},
+            {"flags": 4, "matrix": [1, 2], "x": 36, "y": 12},
+            {"flags": 4, "matrix": [1, 1], "x": 18, "y": 16},
+            {"flags": 4, "matrix": [1, 0], "x": 0, "y": 24},
+            // L Top
+            {"flags": 4, "matrix": [0, 4], "x": 72, "y": 7},
+            {"flags": 4, "matrix": [0, 3], "x": 54, "y": 5},
+            {"flags": 4, "matrix": [0, 2], "x": 36, "y": 0},
+            {"flags": 4, "matrix": [0, 1], "x": 18, "y": 4},
+            {"flags": 4, "matrix": [0, 0], "x": 0, "y": 12},
+            // L Underglow
+            {"flags": 2, "x": 0, "y": 9},
+            {"flags": 2, "x": 45, "y": 0},
+            {"flags": 2, "x": 80, "y": 11},
+            {"flags": 2, "x": 75, "y": 48},
+            {"flags": 2, "x": 54, "y": 44},
+            {"flags": 2, "x": 17, "y": 45},
 
-            {"flags": 8, "x": 0, "y": 0},
-            {"flags": 8, "x": 0, "y": 0},
-            {"flags": 4, "matrix": [7, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [7, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [7, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [7, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [6, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [6, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [6, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [6, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [6, 4], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [5, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [5, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [5, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [5, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [5, 4], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [4, 0], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [4, 1], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [4, 2], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [4, 3], "x": 0, "y": 0},
-            {"flags": 4, "matrix": [4, 4], "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0},
-            {"flags": 2, "x": 0, "y": 0}
+            // R Status
+            {"flags": 8, "x": 134, "y": 33},
+            {"flags": 8, "x": 134, "y": 49},
+            // R Thumbs
+            {"flags": 4, "matrix": [7, 4], "x": 139, "y": 51},
+            {"flags": 4, "matrix": [7, 3], "x": 160, "y": 46},
+            {"flags": 4, "matrix": [7, 2], "x": 180, "y": 43},
+            {"flags": 4, "matrix": [7, 1], "x": 198, "y": 43},
+            // R Bottom
+            {"flags": 4, "matrix": [6, 4], "x": 152, "y": 31},
+            {"flags": 4, "matrix": [6, 3], "x": 170, "y": 29},
+            {"flags": 4, "matrix": [6, 2], "x": 188, "y": 24},
+            {"flags": 4, "matrix": [6, 1], "x": 206, "y": 28},
+            {"flags": 4, "matrix": [6, 0], "x": 224, "y": 36},
+            // R Home
+            {"flags": 4, "matrix": [5, 4], "x": 152, "y": 19},
+            {"flags": 4, "matrix": [5, 3], "x": 170, "y": 17},
+            {"flags": 4, "matrix": [5, 2], "x": 188, "y": 12},
+            {"flags": 4, "matrix": [5, 1], "x": 206, "y": 16},
+            {"flags": 4, "matrix": [5, 0], "x": 224, "y": 24},
+            // R Top
+            {"flags": 4, "matrix": [4, 4], "x": 152, "y": 7},
+            {"flags": 4, "matrix": [4, 3], "x": 170, "y": 5},
+            {"flags": 4, "matrix": [4, 2], "x": 188, "y": 0},
+            {"flags": 4, "matrix": [4, 1], "x": 206, "y": 4},
+            {"flags": 4, "matrix": [4, 0], "x": 224, "y": 12},
+            // R Underglow
+            {"flags": 2, "x": 224, "y": 9},
+            {"flags": 2, "x": 179, "y": 0},
+            {"flags": 2, "x": 144, "y": 11},
+            {"flags": 2, "x": 149, "y": 48},
+            {"flags": 2, "x": 170, "y": 44},
+            {"flags": 2, "x": 207, "y": 45}
         ],
         "max_brightness": 128,
         "split_count": [27, 27]
