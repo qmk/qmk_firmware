@@ -18,4 +18,10 @@
 // 150ms is a reasonable starting point — lower it further (e.g. 120ms) if
 // you still get accidental Enter presses, or raise it if you find Shift
 // activating when you only meant to press Enter.
+//
+// #undef is required because the mechboards/sofle/pro board config also
+// defines TAPPING_TERM (at the QMK default of 200ms). Without the undef,
+// the compiler raises a redefinition error. This is the standard QMK pattern
+// for overriding a board-level setting from userspace.
+#undef TAPPING_TERM
 #define TAPPING_TERM 150
