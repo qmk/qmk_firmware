@@ -66,7 +66,7 @@ CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-    CFLAGS+= -fdiagnostics-color=auto
+    CFLAGS+= -fdiagnostics-color=always
 else
     CFLAGS+= -fdiagnostics-color=never
 endif
