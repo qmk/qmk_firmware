@@ -66,9 +66,9 @@ CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fdiagnostics-color
-endif
+    CFLAGS+= -fdiagnostics-color=auto
+else
+    CFLAGS+= -fdiagnostics-color=never
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
