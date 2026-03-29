@@ -2,6 +2,7 @@
 #define PS2_CLOCK_PIN   D5
 #define PS2_DATA_PIN    D2
 
+
 /* synchronous, odd parity, 1-bit stop, 8-bit data, sample at falling edge */
 /* set DDR of CLOCK as input to be slave */
 #define PS2_USART_INIT() do {   \
