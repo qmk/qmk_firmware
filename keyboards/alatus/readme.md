@@ -2,7 +2,7 @@
 
 ![alatus](https://i.imgur.com/kVrFpSJ.jpeg)
 
-A low profile 36-38 (3x5 + 3-4) key split keyboard featuring encoder and trackpoint support.
+A low profile 38 key split keyboard featuring rotary encoder and trackpoint support.
 
 * Keyboard Maintainer: [DoomishGuy](https://codeberg.org/DoomishGuy)
 * Hardware Supported: RP2040 Pro Micro and compatible

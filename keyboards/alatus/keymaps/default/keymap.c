@@ -22,8 +22,6 @@ enum layers {
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-
     /*
      * QWERTY Layer
      *
@@ -66,9 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*     _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, */
     /*              _______, _______, _______, _______,    _______, _______, _______, _______ */
     /*     ) */
-
 };
-
 // clang-format on
 
 #if defined(ENCODER_MAP_ENABLE)
