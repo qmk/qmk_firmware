@@ -1,6 +1,6 @@
 # alatus
 
-![alatus](imgur.com image replace me!)
+![alatus](https://i.imgur.com/kVrFpSJ.jpeg)
 
 A low profile 36-38 (3x5 + 3-4) key split keyboard featuring encoder and trackpoint support.
 
@@ -20,7 +20,7 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
+Enter the bootloader in 2 ways:
 
 * **Bootmagic reset**: Hold down the top left/right key (for the left/right splits respectively) and plug in the keyboard.
 * **Physical reset button**: Press the reset button below the microcontroller twice in quick succession.
