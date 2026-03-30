@@ -29,10 +29,10 @@ extern bool            f_wakeup_prepare;
 
 extern void exit_light_sleep(void);
 
-socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
-socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
+__attribute__((weak)) socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
+__attribute__((weak)) socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
 
-bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
+__attribute__((weak)) bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // wakeup check for light sleep/no sleep - fire this immediately to not lose wake keys.
     if (f_wakeup_prepare) {
         f_wakeup_prepare = 0;
@@ -42,19 +42,17 @@ bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return pre_process_record_user(keycode, record);
 }
 
-
 bool process_record_nuphy(uint16_t keycode, keyrecord_t *record) {
     no_act_time     = 0;
     rf_linking_time = 0;
 
-        // socd handling
+    // socd handling
     if (!process_socd_cleaner(keycode, record, &socd_v)) {
         return false;
     }
     if (!process_socd_cleaner(keycode, record, &socd_h)) {
         return false;
     }
-
 
     switch (keycode) {
 #if (WORK_MODE == THREE_MODE)

@@ -39,6 +39,10 @@
 #    define DEFAULT_EFFECT_MODE SIDE_WAVE
 #endif
 
+#ifndef DEFAULT_AMBIENT_MODE
+#    define DEFAULT_AMBIENT_MODE 0
+#endif
+
 #ifndef DEFAULT_EFFECT_BRIGHTNESS
 #    define DEFAULT_EFFECT_BRIGHTNESS 4
 #endif
@@ -72,7 +76,28 @@
 #endif
 
 #ifndef DEFAULT_AMBIENT_COLOR
-#    define DEFAULT_AMBIENT_COLOR 6 //  FIXME: what? is this value?
+#    define DEFAULT_AMBIENT_COLOR 6 // FIXME: what? is this value?
+#endif
+
+// Right side defaults (for air75v2)
+#ifndef DEFAULT_RIGHT_SIDE_MODE
+#    define DEFAULT_RIGHT_SIDE_MODE 0
+#endif
+#ifndef DEFAULT_RIGHT_SIDE_BRIGHTNESS
+#    define DEFAULT_RIGHT_SIDE_BRIGHTNESS 3
+#endif
+#ifndef DEFAULT_RIGHT_SIDE_SPEED
+#    define DEFAULT_RIGHT_SIDE_SPEED 2
+#endif
+#ifndef DEFAULT_RIGHT_SIDE_RGB
+#    define DEFAULT_RIGHT_SIDE_RGB 1
+#endif
+#ifndef DEFAULT_RIGHT_SIDE_COLOR
+#    define DEFAULT_RIGHT_SIDE_COLOR 0
+#endif
+
+#ifndef DEFAULT_RGB_MATRIX_BRIGHTNESS
+#    define DEFAULT_RGB_MATRIX_BRIGHTNESS (RGB_MATRIX_MAXIMUM_BRIGHTNESS - RGB_MATRIX_VAL_STEP * 2)
 #endif
 
 #ifndef DEFAULT_RGB_MATRIX_BRIGHTNESS
@@ -106,12 +131,19 @@ typedef struct {
     uint8_t side_rgb;
     uint8_t side_color;
 
-    // ambient light config
+    // ambient light config (for gem80 logo, halo75v2 side mode b)
     uint8_t ambient_mode;
     uint8_t ambient_brightness;
     uint8_t ambient_speed;
     uint8_t ambient_rgb;
     uint8_t ambient_color;
+
+    // right side light config (for air75v2)
+    uint8_t right_side_mode;
+    uint8_t right_side_brightness;
+    uint8_t right_side_speed;
+    uint8_t right_side_rgb;
+    uint8_t right_side_color;
 } lights_config_t;
 
 typedef struct {

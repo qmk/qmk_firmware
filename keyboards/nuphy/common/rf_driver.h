@@ -1,3 +1,5 @@
+#pragma once
+
 #include "quantum/quantum.h"
 #define UART_HEAD 0x5A
 #define FUNC_VALID_LEN 32

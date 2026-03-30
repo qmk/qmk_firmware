@@ -4,6 +4,7 @@
 #include "rgb_matrix.h"
 #include "side.h"
 #include "timer.h"
+#include "common/config.h"
 
 extern const uint8_t side_speed_table[6][5];
 extern const uint8_t side_light_table[6];
@@ -25,58 +26,58 @@ uint32_t right_side_play_timer = 0;
 
 void right_side_light_level_control(uint8_t brighten) {
     if (brighten) {
-        if (g_config.right_side_brightness == 5) {
+        if (keyboard_config.lights.right_side_brightness == 5) {
             return;
         } else
-            g_config.right_side_brightness++;
+            keyboard_config.lights.right_side_brightness++;
     } else {
-        if (g_config.right_side_brightness == 0) {
+        if (keyboard_config.lights.right_side_brightness == 0) {
             return;
         } else
-            g_config.right_side_brightness--;
+            keyboard_config.lights.right_side_brightness--;
     }
     save_config_to_eeprom();
 }
 
 void right_side_light_speed_control(uint8_t fast) {
-    if ((g_config.right_side_speed) > LIGHT_SPEED_MAX) (g_config.right_side_speed) = LIGHT_SPEED_MAX / 2;
+    if ((keyboard_config.lights.right_side_speed) > LIGHT_SPEED_MAX) (keyboard_config.lights.right_side_speed) = LIGHT_SPEED_MAX / 2;
 
     if (fast) {
-        if ((g_config.right_side_speed)) g_config.right_side_speed--;
+        if ((keyboard_config.lights.right_side_speed)) keyboard_config.lights.right_side_speed--;
     } else {
-        if ((g_config.right_side_speed) < LIGHT_SPEED_MAX) g_config.right_side_speed++;
+        if ((keyboard_config.lights.right_side_speed) < LIGHT_SPEED_MAX) keyboard_config.lights.right_side_speed++;
     }
     save_config_to_eeprom();
 }
 
 void right_side_side_color_control(uint8_t dir) {
-    if (g_config.right_side_mode != SIDE_WAVE) {
-        if (g_config.right_side_rgb) {
-            g_config.right_side_rgb   = 0;
-            g_config.right_side_color = 0;
+    if (keyboard_config.lights.right_side_mode != SIDE_WAVE) {
+        if (keyboard_config.lights.right_side_rgb) {
+            keyboard_config.lights.right_side_rgb   = 0;
+            keyboard_config.lights.right_side_color = 0;
         }
     }
 
     if (dir) {
-        if (g_config.right_side_rgb) {
-            g_config.right_side_rgb   = 0;
-            g_config.right_side_color = 0;
+        if (keyboard_config.lights.right_side_rgb) {
+            keyboard_config.lights.right_side_rgb   = 0;
+            keyboard_config.lights.right_side_color = 0;
         } else {
-            g_config.right_side_color++;
-            if (g_config.right_side_color >= LIGHT_COLOR_MAX) {
-                g_config.right_side_rgb   = 1;
-                g_config.right_side_color = 0;
+            keyboard_config.lights.right_side_color++;
+            if (keyboard_config.lights.right_side_color >= LIGHT_COLOR_MAX) {
+                keyboard_config.lights.right_side_rgb   = 1;
+                keyboard_config.lights.right_side_color = 0;
             }
         }
     } else {
-        if (g_config.right_side_rgb) {
-            g_config.right_side_rgb   = 0;
-            g_config.right_side_color = LIGHT_COLOR_MAX - 1;
+        if (keyboard_config.lights.right_side_rgb) {
+            keyboard_config.lights.right_side_rgb   = 0;
+            keyboard_config.lights.right_side_color = LIGHT_COLOR_MAX - 1;
         } else {
-            g_config.right_side_color--;
-            if (g_config.right_side_color >= LIGHT_COLOR_MAX) {
-                g_config.right_side_rgb   = 1;
-                g_config.right_side_color = 0;
+            keyboard_config.lights.right_side_color--;
+            if (keyboard_config.lights.right_side_color >= LIGHT_COLOR_MAX) {
+                keyboard_config.lights.right_side_rgb   = 1;
+                keyboard_config.lights.right_side_color = 0;
             }
         }
     }
@@ -85,15 +86,15 @@ void right_side_side_color_control(uint8_t dir) {
 
 void right_side_side_mode_control(uint8_t dir) {
     if (dir) {
-        g_config.right_side_mode++;
-        if (g_config.right_side_mode > SIDE_OFF) {
-            g_config.right_side_mode = 0;
+        keyboard_config.lights.right_side_mode++;
+        if (keyboard_config.lights.right_side_mode > SIDE_OFF) {
+            keyboard_config.lights.right_side_mode = 0;
         }
     } else {
-        if (g_config.right_side_mode > 0) {
-            g_config.right_side_mode--;
+        if (keyboard_config.lights.right_side_mode > 0) {
+            keyboard_config.lights.right_side_mode--;
         } else {
-            g_config.right_side_mode = SIDE_OFF;
+            keyboard_config.lights.right_side_mode = SIDE_OFF;
         }
     }
     right_side_play_point = 0;
@@ -132,14 +133,14 @@ static void right_side_wave_mode_show(void) {
     uint8_t play_index;
 
     //------------------------------
-    if (right_side_play_cnt <= side_speed_table[g_config.right_side_mode][g_config.right_side_speed])
+    if (right_side_play_cnt <= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed])
         return;
     else
-        right_side_play_cnt -= side_speed_table[g_config.right_side_mode][g_config.right_side_speed];
+        right_side_play_cnt -= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed];
     if (right_side_play_cnt > 20) right_side_play_cnt = 0;
 
     //------------------------------
-    if (g_config.right_side_rgb)
+    if (keyboard_config.lights.right_side_rgb)
         right_side_light_point_playing(0, 1, FLOW_COLOR_TAB_LEN, &right_side_play_point);
     else
         right_side_light_point_playing(0, 1, WAVE_TAB_LEN, &right_side_play_point);
@@ -147,32 +148,32 @@ static void right_side_wave_mode_show(void) {
     play_index = right_side_play_point;
 
     for (int i = 0; i < RIGHT_SIDE_LINE; i++) {
-        if (g_config.right_side_rgb) {
+        if (keyboard_config.lights.right_side_rgb) {
             r_temp = flow_rainbow_color_tab[play_index][0];
             g_temp = flow_rainbow_color_tab[play_index][1];
             b_temp = flow_rainbow_color_tab[play_index][2];
 
             right_side_light_point_playing(1, 5, FLOW_COLOR_TAB_LEN, &play_index);
         } else {
-            r_temp = side_color_lib[g_config.right_side_color][0];
-            g_temp = side_color_lib[g_config.right_side_color][1];
-            b_temp = side_color_lib[g_config.right_side_color][2];
+            r_temp = side_color_lib[keyboard_config.lights.right_side_color][0];
+            g_temp = side_color_lib[keyboard_config.lights.right_side_color][1];
+            b_temp = side_color_lib[keyboard_config.lights.right_side_color][2];
 
             right_side_light_point_playing(1, 12, WAVE_TAB_LEN, &play_index);
             right_side_count_rgb_light(wave_data_tab[play_index]);
         }
 
-        right_side_count_rgb_light(side_light_table[g_config.right_side_brightness]);
+        right_side_count_rgb_light(side_light_table[keyboard_config.lights.right_side_brightness]);
 
         side_rgb_set_color(right_side_led_index_tab[i], r_temp >> 1, g_temp >> 1, b_temp >> 1);
     }
 }
 
 static void right_side_spectrum_mode_show(void) {
-    if (right_side_play_cnt <= side_speed_table[g_config.right_side_mode][g_config.right_side_speed])
+    if (right_side_play_cnt <= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed])
         return;
     else
-        right_side_play_cnt -= side_speed_table[g_config.right_side_mode][g_config.right_side_speed];
+        right_side_play_cnt -= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed];
     if (right_side_play_cnt > 20) right_side_play_cnt = 0;
 
     right_side_light_point_playing(1, 1, FLOW_COLOR_TAB_LEN, &right_side_play_point);
@@ -181,7 +182,7 @@ static void right_side_spectrum_mode_show(void) {
     g_temp = flow_rainbow_color_tab[right_side_play_point][1];
     b_temp = flow_rainbow_color_tab[right_side_play_point][2];
 
-    right_side_count_rgb_light(side_light_table[g_config.right_side_brightness]);
+    right_side_count_rgb_light(side_light_table[keyboard_config.lights.right_side_brightness]);
 
     for (int i = 0; i < RIGHT_SIDE_LINE; i++) {
         side_rgb_set_color(right_side_led_index_tab[i], r_temp >> 2, g_temp >> 2, b_temp >> 2);
@@ -191,20 +192,20 @@ static void right_side_spectrum_mode_show(void) {
 static void right_side_breathe_mode_show(void) {
     static uint8_t play_point = 0;
 
-    if (right_side_play_cnt <= side_speed_table[g_config.right_side_mode][g_config.right_side_speed])
+    if (right_side_play_cnt <= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed])
         return;
     else
-        right_side_play_cnt -= side_speed_table[g_config.right_side_mode][g_config.right_side_speed];
+        right_side_play_cnt -= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed];
     if (right_side_play_cnt > 20) right_side_play_cnt = 0;
 
     right_side_light_point_playing(0, 1, BREATHE_TAB_LEN, &play_point);
 
-    r_temp = side_color_lib[g_config.right_side_color][0] >> 2;
-    g_temp = side_color_lib[g_config.right_side_color][1] >> 2;
-    b_temp = side_color_lib[g_config.right_side_color][2] >> 2;
+    r_temp = side_color_lib[keyboard_config.lights.right_side_color][0] >> 2;
+    g_temp = side_color_lib[keyboard_config.lights.right_side_color][1] >> 2;
+    b_temp = side_color_lib[keyboard_config.lights.right_side_color][2] >> 2;
 
     right_side_count_rgb_light(breathe_data_tab[play_point]);
-    right_side_count_rgb_light(side_light_table[g_config.right_side_brightness]);
+    right_side_count_rgb_light(side_light_table[keyboard_config.lights.right_side_brightness]);
 
     set_right_side_rgb(r_temp, g_temp, b_temp);
 }
@@ -212,20 +213,20 @@ static void right_side_breathe_mode_show(void) {
 static void right_side_static_mode_show(void) {
     if (right_side_play_point >= SIDE_COLOR_MAX) right_side_play_point = 0;
 
-    r_temp = side_color_lib[g_config.right_side_color][0] >> 2;
-    g_temp = side_color_lib[g_config.right_side_color][1] >> 2;
-    b_temp = side_color_lib[g_config.right_side_color][2] >> 2;
+    r_temp = side_color_lib[keyboard_config.lights.right_side_color][0] >> 2;
+    g_temp = side_color_lib[keyboard_config.lights.right_side_color][1] >> 2;
+    b_temp = side_color_lib[keyboard_config.lights.right_side_color][2] >> 2;
 
-    right_side_count_rgb_light(side_light_table[g_config.right_side_brightness]);
+    right_side_count_rgb_light(side_light_table[keyboard_config.lights.right_side_brightness]);
 
     set_right_side_rgb(r_temp, g_temp, b_temp);
 }
 
 static void right_side_off_mode_show(void) {
-    if (right_side_play_cnt <= side_speed_table[g_config.right_side_mode][g_config.right_side_speed])
+    if (right_side_play_cnt <= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed])
         return;
     else
-        right_side_play_cnt -= side_speed_table[g_config.right_side_mode][g_config.right_side_speed];
+        right_side_play_cnt -= side_speed_table[keyboard_config.lights.right_side_mode][keyboard_config.lights.right_side_speed];
     if (right_side_play_cnt > 20) right_side_play_cnt = 0;
 
     r_temp = 0x00;
@@ -241,7 +242,7 @@ void right_side_led_loop(void) {
     right_side_play_cnt += timer_elapsed32(right_side_play_timer);
     right_side_play_timer = timer_read32();
 
-    switch (g_config.right_side_mode) {
+    switch (keyboard_config.lights.right_side_mode) {
         case SIDE_WAVE:
             right_side_wave_mode_show();
             break;

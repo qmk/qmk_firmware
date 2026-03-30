@@ -20,19 +20,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "common/side.h"
 
-const uint8_t breathe_data_tab[BREATHE_TAB_LEN] = {
+// Table lengths
+#ifndef BREATHE_TAB_LEN
+#    define BREATHE_TAB_LEN 128
+#endif
+#ifndef WAVE_TAB_LEN
+#    define WAVE_TAB_LEN 112
+#endif
+#ifndef FLOW_COLOR_TAB_LEN
+#    define FLOW_COLOR_TAB_LEN 224
+#endif
+
+static const uint8_t breathe_data_tab[BREATHE_TAB_LEN] = {
     0,   1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  12,  14,  16,  18,  20,  22,  24,  27,  30,  33,  36,  39,  42,  45,  49,  53, 57, 61, 65, 69, 73, 77, 81, 85, 89, 94, 99, 104, 109, 114, 119, 124, 129, 134, 140, 146, 152, 158, 164, 170, 176, 182, 188, 194, 200, 206, 213, 220, 227, 234, 241, 248, 255,
 
     255, 248, 241, 234, 227, 220, 213, 206, 200, 194, 188, 182, 176, 170, 164, 158, 152, 146, 140, 134, 129, 124, 119, 114, 109, 104, 99, 94, 89, 85, 81, 77, 73, 69, 65, 61, 57, 53, 49,  45,  42,  39,  36,  33,  30,  27,  24,  22,  20,  18,  16,  14,  12,  10,  9,   8,   7,   6,   5,   4,   3,   2,   1,   0,
 };
 
-const uint8_t wave_data_tab[WAVE_TAB_LEN] = {
+static const uint8_t wave_data_tab[WAVE_TAB_LEN] = {
     22,  23,  24,  25,  27,  28,  30,  31,  33,  34,  36,  37,  39,  40,  42,  43,  45,  47,  49,  51,  53,  55,  57,  59,  61,  63,  65, 76, 69, 71, 73, 75, 77, 81, 85, 89, 94, 99, 104, 109, 114, 119, 124, 129, 134, 140, 146, 152, 158, 164, 170, 176, 182, 188, 194, 200, 206, 213, 220, 227, 234, 241, 248, 255,
 
     255, 248, 241, 234, 227, 220, 213, 206, 200, 194, 188, 182, 176, 170, 164, 158, 152, 146, 140, 134, 129, 124, 119, 114, 109, 104, 99, 94, 89, 85, 81, 77, 73, 69, 65, 61, 57, 53, 49,  45,  42,  39,  36,  33,  30,  27,  24,  22,
 };
 
-const uint8_t flow_rainbow_color_tab[FLOW_COLOR_TAB_LEN][3] = {
+static const uint8_t flow_rainbow_color_tab[FLOW_COLOR_TAB_LEN][3] = {
     {255, 8, 8},
     {255, 8, 8},
     {255, 8, 8},
@@ -912,6 +923,6 @@ const uint8_t flow_rainbow_color_tab[FLOW_COLOR_TAB_LEN][3] = {
     },
 };
 
-const uint8_t side_color_lib[9][3] = {
+static const uint8_t side_color_lib[9][3] = {
     {0xff, 0x00, 0x00}, {0xff, 0x80, 0x00}, {0xff, 0xff, 0x00}, {0x00, 0xff, 0x00}, {0x00, 0xff, 0xff}, {0x00, 0x00, 0xff}, {0x80, 0x00, 0xff}, {0xc0, 0xc0, 0xff}, {0x00, 0x00, 0x00},
 };

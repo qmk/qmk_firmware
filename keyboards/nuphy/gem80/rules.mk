@@ -1,4 +1,5 @@
 SRC += common/led_drivers/ws2812_side.c
+SRC += common/side_effects.c
 SRC += side.c side_logo.c
 
 # can be separated with needed fields implemented in gem80-common.h

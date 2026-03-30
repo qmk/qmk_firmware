@@ -54,16 +54,30 @@ __attribute__((weak)) void init_keyboard_config(void) {
     keyboard_config.common.debounce_release_ms = RELEASE_DEBOUNCE;
     keyboard_config.common.caps_indicator_type = DEFAULT_CAPS_INDICATOR_TYPE;
     // lights
-    keyboard_config.lights.side_mode          = DEFAULT_SIDE_MODE;
-    keyboard_config.lights.side_brightness    = DEFAULT_SIDE_BRIGHTNESS;
-    keyboard_config.lights.side_speed         = DEFAULT_SIDE_SPEED;
-    keyboard_config.lights.side_rgb           = DEFAULT_SIDE_RGB;
-    keyboard_config.lights.side_color         = DEFAULT_SIDE_COLOR;
-    keyboard_config.lights.ambient_mode       = DEFAULT_AMBIENT_MODE;
-    keyboard_config.lights.ambient_brightness = DEFAULT_AMBIENT_BRIGHTNESS;
-    keyboard_config.lights.ambient_speed      = DEFAULT_AMBIENT_SPEED;
-    keyboard_config.lights.ambient_rgb        = DEFAULT_AMBIENT_RGB;
-    keyboard_config.lights.ambient_color      = DEFAULT_AMBIENT_COLOR;
+    keyboard_config.lights.side_mode             = DEFAULT_SIDE_MODE;
+    keyboard_config.lights.side_brightness       = DEFAULT_SIDE_BRIGHTNESS;
+    keyboard_config.lights.side_speed            = DEFAULT_SIDE_SPEED;
+    keyboard_config.lights.side_rgb              = DEFAULT_SIDE_RGB;
+    keyboard_config.lights.side_color            = DEFAULT_SIDE_COLOR;
+    keyboard_config.lights.ambient_mode          = DEFAULT_AMBIENT_MODE;
+    keyboard_config.lights.ambient_brightness    = DEFAULT_AMBIENT_BRIGHTNESS;
+    keyboard_config.lights.ambient_speed         = DEFAULT_AMBIENT_SPEED;
+    keyboard_config.lights.ambient_rgb           = DEFAULT_AMBIENT_RGB;
+    keyboard_config.lights.ambient_color         = DEFAULT_AMBIENT_COLOR;
+    keyboard_config.lights.right_side_mode       = DEFAULT_RIGHT_SIDE_MODE;
+    keyboard_config.lights.side_speed            = DEFAULT_SIDE_SPEED;
+    keyboard_config.lights.side_rgb              = DEFAULT_SIDE_RGB;
+    keyboard_config.lights.side_color            = DEFAULT_SIDE_COLOR;
+    keyboard_config.lights.right_side_mode       = DEFAULT_RIGHT_SIDE_MODE;
+    keyboard_config.lights.right_side_brightness = DEFAULT_RIGHT_SIDE_BRIGHTNESS;
+    keyboard_config.lights.right_side_speed      = DEFAULT_RIGHT_SIDE_SPEED;
+    keyboard_config.lights.right_side_rgb        = DEFAULT_RIGHT_SIDE_RGB;
+    keyboard_config.lights.right_side_color      = DEFAULT_RIGHT_SIDE_COLOR;
+    keyboard_config.lights.ambient_mode          = DEFAULT_AMBIENT_MODE;
+    keyboard_config.lights.ambient_brightness    = DEFAULT_AMBIENT_BRIGHTNESS;
+    keyboard_config.lights.ambient_speed         = DEFAULT_AMBIENT_SPEED;
+    keyboard_config.lights.ambient_rgb           = DEFAULT_AMBIENT_RGB;
+    keyboard_config.lights.ambient_color         = DEFAULT_AMBIENT_COLOR;
     // custom
     keyboard_config.custom.battery_indicator_brightness = DEFAULT_BATTERY_INDICATOR_BRIGHTNESS;
     keyboard_config.custom.toggle_custom_keys_highlight = DEFAULT_LIGHT_CUSTOM_KEYS;
@@ -90,6 +104,11 @@ uint32_t get_sleep_timeout(void) {
 void toggle_deep_sleep(void) {
     f_deep_sleep_show                        = 1;
     keyboard_config.common.deep_sleep_toggle = !keyboard_config.common.deep_sleep_toggle;
+    save_config_to_eeprom();
+}
+
+void toggle_power_on_animation(void) {
+    keyboard_config.common.power_on_animation = !keyboard_config.common.power_on_animation;
     save_config_to_eeprom();
 }
 
