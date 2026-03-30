@@ -50,10 +50,10 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 	CFLAGS 	 += -ggdb3
 	CXXFLAGS += -ggdb3
 	ASFLAGS  += -ggdb3
-# Create a map file when debugging
-	LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
 
+# Always create a map file to see what was compiled and where.
+LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 
 #---------------- C Compiler Options ----------------
 
@@ -66,9 +66,9 @@ CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fdiagnostics-color
-endif
+    CFLAGS+= -fdiagnostics-color=always
+else
+    CFLAGS+= -fdiagnostics-color=never
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes

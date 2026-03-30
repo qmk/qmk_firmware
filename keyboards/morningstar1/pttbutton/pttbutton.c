@@ -1,4 +1,4 @@
-/* Copyright 2022 @ Keychron (https://www.keychron.com)
+/* Copyright 2026 Sebastian Morgenstern
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,25 +13,30 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #include "quantum.h"
+#include "hal.h"
 
-#if defined(RGB_MATRIX_ENABLE) && defined(NUM_LOCK_LED_INDEX)
-
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
-    if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
-        return false;
-    }
-    // RGB_MATRIX_INDICATOR_SET_COLOR(index, red, green, blue);
-
-    if (host_keyboard_led_state().num_lock) {
-        RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_LED_INDEX, 255, 255, 255);
-    } else {
-        if (!rgb_matrix_get_flags()) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(NUM_LOCK_LED_INDEX, 0, 0, 0);
-        }
-    }
-    return true;
+void board_init(void) {
+  // Remap PA11->PA9 and PA12->PA10 for USB
+  SYSCFG->CFGR1 |= SYSCFG_CFGR1_PA11_PA12_RMP;
 }
 
-#endif  // NUM_LOCK_LED_INDEX
+void keyboard_pre_init_kb(void) {
+    // Immediately set the LED pin as an output and set it ON
+    gpio_set_pin_output(A15);
+    gpio_write_pin_high(A15);
+
+    keyboard_pre_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    // Blink the LED so we know everything is running OK
+    // Finish with LED OFF
+    gpio_write_pin_low(A15);
+    wait_ms(100);
+    gpio_write_pin_high(A15);
+    wait_ms(100);
+    gpio_write_pin_low(A15);
+
+    keyboard_post_init_user();
+}
