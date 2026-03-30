@@ -188,10 +188,11 @@ void exit_deep_sleep(void) {
     gpio_write_pin_high(NRF_WAKEUP_PIN);
 #endif
 
-    led_pwr_wake_handle();
 
     // 重新初始化系统时钟
     stm32_clock_init();
+
+    led_pwr_wake_handle();
 
     /* TIM6 使能 */
     if (tim6_enabled) TIM_Cmd(TIM6, ENABLE);
