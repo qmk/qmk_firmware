@@ -1,7 +1,7 @@
 // Copyright 2024  Evgeny Kapusta (@ryodeushii)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "common/keycodes.h"
+#include "common/keys.h"
 #include QMK_KEYBOARD_H
 
 // clang-format off
