@@ -42,8 +42,9 @@ enum custom_keycodes {
 
     SIDE_VAI,
     SIDE_VAD,
-    SIDE_MOD_A,
-    SIDE_MOD_B,
+    SIDE_MOD,   // Alias for side mode cycling (common with other keyboards)
+    SIDE_MOD_A, // Halo-specific: Mode A
+    SIDE_MOD_B, // Halo-specific: Mode B
     SIDE_HUI,
     SIDE_SPI,
     SIDE_SPD,
@@ -85,7 +86,7 @@ typedef struct {
     uint8_t caps_indicator_type;
     // (top) side light config
     uint8_t side_mode_a;
-    uint8_t side_mode_b;
+    uint8_t ambient_mode;
     uint8_t side_brightness;
     uint8_t side_speed;
     uint8_t side_rgb;

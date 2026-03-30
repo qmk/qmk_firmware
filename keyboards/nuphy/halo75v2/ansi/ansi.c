@@ -16,16 +16,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "action.h"
+#include "color.h"
 #include "common/features/socd_cleaner.h"
-#include "common/rf_driver.h"
-#include "common/config.h"
 #include "config.h"
 #include "host.h"
-#include "is31fl3733.h"
 #include "keycodes.h"
 #include "rgb_matrix.h"
 #include "user_kb.h"
 #include "ansi.h"
+#include "common/rf_driver.h"
+#include "common/links.h"
 
 #ifdef VIA_ENABLE
 #    include "eeprom.h"
@@ -49,28 +49,16 @@ extern uint16_t        rf_linking_time;
 extern DEV_INFO_STRUCT dev_info;
 extern uint8_t         rf_blink_cnt;
 
-extern void light_speed_control(uint8_t fast);
-extern void light_level_control(uint8_t brighten);
+extern void side_speed_control(uint8_t fast);
+extern void side_brightness_control(uint8_t brighten);
 extern void side_color_control(uint8_t dir);
-extern void side_mode_a_control(uint8_t dir);
-extern void side_mode_b_control(uint8_t dir);
+extern void side_mode_control(uint8_t dir);
 extern void exit_light_sleep(void);
 
-bool pre_process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    no_act_time     = 0;
-    rf_linking_time = 0;
-
-    // wakeup check for light sleep/no sleep - fire this immediately to not lose wake keys.
-    if (f_wakeup_prepare) {
-        f_wakeup_prepare = 0;
-        if (g_config.sleep_toggle) exit_light_sleep();
-    }
-
-    return pre_process_record_user(keycode, record);
-}
-
-socd_cleaner_t socd_v = {{KC_W, KC_S}, SOCD_CLEANER_LAST};
-socd_cleaner_t socd_h = {{KC_A, KC_D}, SOCD_CLEANER_LAST};
+// pre_process_record_kb is now in common/keys.c
+// socd_cleaner variables are now in common/keys.c
+extern socd_cleaner_t socd_v;
+extern socd_cleaner_t socd_h;
 
 /* qmk process record */
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -231,24 +219,19 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SIDE_VAI:
             if (record->event.pressed) {
-                light_level_control(1);
+                side_brightness_control(1);
             }
             return false;
 
         case SIDE_VAD:
             if (record->event.pressed) {
-                light_level_control(0);
+                side_brightness_control(0);
             }
             return false;
 
-        case SIDE_MOD_A:
+        case SIDE_MOD:
             if (record->event.pressed) {
-                side_mode_a_control(1);
-            }
-            return false;
-        case SIDE_MOD_B:
-            if (record->event.pressed) {
-                side_mode_b_control(1);
+                side_mode_control(1);
             }
             return false;
 
@@ -260,13 +243,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SIDE_SPI:
             if (record->event.pressed) {
-                light_speed_control(1);
+                side_speed_control(1);
             }
             return false;
 
         case SIDE_SPD:
             if (record->event.pressed) {
-                light_speed_control(0);
+                side_speed_control(0);
             }
             return false;
 
@@ -281,8 +264,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
         case SLEEP_MODE:
             if (record->event.pressed) {
-                g_config.sleep_toggle = !g_config.sleep_toggle;
-                f_sleep_show          = 1;
+                keyboard_config.common.sleep_toggle = !keyboard_config.common.sleep_toggle;
+                f_sleep_show                        = 1;
                 save_config_to_eeprom();
             }
             return false;
@@ -391,7 +374,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             return false;
         case TOG_BAT_IND_NUM:
             if (record->event.pressed) {
-                g_config.battery_indicator_numeric = !g_config.battery_indicator_numeric;
+                keyboard_config.custom.battery_indicator_numeric = !keyboard_config.custom.battery_indicator_numeric;
                 save_config_to_eeprom();
             }
             return false;
@@ -456,27 +439,27 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     }
 
     if (f_debounce_press_show) { // green numbers - press debounce
-        rgb_matrix_set_color(two_digit_decimals_led(g_config.debounce_press_ms), 0x00, 0x80, 0x00);
-        rgb_matrix_set_color(two_digit_ones_led(g_config.debounce_press_ms), 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(two_digit_decimals_led(keyboard_config.common.debounce_press_ms), 0x00, 0x80, 0x00);
+        rgb_matrix_set_color(two_digit_ones_led(keyboard_config.common.debounce_press_ms), 0x00, 0x80, 0x00);
     }
     if (f_debounce_release_show) { // red numbers - release deboucne
-        rgb_matrix_set_color(two_digit_decimals_led(g_config.debounce_release_ms), 0x80, 0x00, 0x00);
-        rgb_matrix_set_color(two_digit_ones_led(g_config.debounce_release_ms), 0x80, 0x00, 0x00);
+        rgb_matrix_set_color(two_digit_decimals_led(keyboard_config.common.debounce_release_ms), 0x80, 0x00, 0x00);
+        rgb_matrix_set_color(two_digit_ones_led(keyboard_config.common.debounce_release_ms), 0x80, 0x00, 0x00);
     }
 
     if (f_sleep_timeout_show) { // cyan numbers - sleep timeout
-        rgb_matrix_set_color(two_digit_decimals_led(g_config.sleep_timeout), 0x00, 0x80, 0x80);
-        rgb_matrix_set_color(two_digit_ones_led(g_config.sleep_timeout), 0x00, 0x80, 0x80);
+        rgb_matrix_set_color(two_digit_decimals_led(keyboard_config.common.sleep_timeout), 0x00, 0x80, 0x80);
+        rgb_matrix_set_color(two_digit_ones_led(keyboard_config.common.sleep_timeout), 0x00, 0x80, 0x80);
     }
 
-    if (g_config.show_socd_indicator && socd_cleaner_enabled) {
+    if (keyboard_config.custom.show_socd_indicator && socd_cleaner_enabled) {
         rgb_matrix_set_color(get_led_index(2, 2), RGB_BLUE);
         rgb_matrix_set_color(get_led_index(3, 2), RGB_BLUE);
         rgb_matrix_set_color(get_led_index(3, 1), RGB_BLUE);
         rgb_matrix_set_color(get_led_index(3, 3), RGB_BLUE);
     }
 
-    if (g_config.detect_numlock_state) {
+    if (keyboard_config.custom.detect_numlock_state) {
         uint8_t showNumLock = 0;
         if (dev_info.link_mode != LINK_USB) {
             showNumLock = dev_info.rf_led & 0x01;
@@ -491,7 +474,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 
     rgb_matrix_set_color(RGB_MATRIX_LED_COUNT - 1, 0, 0, 0);
 
-    if (g_config.toggle_custom_keys_highlight) {
+    if (keyboard_config.custom.toggle_custom_keys_highlight) {
         uint8_t layer = get_highest_layer(layer_state);
         switch (layer) {
             case 0:
@@ -531,7 +514,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         }
     }
 
-    if (f_bat_hold && g_config.battery_indicator_numeric) {
+    if (f_bat_hold && keyboard_config.custom.battery_indicator_numeric) {
         rgb_matrix_set_color(two_digit_decimals_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
         rgb_matrix_set_color(two_digit_ones_led(dev_info.rf_battery), 0x00, 0x80, 0x80);
     }
@@ -557,235 +540,6 @@ void housekeeping_task_kb(void) {
 
     sleep_handle();
 }
-
-kb_config_t g_config;
-
-void init_g_config(void) {
-    g_config.sleep_toggle                 = DEFAULT_SLEEP_TOGGLE;
-    g_config.usb_sleep_toggle             = DEFAULT_USB_SLEEP_TOGGLE;
-    g_config.deep_sleep_toggle            = DEFAULT_DEEP_SLEEP_TOGGLE;
-    g_config.sleep_timeout                = DEFAULT_SLEEP_TIMEOUT;
-    g_config.power_show                   = DEFAULT_TOGGLE_POWER_ON_ANIMATION;
-    g_config.debounce_press_ms            = DEBOUNCE;
-    g_config.debounce_release_ms          = RELEASE_DEBOUNCE;
-    g_config.caps_indicator_type          = DEFAULT_CAPS_INDICATOR_TYPE;
-    g_config.side_mode_a                  = DEFAULT_SIDE_MODE_A;
-    g_config.side_mode_b                  = DEFAULT_SIDE_MODE_B;
-    g_config.side_brightness              = DEFAULT_SIDE_BRIGHTNESS;
-    g_config.side_speed                   = DEFAULT_SIDE_SPEED;
-    g_config.side_rgb                     = DEFAULT_SIDE_RGB;
-    g_config.side_color                   = DEFAULT_SIDE_COLOR;
-    g_config.battery_indicator_brightness = DEFAULT_BATTERY_INDICATOR_BRIGHTNESS;
-    g_config.toggle_custom_keys_highlight = DEFAULT_LIGHT_CUSTOM_KEYS;
-    g_config.detect_numlock_state         = DEFAULT_DETECT_NUMLOCK;
-    g_config.battery_indicator_numeric    = DEFAULT_BATTERY_INDICATOR_NUMERIC;
-    g_config.show_socd_indicator          = DEFAULT_SHOW_SOCD_INDICATOR;
-}
-
-uint32_t read_custom_config(void *data, uint32_t offset, uint32_t length) {
-#ifdef VIA_ENABLE
-    return via_read_custom_config(data, offset, length);
-#else
-    return eeconfig_read_kb_datablock(data, offset, length);
-#endif
-}
-
-uint32_t write_custom_config(const void *data, uint32_t offset, uint32_t length) {
-#ifdef VIA_ENABLE
-    return via_update_custom_config(data, offset, length);
-#else
-    return eeconfig_update_kb_datablock(data, offset, length);
-#endif
-}
-
-void load_config_from_eeprom(void) {
-    read_custom_config(&g_config, 0, sizeof(g_config));
-}
-
-void save_config_to_eeprom(void) {
-    write_custom_config(&g_config, 0, sizeof(g_config));
-}
-
-#ifdef VIA_ENABLE
-void via_init_kb(void) {
-    init_g_config();
-    // If the EEPROM has the magic, the data is good.
-    // OK to load from EEPROM
-    if (eeconfig_is_enabled()) {
-        load_config_from_eeprom();
-    } else {
-        save_config_to_eeprom();
-        // DO NOT set EEPROM valid here, let caller do this
-    }
-}
-
-void via_config_set_value(uint8_t *data) {
-    // data = [ value_id, value_data ]
-
-    uint8_t *value_id   = &(data[0]);
-    uint8_t *value_data = &(data[1]);
-
-    switch (*value_id) {
-        case id_usb_sleep_toggle:
-            g_config.usb_sleep_toggle = *value_data;
-            break;
-        case id_deep_sleep_toggle:
-            g_config.deep_sleep_toggle = *value_data;
-            break;
-        case id_debounce_press:
-            g_config.debounce_press_ms = *value_data;
-            break;
-        case id_debounce_release:
-            g_config.debounce_release_ms = *value_data;
-            break;
-        case id_sleep_timeout:
-            g_config.sleep_timeout = *value_data + 1;
-            break;
-        case id_caps_indicator_type:
-            g_config.caps_indicator_type = *value_data;
-            break;
-        case id_sleep_toggle:
-            g_config.sleep_toggle = *value_data;
-            break;
-
-        case id_side_light_mode_a:
-            g_config.side_mode_a = *value_data;
-            break;
-        case id_side_light_mode_b:
-            g_config.side_mode_b = *value_data;
-            break;
-        case id_side_light_speed:
-            g_config.side_speed = *value_data;
-            break;
-        case id_side_light_color:
-            g_config.side_color = *value_data;
-            break;
-        case id_side_light_brightness:
-            g_config.side_brightness = *value_data;
-            break;
-
-        case id_power_on_animation:
-            g_config.power_show = *value_data;
-            break;
-        case id_battery_indicator_brightness:
-            g_config.battery_indicator_brightness = *value_data;
-            break;
-        case id_toggle_custom_keys_highlight:
-            g_config.toggle_custom_keys_highlight = *value_data;
-            break;
-        case id_toggle_detect_numlock_state:
-            g_config.detect_numlock_state = *value_data;
-            break;
-        case id_battery_indicator_numeric:
-            g_config.battery_indicator_numeric = *value_data;
-            break;
-        case id_toggle_socd_indicator:
-            g_config.show_socd_indicator = *value_data;
-            break;
-    }
-}
-
-void via_config_get_value(uint8_t *data) {
-    uint8_t *value_id   = &(data[0]);
-    uint8_t *value_data = &(data[1]);
-    switch (*value_id) {
-        case id_usb_sleep_toggle:
-            *value_data = g_config.usb_sleep_toggle;
-            break;
-        case id_deep_sleep_toggle:
-            *value_data = g_config.deep_sleep_toggle;
-            break;
-        case id_debounce_press:
-            *value_data = g_config.debounce_press_ms;
-            break;
-        case id_debounce_release:
-            *value_data = g_config.debounce_release_ms;
-            break;
-        case id_sleep_timeout:
-            *value_data = g_config.sleep_timeout - 1;
-            break;
-        case id_caps_indicator_type:
-            *value_data = g_config.caps_indicator_type;
-            break;
-        case id_sleep_toggle:
-            *value_data = g_config.sleep_toggle;
-            break;
-
-        case id_side_light_mode_a:
-            *value_data = g_config.side_mode_a;
-            break;
-        case id_side_light_mode_b:
-            *value_data = g_config.side_mode_b;
-            break;
-        case id_side_light_speed:
-            *value_data = g_config.side_speed;
-            break;
-        case id_side_light_color:
-            *value_data = g_config.side_color;
-            break;
-        case id_side_light_brightness:
-            *value_data = g_config.side_brightness;
-            break;
-
-        case id_power_on_animation:
-            *value_data = g_config.power_show;
-            break;
-        case id_battery_indicator_brightness:
-            *value_data = g_config.battery_indicator_brightness;
-            break;
-        case id_toggle_custom_keys_highlight:
-            *value_data = g_config.toggle_custom_keys_highlight;
-            break;
-        case id_toggle_detect_numlock_state:
-            *value_data = g_config.detect_numlock_state;
-            break;
-        case id_battery_indicator_numeric:
-            *value_data = g_config.battery_indicator_numeric;
-            break;
-        case id_toggle_socd_indicator:
-            *value_data = g_config.show_socd_indicator;
-            break;
-    }
-}
-
-void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
-    // data = [ command_id, channel_id, value_id, value_data ]
-    uint8_t *command_id = &(data[0]);
-    uint8_t *channel_id = &(data[1]);
-
-    uint8_t *value_id_and_data = &(data[2]);
-
-    if (*channel_id == id_custom_channel) {
-        switch (*command_id)
-
-        {
-            case id_custom_set_value: {
-                via_config_set_value(value_id_and_data);
-                break;
-            }
-            case id_custom_get_value: {
-                via_config_get_value(value_id_and_data);
-                break;
-            }
-            case id_custom_save: {
-                save_config_to_eeprom();
-                break;
-            }
-            default: {
-                // Unhandled message.
-                *command_id = id_unhandled;
-                break;
-            }
-        }
-        return;
-    }
-
-    // Return the unhandled state
-    *command_id = id_unhandled;
-
-    // DO NOT call raw_hid_send(data,length) here, let caller do this
-}
-#endif
 
 const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     // Row 1

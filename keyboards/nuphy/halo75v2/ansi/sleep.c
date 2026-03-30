@@ -47,43 +47,43 @@ void deep_sleep_handle(void) {
 void sleep_handle(void) {
     static uint32_t delay_step_timer     = 0;
     static uint8_t  usb_suspend_debounce = 0;
-    static uint32_t rf_disconnect_time = 0;
+    static uint32_t rf_disconnect_time   = 0;
 
     /* 50ms interval */
     if (timer_elapsed32(delay_step_timer) < 50) return;
     delay_step_timer = timer_read32();
 
-    if (!g_config.sleep_toggle) return;
+    if (!keyboard_config.common.sleep_toggle) return;
     uint32_t sleep_time_delay = get_sleep_timeout();
     // sleep process;
     if (f_goto_sleep) {
         // reset all counters
         f_goto_sleep         = 0;
         usb_suspend_debounce = 0;
-        rf_linking_time    = 0;
-        rf_disconnect_time = 0;
+        rf_linking_time      = 0;
+        rf_disconnect_time   = 0;
         // if LINK_USB -> light sleep
         if (dev_info.link_mode == LINK_USB) {
-            if (g_config.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED) {
+            if (keyboard_config.common.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED) {
                 break_all_key();
                 enter_light_sleep();
             }
         }
         // if not USB
-        else if (g_config.sleep_toggle) {
+        else if (keyboard_config.common.sleep_toggle) {
             // but charging -> light sleep
             if ((dev_info.rf_charge & 0x01) != 0 || dev_info.rf_charge == 0x03) {
                 break_all_key();
                 enter_light_sleep();
                 // otherwise -> deep sleep
             } else {
-            break_all_key(); // reset keys before sleeping for new QMK lifecycle to handle on wake.
-            if (g_config.deep_sleep_toggle) {
-                deep_sleep_handle();
-                return; // don't need to do anything else
-            } else {
-                enter_light_sleep();
-            }
+                break_all_key(); // reset keys before sleeping for new QMK lifecycle to handle on wake.
+                if (keyboard_config.common.deep_sleep_toggle) {
+                    deep_sleep_handle();
+                    return; // don't need to do anything else
+                } else {
+                    enter_light_sleep();
+                }
             }
         }
 
@@ -103,14 +103,13 @@ void sleep_handle(void) {
             }
         } else {
             usb_suspend_debounce = 0;
-            if (g_config.usb_sleep_toggle && no_act_time >= sleep_time_delay) {
+            if (keyboard_config.common.usb_sleep_toggle && no_act_time >= sleep_time_delay) {
                 f_goto_sleep = 1;
             } else {
                 f_goto_sleep = 0;
             }
         }
-    }
-    else if (no_act_time >= sleep_time_delay) {
+    } else if (no_act_time >= sleep_time_delay) {
         f_goto_sleep = 1;
     } else if (rf_linking_time >= LINK_TIMEOUT_ALT) {
         rf_linking_time = 0;

@@ -36,6 +36,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DRIVER_SDB1 C6
 #define RGB_DRIVER_SDB2 C7
 
+// SPI LED driver pins (for common code compatibility - halo75v2 uses IS31FL3733 I2C)
+#define DRIVER_MATRIX_CS_PIN C6
+#define DRIVER_SIDE_CS_PIN C7
+#define DRIVER_SIDE_DI_PIN C6   // Not used for I2C, but needed for common code
+#define DRIVER_MATRIX_DI_PIN C7 // Not used for I2C, but needed for common code
+
 #define SERIAL_DRIVER SD1
 #define UART_TX_PIN B6
 #define UART_TX_PAL_MODE 0
@@ -76,7 +82,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGB_MATRIX_LED_COUNT
 #define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
 
-#define IS31FL3733_SW_PULLUP  IS31FL3733_PUR_0K5_OHM
+#define IS31FL3733_SW_PULLUP IS31FL3733_PUR_0K5_OHM
 #define IS31FL3733_CS_PULLDOWN IS31FL3733_PDR_0K5_OHM
 
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -122,27 +128,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
 #define RGB_DEFAULT_COLOR 168
 
-#define DEFAULT_SLEEP_TOGGLE true
-#define DEFAULT_USB_SLEEP_TOGGLE false
-#define DEFAULT_DEEP_SLEEP_TOGGLE true
-#define DEFAULT_SLEEP_TIMEOUT 5
-#define DEFAULT_TOGGLE_POWER_ON_ANIMATION 1
-#define DEFAULT_CAPS_INDICATOR_TYPE CAPS_INDICATOR_SIDE
-#define DEFAULT_BATTERY_INDICATOR_BRIGHTNESS 100
-#define DEFAULT_LIGHT_CUSTOM_KEYS 0
-#define DEFAULT_SIDE_MODE_A 0
-#define DEFAULT_SIDE_MODE_B 3
-#define DEFAULT_SIDE_BRIGHTNESS 2
-#define DEFAULT_SIDE_SPEED 2
-#define DEFAULT_SIDE_RGB 1
-#define DEFAULT_SIDE_COLOR 0
-#define DEFAULT_BATTERY_INDICATOR_NUMERIC 0
-#define DEFAULT_DETECT_NUMLOCK 0
-#define DEFAULT_SHOW_SOCD_INDICATOR 0
+// Keyboard-specific defaults (override common/config.h defaults)
+#ifndef DEFAULT_SLEEP_TOGGLE
+#    define DEFAULT_SLEEP_TOGGLE true
+#endif
+#ifndef DEFAULT_USB_SLEEP_TOGGLE
+#    define DEFAULT_USB_SLEEP_TOGGLE false
+#endif
+#ifndef DEFAULT_DEEP_SLEEP_TOGGLE
+#    define DEFAULT_DEEP_SLEEP_TOGGLE true
+#endif
+#ifndef DEFAULT_SLEEP_TIMEOUT
+#    define DEFAULT_SLEEP_TIMEOUT 5
+#endif
+#ifndef DEFAULT_TOGGLE_POWER_ON_ANIMATION
+#    define DEFAULT_TOGGLE_POWER_ON_ANIMATION 1
+#endif
+#ifndef DEFAULT_CAPS_INDICATOR_TYPE
+#    define DEFAULT_CAPS_INDICATOR_TYPE CAPS_INDICATOR_SIDE
+#endif
+#ifndef DEFAULT_BATTERY_INDICATOR_BRIGHTNESS
+#    define DEFAULT_BATTERY_INDICATOR_BRIGHTNESS 100
+#endif
+#ifndef DEFAULT_LIGHT_CUSTOM_KEYS
+#    define DEFAULT_LIGHT_CUSTOM_KEYS 0
+#endif
+#ifndef DEFAULT_SIDE_MODE
+#    define DEFAULT_SIDE_MODE 0
+#endif
+#ifndef DEFAULT_SIDE_MODE_A
+#    define DEFAULT_SIDE_MODE_A 0
+#endif
+#ifndef DEFAULT_AMBIENT_MODE
+#    define DEFAULT_AMBIENT_MODE 3
+#endif
+#ifndef DEFAULT_SIDE_BRIGHTNESS
+#    define DEFAULT_SIDE_BRIGHTNESS 2
+#endif
+#ifndef DEFAULT_SIDE_SPEED
+#    define DEFAULT_SIDE_SPEED 2
+#endif
+#ifndef DEFAULT_SIDE_RGB
+#    define DEFAULT_SIDE_RGB 1
+#endif
+#ifndef DEFAULT_SIDE_COLOR
+#    define DEFAULT_SIDE_COLOR 0
+#endif
+#ifndef DEFAULT_BATTERY_INDICATOR_NUMERIC
+#    define DEFAULT_BATTERY_INDICATOR_NUMERIC 0
+#endif
+#ifndef DEFAULT_DETECT_NUMLOCK
+#    define DEFAULT_DETECT_NUMLOCK 0
+#endif
+#ifndef DEFAULT_SHOW_SOCD_INDICATOR
+#    define DEFAULT_SHOW_SOCD_INDICATOR 0
+#endif
+
+// LED position defines for indicators
 #define WIN_LOCK_ROW 0
 #define WIN_LOCK_COL 15
 #define NUM_LOCK_ROW 0
 #define NUM_LOCK_COL 14
+
+// Additional defines needed for common code compatibility
+#define SYS_SW_WIN 0xa1
+#define SYS_SW_MAC 0xa2
+#define TIMER_STEP 10
+#define HOST_USB_TYPE 0
+#define HOST_RF_TYPE 2
+
+// Link mode defines
+#define LINK_RF_24 0
+#define LINK_BT_1 1
+#define LINK_BT_2 2
+#define LINK_BT_3 3
+#define LINK_USB 4
+
+#ifndef DEFAULT_RGB_MATRIX_BRIGHTNESS
+#    define DEFAULT_RGB_MATRIX_BRIGHTNESS (RGB_MATRIX_VAL_STEP * 2)
+#endif
+
 /*
  * END OF DEFAULT VALUES
  */
