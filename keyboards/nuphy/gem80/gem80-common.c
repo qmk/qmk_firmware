@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "host.h"
 #include "keyboard.h"
-#include "mcu_pwr.h"
+#include "common/mcu_pwr.h"
 #include "nvm_eeprom_eeconfig_internal.h"
 #include "quantum.h"
 #include "rgb_matrix.h"
@@ -62,7 +62,8 @@ void housekeeping_task_kb(void) {
 
 bool rgb_matrix_indicators_kb(void) {
     rgb_matrix_indicators_nuphy();
-    return rgb_matrix_indicators_user();;
+    return rgb_matrix_indicators_user();
+    ;
 }
 
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {

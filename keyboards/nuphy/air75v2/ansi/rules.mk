@@ -2,7 +2,7 @@
 SRC += debounce.c
 
 SRC += user_kb.c
-SRC += common/ws2812-side-driver.c
+SRC += common/led_drivers/ws2812_side.c
 SRC += side.c side_right.c
 
 # can be separated with needed fields implemented in ansi.h
