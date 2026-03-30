@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "color.h"
 #include "quantum_keycodes.h"
+#include "common/config.h"
 
 enum custom_keycodes {
     RF_DFU = QK_KB_0,
@@ -76,73 +77,3 @@ enum custom_keycodes {
 #define MAC_PRT G(S(KC_3))
 #define MAC_PRTA G(S(KC_4))
 #define WIN_PRTA G(S(KC_S))
-
-// struct to save configs
-typedef struct {
-    uint8_t been_initiated;
-    uint8_t sleep_toggle : 1;
-    uint8_t usb_sleep_toggle : 1;
-    uint8_t deep_sleep_toggle : 1;
-    uint8_t debounce_press_ms;
-    uint8_t debounce_release_ms;
-    uint8_t sleep_timeout;
-    uint8_t caps_indicator_type;
-    // (top) side light config
-    uint8_t side_mode;
-    uint8_t side_brightness;
-    uint8_t side_speed;
-    uint8_t side_rgb;
-    uint8_t side_color;
-
-    // right side light config
-    uint8_t right_side_mode;
-    uint8_t right_side_brightness;
-    uint8_t right_side_speed;
-    uint8_t right_side_rgb;
-    uint8_t right_side_color;
-    uint8_t battery_indicator_brightness;
-    // custom keys highlight
-    uint8_t toggle_custom_keys_highlight : 1;
-    uint8_t detect_numlock_state : 1;
-    uint8_t battery_indicator_numeric : 1;
-    uint8_t show_socd_indicator : 1;
-} kb_config_t;
-
-#ifdef VIA_ENABLE
-enum via_indicator_value {
-    id_usb_sleep_toggle    = 0,
-    id_debounce_press      = 1,
-    id_debounce_release    = 2,
-    id_sleep_timeout       = 3,
-    id_caps_indicator_type = 4,
-    id_sleep_toggle        = 5,
-    id_deep_sleep_toggle   = 6,
-    // side light controls
-    id_side_light_mode       = 10,
-    id_side_light_speed      = 11,
-    id_side_light_color      = 12,
-    id_side_light_brightness = 13,
-    // right side light controls
-    id_right_side_light_mode        = 20,
-    id_right_side_light_speed       = 21,
-    id_right_side_light_color       = 22,
-    id_right_side_light_brightness  = 23,
-    id_battery_indicator_brightness = 31,
-    id_toggle_custom_keys_highlight = 32,
-    id_toggle_detect_numlock_state  = 33,
-    id_battery_indicator_numeric    = 34,
-    id_toggle_socd_indicator        = 35,
-};
-
-// function declaration
-void indicator_config_set_value(uint8_t *data);
-void indicator_config_get_value(uint8_t *data);
-void _set_color(HSV *color, uint8_t *data);
-void _get_color(HSV *color, uint8_t *data);
-#endif
-
-extern kb_config_t g_config;
-
-void save_config_to_eeprom(void);
-void load_config_from_eeprom(void);
-void init_g_config(void);

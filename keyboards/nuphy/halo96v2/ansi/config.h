@@ -36,11 +36,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DRIVER_SDB1 C6
 #define RGB_DRIVER_SDB2 C7
 
+// SPI LED driver pins (for common code compatibility - halo96v2 uses IS31FL3733 I2C)
+#define DRIVER_MATRIX_CS_PIN C6
+#define DRIVER_SIDE_CS_PIN C7
+#define DRIVER_SIDE_DI_PIN C6   // Not used for I2C, but needed for common code
+#define DRIVER_MATRIX_DI_PIN C7 // Not used for I2C, but needed for common code
+
 #define SERIAL_DRIVER SD1
-#define SD1_TX_PIN B6
-#define SD1_TX_PAL_MODE 0
-#define SD1_RX_PIN B7
-#define SD1_RX_PAL_MODE 0
+#define UART_TX_PIN B6
+#define UART_TX_PAL_MODE 0
+#define UART_RX_PIN B7
+#define UART_RX_PAL_MODE 0
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -49,8 +55,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 0b1110111 AD <-> VCC
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1 0b1101100
-#define DRIVER_ADDR_2 0b1100011
+#define IS31FL3733_I2C_ADDRESS_1 0b1101100
+#define IS31FL3733_I2C_ADDRESS_2 0b1100011
+
+// IS31FL3763 uses different define names
+#define DRIVER_ADDR_1 IS31FL3733_I2C_ADDRESS_1
+#define DRIVER_ADDR_2 IS31FL3733_I2C_ADDRESS_2
 
 #define ISSI_TIMEOUT 1
 
@@ -119,27 +129,86 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_CUSTOM_position_mode
 #define RGB_DEFAULT_COLOR 168
 
-#define DEFAULT_SLEEP_TOGGLE true
-#define DEFAULT_USB_SLEEP_TOGGLE false
-#define DEFAULT_DEEP_SLEEP_TOGGLE true
-#define DEFAULT_SLEEP_TIMEOUT 5
-#define DEFAULT_TOGGLE_POWER_ON_ANIMATION 1
-#define DEFAULT_CAPS_INDICATOR_TYPE CAPS_INDICATOR_SIDE
-#define DEFAULT_BATTERY_INDICATOR_BRIGHTNESS 100
-#define DEFAULT_LIGHT_CUSTOM_KEYS 0
-#define DEFAULT_SIDE_MODE_A 0
-#define DEFAULT_SIDE_MODE_B 3
-#define DEFAULT_SIDE_BRIGHTNESS 2
-#define DEFAULT_SIDE_SPEED 2
-#define DEFAULT_SIDE_RGB 1
-#define DEFAULT_SIDE_COLOR 0
-#define DEFAULT_BATTERY_INDICATOR_NUMERIC 1
-#define DEFAULT_DETECT_NUMLOCK 1
-#define DEFAULT_SHOW_SOCD_INDICATOR 0
+// Keyboard-specific defaults (override common/config.h defaults)
+#ifndef DEFAULT_SLEEP_TOGGLE
+#    define DEFAULT_SLEEP_TOGGLE true
+#endif
+#ifndef DEFAULT_USB_SLEEP_TOGGLE
+#    define DEFAULT_USB_SLEEP_TOGGLE false
+#endif
+#ifndef DEFAULT_DEEP_SLEEP_TOGGLE
+#    define DEFAULT_DEEP_SLEEP_TOGGLE true
+#endif
+#ifndef DEFAULT_SLEEP_TIMEOUT
+#    define DEFAULT_SLEEP_TIMEOUT 5
+#endif
+#ifndef DEFAULT_TOGGLE_POWER_ON_ANIMATION
+#    define DEFAULT_TOGGLE_POWER_ON_ANIMATION 1
+#endif
+#ifndef DEFAULT_CAPS_INDICATOR_TYPE
+#    define DEFAULT_CAPS_INDICATOR_TYPE CAPS_INDICATOR_SIDE
+#endif
+#ifndef DEFAULT_BATTERY_INDICATOR_BRIGHTNESS
+#    define DEFAULT_BATTERY_INDICATOR_BRIGHTNESS 100
+#endif
+#ifndef DEFAULT_LIGHT_CUSTOM_KEYS
+#    define DEFAULT_LIGHT_CUSTOM_KEYS 0
+#endif
+#ifndef DEFAULT_SIDE_MODE
+#    define DEFAULT_SIDE_MODE 0
+#endif
+#ifndef DEFAULT_SIDE_MODE_A
+#    define DEFAULT_SIDE_MODE_A 0
+#endif
+#ifndef DEFAULT_AMBIENT_MODE
+#    define DEFAULT_AMBIENT_MODE 3
+#endif
+#ifndef DEFAULT_SIDE_BRIGHTNESS
+#    define DEFAULT_SIDE_BRIGHTNESS 2
+#endif
+#ifndef DEFAULT_SIDE_SPEED
+#    define DEFAULT_SIDE_SPEED 2
+#endif
+#ifndef DEFAULT_SIDE_RGB
+#    define DEFAULT_SIDE_RGB 1
+#endif
+#ifndef DEFAULT_SIDE_COLOR
+#    define DEFAULT_SIDE_COLOR 0
+#endif
+#ifndef DEFAULT_BATTERY_INDICATOR_NUMERIC
+#    define DEFAULT_BATTERY_INDICATOR_NUMERIC 1
+#endif
+#ifndef DEFAULT_DETECT_NUMLOCK
+#    define DEFAULT_DETECT_NUMLOCK 1
+#endif
+#ifndef DEFAULT_SHOW_SOCD_INDICATOR
+#    define DEFAULT_SHOW_SOCD_INDICATOR 0
+#endif
+
+// LED position defines for indicators
 #define WIN_LOCK_ROW 0
 #define WIN_LOCK_COL 15
 #define NUM_LOCK_ROW 1
 #define NUM_LOCK_COL 15
+
+// Additional defines needed for common code compatibility
+#define SYS_SW_WIN 0xa1
+#define SYS_SW_MAC 0xa2
+#define TIMER_STEP 10
+#define HOST_USB_TYPE 0
+#define HOST_RF_TYPE 2
+
+// Link mode defines
+#define LINK_RF_24 0
+#define LINK_BT_1 1
+#define LINK_BT_2 2
+#define LINK_BT_3 3
+#define LINK_USB 4
+
+#ifndef DEFAULT_RGB_MATRIX_BRIGHTNESS
+#    define DEFAULT_RGB_MATRIX_BRIGHTNESS (RGB_MATRIX_VAL_STEP * 2)
+#endif
+
 /*
  * END OF DEFAULT VALUES
  */

@@ -212,7 +212,7 @@ void sleep_sw_led_show(void)
     }
 
     if (sleep_show_flag) {
-        if (g_config.sleep_toggle) {
+        if (keyboard_config.common.sleep_toggle) {
             r_temp = 0x00;
             g_temp = 0x80;
             b_temp = 0x00;
@@ -230,7 +230,7 @@ void sleep_sw_led_show(void)
             sleep_show_flag = false;
         }
     } else if (usb_sleep_show_flag) {
-        if (g_config.usb_sleep_toggle) {
+        if (keyboard_config.common.usb_sleep_toggle) {
             r_temp = 0x00;
             g_temp = 0x80;
             b_temp = 0x00;
@@ -248,7 +248,7 @@ void sleep_sw_led_show(void)
             usb_sleep_show_flag = false;
         }
     } else if (deep_sleep_show_flag) {
-        if (g_config.deep_sleep_toggle) {
+        if (keyboard_config.common.deep_sleep_toggle) {
             r_temp = 0x00;
             g_temp = 0x80;
             b_temp = 0x00;
@@ -282,7 +282,7 @@ void sys_led_show(void) {
     }
 
     if (showCapsLock) {
-        switch (g_config.caps_indicator_type) {
+        switch (keyboard_config.common.caps_indicator_type) {
             case CAPS_INDICATOR_SIDE:
                 set_side_rgb(0X00, 0x80, 0x80); // highlight top-left side led to indicate caps lock enabled state
 
