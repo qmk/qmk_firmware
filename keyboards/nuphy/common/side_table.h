@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #include <stdint.h>
-#include "side.h"
+#include "common/side.h"
 
 const uint8_t breathe_data_tab[BREATHE_TAB_LEN] = {
     0,   1,   2,   3,   4,   5,   6,   7,   8,   9,   10,  12,  14,  16,  18,  20,  22,  24,  27,  30,  33,  36,  39,  42,  45,  49,  53, 57, 61, 65, 69, 73, 77, 81, 85, 89, 94, 99, 104, 109, 114, 119, 124, 129, 134, 140, 146, 152, 158, 164, 170, 176, 182, 188, 194, 200, 206, 213, 220, 227, 234, 241, 248, 255,

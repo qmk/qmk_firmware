@@ -5,8 +5,8 @@
 #include "host.h"
 #include "rgb_matrix.h"
 #include "timer.h"
-#include "side_table.h"
-#include "side_table.h"
+#include "side.h"
+#include "common/side_table.h"
 #include "common/rf_driver.h"
 #include "common/config.h"
 
@@ -44,7 +44,7 @@ extern bool            f_bat_hold;
 
 extern void kb_config_reset(void);
 
-extern bool f_dial_sw_init_ok;
+extern bool     f_dial_sw_init_ok;
 extern uint8_t  logo_play_point;
 extern uint8_t  rf_blink_cnt;
 extern uint16_t rf_link_show_time;
@@ -643,7 +643,7 @@ void rgb_test_show(void) {
  * @brief  side_led_show.
  */
 void side_led_show(void) {
-    static bool     flag_power_on     = 1;
+    static bool flag_power_on = 1;
 
     if (flag_power_on) {
         if (!f_dial_sw_init_ok) return;

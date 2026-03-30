@@ -6,7 +6,7 @@ SRC += common/ws2812-side-driver.c
 SRC += side.c side_right.c
 
 # can be separated with needed fields implemented in ansi.h
-SRC += mcu_pwr.c sleep.c
+SRC += common/mcu_pwr.c common/sleep.c
 
 UART_DRIVER_REQUIRED = yes
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <stdint.h>
 
 #define USB_MODE 0
@@ -129,16 +131,10 @@ enum via_common_ids {
     id_caps_indicator_type = 4,
     id_sleep_toggle        = 5,
     id_deep_sleep_toggle   = 6,
-    id_power_on_animation = 7,
+    id_power_on_animation  = 7,
 };
 
-enum via_custom_ids {
-    id_battery_indicator_brightness = 31,
-    id_toggle_custom_keys_highlight = 32,
-    id_toggle_detect_numlock_state  = 33,
-    id_battery_indicator_numeric    = 34,
-    id_toggle_socd_indicator        = 35
-};
+enum via_custom_ids { id_battery_indicator_brightness = 31, id_toggle_custom_keys_highlight = 32, id_toggle_detect_numlock_state = 33, id_battery_indicator_numeric = 34, id_toggle_socd_indicator = 35 };
 
 enum via_non_matrix_lights_ids {
     // side light controls

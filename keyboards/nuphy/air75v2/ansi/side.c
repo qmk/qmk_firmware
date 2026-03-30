@@ -7,8 +7,8 @@
 #include "rgb_matrix.h"
 #include "timer.h"
 #include "user_kb.h"
-#include "side_table.h"
-#include "side_table.h"
+#include "side.h"
+#include "common/side_table.h"
 #include "common/rf_driver.h"
 
 // clang-format off
