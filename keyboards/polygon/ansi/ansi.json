@@ -83,14 +83,13 @@
                 { "matrix": [4, 14], "x": 128, "y": 64, "flags": 4 },
                 { "matrix": [4, 15], "x": 208, "y": 64, "flags": 4 }
         ],
-        "led_process_limit": 4,
-        "led_flush_limit": 26,
         "sleep": true,
+        "timeout": 100000,
         "animations": {
             "alphas_mods": true,
             "breathing": true,
-            "cycle_left_right": false
-        },
+            "cycle_left_right": true
+        },        
         "default": {
             "animation": "breathing"
         },
