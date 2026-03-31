@@ -5,7 +5,9 @@
 #define USB_MODE 0
 #define THREE_MODE 1
 
-#define WORK_MODE THREE_MODE
+#ifndef WORK_MODE
+#    define WORK_MODE THREE_MODE
+#endif
 
 #ifndef DEFAULT_SLEEP_TOGGLE
 #    define DEFAULT_SLEEP_TOGGLE true
