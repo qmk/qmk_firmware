@@ -33,4 +33,9 @@
 #define PS2_USART_RX_DATA       UDR1
 #define PS2_USART_ERROR         (UCSR1A & ((1<<FE1) | (1<<DOR1) | (1<<UPE1)))
 #define PS2_USART_RX_VECT       USART1_RX_vect
+
+#define PS2_MOUSE_SCROLL_BTN_MASK (1<<PS2_MOUSE_BTN_MIDDLE) /* Default */
+#define PS2_MOUSE_BTN_MIDDLE    2
+#define PS2_MOUSE_SCROLL_BTN_SEND 300 /* Default */
+
 #endif
