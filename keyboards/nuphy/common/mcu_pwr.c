@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "common/mcu_stm32f0xx.h"
 #include "mcu_pwr.h"
 #include "rgb_matrix.h"
+#include "wait.h"
 
 // from @adi4086
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
@@ -188,7 +189,6 @@ void exit_deep_sleep(void) {
     gpio_write_pin_high(NRF_WAKEUP_PIN);
 #endif
 
-
     // 重新初始化系统时钟
     stm32_clock_init();
 
@@ -234,7 +234,7 @@ void enter_light_sleep(void) {
 
 /**
  * @brief  Power back up LEDs on exiting light sleep.
- * @note This is Nuphy's "open sourced" wake logic. It's not deep sleep.
+ * @note This is Nuphy's "open sourced" sleep logic. It's not deep sleep.
  */
 void exit_light_sleep(void) {
     sleeping = false;
@@ -246,6 +246,9 @@ void exit_light_sleep(void) {
     if (dev_info.link_mode == LINK_USB) {
         usb_lld_wakeup_host(&USB_DRIVER);
         restart_usb_driver(&USB_DRIVER);
+        // Wait for USB driver to be ready before processing keys.
+        // Without this delay, the first wake keypress is lost.
+        wait_ms(5);
     }
 
 #if (WORK_MODE == THREE_MODE)

@@ -69,6 +69,8 @@ void sleep_handle(void) {
         if (dev_info.link_mode == LINK_USB) {
             if (keyboard_config.common.usb_sleep_toggle || USB_DRIVER.state == USB_SUSPENDED) {
                 break_all_key();
+                // Sync before sleeping. Without this, the wake keystroke is more likely to be lost.
+                dev_sts_sync();
                 enter_light_sleep();
             }
         }
