@@ -124,7 +124,6 @@ static void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], ui
             if (delta & col_mask) {
                 if (debounce_pointer->time == DEBOUNCE_ELAPSED) {
                     debounce_pointer->pressed = (raw[row] & col_mask);
-                    // debounce_pointer->time    = g_config.debounce_press_ms; // FIXME: original place of debounce
                     counters_need_update = true;
 
                     if (debounce_pointer->pressed) {

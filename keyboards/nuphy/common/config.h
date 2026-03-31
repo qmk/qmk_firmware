@@ -213,8 +213,12 @@ uint8_t  get_led_index(uint8_t row, uint8_t col);
 uint8_t  two_digit_decimals_led(uint8_t value);
 uint8_t  two_digit_ones_led(uint8_t value);
 
-#define SYS_SW_WIN 0xa1
-#define SYS_SW_MAC 0xa2
+#ifndef SYS_SW_WIN
+#    define SYS_SW_WIN 0xa1
+#endif
+#ifndef SYS_SW_MAC
+#    define SYS_SW_MAC 0xa2
+#endif
 
 #define HOST_USB_TYPE 0
 #define HOST_BLE_TYPE 1

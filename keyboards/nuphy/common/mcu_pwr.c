@@ -279,7 +279,7 @@ void led_pwr_wake_handle(void) {
     }
 }
 
-void pwr_rgb_led_off(void) {
+__attribute__((weak)) void pwr_rgb_led_off(void) {
     if (!rgb_led_on) return;
     // LED power supply off
     gpio_set_pin_output(DC_BOOST_PIN);
@@ -288,7 +288,7 @@ void pwr_rgb_led_off(void) {
     rgb_led_on = 0;
 }
 
-void pwr_rgb_led_on(void) {
+__attribute__((weak)) void pwr_rgb_led_on(void) {
     if (sleeping || rgb_led_on) return;
     // if (rgb_led_on) return;
     // LED power supply on
@@ -299,13 +299,13 @@ void pwr_rgb_led_on(void) {
     rgb_led_on = 1;
 }
 
-void pwr_side_led_off(void) {
+__attribute__((weak)) void pwr_side_led_off(void) {
     if (!side_led_on) return;
     gpio_set_pin_input(DRIVER_SIDE_CS_PIN);
     side_led_on = 0;
 }
 
-void pwr_side_led_on(void) {
+__attribute__((weak)) void pwr_side_led_on(void) {
     if (sleeping || side_led_on) return;
     // if (side_led_on) return;
     gpio_set_pin_output(DRIVER_SIDE_CS_PIN);
@@ -313,11 +313,11 @@ void pwr_side_led_on(void) {
     side_led_on = 1;
 }
 
-bool is_rgb_led_on(void) {
+__attribute__((weak)) bool is_rgb_led_on(void) {
     return rgb_led_on;
 }
 
-bool is_side_led_on(void) {
+__attribute__((weak)) bool is_side_led_on(void) {
     return side_led_on;
 }
 
