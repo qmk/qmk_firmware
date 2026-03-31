@@ -89,23 +89,7 @@ jobs:
       if: always()
       shell: 'bash {0}'
       run: |
-        exit_code=0
-
-        for file in $(find keyboards/ -name rules.mk | grep -v /keymaps/ | grep -v /common/ | grep -v /lib/); do
-            dir=$(dirname $file)
-
-            $(find $dir -name keyboard.json -exec false {} +)
-            if [[ $? == 0 ]]; then
-                echo "$dir::Legacy target detected"
-
-                ((++exit_code))
-            fi
-        done
-
-        if [[ $exit_code -gt 255 ]]; then
-            exit 255
-        fi
-        exit $exit_code
+        qmk ci-validate-keyboard-targets
 
     - name: Verify keyboard aliases
       if: always()
