@@ -123,6 +123,7 @@ jobs:
       - name: Dump ccache stats
         run: |
           ccache -s
+
       # Delete the old cache on hit to emulate a cache update. See https://github.com/actions/cache/issues/342.
       - name: Delete old cache
         env:
