@@ -2,9 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
 #include "layer_select_4.h"
-
-
-
 void render_layer_status(void){
     led_t led_state = host_keyboard_led_state();
     char layer_output[sizeof(layer_base)];
@@ -19,4 +16,3 @@ void render_layer_status(void){
     }
     oled_write_raw(layer_output, sizeof(layer_output));
 }
-

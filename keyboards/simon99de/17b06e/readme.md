@@ -15,11 +15,13 @@ The top button is used to switch profiles, giving you 16 x 4 (or more/less) butt
 
 Make example for this macropad (after setting up your build environment):
 
-    make simon99de/17b06e:default
+    make simon99de/17b06e/norgb:default
+    make simon99de/17b06e/rgb:default
 
 Flashing example for this macropad:
 
-    make simon99de/17b06e:default:flash
+    make simon99de/17b06e/norgb:default:flash
+    make simon99de/17b06e/rgb:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
