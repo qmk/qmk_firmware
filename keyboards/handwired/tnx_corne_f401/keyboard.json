@@ -6,7 +6,6 @@
     "bootloader": "tinyuf2",
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true,
         "rotary": [
             {"pin_a": "B9", "pin_b": "B8", "resolution": 2}
         ]
@@ -30,7 +29,7 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "encoder_map": true,
+        "encoder": true,
         "mousekey": true,
         "nkro": true
     },
