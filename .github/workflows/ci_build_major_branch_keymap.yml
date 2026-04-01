@@ -129,7 +129,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         if: steps.cache.outputs.cache-hit
-        run: gh cache delete --ref ${{ github.ref }} ${{ steps.cache.outputs.cache-primary-key }}
+        run: |
+          count=$(gh cache list --ref ${{ github.ref }} ${{ steps.cache.outputs.cache-primary-key }} --json id | jq length)
+          if [ $count -gt 0 ]; then
+            gh cache delete --ref ${{ github.ref }} ${{ steps.cache.outputs.cache-primary-key }}
+          fi
 
       - name: Save Cache
         uses: actions/cache/save@v5
