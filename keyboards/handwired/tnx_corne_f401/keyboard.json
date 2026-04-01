@@ -12,6 +12,9 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "C13"
+        },
         "serial": {
             "driver": "usart"
         },
