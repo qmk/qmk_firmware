@@ -150,6 +150,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CONNECTION_ENABLE
 #    include "connection.h"
 #endif
+#ifdef LAMPARRAY_ENABLE
+#    include "lamparray.h"
+#endif
 
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
@@ -423,6 +426,9 @@ void housekeeping_task(void) {
     housekeeping_task_modules();
     housekeeping_task_kb();
     housekeeping_task_user();
+#ifdef LAMPARRAY_ENABLE
+    lamparray_task();
+#endif
 }
 
 /** \brief quantum_init
@@ -466,6 +472,9 @@ void keyboard_init(void) {
 #endif
 #ifdef ENCODER_ENABLE
     encoder_init();
+#endif
+#ifdef LAMPARRAY_ENABLE
+    lamparray_init();
 #endif
     matrix_init();
     quantum_init();

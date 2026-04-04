@@ -249,6 +249,10 @@ extern layer_state_t layer_state;
 #    include "layer_lock.h"
 #endif
 
+#ifdef LAMPARRAY_ENABLE
+#    include "lamparray.h"
+#endif
+
 #ifdef COMMUNITY_MODULES_ENABLE
 #    include "community_modules.h"
 #endif

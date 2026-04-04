@@ -32,6 +32,10 @@
 #    include "raw_hid.h"
 #endif
 
+#ifdef LAMPARRAY_ENABLE
+#    include "lamparray.h"
+#endif
+
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 
@@ -233,6 +237,18 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
 
 static uint8_t _Alignas(4) set_report_buf[2];
 
+#ifdef LAMPARRAY_ENABLE
+static universal_lamparray_response_t universal_lamparray_report_buf;
+
+static void set_lamparray_transfer_cb(USBDriver *usbp) {
+    if (universal_lamparray_report_buf.report_id == LAMPARRAY_REPORT_ID_ATTRIBUTES_REQUEST) {
+        lamparray_set_attributes_response(universal_lamparray_report_buf.lamp_id);
+    } else {
+        lamparray_queue_request(&universal_lamparray_report_buf);
+    }
+}
+#endif
+
 static void set_led_transfer_cb(USBDriver *usbp) {
     usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
 
@@ -255,6 +271,24 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
             case USB_RTYPE_DIR_DEV2HOST:
                 switch (setup->bRequest) {
                     case HID_REQ_GetReport:
+#ifdef LAMPARRAY_ENABLE
+                        if (setup->wIndex == LAMPARRAY_INTERFACE) {
+                            switch (setup->wValue.lbyte) {
+                                case LAMPARRAY_REPORT_ID_ATTRIBUTES: {
+                                    static lamparray_attributes_report_t ret = {.report_id = LAMPARRAY_REPORT_ID_ATTRIBUTES};
+                                    lamparray_get_attributes(&ret.attributes);
+                                    usbSetupTransfer(usbp, (uint8_t *)&ret, sizeof(ret), NULL);
+                                    return true;
+                                }
+                                case LAMPARRAY_REPORT_ID_ATTRIBUTES_RESPONSE: {
+                                    static lamparray_attributes_response_report_t res = {.report_id = LAMPARRAY_REPORT_ID_ATTRIBUTES_RESPONSE};
+                                    lamparray_get_attributes_response(&res.attributes_response);
+                                    usbSetupTransfer(usbp, (uint8_t *)&res, sizeof(res), NULL);
+                                    return true;
+                                }
+                            }
+                        }
+#endif
                         return usb_get_report_cb(usbp);
                     case HID_REQ_GetProtocol:
                         if (setup->wIndex == KEYBOARD_INTERFACE) {
@@ -279,6 +313,18 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
 #endif
                                 usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
                                 return true;
+#ifdef LAMPARRAY_ENABLE
+                            case LAMPARRAY_INTERFACE:
+                                switch (setup->wValue.lbyte) {
+                                    case LAMPARRAY_REPORT_ID_ATTRIBUTES_REQUEST:
+                                    case LAMPARRAY_REPORT_ID_RANGE_UPDATE:
+                                    case LAMPARRAY_REPORT_ID_MULTI_UPDATE:
+                                    case LAMPARRAY_REPORT_ID_CONTROL:
+                                        usbSetupTransfer(usbp, (uint8_t *)&universal_lamparray_report_buf, sizeof(universal_lamparray_report_buf), set_lamparray_transfer_cb);
+                                        return true;
+                                }
+                                break;
+#endif
                         }
                         break;
                     case HID_REQ_SetProtocol:
