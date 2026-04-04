@@ -5,6 +5,23 @@
 // Debounce: press registers immediately, 5ms defer on release only
 #define DEBOUNCE 5
 
+// No delay on tap-hold tap output (eager debounce makes this safe)
+// keyboard.json defines this as 10 — override it here
+#undef TAP_CODE_DELAY
+#define TAP_CODE_DELAY 0
+
+// Always-on NKRO (safe for direct USB on Windows)
+#define NKRO_DEFAULT_ON true
+
+// RGB Matrix: cap brightness and LED driver current to reduce heat/power
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
+#define AW20216S_GLOBAL_CURRENT_MAX   120
+
+// Sensible startup defaults
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
+#define RGB_MATRIX_DEFAULT_VAL  120
+#define RGB_MATRIX_DEFAULT_SPD  128
+
 // Physical dimensions of the GMMK Pro Rev1 ANSI (75% keyboard) in micrometers
 // Used by the LampArray feature for Windows Dynamic Lighting
 // Width: ~356mm, Height: ~133mm, Depth: 30mm
