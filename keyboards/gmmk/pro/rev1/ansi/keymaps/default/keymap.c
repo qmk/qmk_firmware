@@ -35,11 +35,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
+//      ESC      F1       F2       F3       F4       F5       F6       F7       F8       F9       F10      F11      F12      Prt           Rotary(RGB Bright)
+//      ~        RGBTogg  ---      ---      ---      ---      ---      ---      ---      ---      ---      ---      ---      ---               ---
+//      Tab      ---      RGBValU  ---      ---      ---      ---      ---      ---      ---      ---      ---      ---      ---               ---
+//      ---      ---      RGBValD  ---      ---      ---      ---      ---      ---      ---      ---      ---               ---               ---
+//      ---               ---      RGBHueU  ---      ---      ---      NKROtog  ---      ---      ---      ---               Rep    RGBNext    ---
+//      ---      ---      ---                                 ---                                 ---      ---      ---      RGBSpd-  RGBPrev  RGBSpd+
+//      Macro:   Rec1     Stop     Play1    Rec2     Stop     Play2
     [1] = LAYOUT(
         _______, KC_MYCM, KC_WHOM, KC_CALC, KC_MSEL, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,          QK_BOOT,
         _______, RM_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, RM_VALU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
-        _______, _______, RM_VALD, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
+        _______, DM_REC1, RM_VALU, DM_REC2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
+        _______, DM_PLY1, RM_VALD, DM_PLY2, _______, _______, _______, _______, _______, _______, _______, _______,          DM_RSTP,          _______,
         _______,          _______, RM_HUEU, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          QK_REP,  RM_NEXT, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, RM_SPDD, RM_PREV, RM_SPDU
     ),
@@ -49,12 +56,68 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },
-    [1] = { ENCODER_CCW_CW(KC_TRNS, KC_TRNS) }
+    [0] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU) },  // volume
+    [1] = { ENCODER_CCW_CW(RM_VALD, RM_VALU) }   // RGB brightness on FN
 };
 #endif
 
+// -----------------------------------------------------------------------------
+// Key overrides
+// Shift + Backspace = Delete
+const key_override_t bspc_del_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
+
+const key_override_t *key_overrides[] = {
+    &bspc_del_override,
+    NULL
+};
+
+// -----------------------------------------------------------------------------
+// OS detection — swap Alt/GUI for macOS
+bool process_detected_host_os_kb(os_variant_t detected_os) {
+    if (detected_os == OS_MACOS || detected_os == OS_IOS) {
+        keymap_config.swap_lalt_lgui = true;
+        keymap_config.swap_ralt_rgui = true;
+    } else {
+        keymap_config.swap_lalt_lgui = false;
+        keymap_config.swap_ralt_rgui = false;
+    }
+    return true;
+}
+
+// -----------------------------------------------------------------------------
+// WPM — drive RGB animation speed with typing speed
+void housekeeping_task_user(void) {
+    uint8_t wpm = get_current_wpm();
+    if (wpm > 0) {
+        // Map 0–120 WPM → speed 30–255
+        uint8_t spd = (uint8_t)MIN(255, MAX(30, (uint16_t)wpm * 2));
+        rgb_matrix_set_speed_noeeprom(spd);
+    }
+}
+
+// -----------------------------------------------------------------------------
+// Dynamic macro recording state — tracked via callbacks
+static bool is_macro_recording = false;
+
+bool dynamic_macro_record_start_user(int8_t direction) {
+    is_macro_recording = true;
+    return true;
+}
+
+bool dynamic_macro_record_end_user(int8_t direction) {
+    is_macro_recording = false;
+    return true;
+}
+
+// -----------------------------------------------------------------------------
+// RGB indicators
 #ifdef RGB_MATRIX_ENABLE
+
+// Scale indicator colors to RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define INDICATOR_AMBER RGB_MATRIX_MAXIMUM_BRIGHTNESS, (RGB_MATRIX_MAXIMUM_BRIGHTNESS * 160 / 255), 0
+#define INDICATOR_RED   RGB_MATRIX_MAXIMUM_BRIGHTNESS, 0, 0
+#define INDICATOR_CYAN  0, RGB_MATRIX_MAXIMUM_BRIGHTNESS, RGB_MATRIX_MAXIMUM_BRIGHTNESS
+#define INDICATOR_GREEN 0, RGB_MATRIX_MAXIMUM_BRIGHTNESS, 0
 
 // Side LEDs: left column l01-l08, right column l11-l18
 static const uint8_t PROGMEM side_leds[] = {
@@ -62,34 +125,32 @@ static const uint8_t PROGMEM side_leds[] = {
     68, 71, 74, 77, 81, 84, 88, 92   // right side
 };
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
-// Scale full-brightness colors down to RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#define INDICATOR_AMBER RGB_MATRIX_MAXIMUM_BRIGHTNESS, (RGB_MATRIX_MAXIMUM_BRIGHTNESS * 160 / 255), 0
-#define INDICATOR_RED   RGB_MATRIX_MAXIMUM_BRIGHTNESS, 0, 0
-#define INDICATOR_CYAN  0, RGB_MATRIX_MAXIMUM_BRIGHTNESS, RGB_MATRIX_MAXIMUM_BRIGHTNESS
+static void set_side_leds(uint8_t r, uint8_t g, uint8_t b) {
+    for (uint8_t i = 0; i < sizeof(side_leds); i++) {
+        rgb_matrix_set_color(pgm_read_byte(&side_leds[i]), r, g, b);
+    }
+}
 
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (is_caps_word_on()) {
-        // Caps Word active: amber on Caps Lock key + all side LEDs
+        // Caps Word: amber on Caps Lock key + sides
         rgb_matrix_set_color(3, INDICATOR_AMBER);
-        for (uint8_t i = 0; i < sizeof(side_leds); i++) {
-            rgb_matrix_set_color(pgm_read_byte(&side_leds[i]), INDICATOR_AMBER);
-        }
+        set_side_leds(INDICATOR_AMBER);
     } else if (host_keyboard_led_state().caps_lock) {
-        // Caps Lock active: red on Caps Lock key + all side LEDs
+        // Caps Lock: red on Caps Lock key + sides
         rgb_matrix_set_color(3, INDICATOR_RED);
-        for (uint8_t i = 0; i < sizeof(side_leds); i++) {
-            rgb_matrix_set_color(pgm_read_byte(&side_leds[i]), INDICATOR_RED);
-        }
+        set_side_leds(INDICATOR_RED);
     }
 
-    // FN key LED (index 55): cyan while layer 1 is held
+    // Dynamic macro recording: green sides
+    if (is_macro_recording) {
+        set_side_leds(INDICATOR_GREEN);
+    }
+
+    // FN layer: cyan on FN key + sides (overrides above)
     if (get_highest_layer(layer_state) > 0) {
         rgb_matrix_set_color(55, INDICATOR_CYAN);
-
-        // All 16 side LEDs: cyan while layer 1 is active
-        for (uint8_t i = 0; i < sizeof(side_leds); i++) {
-            rgb_matrix_set_color(pgm_read_byte(&side_leds[i]), INDICATOR_CYAN);
-        }
+        set_side_leds(INDICATOR_CYAN);
     }
 
     return false;

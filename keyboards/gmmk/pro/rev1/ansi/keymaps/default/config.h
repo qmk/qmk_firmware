@@ -22,6 +22,10 @@
 #define RGB_MATRIX_DEFAULT_VAL  120
 #define RGB_MATRIX_DEFAULT_SPD  128
 
+// Turn off LEDs after 5 minutes idle, and when PC suspends USB
+#define RGB_MATRIX_TIMEOUT 300000
+#define RGB_MATRIX_SLEEP
+
 // Physical dimensions of the GMMK Pro Rev1 ANSI (75% keyboard) in micrometers
 // Used by the LampArray feature for Windows Dynamic Lighting
 // Width: ~356mm, Height: ~133mm, Depth: 30mm
