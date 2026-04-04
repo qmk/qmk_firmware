@@ -13,13 +13,15 @@
 // Always-on NKRO (safe for direct USB on Windows)
 #define NKRO_DEFAULT_ON true
 
-// RGB Matrix: cap brightness and LED driver current to reduce heat/power
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
-#define AW20216S_GLOBAL_CURRENT_MAX   120
+// RGB Matrix: full brightness allowed, current limited at driver level
+#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#define AW20216S_GLOBAL_CURRENT_MAX   150
 
-// Sensible startup defaults
-#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_BREATHING
-#define RGB_MATRIX_DEFAULT_VAL  120
+// Default: solid red
+#define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
+#define RGB_MATRIX_DEFAULT_HUE  0
+#define RGB_MATRIX_DEFAULT_SAT  255
+#define RGB_MATRIX_DEFAULT_VAL  255
 #define RGB_MATRIX_DEFAULT_SPD  128
 
 // Turn off LEDs after 5 minutes idle, and when PC suspends USB

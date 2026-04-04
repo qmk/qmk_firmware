@@ -96,6 +96,13 @@ void housekeeping_task_user(void) {
 }
 
 // -----------------------------------------------------------------------------
+// Force solid red on every boot, bypassing stale EEPROM values
+void keyboard_post_init_user(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_SOLID_COLOR);
+    rgb_matrix_sethsv_noeeprom(HSV_RED);
+}
+
+// -----------------------------------------------------------------------------
 // Dynamic macro recording state — tracked via callbacks
 static bool is_macro_recording = false;
 
