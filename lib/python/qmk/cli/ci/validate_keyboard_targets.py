@@ -25,4 +25,4 @@ def ci_validate_keyboard_targets(cli):
     for error in errors:
         print(f"{error}::Legacy target detected")
 
-    exit(max(len(errors), 255))
+    exit(min(len(errors), 255))
