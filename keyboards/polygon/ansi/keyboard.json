@@ -137,7 +137,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix":true
+        "rgb_matrix": true
     },
     "layouts": {
         "LAYOUT_65_ansi": {
