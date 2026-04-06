@@ -1,0 +1,6 @@
+#pragma once
+
+#define COMBO_MUST_HOLD_PER_COMBO
+#define COMBO_HOLD_TERM 1000
+#define TAPPING_TERM 175
+#define TAPPING_TERM_PER_KEY
