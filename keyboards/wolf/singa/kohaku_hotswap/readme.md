@@ -1,6 +1,6 @@
 # Wolf Kohaku Hotswap
 
-![Wolf Kohaku Hotswap](https://raw.githubusercontent.com/amorino/singakbd/refs/heads/main/public/KohakuR2_Hotswap.png)
+![Wolf Kohaku Hotswap](https://i.imgur.com/Fa3FNCr.png)
 
 65% hotswap PCB for the Wolf Kohaku.
 

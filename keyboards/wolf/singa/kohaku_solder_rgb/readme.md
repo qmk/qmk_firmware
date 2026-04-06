@@ -1,6 +1,6 @@
 # Wolf Kohaku Solder RGB
 
-![Wolf Kohaku Solder RGB](https://raw.githubusercontent.com/amorino/singakbd/refs/heads/main/public/KohakuR2_Solder.png)
+![Wolf Kohaku Solder RGB](https://i.imgur.com/KmGm8qF.png)
 
 65% PCB for the Wolf Kohaku with RGB underglow.
 
