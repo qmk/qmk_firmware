@@ -1,6 +1,6 @@
 # polygon
 
-![polygon](imgur.com image replace me!)
+![Polygon](https://i.imgur.com/f5n6o7d.jpeg)
 
 *Polygon, a 65% with an ISO and an ANSI layout*
 
