@@ -75,7 +75,7 @@ To build with the default keymap:
 
     $ make converter/adb_usb/rev1:default      # Pro Micro-based (AVR)
     $ make converter/adb_usb/rev2:default      # Hasu 32U2 PCB (AVR)
-    $ qmk compile -kb converter/adb_usb/rp2040 -km default  # ARM/RP2040
+    $ make converter/adb_usb/rp2040:default  # ARM/RP2040
 
 Locking Caps Lock
 ----------------
