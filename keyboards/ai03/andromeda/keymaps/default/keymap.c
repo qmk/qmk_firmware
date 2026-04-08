@@ -31,3 +31,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 };
+bool led_update_user(led_t led_state) {
+    // CAPS LOCK
+    if (led_state.caps_lock) {
+        writePinHigh(B0);   // Caps LED pin
+    } else {
+        writePinLow(B0);
+    }
+
+    // SCROLL LOCK
+    if (led_state.scroll_lock) {
+        writePinHigh(B1);   // Scroll LED pin (change if needed)
+    } else {
+        writePinLow(B1);
+    }
+
+    return true;
+}
