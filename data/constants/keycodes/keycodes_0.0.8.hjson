@@ -1,0 +1,265 @@
+{
+    "ranges": {
+        "0x5A40/0x003F": {
+            "define": "QK_PLOVER_HID"
+        }
+    },
+    "keycodes": {
+        "0x5A40": {
+            "group": "plover_hid",
+            "key": "PLV_S1"
+        },
+        "0x5A41": {
+            "group": "plover_hid",
+            "key": "PLV_TL"
+        },
+        "0x5A42": {
+            "group": "plover_hid",
+            "key": "PLV_KL"
+        },
+        "0x5A43": {
+            "group": "plover_hid",
+            "key": "PLV_PL"
+        },
+        "0x5A44": {
+            "group": "plover_hid",
+            "key": "PLV_WL"
+        },
+        "0x5A45": {
+            "group": "plover_hid",
+            "key": "PLV_HL"
+        },
+        "0x5A46": {
+            "group": "plover_hid",
+            "key": "PLV_RL"
+        },
+        "0x5A47": {
+            "group": "plover_hid",
+            "key": "PLV_A"
+        },
+        "0x5A48": {
+            "group": "plover_hid",
+            "key": "PLV_O"
+        },
+        "0x5A49": {
+            "group": "plover_hid",
+            "key": "PLV_ST1"
+        },
+        "0x5A4A": {
+            "group": "plover_hid",
+            "key": "PLV_E"
+        },
+        "0x5A4B": {
+            "group": "plover_hid",
+            "key": "PLV_U"
+        },
+        "0x5A4C": {
+            "group": "plover_hid",
+            "key": "PLV_FR"
+        },
+        "0x5A4D": {
+            "group": "plover_hid",
+            "key": "PLV_RR"
+        },
+        "0x5A4E": {
+            "group": "plover_hid",
+            "key": "PLV_PR"
+        },
+        "0x5A4F": {
+            "group": "plover_hid",
+            "key": "PLV_BR"
+        },
+        "0x5A50": {
+            "group": "plover_hid",
+            "key": "PLV_LR"
+        },
+        "0x5A51": {
+            "group": "plover_hid",
+            "key": "PLV_GR"
+        },
+        "0x5A52": {
+            "group": "plover_hid",
+            "key": "PLV_TR"
+        },
+        "0x5A53": {
+            "group": "plover_hid",
+            "key": "PLV_SR"
+        },
+        "0x5A54": {
+            "group": "plover_hid",
+            "key": "PLV_DR"
+        },
+        "0x5A55": {
+            "group": "plover_hid",
+            "key": "PLV_ZR"
+        },
+        "0x5A56": {
+            "group": "plover_hid",
+            "key": "PLV_N1"
+        },
+        "0x5A57": {
+            "group": "plover_hid",
+            "key": "PLV_S2"
+        },
+        "0x5A58": {
+            "group": "plover_hid",
+            "key": "PLV_ST2"
+        },
+        "0x5A59": {
+            "group": "plover_hid",
+            "key": "PLV_ST3"
+        },
+        "0x5A5A": {
+            "group": "plover_hid",
+            "key": "PLV_ST4"
+        },
+        "0x5A5B": {
+            "group": "plover_hid",
+            "key": "PLV_N2"
+        },
+        "0x5A5C": {
+            "group": "plover_hid",
+            "key": "PLV_N3"
+        },
+        "0x5A5D": {
+            "group": "plover_hid",
+            "key": "PLV_N4"
+        },
+        "0x5A5E": {
+            "group": "plover_hid",
+            "key": "PLV_N5"
+        },
+        "0x5A5F": {
+            "group": "plover_hid",
+            "key": "PLV_N6"
+        },
+        "0x5A60": {
+            "group": "plover_hid",
+            "key": "PLV_N7"
+        },
+        "0x5A61": {
+            "group": "plover_hid",
+            "key": "PLV_N8"
+        },
+        "0x5A62": {
+            "group": "plover_hid",
+            "key": "PLV_N9"
+        },
+        "0x5A63": {
+            "group": "plover_hid",
+            "key": "PLV_NA"
+        },
+        "0x5A64": {
+            "group": "plover_hid",
+            "key": "PLV_NB"
+        },
+        "0x5A65": {
+            "group": "plover_hid",
+            "key": "PLV_NC"
+        },
+        "0x5A66": {
+            "group": "plover_hid",
+            "key": "PLV_X1"
+        },
+        "0x5A67": {
+            "group": "plover_hid",
+            "key": "PLV_X2"
+        },
+        "0x5A68": {
+            "group": "plover_hid",
+            "key": "PLV_X3"
+        },
+        "0x5A69": {
+            "group": "plover_hid",
+            "key": "PLV_X4"
+        },
+        "0x5A6A": {
+            "group": "plover_hid",
+            "key": "PLV_X5"
+        },
+        "0x5A6B": {
+            "group": "plover_hid",
+            "key": "PLV_X6"
+        },
+        "0x5A6C": {
+            "group": "plover_hid",
+            "key": "PLV_X7"
+        },
+        "0x5A6D": {
+            "group": "plover_hid",
+            "key": "PLV_X8"
+        },
+        "0x5A6E": {
+            "group": "plover_hid",
+            "key": "PLV_X9"
+        },
+        "0x5A6F": {
+            "group": "plover_hid",
+            "key": "PLV_X10"
+        },
+        "0x5A70": {
+            "group": "plover_hid",
+            "key": "PLV_X11"
+        },
+        "0x5A71": {
+            "group": "plover_hid",
+            "key": "PLV_X12"
+        },
+        "0x5A72": {
+            "group": "plover_hid",
+            "key": "PLV_X13"
+        },
+        "0x5A73": {
+            "group": "plover_hid",
+            "key": "PLV_X14"
+        },
+        "0x5A74": {
+            "group": "plover_hid",
+            "key": "PLV_X15"
+        },
+        "0x5A75": {
+            "group": "plover_hid",
+            "key": "PLV_X16"
+        },
+        "0x5A76": {
+            "group": "plover_hid",
+            "key": "PLV_X17"
+        },
+        "0x5A77": {
+            "group": "plover_hid",
+            "key": "PLV_X18"
+        },
+        "0x5A78": {
+            "group": "plover_hid",
+            "key": "PLV_X19"
+        },
+        "0x5A79": {
+            "group": "plover_hid",
+            "key": "PLV_X20"
+        },
+        "0x5A7A": {
+            "group": "plover_hid",
+            "key": "PLV_X21"
+        },
+        "0x5A7B": {
+            "group": "plover_hid",
+            "key": "PLV_X22"
+        },
+        "0x5A7C": {
+            "group": "plover_hid",
+            "key": "PLV_X23"
+        },
+        "0x5A7D": {
+            "group": "plover_hid",
+            "key": "PLV_X24"
+        },
+        "0x5A7E": {
+            "group": "plover_hid",
+            "key": "PLV_X25"
+        },
+        "0x5A7F": {
+            "group": "plover_hid",
+            "key": "PLV_X26"
+        }
+    }
+}

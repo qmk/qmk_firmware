@@ -105,9 +105,7 @@ PLOVER_HID_ENABLE = yes
 
 to your `rules.mk` file. This does **not** require `STENO_ENABLE` to be set.
 
-All of the possible keycodes are defined in `quantum/keymap_extras/keymap_plover_hid.h`. They have been laid out to match the existing naming convention for the steno keymaps, but with the `PLV_` prefix instead.
-
-Add `#include "keymap_plover_hid.h"` in your keymap file to include the `PLV_*` key definitions for your steno layer.
+All of the possible keycodes are defined with the `PLV_` prefix and are available without any additional includes.
 
 More details can be found here: https://github.com/dnaq/plover-machine-hid
 
