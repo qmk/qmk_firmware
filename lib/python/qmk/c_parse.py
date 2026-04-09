@@ -54,7 +54,7 @@ def c_source_files(dir_names):
     """
     files = []
     for dir in dir_names:
-        files.extend(file for file in Path(dir).glob('**/*') if file.suffix in ['.c', '.h', '.cpp'])
+        files.extend(file for file in Path(dir).glob('**/*') if file.suffix in ['.c', '.h', '.cpp', '.hpp'])
     return files
 
 
