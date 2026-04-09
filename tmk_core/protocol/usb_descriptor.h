@@ -240,7 +240,6 @@ enum usb_endpoints {
 
 #ifdef PLOVER_HID_ENABLE
     PLOVER_HID_IN_EPNUM = NEXT_EPNUM,
-    PLOVER_HID_OUT_EPNUM = NEXT_EPNUM,
 #endif
 
 #ifdef SHARED_EP_ENABLE

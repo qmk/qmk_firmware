@@ -371,7 +371,6 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
 #ifdef PLOVER_HID_ENABLE
     /* Setup plover HID endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((PLOVER_HID_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, PLOVER_HID_EPSIZE, 1);
-    ConfigSuccess &= Endpoint_ConfigureEndpoint((PLOVER_HID_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, PLOVER_HID_EPSIZE, 1);
 #endif
 
 #ifdef CONSOLE_ENABLE
