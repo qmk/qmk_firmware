@@ -198,6 +198,7 @@ void plover_hid_update(uint8_t button, bool pressed) {
 void plover_hid_task(void) {
     if (!plover_hid_report_updated) { return; }
     send_report(PLOVER_HID_IN_EPNUM, plover_hid_current_report, sizeof(plover_hid_current_report));
+    plover_hid_report_updated = false;
 }
 
 /*******************************************************************************
