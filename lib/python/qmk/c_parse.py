@@ -45,7 +45,7 @@ def strip_multiline_comment(string):
 
 
 def c_source_files(dir_names):
-    """Returns a list of all *.c, *.h, and *.cpp files for a given list of directories
+    """Returns a list of all *.c, *.h, *.cpp, and *.hpp files for a given list of directories
 
     Args:
 
