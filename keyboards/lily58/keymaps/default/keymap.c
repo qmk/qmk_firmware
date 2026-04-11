@@ -116,6 +116,7 @@ const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
+void render_galaxy(void);
 
 // const char *read_mode_icon(bool swap);
 // const char *read_host_led_state(void);
@@ -124,15 +125,27 @@ const char *read_keylogs(void);
 
 bool oled_task_user(void) {
   if (is_keyboard_master()) {
-    // If you want to change the display of OLED, you need to change here
-    oled_write_ln(read_layer_state(), false);
+    // Display uptime in HH:MM:SS format
+    uint32_t uptime = timer_read32() / 1000; // Convert ms to seconds
+    uint8_t hours = (uptime / 3600) % 24;
+    uint8_t minutes = (uptime / 60) % 60;
+    uint8_t seconds = uptime % 60;
+    char time_str[24];
+    snprintf(time_str, sizeof(time_str), "Uptime: %02d:%02d:%02d", hours, minutes, seconds);
+    oled_write_ln(time_str, false);
+
+    // Display WPM
+    char wpm_str[24];
+    snprintf(wpm_str, sizeof(wpm_str), "WPM: %03d", get_current_wpm());
+    oled_write_ln(wpm_str, false);
+
+    // Display keylog with position
     oled_write_ln(read_keylog(), false);
-    oled_write_ln(read_keylogs(), false);
-    //oled_write_ln(read_mode_icon(keymap_config.swap_lalt_lgui), false);
-    //oled_write_ln(read_host_led_state(), false);
-    //oled_write_ln(read_timelog(), false);
+
+    // Display layer
+    oled_write_ln(read_layer_state(), false);
   } else {
-    oled_write(read_logo(), false);
+    render_galaxy();
   }
     return false;
 }
