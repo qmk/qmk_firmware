@@ -19,15 +19,15 @@
 #include <ostream>
 #include "gmock/gmock.h"
 
-bool          operator==(const report_keyboard_t &lhs, const report_keyboard_t &rhs);
-std::ostream &operator<<(std::ostream &stream, const report_keyboard_t &value);
+bool          operator==(const report_keyboard_t& lhs, const report_keyboard_t& rhs);
+std::ostream& operator<<(std::ostream& stream, const report_keyboard_t& value);
 
-class KeyboardReportMatcher : public testing::MatcherInterface<report_keyboard_t &> {
+class KeyboardReportMatcher : public testing::MatcherInterface<report_keyboard_t&> {
    public:
-    KeyboardReportMatcher(const std::vector<uint8_t> &keys);
-    virtual bool MatchAndExplain(report_keyboard_t &report, testing::MatchResultListener *listener) const override;
-    virtual void DescribeTo(::std::ostream *os) const override;
-    virtual void DescribeNegationTo(::std::ostream *os) const override;
+    KeyboardReportMatcher(const std::vector<uint8_t>& keys);
+    virtual bool MatchAndExplain(report_keyboard_t& report, testing::MatchResultListener* listener) const override;
+    virtual void DescribeTo(::std::ostream* os) const override;
+    virtual void DescribeNegationTo(::std::ostream* os) const override;
 
    private:
     report_keyboard_t m_report;
