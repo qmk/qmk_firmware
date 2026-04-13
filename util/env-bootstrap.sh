@@ -497,10 +497,12 @@ __EOT__
 
         # Install qmk_id binary
         echo "Installing /usr/lib/udev/qmk_id ..." >&2
+        $(nsudo) install -d -m 0755 /usr/lib/udev
         $(nsudo) install -m 0755 "$qmk_id_file" /usr/lib/udev/qmk_id
 
         # Install udev rules
         echo "Installing /etc/udev/rules.d/50-qmk.rules ..." >&2
+        $(nsudo) install -d -m 0755 /etc/udev/rules.d
         $(nsudo) install -m 0644 "$qmk_rules_file" /etc/udev/rules.d/50-qmk.rules
 
         # Clean up downloaded files

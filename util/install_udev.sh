@@ -108,8 +108,10 @@ done
 
 # Install qmk_id binary and udev rules
 echo "Installing /usr/lib/udev/qmk_id ..." >&2
+$(nsudo) install -d -m 0755 /usr/lib/udev
 $(nsudo) install -m 0755 "$tmpdir/qmk_id" /usr/lib/udev/qmk_id
 echo "Installing /etc/udev/rules.d/50-qmk.rules ..." >&2
+$(nsudo) install -d -m 0755 /etc/udev/rules.d
 $(nsudo) install -m 0644 "$tmpdir/50-qmk.rules" /etc/udev/rules.d/50-qmk.rules
 
 # Reload udev rules
