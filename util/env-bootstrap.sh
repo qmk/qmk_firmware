@@ -357,7 +357,7 @@ __EOT__
 
     install_uv() {
         # Install `uv` (or update as necessary)
-        download_url https://astral.sh/uv/install.sh - | TMPDIR="$(windows_ish_path "${TMPDIR:-}")" UV_INSTALL_DIR="$(windows_ish_path "${UV_INSTALL_DIR:-}")" sh
+        download_url https://astral.sh/uv/install.sh - | TMPDIR="$(posix_ish_path "${TMPDIR:-}")" UV_INSTALL_DIR="$(windows_ish_path "${UV_INSTALL_DIR:-}")" sh
     }
 
     setup_paths() {
