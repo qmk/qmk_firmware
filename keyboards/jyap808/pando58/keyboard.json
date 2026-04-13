@@ -25,6 +25,12 @@
         "serial": {
             "driver": "vendor",
             "pin": "GP0"
+        },
+        "transport": {
+            "watchdog": true
+        },
+        "usb_detect": {
+            "enabled": true
         }
     },
     "layouts": {
