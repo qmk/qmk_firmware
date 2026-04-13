@@ -28,9 +28,6 @@
         },
         "transport": {
             "watchdog": true
-        },
-        "usb_detect": {
-            "enabled": true
         }
     },
     "layouts": {
