@@ -1,7 +1,6 @@
 # bouvet/macropad/v1
 
-![bouvet/macropad/v1](https://www.kefo.no)
-
+![bouvet/macropad/v1](https://www.kefo.no/assets/macropad/macropad_v1.png)
 Small macropad, with two rotary encoder buttons and 14 keys.
 Optional OLED 128x16 screen, small learning and sharing project.
 
