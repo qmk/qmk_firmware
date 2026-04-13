@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include <string.h> // for memcpy
 #include "lamparray.h"
+#include "timer.h"
 #include "lamparray_surface.h"
 #include "keycodes.h"
 #include "keymap_introspection.h"
@@ -72,19 +73,26 @@ uint8_t lamparray_get_lamp_binding(uint16_t lamp_id) {
 // queue
 
 #ifndef LAMPARRAY_REQUEST_QUEUE_SIZE
-#    define LAMPARRAY_REQUEST_QUEUE_SIZE 5
+#    define LAMPARRAY_REQUEST_QUEUE_SIZE 32
 #endif
 
 universal_lamparray_response_t request_queue[LAMPARRAY_REQUEST_QUEUE_SIZE] = {0};
 uint8_t                        queue_size                                  = 0;
 
 void lamparray_queue_request(universal_lamparray_response_t* report) {
+    if (queue_size >= LAMPARRAY_REQUEST_QUEUE_SIZE) {
+        return; // drop instead of overflowing
+    }
     universal_lamparray_response_t* target = &request_queue[queue_size++];
     memcpy(target, report, sizeof(universal_lamparray_response_t));
 }
 
 void lamparray_handle_queue(void) {
-    for (uint8_t id = 0; id < queue_size; id++) {
+    // Snapshot the queue size and reset atomically to avoid race with USB ISR
+    uint8_t count = queue_size;
+    queue_size    = 0;
+
+    for (uint8_t id = 0; id < count; id++) {
         universal_lamparray_response_t* report = &request_queue[id];
         switch (report->report_id) {
             case LAMPARRAY_REPORT_ID_RANGE_UPDATE:
@@ -98,14 +106,19 @@ void lamparray_handle_queue(void) {
                 break;
         }
     }
-    queue_size = 0;
 }
 
 //****************************************************************************
 // impl
 
-static uint16_t cur_lamp_id   = 0;
-static bool     is_autonomous = true;
+static uint16_t cur_lamp_id       = 0;
+static bool     is_autonomous     = true;
+static uint32_t last_update_time  = 0;
+
+// If no update from host in 5 seconds, revert to autonomous mode
+#ifndef LAMPARRAY_HOST_TIMEOUT_MS
+#    define LAMPARRAY_HOST_TIMEOUT_MS 5000
+#endif
 
 void lamparray_get_attributes(lamparray_attributes_t* data) {
     data->lamp_count      = LAMPARRAY_LAMP_COUNT;
@@ -140,6 +153,7 @@ void lamparray_set_attributes_response(uint16_t lamp_id) {
 
 void lamparray_set_control_response(uint8_t autonomous) {
     is_autonomous = !!autonomous;
+    last_update_time = timer_read32();
 
     lamparray_surface_enable(!autonomous);
 }
@@ -148,6 +162,7 @@ void lamparray_set_range(lamparray_range_update_t* data) {
     if (is_autonomous) {
         return;
     }
+    last_update_time = timer_read32();
 
     if ((data->start >= LAMPARRAY_LAMP_COUNT) || (data->end >= LAMPARRAY_LAMP_COUNT)) {
         return;
@@ -166,6 +181,7 @@ void lamparray_set_items(lamparray_multi_update_t* data) {
     if (is_autonomous) {
         return;
     }
+    last_update_time = timer_read32();
 
     if (data->count > LAMP_MULTI_UPDATE_LAMP_COUNT) {
         return;
@@ -193,8 +209,11 @@ void lamparray_init(void) {
 void lamparray_task(void) {
     lamparray_handle_queue();
 
-    uint16_t temp = 0;
-    if (!++temp) lamparray_update_cache();
+    // Watchdog: if host stops sending updates, revert to autonomous mode
+    // This prevents frozen LEDs when Windows disconnects without cleanup
+    if (!is_autonomous && timer_elapsed32(last_update_time) > LAMPARRAY_HOST_TIMEOUT_MS) {
+        lamparray_set_control_response(1); // force autonomous
+    }
 }
 
 #ifdef RGB_MATRIX_ENABLE

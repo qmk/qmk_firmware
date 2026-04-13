@@ -3,7 +3,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-// TODO: Pack "enabled" of single LED more efficiently than as alpha channels
 typedef struct PACKED rgba_t {
     uint8_t r;
     uint8_t g;
@@ -27,8 +26,17 @@ rgba_t* overlay_buffer_write  = overlay_buffer;
 
 static bool is_enabled = false;
 
+bool rgb_matrix_overlay_is_enabled(void) {
+    return is_enabled;
+}
+
 void rgb_matrix_overlay_enable(bool enable) {
     is_enabled = enable;
+    if (!enable) {
+        // Clear buffers when disabling to avoid stale colors
+        memset(overlay_buffer_a, 0, sizeof(overlay_buffer_a));
+        memset(overlay_buffer_b, 0, sizeof(overlay_buffer_b));
+    }
 }
 
 void rgb_matrix_overlay_set(uint8_t index, rgba_t color) {
@@ -45,15 +53,12 @@ void rgb_matrix_overlay_flush(void) {
 #endif
 }
 
-bool rgb_matrix_indicators_user(void) {
-    if (!is_enabled) return true;
+// Called from keymap's rgb_matrix_indicators_advanced_user via this helper
+void rgb_matrix_overlay_apply(uint8_t led_min, uint8_t led_max) {
+    if (!is_enabled) return;
 
-    for (uint8_t i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+    for (uint8_t i = led_min; i < led_max; i++) {
         rgba_t* led = &overlay_buffer_render[i];
-
-        // Allow "transparent" to running effect?
         if (led->a) rgb_matrix_set_color(i, led->r, led->g, led->b);
     }
-
-    return false;
 }

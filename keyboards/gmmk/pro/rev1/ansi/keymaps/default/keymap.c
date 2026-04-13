@@ -85,11 +85,14 @@ bool process_detected_host_os_kb(os_variant_t detected_os) {
 }
 
 // -----------------------------------------------------------------------------
-// WPM — drive RGB animation speed with typing speed
+// WPM — drive RGB animation speed with typing speed (throttled to ~4Hz)
 void housekeeping_task_user(void) {
+    static uint32_t last_wpm_update = 0;
+    if (timer_elapsed32(last_wpm_update) < 250) return;
+    last_wpm_update = timer_read32();
+
     uint8_t wpm = get_current_wpm();
     if (wpm > 0) {
-        // Map 0–120 WPM → speed 30–255
         uint8_t spd = (uint8_t)MIN(255, MAX(30, (uint16_t)wpm * 2));
         rgb_matrix_set_speed_noeeprom(spd);
     }
@@ -138,7 +141,14 @@ static void set_side_leds(uint8_t r, uint8_t g, uint8_t b) {
     }
 }
 
+// Defined in quantum/rgb_matrix/overlay.c — LampArray overlay
+void rgb_matrix_overlay_apply(uint8_t led_min, uint8_t led_max);
+bool rgb_matrix_overlay_is_enabled(void);
+
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    // Apply LampArray overlay (Windows Dynamic Lighting)
+    rgb_matrix_overlay_apply(led_min, led_max);
+
     if (is_caps_word_on()) {
         // Caps Word: amber on Caps Lock key + sides
         rgb_matrix_set_color(3, INDICATOR_AMBER);

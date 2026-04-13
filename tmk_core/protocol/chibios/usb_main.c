@@ -244,7 +244,9 @@ static void set_lamparray_transfer_cb(USBDriver *usbp) {
     if (universal_lamparray_report_buf.report_id == LAMPARRAY_REPORT_ID_ATTRIBUTES_REQUEST) {
         lamparray_set_attributes_response(universal_lamparray_report_buf.lamp_id);
     } else {
+        chSysLockFromISR();
         lamparray_queue_request(&universal_lamparray_report_buf);
+        chSysUnlockFromISR();
     }
 }
 #endif
@@ -284,6 +286,14 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
                                     static lamparray_attributes_response_report_t res = {.report_id = LAMPARRAY_REPORT_ID_ATTRIBUTES_RESPONSE};
                                     lamparray_get_attributes_response(&res.attributes_response);
                                     usbSetupTransfer(usbp, (uint8_t *)&res, sizeof(res), NULL);
+                                    return true;
+                                }
+                                default: {
+                                    // Return a blank report for any other LampArray report ID
+                                    // to prevent control endpoint stall
+                                    static uint8_t lamparray_blank[64] = {0};
+                                    lamparray_blank[0] = setup->wValue.lbyte;
+                                    usbSetupTransfer(usbp, lamparray_blank, setup->wLength, NULL);
                                     return true;
                                 }
                             }
