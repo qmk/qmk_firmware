@@ -2,21 +2,17 @@
     "manufacturer": "Kenneth Fossen",
     "keyboard_name": "Bouvet Macropad v1",
     "maintainer": "spydx",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "diode_direction": "COL2ROW",
     "features": {
-        "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
     },
     "matrix_pins": {
-        // 6,7,8,9
-        "cols": ["D7", "E6", "B4", "B5"],
-        // 15,14,16,10
+        "cols": ["D7","E6","B4","B5"],
         "rows": ["B1", "B3", "B2", "B6"]
     },
-    "processor": "atmega32u4",
     "url": "https://kefo.no",
     "usb": {
         "device_version": "1.0.0",
