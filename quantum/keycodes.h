@@ -26,11 +26,11 @@
 #pragma once
 // clang-format off
 
-#define QMK_KEYCODES_VERSION "0.0.8"
-#define QMK_KEYCODES_VERSION_BCD 0x00000008
+#define QMK_KEYCODES_VERSION "0.0.9"
+#define QMK_KEYCODES_VERSION_BCD 0x00000009
 #define QMK_KEYCODES_VERSION_MAJOR 0
 #define QMK_KEYCODES_VERSION_MINOR 0
-#define QMK_KEYCODES_VERSION_PATCH 8
+#define QMK_KEYCODES_VERSION_PATCH 9
 
 enum qk_keycode_ranges {
 // Ranges
