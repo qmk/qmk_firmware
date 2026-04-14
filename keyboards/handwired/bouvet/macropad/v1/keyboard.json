@@ -7,8 +7,7 @@
     "features": {
         "extrakey": true,
         "mousekey": true,
-        "nkro": true,
-        "oled": true
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["D7","E6","B4","B5"],
