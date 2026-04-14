@@ -54,7 +54,7 @@ int main(void) {
         void raw_hid_task(void);
         raw_hid_task();
 #endif
-        
+
 #ifdef PLOVER_HID_ENABLE
         void plover_hid_task(void);
         plover_hid_task();
