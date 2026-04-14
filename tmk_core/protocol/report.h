@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // clang-format off
 
 /* HID report IDs */
-enum hid_report_ids { 
+enum hid_report_ids {
     REPORT_ID_ALL = 0,
     REPORT_ID_KEYBOARD = 1,
     REPORT_ID_MOUSE,
@@ -63,6 +63,8 @@ enum mouse_buttons {
  */
 enum consumer_usages {
     // 15.5 Display Controls
+    CONSUMER_POWER  = 0x030,
+    CONSUMER_MENU   = 0x040,
     SNAPSHOT        = 0x065,
     BRIGHTNESS_UP   = 0x06F, // https://www.usb.org/sites/default/files/hutrr41_0.pdf
     BRIGHTNESS_DOWN = 0x070,
@@ -335,6 +337,10 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
             return AC_DESKTOP_SHOW_ALL_WINDOWS;
         case KC_LAUNCHPAD:
             return AC_SOFT_KEY_LEFT;
+        case KC_IPAD_POWER:
+            return CONSUMER_POWER;
+        case KC_IPAD_HOME:
+            return CONSUMER_MENU;
         default:
             return 0;
     }
