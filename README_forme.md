@@ -5,7 +5,7 @@
 This guide explains how to customize a Boardsource Lulu keyboard with:
 
 - VIA support
-- Encoder resolution fix
+- Encoder support that works with VIA
 - USB connection from either half
 - OLED customization
 - Docker-based QMK build environment
@@ -86,52 +86,71 @@ qmk compile -kb boardsource/lulu/rp2040 -km default
 
 ---
 
-## Create VIA Keymap
+## VIA Keymap
+
+If the `via` keymap does not exist yet, create it with:
 
 ```bash
 qmk new-keymap -kb boardsource/lulu/rp2040 -km via
 ```
 
-### IMPORTANT: Move keymap to rp2040 directory
-
-By default, QMK creates:
+For this keyboard, keep the shared VIA keymap under:
 
 ```
 keyboards/boardsource/lulu/keymaps/via/
 ```
 
-Move it to:
+Do not move it into `rp2040/keymaps/via/`.
 
-```
-keyboards/boardsource/lulu/rp2040/keymaps/via/
-```
-
-Command:
-
-```bash
-mkdir -p keyboards/boardsource/lulu/rp2040/keymaps
-mv keyboards/boardsource/lulu/keymaps/via keyboards/boardsource/lulu/rp2040/keymaps/
-```
+When building `boardsource/lulu/rp2040`, QMK can use the parent keyboard keymap at `keyboards/boardsource/lulu/keymaps/via/`.
 
 ---
 
 ## Configuration
 
-### rules.mk
+### VIA keymap rules.mk
+
+File:
+
+`keyboards/boardsource/lulu/keymaps/via/rules.mk`
 
 ```make
 VIA_ENABLE = yes
 ENCODER_MAP_ENABLE = yes
-OLED_ENABLE = yes
 ```
+
+This is what enables VIA and exposes rotary turn events to VIA.
+
+### RP2040 rules.mk
+
+File:
+
+`keyboards/boardsource/lulu/rp2040/rules.mk`
+
+```make
+SRC += lib/oled.c
+```
+
+Keep OLED source registration here at the keyboard level.
 
 ### config.h
 
+File:
+
+`keyboards/boardsource/lulu/rp2040/config.h`
+
 ```c
 #pragma once
-#define EE_HANDS
 #define ENCODER_RESOLUTION 2
+#define EE_HANDS
+#define BOOTMAGIC_ROW_RIGHT 5
+#define BOOTMAGIC_COLUMN_RIGHT 0
 ```
+
+Notes:
+
+- `EE_HANDS` stores left/right handedness in EEPROM.
+- `BOOTMAGIC_ROW_RIGHT` and `BOOTMAGIC_COLUMN_RIGHT` make bootmagic work when the right half is the USB side.
 
 ---
 
@@ -141,13 +160,22 @@ OLED_ENABLE = yes
 qmk compile -kb boardsource/lulu/rp2040 -km via
 ```
 
+The output UF2 is:
+
+```bash
+boardsource_lulu_rp2040_via.uf2
+```
+
 ---
 
 ## Flashing
 
 ### Enter Bootloader
 
-Hold outermost top key while plugging USB.
+Hold the bootmagic key while plugging in USB.
+
+- Left half over USB: hold the left upper outer key (`Esc`)
+- Right half over USB: hold the right upper outer key (<code>`</code>)
 
 ### Flash
 
@@ -156,26 +184,59 @@ Hold outermost top key while plugging USB.
 
 ---
 
-## EE_HANDS Setup
+## EE_HANDS Setup For Docker
 
-### Build
+Do not use `uf2-split-left` or `uf2-split-right` inside Docker.
+
+Those targets run the QMK flash step, which tries to auto-deploy to the RP2040 drive from inside the container.
+
+Instead, build the handedness directly into the UF2 and then copy the file manually.
+
+### Initialize left half
 
 ```bash
-qmk compile -kb boardsource/lulu/rp2040 -km via -bl uf2-split-left
-qmk compile -kb boardsource/lulu/rp2040 -km via -bl uf2-split-right
+cd /qmk_firmware
+make boardsource/lulu/rp2040:via OPT_DEFS="-DINIT_EE_HANDS_LEFT"
 ```
 
-### Flash
+Then copy:
 
-- Left → copy left `.uf2`
-- Right → copy right `.uf2`
+```bash
+boardsource_lulu_rp2040_via.uf2
+```
+
+to the left half while it is mounted as `RPI-RP2`.
+
+### Initialize right half
+
+```bash
+cd /qmk_firmware
+make boardsource/lulu/rp2040:via OPT_DEFS="-DINIT_EE_HANDS_RIGHT"
+```
+
+Then copy the generated `boardsource_lulu_rp2040_via.uf2` to the right half.
+
+### After initialization
+
+After both halves have been initialized once, use the normal build again:
+
+```bash
+qmk compile -kb boardsource/lulu/rp2040 -km via
+```
+
+You do not need `MASTER=left` or `MASTER=right` for this setup.
+
+### Important
+
+- If one half behaves like the other side, its EEPROM handedness is wrong. Rebuild with the matching `INIT_EE_HANDS_LEFT` or `INIT_EE_HANDS_RIGHT` define and flash that half again.
+- The output filename is the same for left and right builds, so copy or rename the UF2 before building the other side if needed.
 
 ---
 
 ## Verify
 
 - VIA works
-- Encoder fixed
+- Encoder rotation can be assigned in VIA
 - Works from both USB sides
 - OLED works
 
