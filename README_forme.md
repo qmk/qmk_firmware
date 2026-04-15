@@ -55,7 +55,7 @@ git remote add upstream https://github.com/qmk/qmk_firmware.git
 
 ---
 
-### 5. Create branch
+### 5. Create a working branch
 
 ```bash
 git checkout -b lulu-via-custom
@@ -92,15 +92,25 @@ qmk compile -kb boardsource/lulu/rp2040 -km default
 qmk new-keymap -kb boardsource/lulu/rp2040 -km via
 ```
 
----
+### IMPORTANT: Move keymap to rp2040 directory
 
-## Directory Structure
+By default, QMK creates:
+
+```
+keyboards/boardsource/lulu/keymaps/via/
+```
+
+Move it to:
 
 ```
 keyboards/boardsource/lulu/rp2040/keymaps/via/
-  ├── keymap.c
-  ├── config.h
-  └── rules.mk
+```
+
+Command:
+
+```bash
+mkdir -p keyboards/boardsource/lulu/rp2040/keymaps
+mv keyboards/boardsource/lulu/keymaps/via keyboards/boardsource/lulu/rp2040/keymaps/
 ```
 
 ---
@@ -125,7 +135,7 @@ OLED_ENABLE = yes
 
 ---
 
-## Build
+## Build (Docker)
 
 ```bash
 qmk compile -kb boardsource/lulu/rp2040 -km via
@@ -142,7 +152,7 @@ Hold outermost top key while plugging USB.
 ### Flash
 
 - Copy `.uf2` to `RPI-RP2`
-- Do this for both halves
+- Flash both halves
 
 ---
 
@@ -166,7 +176,7 @@ qmk compile -kb boardsource/lulu/rp2040 -km via -bl uf2-split-right
 
 - VIA works
 - Encoder fixed
-- Works from both sides
+- Works from both USB sides
 - OLED works
 
 ---
