@@ -1,4 +1,4 @@
-/* Copyright 2024 Gondolindrim <gondolindrim@acheronproject.com>
+/* Copyright 2026 Gondolindrim <gondolindrim@acheronproject.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,6 @@
 
 #pragma once
 
-#define HAL_USE_PWM TRUE
-#define HAL_USE_PAL TRUE
+#define HAL_USE_GPT TRUE
 
 #include_next <halconf.h>

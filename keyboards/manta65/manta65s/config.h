@@ -1,4 +1,4 @@
-/* Copyright 2025 Gondolindrim <gondolindrim@acheronproject.com>
+/* Copyright 2026 Gondolindrim <gondolindrim@acheronproject.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,6 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define BACKLIGHT_PWM_DRIVER    PWMD3
-#define BACKLIGHT_PWM_CHANNEL   1
-#define BACKLIGHT_PWM_PAL_MODE  1
+#define BACKLIGHT_GPT_DRIVER GPTD3
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 8
