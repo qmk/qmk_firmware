@@ -250,3 +250,9 @@ git checkout master
 git merge upstream/master
 git push origin master
 ```
+
+# Crkbd
+
+```
+SKIP_FLASHING_SUPPORT=1 util/docker_build.sh crkbd/rev1:via
+```
