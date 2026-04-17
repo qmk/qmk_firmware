@@ -77,3 +77,15 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
   [3] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(KC_MPRV, KC_MNXT), ENCODER_CCW_CW(RM_VALD, RM_VALU), ENCODER_CCW_CW(KC_RGHT, KC_LEFT), },
 };
 #endif
+
+#ifdef OLED_ENABLE
+#include "oled_frames_generated.h"
+
+bool oled_task_user(void) {
+    const uint8_t phase = (timer_read32() / 180) % ARRAY_SIZE(oled_frames);
+
+    oled_write_raw_P((const char *)oled_frames[phase], OLED_MATRIX_SIZE);
+
+    return false;
+}
+#endif
