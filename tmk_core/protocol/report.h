@@ -62,9 +62,11 @@ enum mouse_buttons {
  * See https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf#page=75
  */
 enum consumer_usages {
+    // 15.3 General Controls
+    GENERAL_POWER = 0x030,
+    // 15.4 Menu Controls
+    MENU_MENU = 0x040,
     // 15.5 Display Controls
-    CONSUMER_POWER  = 0x030,
-    CONSUMER_MENU   = 0x040,
     SNAPSHOT        = 0x065,
     BRIGHTNESS_UP   = 0x06F, // https://www.usb.org/sites/default/files/hutrr41_0.pdf
     BRIGHTNESS_DOWN = 0x070,
@@ -338,9 +340,9 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
         case KC_LAUNCHPAD:
             return AC_SOFT_KEY_LEFT;
         case KC_IPAD_POWER:
-            return CONSUMER_POWER;
+            return GENERAL_POWER;
         case KC_IPAD_HOME:
-            return CONSUMER_MENU;
+            return MENU_MENU;
         default:
             return 0;
     }
