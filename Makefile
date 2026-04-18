@@ -313,7 +313,7 @@ define BUILD_TEST
         TEST_MSG := $$(MSG_TEST)
         $$(TEST_FULL_NAME)_COMMAND := \
             printf "$$(TEST_MSG)\n"; \
-            $$(TEST_EXECUTABLE); \
+            $$(TEST_EXECUTABLE) --gtest_color=$$(COLOR); \
             if [ $$$$? -gt 0 ]; \
                 then error_occurred=1; \
             fi; \
