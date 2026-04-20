@@ -1,4 +1,13 @@
-# Lulu (QMK + VIA) Custom Firmware Guide
+# QMK Custom Firmware Guide
+
+This document is split into two large sections:
+
+- Lulu
+- crkbd
+
+---
+
+# Lulu
 
 ## Overview
 
@@ -251,8 +260,35 @@ git merge upstream/master
 git push origin master
 ```
 
-# Crkbd
+---
 
-```
+# crkbd
+
+## Overview
+
+This section covers Docker build output for `crkbd/rev1` with the `via` keymap.
+
+## Build `.hex` Only With Docker
+
+For `crkbd/rev1` on Pro Micro, do not try to flash from inside Docker.
+
+Build the `via` keymap and only generate the `.hex` file with:
+
+```bash
+cd /path/to/qmk_firmware
 SKIP_FLASHING_SUPPORT=1 util/docker_build.sh crkbd/rev1:via
 ```
+
+This produces:
+
+```bash
+crkbd_rev1_via.hex
+```
+
+The file is written to the repository root.
+
+Use that `.hex` from the host side with QMK Toolbox or `avrdude`.
+
+## Write the .hex firmware to pro micro
+
+https://sekigon-gonnoc.github.io/promicro-web-updater/index.html
