@@ -289,6 +289,37 @@ The file is written to the repository root.
 
 Use that `.hex` from the host side with QMK Toolbox or `avrdude`.
 
+## Update OLED Frames
+
+The editable OLED source is:
+
+```bash
+keyboards/crkbd/keymaps/via/generate_oled_frames.py
+```
+
+Edit `LEFT_OLED_FRAMES` and `RIGHT_OLED_FRAMES` as `128x32` matrices of `0` and `1`.
+
+- `0` means OFF
+- `1` means ON
+
+After editing, regenerate the packed header:
+
+```bash
+python3 keyboards/crkbd/keymaps/via/generate_oled_frames.py
+```
+
+This updates:
+
+```bash
+keyboards/crkbd/keymaps/via/oled_frames_generated.h
+```
+
+Then rebuild the firmware:
+
+```bash
+SKIP_FLASHING_SUPPORT=1 util/docker_build.sh crkbd/rev1:via
+```
+
 ## Write the .hex firmware to pro micro
 
 https://sekigon-gonnoc.github.io/promicro-web-updater/index.html
