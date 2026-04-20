@@ -10,6 +10,15 @@
         "mousekey": true,
         "nkro": true
     },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "indicators": {
+        "caps_lock": "A0",
+        "on_state": 0
+    },
     "matrix_pins": {
         "cols": ["A7", "B0", "B1", "B2", "B10", "B11", "B12", "B13", "B14", "B15", "A8", "A9", "A10", "A6", "A15"],
         "rows": ["A1", "A2", "A3", "A4", "A5"]
@@ -21,8 +30,9 @@
         "pid": "0x4C49",
         "vid": "0x4F53"
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_65_ansi_blocker": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},
