@@ -7,9 +7,7 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true,
-        "nkro": false,
-        "raw_hid": true
+        "mousekey": true
     },
     "matrix_pins": {
         "cols": ["D1", "D0", "D4"],
@@ -36,9 +34,6 @@
                 {"matrix": [2, 2], "x": 2, "y": 2}
             ]
         }
-    },
-    "dynamic_keymap": {
-        "layer_count": 4
     },
     "community_layouts": ["ortho_3x3"]
 }

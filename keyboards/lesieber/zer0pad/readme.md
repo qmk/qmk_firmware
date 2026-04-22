@@ -2,7 +2,7 @@
 
 ![Zer0Pad](https://i.imgur.com/placeholder.jpg)
 
-A compact 3x3 ortholinear macropad with 4-layer support and VIA compatibility.
+A compact 3x3 ortholinear macropad.
 
 * Keyboard Maintainer: [Leon Sieber](https://github.com/lesieber)
 * Hardware Supported: Pro Micro (ATmega32U4)
@@ -11,10 +11,7 @@ A compact 3x3 ortholinear macropad with 4-layer support and VIA compatibility.
 ## Features
 
 - 9-key 3x3 ortholinear layout
-- 4 programmable layers
-- Bottom-right key cycles through layers by default
-- VIA compatible for easy remapping
-- Raw HID support for companion app integration
+- Bootmagic Lite support
 
 ## Bootloader
 
@@ -22,7 +19,7 @@ Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the top-left key while plugging in the keyboard
 * **Physical reset button**: Short the RST and GND pins on the Pro Micro
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` (default: Layer 3, bottom-left)
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` (default: bottom-right key)
 
 ## Building
 
