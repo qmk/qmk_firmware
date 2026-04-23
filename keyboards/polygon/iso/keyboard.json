@@ -142,7 +142,6 @@
             {
                 "pin_a": "D3",
                 "pin_b": "D5",
-                "resolution": 4
             }
         ]
     },
