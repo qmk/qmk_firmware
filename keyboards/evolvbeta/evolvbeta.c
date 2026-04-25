@@ -55,10 +55,3 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-backlight_config_t backlight_config;
-
-bool led_update_kb(led_t led_state) {
-    eeconfig_read_backlight(&backlight_config);
-    led_state.caps_lock ? backlight_set(backlight_config.level) : backlight_set(0);
-    return true;
-}
