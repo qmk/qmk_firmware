@@ -58,7 +58,7 @@ endif
 #---------------- C Compiler Options ----------------
 
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    CDEFS += -flto
+    CDEFS += -flto=auto
     CDEFS += -DLTO_ENABLE
 endif
 
