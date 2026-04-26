@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "command.h"
 #include "util.h"
-#include "host.h"
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "action_layer.h"
