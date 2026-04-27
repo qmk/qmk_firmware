@@ -46,7 +46,8 @@
         "manufacturer": {"$ref": "./definitions.jsonschema#/text_identifier"},
         "url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "minLength": 1
         },
         "development_board": {
             "type": "string",
