@@ -45,7 +45,8 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x4853",
-        "vid": "0x4B72"
+        "vid": "0x4B72",
+        "suspend_wakeup_delay": 200
     },
     "ws2812": {
         "driver": "vendor",
