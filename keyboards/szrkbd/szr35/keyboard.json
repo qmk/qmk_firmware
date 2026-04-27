@@ -7,7 +7,7 @@
     "processor": "STM32F401",
     "usb": {
         "pid": "0x45D4",
-        "vid": "0x3601",
+        "vid": "0x44DF",
         "device_version": "0.0.1"
     },
     "features": {
