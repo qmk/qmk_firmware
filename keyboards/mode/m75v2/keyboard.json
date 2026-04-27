@@ -1,86 +1,81 @@
 {
-  "keyboard_name": "Mode M75 V2",
-  "manufacturer": "Mode",
-  "maintainer": "Gondolindrim",
-  "usb": {
-    "vid": "0x00DE",
-    "pid": "0x6675",
-    "device_version": "0.0.1"
-  },
-  "features": {
-    "bootmagic": true,
-    "extrakey": true,
-    "mousekey": true,
-    "rgblight": true
-  },
-  "qmk": {
-    "locking": {
-      "enabled": true,
-      "resync": true
-    }
-  },
-  "build": {
-    "lto": true
-  },
-  "eeprom": {
-    "wear_leveling": {
-      "backing_size": 4096
-    }
-  },
-  "rgblight": {
-    "led_count": 39,
-    "led_map": [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,33,34,35,36,37,38,31,32],
-    "animations": {
-      "breathing": true,
-      "rainbow_mood": true,
-      "rainbow_swirl": true,
-      "snake": true,
-      "knight": true,
-      "christmas": true,
-      "static_gradient": true,
-      "alternating": true,
-      "twinkle": true 
-    },
-    "default":{
-        "animation": "rainbow_swirl",
-        "hue": 23,
-        "sat": 219,
-        "val": 140
-    }
-  },   
-  "ws2812": {
-    "pin": "B15",
-    "driver": "pwm"
-  },
-  "matrix_pins": {
-    "cols": ["C9", "C8", "C7", "C6", "B14", "A10", "B5", "B4", "B3", "D2", "C12", "B9", "C0", "C13", "C14", "C15"],
-    "rows": ["A15", "C10", "C11", "A8", "B12", "B10", "B8"]
-  },
-  "diode_direction": "COL2ROW",
-  "processor": "STM32F401",
+    "manufacturer": "Mode",
+    "keyboard_name": "Mode M75 V2",
+    "maintainer": "Gondolindrim",
     "bootloader": "stm32-dfu",
-  "layouts": {
+    "build": {
+        "lto": true
+    },
+    "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["C9", "C8", "C7", "C6", "B14", "A10", "B5", "B4", "B3", "D2", "C12", "B9", "C0", "C13", "C14", "C15"],
+        "rows": ["A15", "C10", "C11", "A8", "B12", "B10", "B8"]
+    },
+    "processor": "STM32F401",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_swirl",
+            "hue": 23,
+            "sat": 219,
+            "val": 140
+        },
+        "led_count": 39,
+        "led_map": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 33, 34, 35, 36, 37, 38, 31, 32]
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x6675",
+        "vid": "0x00DE"
+    },
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "B15"
+    },
+    "layouts": {
         "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
-
                 {"matrix": [0, 1], "x": 1.5, "y": 0},
                 {"matrix": [0, 2], "x": 2.5, "y": 0},
                 {"matrix": [0, 3], "x": 3.5, "y": 0},
                 {"matrix": [0, 4], "x": 4.5, "y": 0},
-
                 {"matrix": [0, 6], "x": 6, "y": 0},
                 {"matrix": [0, 7], "x": 7, "y": 0},
                 {"matrix": [0, 8], "x": 8, "y": 0},
                 {"matrix": [0, 9], "x": 9, "y": 0},
-
                 {"matrix": [0, 10], "x": 10.5, "y": 0},
                 {"matrix": [0, 11], "x": 11.5, "y": 0},
                 {"matrix": [0, 12], "x": 12.5, "y": 0},
                 {"matrix": [0, 13], "x": 13.5, "y": 0},
-
                 {"matrix": [0, 15], "x": 15, "y": 0},
-
                 {"matrix": [1, 0], "x": 0, "y": 1.5},
                 {"matrix": [1, 1], "x": 1, "y": 1.5},
                 {"matrix": [1, 2], "x": 2, "y": 1.5},
@@ -97,7 +92,6 @@
                 {"matrix": [1, 13], "x": 13, "y": 1.5},
                 {"matrix": [1, 14], "x": 14, "y": 1.5},
                 {"matrix": [1, 15], "x": 15, "y": 1.5},
-
                 {"matrix": [2, 0], "x": 0, "y": 2.5, "w": 1.5},
                 {"matrix": [2, 1], "x": 1.5, "y": 2.5},
                 {"matrix": [2, 2], "x": 2.5, "y": 2.5},
@@ -113,7 +107,6 @@
                 {"matrix": [2, 12], "x": 12.5, "y": 2.5},
                 {"matrix": [2, 14], "x": 13.5, "y": 2.5, "w": 1.5},
                 {"matrix": [2, 15], "x": 15, "y": 2.5},
-
                 {"matrix": [3, 0], "x": 0, "y": 3.5, "w": 1.75},
                 {"matrix": [3, 1], "x": 1.75, "y": 3.5},
                 {"matrix": [3, 2], "x": 2.75, "y": 3.5},
@@ -129,7 +122,6 @@
                 {"matrix": [3, 12], "x": 12.75, "y": 3.5},
                 {"matrix": [3, 14], "x": 13.75, "y": 3.5, "w": 1.25},
                 {"matrix": [3, 15], "x": 15, "y": 3.5},
-
                 {"matrix": [4, 0], "x": 0, "y": 4.5, "w": 1.25},
                 {"matrix": [4, 1], "x": 1.25, "y": 4.5},
                 {"matrix": [4, 2], "x": 2.25, "y": 4.5},
@@ -145,18 +137,16 @@
                 {"matrix": [4, 12], "x": 12.25, "y": 4.5, "w": 1.75},
                 {"matrix": [4, 14], "x": 14, "y": 4.5},
                 {"matrix": [4, 15], "x": 15, "y": 4.5},
-
                 {"matrix": [5, 0], "x": 0, "y": 5.5, "w": 1.25},
                 {"matrix": [5, 1], "x": 1.25, "y": 5.5, "w": 1.25},
                 {"matrix": [5, 2], "x": 2.5, "y": 5.5, "w": 1.25},
                 {"matrix": [6, 6], "x": 3.75, "y": 5.5, "w": 6.25},
                 {"matrix": [6, 10], "x": 10, "y": 5.5, "w": 1.25},
                 {"matrix": [6, 11], "x": 11.25, "y": 5.5, "w": 1.25},
-
                 {"matrix": [6, 13], "x": 13, "y": 5.5},
                 {"matrix": [6, 14], "x": 14, "y": 5.5},
                 {"matrix": [6, 15], "x": 15, "y": 5.5}
             ]
         }
-}
+    }
 }
