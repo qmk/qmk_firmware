@@ -1,0 +1,3 @@
+EEPROM_DRIVER = transient
+AUDIO_DRIVER = dac_basic
+AUDIO_INIT_CALLED_IN_STARTUP = yes

@@ -9,9 +9,9 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
+        "rgb_matrix": true,
         "console": true,
-	"via" : true,
-	"audio": true
+	"via" : true
     },
     "matrix_pins": {
         "cols": ["B13", "B12", "B10", "A10", "A15", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "A0", "C15", "A2", "A1"],
@@ -23,6 +23,57 @@
         "device_version": "1.0.0",
         "pid": "0x0505",
         "vid": "0xFEED"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "animations": {
+            "alphas_mods": true,
+	    "solid_color": true
+        },
+        "default": {
+            "animation": "solid_color",
+	    "on" : true,
+	    "hue": 180,
+	    "sat": 255,
+	    "val": 150,
+	    "speed": 128
+        },
+        "layout": [
+
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 14, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 56, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 70, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 84, "y": 0, "flags": 4},
+            {"matrix": [0, 6], "x": 98, "y": 0, "flags": 4},
+            {"matrix": [0, 7], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [0, 8], "x": 126, "y": 0, "flags": 4},
+            {"matrix": [0, 9], "x": 140, "y": 0, "flags": 4},
+            {"matrix": [0, 10], "x": 154, "y": 0, "flags": 4},
+            {"matrix": [0, 11], "x": 168, "y": 0, "flags": 4},
+            {"matrix": [0, 12], "x": 182, "y": 0, "flags": 4},
+            {"matrix": [0, 14], "x": 210, "y": 0, "flags": 4},
+            {"matrix": [0, 15], "x": 224, "y": 0, "flags": 4},
+
+            {"matrix": [1, 15], "x": 0, "y": 13, "flags": 4},
+            {"matrix": [1, 13], "x": 14, "y": 13, "flags": 4},
+            {"matrix": [1, 12], "x": 28, "y": 13, "flags": 4},
+            {"matrix": [1, 11], "x": 56, "y": 13, "flags": 4},
+            {"matrix": [1, 10], "x": 70, "y": 13, "flags": 4},
+            {"matrix": [1, 9], "x": 84, "y": 13, "flags": 4},
+            {"matrix": [1, 8], "x": 98, "y": 13, "flags": 4},
+            {"matrix": [1, 7], "x": 112, "y": 13, "flags": 4},
+            {"matrix": [1, 6], "x": 126, "y": 13, "flags": 4},
+            {"matrix": [1, 5], "x": 140, "y": 13, "flags": 4},
+            {"matrix": [1, 4], "x": 154, "y": 13, "flags": 4},
+            {"matrix": [1, 3], "x": 168, "y": 13, "flags": 4},
+            {"matrix": [1, 3], "x": 182, "y": 13, "flags": 4},
+            {"matrix": [1, 1], "x": 203, "y": 13, "flags": 4},
+            {"matrix": [1, 0], "x": 224, "y": 13, "flags": 4}
+        ],
+	"max_brightness": 50,
+        "react_on_keyup": true,
+	"sleep": true
     },
     "ws2812": {
         "pin": "A7",
