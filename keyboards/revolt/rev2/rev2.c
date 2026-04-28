@@ -3,19 +3,47 @@
 
 #include QMK_KEYBOARD_H
 
-bool mouseEnabled = true;
+typedef union {
+    uint32_t raw;
+    struct {
+        bool mouseEnabled : 1;
+    };
+} keyboard_config_t;
+
+keyboard_config_t revoltConfig;
+
+void persistConfig(void) {
+    eeconfig_update_kb(revoltConfig.raw);
+}
+
+void eeconfig_init_kb(void) {
+    // default config values
+    revoltConfig.mouseEnabled = true;
+
+    persistConfig();
+
+    eeconfig_init_user();
+}
+
+void keyboard_post_init_kb(void) {
+    revoltConfig.raw = eeconfig_read_kb();
+    keyboard_post_init_user();
+}
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     /* provide a way to disable the pointing device functionality at runtime */
     switch (keycode) {
         case RMS_ON:
-            mouseEnabled = false;
+            revoltConfig.mouseEnabled = true;
+            persistConfig();
             return false;
         case RMS_OFF:
-            mouseEnabled = true;
+            revoltConfig.mouseEnabled = false;
+            persistConfig();
             return false;
         case RMS_TOG:
-            mouseEnabled = !mouseEnabled;
+            revoltConfig.mouseEnabled = !revoltConfig.mouseEnabled;
+            persistConfig();
             return false;
         default:
             break;
@@ -25,7 +53,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
-    if (!mouseEnabled) {
+    if (!revoltConfig.mouseEnabled) {
         mouse_report.x = 0;
         mouse_report.y = 0;
     }

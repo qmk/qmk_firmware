@@ -4,7 +4,7 @@
 
 - Keyboard Maintainer: [Jacek Królikowski](https://github.com/nietaki)
 - Hardware Supported: RPI 2040, Revolt Keyboard rev2
-- Hardware Availability: 
+- Hardware Availability:
   - [purchase from NTK studio](https://ntkstudio.net/products/revolt-keyboard/)
   - [make your own](https://github.com/nietaki/revolt-keyboard) (Kicad, CC-BY-SA-4.0 license)
 
@@ -15,7 +15,7 @@
 - capslock indicator is mapped to the LED on the underside of the RP2040 board
 - You can use the custom keycodes: `RMS_ON` to disable the joystick mouse and `RMS_OFF` to enable it, `RMS_TOG` to toggle it.
   - it can be useful in case the joystick potentiometers wear out and you don't have a spare
-  - this setting is **not** currently saved to EEPROM
+  - the setting is saved in EEPROM, so the behaviour will be retained if you unplug the keyboard and plug it back in.
 
 ## Revisions
 
