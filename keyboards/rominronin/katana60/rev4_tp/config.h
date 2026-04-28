@@ -17,6 +17,7 @@
 
 #define PS2_MOUSE_INVERT_X
 #define PS2_MOUSE_INVERT_Y
-#define PS2_MOUSE_SCROLL_DIVISOR_V 16
+#define PS2_MOUSE_INVERT_H
+#define PS2_MOUSE_INVERT_V
 #define PS2_MOUSE_SCROLL_DIVISOR_H 2                                          
-
+#define PS2_MOUSE_SCROLL_DIVISOR_V 2
