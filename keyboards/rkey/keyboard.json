@@ -10,8 +10,8 @@
         "mousekey": true,
         "nkro": true,
         "console": true,
-	"via" : true,
-	"audio": true
+        "encoder": true,
+    "audio": true
     },
     "matrix_pins": {
         "cols": ["B13", "B12", "B10", "A10", "A15", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "A0", "C15", "A2", "A1"],
@@ -27,6 +27,12 @@
     "ws2812": {
         "pin": "A7",
         "driver": "spi"
+    },
+    "encoder": {
+      "rotary": [
+        {"pin_a": "B15", "pin_b": "B2"},
+        {"pin_a": "C14", "pin_b": "C13"}
+      ]
     },
     "layouts": {
         "LAYOUT": {

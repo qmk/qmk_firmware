@@ -24,4 +24,10 @@
 
 #ifdef AUDIO_ENABLE
 # define STARTUP_SONG SONG(STARTUP_SOUND)
+
+/* Включаем поддержку хранения настроек */
+#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2
+/* Если памяти мало, можно ограничить количество слоев для VIA (по умолчанию 4) */
+#define DYNAMIC_KEYMAP_LAYER_COUNT 3
+
 #endif
