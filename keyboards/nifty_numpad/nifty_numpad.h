@@ -1,4 +1,4 @@
-/* Copyright 2021 Stefan Kerkmann
+/* Copyright 2023 Acliad
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,22 +16,19 @@
 
 #pragma once
 
-#include <ostream>
-#include <sstream>
+#include "quantum.h"
 
-class TestLogger : public std::ostream {
-   public:
-    TestLogger() : std::ostream(&m_log) {};
-    TestLogger& info();
-    TestLogger& trace();
-    TestLogger& error();
-    void        print_log();
-    void        print_header();
-    void        reset();
-
-   private:
-    TestLogger&    timestamp();
-    std::stringbuf m_log;
+enum custom_keycodes {
+    RM_DMOD = QK_KB,
+    RM_IMOD
 };
+#define LAYER_RGB (MAX_LAYER - 1)
 
-extern TestLogger test_logger;
+#ifdef RGB_IDLE_ENABLE
+
+#define RGB_IDLE_TIMEOUT_MS (10*60*1000)
+
+// Functions exposed by nifty_numpad.c
+bool rgb_matrix_idle_mode(void);
+
+#endif
