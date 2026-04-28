@@ -18,7 +18,7 @@
 // #define WS2812_SPI_SCK_PIN          A5
 // #define WS2812_SPI_SCK_PAL_MODE     5
 // #define WS2812_SPI_DIVISOR          16
-#define TRANSIENT_EEPROM_SIZE 		1024
+#define TRANSIENT_EEPROM_SIZE       1024
 
 #define AUDIO_PIN A4
 
