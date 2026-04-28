@@ -31,6 +31,7 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "led_count": 2,
+        "flag_steps": [255, 0],
         "animations": {
             "cycle_all": true
         },
