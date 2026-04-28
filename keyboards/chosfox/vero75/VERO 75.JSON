@@ -1,0 +1,287 @@
+{
+	"name": "VERO 75",
+	"vendorId": "0x36B0",
+	"productId": "0x3091",
+	"keycodes": ["qmk_lighting"],
+	"menus":
+	[
+		{
+            "label": "Lighting",
+			"content":
+			[
+				{
+					"label": "Backlight",
+					"content":
+					[
+						{
+							"showIf": "{id_qmk_rgb_matrix_effect} != 0",
+							"label": "Brightness",
+							"type": "range",
+							"options": [0, 200],
+							"content": ["id_qmk_rgb_matrix_brightness", 3, 1]
+						},
+						{
+							"label": "Effect",
+							"type": "dropdown",
+							"content": ["id_qmk_rgb_matrix_effect", 3, 2],
+							"options":
+							[
+								[ "none", 0 ],
+								[ "solid_color", 1 ],
+								[ "alphas_mods", 2 ],
+								[ "gradient_up_down", 3 ],
+								[ "gradient_left_right", 4 ],
+								[ "breathing", 5 ],
+								[ "band_sat", 6 ],
+								[ "band_val", 7 ],
+								[ "band_pinwheel_sat", 8 ],
+								[ "band_pinwheel_val", 9 ],
+								[ "band_spiral_sat", 10 ],
+								[ "band_spiral_val", 11 ],
+								[ "cycle_all", 12 ],
+								[ "cycle_left_right", 13 ],
+								[ "cycle_up_down", 14 ],
+								[ "cycle_out_in", 15 ],
+								[ "cycle_out_in_dual", 16 ],
+								[ "rainbow_moving_chevron", 17 ],
+								[ "cycle_pinwheel", 18 ],
+								[ "cycle_spiral", 19 ],
+								[ "dual_beacon", 20 ],
+								[ "rainbow_beacon", 21 ],
+								[ "rainbow_pinwheels", 22 ],
+								[ "flower_blooming", 23 ],
+								[ "raindrops", 24 ],
+								[ "jellybean_raindrops", 25 ],
+								[ "hue_breathing", 26 ],
+								[ "hue_pendulum", 27 ],
+								[ "hue_wave", 28 ],
+								[ "pixel_flow", 29 ],
+								[ "digital_rain", 30 ],
+								[ "solid_reactive", 31 ],
+								[ "solid_reactive_wide", 32 ],
+								[ "solid_reactive_multiwide", 33 ],
+								[ "solid_reactive_cross", 34 ],
+								[ "solid_reactive_multicross", 35 ],
+								[ "solid_reactive_nexus", 36 ],
+								[ "solid_reactive_multinexus", 37 ],
+								[ "splash", 38 ],
+								[ "multisplash", 39 ],
+								[ "solid_splash", 40 ],
+								[ "solid_multisplash", 41 ],
+								[ "starlight", 42 ],
+								[ "starlight_dual_hue", 43 ],
+								[ "starlight_dual_sat", 44 ],
+								[ "riverflow", 45 ]
+							]
+						},
+						{
+							"showIf": "{id_qmk_rgb_matrix_effect} != 0",
+							"label": "Effect Speed",
+							"type": "range",
+							"options": [0, 255],
+							"content": ["id_qmk_rgb_matrix_effect_speed", 3, 3]
+						},
+						{
+							"showIf": "{id_qmk_rgb_matrix_effect} != 0 && {id_qmk_rgb_matrix_effect} != 24 && {id_qmk_rgb_matrix_effect} != 28 && {id_qmk_rgb_matrix_effect} != 29 && {id_qmk_rgb_matrix_effect} != 32",
+							"label": "Color",
+							"type": "color",
+							"content": ["id_qmk_rgb_matrix_color", 3, 4]
+						}
+					]
+				},
+				{
+					"label": "logo",
+					"content":
+					[
+						{
+							"showIf": "{id_qmk_rgblight_effect} != 0",
+							"label": "Brightness",
+							"type": "range",
+							"options": [0, 180],
+							"content": ["id_qmk_rgblight_brightness", 2, 1]
+						},
+						{
+							"label": "Effect",
+							"type": "dropdown",
+							"content": ["id_qmk_rgblight_effect", 2, 2],
+							"options":
+							[
+								[ "none", 0 ],
+								[ "wave", 1 ],
+								[ "fixed wave", 2 ],
+								[ "spectrum", 3 ],
+								[ "breathe", 4 ],
+								[ "light", 5 ],
+								[ "shutdown",6 ]
+							]
+						},
+						{
+							"showIf": "{id_qmk_rgblight_effect} != 0",
+							"label": "Effect Speed",
+							"type": "range",
+							"options": [0, 4],
+							"content": ["id_qmk_rgblight_effect_speed", 2, 3]
+						},
+						{
+							"showIf": "{id_qmk_rgblight_effect} != 0 && {id_qmk_rgblight_effect} != 1 && {id_qmk_rgblight_effect} != 3 && {id_qmk_rgblight_effect} != 6",
+							"label": "Color",
+							"type": "color",
+							"content": ["id_qmk_rgblight_color", 2, 4]
+						}
+					]
+				}
+			]
+		}
+	],
+	"customKeycodes": [
+		{"name": "2.4G",     "title": "Set to 2.4G working mode",                "shortName": "MD_24G"  },
+		{"name": "BLE1",     "title": "Set to Bluetooth Channel 1 working mode", "shortName": "MD_BLE1" },
+		{"name": "BLE2",     "title": "Set to Bluetooth Channel 2 working mode", "shortName": "MD_BLE2" },
+		{"name": "BLE3",     "title": "Set to Bluetooth Channel 3 working mode", "shortName": "MD_BLE3" },
+		{"name": "USB",	     "title": "Set to USB working mode",                 "shortName": "MD_USB"  },
+		{"name": "BAT",      "title": "Querying Battery Status",                 "shortName": "QK_BAT"  },
+		{"name": "WLO",      "title": "Lock WIN",                                "shortName": "QK_WLO"  },
+		{"name": "SIX_N",    "title": "Full-key six-key switch",                 "shortName": "SIX_N"   },
+        {"name": "KbPrSlp",  "title": "Keyboard primary sleep",                  "shortName": "KbPrSlp" },
+		{"name": "KbdSecS",  "title": "Keyboard secondary sleep",                "shortName": "KbdSecS" },
+		{"name": "RTOG",    "title": "Switch the backlight",                     "shortName": "RGB_RTOG"},
+        {"name": "U_EE_CLR", "title": "Customize the reset button",              "shortName": "U_EE_CLR"},
+        {"name": "QK_DEB",   "title": "Number of times that the key shakes off", "shortName": "QK_DEB"  },
+		{"name": "LG_TOG",   "title": "Toggle logo lighting on or off",          "shortName": "LG_TOG"  },
+		{"name": "LG_MO",    "title": "Cycle through modes",                     "shortName": "LG_MOD"  },
+		{"name": "LG_RM",    "title": "Cycle through modes in reverse",          "shortName": "LG_RMOD" },
+		{"name": "LG_HUI",   "title": "logo Increase hue",                       "shortName": "LG_HUI"  },
+		{"name": "LG_HUD",   "title": "logo Decrease hue",                       "shortName": "LG_HUD"  },
+		{"name": "LG_SAI",   "title": "logo Increase saturation",                "shortName": "LG_SAI"  },
+		{"name": "LG_SAD",   "title": "logo Decrease saturation",                "shortName": "LG_SAD"  },
+		{"name": "LG_VAI",   "title": "logo Increase value (brightness)",        "shortName": "LG_VAI"  },
+		{"name": "LG_VAD",   "title": "logo Decrease value (brightness)",        "shortName": "LG_VAD"  },
+		{"name": "LG_SPI",   "title": "logo Increase effect speed",              "shortName": "LG_SPI"  },
+		{"name": "LG_SPD",   "title": "logo Decrease effect speed",              "shortName": "LG_SPD"  }
+	],
+	"matrix": { "rows": 6, "cols": 16 },
+	"layouts": {
+		"keymap": [
+			[
+				{ "c":"#777777" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,0",
+                { "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,1",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,2",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,3",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,4",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,5",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,6",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,7",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,8",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,9",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,10",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,11",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,12",
+                { "w":1.0,  "h":1.0,  "x":0.0 },  "0,13",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "0,14",
+                { "w":1.0,  "h":1.0,  "x":0.0 },  "0,15"
+			],
+
+			[
+				{ "y":0.25 },
+                { "c":"#cccccc" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,0",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,1",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,2",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,3",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,4",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,5",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,6",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,7",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,8",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,9",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,10",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,11",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,12",
+				{ "c":"#aaaaaa" },
+				{ "w":2.0,  "h":1.0,  "x":0.0 },  "1,13",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,14"
+			],
+
+			[
+                { "c":"#aaaaaa" },
+				{ "w":1.5,  "h":1.0,  "x":0.0 },  "2,0",
+                { "c":"#cccccc" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,1",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,2",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,3",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,4",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,5",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,6",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,7",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,8",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,9",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,10",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,11",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "2,12",
+				{ "w":1.5,  "h":1.0,  "x":0.0 },  "2,13",
+                { "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "1,15"
+			],
+
+			[
+				{ "w":1.75, "h":1.0,  "x":0.0 },  "3,0",
+                { "c":"#cccccc" },
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,1",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,2",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,3",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,4",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,5",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,6",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,7",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,8",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,9",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,10",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "3,11",
+                { "c":"#777777" },
+                { "w":2.25, "h":1.0,  "x":0.0 },  "3,13",
+                { "c":"#aaaaaa" },
+                { "w":1.0,  "h":1.0,  "x":0.0 },  "3,14"
+			],
+
+			[
+                { "w":2.25, "h":1.0,  "x":0.0 },  "4,0",
+                { "c":"#cccccc" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,2",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,3",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,4",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,5",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,6",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,7",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,8",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,9",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,10",
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,11",
+                { "c":"#aaaaaa" },
+				{ "w":1.75, "h":1.0,  "x":0.0 },  "4,13",
+                { "c":"#777777" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "4,14 ",
+                { "c":"#aaaaaa" },
+				{ "w":1.0,  "h":1.0,  "x":0.0 },  "3,15 "
+			],
+
+			[
+				{ "c":"#aaaaaa" },
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "5,0",
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "5,1",
+				{ "w":1.25,	"h":1.0,  "x":0.0 },  "5,2",
+				{ "c":"#cccccc" },
+				{ "w":6.25,	"h":1.0,  "x":0.0 },  "5,5",
+				{ "c":"#aaaaaa" },
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "5,9",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "5,10",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "5,12",
+				{ "c":"#777777" },
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "5,13",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "5,14",
+				{ "w":1.0,	"h":1.0,  "x":0.0 },  "5,15"
+			]
+		]
+	}
+}
