@@ -11,7 +11,9 @@
         "nkro": true,
         "console": true,
         "encoder": true,
-    "audio": true
+        "via" : true,
+        "audio": true,
+        "rgb_matrix": true
     },
     "matrix_pins": {
         "cols": ["B13", "B12", "B10", "A10", "A15", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "A0", "C15", "A2", "A1"],
@@ -33,6 +35,31 @@
         {"pin_a": "B15", "pin_b": "B2"},
         {"pin_a": "C14", "pin_b": "C13"}
       ]
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "animations": {
+            "solid_color": true
+        },
+        "default": {
+            "animation": "solid_color"
+        },
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 1},
+            {"matrix": [0, 1], "x": 14, "y": 0, "flags": 2},
+            {"matrix": [0, 3], "x": 56, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 70, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 84, "y": 0, "flags": 4},
+            {"matrix": [0, 6], "x": 98, "y": 0, "flags": 4},
+            {"matrix": [0, 7], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [0, 8], "x": 126, "y": 0, "flags": 4},
+            {"matrix": [0, 9], "x": 140, "y": 0, "flags": 4},
+            {"matrix": [0, 10], "x": 154, "y": 0, "flags": 4},
+            {"matrix": [0, 11], "x": 168, "y": 0, "flags": 4},
+            {"matrix": [0, 12], "x": 182, "y": 0, "flags": 4},
+            {"matrix": [0, 14], "x": 210, "y": 0, "flags": 4},
+            {"matrix": [0, 15], "x": 224, "y": 0, "flags": 4}
+        ]
     },
     "layouts": {
         "LAYOUT": {
