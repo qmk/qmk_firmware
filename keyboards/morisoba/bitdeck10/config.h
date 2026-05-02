@@ -1,0 +1,29 @@
+/*
+ * config.h keymap configuration for BitDeck10
+ * Copyright (C) 2026 morisoba
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+#pragma once
+
+#define I2C1_SDA_PIN GP6
+#define I2C1_SCL_PIN GP7
+
+#ifdef OLED_ENABLE
+#define OLED_FONT_H "keyboards/morisoba/bitdeck10/glcdfont.c"
+#endif // OLED_ENABLE
+
+#ifdef ENCODER_ENABLE
+#define ENCODER_MAP_KEY_DELAY 10
+#endif // ENCODER_ENABLE
