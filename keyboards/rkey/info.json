@@ -13,11 +13,24 @@
         "encoder": true,
         "via" : true,
         "audio": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "encoder_map": true
     },
     "matrix_pins": {
         "cols": ["B13", "B12", "B10", "A10", "A15", "B3", "B4", "B5", "B6", "B7", "B8", "B9", "A0", "C15", "A2", "A1"],
         "rows": ["B11", "B14", "B1", "B0", "A9", "A3"]
+    },
+    "bootmagic": {
+        "matrix": [0, 0]
+    },
+    "bootloader_instructions": "Hold ESC while plugging USB in",
+    "audio": {
+        "default": {
+            "on": true,
+            "clicky": false
+        },
+        "driver": "dac_basic",
+        "pins": ["A4"]
     },
     "processor": "STM32F303",
     "url": "",
@@ -35,6 +48,9 @@
         {"pin_a": "B15", "pin_b": "B2"},
         {"pin_a": "C14", "pin_b": "C13"}
       ]
+    },
+    "eeprom": {
+        "driver": "vendor"
     },
     "rgb_matrix": {
         "driver": "ws2812",

@@ -29,11 +29,6 @@
 #define RGBLED_NUM 14 // Укажите общее число диодов на плате
 #define DRIVER_LED_TOTAL RGBLED_NUM
 
-#define AUDIO_PIN A4
-
 #ifdef AUDIO_ENABLE
 # define STARTUP_SONG SONG(STARTUP_SOUND)
 #endif
-
-#define AUDIO_VOICES
-#define AUDIO_VOICE_DEFAULT something
