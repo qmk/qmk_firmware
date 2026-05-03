@@ -1,9 +1,11 @@
 {
     "version": 1,
     "notes": "75% layout with dual encoders in the function row",
-    "features": {
-        "via" : true,
-        "encoder_map": true
+    "config": {
+        "features": {
+            "via" : true,
+            "encoder_map": true
+        },
     },
     "layout": "LAYOUT",
     "layers": [
