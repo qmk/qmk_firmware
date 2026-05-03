@@ -200,9 +200,8 @@ static inline uint16_t _get_combo_term(uint16_t combo_index, combo_t *combo) {
 }
 
 void clear_combos(void) {
-    uint16_t index = 0;
-    longest_term   = 0;
-    for (index = 0; index < combo_count(); ++index) {
+    longest_term = 0;
+    for (uint16_t index = 0; index < combo_count(); ++index) {
         combo_t *combo = combo_get(index);
         if (!COMBO_ACTIVE(combo)) {
             RESET_COMBO_STATE(combo);
@@ -393,7 +392,10 @@ combo_t *overlaps(combo_t *combo1, combo_t *combo2) {
     while ((key1 = pgm_read_word(&combo1->keys[idx1])) != COMBO_END) {
         idx2 = 0;
         while ((key2 = pgm_read_word(&combo2->keys[idx2])) != COMBO_END) {
-            if (key1 == key2) overlaps = true;
+            if (key1 == key2) {
+                overlaps = true;
+                break;
+            }
             idx2 += 1;
         }
         idx1 += 1;
@@ -556,8 +558,7 @@ static combo_key_action_t process_single_combo(combo_t *combo, uint16_t keycode,
 }
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
-    uint8_t is_combo_key          = COMBO_KEY_NOT_PRESSED;
-    bool    no_combo_keys_pressed = true;
+    uint8_t is_combo_key = COMBO_KEY_NOT_PRESSED;
 
     if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
@@ -588,7 +589,6 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     for (uint16_t idx = 0; idx < combo_count(); ++idx) {
         combo_t *combo = combo_get(idx);
         is_combo_key |= process_single_combo(combo, keycode, record, idx);
-        no_combo_keys_pressed = no_combo_keys_pressed && (NO_COMBO_KEYS_ARE_DOWN || COMBO_ACTIVE(combo) || COMBO_DISABLED(combo));
     }
 
     if (record->event.pressed && is_combo_key) {
@@ -641,12 +641,11 @@ void combo_task(void) {
         if (combo_buffer_read != combo_buffer_write) {
             apply_combos();
             longest_term = 0;
-            timer        = 0;
         } else {
             dump_key_buffer();
-            timer = 0;
             clear_combos();
         }
+        timer = 0;
     }
 #endif
 }
