@@ -1,6 +1,10 @@
 {
     "version": 1,
     "notes": "75% layout with dual encoders in the function row",
+    "features": {
+        "via" : true,
+        "encoder_map": true
+    },
     "layout": "LAYOUT",
     "layers": [
         [
@@ -13,14 +17,14 @@
         ],
         [
             "QK_BOOT", "AU_NEXT", "KC_TRNS", "AU_PREV", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
-            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",          "KC_TRNS",
+            "MU_TOGG", "MU_NEXT", "AU_NEXT", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",          "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",          "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",           "KC_TRNS",          "KC_TRNS",
-            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",           "KC_TRNS",          "KC_TRNS",
-            "KC_TRNS", "KC_TRNS", "KC_TRNS",                          "KC_TRNS",                                "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"
+            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",           "CK_UP",          "KC_TRNS",
+            "EE_CLR", "KC_TRNS", "KC_TRNS",                          "KC_TRNS",                                "KC_TRNS", "KC_TRNS", "KC_TRNS", "CK_TOGG", "CK_DOWN", "QK_AUDIO_TOGGLE"
         ]
     ],
-    "encoder_map": [
+    "encoders": [
         [
             {"ccw": "KC_VOLD", "cw": "KC_VOLU"},
             {"ccw": "KC_VOLD", "cw": "KC_VOLU"}

@@ -1,4 +1,4 @@
-/* Copyright 2020 QMK
+/* Copyright 2026 rkey-device/ (@rkey-device)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,7 @@
 #pragma once
 
 #define HAL_USE_SPI TRUE
-
 #define HAL_USE_DMA TRUE
-// #define HAL_USE_PWM TRUE
 #define HAL_USE_DAC TRUE
 #define HAL_USE_GPT TRUE
 
