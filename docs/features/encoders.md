@@ -142,11 +142,26 @@ Keep in mind that whenever you change the encoder resolution, you will need to r
 
 ## Encoder map {#encoder-map}
 
-Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's config:
+
+:::::tabs
+
+==== keymap.json
+
+```json
+    "config": {
+        "features": {
+            "encoder_map": true
+        }
+    }`
+```
+
+==== rules.mk
 
 ```make
 ENCODER_MAP_ENABLE = yes
 ```
+:::::
 
 Your `keymap.c` will then need an encoder mapping defined (for four layers and two encoders):
 
