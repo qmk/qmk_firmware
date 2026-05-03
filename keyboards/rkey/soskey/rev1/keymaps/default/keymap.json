@@ -26,8 +26,8 @@
     ],
     "encoders": [
         [
+            {"ccw": "KC_BRID", "cw": "KC_BRIU"}
             {"ccw": "KC_VOLD", "cw": "KC_VOLU"},
-            {"ccw": "KC_VOLD", "cw": "KC_VOLU"}
         ],
         [
             {"ccw": "UG_HUED", "cw": "UG_HUEU"},
