@@ -18,21 +18,30 @@ These LEDs are called "addressable" because instead of using a wire per color, e
 
 On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is not working for you, check that your configuration includes the following:
 
+:::::tabs
+
+==== JSON
 ```json
   "features": {
     "rgblight": true
   }
 ```
-or
+
+==== rules.mk
 ```make
 RGBLIGHT_ENABLE = yes
 ```
+:::::
 
 ::: tip
 There are additional configuration options for ARM controllers that offer increased performance over the default WS2812 bitbang driver. Please see [WS2812 Driver](../drivers/ws2812) for more information.
 :::
 
 For APA102 LEDs, add the following to your config:
+
+:::::tabs
+
+==== JSON
 
 ```json
   "features": {
@@ -43,7 +52,36 @@ For APA102 LEDs, add the following to your config:
   }
 ```
 
+==== rules.mk
+
+```make
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_DRIVER = apa102
+```
+
+:::::
+
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. For APA102 LEDs, you must also define the clock pin. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
+
+:::::tabs
+
+==== JSON
+
+```json
+    "ws2812": {
+        "pin": "B2",
+    },
+    "apa102": {
+        "clock_pin": "B3",
+        "data_pin": "B2"
+    },
+    "rgblight": {
+        "led_count": 10,
+        "split_count": [5, 5]
+    }
+```
+
+==== config.h
 
 | JSON                   | Define (Deprecated)  | Description                                                               |
 |------------------------|----------------------|---------------------------------------------------------------------------|
@@ -52,6 +90,8 @@ At minimum you must define the data pin your LED strip is connected to, and the 
 | `apa102.clock_pin`     | `APA102_CI_PIN`      | The pin connected to the clock pin of the LEDs (APA102)                   |
 | `rgblight.led_count`   | `RGBLIGHT_LED_COUNT` | The number of LEDs connected                                              |
 | `rgblight.split_count` | `RGBLED_SPLIT`       | (Optional) For split keyboards, the number of LEDs connected on each half |
+
+:::::
 
 Then you should be able to use the keycodes below to change the RGB lighting to your liking.
 
