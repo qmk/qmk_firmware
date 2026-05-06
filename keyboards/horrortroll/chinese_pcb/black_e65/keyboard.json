@@ -1,19 +1,20 @@
 {
     "keyboard_name": "Black E6.5",
     "manufacturer": "HorrorTroll",
-    "url": "",
     "maintainer": "HorrorTroll",
     "usb": {
         "vid": "0x7516",
         "pid": "0x7000",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

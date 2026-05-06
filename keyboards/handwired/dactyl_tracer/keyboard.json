@@ -10,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "mousekey": true,
         "extrakey": true,
         "nkro": true
@@ -24,7 +22,9 @@
     "development_board": "promicro",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "layouts": {
         "LAYOUT" : {

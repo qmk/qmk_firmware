@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* DIP switch */
-#define DIP_SWITCH_PINS { D2 }
-
 /* Indication led */
 #define LED_MAC_OS_PIN C10
 #define LED_WIN_OS_PIN C11

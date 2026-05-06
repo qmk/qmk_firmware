@@ -80,10 +80,10 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [3] = LAYOUT_60_ansi_split_bs_rshift(
         KC_GRV,       KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,        KC_INS, KC_DEL,
-        LALT(KC_TAB), KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_WH_L,KC_WH_D,KC_MS_U,        KC_WH_U,        KC_WH_R,        ALT_T(KC_LEFT), ALT_T(KC_RGHT),LALT(KC_TAB),
-        KC_LCTL,      KC_ACL0,KC_ACL1,KC_ACL2,KC_ACL2,KC_NO,  KC_NO,  KC_MS_L,KC_MS_D,        KC_MS_R,        LT(3, KC_SCLN), KC_NO,          KC_ENT,
-        KC_LSFT,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN3,KC_BTN2,KC_BTN1,ALT_T(KC_LEFT), ALT_T(KC_RGHT), KC_NO,          KC_RSFT,        KC_TRNS,
-        KC_TRNS,      KC_LGUI,KC_LALT,          KC_BTN1,                      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS
+        LALT(KC_TAB), KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  MS_WHLL,MS_WHLD,MS_UP,          MS_WHLU,        MS_WHLR,        ALT_T(KC_LEFT), ALT_T(KC_RGHT),LALT(KC_TAB),
+        KC_LCTL,      MS_ACL0,MS_ACL1,MS_ACL2,MS_ACL2,KC_NO,  KC_NO,  MS_LEFT,MS_DOWN,        MS_RGHT,        LT(3, KC_SCLN), KC_NO,          KC_ENT,
+        KC_LSFT,      KC_NO,  KC_NO,  KC_NO,  KC_NO,  MS_BTN3,MS_BTN2,MS_BTN1,ALT_T(KC_LEFT), ALT_T(KC_RGHT), KC_NO,          KC_RSFT,        KC_TRNS,
+        KC_TRNS,      KC_LGUI,KC_LALT,          MS_BTN1,                      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS
     ),
 
     /* Layer 4: Mouse mode(IJKL)[Space]
@@ -102,9 +102,9 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [4] = LAYOUT_60_ansi_split_bs_rshift(
         KC_GRV,       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,          KC_F10,         KC_F11,  KC_F12,  KC_INS,       KC_DEL,
-        LALT(KC_TAB), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_WH_L, KC_WH_D, KC_MS_U, KC_WH_U,        KC_WH_R,        KC_BTN4, KC_BTN5, LALT(KC_TAB),
-        KC_LCTL,      KC_VOLD, KC_VOLU, KC_MUTE, KC_NO,   KC_NO,   KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R,        KC_BTN1,        KC_NO,            KC_ENT,
-        KC_LSFT,               KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_BTN3, KC_BTN2, KC_BTN1, ALT_T(KC_LEFT), ALT_T(KC_RGHT), KC_NO,   KC_RSFT, KC_NO,
+        LALT(KC_TAB), KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   MS_WHLL, MS_WHLD, MS_UP,   MS_WHLU,        MS_WHLR,        MS_BTN4, MS_BTN5, LALT(KC_TAB),
+        KC_LCTL,      KC_VOLD, KC_VOLU, KC_MUTE, KC_NO,   KC_NO,   KC_NO,   MS_LEFT, MS_DOWN, MS_RGHT,        MS_BTN1,        KC_NO,            KC_ENT,
+        KC_LSFT,               KC_NO,   KC_NO,   KC_NO,   KC_NO,   MS_BTN3, MS_BTN2, MS_BTN1, ALT_T(KC_LEFT), ALT_T(KC_RGHT), KC_NO,   KC_RSFT, KC_NO,
         KC_NO,        KC_LGUI, KC_LALT,                   KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };

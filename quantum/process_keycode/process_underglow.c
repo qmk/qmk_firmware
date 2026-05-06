@@ -200,6 +200,11 @@ bool process_underglow(uint16_t keycode, keyrecord_t *record) {
                 }
 #endif
                 return false;
+#ifdef VELOCIKEY_ENABLE
+            case QK_VELOCIKEY_TOGGLE:
+                velocikey_toggle();
+                return false;
+#endif
         }
     }
 

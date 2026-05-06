@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Vertex",
     "manufacturer": "kb_elmo",
-    "url": "",
     "maintainer": "kb-elmo",
     "usb": {
         "vid": "0xA68C",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "dactyl_left",
     "manufacturer": "RedForty",
-    "url": "",
     "maintainer": "RedForty",
     "usb": {
         "vid": "0xFEED",

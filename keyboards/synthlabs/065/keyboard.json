@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -154,9 +152,13 @@
     "url": "http://065.synthlabs.io",
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0x3635",
         "vid": "0x534E"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "driver": "vendor",

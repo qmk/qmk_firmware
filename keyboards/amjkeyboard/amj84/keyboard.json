@@ -1,19 +1,20 @@
 {
     "keyboard_name": "AMJ84",
     "manufacturer": "Han Chen",
-    "url": "",
     "maintainer": "peepeetee",
     "usb": {
         "vid": "0x00D8",
         "pid": "0x6068",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

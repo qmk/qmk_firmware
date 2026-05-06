@@ -5,8 +5,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -18,7 +16,6 @@
     },
     "processor": "STM32F103",
     "bootloader": "stm32duino",
-    "url": "",
     "indicators": {
         "caps_lock": "A0"
     },
@@ -29,8 +26,6 @@
     "rgblight": {
         "led_count": 16,
         "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "animations": {
             "alternating": true,
             "breathing": true,

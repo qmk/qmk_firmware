@@ -1,7 +1,6 @@
 {
     "keyboard_name": "XIIX",
     "manufacturer": "ASH",
-    "url": "config.qmk.fm",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -16,8 +15,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

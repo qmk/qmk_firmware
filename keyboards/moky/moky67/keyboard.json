@@ -1,7 +1,6 @@
 {
   "manufacturer": "moky",
   "keyboard_name": "moky67",
-  "url": "",
   "processor": "WB32FQ95",
   "bootloader": "wb32-dfu",
   "usb": {

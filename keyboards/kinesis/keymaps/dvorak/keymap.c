@@ -25,10 +25,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // left hand
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_PWR,
-       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,       KC_NO,   KC_VOLU, KC_MS_U, KC_VOLD, KC_NO,   KC_NO,
-       KC_NO,   KC_BTN4, KC_BTN3, KC_BTN2, KC_BTN1, KC_NO,       KC_NO,   KC_MS_L, KC_MS_D, KC_MS_R, KC_NO,   KC_NO,
+       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,       KC_NO,   KC_VOLU, MS_UP,   KC_VOLD, KC_NO,   KC_NO,
+       KC_NO,   MS_BTN4, MS_BTN3, MS_BTN2, MS_BTN1, KC_NO,       KC_NO,   MS_LEFT, MS_DOWN, MS_RGHT, KC_NO,   KC_NO,
        KC_NO,   KC_NO,   KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,       KC_NO,   KC_MPRV, KC_MPLY, KC_MNXT, KC_NO,   KC_NO,
-                KC_NO,   KC_NO,   KC_MS_D, KC_MS_U,                KC_MS_L, KC_MS_R, KC_NO,   KC_NO,
+                KC_NO,   KC_NO,   MS_DOWN, MS_UP,                  MS_LEFT, MS_RGHT, KC_NO,   KC_NO,
 
                                            KC_NO,   KC_NO,       KC_NO, KC_NO,
                                                     KC_NO,       KC_NO,

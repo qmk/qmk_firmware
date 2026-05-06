@@ -1,7 +1,6 @@
 {
     "keyboard_name": "rainkeeb",
     "manufacturer": "rainkeebs",
-    "url": "",
     "maintainer": "rain",
     "usb": {
         "vid": "0x726B",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -35,8 +32,7 @@
             {"pin_a": "B2", "pin_b": "B6"}
         ]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

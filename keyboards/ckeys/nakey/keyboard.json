@@ -1,7 +1,6 @@
 {
   "keyboard_name": "naKey",
   "manufacturer": "cKeys",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

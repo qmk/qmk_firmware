@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Kay60",
     "manufacturer": "Mechlovin Studio",
-    "url": "",
     "maintainer": "Mechlovin' Studio",
     "usb": {
         "vid": "0x4D4C",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

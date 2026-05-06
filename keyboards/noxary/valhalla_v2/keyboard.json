@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Valhalla V2",
     "manufacturer": "Noxary",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x4E58",
@@ -16,7 +15,6 @@
         "bootmagic": true,
         "mousekey":  true,
         "extrakey":  true,
-        "console":   false,
         "backlight": true,
         "nkro":      true
     },

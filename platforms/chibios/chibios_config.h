@@ -15,6 +15,8 @@
  */
 #pragma once
 
+#include "compiler_support.h"
+
 #ifndef USB_VBUS_PIN
 #    define SPLIT_USB_DETECT // Force this on when dedicated pin is not used
 #endif
@@ -26,7 +28,7 @@
 #    define REALTIME_COUNTER_CLOCK 1000000
 
 #    define USE_GPIOV1
-#    define PAL_OUTPUT_TYPE_OPENDRAIN _Static_assert(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
+#    define PAL_OUTPUT_TYPE_OPENDRAIN STATIC_ASSERT(0, "RP2040 has no Open Drain GPIO configuration, setting this is not possible");
 
 /* Aliases for GPIO PWM channels - every pin has at least one PWM channel
  * assigned */

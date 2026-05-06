@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Nayeon",
     "manufacturer": "Abats Keyboard Club",
-    "url": "",
     "maintainer": "ramonimbao",
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_tkl_f13_ansi_tsangan",
@@ -11,8 +10,6 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": false,
         "rgb_matrix": true
     },

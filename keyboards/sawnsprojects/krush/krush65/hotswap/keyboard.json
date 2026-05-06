@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Krush65 - Hotswap",
     "manufacturer": "SawnsProjects",
-    "url": "",
     "maintainer": "MaiTheSan",
     "usb": {
         "vid": "0x5350",
@@ -10,7 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "encoder": true,
         "extrakey": true,

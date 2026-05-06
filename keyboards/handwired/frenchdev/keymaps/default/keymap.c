@@ -103,9 +103,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    M_SE,    KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, BP_DLR,  BP_EQL,  KC_PGUP, BP_PIPE, BP_SLSH, KC_TRNS,
   KC_TRNS, KC_TRNS, BP_BSLS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                     KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END,  KC_TRNS, KC_TRNS,
   //left pedals
-  KC_TRNS, KC_BTN1, KC_TRNS,
+  KC_TRNS, MS_BTN1, KC_TRNS,
   //right pedals
-  KC_TRNS, KC_BTN1, KC_TRNS
+  KC_TRNS, MS_BTN1, KC_TRNS
 ),
 
  /* MEDIA, mouse and numpad.
@@ -130,14 +130,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_MEDIA] = LAYOUT(
            QK_BOOT, KC_SCRL, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NUM,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MNXT, KC_MPLY,                                     KC_MPLY, KC_MPRV, KC_MNXT, KC_MSTP, KC_TRNS, KC_PMNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_U, KC_TRNS, KC_BTN4, KC_BTN5,                                     KC_BTN4, KC_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_D, KC_BTN3, KC_BTN2, KC_BTN1,                                     KC_BTN1, KC_BTN2, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_TRNS,
-  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    KC_BTN3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN3, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, MS_WHLU, KC_TRNS, MS_BTN4, MS_BTN5,                                     MS_BTN4, MS_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, MS_WHLD, MS_BTN3, MS_BTN2, MS_BTN1,                                     MS_BTN1, MS_BTN2, KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST, KC_TRNS,
+  KC_TRNS, M_UN,    M_CUT,   M_CP,    M_PS,    MS_BTN3, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MS_BTN3, KC_KP_1, KC_KP_2, KC_KP_3, KC_PSLS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_KP_0, KC_PDOT, BP_DOT,  BP_COMM, KC_TRNS,
   //left pedals
-  KC_BTN3, M_RP,    KC_TRNS,
+  MS_BTN3, M_RP,    KC_TRNS,
   //right pedals
-  KC_BTN3, M_RP,    KC_TRNS
+  MS_BTN3, M_RP,    KC_TRNS
 ),
 
 /* TRNS - skeleton for laters
@@ -167,9 +167,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   //left pedals
-  KC_BTN3, M_RP,    KC_TRNS,
+  MS_BTN3, M_RP,    KC_TRNS,
   //right pedals
-  KC_BTN3, M_RP,    KC_TRNS
+  MS_BTN3, M_RP,    KC_TRNS
 ),
 
 };
@@ -239,7 +239,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         key_timer_left_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_left_pedal) < KEY_DELAY) {
-           tap_code (KC_BTN2);
+           tap_code (MS_BTN2);
         }
         unregister_code (KC_SCRL);
         layer_off(1);
@@ -251,7 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         key_timer_right_pedal = timer_read(); // if the key is being pressed, we start the timer.
       } else {
         if (timer_elapsed(key_timer_right_pedal) < PEDAL_DELAY) {
-           tap_code (KC_BTN1);
+           tap_code (MS_BTN1);
         }
         layer_off(2);
       }

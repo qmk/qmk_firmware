@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Eon75",
     "manufacturer": "Evyd13",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4705",

@@ -3,11 +3,15 @@
     "manufacturer": "CHOSFOX",
     "maintainer": "jonylee@hfd",
     "usb": {
-        "force_nkro": true,
         "vid": "0xFFFE",
         "pid": "0x0012",
         "device_version": "1.0.0",
         "suspend_wakeup_delay": 400
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "eeprom": {
         "driver": "wear_leveling",
@@ -22,8 +26,6 @@
         "bootmagic": true,
         "mousekey": false,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": true,
         "encoder": true,
         "rgb_matrix": true

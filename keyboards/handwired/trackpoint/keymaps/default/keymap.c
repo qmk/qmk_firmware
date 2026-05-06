@@ -2,6 +2,6 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_BTN1,    KC_BTN3,    KC_BTN2
+        MS_BTN1,    MS_BTN3,    MS_BTN2
     )
 };

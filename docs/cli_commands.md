@@ -17,12 +17,12 @@ qmk compile [-c] <configuratorExport.json>
 **Usage for Keymaps**:
 
 ```
-qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] -kb <keyboard_name> -km <keymap_name>
+qmk compile [-c] [-e <var>=<value>] [-j <num_jobs>] [--compiledb] -kb <keyboard> -km <keymap>
 ```
 
 **Usage in Keyboard Directory**:
 
-Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap_name>`
+Must be in keyboard directory with a default keymap, or in keymap directory for keyboard, or supply one with `--keymap <keymap>`
 ```
 qmk compile
 ```
@@ -30,7 +30,7 @@ qmk compile
 **Usage for building all keyboards that support a specific keymap**:
 
 ```
-qmk compile -kb all -km <keymap_name>
+qmk compile -kb all -km <keymap>
 ```
 
 **Example**:
@@ -62,7 +62,7 @@ $ qmk compile
 
 Must be under `qmk_firmware/layouts/`, and in a keymap folder.
 ```
-qmk compile -kb <keyboard_name>
+qmk compile -kb <keyboard>
 ```
 
 **Example**:
@@ -77,11 +77,30 @@ $ qmk compile -kb dz60
 
 It is possible to speed up compilation by adding the `-j`/`--parallel` flag.
 ```
-qmk compile -j <num_jobs> -kb <keyboard_name>
+qmk compile -j <num_jobs> -kb <keyboard>
 ```
 The `num_jobs` argument determines the maximum number of jobs that can be used. Setting it to zero will enable parallel compilation without limiting the maximum number of jobs.
 ```
-qmk compile -j 0 -kb <keyboard_name>
+qmk compile -j 0 -kb <keyboard>
+```
+
+**Compilation Database**:
+
+Creates a `compile_commands.json` file.
+
+Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! Compiling using this argument can create this for you.
+
+**Example:**
+
+```
+$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
+$ qmk compile --compiledb
+Ψ Making clean
+Ψ Gathering build instructions from make ........
+Ψ Found 63 compile commands
+Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
+Ψ Compiling keymap with make ........
+... build log continues ...
 ```
 
 ## `qmk flash`
@@ -101,7 +120,7 @@ qmk flash [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>] <configurat
 **Usage for Keymaps**:
 
 ```
-qmk flash -kb <keyboard_name> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
+qmk flash -kb <keyboard> -km <keymap_name> [-bl <bootloader>] [-c] [-e <var>=<value>] [-j <num_jobs>]
 ```
 
 **Usage for pre-compiled firmwares**:
@@ -612,14 +631,15 @@ This command compiles all the External Userspace build targets.
 **Usage**:
 
 ```
-qmk userspace-compile [-h] [-e ENV] [-n] [-c] [-j PARALLEL] [-t]
+qmk userspace-compile [-h] [-e ENV] [-p] [-n] [-c] [-j PARALLEL] [-t]
 
 options:
   -h, --help            show this help message and exit
-  -e ENV, --env ENV     Set a variable to be passed to make. May be passed multiple times.
+  -e, --env ENV         Set a variable to be passed to make. May be passed multiple times.
+  -p, --print-failures  Print failed builds.
   -n, --dry-run         Don't actually build, just show the commands to be run.
   -c, --clean           Remove object files before compiling.
-  -j PARALLEL, --parallel PARALLEL
+  -j, --parallel PARALLEL
                         Set the number of parallel make jobs; 0 means unlimited.
   -t, --no-temp         Remove temporary files during build.
 ```
@@ -693,33 +713,6 @@ qmk format-c
 ```
 qmk format-c -b branch_name
 ```
-
-## `qmk generate-compilation-database`
-
-**Usage**:
-
-```
-qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
-```
-
-Creates a `compile_commands.json` file.
-
-Does your IDE/editor use a language server but doesn't _quite_ find all the necessary include files? Do you hate red squigglies? Do you wish your editor could figure out `#include QMK_KEYBOARD_H`? You might need a [compilation database](https://clang.llvm.org/docs/JSONCompilationDatabase.html)! The qmk tool can build this for you.
-
-This command needs to know which keyboard and keymap to build. It uses the same configuration options as the `qmk compile` command: arguments, current directory, and config files.
-
-**Example:**
-
-```
-$ cd ~/qmk_firmware/keyboards/gh60/satan/keymaps/colemak
-$ qmk generate-compilation-database
-Ψ Making clean
-Ψ Gathering build instructions from make -n gh60/satan:colemak
-Ψ Found 50 compile commands
-Ψ Writing build database to /Users/you/src/qmk_firmware/compile_commands.json
-```
-
-Now open your dev environment and live a squiggly-free life.
 
 ## `qmk docs`
 
@@ -885,3 +878,13 @@ Run single test:
 ```
 qmk test-c --test basic
 ```
+
+## `qmk generate-compilation-database`
+
+**Usage**:
+
+```
+qmk generate-compilation-database [-kb KEYBOARD] [-km KEYMAP]
+```
+
+This command has been deprecated as it cannot take into account configurables such as [converters](/feature_converters) or environment variables normally specified on the command line; please use the `--compiledb` flag with `qmk compile` instead.

@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
      KC_PGDN        ,TD(TD_SHIFT_CAPS),KC_Z   ,KC_X   ,KC_C      ,KC_V  ,KC_B,KC_N,KC_M  ,TD(TD_COMM_LABK),TD(TD_DOT_RABK),TD(TD_SLSH_QUES),TD(TD_BSLS_PIPE),KC_RSFT         ,
   //|---------------+-----------------+-------+-------+----------+------+----+----+------+----------------+---------------+----------------+----------------+----------------|
-     KC_END         , KC_LCTL         ,KC_LGUI,KC_LALT, KC_L1    ,  KC_SPACE ,  KC_SPACE , KC_L2          ,KC_RALT        ,KC_BTN2         ,KC_RCTL         ,TD(TD_ESC_GRAVE)
+     KC_END         , KC_LCTL         ,KC_LGUI,KC_LALT, KC_L1    ,  KC_SPACE ,  KC_SPACE , KC_L2          ,KC_RALT        ,MS_BTN2         ,KC_RCTL         ,TD(TD_ESC_GRAVE)
   //`---------------+-----------------+-------+-------+----------+------+----+-----------+----------------+---------------+----------------+----------------+----------------'
   ),
 

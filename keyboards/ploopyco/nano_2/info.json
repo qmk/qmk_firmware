@@ -1,0 +1,27 @@
+{
+    "keyboard_name": "Ploopy Nano 2 Trackball",
+    "manufacturer": "Ploopy Corporation",
+    "url": "www.ploopy.co",
+    "maintainer": "ploopyco",
+    "usb": {
+        "vid": "0x5043",
+        "pid": "0x4CE5",
+        "device_version": "0.0.1",
+        "max_power": 100
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "nkro": true,
+        "pointing_device": true
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+     "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0]}
+            ]
+        }
+    }
+}

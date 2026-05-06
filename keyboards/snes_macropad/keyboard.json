@@ -6,7 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
@@ -19,7 +18,6 @@
         "driver": "vendor"
     },
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",

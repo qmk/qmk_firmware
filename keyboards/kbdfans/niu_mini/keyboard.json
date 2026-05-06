@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NIU Mini",
     "manufacturer": "KBDFans",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x6E6D",

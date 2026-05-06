@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "nkro": true,
         "rgblight": true,
         "extrakey": true
@@ -32,7 +30,6 @@
         },
         "led_count": 12
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x1000",

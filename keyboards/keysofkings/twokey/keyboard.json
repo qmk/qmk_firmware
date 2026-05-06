@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Twokey",
     "manufacturer": "Keys of Kings",
-    "url": "",
     "maintainer": "Keys of Kings",
     "usb": {
         "vid": "0xFEED",
@@ -32,8 +31,6 @@
     "features": {
         "audio": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,
@@ -56,8 +53,7 @@
             {"pin_a": "D7", "pin_b": "E6", "resolution": 1}
         ]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

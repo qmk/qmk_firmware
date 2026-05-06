@@ -1,12 +1,9 @@
 {
     "keyboard_name": "Polypad",
     "manufacturer": "di0ib",
-    "url": "",
     "maintainer": "QMK",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

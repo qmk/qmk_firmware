@@ -12,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -176,7 +174,6 @@
             { "flags": 4, "matrix": [0, 5], "x": 152, "y": 52 }
         ]
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.2",
         "pid": "0x0011",

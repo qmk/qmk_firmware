@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Staryu",
     "manufacturer": "K.T.E.C.",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x1209",
@@ -40,8 +39,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

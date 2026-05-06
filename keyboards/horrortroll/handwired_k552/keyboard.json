@@ -1,13 +1,16 @@
 {
     "keyboard_name": "K552 Kumara",
     "manufacturer": "HorrorTroll",
-    "url": "",
     "maintainer": "HorrorTroll",
     "usb": {
         "vid": "0x7516",
         "pid": "0x5104",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "pin": "C14"

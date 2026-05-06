@@ -7,7 +7,7 @@
 ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(1, 0, 0);
 
 uint32_t delayed_hello_world(uint32_t trigger_time, void *cb_arg) {
-    printf("Hello, world! I'm a QMK based keyboard! The keymap array size is %d bytes.\n", (int)hello_world_introspection().total_size);
+    dprintf("Hello, world! I'm a QMK based keyboard! The keymap array size is %d bytes.\n", (int)hello_world_introspection().total_size);
     return 0;
 }
 

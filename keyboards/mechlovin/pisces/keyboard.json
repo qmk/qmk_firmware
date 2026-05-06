@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pisces65",
     "manufacturer": "Team.Mechlovin",
-    "url": "",
     "maintainer": "mechlovin",
     "usb": {
         "vid": "0x4D4C",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

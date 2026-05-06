@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,           KC_O,           KC_P,         KC_MINS,
     CTL_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,           KC_L,           KC_SCLN,      KC_QUOT,
     TD(SFT_CAPS),  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,        KC_DOT,         KC_SLSH,      SFT_T(KC_ENT),
-    MO(2),         MO(1),   KC_LGUI, KC_RALT,          KC_LCTL, KC_SPC,           ALT_T(KC_LEFT), ALL_T(KC_RGHT), LT(1, KC_UP), LT(2, KC_DOWN)
+    MO(2),         MO(1),   KC_LGUI, KC_RALT,          KC_LCTL, KC_SPC,           ALT_T(KC_LEFT), HYPR_T(KC_RGHT), LT(1, KC_UP), LT(2, KC_DOWN)
   ),
 
   /* Function layer.
@@ -135,8 +135,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [2] = LAYOUT(
     _______, _______,          _______,          _______,          _______,          _______,          _______,
-    _______, _______, _______, KC_MS_U, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, KC_BTN1, KC_BTN3, KC_BTN2, _______, _______,
+    _______, _______, _______, MS_UP,   _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, MS_LEFT, MS_DOWN, MS_RGHT, _______, _______, MS_BTN1, MS_BTN3, MS_BTN2, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______,          _______, _______,          _______, _______, _______, TG(2)

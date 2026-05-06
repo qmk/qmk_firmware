@@ -46,6 +46,36 @@ bool     get_permissive_hold(uint16_t keycode, keyrecord_t *record);
 bool     get_retro_tapping(uint16_t keycode, keyrecord_t *record);
 bool     get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record);
 
+#ifdef SPECULATIVE_HOLD
+/** Gets the currently active speculative mods. */
+uint8_t get_speculative_mods(void);
+
+/**
+ * Callback to say if a mod-tap key may be speculatively held.
+ *
+ * By default, speculative hold is enabled for mod-tap keys where the mod is
+ * Ctrl, Shift, and Ctrl+Shift for either hand.
+ *
+ * @param keycode  Keycode of the mod-tap key.
+ * @param record   Record associated with the mod-tap press event.
+ * @return True if the mod-tap key may be speculatively held.
+ */
+bool get_speculative_hold(uint16_t keycode, keyrecord_t *record);
+
+/**
+ * Handler to be called on press events after tap-holds are settled.
+ *
+ * This function is to be called in process_record() in action.c, that is, just
+ * after tap-hold events are settled as either tapped or held. When `record`
+ * corresponds to a speculatively-held key, the speculative mod is cleared.
+ *
+ * @param record   Record associated with the mod-tap press event.
+ */
+void speculative_key_settled(keyrecord_t *record);
+#else
+#    define get_speculative_mods() 0
+#endif // SPECULATIVE_HOLD
+
 #ifdef CHORDAL_HOLD
 /**
  * Callback to say when a key chord before the tapping term may be held.
@@ -110,6 +140,76 @@ char chordal_hold_handedness(keypos_t key);
 
 extern const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM;
 #endif
+
+#ifdef FLOW_TAP_TERM
+/**
+ * Callback to specify the keys where Flow Tap is enabled.
+ *
+ * Flow Tap is constrained to certain keys by the following rule: this callback
+ * is called for both the tap-hold key *and* the key press immediately preceding
+ * it. If the callback returns true for both keycodes, Flow Tap is enabled.
+ *
+ * The default implementation of this callback corresponds to
+ *
+ *     bool is_flow_tap_key(uint16_t keycode) {
+ *       switch (get_tap_keycode(keycode)) {
+ *         case KC_SPC:
+ *         case KC_A ... KC_Z:
+ *         case KC_DOT:
+ *         case KC_COMM:
+ *         case KC_SCLN:
+ *         case KC_SLSH:
+ *           return true;
+ *       }
+ *       return false;
+ *     }
+ *
+ * @param keycode Keycode of the key.
+ * @return Whether to enable Flow Tap for this key.
+ */
+bool is_flow_tap_key(uint16_t keycode);
+
+/**
+ * Callback to customize Flow Tap filtering.
+ *
+ * Flow Tap acts only when key events are closer together than this time.
+ *
+ * Return a time of 0 to disable filtering. In this way, Flow Tap may be
+ * disabled for certain tap-hold keys, or when following certain previous keys.
+ *
+ * The default implementation of this callback is
+ *
+ *     uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t* record,
+ *                                uint16_t prev_keycode) {
+ *       if (is_flow_tap_key(keycode) && is_flow_tap_key(prev_keycode)) {
+ *         return g_flow_tap_term;
+ *       }
+ *       return 0;
+ *     }
+ *
+ * NOTE: If both `is_flow_tap_key()` and `get_flow_tap_term()` are defined, then
+ * `get_flow_tap_term()` takes precedence.
+ *
+ * @param keycode Keycode of the tap-hold key.
+ * @param record keyrecord_t of the tap-hold event.
+ * @param prev_keycode Keycode of the previously pressed key.
+ * @return Time in milliseconds.
+ */
+uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode);
+
+/** Updates the Flow Tap last key and timer. */
+void flow_tap_update_last_event(keyrecord_t *record);
+
+/**
+ * Checks if the pressed key is within the flow tap term.
+ * Can be used to avoid triggering combos or other actions within the flow tap term.
+ *
+ * @param keycode The keycode of the pressed key.
+ * @param record The keyrecord of the pressed key.
+ * @return True if the pressed key is within the flow tap term; false otherwise.
+ */
+bool within_flow_tap_term(uint16_t keycode, keyrecord_t *record);
+#endif // FLOW_TAP_TERM
 
 #ifdef DYNAMIC_TAPPING_TERM_ENABLE
 extern uint16_t g_tapping_term;

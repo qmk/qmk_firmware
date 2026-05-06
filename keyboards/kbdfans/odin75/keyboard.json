@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -15,8 +13,7 @@
         "wpm": true
     },
     "indicators": {
-        "caps_lock": "GP29",
-        "on_state": 1
+        "caps_lock": "GP29"
     },
     "matrix_pins": {
         "cols": ["GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP3", "GP4"],

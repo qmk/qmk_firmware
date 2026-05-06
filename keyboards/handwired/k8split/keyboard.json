@@ -1,7 +1,6 @@
 {
     "keyboard_name": "k8split",
     "manufacturer": "Ckat",
-    "url": "",
     "maintainer": "Ckath",
     "usb": {
         "vid": "0xC81D",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

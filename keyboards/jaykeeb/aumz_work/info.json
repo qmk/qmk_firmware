@@ -3,12 +3,9 @@
     "maintainer": "Alabahuy",    
     "processor": "RP2040",
     "bootloader": "rp2040",
-    "url": "",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

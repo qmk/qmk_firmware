@@ -1,7 +1,6 @@
 {
   "keyboard_name": "SteamVan rev1",
   "manufacturer": "John M Daly",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -11,8 +10,6 @@
   "features": {
     "backlight": true,
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "leader": true,
     "mousekey": true,

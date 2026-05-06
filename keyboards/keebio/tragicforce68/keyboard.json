@@ -11,8 +11,6 @@
   "features": {
     "backlight": true,
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false
@@ -33,8 +31,7 @@
     "levels": 7,
     "breathing": true
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "community_layouts": ["68_ansi"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_68_ansi"

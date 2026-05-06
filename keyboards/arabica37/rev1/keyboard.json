@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Arabica3/7",
     "manufacturer": "CalciumNitride",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -32,8 +31,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

@@ -82,13 +82,13 @@ static SIOConfig sioConfig = {
 };
 #else
 static SIOConfig sioConfig = {
-    .baud  = SIO_DEFAULT_BITRATE,
+    .baud = SIO_DEFAULT_BITRATE,
 #    if defined(MCU_STM32) && defined(USE_USARTV3)
     .presc = USART_PRESC1,
 #    endif
-    .cr1   = UART_CR1,
-    .cr2   = UART_CR2,
-    .cr3   = UART_CR3,
+    .cr1 = UART_CR1,
+    .cr2 = UART_CR2,
+    .cr3 = UART_CR3,
 };
 #endif
 

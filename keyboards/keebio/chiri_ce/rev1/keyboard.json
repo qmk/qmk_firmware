@@ -118,6 +118,9 @@
             "matrix": [4, 0]
         },
         "enabled": true,
+        "handedness": {
+            "pin": "GP4"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["GP29", "GP28", "GP2", "GP27", "GP18", "GP7"],
@@ -128,7 +131,9 @@
             "driver": "vendor"
         },
         "transport": {
-            "sync_matrix_state": true
+            "sync": {
+                "matrix_state": true
+            }
         }
     },
     "usb": {

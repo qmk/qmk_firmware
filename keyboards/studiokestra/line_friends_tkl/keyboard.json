@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -20,7 +18,6 @@
     },
     "indicators": {
         "caps_lock": "B6",
-        "on_state": 1,
         "scroll_lock": "D2"
     },
     "matrix_pins": {

@@ -21,16 +21,16 @@
 #include "host.h"
 #include "suspend.h"
 #include "timer.h"
-#ifdef SLEEP_LED_ENABLE
-#    include "sleep_led.h"
-#    include "led.h"
-#endif
 #include "wait.h"
 #include "usb_endpoints.h"
 #include "usb_device_state.h"
 #include "usb_descriptor.h"
 #include "usb_driver.h"
 #include "usb_types.h"
+
+#ifdef RAW_ENABLE
+#    include "raw_hid.h"
+#endif
 
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
@@ -80,7 +80,7 @@ static const USBDescriptor *usb_get_descriptor_cb(USBDriver *usbp, uint8_t dtype
 
     static USBDescriptor descriptor;
     descriptor.ud_string = NULL;
-    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const) & descriptor.ud_string);
+    descriptor.ud_size   = get_usb_descriptor(setup->wValue.word, setup->wIndex, setup->wLength, (const void **const)&descriptor.ud_string);
 
     if (descriptor.ud_string == NULL) {
         return NULL;
@@ -127,19 +127,11 @@ static inline bool usb_event_queue_dequeue(usbevent_t *event) {
 
 static inline void usb_event_suspend_handler(void) {
     usb_device_state_set_suspend(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_enable();
-#endif /* SLEEP_LED_ENABLE */
 }
 
 static inline void usb_event_wakeup_handler(void) {
     suspend_wakeup_init();
     usb_device_state_set_resume(USB_DRIVER.configuration != 0, USB_DRIVER.configuration);
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_disable();
-    // NOTE: converters may not accept this
-    led_set(host_keyboard_leds());
-#endif /* SLEEP_LED_ENABLE */
 }
 
 bool last_suspend_state = false;
@@ -515,17 +507,11 @@ void console_task(void) {
 #endif /* CONSOLE_ENABLE */
 
 #ifdef RAW_ENABLE
-void raw_hid_send(uint8_t *data, uint8_t length) {
+void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_EPSIZE) {
         return;
     }
     send_report(USB_ENDPOINT_IN_RAW, data, length);
-}
-
-__attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Users should #include "raw_hid.h" in their own code
-    // and implement this function there. Leave this as weak linkage
-    // so users can opt to not handle data coming in.
 }
 
 void raw_hid_task(void) {

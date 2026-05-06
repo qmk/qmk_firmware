@@ -4,7 +4,7 @@
 
 #include <stdint.h>
 
-/* Remove these once we transitioned to C23 across all platfroms */
+/* Remove these once we transitioned to C23 across all platforms */
 #define UINT32_WIDTH 32
 #define UINT64_WIDTH 64
 

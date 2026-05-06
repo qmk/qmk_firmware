@@ -39,8 +39,6 @@ To enable SPI, modify your board's `halconf.h` to enable SPI, then modify your b
 #pragma once
 
 #define HAL_USE_SPI TRUE // [!code focus]
-#define SPI_USE_WAIT TRUE // [!code focus]
-#define SPI_SELECT_MODE SPI_SELECT_MODE_PAD // [!code focus]
 
 #include_next <halconf.h>
 ```

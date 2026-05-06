@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Pegasus",
     "manufacturer": "melonbred",
-    "url": "",
     "maintainer": "melonbred",
     "usb": {
         "vid": "0xFEED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,

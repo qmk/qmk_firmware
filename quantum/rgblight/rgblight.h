@@ -16,6 +16,8 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
 // DEPRECATED DEFINES - DO NOT USE
 #if defined(RGBLED_NUM)
 #    define RGBLIGHT_LED_COUNT RGBLED_NUM
@@ -168,7 +170,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #include <stdbool.h>
 #include "rgblight_drivers.h"
 #include "progmem.h"
-#include "eeconfig.h"
 #include "color.h"
 
 #ifdef RGBLIGHT_LAYERS
@@ -185,8 +186,7 @@ typedef struct {
 #    define RGBLIGHT_USE_TIMER
 
 #    define RGBLIGHT_END_SEGMENT_INDEX (255)
-#    define RGBLIGHT_END_SEGMENTS \
-        { RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0 }
+#    define RGBLIGHT_END_SEGMENTS {RGBLIGHT_END_SEGMENT_INDEX, 0, 0, 0}
 #    ifndef RGBLIGHT_MAX_LAYERS
 #        define RGBLIGHT_MAX_LAYERS 8
 #    endif
@@ -201,10 +201,8 @@ typedef uint32_t rgblight_layer_mask_t;
 #    else
 #        error invalid RGBLIGHT_MAX_LAYERS value (must be <= 32)
 #    endif
-#    define RGBLIGHT_LAYER_SEGMENTS(...) \
-        { __VA_ARGS__, RGBLIGHT_END_SEGMENTS }
-#    define RGBLIGHT_LAYERS_LIST(...) \
-        { __VA_ARGS__, NULL }
+#    define RGBLIGHT_LAYER_SEGMENTS(...) {__VA_ARGS__, RGBLIGHT_END_SEGMENTS}
+#    define RGBLIGHT_LAYERS_LIST(...) {__VA_ARGS__, NULL}
 
 // Get/set enabled rgblight layers
 void rgblight_set_layer_state(uint8_t layer, bool enabled);
@@ -248,7 +246,7 @@ extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 extern const uint8_t  RGBLED_TWINKLE_INTERVALS[3] PROGMEM;
 extern bool           is_rgblight_initialized;
 
-typedef union {
+typedef union rgblight_config_t {
     uint64_t raw;
     struct {
         bool    enable : 1;
@@ -261,7 +259,7 @@ typedef union {
     };
 } rgblight_config_t;
 
-_Static_assert(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(rgblight_config_t) == sizeof(uint64_t), "RGB Light EECONFIG out of spec.");
 
 typedef struct _rgblight_status_t {
     uint8_t base_mode;
@@ -370,8 +368,6 @@ void     rgblight_suspend(void);
 void     rgblight_wakeup(void);
 uint64_t rgblight_read_qword(void);
 void     rgblight_update_qword(uint64_t qword);
-uint64_t eeconfig_read_rgblight(void);
-void     eeconfig_update_rgblight(uint64_t val);
 void     eeconfig_update_rgblight_current(void);
 void     eeconfig_update_rgblight_default(void);
 void     eeconfig_debug_rgblight(void);

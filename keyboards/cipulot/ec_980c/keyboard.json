@@ -38,8 +38,7 @@
             {"matrix": [0, 16], "x": 17, "y": 1, "flags": 4},
             {"matrix": [0, 17], "x": 18, "y": 1, "flags": 4}
         ],
-        "led_count": 3,
-        "max_brightness": 255
+        "led_count": 3
     },
     "usb": {
         "device_version": "0.0.1",

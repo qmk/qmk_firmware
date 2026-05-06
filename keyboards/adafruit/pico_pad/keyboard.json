@@ -1,0 +1,53 @@
+{
+    "manufacturer": "Raspberry Pi",
+    "keyboard_name": "DirectPins Pico Pad 21 keys RP2040",
+    "maintainer": "icyavocado",
+    "bootloader": "rp2040",
+    "usb": {
+        "vid": "0x2326",
+        "pid": "0xFEED",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true
+    },
+    "processor": "RP2040",
+    "matrix_pins": {
+        "direct": [
+            [ "GP0",  "GP1",  "GP2",  "GP3",   "GP4",   "GP5",   "GP6" ],
+            [ "GP7",  "GP8",  "GP9",  "GP10",  "GP11",  "GP12",  "GP13"],
+            [ "GP14", "GP16", "GP17", "GP18",  "GP19",  "GP20",  "GP21"]
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "GP0", "x": 0, "y": 0, "matrix": [0, 0]},
+                {"label": "GP1", "x": 0, "y": 1, "matrix": [0, 1]},
+                {"label": "GP2", "x": 0, "y": 2, "matrix": [0, 2]},
+                {"label": "GP3", "x": 0, "y": 3, "matrix": [0, 3]},
+                {"label": "GP4", "x": 0, "y": 4, "matrix": [0, 4]},
+                {"label": "GP5", "x": 0, "y": 5, "matrix": [0, 5]},
+                {"label": "GP6", "x": 0, "y": 6, "matrix": [0, 6]},
+
+                {"label": "GP7", "x": 1, "y": 0, "matrix": [1, 0]},
+                {"label": "GP8", "x": 1, "y": 1, "matrix": [1, 1]},
+                {"label": "GP9", "x": 1, "y": 2, "matrix": [1, 2]},
+                {"label": "GP10", "x": 1, "y": 3, "matrix": [1, 3]},
+                {"label": "GP11", "x": 1, "y": 4, "matrix": [1, 4]},
+                {"label": "GP12", "x": 1, "y": 5, "matrix": [1, 5]},
+                {"label": "GP13", "x": 1, "y": 6, "matrix": [1, 6]},
+
+                {"label": "GP14", "x": 2, "y": 0, "matrix": [2, 0]},
+                {"label": "GP16", "x": 2, "y": 1, "matrix": [2, 1]},
+                {"label": "GP17", "x": 2, "y": 2, "matrix": [2, 2]},
+                {"label": "GP18", "x": 2, "y": 3, "matrix": [2, 3]},
+                {"label": "GP19", "x": 2, "y": 4, "matrix": [2, 4]},
+                {"label": "GP20", "x": 2, "y": 5, "matrix": [2, 5]},
+                {"label": "GP21", "x": 2, "y": 6, "matrix": [2, 6]}
+            ]
+        }
+    }
+}
