@@ -1,6 +1,6 @@
 {
     "manufacturer": "Baris Tosun",
-    "keyboard_name": "rominronin/katana60/rev4_tp",
+    "keyboard_name": "Katana60 with Trackpoint",
     "maintainer": "rominronin",
     "bootloader": "atmel-dfu",
     "diode_direction": "COL2ROW",
