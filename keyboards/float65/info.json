@@ -1,11 +1,13 @@
 {
     "manufacturer": "Yiancar-Designs",
     "keyboard_name": "Float 65",
-    "maintainer": "Yiancar-Designs",
+    "maintainer": "Yiancar",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "command": false,
+        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -42,6 +44,9 @@
         "pin": "B15"
     },
     "community_layouts": ["65_ansi_blocker", "65_ansi_blocker_split_bs", "65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs"],
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_65_ansi_blocker_split_bs"
+    },
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
