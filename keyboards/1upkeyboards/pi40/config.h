@@ -3,7 +3,6 @@
 
 #pragma once
 
-#define OLED_DISPLAY_128X32
 #define I2C1_SCL_PIN        GP17
 #define I2C1_SDA_PIN        GP16
 #define I2C_DRIVER I2CD0
