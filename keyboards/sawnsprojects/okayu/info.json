@@ -1,20 +1,22 @@
 {
     "keyboard_name": "Okayu",
     "manufacturer": "Salane",
-    "url": "",
     "maintainer": "Mai The San",
     "usb": {
         "vid": "0x5350",
         "pid": "0x00A1",
-        "device_version": "1.0.0",
-        "force_nkro": true
+        "device_version": "1.0.0"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
         "console": true,
-        "command": false,
         "nkro": true,
         "rgblight": true
     },
@@ -22,12 +24,16 @@
         "60_ansi",
         "60_ansi_split_bs_rshift",
         "60_ansi_tsangan",
-        "60_tsangan_hhkb",
+        "60_ansi_tsangan_split_bs_rshift",
         "60_hhkb",
         "60_iso",
         "60_iso_split_bs_rshift",
-        "60_iso_tsangan"
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
     ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "matrix_pins": {
         "cols": ["A9", "A0", "A8", "C13", "A1", "A2", "B11", "B10", "B1", "B0", "A7", "A6", "A5", "A4"],
         "rows": ["B3", "A15", "A3", "A10", "B14"]
@@ -338,7 +344,7 @@
                 {"label": "K4D", "matrix": [4, 13], "x": 13.5, "y": 4, "w": 1.5}
            ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "K00", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "K01", "matrix": [0, 1], "x": 1, "y": 0},

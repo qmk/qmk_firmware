@@ -42,11 +42,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FN1] = LAYOUT_75_ansi(    /* keymap for layer 2 */
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RGB_TOG, RGB_VAD, RGB_VAI, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS,
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     RGB_RMOD,
-        RGB_TOG, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     RGB_MOD,
-        KC_TRNS, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,               KC_TRNS,     KC_TRNS,
-        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MAGIC_TOGGLE_NKRO,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RM_TOGG, RM_VALD, RM_VALU, KC_MPRV, KC_MPLY, KC_MNXT, KC_VOLD, KC_VOLU, KC_MUTE, KC_TRNS, KC_TRNS, KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     RM_PREV,
+        RM_TOGG, RM_VALU, RM_HUEU, RM_SATU, RM_SPDU, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,     RM_NEXT,
+        KC_TRNS, RM_VALD, RM_HUED, RM_SATD, RM_SPDD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,               KC_TRNS,     KC_TRNS,
+        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, NK_TOGG,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, TG(GAME),KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
     )
 };
@@ -57,8 +57,8 @@ and sets val to RGB_MATRIX_MAXIMUM_BRIGHTNESS (by default, 255)
 This is applied to both caps lock, and other indicator keys for layer 1 */
 
 bool rgb_matrix_indicators_user(void) {
-    HSV hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
-    RGB rgb_ind = hsv_to_rgb(hsv_ind);
+    hsv_t hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
+    rgb_t rgb_ind = hsv_to_rgb(hsv_ind);
 
     /* Sets Caps to different color as indicator. If RGB mode is rain, and caps indicator is off, the LED will always be off.
     This is to avoid having the LED persist on until the animation randomly refreshes it. */
@@ -70,8 +70,8 @@ bool rgb_matrix_indicators_user(void) {
 
     /* Sets W, A, S, D, LGUI to a different color as layer indicator */
     if(IS_LAYER_ON(1)) {
-      HSV hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
-      RGB rgb_ind = hsv_to_rgb(hsv_ind);
+      hsv_t hsv_ind = {rgb_matrix_get_hue()+30,255,RGB_MATRIX_MAXIMUM_BRIGHTNESS};
+      rgb_t rgb_ind = hsv_to_rgb(hsv_ind);
 
       rgb_matrix_set_color(W_LED_INDEX, rgb_ind.r, rgb_ind.g, rgb_ind.b);
       rgb_matrix_set_color(A_LED_INDEX, rgb_ind.r, rgb_ind.g, rgb_ind.b);
@@ -85,8 +85,8 @@ bool rgb_matrix_indicators_user(void) {
 layer_state_t layer_state_set_user(layer_state_t state) {
     /* If reverting to base layer (no special LED effects) and rain animation is on, set "layer 1" mods back to matrix color to avoid single key persistence*/
     if(!IS_LAYER_ON_STATE(state, 1) && rgb_matrix_get_mode() == 10) {
-        HSV hsv_mat = rgb_matrix_get_hsv();
-        RGB rgb_mat = hsv_to_rgb(hsv_mat);
+        hsv_t hsv_mat = rgb_matrix_get_hsv();
+        rgb_t rgb_mat = hsv_to_rgb(hsv_mat);
 
         rgb_matrix_set_color(W_LED_INDEX, rgb_mat.r, rgb_mat.g, rgb_mat.b);
         rgb_matrix_set_color(A_LED_INDEX, rgb_mat.r, rgb_mat.g, rgb_mat.b);

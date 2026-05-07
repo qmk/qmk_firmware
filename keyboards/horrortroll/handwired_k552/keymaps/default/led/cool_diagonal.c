@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-static HSV COOL_DIAGONAL_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t COOL_DIAGONAL_math(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.h = (g_led_config.point[i].x / 4) - g_led_config.point[i].y - time;
     return hsv;
 }

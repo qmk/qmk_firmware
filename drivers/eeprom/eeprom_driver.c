@@ -77,3 +77,9 @@ void eeprom_update_dword(uint32_t *addr, uint32_t value) {
         eeprom_write_dword(addr, value);
     }
 }
+
+void eeprom_driver_format(bool erase) __attribute__((weak));
+void eeprom_driver_format(bool erase) {
+    (void)erase; /* The default implementation assumes that the eeprom must be erased in order to be usable. */
+    eeprom_driver_erase();
+}

@@ -112,13 +112,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT(
   //,----------------------------------.             ,----------------------------------.
-   QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, KC_CAPS,        XXXXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP,
+   QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, KC_CAPS,        XXXXXXX, MS_WHLL, MS_WHLU, KC_HOME, KC_PGUP,
   //|------+------+------+------+------|             |------+------+------+------+------|
-   RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, KC_SCRL,      XXXXXXX, KC_WH_R, KC_WH_D,  KC_END, KC_PGDN,
+   UG_TOGG, UG_HUEU, UG_SATU, UG_VALU, KC_SCRL,      XXXXXXX, MS_WHLR, MS_WHLD,  KC_END, KC_PGDN,
   //|------+------+------+------+------|             |------+------+------+------+------|
-   RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, KC_NUM,       XXXXXXX, KC_BTN1, KC_BTN2, KC_MS_U, XXXXXXX,
+   UG_NEXT, UG_HUED, UG_SATD, UG_VALD, KC_NUM,       XXXXXXX, MS_BTN1, MS_BTN2, MS_UP,   XXXXXXX,
   //|------+------+------+------+------|------+------+------+------+------+------+------|
-   KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R
+   KC_LSFT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MS_LEFT, MS_DOWN, MS_RGHT
   //|------+------+------+------+-------------+------+------+------+------+------+------|
   )
 };
@@ -166,7 +166,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     #ifdef RGBLIGHT_ENABLE
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
-      case RGB_MOD:
+      case QK_UNDERGLOW_MODE_NEXT:
           if (record->event.pressed) {
             rgblight_mode(RGB_current_mode);
             rgblight_step();

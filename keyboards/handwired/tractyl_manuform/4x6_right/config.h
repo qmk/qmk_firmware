@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define SPLIT_TRANSPORT_MIRROR
-#define SPLIT_HAND_PIN A6
 
 // #define DEBUG_LED_PIN                  D6
 

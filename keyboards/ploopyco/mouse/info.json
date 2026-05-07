@@ -1,6 +1,6 @@
 {
     "keyboard_name": "Mouse",
-    "manufacturer": "PloopyCo",
+    "manufacturer": "Ploopy",
     "url": "www.ploopy.co",
     "maintainer": "drashna",
     "usb": {
@@ -12,26 +12,12 @@
     "bootmagic": {
         "matrix": [0, 3]
     },
-    "ws2812": {
-        "pin": "B5"
-    },
-    "rgblight": {
-        "led_count": 4,
-        "max_brightness": 40,
-        "animations": {
-            "breathing": true,
-            "rainbow_mood": true,
-            "rainbow_swirl": true
-        }
-    },
-    "processor": "atmega32u4",
-    "bootloader": "atmel-dfu",
-    "matrix_pins": {
-        "direct": [
-            ["D4", "D2", "E6", "B6", "D7", "C6", "C7", "B7"]
-        ]
-    },
     "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "pointing_device": true,
         "encoder": true
     },
     "encoder": {

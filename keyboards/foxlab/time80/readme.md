@@ -15,13 +15,11 @@ Make example for this keyboard (after setting up your build environment):
 
     make foxlab/time80:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make foxlab/time80:default:flash
 
-**Reset Key**: There are no reset switches or pads. Follow this
-[guide](https://docs.qmk.fm/#/flashing_bootloadhid)
-to have it flashed for the first time. Remember to add a `QK_BOOT`
+**Reset Key**: There are no reset switches or pads. Remember to add a `QK_BOOT`
 key on your keymap for future endeavors.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

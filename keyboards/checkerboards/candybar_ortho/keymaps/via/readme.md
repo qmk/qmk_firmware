@@ -1,2 +1,0 @@
-# Keymap for VIA
-

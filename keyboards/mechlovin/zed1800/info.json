@@ -1,6 +1,5 @@
 {
     "manufacturer": "Mechlovin Studio",
-    "url": "",
     "maintainer": "Mechlovin' Studio",
     "usb": {
         "vid": "0x4D4C",
@@ -16,15 +15,6 @@
         "wear_leveling": {
             "backing_size": 4096
         }
-    },
-    "features": {
-        "bootmagic": true,
-        "command": true,
-        "console": true,
-        "extrakey": true,
-        "mousekey": true,
-        "rgblight": true,
-        "audio": false
     },
     "rgblight": {
         "sleep": true,

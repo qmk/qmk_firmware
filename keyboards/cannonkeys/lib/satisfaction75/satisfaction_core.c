@@ -4,6 +4,9 @@
 #include "satisfaction_core.h"
 #include "print.h"
 #include "debug.h"
+#include "matrix.h"
+#include "quantum.h"
+#include "encoder.h"
 
 #include <ch.h>
 #include <hal.h>
@@ -50,10 +53,26 @@ void board_init(void) {
   SYSCFG->CFGR1 &= ~(SYSCFG_CFGR1_SPI2_DMA_RMP);
 }
 
+uint32_t read_custom_config(void *data, uint32_t offset, uint32_t length) {
+#ifdef VIA_ENABLE
+    return via_read_custom_config(data, offset, length);
+#else
+    return eeconfig_read_kb_datablock(data, offset, length);
+#endif
+}
+
+uint32_t write_custom_config(const void *data, uint32_t offset, uint32_t length) {
+#ifdef VIA_ENABLE
+    return via_update_custom_config(data, offset, length);
+#else
+    return eeconfig_update_kb_datablock(data, offset, length);
+#endif
+}
+
 void keyboard_post_init_kb(void) {
       /*
         This is a workaround to some really weird behavior
-        Without this code, the OLED will turn on, but not when you initially plug the keyboard in. 
+        Without this code, the OLED will turn on, but not when you initially plug the keyboard in.
         You have to manually trigger a user reset to get the OLED to initialize properly
         I'm not sure what the root cause is at this time, but this workaround fixes it.
     */
@@ -71,11 +90,11 @@ void keyboard_post_init_kb(void) {
 void custom_set_value(uint8_t *data) {
     uint8_t *value_id = &(data[0]);
     uint8_t *value_data = &(data[1]);
-    
+
     switch ( *value_id ) {
         case id_oled_default_mode:
         {
-            eeprom_update_byte((uint8_t*)EEPROM_DEFAULT_OLED, value_data[0]);
+            write_custom_config(&value_data[0], EEPROM_DEFAULT_OLED_OFFSET, 1);
             break;
         }
         case id_oled_mode:
@@ -89,7 +108,7 @@ void custom_set_value(uint8_t *data) {
             uint8_t index = value_data[0];
             uint8_t enable = value_data[1];
             enabled_encoder_modes = (enabled_encoder_modes & ~(1<<index)) | (enable<<index);
-            eeprom_update_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES, enabled_encoder_modes);
+            write_custom_config(&enabled_encoder_modes, EEPROM_ENABLED_ENCODER_MODES_OFFSET, 1);
             break;
         }
         case id_encoder_custom:
@@ -106,11 +125,12 @@ void custom_set_value(uint8_t *data) {
 void custom_get_value(uint8_t *data) {
     uint8_t *value_id = &(data[0]);
     uint8_t *value_data = &(data[1]);
-    
+
     switch ( *value_id ) {
         case id_oled_default_mode:
         {
-            uint8_t default_oled = eeprom_read_byte((uint8_t*)EEPROM_DEFAULT_OLED);
+            uint8_t default_oled;
+            read_custom_config(&default_oled, EEPROM_DEFAULT_OLED_OFFSET, 1);
             value_data[0] = default_oled;
             break;
         }
@@ -175,7 +195,6 @@ void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     // DO NOT call raw_hid_send(data,length) here, let caller do this
 }
 #endif
-
 
 void read_host_led_state(void) {
   led_t led_state = host_keyboard_led_state();
@@ -287,25 +306,25 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 void custom_config_reset(void){
-  void *p = (void*)(VIA_EEPROM_CUSTOM_CONFIG_ADDR);
-  void *end = (void*)(VIA_EEPROM_CUSTOM_CONFIG_ADDR+VIA_EEPROM_CUSTOM_CONFIG_SIZE);
-  while ( p != end ) {
-    eeprom_update_byte(p, 0);
-    ++p;
+  for(int i = 0; i < VIA_EEPROM_CUSTOM_CONFIG_SIZE; ++i) {
+    uint8_t dummy = 0;
+    write_custom_config(&dummy, i, 1);
   }
-  eeprom_update_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES, 0x1F);
+
+  uint8_t encoder_modes = 0x1F;
+  write_custom_config(&encoder_modes, EEPROM_ENABLED_ENCODER_MODES_OFFSET, 1);
 }
 
 void custom_config_load(void){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-  oled_mode = eeprom_read_byte((uint8_t*)EEPROM_DEFAULT_OLED);
-  enabled_encoder_modes = eeprom_read_byte((uint8_t*)EEPROM_ENABLED_ENCODER_MODES);
+  read_custom_config(&oled_mode, EEPROM_DEFAULT_OLED_OFFSET, 1);
+  read_custom_config(&enabled_encoder_modes, EEPROM_ENABLED_ENCODER_MODES_OFFSET, 1);
 #endif
 }
 
 // Called from via_init() if VIA_ENABLE
 // Called from matrix_init_kb() if not VIA_ENABLE
-void via_init_kb(void)
+void satisfaction_core_init(void)
 {
   // This checks both an EEPROM reset (from bootmagic lite, keycodes)
   // and also firmware build date (from via_eeprom_is_valid())
@@ -323,8 +342,7 @@ void via_init_kb(void)
 void matrix_init_kb(void)
 {
 #ifndef VIA_ENABLE
-  via_init_kb();
-  via_eeprom_set_valid(true);
+  satisfaction_core_init();
 #endif // VIA_ENABLE
 
   rtcGetTime(&RTCD1, &last_timespec);
@@ -332,6 +350,11 @@ void matrix_init_kb(void)
   oled_request_wakeup();
 }
 
+#ifdef VIA_ENABLE
+void via_init_kb(void) {
+    satisfaction_core_init();
+}
+#endif // VIA_ENABLE
 
 void housekeeping_task_kb(void) {
   rtcGetTime(&RTCD1, &last_timespec);
@@ -342,52 +365,3 @@ void housekeeping_task_kb(void) {
     oled_request_repaint();
   }
 }
-
-//
-// In the case of VIA being disabled, we still need to check if
-// keyboard level EEPROM memory is valid before loading.
-// Thus these are copies of the same functions in VIA, since
-// the backlight settings reuse VIA's EEPROM magic/version,
-// and the ones in via.c won't be compiled in.
-//
-// Yes, this is sub-optimal, and is only here for completeness
-// (i.e. catering to the 1% of people that want wilba.tech LED bling
-// AND want persistent settings BUT DON'T want to use dynamic keymaps/VIA).
-//
-#ifndef VIA_ENABLE
-
-bool via_eeprom_is_valid(void)
-{
-    char *p = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
-    uint8_t magic0 = ( ( p[2] & 0x0F ) << 4 ) | ( p[3]  & 0x0F );
-    uint8_t magic1 = ( ( p[5] & 0x0F ) << 4 ) | ( p[6]  & 0x0F );
-    uint8_t magic2 = ( ( p[8] & 0x0F ) << 4 ) | ( p[9]  & 0x0F );
-
-    return (eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+0 ) == magic0 &&
-            eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+1 ) == magic1 &&
-            eeprom_read_byte( (void*)VIA_EEPROM_MAGIC_ADDR+2 ) == magic2 );
-}
-
-// Sets VIA/keyboard level usage of EEPROM to valid/invalid
-// Keyboard level code (eg. via_init_kb()) should not call this
-void via_eeprom_set_valid(bool valid)
-{
-    char *p = QMK_BUILDDATE; // e.g. "2019-11-05-11:29:54"
-    uint8_t magic0 = ( ( p[2] & 0x0F ) << 4 ) | ( p[3]  & 0x0F );
-    uint8_t magic1 = ( ( p[5] & 0x0F ) << 4 ) | ( p[6]  & 0x0F );
-    uint8_t magic2 = ( ( p[8] & 0x0F ) << 4 ) | ( p[9]  & 0x0F );
-
-    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+0, valid ? magic0 : 0xFF);
-    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+1, valid ? magic1 : 0xFF);
-    eeprom_update_byte( (void*)VIA_EEPROM_MAGIC_ADDR+2, valid ? magic2 : 0xFF);
-}
-
-void via_eeprom_reset(void)
-{
-    // Set the VIA specific EEPROM state as invalid.
-    via_eeprom_set_valid(false);
-    // Set the TMK/QMK EEPROM state as invalid.
-    eeconfig_disable();
-}
-
-#endif // VIA_ENABLE

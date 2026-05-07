@@ -29,40 +29,40 @@ void matrix_init_kb(void) {
 }
 
 void capslock_led_init(void) {
-    setPinOutput(XD75_CAPSLOCK_LED);
+    gpio_set_pin_output(XD75_CAPSLOCK_LED);
     capslock_led_off();
 }
 
 void capslock_led_off(void) {
-    writePinHigh(XD75_CAPSLOCK_LED);
+    gpio_write_pin_high(XD75_CAPSLOCK_LED);
 }
 
 void capslock_led_on(void) {
-    writePinLow(XD75_CAPSLOCK_LED);
+    gpio_write_pin_low(XD75_CAPSLOCK_LED);
 }
 
 void gp100_led_init(void) {
-    setPinOutput(XD75_GP100_LED);
+    gpio_set_pin_output(XD75_GP100_LED);
     gp100_led_off();
 }
 
 void gp100_led_off(void) {
-    writePinHigh(XD75_GP100_LED);
+    gpio_write_pin_high(XD75_GP100_LED);
 }
 
 void gp100_led_on(void) {
-    writePinLow(XD75_GP100_LED);
+    gpio_write_pin_low(XD75_GP100_LED);
 }
 
 void gp103_led_init(void) {
-    setPinOutput(XD75_GP103_LED);
+    gpio_set_pin_output(XD75_GP103_LED);
     gp103_led_off();
 }
 
 void gp103_led_off(void) {
-    writePinLow(XD75_GP103_LED);
+    gpio_write_pin_low(XD75_GP103_LED);
 }
 
 void gp103_led_on(void) {
-    writePinHigh(XD75_GP103_LED);
+    gpio_write_pin_high(XD75_GP103_LED);
 }

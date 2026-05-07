@@ -5,6 +5,18 @@
   "usb": {
     "vid": "0x5052"
   },
+  "features": {
+    "bootmagic": true,
+    "extrakey": true,
+    "mousekey": false,
+    "nkro": true
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  },
   "matrix_pins": {
     "cols": ["F0", "F1", "F4", "F5", "F6", "F7", "D6", "D4", "D5", "D3", "D2", "D1", "D0"],
     "rows": ["E6", "C7", "B5", "B4"]

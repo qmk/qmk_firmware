@@ -7,6 +7,12 @@
         "vid": "0xFEED",
         "pid": "0x1191"
     },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,

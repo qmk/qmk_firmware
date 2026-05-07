@@ -234,7 +234,7 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_readReg(I2C_ADDR, GPIOB, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_read_register(I2C_ADDR, GPIOB, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
             data = (~((uint8_t)data) >> 2) & 0x01 ;
 #ifdef DEBUG_MATRIX
             if (data != 0x00) xprintf("I2C: %d\n", data);
@@ -268,7 +268,7 @@ static void select_row(uint8_t row)
 			// Read using bitmask
         } else { // set active row low  : 0 // set other rows hi-Z : 1
             uint8_t data = ~(1<<row);
-            mcp23018_status = i2c_writeReg(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
+            mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // Output low(DDR:1, PORT:0) to select

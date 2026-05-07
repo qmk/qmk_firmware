@@ -1,0 +1,72 @@
+{
+    "manufacturer": "Dennis Kruyt",
+    "keyboard_name": "phantagom/varan",
+    "maintainer": "dkruyt",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP28"
+    },
+    "rgblight": {
+        "led_count": 23,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["GP17", "GP16", "GP15", "GP14"],
+        "rows": ["GP23", "GP22", "GP21", "GP20", "GP19", "GP18"]
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/dkruyt/mk/tree/main/varan",
+    "usb": {
+        "vid": "0xF8E8",
+        "pid": "0x0002",
+        "device_version": "0.0.3"
+    },
+    "community_layouts": ["numpad_6x4"],
+    "layouts": {
+        "LAYOUT_numpad_6x4": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"h": 2, "matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [4, 0], "x": 0, "y": 4},
+                {"matrix": [4, 1], "x": 1, "y": 4},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+                {"matrix": [5, 0], "w": 2, "x": 0, "y": 5},
+                {"matrix": [5, 2], "x": 2, "y": 5},
+                {"h": 2, "matrix": [4, 3], "x": 3, "y": 4}
+            ]
+        }
+    }
+}

@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 	[2] = LAYOUT( /* Mousekeys and Numpad */
 		KC_NO,   _______, _______, _______, _______, _______, _______, KC_NUM,  KC_P7,   KC_P8,   KC_P9,   KC_PSLS, _______, _______,
-		KC_NO,   _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PAST, _______, _______,
-		TO(1),   _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PMNS, _______, _______,
-		TO(1),   _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN3, _______, DBLZERO, KC_P0,   KC_PDOT, KC_PENT, KC_PPLS, _______, MANUAL,
+		KC_NO,   _______, MS_BTN1, MS_UP,   MS_BTN2, MS_WHLU, _______, _______, KC_P4,   KC_P5,   KC_P6,   KC_PAST, _______, _______,
+		TO(1),   _______, MS_LEFT, MS_DOWN, MS_RGHT, MS_WHLD, _______, _______, KC_P1,   KC_P2,   KC_P3,   KC_PMNS, _______, _______,
+		TO(1),   _______, MS_ACL0, MS_ACL1, MS_ACL2, MS_BTN3, _______, DBLZERO, KC_P0,   KC_PDOT, KC_PENT, KC_PPLS, _______, MANUAL,
 			     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 	)
 };

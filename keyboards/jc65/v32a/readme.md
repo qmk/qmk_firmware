@@ -16,7 +16,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make jc65/v32a:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make jc65/v32a:default:flash
 

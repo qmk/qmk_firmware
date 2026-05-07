@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT(
         KC_MPLY,	
-		RGB_MOD,	RGB_VAI,	RGB_TOG,
+		UG_NEXT,	UG_VALU,	UG_TOGG,
 		KC_MPRV,	KC_MPLY,	KC_MNXT
 		
     )

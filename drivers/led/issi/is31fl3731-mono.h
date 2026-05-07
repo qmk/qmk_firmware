@@ -23,33 +23,6 @@
 #include "progmem.h"
 #include "util.h"
 
-// ======== DEPRECATED DEFINES - DO NOT USE ========
-#ifdef LED_DRIVER_ADDR_1
-#    define IS31FL3731_I2C_ADDRESS_1 LED_DRIVER_ADDR_1
-#endif
-#ifdef LED_DRIVER_ADDR_2
-#    define IS31FL3731_I2C_ADDRESS_2 LED_DRIVER_ADDR_2
-#endif
-#ifdef LED_DRIVER_ADDR_3
-#    define IS31FL3731_I2C_ADDRESS_3 LED_DRIVER_ADDR_3
-#endif
-#ifdef LED_DRIVER_ADDR_4
-#    define IS31FL3731_I2C_ADDRESS_4 LED_DRIVER_ADDR_4
-#endif
-#ifdef ISSI_TIMEOUT
-#    define IS31FL3731_I2C_TIMEOUT ISSI_TIMEOUT
-#endif
-#ifdef ISSI_PERSISTENCE
-#    define IS31FL3731_I2C_PERSISTENCE ISSI_PERSISTENCE
-#endif
-#ifdef ISSI_3731_DEGHOST
-#    define IS31FL3731_DEGHOST ISSI_3731_DEGHOST
-#endif
-
-#define is31_led is31fl3731_led_t
-#define g_is31_leds g_is31fl3731_leds
-// ========
-
 #define IS31FL3731_REG_COMMAND 0xFD
 #define IS31FL3731_COMMAND_FRAME_1 0x00
 #define IS31FL3731_COMMAND_FRAME_2 0x01

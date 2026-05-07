@@ -1,23 +1,69 @@
 {
-    "url": "https://www.bastardkb.com/tbk-mini",
+    "url": "https://github.com/Bastardkb/TBK-Mini",
+    "keyboard_name": "TBK Mini",
     "usb": {
-        "pid": "0x1828"
+        "pid": "0x1828",
+        "device_version": "2.0.0"
     },
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "rgb_matrix": true
+    },
+    "split": {
+        "enabled": true
+    },
+    "diode_direction": "ROW2COL",
     "rgb_matrix": {
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 2},
+            {"matrix": [1, 0], "x": 0, "y": 21, "flags": 2},
+            {"matrix": [2, 0], "x": 0, "y": 42, "flags": 2},
+            {"matrix": [2, 1], "x": 20, "y": 42, "flags": 4},
+            {"matrix": [1, 1], "x": 20, "y": 21, "flags": 4},
+            {"matrix": [0, 1], "x": 20, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 41, "y": 0, "flags": 4},
+            {"matrix": [1, 2], "x": 41, "y": 21, "flags": 4},
+            {"matrix": [2, 2], "x": 41, "y": 42, "flags": 4},
+            {"matrix": [2, 3], "x": 61, "y": 42, "flags": 4},
+            {"matrix": [1, 3], "x": 61, "y": 21, "flags": 4},
+            {"matrix": [0, 3], "x": 61, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 81, "y": 0, "flags": 4},
+            {"matrix": [1, 4], "x": 81, "y": 21, "flags": 4},
+            {"matrix": [2, 4], "x": 81, "y": 42, "flags": 4},
+            {"matrix": [0, 5], "x": 102, "y": 0, "flags": 4},
+            {"matrix": [1, 5], "x": 102, "y": 21, "flags": 4},
+            {"matrix": [2, 5], "x": 102, "y": 42, "flags": 4},
+            {"matrix": [3, 1], "x": 61, "y": 64, "flags": 2},
+            {"matrix": [3, 3], "x": 81, "y": 64, "flags": 2},
+            {"matrix": [3, 4], "x": 102, "y": 64, "flags": 2},
+            {"matrix": [4, 0], "x": 224, "y": 0, "flags": 2},
+            {"matrix": [5, 0], "x": 224, "y": 21, "flags": 2},
+            {"matrix": [6, 0], "x": 224, "y": 42, "flags": 2},
+            {"matrix": [6, 1], "x": 204, "y": 42, "flags": 4},
+            {"matrix": [5, 1], "x": 204, "y": 21, "flags": 4},
+            {"matrix": [4, 1], "x": 204, "y": 0, "flags": 4},
+            {"matrix": [4, 2], "x": 183, "y": 0, "flags": 4},
+            {"matrix": [5, 2], "x": 183, "y": 21, "flags": 4},
+            {"matrix": [6, 2], "x": 183, "y": 42, "flags": 4},
+            {"matrix": [6, 3], "x": 163, "y": 42, "flags": 4},
+            {"matrix": [5, 3], "x": 163, "y": 21, "flags": 4},
+            {"matrix": [4, 3], "x": 163, "y": 0, "flags": 4},
+            {"matrix": [4, 4], "x": 142, "y": 0, "flags": 4},
+            {"matrix": [5, 4], "x": 142, "y": 21, "flags": 4},
+            {"matrix": [6, 4], "x": 142, "y": 42, "flags": 4},
+            {"matrix": [4, 5], "x": 122, "y": 0, "flags": 4},
+            {"matrix": [5, 5], "x": 122, "y": 21, "flags": 4},
+            {"matrix": [6, 5], "x": 122, "y": 42, "flags": 4},
+            {"matrix": [7, 1], "x": 163, "y": 64, "flags": 2},
+            {"matrix": [7, 3], "x": 142, "y": 64, "flags": 2},
+            {"matrix": [7, 4], "x": 122, "y": 64, "flags": 2}
+        ],
         "max_brightness": 50,
         "sleep": true,
         "split_count": [21, 21]
-    },
-    "rgblight": {
-        "led_count": 42,
-        "split_count": [21, 21]
-    },
-    "split": {
-        "transport": {
-            "sync": {
-                "matrix_state": true
-            }
-        }
     },
     "community_layouts": ["split_3x6_3"],
     "layouts": {
@@ -29,46 +75,39 @@
                 {"matrix": [0, 3], "x": 3, "y": 0},
                 {"matrix": [0, 4], "x": 4, "y": 0},
                 {"matrix": [0, 5], "x": 5, "y": 0},
-
                 {"matrix": [4, 5], "x": 11, "y": 0},
                 {"matrix": [4, 4], "x": 12, "y": 0},
                 {"matrix": [4, 3], "x": 13, "y": 0},
                 {"matrix": [4, 2], "x": 14, "y": 0},
                 {"matrix": [4, 1], "x": 15, "y": 0},
                 {"matrix": [4, 0], "x": 16, "y": 0},
-
                 {"matrix": [1, 0], "x": 0, "y": 1},
                 {"matrix": [1, 1], "x": 1, "y": 1},
                 {"matrix": [1, 2], "x": 2, "y": 1},
                 {"matrix": [1, 3], "x": 3, "y": 1},
                 {"matrix": [1, 4], "x": 4, "y": 1},
                 {"matrix": [1, 5], "x": 5, "y": 1},
-
                 {"matrix": [5, 5], "x": 11, "y": 1},
                 {"matrix": [5, 4], "x": 12, "y": 1},
                 {"matrix": [5, 3], "x": 13, "y": 1},
                 {"matrix": [5, 2], "x": 14, "y": 1},
                 {"matrix": [5, 1], "x": 15, "y": 1},
                 {"matrix": [5, 0], "x": 16, "y": 1},
-
                 {"matrix": [2, 0], "x": 0, "y": 2},
                 {"matrix": [2, 1], "x": 1, "y": 2},
                 {"matrix": [2, 2], "x": 2, "y": 2},
                 {"matrix": [2, 3], "x": 3, "y": 2},
                 {"matrix": [2, 4], "x": 4, "y": 2},
                 {"matrix": [2, 5], "x": 5, "y": 2},
-
                 {"matrix": [6, 5], "x": 11, "y": 2},
                 {"matrix": [6, 4], "x": 12, "y": 2},
                 {"matrix": [6, 3], "x": 13, "y": 2},
                 {"matrix": [6, 2], "x": 14, "y": 2},
                 {"matrix": [6, 1], "x": 15, "y": 2},
                 {"matrix": [6, 0], "x": 16, "y": 2},
-
                 {"matrix": [3, 3], "x": 5, "y": 3},
                 {"matrix": [3, 4], "x": 6, "y": 3},
                 {"matrix": [3, 1], "x": 7, "y": 3},
-
                 {"matrix": [7, 1], "x": 9, "y": 3},
                 {"matrix": [7, 4], "x": 10, "y": 3},
                 {"matrix": [7, 3], "x": 11, "y": 3}

@@ -1,0 +1,29 @@
+{
+    "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["A5", "A6", "A7", "B0", "B1", "B10"],
+        "rows": ["A4", "A3", "A2", "A1", "A0"]
+    },
+    "diode_direction": "COL2ROW",
+    "ws2812": {
+        "driver": "pwm"
+    },
+    "development_board": "blackpill_f401",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    }
+}

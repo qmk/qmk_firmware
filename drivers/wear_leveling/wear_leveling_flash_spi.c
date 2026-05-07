@@ -5,6 +5,7 @@
 #include "util.h"
 #include "timer.h"
 #include "wear_leveling.h"
+#include "wear_leveling_flash_spi_config.h"
 #include "wear_leveling_internal.h"
 
 #ifndef WEAR_LEVELING_EXTERNAL_FLASH_BULK_COUNT
@@ -58,7 +59,7 @@ bool backing_store_read(uint32_t address, backing_store_int_t *value) {
 bool backing_store_read_bulk(uint32_t address, backing_store_int_t *values, size_t item_count) {
     bs_dprintf("Read  ");
     uint32_t       offset = (WEAR_LEVELING_EXTERNAL_FLASH_BLOCK_OFFSET) * (EXTERNAL_FLASH_BLOCK_SIZE) + address;
-    flash_status_t status = flash_read_block(offset, values, sizeof(backing_store_int_t) * item_count);
+    flash_status_t status = flash_read_range(offset, values, sizeof(backing_store_int_t) * item_count);
     if (status == FLASH_STATUS_SUCCESS) {
         for (size_t i = 0; i < item_count; ++i) {
             values[i] = ~values[i];
@@ -88,7 +89,7 @@ bool backing_store_write_bulk(uint32_t address, backing_store_int_t *values, siz
         }
 
         // Write out the block
-        if (flash_write_block(offset, temp, sizeof(backing_store_int_t) * this_loop) != FLASH_STATUS_SUCCESS) {
+        if (flash_write_range(offset, temp, sizeof(backing_store_int_t) * this_loop) != FLASH_STATUS_SUCCESS) {
             return false;
         }
 

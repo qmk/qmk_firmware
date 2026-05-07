@@ -16,8 +16,10 @@
 
 #pragma once
 
-#include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
 #include "pointing_device.h"
+#include "report.h"
 
 #ifndef TRACKBALL_ADDRESS
 #    define TRACKBALL_ADDRESS (0x0A << 1)

@@ -10,10 +10,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [1] = LAYOUT_ortho_5x4(
-    KC_TRNS, 	RGB_HUI,    RGB_HUD,    	RGB_VAD,
-    KC_TRNS, 	KC_VOLU,    RGB_TOG,    	RGB_VAI,
+    KC_TRNS, 	UG_HUEU,    UG_HUED,    	UG_VALD,
+    KC_TRNS, 	KC_VOLU,    UG_TOGG,    	UG_VALU,
     KC_MPRV, 	KC_MUTE,    KC_MNXT,    	KC_TRNS,
     KC_TRNS,  KC_VOLD,    KC_TRNS,    	KC_TRNS,
-    QK_BOOT,    KC_TRNS,    KC_TRNS,        RGB_MOD
+    QK_BOOT,  KC_TRNS,    KC_TRNS,        UG_NEXT
   )
 };

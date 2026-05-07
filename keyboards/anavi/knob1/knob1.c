@@ -6,8 +6,8 @@
 
 void keyboard_post_init_kb(void) {
     // Enable RGB LED
-    setPinOutput(GP11);
-    writePinHigh(GP11);
+    gpio_set_pin_output(GP11);
+    gpio_write_pin_high(GP11);
     rgblight_enable();
 
     // Offload to the user func

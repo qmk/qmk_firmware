@@ -88,11 +88,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_all(
   //,-----------------------------------------------------------------------------------------------------------.
-                 QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, KC_PSCR,
+               QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_INS, KC_PSCR,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-               RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,     KC_NUM,
+               UG_TOGG, UG_HUEU, UG_SATU, UG_VALU, XXXXXXX, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT,     KC_NUM,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
-               RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX,     KC_CAPS,
+               UG_NEXT, UG_HUED, UG_SATD, UG_VALD, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX,     KC_CAPS,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------|
       _______, _______,                                _______,                                 _______, KC_CAPS
   //`-----------------------------------------------------------------------------------------------------------'
@@ -148,7 +148,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         } else if (IS_LAYER_ON(_RAISE)) {
           tap_code16((clockwise == true) ? S(KC_DOWN) : S(KC_UP));
         } else {
-          tap_code((clockwise == true) ? KC_WH_D : KC_WH_U);
+          tap_code((clockwise == true) ? MS_WHLD : MS_WHLU);
         }
     }
     return true;
@@ -156,7 +156,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 // for exsample customize of LED inducator
 // bool led_update_user(led_t led_state) {
-//     writePin(D2, IS_LAYER_ON(_LOWER));
-//     writePin(D1, IS_LAYER_ON(_RAISE));
+//     gpio_write_pin(D2, IS_LAYER_ON(_LOWER));
+//     gpio_write_pin(D1, IS_LAYER_ON(_RAISE));
 //     return false;
 // }

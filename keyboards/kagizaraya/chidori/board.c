@@ -19,7 +19,6 @@
 #include "print.h"
 #include "debug.h"
 #include "matrix.h"
-#include "quantum.h"
 #include "board.h"
 #include "i2c_master.h"
 
@@ -61,8 +60,8 @@ static board_interface_t* get_interface(board_info_t* board) {
 static void board_set_master_led(board_info_t* board, uint8_t led_index, bool status) {
     pin_t pin                    = board->led_pins[led_index];
     board->led_status[led_index] = status;
-    setPinOutput(pin);
-    status ? writePinHigh(pin) : writePinLow(pin);
+    gpio_set_pin_output(pin);
+    status ? gpio_write_pin_high(pin) : gpio_write_pin_low(pin);
 }
 
 static void board_set_slave_led(board_info_t* board, uint8_t led_index, bool status) {
@@ -255,18 +254,18 @@ static bool board_read_cols_on_slave_row(board_info_t* board, matrix_row_t curre
 // Functions for master board
 //
 static void board_select_master_row(board_info_t* board, uint8_t board_row) {
-    setPinOutput(board->row_pins[board_row]);
-    writePinLow(board->row_pins[board_row]);
+    gpio_set_pin_output(board->row_pins[board_row]);
+    gpio_write_pin_low(board->row_pins[board_row]);
 }
 
-static void board_unselect_master_row(board_info_t* board, uint8_t board_row) { setPinInputHigh(board->row_pins[board_row]); }
+static void board_unselect_master_row(board_info_t* board, uint8_t board_row) { gpio_set_pin_input_high(board->row_pins[board_row]); }
 
 static void board_unselect_master_rows(board_info_t* board) {
     if (!board) {
         return;
     }
     for (uint8_t x = 0; x < NUM_ROWS; x++) {
-        setPinInput(board->row_pins[x]);
+        gpio_set_pin_input(board->row_pins[x]);
     }
 }
 
@@ -282,7 +281,7 @@ static bool board_read_cols_on_master_row(board_info_t* board, matrix_row_t curr
     wait_us(30);
 
     for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        uint8_t pin_state = readPin(board->col_pins[col_index]);
+        uint8_t pin_state = gpio_read_pin(board->col_pins[col_index]);
         current_matrix[row] |= pin_state ? 0 : (1 << col_index);
     }
     board_unselect_master_row(board, board_row);
@@ -296,7 +295,7 @@ static void board_master_init(void) {
         return;
     }
     for (uint8_t x = 0; x < NUM_COLS; x++) {
-        setPinInputHigh(board->col_pins[x]);
+        gpio_set_pin_input_high(board->col_pins[x]);
     }
     board->initialized = true;
 }

@@ -11,7 +11,7 @@
 /* Adapted from https://github.com/bigjosh/SimpleNeoPixelDemo/ */
 
 #ifndef WS2812_BITBANG_NOP_FUDGE
-#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx)
+#    if defined(STM32F0XX) || defined(STM32F1XX) || defined(GD32VF103) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32L0XX) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
 #        define WS2812_BITBANG_NOP_FUDGE 0.4
 #    else
 #        if defined(RP2040)
@@ -76,39 +76,49 @@ void sendByte(uint8_t byte) {
     }
 }
 
+ws2812_led_t ws2812_leds[WS2812_LED_COUNT];
+
 void ws2812_init(void) {
     palSetLineMode(WS2812_DI_PIN, WS2812_OUTPUT_MODE);
 }
 
-// Setleds for standard RGB
-void ws2812_setleds(rgb_led_t *ledarray, uint16_t leds) {
-    static bool s_init = false;
-    if (!s_init) {
-        ws2812_init();
-        s_init = true;
-    }
+void ws2812_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
+    ws2812_leds[index].r = red;
+    ws2812_leds[index].g = green;
+    ws2812_leds[index].b = blue;
+#if defined(WS2812_RGBW)
+    ws2812_rgb_to_rgbw(&ws2812_leds[index]);
+#endif
+}
 
+void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
+        ws2812_set_color(i, red, green, blue);
+    }
+}
+
+void ws2812_flush(void) {
     // this code is very time dependent, so we need to disable interrupts
     chSysLock();
 
-    for (uint8_t i = 0; i < leds; i++) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
         // WS2812 protocol dictates grb order
 #if (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_GRB)
-        sendByte(ledarray[i].g);
-        sendByte(ledarray[i].r);
-        sendByte(ledarray[i].b);
+        sendByte(ws2812_leds[i].g);
+        sendByte(ws2812_leds[i].r);
+        sendByte(ws2812_leds[i].b);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_RGB)
-        sendByte(ledarray[i].r);
-        sendByte(ledarray[i].g);
-        sendByte(ledarray[i].b);
+        sendByte(ws2812_leds[i].r);
+        sendByte(ws2812_leds[i].g);
+        sendByte(ws2812_leds[i].b);
 #elif (WS2812_BYTE_ORDER == WS2812_BYTE_ORDER_BGR)
-        sendByte(ledarray[i].b);
-        sendByte(ledarray[i].g);
-        sendByte(ledarray[i].r);
+        sendByte(ws2812_leds[i].b);
+        sendByte(ws2812_leds[i].g);
+        sendByte(ws2812_leds[i].r);
 #endif
 
-#ifdef RGBW
-        sendByte(ledarray[i].w);
+#ifdef WS2812_RGBW
+        sendByte(ws2812_leds[i].w);
 #endif
     }
 

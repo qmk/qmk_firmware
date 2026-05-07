@@ -116,12 +116,12 @@ void st7565_render(void);
 void st7565_set_cursor(uint8_t col, uint8_t line);
 
 // Advances the cursor to the next page, writing ' ' if true
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void st7565_advance_page(bool clearPageRemainder);
 
 // Moves the cursor forward 1 character length
 // Advance page if there is not enough room for the next character
-// Wraps to the begining when out of bounds
+// Wraps to the beginning when out of bounds
 void st7565_advance_char(void);
 
 // Writes a single character to the buffer at current cursor position

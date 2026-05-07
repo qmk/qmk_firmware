@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT_ortho_6x4(
-        RGB_MOD, BL_STEP, _______, _______,
+        UG_NEXT, BL_STEP, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,
         _______, _______, _______, _______,

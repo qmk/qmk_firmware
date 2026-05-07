@@ -31,15 +31,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     QK_BOOT,   EE_CLR,    KC_NO,     KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NUM,    KC_QUOT,   KC_PEQL,    KC_NO,                       KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_DEL,
     KC_CAPS,   KC_NUM,    KC_SCRL,   S(KC_9),   KC_UP,     S(KC_0),    S(KC_SPC),                   KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_BSPC,
-                                     KC_LEFT,   KC_BTN3,   KC_RGHT,    S(KC_SPC),                   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOT,
+                                     KC_LEFT,   MS_BTN3,   KC_RGHT,    S(KC_SPC),                   KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_QUOT,
     KC_TRNS,   S(KC_ENT), KC_TRNS,   KC_BSPC,   KC_DOWN,   KC_DEL,     KC_TRNS,       KC_RBRC,      KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_ENT,
-    KC_BTN1,   KC_ENT,    S(KC_SPC),LT(2,KC_SPC),KC_SPC,   KC_COMM,    KC_TRNS,       KC_TRNS,      KC_TRNS,    KC_NO,      KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT
+    MS_BTN1,   KC_ENT,    S(KC_SPC),LT(2,KC_SPC),KC_SPC,   KC_COMM,    KC_TRNS,       KC_TRNS,      KC_TRNS,    KC_NO,      KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT
   ),
 
   [_FN2] =LAYOUT (
-    RGB_TOG,   RGB_MOD,   RGB_RMOD,  KC_NO,
-    RGB_HUI,   RGB_SAI,   RGB_VAI,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
-    RGB_HUD,   RGB_SAD,   RGB_VAD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_BSPC,    KC_DEL,     KC_NO,      KC_NO,      KC_NO,      KC_NO,
+    UG_TOGG,   UG_NEXT,   UG_PREV,   KC_NO,
+    UG_HUEU,   UG_SATU,   UG_VALU,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO,
+    UG_HUED,   UG_SATD,   UG_VALD,   KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_BSPC,    KC_DEL,     KC_NO,      KC_NO,      KC_NO,      KC_NO,
                                      KC_NO,     KC_NO,     KC_NO,     KC_NO,                        KC_LEFT,    KC_DOWN,    KC_UP,      KC_RGHT,    KC_NO,      KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_RBRC,       KC_HOME,    KC_PGDN,    KC_PGUP,    KC_END,     KC_NO,      KC_NO,
     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,     KC_NO,         KC_TRNS,       KC_TRNS,    KC_NO,      KC_NO,      KC_NO,      KC_NO,      KC_NO

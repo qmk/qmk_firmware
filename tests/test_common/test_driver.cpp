@@ -54,6 +54,7 @@ void TestDriver::send_nkro(report_nkro_t* report) {
 }
 
 void TestDriver::send_mouse(report_mouse_t* report) {
+    test_logger.trace() << std::setw(10) << std::left << "send_mouse: (X:" << (int)report->x << ", Y:" << (int)report->y << ", H:" << (int)report->h << ", V:" << (int)report->v << ", B:" << (int)report->buttons << ")" << std::endl;
     m_this->send_mouse_mock(*report);
 }
 

@@ -28,14 +28,15 @@ enum charybdis_keycodes {
     DRAGSCROLL_MODE,
     DRAGSCROLL_MODE_TOGGLE,
 };
-#        define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
-#        define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
-#        define S_D_MOD POINTER_SNIPING_DPI_FORWARD
-#        define S_D_RMOD POINTER_SNIPING_DPI_REVERSE
-#        define SNIPING SNIPING_MODE
-#        define SNP_TOG SNIPING_MODE_TOGGLE
-#        define DRGSCRL DRAGSCROLL_MODE
-#        define DRG_TOG DRAGSCROLL_MODE_TOGGLE
+
+#define DPI_MOD POINTER_DEFAULT_DPI_FORWARD
+#define DPI_RMOD POINTER_DEFAULT_DPI_REVERSE
+#define S_D_MOD POINTER_SNIPING_DPI_FORWARD
+#define S_D_RMOD POINTER_SNIPING_DPI_REVERSE
+#define SNIPING SNIPING_MODE
+#define SNP_TOG SNIPING_MODE_TOGGLE
+#define DRGSCRL DRAGSCROLL_MODE
+#define DRG_TOG DRAGSCROLL_MODE_TOGGLE
 
 #ifdef POINTING_DEVICE_ENABLE
 /** \brief Return the current DPI value for the pointer's default mode. */
@@ -103,7 +104,4 @@ bool charybdis_get_pointer_dragscroll_enabled(void);
  * are translated into horizontal and vertical scroll movements.
  */
 void charybdis_set_pointer_dragscroll_enabled(bool enable);
-#endif  // POINTING_DEVICE_ENABLE
-
-void matrix_init_sub_kb(void);
-void matrix_scan_sub_kb(void);
+#endif // POINTING_DEVICE_ENABLE

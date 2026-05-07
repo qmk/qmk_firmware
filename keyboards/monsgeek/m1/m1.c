@@ -15,7 +15,7 @@
  */
 
 #include "quantum.h"
-
+// clang-format off
 #ifdef RGB_MATRIX_ENABLE
 const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 /* Refer to SNLED27351 manual for these locations
@@ -165,35 +165,14 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 #endif
 
-enum __layers {
-    WIN_B,
-    WIN_W,
-    WIN_FN,
-    MAC_B,
-    MAC_W,
-    MAC_FN
-};
+// clang-format on
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_user(keycode, record)) {
         return false;
     }
     switch (keycode) {
-        case DF(WIN_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(WIN_B);
-                layer_state_set(1<<WIN_B);
-            }
-            return false;
-        case DF(MAC_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(MAC_B);
-                layer_state_set(1<<MAC_B);
-                keymap_config.no_gui     = 0;
-                eeconfig_update_keymap(keymap_config.raw);
-            }
-            return false;
-        case RGB_TOG:
+        case QK_RGB_MATRIX_TOGGLE:
             if (record->event.pressed) {
                 switch (rgb_matrix_get_flags()) {
                     case LED_FLAG_ALL: {

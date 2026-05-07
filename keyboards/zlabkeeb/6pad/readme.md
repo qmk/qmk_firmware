@@ -7,7 +7,7 @@
 -   Support RGB light UnderGlow
 -   Keyboard Maintainer: [zlabkeeb](https://github.com/zlabkeeb)
 -   Hardware Supported: 6Pad PCB, Promicro
--   Hardware Availability: (INDONESIA Only) Will be available at [Tokopedia](https://www.tokopedia.com/zahranetid)
+-   Hardware Availability: (INDONESIA ONLY) [Tokopedia](https://www.tokopedia.com/zahranetid/macropad-6pad-via-compatible-by-zlabkeeb)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -24,3 +24,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 1 way:
 
 -   **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
+

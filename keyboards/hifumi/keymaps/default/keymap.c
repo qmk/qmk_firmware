@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,    _______, _______
     ),
     [ADJUST] = LAYOUT(
-        _______,        RGB_TOG,        _______,
-        RGB_MODE_SNAKE, RGB_MODE_PLAIN, RGB_HUI
+        _______,  UG_TOGG, _______,
+        RGB_M_SN, RGB_M_P, UG_HUEU
     )
 };

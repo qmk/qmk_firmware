@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "wait.h"
 #include "matrix.h"
-#include "quantum.h"
 
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
@@ -31,13 +30,13 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
  */
 static void unselect_cols(void) {
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-        setPinOutput(col_pins[col]);
-        writePinLow(col_pins[col]);
+        gpio_set_pin_output(col_pins[col]);
+        gpio_write_pin_low(col_pins[col]);
     }
 }
 
 static void select_col(uint8_t col) {
-    writePinHigh(col_pins[col]);
+    gpio_write_pin_high(col_pins[col]);
 }
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col) {
@@ -51,7 +50,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     if (current_col == 0) {
 
         matrix_row_t last_row_value = current_matrix[0];
-        if (readPin(row_pins[0]) == 0) {
+        if (gpio_read_pin(row_pins[0]) == 0) {
             // Pin LO, set col bit
             current_matrix[0] |= (1 << current_col);
         } else {
@@ -69,7 +68,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     for (uint8_t row_index = 1; row_index < MATRIX_ROWS; row_index++) {
 
         matrix_row_t last_row_value = current_matrix[row_index];
-        if (readPin(row_pins[row_index]) == 0) {
+        if (gpio_read_pin(row_pins[row_index]) == 0) {
             // Pin HI, clear col bit
             current_matrix[row_index] &= ~(1 << current_col);
         } else {
@@ -96,7 +95,7 @@ void matrix_init_custom(void) {
 
     // initialize key pins
     for (uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++) {
-        setPinInputHigh(row_pins[row_index]);
+        gpio_set_pin_input_high(row_pins[row_index]);
     }
 }
 

@@ -1,1 +1,1 @@
-
+EEPROM_DRIVER = transient

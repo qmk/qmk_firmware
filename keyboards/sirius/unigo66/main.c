@@ -1,7 +1,5 @@
-#include <avr/io.h>
 #include <avr/wdt.h>
 #include <avr/power.h>
-#include <util/delay.h>
 
 // LUFA
 #include "lufa.h"
@@ -9,6 +7,8 @@
 #include "sendchar.h"
 #include "debug.h"
 #include "keyboard.h"
+#include "gpio.h"
+#include "wait.h"
 #include "led.h"
 
 /* LED ping configuration */
@@ -16,16 +16,16 @@
 //#define LEONARDO_LED
 #if defined(TMK_LED)
 // For TMK converter and Teensy
-#define LED_TX_INIT    (DDRD  |=  (1<<6))
-#define LED_TX_ON      (PORTD |=  (1<<6))
-#define LED_TX_OFF     (PORTD &= ~(1<<6))
-#define LED_TX_TOGGLE  (PORTD ^=  (1<<6))
+#define LED_TX_INIT    gpio_set_pin_output(D6)
+#define LED_TX_ON      gpio_write_pin_high(D6)
+#define LED_TX_OFF     gpio_write_pin_low(D6)
+#define LED_TX_TOGGLE  gpio_toggle_pin(D6)
 #elif defined(LEONARDO_LED)
 // For Leonardo(TX LED)
-#define LED_TX_INIT    (DDRD  |=  (1<<5))
-#define LED_TX_ON      (PORTD &= ~(1<<5))
-#define LED_TX_OFF     (PORTD |=  (1<<5))
-#define LED_TX_TOGGLE  (PORTD ^=  (1<<5))
+#define LED_TX_INIT    gpio_set_pin_output(D5)
+#define LED_TX_ON      gpio_write_pin_low(D5)
+#define LED_TX_OFF     gpio_write_pin_high(D5)
+#define LED_TX_TOGGLE  gpio_toggle_pin(D5)
 #else
 #define LED_TX_INIT
 #define LED_TX_ON

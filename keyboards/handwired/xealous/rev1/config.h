@@ -18,6 +18,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define USE_I2C
+#define SCL_CLOCK  800000UL
+
+//#define DEBUG_MATRIX_SCAN_RATE //Use this to determine scan-rate.
+
+#ifdef AUDIO_ENABLE
+  #define AUDIO_PIN C6
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+  #define NO_MUSIC_MODE
+  #define TONE_QWERTY SONG(Q__NOTE(_E4));
+  #define TONE_NUMPAD SONG(Q__NOTE(_D4));
+#endif
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

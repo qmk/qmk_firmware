@@ -1,6 +1,11 @@
-# Default keymap
+# Default Keymap
 
-This is a really simple QWERTY keymap with a single number/symbol layer.
-It uses home row modifiers and the caps word feature because of the limited number of keys.
+This keymap is heavily inspired by the [miryoku](https://github.com/manna-harbour/miryoku) layout.
 
-For a more complete layout, see the `feature` layout.
+It defaults to a [COLEMAK mod dh](https://colemakmods.github.io/mod-dh/) layer, but a QWERTY and a gaming layer are available from the `sys` layer.
+
+It uses the following features:
+
+-   Home row modifiers
+-   Usual special layers (`media`, `navigation`, `mouse`, `symbols`, `numbers`, `functions`, `system`)
+-   Combos (to access the `sys` layer by pressing both external thumb keys)

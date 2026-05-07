@@ -19,9 +19,9 @@
 #pragma once
 
 /* disable action features */
-//#define NO_ACTION_LAYER
-//#define NO_ACTION_TAPPING
-//#define NO_ACTION_ONESHOT
+// #define NO_ACTION_LAYER
+// #define NO_ACTION_TAPPING
+// #define NO_ACTION_ONESHOT
 
 // #define ROTATIONAL_TRANSFORM_ANGLE 0
 #define POINTING_DEVICE_INVERT_Y
@@ -29,8 +29,12 @@
 // If board has a debug LED, you can enable it by defining this
 // #define DEBUG_LED_PIN F7
 
-/* PMW3360 Settings */
-#define POINTING_DEVICE_CS_PIN B0
+#define ENCODER_BUTTON_COL 1
+#define ENCODER_BUTTON_ROW 0
 
+#define ENCODER_LOW_THRES_A 20
+#define ENCODER_HIGH_THRES_A 75
+#define ENCODER_LOW_THRES_B 20
+#define ENCODER_HIGH_THRES_B 90
 /* Custom encoder needs to specify just how many encoders we have */
 #define NUM_ENCODERS 1

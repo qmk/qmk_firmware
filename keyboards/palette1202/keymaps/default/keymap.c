@@ -19,13 +19,6 @@
   #include "lib/oled_helper.h"
 #endif
 
-enum custom_keycode {
-  Mac_CS = SAFE_RANGE,
-  Mac_PS,
-  Win_CS,
-  Win_PS,
-  IOS_CS,
-};
 enum layerID {
   MAC_CS_1 = 0,
   MAC_CS_2,
@@ -40,6 +33,12 @@ enum layerID {
   SETTING,
 };
 
+#define Mac_CS PDF(MAC_CS_1)
+#define Mac_PS PDF(MAC_PS_1)
+#define Win_CS PDF(WIN_CS_1)
+#define Win_PS PDF(WIN_PS_1)
+#define IOS_CS PDF(IOS_CS_1)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Mac
     // Clip Studio
@@ -51,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_CS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LGUI(KC_GRV),
       _______,      LGUI(KC_D), KC_K,         KC_F,          LGUI(KC_S),
-                    KC_LALT,    KC_I,         SGUI(KC_Z),    KC_H
+                    KC_LALT,    KC_I,         LSG(KC_Z),     KC_H
     ),
     // Photoshop
     [MAC_PS_1] = LAYOUT(
@@ -62,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_PS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          KC_ESC,
       _______,      LGUI(KC_D), KC_V,         LGUI(KC_T),    LGUI(KC_S),
-                    KC_LALT,    KC_I,         SGUI(KC_Z),    KC_H
+                    KC_LALT,    KC_I,         LSG(KC_Z),     KC_H
     ),
 
     // Windows
@@ -98,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [IOS_CS_2] = LAYOUT(
       MO(SETTING),  KC_ESC,     KC_G,         KC_R,          LGUI(KC_EQL),
       _______,      LGUI(KC_D), KC_K,         KC_F,          LGUI(KC_S),
-                    KC_LALT,    KC_I,         SGUI(KC_Z),    KC_H
+                    KC_LALT,    KC_I,         LSG(KC_Z),     KC_H
     ),
     [SETTING] = LAYOUT(
       _______, IOS_CS, Win_CS, Mac_CS, KC_NO,
@@ -232,44 +231,6 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     }
   }
     return true;
-}
-
-// custom keycode
-// switch default layer
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case Mac_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(MAC_CS_1);
-      }
-      return false;
-      break;
-    case Mac_PS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(MAC_PS_1);
-      }
-      return false;
-      break;
-    case Win_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(WIN_CS_1);
-      }
-      return false;
-      break;
-    case Win_PS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(WIN_PS_1);
-      }
-      return false;
-      break;
-    case IOS_CS:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(IOS_CS_1);
-      }
-      return false;
-      break;
-  }
-  return true;
 }
 
 // OLED Display

@@ -1,0 +1,116 @@
+{
+    "keyboard_name": "ALETH42",
+    "manufacturer": "25KEYS",
+    "url": "http://www.sho-k.co.uk/tech/aleth42",
+    "maintainer": "monksoffunk",
+    "usb": {
+        "vid": "0x04D8",
+        "pid": "0xEAC8",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "console": true,
+        "backlight": true,
+        "rgblight": true,
+        "encoder": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["D5", "D3", "D2", "D1", "D0", "D6", "D4", "F7", "F0", "F1", "F4"],
+        "rows": ["B4", "B0", "B2", "B1"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"},
+            {"pin_a": "F5", "pin_b": "F6"}
+        ]
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 8,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "B3"
+    },
+    "backlight": {
+        "pin": "C6",
+        "levels": 8,
+        "breathing": true
+    },
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+                {"matrix": [0, 8], "x": 8, "y": 0},
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [0, 10], "x": 10, "y": 0},
+                {"matrix": [3, 10], "x": 11, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1, "w": 1.25},
+                {"matrix": [1, 1], "x": 1.25, "y": 1},
+                {"matrix": [1, 2], "x": 2.25, "y": 1},
+                {"matrix": [1, 3], "x": 3.25, "y": 1},
+                {"matrix": [1, 4], "x": 4.25, "y": 1},
+                {"matrix": [1, 5], "x": 5.25, "y": 1},
+                {"matrix": [1, 6], "x": 6.25, "y": 1},
+                {"matrix": [1, 7], "x": 7.25, "y": 1},
+                {"matrix": [1, 8], "x": 8.25, "y": 1},
+                {"matrix": [1, 9], "x": 9.25, "y": 1},
+                {"matrix": [1, 10], "x": 10.25, "y": 1, "w": 1.75},
+
+                {"matrix": [2, 0], "x": 0, "y": 2, "w": 1.75},
+                {"matrix": [2, 1], "x": 1.75, "y": 2},
+                {"matrix": [2, 2], "x": 2.75, "y": 2},
+                {"matrix": [2, 3], "x": 3.75, "y": 2},
+                {"matrix": [2, 4], "x": 4.75, "y": 2},
+                {"matrix": [2, 5], "x": 5.75, "y": 2},
+                {"matrix": [2, 6], "x": 6.75, "y": 2},
+                {"matrix": [2, 7], "x": 7.75, "y": 2},
+                {"matrix": [2, 8], "x": 8.75, "y": 2},
+                {"matrix": [2, 9], "x": 9.75, "y": 2},
+                {"matrix": [2, 10], "x": 10.75, "y": 2, "w": 1.25},
+
+                {"matrix": [3, 0], "x": 0, "y": 3, "w": 1.25},
+                {"matrix": [3, 1], "x": 1.25, "y": 3},
+                {"matrix": [3, 2], "x": 2.25, "y": 3, "w": 1.25},
+                {"matrix": [3, 3], "x": 3.5, "y": 3, "w": 2.75},
+                {"matrix": [3, 4], "x": 6.25, "y": 3, "w": 2.25},
+                {"matrix": [3, 5], "x": 8.5, "y": 3, "w": 1.25},
+                {"matrix": [3, 6], "x": 9.75, "y": 3},
+                {"matrix": [3, 7], "x": 10.75, "y": 3, "w": 1.25}
+            ]
+        }
+    }
+}

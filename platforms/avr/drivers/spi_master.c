@@ -36,9 +36,18 @@
 #    define SPI_TIMEOUT 100
 #endif
 
-static pin_t   currentSlavePin    = NO_PIN;
-static uint8_t currentSlaveConfig = 0;
-static bool    currentSlave2X     = false;
+static pin_t   current_slave_pin     = NO_PIN;
+static bool    current_cs_active_low = true;
+static uint8_t current_slave_config  = 0;
+static bool    current_slave_2x      = false;
+
+static inline void spi_select(void) {
+    gpio_write_pin(current_slave_pin, current_cs_active_low ? 0 : 1);
+}
+
+static inline void spi_unselect(void) {
+    gpio_write_pin(current_slave_pin, current_cs_active_low ? 1 : 0);
+}
 
 void spi_init(void) {
     gpio_write_pin_high(SPI_SS_PIN);
@@ -50,63 +59,74 @@ void spi_init(void) {
 }
 
 bool spi_start(pin_t slavePin, bool lsbFirst, uint8_t mode, uint16_t divisor) {
-    if (currentSlavePin != NO_PIN || slavePin == NO_PIN) {
+    spi_start_config_t start_config = {0};
+    start_config.slave_pin          = slavePin;
+    start_config.lsb_first          = lsbFirst;
+    start_config.mode               = mode;
+    start_config.divisor            = divisor;
+    start_config.cs_active_low      = true;
+    return spi_start_extended(&start_config);
+}
+
+bool spi_start_extended(spi_start_config_t *start_config) {
+    if (current_slave_pin != NO_PIN || start_config->slave_pin == NO_PIN) {
         return false;
     }
 
-    currentSlaveConfig = 0;
+    current_slave_config = 0;
 
-    if (lsbFirst) {
-        currentSlaveConfig |= _BV(DORD);
+    if (start_config->lsb_first) {
+        current_slave_config |= _BV(DORD);
     }
 
-    switch (mode) {
+    switch (start_config->mode) {
         case 1:
-            currentSlaveConfig |= _BV(CPHA);
+            current_slave_config |= _BV(CPHA);
             break;
         case 2:
-            currentSlaveConfig |= _BV(CPOL);
+            current_slave_config |= _BV(CPOL);
             break;
         case 3:
-            currentSlaveConfig |= (_BV(CPOL) | _BV(CPHA));
+            current_slave_config |= (_BV(CPOL) | _BV(CPHA));
             break;
     }
 
     uint16_t roundedDivisor = 1;
-    while (roundedDivisor < divisor) {
+    while (roundedDivisor < start_config->divisor) {
         roundedDivisor <<= 1;
     }
 
     switch (roundedDivisor) {
         case 16:
-            currentSlaveConfig |= _BV(SPR0);
+            current_slave_config |= _BV(SPR0);
             break;
         case 64:
-            currentSlaveConfig |= _BV(SPR1);
+            current_slave_config |= _BV(SPR1);
             break;
         case 128:
-            currentSlaveConfig |= (_BV(SPR1) | _BV(SPR0));
+            current_slave_config |= (_BV(SPR1) | _BV(SPR0));
             break;
         case 2:
-            currentSlave2X = true;
+            current_slave_2x = true;
             break;
         case 8:
-            currentSlave2X = true;
-            currentSlaveConfig |= _BV(SPR0);
+            current_slave_2x = true;
+            current_slave_config |= _BV(SPR0);
             break;
         case 32:
-            currentSlave2X = true;
-            currentSlaveConfig |= _BV(SPR1);
+            current_slave_2x = true;
+            current_slave_config |= _BV(SPR1);
             break;
     }
 
-    SPCR |= currentSlaveConfig;
-    if (currentSlave2X) {
+    SPCR |= current_slave_config;
+    if (current_slave_2x) {
         SPSR |= _BV(SPI2X);
     }
-    currentSlavePin = slavePin;
-    gpio_set_pin_output(currentSlavePin);
-    gpio_write_pin_low(currentSlavePin);
+    current_slave_pin     = start_config->slave_pin;
+    current_cs_active_low = start_config->cs_active_low;
+    gpio_set_pin_output(current_slave_pin);
+    spi_select();
 
     return true;
 }
@@ -168,13 +188,13 @@ spi_status_t spi_receive(uint8_t *data, uint16_t length) {
 }
 
 void spi_stop(void) {
-    if (currentSlavePin != NO_PIN) {
-        gpio_set_pin_output(currentSlavePin);
-        gpio_write_pin_high(currentSlavePin);
-        currentSlavePin = NO_PIN;
+    if (current_slave_pin != NO_PIN) {
+        gpio_set_pin_output(current_slave_pin);
+        spi_unselect();
+        current_slave_pin = NO_PIN;
         SPSR &= ~(_BV(SPI2X));
-        SPCR &= ~(currentSlaveConfig);
-        currentSlaveConfig = 0;
-        currentSlave2X     = false;
+        SPCR &= ~(current_slave_config);
+        current_slave_config = 0;
+        current_slave_2x     = false;
     }
 }

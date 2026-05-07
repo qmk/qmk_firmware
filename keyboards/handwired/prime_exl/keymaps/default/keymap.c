@@ -15,12 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Defines the keycodes used by our macros in process_record_user
-enum custom_keycodes {
-  QMKBEST = SAFE_RANGE,
-  QMKURL
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
 		KC_NUM, 	KC_LPRN, 	KC_RPRN, 	KC_PSLS, 	KC_PAST, 	KC_BSPC, 				KC_ESC, 		KC_Q, 			KC_W, 		KC_E, 			KC_R, 		KC_T,				 		KC_Y, 			KC_U, 			KC_I, 			KC_O, 				KC_P, 			KC_BSPC,
@@ -72,39 +66,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QMKBEST:
-      if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
-        SEND_STRING("QMK is the best thing ever!");
-      } else {
-        // when keycode QMKBEST is released
-      }
-      break;
-    case QMKURL:
-      if (record->event.pressed) {
-        // when keycode QMKURL is pressed
-        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
-      } else {
-        // when keycode QMKURL is released
-      }
-      break;
-  }
-  return true;
-}
-
 bool led_update_user(led_t led_state) {
-  writePin(NUM_LOCK_LED_PIN, led_state.num_lock);
-  writePin(CAPS_LOCK_LED_PIN, led_state.caps_lock);
-  // writePin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock);
+  gpio_write_pin(NUM_LOCK_LED_PIN, led_state.num_lock);
+  gpio_write_pin(CAPS_LOCK_LED_PIN, led_state.caps_lock);
+  // gpio_write_pin(SCROLL_LOCK_LED_PIN, led_state.scroll_lock);
   return false;
 }
 
 //function for layer indicator LED
 layer_state_t layer_state_set_user(layer_state_t state)
 {
-    writePin(SCROLL_LOCK_LED_PIN, (get_highest_layer(state) == 1));
+    gpio_write_pin(SCROLL_LOCK_LED_PIN, (get_highest_layer(state) == 1));
 
     return state;
 }

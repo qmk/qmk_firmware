@@ -2,7 +2,7 @@
 #include "apa102.h" // Only needed if you want to use the global brightness function
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    LAYOUT_ortho_1x1(RGB_MOD)
+    LAYOUT_ortho_1x1(UG_NEXT)
 };
 
 void keyboard_post_init_user(void) {

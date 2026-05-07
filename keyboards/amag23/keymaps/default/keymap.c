@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Z,    KC_X,    KC_C,    KC_B,             KC_SPC
   ),
   [FN1] = LAYOUT( /* Function Layer */
-      KC_NO,   KC_NO,   KC_NO,   RGB_MOD, KC_NO,   KC_NO,
+      KC_NO,   KC_NO,   KC_NO,   UG_NEXT, KC_NO,   KC_NO,
       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
       KC_NO,   KC_NO,   KC_NO,   KC_NO,            KC_NO

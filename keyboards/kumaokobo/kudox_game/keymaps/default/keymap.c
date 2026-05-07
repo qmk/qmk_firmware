@@ -52,15 +52,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LIGHT] = LAYOUT(
   //┌────────┬────────┬────────┬────────┬────────┬────────┐
-     _______ ,RGB_HUI ,RGB_HUD ,RGB_SAI ,RGB_SAD ,RGB_VAI ,
+     _______ ,UG_HUEU ,UG_HUED ,UG_SATU ,UG_SATD ,UG_VALU ,
   //└────────┼────────┼────────┼────────┼────────┼────────┤
-              RGB_M_P ,RGB_M_SW,RGB_M_X ,RGB_M_B ,RGB_VAD ,
+              RGB_M_P ,RGB_M_SW,RGB_M_X ,RGB_M_B ,UG_VALD ,
   //┌────────┼────────┼────────┼────────┼────────┼────────┼────────┐
      _______ ,_______ ,RGB_M_SN,RGB_M_G ,RGB_M_R ,RGB_M_K ,RGB_M_T ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐
-     _______ ,RGB_M_T                   ,XXXXXXX ,RGB_VAI ,RGB_VAD ,
+     _______ ,RGB_M_T                   ,XXXXXXX ,UG_VALU ,UG_VALD ,
   //├────────┼────────┘                 └────────┴────────┼────────┼────────┐
-     _______                                              ,RGB_MOD ,RGB_TOG
+     _______                                              ,UG_NEXT ,UG_TOGG
   //└────────┘                                            └────────┴────────┘
   )
 

@@ -1,0 +1,95 @@
+{
+    "manufacturer": "Dane Lipscombe",
+    "keyboard_name": "haritev2",
+    "maintainer": "dlip",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP11", "GP12", "GP13", "GP14", "GP15", "GP26"],
+        "rows": ["GP6", "GP7", "GP8", "GP9", "GP10"]
+    },
+    "processor": "RP2040",
+    "split": {
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        }
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4832",
+        "vid": "0x444C"
+    },
+    "layouts": {
+        "LAYOUT_split_5x6": {
+            "layout": [
+                {"label": "lpu", "matrix": [0, 0], "x": 1, "y": 0},
+                {"label": "lru", "matrix": [0, 1], "x": 5, "y": 0},
+                {"label": "lmu", "matrix": [0, 2], "x": 9, "y": 0},
+                {"label": "liu", "matrix": [0, 3], "x": 13, "y": 0},
+                {"label": "riu", "matrix": [8, 3], "x": 21, "y": 0},
+                {"label": "rmu", "matrix": [8, 2], "x": 25, "y": 0},
+                {"label": "rru", "matrix": [8, 1], "x": 29, "y": 0},
+                {"label": "rpu", "matrix": [8, 0], "x": 33, "y": 0},
+                {"label": "lpl", "matrix": [2, 0], "x": 0, "y": 1},
+                {"label": "lpc", "matrix": [1, 0], "x": 1, "y": 1},
+                {"label": "lpr", "matrix": [3, 0], "x": 2, "y": 1},
+                {"label": "lrl", "matrix": [2, 1], "x": 4, "y": 1},
+                {"label": "lrc", "matrix": [1, 1], "x": 5, "y": 1},
+                {"label": "lrr", "matrix": [3, 1], "x": 6, "y": 1},
+                {"label": "lml", "matrix": [2, 2], "x": 8, "y": 1},
+                {"label": "lmc", "matrix": [1, 2], "x": 9, "y": 1},
+                {"label": "lmr", "matrix": [3, 2], "x": 10, "y": 1},
+                {"label": "lil", "matrix": [2, 3], "x": 12, "y": 1},
+                {"label": "lic", "matrix": [1, 3], "x": 13, "y": 1},
+                {"label": "lir", "matrix": [3, 3], "x": 14, "y": 1},
+                {"label": "ril", "matrix": [5, 3], "x": 20, "y": 1},
+                {"label": "ric", "matrix": [6, 3], "x": 21, "y": 1},
+                {"label": "rir", "matrix": [9, 3], "x": 22, "y": 1},
+                {"label": "rml", "matrix": [5, 2], "x": 24, "y": 1},
+                {"label": "rmc", "matrix": [6, 2], "x": 25, "y": 1},
+                {"label": "rmr", "matrix": [9, 2], "x": 26, "y": 1},
+                {"label": "rrl", "matrix": [5, 1], "x": 28, "y": 1},
+                {"label": "rrc", "matrix": [6, 1], "x": 29, "y": 1},
+                {"label": "rrr", "matrix": [9, 1], "x": 30, "y": 1},
+                {"label": "rpl", "matrix": [5, 0], "x": 32, "y": 1},
+                {"label": "rpc", "matrix": [6, 0], "x": 33, "y": 1},
+                {"label": "rpr", "matrix": [9, 0], "x": 34, "y": 1},
+                {"label": "lpd", "matrix": [4, 0], "x": 1, "y": 2},
+                {"label": "lrd", "matrix": [4, 1], "x": 5, "y": 2},
+                {"label": "lmd", "matrix": [4, 2], "x": 9, "y": 2},
+                {"label": "lid", "matrix": [4, 3], "x": 13, "y": 2},
+                {"label": "rid", "matrix": [7, 3], "x": 21, "y": 2},
+                {"label": "rmd", "matrix": [7, 2], "x": 25, "y": 2},
+                {"label": "rrd", "matrix": [7, 1], "x": 29, "y": 2},
+                {"label": "rpd", "matrix": [7, 0], "x": 33, "y": 2},
+                {"label": "ltu", "matrix": [0, 4], "x": 13, "y": 3},
+                {"label": "rtu", "matrix": [5, 4], "x": 21, "y": 3},
+                {"label": "ltl", "matrix": [2, 4], "x": 12, "y": 4},
+                {"label": "ltc", "matrix": [1, 4], "x": 13, "y": 4},
+                {"label": "ltr", "matrix": [3, 4], "x": 14, "y": 4},
+                {"label": "rtl", "matrix": [7, 4], "x": 20, "y": 4},
+                {"label": "rtc", "matrix": [6, 4], "x": 21, "y": 4},
+                {"label": "rtr", "matrix": [8, 4], "x": 22, "y": 4},
+                {"label": "ltd", "matrix": [4, 4], "x": 13, "y": 5},
+                {"label": "rtd", "matrix": [9, 4], "x": 21, "y": 5},
+                {"label": "lt2u", "matrix": [0, 5], "x": 13, "y": 6},
+                {"label": "rt2u", "matrix": [5, 5], "x": 21, "y": 6},
+                {"label": "lt2l", "matrix": [2, 5], "x": 12, "y": 7},
+                {"label": "lt2c", "matrix": [1, 5], "x": 13, "y": 7},
+                {"label": "lt2r", "matrix": [3, 5], "x": 14, "y": 7},
+                {"label": "rt2l", "matrix": [7, 5], "x": 20, "y": 7},
+                {"label": "rt2c", "matrix": [6, 5], "x": 21, "y": 7},
+                {"label": "rt2r", "matrix": [8, 5], "x": 22, "y": 7},
+                {"label": "lt2d", "matrix": [4, 5], "x": 13, "y": 8},
+                {"label": "rt2d", "matrix": [9, 5], "x": 21, "y": 8}
+            ]
+        }
+    }
+}

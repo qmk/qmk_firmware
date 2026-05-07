@@ -40,14 +40,14 @@ uint8_t init_mcp23018(void) {
     // - input   : input  : 1
     // - driving : output : 0
     uint8_t data[] = {0b11000001, 0b11111111};
-    mcp23018_status = i2c_writeReg(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
+    mcp23018_status = i2c_write_register(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
 
     if (!mcp23018_status) {
         // set pull-up
         // - unused  : on  : 1
         // - input   : on  : 1
         // - driving : off : 0
-        mcp23018_status = i2c_writeReg(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
+        mcp23018_status = i2c_write_register(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
     }
 
     return mcp23018_status;

@@ -54,5 +54,15 @@
     },
     "processor": "STM32F072", // F070
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "build": {
+        "lto": true
+    },
     "board": "DURGOD_STM32_F070"
 }

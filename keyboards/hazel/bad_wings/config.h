@@ -3,6 +3,9 @@
 
 #pragma once
 
+#define MATRIX_COLS 8
+#define MATRIX_ROWS 5
+
 #define SPI_SCK_PIN     GP2
 #define SPI_MOSI_PIN    GP3
 #define SPI_MISO_PIN    GP4

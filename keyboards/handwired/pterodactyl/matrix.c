@@ -86,8 +86,6 @@ uint8_t expander_status;
 uint8_t expander_input_pin_mask;
 bool i2c_initialized = false;
 
-#define ROW_SHIFTER ((matrix_row_t)1)
-
 __attribute__ ((weak))
 void matrix_init_user(void) {}
 
@@ -182,14 +180,14 @@ void init_expander(void) {
     uint8_t data[] = { expander_input_pin_mask, 0};
 #   endif
 #endif
-    expander_status = i2c_writeReg(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
+    expander_status = i2c_write_register(I2C_ADDR, IODIRA, data, sizeof(data), I2C_TIMEOUT);
 
     if (!expander_status) {
         // set pull-up
         // - unused  : off : 0
         // - input   : on  : 1
         // - driving : off : 0
-        expander_status = i2c_writeReg(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
+        expander_status = i2c_write_register(I2C_ADDR, GPPUA, data, sizeof(data), I2C_TIMEOUT);
     }
 
 }
@@ -256,7 +254,7 @@ uint8_t matrix_scan(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & (ROW_SHIFTER << col));
+    return (matrix[row] & (MATRIX_ROW_SHIFTER << col));
 }
 
 inline
@@ -305,7 +303,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     // Read columns from expander, unless it's in an error state
     if (! expander_status) {
         uint8_t data;
-        i2c_readReg(I2C_ADDR, EXPANDER_COL_REGISTER, &data, 1, I2C_TIMEOUT);
+        i2c_read_register(I2C_ADDR, EXPANDER_COL_REGISTER, &data, 1, I2C_TIMEOUT);
         current_matrix[current_row] |= (~data) & expander_input_pin_mask;
     }
 
@@ -314,7 +312,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         if (! col_expanded[col_index]) {
             uint8_t pin = onboard_col_pins[col_index];
             uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
-            current_matrix[current_row] |= pin_state ? 0 : (ROW_SHIFTER << col_index);
+            current_matrix[current_row] |= pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
         }
     }
 
@@ -329,7 +327,7 @@ static void select_row(uint8_t row) {
         // set active row low  : 0
         // set other rows hi-Z : 1
         uint8_t data = 0xFF & ~(1<<row);
-        i2c_writeReg(I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, I2C_TIMEOUT);
+        i2c_write_register(I2C_ADDR, EXPANDER_ROW_REGISTER, &data, 1, I2C_TIMEOUT);
     }
 
     // select on teensy
@@ -385,7 +383,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
             return false;
         }
 
-        i2c_writeReg(I2C_ADDR, EXPANDER_ROW_REGISTER, &column_state, 1, I2C_TIMEOUT);
+        i2c_write_register(I2C_ADDR, EXPANDER_ROW_REGISTER, &column_state, 1, I2C_TIMEOUT);
         column_state = ~column_state;
     } else {
         for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
@@ -401,10 +399,10 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
         if (column_state & (1 << current_row)) {
             // key closed; set state bit in matrix
-            current_matrix[current_row] |= (ROW_SHIFTER << current_col);
+            current_matrix[current_row] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
             // key open; clear state bit in matrix
-            current_matrix[current_row] &= ~(ROW_SHIFTER << current_col);
+            current_matrix[current_row] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine whether the matrix changed state

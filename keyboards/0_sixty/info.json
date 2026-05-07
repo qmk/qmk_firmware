@@ -1,6 +1,5 @@
 {
     "manufacturer": "ven0mtr0n",
-    "url": "",
     "maintainer": "vinamarora8",
     "usb": {
         "vid": "0x7654",
@@ -20,8 +19,13 @@
     "build": {
         "lto": true
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "development_board": "promicro",
     "layouts": {
     "LAYOUT_1x2uC": {
             "layout": [

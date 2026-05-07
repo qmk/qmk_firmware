@@ -1,10 +1,12 @@
 #include "chimera_ls.h"
 
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+	gpio_set_pin_output(CHIMERA_LS_GREEN_LED_PIN);
+	gpio_write_pin_high(CHIMERA_LS_GREEN_LED_PIN);
+	gpio_set_pin_output(CHIMERA_LS_BLUE_LED_PIN);
+	gpio_write_pin_high(CHIMERA_LS_BLUE_LED_PIN);
+	gpio_set_pin_output(CHIMERA_LS_RED_LED_PIN);
+	gpio_write_pin_high(CHIMERA_LS_RED_LED_PIN);
 }
 
 

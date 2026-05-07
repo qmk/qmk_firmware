@@ -16,7 +16,6 @@
 
 #include "unicode.h"
 
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "action.h"
 #include "action_util.h"
@@ -136,7 +135,7 @@ static void unicode_play_song(uint8_t mode) {
 #endif
 
 void unicode_input_mode_init(void) {
-    unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
+    eeconfig_read_unicode_mode(&unicode_config);
 #if UNICODE_SELECTED_MODES != -1
 #    if UNICODE_CYCLE_PERSIST
     // Find input_mode in selected modes
@@ -165,7 +164,7 @@ uint8_t get_unicode_input_mode(void) {
 }
 
 static void persist_unicode_input_mode(void) {
-    eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
+    eeconfig_update_unicode_mode(&unicode_config);
 }
 
 void set_unicode_input_mode(uint8_t mode) {

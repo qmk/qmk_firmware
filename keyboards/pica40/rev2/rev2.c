@@ -6,12 +6,12 @@
 
 #ifdef ENCODER_ENABLE // code based on encoder.c
 
-#define ENCODER_PIN_A (((pin_t[])ENCODERS_PAD_A)[0])
-#define ENCODER_PIN_B (((pin_t[])ENCODERS_PAD_B)[0])
+#define ENCODER_PIN_A (((pin_t[])ENCODER_A_PINS)[0])
+#define ENCODER_PIN_B (((pin_t[])ENCODER_B_PINS)[0])
 
 // custom handler that returns encoder B pin status from slave side
 void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
-    *(uint8_t *)out_data = readPin(ENCODER_PIN_B) ? 1 : 0;
+    *(uint8_t *)out_data = gpio_read_pin(ENCODER_PIN_B) ? 1 : 0;
 }
 
 void encoder_quadrature_init_pin(uint8_t index, bool pad_b) {}
@@ -22,7 +22,7 @@ uint8_t encoder_quadrature_read_pin(uint8_t index, bool pad_b) {
         transaction_rpc_recv(ENCODER_SYNC, sizeof(data), &data);
         return data;
     }
-    return readPin(ENCODER_PIN_A) ? 1 : 0;
+    return gpio_read_pin(ENCODER_PIN_A) ? 1 : 0;
 }
 
 #endif // ENCODER_ENABLE
@@ -53,11 +53,11 @@ bool should_set_rgblight = false;
 #endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
 
 void keyboard_post_init_kb(void) {
-    setPinOutput(PICA40_RGB_POWER_PIN);
+    gpio_set_pin_output(PICA40_RGB_POWER_PIN);
 
 #ifdef ENCODER_ENABLE
-    setPinInputHigh(ENCODER_PIN_A);
-    setPinInputHigh(ENCODER_PIN_B);
+    gpio_set_pin_input_high(ENCODER_PIN_A);
+    gpio_set_pin_input_high(ENCODER_PIN_B);
     transaction_register_rpc(ENCODER_SYNC, encoder_sync_slave_handler);
 #endif // ENCODER_ENABLE
 
@@ -113,13 +113,11 @@ void housekeeping_task_kb(void) {
             should_set_rgblight = true;
 
             if (is_layer_active) {
-                writePinHigh(PICA40_RGB_POWER_PIN);
+                gpio_write_pin_high(PICA40_RGB_POWER_PIN);
             } else {
-                writePinLow(PICA40_RGB_POWER_PIN);
+                gpio_write_pin_low(PICA40_RGB_POWER_PIN);
             }
         }
     }
 #endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-
-    housekeeping_task_user();
 }

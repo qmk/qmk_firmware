@@ -26,15 +26,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [1] = LAYOUT_grid( /* FN */
-  RGB_TOG,  RGB_MOD,  BL_STEP,  BL_BRTG,
+  UG_TOGG,  UG_NEXT,  BL_STEP,  BL_BRTG,
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  RGB_HUI,  RGB_SAI,  RGB_VAI,  KC_TRNS,
-  RGB_HUD,  RGB_SAD,  RGB_VAD,  KC_TRNS,
+  UG_HUEU,  UG_SATU,  UG_VALU,  KC_TRNS,
+  UG_HUED,  UG_SATD,  UG_VALD,  KC_TRNS,
   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  KC_TRNS,  KC_TRNS,  QK_BOOT  ,  KC_TRNS
+  KC_TRNS,  KC_TRNS,  QK_BOOT,  KC_TRNS
 ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}

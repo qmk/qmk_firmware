@@ -1,1 +1,0 @@
-The default keymap for the GSKT-00 PCB.
