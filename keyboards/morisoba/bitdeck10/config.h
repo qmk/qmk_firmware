@@ -19,11 +19,5 @@
 
 #define I2C1_SDA_PIN GP6
 #define I2C1_SCL_PIN GP7
-
-#ifdef OLED_ENABLE
 #define OLED_FONT_H "keyboards/morisoba/bitdeck10/glcdfont.c"
-#endif // OLED_ENABLE
-
-#ifdef ENCODER_ENABLE
 #define ENCODER_MAP_KEY_DELAY 10
-#endif // ENCODER_ENABLE

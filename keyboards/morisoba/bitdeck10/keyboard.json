@@ -6,10 +6,11 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
+        "encoder": true,
         "extrakey": true,
+        "keycode_string": true,
         "mousekey": true,
         "nkro": true,
-        "encoder": true,
         "oled": true
     },
     "matrix_pins": {
