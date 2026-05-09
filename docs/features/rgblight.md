@@ -69,7 +69,7 @@ At minimum you must define the data pin your LED strip is connected to, and the 
 
 ```json
     "ws2812": {
-        "pin": "B2",
+        "pin": "B2"
     },
     "apa102": {
         "clock_pin": "B3",
