@@ -154,11 +154,11 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 |-----------------------------|-------------------------|------------------------------|-------------------------------------------------------------------------------|
 | `rgblight.hue_steps`        | `RGBLIGHT_HUE_STEP`     | `8`                          | The value by which to increment the hue per adjustment action                 |
 | `rgblight.saturation_steps` | `RGBLIGHT_SAT_STEP`     | `17`                         | The value by which to increment the saturation per adjustment action          |
-| `rgblight.value_steps`      | `RGBLIGHT_VAL_STEP`     | `17`                         | The value by which to increment the brightness per adjustment action          |
+| `rgblight.brightness_steps` | `RGBLIGHT_VAL_STEP`     | `17`                         | The value by which to increment the brightness per adjustment action          |
 | `rgblight.max_brightness`   | `RGBLIGHT_LIMIT_VAL`    | `255`                        | The maximum brightness level                                                  |
 | `rgblight.sleep`            | `RGBLIGHT_SLEEP`        | *Not defined*                | If defined, the RGB lighting will be switched off when the host goes to sleep |
 | `rgblight.split`            | `RGBLIGHT_SPLIT`        | *Not defined*                | If defined, synchronization functionality for split keyboards is added        |
-| `rgblight.default.mode`     | `RGBLIGHT_DEFAULT_MODE` | `RGBLIGHT_MODE_STATIC_LIGHT` | The default mode to use upon clearing the EEPROM                              |
+| `rgblight.default.animation`| `RGBLIGHT_DEFAULT_MODE` | `RGBLIGHT_MODE_STATIC_LIGHT` | The default mode to use upon clearing the EEPROM                              |
 | `rgblight.default.hue`      | `RGBLIGHT_DEFAULT_HUE`  | `0` (red)                    | The default hue to use upon clearing the EEPROM                               |
 | `rgblight.default.sat`      | `RGBLIGHT_DEFAULT_SAT`  | `UINT8_MAX` (255)            | The default saturation to use upon clearing the EEPROM                        |
 | `rgblight.default.val`      | `RGBLIGHT_DEFAULT_VAL`  | `RGBLIGHT_LIMIT_VAL`         | The default value (brightness) to use upon clearing the EEPROM                |
@@ -574,7 +574,7 @@ By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED 
 ```json
     "rgblight": {
         "led_count": 4,
-        "led_map": [ 3, 2, 1, 0],
+        "led_map": [ 3, 2, 1, 0]
     },
 ```
 
