@@ -1019,6 +1019,11 @@ ifeq ($(strip $(SPI_DRIVER_REQUIRED)), yes)
     QUANTUM_LIB_SRC += spi_master.c
 endif
 
+ifeq ($(strip $(UART_FRAME_DRIVER_REQUIRED)), yes)
+    UART_DRIVER_REQUIRED = yes
+    SRC += uart_frame.c
+endif
+
 ifeq ($(strip $(UART_DRIVER_REQUIRED)), yes)
     ifeq ($(strip $(PLATFORM)), CHIBIOS)
         ifneq ($(filter $(MCU_SERIES),RP2040),)
