@@ -578,7 +578,7 @@ const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
         "sleep": true,  
         // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
         // If reactive effects are enabled, you also will want to enable split.transport.sync.matrix_state
-        "split_count": [Y, X],  
+        "split_count": [X, Y],  
     }
 ```
 
