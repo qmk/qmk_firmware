@@ -311,6 +311,7 @@ See also: [Wireless](features/wireless)
 | `QK_BLUETOOTH_PROFILE3`     | `BT_PRF3` | Swap to Bluetooth profile #3                                                                  |
 | `QK_BLUETOOTH_PROFILE4`     | `BT_PRF4` | Swap to Bluetooth profile #4                                                                  |
 | `QK_BLUETOOTH_PROFILE5`     | `BT_PRF5` | Swap to Bluetooth profile #5                                                                  |
+| `QK_2P4GHZ_UNPAIR`          | `WL_UNPR` | Drop the 2.4 GHz dongle's pairing                                                             |
 
 ## Caps Word {#caps-word}
 

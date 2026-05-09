@@ -7,6 +7,10 @@
 #    include "bluetooth.h"
 #endif
 
+#ifdef WIRELESS_2P4GHZ_ENABLE
+#    include "wireless_2p4ghz.h"
+#endif
+
 bool process_connection(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
@@ -57,6 +61,12 @@ bool process_connection(uint16_t keycode, keyrecord_t *record) {
                 return false;
             case QK_BLUETOOTH_PROFILE5:
                 connection_set_bluetooth_profile(4);
+                return false;
+#endif
+
+#ifdef WIRELESS_2P4GHZ_ENABLE
+            case QK_2P4GHZ_UNPAIR:
+                wireless_2p4ghz_unpair();
                 return false;
 #endif
         }
