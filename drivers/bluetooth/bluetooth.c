@@ -30,3 +30,17 @@ __attribute__((weak)) void bluetooth_send_consumer(uint16_t usage) {}
 __attribute__((weak)) void bluetooth_send_system(uint16_t usage) {}
 
 __attribute__((weak)) void bluetooth_send_raw_hid(uint8_t *data, uint8_t length) {}
+
+__attribute__((weak)) uint8_t bluetooth_get_max_profile(void) {
+    return 1;
+}
+
+__attribute__((weak)) bool bluetooth_set_profile(uint8_t profile) {
+    return profile == 0;
+}
+
+__attribute__((weak)) uint8_t bluetooth_get_profile(void) {
+    return 0;
+}
+
+__attribute__((weak)) void bluetooth_unpair(void) {}
