@@ -9,6 +9,10 @@
 #    include "bluetooth.h"
 #endif
 
+#ifdef WIRELESS_2P4GHZ_ENABLE
+#    include "wireless_2p4ghz.h"
+#endif
+
 // ======== DEPRECATED DEFINES - DO NOT USE ========
 #ifdef OUTPUT_DEFAULT
 #    undef CONNECTION_HOST_DEFAULT
@@ -30,7 +34,7 @@ static const connection_host_t host_candidates[] = {
 #ifdef BLUETOOTH_ENABLE
     CONNECTION_HOST_BLUETOOTH,
 #endif
-#if 0
+#ifdef WIRELESS_2P4GHZ_ENABLE
     CONNECTION_HOST_2P4GHZ,
 #endif
 };
@@ -148,6 +152,12 @@ connection_host_t connection_auto_detect_host(void) {
 #ifdef BLUETOOTH_ENABLE
     if (bluetooth_is_connected()) {
         return CONNECTION_HOST_BLUETOOTH;
+    }
+#endif
+
+#ifdef WIRELESS_2P4GHZ_ENABLE
+    if (wireless_2p4ghz_is_connected()) {
+        return CONNECTION_HOST_2P4GHZ;
     }
 #endif
 

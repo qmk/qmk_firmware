@@ -15,6 +15,7 @@
     "BACKLIGHT_DRIVER": {"info_key": "backlight.driver"},
     "BATTERY_DRIVER": {"info_key": "battery.driver"},
     "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
+    "WIRELESS_2P4GHZ_DRIVER": {"info_key": "wireless_2p4ghz.driver"},
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},
     "BOOTMAGIC_ENABLE": {"info_key": "bootmagic.enabled", "value_type": "bool"},
