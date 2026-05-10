@@ -28,6 +28,8 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "max_brightness": 100,
+        "sleep": true,
+        "timeout": 600000,
         "animations": {
             "alphas_mods": true,
             "gradient_up_down": true,
