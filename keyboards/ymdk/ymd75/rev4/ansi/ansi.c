@@ -14,16 +14,18 @@ void suspend_wakeup_init_kb(void)
 {
     rgb_matrix_set_suspend_state(false);
 }
-void rgb_matrix_indicators_kb(void) {
-    if (host_keyboard_led_state().caps_lock) {  // Capslock = RED
-        //rgb_matrix_set_color(44, 200, 0, 0);
+
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
+    }
+
+    if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(46, 200, 0, 0);
 
     }
-    //if (host_keyboard_led_state().scroll_lock) {  // Capslock = RED
-      //  rgb_matrix_set_color(15, 200, 0, 0);
 
-   // }
+    return true;
 }
 
 #endif  // #ifdef RGB_MATRIX_ENABLE
