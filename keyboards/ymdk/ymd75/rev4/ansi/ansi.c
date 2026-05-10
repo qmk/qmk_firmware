@@ -5,16 +5,6 @@
 
 #ifdef RGB_MATRIX_ENABLE
 
-void suspend_power_down_kb(void)
-{
-    rgb_matrix_set_suspend_state(true);
-}
-
-void suspend_wakeup_init_kb(void)
-{
-    rgb_matrix_set_suspend_state(false);
-}
-
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
