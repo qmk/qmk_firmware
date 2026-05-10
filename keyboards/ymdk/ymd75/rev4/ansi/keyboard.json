@@ -16,9 +16,6 @@
         "nkro": true,
         "rgb_matrix": true
     },
-    "tapping": {
-        "toggle": 2
-    },
     "matrix_pins": {
         "cols": ["C4","B0","B1","B2","B10","C5","A5","A8","A9"],
         "rows": ["A0","A1","A2","A3","A4","A6","C7","B12","B13","B14","B15","C6"]
