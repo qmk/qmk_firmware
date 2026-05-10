@@ -23,10 +23,4 @@
 
 #define HAL_USE_PWM TRUE
 
-
-
-#undef SERIAL_USB_BUFFERS_SIZE
-#define SERIAL_USB_BUFFERS_SIZE 256
-
-
 #include_next <halconf.h>
