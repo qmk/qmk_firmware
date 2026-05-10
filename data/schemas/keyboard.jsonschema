@@ -196,6 +196,10 @@
                     "type": "string",
                     "enum": ["adc", "custom", "vendor"]
                 },
+                "charger_driver": {
+                    "type": "string",
+                    "enum": ["custom", "gpio"]
+                },
                 "adc": {
                     "type": "object",
                     "additionalProperties": false,
