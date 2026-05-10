@@ -3,8 +3,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#define DYNAMIC_KEYMAP_MACRO_COUNT 15
-
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 2
 #define WS2812_PWM_PAL_MODE 2

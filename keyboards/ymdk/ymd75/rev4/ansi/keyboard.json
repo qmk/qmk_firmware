@@ -16,9 +16,6 @@
         "nkro": true,
         "rgb_matrix": true
     },
-    "dynamic_keymap": {
-        "layer_count": 6
-    },
     "tapping": {
         "toggle": 2
     },
