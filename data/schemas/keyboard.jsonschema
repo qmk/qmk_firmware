@@ -216,7 +216,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["bluefruit_le", "custom", "rn42"]
+                    "enum": ["bluefruit_le", "custom", "fr800x", "rn42"]
                 }
             }
         },
@@ -226,7 +226,7 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["custom"]
+                    "enum": ["custom", "fr800x"]
                 }
             }
         },
