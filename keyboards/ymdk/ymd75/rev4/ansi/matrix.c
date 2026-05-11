@@ -46,9 +46,13 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #elif defined(DIODE_DIRECTION)
 #    if (DIODE_DIRECTION == COL2ROW)
 
-static void select_col(uint8_t col) { palSetLine(col_pins[col]); }
+static void select_col(uint8_t col) {
+    palSetLine(col_pins[col]);
+}
 
-static void unselect_col(uint8_t col) { palClearLine(col_pins[col]); }
+static void unselect_col(uint8_t col) {
+    palClearLine(col_pins[col]);
+}
 
 static void unselect_rows(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
@@ -97,16 +101,20 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Unselect col
     unselect_col(current_col);
-    matrix_output_unselect_delay(current_col, matrix_changed);  // wait for all Row signals to go HIGH
+    matrix_output_unselect_delay(current_col, matrix_changed); // wait for all Row signals to go HIGH
 
     return matrix_changed;
 }
 
 #    elif (DIODE_DIRECTION == ROW2COL)
 
-static void select_row(uint8_t row) { palSetLine(row_pins[row]); }
+static void select_row(uint8_t row) {
+    palSetLine(row_pins[row]);
+}
 
-static void unselect_row(uint8_t row) { palClearLine(row_pins[row]); }
+static void unselect_row(uint8_t row) {
+    palClearLine(row_pins[row]);
+}
 
 static void unselect_cols(void) {
     for (uint8_t x = 0; x < MATRIX_COLS; x++) {
@@ -143,7 +151,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Unselect row
     unselect_row(current_row);
-    matrix_output_unselect_delay(current_row, current_row_value != 1);  // wait for all Col signals to go HIGH
+    matrix_output_unselect_delay(current_row, current_row_value != 1); // wait for all Col signals to go HIGH
 
     // If the row has changed, store the row and return the changed flag.
     if (current_matrix[current_row] != current_row_value) {

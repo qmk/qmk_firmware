@@ -12,10 +12,9 @@ bool rgb_matrix_indicators_kb(void) {
 
     if (host_keyboard_led_state().caps_lock) {
         rgb_matrix_set_color(46, 200, 0, 0);
-
     }
 
     return true;
 }
 
-#endif  // #ifdef RGB_MATRIX_ENABLE
+#endif // #ifdef RGB_MATRIX_ENABLE
