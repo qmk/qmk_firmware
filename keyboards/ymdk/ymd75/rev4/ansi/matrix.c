@@ -1,5 +1,5 @@
 // Copyright 2021 JasonRen(biu)
-// Copyright 2026 sodevel<steffen.o.dev@gmail.com>
+// Copyright 2026 Steffen Olszewski (@sodevel)
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include "matrix.h"
 
