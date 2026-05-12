@@ -14,6 +14,10 @@ bool rgb_matrix_indicators_kb(void) {
         rgb_matrix_set_color(46, 200, 0, 0);
     }
 
+    if (keymap_config.nkro && get_highest_layer(layer_state) == 1) {
+        rgb_matrix_set_color(66, 200, 0, 0);
+    }
+
     if (keymap_config.no_gui && get_highest_layer(layer_state) == 1) {
         rgb_matrix_set_color(75, 200, 0, 0);
     }
