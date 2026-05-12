@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 
 #if defined(RGB_MATRIX_AW20216S)
@@ -46,6 +47,8 @@ typedef struct {
     void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
     /* Flush any buffered changes to the hardware. */
     void (*flush)(void);
+    /* Optional: toggle the chain's VCC-enable rail. NULL when not supported. */
+    void (*set_power)(bool on);
 } rgb_matrix_driver_t;
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
