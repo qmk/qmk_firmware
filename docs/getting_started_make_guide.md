@@ -91,7 +91,7 @@ Enables your LED to breath while your computer is sleeping. Timer1 is being used
 
 `NKRO_ENABLE`
 
-This allows the keyboard to tell the host OS that up to 248 keys are held down at once (default without NKRO is 6). NKRO is off by default, even if `NKRO_ENABLE` is set. NKRO can be forced by adding `#define FORCE_NKRO` to your config.h or by binding `MAGIC_TOGGLE_NKRO` to a key and then hitting the key.
+This allows the keyboard to tell the host OS that up to 248 keys are held down at once (default without NKRO is 6). NKRO is off by default, even if `NKRO_ENABLE` is set. NKRO can be toggled by binding `NK_TOGG` to a key and then hitting the key.
 
 `BACKLIGHT_ENABLE`
 
