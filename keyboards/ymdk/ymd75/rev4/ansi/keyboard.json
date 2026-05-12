@@ -3,6 +3,9 @@
     "keyboard_name": "YMD75 / MT84",
     "maintainer": "sodevel",
     "bootloader": "tinyuf2",
+    "bootmagic": {
+        "matrix": [5, 0]
+    },
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
