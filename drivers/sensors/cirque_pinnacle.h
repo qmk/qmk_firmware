@@ -112,9 +112,9 @@ typedef struct {
 
 #define cirque_pinnacle_i2c_pointing_device_driver cirque_pinnacle_pointing_device_driver
 #define cirque_pinnacle_spi_pointing_device_driver cirque_pinnacle_pointing_device_driver
-const pointing_device_driver_t cirque_pinnacle_pointing_device_driver;
+extern const pointing_device_driver_t cirque_pinnacle_pointing_device_driver;
 
-void            cirque_pinnacle_init(void);
+bool            cirque_pinnacle_init(void);
 void            cirque_pinnacle_calibrate(void);
 void            cirque_pinnacle_cursor_smoothing(bool enable);
 pinnacle_data_t cirque_pinnacle_read_data(void);

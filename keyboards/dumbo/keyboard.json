@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Dumbo",
     "manufacturer": "trip_trap",
-    "url": "",
     "maintainer": "adamnaldal",
     "usb": {
         "vid": "0xFEED",
@@ -33,8 +32,7 @@
             "pin": "D2"
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": true,

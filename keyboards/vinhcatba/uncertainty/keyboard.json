@@ -14,8 +14,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "wpm": true,
         "encoder": true,
         "extrakey": true,
@@ -47,10 +45,8 @@
             "override_rgb": true
         },
         "led_count": 14,
-        "max_brightness": 255,
         "sleep": true
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",

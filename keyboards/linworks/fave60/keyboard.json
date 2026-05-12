@@ -26,8 +26,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -43,7 +41,6 @@
         "cols": ["D6", "D4", "B5", "B4", "B6", "C6", "C7", "F4", "F0", "E6", "D1", "D2", "D3", "D5", "B0"],
         "rows": ["F6", "F7", "D7", "F1", "D0"]
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x000D",

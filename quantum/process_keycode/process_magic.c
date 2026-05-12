@@ -47,7 +47,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (IS_MAGIC_KEYCODE(keycode)) {
             /* keymap config */
-            keymap_config.raw = eeconfig_read_keymap();
+            eeconfig_read_keymap(&keymap_config);
             switch (keycode) {
                 case QK_MAGIC_SWAP_CONTROL_CAPS_LOCK:
                     keymap_config.swap_control_capslock = true;
@@ -187,7 +187,7 @@ bool process_magic(uint16_t keycode, keyrecord_t *record) {
                     break;
             }
 
-            eeconfig_update_keymap(keymap_config.raw);
+            eeconfig_update_keymap(&keymap_config);
             clear_keyboard(); // clear to prevent stuck keys
 
             return false;

@@ -24,8 +24,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "quantum.h"
 
-#define ROW_SHIFTER ((uint16_t)1)
-
 static const pin_t row_pins[] = MATRIX_ROW_PINS;
 static const pin_t col_pins[] = MATRIX_COL_PINS;
 
@@ -74,7 +72,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // For each col...
     for (uint8_t col_index = 0; col_index < MATRIX_COLS / 2; col_index++) {
-        uint16_t column_index_bitmask = ROW_SHIFTER << ((col_index * 2) + 1);
+        uint16_t column_index_bitmask = MATRIX_ROW_SHIFTER << ((col_index * 2) + 1);
         // Check row pin state
         if (gpio_read_pin(col_pins[col_index*2])) {
             // Pin HI, clear col bit
@@ -103,7 +101,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         // Store last value of row prior to reading
         matrix_row_t last_row_value = current_matrix[row_index];
 
-        uint16_t column_index_bitmask = ROW_SHIFTER << (current_col * 2);
+        uint16_t column_index_bitmask = MATRIX_ROW_SHIFTER << (current_col * 2);
         // Check row pin state
         if (gpio_read_pin(row_pins[row_index])) {
             // Pin HI, clear col bit

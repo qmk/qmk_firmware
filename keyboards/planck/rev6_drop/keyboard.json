@@ -29,6 +29,17 @@
   },
   "rgb_matrix": {
     "driver": "ws2812",
+    "layout": [
+        {"matrix": [2, 5], "x": 112, "y": 39, "flags": 255},
+        {"matrix": [7, 1], "x": 148, "y": 60, "flags": 255},
+        {"matrix": [3, 4], "x": 206, "y": 53, "flags": 255},
+        {"matrix": [4, 4], "x": 206, "y": 3, "flags": 255},
+        {"matrix": [4, 1], "x": 150, "y": 3, "flags": 255},
+        {"matrix": [0, 4], "x": 74, "y": 3, "flags": 255},
+        {"matrix": [0, 1], "x": 18, "y": 3, "flags": 255},
+        {"matrix": [3, 1], "x": 18, "y": 54, "flags": 255},
+        {"matrix": [7, 4], "x": 77, "y": 60, "flags": 255}
+    ],
     "sleep": true
   },
   "matrix_pins": {

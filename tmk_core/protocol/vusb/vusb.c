@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <usbdrv/usbdrv.h>
 
+#include "compiler_support.h"
 #include "usbconfig.h"
 #include "host.h"
 #include "report.h"
@@ -80,7 +81,7 @@ enum usb_interfaces {
 
 #define MAX_INTERFACES 3
 
-_Static_assert(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console.");
+STATIC_ASSERT(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough available interfaces to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Raw HID, Console.");
 
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
@@ -144,18 +145,12 @@ static void send_report(uint8_t endpoint, void *report, size_t size) {
 static uint8_t raw_output_buffer[RAW_BUFFER_SIZE];
 static uint8_t raw_output_received_bytes = 0;
 
-void raw_hid_send(uint8_t *data, uint8_t length) {
+static void send_raw_hid(uint8_t *data, uint8_t length) {
     if (length != RAW_BUFFER_SIZE) {
         return;
     }
 
     send_report(4, data, 32);
-}
-
-__attribute__((weak)) void raw_hid_receive(uint8_t *data, uint8_t length) {
-    // Users should #include "raw_hid.h" in their own code
-    // and implement this function there. Leave this as weak linkage
-    // so users can opt to not handle data coming in.
 }
 
 void raw_hid_task(void) {
@@ -213,8 +208,20 @@ static void send_keyboard(report_keyboard_t *report);
 static void send_nkro(report_nkro_t *report);
 static void send_mouse(report_mouse_t *report);
 static void send_extra(report_extra_t *report);
+#ifdef RAW_ENABLE
+static void send_raw_hid(uint8_t *data, uint8_t length);
+#endif
 
-static host_driver_t driver = {.keyboard_leds = usb_device_state_get_leds, .send_keyboard = send_keyboard, .send_nkro = send_nkro, .send_mouse = send_mouse, .send_extra = send_extra};
+static host_driver_t driver = {
+    .keyboard_leds = usb_device_state_get_leds,
+    .send_keyboard = send_keyboard,
+    .send_nkro     = send_nkro,
+    .send_mouse    = send_mouse,
+    .send_extra    = send_extra,
+#ifdef RAW_ENABLE
+    .send_raw_hid = send_raw_hid,
+#endif
+};
 
 host_driver_t *vusb_driver(void) {
     return &driver;
@@ -520,6 +527,24 @@ const PROGMEM uchar shared_hid_report[] = {
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    // Feature report and padding (1 byte)
+    0xA1, 0x02,                                    //     Collection (Logical)
+    0x09, 0x48,                                    //       Usage (Resolution Multiplier)
+    0x95, 0x01,                                    //       Report Count (1)
+    0x75, 0x02,                                    //       Report Size (2)
+    0x15, 0x00,                                    //       Logical Minimum (0)
+    0x25, 0x01,                                    //       Logical Maximum (1)
+    0x35, 0x01,                                    //       Physical Minimum (1)
+    0x45, POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER, // Physical Maximum (POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER)
+    0x55, POINTING_DEVICE_HIRES_SCROLL_EXPONENT,   // Unit Exponent (POINTING_DEVICE_HIRES_SCROLL_EXPONENT)
+    0xB1, 0x02,                                    //       Feature (Data, Variable, Absolute)
+    0x35, 0x00,                                    //       Physical Minimum (0)
+    0x45, 0x00,                                    //       Physical Maximum (0)
+    0x75, 0x06,                                    //       Report Size (6)
+    0xB1, 0x03,                                    //       Feature (Constant)
+#    endif
+
     // Vertical wheel (1 or 2 bytes)
     0x09, 0x38, //     Usage (Wheel)
 #    ifndef WHEEL_EXTENDED_REPORT
@@ -534,6 +559,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x75, 0x10,       //     Report Size (16)
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
+
     // Horizontal wheel (1 or 2 bytes)
     0x05, 0x0C,       //     Usage Page (Consumer)
     0x0A, 0x38, 0x02, //     Usage (AC Pan)
@@ -549,8 +575,13 @@ const PROGMEM uchar shared_hid_report[] = {
     0x75, 0x10,       //     Report Size (16)
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
-    0xC0,       //   End Collection
-    0xC0,       // End Collection
+
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+    0xC0, //   End Collection
+#    endif
+
+    0xC0, //   End Collection
+    0xC0, // End Collection
 #endif
 
 #ifdef EXTRAKEY_ENABLE

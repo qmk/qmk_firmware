@@ -34,7 +34,6 @@
         "animations": {
             "rainbow_swirl": true
         },
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8
     },

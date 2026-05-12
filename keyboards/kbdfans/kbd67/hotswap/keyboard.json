@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KBD67 Hotswap",
     "manufacturer": "KBDFans",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B42",

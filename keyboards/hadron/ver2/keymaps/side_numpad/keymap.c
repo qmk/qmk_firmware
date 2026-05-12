@@ -164,11 +164,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_MOUSECURSOR] = LAYOUT(
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______,   _______, _______,
-  _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, DEMOMACRO, _______, _______, _______, _______,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R,   _______, _______, _______, _______, _______,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5,   _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______,   _______, _______, _______, _______, _______
+  _______, MS_ACL0, MS_ACL1, MS_ACL2, _______, _______, _______, _______, _______, _______,   _______, _______,
+  _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, MS_WHLL, MS_UP,   MS_WHLR, DEMOMACRO, _______, _______, _______, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, MS_LEFT, MS_DOWN, MS_RGHT,   _______, _______, _______, _______, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5,   _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, MS_BTN1, MS_BTN1, _______, _______, _______,   _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise)

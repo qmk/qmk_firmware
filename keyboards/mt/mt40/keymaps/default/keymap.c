@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, OOOOOOO, _______,     _______,      _______, _______, _______,  _______,  _______),
 
     [4] = LAYOUT_planck_mit(
-        _______, _______, _______, _______, _______, _______, _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______,
-        KC_PSCR, KC_INS,  KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, _______, _______,
-        KC_CAPS, _______, KC_MPLY, KC_MRWD, KC_MFFD, _______, _______, _______, KC_BTN1, KC_BTN2, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, MS_ACL0, MS_ACL1, MS_ACL2, _______, _______,
+        KC_PSCR, KC_INS,  KC_MUTE, KC_VOLD, KC_VOLU, _______, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, _______, _______,
+        KC_CAPS, _______, KC_MPLY, KC_MRWD, KC_MFFD, _______, _______, _______, MS_BTN1, MS_BTN2, _______, _______,
         _______, _______, _______, _______, _______,     _______,      _______, OOOOOOO, _______, _______, _______),
 
 

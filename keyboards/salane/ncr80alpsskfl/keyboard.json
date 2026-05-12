@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NCR80 ALPS SKFL",
     "manufacturer": "Salane",
-    "url": "",
     "maintainer": "Mai The San",
     "processor": "RP2040",
     "bootloader": "rp2040",

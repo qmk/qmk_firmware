@@ -1,13 +1,16 @@
 {
     "keyboard_name": "ARC60H",
     "manufacturer": "vertex",
-    "url": "",
     "maintainer": "EasonQian1, Vertex-kb",
     "usb": {
         "vid": "0x7374",
         "pid": "0x9770",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "indicators": {
         "caps_lock": "C13",

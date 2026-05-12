@@ -15,8 +15,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -36,8 +34,6 @@
     "rgblight": {
         "led_count": 20,
         "hue_steps": 17,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "animations": {
             "static_gradient": true,
             "twinkle": true,

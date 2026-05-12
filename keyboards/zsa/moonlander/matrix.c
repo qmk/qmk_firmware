@@ -127,7 +127,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
                 matrix_io_delay();
             }
             // read col data
-            data = ((readPin(A0) << 0) | (readPin(A1) << 1) | (readPin(A2) << 2) | (readPin(A3) << 3) | (readPin(A6) << 4) | (readPin(A7) << 5) | (readPin(B0) << 6));
+            data = ((gpio_read_pin(A0) << 0) | (gpio_read_pin(A1) << 1) | (gpio_read_pin(A2) << 2) | (gpio_read_pin(A3) << 3) | (gpio_read_pin(A6) << 4) | (gpio_read_pin(A7) << 5) | (gpio_read_pin(B0) << 6));
             // unstrobe  row
             switch (row) {
                 case 0:

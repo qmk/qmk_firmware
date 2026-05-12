@@ -1,14 +1,17 @@
 {
     "usb": {
         "device_version": "0.2.0",
-        "force_nkro": true,
         "shared_endpoint": {
             "keyboard": true
         }
     },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,

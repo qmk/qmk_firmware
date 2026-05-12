@@ -1,13 +1,16 @@
 {
     "keyboard_name": "AeroBoard",
     "manufacturer": "Eason",
-    "url": "",
     "maintainer": "EasonQian1",
     "usb": {
         "vid": "0x8954",
         "pid": "0x8870",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgblight": {
         "led_count": 20,
@@ -30,8 +33,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

@@ -52,7 +52,6 @@
             "rainbow_moving_chevron": true,
             "rainbow_pinwheels": true,
             "raindrops": true,
-            "solid_color": true,
             "solid_multisplash": true,
             "solid_reactive": true,
             "solid_reactive_cross": true,
@@ -65,9 +64,6 @@
             "solid_splash": true,
             "splash": true,
             "typing_heatmap": true
-        },
-        "default": {
-            "animation": "cycle_left_right"
         },
         "driver": "ws2812",
         "layout": [

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Curiosity",
   "manufacturer": "Spaceman",
-  "url": "",
   "maintainer": "Spaceman",
   "usb": {
     "vid": "0x5342",
@@ -10,8 +9,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true

@@ -29,8 +29,6 @@
         "led_count": 3,
         "sleep": true,
         "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "max_brightness": 155,
         "animations": {
             "alternating": true,
@@ -49,7 +47,6 @@
         "rows": ["B0", "D5", "D3", "D2"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0002",

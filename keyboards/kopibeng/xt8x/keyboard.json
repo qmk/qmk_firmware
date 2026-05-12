@@ -1,7 +1,6 @@
 {
     "keyboard_name": "XT8x",
     "manufacturer": "kopibeng",
-    "url": "",
     "maintainer": "kopibeng",
     "usb": {
         "vid": "0x4B50",

@@ -33,7 +33,7 @@ On ARM platforms the bitbang driver causes connection issues when using it toget
 +-------+                 +-------+
 ```
 
-One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A TRS or USB cable provides enough conductors for this driver to function. 
+One GPIO pin is needed for the bitbang driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SOFT_SERIAL_PIN` (SSP) in the configuration. A TRS or USB cable provides enough conductors for this driver to function.
 
 ### Setup
 
@@ -63,12 +63,12 @@ SERIAL_DRIVER = bitbang
 
 ## USART Half-duplex
 
-Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose Half-duplex over Bitbang if MCU is capable of utilising Half-duplex, and Full-duplex can't be used instead (e.g. lack of available GPIO pins, or imcompatible PCB design).
+Targeting ARM boards based on ChibiOS, where communication is offloaded to a USART hardware device that supports Half-duplex operation. The advantages over bitbanging are fast, accurate timings and reduced CPU usage. Therefore it is advised to choose Half-duplex over Bitbang if MCU is capable of utilising Half-duplex, and Full-duplex can't be used instead (e.g. lack of available GPIO pins, or incompatible PCB design).
 
 ### Pin configuration
 
 ```
-  LEFT                      RIGHT  
+  LEFT                      RIGHT
 +-------+  |           |  +-------+
 |       |  R           R  |       |
 |       |  |   SERIAL  |  |       |
@@ -80,7 +80,7 @@ Targeting ARM boards based on ChibiOS, where communication is offloaded to a USA
 +-------+                 +-------+
 ```
 
-Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work. 
+Only one GPIO pin is needed for the Half-duplex driver, as only one wire is used for receiving and transmitting data. This pin is referred to as the `SERIAL_USART_TX_PIN` in the configuration. Ensure that the pin chosen for split communication can operate as the TX pin of the contoller's USART peripheral. A TRS or USB cable provides enough conductors for this driver to function. As the split connection is configured to operate in open-drain mode, an **external pull-up resistor is needed to keep the line high**. Resistor values of 1.5kΩ to 8.2kΩ are known to work.
 
 ::: warning
 ***Note:*** A pull-up resistor isn't required for RP2040 controllers configured with PIO subsystem.
@@ -278,7 +278,7 @@ There are several advanced configuration options that can be defined in your key
 
 ### Baudrate
 
-If you're having issues or need a higher baudrate with serial communication, you can change the baudrate which in turn controls the communication speed for serial. You want to lower the baudrate if you experience failed transactions. 
+If you're having issues or need a higher baudrate with serial communication, you can change the baudrate which in turn controls the communication speed for serial. You want to lower the baudrate if you experience failed transactions.
 
 ```c
 #define SELECT_SOFT_SERIAL_SPEED n
@@ -307,19 +307,19 @@ This is the default time window in milliseconds in which a successful communicat
 
 ## Troubleshooting
 
-If you're having issues withe serial communication, you can enable debug messages that will give you insights which part of the communication failed. The enable these messages add to your keyboards `config.h` file:
+If you're having issues with serial communication, you can enable debug messages that will give you insights which part of the communication failed. The enable these messages add to your keyboards `config.h` file:
 
 ```c
 #define SERIAL_DEBUG
 ```
- 
+
 ::: tip
 The messages will be printed out to the `CONSOLE` output. For additional information, refer to [Debugging/Troubleshooting QMK](../faq_debug).
 :::
 
 ## Alternate Functions for selected STM32 MCUs
 
-Pins for USART Peripherals with 
+Pins for USART Peripherals with
 
 ### STM32F303 / Proton-C [Datasheet](https://www.st.com/resource/en/datasheet/stm32f303cc.pdf)
 

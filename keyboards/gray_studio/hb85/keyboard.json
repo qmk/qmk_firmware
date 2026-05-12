@@ -1,7 +1,6 @@
 {
     "keyboard_name": "HB85",
     "manufacturer": "Gray Studio",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4753",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

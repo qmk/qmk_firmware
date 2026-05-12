@@ -1,19 +1,15 @@
 {
     "keyboard_name": "rb1",
     "manufacturer": "ryanbaekr",
-    "url": "",
     "maintainer": "ryanbaekr",
     "usb": {
         "vid": "0x7262",
         "pid": "0x0001",
         "device_version": "0.0.3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

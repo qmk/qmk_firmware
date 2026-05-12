@@ -1,0 +1,26 @@
+{
+    housekeeping_task: {
+        ret_type: void
+        args: void
+    }
+    suspend_power_down: {
+        ret_type: void
+        args: void
+    }
+    suspend_wakeup_init: {
+        ret_type: void
+        args: void
+    }
+    shutdown: {
+        ret_type: bool
+        args: bool jump_to_bootloader
+        call_params: jump_to_bootloader
+    }
+    process_detected_host_os: {
+        ret_type: bool
+        args: os_variant_t os
+        call_params: os
+        guard: defined(OS_DETECTION_ENABLE)
+        header: os_detection.h
+    }
+}

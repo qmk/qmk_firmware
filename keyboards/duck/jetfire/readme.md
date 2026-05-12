@@ -1,7 +1,5 @@
 # Jetfire
 
-![jetfire](imgur.com image replace me!)
-
 The Duck Jetfire is a hybrid full size and 1800 layout keyboard that went on 
 Group Buy in November 2017. 
 

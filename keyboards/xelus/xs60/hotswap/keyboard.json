@@ -1,7 +1,6 @@
 {
     "keyboard_name": "XS60 Hotswap",
     "manufacturer": "Xelus",
-    "url": "",
     "maintainer": "Xelus22",
     "usb": {
         "vid": "0x5845",

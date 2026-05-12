@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Type-9",
   "manufacturer": "Treasure",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

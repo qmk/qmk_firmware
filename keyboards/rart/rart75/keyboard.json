@@ -1,7 +1,6 @@
 {
     "keyboard_name": "RART75",
     "manufacturer": "Alabahuy",
-    "url": "",
     "maintainer": "Alabahuy",
     "usb": {
         "vid": "0x414C",
@@ -10,7 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "encoder": true,
         "extrakey": true,

@@ -7,14 +7,10 @@
 #define MATRIX_COLS 1
 
 /* Here, "pins" from 0 to 31 are allowed. */
-#define ENCODER_A_PINS \
-    { 0, 2, 4 }
-#define ENCODER_B_PINS \
-    { 1, 3, 5 }
-#define ENCODER_A_PINS_RIGHT \
-    { 6, 8 }
-#define ENCODER_B_PINS_RIGHT \
-    { 7, 9 }
+#define ENCODER_A_PINS {0, 2, 4}
+#define ENCODER_B_PINS {1, 3, 5}
+#define ENCODER_A_PINS_RIGHT {6, 8}
+#define ENCODER_B_PINS_RIGHT {7, 9}
 
 #ifdef __cplusplus
 extern "C" {

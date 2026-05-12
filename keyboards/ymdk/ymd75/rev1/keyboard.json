@@ -1,7 +1,6 @@
 {
     "keyboard_name": "YMD75 / MT84",
     "manufacturer": "YMDK",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x20A0",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": true,
-        "console": false,
         "extrakey": true,
         "key_lock": true,
         "mousekey": false,

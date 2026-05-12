@@ -534,6 +534,8 @@ QUANTUM_PAINTER_DRIVERS += surface
 Creating a surface in firmware can then be done with the following APIs:
 
 ```c
+// 24bpp RGB888 surface:
+painter_device_t qp_make_rgb888_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
 // 16bpp RGB565 surface:
 painter_device_t qp_make_rgb565_surface(uint16_t panel_width, uint16_t panel_height, void *buffer);
 // 1bpp monochrome surface:
@@ -884,7 +886,7 @@ static painter_image_handle_t my_image;
 void keyboard_post_init_kb(void) {
     my_image = qp_load_image_mem(gfx_my_image);
     if (my_image != NULL) {
-        qp_drawimage(display, (239 - my_image->width), (319 - my_image->height), my_image);
+        qp_drawimage(display, (240 - my_image->width), (320 - my_image->height), my_image);
     }
 }
 ```
@@ -909,7 +911,7 @@ static deferred_token my_anim;
 void keyboard_post_init_kb(void) {
     my_image = qp_load_image_mem(gfx_my_image);
     if (my_image != NULL) {
-        my_anim = qp_animate(display, (239 - my_image->width), (319 - my_image->height), my_image);
+        my_anim = qp_animate(display, (240 - my_image->width), (320 - my_image->height), my_image);
     }
 }
 ```
@@ -1001,7 +1003,7 @@ void keyboard_post_init_kb(void) {
     if (my_font != NULL) {
         static const char *text = "Hello from QMK!";
         int16_t width = qp_textwidth(my_font, text);
-        qp_drawtext(display, (239 - width), (319 - my_font->line_height), my_font, text);
+        qp_drawtext(display, (240 - width), (320 - my_font->line_height), my_font, text);
     }
 }
 ```

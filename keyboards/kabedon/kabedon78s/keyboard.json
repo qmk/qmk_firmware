@@ -1,7 +1,6 @@
 {
     "keyboard_name": "78S",
     "manufacturer": "Kabe_Don",
-    "url": "",
     "maintainer": "370490639",
     "usb": {
         "vid": "0x4B44",
@@ -30,8 +29,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

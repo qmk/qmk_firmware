@@ -1,7 +1,6 @@
 {
     "keyboard_name": "WM1",
     "manufacturer": "Wolfmark Club",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

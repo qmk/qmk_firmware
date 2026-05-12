@@ -1,7 +1,6 @@
 {
     "keyboard_name": "reviung53",
     "manufacturer": "gtips",
-    "url": "",
     "maintainer": "gtips",
     "usb": {
         "vid": "0x4E94",
@@ -32,8 +31,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
@@ -50,8 +47,7 @@
         "rows": ["D0", "D4", "C6", "D7", "E6", "B4", "B5"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layout_aliases": {
         "LAYOUT_reviung53": "LAYOUT"
     },

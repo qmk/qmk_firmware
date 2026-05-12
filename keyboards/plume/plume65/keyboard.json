@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Plume65",
     "manufacturer": "Plume Keyboards LLC",
-    "url": "",
     "maintainer": "evyd13",
     "usb": {
         "vid": "0x5D66",
@@ -28,8 +27,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,
