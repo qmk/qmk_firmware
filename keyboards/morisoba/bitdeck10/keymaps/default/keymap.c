@@ -17,13 +17,7 @@
  */
 
 #include QMK_KEYBOARD_H
-
-enum layers { 
-    _BASE, 
-    _LOWER, 
-    _RAISE, 
-    _ADJUST,
-};
+#include "layers.h"
 
 #ifdef ENCODER_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
