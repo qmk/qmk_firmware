@@ -16,7 +16,8 @@ enum custom_keycodes {
     TEMPLATE,
     CODEMON,
     TILDE,
-    SPREAD
+    SPREAD,
+    SOFT_CMON
 };
 
 enum layer_number {
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ╚═══════╩═════╩═════╩═════╩═════╩═════╝              ╚═══════╩══════╩══════╩══════╩══════╩═════════╝
 
 [_ADJUST] = LAYOUT(
-  LAYER_CYCLE, _______, _______,             _______,             _______,              _______,                         KC_PSCR, DOT_DOT_SLASH, TEMPLATE, CODEMON, SPREAD, _______,
+  LAYER_CYCLE, CODEMON, SOFT_CMON,           _______,             _______,              _______,                         KC_PSCR, DOT_DOT_SLASH, TEMPLATE, SPREAD,  _______, _______,
   DF(_RAISE),  _______, _______,             _______,             _______,              _______,                         _______, _______,       _______,  _______, _______, _______,
   DF(_QWERTY), _______, _______,             LCTL(LGUI(KC_UP)),   _______,              _______,                         _______, _______,       _______,  _______, _______, _______,
   DF(_LOWER),  _______, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_DOWN)), LCTL(LGUI(KC_RIGHT)), _______, _______,       _______, _______, _______,       _______,  _______, _______, _______,
@@ -155,6 +156,11 @@ void HYPHEN(void) {
     unregister_code(KC_RSFT);
 }
 
+static void tap_backtick(void) {
+    tap_code16(NO_GRV);  // dead grave
+    tap_code(KC_SPC);    // dead + space → ` on all platforms (space is consumed, not output)
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t current_default_layer = get_highest_layer(default_layer_state);
 
@@ -194,17 +200,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         break;
 
         case CODEMON:
-            HYPHEN();
-            HYPHEN();
-            HYPHEN();
-            register_code(KC_LSFT);
-            tap_code(KC_ENTER);
-            tap_code(KC_ENTER);
-            unregister_code(KC_LSFT);
-            HYPHEN();
-            HYPHEN();
-            HYPHEN();
+            tap_backtick(); tap_backtick(); tap_backtick();
+            tap_code16(S(KC_ENTER));
+            tap_code16(S(KC_ENTER));
+            tap_backtick(); tap_backtick(); tap_backtick();
             tap_code(KC_UP);
+            tap_code(KC_HOME);
+        break;
+
+        case SOFT_CMON:
+            tap_backtick(); tap_backtick(); tap_backtick();
         break;
 
         case TEMPLATE:

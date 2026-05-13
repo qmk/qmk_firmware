@@ -4,4 +4,4 @@ alias splitkb-compile="qmk compile -kb splitkb/aurora/lily58/rev1 -km hansogj"
 alias splitkb-deploy="sleep 5 && qmk flash -kb splitkb/aurora/lily58/rev1 -km hansogj"
 
 alias ergomech-compile="qmk compile  -kb lily58 -km hansogj -e CONVERT_TO=promicro_rp2040"
-alias ergomech-deploy="sudo sleep 5 && sudo cp lily58_rev1_hansogj_promicro_rp2040.uf2 /media/hansogj/RPI-RP2/."
+alias ergomech-deploy="sudo sleep 10 && sudo cp lily58_rev1_hansogj_promicro_rp2040.uf2 /media/hansogj/RPI-RP2/."
