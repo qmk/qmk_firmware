@@ -1,6 +1,7 @@
 # morisoba/bitdeck10
 
 ![morisoba/bitdeck10](https://imgur.com/ca8egkz.jpg)
+
 BitDeck10 is a 5x2 keys + 1 rotary encoder macro keyboard with OLED.
 
 * Keyboard Maintainer: [morisoba](https://github.com/morisobaR)
