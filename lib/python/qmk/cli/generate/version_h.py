@@ -1,8 +1,11 @@
 """Used by the make system to generate version.h for use in code.
 """
 from time import strftime
+from pathlib import Path
 
 from milc import cli
+
+from qmk.constants import QMK_USERSPACE, HAS_QMK_USERSPACE
 
 from qmk.path import normpath
 from qmk.commands import dump_lines
@@ -36,13 +39,18 @@ def generate_version_h(cli):
         git_bcd_version = "0x00000000"
         chibios_version = "NA"
         chibios_contrib_version = "NA"
+        userspace_version = "NA"
     else:
         git_dirty = git_is_dirty()
         git_version = git_get_version() or current_time
         git_qmk_hash = git_get_qmk_hash() or "Unknown"
         git_bcd_version = triplet_to_bcd(git_version)
-        chibios_version = git_get_version("chibios", "os") or current_time
-        chibios_contrib_version = git_get_version("chibios-contrib", "os") or current_time
+        chibios_version = git_get_version(Path('lib') / "chibios", "os") or current_time
+        chibios_contrib_version = git_get_version(Path('lib') / "chibios-contrib") or current_time
+        if HAS_QMK_USERSPACE:
+            userspace_version = git_get_version(Path(QMK_USERSPACE).resolve()) or current_time
+        else:
+            userspace_version = "None"
 
     # Build the version.h file.
     version_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once']
@@ -55,6 +63,7 @@ def generate_version_h(cli):
 #define QMK_GIT_HASH  "{git_qmk_hash}{'*' if git_dirty else ''}"
 #define CHIBIOS_VERSION "{chibios_version}"
 #define CHIBIOS_CONTRIB_VERSION "{chibios_contrib_version}"
+#define QMK_USERSPACE_VERSION "{userspace_version}"
 """
     )
 

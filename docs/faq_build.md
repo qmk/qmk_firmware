@@ -19,13 +19,10 @@ Note that running `make` with `sudo` is generally ***not*** a good idea, and you
 
 ### Linux `udev` Rules {#linux-udev-rules}
 
-On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or place [this file](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules) into `/etc/udev/rules.d/`.
-
-Once added, run the following:
+On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or install the udev rules from the [qmk_udev](https://github.com/qmk/qmk_udev) repository by running:
 
 ```
-sudo udevadm control --reload-rules
-sudo udevadm trigger
+util/install_udev.sh
 ```
 
 **Note:** With older versions of ModemManager (< 1.12), filtering only works when not in strict mode. The following commands can update that setting:

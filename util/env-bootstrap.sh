@@ -357,7 +357,7 @@ __EOT__
 
     install_uv() {
         # Install `uv` (or update as necessary)
-        download_url https://astral.sh/uv/install.sh - | TMPDIR="$(windows_ish_path "${TMPDIR:-}")" UV_INSTALL_DIR="$(windows_ish_path "${UV_INSTALL_DIR:-}")" sh
+        download_url https://astral.sh/uv/install.sh - | TMPDIR="$(posix_ish_path "${TMPDIR:-}")" UV_INSTALL_DIR="$(windows_ish_path "${UV_INSTALL_DIR:-}")" sh
     }
 
     setup_paths() {
@@ -418,7 +418,7 @@ __EOT__
         # Get the latest toolchain release from https://github.com/qmk/qmk_toolchains
         local latest_toolchains_release=$(github_api_call repos/qmk/qmk_toolchains/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset with a matching keyword
-        local toolchain_url=$(github_api_call repos/qmk/qmk_toolchains/releases/tags/$latest_toolchains_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep $(fn_os)$(fn_arch))
+        local toolchain_url=$(github_api_call repos/qmk/qmk_toolchains/releases/tags/$latest_toolchains_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep -E "qmk_toolchains-.*$(fn_os)$(fn_arch)")
         if [ -z "$toolchain_url" ]; then
             echo "No toolchain found for this OS/Arch combination." >&2
             exit 1
@@ -445,7 +445,7 @@ __EOT__
         # Get the latest flashing tools release from https://github.com/qmk/qmk_flashutils
         local latest_flashutils_release=$(github_api_call repos/qmk/qmk_flashutils/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
         # Download the specific release asset with a matching keyword
-        local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep "$osarchvariant")
+        local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep -E "qmk_flashutils-.*$osarchvariant")
         if [ -z "$flashutils_url" ]; then
             echo "No flashing tools found for this OS/Arch combination." >&2
             exit 1
@@ -464,27 +464,49 @@ __EOT__
     }
 
     install_linux_udev_rules() {
-        # Download the udev rules to the toolchains location
-        echo "Downloading QMK udev rules file..." >&2
-        local qmk_rules_target_file="$QMK_DISTRIB_DIR/50-qmk.rules"
-        download_url "https://raw.githubusercontent.com/qmk/qmk_firmware/refs/heads/master/util/udev/50-qmk.rules" "$qmk_rules_target_file"
+        # Get the latest qmk_udev release
+        local latest_udev_release=$(github_api_call repos/qmk/qmk_udev/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        if [ -z "$latest_udev_release" ]; then
+            echo "Could not determine latest qmk_udev release." >&2
+            exit 1
+        fi
+        echo "Using qmk_udev release: $latest_udev_release" >&2
 
-        # Install the udev rules -- path list is aligned with qmk doctor's linux.py
-        local udev_rules_paths="
-            /usr/lib/udev/rules.d
-            /usr/local/lib/udev/rules.d
-            /run/udev/rules.d
-            /etc/udev/rules.d
-        "
-        for udev_rules_dir in $udev_rules_paths; do
-            if [ -d "$udev_rules_dir" ]; then
-                echo "Installing udev rules to $udev_rules_dir/50-qmk.rules ..." >&2
-                $(nsudo) mv "$qmk_rules_target_file" "$udev_rules_dir"
-                $(nsudo) chown 0:0 "$udev_rules_dir/50-qmk.rules"
-                $(nsudo) chmod 644 "$udev_rules_dir/50-qmk.rules"
-                break
+        # Download the udev rules file
+        local qmk_rules_file="$QMK_DISTRIB_DIR/50-qmk.rules"
+        local release_base="https://github.com/qmk/qmk_udev/releases/download/$latest_udev_release"
+        download_url "$release_base/50-qmk.rules" "$qmk_rules_file"
+
+        # Download the architecture-appropriate qmk_id binary
+        local arch="$(fn_arch)"
+        local qmk_id_file="$QMK_DISTRIB_DIR/qmk_id"
+        download_url "$release_base/qmk_id-linux${arch}" "$qmk_id_file"
+
+        # Remove existing QMK udev rules and qmk_id helpers from all standard locations
+        echo "Removing existing QMK udev rules and helpers..." >&2
+        for dir in /etc/udev/rules.d /run/udev/rules.d /usr/lib/udev/rules.d /usr/local/lib/udev/rules.d /lib/udev/rules.d; do
+            if [ -d "$dir" ]; then
+                for f in "$dir"/*-qmk.rules; do
+                    [ -e "$f" ] && echo "Removing $f" >&2 && $(nsudo) rm -f "$f"
+                done
             fi
         done
+        for dir in /usr/lib/udev /usr/local/lib/udev /lib/udev; do
+            [ -e "$dir/qmk_id" ] && echo "Removing $dir/qmk_id" >&2 && $(nsudo) rm -f "$dir/qmk_id"
+        done
+
+        # Install qmk_id binary
+        echo "Installing /usr/lib/udev/qmk_id ..." >&2
+        $(nsudo) install -d -m 0755 /usr/lib/udev
+        $(nsudo) install -m 0755 "$qmk_id_file" /usr/lib/udev/qmk_id
+
+        # Install udev rules
+        echo "Installing /etc/udev/rules.d/50-qmk.rules ..." >&2
+        $(nsudo) install -d -m 0755 /etc/udev/rules.d
+        $(nsudo) install -m 0644 "$qmk_rules_file" /etc/udev/rules.d/50-qmk.rules
+
+        # Clean up downloaded files
+        rm -f "$qmk_rules_file" "$qmk_id_file" || true
 
         # Reload udev rules
         if command -v udevadm >/dev/null 2>&1; then

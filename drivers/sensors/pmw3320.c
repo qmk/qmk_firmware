@@ -23,7 +23,7 @@
 #include "gpio.h"
 #include "pointing_device_internal.h"
 
-const pointing_device_driver_t pmw3320_pointing_device_drivera = {
+const pointing_device_driver_t pmw3320_pointing_device_driver = {
     .init       = pmw3320_init,
     .get_report = pmw3320_get_report,
     .set_cpi    = pmw3320_set_cpi,
