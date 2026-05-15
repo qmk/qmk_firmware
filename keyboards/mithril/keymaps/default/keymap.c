@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
      * Layer 2 — RGB control
      * ┌─────┬─────┬─────┬─────┬─────┬─────┐         ┌─────┬─────┬─────┬─────┬─────┬─────┐
-     * │TOGG │NEXT │PREV │     │     │     │         │     │     │     │     │     │     │
+     * │TOGG │PREV │NEXT │     │     │     │         │     │     │     │     │     │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
      * │     │SPD↓ │SPD↑ │     │     │     │         │     │     │     │     │     │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                   └─────┴─────┴─────┘         └─────┴─────┴─────┘
      */
     [2] = LAYOUT_ortho_4x6_3(
-        UG_TOGG, UG_NEXT, UG_PREV, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
+        UG_TOGG, UG_PREV, UG_NEXT, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
         XXXXXXX, UG_SPDD, UG_SPDU, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             UG_HUED, UG_VALD, UG_VALU, UG_HUEU,  XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, UG_SATD, UG_SATU, XXXXXXX,  XXXXXXX, QK_BOOT,
