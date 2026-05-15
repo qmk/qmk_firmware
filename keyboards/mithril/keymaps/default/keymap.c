@@ -12,9 +12,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
      * │ TAB │  Q  │  W  │  E  │  R  │  T  │         │  Y  │  U  │  I  │  O  │  P  │ !/¡ │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │LSFT │  A  │  S  │  D  │  F  │  G  │         │  H  │  J  │  K  │  L  │  Ñ  │  @  │
+     * │LSFT │  A  │  S  │  D  │  F  │  G  │         │  H  │  J  │  K  │  L  │  Ñ  │ @/| │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │LCTL │  Z  │  X  │  C  │  V  │  B  │         │  N  │  M  │  ,  │  .  │  -  │  #  │
+     * │LCTL │  Z  │  X  │  C  │  V  │  B  │         │  N  │  M  │  ,  │  .  │ -/_ │ #/~ │
      * └─────┴─────┴─────┴─────┴─────┴─────┘         └─────┴─────┴─────┴─────┴─────┴─────┘
      *                   │LALT │BSPC │MO(1)│         │ ENT │ SPC │RCTL │
      *                   └─────┴─────┴─────┘         └─────┴─────┴─────┘
@@ -68,6 +68,8 @@ const key_override_t exlm_to_iexl = ko_make_basic(MOD_MASK_SHIFT, ES_EXLM, ES_IE
 const key_override_t lcbr_to_lbrc = ko_make_basic(MOD_MASK_SHIFT, ES_LCBR, ES_LBRC);   // { → [
 const key_override_t rcbr_to_rbrc = ko_make_basic(MOD_MASK_SHIFT, ES_RCBR, ES_RBRC);   // } → ]
 const key_override_t plus_to_astr = ko_make_basic(MOD_MASK_SHIFT, ES_PLUS, ES_ASTR);   // + → *
+const key_override_t at_to_pipe   = ko_make_basic(MOD_MASK_SHIFT, ES_AT,   ES_PIPE);   // @ → |
+const key_override_t hash_to_tild = ko_make_basic(MOD_MASK_SHIFT, ES_HASH, ES_TILD);   // # → ~
 
 const key_override_t *key_overrides[] = {
     &ques_to_ique,
@@ -75,4 +77,6 @@ const key_override_t *key_overrides[] = {
     &lcbr_to_lbrc,
     &rcbr_to_rbrc,
     &plus_to_astr,
+    &at_to_pipe,
+    &hash_to_tild,
 };
