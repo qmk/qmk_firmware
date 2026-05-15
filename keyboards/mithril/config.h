@@ -5,11 +5,6 @@
 
 #define EE_HANDS
 
-// Mod-tap: trigger hold action as soon as another key is pressed (no need to
-// wait for TAPPING_TERM). Makes Super+<key> chords on the left thumb feel
-// instant. Trade-off: can't use the same thumb for sustained Alt+<key>.
-#define HOLD_ON_OTHER_KEY_PRESS
-
 // Bootmagic key for the right half: top-outer key (the `?` key on base layer).
 // Left half uses default BOOTMAGIC_ROW/COLUMN [0,0] = ESC.
 #define BOOTMAGIC_ROW_RIGHT 5
