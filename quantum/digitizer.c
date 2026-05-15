@@ -129,9 +129,9 @@ void digitizer_init(void) {
     }
 #ifdef DIGITIZER_MOTION_PIN
 #    ifdef DIGITIZER_MOTION_PIN_ACTIVE_LOW
-    setPinInputHigh(DIGITIZER_MOTION_PIN);
+    gpio_set_pin_input_high(DIGITIZER_MOTION_PIN);
 #    else
-    setPinInput(DIGITIZER_MOTION_PIN);
+    gpio_set_pin_input(DIGITIZER_MOTION_PIN);
 #    endif
 #endif
 
@@ -145,9 +145,9 @@ void digitizer_init(void) {
  */
 __attribute__((weak)) bool digitizer_motion_detected(void) {
 #    ifdef DIGITIZER_MOTION_PIN_ACTIVE_LOW
-    return !readPin(DIGITIZER_MOTION_PIN);
+    return !gpio_read_pin(DIGITIZER_MOTION_PIN);
 #    else
-    return readPin(DIGITIZER_MOTION_PIN);
+    return gpio_read_pin(DIGITIZER_MOTION_PIN);
 #    endif
 }
 #endif
