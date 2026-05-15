@@ -54,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ┌─────┬─────┬─────┬─────┬─────┬─────┐         ┌─────┬─────┬─────┬─────┬─────┬─────┐
      * │TOGG │NEXT │PREV │     │     │     │         │     │     │     │     │     │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
-     * │     │SPD↑ │SPD↓ │     │     │     │         │     │     │     │     │     │     │
+     * │     │SPD↓ │SPD↑ │     │     │     │         │     │     │     │     │     │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
      * │     │     │     │     │     │     │         │HUE↓ │VAL↓ │VAL↑ │HUE↑ │     │     │
      * ├─────┼─────┼─────┼─────┼─────┼─────┤         ├─────┼─────┼─────┼─────┼─────┼─────┤
@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [2] = LAYOUT_ortho_4x6_3(
         UG_TOGG, UG_NEXT, UG_PREV, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
-        XXXXXXX, UG_SPDU, UG_SPDD, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
+        XXXXXXX, UG_SPDD, UG_SPDU, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             UG_HUED, UG_VALD, UG_VALU, UG_HUEU,  XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, UG_SATD, UG_SATU, XXXXXXX,  XXXXXXX, QK_BOOT,
                                             XXXXXXX, XXXXXXX, XXXXXXX,            _______, XXXXXXX, XXXXXXX
