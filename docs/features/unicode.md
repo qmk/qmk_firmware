@@ -25,7 +25,7 @@ Add the following to your `config.h`:
 |`UNICODE_KEY_MAC`       |`KC_LEFT_ALT`     |The key to hold when beginning a Unicode sequence with the macOS input mode     |
 |`UNICODE_KEY_LNX`       |`LCTL(LSFT(KC_U))`|The key to tap when beginning a Unicode sequence with the Linux input mode      |
 |`UNICODE_KEY_WINC`      |`KC_RIGHT_ALT`    |The key to hold when beginning a Unicode sequence with the WinCompose input mode|
-|`UNICODE_SELECTED_MODES`|`-1`              |A comma separated list of input modes for cycling through                       |
+|`UNICODE_SELECTED_MODES`|*n/a*             |A comma separated list of input modes for cycling through                       |
 |`UNICODE_CYCLE_PERSIST` |`true`            |Whether to persist the current Unicode input mode to EEPROM                     |
 |`UNICODE_TYPE_DELAY`    |`10`              |The amount of time to wait, in milliseconds, between Unicode sequence keystrokes|
 

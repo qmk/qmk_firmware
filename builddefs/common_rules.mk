@@ -52,8 +52,12 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 	ASFLAGS  += -ggdb3
 endif
 
-# Always create a map file to see what was compiled and where.
+# Create a map file to see what was compiled and where, unless disabled
+# (e.g. test builds, which use the host linker — Apple's ld does not accept
+# -Map=/--cref).
+ifneq ($(strip $(CREATE_MAP)), no)
 LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
 
 #---------------- C Compiler Options ----------------
 
