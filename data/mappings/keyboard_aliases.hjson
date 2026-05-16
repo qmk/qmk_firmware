@@ -1194,9 +1194,6 @@
     "mio": {
         "target": "recompile_keys/mio"
     },
-    "mithril": {
-        "target": "mithril/rev1"
-    },
     "montex": {
         "target": "idobao/montex/v1"
     },

@@ -64,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                   └─────┴─────┴─────┘         └─────┴─────┴─────┘
      */
     [2] = LAYOUT_ortho_4x6_3(
-        UG_TOGG, UG_PREV, UG_NEXT, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
-        XXXXXXX, UG_SPDD, UG_SPDU, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             UG_HUED, UG_VALD, UG_VALU, UG_HUEU,  XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, UG_SATD, UG_SATU, XXXXXXX,  XXXXXXX, QK_BOOT,
+        RM_TOGG, RM_PREV, RM_NEXT, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
+        XXXXXXX, RM_SPDD, RM_SPDU, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             RM_HUED, RM_VALD, RM_VALU, RM_HUEU,  XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX, RM_SATD, RM_SATU, XXXXXXX,  XXXXXXX, QK_BOOT,
                                             XXXXXXX, XXXXXXX, XXXXXXX,            _______, XXXXXXX, XXXXXXX
     ),
 };

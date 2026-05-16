@@ -1,6 +1,9 @@
 {
     "manufacturer": "sanfeps",
     "maintainer": "sanfeps",
+    "build": {
+        "lto": true
+    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
