@@ -22,7 +22,9 @@
             "pin": "D2"
         },
         "transport": {
-            "sync_modifiers": true
+            "sync": {
+                "modifiers": true
+            }
         }
     },
     "diode_direction": "COL2ROW",
