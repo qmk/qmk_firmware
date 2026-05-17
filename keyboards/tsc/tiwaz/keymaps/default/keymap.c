@@ -5,28 +5,16 @@
 #include "analog.h"
 #include "color.h"
 #include "eeprom.h"
+#include "gpio.h"
 #include "split_util.h"
 #include "transactions.h"
 
-// Default
-#define TS_CUT C(KC_X)
-#define TS_CPY C(KC_C)
-#define TS_PST C(KC_V)
-#define TS_LCK G(KC_L)
-#define TS_MIC C(S(KC_M))
-
-// Fruit
-#define TSF_CUT G(KC_X)
-#define TSF_CPY G(KC_C)
-#define TSF_PST G(KC_V)
-#define TSF_LCK G(C(KC_Q))
-#define TSF_MIC G(S(KC_M))
-
 // Joysticks
-#define EEPROM_ADDR_JOY_LEFT    0
-#define EEPROM_ADDR_JOY_RIGHT   1
-#define LED_INDEX_JOY_MODE      6
-#define JOY_POLLING_INTERVAL   10
+#define EEPROM_ADDR_JOY_LEFT      0
+#define EEPROM_ADDR_JOY_RIGHT     1
+#define LED_INDEX_JOY_MODE_LEFT   5
+#define LED_INDEX_JOY_MODE_RIGHT 49
+#define JOY_POLLING_INTERVAL     10
 
 #define JOY_ADC_SHIFT           2
 #define JOY_CENTER            127
@@ -45,9 +33,9 @@
 #define RJOY_RIGHT_POS (keypos_t){8, 5}
 #define RJOY_BTN_POS   (keypos_t){0, 11}
 
-#define JOY_PIN_X GP27
-#define JOY_PIN_Y GP28
 #define JOY_PIN_B GP29
+#define JOY_PIN_X GP28
+#define JOY_PIN_Y GP27
 
 typedef union {
     uint8_t raw;
@@ -108,39 +96,25 @@ static uint32_t init_timeout = 0;
 static bool init_completed = false;
 
 enum joy_keycodes {
-    TS_JOYL = SAFE_RANGE,
-    TS_JOYR
-};
-
-enum layers {
-    DF,
-    MC,
-    FN
+    MD_JOYL = SAFE_RANGE,
+    MD_JOYR
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [DF] = LAYOUT(
+    [0] = LAYOUT(
         KC_ESC ,KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,KC_MPLY,KC_MPLY,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_EQL ,KC_BSPC,KC_DEL ,
-        TS_CUT ,KC_TAB ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,KC_HOME,KC_MNXT,KC_MNXT,KC_PGUP,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_LBRC,KC_RBRC,
-        TS_CPY ,KC_CAPS,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,KC_END ,KC_MPRV,KC_MPRV,KC_PGDN,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,KC_ENT ,
-        TS_PST ,KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_SLEP,KC_MUTE,KC_MUTE,KC_SLEP,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_UP  ,KC_RSFT,
-        TS_LCK ,KC_LCTL,MO(FN) ,PDF(MC),KC_LGUI,KC_LALT,KC_SPC         ,TS_MIC ,TS_MIC         ,KC_BSPC,KC_PSCR,TG(FN) ,KC_BSLS,KC_LEFT,KC_DOWN,KC_RGHT,
+        KC_CUT ,KC_TAB ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,KC_HOME,KC_MNXT,KC_MNXT,KC_PGUP,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_LBRC,KC_RBRC,
+        KC_COPY,KC_CAPS,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,KC_END ,KC_MPRV,KC_MPRV,KC_PGDN,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,KC_ENT ,
+        KC_PSTE,KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_MUTE,KC_VOLU,KC_VOLU,KC_MUTE,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_UP  ,KC_RSFT,
+        KC_UNDO,KC_LCTL,MO(1)  ,KC_MENU,KC_LGUI,KC_LALT,KC_SPC         ,KC_VOLD,KC_VOLD        ,KC_BSPC,KC_PSCR,TG(1)  ,KC_BSLS,KC_LEFT,KC_DOWN,KC_RGHT,
         KC_F14 ,KC_F15 ,KC_F16 ,KC_F17 ,KC_F18 ,KC_F19 ,KC_F20 ,KC_F21 ,KC_F22 ,KC_F23
     ),
-    [MC] = LAYOUT(
-        KC_ESC ,KC_GRV ,KC_1   ,KC_2   ,KC_3   ,KC_4   ,KC_5   ,KC_6   ,KC_MPLY,KC_MPLY,KC_7   ,KC_8   ,KC_9   ,KC_0   ,KC_MINS,KC_EQL ,KC_BSPC,KC_DEL ,
-        TSF_CUT,KC_TAB ,KC_Q   ,KC_W   ,KC_E   ,KC_R   ,KC_T   ,KC_HOME,KC_MNXT,KC_MNXT,KC_PGUP,KC_Y   ,KC_U   ,KC_I   ,KC_O   ,KC_P   ,KC_LBRC,KC_RBRC,
-        TSF_CPY,KC_CAPS,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,KC_END ,KC_MPRV,KC_MPRV,KC_PGDN,KC_H   ,KC_J   ,KC_K   ,KC_L   ,KC_SCLN,KC_QUOT,KC_ENT ,
-        TSF_PST,KC_LSFT,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,KC_SLEP,KC_MUTE,KC_MUTE,KC_SLEP,KC_N   ,KC_M   ,KC_COMM,KC_DOT ,KC_SLSH,KC_UP  ,KC_RSFT,
-        TSF_LCK,KC_LCTL,MO(FN) ,PDF(DF),KC_LGUI,KC_LALT,KC_SPC         ,TSF_MIC,TSF_MIC        ,KC_BSPC,KC_PSCR,TG(FN) ,KC_BSLS,KC_LEFT,KC_DOWN,KC_RGHT,
-        KC_F14 ,KC_F15 ,KC_F16 ,KC_F17 ,KC_F18 ,KC_F19 ,KC_F20 ,KC_F21 ,KC_F22 ,KC_F23
-    ),
-    [FN] = LAYOUT(
+    [1] = LAYOUT(
         RM_TOGG,XXXXXXX,KC_F1  ,KC_F2  ,KC_F3  ,KC_F4  ,KC_F5  ,KC_F6  ,QK_BOOT,QK_BOOT,KC_F7  ,KC_F8  ,KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PMNS,KC_PSLS,
         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_P7  ,KC_P8  ,KC_P9  ,KC_PPLS,KC_PSLS,
         RM_NEXT,RM_SPDU,RM_HUEU,RM_SATU,RM_VALU,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_P4  ,KC_P5  ,KC_P6  ,KC_PPLS,KC_PAST,
-        RM_PREV,RM_SPDD,RM_HUED,RM_SATD,RM_VALD,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_P1  ,KC_P2  ,KC_P3  ,KC_PENT,KC_PAST,
-        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX        ,TS_JOYR,TS_JOYL        ,XXXXXXX,XXXXXXX,XXXXXXX,KC_P0  ,KC_COMM,KC_PENT,KC_NUM ,
+        RM_PREV,RM_SPDD,RM_HUED,RM_SATD,RM_VALD,XXXXXXX,XXXXXXX,MD_JOYL,XXXXXXX,XXXXXXX,MD_JOYR,XXXXXXX,XXXXXXX,KC_P1  ,KC_P2  ,KC_P3  ,KC_PENT,KC_PAST,
+        KC_AGIN,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX        ,XXXXXXX,XXXXXXX        ,XXXXXXX,XXXXXXX,TG(1)  ,KC_P0  ,KC_COMM,KC_PENT,KC_NUM ,
         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     )
 };
@@ -153,12 +127,12 @@ void save_user_eeprom(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
-            case TS_JOYL:
+            case MD_JOYL:
                 user_config.joystick_digital_left = !user_config.joystick_digital_left;
                 save_user_eeprom();
                 return false;
 
-            case TS_JOYR:
+            case MD_JOYR:
                 user_config.joystick_digital_right = !user_config.joystick_digital_right;
                 save_user_eeprom();
                 return false;
@@ -176,7 +150,10 @@ void set_status_led(uint8_t i, bool digital) {
 }
 
 bool rgb_matrix_indicators_user(void) {
-    set_status_led(LED_INDEX_JOY_MODE, is_keyboard_left() ? user_config.joystick_digital_left : user_config.joystick_digital_right);
+    if (get_highest_layer(layer_state) == 1) {
+        set_status_led(LED_INDEX_JOY_MODE_LEFT, is_keyboard_left() ? user_config.joystick_digital_left : user_config.joystick_digital_right);
+        set_status_led(LED_INDEX_JOY_MODE_RIGHT, is_keyboard_left() ? user_config.joystick_digital_left : user_config.joystick_digital_right);
+    }
     return false;
 }
 
@@ -257,7 +234,7 @@ void receive_user_config(uint8_t in_len, const void *in_buf, uint8_t out_len, vo
 }
 
 void keyboard_post_init_user(void) {
-    setPinInputHigh(JOY_PIN_B);
+    gpio_set_pin_input_high(JOY_PIN_B);
 
     if (is_keyboard_master()) {
         init_timeout = timer_read32();
@@ -282,8 +259,8 @@ void housekeeping_task_user(void) {
 
         local_joystick_axis = (joystick_adc_t){
             .x = JOY_CENTER - (analogReadPin(JOY_PIN_X) >> JOY_ADC_SHIFT),
-            .y = JOY_CENTER - (analogReadPin(JOY_PIN_Y) >> JOY_ADC_SHIFT),
-            .btn = !readPin(JOY_PIN_B)
+            .y = (analogReadPin(JOY_PIN_Y) >> JOY_ADC_SHIFT) - JOY_CENTER,
+            .btn = !gpio_read_pin(JOY_PIN_B)
         };
 
         if (is_keyboard_left()) {
@@ -308,8 +285,8 @@ void housekeeping_task_user(void) {
     } else {
         remote_joystick_axis = (joystick_adc_t){
             .x = JOY_CENTER - (analogReadPin(JOY_PIN_X) >> JOY_ADC_SHIFT),
-            .y = JOY_CENTER - (analogReadPin(JOY_PIN_Y) >> JOY_ADC_SHIFT),
-            .btn = !readPin(JOY_PIN_B) // Active low
+            .y = (analogReadPin(JOY_PIN_Y) >> JOY_ADC_SHIFT) - JOY_CENTER,
+            .btn = !gpio_read_pin(JOY_PIN_B) // Active low
         };
     }
 }
