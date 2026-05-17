@@ -57,7 +57,6 @@
         "default": {
             "animation": "gradient_up_down",
             "hue": 176,
-            "sat": 255,
             "speed": 254,
             "val": 64
         },
