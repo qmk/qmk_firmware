@@ -6,10 +6,7 @@ Split gaming keyboard with different joystick options. Either half can be used i
 * Hardware Supported: Tiwaz - RP2040
 * Hardware Availability: [Tiwaz](https://github.com/tstrube/Tiwaz)
 
-![Real](https://github.com/tstrube/Tiwaz/blob/main/Images/Real.png)
-![PCB Front](https://github.com/tstrube/Tiwaz/blob/main/Images/3D_Front.png)
-![PCB Back](https://github.com/tstrube/Tiwaz/blob/main/Images/3D_Back.png)
-![Render](https://github.com/tstrube/Tiwaz/blob/main/Images/Render.png)
+![Real](https://github.com/tstrube/Tiwaz/blob/main/Images/Tiwaz.jpg)
 
 Make example for this keyboard (after setting up your build environment):
 
