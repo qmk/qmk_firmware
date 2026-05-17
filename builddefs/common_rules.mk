@@ -72,7 +72,8 @@ endif
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
-CFLAGS += $(call cc-option,-Wno-unused-but-set-variable)  # Seems this default changed in GCC 16, causing compilation errors for the QMK-side LUFA bindings as well as LVGL itself.
+CFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CFLAGS += -Werror
 endif
@@ -90,7 +91,8 @@ CXXFLAGS += -O$(OPT)
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
-CXXFLAGS += $(call cc-option,-Wno-unused-but-set-variable)
+CXXFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CXXFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
