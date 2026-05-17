@@ -1,6 +1,6 @@
 # Tiwaz
 
-Split gaming keyboard with different joystick options. Either half can be used independently.
+Split gaming keyboard with multiple joystick options. Either half can be used independently.
 
 * Keyboard Maintainer: [Timo Strube](https://timostrube.de)
 * Hardware Supported: Tiwaz - RP2040
