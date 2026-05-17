@@ -3,7 +3,7 @@
     "keyboard_name": "PicoLX",
     "maintainer": "jjc1138",
     "bootloader": "rp2040",
-    "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable",
+    "bootloader_instructions": "Hold down the BOOTSEL button on the underside of the PCB when connecting the USB cable",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -11,10 +11,10 @@
     },
     "matrix_pins": {
         "direct": [
-            ["GP19", null, "GP6", "GP27", null, "GP0"],
-            [null, "GP10", null, null, "GP2", null],
-            ["GP21", null, "GP8", "GP17", null, "GP4"],
-            ["GP14", "GP15", null, null, null, null]
+            ["GP24", null, "GP22", "GP4", null, "GP0"],
+            [null, "GP23", null, null, "GP3", null],
+            ["GP19", null, "GP18", "GP2", null, "GP1"],
+            ["GP12", "GP13", null, null, null, null]
         ]
     },
     "processor": "RP2040",
@@ -56,24 +56,37 @@
         },
         "driver": "ws2812",
         "layout": [
-            {"x": 0, "y": 64, "flags": 2},
-            {"x": 0, "y": 0, "flags": 2},
             {"x": 112, "y": 0, "flags": 2},
+            {"x": 0, "y": 0, "flags": 2},
+            {"x": 0, "y": 64, "flags": 2},
             {"x": 112, "y": 64, "flags": 2},
             {"x": 224, "y": 64, "flags": 2},
-            {"x": 224, "y": 0, "flags": 2}
+            {"x": 224, "y": 0, "flags": 2},
+            {"matrix": [0, 5], "x": 212, "y": 18, "flags": 4},
+            {"matrix": [2, 5], "x": 212, "y": 57, "flags": 4},
+            {"matrix": [1, 4], "x": 174, "y": 37, "flags": 4},
+            {"matrix": [2, 3], "x": 136, "y": 57, "flags": 4},
+            {"matrix": [0, 3], "x": 136, "y": 18, "flags": 4},
+            {"matrix": [0, 2], "x": 88, "y": 18, "flags": 4},
+            {"matrix": [2, 2], "x": 88, "y": 57, "flags": 4},
+            {"matrix": [1, 1], "x": 50, "y": 37, "flags": 4},
+            {"matrix": [2, 0], "x": 12, "y": 57, "flags": 4},
+            {"matrix": [0, 0], "x": 12, "y": 18, "flags": 4},
+            {"x": 131, "y": 32, "flags": 2},
+            {"x": 112, "y": 32, "flags": 2},
+            {"x": 94, "y": 32, "flags": 2}
         ],
         "sleep": true
     },
     "url": "https://github.com/dj505/PicoLX",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x4658",
+        "pid": "0x4C58",
         "vid": "0xFEED"
     },
     "ws2812": {
         "driver": "vendor",
-        "pin": "GP22"
+        "pin": "GP21"
     },
     "layouts": {
         "LAYOUT": {
