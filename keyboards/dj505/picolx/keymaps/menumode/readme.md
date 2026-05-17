@@ -1,4 +1,4 @@
-# PicoFX Menu Mode Keymap
+# PicoLX Menu Mode Keymap
 
 The 'menumode' keymap is like the 'default' keymap in that it matches the 'Basic 2' preset in Pump It Up Rise, but it also includes the ability the toggle into a menu mode that provides most of the keys you need to navigate the game's menus.
 

@@ -1,6 +1,6 @@
 {
     "manufacturer": "dj505",
-    "keyboard_name": "PicoFX",
+    "keyboard_name": "PicoLX",
     "maintainer": "jjc1138",
     "bootloader": "rp2040",
     "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable",
@@ -65,7 +65,7 @@
         ],
         "sleep": true
     },
-    "url": "https://github.com/dj505/PicoFX",
+    "url": "https://github.com/dj505/PicoLX",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x4658",

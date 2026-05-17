@@ -1,19 +1,19 @@
-# dj505/picofx
+# dj505/picolx
 
-![PicoFX controller](https://i.imgur.com/YNsJPg0.png)
+![PicoLX controller](https://i.imgur.com/YNsJPg0.png)
 
-PicoFX: A compact keyboard-style controller for the *Pump It Up* rhythm game series. This firmware is intended for using the controller with the [Pump It Up Rise](https://store.steampowered.com/app/2756930/PUMP_IT_UP_RISE/) home version of the game.
+PicoLX: A compact keyboard-style controller for the *Pump It Up* rhythm game series. This firmware is intended for using the controller with the [Pump It Up Rise](https://store.steampowered.com/app/2756930/PUMP_IT_UP_RISE/) home version of the game.
 
-* Hardware Supported: [PicoFX](https://github.com/dj505/PicoFX)
+* Hardware Supported: [PicoLX](https://github.com/dj505/PicoLX)
 * Keyboard Maintainer: [jjc1138](https://github.com/jjc1138)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make dj505/picofx:default
+    make dj505/picolx:default
 
 Flashing example for this keyboard:
 
-    make dj505/picofx:default:flash
+    make dj505/picolx:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
