@@ -112,6 +112,7 @@
                 "atmega328p",
                 "atmega328",
                 "attiny85",
+                "risc-v",
                 "unknown"
             ]
         },
