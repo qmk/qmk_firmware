@@ -43,8 +43,9 @@ QMK_BIN := qmk
 
 # Try to determine userspace from qmk config, if set. Handle direct query on qmk_cli>=1.1.7
 # falling back to legacy method of only supporting user.overlay_dir config
+# sort is used to buffer 'qmk env' output and avoid BrokenPipeError errors
 export override QMK_USERSPACE := $(shell \
-    $(QMK_BIN) env | grep -q QMK_USERSPACE \
+    $(QMK_BIN) env | sort | grep -q QMK_USERSPACE \
         && $(QMK_BIN) env QMK_USERSPACE \
         || $(QMK_BIN) config -ro user.overlay_dir | cut -d= -f2 | sed -e 's@^None$$@@g')
 
