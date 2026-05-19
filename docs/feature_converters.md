@@ -33,7 +33,6 @@ The following converters are available at this time:
 | `promicro` | `elite_pi`        |
 | `promicro` | `helios`          |
 | `promicro` | `liatris`         |
-| `promicro` | `imera`           |
 | `promicro` | `michi`           |
 | `promicro` | `svlinky`         |
 | `promicro` | `halcyon`         |
@@ -90,7 +89,6 @@ If a board currently supported by QMK uses a [Pro Micro](https://www.sparkfun.co
 | [Elite-Pi](https://keeb.io/products/elite-pi-usb-c-pro-micro-replacement-rp2040)         | `elite_pi`        | `-e CONVERT_TO=elite_pi`        | `CONVERT_TO=elite_pi`        | `#ifdef CONVERT_TO_ELITE_PI`        |
 | [0xCB Helios](https://keeb.supply/products/0xcb-helios)                                  | `helios`          | `-e CONVERT_TO=helios`          | `CONVERT_TO=helios`          | `#ifdef CONVERT_TO_HELIOS`          |
 | [Liatris](https://splitkb.com/products/liatris)                                          | `liatris`         | `-e CONVERT_TO=liatris`         | `CONVERT_TO=liatris`         | `#ifdef CONVERT_TO_LIATRIS`         |
-| [Imera](https://splitkb.com/products/imera)                                              | `imera`           | `-e CONVERT_TO=imera`           | `CONVERT_TO=imera`           | `#ifdef CONVERT_TO_IMERA`           |
 | [Michi](https://github.com/ci-bus/michi-promicro-rp2040)                                 | `michi`           | `-e CONVERT_TO=michi`           | `CONVERT_TO=michi`           | `#ifdef CONVERT_TO_MICHI`           |
 | [Svlinky](https://github.com/sadekbaroudi/svlinky)                                       | `svlinky`         | `-e CONVERT_TO=svlinky`         | `CONVERT_TO=svlinky`         | `#ifdef CONVERT_TO_SVLINKY`         |
 | [Halcyon Adapter](https://splitkb.com/products/halcyon-adapter)                          | `halcyon`         | `-e CONVERT_TO=halcyon`         | `CONVERT_TO=halcyon`         | `#ifdef CONVERT_TO_HALCYON`         |
