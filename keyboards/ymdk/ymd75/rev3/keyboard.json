@@ -14,7 +14,7 @@
         "extrakey": true,
         "key_lock": true,
         "mousekey": false,
-        "nkro": false,
+        "nkro": true,
         "rgblight": true
     },
     "matrix_pins": {
@@ -24,7 +24,8 @@
     "diode_direction": "ROW2COL",
     "backlight": {
         "pin": "B6",
-        "levels": 12
+        "levels": 12,
+        "breathing": true
     },
     "ws2812": {
         "pin": "E2"
