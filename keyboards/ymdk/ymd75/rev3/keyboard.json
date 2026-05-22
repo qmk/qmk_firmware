@@ -37,6 +37,10 @@
         "led_count": 16,
         "max_brightness": 160,
         "sleep": true,
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
+        },
         "animations": {
             "alternating": true,
             "breathing": true,
