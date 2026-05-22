@@ -286,9 +286,9 @@ void process_record(keyrecord_t *record) {
         speculative_key_settled(record);
     }
 #endif // SPECULATIVE_HOLD
-#ifdef FLOW_TAP_TERM
+#if defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
     flow_tap_update_last_event(record);
-#endif // FLOW_TAP_TERM
+#endif // defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
