@@ -18,7 +18,7 @@ UNICODE_COMMON = yes
 
 ## Basic Configuration {#basic-configuration}
 
-The following options can be set/overriden in your `config.h`:
+The following options can be set or overridden in your `config.h`:
 
 |Define                  |Default           |Description                                                                     |
 |------------------------|------------------|--------------------------------------------------------------------------------|
@@ -30,7 +30,7 @@ The following options can be set/overriden in your `config.h`:
 |`UNICODE_TYPE_DELAY`    |`10`              |The amount of time to wait, in milliseconds, between Unicode sequence keystrokes|
 
 The default values work well for most use cases, so users usually only need to define `UNICODE_SELECTED_MODES` to set their desired input modes.
-However, if you plan on switching input modes manually (see [keycodes](#keycodes) below) and don't plan on cycling through them, this definition can be omitted as well.
+However, if you plan on switching input modes manually (see [keycodes](#keycodes) below) and don't plan on cycling through them, this definition can be omitted.
 
 ### Audio Feedback {#audio-feedback}
 
