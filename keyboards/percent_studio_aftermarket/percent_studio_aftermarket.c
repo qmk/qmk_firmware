@@ -74,7 +74,7 @@ key_type_t get_key_category(uint16_t keycode) {
 void update_custom_leds(void) {
     bool caps_on = host_keyboard_led_state().caps_lock;
 
-    for (int i = 0; i < 4; i++) {
+    for (uint8_t i = 0; i < 4; i++) {
         if (i == 0 && caps_on) {
             rgblight_sethsv_at(HSV_RED, i);
             continue;
