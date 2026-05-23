@@ -31,9 +31,30 @@ typedef enum {
 key_type_t led_history[4] = {COLOR_NONE, COLOR_NONE, COLOR_NONE, COLOR_NONE};
 
 key_type_t get_key_category(uint16_t keycode) {
-    uint8_t base_keycode = keycode & 0xFF;
-    bool    shifted      = (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)));
+    bool shifted = (get_mods() & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)));
+
     switch (keycode) {
+        case QK_BASIC ... QK_BASIC_MAX:
+            switch (QK_MODS_GET_BASIC_KEYCODE(keycode)) {
+                case KC_BSPC:
+                    return COLOR_BACKSPACE;
+                case KC_A ... KC_Z:
+                    return COLOR_ALPHA;
+                case KC_SPACE:
+                    return COLOR_SPACE;
+                case KC_1 ... KC_0:
+                    if (shifted) {
+                        return COLOR_SYMBOL;
+                    }
+                    return COLOR_NUM;
+                case KC_MINUS ... KC_SLASH:
+                    return COLOR_SYMBOL;
+                case KC_NO:
+                case KC_TRNS:
+                    return COLOR_NONE;
+                default:
+                    return COLOR_OTHER;
+            }
         case QK_MOMENTARY ... QK_MOMENTARY_MAX:
         case QK_TOGGLE_LAYER ... QK_TOGGLE_LAYER_MAX:
         case QK_DEF_LAYER ... QK_DEF_LAYER_MAX:
@@ -44,24 +65,7 @@ key_type_t get_key_category(uint16_t keycode) {
         case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:
             return COLOR_QUANTUM;
-    }
-    switch (base_keycode) {
-        case KC_BSPC:
-            return COLOR_BACKSPACE;
-        case KC_A ... KC_Z:
-            return COLOR_ALPHA;
-        case KC_SPACE:
-            return COLOR_SPACE;
-        case KC_1 ... KC_0:
-            if (shifted) {
-                return COLOR_SYMBOL;
-            }
-            return COLOR_NUM;
-        case KC_MINUS ... KC_SLASH:
-            return COLOR_SYMBOL;
-        case KC_NO:
-        case KC_TRNS:
-            return COLOR_NONE;
+
         default:
             return COLOR_OTHER;
     }
