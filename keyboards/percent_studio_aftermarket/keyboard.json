@@ -117,11 +117,7 @@
     },
     "rgblight": {
         "led_count": 4,
-        "max_brightness": 120,
-        "layers": {
-            "enabled": true,
-            "override_rgb": true
-        }
+        "max_brightness": 120
     },
     "ws2812": {
         "driver": "vendor",
