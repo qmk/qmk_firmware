@@ -3,12 +3,12 @@
 
 #pragma once
 
-#ifdef PS2_MOUSE_ENABLE
+#ifdef POINTING_DEVICE_DRIVER_PS2_MOUSE
 #    define PS2_RESET_PIN B0
 #    define PS2_DATA_PIN B1
 #    define PS2_CLOCK_PIN B2
 
 #    define PS2_MOUSE_USE_REMOTE_MODE
 #    define PS2_MOUSE_INIT_DELAY 1000
-#    define PS2_MOUSE_ROTATE 90
+#    define POINTING_DEVICE_ROTATION_90
 #endif
