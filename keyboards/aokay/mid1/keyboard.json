@@ -18,43 +18,43 @@
         "nkro": true,
         "rgblight": true
     },
+    "matrix_pins": {
+        "cols": ["E6", "B0", "F0", "F1", "F4", "F5", "F6", "F7", "C7", "C6", "B6", "B5"],
+        "rows": ["B4", "D7", "D6", "D4"]
+    },
+    "processor": "atmega32u4",
     "qmk": {
         "locking": {
             "enabled": true,
             "resync": true
         }
     },
-    "matrix_pins": {
-        "cols": ["E6", "B0", "F0", "F1", "F4", "F5", "F6", "F7", "C7", "C6", "B6", "B5"],
-        "rows": ["B4", "D7", "D6", "D4"]
-    },
-    "ws2812": {
-        "pin": "D0"
-    },
     "rgblight": {
-        "hue_steps": 5,
-        "saturation_steps": 8,
-        "brightness_steps": 8,
-        "led_count": 8,
-        "sleep": true,
-        "max_brightness": 200,
         "animations": {
             "breathing": true,
+            "knight": true,
             "rainbow_mood": true,
-            "rainbow_swirl": true,
-            "knight": true
+            "rainbow_swirl": true
         },
+        "brightness_steps": 8,
         "default": {
             "hue": 15,
             "val": 128
-        }
+        },
+        "hue_steps": 5,
+        "led_count": 8,
+        "max_brightness": 200,
+        "saturation_steps": 8,
+        "sleep": true
     },
-    "processor": "atmega32u4",
     "url": "https://www.aokay.cool/mid-1",
     "usb": {
         "device_version": "0.1.0",
         "pid": "0x414F",
         "vid": "0x1001"
+    },
+    "ws2812": {
+        "pin": "D0"
     },
     "layouts": {
         "LAYOUT_all": {
@@ -106,8 +106,8 @@
                 {"label": "sw45", "matrix": [3, 10], "x": 10.5, "y": 3, "w": 1.5}
             ]
         },
-    "LAYOUT_275u_225u": {
-        "layout": [
+        "LAYOUT_275u_225u": {
+            "layout": [
                 {"label": "sw1", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "sw2", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "sw3", "matrix": [0, 2], "x": 2, "y": 0},
@@ -152,8 +152,8 @@
                 {"label": "sw45", "matrix": [3, 10], "x": 10.5, "y": 3, "w": 1.5}
             ]
         },
-    "LAYOUT_7u": {
-        "layout": [
+        "LAYOUT_7u": {
+            "layout": [
                 {"label": "sw1", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "sw2", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "sw3", "matrix": [0, 2], "x": 2, "y": 0},
@@ -195,8 +195,8 @@
                 {"label": "sw45", "matrix": [3, 10], "x": 10.5, "y": 3, "w": 1.5}
             ]
         },
-    "LAYOUT_225u_1u_275u": {
-        "layout": [
+        "LAYOUT_225u_1u_275u": {
+            "layout": [
                 {"label": "sw1", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "sw2", "matrix": [0, 1], "x": 1, "y": 0},
                 {"label": "sw3", "matrix": [0, 2], "x": 2, "y": 0},
