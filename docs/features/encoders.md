@@ -18,7 +18,7 @@ Basic (EC11 compatible) encoders are supported by adding this to your keyboard's
     }
 ```
 
-==== legacy
+==== Legacy
 
 Basic (EC11 compatible) encoders are supported by adding this to your `rules.mk`:
 
@@ -61,7 +61,6 @@ If your encoder's clockwise directions are incorrect, you can swap the A & B pad
 #define ENCODER_DIRECTION_FLIP
 ```
 
-
 For 4× encoders you also can assign default position if encoder skips pulses when it changes direction. For example, if your encoder send high level on both pins by default, define this:
 
 ```c
@@ -95,7 +94,7 @@ If you are using different pinouts for the encoders on each half of a split keyb
 
 If the `"right"` definitions are specified, then the non-right version will be applied to both sides of the split.
 
-Additionally, Additionally, if one side does not have an encoder, you can specify no encoder for the pins/resolution -- for example, a split keyboard with only a right-side encoder:
+Additionally, if one side does not have an encoder, you can specify no encoder for the pins/resolution -- for example, a split keyboard with only a right-side encoder:
 
 ```json
     "encoder": {
@@ -153,7 +152,7 @@ Encoder mapping may be added to your `keymap.c`, which replicates the normal key
         "features": {
             "encoder_map": true
         }
-    }`
+    }
 ```
 
 ==== rules.mk
@@ -256,7 +255,7 @@ Multiple encoders may share pins so long as each encoder has a distinct pair of 
 - pads must be high at the detent stability point which is called 'default position' in QMK
 - no more than two encoders sharing a pin can be turned at the same time
 
-For example you can support two encoders using only 3 pins like this
+For example you can support two encoders using only 3 pins like this:
 :::::tabs
 ==== JSON
 
@@ -264,7 +263,7 @@ For example you can support two encoders using only 3 pins like this
     "encoder": {
         "rotary": [
             {"pin_a": "B1", "pin_b": "B2"},
-            {"pin_a": "B1", "pin_b": "B2"}
+            {"pin_a": "B1", "pin_b": "B3"}
         ]
     }
 ```
@@ -279,7 +278,7 @@ For example you can support two encoders using only 3 pins like this
 
 
 You could even support three encoders using only three pins (one per encoder) however in this configuration, rotating two encoders which share pins simultaneously will often generate incorrect output. For example:
-::::tabs
+:::::tabs
 
 ==== JSON
 ```json
