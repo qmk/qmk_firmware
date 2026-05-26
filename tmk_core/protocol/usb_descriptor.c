@@ -202,13 +202,13 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_USAGE_PAGE(8, 0x0C),// Consumer
             HID_RI_USAGE(16, 0x0238),  // AC Pan
 #    ifndef WHEEL_EXTENDED_REPORT
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
+            HID_RI_LOGICAL_MINIMUM(8, MOUSE_REPORT_HV_MIN),
+            HID_RI_LOGICAL_MAXIMUM(8, MOUSE_REPORT_HV_MAX),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x08),
 #    else
-            HID_RI_LOGICAL_MINIMUM(16, -32767),
-            HID_RI_LOGICAL_MAXIMUM(16,  32767),
+            HID_RI_LOGICAL_MINIMUM(16, MOUSE_REPORT_HV_MIN),
+            HID_RI_LOGICAL_MAXIMUM(16, MOUSE_REPORT_HV_MAX),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x10),
 #    endif
