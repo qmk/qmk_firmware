@@ -70,6 +70,7 @@ extern keymap_config_t keymap_config;
 static host_driver_t *driver;
 static uint16_t       last_system_usage   = 0;
 static uint16_t       last_consumer_usage = 0;
+static uint8_t        last_mouse_buttons  = 0;
 
 void host_set_driver(host_driver_t *d) {
     driver = d;
@@ -220,6 +221,7 @@ void host_mouse_send(report_mouse_t *report) {
     report->boot_x = (report->x > 127) ? 127 : ((report->x < -127) ? -127 : report->x);
     report->boot_y = (report->y > 127) ? 127 : ((report->y < -127) ? -127 : report->y);
 #endif
+    last_mouse_buttons = report->buttons;
     (*driver->send_mouse)(report);
 }
 
@@ -365,4 +367,8 @@ uint16_t host_last_system_usage(void) {
 
 uint16_t host_last_consumer_usage(void) {
     return last_consumer_usage;
+}
+
+uint8_t host_last_mouse_buttons(void) {
+    return last_mouse_buttons;
 }
