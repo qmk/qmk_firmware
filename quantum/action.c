@@ -879,7 +879,9 @@ void process_action(keyrecord_t *record, action_t action) {
                     wait_ms(TAP_CODE_DELAY);
                     tap_code(action.layer_tap.code);
                     wait_ms(TAP_CODE_DELAY);
-                    unregister_mods(retro_tap_curr_mods);
+                    // Only unregister the mods that were active at the time of
+                    // the tap and are not independently held by other keys.
+                    unregister_mods(retro_tap_curr_mods & ~curr_mods);
 #        endif
                 }
                 retro_tap_primed = false;
