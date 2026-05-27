@@ -72,10 +72,9 @@ user_config_t user_config = {
     .joystick_mode_right = JOY_MODE_DIGITAL
 };
 
-// Button hold tracking for mouse mode
 typedef struct {
     uint32_t press_time;
-    bool button_registered;  // Track if we've registered a mouse button
+    bool button_registered;
     bool motion_detected;
 } button_hold_t;
 
@@ -158,7 +157,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
 
 bool rgb_matrix_indicators_user(void) {
     if (get_highest_layer(layer_state) == 1) {
