@@ -25,6 +25,9 @@
         "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP12", "GP13", "GP24"],
         "rows": ["GP16", "GP17", "GP18", "GP19", "GP20", "NO_PIN"]
     },
+    "mouse_key": {
+        "enabled": true
+    },
     "processor": "RP2040",
     "rgb_matrix": {
         "animations": {
@@ -159,7 +162,8 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5449",
-        "vid": "0x5453"
+        "vid": "0x5453",
+        "suspend_wakeup_delay": 2000
     },
     "ws2812": {
         "driver": "vendor",
