@@ -4,6 +4,8 @@
 #include "timer.h"
 #include "transactions.h"
 
+ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(1, 1, 2);
+
 typedef struct _master_to_slave_t {
     int m2s_data;
 } master_to_slave_t;
