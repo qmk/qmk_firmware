@@ -1137,4 +1137,17 @@ def get_modules(keyboard, keymap_filename):
         if keymap_json:
             modules.extend(keymap_json.get('modules', []))
 
-    return list(dict.fromkeys(modules))  # remove dupes
+    # remove duplicates while maintaining the current order
+    ret = list(dict.fromkeys(modules))
+
+    # We currently do not support duplicate module names
+    # e.g.: ['foo/hello_world', 'bar/hello_world'] will fail
+    seen = set()
+    for module in ret:
+        module_slug = Path(module).name.lower()
+        if module_slug in seen:
+            duplicates = list(filter(lambda m: module_slug == Path(m).name.lower(), ret))
+            raise Exception(f'Duplicate module name detected: "{module_slug}" - {duplicates}')
+        seen.add(module_slug)
+
+    return ret
