@@ -169,7 +169,7 @@ def _generate_modules_rules(keyboard, filename):
     return lines
 
 
-def _module_names(modules):
+def _module_slugs(modules):
     return [Path(m).name.lower() for m in modules]
 
 
@@ -177,38 +177,38 @@ def _render_eeconfig_declarations(modules):
     lines = []
     lines.append('')
     lines.append('// nvm eeconfig')
-    for module_name in _module_names(modules):
+    for module_slug in _module_slugs(modules):
         lines.extend([
-            f'#if (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
-            f'bool     eeconfig_is_{module_name}_datablock_valid(void);',
-            f'uint32_t eeconfig_read_{module_name}_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));',
-            f'uint32_t eeconfig_update_{module_name}_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));',
-            f'void     eeconfig_init_{module_name}_datablock(void);',
-            f'#    define eeconfig_read_{module_name}_datablock_field(__object, __field) eeconfig_read_{module_name}_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))',
-            f'#    define eeconfig_update_{module_name}_datablock_field(__object, __field) eeconfig_update_{module_name}_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))',
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'bool     eeconfig_is_{module_slug}_datablock_valid(void);',
+            f'uint32_t eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));',
+            f'uint32_t eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));',
+            f'void     eeconfig_init_{module_slug}_datablock(void);',
+            f'#    define eeconfig_read_{module_slug}_datablock_field(__object, __field) eeconfig_read_{module_slug}_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))',
+            f'#    define eeconfig_update_{module_slug}_datablock_field(__object, __field) eeconfig_update_{module_slug}_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))',
             '',
-            f'bool     nvm_eeconfig_is_{module_name}_datablock_valid(void);',
-            f'uint32_t nvm_eeconfig_read_{module_name}_datablock(void *data, uint32_t offset, uint32_t length);',
-            f'uint32_t nvm_eeconfig_update_{module_name}_datablock(const void *data, uint32_t offset, uint32_t length);',
-            f'void     nvm_eeconfig_init_{module_name}_datablock(void);',
-            f'#endif // (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
+            f'bool     nvm_eeconfig_is_{module_slug}_datablock_valid(void);',
+            f'uint32_t nvm_eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length);',
+            f'uint32_t nvm_eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length);',
+            f'void     nvm_eeconfig_init_{module_slug}_datablock(void);',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
             '',
         ])
 
     lines.append('typedef struct PACKED {')
-    for module_name in _module_names(modules):
+    for module_slug in _module_slugs(modules):
         lines.extend([
-            f'#if (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
-            f'    uint32_t {module_name}_version;',
-            f'    uint8_t  {module_name}[EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE];',
-            f'#endif // (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'    uint32_t {module_slug}_version;',
+            f'    uint8_t  {module_slug}[EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE];',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
         ])
     lines.append('} eeprom_modules_t;')
     lines.append('')
 
-    for module_name in _module_names(modules):
-        lines.append(f'#define EECONFIG_MODULE_{module_name.upper()}_VERSION (uint32_t *)(EECONFIG_MODULES_DATABLOCK + (offsetof(eeprom_modules_t, {module_name}_version)))')
-        lines.append(f'#define EECONFIG_MODULE_{module_name.upper()}_DATABLOCK (uint8_t *)(EECONFIG_MODULES_DATABLOCK + (offsetof(eeprom_modules_t, {module_name})))')
+    for module_slug in _module_slugs(modules):
+        lines.append(f'#define EECONFIG_MODULE_{module_slug.upper()}_VERSION (uint32_t *)(EECONFIG_MODULES_DATABLOCK + (offsetof(eeprom_modules_t, {module_slug}_version)))')
+        lines.append(f'#define EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK (uint8_t *)(EECONFIG_MODULES_DATABLOCK + (offsetof(eeprom_modules_t, {module_slug})))')
     lines.append('')
 
     lines.append('bool eeconfig_is_modules_datablock_valid(void);')
@@ -229,22 +229,22 @@ def _render_eeconfig_implementation(modules):
     lines.append('#endif // defined(NVM_DRIVER_EEPROM)'),
     lines.append('')
 
-    for module_name in _module_names(modules):
+    for module_slug in _module_slugs(modules):
         lines.extend([
-            f'#if (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
-            f'bool eeconfig_is_{module_name}_datablock_valid(void) {{ return nvm_eeconfig_is_{module_name}_datablock_valid(); }}',
-            f'uint32_t eeconfig_read_{module_name}_datablock(void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_read_{module_name}_datablock(data, offset, length); }}',
-            f'uint32_t eeconfig_update_{module_name}_datablock(const void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_update_{module_name}_datablock(data, offset, length); }}',
-            f'void eeconfig_init_{module_name}_datablock(void) {{ nvm_eeconfig_init_{module_name}_datablock(); }}',
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'bool eeconfig_is_{module_slug}_datablock_valid(void) {{ return nvm_eeconfig_is_{module_slug}_datablock_valid(); }}',
+            f'uint32_t eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_read_{module_slug}_datablock(data, offset, length); }}',
+            f'uint32_t eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_update_{module_slug}_datablock(data, offset, length); }}',
+            f'void eeconfig_init_{module_slug}_datablock(void) {{ nvm_eeconfig_init_{module_slug}_datablock(); }}',
             '',
             '#    if defined(NVM_DRIVER_EEPROM)',
-            f'bool nvm_eeconfig_is_{module_name}_datablock_valid(void) {{',
-            f'    return eeprom_read_dword(EECONFIG_MODULE_{module_name.upper()}_VERSION) == (EECONFIG_MODULE_{module_name.upper()}_DATA_VERSION);',
+            f'bool nvm_eeconfig_is_{module_slug}_datablock_valid(void) {{',
+            f'    return eeprom_read_dword(EECONFIG_MODULE_{module_slug.upper()}_VERSION) == (EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION);',
             '}',
-            f'uint32_t nvm_eeconfig_read_{module_name}_datablock(void *data, uint32_t offset, uint32_t length) {{',
-            f'    if (eeconfig_is_{module_name}_datablock_valid()) {{',
-            f'        void *ee_start = (void *)(uintptr_t)(EECONFIG_MODULE_{module_name.upper()}_DATABLOCK + offset);',
-            f'        void *ee_end   = (void *)(uintptr_t)(EECONFIG_MODULE_{module_name.upper()}_DATABLOCK + MIN((EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE), offset + length));',
+            f'uint32_t nvm_eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length) {{',
+            f'    if (eeconfig_is_{module_slug}_datablock_valid()) {{',
+            f'        void *ee_start = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + offset);',
+            f'        void *ee_end   = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + MIN((EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE), offset + length));',
             '        eeprom_read_block(data, ee_start, ee_end - ee_start);',
             '        return ee_end - ee_start;',
             '    } else {',
@@ -252,20 +252,20 @@ def _render_eeconfig_implementation(modules):
             '        return length;',
             '    }',
             '}',
-            f'uint32_t nvm_eeconfig_update_{module_name}_datablock(const void *data, uint32_t offset, uint32_t length) {{',
-            f'    eeprom_update_dword(EECONFIG_MODULE_{module_name.upper()}_VERSION, (EECONFIG_MODULE_{module_name.upper()}_DATA_VERSION));',
-            f'    void *ee_start = (void *)(uintptr_t)(EECONFIG_MODULE_{module_name.upper()}_DATABLOCK + offset);',
-            f'    void *ee_end   = (void *)(uintptr_t)(EECONFIG_MODULE_{module_name.upper()}_DATABLOCK + MIN((EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE), offset + length));',
+            f'uint32_t nvm_eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length) {{',
+            f'    eeprom_update_dword(EECONFIG_MODULE_{module_slug.upper()}_VERSION, (EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION));',
+            f'    void *ee_start = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + offset);',
+            f'    void *ee_end   = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + MIN((EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE), offset + length));',
             '    eeprom_update_block(data, ee_start, ee_end - ee_start);',
             '    return ee_end - ee_start;',
             '}',
-            f'void nvm_eeconfig_init_{module_name}_datablock(void) {{',
-            f'    eeprom_update_dword(EECONFIG_MODULE_{module_name.upper()}_VERSION, (EECONFIG_MODULE_{module_name.upper()}_DATA_VERSION));',
-            f'    void   *start     = (void *)(uintptr_t)(EECONFIG_MODULE_{module_name.upper()}_DATABLOCK);',
-            f'    void   *end       = (void *)(uintptr_t)(EECONFIG_MODULE_{module_name.upper()}_DATABLOCK + (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE));',
+            f'void nvm_eeconfig_init_{module_slug}_datablock(void) {{',
+            f'    eeprom_update_dword(EECONFIG_MODULE_{module_slug.upper()}_VERSION, (EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION));',
+            f'    void   *start     = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK);',
+            f'    void   *end       = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE));',
             '    long    remaining = end - start;',
             '    uint8_t dummy[16] = {0};',
-            f'    for (int i = 0; i < EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE; i += sizeof(dummy)) {{',
+            f'    for (int i = 0; i < EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE; i += sizeof(dummy)) {{',
             '        int this_loop = remaining < sizeof(dummy) ? remaining : sizeof(dummy);',
             '        eeprom_update_block(dummy, start, this_loop);',
             '        start += this_loop;',
@@ -273,28 +273,28 @@ def _render_eeconfig_implementation(modules):
             '    }',
             '}',
             '#    endif // defined(NVM_DRIVER_EEPROM)',
-            f'#endif // (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
             '',
         ])
 
     lines.append('bool eeconfig_is_modules_datablock_valid(void) {')
     lines.append('    return true')
-    for module_name in _module_names(modules):
+    for module_slug in _module_slugs(modules):
         lines.extend([
-            f'#if (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
-            f'        && eeconfig_is_{module_name}_datablock_valid()',
-            f'#endif // (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'        && eeconfig_is_{module_slug}_datablock_valid()',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
         ])
     lines.append('    ;')
     lines.append('}')
     lines.append('')
 
     lines.append('void eeconfig_init_modules_datablock(void) {'),
-    for module_name in _module_names(modules):
+    for module_slug in _module_slugs(modules):
         lines.extend([
-            f'#if (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
-            f'    eeconfig_init_{module_name}_datablock();',
-            f'#endif // (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE) > 0',
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'    eeconfig_init_{module_slug}_datablock();',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
         ])
     lines.append('}')
     lines.append('')
@@ -348,26 +348,26 @@ def generate_community_post_config_h(cli):
     modules = get_modules(cli.args.keyboard, cli.args.filename)
     if len(modules) > 0:
         lines.append('// Split transactions')
-        for module_name in _module_names(modules):
+        for module_slug in _module_slugs(modules):
             lines.extend([
-                f'#ifdef SPLIT_TRANSACTION_IDS_MODULE_{module_name.upper()}',
+                f'#ifdef SPLIT_TRANSACTION_IDS_MODULE_{module_slug.upper()}',
                 '#    define SPLIT_TRANSACTION_RPC',
                 '#endif',
             ])
         lines.append('')
 
         lines.append('// nvm eeconfig')
-        for module_name in _module_names(modules):
+        for module_slug in _module_slugs(modules):
             lines.extend([
-                f'#ifndef EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE',
-                f'#    define EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE 0',
+                f'#ifndef EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE',
+                f'#    define EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE 0',
                 '#endif',
-                f'#ifndef EECONFIG_MODULE_{module_name.upper()}_DATA_VERSION',
-                f'#    define EECONFIG_MODULE_{module_name.upper()}_DATA_VERSION (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE)',
+                f'#ifndef EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION',
+                f'#    define EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE)',
                 '#endif',
                 '',
             ])
-        module_size = " + ".join([f'(4 + (EECONFIG_MODULE_{module_name.upper()}_DATA_SIZE))' for module_name in _module_names(modules)])
+        module_size = " + ".join([f'(4 + (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE))' for module_slug in _module_slugs(modules)])
         lines.append(f'#define EECONFIG_MODULE_DATA_SIZE ({module_size})')
         lines.append('')
 
