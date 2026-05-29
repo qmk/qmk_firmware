@@ -3,6 +3,7 @@
 #include "debug.h"
 #include "timer.h"
 #include "transactions.h"
+#include "community_modules.h"
 
 ASSERT_COMMUNITY_MODULES_MIN_API_VERSION(1, 1, 2);
 
