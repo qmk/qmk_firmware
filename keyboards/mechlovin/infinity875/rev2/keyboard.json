@@ -1,0 +1,41 @@
+{
+    "keyboard_name": "Infinity 87.5 Rev 2",
+    "bootloader": "stm32duino",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "nkro": true,
+        "rgblight": true
+    },
+    "indicators": {
+        "caps_lock": "B10",
+        "scroll_lock": "B5"
+    },
+    "matrix_pins": {
+        "cols": ["B14", "B13", "B12", "B2", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1", "A0", "A15", "B3", "B4"],
+        "rows": ["A8", "A9", "A10", "B11", "C13", "C14"]
+    },
+    "processor": "STM32F103",
+    "rgblight": {
+        "animations": {
+            "alterating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 24
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x1875"
+    },
+    "ws2812": {
+        "driver": "spi",
+        "pin": "B15"
+    }
+}
