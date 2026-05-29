@@ -2382,5 +2382,8 @@
     },
     "sirius/uni660/rev2": {
         "target": "sirius/uni660/rev2/ansi"
+    },
+        "mechlovin/infinity875": {
+        "target": "mechlovin/infinity875/rev1"
     }
 }

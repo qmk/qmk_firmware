@@ -17,7 +17,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifdef RGBLIGHT_ENABLE
 #define WS2812_SPI_DRIVER SPID2 // default: SPID1
 #define WS2812_SPI_USE_CIRCULAR_BUFFER
-#endif

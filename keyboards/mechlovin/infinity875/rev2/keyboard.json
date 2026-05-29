@@ -3,7 +3,6 @@
     "bootloader": "stm32duino",
     "diode_direction": "ROW2COL",
     "features": {
-        "nkro": true,
         "rgblight": true
     },
     "indicators": {
@@ -23,7 +22,6 @@
             "knight": true,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "rgb_test": true,
             "snake": true,
             "static_gradient": true,
             "twinkle": true
