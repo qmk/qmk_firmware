@@ -1,22 +1,6 @@
-/*
- * bitdeck10.c
- * Copyright (C) 2026 morisoba
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+// Copyright (C) 2026 morisoba
+// SPDX-License-Identifier: GPL-3.0-or-later
 #include "quantum.h"
-#include "layers.h"
 
 #ifdef OLED_ENABLE
 #define OLED_ENCODER_TIMEOUT 200
@@ -104,7 +88,7 @@ static void create_keyhistory(void) {
 static void delete_encoder_log(void) {
     for (uint8_t idx = 0; idx < KEYLOG_LEN; idx++) {
         if (keylog[idx].event.key.row == KEYLOC_ENCODER_CW || keylog[idx].event.key.row == KEYLOC_ENCODER_CCW) {
-            if (keylog[idx].event.pressed == true && (timer_elapsed32(last_encoder_moved) > OLED_ENCODER_TIMEOUT)) {
+            if (keylog[idx].event.pressed == true && (last_encoder_activity_elapsed() > OLED_ENCODER_TIMEOUT)) {
                 keylog[idx].event.pressed = false;
             }
         }
@@ -120,7 +104,10 @@ static void render_logo(void) {
 }
 
 // drawing OLED
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
+        return true;
+    }
     // show logo
     render_logo();
 
@@ -149,7 +136,7 @@ bool oled_task_user(void) {
 
 #ifdef ENCODER_ENABLE
     // OLED status clear
-    if (timer_elapsed32(last_encoder_moved) > OLED_ENCODER_TIMEOUT) {
+    if (last_encoder_activity_elapsed() > OLED_ENCODER_TIMEOUT) {
         encoder_state = ENC_NONE;
     }
     // get OLED push button status
@@ -171,16 +158,16 @@ bool oled_task_user(void) {
     // show layer
     oled_set_cursor(7, 2);
     switch (get_highest_layer(layer_state)) {
-        case _BASE:
+        case 0:
             oled_write_P(PSTR("BASE     "), false);
             break;
-        case _LOWER:
+        case 1:
             oled_write_P(PSTR("LOWER    "), false);
             break;
-        case _RAISE:
+        case 2:
             oled_write_P(PSTR("RAISE    "), false);
             break;
-        case _ADJUST:
+        case 3:
             oled_write_P(PSTR("ADJUST   "), false);
             break;
         case 4:
@@ -204,9 +191,9 @@ bool oled_task_user(void) {
     return false;
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     write_keylog(record->event, get_keycode_string(keycode));
-    return true;
+    return process_record_user(keycode, record);
 }
 
 #endif // OLED_ENABLE

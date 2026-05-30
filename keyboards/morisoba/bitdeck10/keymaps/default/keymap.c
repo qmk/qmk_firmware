@@ -1,31 +1,22 @@
-/*
- * keymaps.c QMK keymap for BitDeck10
- * Copyright (C) 2026 morisoba
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+// Copyright (C) 2026 morisoba
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "layers.h"
+
+enum layers { 
+    _BASE, 
+    _LOWER, 
+    _RAISE, 
+    _ADJUST,
+};
 
 #ifdef ENCODER_ENABLE
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     // Volume UP/DOWN
     [_BASE]   = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_LOWER]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_RAISE]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
-    [_ADJUST] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)}
+    [_LOWER]  = {ENCODER_CCW_CW(_______, _______)},
+    [_RAISE]  = {ENCODER_CCW_CW(_______, _______)},
+    [_ADJUST] = {ENCODER_CCW_CW(_______, _______)}
 };
 #endif // ENCODER_ENABLE
 
