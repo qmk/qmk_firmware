@@ -92,7 +92,7 @@ If you are using different pinouts for the encoders on each half of a split keyb
     }
 ```
 
-If the `"right"` definitions are specified, then the non-right version will be applied to both sides of the split.
+If the `"right"` definitions are not specified, then the non-right version will be applied to both sides of the split.
 
 Additionally, if one side does not have an encoder, you can specify no encoder for the pins/resolution -- for example, a split keyboard with only a right-side encoder:
 
