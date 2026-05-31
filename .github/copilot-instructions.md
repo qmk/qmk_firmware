@@ -83,15 +83,17 @@ This document provides automated review guidance based on the [QMK PR Checklist]
 ### info.json and keyboard.json Requirements
 - **Schema Validation**: Verify that `info.json` and `keyboard.json` files are valid JSON (no syntax errors, no trailing commas, properly closed brackets)
 - **Mandatory Elements**:
-  - Valid URL
-  - Valid maintainer
-  - Valid USB VID/PID and device version
-  - `layout` definitions include matrix positions
+  - `url` field is present and begins with `http://` or `https://`
+  - `maintainer` field is present and non-empty
+  - `usb.vid` and `usb.pid` fields are present and match the `0x` hexadecimal format (e.g. `"vid": "0x1234"`, `"pid": "0xFEED"`)
+  - `usb.device_version` field is present
+  - Each key entry in every `layout` array must include a `"matrix"` property (e.g. `{"label": "L01", "matrix": [0, 0], "x": 0, "y": 0}`)
   - Microcontroller and bootloader specified
   - Diode direction (if not using direct pins)
 - **Layout Naming**:
   - Single layout: Must be named `LAYOUT` or match `LAYOUT_*` pattern
   - Multiple layouts: Must include `LAYOUT_all` plus at least one alternate name
+
 ### readme.md Requirements
 - **Template**: Must follow [official template](https://github.com/qmk/qmk_firmware/blob/master/data/templates/keyboard/readme.md)
 - **Flash Command**: Present with `:flash` at end
@@ -99,10 +101,9 @@ This document provides automated review guidance based on the [QMK PR Checklist]
   - Private groupbuys acceptable
   - Open-source should link to files
 - **Reset Instructions**: Bootloader reset instructions must be present (non-empty)
-- **Images Required**:
-  - Must be hosted externally (imgur, etc.)
-  - Direct image links required (not preview pages)
-  - Example: `https://i.imgur.com/vqgE7Ok.jpg` not `https://imgur.com/vqgE7Ok`
+- **Images**: A keyboard image is preferred but not mandatory
+  - If present, images must not be hosted in the repository
+  - If an imgur URL is used, it must link directly to the image (i.e. `https://i.imgur.com/<id>.<ext>`), not the preview page (i.e. not `https://imgur.com/<id>`)
 
 ### rules.mk Standards
 - **Removed Items**:
