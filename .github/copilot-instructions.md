@@ -204,7 +204,7 @@ Please remove these and refer to [Data Driven Configuration](https://docs.qmk.fm
 ### For non-pristine default keymap:
 ```
 ⚠️ Default keymap requires collaborator review:
-The default `keymap.c` should contain only the `keymaps[]` array. The following was detected:
+The default `keymap.c` contains code beyond the `keymaps[]` array. The following was detected:
 - [describe: extra functions/definitions in keymap.c, or additional .c/.h files in the default keymap folder]
 
 A QMK Collaborator must review this before merging.
