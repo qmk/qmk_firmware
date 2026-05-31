@@ -8,7 +8,7 @@ Basic (EC11 compatible) encoders are supported by adding this to your keyboard's
 
 ```json
     "features": {
-        "encoders": true
+        "encoder": true
     },
     "encoder": {
         "rotary": [
