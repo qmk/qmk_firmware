@@ -1,5 +1,5 @@
 ---
-applyTo: "**"
+applyTo: "keyboards/**"
 excludeAgent:
   - "coding-agent"
 ---
