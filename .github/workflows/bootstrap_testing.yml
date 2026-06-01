@@ -97,7 +97,7 @@ jobs:
                   ;;
                 *suse*)
                   zypper --non-interactive refresh
-                  zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
+                  zypper --non-interactive install sudo git shadow findutils tar  # findutils=xargs
                   ;;
                 *gentoo*)
                   emerge-webrsync
