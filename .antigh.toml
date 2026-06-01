@@ -1,0 +1,25 @@
+[project]
+id = "qmk_firmware"
+root = "."
+scratch_dir = "$HOME/AntiGH/.cache/qmk_firmware"
+artifacts_dir = ".build"
+languages = ["c"]
+repo_type = "git-repo"
+
+[project.paths]
+sources = ["quantum", "tmk_core", "drivers", "platforms", "keyboards", "users", "layouts"]
+tests = ["tests"]
+lint_targets = ["quantum", "tmk_core", "drivers"]
+config_dirs = [".github", ".claude"]
+
+[project.worktrees]
+allowed = ["/Users/mock1ng/AntiGH/qmk_firmware"]
+allowed_patterns = ["/Users/mock1ng/AntiGH/qmk_firmware-*"]
+
+[dependencies]
+allowed_internal = []
+external_tools = ["make", "avr-gcc", "arm-none-eabi-gcc", "qmk"]
+
+[indexing]
+include_in_global_index = true
+tags = ["keyboard-firmware", "embedded", "fork"]
