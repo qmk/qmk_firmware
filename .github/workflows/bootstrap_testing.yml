@@ -49,14 +49,14 @@ jobs:
           - debian:11
           - debian:12
           - debian:13
-          - ubuntu:20.04
           - ubuntu:22.04
           - ubuntu:24.04
+          - ubuntu:26.04
 
           # RHEL/CentOS/Fedora based
-          - fedora:41
           - fedora:42
           - fedora:43
+          - fedora:44
           - rockylinux:8
           - rockylinux:9
           - rockylinux/rockylinux:10
@@ -64,7 +64,7 @@ jobs:
           - almalinux:9
           - almalinux:10
 
-          # OpenSUSE based (we skip Tumbleweed as it has issues with package versions between pattern installs and other dependencies preinstalled into the base container)
+          # OpenSUSE based (we skip Tumbleweed as it has issues with package mirrors regularly being out of date)
           - opensuse/leap:latest
 
           # Gentoo-based
@@ -96,7 +96,7 @@ jobs:
                   ;;
                 *suse*)
                   zypper --non-interactive refresh
-                  zypper --non-interactive install sudo git shadow findutils  # findutils=xargs
+                  zypper --non-interactive install sudo git shadow findutils tar  # findutils=xargs
                   ;;
                 *gentoo*)
                   emerge-webrsync
