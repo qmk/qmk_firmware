@@ -13,7 +13,7 @@
 - backlight cycling
 - midi (advanced) functionality is enabled (although currently not mapped in the default keymap)
 - capslock indicator is mapped to the LED on the underside of the RP2040 board
-- You can use the custom keycodes: `RMS_ON` to disable the joystick mouse and `RMS_OFF` to enable it, `RMS_TOG` to toggle it.
+- You can use the custom keycodes: `RMS_ON` to enable the joystick mouse and `RMS_OFF` to disable it, `RMS_TOG` to toggle it.
   - it can be useful in case the joystick potentiometers wear out and you don't have a spare
   - the setting is saved in EEPROM, so the behaviour will be retained if you unplug the keyboard and plug it back in.
 
