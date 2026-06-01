@@ -300,6 +300,7 @@ endef
 define BUILD_TEST
     TEST_PATH := $1
     TEST_NAME := $$(notdir $$(TEST_PATH))
+    TEST_ID := $$(patsubst ./tests/%,%,$$(TEST_PATH))
     TEST_FULL_NAME := $$(subst /,_,$$(patsubst $$(ROOT_DIR)tests/%,%,$$(TEST_PATH)))
     MAKE_TARGET := $2
     COMMAND := $1
@@ -313,7 +314,7 @@ define BUILD_TEST
         TEST_MSG := $$(MSG_TEST)
         $$(TEST_FULL_NAME)_COMMAND := \
             printf "$$(TEST_MSG)\n"; \
-            $$(TEST_EXECUTABLE); \
+            $$(TEST_EXECUTABLE) --gtest_color=$$(COLOR); \
             if [ $$$$? -gt 0 ]; \
                 then error_occurred=1; \
             fi; \

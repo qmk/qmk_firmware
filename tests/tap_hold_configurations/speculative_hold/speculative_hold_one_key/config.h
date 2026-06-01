@@ -1,4 +1,5 @@
-/* Copyright 2023 splitkb.com <support@splitkb.com>
+/* Copyright 2022 Vladislav Kucheriavykh
+ * Copyright 2026 Google LLC
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,5 +17,8 @@
 
 #pragma once
 
-#define OLED_DISPLAY_128X32
-#define SPLIT_OLED_ENABLE
+#include "test_common.h"
+
+#define SPECULATIVE_HOLD
+#define SPECULATIVE_HOLD_ONE_KEY
+#define DUMMY_MOD_NEUTRALIZER_KEYCODE KC_F24

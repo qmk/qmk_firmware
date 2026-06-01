@@ -22,4 +22,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_MASKED // actual mask is defined by `matrix_mask` in `rev2.c`
 
 #define OLED_DISPLAY_128X64
-#define SPLIT_OLED_ENABLE

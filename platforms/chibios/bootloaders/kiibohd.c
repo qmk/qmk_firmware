@@ -30,4 +30,21 @@ __attribute__((weak)) void bootloader_jump(void) {
     // request reset
     SCB->AIRCR = SCB_AIRCR_VECTKEY_WRITEMAGIC | SCB_AIRCR_SYSRESETREQ_Msk;
 }
-__attribute__((weak)) void mcu_reset(void) {}
+
+__attribute__((weak)) void mcu_reset(void) {
+    /* Ensure all outstanding memory operations complete */
+    __DSB();
+    __ISB();
+
+    /* Request system reset (preserve PRIGROUP) */
+    uint32_t aircr = SCB->AIRCR;
+    aircr &= ~SCB_AIRCR_VECTKEY_Msk;
+    aircr |= SCB_AIRCR_VECTKEY_WRITEMAGIC;
+    aircr |= SCB_AIRCR_SYSRESETREQ_Msk;
+    SCB->AIRCR = aircr;
+
+    /* Wait for reset to occur */
+    while (true) {
+        __NOP();
+    }
+}
