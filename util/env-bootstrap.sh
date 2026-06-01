@@ -41,7 +41,7 @@
 
     # Prevent user grep settings from injecting flags (e.g. --color=always) that
     # corrupt captured output and break pattern matching throughout this script.
-    unset GREP_OPTIONS GREP_COLORS
+    unset GREP_OPTIONS GREP_COLOR GREP_COLORS
 
     BOOTSTRAP_TMPDIR="$(mktemp -d /tmp/qmk-bootstrap-failure.XXXXXX)"
     trap 'rm -rf "$BOOTSTRAP_TMPDIR" >/dev/null 2>&1 || true' EXIT
