@@ -440,7 +440,7 @@ void EVENT_USB_Device_ControlRequest(void) {
                             if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
                                 usb_device_state_set_leds(Endpoint_Read_8());
                             }
-                        } else {
+                        } else if (Endpoint_BytesInEndpoint() == 1) {
                             usb_device_state_set_leds(Endpoint_Read_8());
                         }
 
