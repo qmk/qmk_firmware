@@ -64,8 +64,9 @@ jobs:
           - almalinux:9
           - almalinux:10
 
-          # OpenSUSE based (we skip Tumbleweed as it has issues with package versions between pattern installs and other dependencies preinstalled into the base container)
+          # OpenSUSE based
           - opensuse/leap:latest
+          - opensuse/tumbleweed:latest
 
           # Gentoo-based
           - gentoo/stage3:latest
