@@ -176,7 +176,7 @@
     U+00B7, U+007E, U+002F;
 }
 
-/* Generate the subsetted fonts using: `pyftsubset <file>.woff2 --unicodes="<range>" --output-file="inter-<style>-<subset>.woff2" --flavor=woff2` */
+/* Generate the subsetted fonts using: `pyftsubset <file>.woff2 --unicodes="<range>" --output-file="inter-\3c style>-<subset>.woff2" --flavor=woff2` */
 /**
  * Colors: Solid
  * -------------------------------------------------------------------------- */
