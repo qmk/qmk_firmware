@@ -39,6 +39,10 @@
 { # this ensures the entire script is downloaded #
     set -eu
 
+    # Prevent user grep settings from injecting flags (e.g. --color=always) that
+    # corrupt captured output and break pattern matching throughout this script.
+    unset GREP_OPTIONS GREP_COLORS
+
     BOOTSTRAP_TMPDIR="$(mktemp -d /tmp/qmk-bootstrap-failure.XXXXXX)"
     trap 'rm -rf "$BOOTSTRAP_TMPDIR" >/dev/null 2>&1 || true' EXIT
     FAILURE_FILE="${BOOTSTRAP_TMPDIR}/fail"
@@ -225,6 +229,23 @@ __EOT__
         macos) echo "zstd clang-format make hidapi libusb dos2unix git" ;;
         windows) echo "base-devel: zstd:p toolchain:p clang:p hidapi:p dos2unix: git: unzip:" ;;
         linux)
+            if ldd --version 2>&1 | grep -qi musl; then
+                echo >&2
+                echo "Sorry, QMK's pre-built toolchains are compiled against glibc and will not run on musl-based Linux distributions." >&2
+                echo >&2
+                echo "Try using a glibc-based distribution, or use Docker instead:" >&2
+                echo "  - https://docs.qmk.fm/newbs_getting_started#set-up-your-environment" >&2
+                echo "  - https://docs.qmk.fm/#/getting_started_docker" >&2
+                echo >&2
+                echo "If you cannot use a compatible distro, you can try installing the \`qmk\` Python package manually using \`pip\`, most likely requiring a virtual environment:" >&2
+                echo "  % python3 -m pip install qmk" >&2
+                echo >&2
+                echo "All other dependencies will need to be installed manually, such as make, git, AVR and ARM toolchains, and associated flashing utilities." >&2
+                echo >&2
+                echo "**NOTE**: QMK does not provide official support for musl-based environments. Here be dragons, you are on your own." >&2
+                signal_execution_failure
+                return
+            fi
             case $(grep ID /etc/os-release) in
             *arch* | *manjaro* | *cachyos*) echo "zstd base-devel clang diffutils wget unzip zip hidapi dos2unix git" ;;
             *debian* | *ubuntu*) echo "zstd build-essential clang-format diffutils wget unzip zip libhidapi-hidraw0 dos2unix git" ;;
