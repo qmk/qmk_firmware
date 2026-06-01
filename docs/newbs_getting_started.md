@@ -75,6 +75,8 @@ curl -fsSL https://install.qmk.fm | sh
 
 ::: info
 Many Linux distributions are supported, but not all. Mainstream distributions will have best success -- if possible, choose either Debian or its derivatives (such as Ubuntu, or Mint), CentOS or its derivatives (such as Fedora, or Rocky Linux), and Arch or its derivatives (such as Manjaro, or CachyOS).
+
+**The standard QMK build environment installed below does not support `musl`-based Linux distributions.**
 :::
 
 Install the QMK CLI by running:
