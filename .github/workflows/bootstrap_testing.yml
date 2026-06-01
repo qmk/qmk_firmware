@@ -64,9 +64,8 @@ jobs:
           - almalinux:9
           - almalinux:10
 
-          # OpenSUSE based
+          # OpenSUSE based (we skip Tumbleweed as it has issues with package mirrors regularly being out of date)
           - opensuse/leap:latest
-          - opensuse/tumbleweed:latest
 
           # Gentoo-based
           - gentoo/stage3:latest
