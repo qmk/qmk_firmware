@@ -718,7 +718,6 @@ def _extract_config_h(info_data, config_c):
 
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
-    _extract_audio(info_data, config_c)
     _extract_rp2040_bootloder(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
     _extract_split_handedness(info_data, config_c)
