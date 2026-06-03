@@ -272,7 +272,7 @@ void analog_matrix_eeprom_update(const void *buf, void *addr, size_t len) {
     eeprom_update_block(buf, addr, len);
 }
 
-static void save_calibration_value(uint8_t row, uint8_t col) {
+/*static void save_calibration_value(uint8_t row, uint8_t col) {
     static uint8_t eeprom_calibrated;
 
     if (eeprom_calibrated != calibrated) {
@@ -288,7 +288,7 @@ static void save_calibration_value(uint8_t row, uint8_t col) {
 
     analog_matrix_eeprom_update(&calibrated, (void *)OFFSET_CALIBRATION, 1);
     analog_matrix_eeprom_update(&saved_calib_values[row][col], (void *)offset, sizeof(saved_calib_values[0][0]));
-}
+}*/
 
 static void save_calibration_values(void) {
     // Save to external EEPROM
@@ -545,7 +545,7 @@ void auto_caliration_check(uint8_t row, uint8_t col, uint16_t value) {
                         /* Save */
                         saved_calib_values[row][col].zero_travel = calib_values[row][col].zero_travel;
                         saved_calib_values[row][col].full_travel = calib_values[row][col].full_travel;
-                        save_calibration_value(row, col);
+                        //save_calibration_value(row, col);
                     } else {
                         calib_values[row][col].full_travel = p->value.full_travel - 15;
                     }
