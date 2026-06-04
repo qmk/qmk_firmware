@@ -82,8 +82,7 @@
       "splash": true,
       "multisplash": true,
       "solid_splash": true,
-      "solid_multisplash": true,
-      "solid_color": true
+      "solid_multisplash": true
     },
     "layout": [
       {"x": 0, "y": 16, "flags": 4},
