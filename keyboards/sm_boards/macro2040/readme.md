@@ -68,6 +68,3 @@ I²C bus assignments:
 
 * **I2C0** (GP4 / GP5) — owned by QMK's `i2c_master`; talks to the AS5600 magnetic encoder.
 * **I2C1** (GP18 / GP19) — owned by `oled_custom.c`; drives the SSD1306 OLED.
-
-See the [QMK build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
-and [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more.
