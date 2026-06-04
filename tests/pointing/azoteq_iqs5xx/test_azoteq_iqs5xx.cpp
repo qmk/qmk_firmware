@@ -37,7 +37,7 @@ TEST_F(AzoteqIqs5xx, PreservesIncomingButtonsWhenReportingMovement) {
 }
 
 TEST_F(AzoteqIqs5xx, CombinesGestureButtonWithIncomingButtons) {
-    azoteq_iqs5xx_base_data_t base_data = {0};
+    azoteq_iqs5xx_base_data_t base_data       = {0};
     base_data.gesture_events_1.two_finger_tap = true;
     azoteq_iqs5xx_mock_set_base_data(base_data);
 
