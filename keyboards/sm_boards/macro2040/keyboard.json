@@ -36,7 +36,6 @@
   },
   "rgb_matrix": {
     "driver": "ws2812",
-    "led_count": 7,
     "max_brightness": 128,
     "default": {
       "animation": "rainbow_moving_chevron"
