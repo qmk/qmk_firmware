@@ -56,20 +56,6 @@
 #define OLED_I2C_ADDRESS 0x3C
 
 /* ============================================================
-   RGB Matrix
-   ------------------------------------------------------------
-   The WS2812 pin, LED count, brightness, driver, layout and
-   animation list are all defined in keyboard.json. Only the
-   feature flags that gate the more advanced animations need
-   to live here:
-     RGB_MATRIX_FRAMEBUFFER_EFFECTS → typing_heatmap, digital_rain
-     RGB_MATRIX_KEYPRESSES          → solid_reactive_*, splash...
-   ============================================================ */
-
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS
-#define RGB_MATRIX_KEYPRESSES
-
-/* ============================================================
    Blue switch indicator LEDs
    ------------------------------------------------------------
    Six blue LEDs sit underneath the key switches in two columns
