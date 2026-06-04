@@ -46,7 +46,8 @@
         "manufacturer": {"$ref": "./definitions.jsonschema#/text_identifier"},
         "url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "minLength": 1
         },
         "development_board": {
             "type": "string",
@@ -992,6 +993,7 @@
             "type": "object",
             "properties": {
                 "chordal_hold": {"type": "boolean"},
+                "flow_tap_term": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "force_hold": {"type": "boolean"},
                 "force_hold_per_key": {"type": "boolean"},
                 "ignore_mod_tap_interrupt": {"type": "boolean"},
@@ -1001,6 +1003,9 @@
                 "permissive_hold_per_key": {"type": "boolean"},
                 "retro": {"type": "boolean"},
                 "retro_per_key": {"type": "boolean"},
+                "speculative_hold": {"type": "boolean"},
+                "speculative_hold_flow_term": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "speculative_hold_one_key": {"type": "boolean"},
                 "term": {"$ref": "./definitions.jsonschema#/unsigned_int"},
                 "term_per_key": {"type": "boolean"},
                 "toggle": {"$ref": "./definitions.jsonschema#/unsigned_int"}

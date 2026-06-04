@@ -119,11 +119,13 @@ __attribute__((weak)) bool get_hold_on_other_key_press(uint16_t keycode, keyreco
 #        include "process_auto_shift.h"
 #    endif
 
-#    if defined(FLOW_TAP_TERM)
+#    if defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
 static uint16_t flow_tap_prev_keycode = KC_NO;
 static uint16_t flow_tap_prev_time    = 0;
 static bool     flow_tap_expired      = true;
+#    endif // defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
 
+#    if defined(FLOW_TAP_TERM)
 static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time);
 #    endif // defined(FLOW_TAP_TERM)
 
@@ -191,11 +193,11 @@ void action_tapping_process(keyrecord_t record) {
     if (IS_EVENT(record.event)) {
         ac_dprintf("\n");
     } else {
-#    ifdef FLOW_TAP_TERM
+#    if defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
         if (!flow_tap_expired && TIMER_DIFF_16(record.event.time, flow_tap_prev_time) >= INT16_MAX / 2) {
             flow_tap_expired = true;
         }
-#    endif // FLOW_TAP_TERM
+#    endif // defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
     }
 }
 
@@ -770,17 +772,28 @@ static void speculative_key_press(keyrecord_t *record) {
     if (speculative_keys_find(record->event.key) < num_speculative_keys) {
         return; // Don't trigger: key is already in speculative_keys.
     }
+#        ifdef SPECULATIVE_HOLD_FLOW_TERM
+    if (!flow_tap_expired && TIMER_DIFF_16(record->event.time, flow_tap_prev_time) <= SPECULATIVE_HOLD_FLOW_TERM) {
+        return; // Don't trigger: within flow term of previous key.
+    }
+#        endif // SPECULATIVE_HOLD_FLOW_TERM
 
     const uint16_t keycode = get_record_keycode(record, false);
     if (!IS_QK_MOD_TAP(keycode)) {
         return; // Don't trigger: not a mod-tap key.
     }
 
-    uint8_t mods = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+    uint8_t       mods        = mod_config(QK_MOD_TAP_GET_MODS(keycode));
+    const uint8_t active_mods = get_mods() | speculative_mods;
+#        ifdef SPECULATIVE_HOLD_ONE_KEY
+    if (active_mods != 0) {
+        return; // Don't trigger: some mod is already active.
+    }
+#        endif                // SPECULATIVE_HOLD_ONE_KEY
     if ((mods & 0x10) != 0) { // Unpack 5-bit mods to 8-bit representation.
         mods <<= 4;
     }
-    if ((~(get_mods() | speculative_mods) & mods) == 0) {
+    if ((~active_mods & mods) == 0) {
         return; // Don't trigger: mods are already active.
     }
 
@@ -988,7 +1001,7 @@ static void waiting_buffer_process_regular(void) {
 }
 #    endif // CHORDAL_HOLD
 
-#    ifdef FLOW_TAP_TERM
+#    if defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
 void flow_tap_update_last_event(keyrecord_t *record) {
     const uint16_t keycode = get_record_keycode(record, false);
     // Don't update while a tap-hold key is unsettled.
@@ -1028,7 +1041,9 @@ void flow_tap_update_last_event(keyrecord_t *record) {
     flow_tap_prev_time    = record->event.time;
     flow_tap_expired      = false;
 }
+#    endif // defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
 
+#    ifdef FLOW_TAP_TERM
 static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time) {
     const uint16_t idle_time = TIMER_DIFF_16(record->event.time, prev_time);
     if (flow_tap_expired || idle_time >= 500) {

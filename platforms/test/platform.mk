@@ -11,6 +11,10 @@ HEX =
 EEP =
 BIN =
 
+# workaround for undefined reference to weak function under mingw
+ifneq ($(findstring mingw, ${SYSTEM_TYPE}),)
+LTO_ENABLE := yes
+endif
 
 COMPILEFLAGS += -funsigned-char
 ifeq ($(findstring clang, ${GCC_VERSION}),)
