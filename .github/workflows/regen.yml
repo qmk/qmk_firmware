@@ -8,6 +8,9 @@ on:
     paths:
     - 'data/constants/**'
     - 'lib/python/**'
+    - 'quantum/rgblight/rgblight_breathe_table.h'
+    - 'quantum/keycodes.h'
+    - 'quantum/keymap_extras/**'
 
 jobs:
   regen:

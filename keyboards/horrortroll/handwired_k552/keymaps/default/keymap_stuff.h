@@ -44,20 +44,6 @@ typedef struct {
     bool reflected;
 } CUSTOM_PRESETS;
 
-enum user_rgb_mode {
-    RGB_MODE_ALL,
-    RGB_MODE_NONE,
-};
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t rgb_mode :8;
-    };
-} user_config_t;
-
-user_config_t user_config;
-
 enum layer_keycodes {
     //Custom Gradient control keycode
     G1_HUI = SAFE_RANGE, //Custom gradient color 1 hue increase
@@ -79,20 +65,6 @@ enum layer_keycodes {
     //Custom led effect keycode
     RGB_C_E,             //Cycle user effect
 };
-
-void keyboard_post_init_user(void) {
-    user_config.raw = eeconfig_read_user();
-    switch (user_config.rgb_mode) {
-        case RGB_MODE_ALL:
-            rgb_matrix_set_flags(LED_FLAG_ALL);
-            rgb_matrix_enable_noeeprom();
-            break;
-        case RGB_MODE_NONE:
-            rgb_matrix_set_flags(LED_FLAG_NONE);
-            rgb_matrix_set_color_all(0, 0, 0);
-            break;
-    }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_record_user_oled(keycode, record);
@@ -227,25 +199,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                         rgb_matrix_mode(RGB_MATRIX_CUSTOM_CUSTOM_GRADIENT);
                         return false;
                 }
-            }
-            return false;
-        case QK_RGB_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                        user_config.rgb_mode = RGB_MODE_NONE;
-                    }
-                    break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable_noeeprom();
-                        user_config.rgb_mode = RGB_MODE_ALL;
-                    }
-                    break;
-                }
-                eeconfig_update_user(user_config.raw);
             }
             return false;
 	}

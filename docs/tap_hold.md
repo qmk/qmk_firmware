@@ -824,7 +824,30 @@ bool get_speculative_hold(uint16_t keycode, keyrecord_t* record) {
 }
 ```
 
-Some operating systems or applications assign actions to tapping a modifier key by itself, e.g., tapping GUI to open a start menu. Because Speculative Hold sends a lone modifier key press in some cases, it can falsely trigger these actions. To prevent this, set `DUMMY_MOD_NEUTRALIZER_KEYCODE` (and optionally `MODS_TO_NEUTRALIZE`) in your `config.h` in the same way as described above for [Retro Tapping](#retro-tapping).
+Some operating systems or applications assign actions to tapping a modifier key by itself, e.g., tapping GUI to open a start menu. Because Speculative Hold sometimes sends a lone modifier key press, it can falsely trigger these actions (known as the "flashing mods" problem). How such an input is handled depends on the OS and application, so unfortunately, there is no universal solution.
+
+To mitigate this issue, you can set `DUMMY_MOD_NEUTRALIZER_KEYCODE` (and optionally `MODS_TO_NEUTRALIZE`) in your `config.h`, as described above for [Retro Tapping](#retro-tapping).
+
+You can further prevent flashing mods by restricting when Speculative Hold is allowed to trigger. There are several options for this:
+
+* Constrain Speculative Hold to one key at a time. Add to your config.h:
+
+  ```c
+  #define SPECULATIVE_HOLD_ONE_KEY
+  ```
+
+  With this option, Speculative Hold does not apply when any mods are already active. Mod combinations across multiple keys can still be made after the mod-tap keys settle.
+
+* Disable Speculative Hold during the flow of fast typing. Add to your config.h:
+
+  ```c
+  #define SPECULATIVE_HOLD_FLOW_TERM 200
+  ```
+
+  This value specifies a duration in milliseconds. Speculative Hold does not apply if a key is pressed within this threshold of the previous key. The effect is similar to [Flow Tap](#flow-tap); however, `SPECULATIVE_HOLD_FLOW_TERM` only restricts when speculation is allowed, without affecting how the key settles.
+
+* Use the Flow Tap option. In the fast flow of typing, the mod-tap key is immediately settled, and therefore no speculation occurs. See [Flow Tap](#flow-tap) for details.
+
 
 ## Why do we include the key record for the per key functions?
 
