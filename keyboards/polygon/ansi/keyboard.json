@@ -3,7 +3,6 @@
     "keyboard_name": "polygon_ansi",
     "maintainer": "rotwitt",
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.1",
         "pid": "0x0002",
