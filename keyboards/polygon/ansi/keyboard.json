@@ -3,6 +3,8 @@
     "keyboard_name": "polygon_ansi",
     "maintainer": "rotwitt",
     "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "diode_direction": "COL2ROW",
     "usb": {
         "device_version": "1.0.1",
         "pid": "0x0002",
@@ -128,8 +130,6 @@
             "cols": ["D4","D6","D7","B4","B5","B6","C6","C7","F7","F6","F5","F4","F1","F0","E6","D2"],
             "rows": ["B0","B1","B2","B3","B7"]
         },
-    "bootloader": "atmel-dfu",
-    "diode_direction": "COL2ROW",
     "features": {
         "encoder": true,
         "bootmagic": true,
@@ -138,6 +138,7 @@
         "nkro": true,
         "rgb_matrix": true
     },
+    "community_layouts": ["65_ansi_blocker"],
     "layouts": {
         "LAYOUT_65_ansi_blocker": {
             "layout": [
@@ -155,7 +156,7 @@
                 { "matrix": [0, 11], "x": 11, "y": 0 },
                 { "matrix": [0, 12], "x": 12, "y": 0 },
                 { "matrix": [0, 14], "x": 13, "y": 0, "w": 2 },
-                { "matrix": [0, 15], "x": 15.5, "y": 0, "encoder": 0 },
+                { "matrix": [0, 15], "x": 15.5, "y": 0},
 
                 { "matrix": [1, 0], "x": 0, "y": 1, "w": 1.5 },
                 { "matrix": [1, 1], "x": 1.5, "y": 1 },
@@ -213,14 +214,13 @@
                 { "matrix": [4, 14], "x": 14.25, "y": 4.25 },
                 { "matrix": [4, 15], "x": 15.25, "y": 4.25 }
             ]
-        },
-    "community_layouts": ["LAYOUT_65_ansi_blocker"]
+        }
     },
     "encoder": {
         "rotary": [
             {
                 "pin_a": "D3",
-                "pin_b": "D5",
+                "pin_b": "D5"
             }
         ]
     }
