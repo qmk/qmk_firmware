@@ -22,3 +22,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
     )
 };
+
+bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+    if (host_keyboard_led_state().caps_lock) {
+        uint8_t caps_led_index = g_led_config.matrix_co[2][1]; // Caps Lock (KC_CAPS) is at matrix [2,1]
+        HSV hsv = rgb_matrix_config.hsv;
+        hsv.h = (hsv.h + 128) % 256;
+        RGB rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(caps_led_index, rgb.r, rgb.g, rgb.b);
+    }
+    return true;
+}
