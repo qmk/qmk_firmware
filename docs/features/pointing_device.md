@@ -320,6 +320,23 @@ The PMW3320 sensor uses a serial type protocol for communication, and requires a
 
 The CPI range is 500-3500, in increments of 250. Defaults to 1000 CPI.
 
+### PMW-3325 Sensor
+
+To use the PMW-3325 sensor, add this to your `rules.mk`:
+
+```make
+POINTING_DEVICE_DRIVER = pmw3325
+```
+
+The following pins must be defined in `config.h`:
+
+| Setting (`config.h`)  | Description                                                        | Default                      |
+| --------------------- | ------------------------------------------------------------------ | ---------------------------- |
+| `PMW3325_CS_PIN`      | (Required) The pin connected to the chip select pin of the sensor. | `POINTING_DEVICE_CS_PIN`     |
+| `PMW3325_SPI_DIVISOR` | (Required) The SPI clock divisor. This is dependent on your MCU.   | _not defined_                |
+
+The CPI range is 100-5000, in increments of 100. Defaults to 2000 CPI.
+
 ### PMW 3360 and PMW 3389 Sensor
 
 This drivers supports both the PMW 3360 and PMW 3389 sensor as well as multiple sensors of the same type _per_ controller, so 2 can be attached at the same side for split keyboards (or unsplit keyboards).

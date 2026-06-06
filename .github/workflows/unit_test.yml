@@ -11,6 +11,7 @@ on:
   pull_request:
     paths:
     - 'builddefs/**'
+    - '!builddefs/docsgen/**'
     - 'quantum/**'
     - 'platforms/**'
     - 'tmk_core/**'
@@ -34,4 +35,4 @@ jobs:
       run: pip3 install -r requirements-dev.txt
 
     - name: Run tests
-      run: qmk test-c
+      run: qmk test-c -j $(nproc)

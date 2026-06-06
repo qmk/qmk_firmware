@@ -137,7 +137,7 @@ This file defines RGB matrix effects in the same form as used with `rgb_matrix_k
 
 ### Custom split keyboard data sync
 
-Defines follow the convention, `SPLIT_TRANSACTION_IDS_MODULE_<MODULE>` (see [Custom LED Matrix Effects](split_keyboard#custom-data-sync)). 
+Defines follow the convention, `SPLIT_TRANSACTION_IDS_MODULE_<MODULE>` (see [Custom data sync](split_keyboard#custom-data-sync)). 
 
 ### Compatible APIs
 
