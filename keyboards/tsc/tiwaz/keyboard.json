@@ -132,7 +132,7 @@
         ],
         "max_brightness": 192,
         "sleep": true,
-        "split": [44, 44]
+        "split_count": [44, 44]
     },
     "split": {
         "enabled": true,
