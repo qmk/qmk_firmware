@@ -394,7 +394,6 @@ combo_t *overlaps(combo_t *combo1, combo_t *combo2) {
         while ((key2 = pgm_read_word(&combo2->keys[idx2])) != COMBO_END) {
             if (key1 == key2) {
                 overlaps = true;
-                break;
             }
             idx2 += 1;
         }
