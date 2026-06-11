@@ -124,7 +124,7 @@ all_targets: {target_filename}{target_suffix}_binary
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the commands to be run.")
 @cli.argument('-p', '--print-failures', arg_only=True, action='store_true', help="Print failed builds.")
-@cli.argument('-f', '--filter', arg_only=True, action='append', default=[], help="Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the formats 'features.rgblight=true' or 'exists(matrix_pins.direct)'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'.")  # fmt: off
+@cli.argument('-f', '--filter', arg_only=True, action='append', default=[], help="Filter the list of keyboards based on the supplied value in rules.mk. Matches info.json structure, and accepts the formats 'features.rgblight==true' or 'exists(matrix_pins.direct)'. May be passed multiple times, all filters need to match. Value may include wildcards such as '*' and '?'.")  # fmt: off
 @cli.argument('-km', '--keymap', type=str, default='default', help="The keymap name to build. Default is 'default'.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.subcommand('Compile QMK Firmware for all keyboards.', hidden=False if cli.config.user.developer else True)
