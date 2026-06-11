@@ -212,7 +212,7 @@ def _gen_chordal_hold_layout(info_data):
         return []
 
     # NOTE: If there are multiple layouts, only the first is read.
-    layout_name, layout_json = next(iter(info_data['layouts'].items()))
+    layout_name, layout_json = next(iter(layouts.items()))
     layout = Layout(layout_json)
 
     if layout.is_symmetric():
