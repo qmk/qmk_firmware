@@ -207,10 +207,13 @@ class Layout:
 def _gen_chordal_hold_layout(info_data):
     """Convert info.json content to chordal_hold_layout
     """
+    layouts = info_data.get('layouts', {})
+    if not layouts:
+        return []
+
     # NOTE: If there are multiple layouts, only the first is read.
-    for layout_name, layout_json in info_data['layouts'].items():
-        layout = Layout(layout_json)
-        break
+    layout_name, layout_json = next(iter(info_data['layouts'].items()))
+    layout = Layout(layout_json)
 
     if layout.is_symmetric():
         # If the layout is symmetric (e.g. most split keyboards), guess the

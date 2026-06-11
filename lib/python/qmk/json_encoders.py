@@ -3,6 +3,7 @@
 import json
 from decimal import Decimal
 
+_sentinel = object()
 newline = '\n'
 
 
@@ -66,9 +67,12 @@ class QMKJSONEncoder(json.JSONEncoder):
 
             return "[\n" + ",\n".join(output) + "\n" + self.indent_str + "]"
 
-    def encode(self, obj, path=[]):
+    def encode(self, obj, path=_sentinel):
         """Encode JSON objects for QMK.
         """
+        if path == _sentinel:
+            path = []
+
         if isinstance(obj, Decimal):
             return self.encode_decimal(obj)
 
