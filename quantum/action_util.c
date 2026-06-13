@@ -24,6 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode_config.h"
 #include <string.h>
 
+#if defined(PROGRESSIVE_KEYBOARD_REPORTS) && defined(PROGRESSIVE_REPORT_DELAY)
+#    include "wait.h"
+#endif // defined(PROGRESSIVE_KEYBOARD_REPORTS) && defined(PROGRESSIVE_REPORT_DELAY)
+
 extern keymap_config_t keymap_config;
 
 static uint8_t real_mods = 0;
@@ -306,6 +310,40 @@ void send_6kro_report(void) {
 #else
     static report_keyboard_t last_report;
 
+#    ifdef PROGRESSIVE_KEYBOARD_REPORTS
+#        ifdef KEYBOARD_SHARED_EP
+    last_report.report_id = keyboard_report->report_id;
+#        endif // KEYBOARD_SHARED_EP
+
+    /* Remove existing keys that aren't in the intended report. */
+    if (memcmp(keyboard_report->keys, last_report.keys, sizeof(keyboard_report->keys)) != 0) {
+        bool changed = false;
+        for (int i = 0; i < 6; ++i) {
+            if (keyboard_report->keys[i] == 0) {
+                if (last_report.keys[i] != 0) {
+                    last_report.keys[i] = 0;
+                    changed             = true;
+                }
+            }
+        }
+        if (changed) {
+            host_keyboard_send(&last_report);
+#        ifdef PROGRESSIVE_REPORT_DELAY
+            wait_ms(PROGRESSIVE_REPORT_DELAY);
+#        endif // PROGRESSIVE_REPORT_DELAY
+        }
+    }
+
+    /* Send the new mods with the intersecting set of keys */
+    if (keyboard_report->mods != last_report.mods) {
+        last_report.mods = keyboard_report->mods;
+        host_keyboard_send(&last_report);
+#        ifdef PROGRESSIVE_REPORT_DELAY
+        wait_ms(PROGRESSIVE_REPORT_DELAY);
+#        endif // PROGRESSIVE_REPORT_DELAY
+    }
+#    endif     // PROGRESSIVE_KEYBOARD_REPORTS
+
     /* Only send the report if there are changes to propagate to the host. */
     if (memcmp(keyboard_report, &last_report, sizeof(report_keyboard_t)) != 0) {
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
@@ -319,6 +357,38 @@ void send_nkro_report(void) {
     nkro_report->mods = get_mods_for_report();
 
     static report_nkro_t last_report;
+
+#    ifdef PROGRESSIVE_KEYBOARD_REPORTS
+    last_report.report_id = nkro_report->report_id;
+
+    /* Remove existing keys that aren't in the intended report. */
+    if (memcmp(nkro_report->bits, last_report.bits, sizeof(nkro_report->bits)) != 0) {
+        bool changed = false;
+        for (int i = 0; i < NKRO_REPORT_BITS; ++i) {
+            uint8_t orig = last_report.bits[i];
+            last_report.bits[i] &= nkro_report->bits[i];
+            if (last_report.bits[i] != orig) {
+                changed = true;
+            }
+        }
+        if (changed) {
+            host_nkro_send(&last_report);
+#        ifdef PROGRESSIVE_REPORT_DELAY
+            wait_ms(PROGRESSIVE_REPORT_DELAY);
+#        endif // PROGRESSIVE_REPORT_DELAY
+        }
+    }
+
+    /* Send the new mods with the intersecting set of keys */
+    if (nkro_report->mods != last_report.mods) {
+        last_report.mods = nkro_report->mods;
+
+        host_nkro_send(&last_report);
+#        ifdef PROGRESSIVE_REPORT_DELAY
+        wait_ms(PROGRESSIVE_REPORT_DELAY);
+#        endif // PROGRESSIVE_REPORT_DELAY
+    }
+#    endif // PROGRESSIVE_KEYBOARD_REPORTS
 
     /* Only send the report if there are changes to propagate to the host. */
     if (memcmp(nkro_report, &last_report, sizeof(report_nkro_t)) != 0) {
