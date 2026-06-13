@@ -70,7 +70,7 @@ class QMKJSONEncoder(json.JSONEncoder):
     def encode(self, obj, path=_sentinel):
         """Encode JSON objects for QMK.
         """
-        if path == _sentinel:
+        if path is _sentinel:
             path = []
 
         if isinstance(obj, Decimal):

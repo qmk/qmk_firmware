@@ -59,7 +59,7 @@ print_failures: all_targets
 		cat $$f; \\
 		echo "------------------------------------------------------"; \\
 	done
-"""# noqa W191, E101
+"""# noqa: W191, E101
                 )
             # yapf: enable
             for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
