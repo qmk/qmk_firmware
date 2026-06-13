@@ -315,10 +315,12 @@ void send_6kro_report(void) {
     last_report.report_id = keyboard_report->report_id;
 #        endif // KEYBOARD_SHARED_EP
 
-    /* Remove existing keys that aren't in the intended report. */
+    /* Release any keys that are no longer held before applying the new mods. This only splits out
+       key releases (a slot cleared to 0); a slot that changes from one key to another in a single
+       scan is not split, as 6KRO reports keys positionally rather than as a bitmap. */
     if (memcmp(keyboard_report->keys, last_report.keys, sizeof(keyboard_report->keys)) != 0) {
         bool changed = false;
-        for (int i = 0; i < 6; ++i) {
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; ++i) {
             if (keyboard_report->keys[i] == 0) {
                 if (last_report.keys[i] != 0) {
                     last_report.keys[i] = 0;
@@ -334,7 +336,7 @@ void send_6kro_report(void) {
         }
     }
 
-    /* Send the new mods with the intersecting set of keys */
+    /* Send the new mods alongside the keys that are still held. */
     if (keyboard_report->mods != last_report.mods) {
         last_report.mods = keyboard_report->mods;
         host_keyboard_send(&last_report);
@@ -364,7 +366,7 @@ void send_nkro_report(void) {
     /* Remove existing keys that aren't in the intended report. */
     if (memcmp(nkro_report->bits, last_report.bits, sizeof(nkro_report->bits)) != 0) {
         bool changed = false;
-        for (int i = 0; i < NKRO_REPORT_BITS; ++i) {
+        for (uint8_t i = 0; i < NKRO_REPORT_BITS; ++i) {
             uint8_t orig = last_report.bits[i];
             last_report.bits[i] &= nkro_report->bits[i];
             if (last_report.bits[i] != orig) {
@@ -382,7 +384,6 @@ void send_nkro_report(void) {
     /* Send the new mods with the intersecting set of keys */
     if (nkro_report->mods != last_report.mods) {
         last_report.mods = nkro_report->mods;
-
         host_nkro_send(&last_report);
 #        ifdef PROGRESSIVE_REPORT_DELAY
         wait_ms(PROGRESSIVE_REPORT_DELAY);
