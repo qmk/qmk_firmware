@@ -22,6 +22,13 @@ using testing::_;
 using testing::AnyNumber;
 using testing::InSequence;
 
+// These tests drive the QMK core report builders directly (add_mods/add_key/... then a single
+// send_keyboard_report()) so that a modifier and a key change land in one report transition,
+// which is what exercises the progressive reporting. The calls are qualified with `::` because the
+// test body is a TestFixture member, and TestFixture::add_key(KeymapKey) would otherwise shadow
+// the global core function ::add_key(uint8_t). The mod helpers have no such collision, but are
+// qualified too for symmetry and to make clear these are core functions, not fixture helpers.
+
 class ProgressiveKeyboardReports : public TestFixture {};
 
 // On press, a single logical change that adds both a modifier and a key must be
@@ -33,7 +40,7 @@ TEST_F(ProgressiveKeyboardReports, ModifierIsReportedBeforeKeyOnPress) {
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_A));
 
-    add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
     ::add_key(KC_A);
     send_keyboard_report();
 
@@ -47,7 +54,7 @@ TEST_F(ProgressiveKeyboardReports, KeyIsReleasedBeforeModifierOnRelease) {
 
     /* Establish the held state: Shift + A. */
     EXPECT_ANY_REPORT(driver).Times(AnyNumber());
-    add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
     ::add_key(KC_A);
     send_keyboard_report();
     VERIFY_AND_CLEAR(driver);
@@ -57,7 +64,7 @@ TEST_F(ProgressiveKeyboardReports, KeyIsReleasedBeforeModifierOnRelease) {
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     EXPECT_EMPTY_REPORT(driver);
 
-    del_mods(MOD_BIT(KC_LEFT_SHIFT));
+    ::del_mods(MOD_BIT(KC_LEFT_SHIFT));
     ::del_key(KC_A);
     send_keyboard_report();
 
