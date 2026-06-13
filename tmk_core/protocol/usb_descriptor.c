@@ -696,7 +696,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         },
         .EndpointAddress        = (ENDPOINT_DIR_IN | PLOVER_HID_IN_EPNUM),
         .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-        .EndpointSize           = RAW_EPSIZE,
+        .EndpointSize           = PLOVER_HID_EPSIZE,
         .PollingIntervalMS      = 0x01
     },
 #endif

@@ -47,7 +47,6 @@ STENO_ENABLE = yes
 TX Bolt communicates the status of 24 keys over a simple protocol in variable-sized (1&ndash;4 bytes) packets.
 
 To select TX Bolt, add the following lines to your `rules.mk`:
-```make 
 STENO_ENABLE = yes
 STENO_PROTOCOL = txbolt
 ```
