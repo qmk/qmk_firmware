@@ -59,7 +59,7 @@ print_failures: all_targets
 		cat $$f; \\
 		echo "------------------------------------------------------"; \\
 	done
-"""# noqa: W191, E101
+"""  # noqa: W191, E101
                 )
             # yapf: enable
             for target in sorted(targets, key=lambda t: (t.keyboard, t.keymap)):
@@ -94,7 +94,7 @@ all_targets: {target_filename}{target_suffix}_binary
 		|| {{ grep '\\[WARNINGS\\]' "{build_log}" >/dev/null 2>&1 && printf "Build %-64s \\e[1;33m[WARNINGS]\\e[0m\\n" "{keyboard_name}:{keymap_name}" ; }} \\
 		|| printf "Build %-64s \\e[1;32m[OK]\\e[0m\\n" "{keyboard_name}:{keymap_name}"
 	@rm -f "{build_log}" || true
-"""# noqa
+"""  # noqa: W191, E101
                 )
                 # yapf: enable
 
@@ -105,7 +105,7 @@ all_targets: {target_filename}{target_suffix}_binary
 	@rm -rf "{builddir}/{target_filename}.elf" 2>/dev/null || true
 	@rm -rf "{builddir}/{target_filename}.map" 2>/dev/null || true
 	@rm -rf "{builddir}/obj_{target_filename}" || true
-"""# noqa
+"""  # noqa: W191, E101
                     )
                     # yapf: enable
                 f.write('\n')
