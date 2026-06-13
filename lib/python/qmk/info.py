@@ -18,8 +18,8 @@ from qmk.makefile import parse_rules_mk_file
 from qmk.math_ops import compute
 from qmk.util import maybe_exit, truthy
 
-true_values = ['1', 'on', 'yes']
-false_values = ['0', 'off', 'no']
+TRUE_VALUES = ['true', '1', 'on', 'yes']
+FALSE_VALUES = ['false', '0', 'off', 'no']
 
 
 class LedFlags(IntFlag):
@@ -319,7 +319,7 @@ def _extract_features(info_data, rules):
     for key, value in rules.items():
         if key.endswith('_ENABLE'):
             key = '_'.join(key.split('_')[:-1]).lower()
-            value = True if value.lower() in true_values else False if value.lower() in false_values else value
+            value = True if value.lower() in TRUE_VALUES else False if value.lower() in FALSE_VALUES else value
 
             if key in ['lto']:
                 continue
@@ -644,7 +644,7 @@ def _config_to_json(key_type, config_value):
     elif key_type in ['bool', 'flag']:
         if isinstance(config_value, bool):
             return config_value
-        return config_value in true_values
+        return config_value in TRUE_VALUES
 
     elif key_type == 'hex':
         return '0x' + config_value[2:].upper()
@@ -1137,4 +1137,17 @@ def get_modules(keyboard, keymap_filename):
         if keymap_json:
             modules.extend(keymap_json.get('modules', []))
 
-    return list(dict.fromkeys(modules))  # remove dupes
+    # remove duplicates while maintaining the current order
+    ret = list(dict.fromkeys(modules))
+
+    # We currently do not support duplicate module names
+    # e.g.: ['foo/hello_world', 'bar/hello_world'] will fail
+    seen = set()
+    for module in ret:
+        module_slug = Path(module).name.lower()
+        if module_slug in seen:
+            duplicates = list(filter(lambda m: module_slug == Path(m).name.lower(), ret))
+            raise Exception(f'Duplicate module name detected: "{module_slug}" - {duplicates}')
+        seen.add(module_slug)
+
+    return ret

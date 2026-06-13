@@ -8,9 +8,9 @@ There are some limitations to this feature. Because there is no "standard" metho
 
 ## Usage {#usage}
 
-The core Unicode API can be used purely programmatically. However, there are also additional subsystems which build on top of it and come with keycodes to make things easier. See below for more details.
+The core Unicode API can be used purely programmatically. However, there are also additional subsystems which build on top of it and come with keycodes to make things easier. See [below](#input-subsystems) for more details.
 
-Add the following to your keymap's `rules.mk`:
+To start, add the following to your keymap's `rules.mk`:
 
 ```make
 UNICODE_COMMON = yes
@@ -18,22 +18,25 @@ UNICODE_COMMON = yes
 
 ## Basic Configuration {#basic-configuration}
 
-Add the following to your `config.h`:
+The following options can be set or overridden in your `config.h`:
 
 |Define                  |Default           |Description                                                                     |
 |------------------------|------------------|--------------------------------------------------------------------------------|
 |`UNICODE_KEY_MAC`       |`KC_LEFT_ALT`     |The key to hold when beginning a Unicode sequence with the macOS input mode     |
 |`UNICODE_KEY_LNX`       |`LCTL(LSFT(KC_U))`|The key to tap when beginning a Unicode sequence with the Linux input mode      |
 |`UNICODE_KEY_WINC`      |`KC_RIGHT_ALT`    |The key to hold when beginning a Unicode sequence with the WinCompose input mode|
-|`UNICODE_SELECTED_MODES`|`-1`              |A comma separated list of input modes for cycling through                       |
+|`UNICODE_SELECTED_MODES`|*n/a*             |A comma separated list of input modes for cycling through                       |
 |`UNICODE_CYCLE_PERSIST` |`true`            |Whether to persist the current Unicode input mode to EEPROM                     |
 |`UNICODE_TYPE_DELAY`    |`10`              |The amount of time to wait, in milliseconds, between Unicode sequence keystrokes|
+
+The default values work well for most use cases, so users usually only need to define `UNICODE_SELECTED_MODES` to set their desired input modes.
+However, if you plan on switching input modes manually (see [keycodes](#keycodes) below) and don't plan on cycling through them, this definition can be omitted.
 
 ### Audio Feedback {#audio-feedback}
 
 If you have the [Audio](audio) feature enabled on your board, you can configure it to play sounds when the input mode is changed.
 
-Add the following to your `config.h`:
+Add one or more of the following definitions to your `config.h`:
 
 |Define             |Default|Description                                                |
 |-------------------|-------|-----------------------------------------------------------|
