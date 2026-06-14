@@ -51,6 +51,10 @@
 #    define XAP_OUT_CAPACITY USB_DEFAULT_BUFFER_CAPACITY
 #endif
 
+#if !defined(PLOVER_HID_IN_CAPACITY)
+#    define PLOVER_HID_IN_CAPACITY USB_DEFAULT_BUFFER_CAPACITY
+#endif
+
 #if !defined(MIDI_STREAM_IN_CAPACITY)
 #    define MIDI_STREAM_IN_CAPACITY USB_DEFAULT_BUFFER_CAPACITY
 #endif
@@ -100,6 +104,10 @@ typedef enum {
 
 #if defined(XAP_ENABLE)
     USB_ENDPOINT_IN_XAP,
+#endif
+
+#if defined(PLOVER_HID_ENABLE)
+    USB_ENDPOINT_IN_PLOVER_HID,
 #endif
 
 #if defined(MIDI_ENABLE)

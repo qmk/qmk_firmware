@@ -26,11 +26,11 @@
 #pragma once
 // clang-format off
 
-#define QMK_KEYCODES_VERSION "0.0.8"
-#define QMK_KEYCODES_VERSION_BCD 0x00000008
+#define QMK_KEYCODES_VERSION "0.0.9"
+#define QMK_KEYCODES_VERSION_BCD 0x00000009
 #define QMK_KEYCODES_VERSION_MAJOR 0
 #define QMK_KEYCODES_VERSION_MINOR 0
-#define QMK_KEYCODES_VERSION_PATCH 8
+#define QMK_KEYCODES_VERSION_PATCH 9
 
 enum qk_keycode_ranges {
 // Ranges
@@ -64,6 +64,8 @@ enum qk_keycode_ranges {
     QK_SWAP_HANDS_MAX              = 0x56FF,
     QK_TAP_DANCE                   = 0x5700,
     QK_TAP_DANCE_MAX               = 0x57FF,
+    QK_PLOVER_HID                  = 0x5A40,
+    QK_PLOVER_HID_MAX              = 0x5A7F,
     QK_MAGIC                       = 0x7000,
     QK_MAGIC_MAX                   = 0x70FF,
     QK_MIDI                        = 0x7100,
@@ -329,6 +331,70 @@ enum qk_keycode_defines {
     QK_SWAP_HANDS_OFF = 0x56F4,
     QK_SWAP_HANDS_ON = 0x56F5,
     QK_SWAP_HANDS_ONE_SHOT = 0x56F6,
+    PLV_S1 = 0x5A40,
+    PLV_TL = 0x5A41,
+    PLV_KL = 0x5A42,
+    PLV_PL = 0x5A43,
+    PLV_WL = 0x5A44,
+    PLV_HL = 0x5A45,
+    PLV_RL = 0x5A46,
+    PLV_A = 0x5A47,
+    PLV_O = 0x5A48,
+    PLV_ST1 = 0x5A49,
+    PLV_E = 0x5A4A,
+    PLV_U = 0x5A4B,
+    PLV_FR = 0x5A4C,
+    PLV_RR = 0x5A4D,
+    PLV_PR = 0x5A4E,
+    PLV_BR = 0x5A4F,
+    PLV_LR = 0x5A50,
+    PLV_GR = 0x5A51,
+    PLV_TR = 0x5A52,
+    PLV_SR = 0x5A53,
+    PLV_DR = 0x5A54,
+    PLV_ZR = 0x5A55,
+    PLV_N1 = 0x5A56,
+    PLV_S2 = 0x5A57,
+    PLV_ST2 = 0x5A58,
+    PLV_ST3 = 0x5A59,
+    PLV_ST4 = 0x5A5A,
+    PLV_N2 = 0x5A5B,
+    PLV_N3 = 0x5A5C,
+    PLV_N4 = 0x5A5D,
+    PLV_N5 = 0x5A5E,
+    PLV_N6 = 0x5A5F,
+    PLV_N7 = 0x5A60,
+    PLV_N8 = 0x5A61,
+    PLV_N9 = 0x5A62,
+    PLV_NA = 0x5A63,
+    PLV_NB = 0x5A64,
+    PLV_NC = 0x5A65,
+    PLV_X1 = 0x5A66,
+    PLV_X2 = 0x5A67,
+    PLV_X3 = 0x5A68,
+    PLV_X4 = 0x5A69,
+    PLV_X5 = 0x5A6A,
+    PLV_X6 = 0x5A6B,
+    PLV_X7 = 0x5A6C,
+    PLV_X8 = 0x5A6D,
+    PLV_X9 = 0x5A6E,
+    PLV_X10 = 0x5A6F,
+    PLV_X11 = 0x5A70,
+    PLV_X12 = 0x5A71,
+    PLV_X13 = 0x5A72,
+    PLV_X14 = 0x5A73,
+    PLV_X15 = 0x5A74,
+    PLV_X16 = 0x5A75,
+    PLV_X17 = 0x5A76,
+    PLV_X18 = 0x5A77,
+    PLV_X19 = 0x5A78,
+    PLV_X20 = 0x5A79,
+    PLV_X21 = 0x5A7A,
+    PLV_X22 = 0x5A7B,
+    PLV_X23 = 0x5A7C,
+    PLV_X24 = 0x5A7D,
+    PLV_X25 = 0x5A7E,
+    PLV_X26 = 0x5A7F,
     QK_MAGIC_SWAP_CONTROL_CAPS_LOCK = 0x7000,
     QK_MAGIC_UNSWAP_CONTROL_CAPS_LOCK = 0x7001,
     QK_MAGIC_TOGGLE_CONTROL_CAPS_LOCK = 0x7002,
@@ -1483,6 +1549,7 @@ enum qk_keycode_defines {
 #define IS_QK_PERSISTENT_DEF_LAYER(code) ((code) >= QK_PERSISTENT_DEF_LAYER && (code) <= QK_PERSISTENT_DEF_LAYER_MAX)
 #define IS_QK_SWAP_HANDS(code) ((code) >= QK_SWAP_HANDS && (code) <= QK_SWAP_HANDS_MAX)
 #define IS_QK_TAP_DANCE(code) ((code) >= QK_TAP_DANCE && (code) <= QK_TAP_DANCE_MAX)
+#define IS_QK_PLOVER_HID(code) ((code) >= QK_PLOVER_HID && (code) <= QK_PLOVER_HID_MAX)
 #define IS_QK_MAGIC(code) ((code) >= QK_MAGIC && (code) <= QK_MAGIC_MAX)
 #define IS_QK_MIDI(code) ((code) >= QK_MIDI && (code) <= QK_MIDI_MAX)
 #define IS_QK_SEQUENCER(code) ((code) >= QK_SEQUENCER && (code) <= QK_SEQUENCER_MAX)
@@ -1509,6 +1576,7 @@ enum qk_keycode_defines {
 #define IS_MOUSE_KEYCODE(code) ((code) >= QK_MOUSE_CURSOR_UP && (code) <= QK_MOUSE_ACCELERATION_2)
 #define IS_MODIFIER_KEYCODE(code) ((code) >= KC_LEFT_CTRL && (code) <= KC_RIGHT_GUI)
 #define IS_SWAP_HANDS_KEYCODE(code) ((code) >= QK_SWAP_HANDS_TOGGLE && (code) <= QK_SWAP_HANDS_ONE_SHOT)
+#define IS_PLOVER_HID_KEYCODE(code) ((code) >= PLV_S1 && (code) <= PLV_X26)
 #define IS_MAGIC_KEYCODE(code) ((code) >= QK_MAGIC_SWAP_CONTROL_CAPS_LOCK && (code) <= QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK)
 #define IS_MIDI_KEYCODE(code) ((code) >= QK_MIDI_ON && (code) <= QK_MIDI_PITCH_BEND_UP)
 #define IS_SEQUENCER_KEYCODE(code) ((code) >= QK_SEQUENCER_ON && (code) <= QK_SEQUENCER_STEPS_CLEAR)
@@ -1535,6 +1603,7 @@ enum qk_keycode_defines {
 #define MOUSE_KEYCODE_RANGE                 QK_MOUSE_CURSOR_UP ... QK_MOUSE_ACCELERATION_2
 #define MODIFIER_KEYCODE_RANGE              KC_LEFT_CTRL ... KC_RIGHT_GUI
 #define SWAP_HANDS_KEYCODE_RANGE            QK_SWAP_HANDS_TOGGLE ... QK_SWAP_HANDS_ONE_SHOT
+#define PLOVER_HID_KEYCODE_RANGE            PLV_S1 ... PLV_X26
 #define MAGIC_KEYCODE_RANGE                 QK_MAGIC_SWAP_CONTROL_CAPS_LOCK ... QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK
 #define MIDI_KEYCODE_RANGE                  QK_MIDI_ON ... QK_MIDI_PITCH_BEND_UP
 #define SEQUENCER_KEYCODE_RANGE             QK_SEQUENCER_ON ... QK_SEQUENCER_STEPS_CLEAR

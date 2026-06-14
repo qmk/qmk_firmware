@@ -60,6 +60,11 @@ int main(void) {
         xap_task();
 #endif
 
+#ifdef PLOVER_HID_ENABLE
+        void plover_hid_task(void);
+        plover_hid_task();
+#endif
+
 #ifdef CONSOLE_ENABLE
         void console_task(void);
         console_task();
