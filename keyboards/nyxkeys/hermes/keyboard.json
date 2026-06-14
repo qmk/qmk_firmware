@@ -11,7 +11,7 @@
         "nkro": true
     },
     "matrix_pins": {
-        "cols": ["A6", "A5", "A4", "A8", "A9"],
+        "cols": ["A6", "A5", "A4", "A8"],
         "rows": ["A3", "A2", "A14", "B5", "C15", "B7"]
     },
     "processor": "STM32F072",
@@ -22,7 +22,7 @@
         "vid": "0x1209"
     },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_6x4": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0, "label": "F1" },
                 { "matrix": [0, 1], "x": 1, "y": 0, "label": "F2" },
@@ -55,7 +55,7 @@
                 { "matrix": [5, 3], "x": 3, "y": 5.75, "label": "Tab" }
             ]
         },
-        "LAYOUT_tall": {
+        "LAYOUT_numpad_6x4": {
             "layout": [
                 { "matrix": [0, 0], "x": 0, "y": 0, "label": "F1" },
                 { "matrix": [0, 1], "x": 1, "y": 0, "label": "F2" },
