@@ -34,6 +34,6 @@ void plover_hid_task(void) {
     if (!plover_hid_report_updated) {
         return;
     }
-    send_plover_hid(&plover_hid_report);
+    host_plover_hid_send(&plover_hid_report);
     plover_hid_report_updated = false;
 }

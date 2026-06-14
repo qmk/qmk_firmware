@@ -342,6 +342,12 @@ void host_programmable_button_send(uint32_t data) {
 
 __attribute__((weak)) void send_programmable_button(report_programmable_button_t *report) {}
 
+#ifdef PLOVER_HID_ENABLE
+void host_plover_hid_send(report_plover_hid_t *report) {
+    send_plover_hid(report);
+}
+#endif
+
 __attribute__((weak)) void send_plover_hid(report_plover_hid_t *report) {}
 
 #ifdef RAW_ENABLE
