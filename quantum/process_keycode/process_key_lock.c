@@ -57,7 +57,12 @@ static inline uint16_t translate_keycode(uint16_t keycode) {
 
 void cancel_key_lock(void) {
     watching = false;
-    UNSET_KEY_STATE(0x0);
+    // Clear the full 256-bit state: UNSET_KEY_STATE(0x0) only cleared bit 0
+    // of the first word, leaving every actually-locked key still latched.
+    key_state[0] = 0;
+    key_state[1] = 0;
+    key_state[2] = 0;
+    key_state[3] = 0;
 }
 
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
