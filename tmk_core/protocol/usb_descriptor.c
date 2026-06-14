@@ -40,6 +40,7 @@
 #include "report.h"
 #include "usb_descriptor.h"
 #include "usb_descriptor_common.h"
+#include "compiler_support.h"
 
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
@@ -494,6 +495,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM PloverReport[] = {
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
     HID_RI_END_COLLECTION(0),
 };
+
+// The Plover HID report is sent with sizeof(report_plover_hid_t), but the endpoint and descriptor
+// are sized with PLOVER_HID_EPSIZE; they must match or reports get truncated/padded.
+STATIC_ASSERT(sizeof(report_plover_hid_t) == PLOVER_HID_EPSIZE, "report_plover_hid_t size must match PLOVER_HID_EPSIZE");
 #endif
 
 #ifdef CONSOLE_ENABLE

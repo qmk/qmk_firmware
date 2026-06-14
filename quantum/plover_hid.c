@@ -14,9 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <limits.h>
+
 #include "plover_hid.h"
 #include "report.h"
 #include "host.h"
+#include "compiler_support.h"
+
+// The button index handed to plover_hid_update() is `keycode - QK_PLOVER_HID`, so the report's
+// data field must hold a bit for every keycode in the range or the bit-packing below overflows.
+STATIC_ASSERT(sizeof(((report_plover_hid_t *)0)->data) * CHAR_BIT >= (QK_PLOVER_HID_MAX - QK_PLOVER_HID + 1), "Plover HID report data too small for the QK_PLOVER_HID keycode range");
 
 static report_plover_hid_t plover_hid_report         = {.report_id = REPORT_ID_PLOVER_HID};
 static bool                plover_hid_report_updated = false;
