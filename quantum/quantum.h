@@ -95,6 +95,10 @@ extern layer_state_t layer_state;
 #    endif
 #endif
 
+#ifdef PLOVER_HID_ENABLE
+#    include "process_plover_hid.h"
+#endif
+
 #ifdef STENO_ENABLE
 #    include "process_steno.h"
 #endif
