@@ -115,6 +115,10 @@ usb_endpoint_in_lut_t usb_endpoint_interface_lut[TOTAL_INTERFACES] = {
     [RAW_INTERFACE] = USB_ENDPOINT_IN_RAW,
 #endif
 
+#if defined(PLOVER_HID_ENABLE)
+    [PLOVER_HID_INTERFACE] = USB_ENDPOINT_IN_PLOVER_HID,
+#endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     [MOUSE_INTERFACE] = USB_ENDPOINT_IN_MOUSE,
 #endif

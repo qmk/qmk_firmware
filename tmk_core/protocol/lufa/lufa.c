@@ -64,10 +64,6 @@
 #    include "raw_hid.h"
 #endif
 
-#ifdef PLOVER_HID_ENABLE
-#    include "plover_hid.h"
-#endif
-
 #ifdef WAIT_FOR_USB
 // TODO: Remove backwards compatibility with old define
 #    define USB_WAIT_FOR_ENUMERATION
@@ -180,28 +176,6 @@ void raw_hid_task(void) {
             raw_hid_receive(data, sizeof(data));
         }
     }
-}
-#endif
-
-#ifdef PLOVER_HID_ENABLE
-static bool    plover_hid_report_updated                    = false;
-static uint8_t plover_hid_current_report[PLOVER_HID_EPSIZE] = {0x50};
-
-void plover_hid_update(uint8_t button, bool pressed) {
-    if (pressed) {
-        plover_hid_current_report[1 + button / 8] |= (1 << (7 - (button % 8)));
-    } else {
-        plover_hid_current_report[1 + button / 8] &= ~(1 << (7 - (button % 8)));
-    }
-    plover_hid_report_updated = true;
-}
-
-void plover_hid_task(void) {
-    if (!plover_hid_report_updated) {
-        return;
-    }
-    send_report(PLOVER_HID_IN_EPNUM, plover_hid_current_report, sizeof(plover_hid_current_report));
-    plover_hid_report_updated = false;
 }
 #endif
 
@@ -602,6 +576,12 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
+void send_plover_hid(report_plover_hid_t *report) {
+#ifdef PLOVER_HID_ENABLE
+    send_report(PLOVER_HID_IN_EPNUM, report, sizeof(report_plover_hid_t));
+#endif
+}
+
 /*******************************************************************************
  * sendchar
  ******************************************************************************/
@@ -875,10 +855,6 @@ void protocol_post_task(void) {
 
 #ifdef MIDI_ENABLE
     MIDI_Device_USBTask(&USB_MIDI_Interface);
-#endif
-
-#ifdef PLOVER_HID_ENABLE
-    plover_hid_task();
 #endif
 
 #ifdef VIRTSER_ENABLE
