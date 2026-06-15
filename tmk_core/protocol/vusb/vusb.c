@@ -788,6 +788,7 @@ const PROGMEM uchar raw_hid_report[] = {
 #endif
 
 #ifdef PLOVER_HID_ENABLE
+// clang-format off
 const PROGMEM uchar plover_hid_report[] = {
     0x06, 0x50, 0xFF,           // Usage Page (Vendor Defined)
     0x0A, 0x56, 0x4C,           // Usage (Vendor Defined) (0xff P L V)
@@ -803,6 +804,7 @@ const PROGMEM uchar plover_hid_report[] = {
     0x81, 0x02,                 // Output (Data, Variable, Absolute)
     0xC0                        // End Collection
 };
+// clang-format on
 #endif
 
 #if defined(CONSOLE_ENABLE)
