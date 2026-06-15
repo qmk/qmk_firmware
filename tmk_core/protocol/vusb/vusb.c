@@ -68,6 +68,10 @@ enum usb_interfaces {
     RAW_INTERFACE,
 #endif
 
+#ifdef PLOVER_HID_ENABLE
+    PLOVER_HID_INTERFACE,
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     SHARED_INTERFACE,
 #endif
@@ -85,6 +89,10 @@ STATIC_ASSERT(TOTAL_INTERFACES <= MAX_INTERFACES, "There are not enough availabl
 
 #if (defined(MOUSE_ENABLE) || defined(EXTRAKEY_ENABLE)) && CONSOLE_ENABLE
 #    error Mouse/Extra Keys share an endpoint with Console. Please disable one of the two.
+#endif
+
+#if defined(PLOVER_HID_ENABLE) && defined(RAW_ENABLE)
+#    error Plover HID shares an endpoint with Raw HID. Please disable one of the two.
 #endif
 
 static report_keyboard_t keyboard_report_sent;
@@ -278,6 +286,14 @@ void send_digitizer(report_digitizer_t *report) {
 void send_programmable_button(report_programmable_button_t *report) {
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
     send_report(SHARED_IN_EPNUM, report, sizeof(report_programmable_button_t));
+#endif
+}
+
+#define PLOVER_HID_EPSIZE 9
+
+void send_plover_hid(report_plover_hid_t *report) {
+#ifdef PLOVER_HID_ENABLE
+    send_report(4, report, sizeof(report_plover_hid_t));
 #endif
 }
 
@@ -771,6 +787,24 @@ const PROGMEM uchar raw_hid_report[] = {
 };
 #endif
 
+#ifdef PLOVER_HID_ENABLE
+const PROGMEM uchar plover_hid_report[] = {
+    0x06, 0x50, 0xFF,           // Usage Page (Vendor Defined)
+    0x0A, 0x56, 0x4C,           // Usage (Vendor Defined) (0xff P L V)
+    0xA1, 0x01,                 // Collection (Application)
+    0x85, REPORT_ID_PLOVER_HID, // Report ID
+    0x15, 0x00,                 // Logical Minimum (0)
+    0x25, 0x01,                 // Logical Maximum (1)
+    0x75, 0x01,                 // Report Size (1)
+    0x95, 0x40,                 // Report Count (43)
+    0x05, 0x0A,                 // Usage Page: Ordinal
+    0x19, 0x00,                 // Usage Minimum
+    0x29, 0x3F,                 // Usage Maximum (63)
+    0x81, 0x02,                 // Output (Data, Variable, Absolute)
+    0xC0                        // End Collection
+};
+#endif
+
 #if defined(CONSOLE_ENABLE)
 const PROGMEM uchar console_hid_report[] = {
     0x06, 0x31, 0xFF, // Usage Page (Vendor Defined - PJRC Teensy compatible)
@@ -963,6 +997,46 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
     },
 #    endif
 
+#    if defined(PLOVER_HID_ENABLE)
+    /*
+     * Plover HID
+     */
+    .ploverInterface = {
+        .header = {
+            .bLength         = sizeof(usbInterfaceDescriptor_t),
+            .bDescriptorType = USBDESCR_INTERFACE
+        },
+        .bInterfaceNumber    = PLOVER_HID_INTERFACE,
+        .bAlternateSetting   = 0x00,
+        .bNumEndpoints       = 1,
+        .bInterfaceClass     = 0x03,
+        .bInterfaceSubClass  = 0x00,
+        .bInterfaceProtocol  = 0x00,
+        .iInterface          = 0x00
+    },
+    .ploverHID = {
+        .header = {
+            .bLength         = sizeof(usbHIDDescriptor_t),
+            .bDescriptorType = USBDESCR_HID
+        },
+        .bcdHID              = 0x0101,
+        .bCountryCode        = 0x00,
+        .bNumDescriptors     = 1,
+        .bDescriptorType     = USBDESCR_HID_REPORT,
+        .wDescriptorLength   = sizeof(plover_hid_report)
+    },
+    .ploverINEndpoint = {
+        .header = {
+            .bLength         = sizeof(usbEndpointDescriptor_t),
+            .bDescriptorType = USBDESCR_ENDPOINT
+        },
+        .bEndpointAddress    = (USBRQ_DIR_DEVICE_TO_HOST | USB_CFG_EP4_NUMBER),
+        .bmAttributes        = 0x03,
+        .wMaxPacketSize      = PLOVER_HID_EPSIZE,
+        .bInterval           = 0x01
+    },
+#    endif
+
 #    ifdef SHARED_EP_ENABLE
     /*
      * Shared
@@ -1137,6 +1211,13 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                 case RAW_INTERFACE:
                     usbMsgPtr = (usbMsgPtr_t)raw_hid_report;
                     len       = sizeof(raw_hid_report);
+                    break;
+#endif
+
+#if defined(PLOVER_HID_ENABLE)
+                case PLOVER_HID_INTERFACE:
+                    usbMsgPtr = (usbMsgPtr_t)plover_hid_report;
+                    len       = sizeof(plover_hid_report);
                     break;
 #endif
 
