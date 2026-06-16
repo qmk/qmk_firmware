@@ -14,7 +14,9 @@
     "bootmagic": true,
     "mousekey": true,
     "extrakey": true,
-    "encoder": true
+    "encoder": true,
+    "oled": true,
+    "rgb_matrix": true
   },
   "matrix_pins": {
     "cols": ["GP1", "GP2"],

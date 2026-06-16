@@ -12,19 +12,16 @@
 //      are physically wired back to the encoder input pins GP22/GP23. QMK's
 //      standard encoder driver then sees them like any other encoder.
 //
-//   2) OLED basic display. The SSD1306 is initialised at the keyboard level
-//      and a minimal renderer (board name + active layer + last-key label)
-//      runs from housekeeping_task_kb. A keymap with its own elaborate UI
-//      (e.g. the via keymap) overrides housekeeping_task_user and re-draws
-//      the screen each tick, which simply replaces this basic view.
+//   2) OLED basic display. The SSD1306 (QMK core OLED driver on I2C1) shows a
+//      minimal view (board name + active layer + last-key label) from
+//      oled_task_kb. A keymap with its own elaborate UI overrides
+//      oled_task_user and re-draws over this basic view.
 
 #include QMK_KEYBOARD_H
-#include "i2c_master.h"
-#include "oled_custom.h"
-#include "keycode_label.h"
+#include "keycode_string.h"
+#include "hal.h"
 #include <stdlib.h>
 #include <string.h>
-#include <stdio.h>
 
 /* ============================================================
    AS5600 encoder — read angle and synthesize quadrature pulses
@@ -34,12 +31,16 @@
 #define PULSE_DELAY 10000               // 10 ms total per pulse
 #define PHASE_DELAY (PULSE_DELAY / 2)   // 5 ms B-channel phase offset
 
+// The AS5600 has the I2C0 peripheral to itself, driven directly via ChibiOS.
+static const I2CConfig as5600_i2c_cfg = { .baudrate = 100000 };
+
 // Read the 12-bit raw angle (0..4095) from the AS5600. Returns 0 on any I2C
 // error or out-of-range value (caller treats 0 as "no reading").
 static uint16_t as5600_read_angle(void) {
+    uint8_t reg = AS5600_ANGLE_REG;
     uint8_t data[2];
-    i2c_status_t status = i2c_read_register(AS5600_ADDRESS << 1, AS5600_ANGLE_REG, data, 2, 200);
-    if (status != I2C_STATUS_SUCCESS) return 0;
+    msg_t status = i2cMasterTransmitTimeout(&I2CD0, AS5600_ADDRESS, &reg, 1, data, 2, TIME_MS2I(20));
+    if (status != MSG_OK) return 0;
 
     uint16_t angle = ((uint16_t)data[0] << 8) | data[1];
     if (angle > 4095) return 0;
@@ -146,14 +147,12 @@ static void as5600_encoder_task(void) {
 /* ============================================================
    Keyboard-level OLED — basic board / layer / last-key display
    ------------------------------------------------------------
-   Provides a working OLED for every keymap. Keymaps that want a
-   richer UI (e.g. the via keymap with its scrolling banner,
-   games, and timer) define housekeeping_task_user(), which runs
-   AFTER housekeeping_task_kb() and simply re-draws over this.
+   Uses QMK's core OLED driver (6x8 font). Keymaps that want a
+   richer UI define oled_task_user(); oled_task_kb checks that
+   first and defers to it when it returns false.
    ============================================================ */
 
-#define KB_OLED_ACTION_MS  2500    // how long a key/layer label stays on
-#define KB_OLED_REFRESH_MS 100     // 10 Hz redraw
+#define KB_OLED_ACTION_MS 2500    // how long a key label stays on screen
 
 static char     kb_oled_action_text[16] = "";
 static uint32_t kb_oled_action_until    = 0;
@@ -165,39 +164,16 @@ static void kb_oled_show_action(const char *text) {
     kb_oled_action_until = timer_read32() + KB_OLED_ACTION_MS;
 }
 
-static void kb_oled_render(void) {
-    oled_clear();
-
-    // Top line: board name + active layer (1-indexed for friendliness).
-    char top[24];
-    uint8_t layer = get_highest_layer(layer_state);
-    snprintf(top, sizeof(top), "SM Macro2040 L:%u", (unsigned)(layer + 1));
-    oled_write(top);
-
-    // Bottom: most recent key label (big font, centred) for KB_OLED_ACTION_MS,
-    // otherwise the static board name.
-    bool show = kb_oled_action_text[0] && (timer_read32() < kb_oled_action_until);
-    if (show) {
-        uint8_t len = (uint8_t)strlen(kb_oled_action_text);
-        if (len > 10) len = 10;
-        uint16_t w = (uint16_t)len * 12;
-        uint8_t  x = (w >= OLED_DISP_WIDTH) ? 0 : (uint8_t)((OLED_DISP_WIDTH - w) / 2);
-        oled_write_big(x, 2, kb_oled_action_text);
-    } else {
-        // "Macro2040" = 9 chars * 12 = 108 px; centered at (128-108)/2 = 10.
-        oled_write_big(10, 2, "Macro2040");
-    }
-
-    oled_flush();
-}
-
 /* ============================================================
    QMK keyboard-level hooks
    ============================================================ */
 
 void keyboard_post_init_kb(void) {
-    // I2C0 master for the AS5600 (QMK's i2c_master owns I2CD0).
-    i2c_init();
+    // AS5600 on the I2C0 peripheral, driven directly via ChibiOS. (The core
+    // OLED driver owns the I2C1 peripheral through i2c_master.)
+    palSetLineMode(AS5600_SDA_PIN, PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4);
+    palSetLineMode(AS5600_SCL_PIN, PAL_MODE_ALTERNATE_I2C | PAL_RP_PAD_SLEWFAST | PAL_RP_PAD_PUE | PAL_RP_PAD_DRIVE4);
+    i2cStart(&I2CD0, &as5600_i2c_cfg);
     wait_ms(200);
 
     // GP20/GP21 carry the synthetic quadrature pulses, physically wired back
@@ -210,31 +186,51 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_input_high(GP22);
     gpio_set_pin_input_high(GP23);
 
-    // OLED on I2C1 (independent of QMK's i2c_master on I2C0).
-    oled_init();
+    // Board indicator LEDs, shared by every keymap. The two NPN-driven blue
+    // switch-LED columns are held on; the D6 user LED (active-LOW) lights as a
+    // "device alive" indicator. Keymaps may animate these further afterwards.
+    gpio_set_pin_output_push_pull(LED_COL0_PIN);
+    gpio_set_pin_output_push_pull(LED_COL1_PIN);
+    gpio_write_pin_high(LED_COL0_PIN);
+    gpio_write_pin_high(LED_COL1_PIN);
+    gpio_set_pin_output_push_pull(USER_LED_PIN);
+    gpio_write_pin_low(USER_LED_PIN);
 
     keyboard_post_init_user();
 }
 
-void matrix_scan_kb(void) {
-    as5600_encoder_task();
-    matrix_scan_user();
+// Extend the row-select settle delay. QMK's RP2040 default (~250 ns via
+// GPIO_INPUT_PIN_DELAY) is too short for the row 3 (GP11) trace on this PCB,
+// so SW9 is never detected without it. 100 us settles any GPIO on this board.
+void matrix_output_select_delay(void) {
+    wait_us(100);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     // Capture the pressed key's label for the basic OLED. Richer keymaps
     // re-render in housekeeping_task_user() and visually replace this.
     if (record->event.pressed) {
-        kb_oled_show_action(keycode_label(keycode));
+        kb_oled_show_action(get_keycode_string(keycode));
     }
     return process_record_user(keycode, record);
 }
 
 void housekeeping_task_kb(void) {
-    static uint32_t last_render = 0;
-    if (timer_elapsed32(last_render) >= KB_OLED_REFRESH_MS) {
-        last_render = timer_read32();
-        kb_oled_render();
-    }
+    as5600_encoder_task();
     housekeeping_task_user();
+}
+
+bool oled_task_kb(void) {
+    if (!oled_task_user()) return false;
+
+    // Top line: board name + active layer (1-indexed for friendliness).
+    oled_set_cursor(0, 0);
+    oled_write("SM Macro2040 L:", false);
+    oled_write_char('1' + get_highest_layer(layer_state), false);
+
+    // Third line: most recent key label for KB_OLED_ACTION_MS, else board name.
+    oled_set_cursor(0, 2);
+    bool show = kb_oled_action_text[0] && (timer_read32() < kb_oled_action_until);
+    oled_write(show ? kb_oled_action_text : "Macro2040", false);
+    return false;
 }

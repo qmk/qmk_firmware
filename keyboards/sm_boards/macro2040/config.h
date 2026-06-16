@@ -7,26 +7,20 @@
    I2C buses
    ------------------------------------------------------------
    The Macro2040 uses BOTH I2C peripherals on the RP2040:
-     I2C0  →  AS5600 magnetic encoder  (handled by QMK i2c_master)
-     I2C1  →  SSD1306 OLED display     (handled by oled_custom.c)
-   QMK's `i2c_master` always reads its pins from I2C1_SDA_PIN /
-   I2C1_SCL_PIN regardless of which physical peripheral the
-   I2C_DRIVER macro selects, so we set those defines to the
-   AS5600 pins (GP4/GP5) and point I2C_DRIVER at I2CD0.
+     I2C0 (GP4/GP5)   →  AS5600 magnetic encoder, driven directly
+                         via the ChibiOS I2C API in macro2040.c
+     I2C1 (GP18/GP19) →  SSD1306 OLED via QMK's core OLED driver
+                         (which talks through i2c_master)
+   i2c_master always reads its pins from I2C1_SDA_PIN / I2C1_SCL_PIN
+   regardless of which peripheral I2C_DRIVER selects, so those point
+   at the OLED bus (I2C1).
    ============================================================ */
 
-// Pins used by QMK's i2c_master to talk to the AS5600.
-#define I2C1_SDA_PIN     GP4
-#define I2C1_SCL_PIN     GP5
-#define I2C1_CLOCK_SPEED 50000   // 50 kHz — conservative, very reliable
-
-// Tell QMK's i2c_master to drive the I2C0 peripheral.
-#define I2C_DRIVER I2CD0
-
-// Pins used by oled_custom.c to talk to the OLED. These are
-// referenced from the OLED driver only — i2c_master ignores them.
-#define OLED_SDA_PIN GP18
-#define OLED_SCL_PIN GP19
+// QMK i2c_master — used by the core OLED driver — on the I2C1 peripheral.
+#define I2C_DRIVER       I2CD1
+#define I2C1_SDA_PIN     GP18
+#define I2C1_SCL_PIN     GP19
+#define I2C1_CLOCK_SPEED 400000
 
 /* ============================================================
    AS5600 magnetic encoder
@@ -34,6 +28,10 @@
 
 #define AS5600_ADDRESS    0x36   // 7-bit I2C address
 #define AS5600_ANGLE_REG  0x0C   // Raw 12-bit angle register (0..4095)
+
+// AS5600 sits alone on the I2C0 peripheral, driven directly via ChibiOS.
+#define AS5600_SDA_PIN GP4
+#define AS5600_SCL_PIN GP5
 
 // Number of raw angle units that constitute one virtual encoder
 // "click". 4096 units = 360°, so 50 units ≈ 4.4° per pulse.
@@ -44,16 +42,6 @@
 // physically wired back to the QMK encoder input pins on the PCB.
 #define AS5600_PIN_A GP20   // PULA — quadrature channel A output
 #define AS5600_PIN_B GP21   // PULB — quadrature channel B output
-
-/* ============================================================
-   OLED display
-   ============================================================ */
-
-// SSD1306 7-bit I2C address (SA0 tied to GND on this PCB).
-// The OLED is driven by oled_custom.c on I2CD1; QMK's built-in
-// OLED feature is intentionally NOT enabled because it would
-// fight i2c_master for I2C0.
-#define OLED_I2C_ADDRESS 0x3C
 
 /* ============================================================
    Blue switch indicator LEDs
@@ -71,8 +59,7 @@
    ------------------------------------------------------------
    Single blue LED wired:  +3V3 → R33 (330R) → LED → GP25.
    Active-LOW: GP25 LOW = LED ON, GP25 HIGH = LED OFF.
-   Used as a "device alive" indicator and to blink the active
-   layer number whenever the layer changes.
+   Lit at the keyboard level as a "device alive" indicator.
    ============================================================ */
 
 #define USER_LED_PIN GP25
