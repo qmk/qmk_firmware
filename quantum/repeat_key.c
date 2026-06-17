@@ -45,7 +45,7 @@ uint16_t get_last_keycode(void) {
     return last_record.keycode;
 }
 
-keyrecord_t* get_last_record(void) {
+const keyrecord_t* get_last_record(void) {
     return &last_record;
 }
 
