@@ -1,6 +1,6 @@
 # TwentyPad
 
-![TwentyPad](https://raw.githubusercontent.com/HarryCutts/twentypad/be5223b70d4581e453849865888f682dbc1b52d2/photo.jpg)
+![TwentyPad](https://i.imgur.com/e1Bsg1M.jpeg)
 
 A simple twenty-key macro pad, built to learn PCB design.
 
