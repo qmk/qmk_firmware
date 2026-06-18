@@ -378,7 +378,9 @@ void send_unicode_string(const char *str) {
         int32_t code_point = 0;
         str                = decode_utf8(str, &code_point);
 
-        if (code_point >= 0) {
+        if (code_point > 0 && code_point < 0x80 && pgm_read_byte(&ascii_to_keycode_lut[code_point]) != XXXXXXX) {
+            send_char(code_point);
+        } else if (code_point >= 0) {
             register_unicode(code_point);
         }
     }
