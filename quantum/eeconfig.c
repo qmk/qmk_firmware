@@ -39,6 +39,10 @@
 #    include "connection.h"
 #endif // CONNECTION_ENABLE
 
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "community_modules.h"
+#endif
+
 #ifdef VIA_ENABLE
 bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
@@ -147,6 +151,10 @@ void eeconfig_init_quantum(void) {
 #if (EECONFIG_USER_DATA_SIZE) > 0
     eeconfig_init_user_datablock();
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
+
+#ifdef COMMUNITY_MODULES_ENABLE
+    eeconfig_init_modules_datablock();
+#endif // COMMUNITY_MODULES_ENABLE
 
 #if defined(VIA_ENABLE)
     // Invalidate VIA eeprom config, and then reset.
