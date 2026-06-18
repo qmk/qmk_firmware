@@ -866,6 +866,13 @@ Configures the [Stenography](features/stenography) feature.
     * `enabled` <Badge type="info">Boolean</Badge>
         * Enable the Stenography feature.
         * Default: `false`
+    * `combined_map` <Badge type="info">Boolean</Badge>
+        * Enable the Stenography Combined Map sub-feature.
+        * Default: `false`
+    * `default`
+        * `mode` <Badge type="info">String</Badge>
+            * The default mode. Must be one of `geminipr`, `txbolt`.
+            * Default: `"geminipr"`
     * `protocol` <Badge type="info">String</Badge>
         * The Steno protocol to use. Must be one of `all`, `geminipr`, `txbolt`.
         * Default: `"all"`

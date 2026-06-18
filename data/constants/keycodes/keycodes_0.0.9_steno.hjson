@@ -1,0 +1,609 @@
+{
+    "keycodes": {
+        "!reset!":0,
+
+        "0x74C0": {
+            "group": "steno",
+            "key": "QK_STENO_FUNCTION",
+            "aliases": [
+                "ST_FN"
+            ]
+        },
+        "0x74C1": {
+            "group": "steno",
+            "key": "QK_STENO_N1",
+            "aliases": [
+                "ST_N1",
+                "ST_NUM"
+            ]
+        },
+        "0x74C2": {
+            "group": "steno",
+            "key": "QK_STENO_N2",
+            "aliases": [
+                "ST_N2"
+            ]
+        },
+        "0x74C3": {
+            "group": "steno",
+            "key": "QK_STENO_N3",
+            "aliases": [
+                "ST_N3"
+            ]
+        },
+        "0x74C4": {
+            "group": "steno",
+            "key": "QK_STENO_N4",
+            "aliases": [
+                "ST_N4"
+            ]
+        },
+        "0x74C5": {
+            "group": "steno",
+            "key": "QK_STENO_N5",
+            "aliases": [
+                "ST_N5"
+            ]
+        },
+        "0x74C6": {
+            "group": "steno",
+            "key": "QK_STENO_N6",
+            "aliases": [
+                "ST_N6"
+            ]
+        },
+        "0x74C7": {
+            "group": "steno",
+            "key": "QK_STENO_S1",
+            "aliases": [
+                "ST_S1",
+                "ST_SL"
+            ]
+        },
+        "0x74C8": {
+            "group": "steno",
+            "key": "QK_STENO_S2",
+            "aliases": [
+                "ST_S2"
+            ]
+        },
+        "0x74C9": {
+            "group": "steno",
+            "key": "QK_STENO_TL",
+            "aliases": [
+                "ST_TL"
+            ]
+        },
+        "0x74CA": {
+            "group": "steno",
+            "key": "QK_STENO_KL",
+            "aliases": [
+                "ST_KL"
+            ]
+        },
+        "0x74CB": {
+            "group": "steno",
+            "key": "QK_STENO_PL",
+            "aliases": [
+                "ST_PL"
+            ]
+        },
+        "0x74CC": {
+            "group": "steno",
+            "key": "QK_STENO_WL",
+            "aliases": [
+                "ST_WL"
+            ]
+        },
+        "0x74CD": {
+            "group": "steno",
+            "key": "QK_STENO_HL",
+            "aliases": [
+                "ST_HL"
+            ]
+        },
+        "0x74CE": {
+            "group": "steno",
+            "key": "QK_STENO_RL",
+            "aliases": [
+                "ST_RL"
+            ]
+        },
+        "0x74CF": {
+            "group": "steno",
+            "key": "QK_STENO_A",
+            "aliases": [
+                "ST_A"
+            ]
+        },
+        "0x74D0": {
+            "group": "steno",
+            "key": "QK_STENO_O",
+            "aliases": [
+                "ST_O"
+            ]
+        },
+        "0x74D1": {
+            "group": "steno",
+            "key": "QK_STENO_ST1",
+            "aliases": [
+                "ST_ST1",
+                "ST_STR"
+            ]
+        },
+        "0x74D2": {
+            "group": "steno",
+            "key": "QK_STENO_ST2",
+            "aliases": [
+                "ST_ST2"
+            ]
+        },
+        "0x74D3": {
+            "group": "steno",
+            "key": "QK_STENO_RESET1",
+            "aliases": [
+                "ST_RE1",
+                "ST_RES1"
+            ]
+        },
+        "0x74D4": {
+            "group": "steno",
+            "key": "QK_STENO_RESET2",
+            "aliases": [
+                "ST_RE2",
+                "ST_RES2",
+            ]
+        },
+        "0x74D5": {
+            "group": "steno",
+            "key": "QK_STENO_POWER",
+            "aliases": [
+                "ST_PWR"
+            ]
+        },
+        "0x74D6": {
+            "group": "steno",
+            "key": "QK_STENO_ST3",
+            "aliases": [
+                "ST_ST3"
+            ]
+        },
+        "0x74D7": {
+            "group": "steno",
+            "key": "QK_STENO_ST4",
+            "aliases": [
+                "ST_ST4"
+            ]
+        },
+        "0x74D8": {
+            "group": "steno",
+            "key": "QK_STENO_E",
+            "aliases": [
+                "ST_E"
+            ]
+        },
+        "0x74D9": {
+            "group": "steno",
+            "key": "QK_STENO_U",
+            "aliases": [
+                "ST_U"
+            ]
+        },
+        "0x74DA": {
+            "group": "steno",
+            "key": "QK_STENO_FR",
+            "aliases": [
+                "ST_FR"
+            ]
+        },
+        "0x74DB": {
+            "group": "steno",
+            "key": "QK_STENO_RR",
+            "aliases": [
+                "ST_RR"
+            ]
+        },
+        "0x74DC": {
+            "group": "steno",
+            "key": "QK_STENO_PR",
+            "aliases": [
+                "ST_PR"
+            ]
+        },
+        "0x74DD": {
+            "group": "steno",
+            "key": "QK_STENO_BR",
+            "aliases": [
+                "ST_BR"
+            ]
+        },
+        "0x74DE": {
+            "group": "steno",
+            "key": "QK_STENO_LR",
+            "aliases": [
+                "ST_LR"
+            ]
+        },
+        "0x74DF": {
+            "group": "steno",
+            "key": "QK_STENO_GR",
+            "aliases": [
+                "ST_GR"
+            ]
+        },
+        "0x74E0": {
+            "group": "steno",
+            "key": "QK_STENO_TR",
+            "aliases": [
+                "ST_TR"
+            ]
+        },
+        "0x74E1": {
+            "group": "steno",
+            "key": "QK_STENO_SR",
+            "aliases": [
+                "ST_SR"
+            ]
+        },
+        "0x74E2": {
+            "group": "steno",
+            "key": "QK_STENO_DR",
+            "aliases": [
+                "ST_DR"
+            ]
+        },
+        "0x74E3": {
+            "group": "steno",
+            "key": "QK_STENO_N7",
+            "aliases": [
+                "ST_N7"
+            ]
+        },
+        "0x74E4": {
+            "group": "steno",
+            "key": "QK_STENO_N8",
+            "aliases": [
+                "ST_N8"
+            ]
+        },
+        "0x74E5": {
+            "group": "steno",
+            "key": "QK_STENO_N9",
+            "aliases": [
+                "ST_N9"
+            ]
+        },
+        "0x74E6": {
+            "group": "steno",
+            "key": "QK_STENO_NA",
+            "aliases": [
+                "ST_NA"
+            ]
+        },
+        "0x74E7": {
+            "group": "steno",
+            "key": "QK_STENO_NB",
+            "aliases": [
+                "ST_NB"
+            ]
+        },
+        "0x74E8": {
+            "group": "steno",
+            "key": "QK_STENO_NC",
+            "aliases": [
+                "ST_NC"
+            ]
+        },
+        "0x74E9": {
+            "group": "steno",
+            "key": "QK_STENO_ZR",
+            "aliases": [
+                "ST_ZR"
+            ]
+        },
+        "0x74EA": {
+            "group": "steno",
+            "key": "QK_STENO_X1",
+            "aliases": [
+                "ST_X1"
+            ]
+        },
+        "0x74EB": {
+            "group": "steno",
+            "key": "QK_STENO_X2",
+            "aliases": [
+                "ST_X2"
+            ]
+        },
+        "0x74EC": {
+            "group": "steno",
+            "key": "QK_STENO_X3",
+            "aliases": [
+                "ST_X3"
+            ]
+        },
+        "0x74ED": {
+            "group": "steno",
+            "key": "QK_STENO_X4",
+            "aliases": [
+                "ST_X4"
+            ]
+        },
+        "0x74EE": {
+            "group": "steno",
+            "key": "QK_STENO_X5",
+            "aliases": [
+                "ST_X5"
+            ]
+        },
+        "0x74EF": {
+            "group": "steno",
+            "key": "QK_STENO_X6",
+            "aliases": [
+                "ST_X6"
+            ]
+        },
+        "0x74F0": {
+            "group": "steno",
+            "key": "QK_STENO_X7",
+            "aliases": [
+                "ST_X7"
+            ]
+        },
+        "0x74F1": {
+            "group": "steno",
+            "key": "QK_STENO_X8",
+            "aliases": [
+                "ST_X8"
+            ]
+        },
+        "0x74F2": {
+            "group": "steno",
+            "key": "QK_STENO_X9",
+            "aliases": [
+                "ST_X9"
+            ]
+        },
+        "0x74F3": {
+            "group": "steno",
+            "key": "QK_STENO_X10",
+            "aliases": [
+                "ST_X10"
+            ]
+        },
+        "0x74F4": {
+            "group": "steno",
+            "key": "QK_STENO_X11",
+            "aliases": [
+                "ST_X11"
+            ]
+        },
+        "0x74F5": {
+            "group": "steno",
+            "key": "QK_STENO_X12",
+            "aliases": [
+                "ST_X12"
+            ]
+        },
+        "0x74F6": {
+            "group": "steno",
+            "key": "QK_STENO_X13",
+            "aliases": [
+                "ST_X13"
+            ]
+        },
+        "0x74F7": {
+            "group": "steno",
+            "key": "QK_STENO_X14",
+            "aliases": [
+                "ST_X14"
+            ]
+        },
+        "0x74F8": {
+            "group": "steno",
+            "key": "QK_STENO_X15",
+            "aliases": [
+                "ST_X15"
+            ]
+        },
+        "0x74F9": {
+            "group": "steno",
+            "key": "QK_STENO_X16",
+            "aliases": [
+                "ST_X16"
+            ]
+        },
+        "0x74FA": {
+            "group": "steno",
+            "key": "QK_STENO_X17",
+            "aliases": [
+                "ST_X17"
+            ]
+        },
+        "0x74FB": {
+            "group": "steno",
+            "key": "QK_STENO_X18",
+            "aliases": [
+                "ST_X18"
+            ]
+        },
+        "0x74FC": {
+            "group": "steno",
+            "key": "QK_STENO_X19",
+            "aliases": [
+                "ST_X19"
+            ]
+        },
+        "0x74FD": {
+            "group": "steno",
+            "key": "QK_STENO_X20",
+            "aliases": [
+                "ST_X20"
+            ]
+        },
+        "0x74FE": {
+            "group": "steno",
+            "key": "QK_STENO_X21",
+            "aliases": [
+                "ST_X21"
+            ]
+        },
+        "0x74FF": {
+            "group": "steno",
+            "key": "QK_STENO_X22",
+            "aliases": [
+                "ST_X22"
+            ]
+        },
+        "0x7500": {
+            "group": "steno",
+            "key": "QK_STENO_X23",
+            "aliases": [
+                "ST_X23"
+            ]
+        },
+        "0x7501": {
+            "group": "steno",
+            "key": "QK_STENO_X24",
+            "aliases": [
+                "ST_X24"
+            ]
+        },
+        "0x7502": {
+            "group": "steno",
+            "key": "QK_STENO_X25",
+            "aliases": [
+                "ST_X25"
+            ]
+        },
+        "0x7503": {
+            "group": "steno",
+            "key": "QK_STENO_X26",
+            "aliases": [
+                "ST_X26"
+            ]
+        },
+        // 0x7504
+        // 0x7505
+        // 0x7506
+        // 0x7507
+        // 0x7508
+        // 0x7509
+        // 0x750A
+        "0x750B": {
+            "group": "steno",
+            "key": "QK_STENO_S3",
+            "aliases": [
+                "ST_S3"
+            ]
+        },
+        "0x750C": {
+            "group": "steno",
+            "key": "QK_STENO_TKL",
+            "aliases": [
+                "ST_TKL"
+            ]
+        },
+        "0x750D": {
+            "group": "steno",
+            "key": "QK_STENO_PWL",
+            "aliases": [
+                "ST_PWL"
+            ]
+        },
+        "0x750E": {
+            "group": "steno",
+            "key": "QK_STENO_HRL",
+            "aliases": [
+                "ST_HRL"
+            ]
+        },
+        "0x750F": {
+            "group": "steno",
+            "key": "QK_STENO_FRR",
+            "aliases": [
+                "ST_FRR"
+            ]
+        },
+        "0x7510": {
+            "group": "steno",
+            "key": "QK_STENO_PBR",
+            "aliases": [
+                "ST_PBR"
+            ]
+        },
+        "0x7511": {
+            "group": "steno",
+            "key": "QK_STENO_LGR",
+            "aliases": [
+                "ST_LGR"
+            ]
+        },
+        "0x7512": {
+            "group": "steno",
+            "key": "QK_STENO_TSR",
+            "aliases": [
+                "ST_TSR"
+            ]
+        },
+        "0x7513": {
+            "group": "steno",
+            "key": "QK_STENO_DZR",
+            "aliases": [
+                "ST_DZR"
+            ]
+        },
+        "0x7514": {
+            "group": "steno",
+            "key": "QK_STENO_AO",
+            "aliases": [
+                "ST_AO"
+            ]
+        },
+        "0x7515": {
+            "group": "steno",
+            "key": "QK_STENO_EU",
+            "aliases": [
+                "ST_EU"
+            ]
+        },
+        // 0x7516
+        // 0x7517
+        // 0x7518
+        // 0x7519
+        // 0x751A
+        // 0x751B
+        "0x751C": {
+            "group": "steno",
+            "key": "QK_STENO_MODE_BOLT",
+            "label": "Steno Mode TX Bolt",
+            "aliases": [
+                "ST_BOLT"
+            ]
+        },
+        "0x751D": {
+            "group": "steno",
+            "key": "QK_STENO_MODE_GEMINI",
+            "label": "Steno Mode GeminiPR",
+            "aliases": [
+                "ST_GEMI"
+            ]
+        },
+        "0x751E": {
+            "group": "steno",
+            "key": "QK_STENO_MODE_NEXT",
+            "label": "Steno Mode Next",
+            "aliases": [
+                "ST_NEXT"
+            ]
+        },
+        "0x751F": {
+            "group": "steno",
+            "key": "QK_STENO_MODE_PREVIOUS",
+            "label": "Steno Mode Previous",
+            "aliases": [
+                "ST_PREV"
+            ]
+        }
+    }
+}

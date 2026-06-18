@@ -76,7 +76,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "process_tap_dance.h"
 #endif
 #ifdef STENO_ENABLE
-#    include "process_steno.h"
+#    include "steno.h"
 #endif
 #ifdef KEY_OVERRIDE_ENABLE
 #    include "process_key_override.h"
@@ -507,7 +507,7 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
-#ifdef STENO_ENABLE_ALL
+#ifdef STENO_ENABLE
     steno_init();
 #endif
 #ifdef DIP_SWITCH_ENABLE

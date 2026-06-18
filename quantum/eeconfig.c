@@ -116,7 +116,8 @@ void eeconfig_init_quantum(void) {
 #endif // UNICODE_COMMON_ENABLE
 
 #ifdef STENO_ENABLE
-    eeconfig_update_steno_mode(0);
+    extern void eeconfig_update_steno_default(void);
+    eeconfig_update_steno_default();
 #endif // STENO_ENABLE
 
 #ifdef RGB_MATRIX_ENABLE
