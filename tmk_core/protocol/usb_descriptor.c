@@ -481,17 +481,17 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] = {
 
 #ifdef PLOVER_HID_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM PloverReport[] = {
-    HID_RI_USAGE_PAGE(16, 0xff50),     //
-    HID_RI_USAGE(16, 0x4c56),          // Vendor Defined (0xff P L V)
+    HID_RI_USAGE_PAGE(16, 0xFF50),     //
+    HID_RI_USAGE(16, 0x4C56),          // Vendor Defined (0xff P L V)
     HID_RI_COLLECTION(8, 0x01),        // Application
-        HID_RI_REPORT_ID(8, 80),
+        HID_RI_REPORT_ID(8, REPORT_ID_PLOVER_HID),
         HID_RI_LOGICAL_MINIMUM(8, 0),
         HID_RI_LOGICAL_MAXIMUM(8, 1),
         HID_RI_REPORT_SIZE(8, 1),
-        HID_RI_REPORT_COUNT(8, 64),
-        HID_RI_USAGE_PAGE(8, 0x0a),    // Usage Page: Ordinal
+        HID_RI_REPORT_COUNT(8, 0x40),
+        HID_RI_USAGE_PAGE(8, 0x0A),    // Usage Page: Ordinal
         HID_RI_USAGE_MINIMUM(8, 0),
-        HID_RI_USAGE_MAXIMUM(8, 63),
+        HID_RI_USAGE_MAXIMUM(8, 0x3F),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
     HID_RI_END_COLLECTION(0),
 };
