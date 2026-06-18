@@ -41,11 +41,11 @@ void matrix_scan_user(void) {
 void encoder_mouse_scroll(bool clockwise) {
     // Volume control
     if (clockwise) {
-        tap_code(KC_MS_WH_DOWN);
-        tap_code(KC_MS_WH_DOWN);
+        tap_code(MS_WHLD);
+        tap_code(MS_WHLD);
     } else {
-        tap_code(KC_MS_WH_UP);
-        tap_code(KC_MS_WH_UP);
+        tap_code(MS_WHLU);
+        tap_code(MS_WHLU);
     }
 }
 
@@ -88,22 +88,22 @@ void encoder_zoom_in_out(bool clockwise) {
 // mouse vertical
 void encoder_mouse_vertical(bool clockwise) {
     if (clockwise) {
-        tap_code(KC_MS_U);
-        tap_code(KC_MS_U);
+        tap_code(MS_UP);
+        tap_code(MS_UP);
     } else {
-        tap_code(KC_MS_D);
-        tap_code(KC_MS_D);
+        tap_code(MS_DOWN);
+        tap_code(MS_DOWN);
     }
 }
 
 // mouse horizontal
 void encoder_mouse_horizontal(bool clockwise) {
     if (clockwise) {
-        tap_code(KC_MS_L);
-        tap_code(KC_MS_L);
+        tap_code(MS_LEFT);
+        tap_code(MS_LEFT);
     } else {
-        tap_code(KC_MS_R);
-        tap_code(KC_MS_R);
+        tap_code(MS_RGHT);
+        tap_code(MS_RGHT);
     }
 }
 

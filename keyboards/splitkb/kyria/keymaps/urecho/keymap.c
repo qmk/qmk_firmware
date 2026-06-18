@@ -111,8 +111,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
     [_ADJUST] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                     _______, _______, _______, _______, _______, _______,
-      _______, RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI, RGB_MOD,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY, _______,
-      _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, UG_TOGG, UG_SATU, UG_HUEU, UG_VALU, UG_NEXT,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY, _______,
+      _______, _______, UG_SATD, UG_HUED, UG_VALD, UG_PREV, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 // /*
