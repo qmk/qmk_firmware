@@ -58,8 +58,14 @@ typedef struct PACKED {
 
 #define EECONFIG_KB_DATABLOCK ((uint8_t *)(EECONFIG_BASE_SIZE))
 #define EECONFIG_USER_DATABLOCK ((uint8_t *)((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE)))
+#define EECONFIG_MODULES_DATABLOCK ((uint8_t *)((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE)))
+
+// Actual value is injected via the generated community_post_config.h
+#ifndef EECONFIG_MODULE_DATA_SIZE
+#    define EECONFIG_MODULE_DATA_SIZE 0
+#endif
 
 // Size of EEPROM being used, other code can refer to this for available EEPROM
-#define EECONFIG_SIZE ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE))
+#define EECONFIG_SIZE ((EECONFIG_BASE_SIZE) + (EECONFIG_KB_DATA_SIZE) + (EECONFIG_USER_DATA_SIZE) + (EECONFIG_MODULE_DATA_SIZE))
 
 STATIC_ASSERT((intptr_t)EECONFIG_HANDEDNESS == 14, "EEPROM handedness offset is incorrect");
