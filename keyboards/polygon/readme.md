@@ -16,7 +16,7 @@
 
 #### ISO
 
-    qmk compile -kb polygon/ansi -km default
+    qmk compile -kb polygon/iso -km default
 
 The two layouts have distinct electrical layouts and the firmware compiled will not be cross-compatible.
 
