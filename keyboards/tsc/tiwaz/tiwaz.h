@@ -34,12 +34,6 @@
 #define JOY_PIN_X GP28
 #define JOY_PIN_Y GP27
 
-// Joystick mode change keycodes
-enum joy_keycodes {
-    MD_JOYL = SAFE_RANGE,
-    MD_JOYR
-};
-
 // Joystick modes
 typedef enum {
     JOY_MODE_DIGITAL = 0,

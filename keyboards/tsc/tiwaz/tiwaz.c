@@ -1,6 +1,7 @@
 // Copyright 2026 Timo Strube (@tstrube)
 // SPDX-License-Identifier: GPL-3.0-or-later
 
+#include QMK_KEYBOARD_H
 #include "quantum.h"
 #include "tiwaz.h"
 #include "analog.h"

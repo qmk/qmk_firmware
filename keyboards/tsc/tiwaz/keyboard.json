@@ -20,6 +20,10 @@
         },
         "button_count": 2
     },
+    "keycodes": [
+        {"key": "MD_JOYL", "label": "Change left joystick mode"},
+        {"key": "MD_JOYR", "label": "Change right joystick mode"}
+    ],
     "matrix_pins": {
         "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP12", "GP13", "GP24"],
         "rows": ["GP16", "GP17", "GP18", "GP19", "GP20", "NO_PIN"]
@@ -32,7 +36,6 @@
         "animations": {
             "breathing": true,
             "cycle_all": true,
-            "solid_color": true,
             "solid_reactive_multiwide": true
         },
         "default": {
@@ -148,7 +151,6 @@
             "pin": "GP0"
         },
         "transport": {
-            "protocol": "serial",
             "sync": {
                 "layer_state": true,
                 "matrix_state": true,
@@ -162,7 +164,7 @@
         "device_version": "1.0.0",
         "pid": "0x5449",
         "vid": "0x5453",
-        "suspend_wakeup_delay": 2000
+        "suspend_wakeup_delay": 5000
     },
     "ws2812": {
         "driver": "vendor",
