@@ -251,6 +251,7 @@ void keyboard_post_init_kb(void) {
     }
     transaction_register_rpc(RPC_JOYSTICK_AXES, receive_joystick);
     transaction_register_rpc(RPC_KB_CONFIG, receive_kb_config);
+    keyboard_post_init_user();
 }
 
 // RGB Matrix indicator for Caps Lock
