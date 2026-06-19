@@ -45,7 +45,7 @@ static joystick_adc_t remote_joystick_axis = {
 };
 
 // Joystick keymaps
-static const joystick_keymap_t left_joystick_keymap = {
+__attribute__ ((weak)) const joystick_keymap_t left_joystick_keymap = {
     .up = KC_UP,
     .down = KC_DOWN,
     .left = KC_LEFT,
@@ -53,7 +53,7 @@ static const joystick_keymap_t left_joystick_keymap = {
     .btn = KC_ENT
 };
 
-static const joystick_keymap_t right_joystick_keymap = {
+__attribute__ ((weak)) const joystick_keymap_t right_joystick_keymap = {
     .up = KC_P8,
     .down = KC_P2,
     .left = KC_P4,
