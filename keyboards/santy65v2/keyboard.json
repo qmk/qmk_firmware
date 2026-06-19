@@ -56,7 +56,6 @@
     },
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0x0001",
         "vid": "0xFEED"
     },
