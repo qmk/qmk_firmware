@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #pragma once
-#define MASTER_LEFT
 /* optical sensor settings */
 // define which side the pointing device is on
 #define SPLIT_POINTING_ENABLE
