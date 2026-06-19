@@ -18,18 +18,6 @@
 #define JOY_DIGITAL_ON            50
 #define JOY_DIGITAL_OFF           40
 
-#define LJOY_UP_POS    (keypos_t){0, 5}
-#define LJOY_DOWN_POS  (keypos_t){1, 5}
-#define LJOY_LEFT_POS  (keypos_t){2, 5}
-#define LJOY_RIGHT_POS (keypos_t){3, 5}
-#define LJOY_BTN_POS   (keypos_t){4, 5}
-
-#define RJOY_UP_POS    (keypos_t){5, 5}
-#define RJOY_DOWN_POS  (keypos_t){6, 5}
-#define RJOY_LEFT_POS  (keypos_t){7, 5}
-#define RJOY_RIGHT_POS (keypos_t){8, 5}
-#define RJOY_BTN_POS   (keypos_t){0, 11}
-
 #define JOY_PIN_B GP29
 #define JOY_PIN_X GP28
 #define JOY_PIN_Y GP27
@@ -72,6 +60,15 @@ typedef struct {
     bool button_registered;
     bool motion_detected;
 } button_hold_t;
+
+// Joystick keymap
+typedef struct {
+    uint16_t up;
+    uint16_t down;
+    uint16_t left;
+    uint16_t right;
+    uint16_t btn;
+} joystick_keymap_t;
 
 // Global configuration (accessible to keymaps if needed)
 extern kb_config_t kb_config;

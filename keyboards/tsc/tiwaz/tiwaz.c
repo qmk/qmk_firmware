@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 #include "tiwaz.h"
 #include "analog.h"
 #include "gpio.h"
@@ -45,6 +44,23 @@ static joystick_adc_t remote_joystick_axis = {
     .btn = false
 };
 
+// Joystick keymaps
+static const joystick_keymap_t left_joystick_keymap = {
+    .up = KC_UP,
+    .down = KC_DOWN,
+    .left = KC_LEFT,
+    .right = KC_RGHT,
+    .btn = KC_ENT
+};
+
+static const joystick_keymap_t right_joystick_keymap = {
+    .up = KC_P8,
+    .down = KC_P2,
+    .left = KC_P4,
+    .right = KC_P6,
+    .btn = KC_PENT
+};
+
 // Button hold tracking
 static button_hold_t local_button_hold = {0, false, false};
 static button_hold_t remote_button_hold = {0, false, false};
@@ -76,8 +92,7 @@ void save_kb_config(void) {
 }
 
 static void handle_joystick(uint8_t mode, joystick_adc_t* adc, joystick_state_t* state, button_hold_t* btn_hold,
-                            int js_btn, keypos_t up, keypos_t down, keypos_t left, keypos_t right, keypos_t btn) {
-    layer_state_t layer = get_highest_layer(layer_state | default_layer_state);
+                            int js_btn, const joystick_keymap_t* keymap) {
 
     if (mode == JOY_MODE_DIGITAL) { // DIGITAL mode
         int8_t sx = (int8_t)adc->x;
@@ -85,46 +100,46 @@ static void handle_joystick(uint8_t mode, joystick_adc_t* adc, joystick_state_t*
 
         // UP
         if (sy < -JOY_DIGITAL_ON && !state->up) {
-            register_code16(keymap_key_to_keycode(layer, up));
+            register_code16(keymap->up);
             state->up = true;
         } else if (sy > -JOY_DIGITAL_OFF && state->up) {
-            unregister_code16(keymap_key_to_keycode(layer, up));
+            unregister_code16(keymap->up);
             state->up = false;
         }
 
         // DOWN
         if (sy > JOY_DIGITAL_ON && !state->down) {
-            register_code16(keymap_key_to_keycode(layer, down));
+            register_code16(keymap->down);
             state->down = true;
         } else if (sy < JOY_DIGITAL_OFF && state->down) {
-            unregister_code16(keymap_key_to_keycode(layer, down));
+            unregister_code16(keymap->down);
             state->down = false;
         }
 
         // LEFT
         if (sx < -JOY_DIGITAL_ON && !state->left) {
-            register_code16(keymap_key_to_keycode(layer, left));
+            register_code16(keymap->left);
             state->left = true;
         } else if (sx > -JOY_DIGITAL_OFF && state->left) {
-            unregister_code16(keymap_key_to_keycode(layer, left));
+            unregister_code16(keymap->left);
             state->left = false;
         }
 
         // RIGHT
         if (sx > JOY_DIGITAL_ON && !state->right) {
-            register_code16(keymap_key_to_keycode(layer, right));
+            register_code16(keymap->right);
             state->right = true;
         } else if (sx < JOY_DIGITAL_OFF && state->right) {
-            unregister_code16(keymap_key_to_keycode(layer, right));
+            unregister_code16(keymap->right);
             state->right = false;
         }
 
         // BUTTON
         if (adc->btn && !state->btn) {
-            register_code16(keymap_key_to_keycode(layer, btn));
+            register_code16(keymap->btn);
             state->btn = true;
         } else if (!adc->btn && state->btn) {
-            unregister_code16(keymap_key_to_keycode(layer, btn));
+            unregister_code16(keymap->btn);
             state->btn = false;
         }
 
@@ -304,9 +319,9 @@ void housekeeping_task_kb(void) {
 
         if (is_keyboard_left()) {
             handle_joystick(kb_config.joystick_mode_left, &local_joystick_axis, &local_joystick_state, &local_button_hold,
-                JS_0, LJOY_UP_POS, LJOY_DOWN_POS, LJOY_LEFT_POS, LJOY_RIGHT_POS, LJOY_BTN_POS);
+                JS_0, &left_joystick_keymap);
             handle_joystick(kb_config.joystick_mode_right, &remote_joystick_axis, &remote_joystick_state, &remote_button_hold,
-                JS_1, RJOY_UP_POS, RJOY_DOWN_POS, RJOY_LEFT_POS, RJOY_RIGHT_POS, RJOY_BTN_POS);
+                JS_1, &right_joystick_keymap);
             
             // Set joystick axes only for analog mode
             joystick_set_axis(0, kb_config.joystick_mode_left == JOY_MODE_ANALOG ? local_joystick_axis.x : 0);
@@ -315,9 +330,9 @@ void housekeeping_task_kb(void) {
             joystick_set_axis(3, kb_config.joystick_mode_right == JOY_MODE_ANALOG ? remote_joystick_axis.y : 0);
         } else {
             handle_joystick(kb_config.joystick_mode_left, &remote_joystick_axis, &remote_joystick_state, &remote_button_hold,
-                JS_0, LJOY_UP_POS, LJOY_DOWN_POS, LJOY_LEFT_POS, LJOY_RIGHT_POS, LJOY_BTN_POS);
+                JS_0, &left_joystick_keymap);
             handle_joystick(kb_config.joystick_mode_right, &local_joystick_axis, &local_joystick_state, &local_button_hold,
-                JS_1, RJOY_UP_POS, RJOY_DOWN_POS, RJOY_LEFT_POS, RJOY_RIGHT_POS, RJOY_BTN_POS);
+                JS_1, &right_joystick_keymap);
             
             // Set joystick axes only for analog mode
             joystick_set_axis(0, kb_config.joystick_mode_left == JOY_MODE_ANALOG ? remote_joystick_axis.x : 0);
@@ -366,8 +381,15 @@ bool rgb_matrix_indicators_kb(void) {
         rgb_t rgb_left = hsv_to_rgb(hsv_left);
         rgb_t rgb_right = hsv_to_rgb(hsv_right);
         
-        rgb_matrix_set_color(LED_INDEX_JOY_MODE_LEFT, rgb_left.r, rgb_left.g, rgb_left.b);
-        rgb_matrix_set_color(LED_INDEX_JOY_MODE_RIGHT, rgb_right.r, rgb_right.g, rgb_right.b);
+        // Blink effect: alternate on/off every 500ms
+        bool blink_state = (timer_read() / 500) % 2;
+        if (blink_state) {
+            rgb_matrix_set_color(LED_INDEX_JOY_MODE_LEFT, rgb_left.r, rgb_left.g, rgb_left.b);
+            rgb_matrix_set_color(LED_INDEX_JOY_MODE_RIGHT, rgb_right.r, rgb_right.g, rgb_right.b);
+        } else {
+            rgb_matrix_set_color(LED_INDEX_JOY_MODE_LEFT, 0, 0, 0);
+            rgb_matrix_set_color(LED_INDEX_JOY_MODE_RIGHT, 0, 0, 0);
+        }
     }
     return true;
 }
