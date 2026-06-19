@@ -27,14 +27,9 @@
     "processor": "atmega32u4",
     "rgblight": {
         "animations": {
-            "alternating": false,
-            "breathing": false,
-            "knight": false,
             "rainbow_mood": true,
             "rainbow_swirl": true,
-            "snake": false,
-            "static_gradient": true,
-            "twinkle": false
+            "static_gradient": true
         },
         "led_count": 32,
         "split": true,
