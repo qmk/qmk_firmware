@@ -18,8 +18,7 @@
             "y": "virtual",
             "z": "virtual"
         },
-        "button_count": 2,
-        "enabled": true
+        "button_count": 2
     },
     "matrix_pins": {
         "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP12", "GP13", "GP24"],
