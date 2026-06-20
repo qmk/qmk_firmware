@@ -18,9 +18,11 @@ def _gen_led_configs(info_data):
 
     if 'layout' in info_data.get('rgb_matrix', {}):
         lines.extend(_gen_led_config(info_data, 'rgb_matrix'))
+        lines.extend(_gen_led_duplicate_config(info_data, 'rgb_matrix'))
 
     if 'layout' in info_data.get('led_matrix', {}):
         lines.extend(_gen_led_config(info_data, 'led_matrix'))
+        lines.extend(_gen_led_duplicate_config(info_data, 'led_matrix'))
 
     return lines
 
@@ -61,6 +63,51 @@ def _gen_led_config(info_data, config_type):
     lines.append(f'  {{ {", ".join(flags)} }},')
     lines.append('};')
     lines.append('#endif')
+    lines.append('')
+
+    return lines
+
+
+def _gen_led_duplicate_config(info_data, config_type):
+    """Convert duplicate led mappings to map_row_column_to_led_kb implementations"""
+
+    # precompute our map of matrix[r,c] -> [ids]
+    duplicates = False
+    led_map = {}
+    led_layout = info_data[config_type]['layout']
+    for led_index, led_data in enumerate(led_layout):
+        if 'matrix' in led_data:
+            matrix = tuple(led_data['matrix'])
+            led_map[matrix] = [*led_map.get(matrix, []), led_index]
+            duplicates = True
+
+    if not duplicates:
+        return []
+
+    lines = []
+    lines.append(f'uint8_t {config_type}_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {{')
+
+    for matrix, indexes in led_map.items():
+        if len(indexes) > 1:
+            # Match last one wins behavior of _gen_led_config w.r.t. g_led_config matrix generation
+            last_index = indexes[-1]
+            other_indexes = indexes[:-1]
+
+            lines.append(f'#if LED_HITS_TO_REMEMBER < {len(indexes)}')
+            lines.append(f'#    pragma message("LED_HITS_TO_REMEMBER is not large enough to handle matrix{list(matrix)} indexes{indexes}")')
+            lines.append('#else')
+            lines.append(f'    if (row == {matrix[0]} && column == {matrix[1]}) {{')
+            lines.append(f'        // {last_index} will be added by the default lookup code that runs after this')
+
+            for index, led_index in enumerate(other_indexes):
+                lines.append(f'        led_i[{index}] = {led_index};')
+
+            lines.append(f'        return {len(other_indexes)};')
+            lines.append('    }')
+            lines.append('#endif')
+
+    lines.append('    return 0;')
+    lines.append('}')
     lines.append('')
 
     return lines
