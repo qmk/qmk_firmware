@@ -25,7 +25,16 @@ The two layouts have distinct electrical layouts and the firmware compiled will 
 I recommend using QMK toolbox to flash the firmware.
 
 
-  See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+#### ANSI
+
+    qmk flash -kb polygon/ansi -km default
+
+#### ISO
+
+    qmk flash -kb polygon/iso -km default
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
