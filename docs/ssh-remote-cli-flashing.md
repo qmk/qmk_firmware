@@ -1,6 +1,6 @@
-# Command Line Flashing Through SSH on Remote Linux Session
+# Flashing Through Remote SSH
 
-To flash QMK through a DFU bootloader while logged into a remote linux machine, and the keyboard target plugged into USB on that remote machine, you will need to modify the UDEV rules to specify the user. The included `50-qmk.rules` file assumes that you are logged in locally to the machine.
+To flash QMK to a DFU bootloader while logged into a remote linux machine, and the keyboard target plugged into USB on that remote machine, you will need to modify the UDEV rules to specify the user. The included `50-qmk.rules` file assumes that you are logged in locally to the machine.
 
 Modify 
 ```
