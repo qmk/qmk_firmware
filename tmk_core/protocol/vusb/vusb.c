@@ -453,6 +453,16 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x75, 0x03, //   Report Size (3)
     0x91, 0x03, //   Output (Constant)
     0xC0,       // End Collection
+    // Extended Attributes (15.18 Descriptive Controls)
+    0x05, 0x0C,       // Usage Page(Consumer Devices)
+    0x0A, 0xC0, 0x02, // Usage (Extended Keyboard Attributes)
+    0xA1, 0x02,       // Logical Collection
+    0x1A, 0xC1, 0x02, //     Usage Minimum(Keyboard Form Factor)
+    0x2a, 0xc6, 0x02, //     Usage Maximum(Implemented Keyboard Assist Controls)
+    0x75, 0x08,       //     Report Size (8)
+    0x95, 0x06,       //     Report Count (6)
+    0xB1, 0x03,       //     Feature(Const, Variable, Absolute)
+    0xC0,             // End Collection
 #ifndef KEYBOARD_SHARED_EP
 };
 #endif
