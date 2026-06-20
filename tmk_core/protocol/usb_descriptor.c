@@ -113,6 +113,16 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x03),
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
+        // Extended Attributes (15.18 Descriptive Controls)
+        HID_RI_USAGE_PAGE(8, 0xC0),   // Consumer Devices
+        HID_RI_USAGE(16, 0x2C0),      // Extended Keyboard Attributes
+        HID_RI_COLLECTION(8, 0x02),   // Logical Collection
+            HID_RI_USAGE_MINIMUM(16, 0x2C1),   // Keyboard Form Factor
+            HID_RI_USAGE_MAXIMUM(16, 0x2C6),   // Keyboard Implemented Assist Controls
+            HID_RI_REPORT_SIZE(8, 8),
+            HID_RI_REPORT_COUNT(8, 6),
+            HID_RI_FEATURE(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
 #ifndef KEYBOARD_SHARED_EP
 };
