@@ -191,7 +191,9 @@ void     eeconfig_init_user_datablock(void);
 
 :::::
 
-### Example
+### Examples
+
+#### Basic
 
 This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.
 
@@ -215,10 +217,6 @@ typedef struct my_config_t {
 static my_config_t config;
 
 void keyboard_post_init_user(void) {
-    if (!eeconfig_is_user_datablock_valid()) {
-        eeconfig_init_user_datablock();
-    }
-
     eeconfig_read_user_datablock(&config, 0, sizeof(my_config_t));
 }
 
@@ -240,3 +238,20 @@ void housekeeping_task_user(void) {
     }
 }
 ```
+
+#### Default Values
+
+Extending the above example, a default value for the datablock can be configured as follows:
+
+```c
+void eeconfig_init_user_datablock(void) {
+    my_config_t default_config = {
+        .data = 42,
+    };
+    eeconfig_update_user_datablock(&default_config, 0, sizeof(my_config_t));
+}
+```
+
+::: tip
+For large datablocks, you might need to manually update in chuncks to avoid memory issues.
+:::

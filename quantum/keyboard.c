@@ -449,6 +449,8 @@ void quantum_init(void) {
 
     /* Also initialize layer state to trigger callback functions for layer_state */
     layer_state_set_kb((layer_state_t)layer_state);
+
+    eeconfig_prepare_datablocks();
 }
 
 /** \brief keyboard_init
