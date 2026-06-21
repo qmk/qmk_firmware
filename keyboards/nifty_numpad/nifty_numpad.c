@@ -221,9 +221,5 @@ void eeconfig_init_kb_datablock(void) {
     config.idle_rgb_matrix   = default_idle_rgb_matrix;
 
     eeconfig_update_kb_datablock(&config, 0, EECONFIG_KB_DATA_SIZE);
-
-#    if (EECONFIG_USER_DATA_SIZE) > 0
-    eeconfig_init_user_datablock();
-#    endif // EECONFIG_USER_DATA_SIZE
 #endif     // RGB_IDLE_ENABLE
 }
