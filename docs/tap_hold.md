@@ -159,7 +159,7 @@ The reason is that `TAPPING_TERM` is a macro that expands to a constant integer 
 There is no single perfect configuration for home row mods, as it depends heavily on your typing speed and habits. However, a good starting point in QMK is (added in your `config.h`):
 
 ```c
-#define TAPPING_TERM 250 // Adjust based on your typing speed.
+#define TAPPING_TERM 250
 #define PERMISSIVE_HOLD  // Triggers mod if you tap another key while holding.
 #define CHORDAL_HOLD     // Constrains holds to opposite-hand combinations.
 // Consider also:
