@@ -17,7 +17,6 @@
         "items": [
             { "text": "General FAQ", "link": "/faq_general" },
             { "text": "Build/Compile QMK", "link": "/faq_build" },
-            { "text": "Flashing Through Remote SSH", "link": "/ssh-remote-cli-flashing.md"},
             { "text": "Troubleshooting QMK", "link": "/faq_misc" },
             { "text": "Debugging QMK", "link": "/faq_debug" },
             { "text": "Keymap FAQ", "link": "/faq_keymap" },
