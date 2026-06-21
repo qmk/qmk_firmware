@@ -17,6 +17,7 @@
  */
 #include "opt_encoder.h"
 #include "util.h"
+#include "timer.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -101,6 +102,16 @@ void opt_encoder_init(void) {
 
 int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
     int8_t result = 0;
+
+    // Decay the max/min bounds over time to automatically recover from noise spikes
+    static uint16_t decay_timer = 0;
+    if (timer_elapsed(decay_timer) > 10) {
+        decay_timer = timer_read();
+        if (highA > ENCODER_MIN) highA--;
+        if (lowA < ENCODER_MAX) lowA++;
+        if (highB > ENCODER_MIN) highB--;
+        if (lowB < ENCODER_MAX) lowB++;
+    }
 
     highA = MAX(encA, highA);
     lowA  = MIN(encA, lowA);
