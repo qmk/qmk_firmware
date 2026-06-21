@@ -253,5 +253,5 @@ void eeconfig_init_user_datablock(void) {
 ```
 
 ::: tip
-For large datablocks, you might need to manually update in chuncks to avoid memory issues.
+For large datablocks, you might need to manually update in chunks to avoid memory issues.
 :::

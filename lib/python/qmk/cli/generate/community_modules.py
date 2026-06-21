@@ -290,7 +290,7 @@ def _render_eeconfig_implementation(modules):
     lines.append('}')
     lines.append('')
 
-    lines.append('void eeconfig_init_modules_datablock(void) {'),
+    lines.append('void eeconfig_init_modules_datablock(void) {')
     for module_slug in _module_slugs(modules):
         lines.extend([
             f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
@@ -300,7 +300,7 @@ def _render_eeconfig_implementation(modules):
     lines.append('}')
     lines.append('')
 
-    lines.append('void eeconfig_prepare_modules_datablocks(void) {'),
+    lines.append('void eeconfig_prepare_modules_datablocks(void) {')
     for module_slug in _module_slugs(modules):
         lines.extend([
             f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
