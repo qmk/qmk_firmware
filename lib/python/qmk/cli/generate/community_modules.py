@@ -224,10 +224,10 @@ def _render_eeconfig_implementation(modules):
 
     lines.append('')
     lines.append('// nvm eeconfig')
-    lines.append('#if defined(NVM_DRIVER_EEPROM)'),
+    lines.append('#if defined(NVM_DRIVER_EEPROM)')
     lines.append('#    include "nvm_eeprom_eeconfig_internal.h"')
     lines.append('#    include "eeprom.h"')
-    lines.append('#endif // defined(NVM_DRIVER_EEPROM)'),
+    lines.append('#endif // defined(NVM_DRIVER_EEPROM)')
     lines.append('')
 
     for module_slug in _module_slugs(modules):
