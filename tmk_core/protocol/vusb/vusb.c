@@ -515,15 +515,15 @@ const PROGMEM uchar shared_hid_report[] = {
     0x09, 0x30, //     Usage (X)
     0x09, 0x31, //     Usage (Y)
 #    ifndef MOUSE_EXTENDED_REPORT
-    0x15, 0x81, //     Logical Minimum (-127)
-    0x25, 0x7F, //     Logical Maximum (127)
-    0x95, 0x02, //     Report Count (2)
-    0x75, 0x08, //     Report Size (8)
+    0x15, MOUSE_REPORT_XY_MIN, // Logical Minimum (-127)
+    0x25, MOUSE_REPORT_XY_MAX, // Logical Maximum (127)
+    0x95, 0x02,                // Report Count (2)
+    0x75, 0x08,                // Report Size (8)
 #    else
-    0x16, 0x01, 0x80, // Logical Minimum (-32767)
-    0x26, 0xFF, 0x7F, // Logical Maximum (32767)
-    0x95, 0x02,       // Report Count (2)
-    0x75, 0x10,       // Report Size (16)
+    0x16, 0x01, HID_VALUE_16(MOUSE_REPORT_XY_MIN), // Logical Minimum (-32767)
+    0x26, 0xFF, HID_VALUE_16(MOUSE_REPORT_XY_MAX), // Logical Maximum (32767)
+    0x95, 0x02,                                    // Report Count (2)
+    0x75, 0x10,                                    // Report Size (16)
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
@@ -548,15 +548,15 @@ const PROGMEM uchar shared_hid_report[] = {
     // Vertical wheel (1 or 2 bytes)
     0x09, 0x38, //     Usage (Wheel)
 #    ifndef WHEEL_EXTENDED_REPORT
-    0x15, 0x81, //     Logical Minimum (-127)
-    0x25, 0x7F, //     Logical Maximum (127)
-    0x95, 0x01, //     Report Count (1)
-    0x75, 0x08, //     Report Size (8)
+    0x15, MOUSE_REPORT_HV_MIN, // Logical Minimum (-127)
+    0x25, MOUSE_REPORT_HV_MAX, // Logical Maximum (127)
+    0x95, 0x01,                // Report Count (1)
+    0x75, 0x08,                // Report Size (8)
 #    else
-    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
-    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
-    0x95, 0x01,       //     Report Count (1)
-    0x75, 0x10,       //     Report Size (16)
+    0x16, 0x01, HID_VALUE_16(MOUSE_REPORT_HV_MIN), // Logical Minimum (-32767)
+    0x26, 0xFF, HID_VALUE_16(MOUSE_REPORT_HV_MAX), // Logical Maximum (32767)
+    0x95, 0x01,                                    // Report Count (1)
+    0x75, 0x10,                                    // Report Size (16)
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 
@@ -564,15 +564,15 @@ const PROGMEM uchar shared_hid_report[] = {
     0x05, 0x0C,       //     Usage Page (Consumer)
     0x0A, 0x38, 0x02, //     Usage (AC Pan)
 #    ifndef WHEEL_EXTENDED_REPORT
-    0x15, 0x81, //     Logical Minimum (-127)
-    0x25, 0x7F, //     Logical Maximum (127)
-    0x95, 0x01, //     Report Count (1)
-    0x75, 0x08, //     Report Size (8)
+    0x15, MOUSE_REPORT_HV_MIN, // Logical Minimum (-127)
+    0x25, MOUSE_REPORT_HV_MAX, // Logical Maximum (127)
+    0x95, 0x01,                // Report Count (1)
+    0x75, 0x08,                // Report Size (8)
 #    else
-    0x16, 0x01, 0x80, //     Logical Minimum (-32767)
-    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
-    0x95, 0x01,       //     Report Count (1)
-    0x75, 0x10,       //     Report Size (16)
+    0x16, 0x01, HID_VALUE_16(MOUSE_REPORT_HV_MIN), // Logical Minimum (-32767)
+    0x26, 0xFF, HID_VALUE_16(MOUSE_REPORT_HV_MAX), // Logical Maximum (32767)
+    0x95, 0x01,                                    // Report Count (1)
+    0x75, 0x10,                                    // Report Size (16)
 #    endif
     0x81, 0x06, //     Input (Data, Variable, Relative)
 

@@ -31,7 +31,7 @@ def process_mapping_rule(kb_info_json, rules_key, info_dict):
 
     try:
         rules_value = kb_info_json[info_key]
-    except KeyError:
+    except (KeyError, IndexError):
         return None
 
     if key_type in ['array', 'list']:

@@ -1,4 +1,4 @@
-/* Copyright 2022 splitkb.com <support@splitkb.com>
+/* Copyright 2024 Yiancar-Designs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,7 @@
 
 #pragma once
 
-// Not yet available in `info.json`
-#ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
-#    define SPLIT_OLED_ENABLE
-#endif
+#include_next <mcuconf.h>
+
+#undef STM32_SPI_USE_SPI2
+#define STM32_SPI_USE_SPI2 TRUE

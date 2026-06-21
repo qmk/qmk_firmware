@@ -1,4 +1,4 @@
-/* Copyright 2022 splitkb.com <support@splitkb.com>
+/* Copyright 2024 Yiancar-Designs
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +16,9 @@
 
 #pragma once
 
-// Not yet available in `info.json`
-#ifdef OLED_ENABLE
-#    define OLED_DISPLAY_128X32
-#    define SPLIT_OLED_ENABLE
-#endif
+/* RGB options */
+
+#define WS2812_SPI_DRIVER SPID2
+#define WS2812_SPI_MOSI_PAL_MODE 0
+#define WS2812_SPI_SCK_PAL_MODE 0
+#define WS2812_SPI_SCK_PIN B13

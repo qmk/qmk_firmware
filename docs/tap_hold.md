@@ -871,6 +871,7 @@ You can further prevent flashing mods by restricting when Speculative Hold is al
 
 * Use the Flow Tap option. In the fast flow of typing, the mod-tap key is immediately settled, and therefore no speculation occurs. See [Flow Tap](#flow-tap) for details.
 
+
 ## Why do we include the key record for the per key functions?
 
 One thing that you may notice is that we include the key record for all of the "per key" functions, and may be wondering why we do that.
