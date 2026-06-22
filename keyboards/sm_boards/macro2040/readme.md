@@ -35,17 +35,18 @@ A 7-key macropad with a magnetic rotary encoder, RGB lighting and a small OLED d
 * SW3..SW8 form the 2×3 main key matrix.
 * SW9 is a small tactile button. The default keymap binds it to a layer-cycle (`TO()` chain).
 
-## Keymap
-
-The included `default` keymap is a minimal 4-layer keymap (media / editing / zoom / navigation). SW9 cycles layers with standard `TO()` keycodes. No VIA, no custom keycodes. The keyboard-level OLED shows board name + active layer + the last-pressed key's label.
-
-A VIA-remappable variant is maintained in the [VIA QMK Userspace](https://github.com/the-via/qmk_userspace_via). A full-featured variant with on-board games and a Pomodoro timer lives in the maintainer's repo at [github.com/sjb-dev/MacroPad](https://github.com/sjb-dev/MacroPad).
-
 ## Compiling and Flashing
 
-```
-make sm_boards/macro2040:default      # add :flash to flash after build
-```
+Make example for this keyboard (after setting up your build environment):
+
+    make sm_boards/macro2040:default
+
+Flashing example for this keyboard:
+
+    make sm_boards/macro2040:default:flash
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
 
 ## Bootloader
 
