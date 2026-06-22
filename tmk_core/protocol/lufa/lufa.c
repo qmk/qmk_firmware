@@ -71,6 +71,10 @@
 
 static report_keyboard_t keyboard_report_sent;
 
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
+#endif
+
 /* Host driver */
 static void send_keyboard(report_keyboard_t *report);
 static void send_nkro(report_nkro_t *report);
@@ -404,23 +408,57 @@ void EVENT_USB_Device_ControlRequest(void) {
     uint8_t *ReportData = NULL;
     uint8_t  ReportSize = 0;
 
+    enum report_tpye : uint8_t {
+        INPUT   = 1,
+        OUTPUT  = 2,
+        FEATURE = 3,
+    };
+
     /* Handle HID Class specific requests */
     switch (USB_ControlRequest.bRequest) {
         case HID_REQ_GetReport:
             if (USB_ControlRequest.bmRequestType == (REQDIR_DEVICETOHOST | REQTYPE_CLASS | REQREC_INTERFACE)) {
                 Endpoint_ClearSETUP();
 
-                // Interface
-                switch (USB_ControlRequest.wIndex) {
+                uint8_t  report_type = USB_ControlRequest.wValue >> 8;
+                uint8_t  report_id   = USB_ControlRequest.wValue & 0xff;
+                uint16_t interface   = USB_ControlRequest.wIndex;
+                switch (interface) {
                     case KEYBOARD_INTERFACE:
-                        // TODO: test/check
-                        ReportData = (uint8_t *)&keyboard_report_sent;
-                        ReportSize = sizeof(keyboard_report_sent);
+                        switch (report_type) {
+                            case INPUT:
+                                // TODO: test/check
+                                ReportData = (uint8_t *)&keyboard_report_sent;
+                                ReportSize = sizeof(keyboard_report_sent);
+                                /* Write the report data to the control endpoint */
+                                Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
+                                break;
+                            case FEATURE:
+                                (void)report_id;
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+#    ifdef KEYBOARD_SHARED_EP
+                                if (report_id == REPORT_ID_KEYBOARD) {
+#    else
+                                if (report_id == REPORT_ID_ALL) {
+#    endif
+                                    ReportData = (PROGMEM uint8_t *)&keyboard_extended_attributes;
+                                    ReportSize = sizeof(keyboard_extended_attributes);
+                                    /* Write the report data to the control endpoint */
+                                    Endpoint_Write_Control_PStream_LE(ReportData, ReportSize);
+                                }
+                                break;
+#endif /* defined(EXTENDED_ATTRIBUTES_ENABLE) */
+                            case OUTPUT:
+                            default:
+                                dprintf("Keyboard Interface: Unsupported report type %d for id %d", report_type, report_id);
+                                break;
+                        }
+                        break;
+                    default:
+                        dprintf("Unsupported Get_Report() on interface %d", interface);
                         break;
                 }
 
-                /* Write the report data to the control endpoint */
-                Endpoint_Write_Control_Stream_LE(ReportData, ReportSize);
                 Endpoint_ClearOUT();
             }
 
