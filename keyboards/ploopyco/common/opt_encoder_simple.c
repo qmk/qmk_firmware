@@ -34,8 +34,8 @@
  *
  * Currently, the thresholds are:
  *
- * * High threshold: The upper quarter of the voltage range.
- * * Low threshold: The lower quarter of the voltage range.
+ * * High threshold: The upper third of the voltage range.
+ * * Low threshold: The lower third of the voltage range.
  *
  * these thresholds are defined for each phototransistor.
  *
@@ -55,6 +55,7 @@
 /* The maximum value returned by the ADC */
 #define ENCODER_MAX 1023
 
+/* Utilities for composing the encoder state */
 #define MAKE_STATE(HI_A, HI_B) (((uint8_t)((HI_A) & 0x1) << 1) | ((uint8_t)((HI_B) & 0x1)))
 #define STATE_A(st) ((st & 0x2) >> 1)
 #define STATE_B(st) (st & 0x1)
@@ -107,13 +108,16 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
         decay_timer = timer_read();
 
         // Shrink bounds to a 30-unit window to safely bridge weak wheel rotations
+        // Decay is proportional to the range, allowing it to instantly catch up to fast-flick attenuation
         if (highA - lowA > 30) {
-            if (highA > ENCODER_MIN) highA--;
-            if (lowA < ENCODER_MAX) lowA++;
+            uint16_t decayA = 1 + ((highA - lowA) >> 5);
+            highA = (highA > decayA) ? highA - decayA : ENCODER_MIN;
+            lowA  = (lowA + decayA < ENCODER_MAX) ? lowA + decayA : ENCODER_MAX;
         }
         if (highB - lowB > 30) {
-            if (highB > ENCODER_MIN) highB--;
-            if (lowB < ENCODER_MAX) lowB++;
+            uint16_t decayB = 1 + ((highB - lowB) >> 5);
+            highB = (highB > decayB) ? highB - decayB : ENCODER_MIN;
+            lowB  = (lowB + decayB < ENCODER_MAX) ? lowB + decayB : ENCODER_MAX;
         }
     }
 
@@ -126,11 +130,14 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
     // --- 3. Dynamic Thresholds & Decoding ---
     if (highA - lowA > SCROLL_THRESH_RANGE_LIM && highB - lowB > SCROLL_THRESH_RANGE_LIM) {
 
-        // Correctly calculate the 25% and 75% marks of the *current* shifted window
-        const int16_t lowThresholdA  = lowA + (highA - lowA) / 4;
-        const int16_t highThresholdA = highA - (highA - lowA) / 4;
-        const int16_t lowThresholdB  = lowB + (highB - lowB) / 4;
-        const int16_t highThresholdB = highB - (highB - lowB) / 4;
+        // Calculate the 33% and 66% marks of the window. 
+        // This safely accommodates amplitude collapse during high-speed flicks.
+        const int16_t rangeA = highA - lowA;
+        const int16_t rangeB = highB - lowB;
+        const int16_t lowThresholdA  = lowA + rangeA / 3;
+        const int16_t highThresholdA = highA - rangeA / 3;
+        const int16_t lowThresholdB  = lowB + rangeB / 3;
+        const int16_t highThresholdB = highB - rangeB / 3;
 
         uint8_t state = MAKE_STATE(STATE_A(lastState) ? encA > lowThresholdA : encA > highThresholdA, 
                                    STATE_B(lastState) ? encB > lowThresholdB : encB > highThresholdB);
@@ -152,6 +159,13 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
                 result = result == MOVE_ERR ? MOVE_NONE : result;
                 break;
         }
+
+        // --- Jitter Diagnostic Trap ---
+        static int16_t dir_trend = 0; // Positive for UP, negative for DOWN
+
+        // Smoothly track overall direction trend
+        if (result == MOVE_UP)   dir_trend = (dir_trend * 7 + 100) / 8;
+        if (result == MOVE_DOWN) dir_trend = (dir_trend * 7 - 100) / 8;
 
         lastState = state;
     }
