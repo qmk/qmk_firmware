@@ -71,6 +71,30 @@
 
 static report_keyboard_t keyboard_report_sent;
 
+#if defined(PRIMARY_KEYCAP_LOCALE)
+static const struct {
+#   ifdef KEYBOARD_SHARED_EP
+    uint8_t report_id;
+#   endif
+    uint8_t form_factor;
+    uint8_t key_type;
+    uint8_t physical_layout;
+    uint8_t vendor_physical_layout;
+    uint8_t ietf_language_tag_index;
+    uint8_t implemented_assist_controls;
+}__attribute__((packed)) keyboard_extended_attributes_report = {
+#   ifdef KEYBOARD_SHARED_EP
+    .report_id = REPORT_ID_KEYBOARD,
+#   endif
+    .form_factor = 0, //Unkown
+    .key_type = 0, //Unkown
+    .physical_layout = 0, //Unkown
+    .vendor_physical_layout = 0, // Not a vendor specific layout
+    .ietf_language_tag_index = PRIMARY_LOCALE_STRING_DESCR_INDEX, // None
+    .implemented_assist_controls = 0,
+};
+#endif
+
 /* Host driver */
 static void send_keyboard(report_keyboard_t *report);
 static void send_nkro(report_nkro_t *report);
@@ -404,6 +428,12 @@ void EVENT_USB_Device_ControlRequest(void) {
     uint8_t *ReportData = NULL;
     uint8_t  ReportSize = 0;
 
+    enum report_tpye: uint8_t {
+        INPUT = 1,
+        OUTPUT = 2,
+        FEATURE = 3,
+    };
+
     /* Handle HID Class specific requests */
     switch (USB_ControlRequest.bRequest) {
         case HID_REQ_GetReport:
@@ -413,9 +443,34 @@ void EVENT_USB_Device_ControlRequest(void) {
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
                     case KEYBOARD_INTERFACE:
-                        // TODO: test/check
-                        ReportData = (uint8_t *)&keyboard_report_sent;
-                        ReportSize = sizeof(keyboard_report_sent);
+                        uint8_t report_type = USB_ControlRequest.wValue >> 8;
+                        [[maybe_unused]] uint8_t report_id = USB_ControlRequest.wValue & 0xff;
+                        switch (report_type) {
+                            // Get_Report(FEATURE)
+                            case FEATURE:
+#if defined(PRIMARY_KEYCAP_LOCALE)
+                                /* Only respond if report_id is what we expect.*/
+#   ifdef KEYBOARD_SHARED_EP
+                                if (report_id == REPORT_ID_KEYBOARD) {
+#   else
+                                if (report_id == REPORT_ID_ALL) {
+#   endif
+                                    ReportData = (uint8_t *)&keyboard_extended_attributes_report;
+                                    ReportSize = sizeof(keyboard_extended_attributes_report);
+                                }
+#endif
+                                break;
+                            case INPUT:
+                                // TODO: test/check
+                                ReportData = (uint8_t *)&keyboard_report_sent;
+                                ReportSize = sizeof(keyboard_report_sent);
+                                break;
+                            /* TODO unsupported, return 0 or nothing? */
+                            case OUTPUT:
+                            default:
+                                dprintf("Unsupported report type {%#x}", report_type);
+                                break;
+                        }
                         break;
                 }
 

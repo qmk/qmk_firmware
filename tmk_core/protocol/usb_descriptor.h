@@ -52,6 +52,14 @@
 #    endif
 #endif
 
+enum string_descriptor_index {
+    LANGID_STRING_DESCR_INDEX = 0,
+    MANUFACTURER_STRING_DESCR_INDEX,
+    PRODUCT_STRING_DESCR_INDEX,
+    SERIAL_NUMBER_STRING_DESCR_INDEX,
+    PRIMARY_LOCALE_STRING_DESCR_INDEX,
+};
+
 /*
  * USB descriptor structure
  */
