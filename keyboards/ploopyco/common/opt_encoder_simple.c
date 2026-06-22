@@ -160,13 +160,6 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
                 break;
         }
 
-        // --- Jitter Diagnostic Trap ---
-        static int16_t dir_trend = 0; // Positive for UP, negative for DOWN
-
-        // Smoothly track overall direction trend
-        if (result == MOVE_UP)   dir_trend = (dir_trend * 7 + 100) / 8;
-        if (result == MOVE_DOWN) dir_trend = (dir_trend * 7 - 100) / 8;
-
         lastState = state;
     }
 
