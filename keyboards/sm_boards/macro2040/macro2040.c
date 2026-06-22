@@ -217,7 +217,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 void housekeeping_task_kb(void) {
     as5600_encoder_task();
-    housekeeping_task_user();
+    as5600_encoder_task();
 }
 
 bool oled_task_kb(void) {
