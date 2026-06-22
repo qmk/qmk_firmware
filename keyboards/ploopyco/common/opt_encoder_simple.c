@@ -19,10 +19,8 @@
 #include "opt_encoder.h"
 #include "util.h"
 #include "timer.h"
-//#include "print.h"
 #include <stdbool.h>
 #include <stdint.h>
-#include <stdlib.h>
 
 /* An alternative implementation for interpreting the encoder status:
  *
@@ -52,7 +50,9 @@
  * quadrature decoder is used.
  */
 
+/* The minimum value returned by the ADC */
 #define ENCODER_MIN 0
+/* The maximum value returned by the ADC */
 #define ENCODER_MAX 1023
 
 #define MAKE_STATE(HI_A, HI_B) (((uint8_t)((HI_A) & 0x1) << 1) | ((uint8_t)((HI_B) & 0x1)))
@@ -63,13 +63,16 @@
 #define LOHI MAKE_STATE(0, 1)
 
 typedef enum {
-    CALIBRATION,
-    DECODE
+    CALIBRATION, /* Recalibrate encoder state by waiting for a 01 -> 00 or 10 -> 00 transistion */
+    DECODE       /* Translate changes in the encoder state into movement */
 } encoder_state_t;
 
 static encoder_state_t mode;
 static uint8_t lastState;
-static uint16_t lowA, highA, lowB, highB;
+static uint16_t lowA;
+static uint16_t highA;
+static uint16_t lowB;
+static uint16_t highB;
 
 #define MOVE_UP 1
 #define MOVE_DOWN -1
@@ -96,37 +99,14 @@ void opt_encoder_init(void) {
 
 int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
     int8_t result = 0;
-    static uint16_t squelch_timer = 0;
 
-    // --- 1. The Environmental Shadow Filter ---
-    static uint16_t last_encA = 0;
-    static uint16_t last_encB = 0;
-    int16_t deltaA = (int16_t)encA - (int16_t)last_encA;
-    int16_t deltaB = (int16_t)encB - (int16_t)last_encB;
-    last_encA = encA;
-    last_encB = encB;
-
-    static uint16_t shadow_accum = 0;
-    // If both sensors move rapidly in the exact same direction, it's a shadow/sunlight shift.
-    if ((deltaA > 0 && deltaB > 0) || (deltaA < 0 && deltaB < 0)) {
-        shadow_accum += (abs(deltaA) + abs(deltaB));
-    } else {
-        // Normal square-wave scrolling resets the accumulator instantly.
-        shadow_accum = 0;
-    }
-
-    if (shadow_accum > 20) {
-        // Hand shadow detected! Snap bounds instantly to bypass decay lag and mute the output.
-        lowA = encA; highA = encA;
-        lowB = encB; highB = encB;
-        squelch_timer = timer_read();
-        shadow_accum = 0;
-    }
-
-    // --- 2. Idle Jitter Decay ---
+    // --- 1. Idle Jitter Decay ---
+    // Decay the bounds over time to automatically recover from noise spikes
     static uint16_t decay_timer = 0;
     if (timer_elapsed(decay_timer) > 10) {
         decay_timer = timer_read();
+
+        // Shrink bounds to a 30-unit window to safely bridge weak wheel rotations
         if (highA - lowA > 30) {
             if (highA > ENCODER_MIN) highA--;
             if (lowA < ENCODER_MAX) lowA++;
@@ -137,6 +117,7 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
         }
     }
 
+    // --- 2. Track Bounds ---
     highA = MAX(encA, highA);
     lowA  = MIN(encA, lowA);
     highB = MAX(encB, highB);
@@ -145,15 +126,11 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
     // --- 3. Dynamic Thresholds & Decoding ---
     if (highA - lowA > SCROLL_THRESH_RANGE_LIM && highB - lowB > SCROLL_THRESH_RANGE_LIM) {
 
-        // 25% and 75% marks of the current window
+        // Correctly calculate the 25% and 75% marks of the *current* shifted window
         const int16_t lowThresholdA  = lowA + (highA - lowA) / 4;
         const int16_t highThresholdA = highA - (highA - lowA) / 4;
         const int16_t lowThresholdB  = lowB + (highB - lowB) / 4;
         const int16_t highThresholdB = highB - (highB - lowB) / 4;
-
-        //uprintf("A: %u [ %d - %d ] %u  |  B: %u [ %d - %d ] %u\n", 
-        //        lowA, lowThresholdA, highThresholdA, highA, 
-        //        lowB, lowThresholdB, highThresholdB, highB);
 
         uint8_t state = MAKE_STATE(STATE_A(lastState) ? encA > lowThresholdA : encA > highThresholdA, 
                                    STATE_B(lastState) ? encB > lowThresholdB : encB > highThresholdB);
@@ -177,11 +154,6 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
         }
 
         lastState = state;
-    }
-
-    // --- 4. Squelch Output ---
-    if (timer_elapsed(squelch_timer) < 150) {
-        return MOVE_NONE;
     }
 
     return result;
