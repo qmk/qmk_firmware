@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // |-----------+-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------+-----------|
         MACRO_A,    MS_LEFT,    MS_UP,      MS_DOWN,    MS_RGHT,    LSFT(KC_F3),DM_PLY2,        XXXXXXX,    XXXXXXX,    KC_RCTL,    KC_RSFT,    KC_RALT,    KC_RGUI,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------+-----------|   |-----------+-----------+-----------+-----------+-----------+-----------+-----------|
-        MACRO_C,    XXXXXXX,    XXXXXXX,    MS_BTN1,    MS_BTN2,    MS_BTN3,                                MS_BTN3,    MS_BTN1,    MS_BTN2,    XXXXXXX,    XXXXXXX,    XXXXXXX,
+        MACRO_C,    XXXXXXX,    XXXXXXX,    MS_BTN2,    MS_BTN1,    MS_BTN3,                                MS_BTN3,    MS_BTN2,    MS_BTN1,    XXXXXXX,    XXXXXXX,    XXXXXXX,
     // |-----------+-----------+-----------+-----------+-----------+-----------|                           |-----------+-----------+-----------+-----------+-----------+-----------|
                                             MS_ACL0,    MS_ACL1,    MS_ACL2,                                XXXXXXX,    XXXXXXX,    XXXXXXX
     //                                     |-----------+-----------+-----------|                           |-----------+-----------+-----------|
@@ -165,7 +165,7 @@ const key_override_t *key_overrides[] = {
 #endif // End KEY_OVERRIDE_ENABLE
 
 // This gets called for each key.
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {d
 
     // This is for the macros
     switch (keycode) {
@@ -216,13 +216,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case MACRO_3:
             if (record->event.pressed) {
-                SEND_STRING(SS_RGUI("r") SS_DELAY(500) "cmd.exe" SS_TAP(X_ENT) SS_DELAY(1000) "python.exe" SS_TAP(X_ENT));
+                SEND_STRING(TEMPLATE_STRING);
             }
             break;
 
         case MACRO_4:
             if (record->event.pressed) {
-                SEND_STRING(SS_RGUI("r") SS_DELAY(500) "cmd.exe" SS_TAP(X_ENT) SS_DELAY(1000) "jupyter notebook" SS_TAP(X_ENT));
+                SEND_STRING(CLOSURE_STRING);
             }
             break;
 
