@@ -18,6 +18,19 @@
     "features": {
         "mousekey": true,
         "extrakey": true,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_left_right": true,
+            "typing_heatmap": true
+        },
+        "driver": "custom",
+        "default": {
+            "animation": "typing_heatmap"
+        },
+        "sleep": true
     }
 }
