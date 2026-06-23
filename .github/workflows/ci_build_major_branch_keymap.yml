@@ -105,7 +105,7 @@ jobs:
 
       - name: Restore Cache
         id: cache
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           path: ${{ env.CCACHE_CONFIGPATH }}
           key: compile-${{ inputs.keymap }}-${{ matrix.target }}
@@ -136,7 +136,7 @@ jobs:
           fi
 
       - name: Save Cache
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: ${{ env.CCACHE_CONFIGPATH }}
           key: compile-${{ inputs.keymap }}-${{ matrix.target }}
