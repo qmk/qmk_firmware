@@ -213,6 +213,7 @@ def _render_eeconfig_declarations(modules):
 
     lines.append('bool eeconfig_is_modules_datablock_valid(void);')
     lines.append('void eeconfig_init_modules_datablock(void);')
+    lines.append('void eeconfig_prepare_modules_datablocks(void);')
     lines.append('')
 
     return lines
@@ -223,10 +224,10 @@ def _render_eeconfig_implementation(modules):
 
     lines.append('')
     lines.append('// nvm eeconfig')
-    lines.append('#if defined(NVM_DRIVER_EEPROM)'),
+    lines.append('#if defined(NVM_DRIVER_EEPROM)')
     lines.append('#    include "nvm_eeprom_eeconfig_internal.h"')
     lines.append('#    include "eeprom.h"')
-    lines.append('#endif // defined(NVM_DRIVER_EEPROM)'),
+    lines.append('#endif // defined(NVM_DRIVER_EEPROM)')
     lines.append('')
 
     for module_slug in _module_slugs(modules):
@@ -235,7 +236,7 @@ def _render_eeconfig_implementation(modules):
             f'bool eeconfig_is_{module_slug}_datablock_valid(void) {{ return nvm_eeconfig_is_{module_slug}_datablock_valid(); }}',
             f'uint32_t eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_read_{module_slug}_datablock(data, offset, length); }}',
             f'uint32_t eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_update_{module_slug}_datablock(data, offset, length); }}',
-            f'void eeconfig_init_{module_slug}_datablock(void) {{ nvm_eeconfig_init_{module_slug}_datablock(); }}',
+            f'__attribute__((weak)) void eeconfig_init_{module_slug}_datablock(void) {{ nvm_eeconfig_init_{module_slug}_datablock(); }}',
             '',
             '#    if defined(NVM_DRIVER_EEPROM)',
             f'bool nvm_eeconfig_is_{module_slug}_datablock_valid(void) {{',
@@ -289,11 +290,21 @@ def _render_eeconfig_implementation(modules):
     lines.append('}')
     lines.append('')
 
-    lines.append('void eeconfig_init_modules_datablock(void) {'),
+    lines.append('void eeconfig_init_modules_datablock(void) {')
     for module_slug in _module_slugs(modules):
         lines.extend([
             f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
             f'    eeconfig_init_{module_slug}_datablock();',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+        ])
+    lines.append('}')
+    lines.append('')
+
+    lines.append('void eeconfig_prepare_modules_datablocks(void) {')
+    for module_slug in _module_slugs(modules):
+        lines.extend([
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'    if (!eeconfig_is_{module_slug}_datablock_valid()) {{ eeconfig_init_{module_slug}_datablock(); }}',
             f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
         ])
     lines.append('}')

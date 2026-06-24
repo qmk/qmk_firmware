@@ -24,11 +24,14 @@ void eeconfig_update_my_config(my_config_t *value) {
 
 EECONFIG_DEBOUNCE_HELPER(my_config, config);
 
-void keyboard_post_init_nvm_test(void) {
-    if (!eeconfig_is_nvm_test_datablock_valid()) {
-        eeconfig_init_nvm_test_datablock();
-    }
+void eeconfig_init_nvm_test_datablock(void) {
+    my_config_t default_config = {
+        .data = 42,
+    };
+    eeconfig_update_nvm_test_datablock(&default_config, 0, sizeof(my_config_t));
+}
 
+void keyboard_post_init_nvm_test(void) {
     eeconfig_init_my_config();
 }
 
