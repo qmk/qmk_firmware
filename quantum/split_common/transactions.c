@@ -1052,6 +1052,19 @@ void slave_rpc_info_callback(uint8_t initiator2target_buffer_size, const void *i
     // Ignore the args -- the `split_shmem` already has the info, we just need to act upon it.
     // We must keep the `split_transaction_table` non-const, so that it is able to be modified at runtime.
 
+    // The serial link carries no payload CRC, so validate before applying:
+    // a corrupted length byte applied here would make the next PUT_RPC_REQ_DATA
+    // receive up to 255 bytes into the fixed-size rpc buffers inside
+    // split_shmem, corrupting slave memory. Checksum failures are also caught
+    // later in slave_rpc_exec_callback; dropping the update here just means
+    // the master's transaction fails and is retried.
+    if (crc8(&split_shmem->rpc_info.payload, sizeof(split_shmem->rpc_info.payload)) != split_shmem->rpc_info.checksum) {
+        return;
+    }
+    if (split_shmem->rpc_info.payload.m2s_length > RPC_M2S_BUFFER_SIZE || split_shmem->rpc_info.payload.s2m_length > RPC_S2M_BUFFER_SIZE) {
+        return;
+    }
+
     split_transaction_table[PUT_RPC_REQ_DATA].initiator2target_buffer_size  = split_shmem->rpc_info.payload.m2s_length;
     split_transaction_table[GET_RPC_RESP_DATA].target2initiator_buffer_size = split_shmem->rpc_info.payload.s2m_length;
 }
@@ -1064,7 +1077,9 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
         return;
     }
 
-    int8_t transaction_id = split_shmem->rpc_info.payload.transaction_id;
+    // Unsigned on purpose: a corrupted id with the MSB set would pass a
+    // signed upper-bound check and index the table at a negative offset.
+    uint8_t transaction_id = split_shmem->rpc_info.payload.transaction_id;
     if (transaction_id < NUM_TOTAL_TRANSACTIONS) {
         split_transaction_desc_t *trans = &split_transaction_table[transaction_id];
         if (trans->slave_callback) {
