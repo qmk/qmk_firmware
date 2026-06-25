@@ -602,18 +602,18 @@ const PROGMEM uchar shared_hid_report[] = {
 
 #ifdef EXTRAKEY_ENABLE
     // Extrakeys report descriptor
-    0x05, 0x01,             // Usage Page (Generic Desktop)
-    0x09, 0x80,             // Usage (System Control)
-    0xA1, 0x01,             // Collection (Application)
+    0x05, 0x01,                                       // Usage Page (Generic Desktop)
+    0x09, 0x80,                                       // Usage (System Control)
+    0xA1, 0x01,                                       // Collection (Application)
     0x85, REPORT_ID_SYSTEM,                           //   Report ID
     0x1A, HID_VALUE_16(SYSTEM_CONTROL_USAGE_MINIMUM), //   Usage Minimum
     0x2A, HID_VALUE_16(SYSTEM_CONTROL_USAGE_MAXIMUM), //   Usage Maximum
     0x16, HID_VALUE_16(SYSTEM_CONTROL_USAGE_MINIMUM), //   Logical Minimum
     0x26, HID_VALUE_16(SYSTEM_CONTROL_USAGE_MAXIMUM), //   Logical Maximum
-    0x95, 0x01,             //   Report Count (1)
-    0x75, 0x10,             //   Report Size (16)
-    0x81, 0x00,             //   Input (Data, Array, Absolute)
-    0xC0,                   // End Collection
+    0x95, 0x01,                                       //   Report Count (1)
+    0x75, 0x10,                                       //   Report Size (16)
+    0x81, 0x00,                                       //   Input (Data, Array, Absolute)
+    0xC0,                                             // End Collection
 
     0x05, 0x0C,               // Usage Page (Consumer)
     0x09, 0x01,               // Usage (Consumer Control)
