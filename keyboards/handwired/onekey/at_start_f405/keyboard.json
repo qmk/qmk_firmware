@@ -1,0 +1,14 @@
+{
+    "keyboard_name": "Onekey AT-START-F405",
+    "bootloader": "at32-dfu",
+    "matrix_pins": {
+        "cols": ["B3"],
+        "rows": ["B4"]
+    },
+    "processor": "AT32F405",
+    "usb": {
+        "shared_endpoint": {
+            "keyboard": true
+        }
+    }
+}
