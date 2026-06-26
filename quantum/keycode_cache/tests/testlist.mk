@@ -1,0 +1,2 @@
+TEST_LIST += \
+	keycode_cache \
