@@ -113,9 +113,6 @@ class BuildTarget:
             'builddefs/build_keyboard.mk',
         ]
 
-        if not cli.config.general.verbose:
-            compile_args.append('-s')
-
         verbose = 'true' if cli.config.general.verbose else 'false'
         color = 'true' if cli.config.general.color else 'false'
 

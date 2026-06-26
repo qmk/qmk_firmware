@@ -4,7 +4,7 @@
 # responsible for determining which folder is being used and doing the
 # corresponding environment setup.
 
-ifndef VERBOSE
+ifneq ($(VERBOSE),true)
 .SILENT:
 endif
 
