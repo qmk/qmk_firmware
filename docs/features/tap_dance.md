@@ -375,6 +375,10 @@ In this configuration "hold" takes place **after** tap dance timeout. To achieve
 
 Tap dance can be used to emulate `MT()` and `LT()` behavior when the tapped code is not a basic keycode. This is useful to send tapped keycodes that normally require `Shift`, such as parentheses or curly braces—or other modified keycodes, such as `Control + X`.
 
+::: tip
+For simply sending a non-basic keycode on tap while functioning as a modifier or layer switch on hold, a simpler (and often superior) alternative is to use a Mod-Tap or Layer-Tap key and intercept its tap function in `process_record_user()`. This avoids the complexity of Tap Dance, and allows the key to benefit from advanced Tap-Hold options. See [Intercepting Mod-Taps](../mod_tap#intercepting-mod-taps) for details.
+:::
+
 Below your layers and custom keycodes, add the following:
 
 ```c
