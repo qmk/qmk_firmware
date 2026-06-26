@@ -15,6 +15,32 @@
  */
 #include QMK_KEYBOARD_H
 
+// Name your Unicode characters
+enum unicode_names {
+    MAC_A, MAC_CAP_A,
+    MAC_E, MAC_CAP_E,
+    MAC_I, MAC_CAP_I,
+    MAC_O, MAC_CAP_O,
+    MAC_U, MAC_CAP_U,
+    MAC_Y, MAC_CAP_Y
+};
+
+// Map the names to their hex values
+const uint32_t PROGMEM unicode_map[] = {
+    [MAC_A]     = 0x0101, // ā
+    [MAC_CAP_A] = 0x0100, // Ā
+    [MAC_E]     = 0x0113, // ē
+    [MAC_CAP_E] = 0x0112, // Ē
+    [MAC_I]     = 0x012B, // ī
+    [MAC_CAP_I] = 0x012A, // Ī
+    [MAC_O]     = 0x014D, // ō
+    [MAC_CAP_O] = 0x014C, // Ō
+    [MAC_U]     = 0x016B, // ū
+    [MAC_CAP_U] = 0x016A, // Ū
+    [MAC_Y]     = 0x0233, // ȳ
+    [MAC_CAP_Y] = 0x0232  // Ȳ
+};
+
 enum layers {
     _COLEMAK_DH = 0,
     _QWERTY,
@@ -22,6 +48,7 @@ enum layers {
     _LOWER,
     _RAISE,
     _ADJUST,
+    _MACRON,
 };
 
 
@@ -34,6 +61,7 @@ enum layers {
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
 
+#define MACRON OSL(_MACRON)
 #define ALT_ENT  MT(MOD_LALT, KC_ENT)
 
 // Note: LAlt/Enter (ALT_ENT) is not the same thing as the keyboard shortcut Alt+Enter.
@@ -75,6 +103,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
       _______, _______, _______, _______, _______, _______,                                    _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                                    _______, COLEMAK, QWERTY , DVORAK , _______, _______,
+      _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                                 _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
+    ),
+    [_MACRON] = LAYOUT(
+      _______, _______, _______, _______, _______, _______,                                    _______, _______, UP(MAC_U, MAC_CAP_U), UP(MAC_Y, MAC_CAP_Y), _______, _______,
+      _______, UP(MAC_A, MAC_CAP_A), _______, _______, _______, _______,                                    _______, _______, UP(MAC_E, MAC_CAP_E), UP(MAC_I, MAC_CAP_I), UP(MAC_O, MAC_CAP_O), _______,
       _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
