@@ -1,24 +1,24 @@
 # SM Boards Macro2040
 
-![SM Boards Macro2040](https://raw.githubusercontent.com/sjb-dev/MacroPad/Macro2040_version_1/Macro2040.jpg)
+![SM Boards Macro2040](https://raw.githubusercontent.com/samuelmara/Macro2040_V1/main/images/macro2040.jpg)
 
 A 7-key macropad with a magnetic rotary encoder, RGB lighting and a small OLED display, powered by an RP2040.
 
 * Keyboard Maintainer: [sjb-dev](https://github.com/sjb-dev)
 * Hardware Supported: SM Boards Macro2040 PCB
-* Hardware Availability: [github.com/sjb-dev/MacroPad](https://github.com/sjb-dev/MacroPad)
+* Hardware Availability: [github.com/samuelmara/Macro2040_V1](https://github.com/samuelmara/Macro2040_V1)
 
 ## Features
 
 * **MCU**: Raspberry Pi RP2040 (dual-core ARM Cortex-M0+)
 * **Keys**: 6 hot-swap mechanical switches (SW3..SW8) plus a small tactile button (SW9)
 * **Encoder**: AS5600 magnetic rotary encoder (contactless, infinite rotation) on I2C0
-* **RGB Lighting**: 7 × WS2812B per-key/underglow LEDs on GP17 (via level shifter), 44 RGB Matrix animations enabled
+* **RGB Lighting**: 7 × WS2812B per-key/underglow LEDs on GP17 (via level shifter), 43 RGB Matrix animations enabled
 * **Switch indicator LEDs**: 6 blue LEDs embedded in the switches, driven by 2 NPN transistors (GP12 / GP13)
-* **User LED**: 1 blue LED (D6) on GP25 used as a "device alive" / layer-change blink indicator
-* **OLED**: SSD1306 0.91" 128 × 32 display on I2C1 (custom driver — see `oled_custom.c`)
+* **User LED**: 1 blue LED (D6) on GP25, lit as a "device alive" indicator
+* **OLED**: SSD1306 0.91" 128 × 32 display on I2C1 (QMK core OLED driver)
 * **Connectivity**: USB-C 2.0
-* **Firmware**: QMK with VIA support
+* **Firmware**: QMK
 
 ## Layout
 
@@ -47,7 +47,6 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-
 ## Bootloader
 
 Enter the bootloader in any of these ways:
@@ -58,14 +57,14 @@ Enter the bootloader in any of these ways:
 
 ## Architecture notes
 
-The board ships with several **keyboard-level** files (in `keyboards/sm_boards/macro2040/`) so every keymap gets a working knob, OLED and matrix for free:
+A small amount of keyboard-level glue in `macro2040.c` gives every keymap a working knob, OLED and indicator LEDs for free:
 
-* **`matrix.c`** — overrides QMK's default `matrix_read_cols_on_row()` with a copy that adds `wait_us(100)` between driving a row LOW and reading the columns. The RP2040 default `GPIO_INPUT_PIN_DELAY` is only ~250 ns, which is too short for row 3 (GP11) on this PCB to settle — without this override, SW9 is never detected.
-* **`macro2040.c`** — reads the AS5600 angle over I2C0 and synthesises A/B quadrature pulses on GP20 / GP21, which are physically wired back to the encoder input pins GP22 / GP23. QMK's standard encoder driver then sees them like any other encoder. The same file initialises the OLED and renders a basic *board + layer + last-key label* view; keymaps that define their own `housekeeping_task_user()` re-render on top.
-* **`oled_custom.c` / `.h`** — small SSD1306 driver on I2C1. We don't use QMK's built-in OLED feature because it would have to share `i2c_master`'s bus with the AS5600.
-* **`keycode_label.c` / `.h`** — shared "keycode → short readable label" helper used by the basic OLED renderer; keymaps can override `keycode_label_user()` (weak default) to label custom keycodes.
+* **AS5600 encoder** — the rotary control is a magnetic angle sensor, not a quadrature encoder. `macro2040.c` reads its angle over I2C0 using the ChibiOS I2C API and synthesises A/B quadrature pulses on GP20 / GP21, which are wired back to the encoder input pins GP22 / GP23, so QMK's standard encoder driver sees a normal encoder.
+* **OLED** — uses QMK's core SSD1306 driver on I2C1. `oled_task_kb()` draws a basic *board + layer + last-key* view; keymaps can override `oled_task_user()` to draw their own UI.
+* **Matrix timing** — `matrix_output_select_delay()` adds a 100 µs settle delay after selecting a row, because the RP2040 default (~250 ns) is too short for the row 3 (GP11) trace on this PCB; without it SW9 is never detected.
+* **Indicator LEDs** — the blue switch-LED columns (GP13 / GP12) and the D6 user LED (GP25) are switched on at the keyboard level.
 
 I²C bus assignments:
 
-* **I2C0** (GP4 / GP5) — owned by QMK's `i2c_master`; talks to the AS5600 magnetic encoder.
-* **I2C1** (GP18 / GP19) — owned by `oled_custom.c`; drives the SSD1306 OLED.
+* **I2C0** (GP4 / GP5) — AS5600 magnetic encoder, driven directly via the ChibiOS I2C API.
+* **I2C1** (GP18 / GP19) — SSD1306 OLED, via QMK's core OLED driver.
