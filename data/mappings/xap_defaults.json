@@ -1,0 +1,7 @@
+{
+    "secure": {
+        "unlock_sequence": [ [0,0] ],
+        "unlock_timeout": 5000,
+        "idle_timeout": 60000
+    }
+}

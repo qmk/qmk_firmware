@@ -1,0 +1,52 @@
+{%- macro gen_payload(name, type, purpose, members) -%}
+{%- if type == 'struct' -%}
+__{{ name }}:__
+{%- for member in members -%}
+<br>{{ "&nbsp;"|safe*4 }}* {{ member.name }}: `{{ member.type }}`
+{%- endfor -%}
+{%- elif purpose -%}
+__{{ name }}:__<br>{{ "&nbsp;"|safe*4 }}* {{ purpose }}: `{{ type }}`
+{%- elif type -%}
+__{{ name }}:__ `{{ type }}`
+{%- endif -%}
+{%- endmacro -%}
+
+{%- macro gen_payloads(route) -%}
+{{ gen_payload('Request', route.request_type, route.request_purpose, route.request_struct_members) }}{%- if route.return_type and route.request_type -%}<br><br>{% endif %}{{ gen_payload('Response', route.return_type, null, route.return_struct_members) }}
+{%- endmacro -%}
+
+{%- macro gen_tags(route) -%}
+{% if 'secure' == route.permissions %}__Secure__{% endif %}
+{%- endmacro -%}
+
+{% for id, route in xap.routes | dictsort %}
+### {{ route.name }} - `{{ id }}`
+{{ route.description }}
+
+{% if route.routes %}
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
+{% for subid, subroute in route.routes | dictsort %}
+{% if not subroute.routes %}
+| {{ subroute.name }} | `{{ id }} {{ subid }}` | {{ gen_tags(subroute) }} | {{ gen_payloads(subroute) }} | {{ subroute.description | newline_to_br }}|
+{% endif %}
+{% endfor %}
+
+{% for subid, subroute in route.routes | dictsort %}
+{%- if subroute.routes %}
+
+#### {{ subroute.name }} - `{{ id }} {{ subid }}`
+{{ subroute.description }}
+
+| Name | Route | Tags | Payloads | Description |
+| -- | -- | -- | -- | -- |
+{% for subsubid, subsubroute in subroute.routes | dictsort %}
+{% if not subsubroute.routes %}
+| {{ subsubroute.name }} | `{{ id }} {{ subid }} {{ subsubid }}` | {{ gen_tags(subsubroute) }} | {{ gen_payloads(subsubroute) }} | {{ subsubroute.description | newline_to_br }}|
+{% endif %}
+{% endfor %}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}

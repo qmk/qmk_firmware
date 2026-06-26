@@ -1,0 +1,4 @@
+{% for id, message in xap.broadcast_messages.messages | dictsort %}
+### {{ message.name }} - `{{ id }}`
+{{ message.description }}
+{% endfor %}
