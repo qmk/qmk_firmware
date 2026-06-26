@@ -125,7 +125,9 @@
                 "type": "object",
                 "additionalProperties": false,
                 "properties" : {
-                    "vendor": { "type": unsigned_int_8 }
+                    "vendor": {
+                        "type": unsigned_int_8
+                    }
                 },
                 "required": ["vendor"]
             }

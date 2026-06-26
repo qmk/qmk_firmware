@@ -299,7 +299,7 @@ void send_plover_hid(report_plover_hid_t *report) {
 }
 
 enum string_descriptor_index {
-    NO_STRING_DESCR = 0,
+    NO_STRING_DESCR           = 0,
     LANGID_STRING_DESCR_INDEX = 0,
     MANUFACTURER_STRING_DESCR_INDEX,
     PRODUCT_STRING_DESCR_INDEX,
@@ -308,8 +308,7 @@ enum string_descriptor_index {
 };
 
 #if defined(EXTENDED_ATTRIBUTES_ENABLE)
-static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = \
-    KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
+static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
 #endif
 /*------------------------------------------------------------------*
  * Request from host                                                *
@@ -321,10 +320,10 @@ static struct {
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     usbRequest_t *rq = (void *)data;
-    enum report_types: uchar {
-       INPUT = 1,
-       OUTPUT = 2,
-       FEATURE = 3,
+    enum report_types : uchar {
+        INPUT   = 1,
+        OUTPUT  = 2,
+        FEATURE = 3,
     };
 
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
@@ -333,17 +332,18 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                 dprint("GET_REPORT:");
                 if (rq->wIndex.word == KEYBOARD_INTERFACE) {
                     uchar report_type = rq->wValue.bytes[1];
-                    [[maybe_unused]] uchar report_id = rq->wValue.bytes[0];
+                    uchar report_id   = rq->wValue.bytes[0];
+                    (void)report_id;
 
-                    switch(report_type) {
+                    switch (report_type) {
                         case FEATURE:
 #if defined(EXTENDED_ATTRIBUTES_ENABLE)
-                        /* Sanity check, since length changes if OS requests w/o report_id.*/
-#   ifdef KEYBOARD_SHARED_EP
+                            /* Sanity check, since length changes if OS requests w/o report_id.*/
+#    ifdef KEYBOARD_SHARED_EP
                             if (report_id == REPORT_ID_KEYBOARD) {
-#   else
+#    else
                             if (report_id == REPORT_ID_ALL) {
-#   endif
+#    endif
                                 usbMsgPtr = (usbMsgPtr_t)&keyboard_extended_attributes;
                                 return sizeof(keyboard_extended_attributes);
                             }
@@ -359,7 +359,6 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
                             dprintf("(FEATURE) report of type (%#x) not handled", report_type);
                             break;
                     }
-
                 }
                 break;
             case USBRQ_HID_GET_IDLE:
@@ -455,6 +454,7 @@ const PROGMEM uchar shared_hid_report[] = {
 #else
 const PROGMEM uchar keyboard_hid_report[] = {
 #endif
+    // clang-format off
     0x05, 0x01, // Usage Page (Generic Desktop)
     0x09, 0x06, // Usage (Keyboard)
     0xA1, 0x01, // Collection (Application)
@@ -878,6 +878,7 @@ const PROGMEM uchar console_hid_report[] = {
     0xC0                       // End Collection
 };
 #endif
+// clang-format on
 
 #ifndef USB_MAX_POWER_CONSUMPTION
 #    define USB_MAX_POWER_CONSUMPTION 500

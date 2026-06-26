@@ -83,8 +83,8 @@ static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM
 #endif
 
 bool usb_get_report_input(USBDriver *driver, usb_control_request_t *request) {
-    int8_t interface = request->wIndex;
-    uint8_t report_id = request->wValue.lbyte;
+    int8_t                 interface = request->wIndex;
+    uint8_t                report_id = request->wValue.lbyte;
     static usb_fs_report_t report;
 
     if (!IS_VALID_INTERFACE(interface) || !IS_VALID_REPORT_ID(report_id)) {
@@ -115,18 +115,19 @@ bool usb_get_report_output(USBDriver *driver, usb_control_request_t *request) {
 }
 /* Handle get_Report(FEATURE) */
 bool usb_get_report_feature(USBDriver *driver, usb_control_request_t *request) {
-    int8_t interface = request->wIndex;
-    [[maybe_unused]] uint8_t report_id = request->wValue.lbyte;
+    int8_t  interface = request->wIndex;
+    uint8_t report_id = request->wValue.lbyte;
+    (void)report_id;
 
     switch (interface) {
         case KEYBOARD_INTERFACE:
 #if defined(EXTENDED_ATTRIBUTES_ENABLE)
             /* Sanity check, since length changes if OS requests w/o report_id.*/
-#   ifdef KEYBOARD_SHARED_EP
+#    ifdef KEYBOARD_SHARED_EP
             if (report_id == REPORT_ID_KEYBOARD) {
-#   else
+#    else
             if (report_id == REPORT_ID_ALL) {
-#   endif
+#    endif
                 uint8_t buf[sizeof(keyboard_extended_attributes)];
                 memcpy_P(&buf, &keyboard_extended_attributes, sizeof(buf));
                 usbSetupTransfer(driver, buf, sizeof(buf), NULL);
@@ -138,12 +139,12 @@ bool usb_get_report_feature(USBDriver *driver, usb_control_request_t *request) {
     return false;
 }
 bool usb_get_report_cb(USBDriver *driver) {
-    usb_control_request_t *request = (usb_control_request_t *)driver->setup;
-    uint8_t report_type = request->wValue.hbyte;
+    usb_control_request_t *request     = (usb_control_request_t *)driver->setup;
+    uint8_t                report_type = request->wValue.hbyte;
 
     enum report_type {
-        INPUT = 1,
-        OUTPUT = 2,
+        INPUT   = 1,
+        OUTPUT  = 2,
         FEATURE = 3,
     };
     /* delegate to appropriate function per report_type

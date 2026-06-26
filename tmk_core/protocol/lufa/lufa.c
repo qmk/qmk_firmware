@@ -409,9 +409,9 @@ void EVENT_USB_Device_ControlRequest(void) {
     uint8_t *ReportData = NULL;
     uint8_t  ReportSize = 0;
 
-    enum report_tpye: uint8_t {
-        INPUT = 1,
-        OUTPUT = 2,
+    enum report_tpye : uint8_t {
+        INPUT   = 1,
+        OUTPUT  = 2,
         FEATURE = 3,
     };
 
@@ -425,17 +425,18 @@ void EVENT_USB_Device_ControlRequest(void) {
                 switch (USB_ControlRequest.wIndex) {
                     case KEYBOARD_INTERFACE:
                         uint8_t report_type = USB_ControlRequest.wValue >> 8;
-                        [[maybe_unused]] uint8_t report_id = USB_ControlRequest.wValue & 0xff;
+                        uint8_t report_id   = USB_ControlRequest.wValue & 0xff;
+                        (void)report_id;
                         switch (report_type) {
                             // Get_Report(FEATURE)
                             case FEATURE:
 #if defined(EXTENDED_ATTRIBUTES_ENABLE)
                                 /* Sanity check, since length changes if OS requests w/o report_id.*/
-#   ifdef KEYBOARD_SHARED_EP
+#    ifdef KEYBOARD_SHARED_EP
                                 if (report_id == REPORT_ID_KEYBOARD) {
-#   else
+#    else
                                 if (report_id == REPORT_ID_ALL) {
-#   endif
+#    endif
                                     ReportData = (uint8_t *)&keyboard_extended_attributes;
                                     ReportSize = sizeof(keyboard_extended_attributes);
                                 }
