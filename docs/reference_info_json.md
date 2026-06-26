@@ -211,7 +211,7 @@ Configures the [Wireless](features/wireless) feature.
 
 * `bluetooth`
     * `driver` <Badge type="info">String</Badge>
-        * The driver to use. Must be one of `custom`, `bluefruit_le`, `rn42`.
+        * The driver to use. Must be one of `custom`, `bluefruit_le`, `fr800x`, `rn42`.
 
 ## Bootmagic {#bootmagic}
 
