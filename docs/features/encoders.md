@@ -1,5 +1,25 @@
 # Encoders
 
+:::::tabs
+
+==== JSON
+
+Basic (EC11 compatible) encoders are supported by adding this to your keyboard's json config:
+
+```json
+    "features": {
+        "encoder": true
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B5", "pin_b": "B6"},
+            {"pin_a": "B7", "pin_b": "B8", "resolution": 2}
+        ]
+    }
+```
+
+==== Legacy
+
 Basic (EC11 compatible) encoders are supported by adding this to your `rules.mk`:
 
 ```make
@@ -20,11 +40,6 @@ Each PAD_A/B variable defines an array so multiple encoders can be defined, e.g.
 #define ENCODER_B_PINS { encoder1b, encoder2b }
 ```
 
-If your encoder's clockwise directions are incorrect, you can swap the A & B pad definitions.  They can also be flipped with a define:
-
-```c
-#define ENCODER_DIRECTION_FLIP
-```
 
 Additionally, the resolution, which defines how many pulses the encoder registers between each detent, can be defined with:
 
@@ -38,6 +53,14 @@ It can also be defined per-encoder, by instead defining:
 #define ENCODER_RESOLUTIONS { 4, 2 }
 ```
 
+:::::
+
+If your encoder's clockwise directions are incorrect, you can swap the A & B pad definitions.  They can also be flipped with a define:
+
+```c
+#define ENCODER_DIRECTION_FLIP
+```
+
 For 4× encoders you also can assign default position if encoder skips pulses when it changes direction. For example, if your encoder send high level on both pins by default, define this:
 
 ```c
@@ -45,6 +68,50 @@ For 4× encoders you also can assign default position if encoder skips pulses wh
 ```
 
 ## Split Keyboards
+
+:::::tabs
+
+==== JSON
+
+If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout (and optionally, resolutions) for the right half like this:
+
+```json
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B4", "pin_b": "B3"}
+        ]
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "D4", "pin_b": "D2", "resolution": 2}
+                ]
+            }
+        }
+    }
+```
+
+If the `"right"` definitions are not specified, then the non-right version will be applied to both sides of the split.
+
+Additionally, if one side does not have an encoder, you can specify no encoder for the pins/resolution -- for example, a split keyboard with only a right-side encoder:
+
+```json
+    "encoder": {
+        "rotary": []
+    },
+    "split": {
+        "encoder": {
+            "right": {
+                "rotary": [
+                    {"pin_a": "D4", "pin_b": "D2", "resolution": 2}
+                ]
+            }
+        }
+    }
+```
+
+==== Legacy
 
 If you are using different pinouts for the encoders on each half of a split keyboard, you can define the pinout (and optionally, resolutions) for the right half like this:
 
@@ -66,6 +133,7 @@ Additionally, if one side does not have an encoder, you can specify `{}` for the
 #define ENCODER_B_PINS_RIGHT { B13 }
 #define ENCODER_RESOLUTIONS_RIGHT { 4 }
 ```
+:::::
 
 ::: warning
 Keep in mind that whenever you change the encoder resolution, you will need to reflash the half that has the encoder affected by the change.
@@ -73,11 +141,26 @@ Keep in mind that whenever you change the encoder resolution, you will need to r
 
 ## Encoder map {#encoder-map}
 
-Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's `rules.mk`:
+Encoder mapping may be added to your `keymap.c`, which replicates the normal keyswitch layer handling functionality, but with encoders. Add this to your keymap's config:
+
+:::::tabs
+
+==== keymap.json
+
+```json
+    "config": {
+        "features": {
+            "encoder_map": true
+        }
+    }
+```
+
+==== rules.mk
 
 ```make
 ENCODER_MAP_ENABLE = yes
 ```
+:::::
 
 Your `keymap.c` will then need an encoder mapping defined (for four layers and two encoders):
 
@@ -103,7 +186,7 @@ Using encoder mapping pumps events through the normal QMK keycode processing pip
 ```
 
 ::: tip
-By default, the encoder map delay matches the value of `TAP_CODE_DELAY`.
+By default, the encoder map delay matches the value of `qmk.tap_keycode_delay` (or `TAP_CODE_DELAY`).
 :::
 
 ## Callbacks
@@ -172,15 +255,47 @@ Multiple encoders may share pins so long as each encoder has a distinct pair of 
 - pads must be high at the detent stability point which is called 'default position' in QMK
 - no more than two encoders sharing a pin can be turned at the same time
 
-For example you can support two encoders using only 3 pins like this
+For example you can support two encoders using only 3 pins like this:
+:::::tabs
+==== JSON
+
+```json
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B2"},
+            {"pin_a": "B1", "pin_b": "B3"}
+        ]
+    }
 ```
+
+==== Legacy
+
+```c
 #define ENCODER_A_PINS { B1, B1 }
 #define ENCODER_B_PINS { B2, B3 }
 ```
+:::::
+
 
 You could even support three encoders using only three pins (one per encoder) however in this configuration, rotating two encoders which share pins simultaneously will often generate incorrect output. For example:
+:::::tabs
+
+==== JSON
+```json
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B1", "pin_b": "B2"},
+            {"pin_a": "B1", "pin_b": "B3"},
+            {"pin_a": "B2", "pin_b": "B3"}
+        ]
+    }
 ```
+
+==== Legacy
+
+```c
 #define ENCODER_A_PINS { B1, B1, B2 }
 #define ENCODER_B_PINS { B2, B3, B3 }
 ```
+:::::
 Here rotating Encoder 0 `B1 B2` and Encoder 1 `B1 B3` could be interpreted as rotating Encoder 2 `B2 B3` or `B3 B2` depending on the timing. This may still be a useful configuration depending on your use case
