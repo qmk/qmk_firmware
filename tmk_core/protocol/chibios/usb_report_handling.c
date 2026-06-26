@@ -77,30 +77,10 @@ void usb_shared_reset_report(usb_fs_report_t **reports) {
         reports[i]->last_report = 0;
     }
 }
-/*
- * Keyboard Extended Attribute support
- */
-#if defined(PRIMARY_KEYCAP_LOCALE)
-static const struct {
-    uint8_t report_id;
-    uint8_t form_factor;
-    uint8_t key_type;
-    uint8_t physical_layout;
-    uint8_t vendor_physical_layout;
-    uint8_t ietf_language_tag_index;
-    uint8_t implemented_assist_controls;
-} keyboard_extended_attributes_report PROGMEM = {
-#   ifdef KEYBOARD_SHARED_EP
-    .report_id = REPORT_ID_KEYBOARD,
-#   endif
-    .form_factor = 0, //Unkown
-    .key_type = 0, //Unkown
-    .physical_layout = 0, //Unkown
-    .vendor_physical_layout = 0, // Not a vendor specific layout
-    .ietf_language_tag_index = PRIMARY_LOCALE_STRING_DESCR_INDEX, // None
-    .implemented_assist_controls = 0,
-};
-#endif /* defined(PRIMARY_KEYCAP_LOCALE) */
+
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
+#endif
 
 bool usb_get_report_input(USBDriver *driver, usb_control_request_t *request) {
     int8_t interface = request->wIndex;
@@ -136,23 +116,23 @@ bool usb_get_report_output(USBDriver *driver, usb_control_request_t *request) {
 /* Handle get_Report(FEATURE) */
 bool usb_get_report_feature(USBDriver *driver, usb_control_request_t *request) {
     int8_t interface = request->wIndex;
-    uint8_t report_id = request->wValue.lbyte;
+    [[maybe_unused]] uint8_t report_id = request->wValue.lbyte;
 
     switch (interface) {
         case KEYBOARD_INTERFACE:
-#if defined(PRIMARY_KEYCAP_LOCALE)
-            /* Only respond if report_id is what we expect.*/
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+            /* Sanity check, since length changes if OS requests w/o report_id.*/
 #   ifdef KEYBOARD_SHARED_EP
             if (report_id == REPORT_ID_KEYBOARD) {
 #   else
             if (report_id == REPORT_ID_ALL) {
 #   endif
-                uint8_t buf[sizeof(keyboard_extended_attributes_report)];
-                memcpy_P(&buf, &keyboard_extended_attributes_report, sizeof(buf));
+                uint8_t buf[sizeof(keyboard_extended_attributes)];
+                memcpy_P(&buf, &keyboard_extended_attributes, sizeof(buf));
                 usbSetupTransfer(driver, buf, sizeof(buf), NULL);
                 return true;
             }
-#endif /* defined(PRIMARY_KEYCAP_LOCALE) */
+#endif /* defined(EXTENDED_ATTRIBUTES_ENABLE) */
             break;
     }
     return false;

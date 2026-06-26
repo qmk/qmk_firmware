@@ -246,6 +246,14 @@
     "WS2812_I2C_TIMEOUT": {"info_key": "ws2812.i2c_timeout", "value_type": "int"},
     "WS2812_RGBW": {"info_key": "ws2812.rgbw", "value_type": "flag"},
 
+    // Extended Keyboard Attributes (see Hutrr42 revision c)
+    "EXTENDED_ATTRIBUTES_ENABLE": { "info_key" : "extended_attributes.enabled", "value_type": "flag" },
+    "KEYBOARD_EXT_ATTR_FORM_FACTOR": { "info_key" : "extended_attributes.form_factor", "value_type": "raw" },
+    "KEYBOARD_EXT_ATTR_KEY_TYPE": { "info_key" : "extended_attributes.key_travel", "value_type": "raw" },
+    "KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT": { "info_key" : "extended_attributes.layout.standard", "value_type": "raw" },
+    "KEYBOARD_EXT_ATTR_VENDOR_LAYOUT": { "info_key" : "extended_attributes.layout.vendor", "value_type": "hex" },
+    "KEYBOARD_EXT_ATTR_IETF_LANGUAGE_TAG": { "info_key" : "extended_attributes.locale", "value_type": "str" },
+
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
 
     // Items we want flagged in lint

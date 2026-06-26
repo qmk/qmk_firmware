@@ -113,7 +113,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x03),
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
-#if defined(PRIMARY_KEYCAP_LOCALE)
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
         // Extended Attributes (15.18 Descriptive Controls)
         HID_RI_USAGE_PAGE(8, 0xC0),   // Consumer Devices
         HID_RI_USAGE(16, 0x2C0),      // Extended Keyboard Attributes
@@ -1210,13 +1210,13 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
     .UnicodeString              = USBSTR(PRODUCT)
 };
 
-#if defined(PRIMARY_KEYCAP_LOCALE)
+#if defined(KEYBOARD_PRIMARY_LOCALE)
 const USB_Descriptor_String_t PROGMEM PrimaryLocaleString = {
     .Header = {
-        .Size                   = USB_DESCRIPTOR_SIZE_LITERAL_U16STRING(USBSTR(PRIMARY_KEYCAP_LOCALE)),
+        .Size                   = USB_DESCRIPTOR_SIZE_LITERAL_U16STRING(USBSTR(KEYBOARD_PRIMARY_LOCALE)),
         .Type                   = DTYPE_String
     },
-    .UnicodeString              = USBSTR(PRIMARY_KEYCAP_LOCALE)
+    .UnicodeString              = USBSTR(KEYBOARD_PRIMARY_LOCALE)
 };
 #endif
 
@@ -1330,7 +1330,7 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 #    endif
                     break;
 #endif // HAS_SERIAL_NUMBER
-#if defined(PRIMARY_KEYCAP_LOCALE)
+#if defined(KEYBOARD_PRIMARY_LOCALE)
                 case PRIMARY_LOCALE_STRING_DESCR_INDEX:
                     Address = &PrimaryLocaleString;
                     Size    = pgm_read_byte(&PrimaryLocaleString.Header.Size);

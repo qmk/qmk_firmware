@@ -71,28 +71,9 @@
 
 static report_keyboard_t keyboard_report_sent;
 
-#if defined(PRIMARY_KEYCAP_LOCALE)
-static const struct {
-#   ifdef KEYBOARD_SHARED_EP
-    uint8_t report_id;
-#   endif
-    uint8_t form_factor;
-    uint8_t key_type;
-    uint8_t physical_layout;
-    uint8_t vendor_physical_layout;
-    uint8_t ietf_language_tag_index;
-    uint8_t implemented_assist_controls;
-}__attribute__((packed)) keyboard_extended_attributes_report = {
-#   ifdef KEYBOARD_SHARED_EP
-    .report_id = REPORT_ID_KEYBOARD,
-#   endif
-    .form_factor = 0, //Unkown
-    .key_type = 0, //Unkown
-    .physical_layout = 0, //Unkown
-    .vendor_physical_layout = 0, // Not a vendor specific layout
-    .ietf_language_tag_index = PRIMARY_LOCALE_STRING_DESCR_INDEX, // None
-    .implemented_assist_controls = 0,
-};
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+// TODO: put in PROGMEM?
+static const keyboard_extended_attributes_t keyboard_extended_attributes = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
 #endif
 
 /* Host driver */
@@ -448,24 +429,23 @@ void EVENT_USB_Device_ControlRequest(void) {
                         switch (report_type) {
                             // Get_Report(FEATURE)
                             case FEATURE:
-#if defined(PRIMARY_KEYCAP_LOCALE)
-                                /* Only respond if report_id is what we expect.*/
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+                                /* Sanity check, since length changes if OS requests w/o report_id.*/
 #   ifdef KEYBOARD_SHARED_EP
                                 if (report_id == REPORT_ID_KEYBOARD) {
 #   else
                                 if (report_id == REPORT_ID_ALL) {
 #   endif
-                                    ReportData = (uint8_t *)&keyboard_extended_attributes_report;
-                                    ReportSize = sizeof(keyboard_extended_attributes_report);
+                                    ReportData = (uint8_t *)&keyboard_extended_attributes;
+                                    ReportSize = sizeof(keyboard_extended_attributes);
                                 }
-#endif
+#endif /* defined(EXTENDED_ATTRIBUTES_ENABLE) */
                                 break;
                             case INPUT:
                                 // TODO: test/check
                                 ReportData = (uint8_t *)&keyboard_report_sent;
                                 ReportSize = sizeof(keyboard_report_sent);
                                 break;
-                            /* TODO unsupported, return 0 or nothing? */
                             case OUTPUT:
                             default:
                                 dprintf("Unsupported report type {%#x}", report_type);

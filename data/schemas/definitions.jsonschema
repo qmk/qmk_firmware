@@ -98,6 +98,39 @@
         "type": "object",
         "additionalProperties": {"type": "string"}
     },
+    "hutrr42_locale" : {
+        "type": "string",
+        "pattern": "^\\w+(-\\w+)+$"
+    },
+    "hutrr42_layout": {
+        "oneOf" : [
+            {
+                "type": "object",
+                "additionalProperties": false,
+                "properties" : {
+                    "standard": {
+                        "type": "string",
+                        "enum": [
+                            "ANSI",
+                            "KS",
+                            "ISO",
+                            "ABNT",
+                            "JIS",
+                        ]
+                    },
+                },
+                "required": ["standard"]
+            },
+            {
+                "type": "object",
+                "additionalProperties": false,
+                "properties" : {
+                    "vendor": { "type": unsigned_int_8 }
+                },
+                "required": ["vendor"]
+            }
+        ]
+    },
     "layout_macro": {
         "oneOf": [
             {

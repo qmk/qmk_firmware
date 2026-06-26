@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "usb_descriptor_common.h"
 #include "usb_device_state.h"
+#include "../extended_attributes.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -306,29 +307,9 @@ enum string_descriptor_index {
     PRIMARY_LOCALE_STRING_DESCR_INDEX,
 };
 
-/*
- * Keyboard Extended Attribute support
- */
-#if defined(PRIMARY_KEYCAP_LOCALE)
-static const struct {
-    uint8_t report_id;
-    uint8_t form_factor;
-    uint8_t key_type;
-    uint8_t physical_layout;
-    uint8_t vendor_physical_layout;
-    uint8_t ietf_language_tag_index;
-    uint8_t implemented_assist_controls;
-} keyboard_extended_attributes_report PROGMEM = {
-#   ifdef KEYBOARD_SHARED_EP
-    .report_id = REPORT_ID_KEYBOARD,
-#   endif
-    .form_factor = 0, //Unkown
-    .key_type = 0, //Unkown
-    .physical_layout = 0, //Unkown
-    .vendor_physical_layout = 0, // Not a vendor specific layout
-    .ietf_language_tag_index = PRIMARY_LOCALE_STRING_DESCR_INDEX, // None
-    .implemented_assist_controls = 0,
-};
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = \
+    KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
 #endif
 /*------------------------------------------------------------------*
  * Request from host                                                *
@@ -356,17 +337,17 @@ usbMsgLen_t usbFunctionSetup(uchar data[8]) {
 
                     switch(report_type) {
                         case FEATURE:
-#if defined(PRIMARY_KEYCAP_LOCALE)
-                            /* Only respond if report_id is what we expect.*/
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+                        /* Sanity check, since length changes if OS requests w/o report_id.*/
 #   ifdef KEYBOARD_SHARED_EP
                             if (report_id == REPORT_ID_KEYBOARD) {
 #   else
                             if (report_id == REPORT_ID_ALL) {
 #   endif
-                                usbMsgPtr = (usbMsgPtr_t)&keyboard_extended_attributes_report;
-                                return sizeof(keyboard_extended_attributes_report);
+                                usbMsgPtr = (usbMsgPtr_t)&keyboard_extended_attributes;
+                                return sizeof(keyboard_extended_attributes);
                             }
-#endif /* defined(PRIMARY_KEYCAP_LOCALE) */
+#endif /* defined(EXTENDED_KEYBOARD_ATTRIBUTES) */
                             break;
 
                         case OUTPUT:
@@ -516,7 +497,7 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x75, 0x03, //   Report Size (3)
     0x91, 0x03, //   Output (Constant)
     0xC0,       // End Collection
-#if defined(PRIMARY_KEYCAP_LOCALE)
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
     // Extended Attributes (15.18 Descriptive Controls)
     0x05, 0x0C,       // Usage Page(Consumer Devices)
     0x0A, 0xC0, 0x02, // Usage (Extended Keyboard Attributes)
@@ -941,13 +922,13 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
 };
 #endif
 
-#if defined(PRIMARY_KEYCAP_LOCALE)
+#if defined(KEYBOARD_PRIMARY_LOCALE)
 const PROGMEM usbStringDescriptor_t usbStringDescriptorPrimaryLocale = {
     .header = {
-        .bLength         = sizeof(USBSTR(PRIMARY_KEYCAP_LOCALE)),
+        .bLength         = sizeof(USBSTR(KEYBOARD_PRIMARY_LOCALE)),
         .bDescriptorType = USBDESCR_STRING
     },
-    .bString             = USBSTR(PRIMARY_KEYCAP_LOCALE)
+    .bString             = USBSTR(KEYBOARD_PRIMARY_LOCALE)
 };
 #endif
 
@@ -1247,7 +1228,7 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
                     len       = usbStringDescriptorSerial.header.bLength;
                     break;
 #endif
-#if defined(PRIMARY_KEYCAP_LOCALE)
+#if defined(KEYBOARD_PRIMARY_LOCALE)
                 case PRIMARY_LOCALE_STRING_DESCR_INDEX:
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorPrimaryLocale;
                     len       = usbStringDescriptorPrimaryLocale.header.bLength;

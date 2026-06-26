@@ -44,6 +44,7 @@
 #pragma once
 
 #include <LUFA/Drivers/USB/USB.h>
+#include "extended_attributes.h"
 
 #ifdef PROTOCOL_CHIBIOS
 #    include <hal.h>
