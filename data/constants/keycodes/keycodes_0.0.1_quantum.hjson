@@ -90,7 +90,7 @@
         "0x7C16": {
             "group": "quantum",
             "key": "QK_GRAVE_ESCAPE",
-            "label": "Grave Esc",
+            "label": "~⎋",
             "aliases": [
                 "QK_GESC"
             ]
