@@ -18,8 +18,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-The user can enter bootloader mode for the keyboard by holding down `Esc` when the keyboard is unplugged and plugging in the keyboard while this key is held down.
-
-## About this version
-
-This version is based on the version found in Glorious's own repository on [Gitlab](https://gitlab.com/glorious-public/qmk_firmware/-/tree/gmmk3_p75_ansi_iso_wired/keyboards/gmmk), with changes to make it compatible with the latest QMK version and to add missing features (such as changing RGB zone, which is present in Glorious's proprietary firmware and not the QMK version). See the README file of the keymaps for the key bindings for these features.
+Enter the bootloader in 2 ways:
+* **Bootmagic reset**: Hold down the key the top left key (usually programmed as `Esc`) and plug in the keyboard
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

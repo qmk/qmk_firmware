@@ -1,4 +1,13 @@
 {
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true,
+        "dip_switch": true,
+        "encoder": true
+    },
     "qmk": {
         "locking": {
             "enabled": true,

@@ -18,7 +18,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-#define __ NO_LED
 
 /* Refer to AW20216S manual for these locations
  *   driver
