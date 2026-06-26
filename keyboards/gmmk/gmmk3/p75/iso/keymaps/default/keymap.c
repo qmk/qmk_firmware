@@ -88,6 +88,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(DIP_SWITCH_MAP_ENABLE)
 const uint16_t PROGMEM dip_switch_map[NUM_DIP_SWITCHES][NUM_DIP_STATES] = {
-    DIP_SWITCH_OFF_ON(DF(WIN_BL), DF(MACOS_BL))
+    DIP_SWITCH_OFF_ON(DF(MACOS_BL), DF(WIN_BL))
 };
 #endif
