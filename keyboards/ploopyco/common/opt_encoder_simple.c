@@ -1,6 +1,7 @@
 /* Copyright 2020 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
  * Copyright 2020 Ploopy Corporation
  * Copyright 2022 Leorize <leorize+oss@disroot.org>
+ * Copyright 2026 Trougnouf (Benoit Brummer) <trougnouf@disroot.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +18,7 @@
  */
 #include "opt_encoder.h"
 #include "util.h"
+#include "timer.h"
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -32,8 +34,8 @@
  *
  * Currently, the thresholds are:
  *
- * * High threshold: The upper quarter of the voltage range.
- * * Low threshold: The lower quarter of the voltage range.
+ * * High threshold: The upper third of the voltage range.
+ * * Low threshold: The lower third of the voltage range.
  *
  * these thresholds are defined for each phototransistor.
  *
@@ -67,9 +69,7 @@ typedef enum {
 } encoder_state_t;
 
 static encoder_state_t mode;
-
 static uint8_t lastState;
-
 static uint16_t lowA;
 static uint16_t highA;
 static uint16_t lowB;
@@ -92,7 +92,6 @@ static const uint8_t movement[] = {
 void opt_encoder_init(void) {
     mode      = CALIBRATION;
     lastState = 0;
-
     lowA  = ENCODER_MAX;
     lowB  = ENCODER_MAX;
     highA = ENCODER_MIN;
@@ -102,19 +101,46 @@ void opt_encoder_init(void) {
 int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
     int8_t result = 0;
 
+    // --- 1. Idle Jitter Decay ---
+    // Decay the bounds over time to automatically recover from noise spikes
+    static uint16_t decay_timer = 0;
+    if (timer_elapsed(decay_timer) > 10) {
+        decay_timer = timer_read();
+
+        // Shrink bounds to a 30-unit window to safely bridge weak wheel rotations
+        // Decay is proportional to the range, allowing it to instantly catch up to fast-flick attenuation
+        if (highA - lowA > 30) {
+            uint16_t decayA = 1 + ((highA - lowA) >> 5);
+            highA = (highA > decayA) ? highA - decayA : ENCODER_MIN;
+            lowA  = (lowA + decayA < ENCODER_MAX) ? lowA + decayA : ENCODER_MAX;
+        }
+        if (highB - lowB > 30) {
+            uint16_t decayB = 1 + ((highB - lowB) >> 5);
+            highB = (highB > decayB) ? highB - decayB : ENCODER_MIN;
+            lowB  = (lowB + decayB < ENCODER_MAX) ? lowB + decayB : ENCODER_MAX;
+        }
+    }
+
+    // --- 2. Track Bounds ---
     highA = MAX(encA, highA);
     lowA  = MIN(encA, lowA);
     highB = MAX(encB, highB);
     lowB  = MIN(encB, lowB);
 
-    /* Only compute the thresholds after a large enough range is established */
+    // --- 3. Dynamic Thresholds & Decoding ---
     if (highA - lowA > SCROLL_THRESH_RANGE_LIM && highB - lowB > SCROLL_THRESH_RANGE_LIM) {
-        const int16_t lowThresholdA  = (highA + lowA) / 4;
-        const int16_t highThresholdA = (highA + lowA) - lowThresholdA;
-        const int16_t lowThresholdB  = (highB + lowB) / 4;
-        const int16_t highThresholdB = (highB + lowB) - lowThresholdB;
 
-        uint8_t state = MAKE_STATE(STATE_A(lastState) ? encA > lowThresholdA : encA > highThresholdA, STATE_B(lastState) ? encB > lowThresholdB : encB > highThresholdB);
+        // Calculate the 33% and 66% marks of the window. 
+        // This safely accommodates amplitude collapse during high-speed flicks.
+        const int16_t rangeA = highA - lowA;
+        const int16_t rangeB = highB - lowB;
+        const int16_t lowThresholdA  = lowA + rangeA / 3;
+        const int16_t highThresholdA = highA - rangeA / 3;
+        const int16_t lowThresholdB  = lowB + rangeB / 3;
+        const int16_t highThresholdB = highB - rangeB / 3;
+
+        uint8_t state = MAKE_STATE(STATE_A(lastState) ? encA > lowThresholdA : encA > highThresholdA, 
+                                   STATE_B(lastState) ? encB > lowThresholdB : encB > highThresholdB);
 
         switch (mode) {
             case CALIBRATION:
@@ -131,7 +157,6 @@ int8_t opt_encoder_handler(uint16_t encA, uint16_t encB) {
                  * recalibrate the encoder position. */
                 mode   = result == MOVE_ERR ? CALIBRATION : mode;
                 result = result == MOVE_ERR ? MOVE_NONE : result;
-
                 break;
         }
 
