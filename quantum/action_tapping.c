@@ -182,6 +182,9 @@ void action_tapping_process(keyrecord_t record) {
         ac_dprintf("---- action_exec: process waiting_buffer -----\n");
     }
     for (; waiting_buffer_tail != waiting_buffer_head; waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE) {
+        if (waiting_buffer[waiting_buffer_tail].event.pressed) {
+            clear_weak_mods();
+        }
         if (process_tapping(&waiting_buffer[waiting_buffer_tail])) {
             ac_dprintf("processed: waiting_buffer[%u] =", waiting_buffer_tail);
             debug_record(waiting_buffer[waiting_buffer_tail]);
@@ -330,6 +333,7 @@ bool process_tapping(keyrecord_t *keyp) {
                         if (!record->event.pressed) {
                             break;
                         }
+                        clear_weak_mods();
                         const int16_t next_time = record->event.time;
                         if (!is_tap_record(record)) {
                             process_record(record);
@@ -731,6 +735,9 @@ void waiting_buffer_scan_tap(void) {
             // clang-format on
             tapping_key.tap.count = 1;
             candidate->tap.count  = 1;
+            if (tapping_key.event.pressed) {
+                clear_weak_mods();
+            }
             process_record(&tapping_key);
 
             ac_dprintf("waiting_buffer_scan_tap: found at [%u]\n", i);
@@ -976,9 +983,12 @@ static void waiting_buffer_chordal_hold_taps_until(keypos_t key) {
     while (waiting_buffer_tail != waiting_buffer_head) {
         keyrecord_t *record = &waiting_buffer[waiting_buffer_tail];
         ac_dprintf("waiting_buffer_chordal_hold_taps_until: processing [%u]\n", waiting_buffer_tail);
-        if (record->event.pressed && is_tap_record(record)) {
-            record->tap.count = 1;
-            registered_taps_add(record->event.key);
+        if (record->event.pressed) {
+            if (is_tap_record(record)) {
+                record->tap.count = 1;
+                registered_taps_add(record->event.key);
+            }
+            clear_weak_mods();
         }
         process_record(record);
         waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
@@ -995,6 +1005,9 @@ static void waiting_buffer_process_regular(void) {
             break; // Stop once a tap-hold key event is reached.
         }
         ac_dprintf("waiting_buffer_process_regular: processing [%u]\n", waiting_buffer_tail);
+        if (waiting_buffer[waiting_buffer_tail].event.pressed) {
+            clear_weak_mods();
+        }
         process_record(&waiting_buffer[waiting_buffer_tail]);
     }
     debug_waiting_buffer();
