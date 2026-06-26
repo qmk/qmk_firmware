@@ -10,7 +10,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make ploopyco/trackball_thumb/rev1_001:default:flash
 
-To jump to the bootloader, hold down "Button 4" (button closest to the USB port).
+To jump to the bootloader, hold down the middle click while plugging in the trackball.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
