@@ -1,5 +1,6 @@
 /*
 Copyright 2011 Jun Wako <wakojun@gmail.com>
+Copyright 2025 Noah Patel <ImNoahDev@imnoah.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Ported to QMK by Peter Roe <pete@13bit.me>
+RP2040 platform support by Noah Patel <ImNoahDev@imnoah.com>
 */
 
 #pragma once
@@ -23,9 +25,11 @@ Ported to QMK by Peter Roe <pete@13bit.me>
 #define MATRIX_ROWS 16  // keycode bit: 3-0
 #define MATRIX_COLS 8   // keycode bit: 6-4
 
-/* ADB port setting */
+/* ADB port setting - AVR only (RP2040 uses ADB_DATA_PIN in variant config.h) */
+#if !defined(ADB_DATA_PIN)
 #define ADB_PORT        PORTD
 #define ADB_PIN         PIND
 #define ADB_DDR         DDRD
 #define ADB_DATA_BIT    0
 //#define ADB_PSW_BIT     1       // optional
+#endif
