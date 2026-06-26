@@ -140,8 +140,6 @@ const aw20216s_led_t PROGMEM g_aw20216s_leds[AW20216S_LED_COUNT] = {
 };
 #endif // RGB_MATRIX_ENABLE
 
-#ifdef EEPROM_ENABLE
-
 #include "spi_master.h"
 
 void spi_init(void) {
@@ -161,5 +159,3 @@ void spi_init(void) {
         palSetPadMode(PAL_PORT(SPI_MISO_PIN), PAL_PAD(SPI_MISO_PIN), PAL_MODE_ALTERNATE(SPI_MISO_PAL_MODE) | PAL_OUTPUT_TYPE_PUSHPULL | PAL_OUTPUT_SPEED_HIGHEST);
     }
 }
-
-#endif
