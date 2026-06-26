@@ -15,7 +15,7 @@
         "rgblight": true
     },
     "matrix_pins": {
-        "cols": ["GP16", "GP24", "GP18", "GP19", "GP20", "GP22", "GP5", "GP6", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13"],    
+        "cols": ["GP16", "GP24", "GP18", "GP19", "GP20", "GP22", "GP5", "GP6", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13"],
         "rows": ["GP0", "GP23", "GP2", "GP4", "GP17"]
     },
     "processor": "RP2040",
@@ -35,6 +35,10 @@
         "led_count": 20,
         "max_brightness": 240,
         "sleep": true
+    },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
     },
     "usb": {
         "vid": "0x5453",

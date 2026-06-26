@@ -5,6 +5,11 @@
         "cols": ["GP4"],
         "rows": ["GP5"]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP25",
+        "double_tap_reset_timeout": 500
+    },
     "ws2812": {
         "pin": "GP17",
         "driver": "vendor"
