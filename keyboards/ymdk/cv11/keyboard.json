@@ -1,0 +1,71 @@
+{
+    "manufacturer": "MTKB",
+    "keyboard_name": "CV11",
+    "maintainer": "qmk",
+    "development_board": "bluepill",
+    "bootloader": "tinyuf2",
+    "processor": "STM32F103",
+    "usb": {
+        "device_version": "0.0.2",
+        "pid": "0x1101",
+        "vid": "0x45D4"
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true
+    },
+    "ws2812": {
+        "pin": "B9",
+        "driver": "pwm"
+    },
+    "matrix_pins": {
+        "direct": [
+            ["B13", "A1", "B11", "B1", "A4", "B10", "B2", "A5", "B0", "A7", "A6"]
+        ]
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B14", "pin_b": "B15", "resolution": 4}
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0],  "x": 0, "y": 0, "label": "Enc Btn"},
+                {"matrix": [0, 1],  "x": 2, "y": 0},
+                {"matrix": [0, 2],  "x": 0, "y": 1},
+                {"matrix": [0, 3],  "x": 1, "y": 1},
+                {"matrix": [0, 4],  "x": 2, "y": 1},
+                {"matrix": [0, 5],  "x": 0, "y": 2},
+                {"matrix": [0, 6],  "x": 1, "y": 2},
+                {"matrix": [0, 7],  "x": 2, "y": 2},
+                {"matrix": [0, 8],  "x": 0, "y": 3},
+                {"matrix": [0, 9],  "x": 1, "y": 3},
+                {"matrix": [0, 10], "x": 2, "y": 3}
+            ]
+        }
+    },
+    "rgblight": {
+        "led_count": 11
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "led_count": 11,
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 36, "y": 0, "flags": 4},
+
+            {"matrix": [0, 2], "x": 0, "y": 18, "flags": 4},
+            {"matrix": [0, 3], "x": 18, "y": 18, "flags": 4},
+            {"matrix": [0, 4], "x": 36, "y": 18, "flags": 4},
+
+            {"matrix": [0, 5], "x": 0, "y": 36, "flags": 4},
+            {"matrix": [0, 6], "x": 18, "y": 36, "flags": 4},
+            {"matrix": [0, 7], "x": 36, "y": 36, "flags": 4},
+
+            {"matrix": [0, 8], "x": 0, "y": 54, "flags": 4},
+            {"matrix": [0, 9], "x": 18, "y": 54, "flags": 4},
+            {"matrix": [0, 10], "x": 36, "y": 54, "flags": 4}
+        ]
+    }
+}
