@@ -1,20 +1,22 @@
-# Paws 60
+# Paws60 (Rev 1)
 
-A PCB that has been inspired by Bakeneko 60 from kkatano [GitHub](https://github.com/kkatano/bakeneko-60)
+![Paws60](https://i.imgur.com/mXV3p07h.png)
 
-But more changes has been added: Hotswap socket, ...
+A 60% keyboard, which controlled by an ATMEGA32U4 chipset. The keyboard feature hotswap sockets.
+
+PCB that has been inspired by Bakeneko 60 from kkatano [GitHub](https://github.com/kkatano/bakeneko-60)
 
 * Keyboard Maintainer: [HorrorTroll](https://github.com/HorrorTroll)
-* Hardware Supported: Atmega32u4
-* Hardware Availability: [Open source on GitHub](https://github.com/HorrorTroll/KeebProj/tree/default/paws60/pcb/Hotswap)
+* Hardware Supported: ATMEGA32U4
+* Hardware Availability: [Open source on GitHub](https://github.com/HorrorTroll/Keeb_Project/tree/default/paws60/pcb/rev1)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make horrortroll/paws60:default
+    make horrortroll/paws60/rev1:default
 
 Flashing example for this keyboard:
 
-    make horrortroll/paws60:default:flash
+    make horrortroll/paws60/rev1:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
