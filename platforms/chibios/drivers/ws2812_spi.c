@@ -65,6 +65,9 @@
 #    else
 #        error "Configured WS2812_SPI_DIVISOR value is not supported at this time."
 #    endif
+#elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
+/* WB32 SPI BAUDR accepts any even integer 2..65534; the WB32 branch below uses
+ * WS2812_SPI_DIVISOR directly and does not need the STM32 BR-field lookup. */
 #else
 // F072 fpclk = 48MHz
 // 48/16 = 3Mhz
