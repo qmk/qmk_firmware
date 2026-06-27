@@ -9,7 +9,6 @@
         "tap_keycode_delay": 10
     },
     "bootmagic": {
-        "enabled": true,
         "matrix": [1, 3]
     },
     "eeprom": {
