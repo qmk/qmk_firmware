@@ -14,6 +14,7 @@
     "AUDIO_DRIVER": {"info_key": "audio.driver"},
     "BACKLIGHT_DRIVER": {"info_key": "backlight.driver"},
     "BATTERY_DRIVER": {"info_key": "battery.driver"},
+    "BATTERY_CHARGER_DRIVER": {"info_key": "battery.charger_driver"},
     "BLUETOOTH_DRIVER": {"info_key": "bluetooth.driver"},
     "BOARD": {"info_key": "board"},
     "BOOTLOADER": {"info_key": "bootloader", "warn_duplicate": false},

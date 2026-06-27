@@ -976,6 +976,24 @@ ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
     endif
 endif
 
+VALID_BATTERY_CHARGER_DRIVER_TYPES := none gpio custom
+
+BATTERY_CHARGER_DRIVER ?= none
+ifneq ($(strip $(BATTERY_CHARGER_DRIVER)), none)
+    ifeq ($(filter $(BATTERY_CHARGER_DRIVER),$(VALID_BATTERY_CHARGER_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid BATTERY_CHARGER_DRIVER,BATTERY_CHARGER_DRIVER="$(BATTERY_CHARGER_DRIVER)" is not a valid battery charger driver)
+    endif
+
+    BATTERY_ENABLE := yes
+    OPT_DEFS += -DBATTERY_CHARGER_ENABLE
+
+    COMMON_VPATH += $(DRIVER_PATH)/battery
+
+    ifeq ($(strip $(BATTERY_CHARGER_DRIVER)), gpio)
+        SRC += battery_charger.c
+    endif
+endif
+
 VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
 
 WS2812_DRIVER ?= bitbang
