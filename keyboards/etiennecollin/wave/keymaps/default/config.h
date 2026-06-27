@@ -19,8 +19,12 @@
 // Activate caps word by pressing Left Shift + Right Shift
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
+// Default to NKRO turned ON
+#define FORCE_NKRO
+
 // Maximum time between taps of tap dances
-#define TAPPING_TERM 175
+// Also defines time window for combos
+#define TAPPING_TERM 300
 
 // Max time between taps to prevent hold function and hold auto-repeat
 #define QUICK_TAP_TERM 100
@@ -29,12 +33,15 @@
 // releasing the dual-role key within tapping term
 #define PERMISSIVE_HOLD
 
-// Mouse key speed and acceleration.
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_WHEEL_DELAY 0
-#define MOUSEKEY_MAX_SPEED 6
-#define MOUSEKEY_TIME_TO_MAX 64
+// Mouse key speed and acceleration
+#define MK_KINETIC_SPEED
+#define MOUSEKEY_DELAY 4
+#define MOUSEKEY_INTERVAL 10
+#define MOUSEKEY_INITIAL_SPEED 100
+#define MOUSEKEY_BASE_SPEED 2000
+#define MOUSEKEY_WHEEL_DELAY 16
+#define MOUSEKEY_WHEEL_INITIAL_MOVEMENTS 8
+#define MOUSEKEY_WHEEL_BASE_MOVEMENTS 32
 
 // Thumb Combos
 #define COMBO_COUNT 2
