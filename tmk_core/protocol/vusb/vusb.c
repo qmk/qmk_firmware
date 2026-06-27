@@ -32,6 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "usb_descriptor_common.h"
 #include "usb_device_state.h"
+#include "../extended_attributes.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -297,6 +298,18 @@ void send_plover_hid(report_plover_hid_t *report) {
 #endif
 }
 
+enum string_descriptor_index {
+    NO_STRING_DESCR           = 0,
+    LANGID_STRING_DESCR_INDEX = 0,
+    MANUFACTURER_STRING_DESCR_INDEX,
+    PRODUCT_STRING_DESCR_INDEX,
+    SERIAL_NUMBER_STRING_DESCR_INDEX,
+    PRIMARY_LOCALE_STRING_DESCR_INDEX,
+};
+
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
+#endif
 /*------------------------------------------------------------------*
  * Request from host                                                *
  *------------------------------------------------------------------*/
@@ -307,14 +320,45 @@ static struct {
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     usbRequest_t *rq = (void *)data;
+    enum report_types : uchar {
+        INPUT   = 1,
+        OUTPUT  = 2,
+        FEATURE = 3,
+    };
 
     if ((rq->bmRequestType & USBRQ_TYPE_MASK) == USBRQ_TYPE_CLASS) { /* class request type */
         switch (rq->bRequest) {
             case USBRQ_HID_GET_REPORT:
                 dprint("GET_REPORT:");
                 if (rq->wIndex.word == KEYBOARD_INTERFACE) {
-                    usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
-                    return sizeof(keyboard_report_sent);
+                    uchar report_type = rq->wValue.bytes[1];
+                    uchar report_id   = rq->wValue.bytes[0];
+                    (void)report_id;
+
+                    switch (report_type) {
+                        case FEATURE:
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+                            /* Sanity check, since length changes if OS requests w/o report_id.*/
+#    ifdef KEYBOARD_SHARED_EP
+                            if (report_id == REPORT_ID_KEYBOARD) {
+#    else
+                            if (report_id == REPORT_ID_ALL) {
+#    endif
+                                usbMsgPtr = (usbMsgPtr_t)&keyboard_extended_attributes;
+                                return sizeof(keyboard_extended_attributes);
+                            }
+#endif /* defined(EXTENDED_KEYBOARD_ATTRIBUTES) */
+                            break;
+
+                        case OUTPUT:
+                            usbMsgPtr = (usbMsgPtr_t)&keyboard_report_sent;
+                            return sizeof(keyboard_report_sent);
+
+                        case INPUT:
+                        default:
+                            dprintf("(FEATURE) report of type (%#x) not handled", report_type);
+                            break;
+                    }
                 }
                 break;
             case USBRQ_HID_GET_IDLE:
@@ -410,6 +454,7 @@ const PROGMEM uchar shared_hid_report[] = {
 #else
 const PROGMEM uchar keyboard_hid_report[] = {
 #endif
+    // clang-format off
     0x05, 0x01, // Usage Page (Generic Desktop)
     0x09, 0x06, // Usage (Keyboard)
     0xA1, 0x01, // Collection (Application)
@@ -438,7 +483,6 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x95, 0x06,       //   Report Count (6)
     0x75, 0x08,       //   Report Size (8)
     0x81, 0x00,       //   Input (Data, Array, Absolute)
-
     // Status LEDs (5 bits)
     0x05, 0x08, //   Usage Page (LED)
     0x19, 0x01, //   Usage Minimum (Num Lock)
@@ -453,6 +497,18 @@ const PROGMEM uchar keyboard_hid_report[] = {
     0x75, 0x03, //   Report Size (3)
     0x91, 0x03, //   Output (Constant)
     0xC0,       // End Collection
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+    // Extended Attributes (15.18 Descriptive Controls)
+    0x05, 0x0C,       // Usage Page(Consumer Devices)
+    0x0A, 0xC0, 0x02, // Usage (Extended Keyboard Attributes)
+    0xA1, 0x02,       // Logical Collection
+    0x1A, 0xC1, 0x02, //     Usage Minimum(Keyboard Form Factor)
+    0x2a, 0xc6, 0x02, //     Usage Maximum(Implemented Keyboard Assist Controls)
+    0x75, 0x08,       //     Report Size (8)
+    0x95, 0x06,       //     Report Count (6)
+    0xB1, 0x03,       //     Feature(Const, Variable, Absolute)
+    0xC0,             // End Collection
+#endif
 #ifndef KEYBOARD_SHARED_EP
 };
 #endif
@@ -822,6 +878,7 @@ const PROGMEM uchar console_hid_report[] = {
     0xC0                       // End Collection
 };
 #endif
+// clang-format on
 
 #ifndef USB_MAX_POWER_CONSUMPTION
 #    define USB_MAX_POWER_CONSUMPTION 500
@@ -866,6 +923,17 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorSerial = {
 };
 #endif
 
+#if defined(KEYBOARD_PRIMARY_LOCALE)
+const PROGMEM usbStringDescriptor_t usbStringDescriptorPrimaryLocale = {
+    .header = {
+        .bLength         = sizeof(USBSTR(KEYBOARD_PRIMARY_LOCALE)),
+        .bDescriptorType = USBDESCR_STRING
+    },
+    .bString             = USBSTR(KEYBOARD_PRIMARY_LOCALE)
+};
+#endif
+
+
 /*
  * Device descriptor
  */
@@ -882,12 +950,12 @@ const PROGMEM usbDeviceDescriptor_t usbDeviceDescriptor = {
     .idVendor            = VENDOR_ID,
     .idProduct           = PRODUCT_ID,
     .bcdDevice           = DEVICE_VER,
-    .iManufacturer       = 0x01,
-    .iProduct            = 0x02,
+    .iManufacturer       = MANUFACTURER_STRING_DESCR_INDEX,
+    .iProduct            = PRODUCT_STRING_DESCR_INDEX,
 #if defined(SERIAL_NUMBER)
-    .iSerialNumber       = 0x03,
+    .iSerialNumber       = SERIAL_NUMBER_STRING_DESCR_INDEX,
 #else
-    .iSerialNumber       = 0x00,
+    .iSerialNumber       = NO_STRING_DESCR,
 #endif
     .bNumConfigurations  = 1
 };
@@ -1129,8 +1197,6 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
 #    endif
 };
 
-// clang-format on
-
 USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
     usbMsgLen_t len = 0;
 
@@ -1145,22 +1211,28 @@ USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
             break;
         case USBDESCR_STRING:
             switch (rq->wValue.bytes[0]) {
-                case 0:
+                case LANGID_STRING_DESCR_INDEX:
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorZero;
                     len       = usbStringDescriptorZero.header.bLength;
                     break;
-                case 1: // iManufacturer
+                case MANUFACTURER_STRING_DESCR_INDEX:
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorManufacturer;
                     len       = usbStringDescriptorManufacturer.header.bLength;
                     break;
-                case 2: // iProduct
+                case PRODUCT_STRING_DESCR_INDEX:
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorProduct;
                     len       = usbStringDescriptorProduct.header.bLength;
                     break;
 #if defined(SERIAL_NUMBER)
-                case 3: // iSerialNumber
+                case SERIAL_NUMBER_STRING_DESCR_INDEX:
                     usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorSerial;
                     len       = usbStringDescriptorSerial.header.bLength;
+                    break;
+#endif
+#if defined(KEYBOARD_PRIMARY_LOCALE)
+                case PRIMARY_LOCALE_STRING_DESCR_INDEX:
+                    usbMsgPtr = (usbMsgPtr_t)&usbStringDescriptorPrimaryLocale;
+                    len       = usbStringDescriptorPrimaryLocale.header.bLength;
                     break;
 #endif
             }

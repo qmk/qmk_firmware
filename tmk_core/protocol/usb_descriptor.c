@@ -113,6 +113,18 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x03),
         HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+        // Extended Attributes (15.18 Descriptive Controls)
+        HID_RI_USAGE_PAGE(8, 0xC0),   // Consumer Devices
+        HID_RI_USAGE(16, 0x2C0),      // Extended Keyboard Attributes
+        HID_RI_COLLECTION(8, 0x02),   // Logical Collection
+            HID_RI_USAGE_MINIMUM(16, 0x2C1),   // Keyboard Form Factor
+            HID_RI_USAGE_MAXIMUM(16, 0x2C6),   // Keyboard Implemented Assist Controls
+            HID_RI_REPORT_SIZE(8, 8),
+            HID_RI_REPORT_COUNT(8, 6),
+            HID_RI_FEATURE(8, HID_IOF_CONSTANT | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
+#endif
     HID_RI_END_COLLECTION(0),
 #ifndef KEYBOARD_SHARED_EP
 };
@@ -542,12 +554,12 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
     .VendorID                   = VENDOR_ID,
     .ProductID                  = PRODUCT_ID,
     .ReleaseNumber              = DEVICE_VER,
-    .ManufacturerStrIndex       = 0x01,
-    .ProductStrIndex            = 0x02,
+    .ManufacturerStrIndex       = MANUFACTURER_STRING_DESCR_INDEX,
+    .ProductStrIndex            = PRODUCT_STRING_DESCR_INDEX,
 #ifdef HAS_SERIAL_NUMBER
     .SerialNumStrIndex          = 0x03,
 #else // HAS_SERIAL_NUMBER
-    .SerialNumStrIndex          = 0x00,
+    .SerialNumStrIndex          = NO_DESCRIPTOR,
 #endif // HAS_SERIAL_NUMBER
     .NumberOfConfigurations     = FIXED_NUM_CONFIGURATIONS
 };
@@ -1198,6 +1210,16 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
     .UnicodeString              = USBSTR(PRODUCT)
 };
 
+#if defined(KEYBOARD_PRIMARY_LOCALE)
+const USB_Descriptor_String_t PROGMEM PrimaryLocaleString = {
+    .Header = {
+        .Size                   = USB_DESCRIPTOR_SIZE_LITERAL_U16STRING(USBSTR(KEYBOARD_PRIMARY_LOCALE)),
+        .Type                   = DTYPE_String
+    },
+    .UnicodeString              = USBSTR(KEYBOARD_PRIMARY_LOCALE)
+};
+#endif
+
 // clang-format on
 
 #if defined(SERIAL_NUMBER)
@@ -1282,23 +1304,23 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
             break;
         case DTYPE_String:
             switch (DescriptorIndex) {
-                case 0x00:
+                case LANGID_STRING_DESCR_INDEX:
                     Address = &LanguageString;
                     Size    = pgm_read_byte(&LanguageString.Header.Size);
 
                     break;
-                case 0x01:
+                case MANUFACTURER_STRING_DESCR_INDEX:
                     Address = &ManufacturerString;
                     Size    = pgm_read_byte(&ManufacturerString.Header.Size);
 
                     break;
-                case 0x02:
+                case PRODUCT_STRING_DESCR_INDEX:
                     Address = &ProductString;
                     Size    = pgm_read_byte(&ProductString.Header.Size);
 
                     break;
 #ifdef HAS_SERIAL_NUMBER
-                case 0x03:
+                case SERIAL_NUMBER_STRING_DESCR_INDEX:
                     Address = (const USB_Descriptor_String_t*)&SerialNumberString;
 #    if defined(SERIAL_NUMBER)
                     Size = pgm_read_byte(&SerialNumberString.Header.Size);
@@ -1306,9 +1328,15 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     set_serial_number_descriptor();
                     Size = ((const USB_Descriptor_String_t*)SerialNumberString)->Header.Size;
 #    endif
-
                     break;
 #endif // HAS_SERIAL_NUMBER
+#if defined(KEYBOARD_PRIMARY_LOCALE)
+                case PRIMARY_LOCALE_STRING_DESCR_INDEX:
+                    Address = &PrimaryLocaleString;
+                    Size    = pgm_read_byte(&PrimaryLocaleString.Header.Size);
+
+                    break;
+#endif
             }
 #ifdef OS_DETECTION_ENABLE
             process_wlength(wLength);

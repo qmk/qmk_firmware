@@ -44,6 +44,23 @@
         "keyboard_folder": {"$ref": "./definitions.jsonschema#/keyboard"},
         "maintainer": {"$ref": "./definitions.jsonschema#/text_identifier"},
         "manufacturer": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "extended_attributes": {
+            "additionalProperties": false,
+            "type": "object",
+            "properties": {
+                "enabled" : { "type": "boolean" },
+                "form_factor" : {
+                    "type": "string",
+                    "enum": ["unkown", "compact", "full_size" ]
+                },
+                "key_travel" : {
+                    "type": "string",
+                    "enum": ["unkown", "full", "low", "zero" ]
+                },
+                "layout" : {"$ref": "./definitions.jsonschema#/hutrr42_layout"},
+                "locale" : {"$ref": "./definitions.jsonschema#/hutrr42_locale"},
+            }
+        },
         "url": {
             "type": "string",
             "format": "uri",

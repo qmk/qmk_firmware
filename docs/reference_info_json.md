@@ -24,6 +24,24 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
 * `tags` <Badge type="info">Array: String</Badge>
     * A list of tags describing the keyboard.
     * Example: `["ortho", "split", "rgb"]`
+* `extended_attributes` <Badge type="info">Object</Badge>
+    * `enabled` <Badge type="info">Boolean</Badge>
+        * Enable reporting of Extended Keyboard Attributes (as specified by [hutrr42c](https://www.usb.org/sites/default/files/hutrr42c_0.pdf)).
+    * `form_factor` <Badge type="info">String</Badge>
+        * size of the keyboard. Must be one of `compact`, `full_size` or `unkown`.
+    * `key_travel` <Badge type="info">String</Badge>
+        * Amount of key travel the keyboards has. Must be one of `full`, `low`, `unkown` or `zero` (i.e. virtual/touchscreen keyboards).
+    * `layout`  <Badge type="info">Object</Badge>
+        * either `standard` <Badge type="info">String</Badge>
+            * Physical Layout (Location and amount of keys) Must be one of `ANSI`, `ISO`, `KS`, `ABNT` or `JIS`
+        * or `vendor` <Badge type="info">Number</Badge>
+            * two digit hexadecimal number. Must not set `standard` if used.
+    * `locale`  <Badge type="info">Object</Badge>
+        * The [IETF BCP 47](https://www.ietf.org/rfc/bcp/bcp47.txt) Locale for the Primary Language of the printed Key set.
+        * Examples:
+            * `en-US`
+            * `sr-Latn-RS` Serbian ('sr') written using Latin script ('Latn') as used in Serbia ('RS').
+            * `es-419`: Spanish ('es') appropriate for the UN-defined Latin America and Caribbean region ('419')
 
 ## Hardware Configuration {#hardware-configuration}
 

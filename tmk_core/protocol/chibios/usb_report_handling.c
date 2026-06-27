@@ -11,6 +11,7 @@
 #include "usb_types.h"
 #include "usb_driver.h"
 #include "report.h"
+#include "debug.h"
 
 extern usb_endpoint_in_t     usb_endpoints_in[USB_ENDPOINT_IN_COUNT];
 extern usb_endpoint_in_lut_t usb_endpoint_interface_lut[TOTAL_INTERFACES];
@@ -77,11 +78,13 @@ void usb_shared_reset_report(usb_fs_report_t **reports) {
     }
 }
 
-bool usb_get_report_cb(USBDriver *driver) {
-    usb_control_request_t *setup     = (usb_control_request_t *)driver->setup;
-    uint8_t                interface = setup->wIndex;
-    uint8_t                report_id = setup->wValue.lbyte;
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
+#endif
 
+bool usb_get_report_input(USBDriver *driver, usb_control_request_t *request) {
+    int8_t                 interface = request->wIndex;
+    uint8_t                report_id = request->wValue.lbyte;
     static usb_fs_report_t report;
 
     if (!IS_VALID_INTERFACE(interface) || !IS_VALID_REPORT_ID(report_id)) {
@@ -105,6 +108,60 @@ bool usb_get_report_cb(USBDriver *driver) {
     usbSetupTransfer(driver, (uint8_t *)report.data, report.length, NULL);
 
     return true;
+}
+/* Handle get_Report(OUTPUT) */
+bool usb_get_report_output(USBDriver *driver, usb_control_request_t *request) {
+    return false;
+}
+/* Handle get_Report(FEATURE) */
+bool usb_get_report_feature(USBDriver *driver, usb_control_request_t *request) {
+    int8_t  interface = request->wIndex;
+    uint8_t report_id = request->wValue.lbyte;
+    (void)report_id;
+
+    switch (interface) {
+        case KEYBOARD_INTERFACE:
+#if defined(EXTENDED_ATTRIBUTES_ENABLE)
+            /* Sanity check, since length changes if OS requests w/o report_id.*/
+#    ifdef KEYBOARD_SHARED_EP
+            if (report_id == REPORT_ID_KEYBOARD) {
+#    else
+            if (report_id == REPORT_ID_ALL) {
+#    endif
+                uint8_t buf[sizeof(keyboard_extended_attributes)];
+                memcpy_P(&buf, &keyboard_extended_attributes, sizeof(buf));
+                usbSetupTransfer(driver, buf, sizeof(buf), NULL);
+                return true;
+            }
+#endif /* defined(EXTENDED_ATTRIBUTES_ENABLE) */
+            break;
+    }
+    return false;
+}
+bool usb_get_report_cb(USBDriver *driver) {
+    usb_control_request_t *request     = (usb_control_request_t *)driver->setup;
+    uint8_t                report_type = request->wValue.hbyte;
+
+    enum report_type {
+        INPUT   = 1,
+        OUTPUT  = 2,
+        FEATURE = 3,
+    };
+    /* delegate to appropriate function per report_type
+     * Different report_types can send different data,
+     * even if the report_id is the same.
+     */
+    switch (report_type) {
+        case OUTPUT:
+            return usb_get_report_output(driver, request);
+        case FEATURE:
+            return usb_get_report_feature(driver, request);
+        case INPUT:
+            return usb_get_report_input(driver, request);
+        default:
+            dprintf("reserved or invalid report type (%#x) ignored\n", report_type);
+    }
+    return false;
 }
 
 static bool run_idle_task = false;
