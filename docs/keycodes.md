@@ -270,11 +270,12 @@ See also: [Auto Shift](features/auto_shift)
 
 See also: [Autocorrect](features/autocorrect)
 
-|Key                    |Aliases  |Description                                   |
-|-----------------------|---------|----------------------------------------------|
-|`QK_AUTOCORRECT_ON`    |`AC_ON`  |Turns on the Autocorrect feature.             |
-|`QK_AUTOCORRECT_OFF`   |`AC_OFF` |Turns off the Autocorrect feature.            |
-|`QK_AUTOCORRECT_TOGGLE`|`AC_TOGG`|Toggles the status of the Autocorrect feature.|
+| Key                         | Aliases   | Description                                                       |
+| --------------------------- | --------- | ----------------------------------------------------------------- |
+| `QK_AUTOCORRECT_ON`         | `AC_ON`   | Turns on the Autocorrect feature.                                 |
+| `QK_AUTOCORRECT_OFF`        | `AC_OFF`  | Turns off the Autocorrect feature.                                |
+| `QK_AUTOCORRECT_TOGGLE`     | `AC_TOGG` | Toggles the status of the Autocorrect feature.                    |
+| `QK_AUTOCORRECT_DICT_CYCLE` | `AC_DICT` | Cycle through dictionaries, reverse direction when Shift is held. |
 
 ## Backlighting {#backlighting}
 
