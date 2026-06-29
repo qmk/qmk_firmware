@@ -18,7 +18,7 @@
 __attribute__((weak)) void set_output_user(uint8_t output) {}
 // ========
 
-#define CONNECTION_HOST_INVALID 0xFF
+#define CONNECTION_CONFIG_UNINITIALIZED 0xFF
 
 #ifndef CONNECTION_HOST_DEFAULT
 #    define CONNECTION_HOST_DEFAULT CONNECTION_HOST_AUTO
@@ -37,17 +37,18 @@ static const connection_host_t host_candidates[] = {
 
 #define HOST_CANDIDATES_COUNT ARRAY_SIZE(host_candidates)
 
-static connection_config_t config = {.desired_host = CONNECTION_HOST_INVALID};
+static connection_config_t config = {.raw = CONNECTION_CONFIG_UNINITIALIZED};
 
 void eeconfig_update_connection_default(void) {
-    config.desired_host = CONNECTION_HOST_DEFAULT;
+    config.desired_host      = CONNECTION_HOST_DEFAULT;
+    config.bluetooth_profile = 0;
 
     eeconfig_update_connection(&config);
 }
 
 void connection_init(void) {
     eeconfig_read_connection(&config);
-    if (config.desired_host == CONNECTION_HOST_INVALID) {
+    if (config.raw == CONNECTION_CONFIG_UNINITIALIZED) {
         eeconfig_update_connection_default();
     }
 }
@@ -55,12 +56,32 @@ void connection_init(void) {
 __attribute__((weak)) void connection_host_changed_user(connection_host_t host) {}
 __attribute__((weak)) void connection_host_changed_kb(connection_host_t host) {}
 
+__attribute__((weak)) void connection_bluetooth_profile_changed_user(uint8_t profile) {}
+__attribute__((weak)) void connection_bluetooth_profile_changed_kb(uint8_t profile) {}
+
 static void handle_host_changed(void) {
+#ifdef BLUETOOTH_ENABLE
+    if (config.desired_host == CONNECTION_HOST_BLUETOOTH) {
+        bluetooth_set_profile(config.bluetooth_profile);
+    }
+#endif
+
     connection_host_changed_user(config.desired_host);
     connection_host_changed_kb(config.desired_host);
 
     // TODO: Remove deprecated callback
     set_output_user(config.desired_host);
+}
+
+static void handle_bluetooth_profile_changed(void) {
+#ifdef BLUETOOTH_ENABLE
+    if (config.desired_host == CONNECTION_HOST_BLUETOOTH) {
+        bluetooth_set_profile(config.bluetooth_profile);
+    }
+#endif
+
+    connection_bluetooth_profile_changed_user(config.bluetooth_profile);
+    connection_bluetooth_profile_changed_kb(config.bluetooth_profile);
 }
 
 void connection_set_host_noeeprom(connection_host_t host) {
@@ -138,4 +159,60 @@ connection_host_t connection_get_host(void) {
         return connection_auto_detect_host();
     }
     return config.desired_host;
+}
+
+void connection_set_bluetooth_profile(uint8_t profile) {
+#ifdef BLUETOOTH_ENABLE
+    if (profile >= bluetooth_get_max_profile()) {
+        return;
+    }
+#else
+    if (profile != 0) {
+        return;
+    }
+#endif
+
+    if (config.bluetooth_profile != profile) {
+        config.bluetooth_profile = profile;
+        handle_bluetooth_profile_changed();
+        eeconfig_update_connection(&config);
+    }
+
+    if (config.desired_host != CONNECTION_HOST_BLUETOOTH) {
+        connection_set_host(CONNECTION_HOST_BLUETOOTH);
+    }
+}
+
+uint8_t connection_get_bluetooth_profile(void) {
+    return config.bluetooth_profile;
+}
+
+void connection_next_bluetooth_profile(void) {
+#ifdef BLUETOOTH_ENABLE
+    uint8_t max_profile = bluetooth_get_max_profile();
+    if (max_profile == 0) {
+        return;
+    }
+    uint8_t next = config.bluetooth_profile + 1;
+    if (next >= max_profile) {
+        next = 0;
+    }
+    connection_set_bluetooth_profile(next);
+#endif
+}
+
+void connection_prev_bluetooth_profile(void) {
+#ifdef BLUETOOTH_ENABLE
+    uint8_t max_profile = bluetooth_get_max_profile();
+    if (max_profile == 0) {
+        return;
+    }
+    uint8_t prev;
+    if (config.bluetooth_profile == 0) {
+        prev = max_profile - 1;
+    } else {
+        prev = config.bluetooth_profile - 1;
+    }
+    connection_set_bluetooth_profile(prev);
+#endif
 }

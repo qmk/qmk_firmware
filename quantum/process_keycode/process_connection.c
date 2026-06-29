@@ -3,6 +3,10 @@
 #include "connection.h"
 #include "process_connection.h"
 
+#ifdef BLUETOOTH_ENABLE
+#    include "bluetooth.h"
+#endif
+
 bool process_connection(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
@@ -29,17 +33,32 @@ bool process_connection(uint16_t keycode, keyrecord_t *record) {
                 connection_set_host(CONNECTION_HOST_2P4GHZ);
                 return false;
 
+#ifdef BLUETOOTH_ENABLE
             case QK_BLUETOOTH_PROFILE_NEXT:
-            case QK_BLUETOOTH_PROFILE_PREV:
-            case QK_BLUETOOTH_UNPAIR:
-            case QK_BLUETOOTH_PROFILE1:
-            case QK_BLUETOOTH_PROFILE2:
-            case QK_BLUETOOTH_PROFILE3:
-            case QK_BLUETOOTH_PROFILE4:
-            case QK_BLUETOOTH_PROFILE5:
-                // As-yet unimplemented.
-                // When implementation is done, ensure `docs/keycodes.md`, `docs/features/bluetooth.md` are updated accordingly.
+                connection_next_bluetooth_profile();
                 return false;
+            case QK_BLUETOOTH_PROFILE_PREV:
+                connection_prev_bluetooth_profile();
+                return false;
+            case QK_BLUETOOTH_UNPAIR:
+                bluetooth_unpair();
+                return false;
+            case QK_BLUETOOTH_PROFILE1:
+                connection_set_bluetooth_profile(0);
+                return false;
+            case QK_BLUETOOTH_PROFILE2:
+                connection_set_bluetooth_profile(1);
+                return false;
+            case QK_BLUETOOTH_PROFILE3:
+                connection_set_bluetooth_profile(2);
+                return false;
+            case QK_BLUETOOTH_PROFILE4:
+                connection_set_bluetooth_profile(3);
+                return false;
+            case QK_BLUETOOTH_PROFILE5:
+                connection_set_bluetooth_profile(4);
+                return false;
+#endif
         }
     }
     return true;
