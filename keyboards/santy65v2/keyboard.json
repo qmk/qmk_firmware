@@ -23,7 +23,7 @@
         "cols": ["B4", "D5", "F4", "F5", "D4", "C6", "D7", "E6", "D1"],
         "rows": ["F6", "F7", "F0", "F1", "B5"]
     },
-    "processor": "atmega32u4",
+    "development_board": "elite_c",
     "rgblight": {
         "animations": {
             "rainbow_mood": true,
