@@ -135,35 +135,51 @@ This file defines LED matrix effects in the same form as used with `led_matrix_k
 
 This file defines RGB matrix effects in the same form as used with `rgb_matrix_kb.inc` and `rgb_matrix_user.inc` (see [Custom RGB Matrix Effects](rgb_matrix#custom-rgb-matrix-effects)). Effect mode names are prepended with `RGB_MATRIX_COMMUNITY_MODULE_`.
 
-### Custom split keyboard data sync
+### Additional Customization
 
-Defines follow the convention, `SPLIT_TRANSACTION_IDS_MODULE_<MODULE>` (see [Custom LED Matrix Effects](split_keyboard#custom-data-sync)). 
+#### Split Keyboard Data Sync
+
+Defines follow the convention, `SPLIT_TRANSACTION_IDS_MODULE_<MODULE>` (see [Custom data sync](split_keyboard#custom-data-sync)).
+
+#### Persistent Configuration
+
+Defines follow the convention, `EECONFIG_MODULE_<MODULE>_DATA_SIZE` and `EECONFIG_MODULE_<MODULE>_DATA_VERSION` (see [Custom Persistent Configuration](../feature_eeprom#datablock)).
+
+When configured, the following APIs are available:
+
+| API Format                                 | Example (`hello_world` module)                | API Version |
+|--------------------------------------------|-----------------------------------------------|-------------|
+| `eeconfig_is_<module>_datablock_valid`     | `eeconfig_is_hello_world_datablock_valid`     | `1.1.3`     |
+| `eeconfig_read_<module>_datablock`         | `eeconfig_read_hello_world_datablock`         | `1.1.3`     |
+| `eeconfig_update_<module>_datablock`       | `eeconfig_update_hello_world_datablock`       | `1.1.3`     |
+| `eeconfig_init_<module>_datablock`         | `eeconfig_init_hello_world_datablock`         | `1.1.3`     |
+| `eeconfig_read_<module>_datablock_field`   | `eeconfig_read_hello_world_datablock_field`   | `1.1.3`     |
+| `eeconfig_update_<module>_datablock_field` | `eeconfig_update_hello_world_datablock_field` | `1.1.3`     |
 
 ### Compatible APIs
 
 Community Modules may provide specializations for the following APIs:
 
-| Base API                         | API Format                                | Example (`hello_world` module)              | API Version |
-|----------------------------------|-------------------------------------------|---------------------------------------------|-------------|
-| `keyboard_pre_init`              | `keyboard_pre_init_<module>`              | `keyboard_pre_init_hello_world`             | `0.1.0`     |
-| `keyboard_post_init`             | `keyboard_post_init_<module>`             | `keyboard_post_init_hello_world`            | `0.1.0`     |
-| `pre_process_record`             | `pre_process_record_<module>`             | `pre_process_record_hello_world`            | `0.1.0`     |
-| `process_record`                 | `process_record_<module>`                 | `process_record_hello_world`                | `0.1.0`     |
-| `post_process_record`            | `post_process_record_<module>`            | `post_process_record_hello_world`           | `0.1.0`     |
-| `housekeeping_task`              | `housekeeping_task_<module>`              | `housekeeping_task_hello_world`             | `1.0.0`     |
-| `suspend_power_down`             | `suspend_power_down_<module>`             | `suspend_power_down_hello_world`            | `1.0.0`     |
-| `suspend_wakeup_init`            | `suspend_wakeup_init_<module>`            | `suspend_wakeup_init_hello_world`           | `1.0.0`     |
-| `shutdown`                       | `shutdown_<module>`                       | `shutdown_hello_world`                      | `1.0.0`     |
-| `process_detected_host_os`       | `process_detected_host_os_<module>`       | `process_detected_host_os_hello_world`      | `1.0.0`     |
-| `default_layer_state_set`        | `default_layer_state_set_<module>`        | `default_layer_state_set_hello_world`       | `1.1.0`     |
-| `layer_state_set`                | `layer_state_set_<module>`                | `layer_state_set_hello_world`               | `1.1.0`     |
+| Base API                         | API Format                                | Example (`hello_world` module)               | API Version |
+|----------------------------------|-------------------------------------------|----------------------------------------------|-------------|
+| `keyboard_pre_init`              | `keyboard_pre_init_<module>`              | `keyboard_pre_init_hello_world`              | `0.1.0`     |
+| `keyboard_post_init`             | `keyboard_post_init_<module>`             | `keyboard_post_init_hello_world`             | `0.1.0`     |
+| `pre_process_record`             | `pre_process_record_<module>`             | `pre_process_record_hello_world`             | `0.1.0`     |
+| `process_record`                 | `process_record_<module>`                 | `process_record_hello_world`                 | `0.1.0`     |
+| `post_process_record`            | `post_process_record_<module>`            | `post_process_record_hello_world`            | `0.1.0`     |
+| `housekeeping_task`              | `housekeeping_task_<module>`              | `housekeeping_task_hello_world`              | `1.0.0`     |
+| `suspend_power_down`             | `suspend_power_down_<module>`             | `suspend_power_down_hello_world`             | `1.0.0`     |
+| `suspend_wakeup_init`            | `suspend_wakeup_init_<module>`            | `suspend_wakeup_init_hello_world`            | `1.0.0`     |
+| `shutdown`                       | `shutdown_<module>`                       | `shutdown_hello_world`                       | `1.0.0`     |
+| `process_detected_host_os`       | `process_detected_host_os_<module>`       | `process_detected_host_os_hello_world`       | `1.0.0`     |
+| `default_layer_state_set`        | `default_layer_state_set_<module>`        | `default_layer_state_set_hello_world`        | `1.1.0`     |
+| `layer_state_set`                | `layer_state_set_<module>`                | `layer_state_set_hello_world`                | `1.1.0`     |
 | `led_matrix_indicators`          | `led_matrix_indicators_<module>`          | `led_matrix_indicators_hello_world`          | `1.1.0`     |
 | `led_matrix_indicators_advanced` | `led_matrix_indicators_advanced_<module>` | `led_matrix_indicators_advanced_hello_world` | `1.1.0`     |
 | `rgb_matrix_indicators`          | `rgb_matrix_indicators_<module>`          | `rgb_matrix_indicators_hello_world`          | `1.1.0`     |
 | `rgb_matrix_indicators_advanced` | `rgb_matrix_indicators_advanced_<module>` | `rgb_matrix_indicators_advanced_hello_world` | `1.1.0`     |
 | `pointing_device_init`           | `pointing_device_init_<module>`           | `pointing_device_init_hello_world`           | `1.1.0`     |
 | `pointing_device_task`           | `pointing_device_task_<module>`           | `pointing_device_task_hello_world`           | `1.1.0`     |
-
 
 ::: info
 An unspecified API is disregarded if a Community Module does not provide a specialization for it.

@@ -41,7 +41,11 @@
 
 #ifdef AUTOCORRECT_ENABLE
 #    include "autocorrect.h"
-#endif // AUTOCORRECT_ENABLE
+#endif
+
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "community_modules.h"
+#endif
 
 #ifdef VIA_ENABLE
 bool via_eeprom_is_valid(void);
@@ -158,6 +162,10 @@ void eeconfig_init_quantum(void) {
 #if (EECONFIG_USER_DATA_SIZE) > 0
     eeconfig_init_user_datablock();
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
+
+#ifdef COMMUNITY_MODULES_ENABLE
+    eeconfig_init_modules_datablock();
+#endif // COMMUNITY_MODULES_ENABLE
 
 #if defined(VIA_ENABLE)
     // Invalidate VIA eeprom config, and then reset.
@@ -377,3 +385,21 @@ __attribute__((weak)) void eeconfig_init_user_datablock(void) {
     nvm_eeconfig_init_user_datablock();
 }
 #endif // (EECONFIG_USER_DATA_SIZE) > 0
+
+void eeconfig_prepare_datablocks(void) {
+#if (EECONFIG_KB_DATA_SIZE) > 0
+    if (!eeconfig_is_kb_datablock_valid()) {
+        eeconfig_init_kb_datablock();
+    }
+#endif // (EECONFIG_KB_DATA_SIZE) > 0
+
+#if (EECONFIG_USER_DATA_SIZE) > 0
+    if (!eeconfig_is_user_datablock_valid()) {
+        eeconfig_init_user_datablock();
+    }
+#endif // (EECONFIG_USER_DATA_SIZE) > 0
+
+#ifdef COMMUNITY_MODULES_ENABLE
+    eeconfig_prepare_modules_datablocks();
+#endif // COMMUNITY_MODULES_ENABLE
+}

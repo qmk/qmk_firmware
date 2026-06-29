@@ -489,6 +489,12 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
+void send_plover_hid(report_plover_hid_t *report) {
+#ifdef PLOVER_HID_ENABLE
+    send_report(USB_ENDPOINT_IN_PLOVER_HID, report, sizeof(report_plover_hid_t));
+#endif
+}
+
 /* ---------------------------------------------------------
  *                   Console functions
  * ---------------------------------------------------------

@@ -74,24 +74,6 @@ This is a C header file that is one of the first things included, and will persi
   * pins mapped to rows and columns, from left to right. Defines a matrix where each switch is connected to a separate pin and ground.
 * `#define AUDIO_VOICES`
   * turns on the alternate audio voices (to cycle through)
-* `#define C4_AUDIO`
-  * enables audio on pin C4
-  * Deprecated. Use `#define AUDIO_PIN C4`
-* `#define C5_AUDIO`
-  * enables audio on pin C5
-  * Deprecated. Use `#define AUDIO_PIN C5`
-* `#define C6_AUDIO`
-  * enables audio on pin C6
-  * Deprecated. Use `#define AUDIO_PIN C6`
-* `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enabled if one of B pins is enabled along with one of C pins)
-  * Deprecated. Use `#define AUDIO_PIN B5`, or use `#define AUDIO_PIN_ALT B5` if a `C` pin is enabled with `AUDIO_PIN`
-* `#define B6_AUDIO`
-  * enables audio on pin B6 (duophony is enabled if one of B pins is enabled along with one of C pins)
-  * Deprecated. Use `#define AUDIO_PIN B6`, or use `#define AUDIO_PIN_ALT B6` if a `C` pin is enabled with `AUDIO_PIN`
-* `#define B7_AUDIO`
-  * enables audio on pin B7 (duophony is enabled if one of B pins is enabled along with one of C pins)
-  * Deprecated. Use `#define AUDIO_PIN B7`, or use `#define AUDIO_PIN_ALT B7` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
@@ -357,6 +339,10 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_TRANSACTION_IDS_KB .....`
 * `#define SPLIT_TRANSACTION_IDS_USER .....`
   * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](features/split_keyboard#custom-data-sync) for more information.
+
+* `#define SYSTEM_CONTROL_USAGE_MINIMUM 0x0081`
+* `#define SYSTEM_CONTROL_USAGE_MAXIMUM 0x008F`
+  * Sets the usage range reported by the System Control collection that `EXTRAKEY_ENABLE` adds. The default range covers the System Control usages QMK can send and stops below the Generic Desktop D-pad usages (`0x90` and up). Raising the maximum into that range makes some hosts detect the keyboard as a gamepad, so only widen it if you need the extra usages and know your host handles them. The minimum must not be greater than the maximum.
 
 # The `rules.mk` File
 

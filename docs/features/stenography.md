@@ -6,11 +6,12 @@ The [Open Steno Project](https://www.openstenoproject.org/) has built an open-so
 
 ## Steno Support in QMK
 
-There are three ways that QMK keyboards can support steno, with varying degrees of configuration required:
+There are four ways that QMK keyboards can support steno, with varying degrees of configuration required:
 
 1. Plover with [Arpeggiation](https://plover.wiki/index.php/Glossary#Arpeggiate) requires no changes to any keyboard and is supported by QMK as well as any other QWERTY keyboard.
 2. Plover with [NKRO](https://plover.wiki/index.php/Using_a_standard_keyboard_with_Plover#NKRO). If your keyboard supports NKRO in hardware and you have NKRO enabled as a USB endpoint, you can chord with the keyboard. Many devices will arrive stock like this and will require no changes.
 3. Steno Machine Protocols.  This requires the most configuration, but this has the advantage of allowing you to use your keyboard keys normally (either on another layer or another piece of hardware) without enabling and disabling your steno software.
+4. Plover HID Protocol. This is a custom HID protocol that Plover can understand, but does not require a COM port. It is robust to device disconnects and saves an interface over the COM-based alternatives.
 
 ## Plover with QWERTY Keyboard {#plover-with-qwerty-keyboard}
 
@@ -91,6 +92,22 @@ Examples of steno strokes and the associated packet:
 - `EUBG`    = `10000000 00000000 00000000 00001100 00101000 00000000`
 - `WAZ`     = `10000000 00000010 00100000 00000000 00000000 00000001`
 - `PHAPBGS` = `10000000 00000101 00100000 00000000 01101010 00000000`
+
+## Plover HID Protocol {#plover-hid-protocol}
+
+This mode operates independently of the other Steno "official" machine protocols. Like any other mouse or keyboard, it uses the USB HID protocol to communicate with Plover by sending an 8 byte (64 bit) packet representing a bitfield for all the possible keys on a steno machine plus a number of additional general purpose keys for custom use. This protocol is only understood by Plover as of [5.1.0](https://github.com/opensteno/plover/releases/tag/v5.1.0).
+
+Add
+
+```make
+PLOVER_HID_ENABLE = yes
+```
+
+to your `rules.mk` file. This does **not** require `STENO_ENABLE` to be set.
+
+All of the possible keycodes are defined with the `PLV_` prefix and are available without any additional includes.
+
+More details can be found here: https://github.com/dnaq/plover-machine-hid
 
 ### Switching protocols on the fly {#switching-protocols-on-the-fly}
 

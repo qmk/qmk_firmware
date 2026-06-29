@@ -169,6 +169,150 @@ def _generate_modules_rules(keyboard, filename):
     return lines
 
 
+def _module_slugs(modules):
+    return [Path(m).name.lower() for m in modules]
+
+
+def _render_eeconfig_declarations(modules):
+    lines = []
+    lines.append('')
+    lines.append('// nvm eeconfig')
+    for module_slug in _module_slugs(modules):
+        lines.extend([
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'bool     eeconfig_is_{module_slug}_datablock_valid(void);',
+            f'uint32_t eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));',
+            f'uint32_t eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length) __attribute__((nonnull));',
+            f'void     eeconfig_init_{module_slug}_datablock(void);',
+            f'#    define eeconfig_read_{module_slug}_datablock_field(__object, __field) eeconfig_read_{module_slug}_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))',
+            f'#    define eeconfig_update_{module_slug}_datablock_field(__object, __field) eeconfig_update_{module_slug}_datablock(&(__object.__field), offsetof(typeof(__object), __field), sizeof(__object.__field))',
+            '',
+            f'bool     nvm_eeconfig_is_{module_slug}_datablock_valid(void);',
+            f'uint32_t nvm_eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length);',
+            f'uint32_t nvm_eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length);',
+            f'void     nvm_eeconfig_init_{module_slug}_datablock(void);',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            '',
+        ])
+
+    lines.append('typedef struct PACKED {')
+    for module_slug in _module_slugs(modules):
+        lines.extend([
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'    uint32_t {module_slug}_version;',
+            f'    uint8_t  {module_slug}[EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE];',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+        ])
+    lines.append('} eeprom_modules_t;')
+    lines.append('')
+
+    for module_slug in _module_slugs(modules):
+        lines.append(f'#define EECONFIG_MODULE_{module_slug.upper()}_VERSION (uint32_t *)(EECONFIG_MODULES_DATABLOCK + (offsetof(eeprom_modules_t, {module_slug}_version)))')
+        lines.append(f'#define EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK (uint8_t *)(EECONFIG_MODULES_DATABLOCK + (offsetof(eeprom_modules_t, {module_slug})))')
+    lines.append('')
+
+    lines.append('bool eeconfig_is_modules_datablock_valid(void);')
+    lines.append('void eeconfig_init_modules_datablock(void);')
+    lines.append('void eeconfig_prepare_modules_datablocks(void);')
+    lines.append('')
+
+    return lines
+
+
+def _render_eeconfig_implementation(modules):
+    lines = []
+
+    lines.append('')
+    lines.append('// nvm eeconfig')
+    lines.append('#if defined(NVM_DRIVER_EEPROM)')
+    lines.append('#    include "nvm_eeprom_eeconfig_internal.h"')
+    lines.append('#    include "eeprom.h"')
+    lines.append('#endif // defined(NVM_DRIVER_EEPROM)')
+    lines.append('')
+
+    for module_slug in _module_slugs(modules):
+        lines.extend([
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'bool eeconfig_is_{module_slug}_datablock_valid(void) {{ return nvm_eeconfig_is_{module_slug}_datablock_valid(); }}',
+            f'uint32_t eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_read_{module_slug}_datablock(data, offset, length); }}',
+            f'uint32_t eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length) {{ return nvm_eeconfig_update_{module_slug}_datablock(data, offset, length); }}',
+            f'__attribute__((weak)) void eeconfig_init_{module_slug}_datablock(void) {{ nvm_eeconfig_init_{module_slug}_datablock(); }}',
+            '',
+            '#    if defined(NVM_DRIVER_EEPROM)',
+            f'bool nvm_eeconfig_is_{module_slug}_datablock_valid(void) {{',
+            f'    return eeprom_read_dword(EECONFIG_MODULE_{module_slug.upper()}_VERSION) == (EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION);',
+            '}',
+            f'uint32_t nvm_eeconfig_read_{module_slug}_datablock(void *data, uint32_t offset, uint32_t length) {{',
+            f'    if (eeconfig_is_{module_slug}_datablock_valid()) {{',
+            f'        void *ee_start = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + offset);',
+            f'        void *ee_end   = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + MIN((EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE), offset + length));',
+            '        eeprom_read_block(data, ee_start, ee_end - ee_start);',
+            '        return ee_end - ee_start;',
+            '    } else {',
+            '        memset(data, 0, length);',
+            '        return length;',
+            '    }',
+            '}',
+            f'uint32_t nvm_eeconfig_update_{module_slug}_datablock(const void *data, uint32_t offset, uint32_t length) {{',
+            f'    eeprom_update_dword(EECONFIG_MODULE_{module_slug.upper()}_VERSION, (EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION));',
+            f'    void *ee_start = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + offset);',
+            f'    void *ee_end   = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + MIN((EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE), offset + length));',
+            '    eeprom_update_block(data, ee_start, ee_end - ee_start);',
+            '    return ee_end - ee_start;',
+            '}',
+            f'void nvm_eeconfig_init_{module_slug}_datablock(void) {{',
+            f'    eeprom_update_dword(EECONFIG_MODULE_{module_slug.upper()}_VERSION, (EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION));',
+            f'    void   *start     = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK);',
+            f'    void   *end       = (void *)(uintptr_t)(EECONFIG_MODULE_{module_slug.upper()}_DATABLOCK + (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE));',
+            '    long    remaining = end - start;',
+            '    uint8_t dummy[16] = {0};',
+            f'    for (int i = 0; i < EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE; i += sizeof(dummy)) {{',
+            '        int this_loop = remaining < sizeof(dummy) ? remaining : sizeof(dummy);',
+            '        eeprom_update_block(dummy, start, this_loop);',
+            '        start += this_loop;',
+            '        remaining -= this_loop;',
+            '    }',
+            '}',
+            '#    endif // defined(NVM_DRIVER_EEPROM)',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            '',
+        ])
+
+    lines.append('bool eeconfig_is_modules_datablock_valid(void) {')
+    lines.append('    return true')
+    for module_slug in _module_slugs(modules):
+        lines.extend([
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'        && eeconfig_is_{module_slug}_datablock_valid()',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+        ])
+    lines.append('    ;')
+    lines.append('}')
+    lines.append('')
+
+    lines.append('void eeconfig_init_modules_datablock(void) {')
+    for module_slug in _module_slugs(modules):
+        lines.extend([
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'    eeconfig_init_{module_slug}_datablock();',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+        ])
+    lines.append('}')
+    lines.append('')
+
+    lines.append('void eeconfig_prepare_modules_datablocks(void) {')
+    for module_slug in _module_slugs(modules):
+        lines.extend([
+            f'#if (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+            f'    if (!eeconfig_is_{module_slug}_datablock_valid()) {{ eeconfig_init_{module_slug}_datablock(); }}',
+            f'#endif // (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) > 0',
+        ])
+    lines.append('}')
+    lines.append('')
+
+    return lines
+
+
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-e', '--escape', arg_only=True, action='store_true', help="Escape spaces in quiet mode")
@@ -196,11 +340,11 @@ def generate_community_modules_rules_mk(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_config.h for.')
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_post_config.h for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
-@cli.subcommand('Creates a community_config.h from a keymap.json file.')
-def generate_community_config_h(cli):
-    """Creates a community_config.h from a keymap.json file
+@cli.subcommand('Creates a community_post_config.h from a keymap.json file.')
+def generate_community_post_config_h(cli):
+    """Creates a community_post_config.h from a keymap.json file
     """
     if cli.args.output and cli.args.output.name == '-':
         cli.args.output = None
@@ -215,12 +359,27 @@ def generate_community_config_h(cli):
     modules = get_modules(cli.args.keyboard, cli.args.filename)
     if len(modules) > 0:
         lines.append('// Split transactions')
-        for module in modules:
+        for module_slug in _module_slugs(modules):
             lines.extend([
-                f'#ifdef SPLIT_TRANSACTION_IDS_MODULE_{Path(module).name.upper()}',
+                f'#ifdef SPLIT_TRANSACTION_IDS_MODULE_{module_slug.upper()}',
                 '#    define SPLIT_TRANSACTION_RPC',
                 '#endif',
             ])
+        lines.append('')
+
+        lines.append('// nvm eeconfig')
+        for module_slug in _module_slugs(modules):
+            lines.extend([
+                f'#ifndef EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE',
+                f'#    define EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE 0',
+                '#endif',
+                f'#ifndef EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION',
+                f'#    define EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE)',
+                '#endif',
+                '',
+            ])
+        module_size = " + ".join([f'(4 + (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE))' for module_slug in _module_slugs(modules)])
+        lines.append(f'#define EECONFIG_MODULE_DATA_SIZE ({module_size})')
         lines.append('')
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
@@ -245,6 +404,7 @@ def generate_community_modules_h(cli):
         '#pragma once',
         '#include <stdint.h>',
         '#include <stdbool.h>',
+        '#include <string.h>',
         '#include <keycodes.h>',
         '',
         '#include "compiler_support.h"',
@@ -271,6 +431,8 @@ def generate_community_modules_h(cli):
             for api in api_list:
                 lines.extend(_render_api_declarations(api, Path(module).name))
         lines.append('')
+
+        lines.extend(_render_eeconfig_declarations(modules))
 
         lines.append('// Core wrapper')
         for api in api_list:
@@ -308,6 +470,8 @@ def generate_community_modules_c(cli):
 
         for api in api_list:
             lines.extend(_render_core_implementation(api, modules))
+
+        lines.extend(_render_eeconfig_implementation(modules))
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 

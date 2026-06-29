@@ -378,6 +378,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(LED_MATRIX_ENABLE)
             process_led_matrix(keycode, record) &&
 #endif
+#ifdef PLOVER_HID_ENABLE
+            process_plover_hid(keycode, record) &&
+#endif
 #ifdef STENO_ENABLE
             process_steno(keycode, record) &&
 #endif
@@ -393,11 +396,11 @@ bool process_record_quantum(keyrecord_t *record) {
 #ifdef TAP_DANCE_ENABLE
             process_tap_dance(keycode, record) &&
 #endif
-#if defined(UNICODE_COMMON_ENABLE)
-            process_unicode_common(keycode, record) &&
-#endif
 #ifdef LEADER_ENABLE
             process_leader(keycode, record) &&
+#endif
+#if defined(UNICODE_COMMON_ENABLE)
+            process_unicode_common(keycode, record) &&
 #endif
 #ifdef AUTO_SHIFT_ENABLE
             process_auto_shift(keycode, record) &&

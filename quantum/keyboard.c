@@ -452,6 +452,8 @@ void quantum_init(void) {
 
     /* Also initialize layer state to trigger callback functions for layer_state */
     layer_state_set_kb((layer_state_t)layer_state);
+
+    eeconfig_prepare_datablocks();
 }
 
 /** \brief keyboard_init
@@ -512,11 +514,6 @@ void keyboard_init(void) {
 #endif
 #ifdef STENO_ENABLE_ALL
     steno_init();
-#endif
-#if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
-#    pragma message "FORCE_NKRO option is now deprecated - Please migrate to NKRO_DEFAULT_ON instead."
-    keymap_config.nkro = 1;
-    eeconfig_update_keymap(&keymap_config);
 #endif
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();
