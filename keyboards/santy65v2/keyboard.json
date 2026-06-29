@@ -2,7 +2,6 @@
     "manufacturer": "Santy",
     "keyboard_name": "santy65v2",
     "maintainer": "santy81855",
-    "bootloader": "atmel-dfu",
     "build": {
         "lto": true
     },
