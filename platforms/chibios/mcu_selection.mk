@@ -911,3 +911,18 @@ ifneq ($(findstring GD32VF103, $(MCU)),)
 
   USE_FPU ?= no
 endif
+
+ifneq ($(findstring CH579M, $(MCU)),)
+  MCU = cortex-m0
+  ARMV = 6
+  MCU_FAMILY = WCH
+  MCU_SERIES = CH579
+  MCU_LDSCRIPT ?= CH579M
+  MCU_STARTUP ?= ch579m
+  BOARD ?= WCH_CH579_KEY12
+  USE_FPU ?= no
+  USE_CHIBIOS_CONTRIB = yes
+  USE_PROCESS_STACKSIZE    ?= 0x800
+  USE_EXCEPTIONS_STACKSIZE ?= 0x400
+  FIRMWARE_FORMAT ?= bin
+endif
