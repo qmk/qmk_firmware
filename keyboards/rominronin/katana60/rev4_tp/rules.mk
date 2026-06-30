@@ -1,0 +1,4 @@
+PS2_MOUSE_ENABLE = yes
+PS2_ENABLE = yes
+PS2_DRIVER = interrupt
+F_CPU = 8000000
