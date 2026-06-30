@@ -75,6 +75,7 @@ subcommands = [
     'qmk.cli.generate.autocorrect_data',
     'qmk.cli.generate.compilation_database',
     'qmk.cli.generate.community_modules',
+    'qmk.cli.generate.test_community_modules',
     'qmk.cli.generate.config_h',
     'qmk.cli.generate.develop_pr_list',
     'qmk.cli.generate.dfu_header',
@@ -287,3 +288,4 @@ for subcommand in subcommands:
             _eprint(f'Warning: Could not import {subcommand}: {e.__class__.__name__}, {e}')
         else:
             raise
+

@@ -140,9 +140,8 @@ def _generate_features_rules(features_dict):
     return lines
 
 
-def _generate_modules_rules(keyboard, filename):
+def _generate_modules_rules_from_list(modules):
     lines = []
-    modules = get_modules(keyboard, filename)
     if len(modules) > 0:
         lines.append('')
         lines.append('OPT_DEFS += -DCOMMUNITY_MODULES_ENABLE=TRUE')
@@ -167,6 +166,11 @@ def _generate_modules_rules(keyboard, filename):
                 lines.append(f'# Module: {module_json["module_name"]}')
                 lines.extend(_generate_features_rules(module_json['features']))
     return lines
+
+
+def _generate_modules_rules(keyboard, filename):
+    modules = get_modules(keyboard, filename)
+    return _generate_modules_rules_from_list(modules)
 
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
@@ -226,17 +230,9 @@ def generate_community_config_h(cli):
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
 
-@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
-@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
-@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
-@cli.subcommand('Creates a community_modules.h from a keymap.json file.')
-def generate_community_modules_h(cli):
-    """Creates a community_modules.h from a keymap.json file
+def generate_community_modules_h_lines(modules):
+    """Creates the content for community_modules.h as a list of lines.
     """
-    if cli.args.output and cli.args.output.name == '-':
-        cli.args.output = None
-
     api_list, api_version, ver_major, ver_minor, ver_patch = module_api_list()
 
     lines = [
@@ -257,7 +253,6 @@ def generate_community_modules_h(cli):
         '',
     ]
 
-    modules = get_modules(cli.args.keyboard, cli.args.filename)
     module_jsons = load_module_jsons(modules)
     if len(modules) > 0:
         lines.extend(_render_keycodes(module_jsons))
@@ -276,6 +271,46 @@ def generate_community_modules_h(cli):
         for api in api_list:
             lines.extend(_render_api_declarations(api, 'modules', user_kb=False))
 
+    return lines
+
+
+def generate_community_modules_c_lines(modules):
+    """Creates the content for community_modules.c as a list of lines.
+    """
+    api_list, _, _, _, _ = module_api_list()
+
+    lines = [
+        GPL2_HEADER_C_LIKE,
+        GENERATED_HEADER_C_LIKE,
+        '',
+        '#include "community_modules.h"',
+    ]
+
+    if len(modules) > 0:
+        for module in modules:
+            for api in api_list:
+                lines.extend(_render_api_implementations(api, Path(module).name))
+
+        for api in api_list:
+            lines.extend(_render_core_implementation(api, modules))
+
+    return lines
+
+
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates a community_modules.h from a keymap.json file.')
+def generate_community_modules_h(cli):
+    """Creates a community_modules.h from a keymap.json file
+    """
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    lines = generate_community_modules_h_lines(modules)
+
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
 
@@ -290,26 +325,22 @@ def generate_community_modules_c(cli):
     if cli.args.output and cli.args.output.name == '-':
         cli.args.output = None
 
-    api_list, _, _, _, _ = module_api_list()
-
-    lines = [
-        GPL2_HEADER_C_LIKE,
-        GENERATED_HEADER_C_LIKE,
-        '',
-        '#include "community_modules.h"',
-    ]
-
     modules = get_modules(cli.args.keyboard, cli.args.filename)
-    if len(modules) > 0:
-
-        for module in modules:
-            for api in api_list:
-                lines.extend(_render_api_implementations(api, Path(module).name))
-
-        for api in api_list:
-            lines.extend(_render_core_implementation(api, modules))
+    lines = generate_community_modules_c_lines(modules)
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+
+def _generate_include_per_module_from_list(modules, include_file_name):
+    """Generates lines to include "<module_path>/include_file_name" for each module."""
+    lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE]
+    for module in modules:
+        full_path = f'{find_module_path(module)}/{include_file_name}'
+        lines.append('')
+        lines.append(f'#if __has_include("{full_path}")')
+        lines.append(f'#include "{full_path}"')
+        lines.append(f'#endif  // __has_include("{full_path}")')
+    return lines
 
 
 def _generate_include_per_module(cli, include_file_name):
@@ -317,15 +348,8 @@ def _generate_include_per_module(cli, include_file_name):
     if cli.args.output and cli.args.output.name == '-':
         cli.args.output = None
 
-    lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE]
-
-    for module in get_modules(cli.args.keyboard, cli.args.filename):
-        full_path = f'{find_module_path(module)}/{include_file_name}'
-        lines.append('')
-        lines.append(f'#if __has_include("{full_path}")')
-        lines.append(f'#include "{full_path}"')
-        lines.append(f'#endif  // __has_include("{full_path}")')
-
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    lines = _generate_include_per_module_from_list(modules, include_file_name)
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
 
