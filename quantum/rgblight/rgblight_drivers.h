@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <stdbool.h>
 #include <stdint.h>
 
 typedef struct {
@@ -10,6 +11,8 @@ typedef struct {
     void (*set_color)(int index, uint8_t red, uint8_t green, uint8_t blue);
     void (*set_color_all)(uint8_t red, uint8_t green, uint8_t blue);
     void (*flush)(void);
+    /* Optional: toggle the chain's VCC-enable rail. NULL when not supported. */
+    void (*set_power)(bool on);
 } rgblight_driver_t;
 
 extern const rgblight_driver_t rgblight_driver;

@@ -506,7 +506,7 @@ void suspend_power_down_quantum(void) {
 #    endif
 
 // Turn off underglow
-#    if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+#    if defined(RGBLIGHT_ENABLE)
     rgblight_suspend();
 #    endif
 
@@ -544,7 +544,7 @@ __attribute__((weak)) void suspend_wakeup_init_quantum(void) {
     led_wakeup();
 
 // Wake up underglow
-#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+#if defined(RGBLIGHT_ENABLE)
     rgblight_wakeup();
 #endif
 
