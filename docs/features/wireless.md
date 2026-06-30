@@ -48,11 +48,33 @@ This is used when multiple keyboard outputs can be selected. Currently this only
 | `QK_OUTPUT_USB`             | `OU_USB`  | Output to USB only                                                                            |
 | `QK_OUTPUT_2P4GHZ`          | `OU_2P4G` | Output to 2.4GHz only **(not yet implemented)**                                               |
 | `QK_OUTPUT_BLUETOOTH`       | `OU_BT`   | Output to Bluetooth only                                                                      |
-| `QK_BLUETOOTH_PROFILE_NEXT` | `BT_NEXT` | Move to the next Bluetooth profile **(not yet implemented)**                                  |
-| `QK_BLUETOOTH_PROFILE_PREV` | `BT_PREV` | Move to the previous Bluetooth profile **(not yet implemented)**                              |
-| `QK_BLUETOOTH_UNPAIR`       | `BT_UNPR` | Un-pair the current Bluetooth profile **(not yet implemented)**                               |
-| `QK_BLUETOOTH_PROFILE1`     | `BT_PRF1` | Swap to Bluetooth profile #1 **(not yet implemented)**                                        |
-| `QK_BLUETOOTH_PROFILE2`     | `BT_PRF2` | Swap to Bluetooth profile #2 **(not yet implemented)**                                        |
-| `QK_BLUETOOTH_PROFILE3`     | `BT_PRF3` | Swap to Bluetooth profile #3 **(not yet implemented)**                                        |
-| `QK_BLUETOOTH_PROFILE4`     | `BT_PRF4` | Swap to Bluetooth profile #4 **(not yet implemented)**                                        |
-| `QK_BLUETOOTH_PROFILE5`     | `BT_PRF5` | Swap to Bluetooth profile #5 **(not yet implemented)**                                        |
+| `QK_BLUETOOTH_PROFILE_NEXT` | `BT_NEXT` | Move to the next Bluetooth profile                                                            |
+| `QK_BLUETOOTH_PROFILE_PREV` | `BT_PREV` | Move to the previous Bluetooth profile                                                        |
+| `QK_BLUETOOTH_UNPAIR`       | `BT_UNPR` | Un-pair the current Bluetooth profile                                                         |
+| `QK_BLUETOOTH_PROFILE1`     | `BT_PRF1` | Swap to Bluetooth profile #1                                                                  |
+| `QK_BLUETOOTH_PROFILE2`     | `BT_PRF2` | Swap to Bluetooth profile #2                                                                  |
+| `QK_BLUETOOTH_PROFILE3`     | `BT_PRF3` | Swap to Bluetooth profile #3                                                                  |
+| `QK_BLUETOOTH_PROFILE4`     | `BT_PRF4` | Swap to Bluetooth profile #4                                                                  |
+| `QK_BLUETOOTH_PROFILE5`     | `BT_PRF5` | Swap to Bluetooth profile #5                                                                  |
+| `QK_2P4GHZ_UNPAIR`          | `WL_UNPR` | Drop the 2.4 GHz dongle's pairing                                                             |
+
+## Bluetooth Profiles
+
+A Bluetooth driver may store multiple profiles. It reports its supported profile count via `bluetooth_get_max_profile()`.
+
+* `BT_PRF1`..`BT_PRF5` swap to Bluetooth and select the matching profile (`BT_PRF1` is profile 0).
+* `BT_NEXT` / `BT_PREV` cycle through the profiles.
+* `BT_UNPR` un-pairs the current profile.
+
+The selected profile persists across reboots.
+
+A driver that does not implement the multi-profile API behaves as single-profile: only `BT_PRF1` is honored; the other profile keycodes and `BT_UNPR` are no-ops. The `rn42` and `bluefruit_le` drivers are currently single-profile.
+
+To add multi-profile support, override these from `drivers/bluetooth/bluetooth.h`:
+
+|Function                                  |Purpose                                                  |
+|------------------------------------------|---------------------------------------------------------|
+|`uint8_t bluetooth_get_max_profile(void)` |Supported profile count (>=1)                            |
+|`bool bluetooth_set_profile(uint8_t)`     |Swap to the given profile; `false` if out of range       |
+|`uint8_t bluetooth_get_profile(void)`     |The current profile                                      |
+|`void bluetooth_unpair(void)`             |Un-pair the current profile                              |

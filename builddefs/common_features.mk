@@ -921,6 +921,18 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     endif
 endif
 
+WIRELESS_2P4GHZ_ENABLE ?= no
+VALID_WIRELESS_2P4GHZ_DRIVER_TYPES := custom
+ifeq ($(strip $(WIRELESS_2P4GHZ_ENABLE)), yes)
+    ifeq ($(filter $(strip $(WIRELESS_2P4GHZ_DRIVER)),$(VALID_WIRELESS_2P4GHZ_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid WIRELESS_2P4GHZ_DRIVER,WIRELESS_2P4GHZ_DRIVER="$(WIRELESS_2P4GHZ_DRIVER)" is not a valid 2.4 GHz wireless driver)
+    endif
+    OPT_DEFS += -DWIRELESS_2P4GHZ_ENABLE
+    CONNECTION_ENABLE := yes
+    COMMON_VPATH += $(DRIVER_PATH)/wireless
+    SRC += $(DRIVER_PATH)/wireless/wireless_2p4ghz.c
+endif
+
 ENCODER_ENABLE ?= no
 ENCODER_DRIVER ?= quadrature
 VALID_ENCODER_DRIVER_TYPES := quadrature custom

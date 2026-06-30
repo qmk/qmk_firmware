@@ -221,6 +221,16 @@
                 }
             }
         },
+        "wireless_2p4ghz": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["custom"]
+                }
+            }
+        },
         "bootmagic":{
             "type": "object",
             "additionalProperties": false,

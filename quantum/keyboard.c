@@ -129,6 +129,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BLUETOOTH_ENABLE
 #    include "bluetooth.h"
 #endif
+#ifdef WIRELESS_2P4GHZ_ENABLE
+#    include "wireless_2p4ghz.h"
+#endif
 #ifdef CAPS_WORD_ENABLE
 #    include "caps_word.h"
 #endif
@@ -537,6 +540,9 @@ void keyboard_init(void) {
 #ifdef BLUETOOTH_ENABLE
     bluetooth_init();
 #endif
+#ifdef WIRELESS_2P4GHZ_ENABLE
+    wireless_2p4ghz_init();
+#endif
 #ifdef HAPTIC_ENABLE
     haptic_init();
 #endif
@@ -787,6 +793,10 @@ void keyboard_task(void) {
 
 #ifdef BLUETOOTH_ENABLE
     bluetooth_task();
+#endif
+
+#ifdef WIRELESS_2P4GHZ_ENABLE
+    wireless_2p4ghz_task();
 #endif
 
 #ifdef HAPTIC_ENABLE
