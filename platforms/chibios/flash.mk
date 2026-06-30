@@ -23,6 +23,21 @@ define EXEC_DFU_UTIL
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 endef
 
+WCHISP ?= wchisp
+
+define EXEC_WCHISP
+	if ! lsusb -d 4348:55e0 > /dev/null 2>&1; then \
+		printf "$(MSG_BOOTLOADER_NOT_FOUND_QUICK_RETRY)" ;\
+		printf "Reset the board into ISP mode (hold BOOT low while plugging in).\n" ;\
+		while ! lsusb -d 4348:55e0 > /dev/null 2>&1; do \
+			printf "." ;\
+			sleep $(BOOTLOADER_RETRY_TIME) ;\
+		done ;\
+		printf "\n" ;\
+	fi
+	$(WCHISP) flash $(BUILD_DIR)/$(TARGET).bin
+endef
+
 WB32_DFU_UPDATER ?= wb32-dfu-updater_cli
 
 define EXEC_WB32_DFU_UPDATER
@@ -117,6 +132,8 @@ else ifeq ($(strip $(MCU_FAMILY)),AT32)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(MCU_FAMILY)),GD32V)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
+else ifeq ($(strip $(MCU_FAMILY)),WCH)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_WCHISP)
 else
 	$(PRINT_OK); $(SILENT) || printf "$(MSG_FLASH_BOOTLOADER)"
 endif
