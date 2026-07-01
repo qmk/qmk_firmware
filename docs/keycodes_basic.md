@@ -227,6 +227,7 @@ Some of these keycodes may behave differently depending on the OS. For example, 
 |`KC_ASSISTANT`         |`KC_ASST`|Launch Assistant    |
 |`KC_MISSION_CONTROL`   |`KC_MCTL`|Open Mission Control|
 |`KC_LAUNCHPAD`         |`KC_LPAD`|Open Launchpad      |
+|`KC_DICTATION`         |`KC_DICT`|Start Dictation     |
 
 ## Number Pad
 
