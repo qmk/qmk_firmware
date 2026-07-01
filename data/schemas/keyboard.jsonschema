@@ -815,6 +815,17 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
+                "combined_map": {"type": "boolean"},
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "mode": {
+                            "type": "string",
+                            "enum": ["geminipr", "txbolt"]
+                        }
+                    }
+                },
                 "protocol": {
                     "type": "string",
                     "enum": ["all", "geminipr", "txbolt"]

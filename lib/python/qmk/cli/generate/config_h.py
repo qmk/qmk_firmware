@@ -170,6 +170,17 @@ def generate_led_animations_config(feature, led_feature_json, config_h_lines, en
         config_h_lines.append(generate_flag(f'{enable_prefix}{animation.upper()}', led_feature_json['animations'][animation]))
 
 
+def generate_stenography_config(kb_info_json, config_h_lines):
+    """Generate the config.h lines for stenography."""
+    if 'mode' in kb_info_json['stenography'].get('default', {}):
+        mode_map = {
+            'geminipr': 'STENO_MODE_GEMINI',
+            'txbolt': 'STENO_MODE_BOLT',
+        }
+        mode = kb_info_json['stenography']['default']['mode']
+        config_h_lines.append(generate_define('STENO_DEFAULT_MODE', mode_map[mode]))
+
+
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -213,6 +224,9 @@ def generate_config_h(cli):
 
     if 'rgblight' in kb_info_json:
         generate_led_animations_config('rgblight', kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_', 'RGBLIGHT_MODE_')
+
+    if 'stenography' in kb_info_json:
+        generate_stenography_config(kb_info_json, config_h_lines)
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
