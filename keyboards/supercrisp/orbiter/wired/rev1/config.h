@@ -16,9 +16,9 @@
 #define OLED_BRIGHTNESS 128
 
 #define I2C_DRIVER I2CD2
-#define I2C1_SCL_PIN B13
+#define I2C2_SCL_PIN B13
 // #define I2C1_SCL_PAL_MODE 4
-#define I2C1_SDA_PIN B14
+#define I2C2_SDA_PIN B14
 // #define I2C1_SDA_PAL_MODE 4
 
 // #define I2C1_TIMINGR_PRESC 0U
