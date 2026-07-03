@@ -14,7 +14,7 @@ from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import compile_schema_store
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.path import is_keyboard, normpath
+from qmk.path import normpath
 
 
 def pruning_validator(validator_class):

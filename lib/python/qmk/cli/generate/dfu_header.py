@@ -5,7 +5,7 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard
 from qmk.info import info_json
-from qmk.path import is_keyboard, normpath
+from qmk.path import normpath
 from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
