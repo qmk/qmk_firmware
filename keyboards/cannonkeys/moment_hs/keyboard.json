@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -28,13 +26,14 @@
         "pid": "0x0013"
     },
     "layout_aliases": {
-        "LAYOUT_all": "LAYOUT_60_tsangan_hhkb"
+        "LAYOUT_all": "LAYOUT_60_ansi_tsangan_split_bs_rshift",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     },
     "community_layouts": [
-        "60_tsangan_hhkb"
+        "60_ansi_tsangan_split_bs_rshift"
     ],
     "layouts": {
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "!", "matrix": [0, 1], "x": 1, "y": 0},

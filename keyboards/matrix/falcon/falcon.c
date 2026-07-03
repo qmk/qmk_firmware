@@ -25,4 +25,5 @@ void matrix_init_kb(void)
     gpio_set_pin_output(LED_POWER_PIN);
     gpio_write_pin_high(LED_POWER_PIN);
 
+    matrix_init_user();
 }

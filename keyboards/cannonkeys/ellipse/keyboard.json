@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -37,11 +35,15 @@
         "60_ansi",
         "60_ansi_split_bs_rshift",
         "60_ansi_tsangan",
-        "60_tsangan_hhkb",
+        "60_ansi_tsangan_split_bs_rshift",
         "60_iso",
         "60_iso_split_bs_rshift",
-        "60_iso_tsangan"
+        "60_iso_tsangan",
+        "60_iso_tsangan_split_bs_rshift"
     ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -324,7 +326,7 @@
                 {"label": "Ctrl", "matrix": [4, 14], "x": 13.5, "y": 4.0, "w": 1.5}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0.0, "y": 0.0},
                 {"label": "!", "matrix": [0, 1], "x": 1.0, "y": 0.0},

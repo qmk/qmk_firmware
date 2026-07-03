@@ -1,0 +1,11 @@
+{
+    "config": {
+        "battery": {
+            "driver": "adc"
+        },
+        "features": {
+            "battery": true,
+            "console": true
+        }
+    }
+}

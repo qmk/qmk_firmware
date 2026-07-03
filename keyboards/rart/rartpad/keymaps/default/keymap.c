@@ -28,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT_ortho_5x4(
-        KC_TRNS, RGB_HUI, RGB_HUD,  KC_TRNS,
-        RGB_SAI, RGB_SAD, KC_MNXT,  KC_MPRV,
-        RGB_VAI, RGB_VAD, KC_MSTP,  KC_MPLY,
+        KC_TRNS, UG_HUEU, UG_HUED,  KC_TRNS,
+        UG_SATU, UG_SATD, KC_MNXT,  KC_MPRV,
+        UG_VALU, UG_VALD, KC_MSTP,  KC_MPLY,
         KC_COPY, KC_PSTE, KC_MYCM,  KC_CALC,
-        KC_TRNS, RGB_TOG, QK_BOOT,  KC_TRNS
+        KC_TRNS, UG_TOGG, QK_BOOT,  KC_TRNS
     )
 };
 
@@ -45,9 +45,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) { /* Second encoder */
         if (clockwise) {
-            tap_code(KC_WH_D);
+            tap_code(MS_WHLD);
         } else {
-            tap_code(KC_WH_U);
+            tap_code(MS_WHLU);
         }
     }
     return true;

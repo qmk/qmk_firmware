@@ -23,6 +23,7 @@
 #include "action_util.h"
 #include "quantum.h"
 #include "quantum_keycodes.h"
+#include "keymap_introspection.h"
 
 #ifndef KEY_OVERRIDE_REPEAT_DELAY
 #    define KEY_OVERRIDE_REPEAT_DELAY 500
@@ -38,7 +39,8 @@
 #    define key_override_printf dprintf
 #else
 #    define key_override_printf(str, ...) \
-        {}
+        {                                 \
+        }
 #endif
 
 // Helpers
@@ -82,9 +84,6 @@ static uint16_t deferred_register = 0;
 
 // TODO: in future maybe save in EEPROM?
 static bool enabled = true;
-
-// Public variables
-__attribute__((weak)) const key_override_t **key_overrides = NULL;
 
 // Forward decls
 static const key_override_t *clear_active_override(const bool allow_reregister);
@@ -176,7 +175,7 @@ const key_override_t *clear_active_override(const bool allow_reregister) {
 
     const key_override_t *const old = active_override;
 
-    const uint8_t mod_free_replacement = clear_mods_from(active_override->replacement);
+    const uint16_t mod_free_replacement = clear_mods_from(active_override->replacement);
 
     bool unregister_replacement = mod_free_replacement != KC_NO &&   // KC_NO is never registered
                                   mod_free_replacement < SAFE_RANGE; // Custom keycodes are never registered
@@ -247,12 +246,12 @@ static bool check_activation_event(const key_override_t *override, const bool ke
 
 /** Iterates through the list of key overrides and tries activating each, until it finds one that activates or reaches the end of overrides. Returns true if the key action for `keycode` should be sent */
 static bool try_activating_override(const uint16_t keycode, const uint8_t layer, const bool key_down, const bool is_mod, const uint8_t active_mods, bool *activated) {
-    if (key_overrides == NULL) {
+    if (key_override_count() == 0) {
         return true;
     }
 
-    for (uint8_t i = 0;; i++) {
-        const key_override_t *const override = key_overrides[i];
+    for (uint16_t i = 0; i < key_override_count(); i++) {
+        const key_override_t *const override = key_override_get(i);
 
         // End of array
         if (override == NULL) {
@@ -367,13 +366,13 @@ static bool try_activating_override(const uint16_t keycode, const uint8_t layer,
                 schedule_deferred_register(mod_free_replacement);
                 send_keyboard_report();
             } else {
+                send_keyboard_report();
+                // On macOS there seems to be a race condition when it comes to the keyboard report and consumer keycodes. It seems the OS may recognize a consumer keycode before an updated keyboard report, even if the keyboard report is actually sent before the consumer key. I assume it is some sort of race condition because it happens infrequently and very irregularly. Waiting for about at least 10ms between sending the keyboard report and sending the consumer code has shown to fix this.
+                wait_ms(10);
                 if (IS_BASIC_KEYCODE(mod_free_replacement)) {
                     add_key(mod_free_replacement);
                 } else {
                     key_override_printf("NOT KEY 2\n");
-                    send_keyboard_report();
-                    // On macOS there seems to be a race condition when it comes to the keyboard report and consumer keycodes. It seems the OS may recognize a consumer keycode before an updated keyboard report, even if the keyboard report is actually sent before the consumer key. I assume it is some sort of race condition because it happens infrequently and very irregularly. Waiting for about at least 10ms between sending the keyboard report and sending the consumer code has shown to fix this.
-                    wait_ms(10);
                     register_code(mod_free_replacement);
                 }
             }

@@ -18,20 +18,7 @@
  */
 #pragma once
 
-/*
- * Feature disable options
- *  These options are also useful to firmware size reduction.
- */
-
-/* disable debug print */
-//#define NO_DEBUG
-
-/* disable print */
-//#define NO_PRINT
-
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_VCC
 
-#if defined(RGB_MATRIX_ENABLE) && defined(RGBLIGHT_ENABLE)
-    #define RGB_MATRIX_DISABLE_KEYCODES
-#endif
+#define RGB_MATRIX_DISABLE_SHARED_KEYCODES

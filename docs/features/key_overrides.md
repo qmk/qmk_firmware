@@ -14,7 +14,7 @@ You can use key overrides in a similar way to momentary layer/fn keys to activat
 
 To enable this feature, you need to add `KEY_OVERRIDE_ENABLE = yes` to your `rules.mk`.
 
-Then, in your `keymap.c` file, you'll need to define the array `key_overrides`, which defines all key overrides to be used. Each override is a value of type `key_override_t`. The array `key_overrides` is `NULL`-terminated and contains pointers to `key_override_t` values (`const key_override_t **`).
+Then, in your `keymap.c` file, you'll need to define the `key_overrides` config. See below for more details.
 
 ## Creating Key Overrides {#creating-key-overrides}
 
@@ -42,9 +42,19 @@ This shows how the mentioned example of sending `delete` when `shift` + `backspa
 const key_override_t delete_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSPC, KC_DEL);
 
 // This globally defines all key overrides to be used
-const key_override_t **key_overrides = (const key_override_t *[]){
-	&delete_key_override,
-	NULL // Null terminate the array of overrides!
+const key_override_t *key_overrides[] = {
+	&delete_key_override
+};
+```
+
+This second example inverts or swaps semicolon and colon on ANSI and many other layouts.  That means pressing the key alone sends `shift` + `semicolon` giving `colon` (`S(KP_SCLN)` aka `KC_COLN`), but when pressing the key with shift, the shift modifier is suppressed (see `suppressed_mods` below), sending only `semicolon` (`KC_SCLN`):
+
+```c
+const key_override_t semicolon_colon_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COLN, KC_SCLN);
+
+// This globally defines all key overrides to be used
+const key_override_t *key_overrides[] = {
+    &semicolon_colon_key_override
 };
 ```
 
@@ -91,14 +101,13 @@ const key_override_t brightness_up_override = ko_make_with_layers_negmods_and_op
 const key_override_t brightness_down_override = ko_make_basic(MOD_MASK_CSA, KC_MPLY, KC_BRID);
 
 // This globally defines all key overrides to be used
-const key_override_t **key_overrides = (const key_override_t *[]){
+const key_override_t *key_overrides[] = {
 	&next_track_override,
 	&prev_track_override,
 	&vol_up_override,
 	&vol_down_override,
 	&brightness_up_override,
-	&brightness_down_override,
-	NULL
+	&brightness_down_override
 };
 ```
 
@@ -112,10 +121,9 @@ const key_override_t tilde_esc_override = ko_make_basic(MOD_MASK_SHIFT, KC_ESC, 
 // GUI + esc = `
 const key_override_t grave_esc_override = ko_make_basic(MOD_MASK_GUI, KC_ESC, KC_GRV);
 
-const key_override_t **key_overrides = (const key_override_t *[]){
+const key_override_t *key_overrides[] = {
 	&tilde_esc_override,
-	&grave_esc_override,
-	NULL
+	&grave_esc_override
 };
 ```
 
@@ -138,11 +146,11 @@ bool momentary_layer(bool key_down, void *layer) {
     return false;
 }
 
-const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
+const key_override_t fn_override = {.trigger_mods          = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RALT),                       //
                                    .layers                 = ~(1 << LAYER_FN),                                          //
-                                   .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL),                       //
+                                   .suppressed_mods        = MOD_BIT(KC_RGUI) | MOD_BIT(KC_RALT),                       //
                                    .options                = ko_option_no_unregister_on_other_key_down,                 //
-                                   .negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RCTL)),          //
+                                   .negative_mod_mask      = (uint8_t) ~(MOD_BIT(KC_RGUI) | MOD_BIT(KC_RALT)),          //
                                    .custom_action          = momentary_layer,                                           //
                                    .context                = (void *)LAYER_FN,                                          //
                                    .trigger                = KC_NO,                                                     //

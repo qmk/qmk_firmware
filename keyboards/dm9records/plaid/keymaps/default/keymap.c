@@ -28,10 +28,7 @@ enum plaid_layers {
 };
 
 enum plaid_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
+  PLOVER = SAFE_RANGE,
   EXT_PLV,
   LED_1,
   LED_2,
@@ -47,6 +44,10 @@ enum plaid_keycodes {
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 // array of keys considered modifiers for led purposes
 const uint16_t modifiers[] = {
@@ -301,25 +302,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       led_keypress_update(LED_GREEN, led_config.green_mode, keycode, record);
   }
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
     case PLOVER:
       if (record->event.pressed) {
         layer_off(_RAISE);
@@ -329,9 +311,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (!eeconfig_is_enabled()) {
             eeconfig_init();
         }
-        keymap_config.raw = eeconfig_read_keymap();
+        eeconfig_read_keymap(&keymap_config);
         keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
+        eeconfig_update_keymap(&keymap_config);
       }
       return false;
       break;

@@ -6,13 +6,13 @@ RGB_MATRIX_EFFECT(SOLID_REACTIVE_MULTIWIDE2)
 
 #ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV SOLID_REACTIVE_WIDE_math2(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
+static hsv_t SOLID_REACTIVE_WIDE_math2(hsv_t hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     uint16_t effect = tick - dist > 255 || dist > 32 ? 255 : tick - dist;
     hsv.v           = qadd8(hsv.v, 255 - effect);
     return hsv;
 }
 
-static HSV SOLID_REACTIVE_NEXUS_math2(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
+static hsv_t SOLID_REACTIVE_NEXUS_math2(hsv_t hsv, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
     uint16_t effect = tick - dist > 255 || ((dx > 8 || dx < -8) && (dy > 8 || dy < -8)) ? 255 : tick - dist;
     hsv.v           = qadd8(hsv.v, 255 - effect);
     hsv.h           = rgb_matrix_config.hsv.h + dy / 4;

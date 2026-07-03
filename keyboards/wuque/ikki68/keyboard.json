@@ -8,6 +8,10 @@
         "pid": "0x0003",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "C6",
+        "on_state": 0
+    },
     "ws2812": {
         "pin": "E2"
     },
@@ -32,8 +36,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

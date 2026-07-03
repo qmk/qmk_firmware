@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Technika",
     "manufacturer": "TealTechnik",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x8484",

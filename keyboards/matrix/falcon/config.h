@@ -29,4 +29,3 @@
 //pin setting
 #define LED_POWER_PIN       D5
 #define CHG_EN_PIN          E6
-#define BATTERY_LEVEL_PIN   F0

@@ -44,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_TRNS,         KC_F7,    KC_F8,     KC_F9,     KC_F10,   KC_F11,   KC_F12,   KC_TRNS,  KC_TRNS,  KC_SLSH,  KC_TRNS,
                  KC_TRNS,         KC_TRNS,  KC_TRNS,   KC_TRNS,             KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS ),
     [_L2] = LAYOUT_all(/* Base */
-                 RGB_TOG,         RGB_RMOD, KC_UP,     RGB_MOD,   RGB_HUI,  RGB_VAI,  RGB_SAI,  RGB_SPI,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
-                 KC_TRNS,         KC_LEFT,  KC_DOWN,   KC_RGHT,   RGB_HUD,  RGB_VAD,  RGB_SAD,  RGB_SPD,  KC_TRNS,  KC_TRNS,  KC_BSLS,
+                 RM_TOGG,         RM_PREV,  KC_UP,     RM_NEXT,   RM_HUEU,  RM_VALU,  RM_SATU,  RM_SPDU,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,
+                 KC_TRNS,         KC_LEFT,  KC_DOWN,   KC_RGHT,   RM_HUED,  RM_VALD,  RM_SATD,  RM_SPDD,  KC_TRNS,  KC_TRNS,  KC_BSLS,
                  KC_TRNS,         KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                  KC_TRNS,         KC_TRNS,  KC_TRNS,   KC_TAB,              KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS ),
 };

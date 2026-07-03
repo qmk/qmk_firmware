@@ -23,8 +23,6 @@ void housekeeping_task_kb(void) {
             rgblight_disable_noeeprom();
         }
     }
-
-    housekeeping_task_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

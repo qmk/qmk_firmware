@@ -10,6 +10,11 @@
       {"pin_a": "GP8", "pin_b": "GP9"}
     ]
   },
+  "split": {
+    "serial": {
+      "driver": "vendor"
+    }
+  },
   "ws2812": {
     "pin": "GP29",
     "driver": "vendor"

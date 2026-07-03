@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ext65",
     "manufacturer": "AEBoards",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4145"

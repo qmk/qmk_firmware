@@ -10,12 +10,17 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "default": {
+            "brightness": 3
+        }, 
         "pin": "B5",
         "levels": 5
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "rgblight": {
         "led_count": 12,
@@ -36,8 +41,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": false,

@@ -13,11 +13,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* RGB */
     [1] = LAYOUT_numpad_6x4(
-        RGB_SAI, RGB_VAI, RGB_HUI, _______,
-        RGB_SAD, RGB_VAD, RGB_HUD, _______,
-        RGB_M_X, RGB_M_G, RGB_MOD,
-        RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_RMOD,
+        RM_SATU, RM_VALU, RM_HUEU, _______,
+        RM_SATD, RM_VALD, RM_HUED, _______,
+        RGB_M_X, RGB_M_G, RM_NEXT,
+        RGB_M_SW,RGB_M_SN,RGB_M_K, RM_PREV,
         RGB_M_P, RGB_M_B, RGB_M_R,
-            XXXXXXX,      XXXXXXX, RGB_TOG
+            XXXXXXX,      XXXXXXX, RM_TOGG
     )
 };

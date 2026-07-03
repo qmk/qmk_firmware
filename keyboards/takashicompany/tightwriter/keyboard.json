@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -17,7 +15,6 @@
         "cols": ["D4", "C6", "D7", "E6", "B4", "B5"],
         "rows": ["F6", "F7", "B1", "B3", "B2", "B6"]
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0025",

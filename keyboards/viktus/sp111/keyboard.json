@@ -17,6 +17,11 @@
         "mousekey": true,
         "nkro": true
     },
+    "indicators": {
+        "caps_lock": "F1",
+        "num_lock": "F0",
+        "scroll_lock": "F4"
+    },
     "qmk": {
         "locking": {
             "enabled": true,

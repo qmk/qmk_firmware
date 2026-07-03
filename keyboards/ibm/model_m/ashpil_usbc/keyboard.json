@@ -1,7 +1,6 @@
 {
     "keyboard_name": "IBM Model M 101/102",
     "manufacturer": "ashpil",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m/ashpil_usbc",
     "maintainer": "ashpil",
     "usb": {
         "vid": "0xFEED",
@@ -10,11 +9,15 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false
+    },
+    "indicators": {
+        "caps_lock": "D6",
+        "num_lock": "D5",
+        "scroll_lock": "D7",
+        "on_state": 0
     },
     "matrix_pins": {
         "cols": ["E6", "E7", "F0", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "A0", "A1", "A2", "A3", "A4", "A5"],

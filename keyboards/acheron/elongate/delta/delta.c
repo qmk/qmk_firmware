@@ -74,4 +74,6 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
 // Since the keyboard starts at layer 0, the init function starts LED4 as lit up.
 void keyboard_post_init_kb(void){
 	gpio_write_pin(LED4_PIN, 0);
+
+    keyboard_post_init_user();
 }

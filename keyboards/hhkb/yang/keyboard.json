@@ -1,7 +1,6 @@
 {
   "keyboard_name": "HHKB BLE",
   "manufacturer": "YANG",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x4848",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "split_65",
     "manufacturer": "jtallbean",
-    "url": "",
     "maintainer": "samlli",
     "usb": {
         "vid": "0xFEED",
@@ -27,14 +26,22 @@
         "rows": ["F4", "F1", "F0", "C7", "B6"]
     },
     "diode_direction": "COL2ROW",
+    "indicators": {
+        "caps_lock": "B0"
+    },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0",
+        "handedness": {
+            "pin": "D5"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["B4", "B5", "B6", "C6", "C7", "D4", "D6", "D3", "D2"],
                 "rows": ["E6", "F0", "F1", "F7", "D7"]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
     "processor": "atmega32u4",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Candybar",
     "manufacturer": "The Key Company",
-    "url": "",
     "maintainer": "terrymathews",
     "usb": {
         "vid": "0x544B",
@@ -13,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

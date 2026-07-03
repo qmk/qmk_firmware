@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Virgo",
     "manufacturer": "FLX",
-    "url": "",
     "maintainer": "mechmerlin",
     "usb": {
         "vid": "0x4658",
@@ -14,8 +13,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -29,6 +26,11 @@
     "backlight": {
         "pin": "B7",
         "levels": 5
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "scroll_lock": "B2",
+        "on_state": 0
     },
     "rgblight": {
         "saturation_steps": 8,

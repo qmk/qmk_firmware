@@ -28,5 +28,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		QK_BOOT,  KC_1,     KC_2,     KC_3,      KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_EQL,   KC_DEL,
 		KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_BSLS,
 		KC_TRNS,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_TRNS,  KC_TRNS,  KC_TRNS,  HF_FDBK,  HF_TOGG,  HF_ON,    CK_ON,    CK_TOGG,
-		RGB_MOD,  RGB_HUI,  KC_TRNS,  RGB_TOG,   KC_TRNS,  KC_TRNS,  KC_TRNS)
+		UG_NEXT,  UG_HUEU,  KC_TRNS,  UG_TOGG,   KC_TRNS,  KC_TRNS,  KC_TRNS)
 };

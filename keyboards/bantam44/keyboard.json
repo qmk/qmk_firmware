@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Bantam44",
   "manufacturer": "Bantam Keyboards",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

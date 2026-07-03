@@ -24,7 +24,6 @@
     "rgblight": {
         "led_count": 3,
         "pin": "B2",
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
         "animations": {

@@ -1,12 +1,6 @@
 # business_card
 
-![business_card](imgur.com image replace me!)
-
-A short description of the keyboard/project
-
-Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+* Keyboard Maintainer: [kakunpc](https://github.com/kakunpc)
 
 Make example for this keyboard (after setting up your build environment):
 

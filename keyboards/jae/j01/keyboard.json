@@ -1,7 +1,6 @@
 {
     "keyboard_name": "J-01",
     "manufacturer": "Evyd13",
-    "url": "",
     "maintainer": "MechMerlin",
     "usb": {
         "vid": "0x4705",
@@ -32,6 +31,10 @@
         "pin": "B7",
         "levels": 4,
         "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
     },
     "bootmagic": {
         "matrix": [0, 2]

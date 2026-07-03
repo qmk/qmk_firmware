@@ -15,6 +15,14 @@
     "audio": {
         "driver": "dac_additive"
     },
+    "split": {
+        "handedness": {
+            "pin": "C14"
+        },
+        "serial": {
+            "driver": "usart"
+        }
+    },
     "ws2812": {
         "pin": "A6",
         "driver": "pwm"

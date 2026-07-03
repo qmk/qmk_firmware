@@ -6,12 +6,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include <hal.h>
+
 #include "via.h" // only for EEPROM address
 #include "satisfaction_keycodes.h"
 
-#define EEPROM_ENABLED_ENCODER_MODES (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
-#define EEPROM_DEFAULT_OLED (VIA_EEPROM_CUSTOM_CONFIG_ADDR+1)
-#define EEPROM_CUSTOM_ENCODER (VIA_EEPROM_CUSTOM_CONFIG_ADDR+2)
+#define EEPROM_ENABLED_ENCODER_MODES_OFFSET 0
+#define EEPROM_DEFAULT_OLED_OFFSET 1
+#define EEPROM_CUSTOM_ENCODER_OFFSET 2
 
 enum s75_keyboard_value_id {
   id_encoder_modes = 1,
@@ -94,3 +96,6 @@ void oled_request_repaint(void);
 bool oled_task_needs_to_repaint(void);
 
 void custom_config_load(void);
+
+uint32_t read_custom_config(void *data, uint32_t offset, uint32_t length);
+uint32_t write_custom_config(const void *data, uint32_t offset, uint32_t length);

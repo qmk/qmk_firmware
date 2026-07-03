@@ -71,11 +71,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-------------------'
     */
     [_FL] = LAYOUT_numpad_6x4_split_plus_zero(
-        RGB_TOG, _______, _______, _______,
-        RGB_MOD, RGB_M_P, BL_TOGG, _______,
-        RGB_HUD, RGB_HUI, BL_ON,   _______,
-        RGB_SAD, RGB_SAI, BL_OFF,  _______,
-        RGB_VAD, RGB_VAI, BL_STEP,
+        UG_TOGG, _______, _______, _______,
+        UG_NEXT, RGB_M_P, BL_TOGG, _______,
+        UG_HUED, UG_HUEU, BL_ON,   _______,
+        UG_SATD, UG_SATU, BL_OFF,  _______,
+        UG_VALD, UG_VALU, BL_STEP,
         _______, _______, QK_BOOT, _______
     )
 };

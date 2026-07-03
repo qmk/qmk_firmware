@@ -41,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN1] = LAYOUT(
                  _______,  _______, _______, _______,
                  _______,  _______, _______, _______,
-                 RGB_HUD,  RGB_SPI, RGB_HUI, _______,
-        _______, RGB_RMOD, RGB_TOG, RGB_MOD, _______,
-        _______, RGB_VAD,  RGB_SPD, RGB_VAI, _______,
-        _______, RGB_SAD,  _______, RGB_SAI, _______,
+                 UG_HUED,  UG_SPDU, UG_HUEU, _______,
+        _______, UG_PREV,  UG_TOGG, UG_NEXT, _______,
+        _______, UG_VALD,  UG_SPDD, UG_VALU, _______,
+        _______, UG_SATD,  _______, UG_SATU, _______,
 
                  _______, _______, _______
 

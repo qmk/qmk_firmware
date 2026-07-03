@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     , KC_X,    KC_Z,    LSFT(KC_F1),KC_TAB
   ),
   [L_RGB] = LAYOUT(
-      RGB_M_P,  RGB_M_B, RGB_TOG, KC_NO
-    , RGB_MOD,  RGB_HUI, RGB_VAI, TO(L_Numpad)
-    , RGB_RMOD, RGB_HUD, RGB_VAD, KC_NO
+      RGB_M_P,  RGB_M_B, UG_TOGG, KC_NO
+    , UG_NEXT,  UG_HUEU, UG_VALU, TO(L_Numpad)
+    , UG_PREV,  UG_HUED, UG_VALD, KC_NO
 
     , KC_A,    KC_B,    KC_C,    KC_D
     , KC_E,    KC_F,    KC_G,    KC_H

@@ -10,8 +10,6 @@
   },
   "features": {
       "bootmagic": false,
-      "command": false,
-      "console": false,
       "extrakey": false,
       "key_lock": true,
       "mousekey": true,
@@ -25,12 +23,14 @@
   "diode_direction": "COL2ROW",
   "split": {
     "enabled": true,
-    "soft_serial_pin": "D3",
     "matrix_pins": {
       "right": {
         "cols": ["F7", "F6", "F5", "F4", "B5", "B4", "E6"],
         "rows": ["D1", "D0", "D4", "C6", "D7", "D3"]
       }
+    },
+    "serial": {
+      "pin": "D3"
     }
   },
   "qmk": {
@@ -40,8 +40,7 @@
       "resync": true
     }
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "debounce": 3,
   "tapping": {
     "toggle": 3

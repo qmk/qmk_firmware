@@ -9,7 +9,7 @@ from milc import cli
 
 from qmk.info import info_json
 from qmk.json_schema import json_load, validate
-from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder, UserspaceJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder, UserspaceJSONEncoder, CommunityModuleJSONEncoder
 from qmk.path import normpath
 
 
@@ -18,10 +18,24 @@ def _detect_json_format(file, json_data):
     """
     json_encoder = None
     try:
-        validate(json_data, 'qmk.user_repo.v1')
+        validate(json_data, 'qmk.user_repo.v1_1')
         json_encoder = UserspaceJSONEncoder
     except ValidationError:
         pass
+
+    if json_encoder is None:
+        try:
+            validate(json_data, 'qmk.user_repo.v1')
+            json_encoder = UserspaceJSONEncoder
+        except ValidationError:
+            pass
+
+    if json_encoder is None:
+        try:
+            validate(json_data, 'qmk.community_module.v1')
+            json_encoder = CommunityModuleJSONEncoder
+        except ValidationError:
+            pass
 
     if json_encoder is None:
         try:
@@ -47,6 +61,8 @@ def _get_json_encoder(file, json_data):
         json_encoder = KeymapJSONEncoder
     elif cli.args.format == 'userspace':
         json_encoder = UserspaceJSONEncoder
+    elif cli.args.format == 'community_module':
+        json_encoder = CommunityModuleJSONEncoder
     else:
         # This should be impossible
         cli.log.error('Unknown format: %s', cli.args.format)
@@ -54,7 +70,7 @@ def _get_json_encoder(file, json_data):
 
 
 @cli.argument('json_file', arg_only=True, type=normpath, help='JSON file to format')
-@cli.argument('-f', '--format', choices=['auto', 'keyboard', 'keymap', 'userspace'], default='auto', arg_only=True, help='JSON formatter to use (Default: autodetect)')
+@cli.argument('-f', '--format', choices=['auto', 'keyboard', 'keymap', 'userspace', 'community_module'], default='auto', arg_only=True, help='JSON formatter to use (Default: autodetect)')
 @cli.argument('-i', '--inplace', action='store_true', arg_only=True, help='If set, will operate in-place on the input file')
 @cli.argument('-p', '--print', action='store_true', arg_only=True, help='If set, will print the formatted json to stdout ')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)

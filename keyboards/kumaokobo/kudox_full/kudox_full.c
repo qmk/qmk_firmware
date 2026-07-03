@@ -3,12 +3,6 @@
 
 #include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
-void eeconfig_init_kb(void) {
-    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
-};
-#endif
-
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {
     if (!oled_task_user()) { return false; }

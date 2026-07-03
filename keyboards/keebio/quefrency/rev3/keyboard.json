@@ -42,7 +42,6 @@
         "pin": "E6"
     },
     "split": {
-        "soft_serial_pin": "D0",
         "encoder": {
             "right": {
                 "rotary": [
@@ -50,11 +49,17 @@
                 ]
             }
         },
+        "handedness": {
+            "pin": "F7"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F1", "F0", "F4", "F5", "F6", "D5", "C7", "D3", "B7"],
                 "rows": ["B3", "B2", "B6", "B4", "D7"]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
     "processor": "atmega32u4",

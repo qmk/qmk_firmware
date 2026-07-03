@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Dawn60",
     "manufacturer": "Xelus",
-    "url": "",
     "maintainer": "Xelus22",
     "usb": {
         "vid": "0x5845",
@@ -17,6 +16,7 @@
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "layout_aliases": {
-        "LAYOUT_60_all": "LAYOUT_all"
+        "LAYOUT_60_all": "LAYOUT_all",
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
     }
 }

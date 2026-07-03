@@ -6,8 +6,8 @@
 
 #ifdef ENCODER_ENABLE // code based on encoder.c
 
-#define ENCODER_PIN_A (((pin_t[])ENCODERS_PAD_A)[0])
-#define ENCODER_PIN_B (((pin_t[])ENCODERS_PAD_B)[0])
+#define ENCODER_PIN_A (((pin_t[])ENCODER_A_PINS)[0])
+#define ENCODER_PIN_B (((pin_t[])ENCODER_B_PINS)[0])
 
 // custom handler that returns encoder B pin status from slave side
 void encoder_sync_slave_handler(uint8_t in_buflen, const void *in_data, uint8_t out_buflen, void *out_data) {
@@ -120,6 +120,4 @@ void housekeeping_task_kb(void) {
         }
     }
 #endif // defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_LAYERS)
-
-    housekeeping_task_user();
 }

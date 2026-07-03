@@ -39,7 +39,6 @@ void housekeeping_task_kb(void){
         gpio_write_pin_low(BUZZER_PIN);
         }
     }
-    housekeeping_task_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -133,7 +132,7 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 // Variables for display layer and haptic status on OLED
 static uint8_t layer = 0;
-haptic_config_t haptic_config;
+extern haptic_config_t haptic_config;
 
 // Variables for frames, timer, and sleep
 uint32_t anim_timer         = 0;

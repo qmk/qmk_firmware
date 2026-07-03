@@ -1,7 +1,6 @@
 {
     "keyboard_name": "220",
     "manufacturer": "Noxary",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4E58",
@@ -31,6 +30,9 @@
     "backlight": {
         "pin": "B7",
         "breathing": true
+    },
+    "indicators": {
+        "num_lock": "C6"
     },
     "processor": "atmega32u2",
     "bootloader": "atmel-dfu",

@@ -9,11 +9,17 @@
     },
     "split": {
         "enabled": true,
+        "handedness": {
+            "pin": "GP4"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["GP29", "GP28", "GP27", "GP26", "GP25", "GP21", "GP15", "GP9", "GP10"],
                 "rows": ["GP2", "GP3", "GP5", "GP8", "GP19"]
             }
+        },
+        "serial": {
+            "driver": "vendor"
         },
         "transport": {
             "sync": {

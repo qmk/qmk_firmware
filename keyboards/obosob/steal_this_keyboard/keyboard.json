@@ -8,12 +8,9 @@
         "pid": "0x50AD",
         "device_version": "0.0.1"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -29,7 +26,6 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "matrix_pins": {
             "right": {
                 "direct": [
@@ -39,6 +35,9 @@
                     ["B5", "C6", null, null, null]
                 ]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "community_layouts": [

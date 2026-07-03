@@ -101,7 +101,7 @@ uint16_t handle_encoder_clockwise(void){
       mapped_code = KC_MEDIA_NEXT_TRACK;
       break;
     case ENC_MODE_SCROLL:
-      mapped_code = KC_WH_D;
+      mapped_code = QK_MOUSE_WHEEL_DOWN;
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
@@ -143,7 +143,7 @@ uint16_t handle_encoder_ccw(void){
       mapped_code = KC_MEDIA_PREV_TRACK;
       break;
     case ENC_MODE_SCROLL:
-      mapped_code = KC_WH_U;
+      mapped_code = QK_MOUSE_WHEEL_UP;
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
@@ -186,7 +186,7 @@ uint16_t handle_encoder_press(void){
       mapped_code = KC_MEDIA_PLAY_PAUSE;
       break;
     case ENC_MODE_SCROLL:
-      mapped_code = KC_BTN3;
+      mapped_code = QK_MOUSE_BUTTON_3;
       break;
 #ifdef BACKLIGHT_ENABLE
     case ENC_MODE_BACKLIGHT:
@@ -215,10 +215,13 @@ uint16_t handle_encoder_press(void){
 
 uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
+    uint32_t offset = EEPROM_CUSTOM_ENCODER_OFFSET + (encoder_idx * 6) + (behavior * 2);
     //big endian
-    uint16_t keycode = eeprom_read_byte(addr) << 8;
-    keycode |= eeprom_read_byte(addr + 1);
+    uint8_t hi, lo;
+    read_custom_config(&hi, offset+0, 1);
+    read_custom_config(&lo, offset+1, 1);
+    uint16_t keycode = hi << 8;
+    keycode |= lo;
     return keycode;
 #else
     return 0;
@@ -227,8 +230,10 @@ uint16_t retrieve_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior){
 
 void set_custom_encoder_config(uint8_t encoder_idx, uint8_t behavior, uint16_t new_code){
 #ifdef DYNAMIC_KEYMAP_ENABLE
-    void* addr = (void*)(EEPROM_CUSTOM_ENCODER + (encoder_idx * 6) + (behavior * 2));
-    eeprom_update_byte(addr, (uint8_t)(new_code >> 8));
-    eeprom_update_byte(addr + 1, (uint8_t)(new_code & 0xFF));
+    uint32_t offset = EEPROM_CUSTOM_ENCODER_OFFSET + (encoder_idx * 6) + (behavior * 2);
+    uint8_t hi = new_code >> 8;
+    uint8_t lo = new_code & 0xFF;
+    write_custom_config(&hi, offset+0, 1);
+    write_custom_config(&lo, offset+1, 1);
 #endif
 }

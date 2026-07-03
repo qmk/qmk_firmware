@@ -31,12 +31,17 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0",
+        "handedness": {
+            "pin": "D5"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["D4", "D6", "F1", "F0", "F4", "F5", "C6"],
                 "rows": ["B6", "B5", "B4", "D7", "E6"]
             }
+        },
+        "serial" :{
+            "pin": "D0"
         },
         "transport":{
             "sync" :{

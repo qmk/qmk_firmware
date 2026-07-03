@@ -1,7 +1,6 @@
 {
     "keyboard_name": "RARTLITE",
     "manufacturer": "Alabahuy",
-    "url": "",
     "maintainer": "Alabahuy",
     "usb": {
         "vid": "0x414C",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -32,8 +29,7 @@
         "num_lock": "F6",
         "on_state": 0
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT_right_numpad": {
             "layout": [

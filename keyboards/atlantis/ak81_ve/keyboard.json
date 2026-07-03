@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0x416B",
         "pid": "0x0081",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgb_matrix": {
         "animations": {
@@ -181,8 +185,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "dynamic_macro": true,
         "encoder": true,
         "extrakey": true,

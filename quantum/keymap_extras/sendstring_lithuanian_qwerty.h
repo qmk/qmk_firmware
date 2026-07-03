@@ -54,13 +54,13 @@ const uint8_t ascii_to_keycode_lut[128] PROGMEM = {
     XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
     //       !        "        #        $        %        &        '
-    KC_SPC,  LT_1,    LT_QUOT, LT_3,    LT_4,    LT_5,    LT_7,    LT_QUOT,
+    KC_SPC,  LT_AOGO, LT_QUOT, LT_EOGO, LT_EDOT, LT_IOGO, LT_UOGO, LT_QUOT,
     // (     )        *        +        ,        -        .        /
-    LT_9,    LT_0,    LT_8,    LT_ZCAR, LT_COMM, LT_MINS, LT_DOT,  LT_SLSH,
+    LT_9,    LT_0,    LT_UMAC, LT_ZCAR, LT_COMM, LT_MINS, LT_DOT,  LT_SLSH,
     // 0     1        2        3        4        5        6        7
     LT_0,    LT_AOGO, LT_CCAR, LT_EOGO, LT_EDOT, LT_IOGO, LT_SCAR, LT_UOGO,
     // 8     9        :        ;        <        =        >        ?
-    LT_UMAC, LT_9,    LT_SCLN, LT_SCLN, LT_COMM, LT_PLUS, LT_DOT,  LT_SLSH,
+    LT_UMAC, LT_9,    LT_SCLN, LT_SCLN, LT_COMM, LT_ZCAR, LT_DOT,  LT_SLSH,
     // @     A        B        C        D        E        F        G
     LT_CCAR, LT_A,    LT_B,    LT_C,    LT_D,    LT_E,    LT_F,    LT_G,
     // H     I        J        K        L        M        N        O

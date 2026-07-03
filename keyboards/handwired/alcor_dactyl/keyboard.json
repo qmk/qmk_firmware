@@ -4,22 +4,22 @@
     "maintainer": "rocketstrong",
     "bootloader": "rp2040",
     "processor": "RP2040",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
         "vid": "0xFEED"
     },
     "features": {
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
     },
     "split": {
-        "enabled": true
+        "enabled": true,
+        "serial": {
+            "driver": "vendor"
+        }
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

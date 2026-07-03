@@ -1,6 +1,5 @@
 {
     "manufacturer": "Atelier_Haven",
-    "url": "",
     "maintainer": "Freather",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

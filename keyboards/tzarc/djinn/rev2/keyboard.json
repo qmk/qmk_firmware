@@ -6,6 +6,9 @@
     "max_brightness": 144
   },
   "split": {
+    "handedness": {
+      "pin": "B9"
+    },
     "usb_detect": {
       "enabled": false
     }

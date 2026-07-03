@@ -6,7 +6,6 @@
         "pid": "0x000B",
         "device_version": "1.0.0"
     },
-    "url": "",
     "maintainer": "Jels",
     "processor": "atmega328p",
     "bootloader": "usbasploader",
@@ -14,9 +13,7 @@
         "bootmagic": true,
         "nkro": false,
         "mousekey": false,
-        "extrakey": true,
-        "console": false,
-        "command": false
+        "extrakey": true
     },
     "qmk": {
         "locking": {

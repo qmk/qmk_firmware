@@ -21,6 +21,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "pointing_device.h"
 
 #define constrain(amt, low, high) ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)))
 
@@ -54,11 +55,13 @@ typedef struct {
     int8_t dy;
 } report_pmw3320_t;
 
+extern const pointing_device_driver_t pmw3320_pointing_device_driver;
+
 // A bunch of functions to implement the PMW3320-specific serial protocol.
 // Mostly taken from ADNS5050 driver.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
-void             pmw3320_init(void);
+bool             pmw3320_init(void);
 void             pmw3320_sync(void);
 uint8_t          pmw3320_serial_read(void);
 void             pmw3320_serial_write(uint8_t data);
@@ -69,6 +72,7 @@ void             pmw3320_set_cpi(uint16_t cpi);
 uint16_t         pmw3320_get_cpi(void);
 int8_t           convert_twoscomp(uint8_t data);
 bool             pmw3320_check_signature(void);
+report_mouse_t   pmw3320_get_report(report_mouse_t mouse_report);
 
 #if !defined(PMW3320_CPI)
 #    define PMW3320_CPI 1000

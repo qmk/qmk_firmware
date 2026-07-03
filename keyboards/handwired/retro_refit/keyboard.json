@@ -1,13 +1,16 @@
 {
   "keyboard_name": "retro_refit",
   "manufacturer": "Nobody",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
     "pid": "0x6060",
-    "device_version": "0.0.1",
-    "force_nkro": true
+    "device_version": "0.0.1"
+  },
+  "host": {
+    "default": {
+      "nkro": true
+    }
   },
   "features": {
     "bootmagic": true,
@@ -22,6 +25,12 @@
       "enabled": true,
       "resync": true
     }
+  },
+  "indicators": {
+    "caps_lock": "D0",
+    "num_lock": "D1",
+    "scroll_lock": "C6",
+    "on_state": 0
   },
   "matrix_pins": {
     "cols": ["B0", "B1", "B2", "B3", "D2", "D3", "C7", "D5"],

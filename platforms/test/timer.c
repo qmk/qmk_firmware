@@ -60,14 +60,6 @@ uint32_t timer_read32(void) {
     return current_time;
 }
 
-uint16_t timer_elapsed(uint16_t last) {
-    return TIMER_DIFF_16(timer_read(), last);
-}
-
-uint32_t timer_elapsed32(uint32_t last) {
-    return TIMER_DIFF_32(timer_read32(), last);
-}
-
 void set_time(uint32_t t) {
     current_time   = t;
     access_counter = 0;

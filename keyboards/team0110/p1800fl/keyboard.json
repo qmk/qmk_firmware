@@ -11,8 +11,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -33,6 +31,11 @@
         "pin": "B7",
         "levels": 5,
         "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "D5",
+        "num_lock": "D3",
+        "scroll_lock": "C6"
     },
     "rgblight": {
         "saturation_steps": 8,

@@ -32,17 +32,8 @@
 #define APA102_MAX_BRIGHTNESS 31
 
 void apa102_init(void);
-
-/* User Interface
- *
- * Input:
- *         start_led:          An array of GRB data describing the LED colors
- *         num_leds:           The number of LEDs to write
- *
- * The functions will perform the following actions:
- *         - Set the data-out pin as output
- *         - Send out the LED data
- */
-void apa102_setleds(rgb_led_t *start_led, uint16_t num_leds);
+void apa102_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+void apa102_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
+void apa102_flush(void);
 
 void apa102_set_brightness(uint8_t brightness);

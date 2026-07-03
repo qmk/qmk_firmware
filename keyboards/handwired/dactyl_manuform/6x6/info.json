@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Dactyl-Manuform (6x6)",
     "manufacturer": "tshort",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x444D",

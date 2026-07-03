@@ -26,9 +26,7 @@ enum grandiceps_layers {
 };
 
 enum custom_keycodes {
-    KC_QWERTY = SAFE_RANGE,
-    KC_COLEMAK,
-    KC_LOWER,
+    KC_LOWER = SAFE_RANGE,
     KC_RAISE,
     KC_ADJUST,
     KC_PRVWD,
@@ -39,7 +37,8 @@ enum custom_keycodes {
     KC_TEAMS
 };
 
-
+#define KC_QWERTY PDF(_QWERTY)
+#define KC_COLEMAK PDF(_COLEMAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -145,8 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *            `----------------------------------'           '------''---------------------------'
  */
   [_ADJUST] = LAYOUT(
-  XXXXXXX , XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX,                    RGB_MOD,  RGB_VAI, RGB_SAI, RGB_HUI, XXXXXXX, RGB_TOG,
-  QK_BOOT  ,  XXXXXXX,  KC_QWERTY,KC_COLEMAK,CG_TOGG, XXXXXXX,                    RGB_RMOD, RGB_VAD, RGB_SAD, RGB_HUD, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX,                    UG_NEXT,  UG_VALU, UG_SATU, UG_HUEU, XXXXXXX, UG_TOGG,
+  QK_BOOT  ,  XXXXXXX,  KC_QWERTY,KC_COLEMAK,CG_TOGG, XXXXXXX,                    UG_PREV,  UG_VALD, UG_SATD, UG_HUED, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,  CG_TOGG,  XXXXXXX,   XXXXXXX, XXXXXXX,                    XXXXXXX,  KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   XXXXXXX , XXXXXXX,  XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
             _______, _______, _______,          _______, _______,         _______, _______,        _______, _______, _______
@@ -154,19 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-
     switch (keycode) {
-        case KC_QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case KC_COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
         case KC_LOWER:
             if (record->event.pressed) {
                 layer_on(_LOWER);

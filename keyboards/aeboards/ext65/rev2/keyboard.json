@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ext65 Rev2",
     "manufacturer": "AEBoards",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "pid": "0xA652",
@@ -21,6 +20,11 @@
         "pin": "B5",
         "levels": 6,
         "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "B3",
+        "num_lock": "B4",
+        "scroll_lock": "A15"
     },
     "rgblight": {
         "led_count": 24,

@@ -13,7 +13,7 @@ Keycodes are actually defined in [quantum/keycode.h](https://github.com/qmk/qmk_
 There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
 <!-- Source for this image: https://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
-![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
+![Keyboard Layout Image](/5wsh5wM.png)
 
 ## How Can I Make Custom Names For Complex Keycodes?
 
@@ -34,7 +34,7 @@ On first run, the VIA code in the firmware will copy the keymap from flash memor
 
 The simple fix for this is to clear the EEPROM. You can do this in several ways:
 
-* Hold the Bootmagic Lite key (usually top left/Escape) while plugging the board in, which will also place the board into bootloader mode; then unplug and replug the board.
+* Hold the Bootmagic key (usually top left/Escape) while plugging the board in, which will also place the board into bootloader mode; then unplug and replug the board.
 * Press the `QK_CLEAR_EEPROM`/`EE_CLR` keycode if it is accessible on your keymap.
 * Place the board into bootloader mode and hit the "Clear EEPROM" button. This may not be available for all bootloaders, and you may need to reflash the board afterwards.
 

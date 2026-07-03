@@ -14,63 +14,6 @@
  */
 #include QMK_KEYBOARD_H
 
-enum my_keycodes {
-    RMT = SAFE_RANGE,
-    RMS,
-    RMIH,
-    RMDH,
-    RMIS,
-    RMDS,
-    RMIV,
-    RMDV
-};
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case RMT:
-      if (record->event.pressed)
-      {rgb_matrix_toggle();
-      }
-      return false;
-    case RMS:
-      if (record->event.pressed)
-      {rgb_matrix_step();
-      }
-      return false;
-      case RMIH:
-      if (record->event.pressed)
-      {rgb_matrix_increase_hue();
-      }
-      return false;
-      case RMDH:
-      if (record->event.pressed)
-      {rgb_matrix_decrease_hue();
-      }
-      return false;
-      case RMIS:
-      if (record->event.pressed)
-      {rgb_matrix_increase_sat();
-      }
-      return false;
-      case RMDS:
-      if (record->event.pressed)
-      {rgb_matrix_decrease_sat();
-      }
-      return false;
-      case RMIV:
-      if (record->event.pressed)
-      {rgb_matrix_increase_val();
-      }
-      return false;
-      case RMDV:
-      if (record->event.pressed)
-      {rgb_matrix_decrease_val();
-      }
-      return true;
-      default:
-      return true;
-  }
-}
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,  KC_GRV,  KC_PGUP, KC_PGDN,
@@ -81,8 +24,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  QK_BOOT, _______, _______, _______,
-        _______,     RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______,
-        _______,       RMT,  RMS,  RMIH,  RMDH,  RMIS,  RMDS,  RMIV,  RMDV, _______, _______, _______, _______,
+        _______,     UG_TOGG, UG_NEXT, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, UG_VALU, UG_VALD, _______, _______, _______, _______, _______,
+        _______,       RM_TOGG,  RM_NEXT,  RM_HUEU,  RM_HUED,  RM_SATU,  RM_SATD,  RM_VALU,  RM_VALD, _______, _______, _______, _______,
         _______,            _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,        _______, _______,
         _______,   _______,   _______,                      _______,                              _______, _______, _______, _______, _______
     )

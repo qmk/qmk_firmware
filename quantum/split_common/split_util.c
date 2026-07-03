@@ -13,6 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+#include "compiler_support.h"
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
@@ -54,15 +56,13 @@
 
 static uint8_t connection_errors = 0;
 
-volatile bool isLeftHand = true;
-
 static struct {
     bool master;
     bool left;
 } split_config;
 
 #if defined(SPLIT_USB_DETECT)
-_Static_assert((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
+STATIC_ASSERT((SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL) <= UINT16_MAX, "Please lower SPLIT_USB_TIMEOUT and/or increase SPLIT_USB_TIMEOUT_POLL.");
 static bool usb_bus_detected(void) {
     for (uint16_t i = 0; i < (SPLIT_USB_TIMEOUT / SPLIT_USB_TIMEOUT_POLL); i++) {
         // This will return true if a USB connection has been established
@@ -88,9 +88,9 @@ static inline bool usb_bus_detected(void) {
 #        endif
 #    endif
 #    if defined(SPLIT_USB_DETECT)
-_Static_assert(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
+STATIC_ASSERT(SPLIT_USB_TIMEOUT < SPLIT_WATCHDOG_TIMEOUT, "SPLIT_WATCHDOG_TIMEOUT should not be below SPLIT_USB_TIMEOUT.");
 #    endif
-_Static_assert(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
+STATIC_ASSERT(SPLIT_MAX_CONNECTION_ERRORS > 0, "SPLIT_WATCHDOG_ENABLE requires SPLIT_MAX_CONNECTION_ERRORS be above 0 for a functioning disconnection check.");
 
 static uint32_t split_watchdog_started = 0;
 static bool     split_watchdog_done    = false;
@@ -165,7 +165,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #            pragma message "Faking EE_HANDS for right hand"
     const bool should_be_left = false;
 #        endif
-    bool       is_left        = eeconfig_read_handedness();
+    bool is_left = eeconfig_read_handedness();
     if (is_left != should_be_left) {
         eeconfig_update_handedness(should_be_left);
     }
@@ -200,8 +200,6 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 void split_pre_init(void) {
     split_config.master = is_keyboard_master_impl();
     split_config.left   = is_keyboard_left_impl();
-
-    isLeftHand = is_keyboard_left(); // TODO: Remove isLeftHand
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
     uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;

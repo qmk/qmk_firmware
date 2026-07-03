@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Project Zen",
     "manufacturer": "Legonut",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
       "vid": "0xFEED",
@@ -35,7 +34,9 @@
     },
     "split": {
       "enabled": true,
-      "soft_serial_pin": "D3"
+      "serial": {
+        "pin": "D3"
+      }
     },
     "rgblight": {
       "led_count": 34,
@@ -55,8 +56,7 @@
     "ws2812": {
       "pin": "B6"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
       "LAYOUT": {
         "layout": [

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GergoPlex",
     "manufacturer": "g Heavy Industries",
-    "url": "",
     "maintainer": "germ",
     "usb": {
         "vid": "0x6B0A",

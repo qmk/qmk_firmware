@@ -29,9 +29,6 @@
 #define SNLED27351_CURRENT_TUNE \
     { 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF, 0x80, 0xFF, 0xFF } // 300mA
 
-/* Split Keyboard specific options. */
-#define SERIAL_USART_TX_PIN A9 // USART TX pin
-
 /* Encoder Configuration */
 #define ENCODER_DEFAULT_POS 0x3
 

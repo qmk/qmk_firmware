@@ -152,14 +152,15 @@ In order to use these features, the following configuration options and function
 
 | Config Flag                 | Function                                                  | Description                                                                                            |
 |-----------------------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| `COMBO_TERM_PER_COMBO`      | uint16_t get_combo_term(uint16_t index, combo_t \*combo)  | Optional per-combo timeout window. (default: `COMBO_TERM`)                                             |
-| `COMBO_MUST_HOLD_PER_COMBO` | bool get_combo_must_hold(uint16_t index, combo_t \*combo) | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
-| `COMBO_MUST_TAP_PER_COMBO`  | bool get_combo_must_tap(uint16_t index, combo_t \*combo)  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
-| `COMBO_MUST_PRESS_IN_ORDER_PER_COMBO` | bool get_combo_must_press_in_order(uint16_t index, combo_t \*combo) | Controls if a given combo should fire only if its keys are pressed in order. (default: `true`) |
+| `COMBO_TERM_PER_COMBO`      | `uint16_t get_combo_term(uint16_t combo_index, combo_t *combo)`  | Optional per-combo timeout window. (default: `COMBO_TERM`)                                             |
+| `COMBO_MUST_HOLD_PER_COMBO` | `bool get_combo_must_hold(uint16_t combo_index, combo_t *combo)` | Controls if a given combo should fire immediately on tap or if it needs to be held. (default: `false`) |
+| `COMBO_MUST_TAP_PER_COMBO`  | `bool get_combo_must_tap(uint16_t combo_index, combo_t *combo)`  | Controls if a given combo should fire only if tapped within `COMBO_HOLD_TERM`. (default: `false`)      |
+| `COMBO_MUST_PRESS_IN_ORDER_PER_COMBO` | `bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo)` | Controls if a given combo should fire only if its keys are pressed in order. (default: `true`) |
 
 Examples:
 ```c
-uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+#ifdef COMBO_TERM_PER_COMBO
+uint16_t get_combo_term(uint16_t combo_index, combo_t *combo) {
     // decide by combo->keycode
     switch (combo->keycode) {
         case KC_X:
@@ -167,7 +168,7 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     }
 
     // or with combo index, i.e. its name from enum.
-    switch (index) {
+    switch (combo_index) {
         case COMBO_NAME_HERE:
             return 9001;
     }
@@ -182,8 +183,10 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 
     return COMBO_TERM;
 }
+#endif
 
-bool get_combo_must_hold(uint16_t index, combo_t *combo) {
+#ifdef COMBO_MUST_HOLD_PER_COMBO
+bool get_combo_must_hold(uint16_t combo_index, combo_t *combo) {
     // Same as above, decide by keycode, the combo index, or by the keys in the chord.
 
     if (KEYCODE_IS_MOD(combo->keycode) || 
@@ -192,15 +195,17 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) {
         return true;
     }
 
-    switch (index) {
+    switch (combo_index) {
         case COMBO_NAME_HERE:
             return true;
     }
 
     return false;
 }
+#endif
 
-bool get_combo_must_tap(uint16_t index, combo_t *combo) {
+#ifdef COMBO_MUST_TAP_PER_COMBO
+bool get_combo_must_tap(uint16_t combo_index, combo_t *combo) {
     // If you want all combos to be tap-only, just uncomment the next line
     // return true
 
@@ -219,7 +224,9 @@ bool get_combo_must_tap(uint16_t index, combo_t *combo) {
     return false;
 
 }
+#endif
 
+#ifdef COMBO_MUST_PRESS_IN_ORDER_PER_COMBO
 bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
     switch (combo_index) {
         /* List combos here that you want to only activate if their keys
@@ -231,6 +238,7 @@ bool get_combo_must_press_in_order(uint16_t combo_index, combo_t *combo) {
             return false;
     }
 }
+#endif
 ```
 
 ### Generic hook to (dis)allow a combo activation
@@ -307,6 +315,50 @@ bool process_combo_key_release(uint16_t combo_index, combo_t *combo, uint8_t key
     return false;
 }
 ```
+
+### Customizable key repress
+By defining `COMBO_PROCESS_KEY_REPRESS` and implementing `bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode)` you can run your custom code when you repress just released key of a combo. By combining it with custom `process_combo_event` we can for example make special handling for Alt+Tab to switch windows, which, on combo F+G activation, registers Alt and presses Tab - then we can switch windows forward by releasing G and pressing it again, or backwards with F key. Here's the full example:
+
+```c
+enum combos {
+    CMB_ALTTAB
+};
+
+const uint16_t PROGMEM combo_alttab[] = {KC_F, KC_G, COMBO_END};
+
+combo_t key_combos[COMBO_LENGTH] = {
+    [CMB_ALTTAB] = COMBO(combo_alttab, KC_NO), // KC_NO to leave processing for process_combo_event
+};
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch (combo_index) {
+        case CMB_ALTTAB:
+            if (pressed) {
+                register_mods(MOD_LALT);
+                tap_code(KC_TAB);
+            } else {
+                unregister_mods(MOD_LALT);
+            }
+            break;
+    }
+}
+
+bool process_combo_key_repress(uint16_t combo_index, combo_t *combo, uint8_t key_index, uint16_t keycode) {
+    switch (combo_index) {
+        case CMB_ALTTAB:
+            switch (keycode) {
+                case KC_F:
+                    tap_code16(S(KC_TAB));
+                    return true;
+                case KC_G:
+                    tap_code(KC_TAB);
+                    return true;
+            }
+    }
+    return false;
+}
+```
+
 ### Layer independent combos
 
 If you, for example, use multiple base layers for different key layouts, one for QWERTY, and another one for Colemak, you might want your combos to work from the same key positions on all layers. Defining the same combos again for another layout is redundant and takes more memory. The solution is to just check the keycodes from one layer.

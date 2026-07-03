@@ -10,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -35,13 +33,15 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2",
         "encoder": {
             "right": {
                 "rotary": [
                     {"pin_a": "B2", "pin_b": "B3", "resolution": 2}
                 ]
             }
+        },
+        "serial": {
+            "pin": "D2"
         }
     },
     "processor": "atmega32u4",

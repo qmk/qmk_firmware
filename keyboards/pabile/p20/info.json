@@ -1,6 +1,5 @@
 {
     "manufacturer": "Pabile",
-    "url": "",
     "maintainer": "pabile",
     "usb": {
         "vid": "0x6666",

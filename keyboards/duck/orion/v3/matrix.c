@@ -53,20 +53,7 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
 
-void indicator_init_ports(void) {
-
-  // Num LED
-  gpio_set_pin_output(B4); 
-
-  // Caps Lock
-  gpio_set_pin_output(B0); 
-
-  // Scroll Lock
-  gpio_set_pin_output(D7); 
-}
-
 void matrix_init(void) {
-  indicator_init_ports();
   unselect_cols();
   init_rows();
 

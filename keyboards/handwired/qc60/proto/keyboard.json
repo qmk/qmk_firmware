@@ -1,7 +1,6 @@
 {
   "keyboard_name": "QC60",
   "manufacturer": "PeiorisBoards",
-  "url": "",
   "maintainer": "coarse",
   "usb": {
     "vid": "0xFEED",
@@ -10,8 +9,6 @@
   },
   "features": {
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": false,
@@ -30,7 +27,9 @@
   "diode_direction": "ROW2COL",
   "split": {
     "enabled": true,
-    "soft_serial_pin": "D0"
+    "serial": {
+      "pin": "D0"
+    }
   },
   "processor": "atmega32u4",
   "bootloader": "caterina",

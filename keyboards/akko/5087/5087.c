@@ -125,66 +125,18 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
 };
 #endif // RGB_MATRIX_ENABLE
 
-enum __layers { 
-	WIN_B, 
-	WIN_W, 
-	WIN_FN, 
-	MAC_B, 
-	MAC_W, 
-	MAC_FN, 
-};
-
 // clang-format on
 
-void matrix_init_kb(void) {
+void keyboard_post_init_kb(void) {
     gpio_set_pin_output(LED_MAC_OS_PIN); // LDE2 MAC\WIN
     gpio_write_pin_low(LED_MAC_OS_PIN);
     gpio_set_pin_output(LED_WIN_LOCK_PIN); // LED3 Win Lock
     gpio_write_pin_low(LED_WIN_LOCK_PIN);
 
-    matrix_init_user();
+    keyboard_post_init_user();
 }
 
 void housekeeping_task_kb(void){
     gpio_write_pin(LED_MAC_OS_PIN, (get_highest_layer(default_layer_state) == 3));
     gpio_write_pin(LED_WIN_LOCK_PIN, keymap_config.no_gui);
-}
-
-bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-    switch (keycode) {
-        case DF(WIN_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(WIN_B);
-            }
-            return false;
-        case DF(MAC_B):
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(MAC_B);
-                keymap_config.no_gui = 0;
-                eeconfig_update_keymap(keymap_config.raw);
-            }
-            return false;
-        case RGB_TOG:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    } break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_set_flags(LED_FLAG_ALL);
-                rgb_matrix_enable();
-            }
-            return false;
-        default:
-            return true;
-    }
 }

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "wm1 hotswap",
     "manufacturer": "Heliar",
-    "url": "",
     "maintainer": "heliar",
     "usb": {
         "vid": "0xFEED",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false
@@ -24,6 +21,12 @@
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "D6",
+        "num_lock": "D7",
+        "scroll_lock": "D4",
+        "on_state": 0
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

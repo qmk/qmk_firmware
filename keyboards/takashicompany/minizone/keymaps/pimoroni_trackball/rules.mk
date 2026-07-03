@@ -1,4 +1,0 @@
-POINTING_DEVICE_ENABLE = yes
-POINTING_DEVICE_DRIVER = pimoroni_trackball
-OLED_ENABLE = no
-VIA_ENABLE = yes

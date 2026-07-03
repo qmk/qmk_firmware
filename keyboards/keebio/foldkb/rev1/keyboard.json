@@ -1,10 +1,6 @@
 {
     "keyboard_name": "FoldKB Rev. 1",
-    "manufacturer": "Keebio",
-    "url": "https://keeb.io",
-    "maintainer": "nooges",
     "usb": {
-        "vid": "0xCB10",
         "pid": "0x1358",
         "device_version": "1.0.0"
     },
@@ -23,7 +19,12 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "handedness": {
+            "pin": "F7"
+        },
+        "serial": {
+            "pin": "D0"
+        }
     },
     "rgblight": {
         "led_count": 16,

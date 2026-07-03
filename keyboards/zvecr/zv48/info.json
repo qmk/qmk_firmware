@@ -1,7 +1,6 @@
 {
     "keyboard_name": "zv48",
     "manufacturer": "zvecr",
-    "url": "",
     "maintainer": "zvecr",
     "usb": {
         "vid": "0x5A56",
@@ -50,12 +49,15 @@
     },
     "split": {
         "enabled": true,
+        "bootmagic": {
+            "matrix": [4, 0]
+        },
         "handedness": {
             "pin": "B9"
         },
-        "soft_serial_pin": "B6",
-        "bootmagic": {
-            "matrix": [4, 0]
+        "serial": {
+            "driver": "usart",
+            "pin": "B6"
         },
         "matrix_pins": {
             "right": {

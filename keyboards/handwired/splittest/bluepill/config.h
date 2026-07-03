@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define SPLIT_HAND_PIN A7
-
 #if !(defined(USE_SDI1_ON_STANDARD_ROLE_PINS) || defined(USE_SDI1_ON_ALTERNATE_ROLE_PINS) || defined(USE_SDI2))
     #define USE_SDI1_ON_STANDARD_ROLE_PINS
 #endif

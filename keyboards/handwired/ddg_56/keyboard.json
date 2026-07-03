@@ -1,7 +1,6 @@
 {
   "keyboard_name": "DDG_56",
   "manufacturer": "Spaceman",
-  "url": "",
   "maintainer": "spaceman",
   "usb": {
     "vid": "0xFEED",
@@ -11,8 +10,6 @@
   "features": {
     "audio": true,
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": false,
     "mousekey": false,
     "nkro": true
