@@ -5,7 +5,7 @@ from milc import cli
 
 import qmk.path
 from qmk.commands import dump_lines
-from qmk.community_modules import module_api_list, load_module_jsons
+from qmk.community_modules import module_api_list
 from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
 
 from qmk.cli.generate.community_modules import (
