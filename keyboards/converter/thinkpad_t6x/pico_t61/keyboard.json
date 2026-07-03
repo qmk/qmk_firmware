@@ -1,0 +1,19 @@
+{
+    "manufacturer": "Frank Adams",
+    "keyboard_name": "converter/thinkpad_t6x/pico_t61",
+    "maintainer": "Al En",
+    "matrix_pins": {
+        "cols": ["GP27", "GP26", "GP17", "GP14", "GP12", "GP19", "GP18", "GP15", "GP13", "GP6", "GP16", "GP5", "GP28", "GP2", "GP4", "GP3"],
+        "rows": ["GP11", "GP22", "GP10", "GP21", "GP9", "GP20", "GP8", "GP7"]
+    },
+    "ps2": {
+        "clock_pin": "GP0",
+        "data_pin": "GP1"
+    },
+    "url": "https://github.com/thedalles77/USB_Laptop_Keyboard_Controller/tree/master/Example_Keyboards/Pico_T61_Keyboard",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0xBACA",
+        "vid": "0xFEED"
+    }
+}

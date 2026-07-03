@@ -27,7 +27,7 @@ jobs:
     container: ghcr.io/qmk/qmk_cli
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         submodules: recursive
 
