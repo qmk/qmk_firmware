@@ -456,6 +456,8 @@ def generate_community_modules_c_lines(modules):
         for api in api_list:
             lines.extend(_render_core_implementation(api, modules))
 
+    lines.extend(_render_eeconfig_implementation(modules))
+
     return lines
 
 
@@ -489,7 +491,6 @@ def generate_community_modules_c(cli):
 
     modules = get_modules(cli.args.keyboard, cli.args.filename)
     lines = generate_community_modules_c_lines(modules)
-    lines.extend(_render_eeconfig_implementation(modules))
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
@@ -581,3 +582,4 @@ def generate_split_transaction_id_community_modules_inc(cli):
         ])
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
