@@ -56,7 +56,7 @@ def generate_info_json(cli):
     """Generate an info.json file for a keyboard
     """
     if cli.args.overwrite:
-        output_path = (Path('keyboards') / cli.config.generate_info_json.keyboard / 'info.json').resolve()
+        output_path = (Path('keyboards') / cli.args.keyboard / 'info.json').resolve()
 
         if cli.args.output:
             cli.log.warning('Overwriting user supplied --output with %s', output_path)
@@ -64,7 +64,7 @@ def generate_info_json(cli):
         cli.args.output = output_path
 
     # Build the info.json file
-    kb_info_json = info_json(cli.config.generate_info_json.keyboard)
+    kb_info_json = info_json(cli.args.keyboard)
     strip_info_json(kb_info_json)
     info_json_text = json.dumps(kb_info_json, indent=4, cls=InfoJSONEncoder, sort_keys=True)
 
