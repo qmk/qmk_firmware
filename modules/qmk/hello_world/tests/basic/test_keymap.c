@@ -15,4 +15,3 @@
 #include "quantum.h"
 
 // Define keymap.c definitions like combos and key overrides here.
-

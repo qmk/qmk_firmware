@@ -6,7 +6,7 @@ from milc import cli
 import qmk.path
 from qmk.commands import dump_lines
 from qmk.community_modules import module_api_list, load_module_jsons
-from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
+from qmk.constants import GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE
 
 from qmk.cli.generate.community_modules import (
     generate_community_modules_h_lines,
@@ -43,7 +43,6 @@ def generate_test_community_modules(cli):
     output_dir.mkdir(parents=True, exist_ok=True)
 
     api_list, api_version, ver_major, ver_minor, ver_patch = module_api_list()
-    module_jsons = load_module_jsons(modules)
 
     # Generate community_rules.mk.
     rules_lines = [GPL2_HEADER_SH_LIKE, GENERATED_HEADER_SH_LIKE]
