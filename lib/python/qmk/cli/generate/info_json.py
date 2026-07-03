@@ -45,7 +45,7 @@ def strip_info_json(kb_info_json):
     return validator(kb_info_json)
 
 
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
+@cli.argument('-kb', '--keyboard', required=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.argument('-o', '--output', arg_only=True, completer=FilesCompleter, help='Write the output the specified file, overwriting if necessary.')
 @cli.argument('-ow', '--overwrite', arg_only=True, action='store_true', help='Overwrite the existing info.json. (Overrides the location of --output)')
@@ -55,16 +55,6 @@ def strip_info_json(kb_info_json):
 def generate_info_json(cli):
     """Generate an info.json file for a keyboard
     """
-    # Determine our keyboard(s)
-    if not cli.config.generate_info_json.keyboard:
-        cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['info'].print_help()
-        return False
-
-    if not is_keyboard(cli.config.generate_info_json.keyboard):
-        cli.log.error('Invalid keyboard: "%s"', cli.config.generate_info_json.keyboard)
-        return False
-
     if cli.args.overwrite:
         output_path = (Path('keyboards') / cli.config.generate_info_json.keyboard / 'info.json').resolve()
 
