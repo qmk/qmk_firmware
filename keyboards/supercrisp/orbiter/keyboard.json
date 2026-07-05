@@ -1,6 +1,6 @@
 {
     "manufacturer": "kjeller",
-    "keyboard_name": "Orbiter Wired",
+    "keyboard_name": "Orbiter",
     "maintainer": "Karl Stralman",
     "bootloader": "stm32-dfu",
     "build": {
