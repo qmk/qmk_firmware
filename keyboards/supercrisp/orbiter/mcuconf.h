@@ -1,4 +1,4 @@
-/* Copyright 2026 Karl Strålman
+/* Copyright 2026 Karl Stralman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

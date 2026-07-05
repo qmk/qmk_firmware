@@ -4,7 +4,7 @@ A 52-key split keyboard.
 
 ![Orbiter v1.00](https://github.com/kjeller/orbiter_keyboard/blob/main/banner.jpg)
 
-* Keyboard Maintainer: [Karl Strålman](https://github.com/kjeller)
+* Keyboard Maintainer: [Karl Stralman](https://github.com/kjeller)
 * Hardware Supported: Orbiter v1.00
 * Hardware Availability: [Github KiCad project](https://github.com/kjeller/orbiter_keyboard/tree/master/pcb/orbiter-wired)
 
