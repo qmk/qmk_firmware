@@ -1,11 +1,11 @@
 {
     "manufacturer": "kjeller",
     "keyboard_name": "Orbiter Wired",
-    "maintainer": "kjeller",
+    "maintainer": "Karl Strålman",
     "url": "https://github.com/kjeller/orbiter_keyboard",
     "usb": {
-        "vid": "0xBABA",
-        "pid" : "0xBEEF"
+        "vid": "0xFEED",
+        "pid" : "0xBABA"
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_26key"
@@ -46,7 +46,7 @@
                 {"matrix": [2, 4], "label":"F", "x":4, "y":2.5},
                 {"matrix": [2, 5], "label":"G", "x":5, "y":2.75},
                 {"matrix": [4, 0], "label":"M1", "x":6, "y":3},
-                {"matrix": [4, 1], "label":"M2", "x":8, "y":3},
+                {"matrix": [9, 0], "label":"M2", "x":8, "y":3},
                 {"matrix": [7, 5], "label":"H", "x":9, "y":2.75},
                 {"matrix": [7, 4], "label":"J", "x":10, "y":2.5},
                 {"matrix": [7, 3], "label":"K", "x":11, "y":2.25},
@@ -60,7 +60,7 @@
                 {"matrix": [3, 3], "label":"C", "x":3, "y":3.25},
                 {"matrix": [3, 4], "label":"V", "x":4, "y":3.5},
                 {"matrix": [3, 5], "label":"B", "x":5, "y":3.75},
-                {"matrix": [9, 0], "label":"SPACE", "x":6, "y":4},
+                {"matrix": [4, 1], "label":"SPACE", "x":6, "y":4},
                 {"matrix": [9, 1], "label":"ENT", "x":8, "y":4},
                 {"matrix": [8, 5], "label":"N", "x":9, "y":3.75},
                 {"matrix": [8, 4], "label":"M", "x":10, "y":3.5},
