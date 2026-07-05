@@ -4,14 +4,41 @@
     "maintainer": "Karl Strålman",
     "url": "https://github.com/kjeller/orbiter_keyboard",
     "usb": {
+        "device_version": "1.0.0",
         "vid": "0xFEED",
         "pid" : "0xBABA"
     },
-    "layout_aliases": {
-        "LAYOUT": "LAYOUT_split_26key"
+    "diode_direction": "COL2ROW",
+    "build": {
+        "lto": true
     },
+    "features": {
+        "bootmagic": true,
+        "command": true,
+        "oled": true,
+        "console": true
+    },
+    "matrix_pins": {
+        "cols": [ "A5", "A6", "A7", "A8", "A9", "A10"],
+        "rows": ["A0", "A1", "A2", "A3", "A4"]
+    },
+    "split": {
+        "enabled": true,
+        "transport": {
+            "protocol" : "serial",
+            "sync": {
+                "indicators": true,
+                "layer_state": true,
+            }
+        },
+        "serial": {
+            "driver": "usart"
+        }
+    },
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
     "layouts": {
-        "LAYOUT_split_26key": {
+        "LAYOUT": {
              "layout": [
                 {"matrix": [0, 0], "label":"ESC", "x":0, "y":0.5},
                 {"matrix": [0, 1], "label":"!", "x":1, "y":0.25},
@@ -67,7 +94,8 @@
                 {"matrix": [8, 3], "label":",", "x":11, "y":3.25},
                 {"matrix": [8, 2], "label":".", "x":12, "y":3},
                 {"matrix": [8, 1], "label":"/", "x":13, "y":3.25},
-                {"matrix": [8, 0], "label":"SHIFT", "x":14, "y":3.5}]
-            }
+                {"matrix": [8, 0], "label":"SHIFT", "x":14, "y":3.5}
+            ]
+        }
     }
 }

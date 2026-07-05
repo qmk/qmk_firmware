@@ -1,7 +1,0 @@
-SERIAL_DRIVER = usart
-OLED_ENABLE = yes
-OLED_TRANSPORT = i2c
-LTO_ENABLE = yes
-CONSOLE_ENABLE = yes
-
-SRC += oled.c

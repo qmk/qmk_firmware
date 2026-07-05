@@ -10,11 +10,11 @@ A 52-key split keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make supercrisp/orbiter/rev1:default
+    make supercrisp/orbiter:default
 
 Flashing example for this keyboard:
 
-    make supercrisp/orbiter/rev1:default:flash
+    make supercrisp/orbiter:default:flash
 
 See the [build environment setup](getting_started_build_tools) and the [make instructions](getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](newbs).
 

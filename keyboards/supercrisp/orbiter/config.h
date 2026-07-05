@@ -15,7 +15,6 @@
  */
 #pragma once
 
-// #define SERIAL_USART_SPEED 921600
 #define SERIAL_USART_FULL_DUPLEX
 #define SERIAL_USART_TX_PIN B10
 #define SERIAL_USART_RX_PIN B11
