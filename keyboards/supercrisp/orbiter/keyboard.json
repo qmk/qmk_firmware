@@ -9,8 +9,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": true,
-        "console": true,
         "oled": true
     },
     "matrix_pins": {
@@ -24,7 +22,6 @@
             "driver": "usart"
         },
         "transport": {
-            "protocol": "serial",
             "sync": {
                 "indicators": true,
                 "layer_state": true

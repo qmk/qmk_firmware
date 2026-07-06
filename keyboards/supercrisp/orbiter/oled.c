@@ -3,8 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "i2c_master.h"
-
 static void render_logo(void) {
     // clang-format off
     static const char PROGMEM qmk_logo[] = {
@@ -18,7 +16,8 @@ static void render_logo(void) {
 }
 
 #ifdef OLED_ENABLE
-bool oled_task_user(void) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) { return false; }
     render_logo();
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
@@ -47,7 +46,3 @@ bool oled_task_user(void) {
     return false;
 }
 #endif
-
-void keyboard_post_init_user(void) {
-    i2c_init();
-}
