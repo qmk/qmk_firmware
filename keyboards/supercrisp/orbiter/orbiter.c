@@ -17,7 +17,9 @@ static void render_logo(void) {
 
 #ifdef OLED_ENABLE
 bool oled_task_kb(void) {
-    if (!oled_task_user()) { return false; }
+    if (!oled_task_user()) {
+        return false;
+    }
     render_logo();
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
