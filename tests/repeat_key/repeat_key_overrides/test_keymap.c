@@ -16,7 +16,4 @@
 
 const key_override_t alt_slash_override = ko_make_basic(MOD_BIT(KC_LALT), KC_SLSH, KC_BSLS);
 
-const key_override_t *key_overrides[] = {
-    &alt_slash_override,
-    NULL
-};
+const key_override_t *key_overrides[] = {&alt_slash_override, NULL};
