@@ -169,8 +169,7 @@ def _generate_modules_rules_from_list(modules):
 
 
 def _generate_modules_rules(keyboard, filename):
-    modules = get_modules(keyboard, filename)
-    return _generate_modules_rules_from_list(modules)
+    return _generate_modules_rules_from_list(get_modules(keyboard, filename))
 
 
 def _module_slugs(modules):
@@ -389,6 +388,22 @@ def generate_community_post_config_h(cli):
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
 
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates a community_modules.h from a keymap.json file.')
+def generate_community_modules_h(cli):
+    """Creates a community_modules.h from a keymap.json file
+    """
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    lines = generate_community_modules_h_lines(modules)
+    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+
 def generate_community_modules_h_lines(modules):
     """Creates the content for community_modules.h as a list of lines.
     """
@@ -436,6 +451,22 @@ def generate_community_modules_h_lines(modules):
     return lines
 
 
+@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
+@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
+@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
+@cli.subcommand('Creates a community_modules.c from a keymap.json file.')
+def generate_community_modules_c(cli):
+    """Creates a community_modules.c from a keymap.json file
+    """
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    lines = generate_community_modules_c_lines(modules)
+    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+
 def generate_community_modules_c_lines(modules):
     """Creates the content for community_modules.c as a list of lines.
     """
@@ -461,6 +492,16 @@ def generate_community_modules_c_lines(modules):
     return lines
 
 
+def _generate_include_per_module(cli, include_file_name):
+    """Generates C code to include "<module_path>/include_file_name" for each module."""
+    if cli.args.output and cli.args.output.name == '-':
+        cli.args.output = None
+
+    modules = get_modules(cli.args.keyboard, cli.args.filename)
+    lines = _generate_include_per_module_from_list(modules, include_file_name)
+    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
+
+
 def _generate_include_per_module_from_list(modules, include_file_name):
     """Generates lines to include "<module_path>/include_file_name" for each module."""
     lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE]
@@ -471,50 +512,6 @@ def _generate_include_per_module_from_list(modules, include_file_name):
         lines.append(f'#include "{full_path}"')
         lines.append(f'#endif  // __has_include("{full_path}")')
     return lines
-
-
-@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
-@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
-@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
-@cli.subcommand('Creates a community_modules.h from a keymap.json file.')
-def generate_community_modules_h(cli):
-    """Creates a community_modules.h from a keymap.json file
-    """
-    if cli.args.output and cli.args.output.name == '-':
-        cli.args.output = None
-
-    modules = get_modules(cli.args.keyboard, cli.args.filename)
-    lines = generate_community_modules_h_lines(modules)
-
-    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
-
-
-@cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
-@cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
-@cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
-@cli.subcommand('Creates a community_modules.c from a keymap.json file.')
-def generate_community_modules_c(cli):
-    """Creates a community_modules.c from a keymap.json file
-    """
-    if cli.args.output and cli.args.output.name == '-':
-        cli.args.output = None
-
-    modules = get_modules(cli.args.keyboard, cli.args.filename)
-    lines = generate_community_modules_c_lines(modules)
-
-    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
-
-
-def _generate_include_per_module(cli, include_file_name):
-    """Generates C code to include "<module_path>/include_file_name" for each module."""
-    if cli.args.output and cli.args.output.name == '-':
-        cli.args.output = None
-
-    modules = get_modules(cli.args.keyboard, cli.args.filename)
-    lines = _generate_include_per_module_from_list(modules, include_file_name)
-    dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
 
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
