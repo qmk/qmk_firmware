@@ -25,11 +25,19 @@ def test_c(cli):
     # expand any wildcards
     filtered_tests = set()
     for test in cli.args.test:
-        regex = re.compile(fnmatch.translate(test))
-        filtered_tests |= set(filter(regex.match, available_tests))
+        test_pattern = test
+        # For 'community_module:{module}' patterns, match all tests under the module.
+        if test_pattern.startswith('community_module:') and test_pattern.count(':') == 1:
+            test_pattern += ':*' # Any test suite under the module.
+        regex = re.compile(fnmatch.translate(test_pattern))
+        matches = set(filter(regex.match, available_tests))
+        if not matches:
+            cli.log.warning(f'Invalid test pattern provided: {test}')
+        filtered_tests |= matches
 
-    for invalid in filtered_tests - set(available_tests):
-        cli.log.warning(f'Invalid test provided: {invalid}')
+    if cli.args.test and not filtered_tests:
+        cli.log.error('No matching tests found for the provided filter(s).')
+        return 1
 
     # convert test names to build targets
     targets = list(map(lambda x: f'test:{x}', filtered_tests or ['all']))
