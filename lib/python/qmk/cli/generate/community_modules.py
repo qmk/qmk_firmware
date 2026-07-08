@@ -582,4 +582,3 @@ def generate_split_transaction_id_community_modules_inc(cli):
         ])
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
-
