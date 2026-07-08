@@ -22,5 +22,5 @@ endif
 # Append paths to test discovery list.
 TEST_LIST += $(MODULE_TEST_LIST)
 # Append dynamic target names to full tests list.
-FULL_TESTS += $(foreach TEST,$(MODULE_TEST_LIST),$(call GET_TEST_TARGET_NAME,$(TEST)))
+FULL_TESTS += $(foreach TEST,$(MODULE_TEST_LIST),$(call GET_TEST_INTERNAL_NAME,$(TEST)))
 
