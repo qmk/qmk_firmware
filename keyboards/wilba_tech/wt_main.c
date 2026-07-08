@@ -24,9 +24,8 @@
 #include "keyboards/wilba_tech/wt_mono_backlight.h"
 #endif // MONO_BACKLIGHT_ENABLED
 
-#include "via.h"
-
 #ifndef VIA_ENABLE
+#include "via.h"
 #include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 #endif
