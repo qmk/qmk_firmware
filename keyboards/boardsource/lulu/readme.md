@@ -6,8 +6,8 @@ The lulu is what the ergo community has needed for a long time, a high-end aesth
 
 
 * Keyboard Maintainer: [Boardsource](https://github.com/daysgobye) 
-* Hardware Supported: lulu v1
-* Hardware Availability: this keyboard is available from the [Boardsource store](https://boardsource.xyz/store/61d0b772319a1f3cc53ba2fb)
+* Hardware Supported: lulu v1/v2, lily pad v2
+* Hardware Availability: this keyboard is available from the [Boardsource store](https://boardsource.xyz/products/lily-pad-pcb)
 
 
 Make example for this keyboard (after setting up your build environment):
@@ -21,7 +21,7 @@ Flashing example for this keyboard:
     make boardsource/lulu/avr:default:flash
 
 
-Compile `rp2040` firmware if you purchased PCB in lulu group buy (integrated microcontroller).
+Compile `rp2040` firmware if you purchased PCB in lulu group buy or lily pad (integrated microcontroller).
 Compile `avr` firmware if your PCB uses a drop-in microcontroller like Pro Micro.
 
 

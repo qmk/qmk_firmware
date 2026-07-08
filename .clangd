@@ -1,4 +1,33 @@
 CompileFlags:
-  Add: [-Wno-unknown-attributes, -Wno-maybe-uninitialized, -Wno-unknown-warning-option]
-  Remove: [-W*, -mmcu=*, -mcpu=*, -mfpu=*, -mfloat-abi=*, -mno-unaligned-access, -mno-thumb-interwork, -mcall-prologues]
-  Compiler: clang
+    Add:
+        [
+            -Wno-unknown-attributes,
+            -Wno-maybe-uninitialized,
+            -Wno-unknown-warning-option,
+            -Wno-pointer-to-int-cast,
+            -Wno-int-to-void-pointer-cast,
+            -DPROGMEM=,
+        ]
+    Remove:
+        [
+            -W*,
+            -mmcu=*,
+            -mcpu=*,
+            -mfpu=*,
+            -mfloat-abi=*,
+            -mno-unaligned-access,
+            -mno-thumb-interwork,
+            -mcall-prologues,
+            -D__has_include*,
+            -mlra,
+        ]
+    Compiler: clang
+Diagnostics:
+    UnusedIncludes: None
+    Suppress:
+        [
+            asm_invalid_output_constraint,
+            asm_invalid_input_constraint,
+            invalid_asm_value_for_constraint,
+            anyx86_interrupt_attribute,
+        ]

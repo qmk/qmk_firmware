@@ -25,8 +25,6 @@
 #    define TIMESTAMP_GETTER TCNT0
 #elif defined(PROTOCOL_CHIBIOS)
 #    define TIMESTAMP_GETTER chSysGetRealtimeCounterX()
-#elif defined(PROTOCOL_ARM_ATSAM)
-#    error arm_atsam not currently supported
 #else
 #    error Unknown protocol in use
 #endif

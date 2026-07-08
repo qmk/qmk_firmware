@@ -1,13 +1,16 @@
 {
   "keyboard_name": "SMD-2% Milk",
   "manufacturer": "Kingly-Keys",
-  "url": "",
   "maintainer": "TheRoyalSweatshirt",
   "usb": {
     "vid": "0xFEED",
     "pid": "0xB195",
-    "device_version": "0.0.1",
-    "force_nkro": true
+    "device_version": "0.0.1"
+  },
+  "host": {
+    "default": {
+      "nkro": true
+    }
   },
   "rgblight": {
     "hue_steps": 6,

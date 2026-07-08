@@ -217,8 +217,8 @@ To generate this bootloader, use the `bootloader` target, eg. `make planck/rev4:
 
 Compatible flashers:
 
-* TBD
-  * Currently, you need to either use the [Python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python), or compile [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp), from the LUFA repo. Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`).
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [hid_bootloader_cli](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp) / `:qmk-hid` target in QMK (recommended command line)
 
 Flashing sequence:
 
@@ -344,6 +344,39 @@ Flashing sequence:
 2. Wait for the OS to detect the device
 3. Flash a .bin file
 4. Reset the device into application mode (may be done automatically)
+
+## AT32 DFU
+
+All AT32 MCUs come preloaded with a factory bootloader that cannot be modified nor deleted.
+
+To ensure compatibility with the AT32-DFU bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = at32-dfu
+```
+
+Compatible flashers:
+
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 0 -d 2E3C:DF11 -s 0x8000000:leave -D <filename>
+  ```
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `QK_BOOT` keycode
+    * If a reset circuit is present, tap the `RESET` button on the PCB; some boards may also have a toggle switch that must be flipped
+    * Otherwise, you need to bridge `BOOT0` to VCC (via `BOOT0` button or jumper), short `RESET` to GND (via `RESET` button or jumper), and then let go of the `BOOT0` bridge
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
+
+### `make` Targets
+
+* `:dfu-util`: Waits until an AT32 bootloader device is available, and then flashes the firmware.
+* `:dfu-util-split-left` and `:dfu-util-split-right`: Flashes the firmware as with `:dfu-util`, but also sets the handedness setting in EEPROM.
 
 ## tinyuf2
 

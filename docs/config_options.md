@@ -74,24 +74,6 @@ This is a C header file that is one of the first things included, and will persi
   * pins mapped to rows and columns, from left to right. Defines a matrix where each switch is connected to a separate pin and ground.
 * `#define AUDIO_VOICES`
   * turns on the alternate audio voices (to cycle through)
-* `#define C4_AUDIO`
-  * enables audio on pin C4
-  * Deprecated. Use `#define AUDIO_PIN C4`
-* `#define C5_AUDIO`
-  * enables audio on pin C5
-  * Deprecated. Use `#define AUDIO_PIN C5`
-* `#define C6_AUDIO`
-  * enables audio on pin C6
-  * Deprecated. Use `#define AUDIO_PIN C6`
-* `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enabled if one of B pins is enabled along with one of C pins)
-  * Deprecated. Use `#define AUDIO_PIN B5`, or use `#define AUDIO_PIN_ALT B5` if a `C` pin is enabled with `AUDIO_PIN`
-* `#define B6_AUDIO`
-  * enables audio on pin B6 (duophony is enabled if one of B pins is enabled along with one of C pins)
-  * Deprecated. Use `#define AUDIO_PIN B6`, or use `#define AUDIO_PIN_ALT B6` if a `C` pin is enabled with `AUDIO_PIN`
-* `#define B7_AUDIO`
-  * enables audio on pin B7 (duophony is enabled if one of B pins is enabled along with one of C pins)
-  * Deprecated. Use `#define AUDIO_PIN B7`, or use `#define AUDIO_PIN_ALT B7` if a `C` pin is enabled with `AUDIO_PIN`
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight
 * `#define BACKLIGHT_LEVELS 3`
@@ -140,8 +122,6 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define ENABLE_COMPILE_KEYCODE`
   * Enables the `QK_MAKE` keycode
-* `#define FORCE_NKRO`
-  * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define STRICT_LAYER_RELEASE`
   * force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
 
@@ -366,8 +346,6 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 
 ## Build Options
 
-* `DEFAULT_FOLDER`
-  * Used to specify a default folder when a keyboard has more than one sub-folder.
 * `FIRMWARE_FORMAT`
   * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
@@ -401,6 +379,7 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
   * `atmel-dfu`
   * `lufa-dfu`
   * `qmk-dfu`
+  * `qmk-hid`
   * `halfkay`
   * `caterina`
   * `bootloadhid`
@@ -426,8 +405,6 @@ Use these to enable or disable building certain features. The more you have enab
   * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-* `RING_BUFFERED_6KRO_REPORT_ENABLE`
-  * USB 6-Key Rollover - Instead of stopping any new input once 6 keys are pressed, the oldest key is released and the new key is pressed.
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `KEY_OVERRIDE_ENABLE`

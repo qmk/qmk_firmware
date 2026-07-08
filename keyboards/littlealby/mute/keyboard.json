@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Mute",
   "manufacturer": "Little Alby",
-  "url": "",
   "maintainer": "albybarber",
   "usb": {
     "vid": "0x4142",
@@ -19,8 +18,6 @@
   "bootloader": "caterina",
   "features": {
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": false,

@@ -2,8 +2,6 @@
 
 ![Mokulua](https://i.imgur.com/7fifiQch.jpg)
 
-*A short description of the keyboard/project*
-
 * Keyboard Maintainer: [Kyle McCreery](https://github.com/kylemccreery)
 * Hardware Supported: Mokulua v1.3
 * Hardware Availability: https://mechwild.com/product/mokulua/

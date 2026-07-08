@@ -29,9 +29,9 @@
                                                 "KC_CAPS", "_______", "_______", "_______", "_______", "KC_CAPS"
       ],
       [
-        "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "RGB_M_B", "RGB_VAD", "RGB_VAI",  "RGB_SAD", "RGB_SAI", "XXXXXXX",
-        "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "RGB_TOG", "RGB_MOD", "RGB_RMOD", "RGB_HUD", "RGB_HUI", "XXXXXXX",
-        "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "RGB_M_P", "RGB_SPD", "RGB_SPI",  "XXXXXXX", "XXXXXXX", "XXXXXXX",
+        "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "RGB_M_B", "RM_VALD", "RM_VALU",  "RM_SATD", "RM_SATU", "XXXXXXX",
+        "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "RM_TOGG", "RM_NEXT", "RM_PREV",  "RM_HUED", "RM_HUEU", "XXXXXXX",
+        "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "XXXXXXX", "RGB_M_P", "RM_SPDD", "RM_SPDU",  "XXXXXXX", "XXXXXXX", "XXXXXXX",
                                          "XXXXXXX", "XXXXXXX", "XXXXXXX", "MO(5)",   "XXXXXXX", "XXXXXXX"
       ],
       [

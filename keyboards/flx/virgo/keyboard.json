@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Virgo",
     "manufacturer": "FLX",
-    "url": "",
     "maintainer": "mechmerlin",
     "usb": {
         "vid": "0x4658",
@@ -14,8 +13,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

@@ -209,6 +209,10 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 //                                                                       71           70           69
                                                                     { 0, C3_7 }, { 0, C2_7 }, { 0, C1_7 },
 };
+
+int led_matrix_led_index(int index) {
+    return index;
+}
 #endif
 
 #ifdef ST7565_ENABLE

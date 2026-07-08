@@ -16,10 +16,7 @@ extern rgblight_config_t rgblight_config;
 #define _ADJUST 6
 
 enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   BACKLIT,
   RGBLED_TOGGLE,
@@ -167,11 +164,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_MOUSECURSOR] = LAYOUT(
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______,   _______, _______,
-  _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, DEMOMACRO, _______, _______, _______, _______,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R,   _______, _______, _______, _______, _______,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5,   _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______,   _______, _______, _______, _______, _______
+  _______, MS_ACL0, MS_ACL1, MS_ACL2, _______, _______, _______, _______, _______, _______,   _______, _______,
+  _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, MS_WHLL, MS_UP,   MS_WHLR, DEMOMACRO, _______, _______, _______, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END , KC_PGDN, MS_LEFT, MS_DOWN, MS_RGHT,   _______, _______, _______, _______, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, MS_BTN2, MS_BTN3, MS_BTN4, MS_BTN5,   _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, MS_BTN1, MS_BTN1, _______, _______, _______,   _______, _______, _______, _______, _______
 ),
 
 /* Adjust (Lower + Raise)
@@ -181,7 +178,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------+--------------------.
  * |      |RGB TG|RGB ST|RGBH -|RGBH +|RGBS -|RGBS +|RGBV -|RGBV +|      |      |  Del |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |      |      |      |      |      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      | BL + |BL ST |BLSTEP| BL TG|      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------+------+------+------|
@@ -190,8 +187,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT(
   QK_BOOT,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_VOLD, KC_VOLU, KC_MUTE,
-  _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______,  KC_DEL, _______, _______, _______,
-  _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP,  QWERTY, _______, _______, _______, _______, _______, _______, _______,
+  _______, UG_TOGG, UG_NEXT, UG_HUEU, UG_HUED, UG_SATU, UG_SATD, UG_VALU, UG_VALD, _______, _______,  KC_DEL, _______, _______, _______,
+  _______, _______, _______,   AU_ON,  AU_OFF, AG_NORM, AG_SWAP, _______, _______, _______, _______, _______, _______, _______, _______,
   _______, AU_PREV, AU_NEXT,   MU_ON,  MU_OFF,   MI_ON,  MI_OFF, _______, BL_DOWN, BL_UP,   BL_STEP, BL_TOGG, _______, _______, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
@@ -218,12 +215,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -298,7 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case RGB_MOD:
+    case QK_UNDERGLOW_MODE_NEXT:
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       if (record->event.pressed) {
         rgblight_mode(RGB_current_mode);

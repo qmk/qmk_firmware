@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 // #define USB_VBUS_PIN        B10 // doesn't seem to work for me on one of my controllers... */
+#define USER_BUTTON_PIN     A0
 
 // WS2812 RGB LED strip input and number of LEDs
 #define WS2812_PWM_DRIVER   PWMD2  // default: PWMD2
@@ -28,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
 #define WS2812_PWM_DMA_STREAM   STM32_DMA1_STREAM7  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 #define WS2812_PWM_DMA_CHANNEL  3                   // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_PWM_TARGET_PERIOD 800000
 
 #define DEBUG_LED_PIN      C13
 
@@ -71,7 +71,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* eeprom config */
 #define EXTERNAL_EEPROM_SPI_SLAVE_SELECT_PIN A4
-#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    64
+#define EXTERNAL_EEPROM_SPI_CLOCK_DIVISOR    8
 
 /* pmw3360 config  */
 #define PMW33XX_CS_PIN                       B0
+#define PMW33XX_SPI_DIVISOR                  8

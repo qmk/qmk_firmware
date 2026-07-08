@@ -4,7 +4,7 @@
     "url": "https://geekhack.org/index.php?topic=92344.0",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0xFEED",
+        "vid": "0x7F00",
         "pid": "0x4084",
         "device_version": "0.0.1"
     },

@@ -2,7 +2,7 @@
 RGB_MATRIX_EFFECT(CYCLE_LEFT_RIGHT)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV CYCLE_LEFT_RIGHT_math(HSV hsv, uint8_t i, uint8_t time) {
+static hsv_t CYCLE_LEFT_RIGHT_math(hsv_t hsv, uint8_t i, uint8_t time) {
     hsv.h = g_led_config.point[i].x - time;
     return hsv;
 }

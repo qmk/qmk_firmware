@@ -125,4 +125,8 @@ const snled27351_led_t PROGMEM g_snled27351_leds[SNLED27351_LED_COUNT] = {
     {0, CB7_CA1,  CB9_CA1,  CB8_CA1},  // Down
     {0, CB7_CA7,  CB9_CA7,  CB8_CA7},  // Right
 };
+
+int rgb_matrix_led_index(int index) {
+    return index;
+}
 #endif

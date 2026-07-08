@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Mars 6.5",
   "manufacturer": "FT",
-  "url": "",
   "maintainer": "wonderbeel",
   "usb": {
     "vid": "0x20A0",
@@ -14,8 +13,6 @@
   "features": {
     "backlight": true,
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false,

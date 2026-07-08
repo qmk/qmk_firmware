@@ -78,7 +78,7 @@ typedef struct deferred_executor_t {
     deferred_token         token;
     uint32_t               trigger_time;
     deferred_exec_callback callback;
-    void *                 cb_arg;
+    void                  *cb_arg;
 } deferred_executor_t;
 
 /**

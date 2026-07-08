@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KB12-01",
     "manufacturer": "DOIO",
-    "url": "",
     "maintainer": "DOIO2022",
     "usb": {
         "vid": "0xD010",
@@ -94,8 +93,6 @@
     "bootloader": "stm32duino",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

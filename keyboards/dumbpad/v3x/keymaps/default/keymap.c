@@ -50,10 +50,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     \-----------------------------------------------------'
     */
     [1] = LAYOUT(
-                    RGB_TOG,    RGB_VAD,     RGB_VAI,      QK_BOOT,
-                    KC_NO,      RGB_HUD,     RGB_HUI,      KC_NO,
-                    KC_NO,      RGB_SAD,     RGB_SAI,      KC_NO,
-        KC_NO,      _______,    RGB_SPD,     RGB_SPI,      KC_NO
+                    RM_TOGG,    RM_VALD,     RM_VALU,      QK_BOOT,
+                    KC_NO,      RM_HUED,     RM_HUEU,      KC_NO,
+                    KC_NO,      RM_SATD,     RM_SATU,      KC_NO,
+        KC_NO,      _______,    RM_SPDD,     RM_SPDU,      KC_NO
     ),
 };
 // clang-format on

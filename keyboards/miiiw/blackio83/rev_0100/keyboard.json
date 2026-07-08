@@ -7,8 +7,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "deferred_exec": true,
         "dip_switch": true,
         "extrakey": true,
@@ -168,9 +166,13 @@
     "url": "https://github.com/ArthurCyy",
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0x83A1",
         "vid": "0x3044"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "ws2812": {
         "pin": "B15"

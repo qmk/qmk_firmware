@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Array Peripherals",
+    "keyboard_name": "The Vector",
+    "maintainer": "daviddoan",
+    "bootloader": "atmel-dfu",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F0", "pin_b": "F1"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["D4", "C6", "D7", "E6", "F7"]
+        ]
+    },
+    "processor": "atmega32u4",
+    "url": "https://arrayperipherals.com",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4F47",
+        "vid": "0x4152"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "k01", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "k02", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "k03", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "k04", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "k05", "matrix": [0, 4], "x": 4.25, "y": 0}
+            ]
+        }
+    }
+}

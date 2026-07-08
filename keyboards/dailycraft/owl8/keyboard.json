@@ -1,7 +1,6 @@
 {
     "keyboard_name": "owl8",
     "manufacturer": "yfuku",
-    "url": "",
     "maintainer": "yfuku",
     "usb": {
         "vid": "0x5946",
@@ -18,8 +17,6 @@
     "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

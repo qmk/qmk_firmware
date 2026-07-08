@@ -12,12 +12,9 @@ enum layers {
 
 #define FN1_CAPS LT(_FN1, KC_CAPS)
 
-//custom keycode enums
-enum custom_keycodes {
-    BASE_QWER = QK_USER,
-    BASE_COLE,
-    BASE_DVOR
-};
+#define BASE_QWER PDF(_QWER)
+#define BASE_COLE PDF(_COLE)
+#define BASE_DVOR PDF(_DVOR)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWER] = LAYOUT_84_iso(
@@ -66,27 +63,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______
     ),
 */
-};
-
-
-// Macros to allow the user to set whatever default layer they want, even after reboot
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case BASE_QWER:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWER);
-            }
-            break;
-        case BASE_COLE:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLE);
-            }
-            break;
-        case BASE_DVOR:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVOR);
-            }
-            break;
-    }
-    return true;
 };

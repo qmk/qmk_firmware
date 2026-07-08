@@ -15,8 +15,7 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  ADJUST,
+  ADJUST = SAFE_RANGE,
   RGBRST
 };
 
@@ -70,13 +69,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-      case QWERTY:
-        if (record->event.pressed) {
-           print("mode just switched to qwerty and this is a huge string\n");
-          set_single_persistent_default_layer(_QWERTY);
-        }
-        break;
-
       case ADJUST:
         if (record->event.pressed) {
           layer_on(_ADJUST);

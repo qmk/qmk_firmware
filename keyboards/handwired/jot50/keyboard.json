@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Jot50",
     "manufacturer": "Jotix",
-    "url": "",
     "maintainer": "jotix",
     "usb": {
         "vid": "0xFEED",
@@ -11,7 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,

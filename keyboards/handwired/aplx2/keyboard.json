@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Aplx2",
     "manufacturer": "Aplyard",
-    "url": "",
     "maintainer": "Aplyard",
     "usb": {
         "vid": "0xE0E0",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

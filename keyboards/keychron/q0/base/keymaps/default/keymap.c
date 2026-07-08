@@ -29,9 +29,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FN1] = LAYOUT_numpad_6x4(
         _______,    KC_MUTE, KC_VOLD,   KC_VOLU,
-        RGB_MOD,    RGB_VAI, RGB_HUI,   KC_DEL,
-        RGB_RMOD,   RGB_VAD, RGB_HUD,
-        RGB_SAI,    RGB_SPI, KC_MPRV,   _______,
-        RGB_SAD,    RGB_SPD, KC_MPLY,
-        RGB_TOG,             KC_MNXT,   _______)
+        RM_NEXT,    RM_VALU, RM_HUEU,   KC_DEL,
+        RM_PREV,    RM_VALD, RM_HUED,
+        RM_SATU,    RM_SPDU, KC_MPRV,   _______,
+        RM_SATD,    RM_SPDD, KC_MPLY,
+        RM_TOGG,             KC_MNXT,   _______)
 };

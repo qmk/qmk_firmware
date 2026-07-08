@@ -70,17 +70,33 @@ The process is done in steps, generating a number of intermediate results until 
 We therefore resort to debouncing the result until it has been stable for a given amount of milliseconds.
 This amount can be configured, in case your board is not stable within the default debouncing time of 200ms.
 
-## KVM and USB switches
-
-Some KVM and USB switches may not trigger the USB controller on the keyboard to fully reset upon switching machines.
-If your keyboard does not redetect the OS in this situation, you can force the keyboard to reset when the USB initialization event is detected, forcing the USB controller to be reconfigured.
-
 ## Configuration Options
 
-* `#define OS_DETECTION_DEBOUNCE 200`
+* `#define OS_DETECTION_DEBOUNCE 250`
   * defined the debounce time for OS detection, in milliseconds
+  * defaults to 250ms
 * `#define OS_DETECTION_KEYBOARD_RESET`
-  * enables the keyboard reset upon a USB device reinitilization, such as switching devices on some KVMs
+  * enables the keyboard reset upon a USB device reinitilization
+  * this setting may help with detection issues when switching between devices on some KVMs (see [Troubleshooting](#troubleshooting))
+* `#define OS_DETECTION_SINGLE_REPORT`
+  * allows the report callbacks to be called only once, when the OS detection result is considered stable
+  * subsequent changes in the detection results, if any, are ignored
+  * this setting may help with delayed stability issues when switching devices on some KVMs (see [Troubleshooting](#troubleshooting))
+  
+## Troubleshooting
+
+Some KVMs and USB switches may cause issues when the OS detection is turned on. 
+Here is a list of common issues and how to fix them:
+
+* **Problem**: _keyboard won't redetect the OS when switching between machines using a KVM_
+    * **Explanation**: some KVMs keep the USB controller powered on during the switch and OS
+    detection happens when the USB device description is being assembled.
+    * **Solution**: use `OS_DETECTION_KEYBOARD_RESET` to force the keyboard to reset upon switching.
+* **Problem**: _keyboard OS detection callback gets invoked even minuted after startup_
+    * **Explanation**: some OSes, notably macOS on ARM-based Macs, may cause this behavior. 
+    The actual cause is not known at this time.'
+    * **Solution**: use `OS_DETECTION_SINGLE_REPORT` to suppress repeated callback invocations.
+
 
 ## Debug
 
@@ -120,12 +136,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 print_stored_setups();
             }
             return false;
+        default:
+            return true; // Process all other keycodes normally
     }
 }
 ```
 
-Then please open an issue on Github with this information and tell what OS was not detected correctly and if you have any intermediate devices between keyboard and your computer.
+Add both `STORE_SETUPS` and `PRINT_SETUPS` to your keyboard's keymap. Connect the keyboard to the device where the OS was not recognised, and press the `STORE_SETUPS` key to capture and store the fingerprint. On your development computer, run one of the suggested [console debugging tools](/faq_debug#debugging-tools), connect the keyboard, and press the `PRINT_SETUPS` key. The console should display multiple lines of data from the most recent `STORE_SETUPS` run.
 
+Open an issue on GitHub and paste the console output into the issue. Also tell us which OS (including the version, if possible) was not detected correctly and whether any intermediate devices, such as a USB hub, were used between the keyboard and the target device.
+
+::: tip
+If `STORE_SETUPS` has not been used previously, `PRINT_SETUPS` will report whatever values are already present in the controller's EEPROM. These may appear as random numbers.
+:::
 
 ## Credits
 

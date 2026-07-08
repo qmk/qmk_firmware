@@ -1,7 +1,6 @@
 {
     "keyboard_name": "southpaw default",
     "manufacturer": "drewguy",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x484F",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

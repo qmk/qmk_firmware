@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_qwerty[][2]     = TONE_QWERTY;
 float tone_numpad[][2]     = TONE_NUMPAD;
 
-layer_state_t default_layer_state_set_kb(layer_state_t state) {
+layer_state_t default_layer_state_set_user(layer_state_t state) {
     if (state == 1UL<<_QWERTY) {
       PLAY_SONG(tone_qwerty);
     } else if (state == 1UL<<_NUMPAD) {

@@ -18,10 +18,14 @@
 
 enum planck_layers { _QWERTY, _COLEMAK, _DVORAK, _LOWER, _RAISE, _PLOVER, _ADJUST };
 
-enum planck_keycodes { QWERTY = SAFE_RANGE, COLEMAK, DVORAK, PLOVER, BACKLIT, EXT_PLV };
+enum planck_keycodes { PLOVER = SAFE_RANGE, BACKLIT, EXT_PLV };
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 /* clang-format off */
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -230,25 +234,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
     switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                print("mode just switched to qwerty and this is a huge string\n");
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-            break;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-            break;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
-            }
-            return false;
-            break;
         case BACKLIT:
             if (record->event.pressed) {
                 register_code(KC_RSFT);
@@ -270,9 +255,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (!eeconfig_is_enabled()) {
                     eeconfig_init();
                 }
-                keymap_config.raw  = eeconfig_read_keymap();
+                eeconfig_read_keymap(&keymap_config);
                 keymap_config.nkro = 1;
-                eeconfig_update_keymap(keymap_config.raw);
+                eeconfig_update_keymap(&keymap_config);
             }
             return false;
             break;

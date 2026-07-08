@@ -39,7 +39,6 @@
       "led_count": 1,
       "saturation_steps": 8
   },
-  "url": "",
   "usb": {
       "device_version": "1.0.0",
       "pid": "0xAB06",

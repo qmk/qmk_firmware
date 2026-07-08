@@ -56,7 +56,7 @@ deferred_token defer_exec_advanced(deferred_executor_t *table, size_t table_coun
             // Work out the new token value, dropping out if none were available
             deferred_token token = allocate_token(table, table_count);
             if (token == INVALID_DEFERRED_TOKEN) {
-                return false;
+                return INVALID_DEFERRED_TOKEN;
             }
 
             // Set up the executor table entry

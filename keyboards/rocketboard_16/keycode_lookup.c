@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdlib.h>
 #include "keycode_lookup.h"
 #include "quantum_keycodes.h"
 #include "keymap_us.h"
@@ -253,22 +254,22 @@ lookup_table_t lookup_table[333] =
  {"KC_RSFT", KC_RSFT},
  {"KC_RALT", KC_RALT},
  {"KC_RGUI", KC_RGUI},
- {"KC_MS_UP", KC_MS_UP},
- {"KC_MS_DOWN", KC_MS_DOWN},
- {"KC_MS_LEFT", KC_MS_LEFT},
- {"KC_MS_RIGHT", KC_MS_RIGHT},
- {"KC_MS_BTN1", KC_MS_BTN1},
- {"KC_MS_BTN2", KC_MS_BTN2},
- {"KC_MS_BTN3", KC_MS_BTN3},
- {"KC_MS_BTN4", KC_MS_BTN4},
- {"KC_MS_BTN5", KC_MS_BTN5},
- {"KC_MS_WH_UP", KC_MS_WH_UP},
- {"KC_MS_WH_DOWN", KC_MS_WH_DOWN},
- {"KC_MS_WH_LEFT", KC_MS_WH_LEFT},
- {"KC_MS_WH_RIGHT", KC_MS_WH_RIGHT},
- {"KC_MS_ACCEL0", KC_MS_ACCEL0},
- {"KC_MS_ACCEL1", KC_MS_ACCEL1},
- {"KC_MS_ACCEL2", KC_MS_ACCEL2},
+ {"MS_UP", MS_UP},
+ {"MS_DOWN", MS_DOWN},
+ {"MS_LEFT", MS_LEFT},
+ {"MS_RGHT", MS_RGHT},
+ {"MS_BTN1", MS_BTN1},
+ {"MS_BTN2", MS_BTN2},
+ {"MS_BTN3", MS_BTN3},
+ {"MS_BTN4", MS_BTN4},
+ {"MS_BTN5", MS_BTN5},
+ {"MS_WHLU", MS_WHLU},
+ {"MS_WHLD", MS_WHLD},
+ {"MS_WHLL", MS_WHLL},
+ {"MS_WHLR", MS_WHLR},
+ {"MS_ACL0", MS_ACL0},
+ {"MS_ACL1", MS_ACL1},
+ {"MS_ACL2", MS_ACL2},
  {"KC_EXLM", KC_EXLM},
  {"KC_AT", KC_AT},
  {"KC_HASH", KC_HASH},

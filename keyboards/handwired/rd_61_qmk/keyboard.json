@@ -52,7 +52,6 @@
         "led_count": 1,
         "saturation_steps": 8
     },
-    "url": "",
     "ws2812": {
         "pin": "C7"
     },

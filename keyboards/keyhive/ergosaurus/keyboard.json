@@ -42,8 +42,7 @@
         "rows": ["B5", "B4", "E6", "D4", "F6", "D3", "D2", "F4", "F5"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "community_layouts": ["alice_split_bs"],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_alice_split_bs"

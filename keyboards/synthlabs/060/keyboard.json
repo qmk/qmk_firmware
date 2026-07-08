@@ -8,8 +8,6 @@
   "diode_direction": "COL2ROW",
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
@@ -25,8 +23,12 @@
   "usb": {
     "vid": "0x534E",
     "pid": "0x3630",
-    "device_version": "0.0.1",
-    "force_nkro": true
+    "device_version": "0.0.1"
+  },
+  "host": {
+    "default": {
+      "nkro": true
+    }
   },
   "rgb_matrix": {
     "animations": {

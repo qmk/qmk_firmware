@@ -69,7 +69,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 Do you want to set the default layer, so that it's retained even after you unplug the board?  If so, this is the function for you.
 
-To use this, you would use `set_single_persistent_default_layer(layer)`.  If you have a name defined for your layer, you can use that instead (such as _QWERTY, _DVORAK or _COLEMAK).
+To do this, you would use `set_single_persistent_default_layer(layer)`.  If you have a name defined for your layer, you can use that instead (such as _QWERTY, _DVORAK or _COLEMAK).
 
 This will set the default layer, update the persistent settings, and play a tune if you have [Audio](features/audio) enabled on your board, and the default layer sounds set.
 
@@ -81,6 +81,8 @@ To configure the default layer sounds, you would want to define this in your `co
                               SONG(DVORAK_SOUND) \
                             }
 ```
+
+If you do not require it to be retained after you unplug the board, use `set_single_default_layer(layer)` instead.
 
 
 ::: tip

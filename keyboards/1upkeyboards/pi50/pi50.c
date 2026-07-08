@@ -18,43 +18,6 @@
 #include <ctype.h>
 #include <stdio.h>
 
-#if defined(RGB_MATRIX_EFFECT)
-#    undef RGB_MATRIX_EFFECT
-#endif // defined(RGB_MATRIX_EFFECT)
-
-#define RGB_MATRIX_EFFECT(x) RGB_MATRIX_EFFECT_##x,
-enum {
-    RGB_MATRIX_EFFECT_NONE,
-#include "rgb_matrix_effects.inc"
-#undef RGB_MATRIX_EFFECT
-#ifdef RGB_MATRIX_CUSTOM_KB
-#    include "rgb_matrix_kb.inc"
-#endif
-#ifdef RGB_MATRIX_CUSTOM_USER
-#    include "rgb_matrix_user.inc"
-#endif
-};
-
-#define RGB_MATRIX_EFFECT(x)    \
-    case RGB_MATRIX_EFFECT_##x: \
-        return #x;
-const char* rgb_matrix_name(uint8_t effect) {
-    switch (effect) {
-        case RGB_MATRIX_EFFECT_NONE:
-            return "NONE";
-#include "rgb_matrix_effects.inc"
-#undef RGB_MATRIX_EFFECT
-#ifdef RGB_MATRIX_CUSTOM_KB
-#    include "rgb_matrix_kb.inc"
-#endif
-#ifdef RGB_MATRIX_CUSTOM_USER
-#    include "rgb_matrix_user.inc"
-#endif
-        default:
-            return "UNKNOWN";
-    }
-}
-
 #ifdef OLED_ENABLE
 
 static uint32_t oled_logo_timer = 0;
@@ -148,7 +111,7 @@ void user_oled_magic(void) {
     oled_write_P(led_state.num_lock ? PSTR("Num(x) ") : PSTR("Num( ) "), false);
     oled_write_P(led_state.scroll_lock ? PSTR("Scrl(x)") : PSTR("Scrl( )"), false);
 
-    char *mode_name = strdup(rgb_matrix_name(rgb_matrix_get_mode()));
+    char *mode_name = strdup(rgb_matrix_get_mode_name(rgb_matrix_get_mode()));
     if (mode_name != NULL) {
         int len = strlen(mode_name);
         bool capitalize_next = true;

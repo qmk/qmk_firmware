@@ -77,6 +77,7 @@ Tips:
 * For smoother cursor movements, lower the value of `MOUSEKEY_INTERVAL`. If the refresh rate of your display is 60Hz, you could set it to `16` (1/60). As this raises the cursor speed significantly, you may want to lower `MOUSEKEY_MAX_SPEED`.
 * Setting `MOUSEKEY_TIME_TO_MAX` or `MOUSEKEY_WHEEL_TIME_TO_MAX` to `0` will disable acceleration for the cursor or scrolling respectively. This way you can make one of them constant while keeping the other accelerated, which is not possible in constant speed mode.
 * Setting `MOUSEKEY_WHEEL_INTERVAL` too low will make scrolling too fast. Setting it too high will make scrolling too slow when the wheel key is held down.
+* `MS_ACL0`, `MS_ACL1` and `MS_ACL2` change the cursor and scroll speed to 1/4, 1/2, and the maximum speed, respectively.
 
 Cursor acceleration uses the same algorithm as the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
 
@@ -214,7 +215,9 @@ When additional overlapping mouse key is pressed, the mouse cursor will continue
 |`MOUSEKEY_OVERLAP_WHEEL_DELTA`|`MOUSEKEY_WHEEL_DELTA`|Step size of reset mouse wheel acceleration                            |
 |`MOUSEKEY_OVERLAP_INTERVAL`   |`MOUSEKEY_INTERVAL`   |Reset time between cursor movements in milliseconds (Kinetic mode only)|
 
-?> This feature will not be applied on Inertial mode
+::: tip
+This feature will not be applied on Inertial mode
+:::
 
 ## Use with PS/2 Mouse and Pointing Device
 

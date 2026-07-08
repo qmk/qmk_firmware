@@ -37,6 +37,11 @@ const pin_t amux_en_pins[]                             = AMUX_EN_PINS;
 const pin_t amux_n_col_sizes[]                         = AMUX_COL_CHANNELS_SIZES;
 const pin_t amux_n_col_channels[][AMUX_MAX_COLS_COUNT] = {AMUX_COL_CHANNELS};
 
+#ifdef UNUSED_POSITIONS_LIST
+const uint8_t UNUSED_POSITIONS[][2] = UNUSED_POSITIONS_LIST;
+#    define UNUSED_POSITIONS_COUNT (sizeof(UNUSED_POSITIONS) / sizeof(UNUSED_POSITIONS[0]))
+#endif
+
 #define AMUX_SEL_PINS_COUNT ARRAY_SIZE(amux_sel_pins)
 #define EXPECTED_AMUX_SEL_PINS_COUNT ceil(log2(AMUX_MAX_COLS_COUNT)
 // Checks for the correctness of the configuration
@@ -67,6 +72,16 @@ void init_amux(void) {
     }
     for (uint8_t idx = 0; idx < AMUX_SEL_PINS_COUNT; idx++) {
         gpio_set_pin_output(amux_sel_pins[idx]);
+    }
+}
+
+// Disable all the unused rows
+void disable_unused_row(uint8_t row) {
+    // disable all the other rows apart from the current selected one
+    for (uint8_t idx = 0; idx < MATRIX_ROWS; idx++) {
+        if (idx != row) {
+            gpio_write_pin_low(row_pins[idx]);
+        }
     }
 }
 
@@ -158,6 +173,10 @@ void ec_noise_floor(void) {
                     sum += amux_n_col_sizes[i];
                 uint8_t adjusted_col = col + sum;
                 for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+#ifdef UNUSED_POSITIONS_LIST
+                    if (is_unused_position(row, adjusted_col)) continue;
+#endif
+                    disable_unused_row(row);
                     ec_config.noise_floor[row][adjusted_col] += ec_readkey_raw(amux, row, col);
                 }
             }
@@ -180,11 +199,15 @@ bool ec_matrix_scan(matrix_row_t current_matrix[]) {
     for (uint8_t amux = 0; amux < AMUX_COUNT; amux++) {
         disable_unused_amux(amux);
         for (uint8_t col = 0; col < amux_n_col_sizes[amux]; col++) {
+            uint8_t sum = 0;
+            for (uint8_t i = 0; i < (amux > 0 ? amux : 0); i++)
+                sum += amux_n_col_sizes[i];
+            uint8_t adjusted_col = col + sum;
             for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-                uint8_t sum = 0;
-                for (uint8_t i = 0; i < (amux > 0 ? amux : 0); i++)
-                    sum += amux_n_col_sizes[i];
-                uint8_t adjusted_col        = col + sum;
+#ifdef UNUSED_POSITIONS_LIST
+                if (is_unused_position(row, adjusted_col)) continue;
+#endif
+                disable_unused_row(row);
                 sw_value[row][adjusted_col] = ec_readkey_raw(amux, row, col);
 
                 if (ec_config.bottoming_calibration) {
@@ -229,7 +252,7 @@ uint16_t ec_readkey_raw(uint8_t channel, uint8_t row, uint8_t col) {
 }
 
 // Update press/release state of key
-bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t sw_value) {
+bool ec_update_key(matrix_row_t *current_row, uint8_t row, uint8_t col, uint16_t sw_value) {
     bool current_state = (*current_row >> col) & 1;
 
     // Real Time Noise Floor Calibration
@@ -266,7 +289,7 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);
                 }
                 // Has key moved up enough to be released?
-                else if (sw_value < ec_config.extremum[row][col] - ec_config.mode_1_release_offset) {
+                else if (sw_value < ec_config.extremum[row][col] - ec_config.rescaled_mode_1_release_offset[row][col]) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row &= ~(1 << col);
                     uprintf("Key released: %d, %d, %d\n", row, col, sw_value);
@@ -280,7 +303,7 @@ bool ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint16_t
                     ec_config.extremum[row][col] = sw_value;
                 }
                 // Has key moved down enough to be pressed?
-                else if (sw_value > ec_config.extremum[row][col] + ec_config.mode_1_actuation_offset) {
+                else if (sw_value > ec_config.extremum[row][col] + ec_config.rescaled_mode_1_actuation_offset[row][col]) {
                     ec_config.extremum[row][col] = sw_value;
                     *current_row |= (1 << col);
                     uprintf("Key pressed: %d, %d, %d\n", row, col, sw_value);
@@ -311,6 +334,18 @@ void ec_print_matrix(void) {
     }
     print("\n");
 }
+
+// Check if the position is unused
+#ifdef UNUSED_POSITIONS_LIST
+bool is_unused_position(uint8_t row, uint8_t col) {
+    for (uint8_t i = 0; i < UNUSED_POSITIONS_COUNT; i++) {
+        if (UNUSED_POSITIONS[i][0] == row && UNUSED_POSITIONS[i][1] == col) {
+            return true;
+        }
+    }
+    return false;
+}
+#endif
 
 // Rescale the value to a different range
 uint16_t rescale(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max) {

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GTM Pad",
     "manufacturer": "SpaceCityKeyboards",
-    "url": "",
     "maintainer": "jrfhoutx",
     "usb": {
         "vid": "0xFEED",
@@ -28,7 +27,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "encoder": true,
         "extrakey": false,

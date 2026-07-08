@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Ortho48",
   "manufacturer": "CannonKeys",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xCA04",

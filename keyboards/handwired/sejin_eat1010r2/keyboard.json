@@ -1,7 +1,6 @@
 {
     "keyboard_name": "EAT-1010R2",
     "manufacturer": "Sejin",
-    "url": "",
     "maintainer": "DmNosachev",
     "usb": {
         "vid": "0x515A",
@@ -22,8 +21,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

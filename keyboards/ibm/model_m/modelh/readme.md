@@ -17,4 +17,8 @@ Flashing example for this keyboard:
 
     make ibm/model_m/modelh:default:flash
 
+For IBM Wheelwriter 10/15/1000 modules (ISO), you can try the `wheelwriter_1x_iso` keymap:
+
+    make ibm/model_m/modelh:wheelwriter_1x_iso
+
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

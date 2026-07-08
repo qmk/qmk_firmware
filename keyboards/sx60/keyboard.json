@@ -1,7 +1,6 @@
 {
     "keyboard_name": "SX60",
     "manufacturer": "Quantrik",
-    "url": "",
     "maintainer": "https://github.com/amnobis",
     "usb": {
         "vid": "0x5154",

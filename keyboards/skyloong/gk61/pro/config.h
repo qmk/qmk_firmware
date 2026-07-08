@@ -7,6 +7,3 @@
 #define IS31FL3743A_SDB_PIN C1
 
 #define CAPS_LOCK_INDEX 28
-#define WIN_MOD_INDEX 16
-#define MAC_MOD_INDEX 17
-#define WIN_LOCK_INDEX 54
