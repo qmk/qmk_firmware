@@ -1,37 +1,64 @@
-# To compile
+# Dactyl Manuform 6x6 — `mquentin` keymap
 
-`qmk compile -kb handwired/dactyl_manuform/6x6 -km mquentin`
+French AZERTY layout for the handwired Dactyl Manuform 6x6 (Pro Micro / ATmega32u4).
 
-# To flash
+## Compile
 
-## Manually 
+```
+qmk compile -kb handwired/dactyl_manuform/6x6 -km mquentin
+```
 
-- `qmk flash -kb handwired/dactyl_manuform/6x6 -km mquentin`
-- reset (cf. later section)
+## Flash
 
-## QMK-toolbox
+### Manually (qmk CLI)
 
-### If not installed
+```
+qmk flash -kb handwired/dactyl_manuform/6x6 -km mquentin
+```
 
-- `brew install qmk-toolbox` 
-- enable in macOS security
-- run it
+Then reset the board (see [To reset](#to-reset)).
 
+### QMK Toolbox
 
-### If installed
+**If not installed:**
 
-- run it
-- load the compiled hex file `/Users/.../qmk_mquentin/qmk_firmware/handwired_dactyl_manuform_6x6_promicro_mquentin.hex`
-- pick atmega32u4 processor cf. keyboards/handwired/dactyl_manuform/6x6/promicro/keyboard.json
-- reset
-- click flash
+1. `brew install --cask qmk-toolbox`
+2. Enable it in macOS security (Apple's intended GUI path):
+   1. System Settings → Privacy & Security.
+   2. Scroll to the Security section — you'll see "QMK Toolbox was blocked to protect your Mac." with an **Open Anyway** button (it appears only after you've tried to open the app once).
+   3. Click **Open Anyway** and authenticate with Touch ID / password.
+   4. Launch again; if it prompts once more, click **Open Anyway**.
+3. Run it.
+
+**If already installed:**
+
+1. Run it.
+2. Load the compiled hex file `handwired_dactyl_manuform_6x6_promicro_mquentin.hex` (in the repo root).
+3. Pick the **atmega32u4** processor (cf. `keyboards/handwired/dactyl_manuform/6x6/promicro/keyboard.json`).
+4. Reset the board.
+5. Click **Flash**.
 
 ![Screenshot 2024-09-17 at 13 02 43](https://github.com/user-attachments/assets/04d2a01a-2a45-474e-b7f4-aad5498d784f)
 
+## To reset
 
-# To Reset
-
-with current layout to reset: press and hold ESC_RSTA then KC_ENTER THEN KC_LGUI
+With the current layout, to reset: press and hold `ESC_RSTA`, then `KC_ENTER`, then `KC_LGUI`.
 
 ![PXL_20240917_105940414~2](https://github.com/user-attachments/assets/96e63271-b1fd-4585-aab9-2037f34e923a)
 
+## Scan rate (refresh rate)
+
+Measured **~1124 Hz**, steady, with both halves linked (default split serial speed). That's already above the 1000 Hz USB report rate, so the matrix scan is **not** the bottleneck — there's no practical gain from pushing it higher. Debounce uses the eager `sym_eager_pk` algorithm (registers on the first edge, ~0 added latency).
+
+Notes:
+
+- Both halves **must run identical firmware** — the split serial timing has to match. Flashing only one half breaks the link (constant `Failed to execute slave_matrix`).
+- `SELECT_SOFT_SERIAL_SPEED 0` (faster serial) broke the half-to-half link on this handwired build, so it's left disabled in `config.h`.
+
+To measure it yourself, temporarily add:
+
+- `#define DEBUG_MATRIX_SCAN_RATE` to `config.h`
+- `CONSOLE_ENABLE = yes` to `rules.mk`
+- `void keyboard_post_init_user(void) { debug_enable = true; }` to `keymap.c`
+
+(the rate prints via `dprintf`, which needs runtime debug enabled — and this keymap has no Right Shift to toggle it via the Command feature). Then run `qmk console` and watch the `matrix scan frequency:` lines. Remove all three afterwards.
