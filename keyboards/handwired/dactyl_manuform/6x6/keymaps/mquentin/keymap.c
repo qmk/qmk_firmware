@@ -7,7 +7,7 @@
 #define RST_LR 12
 
 #define ESC_RSTA LT(RESET_ACCESS, KC_ESC)
-#define ENT_MOUSE LT(MOUSE, KC_ENTER)
+#define TG_MOUSE TG(MOUSE)
 
 #define RESET__ QK_BOOT
 
@@ -39,10 +39,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F11,      FR_W,    FR_X,     FR_C,     FR_V,     FR_B,               FR_N,   FR_COMM,FR_SCLN,  FR_COLN, FR_DLR,  FR_ASTR,
                             FR_LABK,  KC_TAB,                                               KC_RALT,    FR_EXLM,
                                                 KC_SPACE,  KC_LGUI,         KC_BSPC,  KC_ENTER,
-                                                  KC_LCTL, KC_LSFT,           KC_UP,     KC_RIGHT,
-                                                  KC_LALT,  ENT_MOUSE, KC_LEFT, KC_DOWN
+                                                  KC_LCTL, KC_LSFT,         KC_UP,    KC_RIGHT,
+                                                  KC_LALT,  TG_MOUSE,    KC_LEFT, KC_DOWN
   ),
-  // Right-hand mouse layer. Hold the left-thumb Enter (ENT_MOUSE) to enable it.
+  // Right-hand mouse layer. Tap the left-thumb * key (TG_MOUSE = TG(MOUSE))
+  // to toggle it on/off -- no holding needed while you mouse.
   //   Movement is available in two places:
   //     - home row (inverted-T under the letters): I = up, J = left, K = down, L = right
   //     - right-thumb arrow keys (mirror base KC_UP/KC_RIGHT/KC_LEFT/KC_DOWN)

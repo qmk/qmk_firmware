@@ -42,15 +42,15 @@ Then reset the board (see [To reset](#to-reset)).
 
 ## Mouse layer
 
-Hold the **left-thumb Enter** (`ENT_MOUSE = LT(MOUSE, KC_ENTER)` — a tap still types Enter) to turn the right hand into a mouse. Movement lives in two spots at once: the home-row `I J K L` inverted-T, and the right-thumb keys that sit exactly where your arrow keys are.
+**Tap the left-thumb `*` key** (`TG_MOUSE = TG(MOUSE)`) to toggle the mouse layer on, and tap it again to turn it off — no holding needed while you mouse. Movement lives in two spots at once: the home-row `I J K L` inverted-T, and the right-thumb keys that sit exactly where your arrow keys are.
 
 ```text
-              ╔═══════════════════════════════════════════════╗
-              ║  MOUSE layer — hold the LEFT-THUMB Enter (⏎)   ║
-              ╚═══════════════════════════════════════════════╝
+              ╔════════════════════════════════════════════════╗
+              ║  MOUSE layer — TAP the * key to toggle on/off  ║
+              ╚════════════════════════════════════════════════╝
 
   LEFT HAND · speed                 RIGHT HAND · move / scroll / click
-  (hold while moving)
+  (hold a speed key while moving)
                                               ┌─────┐
                                               │  I  │  ▲ up
                                         ┌─────┼─────┼─────┐
