@@ -305,12 +305,19 @@ GET_MODULE_LOGICAL_NAME = $(patsubst %/tests/$(notdir $1),%,$(patsubst ./modules
 # Dynamic community module test target name generator (combines logical module name and test folder name)
 _COMMUNITY_MODULE_TARGET_NAME = community_module:$(call GET_MODULE_LOGICAL_NAME,$1):$(call _GET_TEST_NAME,$1)
 
-# Main entry point to get the target name for a test path
-GET_TEST_TARGET_NAME = $(if $(filter modules/% ./modules/% $(QMK_USERSPACE)/modules/%,$1),$(call _COMMUNITY_MODULE_TARGET_NAME,$1),$(notdir $1))
+# Test name used for make targets and list-tests.
+# For core tests: path relative to tests/ (e.g. auto_shift/auto_shift_repeat).
+# For community modules: namespaced target name (e.g. community_module:qmk/hello_world:basic).
+GET_TEST_TARGET_NAME = $(if $(filter modules/% ./modules/% $(QMK_USERSPACE)/modules/%,$1),$(call _COMMUNITY_MODULE_TARGET_NAME,$1),$(patsubst ./tests/%,%,$(patsubst tests/%,%,$1)))
+
+# Internal test name (used for build_test.mk)
+# For core tests: just the directory name (e.g. auto_shift_repeat).
+# For community modules: same as target name to avoid collisions.
+GET_TEST_INTERNAL_NAME = $(if $(filter modules/% ./modules/% $(QMK_USERSPACE)/modules/%,$1),$(call _COMMUNITY_MODULE_TARGET_NAME,$1),$(notdir $1))
 
 define BUILD_TEST
     TEST_PATH := $1
-    TEST_NAME := $$(call GET_TEST_TARGET_NAME,$$(TEST_PATH))
+    TEST_NAME := $$(call GET_TEST_INTERNAL_NAME,$$(TEST_PATH))
     TEST_ID := $$(patsubst ./tests/%,%,$$(TEST_PATH))
     TEST_FULL_NAME := $$(subst /,_,$$(patsubst $$(ROOT_DIR)tests/%,%,$$(TEST_PATH)))
     MAKE_TARGET := $2
