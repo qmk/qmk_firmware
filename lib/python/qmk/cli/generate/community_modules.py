@@ -461,6 +461,18 @@ def generate_community_modules_c_lines(modules):
     return lines
 
 
+def _generate_include_per_module_from_list(modules, include_file_name):
+    """Generates lines to include "<module_path>/include_file_name" for each module."""
+    lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE]
+    for module in modules:
+        full_path = f'{find_module_path(module)}/{include_file_name}'
+        lines.append('')
+        lines.append(f'#if __has_include("{full_path}")')
+        lines.append(f'#include "{full_path}"')
+        lines.append(f'#endif  // __has_include("{full_path}")')
+    return lines
+
+
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
@@ -493,18 +505,6 @@ def generate_community_modules_c(cli):
     lines = generate_community_modules_c_lines(modules)
 
     dump_lines(cli.args.output, lines, cli.args.quiet, remove_repeated_newlines=True)
-
-
-def _generate_include_per_module_from_list(modules, include_file_name):
-    """Generates lines to include "<module_path>/include_file_name" for each module."""
-    lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE]
-    for module in modules:
-        full_path = f'{find_module_path(module)}/{include_file_name}'
-        lines.append('')
-        lines.append(f'#if __has_include("{full_path}")')
-        lines.append(f'#include "{full_path}"')
-        lines.append(f'#endif  // __has_include("{full_path}")')
-    return lines
 
 
 def _generate_include_per_module(cli, include_file_name):
