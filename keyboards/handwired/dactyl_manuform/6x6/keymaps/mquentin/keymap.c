@@ -2,10 +2,12 @@
 #include "keymap_french.h"
 
 #define BASE 0
+#define MOUSE 1
 #define RESET_ACCESS 11
 #define RST_LR 12
 
 #define ESC_RSTA LT(RESET_ACCESS, KC_ESC)
+#define ENT_MOUSE LT(MOUSE, KC_ENTER)
 
 #define RESET__ QK_BOOT
 
@@ -38,7 +40,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             FR_LABK,  KC_TAB,                                               KC_RALT,    FR_EXLM,
                                                 KC_SPACE,  KC_LGUI,         KC_BSPC,  KC_ENTER,
                                                   KC_LCTL, KC_LSFT,           KC_UP,     KC_RIGHT,
-                                                  KC_LALT,  KC_ENTER,           KC_LEFT, KC_DOWN
+                                                  KC_LALT,  ENT_MOUSE, KC_LEFT, KC_DOWN
+  ),
+  // Right-hand mouse layer. Hold the left-thumb Enter (ENT_MOUSE) to enable it.
+  //   Movement is available in two places:
+  //     - home row (inverted-T under the letters): I = up, J = left, K = down, L = right
+  //     - right-thumb arrow keys (mirror base KC_UP/KC_RIGHT/KC_LEFT/KC_DOWN)
+  //   Wheel: U/O = up/down, ,/: = left/right.
+  //   Right thumb (BSPC/ENTER/RAlt) = left/right/middle click.
+  //   Left home row S/D/F = hold for fast/medium/slow cursor speed (MS_ACL2/1/0).
+  [MOUSE]=LAYOUT_6x6(
+    _______, _______, _______, _______, _______, _______,         _______, _______, _______,  _______,  _______, _______,
+    _______, _______, _______, _______, _______, _______,         _______, _______, _______,  _______,  _______, _______,
+    _______, _______, _______, _______, _______, _______,         _______, MS_WHLU, MS_UP,    MS_WHLD,  _______, _______,
+    _______, _______, MS_ACL2, MS_ACL1, MS_ACL0, _______,         _______, MS_LEFT, MS_DOWN,  MS_RGHT,  _______, _______,
+    _______, _______, _______, _______, _______, _______,         _______, MS_WHLL, _______,  MS_WHLR,  _______, _______,
+                      _______, _______,                                             MS_BTN3, _______,
+                                  _______, _______,             MS_BTN1, MS_BTN2,
+                                    _______, _______,        MS_UP,   MS_RGHT,
+                                    _______, _______,        MS_LEFT, MS_DOWN
   ),
   [RESET_ACCESS]=LAYOUT_6x6(
     _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, _______, _______,
