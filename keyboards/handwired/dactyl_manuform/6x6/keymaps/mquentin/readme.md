@@ -40,6 +40,40 @@ Then reset the board (see [To reset](#to-reset)).
 
 ![Screenshot 2024-09-17 at 13 02 43](https://github.com/user-attachments/assets/04d2a01a-2a45-474e-b7f4-aad5498d784f)
 
+## Mouse layer
+
+Hold the **left-thumb Enter** (`ENT_MOUSE = LT(MOUSE, KC_ENTER)` — a tap still types Enter) to turn the right hand into a mouse. Movement lives in two spots at once: the home-row `I J K L` inverted-T, and the right-thumb keys that sit exactly where your arrow keys are.
+
+```text
+              ╔═══════════════════════════════════════════════╗
+              ║  MOUSE layer — hold the LEFT-THUMB Enter (⏎)   ║
+              ╚═══════════════════════════════════════════════╝
+
+  LEFT HAND · speed                 RIGHT HAND · move / scroll / click
+  (hold while moving)
+                                              ┌─────┐
+                                              │  I  │  ▲ up
+                                        ┌─────┼─────┼─────┐
+   ┌─────┬─────┬─────┐                  │  J  │  K  │  L  │
+   │  S  │  D  │  F  │                  │ ◀   │  ▼  │   ▶ │
+   │ACL2 │ACL1 │ACL0 │                  └─────┴─────┴─────┘
+   │fast │ med │slow │                    left  down  right
+   └─────┴─────┴─────┘
+                                   wheel:   U ▲    O ▼    , ◀    : ▶
+
+              RIGHT THUMB                arrows = 2nd move cluster,
+              ┌─────┬─────┐              same layout as your arrow keys
+              │  ▲  │  ▶  │
+              ├─────┼─────┤              Bksp  = left   click
+              │  ◀  │  ▼  │              Enter = right  click
+              └─────┴─────┘              RAlt  = middle click
+```
+
+- **Move**: `I`=up, `J`=left, `K`=down, `L`=right (home row) — or the right-thumb arrows.
+- **Scroll**: `U`/`O` = wheel up/down, `,`/`:` = wheel left/right.
+- **Click**: right thumb — `Bksp` left, `Enter` right, `RAlt` middle.
+- **Speed** (live, hold while moving): left home row `S`/`D`/`F` = fast / medium / slow (`MS_ACL2`/`1`/`0`).
+
 ## To reset
 
 With the current layout, to reset: press and hold `ESC_RSTA`, then `KC_ENTER`, then `KC_LGUI`.
