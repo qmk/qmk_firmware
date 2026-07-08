@@ -25,11 +25,7 @@ def test_c(cli):
     # expand any wildcards
     filtered_tests = set()
     for test in cli.args.test:
-        test_pattern = test
-        # For 'community_module:{module}' patterns, match all tests under the module.
-        if test_pattern.startswith('community_module:') and test_pattern.count(':') == 1:
-            test_pattern += ':*'  # Any test suite under the module.
-        regex = re.compile(fnmatch.translate(test_pattern))
+        regex = re.compile(fnmatch.translate(test))
         matches = set(filter(regex.match, available_tests))
         if not matches:
             cli.log.warning(f'Invalid test pattern provided: {test}')

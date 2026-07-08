@@ -308,13 +308,6 @@ _COMMUNITY_MODULE_TARGET_NAME = community_module:$(call GET_MODULE_LOGICAL_NAME,
 # Main entry point to get the target name for a test path
 GET_TEST_TARGET_NAME = $(if $(filter modules/% ./modules/% $(QMK_USERSPACE)/modules/%,$1),$(call _COMMUNITY_MODULE_TARGET_NAME,$1),$(notdir $1))
 
-# Core QMK test matching helpers
-_MATCHES_CORE_CLEAN_NAME = $(filter $(TEST_NAME),$(notdir $1))
-_MATCHES_CORE_PATH = $(findstring x$(TEST_NAME)x,x$(patsubst tests/%,%,$(patsubst ./tests/%,%,$1))x)
-
-# Check if a test matches the requested TEST_NAME
-TEST_MATCHES = $(or $(call _MATCHES_CORE_CLEAN_NAME,$1),$(call _MATCHES_CORE_PATH,$1))
-
 define BUILD_TEST
     TEST_PATH := $1
     TEST_NAME := $$(call GET_TEST_TARGET_NAME,$$(TEST_PATH))
@@ -348,25 +341,14 @@ endef
 
 define PARSE_TEST
     TESTS :=
-    TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
-    TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
+    # Extract optional :clean suffix as the build target.
+    TEST_TARGET := $$(if $$(filter %:clean,$$(RULE)),clean,)
+    TEST_NAME := $$(if $$(TEST_TARGET),$$(patsubst %:clean,%,$$(RULE)),$$(RULE))
     include $(BUILDDEFS_PATH)/testlist.mk
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
-    else ifeq ($$(TEST_NAME),community_module)
-        # Parse community module target tokens: e.g. community_module:qmk/hello_world:basic[:clean]
-        TOKENS := $$(subst :, ,$$(TEST_TARGET))
-        TEST_TARGET := $$(filter clean,$$(TOKENS))
-        CLEANED_TOKENS := $$(filter-out clean,$$(TOKENS))
-        MODULE_QUERY := $$(word 1,$$(CLEANED_TOKENS))
-        TEST_QUERY := $$(word 2,$$(CLEANED_TOKENS))
-        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(and \
-            $$(filter modules/% ./modules/% $$(QMK_USERSPACE)/modules/%,$$(TEST)),\
-            $$(filter $$(MODULE_QUERY),$$(call GET_MODULE_LOGICAL_NAME,$$(TEST))),\
-            $$(if $$(TEST_QUERY),$$(filter $$(TEST_QUERY),$$(call _GET_TEST_NAME,$$(TEST))),true)\
-        ),$$(TEST),))
     else
-        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(call TEST_MATCHES,$$(TEST)),$$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(filter $$(TEST_NAME),$$(call GET_TEST_TARGET_NAME,$$(TEST))),$$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef

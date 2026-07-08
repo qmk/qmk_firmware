@@ -209,14 +209,14 @@ How to test a module:
 3. Run the tests: To run a specific test suite, use the command form
 
    ```sh
-   make test:community_module:{user}/{module_name}:{suite}
+   qmk test-c -t 'community_module:{user}/{module_name}:{suite}'
    ```
 
-   Or to run *all* test suites for a module, omit the `:{suite}` portion of the target:
+   Or to run *all* test suites for a module, use a `*` wildcard for the `{suite}` portion of the target:
 
    ```sh
-   make test:community_module:{user}/{module_name}
+   qmk test-c -t 'community_module:{user}/{module_name}:*'
    ```
 
-   Example: `make test:community_module:qmk/hello_world`
+   Example: `qmk test-c -t 'community_module:qmk/hello_world:*'`
 
