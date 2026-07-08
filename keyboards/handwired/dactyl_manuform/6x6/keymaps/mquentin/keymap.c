@@ -1,3 +1,6 @@
+// Copyright 2026 @mquentin
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 #include "keymap_french.h"
 
@@ -26,8 +29,8 @@
 
 
 // All infos with Images: https://github.com/mquentin/qmk_firmware/blob/master/keyboards/handwired/dactyl_manuform/6x6/keymaps/mquentin/readme.md
-// To compile: qmk compile -kb handwired/dactyl_manuform/6x6 -km mquentin
-// To flash: qmk flash -kb handwired/dactyl_manuform/6x6 -km mquentin
+// To compile: qmk compile -kb handwired/dactyl_manuform/6x6/promicro -km mquentin
+// To flash: qmk flash -kb handwired/dactyl_manuform/6x6/promicro -km mquentin
 // to reset: press and hold ESC_RSTA then KC_ENTER THEN KC_LGUI
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

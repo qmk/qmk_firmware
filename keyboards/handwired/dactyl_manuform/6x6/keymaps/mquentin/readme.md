@@ -5,7 +5,7 @@ French AZERTY layout for the handwired Dactyl Manuform 6x6 (Pro Micro / ATmega32
 ## Compile
 
 ```
-qmk compile -kb handwired/dactyl_manuform/6x6 -km mquentin
+qmk compile -kb handwired/dactyl_manuform/6x6/promicro -km mquentin
 ```
 
 ## Flash
@@ -13,7 +13,7 @@ qmk compile -kb handwired/dactyl_manuform/6x6 -km mquentin
 ### Manually (qmk CLI)
 
 ```
-qmk flash -kb handwired/dactyl_manuform/6x6 -km mquentin
+qmk flash -kb handwired/dactyl_manuform/6x6/promicro -km mquentin
 ```
 
 Then reset the board (see [To reset](#to-reset)).
