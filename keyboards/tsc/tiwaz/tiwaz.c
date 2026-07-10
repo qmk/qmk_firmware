@@ -54,11 +54,11 @@ __attribute__ ((weak)) const joystick_keymap_t left_joystick_keymap = {
 };
 
 __attribute__ ((weak)) const joystick_keymap_t right_joystick_keymap = {
-    .up = KC_P8,
-    .down = KC_P2,
-    .left = KC_P4,
-    .right = KC_P6,
-    .btn = KC_PENT
+    .up = KC_UP,
+    .down = KC_DOWN,
+    .left = KC_LEFT,
+    .right = KC_RGHT,
+    .btn = KC_ENT
 };
 
 // Button hold tracking
