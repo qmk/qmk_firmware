@@ -65,10 +65,7 @@
 #include "progmem.h"
 #include "quantum/color.h"
 #include "eeconfig.h"
-
-#if EECONFIG_KB_DATA_SIZE == 0
-#error EECONFIG_KB_DATA_SIZE was not defined to store backlight_config struct
-#endif
+#include "compiler_support.h"
 
 #if defined(RGB_BACKLIGHT_M6_B)
 #include "drivers/led/issi/is31fl3218.h"
@@ -134,6 +131,8 @@ backlight_config g_config = {
     .custom_color = { { 0, 255 }, { 43, 255 }, { 85, 255 }, { 128, 255 }, { 171, 255 }, { 213, 255 }, { 0, 255 }, { 43, 255 }, { 85, 255 }, { 128, 255 } }
 #endif
 };
+
+STATIC_ASSERT(sizeof(backlight_config) == EECONFIG_KB_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 bool g_suspend_state = false;
 

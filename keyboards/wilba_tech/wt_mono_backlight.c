@@ -24,10 +24,7 @@
 #include "host.h"
 #include "progmem.h"
 #include "eeconfig.h"
-
-#if EECONFIG_KB_DATA_SIZE == 0
-#error EECONFIG_KB_DATA_SIZE was not defined to store backlight_config struct
-#endif
+#include "compiler_support.h"
 
 #include "drivers/led/issi/is31fl3736-mono.h"
 
@@ -45,6 +42,8 @@ backlight_config g_config = {
     .effect_speed = MONO_BACKLIGHT_EFFECT_SPEED,
     .color_1 = MONO_BACKLIGHT_COLOR_1,
 };
+
+STATIC_ASSERT(sizeof(backlight_config) == EECONFIG_KB_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 bool g_suspend_state = false;
 
