@@ -80,7 +80,11 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(SEQUENCER_ENABLE)), yes)
+    OPT_DEFS += -DSEQUENCER_ENABLE
     MUSIC_ENABLE = yes
+    COMMON_VPATH += $(QUANTUM_PATH)/sequencer
+    SRC += $(QUANTUM_DIR)/sequencer/sequencer.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_sequencer.c
 endif
 
 ifeq ($(strip $(MIDI_ENABLE)), yes)
