@@ -64,15 +64,10 @@
 
 #include "progmem.h"
 #include "quantum/color.h"
-#include "eeprom.h"
+#include "eeconfig.h"
 
-#include "nvm_eeprom_eeconfig_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
-#include "nvm_eeprom_via_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
-#include "via.h" // uses EEPROM address, lighting value IDs
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
-
-#if VIA_EEPROM_CUSTOM_CONFIG_SIZE == 0
-#error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
+#if EECONFIG_KB_DATA_SIZE == 0
+#error EECONFIG_KB_DATA_SIZE was not defined to store backlight_config struct
 #endif
 
 #if defined(RGB_BACKLIGHT_M6_B)
@@ -2097,14 +2092,16 @@ void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
     backlight_config_save();
 }
 
-void backlight_config_load(void)
-{
-    eeprom_read_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+void eeconfig_init_kb_datablock(void) {
+    backlight_config_save();
 }
 
-void backlight_config_save(void)
-{
-    eeprom_update_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+void backlight_config_load(void) {
+    eeconfig_read_kb_datablock( &g_config, 0, sizeof(backlight_config) );
+}
+
+void backlight_config_save(void) {
+    eeconfig_update_kb_datablock( &g_config, 0, sizeof(backlight_config) );
 }
 
 void backlight_init_drivers(void)
