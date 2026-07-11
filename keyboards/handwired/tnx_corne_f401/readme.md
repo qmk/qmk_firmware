@@ -1,6 +1,6 @@
 # handwired/tnx_corne_f401
 
-![handwired/tnx_corne_f401](https://raw.githubusercontent.com/ToYoNiX/img-hosting/main/corne36_stm32f401_with_encoders/0.jpg)
+![handwired/tnx_corne_f401](https://i.imgur.com/rHiwS60.jpeg)
 
 *A handwired Corne keyboard using STM32 microcontrollers, with encoder support.*
 
