@@ -300,13 +300,17 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 // Housekeeping task
 void housekeeping_task_kb(void) {
     if (is_keyboard_master()) {
-        if (!init_completed && timer_elapsed32(init_timeout) > 2000) {
-            transaction_rpc_send(RPC_KB_CONFIG, sizeof(kb_config.raw), &kb_config.raw);
-            init_completed = true;
+        if (!init_completed) {
+            if (timer_elapsed32(init_timeout) > 2000) {
+                transaction_rpc_send(RPC_KB_CONFIG, sizeof(kb_config.raw), &kb_config.raw);
+                init_completed = true;
+            } else {
+                return;
+            }
         }
 
         static uint32_t last_sync = 0;
-        if (is_transport_connected() && timer_elapsed32(last_sync) > JOY_POLLING_INTERVAL) {
+        if (timer_elapsed32(last_sync) > JOY_POLLING_INTERVAL) {
             transaction_rpc_recv(RPC_JOYSTICK_AXES, sizeof(remote_joystick_axis), &remote_joystick_axis);
             last_sync = timer_read32();
         }
