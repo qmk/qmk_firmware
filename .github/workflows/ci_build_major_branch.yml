@@ -41,7 +41,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install dependencies
         run: pip3 install -r requirements-dev.txt
@@ -89,7 +89,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
 

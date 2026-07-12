@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define OLED_DISPLAY_128X32
-
 // EC11 encoders' resolution.
 // Reduce the value to 2 if you feel missing values:
 #define ENCODER_RESOLUTION 4

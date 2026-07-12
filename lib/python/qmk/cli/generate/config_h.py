@@ -95,7 +95,7 @@ def generate_config_items(kb_info_json, config_h_lines):
 
         try:
             config_value = kb_info_json[info_key]
-        except KeyError:
+        except (KeyError, IndexError):
             continue
 
         if key_type.startswith('array.array'):
