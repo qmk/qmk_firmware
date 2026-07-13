@@ -51,7 +51,9 @@ STATIC_ASSERT(sizeof(backlight_config_t) == sizeof(uint8_t), "Backlight EECONFIG
 void    backlight_init(void);
 void    backlight_toggle(void);
 void    backlight_enable(void);
+void    backlight_enable_noeeprom(void);
 void    backlight_disable(void);
+void    backlight_disable_noeeprom(void);
 bool    is_backlight_enabled(void);
 void    backlight_step(void);
 void    backlight_increase(void);
