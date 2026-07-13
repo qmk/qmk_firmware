@@ -2,7 +2,7 @@
 RGB_MATRIX_EFFECT(STARLIGHT)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void set_starlight_color(uint8_t i, effect_params_t* params) {
+static void set_starlight_color(uint8_t i, effect_params_t *params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
 
     uint16_t time = scale16by8(g_rgb_timer, rgb_matrix_config.speed / 8);
@@ -12,17 +12,17 @@ static void set_starlight_color(uint8_t i, effect_params_t* params) {
     rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
 
-bool STARLIGHT(effect_params_t* params) {
+bool STARLIGHT(effect_params_t *params) {
     static uint16_t index = RGB_MATRIX_LED_COUNT + 1;
 
     // Periodic trigger for LED change
     if ((params->iter == 0) && (scale16by8(g_rgb_timer, qadd8(rgb_matrix_config.speed, 5)) % 5 == 0)) {
-        index = random8_max(RGB_MATRIX_LED_COUNT);
+        index = random_led_max((led_index_t)RGB_MATRIX_LED_COUNT);
     }
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     if (params->init) {
-        for (uint8_t i = led_min; i < led_max; i++) {
+        for (led_index_t i = led_min; i < led_max; i++) {
             set_starlight_color(i, params);
         }
     }

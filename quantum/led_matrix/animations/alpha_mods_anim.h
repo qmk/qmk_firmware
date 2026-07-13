@@ -9,7 +9,7 @@ bool ALPHAS_MODS(effect_params_t* params) {
     uint8_t val1 = led_matrix_eeconfig.val;
     uint8_t val2 = val1 + led_matrix_eeconfig.speed;
 
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (led_index_t i = led_min; i < led_max; i++) {
         LED_MATRIX_TEST_LED_FLAGS();
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
             led_matrix_set_value(i, val2);

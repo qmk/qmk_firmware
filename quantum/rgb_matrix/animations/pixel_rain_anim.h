@@ -6,11 +6,11 @@ RGB_MATRIX_EFFECT(PIXEL_RAIN)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static bool PIXEL_RAIN(effect_params_t* params) {
-    static uint8_t  index = 0;
+    static led_index_t  index = 0;
     static uint32_t timer = 0;
 
     if (params->iter == 0 && params->init) {
-        index = random8_max(RGB_MATRIX_LED_COUNT);
+        index = random_led_max((led_index_t)RGB_MATRIX_LED_COUNT);
     }
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -24,7 +24,7 @@ static bool PIXEL_RAIN(effect_params_t* params) {
         if (!rgb_matrix_check_finished_leds(led_max)) {
             // In the final LED range, update the LED index and advance the timer for
             // the next cycle, scaling the delay between 256–2048 ms based on speed.
-            index = random8_max(RGB_MATRIX_LED_COUNT);
+            index = random_led_max((led_index_t)RGB_MATRIX_LED_COUNT);
             timer = g_rgb_timer + (2048 - scale16by8(1792, rgb_matrix_config.speed));
         }
     }

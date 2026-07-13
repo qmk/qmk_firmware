@@ -71,16 +71,16 @@
 #endif
 
 struct led_matrix_limits_t {
-    uint8_t led_min_index;
-    uint8_t led_max_index;
+    led_index_t led_min_index;
+    led_index_t led_max_index;
 };
 
 struct led_matrix_limits_t led_matrix_get_limits(uint8_t iter);
 
 #define LED_MATRIX_USE_LIMITS_ITER(min, max, iter)                   \
     struct led_matrix_limits_t limits = led_matrix_get_limits(iter); \
-    uint8_t                    min    = limits.led_min_index;        \
-    uint8_t                    max    = limits.led_max_index;        \
+    led_index_t                min    = limits.led_min_index;        \
+    led_index_t                max    = limits.led_max_index;        \
     (void)min;                                                       \
     (void)max;
 
@@ -124,12 +124,12 @@ void eeconfig_update_led_matrix_default(void);
 void eeconfig_force_flush_led_matrix(void);
 void eeconfig_debug_led_matrix(void);
 
-uint8_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
-uint8_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
+led_index_t led_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, led_index_t *led_i);
+led_index_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, led_index_t *led_i);
 
-int led_matrix_led_index(int index);
+led_index_t led_matrix_led_index(led_index_t index);
 
-void led_matrix_set_value(int index, uint8_t value);
+void led_matrix_set_value(led_index_t index, uint8_t value);
 void led_matrix_set_value_all(uint8_t value);
 
 void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);
@@ -192,10 +192,10 @@ void        led_matrix_flags_step_reverse(void);
 const char *led_matrix_get_mode_name(uint8_t mode);
 #endif // LED_MATRIX_MODE_NAME_ENABLE
 
-static inline bool led_matrix_check_finished_leds(uint8_t led_idx) {
+static inline bool led_matrix_check_finished_leds(led_index_t led_idx) {
 #if defined(LED_MATRIX_SPLIT)
     if (is_keyboard_left()) {
-        uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
+        led_index_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
         return led_idx < k_led_matrix_split[0];
     } else
         return led_idx < LED_MATRIX_LED_COUNT;
