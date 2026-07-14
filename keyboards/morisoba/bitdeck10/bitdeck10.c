@@ -11,8 +11,8 @@
 #ifdef ENCODER_ENABLE
 // record encoder status
 typedef enum { ENC_NONE = 0, ENC_UP = 1, ENC_DOWN = 2 } encoder_state_t;
-static encoder_state_t encoder_state      = ENC_NONE;
-static uint32_t        last_encoder_moved = 0;
+encoder_state_t encoder_state      = ENC_NONE;
+uint32_t        last_encoder_moved = 0;
 #endif // ENCODER_ENABLE
 
 // keylogger
@@ -21,11 +21,11 @@ typedef struct {
     char       keystr[KEYSTR_MAX_LEN];
 } keylog_t;
 
-static keylog_t keylog[KEYLOG_LEN]                                = {0};
-static char     keyhistory[KEYSTR_MAX_LEN * (KEYDISPLAY_LEN + 1)] = {0};
+keylog_t keylog[KEYLOG_LEN]                                = {0};
+char     keyhistory[KEYSTR_MAX_LEN * (KEYDISPLAY_LEN + 1)] = {0};
 
 // for keylog sort
-static int keylog_compare(const void *a, const void *b) {
+int keylog_compare(const void *a, const void *b) {
     if (((keylog_t *)a)->event.time > ((keylog_t *)b)->event.time) {
         return 1;
     } else if (((keylog_t *)a)->event.time < ((keylog_t *)b)->event.time) {
@@ -35,7 +35,7 @@ static int keylog_compare(const void *a, const void *b) {
     }
 }
 
-static void write_keylog(keyevent_t event, const char *keystr) {
+void write_keylog(keyevent_t event, const char *keystr) {
     if (event.pressed) {
 #ifdef ENCODER_ENABLE
         if (event.key.row == KEYLOC_ENCODER_CW) {
@@ -69,7 +69,7 @@ static void write_keylog(keyevent_t event, const char *keystr) {
     }
 }
 
-static void create_keyhistory(void) {
+void create_keyhistory(void) {
     qsort(keylog, KEYLOG_LEN, sizeof(keylog_t), keylog_compare);
     keyhistory[0] = '\0';
     for (uint8_t idx = 0; idx < KEYLOG_LEN; idx++) {
@@ -85,7 +85,7 @@ static void create_keyhistory(void) {
 }
 
 #ifdef ENCODER_ENABLE
-static void delete_encoder_log(void) {
+void delete_encoder_log(void) {
     for (uint8_t idx = 0; idx < KEYLOG_LEN; idx++) {
         if (keylog[idx].event.key.row == KEYLOC_ENCODER_CW || keylog[idx].event.key.row == KEYLOC_ENCODER_CCW) {
             if (keylog[idx].event.pressed == true && (last_encoder_activity_elapsed() > OLED_ENCODER_TIMEOUT)) {
@@ -96,8 +96,8 @@ static void delete_encoder_log(void) {
 }
 #endif // ENCODER_ENABLE
 
-static void render_logo(void) {
-    static const char PROGMEM bitdeck_logo[] = {
+void render_logo(void) {
+    const char PROGMEM bitdeck_logo[] = {
         0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87, 0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F, 0x90, 0x91, 0x92, 0xFF, 0xFF,
         0xA0, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6, 0xA7, 0xA8, 0xA9, 0xAA, 0xAB, 0xAC, 0xAD, 0xAE, 0xAF, 0xB0, 0xB1, 0xB2, 0xFF, 0xFF, 0x00};
     oled_write_P(bitdeck_logo, false);
