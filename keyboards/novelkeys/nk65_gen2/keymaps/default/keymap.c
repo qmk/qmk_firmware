@@ -1,4 +1,4 @@
-/* Copyright 2025 Yiancar
+/* Copyright 2026 Yiancar
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
  * This program is free software: you can redistribute it and/or modify
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     if (host_keyboard_led_state().caps_lock) {
-        hsv_t hsv = {32, 241, 150};
+        hsv_t hsv = {11, 204, 5};
         rgb_t rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(66, rgb.r, rgb.g, rgb.b);
     } else {
@@ -42,7 +42,7 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     }
 
     if (get_highest_layer(layer_state|default_layer_state) == 1) {
-        hsv_t hsv = {60, 174, 70};
+        hsv_t hsv = {191, 204, 5};
         rgb_t rgb = hsv_to_rgb(hsv);
         rgb_matrix_set_color(67, rgb.r, rgb.g, rgb.b);
     } else {
