@@ -13,7 +13,7 @@ This is useful in case you want to use it as a macropad instead of just a numpad
 
 How to compile this version (after setting up your build environment):
 
-qmk compile -kb ymdk/np21_nonumlock -km default
+qmk compile -kb ymdk/np21/nonumlock -km default
 
 **Reset Key**: Hold down the 'Top Left Key' (USB on top) while plugging in the keyboard.
 

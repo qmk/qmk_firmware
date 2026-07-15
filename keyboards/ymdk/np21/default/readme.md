@@ -8,13 +8,9 @@ ps2avrGB based number-pad sold fully assembled by YMDK on Aliexpress.
 * Hardware Supported: Atmega32A
 * Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-Programmable-Cherry-MX-Kailh-Gateron-Switches-Mechanical-Keyboard-Numpad-Free-shipping/32812732361.html)
 
-Make example for this keyboard (after setting up your build environment):
+How to compile this version (after setting up your build environment):
 
-    make ymdk/np21:default
-
-Flashing example for this keyboard:
-
-    make ymdk/np21:default:flash
+qmk compile -kb ymdk/np21/default -km default
 
 **Reset Key**: Hold down the 'Top Left Key' (USB on top) while plugging in the keyboard.
 
