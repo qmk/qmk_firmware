@@ -151,6 +151,14 @@ void eeconfig_force_flush_rgb_matrix(void);
 uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
 uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
 
+/**
+ * @brief Convert an index to the addressing used by underlying driver
+ *
+ * @param index  Logical index of the LED we want to work on
+ *
+ * @return       Resolved index to be used on the driver
+ * @retval < 0   Error (eg: trying to address a LED on the other half of a split board)
+ */
 int rgb_matrix_led_index(int index);
 
 void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
@@ -218,6 +226,10 @@ void        rgb_matrix_decrease_speed_noeeprom(void);
 led_flags_t rgb_matrix_get_flags(void);
 void        rgb_matrix_set_flags(led_flags_t flags);
 void        rgb_matrix_set_flags_noeeprom(led_flags_t flags);
+void        rgb_matrix_flags_step_noeeprom(void);
+void        rgb_matrix_flags_step(void);
+void        rgb_matrix_flags_step_reverse_noeeprom(void);
+void        rgb_matrix_flags_step_reverse(void);
 void        rgb_matrix_update_pwm_buffers(void);
 
 #ifdef RGB_MATRIX_MODE_NAME_ENABLE

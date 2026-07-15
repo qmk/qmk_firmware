@@ -1620,8 +1620,11 @@
     "0_sixty": {
         "target": "0_sixty/base"
     },
-    "0xcb/splaytoraid": {
-        "target": "0xcb/splaytoraid/rp2040_ce"
+    "0xcb/splaytoraid/32u4": {
+        "target": "0xcb/splaytoraid"
+    },
+    "0xcb/splaytoraid/rp2040_ce": {
+        "target": "0xcb/splaytoraid"
     },
     "1upkeyboards/pi40": {
         "target": "1upkeyboards/pi40/mit_v1_0"
@@ -1632,11 +1635,23 @@
     "1upkeyboards/sweet16": {
         "target": "1upkeyboards/sweet16/v1"
     },
+    "1upkeyboards/sweet16v2/kb2040": {
+        "target": "1upkeyboards/sweet16v2"
+    },
+    "1upkeyboards/sweet16v2/pro_micro": {
+        "target": "1upkeyboards/sweet16v2"
+    },
     "25keys/aleth42": {
         "target": "25keys/aleth42/rev1"
     },
     "25keys/zinc": {
         "target": "25keys/zinc/rev1"
+    },
+    "40percentclub/gherkin/kb2040": {
+        "target": "40percentclub/gherkin"
+    },
+    "40percentclub/gherkin/pro_micro": {
+        "target": "40percentclub/gherkin"
     },
     "40percentclub/i75": {
         "target": "40percentclub/i75/promicro"
@@ -1735,7 +1750,7 @@
         "target": "durgod/dgk6x/galaxy"
     },
     "durgod/venus": {
-        "target": "durgod/dgk6x/venus"
+        "target": "durgod/dgk6x/venus_ansi"
     },
     "dztech/tofu/ii": {
         "target": "dztech/tofu/ii/v1"

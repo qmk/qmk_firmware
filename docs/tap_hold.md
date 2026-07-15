@@ -1,8 +1,12 @@
 # Tap-Hold Configuration Options
 
+These options let you modify the behavior of the tap-hold keys, applying primarily to Mod-Tap `MT` and Layer-Tap `LT` keys. They also affect layer tap-toggle `TT`, one-shot `OSM`, `OSL`, and Swap Hands `SH_T`, `SH_TT` keys.
+
 While Tap-Hold options are fantastic, they are not without their issues. We have tried to configure them with reasonable defaults, but that may still cause issues for some people.
 
-These options let you modify the behavior of the tap-hold keys.
+::: info
+Besides the tapping term, tap-hold options do **not** apply to Tap Dance keys. Tap Dance implements a separate, simpler decision logic to track when keys are tapped vs. held, and it does not support advanced tap-hold configurations like Permissive Hold, Chordal Hold, etc.
+:::
 
 ## Tapping Term
 
@@ -147,6 +151,25 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 ```
 
 The reason is that `TAPPING_TERM` is a macro that expands to a constant integer and thus cannot be changed at runtime, whereas `g_tapping_term` is a variable whose value can be changed at runtime. If you want, you can temporarily enable `DYNAMIC_TAPPING_TERM_ENABLE` to find a suitable tapping term value and then disable that feature and revert back to using the classic syntax for per-key tapping term settings. In case you need to access the tapping term from elsewhere in your code, you can use the `GET_TAPPING_TERM(keycode, record)` macro. This macro will expand to whatever is the appropriate access pattern given the current configuration.
+
+## Configuring Home Row Mods
+
+"Home row mods" (HRMs) is a popular layout technique where modifiers are placed as Mod-Tap keys on the home row (<kbd>A</kbd>, <kbd>S</kbd>, <kbd>D</kbd>, <kbd>F</kbd> and <kbd>J</kbd>, <kbd>K</kbd>, <kbd>L</kbd>, <kbd>;</kbd>, supposing QWERTY layout). This reduces hand movement and can increase comfort. However, because these keys are also used for fast typing, they are prone to accidental modifier triggers (when rolling keys) or accidental typed letters (when trying to use a modifier).
+
+There is no single perfect configuration for home row mods, as it depends heavily on your typing speed and habits. However, a good starting point in QMK is (added in your `config.h`):
+
+```c
+#define TAPPING_TERM 250
+#define PERMISSIVE_HOLD  // Triggers mod if you tap another key while holding.
+#define CHORDAL_HOLD     // Constrains holds to opposite-hand combinations.
+// Consider also:
+// #define FLOW_TAP_TERM 150 // Disables holds when typing quickly.
+```
+
+See [Permissive Hold](#permissive-hold), [Chordal Hold](#chordal-hold), and [Flow Tap](#flow-tap) below for details on what they do and how to fine-tune them.
+
+Additionally, [Speculative Hold](#speculative-hold) is useful to eliminate lag when combining a home row mod with mouse clicks (e.g., Shift + Click), as standard mod-tap keys do not send the modifier until the tap-hold decision is finalized.
+
 
 ## Tap-Or-Hold Decision Modes
 
@@ -604,6 +627,20 @@ Or if the two keys are on opposite hands and the `PERMISSIVE_HOLD` option is
 enabled, this will produce `C` with `SFT_T(KC_A)` settled as held when that
 `KC_C` is released.
 
+As an exception to the opposite hands rule, Chordal Hold supports combining
+multiple same-side modifiers within the tapping term. This is useful for
+multi-mod hotkeys like Ctrl + Shift + V. For instance with Chordal Hold together
+with either Permissive Hold or Hold On Other Key Press, the following input
+results in Ctrl + Shift + V being sent, supposing `J` and `K` are on the right
+hand side and `V` is on the left hand side:
+
+- `SFT_T(KC_J)` Down
+- `CTL_T(KC_K)` Down
+- `KC_V` Down
+- `KC_V` Up
+- `SFT_T(KC_J)` Up
+- `CTL_T(KC_K)` Up
+
 ### Chordal Hold Handedness
 
 Determining whether keys are on the same or opposite hands involves defining the
@@ -778,6 +815,62 @@ Do not use `MOD_xxx` constants like `MOD_LSFT` or `MOD_RALT`, since they're 5-bi
 ### Retro Shift
 
 [Auto Shift](features/auto_shift) has its own version of `retro tapping` called `retro shift`. It is extremely similar to `retro tapping`, but holding the key past `AUTO_SHIFT_TIMEOUT` results in the value it sends being shifted. Other configurations also affect it differently; see [here](features/auto_shift#retro-shift) for more information.
+
+## Speculative Hold
+
+Speculative Hold makes mod-tap keys more responsive by applying the modifier instantly on keydown, before the tap-hold decision is made. This is especially useful for actions like Shift+Click with a mouse, which can feel laggy with standard mod-taps.
+
+The firmware holds the modifier speculatively. Once the key's behavior is settled:
+
+* If held, the modifier remains active as expected until the key is released.
+* If tapped, the speculative modifier is canceled just before the tapping keycode is sent.
+
+Speculative Hold applies the modifier early but does not change the underlying tap-hold decision logic. Speculative Hold is compatible to use in combination with any other tap-hold options.
+
+To enable Speculative Hold, add the following to your `config.h`:
+
+```c
+#define SPECULATIVE_HOLD
+```
+
+By default, Speculative Hold applies to mod-taps using Shift, Ctrl, or Shift + Ctrl. You can override this behavior by defining the `get_speculative_hold()` callback in your keymap, for instance:
+
+```c
+bool get_speculative_hold(uint16_t keycode, keyrecord_t* record) {
+    switch (keycode) { // These keys may be speculatively held.
+        case LCTL_T(KC_ESC):
+        case LSFT_T(KC_Z):
+        case RSFT_T(KC_SLSH):
+            return true;
+    }
+    return false; // Disable otherwise.
+}
+```
+
+Some operating systems or applications assign actions to tapping a modifier key by itself, e.g., tapping GUI to open a start menu. Because Speculative Hold sends a lone modifier key press in some cases, it can falsely trigger these actions (known as the "flashing mods" problem). How such an input is handled depends on the OS and application, so unfortunately, there is no universal solution.
+
+To mitigate this issue, you can set `DUMMY_MOD_NEUTRALIZER_KEYCODE` (and optionally `MODS_TO_NEUTRALIZE`) in your `config.h`, as described above for [Retro Tapping](#retro-tapping).
+
+You can further prevent flashing mods by restricting when Speculative Hold is allowed to trigger. There are several options for this:
+
+* Constrain Speculative Hold to one key at a time. Add to your config.h:
+
+  ```c
+  #define SPECULATIVE_HOLD_ONE_KEY
+  ```
+
+  With this option, Speculative Hold does not apply when any mods are already active. Mod combinations across multiple keys can still be made after the mod-tap keys settle.
+
+* Disable Speculative Hold during the flow of fast typing. Add to your config.h:
+
+  ```c
+  #define SPECULATIVE_HOLD_FLOW_TERM 200
+  ```
+
+  This value specifies a duration in milliseconds. Speculative Hold does not apply if a key is pressed within this threshold of the previous key. The effect is similar to [Flow Tap](#flow-tap); however, `SPECULATIVE_HOLD_FLOW_TERM` only restricts when speculation is allowed, without affecting how the key settles.
+
+* Use the Flow Tap option. In the fast flow of typing, the mod-tap key is immediately settled, and therefore no speculation occurs. See [Flow Tap](#flow-tap) for details.
+
 
 ## Why do we include the key record for the per key functions?
 

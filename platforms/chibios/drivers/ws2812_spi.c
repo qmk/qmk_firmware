@@ -188,8 +188,7 @@ void ws2812_init(void) {
         0,
         WS2812_SPI_DIVISOR
 #    else
-        WS2812_SPI_DIVISOR_CR1_BR_X,
-        0
+        WS2812_SPI_DIVISOR_CR1_BR_X, 0
 #    endif
 #else
     // HAL_SPI_V2

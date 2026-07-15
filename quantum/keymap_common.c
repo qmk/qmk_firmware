@@ -43,8 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern keymap_config_t keymap_config;
 
-#include <inttypes.h>
-
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important

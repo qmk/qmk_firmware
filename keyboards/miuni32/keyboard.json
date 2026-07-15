@@ -3,8 +3,8 @@
     "manufacturer": "Bigtuna.io",
     "maintainer": "qmk",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x6060",
+        "vid": "0x41FA",
+        "pid": "0xAAEF",
         "device_version": "0.0.1"
     },
     "rgblight": {
@@ -80,8 +80,8 @@
                 {"matrix": [2, 0], "x": 0, "y": 2},
                 {"matrix": [2, 1], "x": 1, "y": 2},
                 {"matrix": [2, 2], "x": 2, "y": 2},
-                {"matrix": [2, 3], "x": 3, "y": 2, "w": 2},
-                {"matrix": [2, 5], "x": 5, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2, "w": 2},
                 {"matrix": [2, 6], "x": 6, "y": 2},
                 {"matrix": [2, 7], "x": 7, "y": 2},
                 {"matrix": [2, 8], "x": 8, "y": 2},

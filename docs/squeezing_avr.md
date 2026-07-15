@@ -87,26 +87,6 @@ Or if you're not using layers at all, you can outright remove the functionality 
 #define NO_ACTION_LAYER
 ```
 
-## Magic Functions
-
-There are two `__attribute__ ((weak))` placeholder functions available to customize magic keycodes. If you are not using that feature to swap keycodes, such as backslash with backspace, add the following to your `keymap.c` or user space code:
-```c
-#ifndef MAGIC_ENABLE
-uint16_t keycode_config(uint16_t keycode) {
-    return keycode;
-}
-#endif
-```
-Likewise, if you are not using magic keycodes to swap modifiers, such as Control with GUI, add the following to your `keymap.c` or user space code:
-```c
-#ifndef MAGIC_ENABLE
-uint8_t mod_config(uint8_t mod) {
-    return mod;
-}
-#endif
-```
-Both of them will overwrite the placeholder functions with a simple return statement to reduce firmware size.
-
 ## OLED tweaks
 
 One place you can save a bunch of space here is by not using `sprintf` or `snprintf`. This function call takes up ~1.5kB of firmware space, and can be rewritten. For instance, WPM uses this a lot.

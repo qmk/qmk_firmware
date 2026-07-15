@@ -35,9 +35,9 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
     if (flash_locked) return FLASH_ERROR_WRP;
     Address -= (uintptr_t)FlashBuf;
     if (Address >= MOCK_FLASH_SIZE) return FLASH_BAD_ADDRESS;
-    uint16_t oldData = *(uint16_t*)&FlashBuf[Address];
+    uint16_t oldData = *(uint16_t *)&FlashBuf[Address];
     if (oldData == 0xFFFF || Data == 0) {
-        *(uint16_t*)&FlashBuf[Address] = Data;
+        *(uint16_t *)&FlashBuf[Address] = Data;
         return FLASH_COMPLETE;
     } else {
         return FLASH_ERROR_PG;

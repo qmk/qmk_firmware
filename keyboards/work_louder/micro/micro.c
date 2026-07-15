@@ -3,29 +3,6 @@
 
 #include "micro.h"
 
-#if defined(RGB_MATRIX_ENABLE)
-// clang-format off
-led_config_t g_led_config = { {
-    { NO_LED, 10, 11, NO_LED },
-    {      9 , 8,  7, 6 },
-    {      2,  3,  4, 5 },
-    { NO_LED,  1,  0, NO_LED }
-  }, {
-                  { 122,  64 }, { 103,  64 },
-    {  84,  45 }, { 103,  45 }, { 133,  45 }, { 152,  45 },
-    { 152,  26 }, { 122,  26 }, { 103,  26 }, { 84,  26 },
-                  { 103,   7 }, { 122,   7 }
-  },
-  {
-       4, 4,
-    4, 4, 4, 4,
-    4, 4, 4, 4,
-       4, 4
-  }
-};
-// clang-format on
-#endif
-
 #if defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {

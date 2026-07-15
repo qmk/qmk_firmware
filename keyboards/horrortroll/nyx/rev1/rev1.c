@@ -17,52 +17,6 @@
 #include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case QK_RGB_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable_noeeprom();
-                    }
-                    break;
-                }
-            }
-            return false;
-        case QK_RGB_MATRIX_MODE_NEXT:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_mode()) {
-                    case RGB_MATRIX_SOLID_MULTISPLASH:
-                        rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
-                        return false;
-                    default:
-                        rgb_matrix_step();
-                        return false;
-                }
-            }
-            return false;
-        case QK_RGB_MATRIX_MODE_PREVIOUS:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_mode()) {
-                    case RGB_MATRIX_SOLID_COLOR:
-                        rgb_matrix_mode(RGB_MATRIX_SOLID_MULTISPLASH);
-                        return false;
-                    default:
-                        rgb_matrix_step_reverse();
-                        return false;
-                }
-            }
-            return false;
-    }
-
-    return process_record_user(keycode, record);
-}
 
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
@@ -75,15 +29,5 @@ bool rgb_matrix_indicators_kb(void) {
         rgb_matrix_set_color(30, RGB_OFF);
     }
     return true;
-}
-
-void keyboard_post_init_kb(void) {
-    if (!(rgb_matrix_get_flags() & LED_FLAG_ALL)) {
-        rgb_matrix_set_color_all(0, 0, 0);
-    } else {
-        rgb_matrix_mode_noeeprom(RGB_MATRIX_CUSTOM_STARTUP_SWIRL_ANIM);
-    }
-
-    keyboard_post_init_user();
 }
 #endif

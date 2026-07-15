@@ -22,7 +22,7 @@
 
 #define QFF_FONT_DESCRIPTOR_TYPEID 0x00
 
-typedef struct QP_PACKED qff_font_descriptor_v1_t {
+typedef struct PACKED qff_font_descriptor_v1_t {
     qgf_block_header_v1_t header;              // = { .type_id = 0x00, .neg_type_id = (~0x00), .length = 20 }
     uint32_t              magic : 24;          // constant, equal to 0x464651 ("QFF")
     uint8_t               qff_version;         // constant, equal to 0x01
@@ -51,13 +51,13 @@ STATIC_ASSERT(sizeof(qff_font_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t)
 #define QFF_GLYPH_OFFSET_BITS 18
 #define QFF_GLYPH_OFFSET_MASK (((1 << QFF_GLYPH_OFFSET_BITS) - 1) << QFF_GLYPH_WIDTH_BITS)
 
-typedef struct QP_PACKED qff_ascii_glyph_v1_t {
+typedef struct PACKED qff_ascii_glyph_v1_t {
     uint32_t value : 24; // Uses QFF_GLYPH_*_(BITS|MASK) as bitfield ordering is compiler-defined
 } qff_ascii_glyph_v1_t;
 
 STATIC_ASSERT(sizeof(qff_ascii_glyph_v1_t) == 3, "qff_ascii_glyph_v1_t must be 3 bytes in v1 of QFF");
 
-typedef struct QP_PACKED qff_ascii_glyph_table_v1_t {
+typedef struct PACKED qff_ascii_glyph_table_v1_t {
     qgf_block_header_v1_t header;    // = { .type_id = 0x01, .neg_type_id = (~0x01), .length = 285 }
     qff_ascii_glyph_v1_t  glyph[95]; // 95 glyphs, 0x20..0x7E
 } qff_ascii_glyph_table_v1_t;
@@ -69,14 +69,14 @@ STATIC_ASSERT(sizeof(qff_ascii_glyph_table_v1_t) == (sizeof(qgf_block_header_v1_
 
 #define QFF_UNICODE_GLYPH_DESCRIPTOR_TYPEID 0x02
 
-typedef struct QP_PACKED qff_unicode_glyph_v1_t {
+typedef struct PACKED qff_unicode_glyph_v1_t {
     uint32_t code_point : 24;
     uint32_t value : 24; // Uses QFF_GLYPH_*_(BITS|MASK) as bitfield ordering is compiler-defined
 } qff_unicode_glyph_v1_t;
 
 STATIC_ASSERT(sizeof(qff_unicode_glyph_v1_t) == 6, "qff_unicode_glyph_v1_t must be 6 bytes in v1 of QFF");
 
-typedef struct QP_PACKED qff_unicode_glyph_table_v1_t {
+typedef struct PACKED qff_unicode_glyph_table_v1_t {
     qgf_block_header_v1_t  header;   // = { .type_id = 0x02, .neg_type_id = (~0x02), .length = (N * 6) }
     qff_unicode_glyph_v1_t glyph[0]; // Extent of '0' signifies that this struct is immediately followed by the glyph data
 } qff_unicode_glyph_table_v1_t;

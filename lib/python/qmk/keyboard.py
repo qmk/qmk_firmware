@@ -175,14 +175,18 @@ def keyboard_completer(prefix, action, parser, parsed_args):
     return list_keyboards()
 
 
+@lru_cache(maxsize=None)
 def list_keyboards():
-    """Returns a list of all keyboards
+    """Returns a list of all keyboards.
     """
     # We avoid pathlib here because this is performance critical code.
     kb_wildcard = os.path.join(base_path, "**", 'keyboard.json')
     paths = [path for path in glob(kb_wildcard, recursive=True) if os.path.sep + 'keymaps' + os.path.sep not in path]
 
     found = map(_find_name, paths)
+
+    # Convert to posix paths for consistency
+    found = map(lambda x: str(Path(x).as_posix()), found)
 
     return sorted(set(found))
 

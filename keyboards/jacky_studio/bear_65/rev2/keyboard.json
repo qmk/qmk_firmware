@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Bear65 V2",
     "manufacturer": "Jacky",
-    "url": "https://qmk.fm/keyboards",
     "maintainer": "qmk",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

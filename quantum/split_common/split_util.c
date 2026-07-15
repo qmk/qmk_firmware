@@ -56,8 +56,6 @@
 
 static uint8_t connection_errors = 0;
 
-volatile bool isLeftHand = true;
-
 static struct {
     bool master;
     bool left;
@@ -167,7 +165,7 @@ __attribute__((weak)) bool is_keyboard_left_impl(void) {
 #            pragma message "Faking EE_HANDS for right hand"
     const bool should_be_left = false;
 #        endif
-    bool       is_left        = eeconfig_read_handedness();
+    bool is_left = eeconfig_read_handedness();
     if (is_left != should_be_left) {
         eeconfig_update_handedness(should_be_left);
     }
@@ -202,8 +200,6 @@ __attribute__((weak)) bool is_keyboard_master(void) {
 void split_pre_init(void) {
     split_config.master = is_keyboard_master_impl();
     split_config.left   = is_keyboard_left_impl();
-
-    isLeftHand = is_keyboard_left(); // TODO: Remove isLeftHand
 
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
     uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;

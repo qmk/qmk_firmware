@@ -19,6 +19,7 @@
 #include "action.h"
 #include "keyboard.h"
 
+void     reset_repeat_key_state(void);       /**< Resets repeat key state. */
 uint16_t get_last_keycode(void);             /**< Keycode of the last key. */
 uint8_t  get_last_mods(void);                /**< Mods active with the last key. */
 void     set_last_keycode(uint16_t keycode); /**< Sets the last key. */

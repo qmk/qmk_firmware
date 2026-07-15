@@ -223,7 +223,7 @@ enum usb_endpoints {
 #    ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #        define RAW_OUT_EPNUM RAW_IN_EPNUM
 #    else
-    RAW_OUT_EPNUM         = NEXT_EPNUM,
+    RAW_OUT_EPNUM = NEXT_EPNUM,
 #    endif
 #endif
 
@@ -250,7 +250,7 @@ enum usb_endpoints {
 #    ifdef USB_ENDPOINTS_ARE_REORDERABLE
 #        define CDC_OUT_EPNUM CDC_IN_EPNUM
 #    else
-    CDC_OUT_EPNUM         = NEXT_EPNUM,
+    CDC_OUT_EPNUM = NEXT_EPNUM,
 #    endif
 #endif
 

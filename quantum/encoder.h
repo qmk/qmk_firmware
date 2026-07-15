@@ -111,8 +111,7 @@ void encoder_signal_queue_drain(void);
 
 #    ifdef ENCODER_MAP_ENABLE
 #        define NUM_DIRECTIONS 2
-#        define ENCODER_CCW_CW(ccw, cw) \
-            { (cw), (ccw) }
+#        define ENCODER_CCW_CW(ccw, cw) {(cw), (ccw)}
 extern const uint16_t encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS];
 #    endif // ENCODER_MAP_ENABLE
 

@@ -52,7 +52,7 @@ extern "C" {
 #define BYTE_VALUE(addr, value) (((addr) << 8) | (value))
 #define WORD_ZERO(addr) (0x8000 | ((addr) >> 1))
 #define WORD_ONE(addr) (0xA000 | ((addr) >> 1))
-#define WORD_NEXT(addr) (0xE000 | (((addr)-0x80) >> 1))
+#define WORD_NEXT(addr) (0xE000 | (((addr) - 0x80) >> 1))
 
 class EepromStm32Test : public testing::Test {
    public:

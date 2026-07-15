@@ -125,6 +125,9 @@ void protocol_pre_task(void) {
                 //
                 // Pause for a while to let things settle...
                 wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+                // ...and then update the wakeup matrix again as the waking key
+                // might have been released during the delay
+                update_matrix_state_after_wakeup();
 #    endif
             }
         }

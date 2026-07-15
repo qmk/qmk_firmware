@@ -94,6 +94,20 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
                     rgb_matrix_decrease_speed();
                 }
                 return false;
+            case QK_RGB_MATRIX_FLAG_NEXT:
+                if (shifted) {
+                    rgb_matrix_flags_step_reverse();
+                } else {
+                    rgb_matrix_flags_step();
+                }
+                return false;
+            case QK_RGB_MATRIX_FLAG_PREVIOUS:
+                if (shifted) {
+                    rgb_matrix_flags_step();
+                } else {
+                    rgb_matrix_flags_step_reverse();
+                }
+                return false;
         }
     }
 

@@ -15,6 +15,11 @@
         "nkro": true,
         "rgblight": true
     },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
     "qmk": {
         "locking": {
             "enabled": true,

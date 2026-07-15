@@ -2,7 +2,6 @@
     "manufacturer": "Jotix",
     "keyboard_name": "jotlily60",
     "maintainer" : "jotix",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/jotlily60",
     "usb": {
         "vid": "0x4A4F",
         "pid": "0x2332",

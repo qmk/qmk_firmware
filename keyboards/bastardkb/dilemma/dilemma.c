@@ -176,7 +176,6 @@ void dilemma_set_pointer_dragscroll_enabled(bool enable) {
 
 void pointing_device_init_kb(void) {
     maybe_update_pointing_device_cpi(&g_dilemma_config);
-    pointing_device_init_user();
 }
 
 /**

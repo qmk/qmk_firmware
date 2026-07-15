@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Jotanck",
     "manufacturer": "Jotix",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/jotanck",
     "maintainer": "jotix",
     "usb": {
         "vid": "0x4A4F",
