@@ -16,11 +16,12 @@ Flashing example for this keyboard:
 
     make xl_keyboards/xl_87_rgb:default:flash
 
-This keyboard uses the uf2boot bootloader. Enter it by double-tapping the
-reset button, by pressing a key mapped to `QK_BOOT`, or by holding the key at
-matrix position `0,0` while plugging in the keyboard. Copy the generated UF2
-file to the USB mass-storage device presented by the bootloader.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-See the [build environment setup](https://docs.qmk.fm/#/newbs_getting_started)
-and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide)
-for more information.
+## Bootloader
+
+Enter the bootloader in one of the following ways:
+
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Double-tap the reset button on the PCB
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
