@@ -20,17 +20,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
-        hsv_t hsv = {11, 204, 5};
-        rgb_t rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(66, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(66, 5, 2, 1);
     } else {
         rgb_matrix_set_color(66, 0, 0, 0);
     }
 
     if (get_highest_layer(layer_state|default_layer_state) == 1) {
-        hsv_t hsv = {191, 204, 5};
-        rgb_t rgb = hsv_to_rgb(hsv);
-        rgb_matrix_set_color(67, rgb.r, rgb.g, rgb.b);
+        rgb_matrix_set_color(67, 3, 1, 5);
     } else {
         rgb_matrix_set_color(67, 0, 0, 0);
     }
