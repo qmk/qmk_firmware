@@ -45,6 +45,27 @@ TEST_F(DynamicTappingTerm, TappingDownLowersTermByIncrementPerPress) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(DynamicTappingTerm, TappingDownPastFloorDoesNotUnderflow) {
+    TestDriver driver;
+    KeymapKey  down_key = KeymapKey{0, 0, 0, DT_DOWN};
+
+    // An exact multiple of the increment, so the floor is reached precisely
+    // regardless of how DYNAMIC_TAPPING_TERM_INCREMENT is configured.
+    const uint16_t start = 40 * DYNAMIC_TAPPING_TERM_INCREMENT;
+
+    set_keymap({down_key});
+    g_tapping_term = start;
+
+    EXPECT_NO_REPORT(driver);
+    for (int i = 0; i < 100; i++) {
+        tap_key(down_key);
+        EXPECT_LE(g_tapping_term, start);
+        EXPECT_GE(g_tapping_term, DYNAMIC_TAPPING_TERM_INCREMENT);
+    }
+    EXPECT_EQ(g_tapping_term, DYNAMIC_TAPPING_TERM_INCREMENT);
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(DynamicTappingTerm, LoweredTappingTermChangesModTapResolution) {
     TestDriver driver;
     InSequence s;
