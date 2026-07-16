@@ -194,7 +194,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0226",
-        "vid": "0x0715"
+        "vid": "0x584C"
     },
     "ws2812": {
         "pin": "A0"
