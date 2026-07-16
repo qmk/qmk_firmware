@@ -402,7 +402,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
     bits = serial_read_chunk(&pecount, 8);
     tid  = bits >> 3;
     bits = (bits & 7) != (nibble_bits_count(tid) & 7);
-    if (bits || pecount > 0 || tid > NUM_TOTAL_TRANSACTIONS) {
+    if (bits || pecount > 0 || tid >= NUM_TOTAL_TRANSACTIONS) {
         return;
     }
     serial_delay_half1();
@@ -438,7 +438,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
 //
 // this code is very time dependent, so we need to disable interrupts
 bool soft_serial_transaction(int sstd_index) {
-    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return false;
+    if (sstd_index >= NUM_TOTAL_TRANSACTIONS) return false;
     split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
 
     cli();
