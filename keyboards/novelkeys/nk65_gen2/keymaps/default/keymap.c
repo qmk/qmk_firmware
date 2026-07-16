@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_VOLU, KC_VOLD, KC_MUTE,                KC_TRNS,                                        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS),
 };
 
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+bool rgb_matrix_indicators_user(void) {
     if (host_keyboard_led_state().caps_lock) {
         hsv_t hsv = {11, 204, 5};
         rgb_t rgb = hsv_to_rgb(hsv);
