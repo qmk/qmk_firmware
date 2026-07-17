@@ -9,6 +9,7 @@ Hardware Availability: https://novelkeys.com/
 Make example for this keyboard (after setting up your build environment):
 
     make novelkeys/nk65_gen2:default
+
 Flashing example for this keyboard:
 
     make novelkeys/nk65_gen2:default:flash
