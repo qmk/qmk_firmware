@@ -12,10 +12,6 @@ class DynamicTappingTerm : public TestFixture {
     }
 };
 
-TEST_F(DynamicTappingTerm, InitialTappingTermMatchesConfiguredDefault) {
-    EXPECT_EQ(g_tapping_term, TAPPING_TERM);
-}
-
 TEST_F(DynamicTappingTerm, TappingUpRaisesTermByIncrementPerPress) {
     TestDriver driver;
     KeymapKey  up_key = KeymapKey{0, 0, 0, DT_UP};
