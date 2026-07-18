@@ -2,9 +2,9 @@
 
 This is a tsangan fixed layout 65% PCB. It supports full per-key RGB.
 
-Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
-Hardware Supported: A 65% keyboard with STM32F072CB
-Hardware Availability: https://novelkeys.com/
+* Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [GitHub](https://github.com/yiancar)
+* Hardware Supported: A 65% keyboard with STM32F072CB
+* Hardware Availability: https://novelkeys.com/
 
 Make example for this keyboard (after setting up your build environment):
 
