@@ -196,7 +196,7 @@ def prompt_dev_board():
     prompt_heading_subheading("Select Development Board", """For more information, see:
 https://docs.qmk.fm/compatible_microcontrollers""")
 
-    filtered_dev_boards = _dev_boards().copy()
+    filtered_dev_boards = _dev_boards()
     filtered_dev_boards.append("none of the above")
 
     return choice("Development Board?", filtered_dev_boards, default=len(filtered_dev_boards) - 1)
