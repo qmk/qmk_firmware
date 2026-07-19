@@ -32,17 +32,12 @@ This does not include any of the QMK special functions (except One Shot modifier
 
 Switching layers will not cancel the Key Lock. The Key Lock can be cancelled by calling the `cancel_key_lock()` function.
 
-QK_LOCK is incompatible with tap_code and tap_code16, to send QK_LOCK from code call the `begin_key_lock()` function.
+`QK_LOCK` is incompatible with `tap_code` and `tap_code16`, to send `QK_LOCK` from code call the `key_lock_start()` function.
 
 ## Examples
 
-Force certain modifiers, in this case RCTL, RSFT, and RALT to toggle on/off like CAPS LOCK when pressed.
+Force certain modifiers, in this case `RCTL`, `RSFT`, and `RALT` to toggle on/off like Caps Lock when pressed.
 
-```
-bool pre_process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == KC_RCTL || keycode == KC_RSFT || keycode == KC_RALT) {
-        if (!get_key_lock_state(keycode) && !get_key_lock_begun()) {
-            begin_key_lock(); // emulates pressing QK_LOCK when needed
         }
     }
     return true;   

@@ -22,7 +22,6 @@
 
 void cancel_key_lock(void);
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record);
-
-bool get_key_lock_state(uint16_t keycode);
-bool get_key_lock_begun(void);
-void begin_key_lock(void);
+bool key_lock_get_state(uint16_t keycode);
+bool key_lock_active(void);
+void key_lock_start(void);

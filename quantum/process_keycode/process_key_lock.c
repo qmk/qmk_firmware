@@ -137,16 +137,16 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
     }
 }
 
-bool get_key_lock_state(uint16_t keycode) {
+bool key_lock_get_state(uint16_t keycode) {
     uint16_t translated_keycode = translate_keycode(keycode);
     return KEY_STATE(translated_keycode);
 }
 
-bool get_key_lock_begun() {
+bool key_lock_active(void) {
     return watching;
 }
 
-void begin_key_lock() {
+void key_lock_start(void) {
     uint16_t    translated_keycode = QK_LOCK;
     keyrecord_t record;
     record.event.pressed = true;
