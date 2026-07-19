@@ -147,10 +147,10 @@ bool get_key_lock_begun() {
 }
 
 void begin_key_lock() {
-    uint16_t translated_keycode = QK_LOCK;
+    uint16_t    translated_keycode = QK_LOCK;
     keyrecord_t record;
     record.event.pressed = true;
-    process_key_lock(&translated_keycode,&record);
+    process_key_lock(&translated_keycode, &record);
     record.event.pressed = false;
-    process_key_lock(&translated_keycode,&record);
+    process_key_lock(&translated_keycode, &record);
 }
