@@ -28,6 +28,7 @@
 #define MCP23S17_OLATA 0x14  // Output Latch A
 #define MCP23S17_OLATB 0x15  // Output Latch B
 #define MCP23S17_IOCON 0x0A  // I/O Configuration Register (BANK=0 default)
+#define MCP23S17_IOCON_HAEN (1 << 3) // Hardware Address Enable (bit 3 of IOCON)
 
 // MCP23S17 command byte (device address + read/write bit)
 #define MCP23S17_CMD_WRITE(addr) (0x40 | ((addr) << 1))
@@ -72,8 +73,8 @@ void matrix_init_custom(void) {
     // Enable HAEN (Hardware Address Enable) on both expanders so they only
     // respond to their assigned address (bit 3 of IOCON, register 0x0A).
     // Use address 0x00 for the initial write (before HAEN is enabled).
-    mcp23s17_write_reg(MCP23S17_CS2, 0x00, MCP23S17_IOCON, 0x08);
-    mcp23s17_write_reg(MCP23S17_CS1, 0x00, MCP23S17_IOCON, 0x08);
+    mcp23s17_write_reg(MCP23S17_CS2, 0x00, MCP23S17_IOCON, MCP23S17_IOCON_HAEN);
+    mcp23s17_write_reg(MCP23S17_CS1, 0x00, MCP23S17_IOCON, MCP23S17_IOCON_HAEN);
 
     // Expander B (CS2, addr 0x00) - Short 8-pin connector (Rows), all inputs
     mcp23s17_init_expander(MCP23S17_CS2, 0x00, 0xFF, 0xFF);

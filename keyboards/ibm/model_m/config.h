@@ -40,8 +40,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* SPI for MCP23S17 - mapped to Arduino Pro Micro physical pins */
 #define SPI_DRIVER SPID1    /* Using hardware SPI on pins D14-D16 */
-#define SPI_SCK_PIN B1      /* D15 -> PB1 (SCK) */
-#define SPI_MOSI_PIN B2     /* D16 -> PB2 (MOSI) */
-#define SPI_MISO_PIN B3     /* D14 -> PB3 (MISO) */
 #define MCP23S17_CS1_PIN C6 /* D5 -> PC6 (CS1 - Expander A for columns) */
 #define MCP23S17_CS2_PIN D7 /* D6 -> PD7 (CS2 - Expander B for rows) */

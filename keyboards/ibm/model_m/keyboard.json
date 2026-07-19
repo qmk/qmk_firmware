@@ -30,7 +30,7 @@
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0001",
-        "vid": "0x1209"
+        "vid": "0x5247"
     },
     "layouts": {
         "LAYOUT": {
