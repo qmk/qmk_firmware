@@ -1,5 +1,19 @@
-# PlayKeyboardTW
+# Play Keyboard
 
-[PlayKeyboardTW]((http://play-keyboard.store/)) is a Taiwan based company responsible for keyboards such as the CA66 and the PK60. 
+[Play Keyboard]((https://playkeyboard.store/)) is a keyboard brand based in Taiwan, dedicated to creating unique and enjoyable typing experiences through thoughtful industrial design and engineering.
 
-This directory is a collection of all their keyboards. 
+Our keyboards focus not only on performance, but also on ergonomics, acoustics, and distinctive design.
+
+## Keyboards
+
+This directory contains the QMK firmware implementations for Play Keyboard products.
+
+Current supported keyboards include:
+
+- helen80
+- pk60
+- pk64rgb
+- ca66
+- Smurve80
+
+More Play Keyboard products may be added in the future.
