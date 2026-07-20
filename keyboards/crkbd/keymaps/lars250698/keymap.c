@@ -24,6 +24,12 @@ enum custom_keycodes {
 #define HM_I LALT_T(KC_I)
 #define HM_O RGUI_T(KC_O)
 
+// Left-hand home row mods layer 1
+#define HM_0 LGUI_T(KC_0)
+#define HM_4 LALT_T(KC_4)
+#define HM_5 LSFT_T(KC_5)
+#define HM_6 LCTL_T(KC_6)
+
 // Right-hand home row mods layer 1
 #define HM_DOWN RCTL_T(KC_DOWN)
 #define HM_UP LSFT_T(KC_UP)
@@ -77,18 +83,18 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3_ex2(
         KC_LBRC, KC_Q, KC_W, KC_F,   KC_P,   KC_B,   KC_DEL,   KC_SLEP,  KC_J,   KC_L,     KC_U,    KC_Y,   KC_SCLN, KC_RBRC,
-        KC_GRV,  HM_A, HM_R, HM_S,   HM_T,   KC_G,   KC_LSFT,  KC_RALT,  KC_M,   HM_N,     HM_E,    HM_I,   HM_O,    KC_QUOT,
+        KC_GRV,  HM_A, HM_R, HM_S,   HM_T,   KC_G,   TG(1),    KC_RALT,  KC_M,   HM_N,     HM_E,    HM_I,   HM_O,    KC_QUOT,
         KC_LPRN, KC_Z, KC_X, KC_C,   KC_D,   KC_V,                       KC_K,   KC_H,     KC_COMM, KC_DOT, KC_SLSH, KC_RPRN,
                              KC_ESC, KC_SPC, LT_TAB,                     LT_ENT, OSM_LSFT, KC_BSPC
     ),
     [1] = LAYOUT_split_3x6_3_ex2(
-        KC_NO, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_NO, KC_PGUP, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    KC_NO,
-        KC_NO, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO, KC_NO, KC_PGDN, KC_LEFT, HM_DOWN, HM_UP,   HM_RIGHT, KC_RGUI, KC_NO,
-        KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                 KC_NO,   KC_NO,   KC_COMM, KC_DOT,   KC_NO,   KC_NO,
-                                 KC_TRNS, KC_TRNS, MO(3),                 KC_TRNS, KC_TRNS, KC_TRNS
+        KC_NO, KC_SLSH, KC_1, KC_2,    KC_3,    KC_ASTR, KC_TRNS, KC_PGUP, KC_NO,   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,
+        KC_NO, HM_0,    HM_4, HM_5,    HM_6,    KC_PLUS, KC_TRNS, KC_PGDN, KC_LEFT, HM_DOWN, HM_UP,   HM_RIGHT, KC_RGUI, KC_NO,
+        KC_NO, KC_NO,   KC_7, KC_8,    KC_9,    KC_MINS,                   KC_NO,   KC_NO,   KC_COMM, KC_DOT,   KC_NO,   KC_NO,
+                              KC_TRNS, KC_TRNS, MO(3),                     KC_TRNS, KC_TRNS, KC_TRNS
     ),
     [2] = LAYOUT_split_3x6_3_ex2(
-        KC_NO, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO, KC_NO, KC_CIRC, KC_AMPR, KC_ASTR, DE_PARA, DE_EURO, KC_NO,
+        KC_NO, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_NO, KC_NO, KC_CIRC, KC_AMPR, KC_ASTR, DE_EURO, DE_PARA, KC_NO,
         KC_NO, KC_LGUI, KC_LALT, KC_LSFT, KC_LCTL, KC_NO,   KC_NO, KC_NO, KC_NO,   HM_MINS, HM_EQL,  HM_BSLS, KC_RGUI, KC_NO,
         KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                 KC_NO,   KC_UNDS, KC_PLUS, KC_PIPE, KC_NO,   KC_NO,
                                  KC_TRNS, KC_TRNS, KC_TRNS,               MO(3),   KC_TRNS, KC_TRNS
