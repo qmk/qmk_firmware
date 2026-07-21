@@ -54,8 +54,8 @@ class OneShotParametrizedTestFixture : public ::testing::WithParamInterface<std:
 };
 
 TEST_P(OneShotParametrizedTestFixture, OSMLockAndUnlockOnTap) {
-    KeymapKey  osm_key     = GetParam().first;
-    KeymapKey  regular_key = GetParam().second;
+    KeymapKey osm_key     = GetParam().first;
+    KeymapKey regular_key = GetParam().second;
 
     setup_lock_osm_and_verify(osm_key, regular_key);
 
@@ -68,8 +68,8 @@ TEST_P(OneShotParametrizedTestFixture, OSMLockAndUnlockOnTap) {
 }
 
 TEST_P(OneShotParametrizedTestFixture, OSMLockAndUnlockOnHold) {
-    KeymapKey  osm_key     = GetParam().first;
-    KeymapKey  regular_key = GetParam().second;
+    KeymapKey osm_key     = GetParam().first;
+    KeymapKey regular_key = GetParam().second;
 
     setup_lock_osm_and_verify(osm_key, regular_key);
 
