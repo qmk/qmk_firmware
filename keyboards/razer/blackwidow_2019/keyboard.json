@@ -1,7 +1,7 @@
 {
     "manufacturer": "Razer",
     "keyboard_name": "Razer BlackWidow 2019 (QMK)",
-    "maintainer": "htv04",
+    "maintainer": "AeroModes",
     "bootloader": "stm32-dfu",
     "diode_direction": "ROW2COL",
     "features": {

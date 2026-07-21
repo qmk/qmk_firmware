@@ -6,7 +6,7 @@
 Full-size ANSI mechanical keyboard. Powered by an STM32L151RCT6 with dual
 IS31FL3733 per-key RGB.
 
-- Keyboard Maintainer: [htv04](https://github.com/htv04)
+- Keyboard Maintainer: [AeroModes](https://github.com/aeromodes)
 - Hardware Supported: Razer BlackWidow 2019
 - Hardware Availability: [Razer](https://www.razer.com/)
 
