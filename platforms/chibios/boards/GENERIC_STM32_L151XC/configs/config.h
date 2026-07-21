@@ -1,4 +1,4 @@
-// Copyright 2026 htv04
+// Copyright 2026 AeroModes
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
