@@ -23,8 +23,8 @@ make razer/blackwidow_2019:default:flash
 ```
 
 Note that this keyboard does not support QMK's flashing procedures with its
-stock firmware. The [razer-qmk](https://github.com/htv04/razer-qmk) project has
-instructions and setup to allow QMK firmware installation.
+stock firmware. The [razer-qmk](https://github.com/aeromodes/razer-qmk) project
+has instructions and setup to allow QMK firmware installation.
 
 See the [build environment setup](https://docs.qmk.fm/newbs_getting_started)
 and the [make instructions](https://docs.qmk.fm/getting_started_make_guide) for
