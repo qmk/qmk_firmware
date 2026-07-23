@@ -15,7 +15,7 @@
         "rows": ["F0", "F1", "F4", "F5"]
     },
     "processor": "atmega32u4",
-    "url": "",
+    "url": "https://github.com/keotl/11squares",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0000",
