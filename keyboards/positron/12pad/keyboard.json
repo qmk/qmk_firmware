@@ -7,6 +7,11 @@
     "dynamic_keymap": {
         "layer_count": 6
     },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 8192
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "B5", "pin_b": "B6"}
@@ -16,6 +21,7 @@
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
+        "midi": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
