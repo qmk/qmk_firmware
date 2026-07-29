@@ -75,7 +75,7 @@ class UserspaceDefs:
             validate(json, 'qmk.user_repo.v0')  # `qmk.json` must have a userspace_version at minimum
         except jsonschema.ValidationError as err:
             exception.add('qmk.user_repo.v0', err)
-            raise exception
+            raise exception from None
 
         # Iterate through each version of the schema, starting with the latest and decreasing to v1
         schema_versions = [

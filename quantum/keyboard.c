@@ -150,6 +150,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef CONNECTION_ENABLE
 #    include "connection.h"
 #endif
+#ifdef SEQUENCER_ENABLE
+#    include "sequencer.h"
+#endif
 #ifdef AUTOCORRECT_ENABLE
 #    include "autocorrect.h"
 #endif
