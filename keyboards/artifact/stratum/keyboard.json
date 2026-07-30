@@ -1,6 +1,6 @@
 {
     "manufacturer": "Yiancar-Designs",
-    "keyboard_name": "Stratum",
+    "keyboard_name": "Stratum 80",
     "maintainer": "Yiancar-Designs",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
