@@ -13,7 +13,8 @@ enum layers {
 // The bottom-right key advances to the next layer and wraps, so all four are
 // reachable using nothing but standard keycodes.
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [L_BASE] = LAYOUT_ortho_4x4(
+    [L_BASE] = LAYOUT(
+        TO(L_MEDIA), TO(L_BASE),
         KC_1,    KC_2,    KC_3,    KC_4,
         KC_5,    KC_6,    KC_7,    KC_8,
         KC_9,    KC_0,    KC_MINS, KC_EQL,
