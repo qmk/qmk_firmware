@@ -10,19 +10,9 @@
         "device_version": "1.0.0"
     },
     "matrix_pins": {
-        "rows": [
-            "GP4",
-            "GP5",
-            "GP6",
-            "GP7",
-            "GP15"
-        ],
-        "cols": [
-            "GP8",
-            "GP9",
-            "GP10",
-            "GP11"
-        ]
+        "masked": true,
+        "cols": ["GP8", "GP9", "GP10", "GP11"],
+        "rows": ["GP4", "GP5", "GP6", "GP7", "GP2", "GP14"]
     },
     "diode_direction": "ROW2COL",
     "encoder": {
