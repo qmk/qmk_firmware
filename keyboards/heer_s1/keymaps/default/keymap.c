@@ -7,7 +7,10 @@ enum layers {
     L_BASE  = 0,
     L_MEDIA = 1,
     L_EDIT  = 2,
-    L_SYS   = 3,
+    L_BASE,
+    L_MEDIA,
+    L_EDIT,
+    L_SYS,
 };
 
 // The bottom-right key advances to the next layer and wraps, so all four are
