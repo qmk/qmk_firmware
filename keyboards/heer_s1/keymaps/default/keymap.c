@@ -28,7 +28,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, TO(L_EDIT)
     ),
 
-    [L_EDIT] = LAYOUT_ortho_4x4(
+    [L_EDIT] = LAYOUT(
+        TO(L_SYS), TO(L_BASE),
         LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V),
         LCTL(KC_A), LCTL(KC_S), LCTL(KC_F), LCTL(KC_H),
         LCTL(KC_N), LCTL(KC_W), LCTL(KC_T), LCTL(KC_P),
