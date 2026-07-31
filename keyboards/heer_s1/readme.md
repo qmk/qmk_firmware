@@ -1,10 +1,12 @@
 # HEER S1
 
+![HEER S1](https://www.heerelectronics.com/product/side.png)
+
 A 4x4 RP2040 macropad with two EC11 rotary encoders and a 128x64 SH1106 OLED.
 
-* Keyboard Maintainer: [Heer](https://github.com/heer)
+* Keyboard Maintainer: [Heer Electronics](https://github.com/heerelectronics)
 * Hardware Supported: HEER S1 PCB (RP2040 QFN-56)
-* Hardware Availability: https://github.com/heer/heer_s1
+* Hardware Availability: https://www.heerelectronics.com
 
 ## Pinout
 

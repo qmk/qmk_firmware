@@ -7,13 +7,17 @@
 #define OLED_DISPLAY_128X64
 #define OLED_IC              OLED_IC_SH1106
 #define OLED_COLUMN_OFFSET   2
-#define OLED_DISPLAY_ADDRESS 0x3C
 #define OLED_BRIGHTNESS      180
 #define OLED_TIMEOUT              0
 #define OLED_UPDATE_INTERVAL      10
-// NOTE: do NOT raise OLED_UPDATE_PROCESS_LIMIT — the default (1) keeps each
-// I2C transaction tiny. Forcing the whole 1KB buffer in one transaction hangs
-// the bus on this SH1106 module.
+// NOTE: do NOT raise OLED_UPDATE_PROCESS_LIMIT. The default of 1 keeps each I2C
+// transaction to a single 32-byte block.
+//
+// TESTED, TWICE, ON HARDWARE: a limit of 4 — only 128 bytes, one page, the write
+// size stock SSD1306/SH1106 drivers use — blanks this panel completely. The board
+// keeps running (keys and encoders work) but the display never comes up. The
+// reasoning that "a page is safe because everyone writes pages" is wrong for this
+// module. Do not try it again.
 //
 // OLED_UPDATE_INTERVAL is a different knob and is safe to shorten: it changes how
 // OFTEN a block is flushed, not how BIG the transaction is, which stays one
