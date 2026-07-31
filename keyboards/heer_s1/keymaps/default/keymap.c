@@ -21,7 +21,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC, KC_ENT,  KC_ESC,  TO(L_MEDIA)
     ),
 
-    [L_MEDIA] = LAYOUT_ortho_4x4(
+    [L_MEDIA] = LAYOUT(
+        TO(L_EDIT), TO(L_BASE),
         KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,
         KC_VOLD, KC_VOLU, KC_MUTE, _______,
         KC_BRID, KC_BRIU, _______, _______,
