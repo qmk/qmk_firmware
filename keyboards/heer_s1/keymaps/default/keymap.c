@@ -4,9 +4,6 @@
 #include QMK_KEYBOARD_H
 
 enum layers {
-    L_BASE  = 0,
-    L_MEDIA = 1,
-    L_EDIT  = 2,
     L_BASE,
     L_MEDIA,
     L_EDIT,
