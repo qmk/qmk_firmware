@@ -7,8 +7,12 @@
         "vid": "0x4B50",
         "pid": "0x0060",
         "device_version": "0.0.1",
-        "no_startup_check": true,
-        "force_nkro": true
+        "no_startup_check": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

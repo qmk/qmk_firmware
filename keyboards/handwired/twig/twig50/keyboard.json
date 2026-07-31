@@ -5,8 +5,12 @@
     "usb": {
       "vid": "0xFEED",
       "pid": "0x6060",
-      "device_version": "0.2.1",
-      "force_nkro": true
+      "device_version": "0.2.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "tapping": {
         "term": 150

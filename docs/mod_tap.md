@@ -37,7 +37,7 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 |`LCA_T(kc)` |                                                                 |Left Control and Left Alt when held, `kc` when tapped                                  |
 |`LCG_T(kc)` |                                                                 |Left Control and Left GUI when held, `kc` when tapped                                  |
 |`LSA_T(kc)` |                                                                 |Left Shift and Left Alt when held, `kc` when tapped                                    |
-|`LSG_T(kc)` |`SGUI_T(kc)`, `SCMD_T(kc)`, `SWIN_T(kc)`                         |Left Shift and Left GUI when held, `kc` when tapped                                    |
+|`LSG_T(kc)` |                                                                 |Left Shift and Left GUI when held, `kc` when tapped                                    |
 |`LAG_T(kc)` |                                                                 |Left Alt and Left GUI when held, `kc` when tapped                                      |
 |`LCSG_T(kc)`|                                                                 |Left Control, Left Shift and Left GUI when held, `kc` when tapped                      |
 |`LCAG_T(kc)`|                                                                 |Left Control, Left Alt and Left GUI when held, `kc` when tapped                        |
@@ -49,14 +49,14 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 |`RCS_T(kc)` |                                                                 |Right Control and Right Shift when held, `kc` when tapped                              |
 |`RCA_T(kc)` |                                                                 |Right Control and Right Alt when held, `kc` when tapped                                |
 |`RCG_T(kc)` |                                                                 |Right Control and Right GUI when held, `kc` when tapped                                |
-|`RSA_T(kc)` |`SAGR_T(kc)`                                                     |Right Shift and Right Alt when held, `kc` when tapped                                  |
+|`RSA_T(kc)` |                                                                 |Right Shift and Right Alt when held, `kc` when tapped                                  |
 |`RSG_T(kc)` |                                                                 |Right Shift and Right GUI when held, `kc` when tapped                                  |
 |`RAG_T(kc)` |                                                                 |Right Alt and Right GUI when held, `kc` when tapped                                    |
 |`RCSG_T(kc)`|                                                                 |Right Control, Right Shift and Right GUI when held, `kc` when tapped                   |
 |`RCAG_T(kc)`|                                                                 |Right Control, Right Alt and Right GUI when held, `kc` when tapped                     |
 |`RSAG_T(kc)`|                                                                 |Right Shift, Right Alt and Right GUI when held, `kc` when tapped                       |
 |`MEH_T(kc)` |                                                                 |Left Control, Left Shift and Left Alt when held, `kc` when tapped                      |
-|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Left Shift, Left Alt and Left GUI when held, `kc` when tapped<sup>1</sup>|
+|`HYPR_T(kc)`|                                                                 |Left Control, Left Shift, Left Alt and Left GUI when held, `kc` when tapped<sup>1</sup>|
 
 <sup>1. More information on the Hyper key can be found on [this blog post by Brett Terpstra](https://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/).</sup>
 
@@ -72,9 +72,11 @@ It can also be mitigated by increasing [`TAP_CODE_DELAY`](config_options#behavio
 
 ## Intercepting Mod-Taps
 
+This technique works for both Mod-Tap (`MT`) and Layer-Tap (`LT`) keys.
+
 ### Changing tap function
 
-The basic keycode limitation with Mod-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. Modifiers on `KC_DQUO` will be masked by `MT()`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
+The basic keycode limitation with Mod-Tap and Layer-Tap can be worked around by intercepting it in `process_record_user`. For example, shifted keycode `KC_DQUO` cannot be used with `MT()` because it is a 16-bit keycode alias of `LSFT(KC_QUOT)`. Modifiers on `KC_DQUO` will be masked by `MT()`. But the following custom code can be used to intercept the "tap" function to manually send `KC_DQUO`:
 
 ```c
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

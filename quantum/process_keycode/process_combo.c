@@ -200,9 +200,8 @@ static inline uint16_t _get_combo_term(uint16_t combo_index, combo_t *combo) {
 }
 
 void clear_combos(void) {
-    uint16_t index = 0;
-    longest_term   = 0;
-    for (index = 0; index < combo_count(); ++index) {
+    longest_term = 0;
+    for (uint16_t index = 0; index < combo_count(); ++index) {
         combo_t *combo = combo_get(index);
         if (!COMBO_ACTIVE(combo)) {
             RESET_COMBO_STATE(combo);
@@ -225,7 +224,7 @@ static inline void dump_key_buffer(void) {
         key_buffer_next = key_buffer_i + 1;
 
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
-        keyrecord_t *    record  = &qrecord->record;
+        keyrecord_t     *record  = &qrecord->record;
 
         if (IS_NOEVENT(record->event)) {
             continue;
@@ -318,14 +317,14 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
 #if defined(EXTRA_EXTRA_LONG_COMBOS)
     uint32_t state = 0;
 #elif defined(EXTRA_LONG_COMBOS)
-    uint16_t state         = 0;
+    uint16_t state = 0;
 #else
     uint8_t state = 0;
 #endif
 
     for (uint8_t key_buffer_i = 0; key_buffer_i < key_buffer_size; key_buffer_i++) {
         queued_record_t *qrecord = &key_buffer[key_buffer_i];
-        keyrecord_t *    record  = &qrecord->record;
+        keyrecord_t     *record  = &qrecord->record;
         uint16_t         keycode = qrecord->keycode;
 
         uint8_t  key_count = 0;
@@ -347,6 +346,10 @@ void apply_combo(uint16_t combo_index, combo_t *combo) {
             qrecord->combo_index = combo_index;
             ACTIVATE_COMBO(combo);
 
+            if (key_count == 1) {
+                release_combo(combo_index, combo);
+            }
+
             break;
         } else {
             // key was part of the combo but not the last one, "disable" it
@@ -361,7 +364,7 @@ static inline void apply_combos(void) {
     // Apply all buffered normal combos.
     for (uint8_t i = combo_buffer_read; i != combo_buffer_write; INCREMENT_MOD(i)) {
         queued_combo_t *buffered_combo = &combo_buffer[i];
-        combo_t *       combo          = combo_get(buffered_combo->combo_index);
+        combo_t        *combo          = combo_get(buffered_combo->combo_index);
 
 #ifdef COMBO_MUST_TAP_PER_COMBO
         if (get_combo_must_tap(buffered_combo->combo_index, combo)) {
@@ -389,7 +392,9 @@ combo_t *overlaps(combo_t *combo1, combo_t *combo2) {
     while ((key1 = pgm_read_word(&combo1->keys[idx1])) != COMBO_END) {
         idx2 = 0;
         while ((key2 = pgm_read_word(&combo2->keys[idx2])) != COMBO_END) {
-            if (key1 == key2) overlaps = true;
+            if (key1 == key2) {
+                overlaps = true;
+            }
             idx2 += 1;
         }
         idx1 += 1;
@@ -466,7 +471,7 @@ static combo_key_action_t process_single_combo(combo_t *combo, uint16_t keycode,
                 combo_t *drop = NULL;
                 for (uint8_t combo_buffer_i = combo_buffer_read; combo_buffer_i != combo_buffer_write; INCREMENT_MOD(combo_buffer_i)) {
                     queued_combo_t *qcombo         = &combo_buffer[combo_buffer_i];
-                    combo_t *       buffered_combo = combo_get(qcombo->combo_index);
+                    combo_t        *buffered_combo = combo_get(qcombo->combo_index);
 
                     if ((drop = overlaps(buffered_combo, combo))) {
                         DISABLE_COMBO(drop);
@@ -552,8 +557,7 @@ static combo_key_action_t process_single_combo(combo_t *combo, uint16_t keycode,
 }
 
 bool process_combo(uint16_t keycode, keyrecord_t *record) {
-    uint8_t is_combo_key          = COMBO_KEY_NOT_PRESSED;
-    bool    no_combo_keys_pressed = true;
+    uint8_t is_combo_key = COMBO_KEY_NOT_PRESSED;
 
     if (keycode == QK_COMBO_ON && record->event.pressed) {
         combo_enable();
@@ -574,8 +578,8 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
 #else
-    uint8_t  highest_layer = get_highest_layer(layer_state | default_layer_state);
-    uint8_t  ref_layer     = combo_ref_from_layer(highest_layer);
+    uint8_t highest_layer = get_highest_layer(layer_state | default_layer_state);
+    uint8_t ref_layer     = combo_ref_from_layer(highest_layer);
     if (ref_layer != highest_layer) {
         keycode = keymap_key_to_keycode(ref_layer, record->event.key);
     }
@@ -584,7 +588,6 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     for (uint16_t idx = 0; idx < combo_count(); ++idx) {
         combo_t *combo = combo_get(idx);
         is_combo_key |= process_single_combo(combo, keycode, record, idx);
-        no_combo_keys_pressed = no_combo_keys_pressed && (NO_COMBO_KEYS_ARE_DOWN || COMBO_ACTIVE(combo) || COMBO_DISABLED(combo));
     }
 
     if (record->event.pressed && is_combo_key) {
@@ -637,12 +640,11 @@ void combo_task(void) {
         if (combo_buffer_read != combo_buffer_write) {
             apply_combos();
             longest_term = 0;
-            timer        = 0;
         } else {
             dump_key_buffer();
-            timer = 0;
             clear_combos();
         }
+        timer = 0;
     }
 #endif
 }

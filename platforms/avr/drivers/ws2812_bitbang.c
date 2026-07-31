@@ -26,7 +26,7 @@
 #include "ws2812.h"
 #include "pin_defs.h"
 
-#define pinmask(pin) (_BV((pin)&0xF))
+#define pinmask(pin) (_BV((pin) & 0xF))
 
 /*
   This routine writes an array of bytes with RGB values to the Dataout pin
@@ -105,7 +105,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                  w_nop8
 #endif
 #if (w1_nops & 16)
-                                     w_nop16
+                     w_nop16
 #endif
                      "       sbrs  %1,7  \n\t" //  '1' [03] '0' [02]
                      "       out   %2,%4 \n\t" //  '1' [--] '0' [03] - fe-low
@@ -123,7 +123,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                  w_nop8
 #endif
 #if (w2_nops & 16)
-                                     w_nop16
+                     w_nop16
 #endif
                      "       out   %2,%4 \n\t" //  '1' [+1] '0' [+1] - fe-high
 #if (w3_nops & 1)
@@ -139,7 +139,7 @@ static inline void ws2812_sendarray_mask(uint8_t *data, uint16_t datlen, uint8_t
                                  w_nop8
 #endif
 #if (w3_nops & 16)
-                                     w_nop16
+                     w_nop16
 #endif
 
                      "       dec   %0    \n\t" //  '1' [+2] '0' [+2]
@@ -173,7 +173,7 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void ws2812_flush(void) {
-    uint8_t masklo = ~(pinmask(WS2812_DI_PIN)) & PORTx_ADDRESS(WS2812_DI_PIN);
+    uint8_t masklo = ~(pinmask(WS2812_DI_PIN))&PORTx_ADDRESS(WS2812_DI_PIN);
     uint8_t maskhi = pinmask(WS2812_DI_PIN) | PORTx_ADDRESS(WS2812_DI_PIN);
 
     ws2812_sendarray_mask((uint8_t *)ws2812_leds, WS2812_LED_COUNT * sizeof(ws2812_led_t), masklo, maskhi);

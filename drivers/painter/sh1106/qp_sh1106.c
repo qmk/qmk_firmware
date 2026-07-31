@@ -71,8 +71,7 @@ __attribute__((weak)) bool qp_sh1106_init(painter_device_t device, painter_rotat
         sh1106_init_sequence[20] = 0x02;
     }
 
-    qp_comms_bulk_command_sequence(device, sh1106_init_sequence, sizeof(sh1106_init_sequence));
-    return true;
+    return qp_comms_bulk_command_sequence(device, sh1106_init_sequence, sizeof(sh1106_init_sequence));
 }
 
 // Screen flush

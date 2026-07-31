@@ -14,6 +14,11 @@
         "command": true,
         "nkro": true
     },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
     "qmk": {
         "locking": {
             "enabled": true,

@@ -2,7 +2,6 @@
     "manufacturer": "Atlantis",
     "keyboard_name": "PS17",
     "maintainer": "mjbogusz",
-    "url": "https://qmk.fm/keyboards/",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
     "bootloader_instructions": "To reset the board into bootloader mode, tap the Reset switch mounted on the bottom of the PCB.",

@@ -217,8 +217,8 @@ To generate this bootloader, use the `bootloader` target, eg. `make planck/rev4:
 
 Compatible flashers:
 
-* TBD
-  * Currently, you need to either use the [Python script](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp_python), or compile [`hid_bootloader_cli`](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp), from the LUFA repo. Homebrew may (will) have support for this directly (via `brew install qmk/qmk/hid_bootloader_cli`).
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [hid_bootloader_cli](https://github.com/qmk/lufa/tree/master/Bootloaders/HID/HostLoaderApp) / `:qmk-hid` target in QMK (recommended command line)
 
 Flashing sequence:
 

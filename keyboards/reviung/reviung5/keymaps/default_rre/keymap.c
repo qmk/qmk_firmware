@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (IS_LAYER_ON(_LOWER)) {
-          tap_code16((clockwise == true) ? KC_WH_D : KC_WH_U);
+          tap_code16((clockwise == true) ? MS_WHLD : MS_WHLU);
         } else {
           tap_code((clockwise == true) ? KC_VOLD : KC_VOLU);
         }

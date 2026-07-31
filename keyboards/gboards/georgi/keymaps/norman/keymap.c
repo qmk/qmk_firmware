@@ -111,8 +111,8 @@ uint32_t processQwerty(bool lookup) {
   P( MEDIA | RU,            SEND(KC_RALT); SEND(KC_T); SEND(KC_A); SEND(KC_D));
 
 	// Mouse Keys and Printscreen
-	P( LFT | LH,							CLICK_MOUSE(KC_MS_BTN1));
-	P( LK | LR,							CLICK_MOUSE(KC_MS_BTN2));
+	P( LFT | LH,							CLICK_MOUSE(MS_BTN1));
+	P( LK | LR,							CLICK_MOUSE(MS_BTN2));
 	P( RF | RT,							SEND(KC_PSCR););
 
 	// Number Row Left

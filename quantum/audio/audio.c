@@ -71,6 +71,10 @@
 #    define AUDIO_DEFAULT_CLICKY_ON true
 #endif
 
+#ifndef AUDIO_SHUTDOWN_DELAY
+#    define AUDIO_SHUTDOWN_DELAY 250
+#endif
+
 #ifndef AUDIO_TONE_STACKSIZE
 #    define AUDIO_TONE_STACKSIZE 8
 #endif
@@ -114,9 +118,14 @@ extern uint16_t voices_timer;
 #ifndef AUDIO_OFF_SONG
 #    define AUDIO_OFF_SONG SONG(AUDIO_OFF_SOUND)
 #endif
+#ifndef GOODBYE_SONG
+#    define GOODBYE_SONG SONG(GOODBYE_SOUND)
+#endif
+
 float startup_song[][2]   = STARTUP_SONG;
 float audio_on_song[][2]  = AUDIO_ON_SONG;
 float audio_off_song[][2] = AUDIO_OFF_SONG;
+float goodbye_song[][2]   = GOODBYE_SONG;
 
 static bool    audio_initialized    = false;
 static bool    audio_driver_stopped = true;
@@ -183,12 +192,43 @@ void audio_init(void) {
 #endif
 }
 
+void audio_task(void) {
+#ifdef AUDIO_INIT_DELAY
+    // startup song potentially needs to be run a little bit
+    // after keyboard startup, or else they will not work correctly
+    // because of interaction with the USB device state, which
+    // may still be in flux...
+    static bool     delayed_tasks_run  = false;
+    static uint16_t delayed_task_timer = 0;
+    if (!delayed_tasks_run) {
+        if (!delayed_task_timer) {
+            delayed_task_timer = timer_read();
+        } else if (timer_elapsed(delayed_task_timer) > 300) {
+            audio_startup();
+            delayed_tasks_run = true;
+        }
+    }
+#endif
+}
+
 void audio_startup(void) {
     if (audio_config.enable) {
         PLAY_SONG(startup_song);
     }
 
     last_timestamp = timer_read();
+}
+
+void audio_shutdown(void) {
+    uint16_t timer_start = timer_read();
+
+    PLAY_SONG(goodbye_song);
+
+    while (timer_elapsed(timer_start) < AUDIO_SHUTDOWN_DELAY) {
+        wait_ms(1);
+    }
+
+    stop_all_notes();
 }
 
 void audio_toggle(void) {
@@ -371,8 +411,9 @@ void audio_play_melody(float (*np)[][2], uint16_t n_count, bool n_repeat) {
     melody_current_note_duration = audio_duration_to_ms((*notes_pointer)[current_note][1]);
 }
 
-float click[2][2];
-void  audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
+void audio_play_click(uint16_t delay, float pitch, uint16_t duration) {
+    static float click[2][2];
+
     uint16_t duration_tone  = audio_ms_to_duration(duration);
     uint16_t duration_delay = audio_ms_to_duration(delay);
 

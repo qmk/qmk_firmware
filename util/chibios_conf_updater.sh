@@ -62,7 +62,7 @@ upgrade_conf_files_generic() {
     pushd "$qmk_firmware_dir/lib/chibios/tools/updater" >/dev/null 2>&1
     for file in $(find_chibi_files "$qmk_firmware_dir" -name "$search_filename") ; do
         cp -f "$file" "$file.orig"
-        clang-format --style='{IndentPPDirectives: None}' -i "$file"
+        clang-format --style='{IndentPPDirectives: None, ColumnLimit: 0}' -i "$file"
         cp -f "$file" "$file.formatted"
         bash "$update_script" "$file"
         if ! diff "$file" "$file.formatted" >/dev/null 2>&1 ; then

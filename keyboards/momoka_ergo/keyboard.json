@@ -28,7 +28,8 @@
     "split": {
         "enabled": true,
         "serial": {
-            "pin": "D1"
+            "pin": "D1",
+            "speed": 5
         }
     },
     "rgblight": {

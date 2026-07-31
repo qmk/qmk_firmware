@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "color.h"
 #include "compiler_support.h"
 #include "qp_internal.h"
 
@@ -10,21 +11,13 @@
 // Quantum Painter pixel formats
 
 // Datatype containing a pixel's color. The internal member used is dependent on the external context.
-typedef union QP_PACKED qp_pixel_t {
+typedef union PACKED qp_pixel_t {
     uint8_t mono;
     uint8_t palette_idx;
 
-    struct QP_PACKED {
-        uint8_t h;
-        uint8_t s;
-        uint8_t v;
-    } hsv888;
+    hsv_t hsv888;
 
-    struct QP_PACKED {
-        uint8_t r;
-        uint8_t g;
-        uint8_t b;
-    } rgb888;
+    rgb_t rgb888;
 
     uint16_t rgb565;
 

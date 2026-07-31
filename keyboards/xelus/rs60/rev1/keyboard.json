@@ -1,7 +1,11 @@
 {
     "usb": {
-        "device_version": "0.1.0",
-        "force_nkro": true
+        "device_version": "0.1.0"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

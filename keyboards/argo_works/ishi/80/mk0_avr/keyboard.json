@@ -4,7 +4,6 @@
     "maintainer": "jasonj2232",
     "development_board": "promicro",
     "diode_direction": "COL2ROW",
-    "url": "https://qmk.fm/keyboards/",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x4930",

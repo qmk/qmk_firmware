@@ -31,14 +31,14 @@ const uint16_t PROGMEM value_down[] = {KC_P7, KC_P3, COMBO_END};
 const uint16_t PROGMEM speed_up[] = {KC_P8, KC_P4, COMBO_END};
 const uint16_t PROGMEM speed_down[] = {KC_P8, KC_P1, COMBO_END};
 combo_t key_combos[] = {
-    COMBO(backlight_next, RGB_MODE_FORWARD),
-    COMBO(backlight_toggle, RGB_TOG),
-    COMBO(hue_up, RGB_HUI),
-    COMBO(hue_down, RGB_HUD),
-    COMBO(sat_up, RGB_SAI),
-    COMBO(sat_down, RGB_SAD),
-    COMBO(value_up, RGB_VAI),
-    COMBO(value_down, RGB_VAD),
-    COMBO(speed_up, RGB_SPI),
-    COMBO(speed_down, RGB_SPD)
+    COMBO(backlight_next, RM_NEXT),
+    COMBO(backlight_toggle, RM_TOGG),
+    COMBO(hue_up, RM_HUEU),
+    COMBO(hue_down, RM_HUED),
+    COMBO(sat_up, RM_SATU),
+    COMBO(sat_down, RM_SATD),
+    COMBO(value_up, RM_VALU),
+    COMBO(value_down, RM_VALD),
+    COMBO(speed_up, RM_SPDU),
+    COMBO(speed_down, RM_SPDD)
 };

@@ -67,6 +67,9 @@
             "solid_splash": true,
             "solid_multisplash": true
         },
+        "default": {
+            "flags": 7
+        },
         "driver": "ws2812",
         "max_brightness": 200,
         "sleep": true

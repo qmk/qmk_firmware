@@ -4,8 +4,12 @@
     "usb": {
         "vid": "0x7BA1",
         "pid": "0x3201",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

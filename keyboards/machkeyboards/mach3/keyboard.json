@@ -26,8 +26,7 @@
         "levels": 5,
         "breathing": true
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT_3x3": {
             "layout": [

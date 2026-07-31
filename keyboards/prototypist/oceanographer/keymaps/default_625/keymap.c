@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QWERTY] = { ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [_FN1] = { ENCODER_CCW_CW(UG_VALD, UG_VALU)},
-    [_FN2] = { ENCODER_CCW_CW(KC_MS_WH_DOWN, KC_MS_WH_UP)},
+    [_FN2] = { ENCODER_CCW_CW(MS_WHLD, MS_WHLU)},
     [_FN3] = { ENCODER_CCW_CW(KC_LEFT, KC_RIGHT)}
 };
 #endif

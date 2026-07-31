@@ -9,6 +9,7 @@ from milc import cli
 from milc.questions import question, choice
 
 from qmk.constants import HAS_QMK_USERSPACE, QMK_USERSPACE
+from qmk.errors import NoSuchKeyboardError
 from qmk.path import is_keyboard, keymaps, keymap
 from qmk.git import git_get_username
 from qmk.decorators import automagic_keyboard, automagic_keymap
@@ -56,7 +57,13 @@ def prompt_keyboard():
 If you're unsure you can view a full list of supported keyboards with {fg_yellow}qmk list-keyboards{style_reset_all}.
 
 Keyboard Name? """
-    return question(prompt)
+    kb_name = question(prompt)
+
+    try:
+        # Resolve any keyboard alias
+        return keyboard_folder(kb_name)
+    except ValueError:
+        return None
 
 
 def prompt_user():
@@ -104,23 +111,26 @@ def new_keymap(cli):
     converter = cli.config.new_keymap.converter if cli.args.skip_converter or cli.config.new_keymap.converter else prompt_converter(kb_name)
 
     # check directories
-    try:
-        kb_name = keyboard_folder(kb_name)
-    except ValueError:
+    if not is_keyboard(kb_name):
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} does not exist! Please choose a valid name.')
         return False
 
-    # generate keymap paths
-    keymaps_dirs = keymaps(kb_name)
-    keymap_path_default = keymap(kb_name, 'default')
-    keymap_path_new = keymaps_dirs[0] / user_name
+    # validate before any keymap ops
+    try:
+        keymaps_dirs = keymaps(kb_name)
+        keymap_path_new = keymaps_dirs[0] / user_name
+    except NoSuchKeyboardError:
+        cli.log.error(f'Keymap folder for {{fg_cyan}}{kb_name}{{fg_reset}} does not exist!')
+        return False
 
-    if not keymap_path_default.exists():
-        cli.log.error(f'Default keymap {{fg_cyan}}{keymap_path_default}{{fg_reset}} does not exist!')
+    keymap_path_default = keymap(kb_name, 'default')
+
+    if not keymap_path_default:
+        cli.log.error(f'Default keymap for {{fg_cyan}}{kb_name}{{fg_reset}} does not exist!')
         return False
 
     if not validate_keymap_name(user_name):
-        cli.log.error('Keymap names must contain only {fg_cyan}a-z{fg_reset}, {fg_cyan}0-9{fg_reset} and {fg_cyan}_{fg_reset}! Please choose a different name.')
+        cli.log.error(f'Keymap name {{fg_cyan}}{user_name}{{fg_reset}} must contain only {{fg_cyan}}a-z{{fg_reset}}, {{fg_cyan}}0-9{{fg_reset}} and {{fg_cyan}}_{{fg_reset}}! Please choose a different name.')
         return False
 
     if keymap_path_new.exists():
@@ -134,7 +144,7 @@ def new_keymap(cli):
         _set_converter(keymap_path_new / 'keymap.json', converter)
 
     # end message to user
-    cli.log.info(f'{{fg_green}}Created a new keymap called {{fg_cyan}}{user_name}{{fg_green}} in: {{fg_cyan}}{keymap_path_new}.{{fg_reset}}')
+    cli.log.info(f'{{fg_green}}Created a new keymap called {{fg_cyan}}{user_name}{{fg_green}} in: {{fg_cyan}}{keymap_path_new}{{fg_reset}}.')
     cli.log.info(f"Compile a firmware with your new keymap by typing: {{fg_yellow}}qmk compile -kb {kb_name} -km {user_name}{{fg_reset}}.")
 
     # Add to userspace compile if we have userspace available

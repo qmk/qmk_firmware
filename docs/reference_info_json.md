@@ -2,7 +2,7 @@
 
 The information contained in `info.json` is combined with the `config.h` and `rules.mk` files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the [QMK API](https://github.com/qmk/qmk_api), and contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. Its key/value pairs are ruled by the [`data/schemas/keyboard.jsonschema`](https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema) file. To learn more about the why and how of the schema file see the [Data Driven Configuration](data_driven_config) page.
 
-You can create `info.json` files at every level under `qmk_firmware/keyboards/<keyboard_name>`. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies information common to all Clueboard products, such as `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` contains more specific information about Clueboard 66%.
+You can create `info.json` files at every level under `qmk_firmware/keyboards/<keyboard>`. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies information common to all Clueboard products, such as `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` contains more specific information about Clueboard 66%.
 
 ## General Metadata {#general-metadata}
 
@@ -179,6 +179,32 @@ Configures the [Backlight](features/backlight) feature.
     * `pins` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the backlight LEDs (`software` and `timer` drivers only).
 
+## Battery
+
+Configures the [Battery](features/battery) feature.
+
+* `battery`
+    * `adc`
+        * `pin` <Badge type="info">Pin</Badge> <Badge>Required</Badge>
+            * The GPIO pin connected to the voltage divider.
+        * `reference_voltage` <Badge type="info">Number</Badge>
+            * The ADC reverence voltage, in millivolts. 
+            * Default: `3300`
+        * `divider_r1` <Badge type="info">Number</Badge>
+            * The voltage divider resistance, in kOhm. Set to 0 to disable.
+            * Default: `100`
+        * `divider_r2` <Badge type="info">Number</Badge>
+            * The voltage divider resistance, in kOhm. Set to 0 to disable.
+            * Default: `100`
+        * `resolution` <Badge type="info">Number</Badge>
+            * The ADC resolution configured for the ADC Driver.
+            * Default: `10`
+    * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
+        * The driver to use. Must be one of `adc`, `custom`, `vendor`.
+    * `sample_interval` <Badge type="info">Number</Badge>
+        * The delay between sampling the battery in milliseconds.
+        * Default: `30000` (30 s)
+
 ## Wireless/Bluetooth {#bluetooth}
 
 Configures the [Wireless](features/wireless) feature.
@@ -301,6 +327,21 @@ Configures the [LED Indicators](features/led_indicators) feature.
     * `scroll_lock` <Badge type="info">Pin</Badge>
         * The GPIO pin connected to the Scroll Lock LED.
 
+## (Custom) Keycodes {#keycodes}
+
+Defines [custom keycodes](custom_quantum_functions#definining-a-new-keycode) for use within keymaps.
+
+* `keycodes` <Badge type="info">Array: Object</Badge>
+    * A list of keycode objects.
+        * `key` <Badge type="info">String</Badge> <Badge>Required</Badge>
+            * The enum name of the custom keycode. 
+            * Example: `LAYER_CHANGE_BEEP_ON`
+        * `label` <Badge type="info">String</Badge>
+            * A short description of the custom keycode.
+        * `aliases` <Badge type="info">Array: String</Badge>
+            * A list of shortened names for the custom keycode.
+            * Example: `["LCBON", "LCB_ON"]`
+
 ## Layouts {#layouts}
 
 The `layouts` portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout names, for example `LAYOUT_60_ansi` or `LAYOUT_60_iso`.
@@ -389,6 +430,9 @@ Configures the [LED Matrix](features/led_matrix) feature.
     * `center_point` <Badge type="info">Array: Number</Badge>
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
+    * `flag_steps` <Badge type="info">Array: Number</Badge>
+        * A list of flag bitfields that can be cycled through.
+        * Default: `[255, 5, 0]`
     * `default`
         * `animation` <Badge type="info">String</Badge>
             * The default effect. Must be one of `led_matrix.animations`
@@ -402,6 +446,9 @@ Configures the [LED Matrix](features/led_matrix) feature.
         * `speed` <Badge type="info">Number</Badge>
             * The default animation speed.
             * Default: `128`
+        * `flags` <Badge type="info">Number</Badge>
+            * The default LED flags.
+            * Default: `255`
     * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The driver to use. Must be one of `custom`, `is31fl3218`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`.
     * `layout` <Badge type="info">Array: Object</Badge> <Badge>Required</Badge>
@@ -480,6 +527,9 @@ Configures the [LED Matrix](features/led_matrix) feature.
     * `io_delay` <Badge type="info">Number</Badge>
         * The amount of time to wait between row/col selection and col/row pin reading, in microseconds.
         * Default: `30` (30 µs)
+    * `masked` <Badge type="info">Boolean</Badge>
+        * Whether unconfigured intersections should be ignored.
+        * Default: `false`
     * `rows` <Badge type="info">Array: Pin</Badge>
         * A list of GPIO pins connected to the matrix rows.
         * Example: `["B0", "B1", "B2"]`
@@ -631,6 +681,9 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
     * `center_point` <Badge type="info">Array: Number</Badge>
         * The centroid (geometric center) of the LEDs. Used for certain effects.
         * Default: `[112, 32]`
+    * `flag_steps` <Badge type="info">Array: Number</Badge>
+        * A list of flag bitfields that can be cycled through.
+        * Default: `[255, 5, 2, 0]`
     * `default`
         * `animation` <Badge type="info">String</Badge>
             * The default effect. Must be one of `rgb_matrix.animations`
@@ -650,6 +703,9 @@ Configures the [RGB Matrix](features/rgb_matrix) feature.
         * `speed` <Badge type="info">Number</Badge>
             * The default animation speed.
             * Default: `128`
+        * `flags` <Badge type="info">Number</Badge>
+            * The default LED flags.
+            * Default: `255`
     * `driver` <Badge type="info">String</Badge> <Badge>Required</Badge>
         * The driver to use. Must be one of `aw20216s`, `custom`, `is31fl3218`, `is31fl3236`, `is31fl3729`, `is31fl3731`, `is31fl3733`, `is31fl3736`, `is31fl3737`, `is31fl3741`, `is31fl3742a`, `is31fl3743a`, `is31fl3745`, `is31fl3746a`, `snled27351`, `ws2812`.
     * `hue_steps` <Badge type="info">Number</Badge>
@@ -750,9 +806,9 @@ Configures the [Split Keyboard](features/split_keyboard) feature.
             * Default: `"bitbang"`
         * `pin` <Badge type="info">Pin</Badge>
             * The GPIO pin to use for transmit and receive.
-    * `soft_serial_speed` <Badge type="info">Number</Badge>
-        * The protocol speed, from `0` to `5` (`serial` transport protocol only).
-        * Default: `1`
+        * `speed` <Badge type="info">Number</Badge>
+            * The protocol speed, from `0` to `5` (fastest to slowest).
+            * Default: `1`
     * `transport`
         * `protocol` <Badge type="info">String</Badge>
             * The split transport protocol to use. Must be one of `custom`, `i2c`, `serial`.

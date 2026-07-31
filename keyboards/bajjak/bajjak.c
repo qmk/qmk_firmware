@@ -21,6 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bajjak.h"
 
+bool bajjak_left_led_1 = 0;
+bool bajjak_left_led_2 = 0;
+bool bajjak_left_led_3 = 0;
+
 extern inline void bajjak_board_led_on(void);
 extern inline void bajjak_right_led_1_on(void);
 extern inline void bajjak_right_led_2_on(void);
