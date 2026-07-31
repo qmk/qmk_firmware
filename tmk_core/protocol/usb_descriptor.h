@@ -47,7 +47,7 @@
 
 #ifdef PROTOCOL_CHIBIOS
 #    include <hal.h>
-#    if STM32_USB_USE_OTG1 == TRUE
+#    if STM32_USB_USE_OTG1 == TRUE || STM32_USB_USE_OTG2 == TRUE
 #        define USB_ENDPOINTS_ARE_REORDERABLE
 #    endif
 #endif
