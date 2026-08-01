@@ -224,8 +224,8 @@ def rules_mk(keyboard):
     keyboard = Path(keyboard)
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
 
-    for i, dir in enumerate(keyboard.parts):
-        cur_dir = cur_dir / dir
+    for folder in keyboard.parts:
+        cur_dir = cur_dir / folder
         rules = parse_rules_mk_file(cur_dir / 'rules.mk', rules)
 
     return rules

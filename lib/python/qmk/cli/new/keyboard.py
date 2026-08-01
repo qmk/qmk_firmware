@@ -6,6 +6,7 @@ import shutil
 from datetime import date
 from pathlib import Path
 from dotty_dict import dotty
+from functools import lru_cache
 
 from milc import cli
 from milc.questions import choice, question, yesno
@@ -20,17 +21,28 @@ from qmk.constants import MCU2BOOTLOADER, QMK_FIRMWARE
 COMMUNITY = Path('layouts/default/')
 TEMPLATE = Path('data/templates/keyboard/')
 
-# defaults
-schema = dotty(load_jsonschema('keyboard'))
-mcu_types = sorted(schema["properties.processor.enum"], key=str.casefold)
-dev_boards = sorted(schema["properties.development_board.enum"], key=str.casefold)
-available_layouts = sorted([x.name for x in COMMUNITY.iterdir() if x.is_dir()])
+
+@lru_cache(maxsize=1)
+def _keyboard_schema():
+    return dotty(load_jsonschema('keyboard'))
+
+
+def _processor_types():
+    return sorted(_keyboard_schema()["properties.processor.enum"], key=str.casefold)
+
+
+def _dev_boards():
+    return sorted(_keyboard_schema()["properties.development_board.enum"], key=str.casefold)
+
+
+def _available_layouts():
+    return sorted([x.name for x in COMMUNITY.iterdir() if x.is_dir()])
 
 
 def mcu_type(mcu):
     """Callable for argparse validation.
     """
-    if mcu not in (dev_boards + mcu_types):
+    if mcu not in (_dev_boards() + _processor_types()):
         raise ValueError
     return mcu
 
@@ -38,7 +50,7 @@ def mcu_type(mcu):
 def layout_type(layout):
     """Callable for argparse validation.
     """
-    if layout not in available_layouts:
+    if layout not in _available_layouts():
         raise ValueError
     return layout
 
@@ -162,7 +174,7 @@ def prompt_layout():
 bootstrap the process""")
 
     # avoid overwhelming user - remove some?
-    filtered_layouts = [x for x in available_layouts if not any(xs in x for xs in ['_split', '_blocker', '_tsangan', '_f13'])]
+    filtered_layouts = [x for x in _available_layouts() if not any(xs in x for xs in ['_split', '_blocker', '_tsangan', '_f13'])]
     filtered_layouts.append("none of the above")
 
     return choice("Default Layout?", filtered_layouts, default=len(filtered_layouts) - 1)
@@ -184,7 +196,7 @@ def prompt_dev_board():
     prompt_heading_subheading("Select Development Board", """For more information, see:
 https://docs.qmk.fm/compatible_microcontrollers""")
 
-    filtered_dev_boards = dev_boards.copy()
+    filtered_dev_boards = _dev_boards()
     filtered_dev_boards.append("none of the above")
 
     return choice("Development Board?", filtered_dev_boards, default=len(filtered_dev_boards) - 1)
@@ -195,7 +207,7 @@ def prompt_mcu():
 https://docs.qmk.fm/compatible_microcontrollers""")
 
     # remove any options strictly used for compatibility
-    filtered_mcu = [x for x in mcu_types if not any(xs in x for xs in ['cortex', 'unknown'])]
+    filtered_mcu = [x for x in _processor_types() if not any(xs in x for xs in ['cortex', 'unknown'])]
 
     return choice("Microcontroller?", filtered_mcu, default=filtered_mcu.index("atmega32u4"))
 
@@ -235,7 +247,7 @@ def new_keyboard(cli):
             mcu = prompt_mcu()
 
     config = {}
-    if mcu in dev_boards:
+    if mcu in _dev_boards():
         config['development_board'] = mcu
     else:
         config['processor'] = mcu
