@@ -316,7 +316,7 @@ def _render_eeconfig_implementation(modules):
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
 @cli.argument('-e', '--escape', arg_only=True, action='store_true', help="Escape spaces in quiet mode")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate rules.mk for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate rules.mk for.')
 @cli.argument('filename', nargs='?', arg_only=True, type=qmk.path.FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.subcommand('Creates a community_modules_rules_mk from a keymap.json file.')
 def generate_community_modules_rules_mk(cli):
@@ -340,7 +340,7 @@ def generate_community_modules_rules_mk(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_post_config.h for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_post_config.h for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_post_config.h from a keymap.json file.')
 def generate_community_post_config_h(cli):
@@ -387,7 +387,7 @@ def generate_community_post_config_h(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.h for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules.h from a keymap.json file.')
 def generate_community_modules_h(cli):
@@ -443,7 +443,7 @@ def generate_community_modules_h(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules.c from a keymap.json file.')
 def generate_community_modules_c(cli):
@@ -495,7 +495,7 @@ def _generate_include_per_module(cli, include_file_name):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules_introspection.h for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules_introspection.h for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules_introspection.h from a keymap.json file.')
 def generate_community_modules_introspection_h(cli):
@@ -506,7 +506,7 @@ def generate_community_modules_introspection_h(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate community_modules.c for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates a community_modules_introspection.c from a keymap.json file.')
 def generate_community_modules_introspection_c(cli):
@@ -517,7 +517,7 @@ def generate_community_modules_introspection_c(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate led_matrix_community_modules.inc for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate led_matrix_community_modules.inc for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates an led_matrix_community_modules.inc from a keymap.json file.')
 def generate_led_matrix_community_modules_inc(cli):
@@ -528,7 +528,7 @@ def generate_led_matrix_community_modules_inc(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate rgb_matrix_community_modules.inc for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate rgb_matrix_community_modules.inc for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates an rgb_matrix_community_modules.inc from a keymap.json file.')
 def generate_rgb_matrix_community_modules_inc(cli):
@@ -539,7 +539,7 @@ def generate_rgb_matrix_community_modules_inc(cli):
 
 @cli.argument('-o', '--output', arg_only=True, type=qmk.path.normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate split_transaction_id_community_modules.inc for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate split_transaction_id_community_modules.inc for.')
 @cli.argument('filename', nargs='?', type=qmk.path.FileType('r'), arg_only=True, completer=FilesCompleter('.json'), help='Configurator JSON file')
 @cli.subcommand('Creates an split_transaction_id_community_modules.inc from a keymap.json file.')
 def generate_split_transaction_id_community_modules_inc(cli):
