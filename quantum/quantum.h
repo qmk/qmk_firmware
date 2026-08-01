@@ -203,10 +203,6 @@ extern layer_state_t layer_state;
 #    include "digitizer.h"
 #endif
 
-#ifdef VIA_ENABLE
-#    include "via.h"
-#endif
-
 #ifdef WPM_ENABLE
 #    include "wpm.h"
 #endif
