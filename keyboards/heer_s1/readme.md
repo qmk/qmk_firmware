@@ -1,6 +1,6 @@
 # HEER S1
 
-![HEER S1](https://www.heerelectronics.com/product/side.png)
+![HEER S1](https://i.imgur.com/rSxQHUi.png)
 
 A 4x4 RP2040 macropad with two EC11 rotary encoders and a 128x64 SH1106 OLED.
 
