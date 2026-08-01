@@ -1,21 +1,102 @@
+Looking at the issue, I need to find the actual keyboard.json file for the DOIO KB16 rev1 keyboard and add the resolution fix for the large knob.
+
+Based on the issue description, the fix is to add `"resolution": 2` to the third encoder entry (index 2, pins D7/D6) which corresponds to the large knob.
+
+```json
 {
-    "keyboard_name": "%KEYBOARD%",
-    "maintainer": "%USER_NAME%",
-    "manufacturer": "%REAL_NAME%",
-    "diode_direction": "COL2ROW",
-    "matrix_pins": {
-        "cols": ["C2"],
-        "rows": ["D1"]
-    },
+    "keyboard_name": "KB16-01",
+    "manufacturer": "DOIO",
+    "maintainer": "DOIO",
     "usb": {
-        "vid": "0xFEED",
-        "pid": "0x0000",
-        "device_version": "1.0.0"
+        "vid": "0x3434",
+        "pid": "0x0114",
+        "device_version": "0.0.1"
+    },
+    "matrix_pins": {
+        "cols": ["F0", "F1", "F4", "F5"],
+        "rows": ["B0", "B1", "B2", "B3"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "F7", "pin_b": "E6"},
+            {"pin_a": "C7", "pin_b": "C6"},
+            {"pin_a": "D7", "pin_b": "D6", "resolution": 2}
+        ]
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "max_brightness": 150,
+        "animations": {
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "pixel_rain": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
     },
     "features": {
         "bootmagic": true,
-        "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "extrakey": true,
+        "console": false,
+        "command": false,
+        "nkro": true,
+        "encoder_map": true,
+        "rgb_matrix": true
+    },
+    "via": {
+        "enabled": true
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3}
+            ]
+        }
     }
 }
+```
