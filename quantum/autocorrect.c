@@ -85,7 +85,7 @@ void autocorrect_dict_cycle(bool forward) {
     if (forward) {
         autocorrect_config.current_dict = (autocorrect_config.current_dict + 1) % number_dicts;
     } else {
-        autocorrect_config.current_dict = MIN(autocorrect_config.current_dict - 1, (uint8_t)(number_dicts - 1));
+        autocorrect_config.current_dict = (autocorrect_config.current_dict - 1) % number_dicts;
     }
     eeconfig_update_autocorrect(&autocorrect_config);
     autocorrect_init_dict();
