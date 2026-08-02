@@ -96,7 +96,7 @@ Unfortunately, this is limited to just english words, at this point.
 
 Including additional dictionaries allows for on-the-fly switching between sets of autocorrection rules, useful for bilingual users or for running context-specific rulesets. `QK_AUTOCORRECT_DICT_CYCLE` can then be used to cycle the active dictionary and persist the selection to eeprom.
 
-To use this feature, you can input several files into `qmk generate-autocorrect-data:
+To use this feature, you can input several files to `qmk generate-autocorrect-data`:
 
 ```sh
 qmk generate-autocorrect-data dict1.txt dict2.txt
@@ -119,7 +119,7 @@ Additionally, you can use the `AC_TOGG` keycode to toggle the on/off status for 
 | Keycode                     | Aliases   | Description                                                       |
 | --------------------------- | --------- | ----------------------------------------------------------------- |
 | `QK_AUTOCORRECT_ON`         | `AC_ON`   | Turns on the Autocorrect feature.                                 |
-| `QK_AUTOCORRECT_OFF`        | `AC_OFF`  | Turns off the Ajutocorrect feature.                               |
+| `QK_AUTOCORRECT_OFF`        | `AC_OFF`  | Turns off the Autocorrect feature.                                |
 | `QK_AUTOCORRECT_TOGGLE`     | `AC_TOGG` | Toggles the status of the Autocorrect feature.                    |
 | `QK_AUTOCORRECT_DICT_CYCLE` | `AC_DICT` | Cycle through dictionaries, reverse direction when Shift is held. |
 

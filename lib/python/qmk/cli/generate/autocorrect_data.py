@@ -328,7 +328,7 @@ class AutocorrectDict:
 def generate_autocorrect_data(cli):
     if len(cli.args.filenames) > 8:
         cli.log.error("Current EEPROM settings can only index up to 8 dicts")
-        sys.exit(1)
+        maybe_exit(1)
 
     autocorrect_dicts = [AutocorrectDict(path) for path in cli.args.filenames]
 

@@ -76,6 +76,29 @@ TEST_F(AutoCorrect, CycleDictionaries) {
     VERIFY_AND_CLEAR(driver);
 }
 
+// Test that reverse cycling wraps from the first dictionary to the last
+TEST_F(AutoCorrect, CycleDictionariesReverse) {
+    TestDriver driver;
+
+    const uint8_t last_dict = autocorrect_get_number_of_dictionaries() - 1;
+
+    EXPECT_EQ(autocorrect_get_current_dictionary(), 0);
+
+    // Reverse from dict 0 must wrap around to the last dictionary
+    autocorrect_dict_cycle(false);
+    EXPECT_EQ(autocorrect_get_current_dictionary(), last_dict);
+
+    // Reverse again steps down normally, back to dict 0 in the two-dict fixture
+    autocorrect_dict_cycle(false);
+    if (autocorrect_get_number_of_dictionaries() > 2) {
+        EXPECT_EQ(autocorrect_get_current_dictionary(), last_dict - 1);
+    } else {
+        EXPECT_EQ(autocorrect_get_current_dictionary(), 0);
+    }
+
+    VERIFY_AND_CLEAR(driver);
+}
+
 // Test that typing "fales" autocorrects to "false"
 TEST_F(AutoCorrect, fales_to_false_autocorrection) {
     TestDriver driver;
