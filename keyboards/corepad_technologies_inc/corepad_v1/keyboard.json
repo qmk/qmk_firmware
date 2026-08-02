@@ -20,9 +20,6 @@
     "ws2812": {
         "pin": "GP12"
     },
-    "i2c": {
-        "driver": "I2CD1"
-    },
     "rgblight": {
         "led_count": 1,
         "max_brightness": 200,
