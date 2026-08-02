@@ -1,3 +1,6 @@
+// Copyright 2026 CorePad Technologies Inc
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 /* VIAL_KEYBOARD_UID must be unique per keyboard design. This one was
