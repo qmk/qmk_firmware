@@ -119,6 +119,7 @@ enum led_matrix_effects {
     LED_MATRIX_SOLID_MULTISPLASH,        // Value pulses away from multiple key hits then fades out
     LED_MATRIX_WAVE_LEFT_RIGHT,           // Sine wave scrolling from left to right
     LED_MATRIX_WAVE_UP_DOWN,              // Sine wave scrolling from up to down
+    LED_MATRIX_TYPING_HEATMAP,            // How hot is your WPM!
     LED_MATRIX_EFFECT_MAX
 };
 ```
@@ -140,6 +141,14 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT`            |Enables `LED_MATRIX_WAVE_LEFT_RIGHT`          |
 |`#define ENABLE_LED_MATRIX_WAVE_UP_DOWN`               |Enables `LED_MATRIX_WAVE_UP_DOWN`             |
 
+|Framebuffer Defines                                   |Description                                    |
+|------------------------------------------------------|-----------------------------------------------|
+|`#define ENABLE_LED_MATRIX_TYPING_HEATMAP`            |Enables `LED_MATRIX_TYPING_HEATMAP`            |
+
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
+
 |Reactive Defines                                       |Description                                   |
 |-------------------------------------------------------|----------------------------------------------|
 |`#define ENABLE_LED_MATRIX_SOLID_REACTIVE_SIMPLE`      |Enables `LED_MATRIX_SOLID_REACTIVE_SIMPLE`    |
@@ -155,6 +164,42 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 ::: tip
 These modes introduce additional logic that can increase firmware size.
 :::
+
+### LED Matrix Effect Typing Heatmap {#led-matrix-effect-typing-heatmap}
+
+This effect will scale the LED matrix brightness according to a heatmap of recently pressed keys. Whenever a key is pressed its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
+
+In order to change the delay of temperature decrease define `LED_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
+
+As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
+
+Limit the distance the effect spreads to surrounding keys.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_SPREAD 40
+```
+
+Limit how hot surrounding keys get from each press.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16
+```
+
+Remove the spread effect entirely.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_SLIM
+```
+
+It's also possible to adjust the tempo of *heating up*. It's defined as the number of steps by which to increment the brightness. Decreasing this value increases the number of keystrokes needed to fully heat up the key.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_INCREASE_STEP 32
+```
 
 ## Custom LED Matrix Effects {#custom-led-matrix-effects}
 
