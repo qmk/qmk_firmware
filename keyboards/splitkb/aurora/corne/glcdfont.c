@@ -1,3 +1,5 @@
+// Copyright 2026 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include "progmem.h"
 
 // NOTE: This file is a copy of `crkbd/soundmonster/glcdfont.c`
