@@ -27,8 +27,7 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "oled": true,
-        "wpm": true
+        "oled": true
     },
     "layouts": {
         "LAYOUT": {
