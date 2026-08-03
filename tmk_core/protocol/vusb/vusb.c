@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "wait.h"
 #include "usb_descriptor_common.h"
 #include "usb_device_state.h"
-#include "../extended_attributes.h"
+#include "extended_attributes.h"
 
 #ifdef RAW_ENABLE
 #    include "raw_hid.h"
@@ -320,7 +320,7 @@ static struct {
 
 usbMsgLen_t usbFunctionSetup(uchar data[8]) {
     usbRequest_t *rq = (void *)data;
-    enum report_types : uchar {
+    enum report_types {
         INPUT   = 1,
         OUTPUT  = 2,
         FEATURE = 3,
@@ -933,7 +933,6 @@ const PROGMEM usbStringDescriptor_t usbStringDescriptorPrimaryLocale = {
     .bString             = USBSTR(KEYBOARD_PRIMARY_LOCALE)
 };
 #endif
-
 
 /*
  * Device descriptor

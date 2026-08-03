@@ -79,7 +79,7 @@ void usb_shared_reset_report(usb_fs_report_t **reports) {
 }
 
 #if defined(EXTENDED_ATTRIBUTES_ENABLE)
-static const keyboard_extended_attributes_t keyboard_extended_attributes PROGMEM = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
+static const keyboard_extended_attributes_t keyboard_extended_attributes = KEYBOARD_EXT_ATTR_INIT(PRIMARY_LOCALE_STRING_DESCR_INDEX);
 #endif
 
 bool usb_get_report_input(USBDriver *driver, usb_control_request_t *request) {
@@ -140,7 +140,7 @@ bool usb_get_report_cb(USBDriver *driver) {
     usb_control_request_t *request     = (usb_control_request_t *)driver->setup;
     uint8_t                report_type = request->wValue.hbyte;
 
-    enum report_type {
+    enum report_types {
         INPUT   = 1,
         OUTPUT  = 2,
         FEATURE = 3,
