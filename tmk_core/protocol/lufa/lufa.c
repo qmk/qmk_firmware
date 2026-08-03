@@ -408,7 +408,7 @@ void EVENT_USB_Device_ControlRequest(void) {
     uint8_t *ReportData = NULL;
     uint8_t  ReportSize = 0;
 
-    enum report_tpye : uint8_t {
+    enum report_tpyes {
         INPUT   = 1,
         OUTPUT  = 2,
         FEATURE = 3,
