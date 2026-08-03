@@ -1,7 +1,9 @@
-/* Spdx-License-Identifer: GPL-2.0-or-later OR APACHE-2.0 */
+// Copyright 2026 QMK
+// Spdx-License-Identifer: GPL-2.0-or-later OR APACHE-2.0
 #pragma once
 
 #include <stdint.h>
+#include "util.h"
 
 #ifndef CONCAT
 #    define CONCAT(a, b) a##b
@@ -66,7 +68,7 @@
 #    define KEYBOARD_IMPLEMENTED_INPUT_ASSIST_CONTROLS 0
 #endif
 
-typedef struct [[gnu::packed]] keyboard_extended_attributes {
+typedef struct PACKED keyboard_extended_attributes {
 #ifdef KEYBOARD_SHARED_EP
     uint8_t report_id;
 #endif

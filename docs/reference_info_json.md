@@ -36,7 +36,7 @@ You can create `info.json` files at every level under `qmk_firmware/keyboards/<k
             * Physical Layout (Location and amount of keys) Must be one of `ANSI`, `ISO`, `KS`, `ABNT` or `JIS`
         * or `vendor` <Badge type="info">Number</Badge>
             * two digit hexadecimal number. Must not set `standard` if used.
-    * `locale`  <Badge type="info">Object</Badge>
+    * `locale`  <Badge type="info">String</Badge>
         * The [IETF BCP 47](https://www.ietf.org/rfc/bcp/bcp47.txt) Locale for the Primary Language of the printed Key set.
         * Examples:
             * `en-US`
