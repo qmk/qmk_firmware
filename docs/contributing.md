@@ -19,7 +19,7 @@ Please keep these things in mind:
 * Everyone involved with QMK is donating their time and energy. We don't get paid to work on or answer questions about QMK.
 * Try to ask your question so it's as easy to answer as possible. If you're not sure how to do that these are some good guides:
   * https://opensource.com/life/16/10/how-ask-technical-questions
-  * https://github.com/selfteaching/How-To-Ask-Questions-The-Smart-Way (GitHub mirror of "How To Ask Questions The Smart Way" by Eric S. Raymond)
+  * <http://www.catb.org/esr/faqs/smart-questions.html> ([mirror](https://github.com/selfteaching/How-To-Ask-Questions-The-Smart-Way))
 
 # Project Overview
 
