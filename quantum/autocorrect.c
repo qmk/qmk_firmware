@@ -85,6 +85,8 @@ void autocorrect_dict_cycle(bool forward) {
     if (forward) {
         autocorrect_config.current_dict = (autocorrect_config.current_dict + 1) % number_dicts;
     } else {
+        // current_dict is unsigned, so we need to check if it's 0 before subtracting 1 to avoid underflow issues.
+        // (current_dict - 1) % num_dicts causes issues and will not wrap around properly to the last dictionary when current_dict is 0.
         autocorrect_config.current_dict = autocorrect_config.current_dict ? (autocorrect_config.current_dict - 1) : (number_dicts - 1);
     }
     eeconfig_update_autocorrect(&autocorrect_config);
