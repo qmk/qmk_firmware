@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "os_detection.h"
 #if __has_include("keymap.h")
 #    include "keymap.h"
 #endif
@@ -83,7 +84,7 @@ combo_t key_combos[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_split_3x6_3_ex2(
         KC_LBRC, KC_Q, KC_W, KC_F,   KC_P,   KC_B,   KC_DEL,   KC_SLEP,  KC_J,   KC_L,     KC_U,    KC_Y,   KC_SCLN, KC_RBRC,
-        KC_GRV,  HM_A, HM_R, HM_S,   HM_T,   KC_G,   TG(1),    KC_RALT,  KC_M,   HM_N,     HM_E,    HM_I,   HM_O,    KC_QUOT,
+        KC_GRV,  HM_A, HM_R, HM_S,   HM_T,   KC_G,   TG(1),    KC_LGUI,  KC_M,   HM_N,     HM_E,    HM_I,   HM_O,    KC_QUOT,
         KC_LPRN, KC_Z, KC_X, KC_C,   KC_D,   KC_V,                       KC_K,   KC_H,     KC_COMM, KC_DOT, KC_SLSH, KC_RPRN,
                              KC_ESC, KC_SPC, LT_TAB,                     LT_ENT, OSM_LSFT, KC_BSPC
     ),
@@ -184,175 +185,226 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     return false;
 }
 
+bool process_detected_host_os_user(os_variant_t detected_os) {
+    if (detected_os == OS_LINUX) {
+        set_unicode_input_mode(UNICODE_MODE_LINUX);
+    }
+    return true;
+}
+
+// Treat "unsure" as macOS so there's no gap right after boot before
+// detection completes.
+static inline bool host_is_mac(void) {
+    os_variant_t os = detected_host_os();
+    return os != OS_WINDOWS && os != OS_LINUX;
+}
+
+static uint16_t kp_digit_keycode(uint8_t digit) {
+    switch (digit) {
+        case 0: return KC_KP_0;
+        case 1: return KC_KP_1;
+        case 2: return KC_KP_2;
+        case 3: return KC_KP_3;
+        case 4: return KC_KP_4;
+        case 5: return KC_KP_5;
+        case 6: return KC_KP_6;
+        case 7: return KC_KP_7;
+        case 8: return KC_KP_8;
+        default: return KC_KP_9;
+    }
+}
+
+static void send_windows_alt_code(uint8_t code) {
+    bool num_lock_was_on = host_keyboard_led_state().num_lock;
+    if (!num_lock_was_on) {
+        tap_code(KC_NUM_LOCK);
+        wait_ms(20);
+    }
+
+    register_code(KC_LALT);
+    wait_ms(10);
+    tap_code(kp_digit_keycode(0)); // leading zero forces the ANSI codepage
+    wait_ms(10);
+    tap_code(kp_digit_keycode((code / 100) % 10));
+    wait_ms(10);
+    tap_code(kp_digit_keycode((code / 10) % 10));
+    wait_ms(10);
+    tap_code(kp_digit_keycode(code % 10));
+    wait_ms(10);
+    unregister_code(KC_LALT);
+
+    if (!num_lock_was_on) {
+        wait_ms(20);
+        tap_code(KC_NUM_LOCK);
+    }
+}
+
+// Works out upper/lowercase from held+one-shot shift XOR caps state, and
+// consumes any pending one-shot shift so it doesn't leak into the next key.
+static bool resolve_uppercase_and_consume_oneshot(void) {
+    uint8_t mods    = get_mods();
+    uint8_t os_mods = get_oneshot_mods();
+    bool is_shifted = (mods | os_mods) & MOD_MASK_SHIFT;
+    bool is_caps    = host_keyboard_led_state().caps_lock || is_caps_word_on();
+
+    if (os_mods & MOD_MASK_SHIFT) {
+        del_oneshot_mods(MOD_MASK_SHIFT);
+    }
+
+    return is_shifted ^ is_caps;
+}
+
+static void send_umlaut_mac(uint16_t target_keycode, bool send_upper) {
+    uint8_t mods = get_mods();
+
+    if (mods & MOD_MASK_SHIFT) {
+        unregister_code(KC_LSFT);
+        unregister_code(KC_RSFT);
+    }
+
+    register_code(KC_RALT);
+    tap_code(KC_U);
+    unregister_code(KC_RALT);
+
+    if (send_upper) {
+        register_code(KC_LSFT);
+        tap_code(target_keycode);
+        unregister_code(KC_LSFT);
+    } else {
+        tap_code(target_keycode);
+    }
+
+    if (mods & MOD_MASK_SHIFT) {
+        set_mods(mods);
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case DE_AE:
         case DE_OE:
         case DE_UE:
             if (record->event.pressed) {
-                // 1. GET SHIFT STATE (Held OR One-Shot)
-                uint8_t mods = get_mods();
-                uint8_t os_mods = get_oneshot_mods();
+                bool send_upper = resolve_uppercase_and_consume_oneshot();
 
-                // Combine them to see if we should capitalize
-                bool is_shifted = (mods | os_mods) & MOD_MASK_SHIFT;
-
-                // Caps is active if OS Caps Lock is on OR QMK Caps Word is on
-                bool is_caps = host_keyboard_led_state().caps_lock || is_caps_word_on();
-
-                // XOR Logic: Capitalize if Shift OR Caps is on, but not both (Inversion)
-                bool send_upper = is_shifted ^ is_caps;
-
-                // 2. CLEAR SHIFT INTERFERENCE
-                // If physical shift is held, we must release it for the Opt+u shortcut
-                if (mods & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSFT);
-                    unregister_code(KC_RSFT);
-                }
-
-                // If One-Shot Shift is pending, we must "consume" it manually
-                if (os_mods & MOD_MASK_SHIFT) {
-                    del_oneshot_mods(MOD_MASK_SHIFT);
-                }
-
-                // 3. SEND DEAD KEY (Option + u)
-                register_code(KC_RALT);
-                tap_code(KC_U);
-                unregister_code(KC_RALT);
-
-                // 4. DETERMINE LETTER
-                uint16_t target_keycode;
-                switch(keycode) {
-                    case DE_AE: target_keycode = KC_A; break;
-                    case DE_OE: target_keycode = KC_O; break;
-                    case DE_UE: target_keycode = KC_U; break;
-                }
-
-                // 5. SEND LETTER
-                if (send_upper) {
-                    register_code(KC_LSFT);
-                    tap_code(target_keycode);
-                    unregister_code(KC_LSFT);
-                } else {
-                    tap_code(target_keycode);
-                }
-
-                // 6. RESTORE HELD SHIFT
-                // Only restore if it was physically held. Do NOT restore One-Shot shift.
-                if (mods & MOD_MASK_SHIFT) {
-                    set_mods(mods);
+                if (host_is_mac()) {
+                    uint16_t target_keycode;
+                    switch (keycode) {
+                        case DE_AE: target_keycode = KC_A; break;
+                        case DE_OE: target_keycode = KC_O; break;
+                        default:    target_keycode = KC_U; break;
+                    }
+                    send_umlaut_mac(target_keycode, send_upper);
+                } else if (detected_host_os() == OS_WINDOWS) {
+                    uint8_t lower_code, upper_code;
+                    switch (keycode) {
+                        case DE_AE: lower_code = 228; upper_code = 196; break;
+                        case DE_OE: lower_code = 246; upper_code = 214; break;
+                        default:    lower_code = 252; upper_code = 220; break;
+                    }
+                    send_windows_alt_code(send_upper ? upper_code : lower_code);
+                } else { // Linux
+                    uint32_t lower_cp, upper_cp;
+                    switch (keycode) {
+                        case DE_AE: lower_cp = 0x00E4; upper_cp = 0x00C4; break;
+                        case DE_OE: lower_cp = 0x00F6; upper_cp = 0x00D6; break;
+                        default:    lower_cp = 0x00FC; upper_cp = 0x00DC; break;
+                    }
+                    register_unicode(send_upper ? upper_cp : lower_cp);
                 }
             }
             return false;
 
         case DE_SS:
             if (record->event.pressed) {
-                // 1. GET SHIFT STATE (Held OR One-Shot)
-                uint8_t mods = get_mods();
-                uint8_t os_mods = get_oneshot_mods();
+                uint8_t mods    = get_mods();
+                bool send_upper = resolve_uppercase_and_consume_oneshot();
+                bool is_caps    = host_keyboard_led_state().caps_lock || is_caps_word_on();
 
-                // Combine them to see if we should capitalize
-                bool is_shifted = (mods | os_mods) & MOD_MASK_SHIFT;
-
-                // Caps is active if OS Caps Lock is on OR QMK Caps Word is on
-                bool is_caps = host_keyboard_led_state().caps_lock || is_caps_word_on();
-
-                // XOR Logic: Capitalize if Shift OR Caps is on, but not both (Inversion)
-                bool send_upper = is_shifted ^ is_caps;
-
-                // 2. CLEANUP ONE-SHOT SHIFT
-                // We must always consume this so it doesn't affect the NEXT key
-                if (os_mods & MOD_MASK_SHIFT) {
-                    del_oneshot_mods(MOD_MASK_SHIFT);
+                if (host_is_mac()) {
+                    if (send_upper) {
+                        if (!is_caps) {
+                            register_code(KC_LSFT);
+                        } else if (mods & MOD_MASK_SHIFT) {
+                            unregister_code(KC_LSFT);
+                            unregister_code(KC_RSFT);
+                        }
+                        tap_code(KC_S);
+                        if (!is_caps) {
+                            unregister_code(KC_LSFT);
+                        } else if (mods & MOD_MASK_SHIFT) {
+                            set_mods(mods);
+                        }
+                    } else {
+                        if (mods & MOD_MASK_SHIFT) {
+                            unregister_code(KC_LSFT);
+                            unregister_code(KC_RSFT);
+                        }
+                        register_code(KC_RALT);
+                        tap_code(KC_S);
+                        unregister_code(KC_RALT);
+                        if (mods & MOD_MASK_SHIFT) {
+                            set_mods(mods);
+                        }
+                    }
+                } else if (detected_host_os() == OS_WINDOWS) {
+                    if (send_upper) {
+                        tap_code(KC_S); // capital ẞ isn't in this codepage
+                    } else {
+                        send_windows_alt_code(223); // ß
+                    }
+                } else { // Linux
+                    if (send_upper) {
+                        tap_code(KC_S);
+                    } else {
+                        register_unicode(0x00DF); // ß
+                    }
                 }
+            }
+            return false;
 
-                if (send_upper) {
-                    // --- SEND "S" ---
-                    // If Caps is OFF, we need to manually hold Shift to get "S"
-                    if (!is_caps) {
-                        register_code(KC_LSFT);
-                    }
-                    // If Caps is ON, and we are holding Shift (Inversion),
-                    // we must Release Shift to get "S" (because Shift+Caps = lowercase)
-                    else if (mods & MOD_MASK_SHIFT) {
-                        unregister_code(KC_LSFT);
-                        unregister_code(KC_RSFT);
-                    }
-
-                    tap_code(KC_S);
-
-                    // Restore state
-                    if (!is_caps) {
-                        unregister_code(KC_LSFT);
-                    } else if (mods & MOD_MASK_SHIFT) {
-                        set_mods(mods); // Restore held shift
-                    }
-
-                } else {
-                    // --- SEND "ß" (Option + s) ---
-                    // We must remove Shift, otherwise Opt+Shift+s might trigger other symbols
+        case DE_EURO:
+            if (record->event.pressed) {
+                if (host_is_mac()) {
+                    uint8_t mods = get_mods();
                     if (mods & MOD_MASK_SHIFT) {
                         unregister_code(KC_LSFT);
                         unregister_code(KC_RSFT);
                     }
-
                     register_code(KC_RALT);
-                    tap_code(KC_S);
+                    register_code(KC_LSFT);
+                    tap_code(KC_2);
+                    unregister_code(KC_LSFT);
                     unregister_code(KC_RALT);
-
-                    // Restore held shift
                     if (mods & MOD_MASK_SHIFT) {
                         set_mods(mods);
                     }
+                } else if (detected_host_os() == OS_WINDOWS) {
+                    send_windows_alt_code(128); // €
+                } else {
+                    register_unicode(0x20AC);
                 }
             }
             return false;
-        case DE_EURO:
-            if (record->event.pressed) {
-                // 1. Save current Shift state
-                uint8_t mods = get_mods();
 
-                // 2. Clear held Shift
-                // We do this to ensure we control exactly when Shift is pressed
-                // for the shortcut logic below.
-                if (mods & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSFT);
-                    unregister_code(KC_RSFT);
-                }
-
-                // 3. Send the Shortcut: Option (RALT) + Shift + 2
-                register_code(KC_RALT); // Option
-                register_code(KC_LSFT); // Shift
-                tap_code(KC_2);         // 2
-                unregister_code(KC_LSFT);
-                unregister_code(KC_RALT);
-
-                // 4. Restore Shift if it was originally held
-                if (mods & MOD_MASK_SHIFT) {
-                    set_mods(mods);
-                }
-            }
-            return false;
         case DE_PARA:
             if (record->event.pressed) {
-                // 1. Save current Shift state
-                uint8_t mods = get_mods();
-
-                // 2. Clear held Shift
-                // We must force Shift OFF, because Option+Shift+6 often produces '‚' (low single quote)
-                if (mods & MOD_MASK_SHIFT) {
-                    unregister_code(KC_LSFT);
-                    unregister_code(KC_RSFT);
-                }
-
-                // 3. Send the Shortcut: Option (RALT) + 6
-                register_code(KC_RALT);
-                tap_code(KC_6);
-                unregister_code(KC_RALT);
-
-                // 4. Restore Shift if it was originally held
-                if (mods & MOD_MASK_SHIFT) {
-                    set_mods(mods);
+                if (host_is_mac()) {
+                    uint8_t mods = get_mods();
+                    if (mods & MOD_MASK_SHIFT) {
+                        unregister_code(KC_LSFT);
+                        unregister_code(KC_RSFT);
+                    }
+                    register_code(KC_RALT);
+                    tap_code(KC_6);
+                    unregister_code(KC_RALT);
+                    if (mods & MOD_MASK_SHIFT) {
+                        set_mods(mods);
+                    }
+                } else if (detected_host_os() == OS_WINDOWS) {
+                    send_windows_alt_code(167); // §
+                } else {
+                    register_unicode(0x00A7);
                 }
             }
             return false;
