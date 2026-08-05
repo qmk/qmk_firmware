@@ -1,0 +1,9 @@
+// Copyright 2026 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
+
+#define WS2812_PWM_DRIVER PWMD15
+#define WS2812_PWM_CHANNEL 1
+#define WS2812_PWM_PAL_MODE 0
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM5
+#define WS2812_PWM_DMA_CHANNEL 5
