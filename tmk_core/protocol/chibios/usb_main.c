@@ -584,8 +584,9 @@ __attribute__((weak)) void virtser_recv(uint8_t c) {
 
 void virtser_task(void) {
     uint8_t buffer[CDC_EPSIZE];
-    while (receive_report(USB_ENDPOINT_OUT_CDC_DATA, buffer, sizeof(buffer))) {
-        for (int i = 0; i < sizeof(buffer); i++) {
+    size_t  received;
+    while ((received = usb_endpoint_out_receive_bytes(&usb_endpoints_out[USB_ENDPOINT_OUT_CDC_DATA], buffer, sizeof(buffer), TIME_IMMEDIATE)) > 0) {
+        for (size_t i = 0; i < received; i++) {
             virtser_recv(buffer[i]);
         }
     }

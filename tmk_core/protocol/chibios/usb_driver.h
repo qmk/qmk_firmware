@@ -197,7 +197,8 @@ void usb_endpoint_out_init(usb_endpoint_out_t *endpoint);
 void usb_endpoint_out_start(usb_endpoint_out_t *endpoint);
 void usb_endpoint_out_stop(usb_endpoint_out_t *endpoint);
 
-bool usb_endpoint_out_receive(usb_endpoint_out_t *endpoint, uint8_t *data, size_t size, sysinterval_t timeout);
+bool   usb_endpoint_out_receive(usb_endpoint_out_t *endpoint, uint8_t *data, size_t size, sysinterval_t timeout);
+size_t usb_endpoint_out_receive_bytes(usb_endpoint_out_t *endpoint, uint8_t *data, size_t size, sysinterval_t timeout);
 
 void usb_endpoint_out_suspend_cb(usb_endpoint_out_t *endpoint);
 void usb_endpoint_out_wakeup_cb(usb_endpoint_out_t *endpoint);
