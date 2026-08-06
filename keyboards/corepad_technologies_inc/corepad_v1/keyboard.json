@@ -5,7 +5,6 @@
     "url": "https://github.com/albertphu07/corepad-v1",
     "bootloader": "rp2040",
     "processor": "RP2040",
-    "board": "GENERIC_RP_RP2040",
     "features": {
         "bootmagic": true,
         "extrakey": true,
