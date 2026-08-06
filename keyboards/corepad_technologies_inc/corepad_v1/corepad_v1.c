@@ -7,8 +7,8 @@
 // must be enabled before the LED will light up. This runs before
 // rgblight_init(), so the power rail is up in time for the boot flash below.
 void keyboard_pre_init_kb(void) {
-    palSetLineMode(GP11, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetLine(GP11);
+    gpio_set_pin_output(GP11);
+    gpio_write_pin_high(GP11);
 
     keyboard_pre_init_user();
 }
