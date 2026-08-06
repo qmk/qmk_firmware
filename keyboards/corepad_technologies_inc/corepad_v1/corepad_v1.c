@@ -1,15 +1,14 @@
 // Copyright 2026 albertphu07
 // SPDX-License-Identifier: GPL-2.0-or-later
 #include QMK_KEYBOARD_H
-#include "gpio.h"
 #include "lib/logo.h"
 
 // The XIAO RP2040's onboard WS2812 LED sits behind a power load-switch that
 // must be enabled before the LED will light up. This runs before
 // rgblight_init(), so the power rail is up in time for the boot flash below.
 void keyboard_pre_init_kb(void) {
-    setPinOutput(GP11);
-    writePinHigh(GP11);
+    palSetLineMode(GP11, PAL_MODE_OUTPUT_PUSHPULL);
+    palSetLine(GP11);
 
     keyboard_pre_init_user();
 }
