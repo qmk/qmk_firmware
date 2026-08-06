@@ -55,5 +55,3 @@ bool matrix_is_on(uint8_t row, uint8_t col) {
 void clear_all_keys(void) {
     memset(matrix, 0, sizeof(matrix));
 }
-
-void led_set(uint8_t usb_led) {}
