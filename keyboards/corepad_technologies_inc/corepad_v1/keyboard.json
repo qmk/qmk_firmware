@@ -1,0 +1,44 @@
+{
+    "manufacturer": "corepad_technologies_inc",
+    "keyboard_name": "corepad_v1",
+    "maintainer": "albertphu07",
+    "url": "https://github.com/albertphu07/corepad-v1",
+    "bootloader": "rp2040",
+    "processor": "RP2040",
+    "board": "GENERIC_RP_RP2040",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "oled": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP3", "GP4", "GP2"]
+        ]
+    },
+    "ws2812": {
+        "pin": "GP12",
+        "driver": "vendor"
+    },
+    "rgblight": {
+        "led_count": 1,
+        "max_brightness": 200,
+        "sleep": true
+    },
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0xC0D3",
+        "device_version": "1.0.0"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "label": "SW1"},
+                {"matrix": [0, 1], "x": 1, "y": 0, "label": "SW2"},
+                {"matrix": [0, 2], "x": 2, "y": 0, "label": "SW3"}
+            ]
+        }
+    }
+}
