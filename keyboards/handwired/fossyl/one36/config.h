@@ -26,3 +26,14 @@
 
 #define IGNORE_MOD_TAP_INTERRUPT
 
+// AVR(ATmega32u4)はI2Cピンがハード固定のため、ピン定義は不要
+// 必要ならクロック速度だけ調整可能（省略時デフォルトでも動作）
+#define F_SCL 400000UL
+
+// TPS43プロファイル
+#define AZOTEQ_IQS5XX_TPS43
+
+// ジェスチャー設定（お好みで）
+#define AZOTEQ_IQS5XX_TAP_ENABLE            true
+#define AZOTEQ_IQS5XX_TWO_FINGER_TAP_ENABLE true
+#define AZOTEQ_IQS5XX_SCROLL_ENABLE         true
