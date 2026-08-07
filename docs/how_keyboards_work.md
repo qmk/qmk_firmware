@@ -35,7 +35,7 @@ USB for a given key.
 
 ## 3. What the Event Input/Kernel Does
 
-The *scancode* is mapped to a *keycode* dependent on the keyboard [60-keyboard.hwdb at Master](https://github.com/systemd/systemd/blob/master/hwdb.d/60-keyboard.hwdb). Without this mapping, the operating system will not receive a valid keycode and will be unable to do anything useful with that key press.
+The *scancode* is mapped to a *keycode* dependent on the keyboard [60-keyboard.hwdb at Main](https://github.com/systemd/systemd/blob/main/hwdb.d/60-keyboard.hwdb). Without this mapping, the operating system will not receive a valid keycode and will be unable to do anything useful with that key press.
 
 ## 4. What the Operating System Does
 
@@ -55,7 +55,7 @@ layout is set to QWERTY, a sample of the matching table is as follows:
 
 ## Back to the Firmware
 
-As the layout is generally fixed (unless you create your own), the firmware can actually call a keycode by its layout name directly to ease things for you. This is exactly what is done here with `KC_A` actually representing `0x04` in QWERTY. The full list can be found in [keycodes](keycodes.md).
+As the layout is generally fixed (unless you create your own), the firmware can actually call a keycode by its layout name directly to ease things for you. This is exactly what is done here with `KC_A` actually representing `0x04` in QWERTY. The full list can be found in [keycodes](keycodes).
 
 ## List of Characters You Can Send
 

@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "sixpack.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(B6);  // Backlight cathodes Col.3
-    setPinOutput(F6);  // Backlight cathodes Col.2
-    setPinOutput(F7);  // Backlight cathodes Col.1
+    gpio_set_pin_output(B6);  // Backlight cathodes Col.3
+    gpio_set_pin_output(F6);  // Backlight cathodes Col.2
+    gpio_set_pin_output(F7);  // Backlight cathodes Col.1
 
     matrix_init_user();
 }

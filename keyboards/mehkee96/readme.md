@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make mehkee96:default
 
-Flashing example for this keyboard ([after setting up the bootloadHID flashing environment](https://docs.qmk.fm/#/flashing_bootloadhid))
+Flashing example for this keyboard:
 
     make mehkee96:default:flash
 

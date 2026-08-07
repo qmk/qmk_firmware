@@ -27,18 +27,13 @@ enum layers {
   _ADJUST,
 };
 
- enum custom_keycodes {
-   QWERTY = SAFE_RANGE,
-   COLEMAK,
-   DVORAK,
-   LOWER,
-   RAISE,
-   EUCALYN,
-   ADJUST,
- };
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
- #define LOWER MO(_LOWER)
- #define RAISE MO(_RAISE)
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
+#define EUCALYN PDF(_EUCALYN)
 
  const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -57,7 +52,7 @@ enum layers {
    KC_Q,     KC_W,     KC_E,      KC_R,      KC_T,      KC_Y,      KC_U,      KC_I,      KC_O,      KC_P,
    KC_A,     KC_S,     KC_D,      KC_F,      KC_G,      KC_H,      KC_J,      KC_K,      KC_L,      KC_MINS,
    KC_Z,     KC_X,     KC_C,      KC_V,      KC_B,      KC_N,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH,
-   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LANG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LANG1),  KC_LEFT, KC_RGHT
+   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LNG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LNG1),  KC_LEFT, KC_RGHT
  ),
 
  /* Colemak
@@ -75,7 +70,7 @@ enum layers {
    KC_Q,     KC_W,     KC_F,      KC_P,      KC_G,      KC_J,      KC_L,      KC_U,      KC_Y,      KC_MINS,
    KC_A,     KC_R,     KC_S,      KC_T,      KC_D,      KC_H,      KC_N,      KC_E,      KC_I,      KC_O,
    KC_Z,     KC_X,     KC_C,      KC_V,      KC_B,      KC_K,      KC_M,      KC_COMM,   KC_DOT,    KC_SLSH,
-   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LANG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LANG1),  KC_LEFT, KC_RGHT
+   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LNG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LNG1),  KC_LEFT, KC_RGHT
  ),
 
  /* Dvorak
@@ -93,7 +88,7 @@ enum layers {
    KC_QUOT,   KC_COMM,  KC_DOT,    KC_P,      KC_Y,       KC_F,     KC_G,      KC_C,     KC_R,      KC_L,
    KC_A,      KC_O,     KC_E,      KC_U,      KC_I,       KC_D,     KC_H,      KC_T,     KC_N,      KC_S,
    KC_SCLN,   KC_Q,     KC_J,      KC_K,      KC_X,       KC_B,     KC_M,      KC_W,     KC_V,      KC_Z,
-   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LANG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LANG1),  KC_LEFT, KC_RGHT
+   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LNG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LNG1),  KC_LEFT, KC_RGHT
  ),
 
  /* Lower
@@ -128,7 +123,7 @@ enum layers {
  [_RAISE] = LAYOUT_ortho_4x10(
    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
    KC_EXLM, KC_DQT,  KC_HASH, KC_DLR,  KC_PERC, KC_AMPR, KC_QUOT, KC_LPRN, KC_RPRN, KC_UNDS,
-   KC_EQL,  KC_JYEN, KC_LCBR, KC_RCBR, KC_ASTR, KC_TILD, KC_PIPE, KC_LABK, KC_RABK, KC_QUES,
+   KC_EQL,  KC_INT3, KC_LCBR, KC_RCBR, KC_ASTR, KC_TILD, KC_PIPE, KC_LABK, KC_RABK, KC_QUES,
    KC_F1,   KC_LALT, _______, KC_LBRC, KC_RBRC, KC_SCLN, KC_COLN, _______, KC_BSLS, KC_SLSH
  ),
 
@@ -147,7 +142,7 @@ enum layers {
    KC_Q,     KC_W,      KC_COMM,   KC_DOT,    KC_SCLN,     KC_M,     KC_R,     KC_D,     KC_Y,      KC_P,
    KC_A,     KC_O,      KC_E,      KC_I,      KC_U,        KC_G,     KC_T,     KC_K,     KC_S,      KC_N,
    KC_Z,     KC_X,      KC_C,      KC_V,      KC_F,        KC_B,     KC_H,     KC_J,     KC_L,      KC_SLSH,
-   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LANG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LANG1),  KC_LEFT, KC_RGHT
+   KC_LSFT, KC_LGUI, LT(_LOWER,KC_LNG2),  KC_LCTL, KC_SPC,  KC_BSPC, KC_ENT, LT(_RAISE,KC_LNG1),  KC_LEFT, KC_RGHT
  ),
 
  /* Adjust (Lower + Raise)
@@ -162,7 +157,7 @@ enum layers {
   * `---------------------------------------------------------------------'
   */
  [_ADJUST] =  LAYOUT_ortho_4x10(
-   _______,  RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______,
+   _______,  UG_TOGG, UG_NEXT, UG_HUED, UG_HUEU, UG_SATD, UG_SATU, UG_VALD, UG_VALU, _______,
    _______, _______,  _______,  AU_ON,    AU_OFF, AG_NORM, AG_SWAP, _______, BL_TOGG, BL_STEP,
    QWERTY,  COLEMAK, DVORAK,  EUCALYN, _______, _______, _______, _______, _______, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -173,34 +168,4 @@ enum layers {
 
  layer_state_t layer_state_set_user(layer_state_t state) {
    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
- }
-
- bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-   switch (keycode) {
-     case QWERTY:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_QWERTY);
-       }
-       return false;
-       break;
-     case COLEMAK:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_COLEMAK);
-       }
-       return false;
-       break;
-     case DVORAK:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_DVORAK);
-       }
-       return false;
-       break;
-     case EUCALYN:
-       if (record->event.pressed) {
-         set_single_persistent_default_layer(_EUCALYN);
-       }
-       return false;
-       break;
-   }
-   return true;
  }

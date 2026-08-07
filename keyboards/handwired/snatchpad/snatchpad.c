@@ -1,7 +1,7 @@
 // Copyright 2022 xia0 (@xia0)
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-#include "snatchpad.h"
+#include "quantum.h"
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {
@@ -29,9 +29,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
                 break;
             default:
                 if (clockwise) {
-                    tap_code(KC_MS_L);
+                    tap_code(MS_LEFT);
                 } else {
-                    tap_code(KC_MS_R);
+                    tap_code(MS_RGHT);
                 }
                 break;
         }
@@ -54,9 +54,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
                 break;
             default:
                 if (clockwise) {
-                    tap_code(KC_MS_D);
+                    tap_code(MS_DOWN);
                 } else {
-                    tap_code(KC_MS_U);
+                    tap_code(MS_UP);
                 }
                 break;
         }

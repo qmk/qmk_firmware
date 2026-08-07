@@ -1,0 +1,20 @@
+{
+    "keycodes": {
+       "0x7C79": {
+            "group": "quantum",
+            "key": "QK_REPEAT_KEY",
+            "label": "Repeat",
+            "aliases": [
+                "QK_REP"
+            ]
+        },
+        "0x7C7A": {
+            "group": "quantum",
+            "key": "QK_ALT_REPEAT_KEY",
+            "label": "Repeat Alternate",
+            "aliases": [
+                "QK_AREP"
+            ]
+        }
+    }
+}

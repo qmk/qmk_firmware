@@ -16,12 +16,13 @@
 
 #pragma once
 
-#include "stdint.h"
-#include "stdbool.h"
+#include <stdint.h>
+#include <stdbool.h>
 
 #include "progmem.h"
 #include "action_layer.h"
 #include "matrix.h"
+#include "transaction_id_define.h"
 
 #ifndef RPC_M2S_BUFFER_SIZE
 #    define RPC_M2S_BUFFER_SIZE 32
@@ -42,7 +43,6 @@ bool transport_execute_transaction(int8_t id, const void *initiator2target_buf, 
 
 #ifdef ENCODER_ENABLE
 #    include "encoder.h"
-#    define NUMBER_OF_ENCODERS (sizeof((pin_t[])ENCODERS_PAD_A) / sizeof(pin_t))
 #endif // ENCODER_ENABLE
 
 #ifdef BACKLIGHT_ENABLE
@@ -66,8 +66,8 @@ typedef struct _split_master_matrix_sync_t {
 
 #ifdef ENCODER_ENABLE
 typedef struct _split_slave_encoder_sync_t {
-    uint8_t checksum;
-    uint8_t state[NUMBER_OF_ENCODERS];
+    uint8_t          checksum;
+    encoder_events_t events;
 } split_slave_encoder_sync_t;
 #endif // ENCODER_ENABLE
 
@@ -102,6 +102,7 @@ typedef struct _split_mods_sync_t {
     uint8_t weak_mods;
 #    ifndef NO_ACTION_ONESHOT
     uint8_t oneshot_mods;
+    uint8_t oneshot_locked_mods;
 #    endif // NO_ACTION_ONESHOT
 } split_mods_sync_t;
 #endif // SPLIT_MODS_ENABLE
@@ -115,13 +116,37 @@ typedef struct _split_slave_pointing_sync_t {
 } split_slave_pointing_sync_t;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+#    include "haptic.h"
+typedef struct _split_slave_haptic_sync_t {
+    haptic_config_t haptic_config;
+    uint8_t         haptic_play;
+} split_slave_haptic_sync_t;
+#endif // defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+
+#if defined(SPLIT_ACTIVITY_ENABLE)
+#    include "keyboard.h"
+typedef struct _split_slave_activity_sync_t {
+    uint32_t matrix_timestamp;
+    uint32_t encoder_timestamp;
+    uint32_t pointing_device_timestamp;
+} split_slave_activity_sync_t;
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
+
+#if defined(SPLIT_TRANSACTION_RPC)
 typedef struct _rpc_sync_info_t {
-    int8_t  transaction_id;
-    uint8_t m2s_length;
-    uint8_t s2m_length;
+    uint8_t checksum;
+    struct {
+        int8_t  transaction_id;
+        uint8_t m2s_length;
+        uint8_t s2m_length;
+    } payload;
 } rpc_sync_info_t;
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_RPC)
+
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+#    include "os_detection.h"
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 typedef struct _split_shared_memory_t {
 #ifdef USE_I2C
@@ -186,11 +211,27 @@ typedef struct _split_shared_memory_t {
     split_slave_pointing_sync_t pointing;
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_WATCHDOG_ENABLE)
+    bool watchdog_pinged;
+#endif // defined(SPLIT_WATCHDOG_ENABLE)
+
+#if defined(HAPTIC_ENABLE) && defined(SPLIT_HAPTIC_ENABLE)
+    split_slave_haptic_sync_t haptic_sync;
+#endif // defined(HAPTIC_ENABLE)
+
+#if defined(SPLIT_ACTIVITY_ENABLE)
+    split_slave_activity_sync_t activity_sync;
+#endif // defined(SPLIT_ACTIVITY_ENABLE)
+
+#if defined(SPLIT_TRANSACTION_RPC)
     rpc_sync_info_t rpc_info;
     uint8_t         rpc_m2s_buffer[RPC_M2S_BUFFER_SIZE];
     uint8_t         rpc_s2m_buffer[RPC_S2M_BUFFER_SIZE];
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_RPC)
+
+#if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+    os_variant_t detected_os;
+#endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 } split_shared_memory_t;
 
 extern split_shared_memory_t *const split_shmem;

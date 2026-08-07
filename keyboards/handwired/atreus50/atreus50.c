@@ -1,10 +1,10 @@
-#include "atreus50.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
 
     // Turn status LED on
-    //DDRE |= (1<<6);
-    PORTE |= (1<<6);
+    //gpio_set_pin_output(E6);
+    gpio_write_pin_high(E6);
 
 	matrix_init_user();
 };

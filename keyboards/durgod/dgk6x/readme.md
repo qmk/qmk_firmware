@@ -11,8 +11,10 @@ This DGK6X code is shared between the ANSI variants of Venus, Hades and Galaxy k
 ### Build
 
 Instructions for building the Venus, Hades and Galaxy firmware can be found here: 
-* [Venus](venus/readme.md)
-* [Hades](hades/readme.md)
+* [Venus ANSI](venus_ansi/readme.md)
+* [Venus ISO](venus_iso/readme.md)
+* [Hades ANSI](hades_ansi/readme.md)
+* [Hades ISO](hades_iso/readme.md)
 * [Galaxy](galaxy/readme.md)
 
 ### Initial Flash

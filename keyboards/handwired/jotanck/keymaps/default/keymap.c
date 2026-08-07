@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT_ortho_4x12 (
-    _______, RESET,   _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
+    _______, QK_BOOT, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
@@ -84,16 +84,16 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   #ifdef JOTANCK_LEDS
   switch (get_highest_layer(state)) {
   case _LOWER:
-    writePinHigh(JOTANCK_LED1);
-    writePinLow(JOTANCK_LED2);
+    gpio_write_pin_high(JOTANCK_LED1);
+    gpio_write_pin_low(JOTANCK_LED2);
     break;
   case _RAISE:
-    writePinLow(JOTANCK_LED1);
-    writePinHigh(JOTANCK_LED2);
+    gpio_write_pin_low(JOTANCK_LED1);
+    gpio_write_pin_high(JOTANCK_LED2);
     break;
   default:
-    writePinLow(JOTANCK_LED1);
-    writePinLow(JOTANCK_LED2);
+    gpio_write_pin_low(JOTANCK_LED1);
+    gpio_write_pin_low(JOTANCK_LED2);
     break; 
   };
   #endif

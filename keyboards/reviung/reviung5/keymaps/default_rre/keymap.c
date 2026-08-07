@@ -23,18 +23,18 @@ enum layer_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Base */
-    [_BASE] = LAYOUT_reviung5(
+    [_BASE] = LAYOUT(
         KC_MUTE,       KC_MPRV,       KC_MPLY,       KC_MNXT,      TG(_LOWER)
     ),
-    [_LOWER] = LAYOUT_reviung5(
-        RGB_TOG,       LCTL(KC_X),    LCTL(KC_C),    LCTL(KC_V),    _______
+    [_LOWER] = LAYOUT(
+        UG_TOGG,       LCTL(KC_X),    LCTL(KC_C),    LCTL(KC_V),    _______
     )
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         if (IS_LAYER_ON(_LOWER)) {
-          tap_code16((clockwise == true) ? KC_WH_D : KC_WH_U);
+          tap_code16((clockwise == true) ? MS_WHLD : MS_WHLU);
         } else {
           tap_code((clockwise == true) ? KC_VOLD : KC_VOLU);
         }

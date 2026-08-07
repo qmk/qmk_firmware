@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "tennie.h"
+#include "quantum.h"
 
 void matrix_post_init(void) {
 	rgblight_enable_noeeprom();

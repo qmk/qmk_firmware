@@ -18,7 +18,7 @@ enum {
   TD_RST
 };
 
-void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_rst_reset (tap_dance_state_t *state, void *user_data) {
   if (state->count >= 2) {
     reset_keyboard();
     reset_tap_dance(state);
@@ -26,7 +26,7 @@ void dance_rst_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 //All tap dance functions would go here. Only showing this one.
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
   [TD_RST] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, NULL, dance_rst_reset)
 };
 
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_mit(
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,     KC_O,     KC_P,    KC_BSPC,
-    KC_LCTRL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN, KC_QUOT,
+    KC_LCTL,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,     KC_L,     KC_SCLN, KC_QUOT,
     KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,  KC_DOT,   KC_SLSH, KC_ENT,
               KC_DEL,  KC_LGUI, KC_LALT, LOWER,     KC_SPACE,       RAISE,   KC_RALT,  KC_MENU,  KC_RCTL
   ),
@@ -101,9 +101,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *      └────┴────┴────┴────┴─────────┴────┴────┴────┴────┘
    */
   [_OTHER] = LAYOUT_mit(
-    TD(TD_RST), _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  RGB_SAI,  RGB_HUI,  RGB_VAI,
-    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  RGB_SAD,  RGB_HUD,  RGB_VAD,
-    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  RGB_MOD,
+    TD(TD_RST), _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  UG_SATU,  UG_HUEU,  UG_VALU,
+    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  UG_SATD,  UG_HUED,  UG_VALD,
+    _______,    _______,   _______,    _______,   _______,   _______,   _______,   _______,  _______,  _______,  _______,  UG_NEXT,
                 _______,   _______,    _______,   _______,         _______,        _______,  _______,  _______,  _______
   )
 

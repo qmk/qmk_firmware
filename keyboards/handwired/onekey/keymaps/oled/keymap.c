@@ -63,7 +63,7 @@ static void stop_scrolling(void) {
     }
 }
 
-static void dance_oled_finished(qk_tap_dance_state_t *state, void *user_data) {
+static void dance_oled_finished(tap_dance_state_t *state, void *user_data) {
     switch (state->count) {
         case 1:
             if (state->pressed) {
@@ -155,7 +155,7 @@ static void dance_oled_finished(qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
-qk_tap_dance_action_t tap_dance_actions[] = {[TD_OLED] = ACTION_TAP_DANCE_FN(dance_oled_finished)};
+tap_dance_action_t tap_dance_actions[] = {[TD_OLED] = ACTION_TAP_DANCE_FN(dance_oled_finished)};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {LAYOUT_ortho_1x1(TD(TD_OLED))};
 

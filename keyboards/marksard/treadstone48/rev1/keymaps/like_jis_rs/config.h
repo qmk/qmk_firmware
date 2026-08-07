@@ -23,7 +23,6 @@
 #endif
 #define TAPPING_TERM 225
 #define PREVENT_STUCK_MODIFIERS
-#define IGNORE_MOD_TAP_INTERRUPT
 
 #ifdef MOUSEKEY_ENABLE
   #undef MOUSEKEY_INTERVAL
@@ -47,5 +46,3 @@
 
 // If you plug in the USB on the right side, please enable MASTER_RIGHT
 // #define RHYMESTONE_RIGHTHAND
-
-#define OLED_FONT_H "keyboards/marksard/treadstone48/common/glcdfont.c"

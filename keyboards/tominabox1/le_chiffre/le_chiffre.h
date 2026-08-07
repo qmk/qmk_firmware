@@ -1,33 +1,17 @@
-/* Copyright 2020 tominabox1
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+// Copyright 2020 tominabox1 (@tominabox1) and sickbabies
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
-#include "quantum.h"
+#define KEYLOG_LEN 11
 
-#define XXX KC_NO
+extern const char PROGMEM code_to_name[53];
+extern const char PROGMEM lechiffre_logo[96];
+extern const char PROGMEM oled_section_break[6];
 
-#define LAYOUT( \
-  K00, K01, K02, K03, K04, K38, K05, K06, K07, K08, K09, \
-  K10, K11, K12, K13, K14,      K15, K16, K17, K18, K19, \
-  K20, K21, K22, K23, K24,      K25, K26, K27, K28, K29, \
-            K32,      K34,      K35,      K37       \
-) \
-{ \
-  { K00, K01, K02, K03, K04, K05, K06, K07, K08, K09  }, \
-  { K10, K11, K12, K13, K14, K15, K16, K17, K18, K19  }, \
-  { K20, K21, K22, K23, K24, K25, K26, K27, K28, K29  }, \
-  { XXX, XXX, K32, XXX, K34, K35, XXX, K37, K38, XXX  }  \
-}
+void add_keylog(uint16_t keycode, keyrecord_t* record);
+void render_keylock_status(led_t led_state);
+void render_keylogger_status(void);
+void render_layer_status(const char* layer_name);
+void render_mod_status(uint8_t modifiers);
+void update_layer_namebuf(layer_state_t layer, bool force_update);

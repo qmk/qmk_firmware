@@ -16,8 +16,11 @@
  */
 
 #include "audio.h"
-#include "ch.h"
-#include "hal.h"
+#include "gpio.h"
+
+// Need to disable GCC's "tautological-compare" warning for this file, as it causes issues when running `KEEP_INTERMEDIATES=yes`. Corresponding pop at the end of the file.
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wtautological-compare"
 
 /*
   Audio Driver: DAC
@@ -74,9 +77,9 @@ GPTConfig gpt7cfg1 = {.frequency = AUDIO_DAC_SAMPLE_RATE,
 
 static void gpt_audio_state_cb(GPTDriver *gptp);
 GPTConfig   gptStateUpdateCfg = {.frequency = 10,
-                               .callback  = gpt_audio_state_cb,
-                               .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
-                               .dier      = 0U};
+                                 .callback  = gpt_audio_state_cb,
+                                 .cr2       = TIM_CR2_MMS_1, /* MMS = 010 = TRGO on Update Event.    */
+                                 .dier      = 0U};
 
 static const DACConfig dac_conf_ch1 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
 static const DACConfig dac_conf_ch2 = {.init = AUDIO_DAC_OFF_VALUE, .datamode = DAC_DHRM_12BIT_RIGHT};
@@ -187,7 +190,7 @@ static void gpt_audio_state_cb(GPTDriver *gptp) {
     }
 }
 
-void audio_driver_initialize() {
+void audio_driver_initialize_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_ANALOG);
         dacStart(&DACD1, &dac_conf_ch1);
@@ -220,7 +223,7 @@ void audio_driver_initialize() {
     gptStart(&AUDIO_STATE_TIMER, &gptStateUpdateCfg);
 }
 
-void audio_driver_stop(void) {
+void audio_driver_stop_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         gptStopTimer(&GPTD6);
 
@@ -238,7 +241,7 @@ void audio_driver_stop(void) {
     gptStopTimer(&AUDIO_STATE_TIMER);
 }
 
-void audio_driver_start(void) {
+void audio_driver_start_impl(void) {
     if ((AUDIO_PIN == A4) || (AUDIO_PIN_ALT == A4)) {
         dacStartConversion(&DACD1, &dac_conv_grp_ch1, (dacsample_t *)dac_buffer_1, AUDIO_DAC_BUFFER_SIZE);
     }
@@ -247,3 +250,5 @@ void audio_driver_start(void) {
     }
     gptStartContinuous(&AUDIO_STATE_TIMER, 2U);
 }
+
+#pragma GCC diagnostic pop

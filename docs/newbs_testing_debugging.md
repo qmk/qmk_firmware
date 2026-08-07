@@ -2,8 +2,8 @@
 
 ## Testing
 
-[Moved here](faq_misc.md#testing)
+[Moved here](faq_misc#testing)
 
-## Debugging :id=debugging
+## Debugging {#debugging}
 
-[Moved here](faq_debug.md#debugging)
+[Moved here](faq_debug#debugging)

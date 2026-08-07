@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "j73gl.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
     led_config_t g_led_config = { {
@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         { 120,   0 }, { 128,  16 }, { 131,  32 }, { 124,  48 }, { 118,  64 },{ 101,  64 }, { 109,  48 }, { 116,  32 }, { 113,  16 }, { 105,   0 },
         {  90,   0 }, {  98,  16 }, { 101,  32 }, {  94,  48 }, {  86,  64 },{  69,  64 }, {  79,  48 }, {  86,  32 }, {  83,  16 }, {  75,   0 },
         {  60,   0 }, {  68,  16 }, {  71,  32 }, {  64,  48 }, {  53,  64 },{  36,  64 }, {  49,  48 }, {  56,  32 }, {  53,  16 }, {  45,   0 },
-        {  30,   0 }, {  38,  16 }, {  41,  32 }, {  34,  48 }, {  26,  32 },{  23,  16 }, {  15,  48 }, {   0,   0 }, {  11,  16 }, {  13,  32 },
+        {  30,   0 }, {  38,  16 }, {  41,  32 }, {  34,  48 }, {  26,  32 },{  23,  16 }, {  15,   0 }, {   0,   0 }, {  11,  16 }, {  13,  32 },
         {  17,  48 }, {  2,   64 }, {  19,  64 }
     }, {
     // LED Index to Flag

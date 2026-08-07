@@ -1,0 +1,79 @@
+{
+    "manufacturer": "jeremyscook",
+    "keyboard_name": "jcpm2",
+    "maintainer": "jeremyscook",
+    "development_board": "promicro",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D2", "pin_b": "D3"}
+        ]
+    },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["D4", null, "F4", "B3"],
+            ["B4", null, "F5", "B2"],
+            ["B1", "F7", "F6", "B6"]
+        ]
+    },
+    "rgb_matrix": {
+        "animations": {
+            "digital_rain": true,
+            "hue_breathing": true,
+            "typing_heatmap": true
+        },
+        "default": {
+            "animation": "typing_heatmap",
+            "val": 180
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"matrix": [2, 0], "x": 0, "y": 64, "flags": 4},
+            {"matrix": [2, 1], "x": 75, "y": 64, "flags": 4},
+            {"matrix": [2, 2], "x": 150, "y": 64, "flags": 4},
+            {"matrix": [1, 2], "x": 150, "y": 32, "flags": 4},
+            {"matrix": [0, 2], "x": 150, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 224, "y": 0, "flags": 4},
+            {"matrix": [1, 3], "x": 224, "y": 32, "flags": 4},
+            {"matrix": [2, 3], "x": 224, "y": 64, "flags": 4},
+            {"x": 224, "y": 0, "flags": 2},
+            {"x": 224, "y": 64, "flags": 2},
+            {"x": 112, "y": 64, "flags": 2},
+            {"x": 0, "y": 64, "flags": 2}
+        ],
+        "sleep": true
+    },
+    "url": "https://github.com/JeremySCook/JC-Pro-Macro-2",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "pin": "C6"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2}
+            ]
+        }
+    }
+}

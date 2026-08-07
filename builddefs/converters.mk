@@ -1,0 +1,34 @@
+# Remove whitespace from any rule.mk provided vars
+#   - env cannot be overwritten but cannot have whitespace anyway
+CONVERT_TO:=$(strip $(CONVERT_TO))
+ifneq ($(CONVERT_TO),)
+
+    # stash so we can overwrite env provided vars if needed
+    ACTIVE_CONVERTER=$(CONVERT_TO)
+
+    ifeq ($(PIN_COMPATIBLE),)
+        $(call CATASTROPHIC_ERROR,Converting to '$(CONVERT_TO)' not possible!)
+    endif
+
+    # glob to search each platfrorm and/or check for valid converter
+    CONVERTER := $(wildcard $(PLATFORM_PATH)/*/converters/$(PIN_COMPATIBLE)_to_$(CONVERT_TO)/)
+    ifeq ($(CONVERTER),)
+        $(call CATASTROPHIC_ERROR,Converting from '$(PIN_COMPATIBLE)' to '$(CONVERT_TO)' not possible!)
+    endif
+
+    -include $(CONVERTER)/pre_converter.mk
+
+    PLATFORM_KEY = $(shell echo $(CONVERTER) | cut -d "/" -f2)
+
+    # Configure any defaults
+    OPT_DEFS += -DCONVERT_TO_$(shell echo $(CONVERT_TO) | tr '[:lower:]' '[:upper:]')
+    OPT_DEFS += -DCONVERTER_TARGET=\"$(CONVERT_TO)\"
+    OPT_DEFS += -DCONVERTER_ENABLED
+    VPATH += $(CONVERTER)
+
+    # Configure for "alias" - worst case it produces an idential define
+    OPT_DEFS += -DCONVERT_TO_$(shell echo $(ACTIVE_CONVERTER) | tr '[:lower:]' '[:upper:]')
+
+    # Finally run any converter specific logic
+    include $(CONVERTER)/converter.mk
+endif

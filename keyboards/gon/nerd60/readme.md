@@ -24,4 +24,4 @@ not work anymore. You will lose your warranty and official support from GON!_
 
 ## Reset button
 
-To run the `make dfu` command to flash keymaps onto the board, you need to put the board into DFU mode. As the GON NerD PCBs do not have a reset button on the board to put it into DFU mode, be sure to include a `RESET` button on your keymap. Otherwise you'll have to unscrew your keyboard from the case and short the GND and RST pins.
+To run the `make dfu` command to flash keymaps onto the board, you need to put the board into DFU mode. As the GON NerD PCBs do not have a reset button on the board to put it into DFU mode, be sure to include a `QK_BOOT` button on your keymap. Otherwise you'll have to unscrew your keyboard from the case and short the GND and RST pins.

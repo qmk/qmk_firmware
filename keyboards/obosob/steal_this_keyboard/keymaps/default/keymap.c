@@ -43,9 +43,9 @@ KC_Z,    MT_X,    MT_C,    KC_V,    KC_B,    KC_N,    KC_M,    MT_COMM, MT_DOT, 
                            KC_P0,   KC_BSPC, MT_SPC,  KC_P1
                         ),
 	[1] = LAYOUT_split_3x5_2(
-_______, _______, _______, _______, _______, _______, KC_BTN1, KC_WH_U, KC_BTN2, _______, 
-_______, KC_BTN2, XXXXXXX, KC_BTN1, _______, _______, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, 
-_______, _______, _______, _______, _______, _______, KC_WH_L, KC_WH_D, KC_WH_R, _______, 
+_______, _______, _______, _______, _______, _______, MS_BTN1, MS_WHLU, MS_BTN2, _______, 
+_______, MS_BTN2, XXXXXXX, MS_BTN1, _______, _______, MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, 
+_______, _______, _______, _______, _______, _______, MS_WHLL, MS_WHLD, MS_WHLR, _______, 
                            _______, _______, _______, _______
                         ),
 	[2] = LAYOUT_split_3x5_2(
@@ -85,7 +85,7 @@ KC_PAST, KC_4,    KC_5,    KC_6,    KC_PEQL, _______, _______, _______, _______,
 	[7] = LAYOUT_split_3x5_2(
 _______, _______, KC_COLN, KC_ESC,  _______, _______, _______, _______, _______, KC_DEL, 
 _______, KC_PERC, KC_SLSH, KC_ENT,  _______, DF(1),   KC_LGUI, _______, _______, _______, 
-_______, _______, _______, KC_EXLM, _______, DF(0),   _______, MT_COMM, MT_DOT,  RESET, 
+_______, _______, _______, KC_EXLM, _______, DF(0),   _______, MT_COMM, MT_DOT,  QK_BOOT, 
                            _______, KC_TAB,  XXXXXXX, _______
                     )
 };

@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
     KC_TRNS,KC_RBRC,KC_LABK,KC_ASTR,KC_SCLN,KC_LBRC,              KC_1,   KC_2,   KC_3,   KC_4,   KC_5, KC_EQL,
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
-    KC_TRNS,KC_BSLS,KC_RABK,KC_LPRN,KC_JYEN,KC_UNDS,              KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_PENT,
+    KC_TRNS,KC_BSLS,KC_RABK,KC_LPRN,KC_INT3,KC_UNDS,              KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_PENT,
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+--- ---+-------+-------|
     KC_TRNS,                        KC_TRNS,KC_TRNS,           KC_TRNS,KC_TRNS,                        KC_TRNS,
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+--- ---+-------+-------|
@@ -61,11 +61,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  ),
  [_ADJUST] = LAYOUT(
  //,-----------------------------------------------.          ,-----------------------------------------------.
-    KC_TRNS, RGBRST,RGB_TOG,  KC_NO,  KC_NO,  KC_NO,             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    KC_TRNS, RGBRST,UG_TOGG,  KC_NO,  KC_NO,  KC_NO,             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
-    KC_TRNS,RGB_HUI,RGB_SAI,RGB_VAI,AG_SWAP,  KC_NO,             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    KC_TRNS,UG_HUEU,UG_SATU,UG_VALU,AG_SWAP,  KC_NO,             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
-    KC_TRNS,RGB_HUD,RGB_SAD,RGB_VAD,AG_NORM,  KC_NO,             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+    KC_TRNS,UG_HUED,UG_SATD,UG_VALD,AG_NORM,  KC_NO,             KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
     KC_TRNS,                        KC_TRNS,KC_TRNS,           KC_TRNS,KC_TRNS,                        KC_TRNS,
  //|-------+-------+-------+-------+-------+-------|          |-------+-------+-------+-------+-------+-------|
@@ -116,7 +116,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case RGB_MOD:
+    case QK_UNDERGLOW_TOGGLE:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
           rgblight_mode(RGB_current_mode);

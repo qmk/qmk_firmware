@@ -18,38 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#define PRODUCT Tractyl Manuform(5x6) Proton C
-
-// wiring of each half
-#define MATRIX_COL_PINS \
-    { B0, B1, B2, B3, B4, B5 }
-#define MATRIX_ROW_PINS \
-    { B10, B11, B12, A14, A13, A15 }
-
-#define UNUSED_PINS \
-    { A0, A2, A7, A8 }
-// B2 used for BOOT1, has internal pull down?
-// A9 has internal pull-down
-// A11 and A12 are used for USB sense.  DO NOT USE.
-
-#define DIODE_DIRECTION     COL2ROW
-
 // #define USB_VBUS_PIN        B10
-#define SPLIT_HAND_PIN      C14  // high = left, low = right
 
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN          A6
 #define WS2812_PWM_DRIVER   PWMD3  // default: PWMD2
 #define WS2812_PWM_CHANNEL  1      // default: 2
 #define WS2812_PWM_PAL_MODE 2      // Pin "alternate function", see the respective datasheet for the appropriate values for your MCU. default: 2
 //#define WS2812_PWM_COMPLEMENTARY_OUTPUT // Define for a complementary timer output (TIMx_CHyN); omit for a normal timer output (TIMx_CHy).
-// #define WS2812_DMA_STREAM   STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-#define WS2812_DMA_CHANNEL  3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
-
-#define RGBLED_NUM          20
-#define RGBLIGHT_SPLIT
-#define RGBLED_SPLIT \
-    { 10, 10 }
+// #define WS2812_PWM_DMA_STREAM   STM32_DMA1_STREAM3  // DMA Stream for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
+#define WS2812_PWM_DMA_CHANNEL  3  // DMA Channel for TIMx_UP, see the respective reference manual for the appropriate values for your MCU.
 
 #define DEBUG_LED_PIN C13
 
@@ -75,12 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C1_SDA_PAL_MODE        4
 #define I2C1_CLOCK_SPEED         400000
 
-/* encoder config */
-#define ENCODERS_PAD_A \
-    { A7 }
-#define ENCODERS_PAD_B \
-    { A8 }
-
 /* spi config for eeprom and pmw3360 sensor */
 #define SPI_DRIVER                           SPID2
 #define SPI_SCK_PIN                          B13
@@ -99,6 +70,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define DEBUG_EEPROM_OUTPUT
 
 /* pmw3360 config  */
-#define PMW3360_CS_PIN                       B9
-#define PMW3360_SPI_MODE                     3
-#define PMW3360_SPI_DIVISOR                  8
+#define PMW33XX_CS_PIN                       B9
+#define PMW33XX_SPI_DIVISOR                  8

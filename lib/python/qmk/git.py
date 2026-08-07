@@ -13,9 +13,6 @@ def git_get_version(repo_dir='.', check_dir='.'):
     """
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
 
-    if repo_dir != '.':
-        repo_dir = Path('lib') / repo_dir
-
     if check_dir != '.':
         check_dir = repo_dir / check_dir
 
@@ -26,8 +23,8 @@ def git_get_version(repo_dir='.', check_dir='.'):
             return git_describe.stdout.strip()
 
         else:
-            cli.log.warn(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
-            print(git_describe.stderr)
+            cli.log.warning(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
+            cli.log.warning(git_describe.stderr)
             return None
 
     return None
@@ -60,6 +57,25 @@ def git_get_tag():
     git_tag = cli.run(['git', 'describe', '--abbrev=0', '--tags'])
     if git_tag.returncode == 0:
         return git_tag.stdout.strip()
+
+
+def git_get_last_log_entry(branch_name):
+    """Retrieves the last log entry for the branch being worked on.
+    """
+    git_lastlog = cli.run(['git', '--no-pager', 'log', '--pretty=format:%ad (%h) -- %s', '--date=iso', '-n1', branch_name])
+
+    if git_lastlog.returncode == 0 and git_lastlog.stdout:
+        return git_lastlog.stdout.strip()
+
+
+def git_get_common_ancestor(branch_a, branch_b):
+    """Retrieves the common ancestor between for the two supplied branches.
+    """
+    git_merge_base = cli.run(['git', 'merge-base', branch_a, branch_b])
+    git_branchpoint_log = cli.run(['git', '--no-pager', 'log', '--pretty=format:%ad (%h) -- %s', '--date=iso', '-n1', git_merge_base.stdout.strip()])
+
+    if git_branchpoint_log.returncode == 0 and git_branchpoint_log.stdout:
+        return git_branchpoint_log.stdout.strip()
 
 
 def git_get_remotes():
@@ -102,9 +118,38 @@ def git_check_repo():
     return dot_git_dir.is_dir()
 
 
+def git_check_safe(repo_dir='.'):
+    """Checks if a directory passes the git safe.directory checks
+    """
+    if repo_dir != '.':
+        git_cmd = ['git', '-C', repo_dir, 'status']
+    else:
+        git_cmd = ['git', 'status']
+
+    status = cli.run(git_cmd)
+    return '--add safe.directory' not in status.stderr
+
+
 def git_check_deviation(active_branch):
     """Return True if branch has custom commits
     """
     cli.run(['git', 'fetch', 'upstream', active_branch])
     deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
     return bool(deviations.returncode)
+
+
+def git_get_ignored_files(check_dir='.'):
+    """Return a list of files that would be captured by the current .gitignore
+    """
+    invalid = cli.run(['git', 'ls-files', '-c', '-o', '-i', '--exclude-from=.gitignore', check_dir])
+    if invalid.returncode != 0:
+        return []
+    return invalid.stdout.strip().splitlines()
+
+
+def git_get_qmk_hash():
+    output = cli.run(['git', 'rev-parse', '--short', 'HEAD'])
+    if output.returncode != 0:
+        return None
+
+    return output.stdout.strip()

@@ -32,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,                   _______,
         KC_PSLS, KC_F21,  KC_F22,  KC_F23,
         KC_PAST, KC_F18,  KC_F19,  KC_F20,
-        KC_NLCK, KC_F15,  KC_F16,  KC_F17,
-        RESET,   _______, KC_F13,  KC_F14
+        KC_NUM,  KC_F15,  KC_F16,  KC_F17,
+        QK_BOOT, _______, KC_F13,  KC_F14
     )
 };
 

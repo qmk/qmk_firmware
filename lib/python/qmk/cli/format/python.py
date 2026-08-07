@@ -7,7 +7,7 @@ from milc import cli
 from qmk.path import normpath
 
 py_file_suffixes = ('py',)
-py_dirs = ['lib/python']
+py_dirs = ['lib/python', 'util/ci']
 
 
 def yapf_run(files):
@@ -47,7 +47,7 @@ def format_python(cli):
 
         if not files:
             cli.log.error('No Python files in filelist: %s', ', '.join(map(str, cli.args.files)))
-            exit(0)
+            return False
 
         if cli.args.all_files:
             cli.log.warning('Filenames passed with -a, only formatting: %s', ','.join(map(str, files)))

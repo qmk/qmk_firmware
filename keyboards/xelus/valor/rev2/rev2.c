@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "rev2.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
@@ -64,9 +64,4 @@ led_config_t g_led_config = { {
   8, 8, 8, 8
 } };
 
-
-void keyboard_pre_init_kb(void) {
-    rgb_matrix_set_flags(LED_FLAG_MODIFIER|LED_FLAG_UNDERGLOW|LED_FLAG_KEYLIGHT);
-    keyboard_pre_init_user();
-}
 #endif

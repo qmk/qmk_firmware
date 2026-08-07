@@ -4,8 +4,8 @@
 
 WT65-A is a keyboard PCB supporting 65% layout with 0.5U blocker. [More info at wilba.tech](https://wilba.tech/)
 
-Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
-Hardware Supported: wilba.tech WT65-A  
+Keyboard Maintainer: [Wilba](https://github.com/wilba)
+Hardware Supported: wilba.tech WT65-A
 Hardware Availability: Custom keyboard group buys
 
 Make example for this keyboard (after setting up your build environment):

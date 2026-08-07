@@ -34,7 +34,7 @@ Enter the bootloader in 3 ways:
   1. Press and hold `BOOT` switch
   2. Tap `RESET` switch
   3. Release `BOOT` switch
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
 
 ## Flash bootloader
 * [Follow this instructions](https://github.com/jfescobar18/USBaspLoader)

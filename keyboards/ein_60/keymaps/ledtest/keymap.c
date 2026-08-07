@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * `-----------------------------------------'  `------'  `-----------------------------------------'
      */
     [_QWERTY] = LAYOUT(
-     KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,       KC_T,   KC_MUTE,  RGBRST,     RGB_HUI,    RGB_SAI, RGB_VAI, RGB_SPI, KC_BSPC,
-     MO(_FUNCTION), KC_A,   KC_S,    KC_D,    KC_F,       KC_G,             RGB_MOD,    RGB_HUD,    RGB_SAD, RGB_VAD, RGB_SPD, KC_ENT,
-     OSM(MOD_LSFT), KC_Z,   KC_X,    KC_C,    KC_V,       KC_B,             RGB_TOG,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT,
+     KC_TAB,        KC_Q,   KC_W,    KC_E,    KC_R,       KC_T,   KC_MUTE,  RGBRST,     UG_HUEU,    UG_SATU, UG_VALU, UG_SPDU, KC_BSPC,
+     MO(_FUNCTION), KC_A,   KC_S,    KC_D,    KC_F,       KC_G,             UG_NEXT,    UG_HUED,    UG_SATD, UG_VALD, UG_SPDD, KC_ENT,
+     OSM(MOD_LSFT), KC_Z,   KC_X,    KC_C,    KC_V,       KC_B,             UG_TOGG,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_QUOT,
      KC_LCTL,       KC_GRV, KC_LGUI, KC_LALT, MO(_LOWER), KC_SPC, KC_SPC,   KC_CAPS,    MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
     ),
     /* Lower
@@ -88,14 +88,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |------+------+------+------+------+------|            |------+------+------+------+------+------|
      * |      |      |      |      |      |      |            |      |      |      |      |      |BLSTEP|
      * |------+------+------|--------------------+  ,------.  +--------------------|------+------+------|
-     * |      |      |      |      |      |      |  |      |  |      |      |      |      |      | RESET|
+     * |      |      |      |      |      |      |  |      |  |      |      |      |      |      | QK_BOOT|
      * `-----------------------------------------'  `------'  `-----------------------------------------'
      */
     [_ADJUST] = LAYOUT(
-     _______, _______, _______, _______, _______, _______, _______, RGBRST,  RGB_MOD, RGB_VAI, RGB_SAI, RGB_HUI, _______,
-     _______, _______, _______, _______, _______, _______,          _______, RGB_RMOD,RGB_VAD, RGB_SAD, RGB_HUD, RGB_TOG,
+     _______, _______, _______, _______, _______, _______, _______, RGBRST,  UG_NEXT, UG_VALU, UG_SATU, UG_HUEU, _______,
+     _______, _______, _______, _______, _______, _______,          _______, UG_PREV, UG_VALD, UG_SATD, UG_HUED, UG_TOGG,
      _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, BL_STEP,
-     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET
+     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT
     ),
     /* Function
      * ,-----------------------------------------.  ,------.  ,-----------------------------------------.

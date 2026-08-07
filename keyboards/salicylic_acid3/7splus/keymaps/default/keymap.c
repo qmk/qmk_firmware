@@ -43,7 +43,7 @@ LT(_ADJUST,KC_GRV),KC_1,   KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,        KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,          KC_RSFT,   KC_UP,  KC_END,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
-     KC_LCTRL, KC_LGUI, KC_LALT,           KC_SPC,  KC_SPC,      KC_SPC,  KC_SPC,          KC_RALT,  KC_APP,          KC_LEFT, KC_DOWN,KC_RIGHT
+     KC_LCTL,  KC_LGUI, KC_LALT,           KC_SPC,  KC_SPC,      KC_SPC,  KC_SPC,          KC_RALT,  KC_APP,          KC_LEFT, KC_DOWN,KC_RIGHT
   //`-----------------------------------------------------|   |--------------------------------------------------------------------------------'
   ),
   [_ADJUST] = LAYOUT( /* Base */
@@ -54,9 +54,9 @@ LT(_ADJUST,KC_GRV),KC_1,   KC_2,    KC_3,    KC_4,    KC_5,        KC_6,    KC_7
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_TOG, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     UG_TOGG, UG_NEXT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     RGB_VAD, RGB_VAI, RGB_HUD, RGB_HUI, RGB_SAD,          RGB_SAI, XXXXXXX, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,     UG_VALD, UG_VALU, UG_HUED, UG_HUEU, UG_SATD,          UG_SATU, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|   |--------+--------+--------+--------+--------+--------+--------+--------+--------|
       XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,     XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX
   //`-----------------------------------------------------|   |--------------------------------------------------------------------------------'

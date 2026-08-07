@@ -1,4 +1,7 @@
-#include "rev3.h"
+// Copyright 2025 Danny Nguyen (danny@keeb.io)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#include "quantum.h"
 
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
@@ -17,24 +20,10 @@ const keypos_t PROGMEM hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0,3}, {1,3}, {2,3}, {3,3}, {4,3}, {5,3}},
     {{0,4}, {1,4}, {2,4}, {3,4}, {4,4}, {5,4}},
 };
+#    ifdef ENCODER_MAP_ENABLE
+const uint8_t PROGMEM encoder_hand_swap_config[NUM_ENCODERS] = {1, 0};
+#    endif
 #endif
-
-void eeconfig_init_kb(void) {
-#ifdef BACKLIGHT_ENABLE
-    backlight_enable();
-    backlight_level(3);
-#endif
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable(); // Enable RGB by default
-    rgblight_sethsv(0, 255, 255);  // Set default HSV - red hue, full saturation, full brightness
-#ifdef RGBLIGHT_ANIMATIONS
-    rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 2); // set to RGB_RAINBOW_SWIRL by default
-#endif
-#endif
-
-    eeconfig_update_kb(0);
-    eeconfig_init_user();
-}
 
 #ifdef ENCODER_ENABLE
 bool encoder_update_kb(uint8_t index, bool clockwise) {

@@ -8,7 +8,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define NUMB 2 // numbers/motion
@@ -48,7 +47,7 @@ KC_LSFT,              KC_Z,  KC_X,   KC_C,   KC_V, KC_B, OSM(MOD_LALT),       KC
 
                                      ALT_T(KC_DEL), KC_BSPC,                           KC_SPC, CMD_T(KC_DEL),
 
-                                                         KC_BTN3,       KC_COLON,
+                                                         MS_BTN3,       KC_COLON,
                                 LT(SYMB, KC_ESC), LT(NUMB, KC_F13),     LT(NUMB, KC_F14), LT(SYMB, KC_ENT)),
 /* Keymap 1: Symbols layer
  *
@@ -71,9 +70,9 @@ KC_LSFT,              KC_Z,  KC_X,   KC_C,   KC_V, KC_B, OSM(MOD_LALT),       KC
  *                                 `--------------'                     `--------------'
  */
 [SYMB] = LAYOUT_gergo(
-KC_TRNS, KC_EXLM, KC_AT,  KC_HASH,KC_DLR, KC_PERC,                         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC__VOLUP,
-KC_TRNS, KC_LBRC, KC_RBRC, KC_LCBR,KC_RCBR, KC_PLUS, M1_STRING,             KC_TRNS,  KC_TRNS, KC_MINS, KC_UNDERSCORE, KC_PLUS, KC_EQL, KC__VOLDOWN,
-KC_TRNS, KC_GRV, KC_TILD,KC_TRNS,KC_TRNS, KC_EQL, M2_URL,                 KC_TRNS,  KC_TRNS, KC_TRNS,  KC_MEDIA_REWIND, KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_FAST_FORWARD, KC__MUTE,
+KC_TRNS, KC_EXLM, KC_AT,  KC_HASH,KC_DLR, KC_PERC,                         KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_VOLU,
+KC_TRNS, KC_LBRC, KC_RBRC, KC_LCBR,KC_RCBR, KC_PLUS, M1_STRING,             KC_TRNS,  KC_TRNS, KC_MINS, KC_UNDERSCORE, KC_PLUS, KC_EQL, KC_VOLD,
+KC_TRNS, KC_GRV, KC_TILD,KC_TRNS,KC_TRNS, KC_EQL, M2_URL,                 KC_TRNS,  KC_TRNS, KC_TRNS,  KC_MEDIA_REWIND, KC_MEDIA_PLAY_PAUSE,  KC_MEDIA_FAST_FORWARD, KC_MUTE,
 
                                                   KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS,
 
@@ -101,8 +100,8 @@ KC_TRNS, KC_GRV, KC_TILD,KC_TRNS,KC_TRNS, KC_EQL, M2_URL,                 KC_TRN
  */
 [NUMB] = LAYOUT_gergo(
 KC_TRNS, KC_1, 	  KC_2,    KC_3,    KC_4,    KC_5,                             KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PGUP,
-KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, KC_BTN1,         KC_HOME,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END, KC_PGDN,
-KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, KC_BTN2,        KC_TRNS,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_TRNS, KC_TRNS,
+KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6, MS_BTN1,         KC_HOME,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_END, KC_PGDN,
+KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, MS_BTN2,        KC_TRNS,  MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, KC_TRNS, KC_TRNS,
 
                                                   KC_TRNS, KC_TRNS,       KC_RALT, KC_TRNS,
 
@@ -139,15 +138,10 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  K
                                              	  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS),
  */
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    //uint8_t layer = biton32(layer_state);
-    biton32(layer_state);
+    //uint8_t layer = get_highest_layer(layer_state);
+    get_highest_layer(layer_state);
 };
 
 
@@ -171,4 +165,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
-

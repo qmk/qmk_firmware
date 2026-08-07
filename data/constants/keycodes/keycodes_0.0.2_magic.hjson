@@ -1,0 +1,286 @@
+{
+    "keycodes": {
+        "!reset!":0,
+
+        "0x7000": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_CONTROL_CAPS_LOCK",
+            "label": "Swap LCtl⇄Caps",
+            "aliases": [
+                "CL_SWAP"
+            ]
+        },
+        "0x7001": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_CONTROL_CAPS_LOCK",
+            "label": "Unswap LCtl⇄Caps",
+            "aliases": [
+                "CL_NORM"
+            ]
+        },
+        "0x7002": {
+            "group": "magic",
+            "key": "QK_MAGIC_TOGGLE_CONTROL_CAPS_LOCK",
+            "label": "Toggle LCtl⇄Caps",
+            "aliases": [
+                "CL_TOGG"
+            ]
+        },
+        "0x7003": {
+            "group": "magic",
+            "key": "QK_MAGIC_CAPS_LOCK_AS_CONTROL_OFF",
+            "label": "Caps≠LCtl",
+            "aliases": [
+                "CL_CAPS"
+            ]
+        },
+        "0x7004": {
+            "group": "magic",
+            "key": "QK_MAGIC_CAPS_LOCK_AS_CONTROL_ON",
+            "label": "Caps=LCtl",
+            "aliases": [
+                "CL_CTRL"
+            ]
+        },
+        "0x7005": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_LALT_LGUI",
+            "label": "Swap LAlt⇄LGUI",
+            "aliases": [
+                "AG_LSWP"
+            ]
+        },
+        "0x7006": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_LALT_LGUI",
+            "label": "Unswap LAlt⇄LGUI",
+            "aliases": [
+                "AG_LNRM"
+            ]
+        },
+        "0x7007": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_RALT_RGUI",
+            "label": "Swap RAlt⇄RGUI",
+            "aliases": [
+                "AG_RSWP"
+            ]
+        },
+        "0x7008": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_RALT_RGUI",
+            "label": "Unswap RAlt⇄RGUI",
+            "aliases": [
+                "AG_RNRM"
+            ]
+        },
+        "0x7009": {
+            "group": "magic",
+            "key": "QK_MAGIC_GUI_ON",
+            "label": "GUI On",
+            "aliases": [
+                "GU_ON"
+            ]
+        },
+        "0x700A": {
+            "group": "magic",
+            "key": "QK_MAGIC_GUI_OFF",
+            "label": "GUI Off",
+            "aliases": [
+                "GU_OFF"
+            ]
+        },
+        "0x700B": {
+            "group": "magic",
+            "key": "QK_MAGIC_TOGGLE_GUI",
+            "label": "Toggle GUI",
+            "aliases": [
+                "GU_TOGG"
+            ]
+        },
+        "0x700C": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_GRAVE_ESC",
+            "label": "Swap `⇄Esc",
+            "aliases": [
+                "GE_SWAP"
+            ]
+        },
+        "0x700D": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_GRAVE_ESC",
+            "label": "Unswap `⇄Esc",
+            "aliases": [
+                "GE_NORM"
+            ]
+        },
+        "0x700E": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_BACKSLASH_BACKSPACE",
+            "label": "Swap \\⇄Bspc",
+            "aliases": [
+                "BS_SWAP"
+            ]
+        },
+        "0x700F": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_BACKSLASH_BACKSPACE",
+            "label": "Unswap \\⇄Bspc",
+            "aliases": [
+                "BS_NORM"
+            ]
+        },
+        "0x7010": {
+            "group": "magic",
+            "key": "QK_MAGIC_TOGGLE_BACKSLASH_BACKSPACE",
+            "label": "Toggle \\⇄Bspc",
+            "aliases": [
+                "BS_TOGG"
+            ]
+        },
+        "0x7011": {
+            "group": "magic",
+            "key": "QK_MAGIC_NKRO_ON",
+            "label": "NKRO On",
+            "aliases": [
+                "NK_ON"
+            ]
+        },
+        "0x7012": {
+            "group": "magic",
+            "key": "QK_MAGIC_NKRO_OFF",
+            "label": "NKRO Off",
+            "aliases": [
+                "NK_OFF"
+            ]
+        },
+        "0x7013": {
+            "group": "magic",
+            "key": "QK_MAGIC_TOGGLE_NKRO",
+            "label": "Toggle NKRO",
+            "aliases": [
+                "NK_TOGG"
+            ]
+        },
+        "0x7014": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_ALT_GUI",
+            "label": "Swap Alt⇄GUI",
+            "aliases": [
+                "AG_SWAP"
+            ]
+        },
+        "0x7015": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_ALT_GUI",
+            "label": "Unswap Alt⇄GUI",
+            "aliases": [
+                "AG_NORM"
+            ]
+        },
+        "0x7016": {
+            "group": "magic",
+            "key": "QK_MAGIC_TOGGLE_ALT_GUI",
+            "label": "Toggle Alt⇄GUI",
+            "aliases": [
+                "AG_TOGG"
+            ]
+        },
+        "0x7017": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_LCTL_LGUI",
+            "label": "Swap LCtl⇄LGUI",
+            "aliases": [
+                "CG_LSWP"
+            ]
+        },
+        "0x7018": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_LCTL_LGUI",
+            "label": "Unswap LCtl⇄LGUI",
+            "aliases": [
+                "CG_LNRM"
+            ]
+        },
+        "0x7019": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_RCTL_RGUI",
+            "label": "Swap RCtl⇄RGUI",
+            "aliases": [
+                "CG_RSWP"
+            ]
+        },
+        "0x701A": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_RCTL_RGUI",
+            "label": "Unswap RCtl⇄RGUI",
+            "aliases": [
+                "CG_RNRM"
+            ]
+        },
+        "0x701B": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_CTL_GUI",
+            "label": "Swap Ctl⇄GUI",
+            "aliases": [
+                "CG_SWAP"
+            ]
+        },
+        "0x701C": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_CTL_GUI",
+            "label": "Unswap Ctl⇄GUI",
+            "aliases": [
+                "CG_NORM"
+            ]
+        },
+        "0x701D": {
+            "group": "magic",
+            "key": "QK_MAGIC_TOGGLE_CTL_GUI",
+            "label": "Toggle Ctl⇄GUI",
+            "aliases": [
+                "CG_TOGG"
+            ]
+        },
+        "0x701E": {
+            "group": "magic",
+            "key": "QK_MAGIC_EE_HANDS_LEFT",
+            "label": "EE Hands Left",
+            "aliases": [
+                "EH_LEFT"
+            ]
+        },
+        "0x701F": {
+            "group": "magic",
+            "key": "QK_MAGIC_EE_HANDS_RIGHT",
+            "label": "EE Hands Right",
+            "aliases": [
+                "EH_RGHT"
+            ]
+        },
+        "0x7020": {
+            "group": "magic",
+            "key": "QK_MAGIC_SWAP_ESCAPE_CAPS_LOCK",
+            "label": "Swap Esc⇄Caps",
+            "aliases": [
+                "EC_SWAP"
+            ]
+        },
+        "0x7021": {
+            "group": "magic",
+            "key": "QK_MAGIC_UNSWAP_ESCAPE_CAPS_LOCK",
+            "label": "Unswap Esc⇄Caps",
+            "aliases": [
+                "EC_NORM"
+            ]
+        },
+        "0x7022": {
+            "group": "magic",
+            "key": "QK_MAGIC_TOGGLE_ESCAPE_CAPS_LOCK",
+            "label": "Toggle Esc⇄Caps",
+            "aliases": [
+                "EC_TOGG"
+            ]
+        }
+    }
+}

@@ -1,7 +1,11 @@
-#ifdef OLED_ENABLE
-#include QMK_KEYBOARD_H
+#include "oled_helper.h"
+#include "oled_driver.h"
+#include "host.h"
+#include "rgblight.h"
 #include <stdio.h>
 #include <string.h>
+
+#ifdef OLED_ENABLE
 
 void render_logo(void) {
 
@@ -41,10 +45,10 @@ void render_key_status(void) {
 static char lock_buf[24] = "Lock state ready.\n";
 void update_lock_status(void) {
 
-  uint8_t leds = host_keyboard_leds();
-  char *num_lock = (leds & (1<<USB_LED_NUM_LOCK)) ? "Num" : "";
-  char *caps_lock = (leds & (1<<USB_LED_CAPS_LOCK)) ? "Caps" : "";
-  char *scrl_lock = (leds & (1<<USB_LED_SCROLL_LOCK)) ? "Scrn" : "";
+  led_t led_state = host_keyboard_led_state();
+  char *num_lock = led_state.num_lock ? "Num" : "";
+  char *caps_lock = led_state.caps_lock ? "Caps" : "";
+  char *scrl_lock = led_state.scroll_lock ? "Scrn" : "";
   snprintf(lock_buf, sizeof(lock_buf) - 1, "Lock:%s %s %s\n",
           num_lock, caps_lock, scrl_lock);
 }

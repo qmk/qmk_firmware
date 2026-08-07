@@ -1,21 +1,7 @@
 # Hey Emacs, this is a -*- makefile -*-
 #----------------------------------------------------------------------------
-# WinAVR Makefile Template written by Eric B. Weddington, Jg Wunsch, et al.
-#
-# Released to the Public Domain
-#
-# Additional material for this makefile was written by:
-# Peter Fleury
-# Tim Henigan
-# Colin O'Flynn
-# Reiner Patommel
-# Markus Pfaff
-# Sander Pool
-# Frederik Rouleau
-# Carlos Lamas
-#
 
-# Enable vpath seraching for source files only
+# Enable vpath searching for source files only
 # Without this, output files, could be read from the wrong .build directories
 VPATH_SRC := $(VPATH)
 vpath %.c $(VPATH_SRC)
@@ -25,6 +11,9 @@ vpath %.cc $(VPATH_SRC)
 vpath %.hpp $(VPATH_SRC)
 vpath %.S $(VPATH_SRC)
 VPATH :=
+
+# Helper to return the distinct elements of a list
+uniq = $(if $1,$(firstword $1) $(call uniq,$(filter-out $(firstword $1),$1)))
 
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
@@ -38,36 +27,15 @@ NO_LTO_OBJ := $(filter %.a,$(OBJ))
 
 MASTER_OUTPUT := $(firstword $(OUTPUTS))
 
-
-
 # Output format. (can be srec, ihex, binary)
 FORMAT = ihex
 
 # Optimization level, can be [0, 1, 2, 3, s].
-#     0 = turn off optimization. s = optimize for size.
-#     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT ?= s
 
-# Compiler flag to set the C Standard level.
-#     c89   = "ANSI" C
-#     gnu89 = c89 plus GCC extensions
-#     c99   = ISO C99 standard (not yet fully implemented)
-#     gnu99 = c99 plus GCC extensions
-CSTANDARD = -std=gnu99
-
-
-# Place -D or -U options here for C sources
-#CDEFS +=
-
-
-# Place -D or -U options here for ASM sources
-#ADEFS +=
-
-
-# Place -D or -U options here for C++ sources
-#CXXDEFS += -D__STDC_LIMIT_MACROS
-#CXXDEFS += -D__STDC_CONSTANT_MACROS
-#CXXDEFS +=
+# Compiler flag to set the C and C++ language standard level
+CSTANDARD = -std=gnu11
+CXXSTANDARD = -std=gnu++14
 
 # Speed up recompilations by opt-in usage of ccache
 USE_CCACHE ?= no
@@ -75,160 +43,94 @@ ifneq ($(USE_CCACHE),no)
     CC_PREFIX ?= ccache
 endif
 
-#---------------- Compiler Options C ----------------
-#  -g*:          generate debugging information
-#  -O*:          optimization level
-#  -f...:        tuning, see GCC manual and avr-libc documentation
-#  -Wall...:     warning level
-#  -Wa,...:      tell GCC to pass this to the assembler.
+#---------------- Debug Options ----------------
+
+DEBUG_ENABLE ?= no
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
+	CFLAGS 	 += -ggdb3
+	CXXFLAGS += -ggdb3
+	ASFLAGS  += -ggdb3
+endif
+
+# Create a map file to see what was compiled and where, unless disabled
+# (e.g. test builds, which use the host linker — Apple's ld does not accept
+# -Map=/--cref).
+ifneq ($(strip $(CREATE_MAP)), no)
+LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
+
+#---------------- C Compiler Options ----------------
+
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),CHIBIOS)
-        $(info Enabling LTO on ChibiOS-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LTO_ENABLE = no.)
-    endif
-    CDEFS += -flto
+    CDEFS += -flto=auto
     CDEFS += -DLTO_ENABLE
 endif
 
-DEBUG_ENABLE ?= yes
-ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
-  DEBUG_ENABLE=no
-endif
-
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CFLAGS += -g$(DEBUG)
-endif
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fdiagnostics-color
-endif
+    CFLAGS+= -fdiagnostics-color=always
+else
+    CFLAGS+= -fdiagnostics-color=never
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
+CFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CFLAGS += -Werror
 endif
-#CFLAGS += -mshort-calls
-#CFLAGS += -fno-unit-at-a-time
-#CFLAGS += -Wundef
-#CFLAGS += -Wunreachable-code
-#CFLAGS += -Wsign-compare
 CFLAGS += $(CSTANDARD)
 
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
 # Fixing of multiple variable definitions must be made.
 CFLAGS += -fcommon
 
-#---------------- Compiler Options C++ ----------------
-#  -g*:          generate debugging information
-#  -O*:          optimization level
-#  -f...:        tuning, see GCC manual and avr-libc documentation
-#  -Wall...:     warning level
-#  -Wa,...:      tell GCC to pass this to the assembler.
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CXXFLAGS += -g$(DEBUG)
-endif
+#---------------- C++ Compiler Options ----------------
+
 CXXFLAGS += $(CXXDEFS)
 CXXFLAGS += -O$(OPT)
-# to supress "warning: only initialized variables can be placed into program memory area"
+# to suppress "warning: only initialized variables can be placed into program memory area"
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
-
+CXXFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CXXFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
-#CXXFLAGS += -mshort-calls
-#CXXFLAGS += -fno-unit-at-a-time
-#CXXFLAGS += -Wstrict-prototypes
-#CXXFLAGS += -Wunreachable-code
-#CXXFLAGS += -Wsign-compare
-#CXXFLAGS += $(CSTANDARD)
 
 #---------------- Assembler Options ----------------
+
 ASFLAGS += $(ADEFS)
 ifeq ($(VERBOSE_AS_CMD),yes)
 	ASFLAGS += -v
 endif
 
-#---------------- Library Options ----------------
-# Minimalistic printf version
-PRINTF_LIB_MIN = -Wl,-u,vfprintf -lprintf_min
-
-# Floating point printf version (requires MATH_LIB = -lm below)
-PRINTF_LIB_FLOAT = -Wl,-u,vfprintf -lprintf_flt
-
-# If this is left blank, then it will use the Standard printf version.
-PRINTF_LIB =
-#PRINTF_LIB = $(PRINTF_LIB_MIN)
-#PRINTF_LIB = $(PRINTF_LIB_FLOAT)
-
-
-# Minimalistic scanf version
-SCANF_LIB_MIN = -Wl,-u,vfscanf -lscanf_min
-
-# Floating point + %[ scanf version (requires MATH_LIB = -lm below)
-SCANF_LIB_FLOAT = -Wl,-u,vfscanf -lscanf_flt
-
-# If this is left blank, then it will use the Standard scanf version.
-SCANF_LIB =
-#SCANF_LIB = $(SCANF_LIB_MIN)
-#SCANF_LIB = $(SCANF_LIB_FLOAT)
-
-
-MATH_LIB = -lm
-CREATE_MAP ?= yes
-
-
 #---------------- Linker Options ----------------
-#  -Wl,...:     tell GCC to pass this to linker.
-#    -Map:      create map file
-#    --cref:    add cross reference to  map file
-#
-# Comennt out "--relax" option to avoid a error such:
-# 	(.vectors+0x30): relocation truncated to fit: R_AVR_13_PCREL against symbol `__vector_12'
-#
 
-ifeq ($(CREATE_MAP),yes)
-	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
-endif
 ifeq ($(VERBOSE_LD_CMD),yes)
 	LDFLAGS += -v
 endif
-#LDFLAGS += -Wl,--relax
+
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
-LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
-#LDFLAGS += -T linker_script.x
+LDFLAGS += -lm
 # You can give EXTRALDFLAGS at 'make' command line.
 LDFLAGS += $(EXTRALDFLAGS)
 
 #---------------- Assembler Listings ----------------
-#  -Wa,...:   tell GCC to pass this to the assembler.
-#  -adhlns:   create listing
-#  -gstabs:   have the assembler create line number information; note that
-#             for use in COFF files, additional information about filenames
-#             and function names needs to be present in the assembler source
-#             files -- see avr-libc docs [FIXME: not yet described there]
-#  -listing-cont-lines: Sets the maximum number of continuation lines of hex
-#       dump that will be displayed for a given single line of source input.
 
 ADHLNS_ENABLE ?= no
 ifeq ($(ADHLNS_ENABLE),yes)
   # Avoid "Options to '-Xassembler' do not match" - only specify assembler options at LTO link time
   ifeq ($(strip $(LTO_ENABLE)), yes)
-    LDFLAGS += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
+    LDFLAGS  += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
   else
-    CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+    CFLAGS   += -Wa,-adhlns=$(@:%.o=%.lst)
     CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-    ifeq ($(strip $(DEBUG_ENABLE)),yes)
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-    else
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
-    endif
+	ASFLAGS  += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
   endif
 endif
 
@@ -249,6 +151,7 @@ endif
 # To produce a UF2 file in your build, add to your keyboard's rules.mk:
 #      FIRMWARE_FORMAT = uf2
 UF2CONV = $(TOP_DIR)/util/uf2conv.py
+UF2CONV_ARGS ?=
 UF2_FAMILY ?= 0x0
 
 # Compiler flags to generate dependency files.
@@ -272,7 +175,7 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 # For a ChibiOS build, ensure that the board files have the hook overrides injected
 define BOARDSRC_INJECT_HOOKS
-$(KEYBOARD_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+$(INTERMEDIATE_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): FILE_SPECIFIC_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
 endef
 $(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
 
@@ -284,7 +187,7 @@ DFU_SUFFIX_ARGS ?=
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
 uf2: $(BUILD_DIR)/$(TARGET).uf2
-cpfirmware: $(FIRMWARE_FORMAT)
+cpfirmware_qmk: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 eep: $(BUILD_DIR)/$(TARGET).eep
@@ -292,6 +195,15 @@ lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
 LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
+
+cpfirmware: cpfirmware_qmk
+
+ifneq ($(QMK_USERSPACE),)
+cpfirmware: cpfirmware_userspace
+cpfirmware_userspace: cpfirmware_qmk
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to userspace folder" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(QMK_USERSPACE)/$(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
+endif
 
 # Display size of file, modifying the output so people don't mistakenly grab the hex output
 BINARY_SIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(SED) -e 's/\.build\/.*$$/$(TARGET).$(FIRMWARE_FORMAT)/g'
@@ -315,8 +227,8 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
 
-%.uf2: %.hex
-	$(eval CMD=$(UF2CONV) $(BUILD_DIR)/$(TARGET).hex -o $(BUILD_DIR)/$(TARGET).uf2 -c -f $(UF2_FAMILY) >/dev/null 2>&1)
+%.uf2: %.elf
+	$(eval CMD=$(HEX) $< $(BUILD_DIR)/$(TARGET).tmp && $(UF2CONV) $(UF2CONV_ARGS) $(BUILD_DIR)/$(TARGET).tmp --output $@ --convert --family $(UF2_FAMILY) >/dev/null 2>&1)
 	#@$(SILENT) || printf "$(MSG_EXECUTING) '$(CMD)':\n"
 	@$(SILENT) || printf "$(MSG_UF2) $@" | $(AWK_CMD)
 	@$(BUILD_CMD)
@@ -360,7 +272,7 @@ BEGIN = gccversion sizebefore
 # Note the obj.txt depeendency is there to force linking if a source file is deleted
 %.elf: $(OBJ) $(MASTER_OUTPUT)/cflags.txt $(MASTER_OUTPUT)/ldflags.txt $(MASTER_OUTPUT)/obj.txt | $(BEGIN)
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
-	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
+	$(eval CMD=MAKE=$(MAKE) $(CC) $(ALL_CFLAGS) $(call uniq,$(OBJ)) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
 
 
@@ -384,10 +296,10 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
     ifneq ($$(VERBOSE_C_INCLUDE),)
 	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
     endif
-	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
     ifneq ($$(DUMP_C_MACROS),)
-	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
+	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$<)
 	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
     endif
 
@@ -395,13 +307,13 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 $1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.
@@ -429,6 +341,7 @@ $1/asflags.txt: $1/force
 	echo '$$($1_ASFLAGS)' | cmp -s - $$@ || echo '$$($1_ASFLAGS)' > $$@
 
 $1/compiler.txt: $1/force
+	test -f $$@ || touch $$@
 	$$(CC) --version | cmp -s - $$@ || $$(CC) --version > $$@
 endef
 
@@ -468,37 +381,16 @@ show_path:
 dump_vars: ERROR_IF_EMPTY=""
 dump_vars: ERROR_IF_NONBOOL=""
 dump_vars: ERROR_IF_UNSET=""
+dump_vars: CATASTROPHIC_ERROR=""
 dump_vars:
 	@$(foreach V,$(sort $(.VARIABLES)),$(if $(filter-out environment% default automatic,$(origin $V)),$(info $V=$($V))))
 
 objs-size:
 	for i in $(OBJ); do echo $$i; done | sort | xargs $(SIZE)
 
-ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
-SIZE_MARGIN = 1024
 
+# size check optionally implemented in its platform.mk
 check-size:
-	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | $(SED) -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
-	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
-	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
-	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
-	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
-	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
-		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
-		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
-		else \
-		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
-			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
-		    else \
-			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
-		    fi ; \
-		fi ; \
-	fi
-else
-check-size:
-	$(SILENT) || echo "$(MSG_CHECK_FILESIZE_SKIPPED)"
-endif
 
 check-md5:
 	$(MD5SUM) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT)

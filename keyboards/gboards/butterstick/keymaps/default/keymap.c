@@ -49,8 +49,8 @@ uint32_t processQwerty(bool lookup) {
     P( LSD | RZ,   			 	SEND(KC_SPC));
 
     // Dual chords
-    P( LP  | LH,    			CLICK_MOUSE(KC_MS_BTN2));
-    P( ST1 | RF,    			CLICK_MOUSE(KC_MS_BTN1));
+    P( LP  | LH,    			CLICK_MOUSE(MS_BTN2));
+    P( ST1 | RF,    			CLICK_MOUSE(MS_BTN1));
     P( LSU | LFT,         SEND(KC_ESC));
 		P( LSD | LK,					SEND(KC_LSFT));
 		P( RZ  | RS,					SEND(KC_LSFT));
@@ -180,4 +180,4 @@ uint32_t processQwerty(bool lookup) {
 }
 
 // Don't fuck with this, thanks.
-size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
+size_t keymapsCount  = ARRAY_SIZE(keymaps);

@@ -1,3 +1,0 @@
-VIA_ENABLE = yes
-CONSOLE_ENABLE = no
-LTO_ENABLE = yes

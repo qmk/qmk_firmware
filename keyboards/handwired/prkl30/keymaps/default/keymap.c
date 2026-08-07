@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  /* FN
  * ,------------------------------------------------------------------------------------------.
- * |RESET |   F1 |   F2 |   F3 |   F4 |   F5 |   F6 |   F7 |   F8 |   F9 |  F10 |  F11 | F12  |
+ * |QK_BOOT |   F1 |   F2 |   F3 |   F4 |   F5 |   F6 |   F7 |   F8 |   F9 |  F10 |  F11 | F12  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|------|
  * |      |RGB_P |RGB_HD|RGB_HI| VOL- | PREV | NEXT | VOL+ |      |      |      | PRKL |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|------'
@@ -73,9 +73,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `------+------+------+------+------+------+------+------+------+------+------+------'
  */
 [_FN] = LAYOUT_all(
-    RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    _______, RGB_M_P, RGB_HUD, RGB_HUI, KC_VOLD, KC_MPRV, KC_MNXT, KC_VOLU, _______, _______, _______, PRKL,    _______,
-    RGB_MOD, RGB_VAD, RGB_VAI, RGB_TOG, _______, KC_MPLY, _______, _______, _______, _______, LCA(KC_DEL), _______
+    QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+    _______, RGB_M_P, UG_HUED, UG_HUEU, KC_VOLD, KC_MPRV, KC_MNXT, KC_VOLU, _______, _______, _______, PRKL,    _______,
+    UG_NEXT, UG_VALD, UG_VALU, UG_TOGG, _______, KC_MPLY, _______, _______, _______, _______, LCA(KC_DEL), _______
 ),
 
 

@@ -35,12 +35,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_FN] = LAYOUT(
         KC_HOME, KC_CALC, KC_END,
         BL_STEP, KC_ESC,  KC_SLEP,
-        KC_TRNS, KC_MPLY, RESET
+        KC_TRNS, KC_MPLY, QK_BOOT
     )
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (biton32(layer_state)) {
+    switch (get_highest_layer(layer_state)) {
         case _BASE:
             if (clockwise) {
                 tap_code(KC_VOLU);
@@ -62,7 +62,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 bool oled_task_user(void) {
   // Host Keyboard Layer Status
   oled_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
+  switch (get_highest_layer(layer_state)) {
     case _BASE:
       oled_write_P(PSTR("Default\n"), false);
       break;
@@ -75,10 +75,10 @@ bool oled_task_user(void) {
   }
 
   // Host Keyboard LED Status
-  uint8_t usb_led = host_keyboard_leds();
-  oled_write_P(IS_LED_ON(usb_led, USB_LED_NUM_LOCK) ? PSTR("NUMLCK ") : PSTR("       "), false);
-  oled_write_P(IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) ? PSTR("CAPLCK ") : PSTR("       "), false);
-  oled_write_P(IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK) ? PSTR("SCRLCK ") : PSTR("       "), false);
+  led_t led_state = host_keyboard_led_state();
+  oled_write_P(led_state.num_lock ? PSTR("NUMLCK ") : PSTR("       "), false);
+  oled_write_P(led_state.caps_lock ? PSTR("CAPLCK ") : PSTR("       "), false);
+  oled_write_P(led_state.scroll_lock ? PSTR("SCRLCK ") : PSTR("       "), false);
     return false;
 }
 #endif

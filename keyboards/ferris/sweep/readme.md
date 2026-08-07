@@ -17,27 +17,13 @@ Make example for this keyboard (after setting up your build environment):
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Setting Handedness
-
-Firmware uses [handedness by EEPROM](https://docs.qmk.fm/#/feature_split_keyboard?id=handedness-by-eeprom) as default and it must be *configured once* on each side. The make commands for Pro micros are:
-
-    make ferris/sweep:default:avrdude-split-left
-    make ferris/sweep:default:avrdude-split-right
-
-For Elite-C or compatible controllers using `DFU` bootloader, add the line `BOOTLOADER = atmel-dfu` into the user keymap `rules.mk` file and use the following make commands:
-
-    make ferris/sweep:default:dfu-split-left
-    make ferris/sweep:default:dfu-split-right
-
-[QMK Toolbox](http://qmk.fm/toolbox) can also be used to set EEPROM handedness. Place the controller in bootloader mode and select menu option Tools -> EEPROM -> Set Left/Right Hand
-
 ## Bootloader
 
 Enter the bootloader in 3 ways:
 
 * **Bootmagic reset**: Hold down the top left key on the left half (or the top right key on the right half) and plug in the controller on that side.
 * **Physical reset button**: Briefly press the reset button soldered on the PCB.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is configured.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is configured.
 
 ## Swapped Pins
 

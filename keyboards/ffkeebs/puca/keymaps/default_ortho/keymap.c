@@ -27,11 +27,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT_ortho(
-        _______,          RGB_HUI, RGB_VAI,
-        TG(1),   RGB_TOG, RGB_HUD, RGB_VAD,
-        KC_PGUP, KC_UP,   KC_PGDN, RGB_MOD,
+        _______,          UG_HUEU, UG_VALU,
+        TG(1),   UG_TOGG, UG_HUED, UG_VALD,
+        KC_PGUP, KC_UP,   KC_PGDN, UG_NEXT,
         KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,
-        KC_INS,  KC_HOME, KC_END,  RGB_RMOD,
+        KC_INS,  KC_HOME, KC_END,  UG_PREV,
         KC_ESC,  XXXXXXX, KC_DEL,  XXXXXXX
     )
 

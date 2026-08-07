@@ -6,9 +6,17 @@
     "files.exclude": {
         "**/.build": true,
         "**/*.hex": true,
-        "**/*.bin": true
+        "**/*.bin": true,
+        "**/*.uf2": true
     },
     "files.associations": {
+        // QMK Filetypes
+        "keyboard.json": "jsonc",
+        "info.json": "jsonc",
+        "keymap.json": "jsonc",
+        "qmk.json": "jsonc",
+        "qmk_module.json": "jsonc",
+        // Standard filetypes
         "*.h": "c",
         "*.c": "c",
         "*.inc": "c",
@@ -25,6 +33,25 @@
     },
     "python.formatting.provider": "yapf",
     "[json]": {
-	    "editor.formatOnSave": false
-    }
+        "editor.formatOnSave": false
+    },
+    "clangd.arguments": ["--header-insertion=never"],
+    "json.schemas": [
+        {
+            "fileMatch": ["qmk.json"],
+            "url": "./data/schemas/user_repo_v1_1.jsonschema"
+        },
+        {
+            "fileMatch": ["qmk_module.json"],
+            "url": "./data/schemas/community_module.jsonschema"
+        },
+        {
+            "fileMatch": ["keyboard.json", "info.json"],
+            "url": "./data/schemas/keyboard.jsonschema"
+        },
+        {
+            "fileMatch": ["keymap.json"],
+            "url": "./data/schemas/keymap.jsonschema"
+        }
+    ]
 }

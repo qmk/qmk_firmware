@@ -1,0 +1,260 @@
+{
+    "keycodes": {
+        "0x7700": {
+            "group": "macro",
+            "key": "QK_MACRO_0",
+            "label": "Macro 0",
+            "aliases": [
+                "MC_0"
+            ]
+        },
+        "0x7701": {
+            "group": "macro",
+            "key": "QK_MACRO_1",
+            "label": "Macro 1",
+            "aliases": [
+                "MC_1"
+            ]
+        },
+        "0x7702": {
+            "group": "macro",
+            "key": "QK_MACRO_2",
+            "label": "Macro 2",
+            "aliases": [
+                "MC_2"
+            ]
+        },
+        "0x7703": {
+            "group": "macro",
+            "key": "QK_MACRO_3",
+            "label": "Macro 3",
+            "aliases": [
+                "MC_3"
+            ]
+        },
+        "0x7704": {
+            "group": "macro",
+            "key": "QK_MACRO_4",
+            "label": "Macro 4",
+            "aliases": [
+                "MC_4"
+            ]
+        },
+        "0x7705": {
+            "group": "macro",
+            "key": "QK_MACRO_5",
+            "label": "Macro 5",
+            "aliases": [
+                "MC_5"
+            ]
+        },
+        "0x7706": {
+            "group": "macro",
+            "key": "QK_MACRO_6",
+            "label": "Macro 6",
+            "aliases": [
+                "MC_6"
+            ]
+        },
+        "0x7707": {
+            "group": "macro",
+            "key": "QK_MACRO_7",
+            "label": "Macro 7",
+            "aliases": [
+                "MC_7"
+            ]
+        },
+        "0x7708": {
+            "group": "macro",
+            "key": "QK_MACRO_8",
+            "label": "Macro 8",
+            "aliases": [
+                "MC_8"
+            ]
+        },
+        "0x7709": {
+            "group": "macro",
+            "key": "QK_MACRO_9",
+            "label": "Macro 9",
+            "aliases": [
+                "MC_9"
+            ]
+        },
+        "0x770A": {
+            "group": "macro",
+            "key": "QK_MACRO_10",
+            "label": "Macro 10",
+            "aliases": [
+                "MC_10"
+            ]
+        },
+        "0x770B": {
+            "group": "macro",
+            "key": "QK_MACRO_11",
+            "label": "Macro 11",
+            "aliases": [
+                "MC_11"
+            ]
+        },
+        "0x770C": {
+            "group": "macro",
+            "key": "QK_MACRO_12",
+            "label": "Macro 12",
+            "aliases": [
+                "MC_12"
+            ]
+        },
+        "0x770D": {
+            "group": "macro",
+            "key": "QK_MACRO_13",
+            "label": "Macro 13",
+            "aliases": [
+                "MC_13"
+            ]
+        },
+        "0x770E": {
+            "group": "macro",
+            "key": "QK_MACRO_14",
+            "label": "Macro 14",
+            "aliases": [
+                "MC_14"
+            ]
+        },
+        "0x770F": {
+            "group": "macro",
+            "key": "QK_MACRO_15",
+            "label": "Macro 15",
+            "aliases": [
+                "MC_15"
+            ]
+        },
+        "0x7710": {
+            "group": "macro",
+            "key": "QK_MACRO_16",
+            "label": "Macro 16",
+            "aliases": [
+                "MC_16"
+            ]
+        },
+        "0x7711": {
+            "group": "macro",
+            "key": "QK_MACRO_17",
+            "label": "Macro 17",
+            "aliases": [
+                "MC_17"
+            ]
+        },
+        "0x7712": {
+            "group": "macro",
+            "key": "QK_MACRO_18",
+            "label": "Macro 18",
+            "aliases": [
+                "MC_18"
+            ]
+        },
+        "0x7713": {
+            "group": "macro",
+            "key": "QK_MACRO_19",
+            "label": "Macro 19",
+            "aliases": [
+                "MC_19"
+            ]
+        },
+        "0x7714": {
+            "group": "macro",
+            "key": "QK_MACRO_20",
+            "label": "Macro 20",
+            "aliases": [
+                "MC_20"
+            ]
+        },
+        "0x7715": {
+            "group": "macro",
+            "key": "QK_MACRO_21",
+            "label": "Macro 21",
+            "aliases": [
+                "MC_21"
+            ]
+        },
+        "0x7716": {
+            "group": "macro",
+            "key": "QK_MACRO_22",
+            "label": "Macro 22",
+            "aliases": [
+                "MC_22"
+            ]
+        },
+        "0x7717": {
+            "group": "macro",
+            "key": "QK_MACRO_23",
+            "label": "Macro 23",
+            "aliases": [
+                "MC_23"
+            ]
+        },
+        "0x7718": {
+            "group": "macro",
+            "key": "QK_MACRO_24",
+            "label": "Macro 24",
+            "aliases": [
+                "MC_24"
+            ]
+        },
+        "0x7719": {
+            "group": "macro",
+            "key": "QK_MACRO_25",
+            "label": "Macro 25",
+            "aliases": [
+                "MC_25"
+            ]
+        },
+        "0x771A": {
+            "group": "macro",
+            "key": "QK_MACRO_26",
+            "label": "Macro 26",
+            "aliases": [
+                "MC_26"
+            ]
+        },
+        "0x771B": {
+            "group": "macro",
+            "key": "QK_MACRO_27",
+            "label": "Macro 27",
+            "aliases": [
+                "MC_27"
+            ]
+        },
+        "0x771C": {
+            "group": "macro",
+            "key": "QK_MACRO_28",
+            "label": "Macro 28",
+            "aliases": [
+                "MC_28"
+            ]
+        },
+        "0x771D": {
+            "group": "macro",
+            "key": "QK_MACRO_29",
+            "label": "Macro 29",
+            "aliases": [
+                "MC_29"
+            ]
+        },
+        "0x771E": {
+            "group": "macro",
+            "key": "QK_MACRO_30",
+            "label": "Macro 30",
+            "aliases": [
+                "MC_30"
+            ]
+        },
+        "0x771F": {
+            "group": "macro",
+            "key": "QK_MACRO_31",
+            "label": "Macro 31",
+            "aliases": [
+                "MC_31"
+            ]
+        }
+    }
+}

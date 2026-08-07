@@ -1,6 +1,6 @@
 # Miscellaneous FAQ
 
-## How do I test my keyboard? :id=testing
+## How do I test my keyboard? {#testing}
 
 Testing your keyboard is usually pretty straightforward. Press every single key and make sure it sends the keys you expect. You can use [QMK Configurator](https://config.qmk.fm/#/test/)'s test mode to check your keyboard, even if it doesn't run QMK.
 
@@ -10,7 +10,7 @@ You probably don't want to "brick" your keyboard, making it impossible
 to rewrite firmware onto it.  Here are some of the parameters to show
 what things are (and likely aren't) too risky.
 
-- If your keyboard map does not include RESET, then, to get into DFU
+- If your keyboard map does not include QK_BOOT, then, to get into DFU
   mode, you will need to press the reset button on the PCB, which
   requires unscrewing the bottom.
 - Messing with tmk_core / common files might make the keyboard

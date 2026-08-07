@@ -52,14 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [FN] = LAYOUT(
 /*   __________________________________________________________________________________________________________________________________________________________________________
     | \            \            \            \            \            \            \            \            \            \            \            \            \            \ */
-//  | |-RGB TOGGLE-|-CHANGE RGB-|-RGB HUE UP-|-RGB SAT UP-|------------|------------|------------|------------|------------|------------|------------|------------|-RESET KBD--|
-       RGB_TOG,     RGB_MOD,     RGB_HUI,     RGB_SAI,     KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,
+//  | |-RGB TOGGLE-|-CHANGE RGB-|-RGB HUE UP-|-RGB SAT UP-|------------|------------|------------|------------|------------|------------|------------|------------|-QK_BOOT KBD--|
+       RM_TOGG,     RM_NEXT,     RM_HUEU,     RM_SATU,     KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,
 //  | |------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|
-       MU_TOG,      KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,
+       MU_TOGG,     KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,
 //  | |------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|------------|-RGB LIGHT +|------------|
-       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       RGB_VAI,     KC_NO,
+       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       KC_NO,       RM_VALU,     KC_NO,
 //  | |------------|------------|------------|---FN_1-----|------------|------------|----FN_2----|------------|------------|------------|------------|-RGB LIGHT -|------------|
-       KC_NO,       KC_NO,       KC_NO,       MO(NUM),     KC_NO,       KC_NO,       TO(BASE),    KC_NO,       KC_NO,       KC_NO,       KC_NO,       RGB_VAD,     KC_NO
+       KC_NO,       KC_NO,       KC_NO,       MO(NUM),     KC_NO,       KC_NO,       TO(BASE),    KC_NO,       KC_NO,       KC_NO,       KC_NO,       RM_VALD,     KC_NO
 //   \|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|____________|
     )
 };

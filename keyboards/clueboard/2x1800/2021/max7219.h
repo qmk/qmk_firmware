@@ -26,8 +26,10 @@
  *    OTHER DEALINGS IN THE SOFTWARE.
  */
 #pragma once
-#include "quantum.h"
-#include "spi_master.h"
+
+#include <stddef.h>
+#include <stdint.h>
+#include <stdbool.h>
 
 // Set defaults if they're not set
 #ifndef MAX7219_LOAD

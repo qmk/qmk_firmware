@@ -17,7 +17,7 @@ Note that this set-up has been tested on Ubuntu 16.04 only for the moment.
 
 # Prerequisites
 ## Build Environment
-Before starting, you must have followed the [Getting Started](newbs_getting_started.md) section of the Tutorial. In particular, you must have been able to build the firmware with [the `qmk compile` command](newbs_building_firmware.md#build-your-firmware).
+Before starting, you must have followed the [Getting Started](newbs_getting_started) section of the Tutorial. In particular, you must have been able to build the firmware with [the `qmk compile` command](newbs_building_firmware#build-your-firmware).
 
 ## Java
 Eclipse is a Java application, so you will need to install Java 8 or more recent to be able to run it. You may choose between the JRE or the JDK, the latter being useful if you intend to do Java development.
@@ -66,7 +66,7 @@ Once both plugins are installed, restart Eclipse as prompted.
   * Select the _AVR-GCC Toolchain_;
   * Keep the rest as-is and click <kbd>Finish</kbd>
 
-  ![Importing QMK in Eclipse](https://i.imgur.com/oHYR1yW.png)
+  ![Importing QMK in Eclipse](/oHYR1yW.png)
 
 3. The project will now be loaded and indexed. Its files can be browsed easily through the _Project Explorer_ on the left.
 

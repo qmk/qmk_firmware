@@ -17,9 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "portico.h"
 
-#ifdef RGB_MATRIX_ENABLE
+#ifdef RGB_BACKLIGHT_PORTICO
+#    include "drivers/led/issi/is31fl3731.h"
+#endif
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+#if defined(RGB_MATRIX_ENABLE) || defined(RGB_BACKLIGHT_PORTICO)
+
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     { 0, C2_1,  C3_1,  C4_1  },
     { 0, C1_1,  C3_2,  C4_2  },
     { 0, C1_2,  C2_2,  C4_3  },
@@ -92,48 +96,23 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     { 1, C9_16, C7_15, C6_15 },
     { 1, C8_16, C7_16, C6_16 }
 };
+#endif
 
-led_config_t g_led_config = {
-    {
-        {  0,      1,  2,      3,      4,      5,  6,      7,      8,      9, 10, 11, 12,     13, 14 },
-        { 15,     16, 17,     18,     19,     20, 21,     22,     23,     24, 25, 26, 27,     28, 29 },
-        { 30,     31, 32,     33,     34,     35, 36,     37,     38,     39, 40, 41, 42, NO_LED, 43 },
-        { 44, NO_LED, 45,     46,     47,     48, 49,     50,     51,     52, 53, 54, 55,     56, 57 },
-        { 58,     59, 60, NO_LED, NO_LED, NO_LED, 61, NO_LED, NO_LED, NO_LED, 62, 63, 64,     65, 66 }
-    }, {
-        {   0,   0 }, {  15,   0 }, {  30,   0 }, {  45,   0 }, {  60,   0 }, {  75,   0 }, {  90,   0 }, { 105,   0 }, { 120,   0 }, { 135,   0 }, { 150,   0 }, { 165,   0 }, { 180,   0 }, { 203,   0 }, { 224,   0 },
-        {   4,  16 }, {  23,  16 }, {  38,  16 }, {  53,  16 }, {  68,  16 }, {  83,  16 }, {  98,  16 }, { 113,  16 }, { 128,  16 }, { 143,  16 }, { 158,  16 }, { 173,  16 }, { 188,  16 }, { 206,  16 }, { 224,  16 },
-        {   6,  32 }, {  26,  32 }, {  41,  32 }, {  56,  32 }, {  71,  32 }, {  86,  32 }, { 101,  32 }, { 116,  32 }, { 131,  32 }, { 146,  32 }, { 161,  32 }, { 176,  32 },               { 201,  32 }, { 224,  32 },
-        {   9,  48 },               {  34,  48 }, {  49,  48 }, {  64,  48 }, {  79,  48 }, {  94,  48 }, { 109,  48 }, { 124,  48 }, { 139,  48 }, { 154,  48 }, { 169,  48 }, { 189,  48 }, { 210,  48 }, { 224,  48 },
-        {   2,  64 }, {  21,  64 }, {  39,  64 },                                           {  96,  64 },                                           { 152,  64 }, { 171,  64 }, { 195,  64 }, { 210,  64 }, { 224,  64 }
-    }, {
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,    4, 4,
-        4,    4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4,
-        4, 4, 4,          4,          4, 4, 4, 4, 4
+#ifdef RGB_MATRIX_ENABLE
+bool rgb_matrix_indicators_kb(void) {
+    if (!rgb_matrix_indicators_user()) {
+        return false;
     }
-};
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}
-
-void rgb_matrix_indicators_kb(void) {
 	if (host_keyboard_led_state().caps_lock) {
 		rgb_matrix_set_color(30, 0xFF, 0xFF, 0xFF);
 	}
-	else { 
+	else {
 		rgb_matrix_set_color(30, 0x00, 0x00, 0x00);
 	}
 	if (!rgb_matrix_is_enabled()) {
 		rgb_matrix_driver.flush();
     }
+    return true;
 }
 #endif
+

@@ -32,13 +32,13 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_with_setta21(
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |-----------------------------------------------|
-       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,LT(_LOWER, KC_P0),KC_P1, KC_P4,  KC_P7,KC_NLCK, KC_ESC,
+       KC_TAB,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC,LT(_LOWER, KC_P0),KC_P1, KC_P4,  KC_P7,KC_NUM,  KC_ESC,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
        KC_ESC,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,                 KC_P2,  KC_P5,  KC_P8,KC_PSLS,  KC_F2,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
       KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_ENT,LT(_RAISE, KC_PDOT),KC_P3,KC_P6, KC_P9,KC_PAST, KC_EQL,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|      |---------------+---------------+-------+-------|
-           MO(_ADJUST),KC_LCTRL, KC_LALT, KC_LGUI,MO(_LOWER), KC_SPC, KC_SPC,MO(_RAISE), KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,                        KC_PENT,        KC_PPLS,KC_PMNS, KC_DEL
+           MO(_ADJUST),KC_LCTL,  KC_LALT, KC_LGUI,MO(_LOWER), KC_SPC, KC_SPC,MO(_RAISE), KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT,                        KC_PENT,        KC_PPLS,KC_PMNS, KC_DEL
           //`------------------------------------------------------------------------------------------------------------'               |-----------------------------------------------|
   ),
 
@@ -69,13 +69,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_with_setta21( /* Base */
   //,-----------------------------------------------------|                 |-----------------------------------------------------.      |-----------------------------------------------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,       _______,RGB_VAD,RGB_HUD,RGB_SAD,XXXXXXX,_______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   RGB_RST, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,       _______,UG_VALD,UG_HUED,UG_SATD,XXXXXXX,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   RGB_TOG, RGB_MOD, XXXXXXX,LCA(KC_DEL),LALT(KC_PSCR),KC_PSCR,        RGB_VAI,RGB_HUI,RGB_SAI,XXXXXXX,_______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   UG_TOGG, UG_NEXT, XXXXXXX,LCA(KC_DEL),LALT(KC_PSCR),KC_PSCR,        UG_VALU,UG_HUEU,UG_SATU,XXXXXXX,_______,
   //|--------+--------+--------+--------+--------+--------|                 |--------+--------+--------+--------+--------+--------|      |-------+-------+-------+-------+-------+-------|
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   RGB_VAD, RGB_VAI, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI,       _______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,
+      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   UG_VALD, UG_VALU, UG_HUED, UG_HUEU, UG_SATD, UG_SATU,       _______,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,
   //|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|      |---------------+---------------+-------+-------|
-               _______, _______, _______, _______, _______,   RESET,   RESET, _______, _______, _______, _______, _______,                        RGB_MOD,        RGB_TOG,_______,_______
+               _______, _______, _______, _______, _______, QK_BOOT, QK_BOOT, _______, _______, _______, _______, _______,                        UG_NEXT,        UG_TOGG,_______,_______
           //`------------------------------------------------------------------------------------------------------------'               |-----------------------------------------------|
   )
 };
@@ -110,7 +110,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
     #ifdef RGBLIGHT_ENABLE
-      case RGB_MOD:
+      case QK_UNDERGLOW_MODE_NEXT:
           if (record->event.pressed) {
             rgblight_mode(RGB_current_mode);
             rgblight_step();
@@ -131,8 +131,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   return result;
-}
-
-void matrix_init_user(void) {
-
 }

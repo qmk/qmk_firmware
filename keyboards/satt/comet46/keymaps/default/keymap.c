@@ -2,9 +2,6 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include QMK_KEYBOARD_H
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
 
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -21,16 +18,12 @@ enum comet46_layers
   _ADJUST,
 };
 
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  LOWER,
-  RAISE,
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -138,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     _______, _______, _______, _______, _______, _______,                          _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, QWERTY,         COLEMAK, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, RESET,          DVORAK,  _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, QK_BOOT,        DVORAK,  _______, _______, _______, _______, _______, _______,
                                         _______, _______, _______,        _______, _______, _______
   )
 };
@@ -148,8 +141,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 
 // You need to add source files to SRC in rules.mk when using OLED display functions
 void set_keylog(uint16_t keycode);
@@ -157,43 +149,20 @@ const char *read_keylog(void);
 const char *read_modifier_state(void);
 const char *read_host_led_state(void);
 
-void matrix_init_user(void) {
-  iota_gfx_init(false);   // turns on the display
-}
-
-void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
-}
-
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void render_status(struct CharacterMatrix *matrix) {
+bool oled_task_user(void) {
   // Layer state
   char layer_str[22];
-  matrix_write(matrix, "Layer: ");
-  uint8_t layer = biton32(layer_state);
-  uint8_t default_layer = biton32(eeconfig_read_default_layer());
+  oled_write_P(PSTR("Layer: "), false);
+  uint8_t layer = get_highest_layer(layer_state | default_layer_state);
   switch (layer) {
     case _QWERTY:
-      switch (default_layer) {
-        case _QWERTY:
-          snprintf(layer_str, sizeof(layer_str), "Qwerty");
-          break;
-        case _COLEMAK:
-          snprintf(layer_str, sizeof(layer_str), "Colemak");
-          break;
-        case _DVORAK:
-          snprintf(layer_str, sizeof(layer_str), "Dvorak");
-          break;
-        default:
-          snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
-          break;
-      }
+      snprintf(layer_str, sizeof(layer_str), "Qwerty");
+      break;
+    case _COLEMAK:
+      snprintf(layer_str, sizeof(layer_str), "Colemak");
+      break;
+    case _DVORAK:
+      snprintf(layer_str, sizeof(layer_str), "Dvorak");
       break;
     case _RAISE:
       snprintf(layer_str, sizeof(layer_str), "Raise");
@@ -207,47 +176,24 @@ void render_status(struct CharacterMatrix *matrix) {
     default:
       snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
   }
-  matrix_write_ln(matrix, layer_str);
+  oled_write_ln(layer_str, false);
   // Last entered keycode
-  matrix_write_ln(matrix, read_keylog());
+  oled_write_ln(read_keylog(), false);
   // Modifier state
-  matrix_write_ln(matrix, read_modifier_state());
+  oled_write_ln(read_modifier_state(), false);
   // Host Keyboard LED Status
-  matrix_write(matrix, read_host_led_state());
+  oled_write(read_host_led_state(), false);
+
+  return false;
 }
 
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  render_status(&matrix);
-  matrix_update(&display, &matrix);
-}
-
-#endif//SSD1306OLED
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef SSD1306OLED
+  #ifdef OLED_ENABLE
     if (record->event.pressed) {
       set_keylog(keycode);
     }
   #endif
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      break;
-  }
   return true;
 }

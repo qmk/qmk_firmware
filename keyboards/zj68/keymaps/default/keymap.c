@@ -26,10 +26,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     LAYOUT_all(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   RESET,   KC_PSCR,
-        RGB_TOG, _______, KC_UP,   _______, RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME,
-        BL_TOGG, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, KC_END,
-        _______, _______, _______, BL_DEC,  BL_INC,  BL_STEP, _______, _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______,
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   QK_BOOT, KC_PSCR,
+        UG_TOGG, _______, KC_UP,   _______, UG_NEXT, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME,
+        BL_TOGG, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, UG_HUEU, UG_SATU, UG_VALU, _______, _______, _______, KC_END,
+        _______, _______, _______, BL_DOWN, BL_UP,   BL_STEP, _______, _______, UG_HUED, UG_SATD, UG_VALD, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 };

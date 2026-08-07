@@ -1,4 +1,4 @@
-#include "rev2.h"
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 #include "split_util.h"
@@ -37,14 +37,14 @@ void render_status(void) {
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_set_cursor(0, 3); // Line 3
   oled_write_P(PSTR("Layer"), false); // Line 4
-  oled_write_P(layer_name_user(biton32(layer_state)), false);
+  oled_write_P(layer_name_user(get_highest_layer(layer_state)), false);
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
+  led_t led_state = host_keyboard_led_state();
   oled_set_cursor(0, oled_max_lines() - 4); // Line 13
-  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUMLK") : PSTR("     "), false); // Line 14
-  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAPLK") : PSTR("     "), false); // Line 15
-  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCRLK") : PSTR("     "), false); // Line 16
+  oled_write_P(led_state.num_lock ? PSTR("NUMLK") : PSTR("     "), false); // Line 14
+  oled_write_P(led_state.caps_lock ? PSTR("CAPLK") : PSTR("     "), false); // Line 15
+  oled_write_P(led_state.scroll_lock ? PSTR("SCRLK") : PSTR("     "), false); // Line 16
 }
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {

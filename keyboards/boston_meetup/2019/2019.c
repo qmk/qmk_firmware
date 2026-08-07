@@ -13,22 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "2019.h"
-
-#ifdef RGB_MATRIX_ENABLE
-#include "rgb_matrix.h"
-
-led_config_t g_led_config = { {
-  {   5, NO_LED, NO_LED,   0 },
-  { NO_LED, NO_LED, NO_LED, NO_LED },
-  {   4, NO_LED, NO_LED,   1 },
-  {   3, NO_LED, NO_LED,   2 }
-}, {
-    { 188,  16 }, { 187,  48 }, { 149,  64 }, { 112,  64 }, {  37,  48 }, {  38,  16 }
-}, {
-    4, 4, 4, 4, 4, 4
-} };
-#endif
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_180; }

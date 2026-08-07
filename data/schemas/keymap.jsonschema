@@ -1,19 +1,49 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$schema": "https://json-schema.org/draft/2020-12/schema#",
     "$id": "qmk.keymap.v1",
     "title": "Keymap Information",
     "type": "object",
     "properties": {
         "author": {"type": "string"},
-        "host_language": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "keyboard": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "keymap": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "layout": {"$ref": "qmk.definitions.v1#/layout_macro"},
+        "converter": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[a-z][0-9a-z_]*$"
+        },
+        "host_language": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "keyboard": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "keymap": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "layout": {"$ref": "./definitions.jsonschema#/layout_macro"},
         "layers": {
             "type": "array",
             "items": {
                 "type": "array",
                 "items": {"type": "string"}
+            }
+        },
+        "encoders": {
+            "type": "array",
+            "items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "required": ["ccw", "cw"],
+                    "properties": {
+                        "ccw": {"type": "string"},
+                        "cw": {"type": "string"}
+                    }
+                }
+            }
+        },
+        "dip_switches": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": ["on", "off"],
+                "properties": {
+                    "on": {"type": "string"},
+                    "off": {"type": "string"}
+                }
             }
         },
         "macros": {
@@ -31,16 +61,16 @@
                             "properties": {
                                 "action": {
                                     "type": "string",
-                                    "enum": ['beep', 'delay', 'down', 'tap', 'up']
+                                    "enum": ["beep", "delay", "down", "tap", "up"]
                                 },
                                 "keycodes": {
                                     "type": "array",
                                     "items": {
-                                        "$ref": "qmk.definitions.v1#/text_identifier"
+                                        "$ref": "./definitions.jsonschema#/text_identifier"
                                     }
                                 },
                                 "duration": {
-                                    "$ref": "qmk.definitions.v1#/unsigned_int"
+                                    "$ref": "./definitions.jsonschema#/unsigned_int"
                                 }
                             }
                         }
@@ -48,15 +78,16 @@
                 }
             }
         },
-        "config": {"$ref": "qmk.keyboard.v1"},
+        "keycodes": {"$ref": "./definitions.jsonschema#/keycode_decl_array"},
+        "config": {"$ref": "./keyboard.jsonschema#"},
         "notes": {
-            "type": "string",
-            "description": "asdf"
+            "type": "string"
+        },
+        "modules": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
         }
-    },
-    "required": [
-        "keyboard",
-        "layout",
-        "layers"
-    ]
+    }
 }

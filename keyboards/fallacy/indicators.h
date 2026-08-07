@@ -15,8 +15,7 @@
  */
 #pragma once
 
-#include "quantum.h"
-
+#include <stdbool.h>
 
 void init_fallacy_leds(void);
 void update_fallacy_leds(void);

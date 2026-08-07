@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#include "modifiers.h"
+
 /** \brief Action codes
  *
  * 16bit code: action_kind(4bit) + action_parameter(12bit)
@@ -160,39 +162,24 @@ typedef union {
 #define ACTION_TRANSPARENT 1
 #define ACTION(kind, param) ((kind) << 12 | (param))
 
-/** \brief Key Actions
- *
- * Mod bits:    43210
- *   bit 0      ||||+- Control
- *   bit 1      |||+-- Shift
- *   bit 2      ||+--- Alt
- *   bit 3      |+---- Gui
- *   bit 4      +----- LR flag(Left:0, Right:1)
- */
-enum mods_bit {
-    MOD_LCTL = 0x01,
-    MOD_LSFT = 0x02,
-    MOD_LALT = 0x04,
-    MOD_LGUI = 0x08,
-    MOD_RCTL = 0x11,
-    MOD_RSFT = 0x12,
-    MOD_RALT = 0x14,
-    MOD_RGUI = 0x18,
-};
 enum mods_codes {
     MODS_ONESHOT    = 0x00,
     MODS_TAP_TOGGLE = 0x01,
 };
 #define ACTION_KEY(key) ACTION(ACT_MODS, (key))
-#define ACTION_MODS(mods) ACTION(ACT_MODS, ((mods)&0x1f) << 8 | 0)
-#define ACTION_MODS_KEY(mods, key) ACTION(ACT_MODS, ((mods)&0x1f) << 8 | (key))
-#define ACTION_MODS_TAP_KEY(mods, key) ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | (key))
-#define ACTION_MODS_ONESHOT(mods) ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | MODS_ONESHOT)
-#define ACTION_MODS_TAP_TOGGLE(mods) ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | MODS_TAP_TOGGLE)
+#define ACTION_MODS(mods) ACTION(ACT_MODS, ((mods) & 0x1f) << 8 | 0)
+#define ACTION_MODS_KEY(mods, key) ACTION(ACT_MODS, ((mods) & 0x1f) << 8 | (key))
+#define ACTION_MODS_TAP_KEY(mods, key) ACTION(ACT_MODS_TAP, ((mods) & 0x1f) << 8 | (key))
+#define ACTION_MODS_ONESHOT(mods) ACTION(ACT_MODS_TAP, ((mods) & 0x1f) << 8 | MODS_ONESHOT)
+#define ACTION_MODS_TAP_TOGGLE(mods) ACTION(ACT_MODS_TAP, ((mods) & 0x1f) << 8 | MODS_TAP_TOGGLE)
 
 /** \brief Other Keys
  */
-enum usage_pages { PAGE_SYSTEM, PAGE_CONSUMER };
+enum usage_pages {
+    PAGE_SYSTEM,
+    PAGE_CONSUMER,
+};
+
 #define ACTION_USAGE_SYSTEM(id) ACTION(ACT_USAGE, PAGE_SYSTEM << 10 | (id))
 #define ACTION_USAGE_CONSUMER(id) ACTION(ACT_USAGE, PAGE_CONSUMER << 10 | (id))
 #define ACTION_MOUSEKEY(key) ACTION(ACT_MOUSEKEY, key)
@@ -223,7 +210,7 @@ enum layer_param_tap_op {
     OP_SET_CLEAR,
     OP_ONESHOT,
 };
-#define ACTION_LAYER_BITOP(op, part, bits, on) ACTION(ACT_LAYER, (op) << 10 | (on) << 8 | (part) << 5 | ((bits)&0x1f))
+#define ACTION_LAYER_BITOP(op, part, bits, on) ACTION(ACT_LAYER, (op) << 10 | (on) << 8 | (part) << 5 | ((bits) & 0x1f))
 #define ACTION_LAYER_TAP(layer, key) ACTION(ACT_LAYER_TAP, (layer) << 8 | (key))
 /* Default Layer */
 #define ACTION_DEFAULT_LAYER_SET(layer) ACTION_DEFAULT_LAYER_BIT_SET((layer) / 4, 1 << ((layer) % 4))
@@ -234,6 +221,7 @@ enum layer_param_tap_op {
 #define ACTION_LAYER_INVERT(layer, on) ACTION_LAYER_BIT_XOR((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_ON(layer, on) ACTION_LAYER_BIT_OR((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_OFF(layer, on) ACTION_LAYER_BIT_AND((layer) / 4, ~(1 << ((layer) % 4)), (on))
+#define ACTION_LAYER_GOTO(layer) ACTION_LAYER_SET(layer, ON_PRESS)
 #define ACTION_LAYER_SET(layer, on) ACTION_LAYER_BIT_SET((layer) / 4, 1 << ((layer) % 4), (on))
 #define ACTION_LAYER_ON_OFF(layer) ACTION_LAYER_TAP((layer), OP_ON_OFF)
 #define ACTION_LAYER_OFF_ON(layer) ACTION_LAYER_TAP((layer), OP_OFF_ON)

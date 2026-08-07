@@ -1,8 +1,0 @@
-{
-  "features": {
-    "rgblight": false
-  },
-  "usb": {
-    "pid": "0x0082"
-  }
-}

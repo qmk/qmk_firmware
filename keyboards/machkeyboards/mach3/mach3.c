@@ -13,30 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "mach3.h"
-
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = { {
-  // Key Matrix to LED Index
-  {  0,  1,  2 },
-  {  7,  6,  5 },
-  {  8,  9, 10 },
-}, {
-  // LED Index to Physical Position
-  { 0,  0 },   { 112,  0 },   { 224,  0 },
-  { 0,  112 }, { 112,  112 }, { 224,  112 },
-  { 0,  224 }, { 112,  224 }, { 224,  224 },
-}, {
-  // LED Index to Flag
-  4, 4, 4,
-  4, 4, 4,
-  4, 4, 4
-} };
-#endif
+#include "quantum.h"
 
 void keyboard_pre_init_kb(void) {
-  setPinOutput(F5);
-  writePinHigh(F5);
-  
+  gpio_set_pin_output(F5);
+  gpio_write_pin_high(F5);
+
   keyboard_pre_init_user();
 }

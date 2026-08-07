@@ -6,7 +6,7 @@ WT65-XTX is a keyboard PCB supporting 65% layout with left side macro keys.
 
 First produced by [Rama Works Foundry](https://r.works) for [ION Keyboards Zenith](https://r.works/zenith)
 
-* Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)
+* Keyboard Maintainer: [Wilba](https://github.com/wilba)
 * Hardware Supported: wilba.tech WT65-XT
 * Hardware Availability: [wilba.tech](https://wilba.tech/)
 

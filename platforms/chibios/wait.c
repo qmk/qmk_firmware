@@ -21,7 +21,7 @@
 
 #ifdef WAIT_US_TIMER
 void wait_us(uint16_t duration) {
-    static const GPTConfig gpt_cfg = {1000000, NULL, 0, 0}; /* 1MHz timer, no callback */
+    static const GPTConfig gpt_cfg = {.frequency = 1000000}; /* 1MHz timer, no callback */
 
     if (duration == 0) {
         duration = 1;
@@ -31,7 +31,7 @@ void wait_us(uint16_t duration) {
      * Only use this timer on the main thread;
      * other threads need to use their own timer.
      */
-    if (chThdGetSelfX() == &ch.mainthread && duration < (1ULL << (sizeof(gptcnt_t) * 8))) {
+    if (chThdGetSelfX() == &(currcore->mainthread) && duration < (1ULL << (sizeof(gptcnt_t) * 8))) {
         gptStart(&WAIT_US_TIMER, &gpt_cfg);
         gptPolledDelay(&WAIT_US_TIMER, duration);
     } else {

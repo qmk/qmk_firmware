@@ -2,9 +2,11 @@
 
 QMK runs on any USB-capable AVR or ARM microcontroller with enough flash space - generally 32kB+ for AVR, and 64kB+ for ARM. With significant disabling of features, QMK may *just* squeeze into 16kB AVR MCUs.
 
+Features within QMK may or may not be compatible with every microcontroller.
+
 ## Atmel AVR
 
-The following use [LUFA](https://www.fourwalledcubicle.com/LUFA.php) as the USB stack:
+The following use [LUFA](https://github.com/abcminiuser/lufa) as the USB stack:
 
 * [ATmega16U2](https://www.microchip.com/wwwproducts/en/ATmega16U2) / [ATmega32U2](https://www.microchip.com/wwwproducts/en/ATmega32U2)
 * [ATmega16U4](https://www.microchip.com/wwwproducts/en/ATmega16U4) / [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATmega32U4)
@@ -41,6 +43,8 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32F446](https://www.st.com/en/microcontrollers-microprocessors/stm32f446.html)
  * [STM32G431](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x1.html)
  * [STM32G474](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x4.html)
+ * [STM32H723](https://www.st.com/en/microcontrollers-microprocessors/stm32h723-733.html)
+ * [STM32H733](https://www.st.com/en/microcontrollers-microprocessors/stm32h723-733.html)
  * [STM32L412](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
  * [STM32L422](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
  * [STM32L432](https://www.st.com/en/microcontrollers-microprocessors/stm32l4x2.html)
@@ -51,6 +55,11 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
 ### WestBerryTech (WB32)
 
  * [WB32F3G71xx](http://www.westberrytech.com)
+ * [WB32FQ95xx](http://www.westberrytech.com)
+
+### Artery (AT32)
+
+ * [AT32F415](https://www.arterychip.com/en/product/AT32F415.jsp)
 
 ### NXP (Kinetis)
 
@@ -59,12 +68,16 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [MK20DX128](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-50-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-based-on-arm-cortex-m4-core:K20_50)
  * [MK20DX256](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k2x-usb/kinetis-k20-72-mhz-full-speed-usb-mixed-signal-integration-microcontrollers-mcus-based-on-arm-cortex-m4-core:K20_72)
    * PJRC Teensy 3.2
+ * [MK64FX512](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k64-120-mhz-256-kb-sram-microcontrollers-mcus-based-on-arm-cortex-m4-core:K64_120)
+   * PJRC Teensy 3.5
  * [MK66FX1M0](https://www.nxp.com/products/processors-and-microcontrollers/arm-microcontrollers/general-purpose-mcus/k-series-cortex-m4/k6x-ethernet/kinetis-k66-180-mhz-dual-high-speed-full-speed-usbs-2mb-flash-microcontrollers-mcus-based-on-arm-cortex-m4-core:K66_180)
    * PJRC Teensy 3.6
 
-## Atmel ATSAM
+### Raspberry Pi
 
-There is limited support for one of Atmel's ATSAM microcontrollers, that being the [ATSAMD51J18A](https://www.microchip.com/wwwproducts/en/ATSAMD51J18A) used by the [Massdrop keyboards](https://github.com/qmk/qmk_firmware/tree/master/keyboards/massdrop). However, it is not recommended to design a board with this microcontroller as the support is quite specialized to Massdrop hardware.
+* [RP2040](https://www.raspberrypi.com/documentation/microcontrollers/rp2040.html)
+
+For a detailed overview about the RP2040 support by QMK see the [dedicated RP2040 page](platformdev_rp2040).
 
 ## RISC-V
 

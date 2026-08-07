@@ -25,8 +25,7 @@ this driver uses the chibios-PWM system to produce a square-wave on any given ou
 
  */
 #include "audio.h"
-#include "ch.h"
-#include "hal.h"
+#include "gpio.h"
 
 #if !defined(AUDIO_PIN)
 #    error "Audio feature enabled, but no pin selected - see docs/feature_audio under the ARM PWM settings"
@@ -64,8 +63,8 @@ void         channel_1_set_frequency(float freq) {
     pwmChangePeriod(&AUDIO_PWM_DRIVER, period);
 
     pwmEnableChannel(&AUDIO_PWM_DRIVER, AUDIO_PWM_CHANNEL - 1,
-                     // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
-                     PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
+                             // adjust the duty-cycle so that the output is for 'note_timbre' duration HIGH
+                             PWM_PERCENTAGE_TO_WIDTH(&AUDIO_PWM_DRIVER, (100 - note_timbre) * 100));
 }
 
 float channel_1_get_frequency(void) {
@@ -118,11 +117,11 @@ GPTConfig   gptCFG = {
        and the .interval counts from 64 downwards - audio_update_state is
        called just often enough to not miss anything
     */
-    .frequency = 60 * 64,
-    .callback  = gpt_callback,
+      .frequency = 60 * 64,
+      .callback  = gpt_callback,
 };
 
-void audio_driver_initialize(void) {
+void audio_driver_initialize_impl(void) {
     pwmStart(&AUDIO_PWM_DRIVER, &pwmCFG);
 
     palSetLineMode(AUDIO_PIN, PAL_MODE_OUTPUT_PUSHPULL);
@@ -139,7 +138,7 @@ void audio_driver_initialize(void) {
     gptStart(&AUDIO_STATE_TIMER, &gptCFG);
 }
 
-void audio_driver_start(void) {
+void audio_driver_start_impl(void) {
     channel_1_stop();
     channel_1_start();
 
@@ -148,7 +147,7 @@ void audio_driver_start(void) {
     }
 }
 
-void audio_driver_stop(void) {
+void audio_driver_stop_impl(void) {
     channel_1_stop();
     gptStopTimer(&AUDIO_STATE_TIMER);
 }

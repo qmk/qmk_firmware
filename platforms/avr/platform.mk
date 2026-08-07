@@ -12,12 +12,27 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
+COMPILEFLAGS += $(call cc-option,--param=min-pagesize=0)
+
+# Fix ICE's: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=116389
+COMPILEFLAGS += $(call cc-option,-mlra)
+
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fdata-sections
 COMPILEFLAGS += -fpack-struct
 COMPILEFLAGS += -fshort-enums
+COMPILEFLAGS += -mcall-prologues
+COMPILEFLAGS += -fno-builtin-printf
+
+# On older compilers, linker relaxation is only possible if link time optimizations are not enabled.
+ifeq ($(strip $(LTO_ENABLE)), no)
+	COMPILEFLAGS += -mrelax
+else
+	# Newer compilers may support both, so quickly check before adding `-mrelax`.
+	COMPILEFLAGS += $(call cc-option,-mrelax,,-flto=auto)
+endif
 
 ASFLAGS += $(AVR_ASFLAGS)
 
@@ -26,9 +41,18 @@ CFLAGS += -fno-inline-small-functions
 CFLAGS += -fno-strict-aliasing
 
 CXXFLAGS += $(COMPILEFLAGS)
-CXXFLAGS += -fno-exceptions -std=c++11
+CXXFLAGS += -fno-exceptions $(CXXSTANDARD)
 
-LDFLAGS +=-Wl,--gc-sections
+LDFLAGS += -Wl,--gc-sections
+
+# Use AVR's libc minimal printf implementation which has less features
+# and thus can shave ~400 bytes. Usually we use the xprintf
+# implementation but keyboards that use s(n)printf automatically
+# pull in the AVR libc implementation, which is ~900 bytes heavy.
+AVR_USE_MINIMAL_PRINTF ?= no
+ifeq ($(strip $(AVR_USE_MINIMAL_PRINTF)), yes)
+	LDFLAGS += -Wl,--whole-archive -lprintf_min -Wl,--no-whole-archive
+endif
 
 OPT_DEFS += -DF_CPU=$(F_CPU)UL
 
@@ -87,6 +111,29 @@ DEBUG_PORT = 4242
 DEBUG_HOST = localhost
 
 #============================================================================
+
+SIZE_MARGIN = 1024
+
+check-size:
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | $(SED) -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
+	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
+	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
+	$(eval PERCENT_SIZE=$(shell expr $(CURRENT_SIZE) \* 100 / $(MAX_SIZE)))
+	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
+		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
+		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
+			$(REMOVE) $(TARGET).$(FIRMWARE_FORMAT); \
+			$(REMOVE) $(BUILD_DIR)/$(TARGET).{hex,bin,uf2}; \
+		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
+		else \
+		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
+			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
+		    else \
+			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
+		    fi ; \
+		fi ; \
+	fi
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
@@ -157,17 +204,17 @@ else ifeq ($(strip $(BOOTLOADER)), qmk-hid)
 QMK_BOOTLOADER_TYPE = HID
 endif
 
-bootloader:
+bootloader: cpfirmware
 ifeq ($(strip $(QMK_BOOTLOADER_TYPE)),)
 	$(call CATASTROPHIC_ERROR,Invalid BOOTLOADER,Please set BOOTLOADER to "qmk-dfu" or "qmk-hid" first!)
 else
-	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean
+	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ clean TARGET=Bootloader$(QMK_BOOTLOADER_TYPE)
 	$(QMK_BIN) generate-dfu-header --quiet --keyboard $(KEYBOARD) --output lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Keyboard.h
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) -D__ASSEMBLER__ $(CFLAGS) $(OPT_DEFS) platforms/avr/bootloader_size.c 2> /dev/null | sed -ne 's/\r//;/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval PROGRAM_SIZE_KB=$(shell n=`expr $(MAX_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval BOOT_SECTION_SIZE_KB=$(shell n=`expr  $(BOOTLOADER_SIZE) / 1024` && echo $$(($$n)) || echo 0))
 	$(eval FLASH_SIZE_KB=$(shell n=`expr $(PROGRAM_SIZE_KB) + $(BOOT_SECTION_SIZE_KB)` && echo $$(($$n)) || echo 0))
-	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB)
+	make -C lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/ MCU=$(MCU) ARCH=$(ARCH) F_CPU=$(F_CPU) FLASH_SIZE_KB=$(FLASH_SIZE_KB) BOOT_SECTION_SIZE_KB=$(BOOT_SECTION_SIZE_KB) TARGET=Bootloader$(QMK_BOOTLOADER_TYPE)
 	printf "Bootloader$(QMK_BOOTLOADER_TYPE).hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/$(QMK_BOOTLOADER_TYPE)/Bootloader$(QMK_BOOTLOADER_TYPE).hex $(TARGET)_bootloader.hex
 endif

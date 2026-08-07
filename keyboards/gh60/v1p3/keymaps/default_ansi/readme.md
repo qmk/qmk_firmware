@@ -18,7 +18,7 @@
 | `Fn` + `-`         | `F11`                |
 | `Fn` + `=`         | `F12`                |
 | `Fn` + `Backspace` | `Delete`             |
-| `Fn` + `R`         | `RESET`              |
+| `Fn` + `R`         | `QK_BOOT`              |
 | `Fn` + `I`         | `Up`                 |
 | `Fn` + `J`         | `Left`               |
 | `Fn` + `K`         | `Down`               |

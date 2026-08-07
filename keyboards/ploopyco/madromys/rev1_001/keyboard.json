@@ -1,0 +1,23 @@
+{
+    "usb": {
+        "device_version": "1.0.0"
+    },
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "direct": [
+            ["GP15", "GP17", "GP19", "GP21", "GP23", "GP11"]
+        ]
+    },
+    "rgblight": {
+        "led_count": 3,
+        "max_brightness": 40,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true
+        }
+    },
+    "ws2812": {
+        "pin": "GP12"
+    }
+}

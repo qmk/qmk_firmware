@@ -14,15 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "kint41.h"
+#include "quantum.h"
+
+#define LED_POWER LINE_PIN13
 
 void matrix_init_kb(void) {
     matrix_init_user();
 
-// Turn on the Teensy 4.x Power LED:
-#define LED_POWER LINE_PIN13
-    setPinOutput(LED_POWER);
-    writePinHigh(LED_POWER);
+    // Turn on the Teensy 4.x Power LED:
+    gpio_set_pin_output(LED_POWER);
+    gpio_write_pin_high(LED_POWER);
 }
 
 // delay_inline sleeps for |cycles| (e.g. sleeping for F_CPU will sleep 1s).
@@ -46,7 +47,10 @@ void matrix_output_unselect_delay(uint8_t line, bool key_pressed) {
     // Empirically: e.g. 5μs is not enough, will result in keys that don’t work
     // and ghost key presses. 10μs seems to work well.
 
+    // On some variants of the hardware, 20μs seems to be required. This was found
+    // on a combination of KB600LF+stapelberg v2020-06-30+teensy41.
+
     // 600 cycles at 0.6 cycles/ns == 1μs
     const uint32_t cycles_per_us = 600;
-    delay_inline(10 * cycles_per_us);
+    delay_inline(20 * cycles_per_us);
 }

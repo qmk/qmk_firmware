@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 #define AUDIO_PIN A5
 #define AUDIO_PIN_ALT A4

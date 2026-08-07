@@ -125,7 +125,7 @@ bool touch_slave_init = false;
 slave_touch_status_t touch_slave_state = { 0, 0 };
 
 static bool write_register8(uint8_t address, uint8_t data) {
-    i2c_status_t status = i2c_writeReg((I2C_ADDRESS << 1), address, &data, sizeof(data), I2C_TIMEOUT);
+    i2c_status_t status = i2c_write_register((I2C_ADDRESS << 1), address, &data, sizeof(data), I2C_TIMEOUT);
     if (status != I2C_STATUS_SUCCESS) {
         xprintf("write_register8 %d failed %d\n", address, status);
     }
@@ -133,7 +133,7 @@ static bool write_register8(uint8_t address, uint8_t data) {
 }
 
 static bool read_register(uint8_t address, uint8_t* data, uint16_t length) {
-    i2c_status_t status = i2c_readReg((I2C_ADDRESS << 1), address, data, length, I2C_TIMEOUT);
+    i2c_status_t status = i2c_read_register((I2C_ADDRESS << 1), address, data, length, I2C_TIMEOUT);
     if (status != I2C_STATUS_SUCCESS) {
         xprintf("read_register %d failed %d\n", address, status);
         return false;
@@ -244,11 +244,20 @@ void touch_encoder_update_slave(slave_touch_status_t slave_state) {
 }
 
 void touch_encoder_update(int8_t transaction_id) {
-    if (!touch_initialized) return;
 #if TOUCH_UPDATE_INTERVAL > 0
     if (!timer_expired(timer_read(), touch_update_timer)) return;
     touch_update_timer = timer_read() + TOUCH_UPDATE_INTERVAL;
 #endif
+
+    if (is_keyboard_master()) {
+        slave_touch_status_t slave_state;
+        if (transaction_rpc_exec(transaction_id, sizeof(bool), &touch_disabled, sizeof(slave_touch_status_t), &slave_state)) {
+            if (memcmp(&touch_slave_state, &slave_state, sizeof(slave_touch_status_t)))
+                touch_encoder_update_slave(slave_state);
+        }
+    }
+
+    if (!touch_initialized) return;
 
     read_register(QT_DETECTION_STATUS, &touch_raw[0], sizeof(touch_raw));
     touch_processed[1] = touch_raw[1];
@@ -276,14 +285,6 @@ void touch_encoder_update(int8_t transaction_id) {
 
     if ((touch_raw[0] & SLIDER_BIT) && touch_processed[3] != touch_raw[3]) {
         touch_encoder_update_position();
-    }
-
-    if (is_keyboard_master()) {
-        slave_touch_status_t slave_state;
-        if (transaction_rpc_exec(transaction_id, sizeof(bool), &touch_disabled, sizeof(slave_touch_status_t), &slave_state)) {
-            if (memcmp(&touch_slave_state, &slave_state, sizeof(slave_touch_status_t)))
-                touch_encoder_update_slave(slave_state);
-        }
     }
 }
 

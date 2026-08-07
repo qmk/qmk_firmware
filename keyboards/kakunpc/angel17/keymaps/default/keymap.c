@@ -22,17 +22,17 @@ enum layers{
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_numpad_5x4( /* Base */
-    LT(COMMAND,KC_NLCK),  KC_PSLS,  KC_PAST, KC_PMNS,
+    LT(COMMAND,KC_NUM),   KC_PSLS,  KC_PAST, KC_PMNS,
                 KC_P7,    KC_P8,    KC_P9,
                 KC_P4,    KC_P5,    KC_P6,   KC_PPLS,
                 KC_P1,    KC_P2,    KC_P3,
                     KC_P0,    KC_PDOT,       KC_PENT
   ),
   [COMMAND] = LAYOUT_numpad_5x4( /* Base */
-    _______,  KC_NO,    KC_NO,   RGB_RMOD,
+    _______,  KC_NO,    KC_NO,   UG_PREV,
     KC_NO,    KC_NO,    KC_NO,
-    RGB_HUI,  RGB_SAI,  RGB_VAI,   RGB_MOD,
-    RGB_HUD,  RGB_SAD,  RGB_VAD,
-        RGB_TOG,    KC_NO,         KC_NO
+    UG_HUEU,  UG_SATU,  UG_VALU,   UG_NEXT,
+    UG_HUED,  UG_SATD,  UG_VALD,
+        UG_TOGG,    KC_NO,         KC_NO
   ),
 };

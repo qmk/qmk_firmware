@@ -20,6 +20,8 @@
 #pragma once
 
 #include <stdbool.h>
+#include <stdint.h>
+#include "pointing_device.h"
 
 // CPI values
 // clang-format off
@@ -40,15 +42,27 @@
 
 // Definitions for the ADNS serial line.
 #ifndef ADNS5050_SCLK_PIN
-#    error "No clock pin defined -- missing ADNS5050_SCLK_PIN"
+#    ifdef POINTING_DEVICE_SCLK_PIN
+#        define ADNS5050_SCLK_PIN POINTING_DEVICE_SCLK_PIN
+#    else
+#        error "No clock pin defined -- missing POINTING_DEVICE_SCLK_PIN or ADNS5050_SCLK_PIN"
+#    endif
 #endif
 
 #ifndef ADNS5050_SDIO_PIN
-#    error "No data pin defined -- missing ADNS5050_SDIO_PIN"
+#    ifdef POINTING_DEVICE_SDIO_PIN
+#        define ADNS5050_SDIO_PIN POINTING_DEVICE_SDIO_PIN
+#    else
+#        error "No data pin defined -- missing POINTING_DEVICE_SDIO_PIN or ADNS5050_SDIO_PIN"
+#    endif
 #endif
 
 #ifndef ADNS5050_CS_PIN
-#    error "No chip select pin defined -- missing ADNS5050_CS_PIN"
+#    ifdef POINTING_DEVICE_CS_PIN
+#        define ADNS5050_CS_PIN POINTING_DEVICE_CS_PIN
+#    else
+#        error "No chip select pin defined -- missing POINTING_DEVICE_CS_PIN or ADNS5050_CS_PIN define"
+#    endif
 #endif
 
 typedef struct {
@@ -56,10 +70,12 @@ typedef struct {
     int8_t dy;
 } report_adns5050_t;
 
+extern const pointing_device_driver_t adns5050_pointing_device_driver;
+
 // A bunch of functions to implement the ADNS5050-specific serial protocol.
 // Note that the "serial.h" driver is insufficient, because it does not
 // manually manipulate a serial clock signal.
-void              adns5050_init(void);
+bool              adns5050_init(void);
 void              adns5050_sync(void);
 uint8_t           adns5050_serial_read(void);
 void              adns5050_serial_write(uint8_t data);
@@ -70,3 +86,5 @@ void              adns5050_set_cpi(uint16_t cpi);
 uint16_t          adns5050_get_cpi(void);
 int8_t            convert_twoscomp(uint8_t data);
 bool              adns5050_check_signature(void);
+void              adns5050_power_down(void);
+report_mouse_t    adns5050_get_report(report_mouse_t mouse_report);

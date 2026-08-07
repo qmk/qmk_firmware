@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "wraith.h"
+#include "quantum.h"
 
 void matrix_init_kb(void) {
-    setPinOutput(B0);
+    gpio_set_pin_output(B0);
 
     matrix_init_user();
 }

@@ -6,7 +6,7 @@ The Dactyl uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
 Linux users need to modify udev rules as described on the [Teensy
 Linux page].  Some distributions provide a binary, maybe called
-`teensy-loader-cli`.
+`teensy_loader_cli`.
 
 [Teensy Linux page]: https://www.pjrc.com/teensy/loader_linux.html
 
@@ -21,12 +21,12 @@ To flash the firmware:
   - Load the .hex file into it.
 
   - Put the Teensy in firmware-loading mode:
-    * If your current layout has a RESET key, press it.
+    * If your current layout has a `QK_BOOT` key, press it.
     * If you lack a RESET key, press the reset button on the Teensy board itself.
 
   - Click the button in the Teensy app to download the firmware.
 
-To flash with ´teensy-loader-cli´:
+To flash with ´teensy_loader_cli´:
 
   - Build the firmware as above
 
@@ -35,5 +35,5 @@ To flash with ´teensy-loader-cli´:
   - If you like, you can do both at once: `make handwired/dactyl:<keymapname>:teensy`
 
   - Put the Teensy in firmware-loading mode:
-    * If your current layout has a RESET key, press it.
+    * If your current layout has a `QK_BOOT` key, press it.
     * If you lack a RESET key, press the reset button on the Teensy board itself.

@@ -86,14 +86,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-------------------------------------------------------------------------------.
    * | Calc  |  Web  | Mail  |Explore|       |       |       |       |       |       |
    * |-------------------------------------------------------------------------------|
-   * |RGB_TOG|RGB_MOD|RGB_HUI|RGB_HUD|xxxxxxx|xxxxxxx|RGB_SAI|RGB_SAD|RGB_VAI|RGB_VAD|
+   * |UG_TOGG|UG_NEXT|UG_HUEU|UG_HUED|xxxxxxx|xxxxxxx|UG_SATU|UG_SATD|UG_VALU|UG_VALD|
    * |-------------------------------------------------------------------------------|
    * |       |       |       |       | Flash |       |       |       |       |       |
    * '-------------------------------------------------------------------------------'
    */
   LAYOUT_ortho_3x10
     ( KC_CALC,KC_WSCH,KC_MAIL,KC_MYCM,_______,_______,_______,_______,_______,_______
-    , RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,XXXXXXX,XXXXXXX,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD
-    , _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______
+    , UG_TOGG,UG_NEXT,UG_HUEU,UG_HUED,XXXXXXX,XXXXXXX,UG_SATU,UG_SATD,UG_VALU,UG_VALD
+    , _______,_______,_______,_______,QK_BOOT,_______,_______,_______,_______,_______
     ),
 };

@@ -13,11 +13,11 @@
   * You should have received a copy of the GNU General Public License
   * along with this program.  If not, see <http://www.gnu.org/licenses/>.
   */
-#include "smallkeyboard.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
 
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
     /* Refer to IS31 manual for these locations
      *   driver
      *   |  R location
@@ -30,20 +30,5 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {0, C1_11, C2_11, C3_11},  // BL4
     {0, C1_12, C2_12, C3_12},  // BL5
     {0, C1_13, C2_13, C3_13},  // BL6
-};
-
-led_config_t g_led_config = {
-    {
-        { 0,      1,     2},
-        { 3,      4,     5},
-    },
-    {
-        { 48, 32},{ 48, 48},{ 64, 48},
-        { 80, 16},{ 64, 32},{ 80, 32}
-    },
-    {
-        4, 4, 4,
-        1, 1, 4
-    }
 };
 #endif

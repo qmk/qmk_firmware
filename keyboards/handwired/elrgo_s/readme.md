@@ -25,4 +25,4 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 Enter the bootloader in 2 ways:
 
 * **Physical reset button**: Briefly press the button through the hole on the left side of the case.
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

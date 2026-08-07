@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,            KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
         KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  GAME,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS,
-        RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,  KC_DEL,  KC_TRNS, KC_TRNS, KC_TRNS,
+        QK_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_INS,  KC_DEL,  KC_TRNS, KC_TRNS, KC_TRNS,
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
     [_GAME] = LAYOUT(
@@ -62,16 +62,16 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             break;
         case _RAISE:
             if (clockwise) {
-            tap_code(KC_MS_WH_DOWN);
+            tap_code(MS_WHLD);
         } else {
-            tap_code(KC_MS_WH_UP);
+            tap_code(MS_WHLU);
         }
             break;
 		case _ADJUST:
 			if (clockwise) {
-            tap_code(KC_MS_WH_RIGHT);
+            tap_code(MS_WHLR);
         } else {
-            tap_code(KC_MS_WH_LEFT);
+            tap_code(MS_WHLL);
         }
 			break;
         case _GAME:

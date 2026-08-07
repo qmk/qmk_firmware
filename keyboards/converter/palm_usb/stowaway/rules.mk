@@ -1,0 +1,5 @@
+#HARDWARE_SERIAL = yes
+CUSTOM_MATRIX = yes
+
+SRC += matrix.c
+UART_DRIVER_REQUIRED = yes

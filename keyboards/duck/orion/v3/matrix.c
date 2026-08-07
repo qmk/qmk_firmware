@@ -14,7 +14,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "quantum.h"
+#include "matrix.h"
+#include "debug.h"
+#include "bitwise.h"
+#include "wait.h"
+
+#ifndef DEBOUNCE
+#    define DEBOUNCE 5
+#endif
 
 static uint8_t debouncing = DEBOUNCE;
 
@@ -46,20 +53,7 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
 
-void indicator_init_ports(void) {
-
-  // Num LED
-  setPinOutput(B4); 
-
-  // Caps Lock
-  setPinOutput(B0); 
-
-  // Scroll Lock
-  setPinOutput(D7); 
-}
-
 void matrix_init(void) {
-  indicator_init_ports();
   unselect_cols();
   init_rows();
 
@@ -68,7 +62,7 @@ void matrix_init(void) {
     matrix_debouncing[i] = 0;
   }
 
-  matrix_init_quantum();
+  matrix_init_kb();
 }
 
 uint8_t matrix_scan(void) {
@@ -102,7 +96,7 @@ uint8_t matrix_scan(void) {
     }
   }
 
-  matrix_scan_quantum();
+  matrix_scan_kb();
   return 1;
 }
 

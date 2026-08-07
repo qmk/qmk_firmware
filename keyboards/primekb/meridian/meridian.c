@@ -15,11 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "meridian.h"
+#include "quantum.h"
 
 //Initialize B12 for in-switch caps lock
 void keyboard_pre_init_kb(void){
-    setPinOutput(B12);
+    gpio_set_pin_output(B12);
     keyboard_pre_init_user();
 }
 
@@ -35,7 +35,7 @@ void keyboard_post_init_user(void) {
 bool led_update_kb(led_t led_state) {
     bool res = led_update_user(led_state);
     if (res) {
- //       writePin(B12, !led_state.caps_lock);  //Un-comment this line to enable in-switch capslock indicator
+ //       gpio_write_pin(B12, !led_state.caps_lock);  //Un-comment this line to enable in-switch capslock indicator
     if (led_state.caps_lock) {
         rgblight_setrgb_at(0, 255, 0, 0); //green
     } else {

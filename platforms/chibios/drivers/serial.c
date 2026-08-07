@@ -2,14 +2,15 @@
  * WARNING: be careful changing this code, it is very timing dependent
  */
 
-#include "quantum.h"
 #include "serial.h"
+#include "gpio.h"
 #include "wait.h"
+#include "synchronization_util.h"
 
 #include <hal.h>
 
 // TODO: resolve/remove build warnings
-#if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT) && defined(PROTOCOL_CHIBIOS) && defined(WS2812_DRIVER_BITBANG)
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT) && defined(PROTOCOL_CHIBIOS) && defined(WS2812_BITBANG)
 #    warning "RGBLED_SPLIT not supported with bitbang WS2812 driver"
 #endif
 
@@ -19,7 +20,8 @@
 #    error "chSysPolledDelayX method not supported on this platform"
 #else
 #    undef wait_us
-#    define wait_us(x) chSysPolledDelayX(US2RTC(CPU_CLOCK, x))
+// Force usage of polled waiting - in case WAIT_US_TIMER is activated
+#    define wait_us(us) chSysPolledDelayX(US2RTC(REALTIME_COUNTER_CLOCK, us))
 #endif
 
 #ifndef SELECT_SOFT_SERIAL_SPEED
@@ -60,25 +62,25 @@ inline static void serial_delay_blip(void) {
     wait_us(1);
 }
 inline static void serial_output(void) {
-    setPinOutput(SOFT_SERIAL_PIN);
+    gpio_set_pin_output(SOFT_SERIAL_PIN);
 }
 inline static void serial_input(void) {
-    setPinInputHigh(SOFT_SERIAL_PIN);
+    gpio_set_pin_input_high(SOFT_SERIAL_PIN);
 }
 inline static bool serial_read_pin(void) {
-    return !!readPin(SOFT_SERIAL_PIN);
+    return !!gpio_read_pin(SOFT_SERIAL_PIN);
 }
 inline static void serial_low(void) {
-    writePinLow(SOFT_SERIAL_PIN);
+    gpio_write_pin_low(SOFT_SERIAL_PIN);
 }
 inline static void serial_high(void) {
-    writePinHigh(SOFT_SERIAL_PIN);
+    gpio_write_pin_high(SOFT_SERIAL_PIN);
 }
 
 void interrupt_handler(void *arg);
 
 // Use thread + palWaitLineTimeout instead of palSetLineCallback
-//  - Methods like setPinOutput and palEnableLineEvent/palDisableLineEvent
+//  - Methods like gpio_set_pin_output and palEnableLineEvent/palDisableLineEvent
 //    cause the interrupt to lock up, which would limit to only receiving data...
 static THD_WORKING_AREA(waThread1, 128);
 static THD_FUNCTION(Thread1, arg) {
@@ -151,6 +153,7 @@ static void __attribute__((noinline)) serial_write_byte(uint8_t data) {
 
 // interrupt handle to be used by the slave device
 void interrupt_handler(void *arg) {
+    split_shared_memory_lock_autounlock();
     chSysLockFromISR();
 
     sync_send();
@@ -205,14 +208,11 @@ void interrupt_handler(void *arg) {
     chSysUnlockFromISR();
 }
 
-/////////
-//  start transaction by initiator
-//
-// bool  soft_serial_transaction(int sstd_index)
-//
-// this code is very time dependent, so we need to disable interrupts
-bool soft_serial_transaction(int sstd_index) {
+static inline bool initiate_transaction(uint8_t sstd_index) {
     if (sstd_index > NUM_TOTAL_TRANSACTIONS) return false;
+
+    split_shared_memory_lock_autounlock();
+
     split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
 
     // TODO: remove extra delay between transactions
@@ -234,13 +234,12 @@ bool soft_serial_transaction(int sstd_index) {
     // check if the slave is present
     if (serial_read_pin()) {
         // slave failed to pull the line low, assume not present
-        dprintf("serial::NO_RESPONSE\n");
+        serial_dprintf("serial::NO_RESPONSE\n");
         chSysUnlock();
         return false;
     }
 
-    // if the slave is present syncronize with it
-
+    // if the slave is present synchronize with it
     uint8_t checksum = 0;
     // send data to the slave
     serial_write_byte(sstd_index); // first chunk is transaction id
@@ -271,7 +270,7 @@ bool soft_serial_transaction(int sstd_index) {
     serial_delay();
 
     if ((checksum_computed) != (checksum_received)) {
-        dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
+        serial_dprintf("serial::FAIL[%u,%u,%u]\n", checksum_computed, checksum_received, sstd_index);
         serial_output();
         serial_high();
 
@@ -285,4 +284,14 @@ bool soft_serial_transaction(int sstd_index) {
 
     chSysUnlock();
     return true;
+}
+
+/////////
+//  start transaction by initiator
+//
+// bool  soft_serial_transaction(int sstd_index)
+//
+// this code is very time dependent, so we need to disable interrupts
+bool soft_serial_transaction(int sstd_index) {
+    return initiate_transaction((uint8_t)sstd_index);
 }

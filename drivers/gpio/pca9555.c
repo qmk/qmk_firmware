@@ -29,15 +29,13 @@ void pca9555_init(uint8_t slave_addr) {
     }
 
     // TODO: could check device connected
-    // i2c_start(SLAVE_TO_ADDR(slave) | I2C_WRITE);
-    // i2c_stop();
 }
 
 bool pca9555_set_config(uint8_t slave_addr, pca9555_port_t port, uint8_t conf) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_CONFIG_1 : CMD_CONFIG_0;
 
-    i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
+    i2c_status_t ret = i2c_write_register(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9555_set_config::FAILED\n");
         return false;
@@ -50,7 +48,7 @@ bool pca9555_set_output(uint8_t slave_addr, pca9555_port_t port, uint8_t conf) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_OUTPUT_1 : CMD_OUTPUT_0;
 
-    i2c_status_t ret = i2c_writeReg(addr, cmd, &conf, sizeof(conf), TIMEOUT);
+    i2c_status_t ret = i2c_write_register(addr, cmd, &conf, sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         print("pca9555_set_output::FAILED\n");
         return false;
@@ -63,7 +61,7 @@ bool pca9555_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB) {
     uint8_t addr    = SLAVE_TO_ADDR(slave_addr);
     uint8_t conf[2] = {confA, confB};
 
-    i2c_status_t ret = i2c_writeReg(addr, CMD_OUTPUT_0, &conf[0], sizeof(conf), TIMEOUT);
+    i2c_status_t ret = i2c_write_register(addr, CMD_OUTPUT_0, &conf[0], sizeof(conf), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
         dprintf("pca9555_set_output::FAILED::%u\n", ret);
         return false;
@@ -72,20 +70,20 @@ bool pca9555_set_output_all(uint8_t slave_addr, uint8_t confA, uint8_t confB) {
     return true;
 }
 
-bool pca9555_readPins(uint8_t slave_addr, pca9555_port_t port, uint8_t* out) {
+bool pca9555_read_pins(uint8_t slave_addr, pca9555_port_t port, uint8_t* out) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
     uint8_t cmd  = port ? CMD_INPUT_1 : CMD_INPUT_0;
 
-    i2c_status_t ret = i2c_readReg(addr, cmd, out, sizeof(uint8_t), TIMEOUT);
+    i2c_status_t ret = i2c_read_register(addr, cmd, out, sizeof(uint8_t), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
-        print("pca9555_readPins::FAILED\n");
+        print("pca9555_read_pins::FAILED\n");
         return false;
     }
 
     return true;
 }
 
-bool pca9555_readPins_all(uint8_t slave_addr, uint16_t* out) {
+bool pca9555_read_pins_all(uint8_t slave_addr, uint16_t* out) {
     uint8_t addr = SLAVE_TO_ADDR(slave_addr);
 
     typedef union {
@@ -95,9 +93,9 @@ bool pca9555_readPins_all(uint8_t slave_addr, uint16_t* out) {
 
     data16 data = {.u16 = 0};
 
-    i2c_status_t ret = i2c_readReg(addr, CMD_INPUT_0, &data.u8[0], sizeof(data), TIMEOUT);
+    i2c_status_t ret = i2c_read_register(addr, CMD_INPUT_0, &data.u8[0], sizeof(data), TIMEOUT);
     if (ret != I2C_STATUS_SUCCESS) {
-        print("pca9555_readPins_all::FAILED\n");
+        print("pca9555_read_pins_all::FAILED\n");
         return false;
     }
 

@@ -13,25 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "ver3.h"
-
-
-#ifdef RGB_MATRIX_ENABLE
-#include "rgb_matrix.h"
-
-led_config_t g_led_config = { {
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED,   6, NO_LED, NO_LED,   7, NO_LED, NO_LED,   8, NO_LED, NO_LED,   9, NO_LED, NO_LED,   0, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED },
-    { NO_LED,   5, NO_LED, NO_LED,   4, NO_LED, NO_LED,   3, NO_LED, NO_LED,   2, NO_LED, NO_LED,   1, NO_LED }
-}, {
-    { 195,   3 }, { 195,  16 }, { 150,  16 }, { 105,  16 }, {  60,  16 }, {  15,  16 }, {  15,   3 }, {  60,   3 }, { 105,   3 }, { 150,   3 }
-}, {
-    4, 4, 4, 4, 4, 4, 4, 4, 4, 4
-} };
-
-#endif
+#include "quantum.h"
 
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) { return OLED_ROTATION_180; }

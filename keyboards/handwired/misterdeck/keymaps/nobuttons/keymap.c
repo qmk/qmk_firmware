@@ -16,8 +16,6 @@
 
 #include QMK_KEYBOARD_H
 
-#include "joystick.h"
-
 enum layer_names {
   NORMAL_LAYER = 0
 };
@@ -30,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
-joystick_config_t joystick_axes[JOYSTICK_AXES_COUNT] = {
+joystick_config_t joystick_axes[JOYSTICK_AXIS_COUNT] = {
     [0] = JOYSTICK_AXIS_IN(F4, 0, 512, 1023),
     [1] = JOYSTICK_AXIS_IN(F5, 0, 512, 1023),
     [2] = JOYSTICK_AXIS_IN(F6, 0, 512, 1023),

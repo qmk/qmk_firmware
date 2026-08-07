@@ -1,0 +1,15 @@
+{
+    "development_board": "elite_c",
+    "matrix_pins": {
+        "cols": ["B4", "B5", "E6", "D7", "F6"],
+        "rows": ["D4", "C6", "F5", "F7"]
+    },
+    "split": {
+        "handedness": {
+            "pin": "F4"
+        },
+        "serial": {
+            "pin": "D2"
+        }
+    }
+}

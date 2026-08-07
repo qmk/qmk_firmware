@@ -1,7 +1,5 @@
 # h75_singa
 
-![h75_singa](imgur.com image replace me!) - TBD
-
 New 75% PCB for Singa Keyboards
 
 * Keyboard Maintainer: [hineybush](https://github.com/hineybush)

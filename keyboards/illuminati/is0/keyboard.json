@@ -1,0 +1,43 @@
+{
+    "keyboard_name": "iS0",
+    "manufacturer": "Illuminati Works",
+    "maintainer": "ai03",
+    "usb": {
+        "vid": "0xA103",
+        "pid": "0x0012",
+        "device_version": "0.0.1"
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "command": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["D0"],
+        "rows": ["D2"]
+    },
+    "diode_direction": "COL2ROW",
+    "backlight": {
+        "pin": "B7",
+        "levels": 5,
+        "breathing": true
+    },
+    "processor": "atmega32u2",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0.25, "y": 0, "w": 1.25, "h": 2}
+            ]
+        }
+    }
+}

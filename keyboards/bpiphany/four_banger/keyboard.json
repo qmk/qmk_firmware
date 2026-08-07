@@ -1,0 +1,61 @@
+{
+    "keyboard_name": "Four Banger",
+    "manufacturer": "1up Keyboards",
+    "maintainer": "qmk",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x2004",
+        "device_version": "0.0.1"
+    },
+    "rgblight": {
+        "saturation_steps": 8,
+        "brightness_steps": 8,
+        "led_count": 1,
+        "animations": {
+            "breathing": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "knight": true,
+            "christmas": true,
+            "static_gradient": true,
+            "rgb_test": true,
+            "alternating": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "E6"
+    },
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgblight": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["B5", "B4"],
+        "rows": ["B2", "B6"]
+    },
+    "diode_direction": "COL2ROW",
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "layouts": {
+        "LAYOUT_ortho_2x2": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1}
+            ]
+        }
+    }
+}

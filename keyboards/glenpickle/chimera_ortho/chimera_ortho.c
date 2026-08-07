@@ -1,10 +1,12 @@
 #include "chimera_ortho.h"
 
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+	gpio_set_pin_output(CHIMERA_ORTHO_GREEN_LED_PIN);
+	gpio_write_pin_high(CHIMERA_ORTHO_GREEN_LED_PIN);
+	gpio_set_pin_output(CHIMERA_ORTHO_BLUE_LED_PIN);
+	gpio_write_pin_high(CHIMERA_ORTHO_BLUE_LED_PIN);
+	gpio_set_pin_output(CHIMERA_ORTHO_RED_LED_PIN);
+	gpio_write_pin_high(CHIMERA_ORTHO_RED_LED_PIN);
 }
 
 

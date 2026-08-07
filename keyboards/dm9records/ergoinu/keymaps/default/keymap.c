@@ -28,15 +28,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [META] = LAYOUT(
     MO(CONF),KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,
-    _______, KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, KC_SLCK, KC_PSCR, KC_HOME, KC_END,
+    _______, KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, KC_SCRL, KC_PSCR, KC_HOME, KC_END,
     _______,          _______, _______, _______, _______, _______, _______, _______, _______, KC_PAUS, KC_PGUP, KC_UP,   KC_PGDN,
     _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT,
                       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   ),
 
   [CONF] = LAYOUT(
-    _______, RGB_TYPE,RGB_MOD,  RGB_VAI, RGB_HUI, RGB_HUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    RGB_RST, RGB_TOG, RGB_RMOD, RGB_VAD, RGB_HUD, RGB_HUD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    _______, RGB_TYPE,UG_NEXT,  UG_VALU, UG_SATU, UG_HUEU, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    RGB_RST, UG_TOGG, UG_PREV,  UG_VALD, UG_SATD, UG_HUED, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX,          XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     XXXXXXX,          XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                       XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
@@ -55,7 +55,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
-    case RGB_MOD:
+    case QK_UNDERGLOW_MODE_NEXT:
       #ifdef RGBLIGHT_ENABLE
           if (record->event.pressed) {
             enableLEDTypeAnime = false;

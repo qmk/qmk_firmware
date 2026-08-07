@@ -1,0 +1,99 @@
+{
+  "keyboard_name": "1337",
+  "manufacturer": "0xCB",
+  "url": "https://0xCB.dev",
+  "maintainer": "Conor-Burns",
+  "usb": {
+    "vid": "0xCB00",
+    "pid": "0x1337",
+    "device_version": "0.0.1"
+  },
+  "backlight": {
+    "default": {
+      "brightness": 5
+    },
+    "pin": "B5",
+    "levels": 7,
+    "breathing": true
+  },
+  "encoder": {
+    "rotary": [
+      {"pin_a": "F6", "pin_b": "F5"}
+    ]
+  },
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    },
+    "tap_keycode_delay": 10
+  },
+  "qmk_lufa_bootloader": {
+    "led": "B0"
+  },
+  "rgblight": {
+    "saturation_steps": 8,
+    "brightness_steps": 8,
+    "led_count": 4,
+    "sleep": true,
+    "animations": {
+      "breathing": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "snake": true,
+      "knight": true,
+      "christmas": true,
+      "static_gradient": true,
+      "rgb_test": true,
+      "alternating": true,
+      "twinkle": true
+    },
+    "default": {
+      "hue": 152,
+      "sat": 232,
+      "speed": 2
+    }
+  },
+  "ws2812": {
+    "pin": "D3"
+  },
+  "processor": "atmega32u4",
+  "bootloader": "qmk-dfu",
+  "build": {
+    "lto": true
+  },
+  "features": {
+    "backlight": true,
+    "bootmagic": true,
+    "encoder": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": false,
+    "oled": true,
+    "rgblight": true
+  },
+  "matrix_pins": {
+    "direct": [
+      ["D2", "D4", "F4"],
+      ["D7", "B1", "B3"],
+      ["E6", "B4", "B2"]
+    ]
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"x": 0, "y": 0, "matrix": [0, 0]},
+        {"x": 1, "y": 0, "matrix": [0, 1]},
+        {"x": 2, "y": 0, "matrix": [0, 2]},
+
+        {"x": 0, "y": 1, "matrix": [1, 0]},
+        {"x": 1, "y": 1, "matrix": [1, 1]},
+        {"x": 2, "y": 1, "matrix": [1, 2]},
+
+        {"x": 0, "y": 2, "matrix": [2, 0]},
+        {"x": 1, "y": 2, "matrix": [2, 1]},
+        {"x": 2, "y": 2, "matrix": [2, 2]}
+      ]
+    }
+  }
+}

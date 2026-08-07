@@ -1,12 +1,24 @@
-# ID87 v2
+# IDOBAO ID87 v2
 
-![ID87 v2](https://i.imgur.com/woTSycN.jpg)
+![IDOBAO ID87](https://i.imgur.com/LIpWjog.png)
 
-A TKL keyboard with hotswap sockets and in switch RGB.
+A TKL hotswap board from IDOBAO.
 
-* Keyboard Maintainer: [peepeetee](https://github.com/peepeetee)
-* Hardware Supported: ID87 v2
-* Hardware Availability: [Drop](https://drop.com/buy/idobao-id87-v2-tkl-mechanical-keyboard-kit), [idobao](https://idobao.net/products/idobao-id87-v2-tkl-pcb-mounted-hot-swappable-mechanical-keyboard-kit)
+## ANSI Support
+
+* Keyboard Maintainer: [Vino Rodrigues](https://github.com/vinorodrigues)
+* Hardware Supported:
+  - **IDOBAO ID87v2**
+  - **IDOBAO ID87 Crystal**
+  - **IDOBAO ID87 Bestype**
+  - **IDOBAO ID87 Charm** *(Limited Edition)*
+* Hardware Availability: [IDOBAO.net](https://idobao.net/search?type=product&q=ID87*)
+
+## ANSI Layout
+
+![](https://idobao.github.io/kle/idobao-id87.png)
+
+## Compiling & Flashing
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,6 +34,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Bootmagic reset**: Hold down the [Escape] key *(the top left)* and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB
-* **Keycode in layout**: Press the key mapped to `RESET` if it is available
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` *(default is [Fn]+[Escape])*

@@ -12,7 +12,6 @@
 
 #include QMK_KEYBOARD_H
 #include "sten.h"
-#include "keymap_steno.h"
 
 // Proper Layers
 #define FUNCT   (LSD | LK | LP | LH)
@@ -45,8 +44,8 @@ uint32_t processQwerty(bool lookup) {
     P( ST1 | ST2 | LW  | ST4,             SEND(KC_BSPC));
 
     // Mouse Keys
-    P( LO  | LSD | LK,    CLICK_MOUSE(KC_MS_BTN2));
-    P( LO  | LR  | LW,    CLICK_MOUSE(KC_MS_BTN1));
+    P( LO  | LSD | LK,    CLICK_MOUSE(MS_BTN2));
+    P( LO  | LR  | LW,    CLICK_MOUSE(MS_BTN1));
 
     // Thumb Chords
     P( LA  | LO  | RE  | RU,    SEND(KC_CAPS));
@@ -219,4 +218,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 // Don't fuck with this, thanks.
-size_t keymapsCount  = sizeof(keymaps)/sizeof(keymaps[0]);
+size_t keymapsCount  = ARRAY_SIZE(keymaps);

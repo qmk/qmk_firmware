@@ -14,18 +14,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <quantum.h>
-#include <i2c_master.h>
-#include <led_tables.h>
-#include <rgb_matrix.h>
+#include "quantum.h"
+
+#include "i2c_master.h"
+#include "led_tables.h"
+#include "rgb_matrix.h"
 #include "drivers/led/issi/is31fl3731.h"
 #include "ws2812.h"
-#include "rev1_qmk.h"
 
 #ifdef RGB_MATRIX_ENABLE
-LED_TYPE rgb_matrix_ws2812_array[WS2812_LED_TOTAL];
-
-const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -99,37 +97,15 @@ const is31_led PROGMEM g_is31_leds[DRIVER_LED_TOTAL] = {
     {1, C9_14,  C8_14,  C7_14}, //D14
     {1, C9_15,  C8_15,  C6_14}, //D15
     {1, C9_16,  C7_15,  C6_15}, //D16
-
-    //fake underglows 1- 20
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0},
-    {2, 0, 0, 0}
 };
 
 __attribute__ ((weak))
 led_config_t g_led_config = { {
-    { -1+16, -1+15, -1+14, -1+13, -1+12, -1+11, -1+10, -1+9 , 15+1 , 15+2 , 15+3 , 15+4 , 15+5 , 15+6 },
-    { -1+7 , -1+6 , -1+5 , -1+4 , -1+3 , -1+2 , -1 +1, 15+9 , 15+10, 15+11, 15+12, 15+13, 15+14, 15+15},
-    { -1+8 , 31+14, 31+13, 31+12, 31+11, 31+10, 31+9 , 47+1 , 47+2 , 47+3 , 47+4 , 47+5 , 15+8 , 15+7 },
-    { 31+15, 31+5 , 31+4 , 31+3 , 31+2 , 31+1 , 47+9 , 47+10, 47+11, 47+12, NO_LED  ,47+6 , 47+7 , 15+16},
-    { 31+16, 31+8 , 31+7 , NO_LED, NO_LED  , 31+6 , NO_LED  , NO_LED  , NO_LED  , 47+13, 47+14, 47+15, 47+16, 47+8 }
+    { 15, 14, 13,     12,     11, 10,      9,      8,     16, 17,     18, 19, 20, 21 },
+    {  6,  5,  4,      3,      2,  1,      0,     24,     25, 26,     27, 28, 29, 30 },
+    {  7, 45, 44,     43,     42, 41,     40,     48,     49, 50,     51, 52, 23, 22 },
+    { 46, 36, 35,     34,     33, 32,     56,     57,     58, 59, NO_LED, 53, 54, 31 },
+    { 47, 39, 38, NO_LED, NO_LED, 37, NO_LED, NO_LED, NO_LED, 60,     61, 62, 63, 55 }
 }, {
     // LA1..LA16
     {104, 16}, {88 , 16}, {72 , 16}, {56 , 16}, {40 , 16}, {24 , 16}, {4  , 16}, {6  , 32},
@@ -167,42 +143,36 @@ led_config_t g_led_config = { {
 //Custom Driver
 static void init(void) {
     i2c_init();
-    IS31FL3731_init(DRIVER_ADDR_1);
-    IS31FL3731_init(DRIVER_ADDR_2);
-    for (int index = 0; index < ISSI_DRIVER_TOTAL; index++) {
+    is31fl3731_init(0);
+    is31fl3731_init(1);
+    for (int index = 0; index < IS31FL3731_LED_COUNT; index++) {
         bool enabled = true;
-        IS31FL3731_set_led_control_register(index, enabled, enabled, enabled);
+        is31fl3731_set_led_control_register(index, enabled, enabled, enabled);
     }
-    IS31FL3731_update_led_control_registers(DRIVER_ADDR_1, 0);
-    IS31FL3731_update_led_control_registers(DRIVER_ADDR_2, 1);
+    is31fl3731_update_led_control_registers(0);
+    is31fl3731_update_led_control_registers(1);
     
     //RGB Underglow ws2812
-    
+    ws2812_init();
 }
 
 static void flush(void) {
-    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_1, 0);
-    IS31FL3731_update_pwm_buffers(DRIVER_ADDR_2, 1);
-    ws2812_setleds(rgb_matrix_ws2812_array, WS2812_LED_TOTAL);
+    is31fl3731_update_pwm_buffers(0);
+    is31fl3731_update_pwm_buffers(1);
+    ws2812_flush();
 }
 
 static void set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
-    if (index < ISSI_DRIVER_TOTAL) {
-        IS31FL3731_set_color(index, red, green, blue);
+    if (index < IS31FL3731_LED_COUNT) {
+        is31fl3731_set_color(index, red, green, blue);
     } else {
-        rgb_matrix_ws2812_array[index - ISSI_DRIVER_TOTAL].r = red;
-        rgb_matrix_ws2812_array[index - ISSI_DRIVER_TOTAL].g = green;
-        rgb_matrix_ws2812_array[index - ISSI_DRIVER_TOTAL].b = blue;
+        ws2812_set_color(index - IS31FL3731_LED_COUNT, red, green, blue);
     }
 }
 
 static void set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
-    IS31FL3731_set_color_all( red, green, blue );
-    for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
-        rgb_matrix_ws2812_array[i].r = red;
-        rgb_matrix_ws2812_array[i].g = green;
-        rgb_matrix_ws2812_array[i].b = blue;
-    }
+    is31fl3731_set_color_all( red, green, blue );
+    ws2812_set_color_all( red, green, blue );
 }
 
 
