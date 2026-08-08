@@ -140,3 +140,21 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
         return !(IS_STANDARD_KEYCODE(translated_keycode) && KEY_STATE(translated_keycode));
     }
 }
+
+bool key_lock_get_state(uint16_t keycode) {
+    uint16_t translated_keycode = translate_keycode(keycode);
+    return KEY_STATE(translated_keycode);
+}
+
+bool key_lock_active(void) {
+    return watching;
+}
+
+void key_lock_start(void) {
+    uint16_t    translated_keycode = QK_LOCK;
+    keyrecord_t record;
+    record.event.pressed = true;
+    process_key_lock(&translated_keycode, &record);
+    record.event.pressed = false;
+    process_key_lock(&translated_keycode, &record);
+}
