@@ -156,6 +156,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_STARLIGHT_DUAL_HUE,  // LEDs turn on and off at random at varying brightness, modifies user set hue by +- 30
     RGB_MATRIX_STARLIGHT_DUAL_SAT,  // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
     RGB_MATRIX_RIVERFLOW,           // Modification to breathing animation, offset's animation depending on key location to simulate a river flowing
+    RGB_MATRIX_RESPONSIVE_HOLD,     // Lights pressed keys with shimmering hue at full brightness while held, then fades out on release
     RGB_MATRIX_EFFECT_MAX
 };
 ```
@@ -200,6 +201,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_HUE`       |
 |`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_SAT`       |
 |`#define ENABLE_RGB_MATRIX_RIVERFLOW`                 |Enables `RGB_MATRIX_RIVERFLOW`                |
+|`#define ENABLE_RGB_MATRIX_RESPONSIVE_HOLD`           |Enables `RGB_MATRIX_RESPONSIVE_HOLD`          |
 
 |Framebuffer Defines                                   |Description                                   |
 |------------------------------------------------------|----------------------------------------------|
