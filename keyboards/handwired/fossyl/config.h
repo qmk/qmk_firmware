@@ -3,7 +3,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID    0x444D
-#define MANUFACTURER tshort
+#define MANUFACTURER "tshort"
 
 /* mouse config */
 #define MOUSEKEY_INTERVAL    20
