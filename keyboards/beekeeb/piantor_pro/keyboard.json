@@ -20,6 +20,10 @@
         "pid": "0x0002",
         "vid": "0xBEEB"
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "split": {
         "enabled": true,
         "serial": {

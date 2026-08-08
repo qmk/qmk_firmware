@@ -13,6 +13,10 @@
         "extrakey": true,
         "rgb_matrix": true
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "split": {
         "bootmagic": {
             "matrix": [9, 0]
