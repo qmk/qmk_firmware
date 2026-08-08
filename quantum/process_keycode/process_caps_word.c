@@ -147,11 +147,17 @@ bool process_caps_word(uint16_t keycode, keyrecord_t* record) {
     caps_word_reset_idle_timer();
 #endif // CAPS_WORD_IDLE_TIMEOUT > 0
 
-    // From here on, we only take action on press events.
     if (!record->event.pressed) {
+#if defined(AUTO_SHIFT_ENABLE)
+        if (!get_autoshift_state())
+#endif
+        {
+            del_weak_mods(MOD_BIT(KC_LSFT));
+        }
         return true;
     }
 
+    // From here on, we only take action on press events.
     if (!(mods & ~(MOD_MASK_SHIFT | MOD_BIT(KC_RALT)))) {
         switch (keycode) {
             // Ignore MO, TO, TG, TT, and OSL layer switch keys.
