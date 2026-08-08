@@ -20,8 +20,8 @@
 #define KC_MB1 KC_MS_BTN1
 #define KC_MB2 KC_MS_BTN1
 
-#define SFT_MHEN SFT_T(KC_MHEN)
-#define SFT_HENK SFT_T(KC_HENK)
+#define SFT_MHEN SFT_T(KC_INT5)
+#define SFT_HENK SFT_T(KC_INT4)
 
 #define RAISE LT(_RAISE,KC_SPC)
 #define LOWER LT(_LOWER,KC_ENT)
