@@ -279,9 +279,8 @@
 
     // Extended Keyboard Attributes (see Hutrr42 revision c)
     "EXTENDED_ATTRIBUTES_ENABLE": { "info_key" : "usb.extended_attributes.enabled", "value_type": "flag" },
-    "KEYBOARD_EXT_ATTR_FORM_FACTOR": { "info_key" : "usb.extended_attributes.form_factor", "value_type": "raw" },
-    "KEYBOARD_EXT_ATTR_KEY_TYPE": { "info_key" : "usb.extended_attributes.key_travel", "value_type": "raw" },
-    "KEYBOARD_EXT_ATTR_LAYOUT": { "info_key" : "usb.extended_attributes.layout", "value_type": "raw", "to_c": false },
+    "KEYBOARD_EXT_ATTR_FORM_FACTOR": { "info_key" : "usb.extended_attributes.form_factor", "value_type": "raw", "to_c": false },
+    "KEYBOARD_EXT_ATTR_KEY_TYPE": { "info_key" : "usb.extended_attributes.key_travel", "value_type": "raw", "to_c": false },
     "KEYBOARD_EXT_ATTR_IETF_LANGUAGE_TAG": { "info_key" : "usb.extended_attributes.locale", "value_type": "str" },
 
     // Items we want flagged in lint
