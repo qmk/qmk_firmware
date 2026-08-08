@@ -1,6 +1,12 @@
 {
     "keyboard_name": "Fossyl One 36",
-    "url": "",
+    "url": "https://github.com/YmgtYshr/qmk_firmware",
+    "manufacturer": "YourName",
+    "usb": {
+        "vid": "0xFEED",
+        "pid": "0x0000",
+        "device_version": "0.0.1"
+    },
     "maintainer": "qmk",
     "layouts": {
         "LAYOUT": {
@@ -46,7 +52,7 @@
                 {"x": 6, "y": 3}
 
 
-            ] 
+            ]
         }
     }
 }

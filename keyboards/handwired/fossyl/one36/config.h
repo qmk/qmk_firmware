@@ -1,6 +1,5 @@
 #pragma once
 
-#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define PRODUCT_ID 0x3436
@@ -20,11 +19,10 @@
 #define DIODE_DIRECTION COL2ROW
 
 // WS2812 RGB LED strip input and number of LEDs
-#define RGB_DI_PIN D3
+#define WS2812_DI_PIN D3
 #define RGBLED_NUM 12
 
 
-#define IGNORE_MOD_TAP_INTERRUPT
 
 // AVR(ATmega32u4)はI2Cピンがハード固定のため、ピン定義は不要
 // 必要ならクロック速度だけ調整可能（省略時デフォルトでも動作）
