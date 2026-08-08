@@ -239,8 +239,8 @@ def generate_config_h(cli):
     if 'stenography' in kb_info_json:
         generate_stenography_config(kb_info_json, config_h_lines)
 
-    if 'extended_attributes' in kb_info_json:
-        generate_extended_attributes_config(kb_info_json['extended_attributes'], config_h_lines)
+    if 'usb.extended_attributes' in kb_info_json:
+        generate_extended_attributes_config(kb_info_json['usb']['extended_attributes'], config_h_lines)
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
