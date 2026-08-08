@@ -107,11 +107,11 @@
             {
                 "type": "string",
                 "enum": [
-                    "ANSI",
-                    "KS",
-                    "ISO",
-                    "ABNT",
-                    "JIS",
+                    "ansi", "ANSI",
+                    "ks",   "KS",
+                    "iso",  "ISO",
+                    "abnt", "ABNT",
+                    "jis",  "JIS"
                 ]
             },
             {"$ref": "#/hex_number_2d"},
