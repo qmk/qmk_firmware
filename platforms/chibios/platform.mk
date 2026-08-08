@@ -40,6 +40,14 @@ ifeq ($(strip $(MCU)), risc-v)
     STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
     PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-ECLIC/compilers/GCC/mk/port.mk
     RULESPATH = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-ECLIC/compilers/GCC
+
+    # RISC-V CLIC: Standardized Core Local Interrupt Controller
+    # RISC-V ECLIC: Enhanced Core Local Interrupt Controller (Vendor-specific Implementation)	
+    ifeq ("$(wildcard $(STARTUP_MK))","")
+        STARTUP_MK = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-CLIC/compilers/GCC/mk/startup_$(MCU_STARTUP).mk
+        PORT_V = $(CHIBIOS_CONTRIB)/os/common/ports/RISCV-CLIC/compilers/GCC/mk/port.mk
+        RULESPATH = $(CHIBIOS_CONTRIB)/os/common/startup/RISCV-CLIC/compilers/GCC
+    endif
 else
     # ARM Support
     CHIBIOS_PORT ?=
