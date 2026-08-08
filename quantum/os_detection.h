@@ -49,3 +49,5 @@ void slave_update_detected_host_os(os_variant_t os);
 void print_stored_setups(void);
 void store_setups_in_eeprom(void);
 #endif
+
+bool os_detection_mcu_reset_is_pending(void);
