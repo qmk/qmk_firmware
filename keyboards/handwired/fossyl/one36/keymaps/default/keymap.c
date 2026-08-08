@@ -13,10 +13,10 @@
 #define SFT_ENT  SFT_T(KC_ENT)
 #define SFT_SPC  SFT_T(KC_SPC)
 
-#define KC_ML KC_MS_LEFT
-#define KC_MR KC_MS_RIGHT
-#define KC_MU KC_MS_UP
-#define KC_MD KC_MS_DOWN
+#define KC_ML MS_LEFTEFT
+#define KC_MR MS_RGHTIGHT
+#define KC_MU MS_UPP
+#define KC_MD MS_DOWNOWN
 #define KC_MB1 KC_MS_BTN1
 #define KC_MB2 KC_MS_BTN1
 
@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                    +------+                             +------+
      */
     [_LOWER] = LAYOUT(
-        KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,             KC_BTN1, KC_BTN1, KC_BTN1, KC_BTN2, KC_MINS, KC_DEL,
-        _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,             KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_PLUS, SFT_HENK,
-                 KC_UNDS, KC_PIPE, KC_MINS, KC_UNDS, KC_BSLS,             KC_WH_R, KC_WH_U, KC_WH_D, KC_WH_L, KC_EQL,
+        KC_ESC,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,             MS_BTN1, MS_BTN1, MS_BTN1, MS_BTN2, KC_MINS, KC_DEL,
+        _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,             MS_LEFT, MS_DOWN, MS_UP, MS_RGHT, KC_PLUS, SFT_HENK,
+                 KC_UNDS, KC_PIPE, KC_MINS, KC_UNDS, KC_BSLS,             MS_WHLR, MS_WHLU, MS_WHLD, MS_WHLL, KC_EQL,
                                                      ADJ_L,               _______
     ),
     /* RAISE
