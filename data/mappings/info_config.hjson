@@ -246,13 +246,6 @@
     "WS2812_I2C_TIMEOUT": {"info_key": "ws2812.i2c_timeout", "value_type": "int"},
     "WS2812_RGBW": {"info_key": "ws2812.rgbw", "value_type": "flag"},
 
-    // Extended Keyboard Attributes (see Hutrr42 revision c)
-    "EXTENDED_ATTRIBUTES_ENABLE": { "info_key" : "extended_attributes.enabled", "value_type": "flag" },
-    "KEYBOARD_EXT_ATTR_FORM_FACTOR": { "info_key" : "extended_attributes.form_factor", "value_type": "raw" },
-    "KEYBOARD_EXT_ATTR_KEY_TYPE": { "info_key" : "extended_attributes.key_travel", "value_type": "raw" },
-    "KEYBOARD_EXT_ATTR_LAYOUT": { "info_key" : "extended_attributes.layout", "value_type": "raw", "to_c": false },
-    "KEYBOARD_EXT_ATTR_IETF_LANGUAGE_TAG": { "info_key" : "extended_attributes.locale", "value_type": "str" },
-
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
 
     // Items we want flagged in lint
@@ -280,6 +273,13 @@
     "PRODUCT": {"info_key": "keyboard_name", "warn_duplicate": false, "value_type": "str", "deprecated": true, "replace_with": "`keyboard_name` in info.json"},
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
     "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.vid` in info.json"},
+
+    // Extended Keyboard Attributes (see Hutrr42 revision c)
+    "EXTENDED_ATTRIBUTES_ENABLE": { "info_key" : "usb.extended_attributes.enabled", "value_type": "flag" },
+    "KEYBOARD_EXT_ATTR_FORM_FACTOR": { "info_key" : "usb.extended_attributes.form_factor", "value_type": "raw" },
+    "KEYBOARD_EXT_ATTR_KEY_TYPE": { "info_key" : "usb.extended_attributes.key_travel", "value_type": "raw" },
+    "KEYBOARD_EXT_ATTR_LAYOUT": { "info_key" : "usb.extended_attributes.layout", "value_type": "raw", "to_c": false },
+    "KEYBOARD_EXT_ATTR_IETF_LANGUAGE_TAG": { "info_key" : "usb.extended_attributes.locale", "value_type": "str" },
 
     // Items we want flagged in lint
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "flag", "invalid": true, "replace_with": "`host.default.nkro` in info.json"},

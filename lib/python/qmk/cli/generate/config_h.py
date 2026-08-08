@@ -224,8 +224,8 @@ def generate_config_h(cli):
     if 'rgblight' in kb_info_json:
         generate_led_animations_config('rgblight', kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_', 'RGBLIGHT_MODE_')
 
-    if 'extended_attributes' in kb_info_json:
-        generate_extended_attributes_config(kb_info_json['extended_attributes'], config_h_lines)
+    if 'usb.extended_attributes' in kb_info_json:
+        generate_extended_attributes_config(kb_info_json['usb']['extended_attributes'], config_h_lines)
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
