@@ -1,0 +1,12 @@
+{
+    "keycodes": {
+        "0x7798": {
+            "group": "connection",
+            "key": "QK_2P4GHZ_UNPAIR",
+            "label": "2.4GHz Unpair",
+            "aliases": [
+                "WL_UNPR"
+            ]
+        }
+    }
+}

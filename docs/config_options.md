@@ -422,7 +422,7 @@ Use these to enable or disable building certain features. The more you have enab
 * `UNICODE_ENABLE`
   * Unicode
 * `BLUETOOTH_ENABLE`
-  * Current options are bluefruit_le, rn42
+  * Current options are bluefruit_le, fr800x, rn42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`
