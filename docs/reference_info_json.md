@@ -913,7 +913,7 @@ Configures the [Stenography](features/stenography) feature.
         * `key_travel` <Badge type="info">String</Badge>
             * Amount of key travel the keyboards has. One of `full`, `low`, or `zero` (i.e. virtual/touchscreen keyboards).
         * `layout` <Badge type="info">String</Badge>
-            * either one of `ANSI`, `ISO`, `KS`, `ABNT` or `JIS`
+            * either one of `ansi`, `iso`, `ks`, `abnt` or `jis` (or fully uppercased versions of these)
             * or a two-digit hexadecimal number with a vendor specific meaning.
         * `locale`  <Badge type="info">String</Badge>
             * The [IETF BCP 47](https://www.ietf.org/rfc/bcp/bcp47.txt) Locale for the Primary Language of the printed Key set.

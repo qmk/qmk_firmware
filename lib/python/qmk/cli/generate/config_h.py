@@ -169,16 +169,27 @@ def generate_led_animations_config(feature, led_feature_json, config_h_lines, en
     for animation in led_feature_json.get('animations', {}):
         config_h_lines.append(generate_flag(f'{enable_prefix}{animation.upper()}', led_feature_json['animations'][animation]))
 
-def generate_extended_attributes_config(extended_attrs, config_h_lines: list[str], postfix=''):
+
+def generate_extended_attributes_config(extended_attrs, config_h_lines: list[str]):
     if len(extended_attrs) > 0 and 'enabled' not in extended_attrs:
         config_h_lines.append(generate_define('EXTENDED_ATTRIBUTES_ENABLE'))
 
     if 'layout' in extended_attrs:
         layout = extended_attrs['layout']
-        if isinstance(layout, int) or layout.startswith("0x"):
+        if isinstance(layout, int) or layout.startswith("0"):
+            if isinstance(layout, str):
+                layout = int(layout, base=0)
+            if layout not in range(1, 256):
+                cli.log.error(f"keyboard vendor layout is specified but invalid, {layout} is outside the range(1,256)")
             config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_VENDOR_LAYOUT', layout))
         else:
-            config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT', layout))
+            config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT', layout.upper()))
+    # uppercase keys used in enums
+    if 'form_factor' in extended_attrs:
+        config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_FORM_FACTOR', extended_attrs['form_factor'].upper()))
+    if 'key_travel' in extended_attrs:
+        config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_KEY_TYPE', extended_attrs['key_travel'].upper()))
+
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
