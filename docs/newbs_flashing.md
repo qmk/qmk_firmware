@@ -122,6 +122,33 @@ In this case, you'll have to fall back on specifying the bootloader. See the [Fl
 If your bootloader is not detected by `qmk flash`, try running `qmk doctor` for suggestions on how to fix common problems.
 :::
 
+::: tip
+Note: This tip is an unsupported configuration and may result in `qmk doctor` warnings.
+
+Flashing a keyboard connected to a remote machine's USB is possible through SSH. `udev` rules may need to be modified to allow access to the USB device. The following modification to `/etc/udev/rules.d/50-qmk.rules` may resolve `qmk flash` being unable to find the bootloader:
+
+Original:
+```
+# Apply tag if QMK endpoint found
+ENV{ID_QMK}=="1", TAG+="uaccess"
+```
+
+Modified:
+```
+# Apply tag if QMK endpoint found
+ENV{ID_QMK}=="1", GROUP="qmk", MODE="0660"
+```
+Add your username to the `qmk` group. Log out and log back in for the new group to become effective.
+
+Reload `udev` rules:
+
+```
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
+You should now be able to flash the keyboard through the SSH session.
+:::
+
 ## Test It Out!
 
 Congrats! Your custom firmware has been programmed to your keyboard and you're ready to test it out!
