@@ -105,32 +105,17 @@
     "hutrr42_layout": {
         "oneOf" : [
             {
-                "type": "object",
-                "additionalProperties": false,
-                "properties" : {
-                    "standard": {
-                        "type": "string",
-                        "enum": [
-                            "ANSI",
-                            "KS",
-                            "ISO",
-                            "ABNT",
-                            "JIS",
-                        ]
-                    },
-                },
-                "required": ["standard"]
+                "type": "string",
+                "enum": [
+                    "ANSI",
+                    "KS",
+                    "ISO",
+                    "ABNT",
+                    "JIS",
+                ]
             },
-            {
-                "type": "object",
-                "additionalProperties": false,
-                "properties" : {
-                    "vendor": {
-                        "type": unsigned_int_8
-                    }
-                },
-                "required": ["vendor"]
-            }
+            {"$ref": "#/hex_number_2d"},
+            {"$ref": "#/unsigned_int_8"}
         ]
     },
     "layout_macro": {
