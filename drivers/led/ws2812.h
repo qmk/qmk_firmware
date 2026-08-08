@@ -15,6 +15,8 @@
 
 #pragma once
 
+#include <stdbool.h>
+
 #include "util.h"
 
 /*
@@ -95,3 +97,7 @@ void ws2812_set_color_all(uint8_t red, uint8_t green, uint8_t blue);
 void ws2812_flush(void);
 
 void ws2812_rgb_to_rgbw(ws2812_led_t *led);
+
+#if defined(WS2812_VCC_ENABLE_PINS)
+void ws2812_set_power(bool on);
+#endif

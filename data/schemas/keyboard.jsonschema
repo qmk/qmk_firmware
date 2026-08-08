@@ -1080,7 +1080,13 @@
                 "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                 "rgbw": {"type": "boolean"},
                 "i2c_address": {"$ref": "./definitions.jsonschema#/hex_number_2d"},
-                "i2c_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"}
+                "i2c_timeout": {"$ref": "./definitions.jsonschema#/unsigned_int"},
+                "vcc_enable_pins": {
+                    "type": "array",
+                    "items": {"$ref": "./definitions.jsonschema#/mcu_pin"},
+                    "minItems": 1
+                },
+                "vcc_active_low": {"type": "boolean"}
             }
         }
     }
