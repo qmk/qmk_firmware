@@ -622,6 +622,58 @@ def _extract_matrix_info(info_data, config_c):
     return info_data
 
 
+def _extract_extended_attributes(info_data, config_c):
+    """Populate data about extended keyboard attributes (hutrr42 c)
+    """
+    def fix_old_c_octals(s: str) -> str:
+        ret = s
+        if s.startswith('0') and len(s) > 1 and s[1] not in "xXoObB":
+            ret = f"0o{s[1:]}"
+        return str(int(ret, base=0))
+
+    vendor_layout = fix_old_c_octals(config_c.get('KEYBOARD_EXT_ATTR_VENDOR_LAYOUT', "0"))
+    standard_layout = config_c.get('KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT', 'unknown').lower()
+    layout = vendor_layout if int(vendor_layout) in range(1, 256) else standard_layout
+    form_factor = info_data.get('usb', {}).get('extended_attributes', {}).get('form_factor', '').lower()
+    key_travel = info_data.get('usb', {}).get('extended_attributes', {}).get('key_travel', '').lower()
+
+    # unknown is implied through absence
+    if layout == 'unknown':
+        layout = None
+    if info_data.get('usb', {}).get('extended_attributes', {}).get('layout') == 'unknown':
+        info_data['usb']['extended_attributes'].pop('layout', None)
+    if form_factor == 'unknown':
+        info_data['usb']['extended_attributes'].pop('form_factor', None)
+        form_factor = None
+    if key_travel == 'unknown':
+        info_data['usb']['extended_attributes'].pop('key_travel', None)
+        key_travel = None
+
+    # if we have something to extract ensure there's a place for it.
+    if layout or key_travel or form_factor:
+        if 'usb' not in info_data:
+            info_data['usb'] = {}
+        if 'extended_attributes' not in info_data['usb']:
+            info_data['usb']['extended_attributes'] = {}
+
+    # insert the extracted data
+    if form_factor:
+        info_data['usb']['extended_attributes']['form_factor'] = form_factor
+    if key_travel:
+        info_data['usb']['extended_attributes']['key_travel'] = key_travel
+    if layout:
+        if layout == 'vendor':
+            _log_error(info_data, f'Layout set to vendor, but it\'s value \"{vendor_layout}\" is outside of range(1, 256)')
+            return
+        if 'layout' in info_data['usb']['extended_attributes']:
+            _log_warning(info_data, 'extended attribute layout specified in both config.h and info.json, the config.h value wins')
+        if layout == vendor_layout:
+            layout = int(layout)  # vendor layout is a u8
+            if standard_layout not in ['unknown', 'vendor']:
+                _log_warning(info_data, 'Both Standard and Vendor layout specified in config.h, Vendor specific value wins')
+        info_data['usb']['extended_attributes']['layout'] = layout
+
+
 def _config_to_json(key_type, config_value):
     """Convert config value using spec
     """
@@ -712,6 +764,7 @@ def _extract_config_h(info_data, config_c):
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
     _extract_split_encoders(info_data, config_c)
+    _extract_extended_attributes(info_data, config_c)
 
     return info_data
 
