@@ -209,7 +209,7 @@ void send_string_with_delay(const char *string, uint8_t interval) {
     send_string_with_delay_impl(send_string_get_next_ram, &state, interval);
 }
 
-void send_char(char ascii_code) {
+__attribute__((weak)) void send_char(char ascii_code) {
     send_char_with_delay(ascii_code, TAP_CODE_DELAY);
 }
 
