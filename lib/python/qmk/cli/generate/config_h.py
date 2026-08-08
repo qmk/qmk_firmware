@@ -169,6 +169,16 @@ def generate_led_animations_config(feature, led_feature_json, config_h_lines, en
     for animation in led_feature_json.get('animations', {}):
         config_h_lines.append(generate_flag(f'{enable_prefix}{animation.upper()}', led_feature_json['animations'][animation]))
 
+def generate_extended_attributes_config(extended_attrs, config_h_lines: list[str], postfix=''):
+    if len(extended_attrs) > 0 and 'enabled' not in extended_attrs:
+        config_h_lines.append(generate_define('EXTENDED_ATTRIBUTES_ENABLE'))
+
+    if 'layout' in extended_attrs:
+        layout = extended_attrs['layout']
+        if isinstance(layout, int) or layout.startswith("0x"):
+            config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_VENDOR_LAYOUT', layout))
+        else:
+            config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT', layout))
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
@@ -213,6 +223,9 @@ def generate_config_h(cli):
 
     if 'rgblight' in kb_info_json:
         generate_led_animations_config('rgblight', kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_', 'RGBLIGHT_MODE_')
+
+    if 'extended_attributes' in kb_info_json:
+        generate_extended_attributes_config(kb_info_json['extended_attributes'], config_h_lines)
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
