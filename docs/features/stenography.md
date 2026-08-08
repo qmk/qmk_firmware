@@ -111,7 +111,7 @@ More details can be found here: https://github.com/dnaq/plover-machine-hid
 
 ### Switching protocols on the fly {#switching-protocols-on-the-fly}
 
-If you wish to switch the serial protocol used to transfer the steno chords without having to recompile your keyboard firmware every time, you can press the `QK_STENO_BOLT` and `QK_STENO_GEMINI` keycodes in order to switch protocols on the fly.
+If you wish to switch the serial protocol used to transfer the steno chords without having to recompile your keyboard firmware every time, you can press one of the [mode keycodes](#keycode-reference-mode) in order to switch protocols on the fly.
 
 To enable these special keycodes, add the following lines to your `rules.mk`:
 ```make
@@ -122,6 +122,13 @@ STENO_PROTOCOL = all
 If you want to switch protocols programmatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](../keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
 
 The default protocol is Gemini PR but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
+
+To configure the default, add one of the following lines to your `config.h`:
+
+```c
+#define STENO_DEFAULT_MODE STENO_MODE_GEMINI
+#define STENO_DEFAULT_MODE STENO_MODE_BOLT
+```
 
 Naturally, this option takes the most amount of firmware space as it needs to compile the code for all the available stenography protocols. In most cases, compiling a single stenography protocol is sufficient.
 
@@ -143,7 +150,7 @@ To test your keymap, you can chord keys on your keyboard and either look at the 
 
 ## Learning Stenography {#learning-stenography}
 
-* [Learn Plover!](https://sites.google.com/site/learnplover/)
+* [Learn Plover!](https://opensteno.org/learn-plover/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * More resources at the Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki
 
@@ -171,7 +178,7 @@ This function is called after a key has been processed, but before any decision 
 
 If `record->event.pressed` is false, and `n_pressed_keys` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This relieves you of the need of keeping track of where a packet ends and another begins.
 
-The `chord` argument contains the packet of the current chord as specified by the protocol in use. This is *NOT* simply a list of chorded steno keys of the form `[STN_E, STN_U, STN_BR, STN_GR]`. Refer to the appropriate protocol section of this document to learn more about the format of the packets in your steno protocol/mode of choice.
+The `chord` argument contains the packet of the current chord as specified by the protocol in use. This is *NOT* simply a list of chorded steno keys of the form `[ST_E, ST_U, ST_BR, ST_GR]`. Refer to the appropriate protocol section of this document to learn more about the format of the packets in your steno protocol/mode of choice.
 
 The `n_pressed_keys` argument is the number of physical keys actually being held down.
 This is not always equal to the number of bits set to 1 (aka the [Hamming weight](https://en.wikipedia.org/wiki/Hamming_weight)) in `chord` because it is possible to simultaneously press down four keys, then release three of those four keys and then press yet another key while the fourth finger is still holding down its key.
@@ -180,67 +187,82 @@ At the end of this scenario given as an example, `chord` would have five bits se
 
 ## Keycode Reference {#keycode-reference}
 
+### Mode {#keycode-reference-mode}
+
+When more than one protocol is enabled, the following keycodes are available:
+
+| Key                       | Aliases | Description                                                               |
+|---------------------------|---------|---------------------------------------------------------------------------|
+|`QK_STENO_MODE_BOLT`       |`ST_BOLT`| Set mode to `STENO_MODE_BOLT` (when multiple protocols are enabled)       |
+|`QK_STENO_MODE_GEMINI`     |`ST_GEMI`| Set mode to `STENO_MODE_GEMINI` (when multiple protocols are enabled)     |
+|`QK_STENO_MODE_NEXT`       |`ST_NEXT`| Cycle through modes (when multiple protocols are enabled)                 |
+|`QK_STENO_MODE_PREVIOUS`   |`ST_PREV`| Cycle through modes in reverse (when multiple protocols are enabled)      |
+
+### General
+
 ::: info
 TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.
 :::
 
-|GeminiPR|TX Bolt|Steno Key|
-|--------|-------|-----------|
-|`STN_N1`|`STN_NUM`|Number bar #1|
-|`STN_N2`|`STN_NUM`|Number bar #2|
-|`STN_N3`|`STN_NUM`|Number bar #3|
-|`STN_N4`|`STN_NUM`|Number bar #4|
-|`STN_N5`|`STN_NUM`|Number bar #5|
-|`STN_N6`|`STN_NUM`|Number bar #6|
-|`STN_N7`|`STN_NUM`|Number bar #7|
-|`STN_N8`|`STN_NUM`|Number bar #8|
-|`STN_N9`|`STN_NUM`|Number bar #9|
-|`STN_NA`|`STN_NUM`|Number bar #A|
-|`STN_NB`|`STN_NUM`|Number bar #B|
-|`STN_NC`|`STN_NUM`|Number bar #C|
-|`STN_S1`|`STN_SL`| `S-` upper|
-|`STN_S2`|`STN_SL`| `S-` lower|
-|`STN_TL`|`STN_TL`| `T-`|
-|`STN_KL`|`STN_KL`| `K-`|
-|`STN_PL`|`STN_PL`| `P-`|
-|`STN_WL`|`STN_WL`| `W-`|
-|`STN_HL`|`STN_HL`| `H-`|
-|`STN_RL`|`STN_RL`| `R-`|
-|`STN_A`|`STN_A`| `A` vowel|
-|`STN_O`|`STN_O`| `O` vowel|
-|`STN_ST1`|`STN_STR`| `*` upper-left |
-|`STN_ST2`|`STN_STR`| `*` lower-left|
-|`STN_ST3`|`STN_STR`| `*` upper-right|
-|`STN_ST4`|`STN_STR`| `*` lower-right|
-|`STN_E`|`STN_E`| `E` vowel|
-|`STN_U`|`STN_U`| `U` vowel|
-|`STN_FR`|`STN_FR`| `-F`|
-|`STN_RR`|`STN_RR`| `-R`|
-|`STN_PR`|`STN_PR`| `-P`|
-|`STN_BR`|`STN_BR`| `-B`|
-|`STN_LR`|`STN_LR`| `-L`|
-|`STN_GR`|`STN_GR`| `-G`|
-|`STN_TR`|`STN_TR`| `-T`|
-|`STN_SR`|`STN_SR`| `-S`|
-|`STN_DR`|`STN_DR`| `-D`|
-|`STN_ZR`|`STN_ZR`| `-Z`|
-|`STN_FN`|| (Function)|
-|`STN_RES1`||(Reset 1)|
-|`STN_RES2`||(Reset 2)|
-|`STN_PWR`||(Power)|
+| GeminiPR  | TX Bolt  | Steno Key       |
+|-----------|----------|-----------------|
+| `ST_N1`   | `ST_NUM` | Number bar #1   |
+| `ST_N2`   | `ST_NUM` | Number bar #2   |
+| `ST_N3`   | `ST_NUM` | Number bar #3   |
+| `ST_N4`   | `ST_NUM` | Number bar #4   |
+| `ST_N5`   | `ST_NUM` | Number bar #5   |
+| `ST_N6`   | `ST_NUM` | Number bar #6   |
+| `ST_N7`   | `ST_NUM` | Number bar #7   |
+| `ST_N8`   | `ST_NUM` | Number bar #8   |
+| `ST_N9`   | `ST_NUM` | Number bar #9   |
+| `ST_NA`   | `ST_NUM` | Number bar #A   |
+| `ST_NB`   | `ST_NUM` | Number bar #B   |
+| `ST_NC`   | `ST_NUM` | Number bar #C   |
+| `ST_S1`   | `ST_SL`  | `S-` upper      |
+| `ST_S2`   | `ST_SL`  | `S-` lower      |
+| `ST_TL`   | `ST_TL`  | `T-`            |
+| `ST_KL`   | `ST_KL`  | `K-`            |
+| `ST_PL`   | `ST_PL`  | `P-`            |
+| `ST_WL`   | `ST_WL`  | `W-`            |
+| `ST_HL`   | `ST_HL`  | `H-`            |
+| `ST_RL`   | `ST_RL`  | `R-`            |
+| `ST_A`    | `ST_A`   | `A` vowel       |
+| `ST_O`    | `ST_O`   | `O` vowel       |
+| `ST_ST1`  | `ST_STR` | `*` upper-left  |
+| `ST_ST2`  | `ST_STR` | `*` lower-left  |
+| `ST_ST3`  | `ST_STR` | `*` upper-right |
+| `ST_ST4`  | `ST_STR` | `*` lower-right |
+| `ST_E`    | `ST_E`   | `E` vowel       |
+| `ST_U`    | `ST_U`   | `U` vowel       |
+| `ST_FR`   | `ST_FR`  | `-F`            |
+| `ST_RR`   | `ST_RR`  | `-R`            |
+| `ST_PR`   | `ST_PR`  | `-P`            |
+| `ST_BR`   | `ST_BR`  | `-B`            |
+| `ST_LR`   | `ST_LR`  | `-L`            |
+| `ST_GR`   | `ST_GR`  | `-G`            |
+| `ST_TR`   | `ST_TR`  | `-T`            |
+| `ST_SR`   | `ST_SR`  | `-S`            |
+| `ST_DR`   | `ST_DR`  | `-D`            |
+| `ST_ZR`   | `ST_ZR`  | `-Z`            |
+| `ST_FN`   |          | (Function)      |
+| `ST_RES1` |          | (Reset 1)       |
+| `ST_RES2` |          | (Reset 2)       |
+| `ST_PWR`  |          | (Power)         |
+
+### Combined Map {#keycode-reference-combinedmap}
 
 If you do not want to hit two keys with one finger combined keycodes can be used. These cause both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
 
-|Combined key   | Key1   | Key 2    |
-|---------------|--------|----------|
-|STN_S3         | STN_S1 | STN_S2   |
-|STN_TKL        | STN_TL | STN_KL   |
-|STN_PWL        | STN_PL | STN_WL   |
-|STN_HRL        | STN_HL | STN_RL   |
-|STN_FRR        | STN_FR | STN_RR   |
-|STN_PBR        | STN_PR | STN_BR   |
-|STN_LGR        | STN_LR | STN_GR   |
-|STN_TSR        | STN_TR | STN_SR   |
-|STN_DZR        | STN_DR | STN_ZR   |
-|STN_AO         | STN_A  | STN_O    |
-|STN_EU         | STN_E  | STN_U    |
+| Combined key | Key1    | Key 2   |
+|--------------|---------|---------|
+| `ST_S3`      | `ST_S1` | `ST_S2` |
+| `ST_TKL`     | `ST_TL` | `ST_KL` |
+| `ST_PWL`     | `ST_PL` | `ST_WL` |
+| `ST_HRL`     | `ST_HL` | `ST_RL` |
+| `ST_FRR`     | `ST_FR` | `ST_RR` |
+| `ST_PBR`     | `ST_PR` | `ST_BR` |
+| `ST_LGR`     | `ST_LR` | `ST_GR` |
+| `ST_TSR`     | `ST_TR` | `ST_SR` |
+| `ST_DZR`     | `ST_DR` | `ST_ZR` |
+| `ST_AO`      | `ST_A`  | `ST_O`  |
+| `ST_EU`      | `ST_E`  | `ST_U`  |
