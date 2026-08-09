@@ -140,8 +140,7 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5449",
-        "vid": "0x5453",
-        "wait_for_enumeration": false
+        "vid": "0x5453"
     },
     "layouts": {
         "LAYOUT": {
