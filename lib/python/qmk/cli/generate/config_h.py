@@ -175,6 +175,7 @@ def generate_stenography_config(kb_info_json, config_h_lines):
     if 'mode' in kb_info_json['stenography'].get('default', {}):
         mode_map = {
             'geminipr': 'STENO_MODE_GEMINI',
+            'plover_hid': 'STENO_MODE_PLOVER_HID',
             'txbolt': 'STENO_MODE_BOLT',
         }
         mode = kb_info_json['stenography']['default']['mode']

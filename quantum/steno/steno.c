@@ -13,6 +13,8 @@
 #        define STENO_DEFAULT_MODE STENO_MODE_GEMINI
 #    elif defined(STENO_ENABLE_BOLT)
 #        define STENO_DEFAULT_MODE STENO_MODE_BOLT
+#    elif defined(STENO_ENABLE_PLOVER_HID)
+#        define STENO_DEFAULT_MODE STENO_MODE_PLOVER_HID
 #    endif
 #endif
 
@@ -36,6 +38,9 @@ static const steno_mode_t mode_candidates[] = {
 #    endif
 #    if defined(STENO_ENABLE_BOLT)
     STENO_MODE_BOLT,
+#    endif
+#    if defined(STENO_ENABLE_PLOVER_HID)
+    STENO_MODE_PLOVER_HID,
 #    endif
 };
 

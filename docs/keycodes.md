@@ -813,6 +813,7 @@ See also: [Stenography](features/stenography)
 |`QK_STENO_DZR`             |`ST_DZR`           | Trigger `ST_DR` and `ST_ZR` (when *Combined Map* is enabled)              |
 |`QK_STENO_AO`              |`ST_AO`            | Trigger `ST_A` and `ST_O` (when *Combined Map* is enabled)                |
 |`QK_STENO_EU`              |`ST_EU`            | Trigger `ST_E` and `ST_U` (when *Combined Map* is enabled)                |
+|`QK_STENO_MODE_PLOVER_HID` |`ST_PHID`          | Set mode to `STENO_MODE_PLOVER_HID` (when multiple protocols are enabled) |
 |`QK_STENO_MODE_BOLT`       |`ST_BOLT`          | Set mode to `STENO_MODE_BOLT` (when multiple protocols are enabled)       |
 |`QK_STENO_MODE_GEMINI`     |`ST_GEMI`          | Set mode to `STENO_MODE_GEMINI` (when multiple protocols are enabled)     |
 |`QK_STENO_MODE_NEXT`       |`ST_NEXT`          | Cycle through modes (when multiple protocols are enabled)                 |

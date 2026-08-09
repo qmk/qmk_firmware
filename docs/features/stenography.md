@@ -97,15 +97,12 @@ Examples of steno strokes and the associated packet:
 
 This mode operates independently of the other Steno "official" machine protocols. Like any other mouse or keyboard, it uses the USB HID protocol to communicate with Plover by sending an 8 byte (64 bit) packet representing a bitfield for all the possible keys on a steno machine plus a number of additional general purpose keys for custom use. This protocol is only understood by Plover as of [5.1.0](https://github.com/opensteno/plover/releases/tag/v5.1.0).
 
-Add
+To select Plover HID, add the following lines to your `rules.mk`:
 
 ```make
-PLOVER_HID_ENABLE = yes
+STENO_ENABLE = yes
+STENO_PROTOCOLS = plover_hid
 ```
-
-to your `rules.mk` file. This does **not** require `STENO_ENABLE` to be set.
-
-All of the possible keycodes are defined with the `PLV_` prefix and are available without any additional includes.
 
 More details can be found here: https://github.com/dnaq/plover-machine-hid
 
@@ -116,10 +113,10 @@ If you wish to switch the serial protocol used to transfer the steno chords with
 To enable these special keycodes, configure more than one protocol by adding the following lines to your `rules.mk`:
 ```make
 STENO_ENABLE = yes
-STENO_PROTOCOLS = geminipr txbolt
+STENO_PROTOCOLS = geminipr plover_hid txbolt
 ```
 
-If you want to switch protocols programmatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](../keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
+If you want to switch protocols programmatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](../keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT`, `STENO_MODE_GEMINI`, and `STENO_MODE_PLOVER_HID`.
 
 The default protocol is Gemini PR but the last protocol used is stored in non-volatile memory so QMK will remember your choice between reboots of your keyboard &mdash; assuming that your keyboard features (emulated) EEPROM.
 
@@ -128,6 +125,7 @@ To configure the default, add one of the following lines to your `config.h`:
 ```c
 #define STENO_DEFAULT_MODE STENO_MODE_GEMINI
 #define STENO_DEFAULT_MODE STENO_MODE_BOLT
+#define STENO_DEFAULT_MODE STENO_MODE_PLOVER_HID
 ```
 
 Naturally, this option takes the most amount of firmware space as it needs to compile the code for all the available stenography protocols. In most cases, compiling a single stenography protocol is sufficient.
@@ -193,6 +191,7 @@ When more than one protocol is enabled, the following keycodes are available:
 
 | Key                       | Aliases | Description                                                               |
 |---------------------------|---------|---------------------------------------------------------------------------|
+|`QK_STENO_MODE_PLOVER_HID` |`ST_PHID`| Set mode to `STENO_MODE_PLOVER_HID` (when multiple protocols are enabled) |
 |`QK_STENO_MODE_BOLT`       |`ST_BOLT`| Set mode to `STENO_MODE_BOLT` (when multiple protocols are enabled)       |
 |`QK_STENO_MODE_GEMINI`     |`ST_GEMI`| Set mode to `STENO_MODE_GEMINI` (when multiple protocols are enabled)     |
 |`QK_STENO_MODE_NEXT`       |`ST_NEXT`| Cycle through modes (when multiple protocols are enabled)                 |
@@ -248,6 +247,41 @@ TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK
 | `ST_RES1` |          | (Reset 1)       |
 | `ST_RES2` |          | (Reset 2)       |
 | `ST_PWR`  |          | (Power)         |
+
+### Protocol Specific
+
+#### Plover HID {#keycode-reference-plover-hid}
+
+Additional keycodes available for the [Plover HID Protocol](#plover-hid-protocol):
+
+| Key            | Aliases  | Description                         |
+|----------------|----------|-------------------------------------|
+| `QK_STENO_X1`  | `ST_X1`  | Extra button 1 (Protocol specific)  |
+| `QK_STENO_X2`  | `ST_X2`  | Extra button 2 (Protocol specific)  |
+| `QK_STENO_X3`  | `ST_X3`  | Extra button 3 (Protocol specific)  |
+| `QK_STENO_X4`  | `ST_X4`  | Extra button 4 (Protocol specific)  |
+| `QK_STENO_X5`  | `ST_X5`  | Extra button 5 (Protocol specific)  |
+| `QK_STENO_X6`  | `ST_X6`  | Extra button 6 (Protocol specific)  |
+| `QK_STENO_X7`  | `ST_X7`  | Extra button 7 (Protocol specific)  |
+| `QK_STENO_X8`  | `ST_X8`  | Extra button 8 (Protocol specific)  |
+| `QK_STENO_X9`  | `ST_X9`  | Extra button 9 (Protocol specific)  |
+| `QK_STENO_X10` | `ST_X10` | Extra button 10 (Protocol specific) |
+| `QK_STENO_X11` | `ST_X11` | Extra button 11 (Protocol specific) |
+| `QK_STENO_X12` | `ST_X12` | Extra button 12 (Protocol specific) |
+| `QK_STENO_X13` | `ST_X13` | Extra button 13 (Protocol specific) |
+| `QK_STENO_X14` | `ST_X14` | Extra button 14 (Protocol specific) |
+| `QK_STENO_X15` | `ST_X15` | Extra button 15 (Protocol specific) |
+| `QK_STENO_X16` | `ST_X16` | Extra button 16 (Protocol specific) |
+| `QK_STENO_X17` | `ST_X17` | Extra button 17 (Protocol specific) |
+| `QK_STENO_X18` | `ST_X18` | Extra button 18 (Protocol specific) |
+| `QK_STENO_X19` | `ST_X19` | Extra button 19 (Protocol specific) |
+| `QK_STENO_X20` | `ST_X20` | Extra button 20 (Protocol specific) |
+| `QK_STENO_X21` | `ST_X21` | Extra button 21 (Protocol specific) |
+| `QK_STENO_X22` | `ST_X22` | Extra button 22 (Protocol specific) |
+| `QK_STENO_X23` | `ST_X23` | Extra button 23 (Protocol specific) |
+| `QK_STENO_X24` | `ST_X24` | Extra button 24 (Protocol specific) |
+| `QK_STENO_X25` | `ST_X25` | Extra button 25 (Protocol specific) |
+| `QK_STENO_X26` | `ST_X26` | Extra button 26 (Protocol specific) |
 
 ### Combined Map {#keycode-reference-combinedmap}
 

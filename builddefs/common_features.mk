@@ -96,7 +96,7 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
-VALID_STENO_PROTOCOL_TYPES := geminipr txbolt
+VALID_STENO_PROTOCOL_TYPES := geminipr plover_hid txbolt
 STENO_PROTOCOLS ?= geminipr txbolt
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
@@ -124,6 +124,11 @@ ifeq ($(strip $(STENO_ENABLE)), yes)
         OPT_DEFS += -DSTENO_ENABLE_BOLT
         SRC += $(QUANTUM_DIR)/steno/steno_bolt.c
         VIRTSER_ENABLE ?= yes
+    endif
+    ifneq ($(findstring plover_hid, $(STENO_PROTOCOLS)),)
+        OPT_DEFS += -DSTENO_ENABLE_PLOVER_HID
+        SRC += $(QUANTUM_DIR)/steno/steno_plover_hid.c
+        PLOVER_HID_ENABLE := yes
     endif
 endif
 

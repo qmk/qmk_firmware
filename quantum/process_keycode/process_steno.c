@@ -15,6 +15,11 @@ void steno_add_key_to_chord_gemini(uint8_t chord[MAX_STROKE_SIZE], uint8_t key);
 void steno_send_chord_gemini(uint8_t chord[MAX_STROKE_SIZE]);
 #endif
 
+#ifdef STENO_ENABLE_PLOVER_HID
+void steno_add_key_to_chord_plover_hid(uint8_t chord[MAX_STROKE_SIZE], uint8_t key);
+void steno_send_chord_plover_hid(uint8_t chord[MAX_STROKE_SIZE]);
+#endif
+
 // All steno keys that have been pressed to form this chord,
 // stored in MAX_STROKE_SIZE groups of 8-bit arrays.
 extern uint8_t chord[MAX_STROKE_SIZE];
@@ -77,6 +82,15 @@ static void steno_add_keycode_to_chord(uint16_t keycode) {
             steno_add_key_to_chord_gemini(chord, keycode - QK_STENO_FUNCTION);
             break;
 #endif
+#ifdef STENO_ENABLE_PLOVER_HID
+        case STENO_MODE_PLOVER_HID:
+            if (keycode < QK_STENO_FUNCTION || keycode > QK_STENO_X26) {
+                return;
+            }
+
+            steno_add_key_to_chord_plover_hid(chord, keycode - QK_STENO_FUNCTION);
+            break;
+#endif
         default:
             break;
     }
@@ -92,6 +106,11 @@ static void steno_send_chord(void) {
 #ifdef STENO_ENABLE_GEMINI
         case STENO_MODE_GEMINI:
             steno_send_chord_gemini(chord);
+            break;
+#endif
+#ifdef STENO_ENABLE_PLOVER_HID
+        case STENO_MODE_PLOVER_HID:
+            steno_send_chord_plover_hid(chord);
             break;
 #endif
         default:
@@ -137,6 +156,12 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
         case QK_STENO_MODE_GEMINI:
             if (record->event.pressed) {
                 steno_set_mode(STENO_MODE_GEMINI);
+            }
+            return false;
+
+        case QK_STENO_MODE_PLOVER_HID:
+            if (record->event.pressed) {
+                steno_set_mode(STENO_MODE_PLOVER_HID);
             }
             return false;
 #endif

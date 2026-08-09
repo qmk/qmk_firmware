@@ -8,8 +8,11 @@
 
 #define BOLT_STROKE_SIZE 4
 #define GEMINI_STROKE_SIZE 6
+#define PLOVER_HID_STROKE_SIZE 8
 
-#if defined(STENO_ENABLE_GEMINI)
+#if defined(STENO_ENABLE_PLOVER_HID)
+#    define MAX_STROKE_SIZE PLOVER_HID_STROKE_SIZE
+#elif defined(STENO_ENABLE_GEMINI)
 #    define MAX_STROKE_SIZE GEMINI_STROKE_SIZE
 #else
 #    define MAX_STROKE_SIZE BOLT_STROKE_SIZE
@@ -23,6 +26,7 @@
 typedef enum {
     STENO_MODE_GEMINI,
     STENO_MODE_BOLT,
+    STENO_MODE_PLOVER_HID,
 } steno_mode_t;
 
 /**

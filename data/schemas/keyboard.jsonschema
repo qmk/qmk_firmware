@@ -822,7 +822,7 @@
                     "properties": {
                         "mode": {
                             "type": "string",
-                            "enum": ["geminipr", "txbolt"]
+                            "enum": ["geminipr", "plover_hid", "txbolt"]
                         }
                     }
                 },
@@ -833,7 +833,7 @@
                 "protocols": {
                     "type": "array",
                     "items": {
-                        "enum": ["geminipr", "txbolt"]
+                        "enum": ["geminipr", "plover_hid", "txbolt"]
                     }
                 }
             }

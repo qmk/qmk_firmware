@@ -572,7 +572,14 @@
         // 0x7518
         // 0x7519
         // 0x751A
-        // 0x751B
+        "0x751B": {
+            "group": "steno",
+            "key": "QK_STENO_MODE_PLOVER_HID",
+            "label": "Steno Mode Plover HID",
+            "aliases": [
+                "ST_PHID"
+            ]
+        },
         "0x751C": {
             "group": "steno",
             "key": "QK_STENO_MODE_BOLT",

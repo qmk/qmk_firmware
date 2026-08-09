@@ -874,7 +874,7 @@ Configures the [Stenography](features/stenography) feature.
             * The default mode. Must be one of `stenography.protocols`.
             * Default: `"geminipr"`
     * `protocols` <Badge type="info">Array: String</Badge>
-        * The Steno protocols to use. Valid values are `geminipr`, `txbolt`.
+        * The Steno protocols to use. Valid values are `geminipr`, `plover_hid`, `txbolt`.
         * Default: `["geminipr", "txbolt"]`
 
 ## USB {#usb}
