@@ -2,7 +2,6 @@
     "manufacturer": "TSC",
     "keyboard_name": "Tiwaz",
     "maintainer": "tstrube",
-    "bootloader": "rp2040",
     "bootloader_instructions": "Hold boot button on back of PCB, then plug in keyboard.",
     "diode_direction": "COL2ROW",
     "features": {
@@ -25,11 +24,6 @@
         {"key": "MD_JOYL", "label": "Change left joystick mode"},
         {"key": "MD_JOYR", "label": "Change right joystick mode"}
     ],
-    "matrix_pins": {
-        "cols": ["GP2", "GP3", "GP4", "GP5", "GP6", "GP7", "GP12", "GP13", "GP24"],
-        "rows": ["GP16", "GP17", "GP18", "GP19", "GP20"]
-    },
-    "processor": "RP2040",
     "rgb_matrix": {
         "animations": {
             "breathing": true,
@@ -133,18 +127,6 @@
     },
     "split": {
         "enabled": true,
-        "handedness": {
-            "pin": "GP14"
-        },
-        "matrix_pins": {
-            "right": {
-                "cols": ["GP24", "GP13", "GP12", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2"]
-            }
-        },
-        "serial": {
-            "driver": "vendor",
-            "pin": "GP0"
-        },
         "transport": {
             "sync": {
                 "layer_state": true,
@@ -158,11 +140,8 @@
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5449",
-        "vid": "0x5453"
-    },
-    "ws2812": {
-        "driver": "vendor",
-        "pin": "GP1"
+        "vid": "0x5453",
+        "wait_for_enumeration": false
     },
     "layouts": {
         "LAYOUT": {

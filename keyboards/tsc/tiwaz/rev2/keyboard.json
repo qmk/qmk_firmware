@@ -1,0 +1,26 @@
+{
+    "processor": "STM32F401",
+    "bootloader": "stm32-dfu",
+    "matrix_pins": {
+        "cols": ["B2", "B1", "B0", "C5", "C4", "A7", "A6", "A5", "A4"],
+        "rows": ["C10", "C11", "C12", "D2", "B3"]
+    },
+    "split": {
+        "handedness": {
+            "pin": "B8"
+        },
+        "matrix_pins": {
+            "right": {
+                "cols": ["A4", "A5", "A6", "A7", "C4", "C5", "B0", "B1", "B2"]
+            }
+        },
+        "serial": {
+            "driver": "usart",
+            "pin": "C6"
+        }
+    },
+    "ws2812": {
+        "driver": "pwm",
+        "pin": "A9"
+    }
+}

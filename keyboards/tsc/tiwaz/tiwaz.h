@@ -18,10 +18,6 @@
 #define JOY_DIGITAL_ON            50
 #define JOY_DIGITAL_OFF           40
 
-#define JOY_PIN_B GP29
-#define JOY_PIN_X GP28
-#define JOY_PIN_Y GP27
-
 // Joystick modes
 typedef enum {
     JOY_MODE_DIGITAL = 0,
