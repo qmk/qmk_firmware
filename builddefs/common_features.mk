@@ -96,28 +96,31 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
-VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
-STENO_PROTOCOL ?= all
+VALID_STENO_PROTOCOL_TYPES := geminipr txbolt
+STENO_PROTOCOLS ?= geminipr txbolt
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
-    ifneq ($(filter-out $(VALID_STENO_PROTOCOL_TYPES), $(STENO_PROTOCOL)),)
-        $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
-    endif
-
+    # backwards compatibility for deprecated STENO_PROTOCOL
     ifeq ($(strip $(STENO_PROTOCOL)), all)
-        override STENO_PROTOCOL := $(filter-out all,$(VALID_STENO_PROTOCOL_TYPES))
+        override STENO_PROTOCOLS := geminipr txbolt
         OPT_DEFS += -DSTENO_ENABLE_ALL
+    else ifneq ($(strip $(STENO_PROTOCOL)),)
+        override STENO_PROTOCOLS := $(STENO_PROTOCOL)
     endif
 
-    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(STENO_PROTOCOL))
+    ifneq ($(filter-out $(VALID_STENO_PROTOCOL_TYPES), $(STENO_PROTOCOLS)),)
+        $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOLS,STENO_PROTOCOLS="$(STENO_PROTOCOLS)" is not a valid stenography protocol)
+    endif
+
+    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(STENO_PROTOCOLS))
 
     # for each supported protocol -> add deps
-    ifneq ($(findstring geminipr, $(STENO_PROTOCOL)),)
+    ifneq ($(findstring geminipr, $(STENO_PROTOCOLS)),)
         OPT_DEFS += -DSTENO_ENABLE_GEMINI
         SRC += $(QUANTUM_DIR)/steno/steno_gemini.c
         VIRTSER_ENABLE ?= yes
     endif
-    ifneq ($(findstring txbolt, $(STENO_PROTOCOL)),)
+    ifneq ($(findstring txbolt, $(STENO_PROTOCOLS)),)
         OPT_DEFS += -DSTENO_ENABLE_BOLT
         SRC += $(QUANTUM_DIR)/steno/steno_bolt.c
         VIRTSER_ENABLE ?= yes

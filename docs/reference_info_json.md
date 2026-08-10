@@ -871,11 +871,11 @@ Configures the [Stenography](features/stenography) feature.
         * Default: `false`
     * `default`
         * `mode` <Badge type="info">String</Badge>
-            * The default mode. Must be one of `geminipr`, `txbolt`.
+            * The default mode. Must be one of `stenography.protocols`.
             * Default: `"geminipr"`
-    * `protocol` <Badge type="info">String</Badge>
-        * The Steno protocol to use. Must be one of `all`, `geminipr`, `txbolt`.
-        * Default: `"all"`
+    * `protocols` <Badge type="info">Array: String</Badge>
+        * The Steno protocols to use. Valid values are `geminipr`, `txbolt`.
+        * Default: `["geminipr", "txbolt"]`
 
 ## USB {#usb}
 
