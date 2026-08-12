@@ -23,7 +23,7 @@
 
 /** \brief Entering the Bootloader via Software
  *
- * http://www.fourwalledcubicle.com/files/LUFA/Doc/120730/html/_page__software_bootloader_start.html
+ * https://github.com/abcminiuser/lufa/blob/master/LUFA/DoxygenPages/SoftwareBootloaderJump.txt
  */
 #define BOOTLOADER_RESET_KEY 0xB007B007
 uint32_t reset_key __attribute__((section(".noinit,\"aw\",@nobits;")));
