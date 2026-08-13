@@ -207,8 +207,41 @@ def convert_from_hex_to_uf2(buf):
 def to_str(b):
     return b.decode("utf-8")
 
+
+def _slow_mount_points():
+    """Return mount points backed by network filesystems.
+    """
+    slow_types = {"autofs", "nfs", "nfs4", "cifs", "smbfs", "sshfs"}
+    slow_prefixes = ("fuse.",)
+    slow = set()
+    try:
+        with open("/proc/self/mountinfo") as f:
+            for line in f:
+                parts = line.split()
+                if "-" not in parts:
+                    continue
+                dash = parts.index("-")
+                if len(parts) <= dash + 1:
+                    continue
+                fs_type = parts[dash + 1].lower()
+                if fs_type in slow_types or fs_type.startswith(slow_prefixes):
+                    slow.add(os.path.normpath(parts[4].replace("\\040", " ")))
+    except OSError:
+        pass
+    return slow
+
+
+def _is_slow_mount(path, slow_mounts):
+    """Check whether path is on or under a slow mount point.
+    """
+    path = os.path.normpath(path)
+    return any(path == slow or path.startswith(slow + os.sep) for slow in slow_mounts)
+
+
 def get_drives():
     drives = []
+    # Skip network-backed mounts to avoid hangs when enumerating drives.
+    slow_mounts = _slow_mount_points() if sys.platform == "linux" else set()
     if sys.platform == "win32":
         r = subprocess.check_output([
             "powershell",
@@ -227,10 +260,14 @@ def get_drives():
                 searchpaths += ["/run/media/" + os.environ["SUDO_USER"]]
 
         for rootpath in searchpaths:
-            if os.path.isdir(rootpath):
-                for d in os.listdir(rootpath):
-                    if os.path.isdir(os.path.join(rootpath, d)):
-                        drives.append(os.path.join(rootpath, d))
+            if _is_slow_mount(rootpath, slow_mounts):
+                continue
+            try:
+                for entry in os.scandir(rootpath):
+                    if entry.is_dir() and not _is_slow_mount(entry.path, slow_mounts):
+                        drives.append(entry.path)
+            except OSError:
+                continue
 
 
     def has_info(d):
