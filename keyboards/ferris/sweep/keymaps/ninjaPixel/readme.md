@@ -37,7 +37,7 @@ qmk compile -kb ferris/sweep -km ninjaPixel
 qmk flash -kb ferris/sweep -km ninjaPixel
 ```
 
-When the CLI says it is looking for the device then put hit the `QK_BOOT` key (it's on the `LAYER_PICKER` layer).
+When the CLI says it is looking for the device then put hit the `QK_BOOT` key (it's on the `LAYER_PICKER` layer, where the `B` key is).
 
 ## Generate keymap SVG
 

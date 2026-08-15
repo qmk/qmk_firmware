@@ -25,6 +25,54 @@ enum layers {
     _SECONDARY
 };
 
+// ──────────────────────────────────────────────────────────────
+// Tap Dance
+// ──────────────────────────────────────────────────────────────
+// Indices into tap_dance_actions[]. Referenced from the keymap as TD(...).
+enum tap_dances {
+    TD_SCREENSHOT,
+};
+
+// ── Screenshot tap dance (Mac-only) ──
+// This is a simplified port of the OS-aware screenshot tap dance from the
+// Sofle (users/ninjaPixel/ninjaPixel_keymap.h). The Ferris Sweep is only
+// ever used with a Mac, so the OS-detection branch and the Windows
+// shortcuts have been dropped entirely:
+//
+//   1 tap  → Cmd+Shift+4  (selection screenshot — drag a region)
+//   2 taps → Cmd+Shift+3  (full screen screenshot)
+//   3 taps → Cmd+Shift+5  (screenshot/record toolbar)
+//
+// The key lives on _FN_KEYS, which is reached via TO(_FN_KEYS) — a
+// persistent layer toggle. (It deliberately does NOT live on the one-shot
+// _LAYER_PICKER layer: QMK clears a one-shot layer on the first keypress,
+// which breaks multi-tap dances.)
+
+// Called once when QMK resolves the dance (tapping term expired, or another
+// key interrupted it). Sends the Mac screenshot shortcut for the tap count.
+void td_screenshot_finished(tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1:
+            // Mac selection screenshot — crosshair to drag a region.
+            tap_code16(LGUI(LSFT(KC_4)));
+            break;
+        case 2:
+            // Mac full screen screenshot — captures the entire display.
+            tap_code16(LGUI(LSFT(KC_3)));
+            break;
+        case 3:
+            // Mac screenshot toolbar — the floating screenshot/record UI.
+            tap_code16(LGUI(LSFT(KC_5)));
+            break;
+    }
+}
+
+tap_dance_action_t tap_dance_actions[] = {
+    // Screenshot: fires on dance completion only, so the simple FN variant
+    // (on_dance_finished callback, nothing on each tap / reset) is enough.
+    [TD_SCREENSHOT] = ACTION_TAP_DANCE_FN(td_screenshot_finished),
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base layer — standard Colemak (not Colemak-DH), MacOS-oriented.
@@ -54,11 +102,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    _______, _______,            TO(_COLEMAK), LT(_SECONDARY, KC_SPC)
     ),
 
+    // F-keys layer. The 'z' position holds the Mac screenshot tap dance
+    // (1 tap = selection, 2 taps = full screen, 3 taps = screenshot toolbar).
     [_FN_KEYS] = LAYOUT(
-        KC_F,    _______, _______, _______, XXXXXXX,            _______,      KC_F7,     KC_F8, KC_F9, KC_F12,
-        _______, _______, _______, _______, _______,            _______,      KC_F4,     KC_F5, KC_F6, KC_F11,
-        _______, _______, _______, _______, _______,            _______,      KC_F1,     KC_F2, KC_F3, KC_F10,
-                                   _______, _______,            TO(_COLEMAK), _______
+        KC_F,              _______, _______, _______, XXXXXXX,            _______,      KC_F7,     KC_F8, KC_F9, KC_F12,
+        _______,           _______, _______, _______, _______,            _______,      KC_F4,     KC_F5, KC_F6, KC_F11,
+        TD(TD_SCREENSHOT), _______, _______, _______, _______,            _______,      KC_F1,     KC_F2, KC_F3, KC_F10,
+                                             _______, _______,            TO(_COLEMAK), _______
     ),
 
     // Quick access layer
