@@ -1,4 +1,4 @@
-# Barett Creative BC75
+# Barett Creative BC-75
 
 ![bc75]()
 
