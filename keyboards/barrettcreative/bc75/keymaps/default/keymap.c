@@ -1,4 +1,4 @@
-// Copyright 2024-2026 DailyDesk, gregnadinc <gregandcinbusiness@gmail.com>
+// Copyright 2024-2026 DailyDesk, gregandcin <gregandcinbusiness@gmail.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 
