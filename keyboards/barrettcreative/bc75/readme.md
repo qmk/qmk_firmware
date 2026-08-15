@@ -5,7 +5,7 @@
 A 75% pcb with an optional encoder or OLED
 
 * Keyboard Maintainer: [DeskDaily](https://github.com/DeskDaily), [gregandcin](https://github.com/gregandcin)
-* Hardware Supported: Wooden Cases by Barrett Creative
+* Hardware Availability: Wooden Cases by Barrett Creative
 
 Make example for this keyboard (after setting up your build environment):
 
