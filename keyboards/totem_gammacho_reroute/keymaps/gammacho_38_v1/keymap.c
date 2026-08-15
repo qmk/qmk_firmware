@@ -361,17 +361,6 @@ enum combos {
     CO_L_LCLK,
     CO_L_RCLK,
     CO_L_MCLK,
-    //ADD NEW COMBOS
-    CO_E, //E
-    CO_D, //D
-    CO_C, //C
-    CO_TB, //TAB
-    CO_EC, //ESC
-    CO_CP, //CAPS
-    CO_PL, //+
-    CO_AS, //*
-    CO_HS, //#
-    CO_3   //3
 };
 
 const uint16_t PROGMEM COM_WESC[] = {KC_TAB, WFNC_Q, COMBO_END};
@@ -379,7 +368,7 @@ const uint16_t PROGMEM COM_CAPS[] = {KC_D, LSFT_F, COMBO_END};
 const uint16_t PROGMEM COM_SEMI[] = {KC_COMM, KC_DOT, COMBO_END};
 const uint16_t PROGMEM COM_WDEL[] = {WFNC_P, KC_BSPC, COMBO_END};
 const uint16_t PROGMEM COM_LANG[] = {RSFT_J, KC_K, COMBO_END};
-const uint16_t PROGMEM COM_MIDCLK[] = {MS_BTN1, MS_BTN2, COMBO_END};
+const uint16_t PROGMEM COM_MIDCLK[] = {KC_BTN1, KC_BTN2, COMBO_END};
 const uint16_t PROGMEM COM_SCROLL[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM COM_NOLOCK[] = {KC_M, KC_COMM, COMBO_END};
 //USE 38 key combo : layer 0 _WINDOWS
@@ -393,17 +382,6 @@ const uint16_t PROGMEM COM_RTN[] = {RSFT_J, KC_K, KC_L, COMBO_END};
 const uint16_t PROGMEM COM_L_LCLK[] = {LSFT_F, KC_G, COMBO_END};
 const uint16_t PROGMEM COM_L_RCLK[] = {KC_R, KC_T, COMBO_END};
 const uint16_t PROGMEM COM_L_MCLK[] = {KC_V, KC_B, COMBO_END};
-//ADD NEW COMBO
-const uint16_t PROGMEM COM_E[] = {KC_W, KC_R, COMBO_END};
-const uint16_t PROGMEM COM_D[] = {KC_S, LSFT_F, COMBO_END};
-const uint16_t PROGMEM COM_C[] = {KC_X, KC_V, COMBO_END};
-const uint16_t PROGMEM COM_TB[] = {WFNC_Q, KC_W, KC_R, COMBO_END};
-const uint16_t PROGMEM COM_EC[] = {MOU_A, KC_S, LSFT_F, COMBO_END};
-const uint16_t PROGMEM COM_CP[] = {HO_LSFT, KC_X, KC_V, COMBO_END};
-const uint16_t PROGMEM COM_PL[] = {CC_DLR, KC_MINS, COMBO_END};
-const uint16_t PROGMEM COM_AS[] = {CC_AMPR, KC_SLSH, COMBO_END};
-const uint16_t PROGMEM COM_HS[] = {CC_AT, CC_DLR, COMBO_END};
-const uint16_t PROGMEM COM_3[] = {KC_2, KC_4, COMBO_END};
 
 combo_t key_combos[] = {
   [CO_WESC] = COMBO(COM_WESC, KC_ESC),
@@ -411,7 +389,7 @@ combo_t key_combos[] = {
   [CO_SEMI] = COMBO(COM_SEMI, KC_SCLN),
   [CO_WDEL] = COMBO(COM_WDEL, KC_DEL),
   [CO_LANG] = COMBO_ACTION(COM_LANG),
-  [CO_MIDCLK] = COMBO(COM_MIDCLK, MS_BTN3),
+  [CO_MIDCLK] = COMBO(COM_MIDCLK, KC_BTN3),
   [CO_SCROLL] = COMBO(COM_SCROLL, DRAG_SCROLL),
   [NOLOCK] = COMBO_ACTION(COM_NOLOCK),
   //USE 38 key combo : layer 0 _WINDOWS
@@ -421,68 +399,10 @@ combo_t key_combos[] = {
   [CO_BSP] = COMBO(COM_BSP, KC_BSPC),
   [CO_DEL] = COMBO(COM_DEL, KC_DEL),
   [CO_RTN] = COMBO(COM_RTN, KC_ENT),
-  [CO_L_LCLK] = COMBO(COM_L_LCLK, MS_BTN1),
-  [CO_L_RCLK] = COMBO(COM_L_RCLK, MS_BTN2),
-  [CO_L_MCLK] = COMBO(COM_L_MCLK, MS_BTN3),
-  //ADD NEW COMBO
-  [CO_E] = COMBO(COM_E, KC_E),
-  [CO_D] = COMBO(COM_D, KC_D),
-  [CO_C] = COMBO(COM_C, KC_C),
-  [CO_TB] = COMBO(COM_TB, KC_TAB),
-  [CO_EC] = COMBO(COM_EC, KC_ESC),
-  [CO_CP] = COMBO(COM_CP, KC_CAPS),
-  [CO_PL] = COMBO(COM_PL, CC_PLUS),
-  [CO_AS] = COMBO(COM_AS, CC_ASTR),
-  [CO_HS] = COMBO(COM_HS, CC_HASH),
-  [CO_3] = COMBO(COM_3, KC_3)
-};
+  [CO_L_LCLK] = COMBO(COM_L_LCLK, KC_BTN1),
+  [CO_L_RCLK] = COMBO(COM_L_RCLK, KC_BTN2),
+  [CO_L_MCLK] = COMBO(COM_L_MCLK, KC_BTN3),
 
-bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
-    /* Disable combo `SOME_COMBO` on layer `_LAYER_A` */
-    switch (combo_index) {
-        case CO_E:
-            if (layer_state_is(_WINDOWS) || layer_state_is(_MAC)) {
-                return true;
-            }
-        case CO_D:
-            if (layer_state_is(_WINDOWS) || layer_state_is(_MAC)) {
-                return true;
-            }
-        case CO_C:
-            if (layer_state_is(_WINDOWS) || layer_state_is(_MAC)) {
-                return true;
-            }
-        case CO_TB:
-            if (layer_state_is(_WINDOWS) || layer_state_is(_MAC)) {
-                return true;
-            }
-        case CO_EC:
-            if (layer_state_is(_WINDOWS) || layer_state_is(_MAC)) {
-                return true;
-            }
-        case CO_CP:
-            if (layer_state_is(_WINDOWS) || layer_state_is(_MAC)) {
-                return true;
-            }
-        case CO_PL:
-            if (layer_state_is(_NAV)) {
-                return true;
-            }
-        case CO_AS:
-            if (layer_state_is(_NAV)) {
-                return true;
-            }
-        case CO_HS:
-            if (layer_state_is(_NAV) || layer_state_is(_W_NUM) || layer_state_is(_M_NUM)) {
-                return true;
-            }
-        case CO_3:
-            if (layer_state_is(_W_NUM) || layer_state_is(_M_NUM)) {
-                return true;
-            }
-    }
-
-    return false;
 };
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
@@ -576,56 +496,56 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_WINDOWS] = LAYOUT(
                  WFNC_Q,  KC_W, KC_E,    KC_R,    KC_T,                          KC_Y,      KC_U,    KC_I,    KC_O,   WFNC_P,
                  MOU_A,   KC_S, KC_D,    LSFT_F,  KC_G,                          KC_H,      RSFT_J,  KC_K,    KC_L,   NAV_QUO,
-        XXXXXXX, HO_LSFT, KC_X, KC_C,    KC_V,    KC_B,                          KC_N,      KC_M,    KC_COMM, KC_DOT, HO_RSFT, XXXXXXX,
+        KC_LSFT, HO_LSFT, KC_X, KC_C,    KC_V,    KC_B,                          KC_N,      KC_M,    KC_COMM, KC_DOT, HO_RSFT, XXXXXXX,
                                          KC_LALT, KC_LCTL, WNUM_SP,     WNUM_SP, TD(TD_SP), KC_LGUI
     ),
 
     [_MAC] = LAYOUT(
                  MFNC_Q,  KC_W, KC_E,    KC_R,    KC_T,                          KC_Y,      KC_U,    KC_I,    KC_O,   MFNC_P,
                  MOU_A,   KC_S, KC_D,    LSFT_F,  KC_G,                          KC_H,      RSFT_J,  KC_K,    KC_L,   NAV_QUO,
-        XXXXXXX, HO_LSFT, KC_X, KC_C,    KC_V,    KC_B,                          KC_N,      KC_M,    KC_COMM, KC_DOT, HO_RSFT, XXXXXXX,
+        KC_LSFT, HO_LSFT, KC_X, KC_C,    KC_V,    KC_B,                          KC_N,      KC_M,    KC_COMM, KC_DOT, HO_RSFT, KC_RSFT,
                                          KC_LALT, KC_LGUI, WNUM_SP,     WNUM_SP, TD(TD_SP), KC_LCTL
     ),
 
     [_NAV] = LAYOUT(
                  CC_EXLM, CC_AT,   CC_HASH, KC_EQL,  TD(TD_LBK),                       TD(TD_RBK), XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX,
                  CC_PERC, CC_AMPR, CC_ASTR, KC_SLSH, TD(TD_LPR),                       TD(TD_RPR), KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX,
-        XXXXXXX, CC_HASH, CC_DLR,  CC_PLUS, KC_MINS, CC_PIPE,                          KC_BSLS,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LSFT, CC_HASH, CC_DLR,  CC_PLUS, KC_MINS, CC_PIPE,                          KC_BSLS,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                             _______, _______,    _______,     _______, _______, _______
     ),
 
     [_MOUSE] = LAYOUT(
-                 XXXXXXX, XXXXXXX, MS_WHLU, XXXXXXX, KC_PGUP,                       KC_HOME, XXXXXXX, MS_UP,   XXXXXXX, XXXXXXX,
-                 XXXXXXX, MS_WHLL, MS_WHLD, MS_WHLR, KC_PGDN,                       KC_END,  MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, MAKE_H,  XXXXXXX, QK_RBT,                        KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 XXXXXXX, XXXXXXX, KC_WH_U, XXXXXXX, KC_PGUP,                       KC_HOME, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX,
+                 XXXXXXX, KC_WH_L, KC_WH_D, KC_WH_R, KC_PGDN,                       KC_END,  KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX,
+        KC_LSFT, XXXXXXX, XXXXXXX, MAKE_H,  XXXXXXX, QK_RBT,                        KC_BSLS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                             KC_LEFT, KC_RGHT, _______,     _______, _______, _______
     ),
 
     [_M_FNC] = LAYOUT(
                  XXXXXXX, KC_VOLU, XXXXXXX, LGUI(KC_LBRC), LGUI(KC_RBRC),                            LCTL(KC_UP),  KC_F9, KC_F10, KC_F11, KC_F12,
                  XXXXXXX, KC_VOLD, XXXXXXX, XXXXXXX,       LGUI(KC_GRV),                             LGUI(KC_GRV), KC_F5, KC_F6,  KC_F7,  KC_F8,
-        XXXXXXX, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,       LGUI(LALT(KC_ESC)),                       MSNAP,        KC_F1, KC_F2,  KC_F3,  KC_F4,  XXXXXXX,
+        KC_LSFT, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,       LGUI(LALT(KC_ESC)),                       MSNAP,        KC_F1, KC_F2,  KC_F3,  KC_F4,  XXXXXXX,
                                             _______,       _______,            _______,     _______, _______,      _______
     ),
 
     [_W_FNC] = LAYOUT(
                  XXXXXXX, KC_VOLU, XXXXXXX, LALT(KC_LEFT), LALT(KC_RGHT),                            LGUI(KC_TAB), KC_F9, KC_F10, KC_F11, KC_F12,
                  XXXXXXX, KC_VOLD, XXXXXXX, XXXXXXX,       LALT(KC_TAB),                             LALT(KC_TAB), KC_F5, KC_F6,  KC_F7,  KC_F8,
-        XXXXXXX, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,       LCTL(LSFT(KC_ESC)),                       WSNAP,        KC_F1, KC_F2,  KC_F3,  KC_F4,  XXXXXXX,
+        KC_LSFT, XXXXXXX, KC_MUTE, XXXXXXX, XXXXXXX,       LCTL(LSFT(KC_ESC)),                       WSNAP,        KC_F1, KC_F2,  KC_F3,  KC_F4,  XXXXXXX,
                                             _______,       _______,            _______,     _______, _______,      _______
     ),
 
     [_M_NUM] = LAYOUT(
                  CC_EXLM, CC_AT,   CC_HASH, CC_DLR,  CC_PERC,                       CC_CIRC, CC_AMPR, CC_ASTR, CC_LPRN, CC_RPRN,
                  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-        XXXXXXX, KC_GRV,  CC_TILD, CC_PLUS, KC_MINS, CC_ASTR,                       KC_BSLS, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+        KC_LSFT, KC_GRV,  CC_TILD, CC_PLUS, KC_MINS, CC_ASTR,                       KC_BSLS, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
                                             _______, _______, _______,     _______, _______, _______
     ),
 
     [_W_NUM] = LAYOUT(
                  CC_EXLM, CC_AT,   CC_HASH, CC_DLR,  CC_PERC,                       CC_CIRC, CC_AMPR, CC_ASTR, CC_LPRN, CC_RPRN,
                  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                          KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-        XXXXXXX, KC_GRV,  CC_TILD, CC_PLUS, KC_MINS, CC_ASTR,                       KC_BSLS, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
+        KC_LSFT, KC_GRV,  CC_TILD, CC_PLUS, KC_MINS, CC_ASTR,                       KC_BSLS, KC_EQL,  KC_COMM, KC_DOT,  KC_SLSH, XXXXXXX,
                                             _______, _______, _______,     _______, _______, _______
     ),
 

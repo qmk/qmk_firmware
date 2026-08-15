@@ -53,5 +53,6 @@
             "fileMatch": ["keymap.json"],
             "url": "./data/schemas/keymap.jsonschema"
         }
-    ]
+    ],
+    "cmake.sourceDirectory": "/Users/gammacho/qmk_firmware/lib/pico-sdk"
 }
