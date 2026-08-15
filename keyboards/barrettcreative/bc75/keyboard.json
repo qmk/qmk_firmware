@@ -1,34 +1,34 @@
 {
-    "keyboard_name": "BC-75",
     "manufacturer": "Barrett Creative",
-    "url": "https://barrettcreative.shop/",
+    "keyboard_name": "BC-75",
     "maintainer": "DeskDaily",
-    "usb": {
-        "vid": "0xD895",
-        "pid": "0x0001",
-        "device_version": "1.0.0"
-    },
-    "processor": "RP2040",
     "bootloader": "rp2040",
-    "matrix_pins": {
-        "rows": ["GP28", "GP25", "GP24", "GP23", "GP22", "GP21"],
-        "cols": ["GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4"]
-    },
     "diode_direction": "COL2ROW",
-    "features": {
-        "bootmagic": true,
-        "mousekey": true,
-        "extrakey": true,
-        "nkro": true,
-		"encoder": true
-    },	
-	"encoder": {
+    "encoder": {
         "rotary": [
             {"pin_a": "GP2", "pin_b": "GP3"}
         ]
     },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10", "GP9", "GP8", "GP7", "GP6", "GP5", "GP4"],
+        "rows": ["GP28", "GP25", "GP24", "GP23", "GP22", "GP21"]
+    },
+    "processor": "RP2040",
+    "url": "https://barrettcreative.shop/",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0001",
+        "vid": "0xD895"
+    },
     "layouts": {
-        "LAYOUT_ext75_ansi_split_lshift": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1.25, "y": 0},
@@ -45,7 +45,6 @@
                 {"matrix": [0, 13], "x": 12.75, "y": 0},
                 {"matrix": [0, 14], "x": 14, "y": 0},
                 {"matrix": [0, 15], "x": 15.5, "y": 0},
-				
                 {"matrix": [1, 0], "x": 0, "y": 1.5},
                 {"matrix": [1, 1], "x": 1, "y": 1.5},
                 {"matrix": [1, 2], "x": 2, "y": 1.5},
@@ -61,7 +60,6 @@
                 {"matrix": [1, 12], "x": 12, "y": 1.5},
                 {"matrix": [1, 14], "x": 13, "y": 1.5, "w": 2},
                 {"matrix": [1, 15], "x": 15.5, "y": 1.5},
-				
                 {"matrix": [2, 0], "x": 0, "y": 2.5, "w": 1.5},
                 {"matrix": [2, 2], "x": 1.5, "y": 2.5},
                 {"matrix": [2, 3], "x": 2.5, "y": 2.5},
@@ -77,7 +75,6 @@
                 {"matrix": [2, 13], "x": 12.5, "y": 2.5},
                 {"matrix": [2, 14], "x": 13.5, "y": 2.5, "w": 1.5},
                 {"matrix": [2, 15], "x": 15.5, "y": 2.5},
-				
                 {"matrix": [3, 0], "x": 0, "y": 3.5, "w": 1.75},
                 {"matrix": [3, 2], "x": 1.75, "y": 3.5},
                 {"matrix": [3, 3], "x": 2.75, "y": 3.5},
@@ -92,7 +89,6 @@
                 {"matrix": [3, 12], "x": 11.75, "y": 3.5},
                 {"matrix": [3, 14], "x": 12.75, "y": 3.5, "w": 2.25},
                 {"matrix": [3, 15], "x": 15.5, "y": 3.5},
-				
                 {"matrix": [4, 0], "x": 0, "y": 4.5, "w": 1.25},
                 {"matrix": [4, 1], "x": 1.25, "y": 4.5},
                 {"matrix": [4, 2], "x": 2.25, "y": 4.5},
@@ -108,8 +104,6 @@
                 {"matrix": [4, 13], "x": 12.25, "y": 4.5, "w": 1.75},
                 {"matrix": [4, 14], "x": 14.25, "y": 4.75},
                 {"matrix": [4, 15], "x": 15.5, "y": 4.5},
-
-				
                 {"matrix": [5, 0], "x": 0, "y": 5.5, "w": 1.25},
                 {"matrix": [5, 1], "x": 1.25, "y": 5.5, "w": 1.25},
                 {"matrix": [5, 3], "x": 2.5, "y": 5.5, "w": 1.25},
@@ -119,7 +113,7 @@
                 {"matrix": [5, 13], "x": 13.25, "y": 5.75},
                 {"matrix": [5, 14], "x": 14.25, "y": 5.75},
                 {"matrix": [5, 15], "x": 15.25, "y": 5.75}
-           ]
+            ]
         }
     }
 }
