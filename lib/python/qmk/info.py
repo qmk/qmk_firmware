@@ -18,8 +18,8 @@ from qmk.makefile import parse_rules_mk_file
 from qmk.math_ops import compute
 from qmk.util import maybe_exit, truthy
 
-true_values = ['1', 'on', 'yes']
-false_values = ['0', 'off', 'no']
+TRUE_VALUES = ['true', '1', 'on', 'yes']
+FALSE_VALUES = ['false', '0', 'off', 'no']
 
 
 class LedFlags(IntFlag):
@@ -211,6 +211,32 @@ def _validate_encoders(keyboard, info_data):
         _log_error(info_data, f'Layout "{layout_name}" contains {reason} encoder index {encoder_index}.')
 
 
+def _validate_bootmagic(keyboard, info_data):
+    """Non schema checks
+    """
+    # bootmagic matrix indexes must be in range
+    rows = info_data.get('matrix_size', {}).get('rows', 0)
+    cols = info_data.get('matrix_size', {}).get('cols', 0)
+
+    bootmagic_row, bootmagic_col = info_data.get('bootmagic', {}).get('matrix', [0, 0])
+    bootmagic_right_row, bootmagic_right_col = info_data.get('split', {}).get('bootmagic', {}).get('matrix', [rows // 2, cols - 1])
+
+    if not info_data.get('split', {}).get('enabled', False):
+        if bootmagic_row >= rows:
+            _log_error(info_data, f'Bootmagic row ({bootmagic_row}) must be in the range 0-{rows - 1}')
+        if bootmagic_col >= cols:
+            _log_error(info_data, f'Bootmagic col ({bootmagic_col}) must be in the range 0-{cols - 1}')
+    else:
+        if bootmagic_row >= rows // 2:
+            _log_error(info_data, f'Bootmagic left row ({bootmagic_row}) must be in the range 0-{rows // 2 - 1}')
+        if bootmagic_col >= cols:
+            _log_error(info_data, f'Bootmagic left col ({bootmagic_col}) must be in the range 0-{cols - 1}')
+        if bootmagic_right_row < rows // 2 or bootmagic_right_row >= rows:
+            _log_error(info_data, f'Bootmagic right row ({bootmagic_right_row}) must be in the range {rows // 2}-{rows - 1}')
+        if bootmagic_right_col >= cols:
+            _log_error(info_data, f'Bootmagic right col ({bootmagic_right_col}) must be in the range 0-{cols - 1}')
+
+
 def _validate(keyboard, info_data):
     """Perform various validation on the provided info.json data
     """
@@ -223,6 +249,7 @@ def _validate(keyboard, info_data):
         _validate_layouts(keyboard, info_data)
         _validate_keycodes(keyboard, info_data)
         _validate_encoders(keyboard, info_data)
+        _validate_bootmagic(keyboard, info_data)
 
     except jsonschema.ValidationError as e:
         json_path = '.'.join([str(p) for p in e.absolute_path])
@@ -292,13 +319,10 @@ def _extract_features(info_data, rules):
     for key, value in rules.items():
         if key.endswith('_ENABLE'):
             key = '_'.join(key.split('_')[:-1]).lower()
-            value = True if value.lower() in true_values else False if value.lower() in false_values else value
+            value = True if value.lower() in TRUE_VALUES else False if value.lower() in FALSE_VALUES else value
 
             if key in ['lto']:
                 continue
-
-            if 'config_h_features' not in info_data:
-                info_data['config_h_features'] = {}
 
             if 'features' not in info_data:
                 info_data['features'] = {}
@@ -307,7 +331,6 @@ def _extract_features(info_data, rules):
                 _log_warning(info_data, 'Feature %s is specified in both info.json (%s) and rules.mk (%s). The rules.mk value wins.' % (key, info_data['features'], value))
 
             info_data['features'][key] = value
-            info_data['config_h_features'][key] = value
 
     return info_data
 
@@ -395,19 +418,6 @@ def _extract_direct_matrix(direct_pins):
                 direct_pin_array[i][j] = None
 
     return direct_pin_array
-
-
-def _extract_audio(info_data, config_c):
-    """Populate data about the audio configuration
-    """
-    audio_pins = []
-
-    for pin in 'B5', 'B6', 'B7', 'C4', 'C5', 'C6':
-        if config_c.get(f'{pin}_AUDIO'):
-            audio_pins.append(pin)
-
-    if audio_pins:
-        info_data['audio'] = {'pins': audio_pins}
 
 
 def _extract_encoders_values(config_c, postfix=''):
@@ -634,7 +644,7 @@ def _config_to_json(key_type, config_value):
     elif key_type in ['bool', 'flag']:
         if isinstance(config_value, bool):
             return config_value
-        return config_value in true_values
+        return config_value in TRUE_VALUES
 
     elif key_type == 'hex':
         return '0x' + config_value[2:].upper()
@@ -695,7 +705,6 @@ def _extract_config_h(info_data, config_c):
 
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
-    _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
     _extract_split_handedness(info_data, config_c)
     _extract_split_serial(info_data, config_c)
@@ -1128,4 +1137,17 @@ def get_modules(keyboard, keymap_filename):
         if keymap_json:
             modules.extend(keymap_json.get('modules', []))
 
-    return list(dict.fromkeys(modules))  # remove dupes
+    # remove duplicates while maintaining the current order
+    ret = list(dict.fromkeys(modules))
+
+    # We currently do not support duplicate module names
+    # e.g.: ['foo/hello_world', 'bar/hello_world'] will fail
+    seen = set()
+    for module in ret:
+        module_slug = Path(module).name.lower()
+        if module_slug in seen:
+            duplicates = list(filter(lambda m: module_slug == Path(m).name.lower(), ret))
+            raise Exception(f'Duplicate module name detected: "{module_slug}" - {duplicates}')
+        seen.add(module_slug)
+
+    return ret

@@ -136,6 +136,10 @@ def _find_serial_port(vid, pid):
     return None
 
 
+def _flash_bootloadhid(file):
+    cli.run(['bootloadHID', '-r', file], capture_output=False)
+
+
 def _flash_caterina(details, file):
     port = _find_serial_port(details[0], details[1])
     if port:
@@ -218,6 +222,8 @@ def flasher(mcu, file):
     time.sleep(1)
     if bl == 'atmel-dfu':
         _flash_atmel_dfu(details, file)
+    elif bl == 'bootloadhid':
+        _flash_bootloadhid(file)
     elif bl == 'caterina':
         if _flash_caterina(details, file):
             return (True, "The Caterina bootloader was found but is not writable. Check 'qmk doctor' output for advice.")

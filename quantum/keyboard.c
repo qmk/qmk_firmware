@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "command.h"
 #include "util.h"
-#include "host.h"
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "action_layer.h"
@@ -510,11 +509,6 @@ void keyboard_init(void) {
 #endif
 #ifdef STENO_ENABLE_ALL
     steno_init();
-#endif
-#if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
-#    pragma message "FORCE_NKRO option is now deprecated - Please migrate to NKRO_DEFAULT_ON instead."
-    keymap_config.nkro = 1;
-    eeconfig_update_keymap(&keymap_config);
 #endif
 #ifdef DIP_SWITCH_ENABLE
     dip_switch_init();

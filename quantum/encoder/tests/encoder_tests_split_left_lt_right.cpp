@@ -26,8 +26,8 @@ extern "C" {
 }
 
 struct update {
-    int8_t index;
-    bool   clockwise;
+    uint8_t index;
+    bool    clockwise;
 };
 
 uint8_t updates_array_idx = 0;
@@ -39,6 +39,10 @@ bool isLeftHand;
 extern "C" {
 bool is_keyboard_master(void) {
     return isMaster;
+}
+
+bool is_keyboard_left(void) {
+    return isLeftHand;
 }
 
 bool encoder_update_kb(uint8_t index, bool clockwise) {

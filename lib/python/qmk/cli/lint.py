@@ -8,7 +8,7 @@ from milc import cli
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.info import info_json
 from qmk.keyboard import keyboard_completer, keyboard_folder_or_all, is_all_keyboards, list_keyboards
-from qmk.keymap import locate_keymap, list_keymaps
+from qmk.keymap import locate_keymap, list_keymaps, is_valid_keymap_name
 from qmk.path import keyboard
 from qmk.git import git_get_ignored_files
 from qmk.c_parse import c_source_files, preprocess_c_file
@@ -22,15 +22,10 @@ INVALID_KM_NAMES = ['via', 'vial']
 def _list_defaultish_keymaps(kb):
     """Return default like keymaps for a given keyboard
     """
-    defaultish = ['ansi', 'iso']
+    keymaps = set(list_keymaps(kb, include_userspace=False, include_community=False))
 
-    # This is only here to flag it as "testable", so it doesn't fly under the radar during PR
-    defaultish.extend(INVALID_KM_NAMES)
-
-    keymaps = set()
-    for x in list_keymaps(kb, include_userspace=False):
-        if x in defaultish or x.startswith('default'):
-            keymaps.add(x)
+    # Ensure that at least a 'default' keymap always exists
+    keymaps.add('default')
 
     return keymaps
 
@@ -173,14 +168,6 @@ def _handle_invalid_features(kb, info):
     return ok
 
 
-def _handle_invalid_config(kb, info):
-    """Check for invalid keyboard level config
-    """
-    if info.get('url') == "":
-        cli.log.warning(f'{kb}: Invalid keyboard level config detected - Optional field "url" should not be empty.')
-    return True
-
-
 def _chibios_conf_includenext_check(target):
     """Check the ChibiOS conf.h for the correct inclusion of the next conf.h
     """
@@ -234,29 +221,35 @@ def _handle_duplicating_code_defaults(kb, info):
     defaults_map = json_load(Path('data/mappings/info_defaults.hjson'))
     dotty_info = dotty(info)
 
+    ok = True
+
     for key, v_default in _collect_dotted_output(defaults_map):
         v_info = dotty_info.get(key)
         if v_default == v_info:
-            cli.log.warning(f'{kb}: Option "{key}" duplicates default value of "{v_default}"')
+            cli.log.error(f'{kb}: Option "{key}" duplicates default value of "{v_default}"')
+            ok = False
 
-    return True
+    return ok
 
 
 def keymap_check(kb, km):
     """Perform the keymap level checks.
     """
-    ok = True
     keymap_path = locate_keymap(kb, km)
 
     if not keymap_path:
-        ok = False
         cli.log.error("%s: Can't find %s keymap.", kb, km)
-        return ok
+        return False
 
     if km in INVALID_KM_NAMES:
-        ok = False
         cli.log.error("%s: The keymap %s should not exist!", kb, km)
-        return ok
+        return False
+
+    ok = True
+
+    if not is_valid_keymap_name(km):
+        cli.log.error(f'{kb}/{km}: Keymap name must contain only a-z, 0-9 and _!')
+        ok = False
 
     # Additional checks
     invalid_files = git_get_ignored_files(keymap_path.parent.as_posix())
@@ -289,9 +282,6 @@ def keyboard_check(kb):  # noqa C901
 
     # Additional checks
     if not _handle_invalid_features(kb, kb_info):
-        ok = False
-
-    if not _handle_invalid_config(kb, kb_info):
         ok = False
 
     if not _handle_duplicating_code_defaults(kb, kb_info):
@@ -360,6 +350,11 @@ def lint(cli):
         cli.print_help()
         return False
 
+    # milc config handling of user.keymap breaks running lint without keymap argument
+    # so we have to disable that while still allowing a default to be set with lint.keymap
+    if 'keymap' not in cli.config_source.lint.keys() and cli.config.lint.keymap:
+        cli.config.lint.keymap = None
+
     if isinstance(cli.config.lint.keyboard, str):
         # if provided via config - string not array
         keyboard_list = [cli.config.lint.keyboard]
@@ -375,12 +370,12 @@ def lint(cli):
         # Determine keymaps to also check
         if cli.args.keymap == 'all':
             keymaps = list_keymaps(kb)
+        elif cli.args.keymap:
+            keymaps = {cli.args.keymap}
         elif cli.config.lint.keymap:
             keymaps = {cli.config.lint.keymap}
         else:
             keymaps = _list_defaultish_keymaps(kb)
-            # Ensure that at least a 'default' keymap always exists
-            keymaps.add('default')
 
         ok = True
 

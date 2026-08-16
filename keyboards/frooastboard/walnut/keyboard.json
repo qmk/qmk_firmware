@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Frooastboard Walnut",
     "manufacturer": "Frooastside",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/frooastboard/walnut",
     "maintainer": "Frooastside",
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",

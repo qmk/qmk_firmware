@@ -286,9 +286,9 @@ void process_record(keyrecord_t *record) {
         speculative_key_settled(record);
     }
 #endif // SPECULATIVE_HOLD
-#ifdef FLOW_TAP_TERM
+#if defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
     flow_tap_update_last_event(record);
-#endif // FLOW_TAP_TERM
+#endif // defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
@@ -879,7 +879,9 @@ void process_action(keyrecord_t *record, action_t action) {
                     wait_ms(TAP_CODE_DELAY);
                     tap_code(action.layer_tap.code);
                     wait_ms(TAP_CODE_DELAY);
-                    unregister_mods(retro_tap_curr_mods);
+                    // Only unregister the mods that were active at the time of
+                    // the tap and are not independently held by other keys.
+                    unregister_mods(retro_tap_curr_mods & ~curr_mods);
 #        endif
                 }
                 retro_tap_primed = false;

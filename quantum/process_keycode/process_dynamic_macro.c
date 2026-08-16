@@ -320,7 +320,6 @@ bool process_dynamic_macro(uint16_t keycode, keyrecord_t *record) {
                     }
                 }
                 return true;
-                break;
         }
     }
 

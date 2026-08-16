@@ -199,7 +199,7 @@ const char *read_logo(void) {
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return isLeftHand ? OLED_ROTATION_180 : OLED_ROTATION_0;
+    return is_keyboard_left() ? OLED_ROTATION_180 : OLED_ROTATION_0;
 }
 
 bool oled_task_user(void) {
