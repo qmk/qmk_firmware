@@ -16,13 +16,13 @@
 
 #include "quantum.h"
 
-static uint16_t space_timer  = 0;
-static uint16_t caps_timer   = 0;
+static uint16_t space_timer = 0;
+static uint16_t caps_timer = 0;
 static bool     space_active = false;
-static bool     caps_active  = false;
+static bool     caps_active = false;
 
-static uint8_t  space_heat    = 0;
-static uint8_t  caps_heat     = 0;
+static uint8_t  space_heat = 0;
+static uint8_t  caps_heat = 0;
 static uint16_t heatmap_timer = 0;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -52,8 +52,8 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
             if (elapsed > max_fade_time) {
                 space_active = false;
             } else {
-                HSV     current_hsv = rgb_matrix_config.hsv;
-                uint8_t fade        = 255 - (255 * elapsed / max_fade_time);
+                HSV current_hsv = rgb_matrix_config.hsv;
+                uint8_t fade = 255 - (255 * elapsed / max_fade_time);
 
                 if (mode == RGB_MATRIX_SOLID_REACTIVE_SIMPLE) {
                     current_hsv.v = fade;
