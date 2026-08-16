@@ -1,6 +1,6 @@
 # aftermarket_keycult_tkl
 
-![aftermarket_keycult_tkl](https://i.imgur.com/Dqq0dM4.png)
+![aftermarket_keycult_tkl](https://i.imgur.com/Y1jk63E.png)
 
 *This code is specifically for the aftermarket QMK PCB maintained by Jubakuba that enables QMK with Per-Key-RGB for the Keycult TKL.  This firmware should NOT be flashed on the stock PCB.  The PCB needs to be ordered using a PCB provider using the hardware link below.  This PCB will fit in the Keycult TKL keyboard and work as expected.*
 
