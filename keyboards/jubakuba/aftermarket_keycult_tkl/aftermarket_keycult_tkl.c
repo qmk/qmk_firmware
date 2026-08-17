@@ -18,24 +18,24 @@
 
 static uint16_t space_timer = 0;
 static uint16_t caps_timer = 0;
-static bool     space_active = false;
-static bool     caps_active = false;
+static bool space_active = false;
+static bool caps_active = false;
 
-static uint8_t  space_heat = 0;
-static uint8_t  caps_heat = 0;
+static uint8_t space_heat = 0;
+static uint8_t caps_heat = 0;
 static uint16_t heatmap_timer = 0;
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         if (record->event.key.row == 5 && record->event.key.col == 3) {
-            space_timer  = timer_read();
+            space_timer = timer_read();
             space_active = true;
-            space_heat   = (space_heat + 30 > 255) ? 255 : space_heat + 30;
+            space_heat = (space_heat + 30 > 255) ? 255 : space_heat + 30;
         }
         if (record->event.key.row == 3 && record->event.key.col == 0) {
-            caps_timer  = timer_read();
+            caps_timer = timer_read();
             caps_active = true;
-            caps_heat   = (caps_heat + 30 > 255) ? 255 : caps_heat + 30;
+            caps_heat = (caps_heat + 30 > 255) ? 255 : caps_heat + 30;
         }
     }
     return process_record_user(keycode, record);
