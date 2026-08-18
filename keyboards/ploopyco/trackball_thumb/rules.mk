@@ -1,0 +1,1 @@
+OPT_ENCODER_TYPE = simple
