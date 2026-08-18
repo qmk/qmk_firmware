@@ -11,7 +11,7 @@
         "backlight": true,
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": false,
+        "mousekey": true,
         "nkro": true,
         "rgblight": true
     },
