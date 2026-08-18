@@ -1,5 +1,5 @@
 /*
-Copyright 2024 zeix (@itsme-zeix)
+Copyright 2026 zeix (@itsme-zeix)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
