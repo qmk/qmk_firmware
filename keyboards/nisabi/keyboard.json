@@ -34,9 +34,7 @@
             "watchdog_timeout": 3000
         },
         "usb_detect": {
-            "enabled": true,
-            "polling_interval": 10,
-            "timeout": 2000
+            "enabled": true
         }
     },
     "url": "https://nisabi.raiju.jp",
