@@ -24,9 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode_config.h"
 #include <string.h>
 
-#if defined(PROGRESSIVE_KEYBOARD_REPORTS) && defined(PROGRESSIVE_REPORT_DELAY)
-#    include "wait.h"
-#endif // defined(PROGRESSIVE_KEYBOARD_REPORTS) && defined(PROGRESSIVE_REPORT_DELAY)
+#include "wait.h"
+
+#ifdef PROGRESSIVE_REPORT_DELAY
+#    define progressive_report_delay() wait_ms(PROGRESSIVE_REPORT_DELAY)
+#else
+#    define progressive_report_delay()
+#endif // PROGRESSIVE_REPORT_DELAY
 
 extern keymap_config_t keymap_config;
 
@@ -318,31 +322,23 @@ void send_6kro_report(void) {
     /* Release any keys that are no longer held before applying the new mods. This only splits out
        key releases (a slot cleared to 0); a slot that changes from one key to another in a single
        scan is not split, as 6KRO reports keys positionally rather than as a bitmap. */
-    if (memcmp(keyboard_report->keys, last_report.keys, sizeof(keyboard_report->keys)) != 0) {
-        bool changed = false;
-        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; ++i) {
-            if (keyboard_report->keys[i] == 0) {
-                if (last_report.keys[i] != 0) {
-                    last_report.keys[i] = 0;
-                    changed             = true;
-                }
-            }
+    bool changed = false;
+    for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; ++i) {
+        if (keyboard_report->keys[i] == 0 && last_report.keys[i] != 0) {
+            last_report.keys[i] = 0;
+            changed             = true;
         }
-        if (changed) {
-            host_keyboard_send(&last_report);
-#        ifdef PROGRESSIVE_REPORT_DELAY
-            wait_ms(PROGRESSIVE_REPORT_DELAY);
-#        endif // PROGRESSIVE_REPORT_DELAY
-        }
+    }
+    if (changed) {
+        host_keyboard_send(&last_report);
+        progressive_report_delay();
     }
 
     /* Send the new mods alongside the keys that are still held. */
     if (keyboard_report->mods != last_report.mods) {
         last_report.mods = keyboard_report->mods;
         host_keyboard_send(&last_report);
-#        ifdef PROGRESSIVE_REPORT_DELAY
-        wait_ms(PROGRESSIVE_REPORT_DELAY);
-#        endif // PROGRESSIVE_REPORT_DELAY
+        progressive_report_delay();
     }
 #    endif     // PROGRESSIVE_KEYBOARD_REPORTS
 
@@ -364,7 +360,7 @@ void send_nkro_report(void) {
     last_report.report_id = nkro_report->report_id;
 
     /* Remove existing keys that aren't in the intended report. */
-    if (nkro_report->mods != last_report.mods && memcmp(nkro_report->bits, last_report.bits, sizeof(nkro_report->bits)) != 0) {
+    if (nkro_report->mods != last_report.mods) {
         bool changed = false;
         for (uint8_t i = 0; i < NKRO_REPORT_BITS; ++i) {
             uint8_t orig = last_report.bits[i];
@@ -375,9 +371,7 @@ void send_nkro_report(void) {
         }
         if (changed) {
             host_nkro_send(&last_report);
-#        ifdef PROGRESSIVE_REPORT_DELAY
-            wait_ms(PROGRESSIVE_REPORT_DELAY);
-#        endif // PROGRESSIVE_REPORT_DELAY
+            progressive_report_delay();
         }
     }
 
@@ -385,9 +379,7 @@ void send_nkro_report(void) {
     if (nkro_report->mods != last_report.mods) {
         last_report.mods = nkro_report->mods;
         host_nkro_send(&last_report);
-#        ifdef PROGRESSIVE_REPORT_DELAY
-        wait_ms(PROGRESSIVE_REPORT_DELAY);
-#        endif // PROGRESSIVE_REPORT_DELAY
+        progressive_report_delay();
     }
 #    endif // defined(PROGRESSIVE_KEYBOARD_REPORTS) && !defined(PROTOCOL_VUSB)
 
