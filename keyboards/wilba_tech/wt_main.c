@@ -24,51 +24,19 @@
 #include "keyboards/wilba_tech/wt_mono_backlight.h"
 #endif // MONO_BACKLIGHT_ENABLED
 
-#ifndef VIA_ENABLE
-#include "via.h"
-#include "eeprom.h"
-#include "version.h" // for QMK_BUILDDATE used in EEPROM magic
-#endif
-
-// Called from via_init() if VIA_ENABLE
-// Called from matrix_init_kb() if not VIA_ENABLE
-void wt_main_init(void)
-{
-    // This checks both an EEPROM reset (from bootmagic lite, keycodes)
-    // and also firmware build date (from via_eeprom_is_valid())
-    if (eeconfig_is_enabled()) {
+void keyboard_post_init_kb(void) {
 #if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-        backlight_config_load();
-#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-    } else	{
-#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-        // If the EEPROM has not been saved before, or is out of date,
-        // save the default values to the EEPROM. Default values
-        // come from construction of the backlight_config instance.
-        backlight_config_save();
-#endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
+    // Must be called after quantum_init
+    backlight_config_load();
 
-        // DO NOT set EEPROM valid here, let caller do this
-    }
-
-#if RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
     // Initialize LED drivers for backlight.
     backlight_init_drivers();
 
     backlight_timer_init();
     backlight_timer_enable();
 #endif // RGB_BACKLIGHT_ENABLED || MONO_BACKLIGHT_ENABLED
-}
 
-void matrix_init_kb(void)
-{
-    // If VIA is disabled, we still need to load backlight settings.
-    // Call via_init_kb() the same way as via_init_kb() does.
-#ifndef VIA_ENABLE
-    wt_main_init();
-#endif // VIA_ENABLE
-
-    matrix_init_user();
+    keyboard_post_init_user();
 }
 
 void matrix_scan_kb(void)
@@ -106,9 +74,7 @@ void suspend_wakeup_init_kb(void)
 // Moving this to the bottom of this source file is a workaround
 // for an intermittent compiler error for Atmel compiler.
 #ifdef VIA_ENABLE
-void via_init_kb(void) {
-    wt_main_init();
-}
+#    include "via.h"
 
 void via_custom_value_command_kb(uint8_t *data, uint8_t length) {
     uint8_t *command_id        = &(data[0]);
