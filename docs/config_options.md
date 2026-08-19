@@ -193,7 +193,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define PROGRESSIVE_KEYBOARD_REPORTS`
   * Splits a single logical report change into ordered sub-reports so that modifier and key ordering is preserved on the host: keys that are no longer held are released first, then the new modifier byte is applied against the surviving keys, then the full report is sent. This guarantees that e.g. `Shift` is registered before the key it modifies (and that keys release before their modifiers), avoiding mis-shifted characters on fast or chorded input. When the define is absent, report emission is unchanged. Has no effect on `PROTOCOL_VUSB` boards, which always send a single report.
 * `#define PROGRESSIVE_REPORT_DELAY 1`
-  * Optional. When `PROGRESSIVE_KEYBOARD_REPORTS` is enabled, sets the delay in milliseconds inserted between each sub-report. If not defined, no delay is added.
+  * Optional. When `PROGRESSIVE_KEYBOARD_REPORTS` is enabled, sets the delay in milliseconds inserted between each sub-report. There is no default; if not defined, no delay is added.
 
 
 ## RGB Light Configuration

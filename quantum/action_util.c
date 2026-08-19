@@ -360,11 +360,11 @@ void send_nkro_report(void) {
 
     static report_nkro_t last_report;
 
-#    ifdef PROGRESSIVE_KEYBOARD_REPORTS
+#    if defined(PROGRESSIVE_KEYBOARD_REPORTS) && !defined(PROTOCOL_VUSB)
     last_report.report_id = nkro_report->report_id;
 
     /* Remove existing keys that aren't in the intended report. */
-    if (memcmp(nkro_report->bits, last_report.bits, sizeof(nkro_report->bits)) != 0) {
+    if (nkro_report->mods != last_report.mods && memcmp(nkro_report->bits, last_report.bits, sizeof(nkro_report->bits)) != 0) {
         bool changed = false;
         for (uint8_t i = 0; i < NKRO_REPORT_BITS; ++i) {
             uint8_t orig = last_report.bits[i];
@@ -389,7 +389,7 @@ void send_nkro_report(void) {
         wait_ms(PROGRESSIVE_REPORT_DELAY);
 #        endif // PROGRESSIVE_REPORT_DELAY
     }
-#    endif // PROGRESSIVE_KEYBOARD_REPORTS
+#    endif // defined(PROGRESSIVE_KEYBOARD_REPORTS) && !defined(PROTOCOL_VUSB)
 
     /* Only send the report if there are changes to propagate to the host. */
     if (memcmp(nkro_report, &last_report, sizeof(report_nkro_t)) != 0) {

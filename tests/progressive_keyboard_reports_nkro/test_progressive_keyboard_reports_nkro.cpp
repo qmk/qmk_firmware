@@ -17,28 +17,30 @@
 #include "action_util.h"
 #include "keyboard_report_util.hpp"
 #include "test_common.hpp"
+#include "timer.h"
 
 using testing::_;
 using testing::AnyNumber;
 using testing::InSequence;
+using testing::InvokeWithoutArgs;
 
-// These tests drive the QMK core report builders directly (add_mods/add_key/... then a single
-// send_keyboard_report()) so that a modifier and a key change land in one report transition,
-// which is what exercises the progressive reporting. The calls are qualified with `::` because the
-// test body is a TestFixture member, and TestFixture::add_key(KeymapKey) would otherwise shadow
-// the global core function ::add_key(uint8_t). The mod helpers have no such collision, but are
-// qualified too for symmetry and to make clear these are core functions, not fixture helpers.
+// NKRO counterpart of tests/progressive_keyboard_reports: NKRO_DEFAULT_ON routes
+// send_keyboard_report() through send_nkro_report(), exercising the bitmap
+// intersection logic (last_report.bits[i] &= nkro_report->bits[i]) instead of the
+// positional 6KRO key slots. PROGRESSIVE_REPORT_DELAY is also defined here so the
+// delay insertion is covered on the NKRO path. See that suite for why the core
+// calls are `::`-qualified.
 
-class ProgressiveKeyboardReports : public TestFixture {};
+class ProgressiveKeyboardReportsNkro : public TestFixture {};
 
 // On press, a single logical change that adds both a modifier and a key must be
 // split so the modifier reaches the host first, guaranteeing the key is shifted.
-TEST_F(ProgressiveKeyboardReports, ModifierIsReportedBeforeKeyOnPress) {
+TEST_F(ProgressiveKeyboardReportsNkro, ModifierIsReportedBeforeKeyOnPress) {
     TestDriver driver;
     InSequence s;
 
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_A));
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT, KC_A));
 
     ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
     ::add_key(KC_A);
@@ -49,11 +51,11 @@ TEST_F(ProgressiveKeyboardReports, ModifierIsReportedBeforeKeyOnPress) {
 
 // On release, the same change in reverse must clear the key while the modifier
 // is still held, then clear the modifier, so the key never registers unshifted.
-TEST_F(ProgressiveKeyboardReports, KeyIsReleasedBeforeModifierOnRelease) {
+TEST_F(ProgressiveKeyboardReportsNkro, KeyIsReleasedBeforeModifierOnRelease) {
     TestDriver driver;
 
     /* Establish the held state: Shift + A. */
-    EXPECT_ANY_REPORT(driver).Times(AnyNumber());
+    EXPECT_ANY_NKRO_REPORT(driver).Times(AnyNumber());
     ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
     ::add_key(KC_A);
     send_keyboard_report();
@@ -61,8 +63,8 @@ TEST_F(ProgressiveKeyboardReports, KeyIsReleasedBeforeModifierOnRelease) {
 
     InSequence s;
 
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
-    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_EMPTY_NKRO_REPORT(driver);
 
     ::del_mods(MOD_BIT(KC_LEFT_SHIFT));
     ::del_key(KC_A);
@@ -72,10 +74,10 @@ TEST_F(ProgressiveKeyboardReports, KeyIsReleasedBeforeModifierOnRelease) {
 }
 
 // With no modifier change, a plain key press still collapses to a single report.
-TEST_F(ProgressiveKeyboardReports, PlainKeyPressSendsSingleReport) {
+TEST_F(ProgressiveKeyboardReportsNkro, PlainKeyPressSendsSingleReport) {
     TestDriver driver;
 
-    EXPECT_REPORT(driver, (KC_A)).Times(1);
+    EXPECT_NKRO_REPORT(driver, (KC_A)).Times(1);
 
     ::add_key(KC_A);
     send_keyboard_report();
@@ -84,22 +86,40 @@ TEST_F(ProgressiveKeyboardReports, PlainKeyPressSendsSingleReport) {
 }
 
 // A key that swaps for another within a single scan, with the modifiers unchanged,
-// is not split into a release sub-report: the swapped key reuses the same slot, so
-// the swap arrives as one report.
-TEST_F(ProgressiveKeyboardReports, KeySwapSendsSingleReport) {
+// must not be split into a release sub-report — matching 6KRO's behaviour.
+TEST_F(ProgressiveKeyboardReportsNkro, KeySwapSendsSingleReport) {
     TestDriver driver;
 
     /* Establish the held state: A. */
-    EXPECT_ANY_REPORT(driver).Times(AnyNumber());
+    EXPECT_ANY_NKRO_REPORT(driver).Times(AnyNumber());
     ::add_key(KC_A);
     send_keyboard_report();
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_REPORT(driver, (KC_B)).Times(1);
+    EXPECT_NKRO_REPORT(driver, (KC_B)).Times(1);
 
     ::del_key(KC_A);
     ::add_key(KC_B);
     send_keyboard_report();
 
+    VERIFY_AND_CLEAR(driver);
+}
+
+// A split press must still emit modifier-then-key, with PROGRESSIVE_REPORT_DELAY
+// milliseconds elapsing between the sub-report and the final report.
+TEST_F(ProgressiveKeyboardReportsNkro, DelayIsInsertedBetweenSubReports) {
+    TestDriver driver;
+    InSequence s;
+
+    uint32_t first_time  = 0;
+    uint32_t second_time = 0;
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT)).WillOnce(InvokeWithoutArgs([&]() { first_time = timer_read32(); }));
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT, KC_A)).WillOnce(InvokeWithoutArgs([&]() { second_time = timer_read32(); }));
+
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    ::add_key(KC_A);
+    send_keyboard_report();
+
+    EXPECT_EQ(second_time - first_time, PROGRESSIVE_REPORT_DELAY);
     VERIFY_AND_CLEAR(driver);
 }

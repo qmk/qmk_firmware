@@ -16,6 +16,7 @@
 
 #include "keyboard_report_util.hpp"
 #include <cstdint>
+#include <cstring>
 #include <vector>
 #include <algorithm>
 #include <iomanip>
@@ -32,23 +33,32 @@ namespace {
 
 std::vector<uint8_t> get_keys(const report_keyboard_t& report) {
     std::vector<uint8_t> result;
-#if defined(NKRO_ENABLE)
-#    error NKRO support not implemented yet
-#else
     for (size_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
         if (report.keys[i]) {
             result.emplace_back(report.keys[i]);
         }
     }
-#endif
     std::sort(result.begin(), result.end());
     return result;
 }
 
-std::vector<uint8_t> get_mods(const report_keyboard_t& report) {
+std::vector<uint8_t> get_keys(const report_nkro_t& report) {
+    std::vector<uint8_t> result;
+    for (size_t i = 0; i < NKRO_REPORT_BITS; i++) {
+        for (size_t j = 0; j < 8; j++) {
+            if (report.bits[i] & (1 << j)) {
+                result.emplace_back(i * 8 + j);
+            }
+        }
+    }
+    std::sort(result.begin(), result.end());
+    return result;
+}
+
+std::vector<uint8_t> get_mods(uint8_t mods) {
     std::vector<uint8_t> result;
     for (size_t i = 0; i < 8; i++) {
-        if (report.mods & (1 << i)) {
+        if (mods & (1 << i)) {
             uint8_t code = KC_LEFT_CTRL + i;
             result.emplace_back(code);
         }
@@ -65,10 +75,7 @@ bool operator==(const report_keyboard_t& lhs, const report_keyboard_t& rhs) {
     return lhs.mods == rhs.mods && lhskeys == rhskeys;
 }
 
-std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
-    auto keys = get_keys(report);
-    auto mods = get_mods(report);
-
+static std::ostream& print_report(std::ostream& os, const std::vector<uint8_t>& keys, const std::vector<uint8_t>& mods) {
     os << std::setw(10) << std::left << "report: ";
 
     if (!keys.size() && !mods.size()) {
@@ -97,6 +104,19 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
     return os << "]" << std::endl;
 }
 
+std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
+    return print_report(os, get_keys(report), get_mods(report.mods));
+}
+
+bool operator==(const report_nkro_t& lhs, const report_nkro_t& rhs) {
+    /* report_id is a transport detail and deliberately not compared. */
+    return lhs.mods == rhs.mods && memcmp(lhs.bits, rhs.bits, sizeof(lhs.bits)) == 0;
+}
+
+std::ostream& operator<<(std::ostream& os, const report_nkro_t& report) {
+    return print_report(os, get_keys(report), get_mods(report.mods));
+}
+
 KeyboardReportMatcher::KeyboardReportMatcher(const std::vector<uint8_t>& keys) {
     memset(&m_report, 0, sizeof(report_keyboard_t));
     for (auto k : keys) {
@@ -117,5 +137,29 @@ void KeyboardReportMatcher::DescribeTo(::std::ostream* os) const {
 }
 
 void KeyboardReportMatcher::DescribeNegationTo(::std::ostream* os) const {
+    *os << "is not equal to " << m_report;
+}
+
+NkroReportMatcher::NkroReportMatcher(const std::vector<uint8_t>& keys) {
+    memset(&m_report, 0, sizeof(report_nkro_t));
+    for (auto k : keys) {
+        if (IS_MODIFIER_KEYCODE(k)) {
+            m_report.mods |= MOD_BIT(k);
+        } else {
+            /* add_key_bit() is NKRO_ENABLE-gated, but this matcher must compile for every suite. */
+            m_report.bits[k >> 3] |= 1 << (k & 7);
+        }
+    }
+}
+
+bool NkroReportMatcher::MatchAndExplain(report_nkro_t& report, MatchResultListener* listener) const {
+    return m_report == report;
+}
+
+void NkroReportMatcher::DescribeTo(::std::ostream* os) const {
+    *os << "is equal to " << m_report;
+}
+
+void NkroReportMatcher::DescribeNegationTo(::std::ostream* os) const {
     *os << "is not equal to " << m_report;
 }
