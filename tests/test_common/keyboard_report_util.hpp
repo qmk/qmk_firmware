@@ -56,6 +56,10 @@ class NkroReportMatcher : public testing::MatcherInterface<report_nkro_t&> {
     report_nkro_t m_report;
 };
 
+inline testing::Matcher<report_nkro_t&> NkroReport(const std::vector<uint8_t>& keys) {
+    return testing::MakeMatcher(new NkroReportMatcher(keys));
+}
+
 template <typename... Ts>
 inline testing::Matcher<report_nkro_t&> NkroReport(Ts... keys) {
     return testing::MakeMatcher(new NkroReportMatcher({static_cast<uint8_t>(keys)...}));

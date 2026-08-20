@@ -191,9 +191,10 @@ If you define these options you will enable the associated feature, which may in
 * `#define LEGACY_MAGIC_HANDLING`
   * Enables magic configuration handling for advanced keycodes (such as Mod Tap and Layer Tap)
 * `#define PROGRESSIVE_KEYBOARD_REPORTS`
-  * Splits a single logical report change into ordered sub-reports so that modifier and key ordering is preserved on the host: keys that are no longer held are released first, then the new modifier byte is applied against the surviving keys, then the full report is sent. This guarantees that e.g. `Shift` is registered before the key it modifies (and that keys release before their modifiers), avoiding mis-shifted characters on fast or chorded input. When the define is absent, report emission is unchanged. Has no effect on `PROTOCOL_VUSB` boards, which always send a single report.
+  * Splits a logical report change that alters the modifier byte into ordered sub-reports so that modifier and key ordering is preserved on the host.
+    * Keys that are no longer held are released first, then the new modifier byte is applied against the surviving keys, then the full report is sent. Each of these is only emitted when it differs from the previous report, so a change to the modifier byte alone still goes out as a single report. This guarantees that e.g. `Shift` is registered before the key it modifies (and that keys release before their modifiers), avoiding mis-shifted characters on fast or chorded input. Report changes that leave the modifier byte untouched are sent as a single report, as is everything when the define is absent. Has no effect on `PROTOCOL_VUSB` boards, which always send a single report.
 * `#define PROGRESSIVE_REPORT_DELAY 1`
-  * Optional. When `PROGRESSIVE_KEYBOARD_REPORTS` is enabled, sets the delay in milliseconds inserted between each sub-report. There is no default; if not defined, no delay is added.
+  * When `PROGRESSIVE_KEYBOARD_REPORTS` is enabled, sets the delay in milliseconds inserted between a sub-report and the report that follows it. There is no default; if not defined, no delay is added.
 
 
 ## RGB Light Configuration

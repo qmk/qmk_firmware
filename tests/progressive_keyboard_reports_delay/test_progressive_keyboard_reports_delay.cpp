@@ -73,6 +73,24 @@ TEST_F(ProgressiveKeyboardReportsDelay, DelayIsInsertedBetweenReleaseSubReports)
     send_keyboard_report();
 
     EXPECT_EQ(second_time - first_time, PROGRESSIVE_REPORT_DELAY);
+    /* The mods sub-report is the last report of this change; nothing follows it, so no trailing
+       delay may stall the caller after it is sent. */
+    EXPECT_EQ(timer_read32(), second_time);
+    VERIFY_AND_CLEAR(driver);
+}
+
+// A mods-only change goes out as a single report with no sub-report before or
+// after it, so the whole send must complete without any delay stalling the caller.
+TEST_F(ProgressiveKeyboardReportsDelay, ModsOnlyChangeInsertsNoDelay) {
+    TestDriver driver;
+
+    uint32_t start = timer_read32();
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT)).Times(1);
+
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    send_keyboard_report();
+
+    EXPECT_EQ(timer_read32() - start, 0u);
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -81,13 +99,12 @@ TEST_F(ProgressiveKeyboardReportsDelay, DelayIsInsertedBetweenReleaseSubReports)
 TEST_F(ProgressiveKeyboardReportsDelay, UnsplitReportInsertsNoDelay) {
     TestDriver driver;
 
-    uint32_t start       = timer_read32();
-    uint32_t report_time = 0;
-    EXPECT_REPORT(driver, (KC_A)).Times(1).WillOnce(InvokeWithoutArgs([&]() { report_time = timer_read32(); }));
+    uint32_t start = timer_read32();
+    EXPECT_REPORT(driver, (KC_A)).Times(1);
 
     ::add_key(KC_A);
     send_keyboard_report();
 
-    EXPECT_EQ(report_time - start, 0u);
+    EXPECT_EQ(timer_read32() - start, 0u);
     VERIFY_AND_CLEAR(driver);
 }

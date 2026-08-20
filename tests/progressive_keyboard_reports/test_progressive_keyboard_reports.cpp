@@ -84,8 +84,8 @@ TEST_F(ProgressiveKeyboardReports, PlainKeyPressSendsSingleReport) {
 }
 
 // A key that swaps for another within a single scan, with the modifiers unchanged,
-// is not split into a release sub-report: the swapped key reuses the same slot, so
-// the swap arrives as one report.
+// is not split into a release sub-report: splitting only happens when the modifier
+// byte changes, so the swap arrives as one report.
 TEST_F(ProgressiveKeyboardReports, KeySwapSendsSingleReport) {
     TestDriver driver;
 
@@ -99,6 +99,45 @@ TEST_F(ProgressiveKeyboardReports, KeySwapSendsSingleReport) {
 
     ::del_key(KC_A);
     ::add_key(KC_B);
+    send_keyboard_report();
+
+    VERIFY_AND_CLEAR(driver);
+}
+
+// A change that only alters the modifier byte collapses to a single report: the
+// mods sub-report already is the final state, so nothing further is sent.
+TEST_F(ProgressiveKeyboardReports, ModsOnlyChangeSendsSingleReport) {
+    TestDriver driver;
+
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT)).Times(1);
+
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    send_keyboard_report();
+
+    VERIFY_AND_CLEAR(driver);
+}
+
+// When a slot is reused within a single scan (release A, press B) while the mods
+// also change, the old key must be released before the new mods are applied: the
+// host must never see the stale key together with the new modifier byte.
+TEST_F(ProgressiveKeyboardReports, ReusedSlotKeyIsReleasedBeforeModsApply) {
+    TestDriver driver;
+
+    /* Establish the held state: A. */
+    EXPECT_ANY_REPORT(driver).Times(AnyNumber());
+    ::add_key(KC_A);
+    send_keyboard_report();
+    VERIFY_AND_CLEAR(driver);
+
+    InSequence s;
+
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_B));
+
+    ::del_key(KC_A);
+    ::add_key(KC_B);
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
     send_keyboard_report();
 
     VERIFY_AND_CLEAR(driver);

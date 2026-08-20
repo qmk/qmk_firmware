@@ -23,6 +23,7 @@ using testing::_;
 using testing::AnyNumber;
 using testing::InSequence;
 using testing::InvokeWithoutArgs;
+using testing::SaveArg;
 
 // NKRO counterpart of tests/progressive_keyboard_reports: NKRO_DEFAULT_ON routes
 // send_keyboard_report() through send_nkro_report(), exercising the bitmap
@@ -85,6 +86,45 @@ TEST_F(ProgressiveKeyboardReportsNkro, PlainKeyPressSendsSingleReport) {
     VERIFY_AND_CLEAR(driver);
 }
 
+// A change that only alters the modifier byte collapses to a single report: the
+// mods sub-report already is the final state, so nothing further is sent.
+TEST_F(ProgressiveKeyboardReportsNkro, ModsOnlyChangeSendsSingleReport) {
+    TestDriver driver;
+
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT)).Times(1);
+
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    send_keyboard_report();
+
+    VERIFY_AND_CLEAR(driver);
+}
+
+// When a key swaps for another in the same scan as a mods change, the old key must
+// be released before the new mods are applied: the host must never see the stale
+// key together with the new modifier byte.
+TEST_F(ProgressiveKeyboardReportsNkro, SwappedKeyIsReleasedBeforeModsApply) {
+    TestDriver driver;
+
+    /* Establish the held state: A. */
+    EXPECT_ANY_NKRO_REPORT(driver).Times(AnyNumber());
+    ::add_key(KC_A);
+    send_keyboard_report();
+    VERIFY_AND_CLEAR(driver);
+
+    InSequence s;
+
+    EXPECT_EMPTY_NKRO_REPORT(driver);
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT, KC_B));
+
+    ::del_key(KC_A);
+    ::add_key(KC_B);
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    send_keyboard_report();
+
+    VERIFY_AND_CLEAR(driver);
+}
+
 // A key that swaps for another within a single scan, with the modifiers unchanged,
 // must not be split into a release sub-report — matching 6KRO's behaviour.
 TEST_F(ProgressiveKeyboardReportsNkro, KeySwapSendsSingleReport) {
@@ -102,6 +142,27 @@ TEST_F(ProgressiveKeyboardReportsNkro, KeySwapSendsSingleReport) {
     ::add_key(KC_B);
     send_keyboard_report();
 
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Sub-reports are sent from a copy of the internal comparison cache; the host layer
+// must still stamp every transmitted report with the NKRO report ID. The NkroReport
+// matcher deliberately ignores report_id, so this is asserted explicitly here.
+TEST_F(ProgressiveKeyboardReportsNkro, SubReportsCarryNkroReportId) {
+    TestDriver driver;
+    InSequence s;
+
+    report_nkro_t sub_report{};
+    report_nkro_t final_report{};
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT)).WillOnce(SaveArg<0>(&sub_report));
+    EXPECT_NKRO_REPORT(driver, (KC_LEFT_SHIFT, KC_A)).WillOnce(SaveArg<0>(&final_report));
+
+    ::add_mods(MOD_BIT(KC_LEFT_SHIFT));
+    ::add_key(KC_A);
+    send_keyboard_report();
+
+    EXPECT_EQ(sub_report.report_id, REPORT_ID_NKRO);
+    EXPECT_EQ(final_report.report_id, REPORT_ID_NKRO);
     VERIFY_AND_CLEAR(driver);
 }
 

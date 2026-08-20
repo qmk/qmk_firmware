@@ -31,6 +31,9 @@ extern std::map<uint16_t, std::string> KEYCODE_ID_TABLE;
 
 namespace {
 
+/* Note for NKRO-enabled suites: once `host_can_send_nkro() && keymap_config.nkro` holds, reports
+   go through send_nkro() and EXPECT_REPORT/EXPECT_EMPTY_REPORT (which match send_keyboard_mock)
+   never fire — use EXPECT_NKRO_REPORT and friends instead. */
 std::vector<uint8_t> get_keys(const report_keyboard_t& report) {
     std::vector<uint8_t> result;
     for (size_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
@@ -145,8 +148,9 @@ NkroReportMatcher::NkroReportMatcher(const std::vector<uint8_t>& keys) {
     for (auto k : keys) {
         if (IS_MODIFIER_KEYCODE(k)) {
             m_report.mods |= MOD_BIT(k);
-        } else {
-            /* add_key_bit() is NKRO_ENABLE-gated, but this matcher must compile for every suite. */
+        } else if ((k >> 3) < NKRO_REPORT_BITS) {
+            /* add_key_bit() is NKRO_ENABLE-gated, but this matcher must compile for every suite;
+               the bounds guard mirrors it. */
             m_report.bits[k >> 3] |= 1 << (k & 7);
         }
     }
