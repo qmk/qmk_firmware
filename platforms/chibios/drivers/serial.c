@@ -167,6 +167,12 @@ void interrupt_handler(void *arg) {
     sstd_index = serial_read_byte();
     sync_send();
 
+    if (sstd_index >= NUM_TOTAL_TRANSACTIONS) {
+        serial_input();
+        chSysUnlockFromISR();
+        return;
+    }
+
     split_transaction_desc_t *trans = &split_transaction_table[sstd_index];
     for (int i = 0; i < trans->initiator2target_buffer_size; ++i) {
         split_trans_initiator2target_buffer(trans)[i] = serial_read_byte();
@@ -209,7 +215,7 @@ void interrupt_handler(void *arg) {
 }
 
 static inline bool initiate_transaction(uint8_t sstd_index) {
-    if (sstd_index > NUM_TOTAL_TRANSACTIONS) return false;
+    if (sstd_index >= NUM_TOTAL_TRANSACTIONS) return false;
 
     split_shared_memory_lock_autounlock();
 
