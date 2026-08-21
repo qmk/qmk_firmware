@@ -372,13 +372,16 @@ def generate_community_post_config_h(cli):
             lines.extend([
                 f'#ifndef EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE',
                 f'#    define EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE 0',
+                f'#    define EECONFIG_MODULE_{module_slug.upper()}_TOTAL_SIZE 0',
+                '#else',
+                f'#    define EECONFIG_MODULE_{module_slug.upper()}_TOTAL_SIZE ((EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE) + 4)',
                 '#endif',
                 f'#ifndef EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION',
                 f'#    define EECONFIG_MODULE_{module_slug.upper()}_DATA_VERSION (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE)',
                 '#endif',
                 '',
             ])
-        module_size = " + ".join([f'(4 + (EECONFIG_MODULE_{module_slug.upper()}_DATA_SIZE))' for module_slug in _module_slugs(modules)])
+        module_size = " + ".join([f'(EECONFIG_MODULE_{module_slug.upper()}_TOTAL_SIZE)' for module_slug in _module_slugs(modules)])
         lines.append(f'#define EECONFIG_MODULE_DATA_SIZE ({module_size})')
         lines.append('')
 
