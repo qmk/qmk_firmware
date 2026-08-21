@@ -2,6 +2,7 @@
 
 Spits out a JSON file formatted with one of QMK's formatters.
 """
+
 import json
 
 from jsonschema import ValidationError
@@ -9,13 +10,12 @@ from milc import cli
 
 from qmk.info import info_json
 from qmk.json_schema import json_load, validate
-from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder, UserspaceJSONEncoder, CommunityModuleJSONEncoder
+from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder, UserspaceJSONEncoder, CommunityModuleJSONEncoder, JSON_NEWLINE
 from qmk.path import normpath
 
 
 def _detect_json_format(file, json_data):
-    """Detect the format of a json file.
-    """
+    """Detect the format of a json file."""
     json_encoder = None
     try:
         validate(json_data, 'qmk.user_repo.v1_1')
@@ -50,8 +50,7 @@ def _detect_json_format(file, json_data):
 
 
 def _get_json_encoder(file, json_data):
-    """Get the json encoder for a file.
-    """
+    """Get the json encoder for a file."""
     json_encoder = None
     if cli.args.format == 'auto':
         json_encoder = _detect_json_format(file, json_data)
@@ -75,8 +74,7 @@ def _get_json_encoder(file, json_data):
 @cli.argument('-p', '--print', action='store_true', arg_only=True, help='If set, will print the formatted json to stdout ')
 @cli.subcommand('Generate an info.json file for a keyboard.', hidden=False if cli.config.user.developer else True)
 def format_json(cli):
-    """Format a json file.
-    """
+    """Format a json file."""
     json_data = json_load(cli.args.json_file)
 
     json_encoder = _get_json_encoder(cli.args.json_file, json_data)
@@ -94,13 +92,12 @@ def format_json(cli):
         if layout in info_data.get('layouts'):
             for layer_num, layer in enumerate(json_data['layers']):
                 current_layer = []
-                last_row = 0
+                last_col = 0
 
                 for keymap_key, info_key in zip(layer, info_data['layouts'][layout]['layout']):
-                    if last_row != info_key['y']:
-                        current_layer.append('JSON_NEWLINE')
-                        last_row = info_key['y']
-
+                    if info_key['x'] < last_col:
+                        current_layer.append(JSON_NEWLINE)
+                    last_col = info_key['x']
                     current_layer.append(keymap_key)
 
                 json_data['layers'][layer_num] = current_layer
