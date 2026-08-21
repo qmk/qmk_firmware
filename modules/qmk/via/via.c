@@ -26,16 +26,19 @@
 #    pragma message "VIA_INSECURE is enabled - firmware is susceptible to keyloggers"
 #endif
 
-#include "via.h"
+#ifdef VIA_EEPROM_MAGIC_ADDR
+#    error "VIA_EEPROM_MAGIC_ADDR is not supported for this community module"
+#endif
 
+#include "via.h"
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
+#include "community_modules.h"
 #include "eeconfig.h"
 #include "matrix.h"
 #include "timer.h"
 #include "wait.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
-#include "nvm_via.h"
 
 #if defined(SECURE_ENABLE)
 #    include "secure.h"
@@ -65,6 +68,30 @@
 #    include "led_matrix.h"
 #endif
 
+#define VIA_EEPROM_MAGIC_OFFSET 0
+#define VIA_EEPROM_LAYOUT_OPTIONS_OFFSET (VIA_EEPROM_MAGIC_OFFSET + 3)
+#define VIA_EEPROM_CUSTOM_CONFIG_OFFSET (VIA_EEPROM_LAYOUT_OPTIONS_OFFSET + VIA_EEPROM_LAYOUT_OPTIONS_SIZE)
+
+void via_read_magic(uint8_t *magic0, uint8_t *magic1, uint8_t *magic2) {
+    if (magic0) {
+        eeconfig_read_via_datablock(magic0, VIA_EEPROM_MAGIC_OFFSET + 0, sizeof(uint8_t));
+    }
+
+    if (magic1) {
+        eeconfig_read_via_datablock(magic1, VIA_EEPROM_MAGIC_OFFSET + 1, sizeof(uint8_t));
+    }
+
+    if (magic2) {
+        eeconfig_read_via_datablock(magic2, VIA_EEPROM_MAGIC_OFFSET + 2, sizeof(uint8_t));
+    }
+}
+
+void via_update_magic(uint8_t magic0, uint8_t magic1, uint8_t magic2) {
+    eeconfig_update_via_datablock(&magic0, VIA_EEPROM_MAGIC_OFFSET + 0, sizeof(uint8_t));
+    eeconfig_update_via_datablock(&magic1, VIA_EEPROM_MAGIC_OFFSET + 1, sizeof(uint8_t));
+    eeconfig_update_via_datablock(&magic2, VIA_EEPROM_MAGIC_OFFSET + 2, sizeof(uint8_t));
+}
+
 // Can be called in an overriding via_init_kb() to test if keyboard level code usage of
 // EEPROM is invalid and use/save defaults.
 bool via_eeprom_is_valid(void) {
@@ -73,10 +100,10 @@ bool via_eeprom_is_valid(void) {
     uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
     uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
 
-    uint8_t ee_magic0;
-    uint8_t ee_magic1;
-    uint8_t ee_magic2;
-    nvm_via_read_magic(&ee_magic0, &ee_magic1, &ee_magic2);
+    uint8_t ee_magic0 = 0xFF;
+    uint8_t ee_magic1 = 0xFF;
+    uint8_t ee_magic2 = 0xFF;
+    via_read_magic(&ee_magic0, &ee_magic1, &ee_magic2);
 
     return ee_magic0 == magic0 && ee_magic1 == magic1 && ee_magic2 == magic2;
 }
@@ -89,9 +116,9 @@ void via_eeprom_set_valid(bool valid) {
         uint8_t magic0 = ((p[2] & 0x0F) << 4) | (p[3] & 0x0F);
         uint8_t magic1 = ((p[5] & 0x0F) << 4) | (p[6] & 0x0F);
         uint8_t magic2 = ((p[8] & 0x0F) << 4) | (p[9] & 0x0F);
-        nvm_via_update_magic(magic0, magic1, magic2);
+        via_update_magic(magic0, magic1, magic2);
     } else {
-        nvm_via_update_magic(0xFF, 0xFF, 0xFF);
+        via_update_magic(0xFF, 0xFF, 0xFF);
     }
 }
 
@@ -108,18 +135,17 @@ void via_init(void) {
     // Let keyboard level test EEPROM valid state,
     // but not set it valid, it is done here.
     via_init_kb();
-    via_set_layout_options_kb(via_get_layout_options());
-
+    
     // If the EEPROM has the magic, the data is good.
     // OK to load from EEPROM.
     if (!via_eeprom_is_valid()) {
         eeconfig_init_via();
     }
+
+    via_set_layout_options_kb(via_get_layout_options());
 }
 
 void eeconfig_init_via(void) {
-    // Erase any NVM storage if necessary
-    nvm_via_erase();
     // set the magic number to false, in case this gets interrupted
     via_eeprom_set_valid(false);
     // This resets the layout options
@@ -135,22 +161,37 @@ void eeconfig_init_via(void) {
 // This is generalized so the layout options EEPROM usage can be
 // variable, between 1 and 4 bytes.
 uint32_t via_get_layout_options(void) {
-    return nvm_via_read_layout_options();
+    uint32_t value = 0;
+    // Start at the most significant byte
+    for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {
+        uint8_t tmp = 0;
+        eeconfig_read_via_datablock(&tmp, VIA_EEPROM_LAYOUT_OPTIONS_OFFSET + i, sizeof(uint8_t));
+
+        value <<= 8;
+        value |= tmp;
+    }
+    return value;
 }
 
 __attribute__((weak)) void via_set_layout_options_kb(uint32_t value) {}
 
 void via_set_layout_options(uint32_t value) {
     via_set_layout_options_kb(value);
-    nvm_via_update_layout_options(value);
+
+    for (uint8_t i = 0; i < VIA_EEPROM_LAYOUT_OPTIONS_SIZE; i++) {
+        uint8_t tmp = value & 0xFF;
+        eeconfig_update_via_datablock(&tmp, VIA_EEPROM_LAYOUT_OPTIONS_OFFSET + i, sizeof(uint8_t));
+        value >>= 8;
+    }
 }
 
 #if VIA_EEPROM_CUSTOM_CONFIG_SIZE > 0
 uint32_t via_read_custom_config(void *buf, uint32_t offset, uint32_t length) {
-    return nvm_via_read_custom_config(buf, offset, length);
+    return eeconfig_read_via_datablock(buf, VIA_EEPROM_CUSTOM_CONFIG_ADDR + offset, length);
 }
+
 uint32_t via_update_custom_config(const void *buf, uint32_t offset, uint32_t length) {
-    return nvm_via_update_custom_config(buf, offset, length);
+    return eeconfig_update_via_datablock(buf, VIA_EEPROM_CUSTOM_CONFIG_ADDR + offset, length);
 }
 #endif
 
@@ -893,3 +934,7 @@ void via_qmk_audio_save(void) {
 }
 
 #endif // QMK_AUDIO_ENABLE
+
+void keyboard_post_init_via(void) {
+    via_init();
+}
