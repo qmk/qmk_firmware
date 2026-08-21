@@ -728,6 +728,97 @@ See also: [Mod-Tap](mod_tap)
 |`MEH_T(kc)`  |                                                                 |Left Control, Left Shift and Left Alt when held, `kc` when tapped          |
 |`HYPR_T(kc)` |                                                                 |Left Control, Left Shift, Left Alt and Left GUI when held, `kc` when tapped|
 
+## Stenography {#stenography}
+
+See also: [Stenography](features/stenography)
+
+| Key                       | Aliases           | Description                                                               |
+|---------------------------|-------------------|---------------------------------------------------------------------------|
+|`QK_STENO_FUNCTION`        |`ST_FN`            | (Function)                                                                |
+|`QK_STENO_N1`              |`ST_N1`, `ST_NUM`  | Number bar #1                                                             |
+|`QK_STENO_N2`              |`ST_N2`            | Number bar #2                                                             |
+|`QK_STENO_N3`              |`ST_N3`            | Number bar #3                                                             |
+|`QK_STENO_N4`              |`ST_N4`            | Number bar #4                                                             |
+|`QK_STENO_N5`              |`ST_N5`            | Number bar #5                                                             |
+|`QK_STENO_N6`              |`ST_N6`            | Number bar #6                                                             |
+|`QK_STENO_S1`              |`ST_S1`, `ST_SL`   | `S-` upper                                                                |
+|`QK_STENO_S2`              |`ST_S2`            | `S-` lower                                                                |
+|`QK_STENO_TL`              |`ST_TL`            | `T-`                                                                      |
+|`QK_STENO_KL`              |`ST_KL`            | `K-`                                                                      |
+|`QK_STENO_PL`              |`ST_PL`            | `P-`                                                                      |
+|`QK_STENO_WL`              |`ST_WL`            | `W-`                                                                      |
+|`QK_STENO_HL`              |`ST_HL`            | `H-`                                                                      |
+|`QK_STENO_RL`              |`ST_RL`            | `R-`                                                                      |
+|`QK_STENO_A`               |`ST_A`             | `A` vowel                                                                 |
+|`QK_STENO_O`               |`ST_O`             | `O` vowel                                                                 |
+|`QK_STENO_ST1`             |`ST_ST1`, `ST_STR` | `*` upper-left                                                            |
+|`QK_STENO_ST2`             |`ST_ST2`           | `*` lower-left                                                            |
+|`QK_STENO_RESET1`          |`ST_RE1`, `ST_RES1`| (Reset 1)                                                                 |
+|`QK_STENO_RESET2`          |`ST_RE2`, `ST_RES2`| (Reset 2)                                                                 |
+|`QK_STENO_POWER`           |`ST_PWR`           | (Power)                                                                   |
+|`QK_STENO_ST3`             |`ST_ST3`           | `*` upper-right                                                           |
+|`QK_STENO_ST4`             |`ST_ST4`           | `*` lower-right                                                           |
+|`QK_STENO_E`               |`ST_E`             | `E` vowel                                                                 |
+|`QK_STENO_U`               |`ST_U`             | `U` vowel                                                                 |
+|`QK_STENO_FR`              |`ST_FR`            | `-F`                                                                      |
+|`QK_STENO_RR`              |`ST_RR`            | `-R`                                                                      |
+|`QK_STENO_PR`              |`ST_PR`            | `-P`                                                                      |
+|`QK_STENO_BR`              |`ST_BR`            | `-B`                                                                      |
+|`QK_STENO_LR`              |`ST_LR`            | `-L`                                                                      |
+|`QK_STENO_GR`              |`ST_GR`            | `-G`                                                                      |
+|`QK_STENO_TR`              |`ST_TR`            | `-T`                                                                      |
+|`QK_STENO_SR`              |`ST_SR`            | `-S`                                                                      |
+|`QK_STENO_DR`              |`ST_DR`            | `-D`                                                                      |
+|`QK_STENO_N7`              |`ST_N7`            | Number bar #7                                                             |
+|`QK_STENO_N8`              |`ST_N8`            | Number bar #8                                                             |
+|`QK_STENO_N9`              |`ST_N9`            | Number bar #9                                                             |
+|`QK_STENO_NA`              |`ST_NA`            | Number bar #A                                                             |
+|`QK_STENO_NB`              |`ST_NB`            | Number bar #B                                                             |
+|`QK_STENO_NC`              |`ST_NC`            | Number bar #C                                                             |
+|`QK_STENO_ZR`              |`ST_ZR`            | `-Z`                                                                      |
+|`QK_STENO_X1`              |`ST_X1`            | Extra button 1 (Protocol specific)                                        |
+|`QK_STENO_X2`              |`ST_X2`            | Extra button 2 (Protocol specific)                                        |
+|`QK_STENO_X3`              |`ST_X3`            | Extra button 3 (Protocol specific)                                        |
+|`QK_STENO_X4`              |`ST_X4`            | Extra button 4 (Protocol specific)                                        |
+|`QK_STENO_X5`              |`ST_X5`            | Extra button 5 (Protocol specific)                                        |
+|`QK_STENO_X6`              |`ST_X6`            | Extra button 6 (Protocol specific)                                        |
+|`QK_STENO_X7`              |`ST_X7`            | Extra button 7 (Protocol specific)                                        |
+|`QK_STENO_X8`              |`ST_X8`            | Extra button 8 (Protocol specific)                                        |
+|`QK_STENO_X9`              |`ST_X9`            | Extra button 9 (Protocol specific)                                        |
+|`QK_STENO_X10`             |`ST_X10`           | Extra button 10 (Protocol specific)                                       |
+|`QK_STENO_X11`             |`ST_X11`           | Extra button 11 (Protocol specific)                                       |
+|`QK_STENO_X12`             |`ST_X12`           | Extra button 12 (Protocol specific)                                       |
+|`QK_STENO_X13`             |`ST_X13`           | Extra button 13 (Protocol specific)                                       |
+|`QK_STENO_X14`             |`ST_X14`           | Extra button 14 (Protocol specific)                                       |
+|`QK_STENO_X15`             |`ST_X15`           | Extra button 15 (Protocol specific)                                       |
+|`QK_STENO_X16`             |`ST_X16`           | Extra button 16 (Protocol specific)                                       |
+|`QK_STENO_X17`             |`ST_X17`           | Extra button 17 (Protocol specific)                                       |
+|`QK_STENO_X18`             |`ST_X18`           | Extra button 18 (Protocol specific)                                       |
+|`QK_STENO_X19`             |`ST_X19`           | Extra button 19 (Protocol specific)                                       |
+|`QK_STENO_X20`             |`ST_X20`           | Extra button 20 (Protocol specific)                                       |
+|`QK_STENO_X21`             |`ST_X21`           | Extra button 21 (Protocol specific)                                       |
+|`QK_STENO_X22`             |`ST_X22`           | Extra button 22 (Protocol specific)                                       |
+|`QK_STENO_X23`             |`ST_X23`           | Extra button 23 (Protocol specific)                                       |
+|`QK_STENO_X24`             |`ST_X24`           | Extra button 24 (Protocol specific)                                       |
+|`QK_STENO_X25`             |`ST_X25`           | Extra button 25 (Protocol specific)                                       |
+|`QK_STENO_X26`             |`ST_X26`           | Extra button 26 (Protocol specific)                                       |
+|`QK_STENO_S3`              |`ST_S3`            | Trigger `ST_S1` and `ST_S2` (when *Combined Map* is enabled)              |
+|`QK_STENO_TKL`             |`ST_TKL`           | Trigger `ST_TL` and `ST_KL` (when *Combined Map* is enabled)              |
+|`QK_STENO_PWL`             |`ST_PWL`           | Trigger `ST_PL` and `ST_WL` (when *Combined Map* is enabled)              |
+|`QK_STENO_HRL`             |`ST_HRL`           | Trigger `ST_HL` and `ST_RL` (when *Combined Map* is enabled)              |
+|`QK_STENO_FRR`             |`ST_FRR`           | Trigger `ST_FR` and `ST_RR` (when *Combined Map* is enabled)              |
+|`QK_STENO_PBR`             |`ST_PBR`           | Trigger `ST_PR` and `ST_BR` (when *Combined Map* is enabled)              |
+|`QK_STENO_LGR`             |`ST_LGR`           | Trigger `ST_LR` and `ST_GR` (when *Combined Map* is enabled)              |
+|`QK_STENO_TSR`             |`ST_TSR`           | Trigger `ST_TR` and `ST_SR` (when *Combined Map* is enabled)              |
+|`QK_STENO_DZR`             |`ST_DZR`           | Trigger `ST_DR` and `ST_ZR` (when *Combined Map* is enabled)              |
+|`QK_STENO_AO`              |`ST_AO`            | Trigger `ST_A` and `ST_O` (when *Combined Map* is enabled)                |
+|`QK_STENO_EU`              |`ST_EU`            | Trigger `ST_E` and `ST_U` (when *Combined Map* is enabled)                |
+|`QK_STENO_MODE_PLOVER_HID` |`ST_PHID`          | Set mode to `STENO_MODE_PLOVER_HID` (when multiple protocols are enabled) |
+|`QK_STENO_MODE_BOLT`       |`ST_BOLT`          | Set mode to `STENO_MODE_BOLT` (when multiple protocols are enabled)       |
+|`QK_STENO_MODE_GEMINI`     |`ST_GEMI`          | Set mode to `STENO_MODE_GEMINI` (when multiple protocols are enabled)     |
+|`QK_STENO_MODE_NEXT`       |`ST_NEXT`          | Cycle through modes (when multiple protocols are enabled)                 |
+|`QK_STENO_MODE_PREVIOUS`   |`ST_PREV`          | Cycle through modes in reverse (when multiple protocols are enabled)      |
+
 ## Tapping Term Keys {#tapping-term-keys}
 
 See also: [Dynamic Tapping Term](tap_hold#dynamic-tapping-term)
