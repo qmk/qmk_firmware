@@ -7,8 +7,12 @@
     "features": {
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": false,
         "nkro": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "matrix_pins": {
         "cols": ["C2", "C3", "C1", "C0", "C4", "C6", "B14", "B13", "B10", "B12", "A10", "B11", "C7", "A6", "A8", "C9", "C8"],
@@ -17,13 +21,13 @@
     "processor": "WB32FQ95",
     "usb": {
         "device_version": "0.0.1",
-        "force_nkro": true,
         "pid": "0x1981",
         "suspend_wakeup_delay": 400,
         "vid": "0xFFFE"
     },
+    "community_layouts": ["tkl_nofrow_ansi"],
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_tkl_nofrow_ansi": {
             "layout": [
                 {"label": "Esc", "matrix": [0, 0], "x": 0, "y": 0},
                 {"label": "1", "matrix": [0, 1], "x": 1, "y": 0},
@@ -88,11 +92,11 @@
                 {"label": "Ctrl", "matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"label": "Win", "matrix": [4, 1], "x": 1.25, "y": 4, "w": 1.25},
                 {"label": "Alt", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
-                {"label": "Space", "matrix": [4, 6], "x": 3.75, "y": 4, "w": 7.25},
-                {"label": "Alt", "matrix": [4, 9], "x": 11, "y": 4},
-                {"label": "App", "matrix": [4, 10], "x": 12, "y": 4},
-                {"label": "Fn", "matrix": [4, 12], "x": 13, "y": 4},
-                {"label": "Ctrl", "matrix": [4, 13], "x": 14, "y": 4},
+                {"label": "Space", "matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
+                {"label": "Alt", "matrix": [4, 9], "x": 10, "y": 4, "w": 1.25},
+                {"label": "App", "matrix": [4, 10], "x": 11.25, "y": 4, "w": 1.25},
+                {"label": "Fn", "matrix": [4, 12], "x": 12.5, "y": 4, "w": 1.25},
+                {"label": "Ctrl", "matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25},
                 {"label": "Left", "matrix": [4, 14], "x": 15.5, "y": 4},
                 {"label": "Down", "matrix": [4, 15], "x": 16.5, "y": 4},
                 {"label": "Right", "matrix": [4, 16], "x": 17.5, "y": 4}
