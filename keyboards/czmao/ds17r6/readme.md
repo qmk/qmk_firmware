@@ -1,12 +1,10 @@
 # CZMAO DS17R6
 
-![CZMAO DS17R6](https://imgur.com/placeholder.jpg)
-
-A 17-key number pad with per-key RGB, featuring a STM32F103 controller.
+A 17-key number pad with hot-swappable switches, per-key RGB, and USB-C.
 
 * Keyboard Maintainer: [micahyy](https://github.com/micahyy)
-* Hardware Supported: CZMAO DS17R6 (STM32F103, direct matrix, WS2812 RGB)
-* Hardware Availability: [CZMAO]()
+* Hardware Supported: CZMAO DS17R6 (STM32F103)
+* Hardware Availability: [CZMAO Shop](https://czmao.com)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -22,5 +20,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 2 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (the FN / Num Lock key) and plug in the keyboard
-* **Physical reset button**: Briefly short the reset contacts on the back of the PCB
+* **Physical reset**: Hold the BOOT button and briefly press the RESET button on the PCB.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`.

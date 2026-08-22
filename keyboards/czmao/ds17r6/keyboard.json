@@ -1,7 +1,6 @@
 {
     "keyboard_name": "CZMAO DS17R6",
     "manufacturer": "CZMAO",
-    "url": "https://github.com/micahyy/qmk",
     "maintainer": "micahyy",
     "diode_direction": "COL2ROW",
     "processor": "STM32F103",
@@ -421,5 +420,8 @@
                 }
             ]
         }
+    },
+    "build": {
+        "lto": true
     }
 }
