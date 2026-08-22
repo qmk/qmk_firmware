@@ -896,7 +896,7 @@ ifeq ($(strip $(USBPD_ENABLE)), yes)
 endif
 
 BLUETOOTH_ENABLE ?= no
-VALID_BLUETOOTH_DRIVER_TYPES := bluefruit_le custom rn42
+VALID_BLUETOOTH_DRIVER_TYPES := bluefruit_le custom fr800x rn42
 ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
     ifeq ($(filter $(strip $(BLUETOOTH_DRIVER)),$(VALID_BLUETOOTH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BLUETOOTH_DRIVER,BLUETOOTH_DRIVER="$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
@@ -919,6 +919,34 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         SRC += $(DRIVER_PATH)/bluetooth/bluetooth_drivers.c
         SRC += $(DRIVER_PATH)/bluetooth/rn42.c
     endif
+
+    ifeq ($(strip $(BLUETOOTH_DRIVER)), fr800x)
+        UART_FRAME_DRIVER_REQUIRED = yes
+        SRC += $(DRIVER_PATH)/bluetooth/fr800x.c
+        FR800X_DRIVER_REQUIRED := yes
+    endif
+endif
+
+WIRELESS_2P4GHZ_ENABLE ?= no
+VALID_WIRELESS_2P4GHZ_DRIVER_TYPES := custom fr800x
+ifeq ($(strip $(WIRELESS_2P4GHZ_ENABLE)), yes)
+    ifeq ($(filter $(strip $(WIRELESS_2P4GHZ_DRIVER)),$(VALID_WIRELESS_2P4GHZ_DRIVER_TYPES)),)
+        $(call CATASTROPHIC_ERROR,Invalid WIRELESS_2P4GHZ_DRIVER,WIRELESS_2P4GHZ_DRIVER="$(WIRELESS_2P4GHZ_DRIVER)" is not a valid 2.4 GHz wireless driver)
+    endif
+    OPT_DEFS += -DWIRELESS_2P4GHZ_ENABLE
+    CONNECTION_ENABLE := yes
+    COMMON_VPATH += $(DRIVER_PATH)/wireless
+    SRC += $(DRIVER_PATH)/wireless/wireless_2p4ghz.c
+
+    ifeq ($(strip $(WIRELESS_2P4GHZ_DRIVER)), fr800x)
+        UART_FRAME_DRIVER_REQUIRED = yes
+        SRC += $(DRIVER_PATH)/wireless/fr800x.c
+        FR800X_DRIVER_REQUIRED := yes
+    endif
+endif
+
+ifeq ($(strip $(FR800X_DRIVER_REQUIRED)), yes)
+    SRC += $(DRIVER_PATH)/fr800x.c
 endif
 
 ENCODER_ENABLE ?= no
