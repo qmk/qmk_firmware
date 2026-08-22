@@ -904,6 +904,23 @@ Configures the [Stenography](features/stenography) feature.
     * `wait_for_enumeration` <Badge type="info">Boolean</Badge>
         * Force the keyboard to wait for USB enumeration before starting up.
         * Default: `false`
+    * `extended_attributes` <Badge type="info">Object</Badge>
+        * `enabled` <Badge type="info">Boolean</Badge>
+            * Enable reporting of Extended Keyboard Attributes (as specified by [hutrr42c](https://www.usb.org/sites/default/files/hutrr42c_0.pdf)).
+            * Defaults to true if any of the following is provided:
+        * `form_factor` <Badge type="info">String</Badge>
+            * size of the keyboard. Either `compact` or `full_size`.
+        * `key_travel` <Badge type="info">String</Badge>
+            * Amount of key travel the keyboards has. One of `full`, `low`, or `zero` (i.e. virtual/touchscreen keyboards).
+        * `layout` <Badge type="info">String</Badge>
+            * either one of `ansi`, `iso`, `ks`, `abnt` or `jis` (or fully uppercased versions of these)
+            * or a two-digit hexadecimal number with a vendor specific meaning.
+        * `locale`  <Badge type="info">String</Badge>
+            * The [IETF BCP 47](https://www.ietf.org/rfc/bcp/bcp47.txt) Locale for the Primary Language of the printed Key set.
+            * Examples:
+                * `en-US`
+                * `sr-Latn-RS` Serbian ('sr') written using Latin script ('Latn') as used in Serbia ('RS').
+                * `es-419`: Spanish ('es') appropriate for the UN-defined Latin America and Caribbean region ('419')
 
 ## WS2812 {#ws2812}
 

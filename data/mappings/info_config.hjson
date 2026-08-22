@@ -274,6 +274,12 @@
     "PRODUCT_ID": {"info_key": "usb.pid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.pid` in info.json"},
     "VENDOR_ID": {"info_key": "usb.vid", "value_type": "hex", "deprecated": true, "replace_with": "`usb.vid` in info.json"},
 
+    // Extended Keyboard Attributes (see Hutrr42 revision c)
+    "EXTENDED_ATTRIBUTES_ENABLE": { "info_key" : "usb.extended_attributes.enabled", "value_type": "flag" },
+    "KEYBOARD_EXT_ATTR_FORM_FACTOR": { "info_key" : "usb.extended_attributes.form_factor", "value_type": "raw", "to_c": false },
+    "KEYBOARD_EXT_ATTR_KEY_TYPE": { "info_key" : "usb.extended_attributes.key_travel", "value_type": "raw", "to_c": false },
+    "KEYBOARD_EXT_ATTR_IETF_LANGUAGE_TAG": { "info_key" : "usb.extended_attributes.locale", "value_type": "str" },
+
     // Items we want flagged in lint
     "FORCE_NKRO": {"info_key": "usb.force_nkro", "value_type": "flag", "invalid": true, "replace_with": "`host.default.nkro` in info.json"},
     "VIAL_KEYBOARD_UID": {"info_key": "_invalid.vial_uid", "invalid": true},

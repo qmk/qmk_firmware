@@ -170,6 +170,27 @@ def generate_led_animations_config(feature, led_feature_json, config_h_lines, en
         config_h_lines.append(generate_flag(f'{enable_prefix}{animation.upper()}', led_feature_json['animations'][animation]))
 
 
+def generate_extended_attributes_config(extended_attrs, config_h_lines: list[str]):
+    if len(extended_attrs) > 0 and 'enabled' not in extended_attrs:
+        config_h_lines.append(generate_define('EXTENDED_ATTRIBUTES_ENABLE'))
+
+    if 'layout' in extended_attrs:
+        layout = extended_attrs['layout']
+        if isinstance(layout, int) or layout.startswith("0"):
+            if isinstance(layout, str):
+                layout = int(layout, base=0)
+            if layout not in range(1, 256):
+                cli.log.error(f"keyboard vendor layout is specified but invalid, {layout} is outside the range(1,256)")
+            config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_VENDOR_LAYOUT', layout))
+        else:
+            config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT', layout.upper()))
+    # uppercase keys used in enums
+    if 'form_factor' in extended_attrs:
+        config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_FORM_FACTOR', extended_attrs['form_factor'].upper()))
+    if 'key_travel' in extended_attrs:
+        config_h_lines.append(generate_define('KEYBOARD_EXT_ATTR_KEY_TYPE', extended_attrs['key_travel'].upper()))
+
+
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
@@ -213,6 +234,9 @@ def generate_config_h(cli):
 
     if 'rgblight' in kb_info_json:
         generate_led_animations_config('rgblight', kb_info_json['rgblight'], config_h_lines, 'RGBLIGHT_EFFECT_', 'RGBLIGHT_MODE_')
+
+    if 'usb.extended_attributes' in kb_info_json:
+        generate_extended_attributes_config(kb_info_json['usb']['extended_attributes'], config_h_lines)
 
     # Show the results
     dump_lines(cli.args.output, config_h_lines, cli.args.quiet)
