@@ -8,6 +8,7 @@ include $(QUANTUM_PATH)/os_detection/tests/testlist.mk
 include $(QUANTUM_PATH)/sequencer/tests/testlist.mk
 include $(QUANTUM_PATH)/wear_leveling/tests/testlist.mk
 include $(PLATFORM_PATH)/test/testlist.mk
+include $(BUILDDEFS_PATH)/community_modules_testlist.mk
 
 define VALIDATE_TEST_LIST
     ifneq ($1,)
@@ -20,4 +21,5 @@ define VALIDATE_TEST_LIST
 endef
 
 
-$(eval $(call VALIDATE_TEST_LIST,$(firstword $(TEST_LIST)),$(wordlist 2,9999,$(TEST_LIST))))
+$(eval $(call VALIDATE_TEST_LIST,$(firstword $(FULL_TESTS)),$(wordlist 2,9999,$(FULL_TESTS))))
+
