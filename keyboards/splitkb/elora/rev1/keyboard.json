@@ -81,6 +81,10 @@
         "led_count": 12,
         "split": true
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "split": {
         "enabled": true,
         "handedness": {
