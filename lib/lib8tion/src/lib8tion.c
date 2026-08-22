@@ -1,6 +1,13 @@
+/// @file lib8tion.c
+/// Fast, efficient 8-bit math functions specifically
+/// designed for high-performance LED programming. 
+
+/// Disables pragma messages and warnings
 #define FASTLED_INTERNAL
+
 #include <stdint.h>
 
+/// @copydoc ::rand16seed
 #define RAND16_SEED  1337
 uint16_t rand16seed = RAND16_SEED;
 
@@ -24,6 +31,7 @@ uint16_t rand16seed = RAND16_SEED;
 //  bytes of code.
 
 #if defined(__AVR__)
+
 //__attribute__ ((noinline))
 void * memset8 ( void * ptr, uint8_t val, uint16_t num )
 {
@@ -135,7 +143,7 @@ void test1abs( int8_t i)
 void testabs()
 {
     delay(5000);
-    for( int8_t q = -128; q != 127; q++) {
+    for( int8_t q = -128; q != 127; ++q) {
         test1abs(q);
     }
     for(;;){};
@@ -218,7 +226,7 @@ void testnscale8x3()
 {
     delay(5000);
     byte r, g, b, sc;
-    for( byte z = 0; z < 10; z++) {
+    for( byte z = 0; z < 10; ++z) {
         r = random8(); g = random8(); b = random8(); sc = random8();
 
         Serial.print("nscale8x3_video( ");
