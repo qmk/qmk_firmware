@@ -1,6 +1,6 @@
 # NISABI
 
-![NISABI](https://imgur.com/a/hiO1rpM)
+![NISABI](https://i.imgur.com/hKhTrF1.jpeg)
 
 A lightweight, split ergonomic compact keyboard.
 
