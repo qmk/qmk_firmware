@@ -245,6 +245,8 @@
     "WS2812_I2C_ADDRESS": {"info_key": "ws2812.i2c_address", "value_type": "hex"},
     "WS2812_I2C_TIMEOUT": {"info_key": "ws2812.i2c_timeout", "value_type": "int"},
     "WS2812_RGBW": {"info_key": "ws2812.rgbw", "value_type": "flag"},
+    "WS2812_VCC_ENABLE_PINS": {"info_key": "ws2812.vcc_enable_pins", "value_type": "array"},
+    "WS2812_VCC_ACTIVE_LOW": {"info_key": "ws2812.vcc_active_low", "value_type": "flag"},
 
     "LAYOUTS": {"info_key": "layout_aliases", "value_type": "mapping"},
 
