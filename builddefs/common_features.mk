@@ -104,6 +104,11 @@ ifeq ($(strip $(STENO_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
     endif
 
+    ifeq ($(strip $(PLOVER_HID_ENABLE)), yes)
+        $(call WARNING_MESSAGE, PLOVER_HID_ENABLE is mutually exclusive with STENO_ENABLE and will be disabled)
+        override PLOVER_HID_ENABLE = no
+    endif
+
     ifeq ($(strip $(STENO_PROTOCOL)), all)
         override STENO_PROTOCOL := $(filter-out all,$(VALID_STENO_PROTOCOL_TYPES))
         OPT_DEFS += -DSTENO_ENABLE_ALL
