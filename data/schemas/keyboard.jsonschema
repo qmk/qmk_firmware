@@ -815,9 +815,26 @@
             "additionalProperties": false,
             "properties": {
                 "enabled": {"type": "boolean"},
+                "combined_map": {"type": "boolean"},
+                "default": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "mode": {
+                            "type": "string",
+                            "enum": ["geminipr", "plover_hid", "txbolt"]
+                        }
+                    }
+                },
                 "protocol": {
                     "type": "string",
-                    "enum": ["all", "geminipr", "txbolt"]
+                    "$comment": "Deprecated: use stenography.protocols instead"
+                },
+                "protocols": {
+                    "type": "array",
+                    "items": {
+                        "enum": ["geminipr", "plover_hid", "txbolt"]
+                    }
                 }
             }
         },
