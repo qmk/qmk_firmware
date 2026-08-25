@@ -48,7 +48,7 @@
 #define RGB_MATRIX_BAT_INDEX_MAP {52,53, 54, 55, 56, 57, 58, 59, 60, 61}
 
 /* LED */
-#define LED_PIN_ON_STATE 1
+// #define LED_PIN_ON_STATE 1
 #define LED_CAPS_PIN A9
 #define LED_WIN_PIN B8
 

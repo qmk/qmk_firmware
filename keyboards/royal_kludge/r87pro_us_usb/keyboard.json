@@ -3,7 +3,7 @@
     "keyboard_name": "R87Pro",
     "maintainer": "sdk66",
     "bootloader": "wb32-dfu",
-    "bootmagic": {
+    "comment_bootmagic": {
         "matrix": [0, 0]
     },
     "debounce": 10,
