@@ -151,7 +151,7 @@
             "key": "QK_STENO_RESET2",
             "aliases": [
                 "ST_RE2",
-                "ST_RES2",
+                "ST_RES2"
             ]
         },
         "0x74D5": {

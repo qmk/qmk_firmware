@@ -253,7 +253,7 @@ TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK
 
 If you do not want to hit two keys with one finger combined keycodes can be used. These cause both keys to be reported as pressed or released. To use these keycodes define `STENO_COMBINEDMAP` in your `config.h` file.
 
-| Combined key   | Aliases  | Key1    | Key 2   |
+| Combined key   | Aliases  | Key 1   | Key 2   |
 |----------------|----------|---------|---------|
 | `QK_STENO_S3`  | `ST_S3`  | `ST_S1` | `ST_S2` |
 | `QK_STENO_TKL` | `ST_TKL` | `ST_TL` | `ST_KL` |
