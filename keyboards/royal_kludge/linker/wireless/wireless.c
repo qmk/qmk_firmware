@@ -10,15 +10,15 @@
 #endif
 
 static uint8_t wls_devs = DEVS_USB;
-bool im_test_rate_flag;
+bool           im_test_rate_flag;
 
 void last_matrix_activity_trigger(void);
 
 uint8_t wireless_keyboard_leds(void);
-void wireless_send_keyboard(report_keyboard_t *report);
-void wireless_send_nkro(report_nkro_t *report);
-void wireless_send_mouse(report_mouse_t *report);
-void wireless_send_extra(report_extra_t *report);
+void    wireless_send_keyboard(report_keyboard_t *report);
+void    wireless_send_nkro(report_nkro_t *report);
+void    wireless_send_mouse(report_mouse_t *report);
+void    wireless_send_extra(report_extra_t *report);
 
 host_driver_t wireless_driver = {
     .keyboard_leds = wireless_keyboard_leds,
@@ -29,12 +29,10 @@ host_driver_t wireless_driver = {
 };
 
 void wireless_init(void) {
-
     md_init();
 }
 
 uint8_t wireless_keyboard_leds(void) {
-
     if (*md_getp_state() == MD_STATE_CONNECTED) {
         return *md_getp_indicator();
     }
@@ -43,7 +41,7 @@ uint8_t wireless_keyboard_leds(void) {
 }
 
 void wireless_send_keyboard(report_keyboard_t *report) {
-    if(MD_STATE_PAIRING == *md_getp_state()){
+    if (MD_STATE_PAIRING == *md_getp_state()) {
         return;
     }
     uint8_t wls_report_kb[MD_SND_CMD_KB_LEN] = {0};
@@ -60,10 +58,10 @@ void wireless_send_keyboard(report_keyboard_t *report) {
 }
 
 void wireless_send_nkro(report_nkro_t *report) {
-    static report_keyboard_t temp_report_keyboard = {0};
-    uint8_t wls_report_nkro[MD_SND_CMD_NKRO_LEN]  = {0};
+    static report_keyboard_t temp_report_keyboard                 = {0};
+    uint8_t                  wls_report_nkro[MD_SND_CMD_NKRO_LEN] = {0};
 
-    if(MD_STATE_PAIRING == *md_getp_state()){
+    if (MD_STATE_PAIRING == *md_getp_state()) {
         return;
     }
 
@@ -74,7 +72,7 @@ void wireless_send_nkro(report_nkro_t *report) {
 
     if (report != NULL) {
         report_nkro_t temp_report_nkro = *report;
-        uint8_t key_count              = 0;
+        uint8_t       key_count        = 0;
 
         temp_report_keyboard.mods = temp_report_nkro.mods;
         for (uint8_t i = 0; i < NKRO_REPORT_BITS; i++) {
@@ -87,7 +85,8 @@ void wireless_send_nkro(report_nkro_t *report) {
             uint8_t n;
 
             for (uint8_t c = 0; c < key_count; c++) {
-                for (n = 0; n < NKRO_REPORT_BITS && !temp_report_nkro.bits[n]; n++) {}
+                for (n = 0; n < NKRO_REPORT_BITS && !temp_report_nkro.bits[n]; n++) {
+                }
                 usageid = (n << 3) | biton(temp_report_nkro.bits[n]);
 #ifdef NKRO_ENABLE
                 del_key_bit(&temp_report_nkro, usageid);
@@ -113,7 +112,8 @@ void wireless_send_nkro(report_nkro_t *report) {
             uint8_t usageid;
             uint8_t idx, n = 0;
 
-            for (n = 0; n < NKRO_REPORT_BITS && !temp_report_nkro.bits[n]; n++) {}
+            for (n = 0; n < NKRO_REPORT_BITS && !temp_report_nkro.bits[n]; n++) {
+            }
             usageid = (n << 3) | biton(temp_report_nkro.bits[n]);
 #ifdef NKRO_ENABLE
             del_key_bit(&temp_report_nkro, usageid);
@@ -138,23 +138,23 @@ void wireless_send_nkro(report_nkro_t *report) {
     }
 
     // wireless_driver.send_keyboard(&temp_report_keyboard);
-    while(smsg_is_busy()) wireless_task();
+    while (smsg_is_busy())
+        wireless_task();
     host_keyboard_send(&temp_report_keyboard);
     md_send_nkro(wls_report_nkro);
 }
 
 void wireless_send_mouse(report_mouse_t *report) {
-    
-    if(MD_STATE_PAIRING == *md_getp_state()){
+    if (MD_STATE_PAIRING == *md_getp_state()) {
         return;
     }
 
     typedef struct {
         uint8_t buttons;
-        int8_t x;
-        int8_t y;
-        int8_t z;
-        int8_t h;
+        int8_t  x;
+        int8_t  y;
+        int8_t  z;
+        int8_t  h;
     } __attribute__((packed)) wls_report_mouse_t;
 
     wls_report_mouse_t wls_report_mouse = {0};
@@ -176,7 +176,7 @@ void wireless_send_mouse(report_mouse_t *report) {
 }
 
 void wireless_send_extra(report_extra_t *report) {
-    if(MD_STATE_PAIRING == *md_getp_state()){
+    if (MD_STATE_PAIRING == *md_getp_state()) {
         return;
     }
 
@@ -237,29 +237,29 @@ uint8_t wireless_get_current_devs(void) {
 void usb_mode_test_report_task(void) {
     extern void host_mouse_send(report_mouse_t * report);
 
-    static uint8_t flip                = 0;
+    static uint8_t        flip         = 0;
     static report_mouse_t mouse_format = {0};
 
     switch (flip) {
-        case 0: { 
+        case 0: {
             mouse_format.x = 10;
             mouse_format.y = 0;
             host_mouse_send(&mouse_format);
             flip = 1;
         } break;
-        case 1: { 
+        case 1: {
             mouse_format.x = 0;
             mouse_format.y = -10;
             host_mouse_send(&mouse_format);
             flip = 2;
         } break;
-        case 2: { 
+        case 2: {
             mouse_format.x = -10;
             mouse_format.y = 0;
             host_mouse_send(&mouse_format);
             flip = 3;
         } break;
-        case 3: { 
+        case 3: {
             mouse_format.x = 0;
             mouse_format.y = 10;
             host_mouse_send(&mouse_format);
@@ -278,7 +278,6 @@ void wireless_post_task(void) __attribute__((weak));
 void wireless_post_task(void) {}
 
 void wireless_task(void) {
-
     wireless_pre_task();
     lpwr_task();
     md_main_task();
