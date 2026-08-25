@@ -34,9 +34,9 @@ To assign the RGB Matrix driver, add the following to your keyboard config, for 
 ==== `JSON`
 
 ```json
-  "rgb_matrix": {
-    "driver": "is31fl3218"
-  }
+    "rgb_matrix": {
+      "driver": "is31fl3218"
+    }
 ```
 
 ==== `rules.mk`
@@ -63,15 +63,14 @@ From this point forward the configuration is the same for all the drivers. The `
             {"matrix": [2, 3], "x": 147, "y": 64, "flags": 4},
             {"matrix": [2, 0], "x": 112, "y": 64, "flags": 4},
             {"matrix": [1, 0], "x": 37, "y": 48, "flags": 4},
-            {"matrix": [0, 0], "x": 38, "y": 16, "flags": 1},
+            {"matrix": [0, 0], "x": 38, "y": 16, "flags": 1}
         ]
     }
 ```
 
-The first part, `matrix`, tells the system what key this LED represents using the key's electrical matrix row & col.  This part is optional, if the LED doesn't correspond to a switch (such as underglow leds). 
+The first part, `matrix`, tells the system what key this LED represents using the key's electrical matrix row & col.  This part is optional, if the LED doesn't correspond to a switch (such as underglow leds).
 
-The second and third parts represents the LED's physical `x, y` position on the keyboard. The default expected range of values for `x` is `0-224`, and the default expected range of values for `y` is `0-64`.  This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position: 
-
+The second and third parts represents the LED's physical `x, y` position on the keyboard. The default expected range of values for `x` is `0-224`, and the default expected range of values for `y` is `0-64`.  This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position:
 
 ```c
 x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
@@ -80,7 +79,7 @@ y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 
 Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
 
-As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `rgb_matrix.center_point = [ 112, 32]` in their json with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `x, y` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `rgb_matrix.center_point = [ 112,  32 ]` in their json with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `x, y` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
 The last value `flags` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
@@ -249,6 +248,28 @@ You can enable a single effect by setting it true in the `rgb_matrix.animations`
             "pixel_rain": true,
             "pixel_flow": true,
             "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multispash": true,
+            "solid_splash": true,
+            "solid_multisplash": true,
+            "starlight": true,
+            "starlight_smooth": true,
+            "starlight_dual_hue": true,
+            "starlight_dual_sat": true,
+            "riverflow": true
+            
+        }
+    },
 ```
 
 **Framebuffer effects**
@@ -555,7 +576,7 @@ const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
             // LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE
             255, 5, 2, 0  
         ],
-        // limits max brigntness of leds
+        // limits max brightness of leds
         "max_brightness": 255, 
         // number of milliseconds to wait until rgb automatically turns off
         "timeout": 0, 
@@ -568,7 +589,7 @@ const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
         // The value by which to increment the animation speed per adjustment action
         "speed_steps": 16, 
         // limits in milliseconds how frequently an animation will update the LEDs. 
-        // 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness
+        // 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
         "led_flush_limit": 16, 
         // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
         "led_process_limit": 15, 
