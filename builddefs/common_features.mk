@@ -100,7 +100,7 @@ VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
 STENO_PROTOCOL ?= all
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
-    ifneq ($(filter-out $(VALID_STENO_PROTOCOL_TYPES), $(STENO_PROTOCOL)),)
+    ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
     endif
 
@@ -109,15 +109,15 @@ ifeq ($(strip $(STENO_ENABLE)), yes)
         OPT_DEFS += -DSTENO_ENABLE_ALL
     endif
 
-    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(STENO_PROTOCOL))
+    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(sort $(STENO_PROTOCOL)))
 
     # for each supported protocol -> add deps
-    ifneq ($(findstring geminipr, $(STENO_PROTOCOL)),)
+    ifneq ($(filter $(STENO_PROTOCOL),geminipr),)
         OPT_DEFS += -DSTENO_ENABLE_GEMINI
         SRC += $(QUANTUM_DIR)/steno/steno_gemini.c
         VIRTSER_ENABLE ?= yes
     endif
-    ifneq ($(findstring txbolt, $(STENO_PROTOCOL)),)
+    ifneq ($(filter $(STENO_PROTOCOL),txbolt),)
         OPT_DEFS += -DSTENO_ENABLE_BOLT
         SRC += $(QUANTUM_DIR)/steno/steno_bolt.c
         VIRTSER_ENABLE ?= yes

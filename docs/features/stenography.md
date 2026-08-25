@@ -168,7 +168,7 @@ This function is called when a chord is about to be sent. Mode will be one of `S
 bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
 ```
 
-This function is called when a keypress has come in, before it is processed. The keycode should be one of `QK_STENO_BOLT`, `QK_STENO_GEMINI`, or one of the `STN_*` key values.
+This function is called when a keypress has come in, before it is processed. The keycode should be one of `QK_STENO_MODE_BOLT`, `QK_STENO_MODE_GEMINI`, or one of the `ST_*` key values.
 
 ```c
 bool post_process_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[MAX_STROKE_SIZE], int8_t n_pressed_keys);
@@ -198,7 +198,7 @@ When more than one protocol is enabled, the following keycodes are available:
 |`QK_STENO_MODE_NEXT`       |`ST_NEXT`| Cycle through modes (when multiple protocols are enabled)                 |
 |`QK_STENO_MODE_PREVIOUS`   |`ST_PREV`| Cycle through modes in reverse (when multiple protocols are enabled)      |
 
-### General
+### General {#keycode-reference-general}
 
 ::: info
 TX Bolt does not support the full set of keys. The TX Bolt implementation in QMK will map the GeminiPR keys to the nearest TX Bolt key so that one key map will work for both.

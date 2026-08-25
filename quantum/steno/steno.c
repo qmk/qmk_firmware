@@ -7,6 +7,7 @@
 #include "steno.h"
 #include "eeconfig.h"
 #include "util.h"
+#include "compiler_support.h"
 
 #ifndef STENO_DEFAULT_MODE
 #    if defined(STENO_ENABLE_GEMINI)
@@ -16,12 +17,19 @@
 #    endif
 #endif
 
+#if !defined(STENO_ENABLE_GEMINI)
+STATIC_ASSERT(STENO_DEFAULT_MODE != STENO_MODE_GEMINI, "STENO_DEFAULT_MODE is set to STENO_MODE_GEMINI, but is not available. Enable the geminipr protocol or change STENO_DEFAULT_MODE to a valid mode.");
+#endif
+#if !defined(STENO_ENABLE_BOLT)
+STATIC_ASSERT(STENO_DEFAULT_MODE != STENO_MODE_BOLT, "STENO_DEFAULT_MODE is set to STENO_MODE_BOLT, but is not available. Enable the txbolt protocol or change STENO_DEFAULT_MODE to a valid mode.");
+#endif
+
 static steno_mode_t mode = STENO_DEFAULT_MODE;
 
-uint8_t chord[MAX_STROKE_SIZE] = {0};
+uint8_t steno_current_chord[MAX_STROKE_SIZE] = {0};
 
 void steno_clear_chord(void) {
-    memset(chord, 0, sizeof(chord));
+    memset(steno_current_chord, 0, sizeof(steno_current_chord));
 }
 
 steno_mode_t steno_get_mode(void) {

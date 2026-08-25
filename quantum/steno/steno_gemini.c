@@ -1,4 +1,4 @@
-// Copyright 2026 QMK
+// Copyright 2017, 2022 Joseph Wasson, Vladislav Kucheriavykh
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "steno.h"
@@ -19,14 +19,14 @@ void steno_add_key_to_chord_gemini(uint8_t chord[MAX_STROKE_SIZE], uint8_t key) 
     chord[group_idx] |= bit;
 }
 
-#ifdef VIRTSER_ENABLE
 void steno_send_chord_gemini(uint8_t chord[MAX_STROKE_SIZE]) {
+#ifdef VIRTSER_ENABLE
     // Set MSB to 1 to indicate the start of packet
     chord[0] |= 0x80;
     for (uint8_t i = 0; i < GEMINI_STROKE_SIZE; ++i) {
         virtser_send(chord[i]);
     }
-}
 #else
 #    pragma message "VIRTSER_ENABLE = yes is required for Gemini PR to work properly out of the box!"
 #endif // VIRTSER_ENABLE
+}

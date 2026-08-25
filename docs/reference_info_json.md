@@ -872,7 +872,7 @@ Configures the [Stenography](features/stenography) feature.
     * `default`
         * `mode` <Badge type="info">String</Badge>
             * The default mode. Must be one of `geminipr`, `txbolt`.
-            * Default: `"geminipr"`
+            * Default: `"geminipr"` when available, otherwise `"txbolt"`
     * `protocol` <Badge type="info">String</Badge>
         * The Steno protocol to use. Must be one of `all`, `geminipr`, `txbolt`.
         * Default: `"all"`

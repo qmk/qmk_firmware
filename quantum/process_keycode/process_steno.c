@@ -17,7 +17,7 @@ void steno_send_chord_gemini(uint8_t chord[MAX_STROKE_SIZE]);
 
 // All steno keys that have been pressed to form this chord,
 // stored in MAX_STROKE_SIZE groups of 8-bit arrays.
-extern uint8_t chord[MAX_STROKE_SIZE];
+extern uint8_t steno_current_chord[MAX_STROKE_SIZE];
 
 // The number of physical keys actually being held down.
 // This is not always equal to the number of 1 bits in `chord` because it is possible to
@@ -61,20 +61,12 @@ static void steno_add_keycode_to_chord(uint16_t keycode) {
     switch (steno_get_mode()) {
 #ifdef STENO_ENABLE_BOLT
         case STENO_MODE_BOLT:
-            if (keycode < QK_STENO_FUNCTION || keycode > QK_STENO_ZR) {
-                return;
-            }
-
-            steno_add_key_to_chord_bolt(chord, keycode - QK_STENO_FUNCTION);
+            steno_add_key_to_chord_bolt(steno_current_chord, keycode - QK_STENO_FUNCTION);
             break;
 #endif
 #ifdef STENO_ENABLE_GEMINI
         case STENO_MODE_GEMINI:
-            if (keycode < QK_STENO_FUNCTION || keycode > QK_STENO_ZR) {
-                return;
-            }
-
-            steno_add_key_to_chord_gemini(chord, keycode - QK_STENO_FUNCTION);
+            steno_add_key_to_chord_gemini(steno_current_chord, keycode - QK_STENO_FUNCTION);
             break;
 #endif
         default:
@@ -86,12 +78,12 @@ static void steno_send_chord(void) {
     switch (steno_get_mode()) {
 #ifdef STENO_ENABLE_BOLT
         case STENO_MODE_BOLT:
-            steno_send_chord_bolt(chord);
+            steno_send_chord_bolt(steno_current_chord);
             break;
 #endif
 #ifdef STENO_ENABLE_GEMINI
         case STENO_MODE_GEMINI:
-            steno_send_chord_gemini(chord);
+            steno_send_chord_gemini(steno_current_chord);
             break;
 #endif
         default:
@@ -146,16 +138,16 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
             return process_steno_combinedmap(keycode, record);
 #endif
 
-        case QK_STENO_FUNCTION ... QK_STENO_X26:
+        case QK_STENO_FUNCTION ... QK_STENO_ZR:
             if (record->event.pressed) {
                 n_pressed_keys++;
                 steno_add_keycode_to_chord(keycode);
-                if (!post_process_steno_user(keycode, record, steno_get_mode(), chord, n_pressed_keys)) {
+                if (!post_process_steno_user(keycode, record, steno_get_mode(), steno_current_chord, n_pressed_keys)) {
                     return false;
                 }
             } else { // is released
                 n_pressed_keys--;
-                if (!post_process_steno_user(keycode, record, steno_get_mode(), chord, n_pressed_keys)) {
+                if (!post_process_steno_user(keycode, record, steno_get_mode(), steno_current_chord, n_pressed_keys)) {
                     return false;
                 }
                 if (n_pressed_keys > 0) {
@@ -164,7 +156,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
                     return false;
                 }
                 n_pressed_keys = 0;
-                if (!send_steno_chord_user(steno_get_mode(), chord)) {
+                if (!send_steno_chord_user(steno_get_mode(), steno_current_chord)) {
                     steno_clear_chord();
                     return false;
                 }
@@ -176,5 +168,5 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
             break;
     }
 
-    return true;
+    return false;
 }

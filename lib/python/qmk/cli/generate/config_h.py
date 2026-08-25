@@ -178,7 +178,8 @@ def generate_stenography_config(kb_info_json, config_h_lines):
             'txbolt': 'STENO_MODE_BOLT',
         }
         mode = kb_info_json['stenography']['default']['mode']
-        config_h_lines.append(generate_define('STENO_DEFAULT_MODE', mode_map[mode]))
+        value = mode_map.get(mode, f'STENO_MODE_{mode.upper()}')
+        config_h_lines.append(generate_define('STENO_DEFAULT_MODE', value))
 
 
 @cli.argument('filename', nargs='?', arg_only=True, type=FileType('r'), completer=FilesCompleter('.json'), help='A configurator export JSON to be compiled and flashed or a pre-compiled binary firmware file (bin/hex) to be flashed.')

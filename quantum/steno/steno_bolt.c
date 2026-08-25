@@ -1,4 +1,4 @@
-// Copyright 2026 QMK
+// Copyright 2017, 2022 Joseph Wasson, Vladislav Kucheriavykh
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "steno.h"
@@ -93,8 +93,8 @@ void steno_add_key_to_chord_bolt(uint8_t chord[MAX_STROKE_SIZE], uint8_t key) {
     chord[TXB_GET_GROUP(boltcode)] |= boltcode;
 }
 
-#ifdef VIRTSER_ENABLE
 void steno_send_chord_bolt(uint8_t chord[MAX_STROKE_SIZE]) {
+#ifdef VIRTSER_ENABLE
     for (uint8_t i = 0; i < BOLT_STROKE_SIZE; ++i) {
         // TX Bolt uses variable length packets where each byte corresponds to a bit array of certain keys.
         // If a user chorded the keys of the first group with keys of the last group, for example, there
@@ -107,7 +107,7 @@ void steno_send_chord_bolt(uint8_t chord[MAX_STROKE_SIZE]) {
     // to unconditionally send it every time instead of keeping track of more states and
     // creating more branches in the execution of the program.
     virtser_send(0);
-}
 #else
 #    pragma message "VIRTSER_ENABLE = yes is required for TX Bolt to work properly out of the box!"
 #endif // VIRTSER_ENABLE
+}
