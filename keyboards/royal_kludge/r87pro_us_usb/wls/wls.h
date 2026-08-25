@@ -1,3 +1,6 @@
+// Copyright 2024 SDK (@sdk66)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 #include "quantum.h"

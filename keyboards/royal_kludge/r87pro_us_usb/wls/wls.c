@@ -1,3 +1,6 @@
+// Copyright 2024 SDK (@sdk66)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "wls.h"
 #include "usb_main.h"
 
