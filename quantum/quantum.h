@@ -100,6 +100,7 @@ extern layer_state_t layer_state;
 #endif
 
 #ifdef STENO_ENABLE
+#    include "steno.h"
 #    include "process_steno.h"
 #endif
 
