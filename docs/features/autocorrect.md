@@ -92,7 +92,7 @@ The `qmk generate-autocorrect-data` commands can make an effort to check for ent
 Unfortunately, this is limited to just english words, at this point.
 :::
 
-### Using multiple dictionaries
+### Using multiple dictionaries {#using-multiple-dictionaries}
 
 Including additional dictionaries allows for on-the-fly switching between sets of autocorrection rules, useful for bilingual users or for running context-specific rulesets. `QK_AUTOCORRECT_DICT_CYCLE` can then be used to cycle the active dictionary and persist the selection to eeprom.
 
@@ -102,7 +102,7 @@ To use this feature, you can input several files to `qmk generate-autocorrect-da
 qmk generate-autocorrect-data dict1.txt dict2.txt
 ```
 
-## Overriding Autocorrect
+## Overriding Autocorrect {#overriding-autocorrect}
 
 Occasionally you might actually want to type a typo (for instance, while editing autocorrect_dict.txt) without being autocorrected. There are a couple of ways to do this:
 
