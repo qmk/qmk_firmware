@@ -26,8 +26,8 @@ extern "C" {
 }
 
 struct update {
-    int8_t index;
-    bool   clockwise;
+    uint8_t index;
+    bool    clockwise;
 };
 
 uint8_t updates_array_idx = 0;

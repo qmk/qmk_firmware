@@ -420,19 +420,6 @@ def _extract_direct_matrix(direct_pins):
     return direct_pin_array
 
 
-def _extract_audio(info_data, config_c):
-    """Populate data about the audio configuration
-    """
-    audio_pins = []
-
-    for pin in 'B5', 'B6', 'B7', 'C4', 'C5', 'C6':
-        if config_c.get(f'{pin}_AUDIO'):
-            audio_pins.append(pin)
-
-    if audio_pins:
-        info_data['audio'] = {'pins': audio_pins}
-
-
 def _extract_encoders_values(config_c, postfix=''):
     """Common encoder extraction logic
     """
@@ -718,7 +705,6 @@ def _extract_config_h(info_data, config_c):
 
     # Pull data that easily can't be mapped in json
     _extract_matrix_info(info_data, config_c)
-    _extract_audio(info_data, config_c)
     _extract_secure_unlock(info_data, config_c)
     _extract_split_handedness(info_data, config_c)
     _extract_split_serial(info_data, config_c)
@@ -1151,4 +1137,17 @@ def get_modules(keyboard, keymap_filename):
         if keymap_json:
             modules.extend(keymap_json.get('modules', []))
 
-    return list(dict.fromkeys(modules))  # remove dupes
+    # remove duplicates while maintaining the current order
+    ret = list(dict.fromkeys(modules))
+
+    # We currently do not support duplicate module names
+    # e.g.: ['foo/hello_world', 'bar/hello_world'] will fail
+    seen = set()
+    for module in ret:
+        module_slug = Path(module).name.lower()
+        if module_slug in seen:
+            duplicates = list(filter(lambda m: module_slug == Path(m).name.lower(), ret))
+            raise Exception(f'Duplicate module name detected: "{module_slug}" - {duplicates}')
+        seen.add(module_slug)
+
+    return ret

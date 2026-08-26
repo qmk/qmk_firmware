@@ -18,6 +18,7 @@
 #include <cstdint>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
 
 extern "C" {
 #include "keycode_string.h"

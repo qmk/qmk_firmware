@@ -50,10 +50,14 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 	CFLAGS 	 += -ggdb3
 	CXXFLAGS += -ggdb3
 	ASFLAGS  += -ggdb3
-# Create a map file when debugging
-	LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
 
+# Create a map file to see what was compiled and where, unless disabled
+# (e.g. test builds, which use the host linker — Apple's ld does not accept
+# -Map=/--cref).
+ifneq ($(strip $(CREATE_MAP)), no)
+LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
 
 #---------------- C Compiler Options ----------------
 
@@ -66,12 +70,14 @@ CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fdiagnostics-color
-endif
+    CFLAGS+= -fdiagnostics-color=always
+else
+    CFLAGS+= -fdiagnostics-color=never
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
+CFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CFLAGS += -Werror
 endif
@@ -89,7 +95,8 @@ CXXFLAGS += -O$(OPT)
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
-
+CXXFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CXXFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif

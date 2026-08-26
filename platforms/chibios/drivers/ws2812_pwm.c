@@ -89,7 +89,9 @@
 
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define WS2812_PWM_TICK_FREQUENCY (CPU_CLOCK / 2)                            /**< Clock frequency of PWM ticks, must be valid with respect to system clock! */
+#ifndef WS2812_PWM_TICK_FREQUENCY
+#    define WS2812_PWM_TICK_FREQUENCY (CPU_CLOCK / 2) /**< Clock frequency of PWM ticks, must be valid with respect to system clock! */
+#endif
 #define WS2812_PWM_PERIOD (WS2812_PWM_TICK_FREQUENCY / WS2812_PWM_FREQUENCY) /**< Clock period in PWM ticks. */
 
 /**

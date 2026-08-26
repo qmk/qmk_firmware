@@ -31,63 +31,19 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 #endif // DIP_SWITCH_ENABLE
 
 #    ifdef RGB_MATRIX_ENABLE
-#        define LED_TOGGLE_KEYCODE QK_RGB_MATRIX_TOGGLE
-#        define LED_SET_FLAGS rgb_matrix_set_flags
-#        define LED_GET_FLAGS rgb_matrix_get_flags
-#        define LED_SET_ALL_OFF rgb_matrix_set_color_all(COLOR_BLACK)
-#        define LED_IS_ENABLED rgb_matrix_is_enabled
-#        define LED_ENABLE rgb_matrix_enable
 #        define LED_MATRIX_INDICATORS_KB rgb_matrix_indicators_kb
 #        define LED_MATRIX_INDICATORS_USER rgb_matrix_indicators_user
 #        define LED_MATRIX_SET_COLOR rgb_matrix_set_color
-#        define LED_MATRIX_UPDATE_PWN_BUFFERS rgb_matrix_update_pwm_buffers
-#        define LED_MATRIX_INDICATORS_NONE_KB rgb_matrix_indicators_none_kb
-#        define LED_MATRIX_IS_ENABLED rgb_matrix_is_enabled
 #        define COLOR_WHITE 255, 255, 255
 #        define COLOR_BLACK 0, 0, 0
 #    endif
 
 #    ifdef LED_MATRIX_ENABLE
-#        define LED_TOGGLE_KEYCODE QK_LED_MATRIX_TOGGLE
-#        define LED_SET_FLAGS led_matrix_set_flags
-#        define LED_GET_FLAGS led_matrix_get_flags
-#        define LED_SET_ALL_OFF led_matrix_set_value_all(COLOR_BLACK)
-#        define LED_IS_ENABLED led_matrix_is_enabled
-#        define LED_ENABLE led_matrix_enable
 #        define LED_MATRIX_INDICATORS_KB led_matrix_indicators_kb
 #        define LED_MATRIX_INDICATORS_USER led_matrix_indicators_user
 #        define LED_MATRIX_SET_COLOR led_matrix_set_value
-#        define LED_MATRIX_UPDATE_PWN_BUFFERS led_matrix_update_pwm_buffers
-#        define LED_MATRIX_INDICATORS_NONE_KB led_matrix_indicators_none_kb
-#        define LED_MATRIX_IS_ENABLED led_matrix_is_enabled
 #        define COLOR_WHITE 255
 #        define COLOR_BLACK 0
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-    switch (keycode) {
-        case LED_TOGGLE_KEYCODE:
-            if (record->event.pressed) {
-                switch (LED_GET_FLAGS()) {
-                    case LED_FLAG_ALL: {
-                        LED_SET_FLAGS(LED_FLAG_NONE);
-                        LED_SET_ALL_OFF;
-                    } break;
-                    default: {
-                        LED_SET_FLAGS(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            if (!LED_IS_ENABLED()) {
-                LED_SET_FLAGS(LED_FLAG_ALL);
-                LED_ENABLE();
-            }
-            return false;
-    }
-    return true;
-}
 
 bool LED_MATRIX_INDICATORS_KB(void) {
     if (!LED_MATRIX_INDICATORS_USER()) {

@@ -19,7 +19,7 @@ jobs:
     - name: Disable safe.directory check
       run : git config --global --add safe.directory '*'
 
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - name: Install dependencies
       run: pip3 install -r requirements-dev.txt

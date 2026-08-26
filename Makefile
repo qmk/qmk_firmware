@@ -1,4 +1,4 @@
-ifndef VERBOSE
+ifneq ($(VERBOSE),true)
 .SILENT:
 endif
 
@@ -118,7 +118,7 @@ endef
 TRY_TO_MATCH_RULE_FROM_LIST = $(eval $(call TRY_TO_MATCH_RULE_FROM_LIST_HELPER,$1))$(RULE_FOUND)
 
 # As TRY_TO_MATCH_RULE_FROM_LIST_HELPER, but with additional
-# resolution of keyboard_aliases.hjson for provided rule 
+# resolution of keyboard_aliases.hjson for provided rule
 define TRY_TO_MATCH_RULE_FROM_LIST_HELPER_KB
     # Split on ":", padding with empty strings to avoid indexing issues
     TOKEN1:=$$(shell python3 -c "import sys; print((sys.argv[1].split(':',1)+[''])[0])" $$(RULE))
@@ -300,6 +300,7 @@ endef
 define BUILD_TEST
     TEST_PATH := $1
     TEST_NAME := $$(notdir $$(TEST_PATH))
+    TEST_ID := $$(patsubst ./tests/%,%,$$(TEST_PATH))
     TEST_FULL_NAME := $$(subst /,_,$$(patsubst $$(ROOT_DIR)tests/%,%,$$(TEST_PATH)))
     MAKE_TARGET := $2
     COMMAND := $1
@@ -313,7 +314,7 @@ define BUILD_TEST
         TEST_MSG := $$(MSG_TEST)
         $$(TEST_FULL_NAME)_COMMAND := \
             printf "$$(TEST_MSG)\n"; \
-            $$(TEST_EXECUTABLE); \
+            $$(TEST_EXECUTABLE) --gtest_color=$$(COLOR); \
             if [ $$$$? -gt 0 ]; \
                 then error_occurred=1; \
             fi; \
@@ -451,16 +452,17 @@ distclean_userspace: clean
 endif
 
 # Extra targets for formatting and/or pytest, running within the qmk/qmk_cli container to match GHA.
-CONTAINER_PREAMBLE := export HOME="/tmp"; export PATH="/tmp/.local/bin:\$$PATH"; python3 -m pip install --upgrade pip; python3 -m pip install -r requirements-dev.txt
-
 .PHONY: format-core
 format-core:
-	RUNTIME=docker ./util/docker_cmd.sh bash -lic "$(CONTAINER_PREAMBLE); qmk format-c --core-only -a && qmk format-python -a"
+	RUNTIME=docker ./util/docker_cmd.sh qmk format-c --core-only -a
+	RUNTIME=docker ./util/docker_cmd.sh qmk format-python -a
 
 .PHONY: pytest
 pytest:
-	RUNTIME=docker ./util/docker_cmd.sh bash -lic "$(CONTAINER_PREAMBLE); qmk pytest"
+	RUNTIME=docker ./util/docker_cmd.sh qmk pytest
 
 .PHONY: format-and-pytest
 format-and-pytest:
-	RUNTIME=docker ./util/docker_cmd.sh bash -lic "$(CONTAINER_PREAMBLE); qmk format-c --core-only -a && qmk format-python -a && qmk pytest"
+	RUNTIME=docker ./util/docker_cmd.sh qmk format-c --core-only -a
+	RUNTIME=docker ./util/docker_cmd.sh qmk format-python -a
+	RUNTIME=docker ./util/docker_cmd.sh qmk pytest

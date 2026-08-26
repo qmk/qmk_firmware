@@ -204,7 +204,9 @@ void print_eeprom(void) {
             }
             xprintf("%04x", i);
         }
-        if (i % 8 == 0) print(" ");
+        if (i % 8 == 0) {
+            print(" ");
+        }
 
         xprintf(" %02x", DataBuf[i]);
         if ((i + 1) % 16 == 0) {
