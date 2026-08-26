@@ -425,7 +425,7 @@ const char* effect_name = led_matrix_get_mode_name(led_matrix_get_mode());
         ],
         // limits max brightness of leds
         "max_brightness": 255, 
-        // number of milliseconds to wait until rgb automatically turns off
+        // number of milliseconds to wait until led automatically turns off
         "timeout": 0, 
         // The value by which to increment the brightness per adjustment action
         "val_steps": 16, 
