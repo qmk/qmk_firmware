@@ -24,7 +24,7 @@
 
 // Maximum time between taps of tap dances
 // Also defines time window for combos
-#define TAPPING_TERM 300
+#define TAPPING_TERM 200
 
 // Max time between taps to prevent hold function and hold auto-repeat
 #define QUICK_TAP_TERM 100
@@ -45,5 +45,5 @@
 
 // Thumb Combos
 #define COMBO_COUNT 2
-#define COMBO_TERM 200
+#define COMBO_TERM 100
 #define EXTRA_SHORT_COMBOS
