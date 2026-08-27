@@ -1,6 +1,6 @@
 # DeskFighter
 
-![DeskFighter](https://raw.githubusercontent.com/Swonkie/DeskFighter/refs/heads/main/DeskFighter.jpg)
+![DeskFighter](https://i.postimg.cc/gk87PygR/Desk-Fighter.jpg)
 
 I designed this keyboard for my own personal use and documented the whole design and build process here:
 https://haldimann.app/DeskFighter/

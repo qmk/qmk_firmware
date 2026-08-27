@@ -6,7 +6,10 @@
     "bootloader_instructions": "Press fn + esc. Alternatively, on the underside of the keyboard: hold down the 'Bootloader' button while plugging in the USB cable.",
     "diode_direction": "COL2ROW",
     "encoder": {
-        "enabled": true
+        "enabled": true,
+        "rotary": [
+            {"pin_a": "C14", "pin_b": "C13"}
+        ]
     },
     "features": {
         "bootmagic": false,
