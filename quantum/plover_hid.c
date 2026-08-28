@@ -21,14 +21,17 @@
 #include "host.h"
 #include "compiler_support.h"
 
-// The button index handed to plover_hid_update() is `keycode - QK_PLOVER_HID`, so the report's
-// data field must hold a bit for every keycode in the range or the bit-packing below overflows.
-STATIC_ASSERT(sizeof(((report_plover_hid_t *)0)->data) * CHAR_BIT >= (QK_PLOVER_HID_MAX - QK_PLOVER_HID + 1), "Plover HID report data too small for the QK_PLOVER_HID keycode range");
+// Data field must hold a bit for every button in the range or the bit-packing below overflows.
+STATIC_ASSERT(sizeof(((report_plover_hid_t *)0)->data) * CHAR_BIT >= PLV_BTN_COUNT, "Plover HID report data too small for the button range");
 
 static report_plover_hid_t plover_hid_report         = {.report_id = REPORT_ID_PLOVER_HID};
 static bool                plover_hid_report_updated = false;
 
 void plover_hid_update(uint8_t button, bool pressed) {
+    if (button >= PLV_BTN_COUNT) {
+        return;
+    }
+
     if (pressed) {
         plover_hid_report.data[button / 8] |= (1 << (7 - (button % 8)));
     } else {
@@ -41,6 +44,7 @@ void plover_hid_task(void) {
     if (!plover_hid_report_updated) {
         return;
     }
+
     host_plover_hid_send(&plover_hid_report);
     plover_hid_report_updated = false;
 }
