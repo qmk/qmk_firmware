@@ -10,7 +10,6 @@
         "mousekey": true,
         "nkro": true
     },
-    "meta": "https://noroadsleft.github.io/kbf_qmk_converter/",
     "url": "https://mechlovin.studio",
     "usb": {
         "vid": "0x4D4C"
