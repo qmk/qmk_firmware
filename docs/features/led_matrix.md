@@ -420,8 +420,8 @@ const char* effect_name = led_matrix_get_mode_name(led_matrix_get_mode());
         },
         // Sets the flags which can be cycled through
         "flag_steps": [ 
-            // LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE
-            255, 5, 2, 0  
+            // LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_NONE
+            255, 5, 0  
         ],
         // limits max brightness of leds
         "max_brightness": 255, 
