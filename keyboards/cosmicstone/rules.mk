@@ -4,13 +4,9 @@ SRC += keyboards/bastardkb/charybdis/charybdis.c
 # Controller
 MCU = RP2040
 BOOTLOADER = rp2040
-VIA_ENABLE = yes
 WAIT_FOR_USB = yes
 BOOTMAGIC_ENABLE = no
-CONSOLE_ENABLE = no
-COMMAND_ENABLE = no
 NKRO_ENABLE = yes
-
 
 MOUSE_ENABLE = yes
 POINTING_DEVICE_ENABLE = yes
@@ -22,7 +18,3 @@ OLED_DRIVER = ssd1306
 
 EXTRAKEY_ENABLE = yes
 MOUSEKEY_ENABLE = yes
-COMBO_ENABLE = yes
-
-# Serial split for RP2040
-SERIAL_DRIVER = vendor

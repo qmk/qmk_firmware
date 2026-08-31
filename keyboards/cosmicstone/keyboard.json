@@ -26,7 +26,7 @@
     "split": {
         "enabled": true,
         "serial": {
-            "driver": "usart",
+            "driver": "vendor",
             "pin": "GP0"
         }
     
