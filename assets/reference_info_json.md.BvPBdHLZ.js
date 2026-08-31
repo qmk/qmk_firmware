@@ -4,7 +4,7 @@ const _sfc_main = { name: "reference_info_json.md" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   const _component_Badge = resolveComponent("Badge");
   return openBlock(), createElementBlock("div", null, [
-    _cache[1107] || (_cache[1107] = createStaticVNode("", 4)),
+    _cache[1116] || (_cache[1116] = createStaticVNode('<h1 id="info-json-reference" tabindex="-1"><code>info.json</code> Reference <a class="header-anchor" href="#info-json-reference" aria-label="Permalink to &quot;`info.json` Reference {#info-json-reference}&quot;">​</a></h1><p>The information contained in <code>info.json</code> is combined with the <code>config.h</code> and <code>rules.mk</code> files, dynamically generating the necessary configuration for your keyboard at compile time. It is also used by the <a href="https://github.com/qmk/qmk_api" target="_blank" rel="noreferrer">QMK API</a>, and contains the information <a href="https://config.qmk.fm/" target="_blank" rel="noreferrer">QMK Configurator</a> needs to display a representation of your keyboard. Its key/value pairs are ruled by the <a href="https://github.com/qmk/qmk_firmware/blob/master/data/schemas/keyboard.jsonschema" target="_blank" rel="noreferrer"><code>data/schemas/keyboard.jsonschema</code></a> file. To learn more about the why and how of the schema file see the <a href="./data_driven_config">Data Driven Configuration</a> page.</p><p>You can create <code>info.json</code> files at every level under <code>qmk_firmware/keyboards/&lt;keyboard&gt;</code>. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, <code>qmk_firmware/keyboards/clueboard/info.json</code> specifies information common to all Clueboard products, such as <code>manufacturer</code> and <code>maintainer</code>, while <code>qmk_firmware/keyboards/clueboard/66/info.json</code> contains more specific information about Clueboard 66%.</p><h2 id="general-metadata" tabindex="-1">General Metadata <a class="header-anchor" href="#general-metadata" aria-label="Permalink to &quot;General Metadata {#general-metadata}&quot;">​</a></h2>', 4)),
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
         _cache[2] || (_cache[2] = createBaseVNode("code", null, "keyboard_name", -1)),
@@ -157,7 +157,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ], -1))
       ])
     ]),
-    _cache[1108] || (_cache[1108] = createBaseVNode("h2", {
+    _cache[1117] || (_cache[1117] = createBaseVNode("h2", {
       id: "hardware-configuration",
       tabindex: "-1"
     }, [
@@ -257,7 +257,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ], -1))
       ])
     ]),
-    _cache[1109] || (_cache[1109] = createBaseVNode("h2", {
+    _cache[1118] || (_cache[1118] = createBaseVNode("h2", {
       id: "firmware-configuration",
       tabindex: "-1"
     }, [
@@ -280,7 +280,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[54] || (_cache[54] = createStaticVNode("", 1))
+            _cache[54] || (_cache[54] = createStaticVNode("<ul><li>The debounce algorithm to use. Must be one of <code>asym_eager_defer_pk</code>, <code>custom</code>, <code>sym_defer_g</code>, <code>sym_defer_pk</code>, <code>sym_defer_pr</code>, <code>sym_eager_pk</code>, <code>sym_eager_pr</code>.</li></ul>", 1))
           ]),
           createBaseVNode("li", null, [
             _cache[56] || (_cache[56] = createBaseVNode("code", null, "firmware_format", -1)),
@@ -328,7 +328,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           ])]),
           _: 1
         }),
-        _cache[64] || (_cache[64] = createStaticVNode("", 2))
+        _cache[64] || (_cache[64] = createStaticVNode('<ul><li>A dictionary of features to enable or disable.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;rgb_matrix&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;rgblight&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2))
       ]),
       createBaseVNode("li", null, [
         _cache[82] || (_cache[82] = createBaseVNode("code", null, "qmk", -1)),
@@ -577,7 +577,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1110] || (_cache[1110] = createBaseVNode("h2", {
+    _cache[1119] || (_cache[1119] = createBaseVNode("h2", {
       id: "apa102",
       tabindex: "-1"
     }, [
@@ -588,7 +588,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "APA102 {#apa102}"'
       }, "​")
     ], -1)),
-    _cache[1111] || (_cache[1111] = createBaseVNode("p", null, [
+    _cache[1120] || (_cache[1120] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./drivers/apa102" }, "APA102"),
       createTextVNode(" driver.")
@@ -665,7 +665,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1112] || (_cache[1112] = createBaseVNode("h2", {
+    _cache[1121] || (_cache[1121] = createBaseVNode("h2", {
       id: "audio",
       tabindex: "-1"
     }, [
@@ -676,7 +676,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Audio {#audio}"'
       }, "​")
     ], -1)),
-    _cache[1113] || (_cache[1113] = createBaseVNode("p", null, [
+    _cache[1122] || (_cache[1122] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/audio" }, "Audio"),
       createTextVNode(" feature.")
@@ -846,7 +846,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1114] || (_cache[1114] = createBaseVNode("h2", {
+    _cache[1123] || (_cache[1123] = createBaseVNode("h2", {
       id: "backlight",
       tabindex: "-1"
     }, [
@@ -857,7 +857,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Backlight {#backlight}"'
       }, "​")
     ], -1)),
-    _cache[1115] || (_cache[1115] = createBaseVNode("p", null, [
+    _cache[1124] || (_cache[1124] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/backlight" }, "Backlight"),
       createTextVNode(" feature.")
@@ -1088,7 +1088,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1116] || (_cache[1116] = createBaseVNode("h2", {
+    _cache[1125] || (_cache[1125] = createBaseVNode("h2", {
       id: "battery",
       tabindex: "-1"
     }, [
@@ -1099,7 +1099,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Battery"'
       }, "​")
     ], -1)),
-    _cache[1117] || (_cache[1117] = createBaseVNode("p", null, [
+    _cache[1126] || (_cache[1126] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/battery" }, "Battery"),
       createTextVNode(" feature.")
@@ -1250,7 +1250,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1118] || (_cache[1118] = createBaseVNode("h2", {
+    _cache[1127] || (_cache[1127] = createBaseVNode("h2", {
       id: "bluetooth",
       tabindex: "-1"
     }, [
@@ -1261,7 +1261,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Wireless/Bluetooth {#bluetooth}"'
       }, "​")
     ], -1)),
-    _cache[1119] || (_cache[1119] = createBaseVNode("p", null, [
+    _cache[1128] || (_cache[1128] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/wireless" }, "Wireless"),
       createTextVNode(" feature.")
@@ -1294,7 +1294,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1120] || (_cache[1120] = createBaseVNode("h2", {
+    _cache[1129] || (_cache[1129] = createBaseVNode("h2", {
       id: "bootmagic",
       tabindex: "-1"
     }, [
@@ -1305,7 +1305,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Bootmagic {#bootmagic}"'
       }, "​")
     ], -1)),
-    _cache[1121] || (_cache[1121] = createBaseVNode("p", null, [
+    _cache[1130] || (_cache[1130] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/bootmagic" }, "Bootmagic"),
       createTextVNode(" feature.")
@@ -1351,7 +1351,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1122] || (_cache[1122] = createBaseVNode("h2", {
+    _cache[1131] || (_cache[1131] = createBaseVNode("h2", {
       id: "caps-word",
       tabindex: "-1"
     }, [
@@ -1362,7 +1362,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Caps Word {#caps-word}"'
       }, "​")
     ], -1)),
-    _cache[1123] || (_cache[1123] = createBaseVNode("p", null, [
+    _cache[1132] || (_cache[1132] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/caps_word" }, "Caps Word"),
       createTextVNode(" feature.")
@@ -1460,7 +1460,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1124] || (_cache[1124] = createBaseVNode("h2", {
+    _cache[1133] || (_cache[1133] = createBaseVNode("h2", {
       id: "combo",
       tabindex: "-1"
     }, [
@@ -1471,7 +1471,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Combo {#combo}"'
       }, "​")
     ], -1)),
-    _cache[1125] || (_cache[1125] = createBaseVNode("p", null, [
+    _cache[1134] || (_cache[1134] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/combo" }, "Combo"),
       createTextVNode(" feature.")
@@ -1501,7 +1501,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1126] || (_cache[1126] = createBaseVNode("h2", {
+    _cache[1135] || (_cache[1135] = createBaseVNode("h2", {
       id: "dip-switch",
       tabindex: "-1"
     }, [
@@ -1512,7 +1512,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "DIP Switches {#dip-switch}"'
       }, "​")
     ], -1)),
-    _cache[1127] || (_cache[1127] = createBaseVNode("p", null, [
+    _cache[1136] || (_cache[1136] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/dip_switch" }, "DIP Switches"),
       createTextVNode(" feature.")
@@ -1571,7 +1571,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1128] || (_cache[1128] = createBaseVNode("h2", {
+    _cache[1137] || (_cache[1137] = createBaseVNode("h2", {
       id: "eeprom",
       tabindex: "-1"
     }, [
@@ -1582,7 +1582,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "EEPROM {#eeprom}"'
       }, "​")
     ], -1)),
-    _cache[1129] || (_cache[1129] = createBaseVNode("p", null, [
+    _cache[1138] || (_cache[1138] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./drivers/eeprom" }, "EEPROM"),
       createTextVNode(" driver.")
@@ -1600,7 +1600,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[318] || (_cache[318] = createStaticVNode("", 1))
+            _cache[318] || (_cache[318] = createStaticVNode("<ul><li>The EEPROM backend to use. Must be one of <code>custom</code>, <code>i2c</code>, <code>legacy_stm32_flash</code>, <code>spi</code>, <code>transient</code>, <code>vendor</code>, <code>wear_leveling</code>.</li><li>Default: <code>&quot;vendor&quot;</code></li></ul>", 1))
           ]),
           createBaseVNode("li", null, [
             _cache[331] || (_cache[331] = createBaseVNode("code", null, "wear_leveling", -1)),
@@ -1661,7 +1661,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1130] || (_cache[1130] = createBaseVNode("h2", {
+    _cache[1139] || (_cache[1139] = createBaseVNode("h2", {
       id: "encoder",
       tabindex: "-1"
     }, [
@@ -1672,7 +1672,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Encoder {#encoder}"'
       }, "​")
     ], -1)),
-    _cache[1131] || (_cache[1131] = createBaseVNode("p", null, [
+    _cache[1140] || (_cache[1140] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/encoders" }, "Encoder"),
       createTextVNode(" feature.")
@@ -1766,7 +1766,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1132] || (_cache[1132] = createBaseVNode("h2", {
+    _cache[1141] || (_cache[1141] = createBaseVNode("h2", {
       id: "host",
       tabindex: "-1"
     }, [
@@ -1806,7 +1806,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1133] || (_cache[1133] = createBaseVNode("h2", {
+    _cache[1142] || (_cache[1142] = createBaseVNode("h2", {
       id: "indicators",
       tabindex: "-1"
     }, [
@@ -1817,7 +1817,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Indicators {#indicators}"'
       }, "​")
     ], -1)),
-    _cache[1134] || (_cache[1134] = createBaseVNode("p", null, [
+    _cache[1143] || (_cache[1143] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/led_indicators" }, "LED Indicators"),
       createTextVNode(" feature.")
@@ -1912,7 +1912,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1135] || (_cache[1135] = createBaseVNode("h2", {
+    _cache[1144] || (_cache[1144] = createBaseVNode("h2", {
       id: "keycodes",
       tabindex: "-1"
     }, [
@@ -1923,7 +1923,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "(Custom) Keycodes {#keycodes}"'
       }, "​")
     ], -1)),
-    _cache[1136] || (_cache[1136] = createBaseVNode("p", null, [
+    _cache[1145] || (_cache[1145] = createBaseVNode("p", null, [
       createTextVNode("Defines "),
       createBaseVNode("a", { href: "./custom_quantum_functions#definining-a-new-keycode" }, "custom keycodes"),
       createTextVNode(" for use within keymaps.")
@@ -2001,7 +2001,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1137] || (_cache[1137] = createStaticVNode("", 5)),
+    _cache[1146] || (_cache[1146] = createStaticVNode('<h2 id="layouts" tabindex="-1">Layouts <a class="header-anchor" href="#layouts" aria-label="Permalink to &quot;Layouts {#layouts}&quot;">​</a></h2><p>The <code>layouts</code> portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout names, for example <code>LAYOUT_60_ansi</code> or <code>LAYOUT_60_iso</code>.</p><p>Each key dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Data format for <a href="https://keyboard-layout-editor.com" target="_blank" rel="noreferrer">Keyboard Layout Editor</a>, you will find many of the concepts the same. Key names and layout choices are reused wherever possible, but unlike KLE each key is stateless, inheriting no properties from the keys that came before it.</p><p>All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.</p><p>The ISO enter key is represented by a 1.25u×2uh key. Renderers which utilize info.json layout data (such as <code>qmk info -l</code> and the QMK Configurator) should display this key as expected.</p>', 5)),
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
         _cache[404] || (_cache[404] = createBaseVNode("code", null, "community_layouts", -1)),
@@ -2029,7 +2029,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
           ])]),
           _: 1
         }),
-        _cache[410] || (_cache[410] = createStaticVNode("", 2))
+        _cache[410] || (_cache[410] = createStaticVNode('<ul><li>A mapping of layout aliases to layout definitions.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;LAYOUT_ansi&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;LAYOUT_60_ansi&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;LAYOUT_iso&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;LAYOUT_60_iso&quot;</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2))
       ]),
       createBaseVNode("li", null, [
         _cache[471] || (_cache[471] = createBaseVNode("code", null, "layouts", -1)),
@@ -2273,7 +2273,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1138] || (_cache[1138] = createBaseVNode("h2", {
+    _cache[1147] || (_cache[1147] = createBaseVNode("h2", {
       id: "leader-key",
       tabindex: "-1"
     }, [
@@ -2284,7 +2284,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Leader Key {#leader-key}"'
       }, "​")
     ], -1)),
-    _cache[1139] || (_cache[1139] = createBaseVNode("p", null, [
+    _cache[1148] || (_cache[1148] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/leader_key" }, "Leader Key"),
       createTextVNode(" feature.")
@@ -2352,7 +2352,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1140] || (_cache[1140] = createBaseVNode("h2", {
+    _cache[1149] || (_cache[1149] = createBaseVNode("h2", {
       id: "led-matrix",
       tabindex: "-1"
     }, [
@@ -2363,7 +2363,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "LED Matrix {#led-matrix}"'
       }, "​")
     ], -1)),
-    _cache[1141] || (_cache[1141] = createBaseVNode("p", null, [
+    _cache[1150] || (_cache[1150] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/led_matrix" }, "LED Matrix"),
       createTextVNode(" feature.")
@@ -2381,7 +2381,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[489] || (_cache[489] = createStaticVNode("", 2))
+            _cache[489] || (_cache[489] = createStaticVNode('<ul><li>A dictionary of effects to enable or disable. Effects which are absent default to <code>false</code>.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;alphas_mods&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;breathing&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;cycle_left_right&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2))
           ]),
           createBaseVNode("li", null, [
             _cache[491] || (_cache[491] = createBaseVNode("code", null, "center_point", -1)),
@@ -2526,7 +2526,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[524] || (_cache[524] = createStaticVNode("", 1))
+            _cache[524] || (_cache[524] = createStaticVNode("<ul><li>The driver to use. Must be one of <code>custom</code>, <code>is31fl3218</code>, <code>is31fl3731</code>, <code>is31fl3733</code>, <code>is31fl3736</code>, <code>is31fl3737</code>, <code>is31fl3741</code>, <code>is31fl3742a</code>, <code>is31fl3743a</code>, <code>is31fl3745</code>, <code>is31fl3746a</code>, <code>snled27351</code>.</li></ul>", 1))
           ]),
           createBaseVNode("li", null, [
             _cache[551] || (_cache[551] = createBaseVNode("code", null, "layout", -1)),
@@ -2790,7 +2790,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1142] || (_cache[1142] = createBaseVNode("h2", {
+    _cache[1151] || (_cache[1151] = createBaseVNode("h2", {
       id: "matrix",
       tabindex: "-1"
     }, [
@@ -2904,7 +2904,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[614] || (_cache[614] = createStaticVNode("", 2))
+            _cache[614] || (_cache[614] = createStaticVNode('<ul><li>A 2-dimensional list of GPIO pins connected to each keyswitch, forming the &quot;matrix&quot; rows and columns.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">[</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;A0&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;A1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;A2&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">],</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;B0&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;B1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;B2&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">],</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    [</span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;C0&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;C1&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">, </span><span style="--shiki-light:#032F62;--shiki-dark:#9ECBFF;">&quot;C2&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">]</span></span></code></pre></div>', 2))
           ]),
           createBaseVNode("li", null, [
             _cache[616] || (_cache[616] = createBaseVNode("code", null, "ghost", -1)),
@@ -2996,7 +2996,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1143] || (_cache[1143] = createBaseVNode("h2", {
+    _cache[1152] || (_cache[1152] = createBaseVNode("h2", {
       id: "mouse-keys",
       tabindex: "-1"
     }, [
@@ -3007,7 +3007,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Mouse Keys {#mouse-keys}"'
       }, "​")
     ], -1)),
-    _cache[1144] || (_cache[1144] = createBaseVNode("p", null, [
+    _cache[1153] || (_cache[1153] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/mouse_keys" }, "Mouse Keys"),
       createTextVNode(" feature.")
@@ -3086,7 +3086,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1145] || (_cache[1145] = createBaseVNode("h2", {
+    _cache[1154] || (_cache[1154] = createBaseVNode("h2", {
       id: "one-shot",
       tabindex: "-1"
     }, [
@@ -3097,7 +3097,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "One Shot {#one-shot}"'
       }, "​")
     ], -1)),
-    _cache[1146] || (_cache[1146] = createBaseVNode("p", null, [
+    _cache[1155] || (_cache[1155] = createBaseVNode("p", null, [
       createTextVNode("Configures "),
       createBaseVNode("a", { href: "./one_shot_keys" }, "One Shot keys"),
       createTextVNode(".")
@@ -3135,7 +3135,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1147] || (_cache[1147] = createBaseVNode("h2", {
+    _cache[1156] || (_cache[1156] = createBaseVNode("h2", {
       id: "ps2",
       tabindex: "-1"
     }, [
@@ -3146,7 +3146,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "PS/2 {#ps2}"'
       }, "​")
     ], -1)),
-    _cache[1148] || (_cache[1148] = createBaseVNode("p", null, [
+    _cache[1157] || (_cache[1157] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/ps2_mouse" }, "PS/2"),
       createTextVNode(" feature.")
@@ -3253,7 +3253,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1149] || (_cache[1149] = createBaseVNode("h2", {
+    _cache[1158] || (_cache[1158] = createBaseVNode("h2", {
       id: "qmk-lufa-bootloader",
       tabindex: "-1"
     }, [
@@ -3345,7 +3345,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1150] || (_cache[1150] = createBaseVNode("h2", {
+    _cache[1159] || (_cache[1159] = createBaseVNode("h2", {
       id: "rgblight",
       tabindex: "-1"
     }, [
@@ -3356,7 +3356,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "RGBLight {#rgblight}"'
       }, "​")
     ], -1)),
-    _cache[1151] || (_cache[1151] = createBaseVNode("p", null, [
+    _cache[1160] || (_cache[1160] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/rgblight" }, "RGB Lighting"),
       createTextVNode(" feature.")
@@ -3394,7 +3394,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[716] || (_cache[716] = createStaticVNode("", 2))
+            _cache[716] || (_cache[716] = createStaticVNode('<ul><li>A dictionary of effects to enable or disable. Effects which are absent default to <code>false</code>.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;breathing&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;rainbow_mood&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;snake&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2))
           ]),
           createBaseVNode("li", null, [
             _cache[718] || (_cache[718] = createBaseVNode("code", null, "brightness_steps", -1)),
@@ -3730,7 +3730,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1152] || (_cache[1152] = createBaseVNode("h2", {
+    _cache[1161] || (_cache[1161] = createBaseVNode("h2", {
       id: "rgb-matrix",
       tabindex: "-1"
     }, [
@@ -3741,7 +3741,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "RGB Matrix {#rgb-matrix}"'
       }, "​")
     ], -1)),
-    _cache[1153] || (_cache[1153] = createBaseVNode("p", null, [
+    _cache[1162] || (_cache[1162] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/rgb_matrix" }, "RGB Matrix"),
       createTextVNode(" feature.")
@@ -3759,7 +3759,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[795] || (_cache[795] = createStaticVNode("", 2))
+            _cache[795] || (_cache[795] = createStaticVNode('<ul><li>A dictionary of effects to enable or disable. Effects which are absent default to <code>false</code>.</li><li>Example:</li></ul><div class="language-json vp-adaptive-theme"><button title="Copy Code" class="copy"></button><span class="lang">json</span><pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">{</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;alphas_mods&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;breathing&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">true</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">,</span></span>\n<span class="line"><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">    &quot;cycle_left_right&quot;</span><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">: </span><span style="--shiki-light:#005CC5;--shiki-dark:#79B8FF;">false</span></span>\n<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></div>', 2))
           ]),
           createBaseVNode("li", null, [
             _cache[797] || (_cache[797] = createBaseVNode("code", null, "center_point", -1)),
@@ -3938,7 +3938,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
               ])]),
               _: 1
             }),
-            _cache[838] || (_cache[838] = createStaticVNode("", 1))
+            _cache[838] || (_cache[838] = createStaticVNode("<ul><li>The driver to use. Must be one of <code>aw20216s</code>, <code>custom</code>, <code>is31fl3218</code>, <code>is31fl3236</code>, <code>is31fl3729</code>, <code>is31fl3731</code>, <code>is31fl3733</code>, <code>is31fl3736</code>, <code>is31fl3737</code>, <code>is31fl3741</code>, <code>is31fl3742a</code>, <code>is31fl3743a</code>, <code>is31fl3745</code>, <code>is31fl3746a</code>, <code>snled27351</code>, <code>ws2812</code>.</li></ul>", 1))
           ]),
           createBaseVNode("li", null, [
             _cache[840] || (_cache[840] = createBaseVNode("code", null, "hue_steps", -1)),
@@ -4236,7 +4236,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1154] || (_cache[1154] = createBaseVNode("h2", {
+    _cache[1163] || (_cache[1163] = createBaseVNode("h2", {
       id: "secure",
       tabindex: "-1"
     }, [
@@ -4247,7 +4247,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Secure {#secure}"'
       }, "​")
     ], -1)),
-    _cache[1155] || (_cache[1155] = createBaseVNode("p", null, [
+    _cache[1164] || (_cache[1164] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/secure" }, "Secure"),
       createTextVNode(" feature.")
@@ -4337,7 +4337,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1156] || (_cache[1156] = createBaseVNode("h2", {
+    _cache[1165] || (_cache[1165] = createBaseVNode("h2", {
       id: "split-keyboard",
       tabindex: "-1"
     }, [
@@ -4348,7 +4348,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Split Keyboard {#split-keyboard}"'
       }, "​")
     ], -1)),
-    _cache[1157] || (_cache[1157] = createBaseVNode("p", null, [
+    _cache[1166] || (_cache[1166] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/split_keyboard" }, "Split Keyboard"),
       createTextVNode(" feature.")
@@ -4357,7 +4357,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
       createBaseVNode("li", null, [
         _cache[1026] || (_cache[1026] = createBaseVNode("code", null, "split", -1)),
         createBaseVNode("ul", null, [
-          _cache[1023] || (_cache[1023] = createStaticVNode("", 2)),
+          _cache[1023] || (_cache[1023] = createStaticVNode('<li><code>bootmagic</code><ul><li><code>matrix</code><ul><li>See <a href="#bootmagic">Bootmagic</a> config.</li></ul></li></ul></li><li><code>dip_switch</code><ul><li><code>right</code><ul><li><code>pins</code><ul><li>See <a href="#dip-switch">DIP Switches</a> config.</li></ul></li></ul></li></ul></li>', 2)),
           createBaseVNode("li", null, [
             _cache[931] || (_cache[931] = createBaseVNode("code", null, "enabled", -1)),
             _cache[932] || (_cache[932] = createTextVNode()),
@@ -4803,7 +4803,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1158] || (_cache[1158] = createBaseVNode("h2", {
+    _cache[1167] || (_cache[1167] = createBaseVNode("h2", {
       id: "stenography",
       tabindex: "-1"
     }, [
@@ -4814,14 +4814,14 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "Stenography {#stenography}"'
       }, "​")
     ], -1)),
-    _cache[1159] || (_cache[1159] = createBaseVNode("p", null, [
+    _cache[1168] || (_cache[1168] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./features/stenography" }, "Stenography"),
       createTextVNode(" feature.")
     ], -1)),
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _cache[1035] || (_cache[1035] = createBaseVNode("code", null, "stenography", -1)),
+        _cache[1044] || (_cache[1044] = createBaseVNode("code", null, "stenography", -1)),
         createBaseVNode("ul", null, [
           createBaseVNode("li", null, [
             _cache[1028] || (_cache[1028] = createBaseVNode("code", null, "enabled", -1)),
@@ -4841,15 +4841,62 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1032] || (_cache[1032] = createBaseVNode("code", null, "protocol", -1)),
+            _cache[1032] || (_cache[1032] = createBaseVNode("code", null, "combined_map", -1)),
             _cache[1033] || (_cache[1033] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
               default: withCtx(() => [..._cache[1031] || (_cache[1031] = [
-                createTextVNode("String", -1)
+                createTextVNode("Boolean", -1)
               ])]),
               _: 1
             }),
             _cache[1034] || (_cache[1034] = createBaseVNode("ul", null, [
+              createBaseVNode("li", null, "Enable the Stenography Combined Map sub-feature."),
+              createBaseVNode("li", null, [
+                createTextVNode("Default: "),
+                createBaseVNode("code", null, "false")
+              ])
+            ], -1))
+          ]),
+          createBaseVNode("li", null, [
+            _cache[1039] || (_cache[1039] = createBaseVNode("code", null, "default", -1)),
+            createBaseVNode("ul", null, [
+              createBaseVNode("li", null, [
+                _cache[1036] || (_cache[1036] = createBaseVNode("code", null, "mode", -1)),
+                _cache[1037] || (_cache[1037] = createTextVNode()),
+                createVNode(_component_Badge, { type: "info" }, {
+                  default: withCtx(() => [..._cache[1035] || (_cache[1035] = [
+                    createTextVNode("String", -1)
+                  ])]),
+                  _: 1
+                }),
+                _cache[1038] || (_cache[1038] = createBaseVNode("ul", null, [
+                  createBaseVNode("li", null, [
+                    createTextVNode("The default mode. Must be one of "),
+                    createBaseVNode("code", null, "geminipr"),
+                    createTextVNode(", "),
+                    createBaseVNode("code", null, "txbolt"),
+                    createTextVNode(".")
+                  ]),
+                  createBaseVNode("li", null, [
+                    createTextVNode("Default: "),
+                    createBaseVNode("code", null, '"geminipr"'),
+                    createTextVNode(" when available, otherwise "),
+                    createBaseVNode("code", null, '"txbolt"')
+                  ])
+                ], -1))
+              ])
+            ])
+          ]),
+          createBaseVNode("li", null, [
+            _cache[1041] || (_cache[1041] = createBaseVNode("code", null, "protocol", -1)),
+            _cache[1042] || (_cache[1042] = createTextVNode()),
+            createVNode(_component_Badge, { type: "info" }, {
+              default: withCtx(() => [..._cache[1040] || (_cache[1040] = [
+                createTextVNode("String", -1)
+              ])]),
+              _: 1
+            }),
+            _cache[1043] || (_cache[1043] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
                 createTextVNode("The Steno protocol to use. Must be one of "),
                 createBaseVNode("code", null, "all"),
@@ -4868,7 +4915,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1160] || (_cache[1160] = createBaseVNode("h2", {
+    _cache[1169] || (_cache[1169] = createBaseVNode("h2", {
       id: "usb",
       tabindex: "-1"
     }, [
@@ -4881,25 +4928,25 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     ], -1)),
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _cache[1083] || (_cache[1083] = createBaseVNode("code", null, "usb", -1)),
+        _cache[1092] || (_cache[1092] = createBaseVNode("code", null, "usb", -1)),
         createBaseVNode("ul", null, [
           createBaseVNode("li", null, [
-            _cache[1038] || (_cache[1038] = createBaseVNode("code", null, "device_version", -1)),
-            _cache[1039] || (_cache[1039] = createTextVNode()),
+            _cache[1047] || (_cache[1047] = createBaseVNode("code", null, "device_version", -1)),
+            _cache[1048] || (_cache[1048] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1036] || (_cache[1036] = [
+              default: withCtx(() => [..._cache[1045] || (_cache[1045] = [
                 createTextVNode("String", -1)
               ])]),
               _: 1
             }),
-            _cache[1040] || (_cache[1040] = createTextVNode()),
+            _cache[1049] || (_cache[1049] = createTextVNode()),
             createVNode(_component_Badge, null, {
-              default: withCtx(() => [..._cache[1037] || (_cache[1037] = [
+              default: withCtx(() => [..._cache[1046] || (_cache[1046] = [
                 createTextVNode("Required", -1)
               ])]),
               _: 1
             }),
-            _cache[1041] || (_cache[1041] = createBaseVNode("ul", null, [
+            _cache[1050] || (_cache[1050] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
                 createTextVNode("A BCD version number in the format "),
                 createBaseVNode("code", null, "MM.m.r"),
@@ -4914,22 +4961,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1044] || (_cache[1044] = createBaseVNode("code", null, "pid", -1)),
-            _cache[1045] || (_cache[1045] = createTextVNode()),
+            _cache[1053] || (_cache[1053] = createBaseVNode("code", null, "pid", -1)),
+            _cache[1054] || (_cache[1054] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1042] || (_cache[1042] = [
+              default: withCtx(() => [..._cache[1051] || (_cache[1051] = [
                 createTextVNode("String", -1)
               ])]),
               _: 1
             }),
-            _cache[1046] || (_cache[1046] = createTextVNode()),
+            _cache[1055] || (_cache[1055] = createTextVNode()),
             createVNode(_component_Badge, null, {
-              default: withCtx(() => [..._cache[1043] || (_cache[1043] = [
+              default: withCtx(() => [..._cache[1052] || (_cache[1052] = [
                 createTextVNode("Required", -1)
               ])]),
               _: 1
             }),
-            _cache[1047] || (_cache[1047] = createBaseVNode("ul", null, [
+            _cache[1056] || (_cache[1056] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "The USB product ID as a four-digit hexadecimal number."),
               createBaseVNode("li", null, [
                 createTextVNode("Example: "),
@@ -4938,22 +4985,22 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1050] || (_cache[1050] = createBaseVNode("code", null, "vid", -1)),
-            _cache[1051] || (_cache[1051] = createTextVNode()),
+            _cache[1059] || (_cache[1059] = createBaseVNode("code", null, "vid", -1)),
+            _cache[1060] || (_cache[1060] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1048] || (_cache[1048] = [
+              default: withCtx(() => [..._cache[1057] || (_cache[1057] = [
                 createTextVNode("String", -1)
               ])]),
               _: 1
             }),
-            _cache[1052] || (_cache[1052] = createTextVNode()),
+            _cache[1061] || (_cache[1061] = createTextVNode()),
             createVNode(_component_Badge, null, {
-              default: withCtx(() => [..._cache[1049] || (_cache[1049] = [
+              default: withCtx(() => [..._cache[1058] || (_cache[1058] = [
                 createTextVNode("Required", -1)
               ])]),
               _: 1
             }),
-            _cache[1053] || (_cache[1053] = createBaseVNode("ul", null, [
+            _cache[1062] || (_cache[1062] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "The USB vendor ID as a four-digit hexadecimal number."),
               createBaseVNode("li", null, [
                 createTextVNode("Example: "),
@@ -4962,15 +5009,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1055] || (_cache[1055] = createBaseVNode("code", null, "max_power", -1)),
-            _cache[1056] || (_cache[1056] = createTextVNode()),
+            _cache[1064] || (_cache[1064] = createBaseVNode("code", null, "max_power", -1)),
+            _cache[1065] || (_cache[1065] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1054] || (_cache[1054] = [
+              default: withCtx(() => [..._cache[1063] || (_cache[1063] = [
                 createTextVNode("Number", -1)
               ])]),
               _: 1
             }),
-            _cache[1057] || (_cache[1057] = createBaseVNode("ul", null, [
+            _cache[1066] || (_cache[1066] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "The maximum current draw the host should expect from the device. This does not control the actual current usage."),
               createBaseVNode("li", null, [
                 createTextVNode("Default: "),
@@ -4980,15 +5027,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1059] || (_cache[1059] = createBaseVNode("code", null, "no_startup_check", -1)),
-            _cache[1060] || (_cache[1060] = createTextVNode()),
+            _cache[1068] || (_cache[1068] = createBaseVNode("code", null, "no_startup_check", -1)),
+            _cache[1069] || (_cache[1069] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1058] || (_cache[1058] = [
+              default: withCtx(() => [..._cache[1067] || (_cache[1067] = [
                 createTextVNode("Boolean", -1)
               ])]),
               _: 1
             }),
-            _cache[1061] || (_cache[1061] = createBaseVNode("ul", null, [
+            _cache[1070] || (_cache[1070] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "Disable USB suspend check after keyboard startup."),
               createBaseVNode("li", null, [
                 createTextVNode("Default: "),
@@ -4997,15 +5044,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1063] || (_cache[1063] = createBaseVNode("code", null, "polling_interval", -1)),
-            _cache[1064] || (_cache[1064] = createTextVNode()),
+            _cache[1072] || (_cache[1072] = createBaseVNode("code", null, "polling_interval", -1)),
+            _cache[1073] || (_cache[1073] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1062] || (_cache[1062] = [
+              default: withCtx(() => [..._cache[1071] || (_cache[1071] = [
                 createTextVNode("Number", -1)
               ])]),
               _: 1
             }),
-            _cache[1065] || (_cache[1065] = createBaseVNode("ul", null, [
+            _cache[1074] || (_cache[1074] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "The frequency at which the host should poll the keyboard for reports."),
               createBaseVNode("li", null, [
                 createTextVNode("Default: "),
@@ -5015,18 +5062,18 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1074] || (_cache[1074] = createBaseVNode("code", null, "shared_endpoint", -1)),
+            _cache[1083] || (_cache[1083] = createBaseVNode("code", null, "shared_endpoint", -1)),
             createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
-                _cache[1067] || (_cache[1067] = createBaseVNode("code", null, "keyboard", -1)),
-                _cache[1068] || (_cache[1068] = createTextVNode()),
+                _cache[1076] || (_cache[1076] = createBaseVNode("code", null, "keyboard", -1)),
+                _cache[1077] || (_cache[1077] = createTextVNode()),
                 createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [..._cache[1066] || (_cache[1066] = [
+                  default: withCtx(() => [..._cache[1075] || (_cache[1075] = [
                     createTextVNode("Boolean", -1)
                   ])]),
                   _: 1
                 }),
-                _cache[1069] || (_cache[1069] = createBaseVNode("ul", null, [
+                _cache[1078] || (_cache[1078] = createBaseVNode("ul", null, [
                   createBaseVNode("li", null, 'Send keyboard reports through the "shared" USB endpoint.'),
                   createBaseVNode("li", null, [
                     createTextVNode("Default: "),
@@ -5035,15 +5082,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
                 ], -1))
               ]),
               createBaseVNode("li", null, [
-                _cache[1071] || (_cache[1071] = createBaseVNode("code", null, "mouse", -1)),
-                _cache[1072] || (_cache[1072] = createTextVNode()),
+                _cache[1080] || (_cache[1080] = createBaseVNode("code", null, "mouse", -1)),
+                _cache[1081] || (_cache[1081] = createTextVNode()),
                 createVNode(_component_Badge, { type: "info" }, {
-                  default: withCtx(() => [..._cache[1070] || (_cache[1070] = [
+                  default: withCtx(() => [..._cache[1079] || (_cache[1079] = [
                     createTextVNode("Boolean", -1)
                   ])]),
                   _: 1
                 }),
-                _cache[1073] || (_cache[1073] = createBaseVNode("ul", null, [
+                _cache[1082] || (_cache[1082] = createBaseVNode("ul", null, [
                   createBaseVNode("li", null, 'Send mouse reports through the "shared" USB endpoint.'),
                   createBaseVNode("li", null, [
                     createTextVNode("Default: "),
@@ -5054,15 +5101,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ])
           ]),
           createBaseVNode("li", null, [
-            _cache[1076] || (_cache[1076] = createBaseVNode("code", null, "suspend_wakeup_delay", -1)),
-            _cache[1077] || (_cache[1077] = createTextVNode()),
+            _cache[1085] || (_cache[1085] = createBaseVNode("code", null, "suspend_wakeup_delay", -1)),
+            _cache[1086] || (_cache[1086] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1075] || (_cache[1075] = [
+              default: withCtx(() => [..._cache[1084] || (_cache[1084] = [
                 createTextVNode("Number", -1)
               ])]),
               _: 1
             }),
-            _cache[1078] || (_cache[1078] = createBaseVNode("ul", null, [
+            _cache[1087] || (_cache[1087] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "The amount of time to wait after sending a wakeup packet, in milliseconds."),
               createBaseVNode("li", null, [
                 createTextVNode("Default: "),
@@ -5072,15 +5119,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1080] || (_cache[1080] = createBaseVNode("code", null, "wait_for_enumeration", -1)),
-            _cache[1081] || (_cache[1081] = createTextVNode()),
+            _cache[1089] || (_cache[1089] = createBaseVNode("code", null, "wait_for_enumeration", -1)),
+            _cache[1090] || (_cache[1090] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1079] || (_cache[1079] = [
+              default: withCtx(() => [..._cache[1088] || (_cache[1088] = [
                 createTextVNode("Boolean", -1)
               ])]),
               _: 1
             }),
-            _cache[1082] || (_cache[1082] = createBaseVNode("ul", null, [
+            _cache[1091] || (_cache[1091] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "Force the keyboard to wait for USB enumeration before starting up."),
               createBaseVNode("li", null, [
                 createTextVNode("Default: "),
@@ -5091,7 +5138,7 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         ])
       ])
     ]),
-    _cache[1161] || (_cache[1161] = createBaseVNode("h2", {
+    _cache[1170] || (_cache[1170] = createBaseVNode("h2", {
       id: "ws2812",
       tabindex: "-1"
     }, [
@@ -5102,43 +5149,43 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
         "aria-label": 'Permalink to "WS2812 {#ws2812}"'
       }, "​")
     ], -1)),
-    _cache[1162] || (_cache[1162] = createBaseVNode("p", null, [
+    _cache[1171] || (_cache[1171] = createBaseVNode("p", null, [
       createTextVNode("Configures the "),
       createBaseVNode("a", { href: "./drivers/ws2812" }, "WS2812"),
       createTextVNode(" driver.")
     ], -1)),
     createBaseVNode("ul", null, [
       createBaseVNode("li", null, [
-        _cache[1106] || (_cache[1106] = createBaseVNode("code", null, "ws2812", -1)),
+        _cache[1115] || (_cache[1115] = createBaseVNode("code", null, "ws2812", -1)),
         createBaseVNode("ul", null, [
           createBaseVNode("li", null, [
-            _cache[1085] || (_cache[1085] = createBaseVNode("code", null, "driver", -1)),
-            _cache[1086] || (_cache[1086] = createTextVNode()),
+            _cache[1094] || (_cache[1094] = createBaseVNode("code", null, "driver", -1)),
+            _cache[1095] || (_cache[1095] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1084] || (_cache[1084] = [
+              default: withCtx(() => [..._cache[1093] || (_cache[1093] = [
                 createTextVNode("String", -1)
               ])]),
               _: 1
             }),
-            _cache[1087] || (_cache[1087] = createStaticVNode("", 1))
+            _cache[1096] || (_cache[1096] = createStaticVNode("<ul><li>The driver to use. Must be one of <code>bitbang</code>, <code>custom</code>, <code>i2c</code>, <code>pwm</code>, <code>spi</code>, <code>vendor</code>.</li><li>Default: <code>&quot;bitbang&quot;</code></li></ul>", 1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1090] || (_cache[1090] = createBaseVNode("code", null, "pin", -1)),
-            _cache[1091] || (_cache[1091] = createTextVNode()),
+            _cache[1099] || (_cache[1099] = createBaseVNode("code", null, "pin", -1)),
+            _cache[1100] || (_cache[1100] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1088] || (_cache[1088] = [
+              default: withCtx(() => [..._cache[1097] || (_cache[1097] = [
                 createTextVNode("Pin", -1)
               ])]),
               _: 1
             }),
-            _cache[1092] || (_cache[1092] = createTextVNode()),
+            _cache[1101] || (_cache[1101] = createTextVNode()),
             createVNode(_component_Badge, null, {
-              default: withCtx(() => [..._cache[1089] || (_cache[1089] = [
+              default: withCtx(() => [..._cache[1098] || (_cache[1098] = [
                 createTextVNode("Required", -1)
               ])]),
               _: 1
             }),
-            _cache[1093] || (_cache[1093] = createBaseVNode("ul", null, [
+            _cache[1102] || (_cache[1102] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
                 createTextVNode("The GPIO pin connected to "),
                 createBaseVNode("code", null, "DI"),
@@ -5155,15 +5202,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1095] || (_cache[1095] = createBaseVNode("code", null, "i2c_address", -1)),
-            _cache[1096] || (_cache[1096] = createTextVNode()),
+            _cache[1104] || (_cache[1104] = createBaseVNode("code", null, "i2c_address", -1)),
+            _cache[1105] || (_cache[1105] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1094] || (_cache[1094] = [
+              default: withCtx(() => [..._cache[1103] || (_cache[1103] = [
                 createTextVNode("String", -1)
               ])]),
               _: 1
             }),
-            _cache[1097] || (_cache[1097] = createBaseVNode("ul", null, [
+            _cache[1106] || (_cache[1106] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
                 createTextVNode("The I²C address of the WS2812 controller ("),
                 createBaseVNode("code", null, "i2c"),
@@ -5176,15 +5223,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1099] || (_cache[1099] = createBaseVNode("code", null, "i2c_timeout", -1)),
-            _cache[1100] || (_cache[1100] = createTextVNode()),
+            _cache[1108] || (_cache[1108] = createBaseVNode("code", null, "i2c_timeout", -1)),
+            _cache[1109] || (_cache[1109] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1098] || (_cache[1098] = [
+              default: withCtx(() => [..._cache[1107] || (_cache[1107] = [
                 createTextVNode("Number", -1)
               ])]),
               _: 1
             }),
-            _cache[1101] || (_cache[1101] = createBaseVNode("ul", null, [
+            _cache[1110] || (_cache[1110] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, [
                 createTextVNode("The I²C timeout in milliseconds ("),
                 createBaseVNode("code", null, "i2c"),
@@ -5198,15 +5245,15 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
             ], -1))
           ]),
           createBaseVNode("li", null, [
-            _cache[1103] || (_cache[1103] = createBaseVNode("code", null, "rgbw", -1)),
-            _cache[1104] || (_cache[1104] = createTextVNode()),
+            _cache[1112] || (_cache[1112] = createBaseVNode("code", null, "rgbw", -1)),
+            _cache[1113] || (_cache[1113] = createTextVNode()),
             createVNode(_component_Badge, { type: "info" }, {
-              default: withCtx(() => [..._cache[1102] || (_cache[1102] = [
+              default: withCtx(() => [..._cache[1111] || (_cache[1111] = [
                 createTextVNode("Boolean", -1)
               ])]),
               _: 1
             }),
-            _cache[1105] || (_cache[1105] = createBaseVNode("ul", null, [
+            _cache[1114] || (_cache[1114] = createBaseVNode("ul", null, [
               createBaseVNode("li", null, "Enable RGBW LEDs."),
               createBaseVNode("li", null, [
                 createTextVNode("Default: "),

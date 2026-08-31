@@ -3,7 +3,7 @@ const __pageData = JSON.parse('{"title":"Community Modules","description":"","fr
 const _sfc_main = { name: "features/community_modules.md" };
 function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createElementBlock("div", null, [..._cache[0] || (_cache[0] = [
-    createStaticVNode("", 53)
+    createStaticVNode("", 58)
   ])]);
 }
 const community_modules = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]);
