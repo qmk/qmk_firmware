@@ -107,30 +107,42 @@ void backlight_toggle(void) {
 
 /** \brief Enable backlight
  *
- * FIXME: needs doc
+ *  FIXME: needs doc
  */
-void backlight_enable(void) {
+void backlight_enable_noeeprom(void) {
     if (backlight_config.enable) return; // do nothing if backlight is already on
 
     backlight_config.enable = true;
     if (backlight_config.raw == 1) // enabled but level == 0
         backlight_config.level = 1;
-    eeconfig_update_backlight(&backlight_config);
     dprintf("backlight enable\n");
     backlight_set(backlight_config.level);
 }
 
+void backlight_enable(void) {
+    if (backlight_config.enable) return; // do nothing if backlight is already on
+
+    backlight_enable_noeeprom();
+    eeconfig_update_backlight(&backlight_config);
+}
+
 /** \brief Disable backlight
  *
- * FIXME: needs doc
+ *  FIXME: needs doc
  */
-void backlight_disable(void) {
+void backlight_disable_noeeprom(void) {
     if (!backlight_config.enable) return; // do nothing if backlight is already off
 
     backlight_config.enable = false;
-    eeconfig_update_backlight(&backlight_config);
     dprintf("backlight disable\n");
     backlight_set(0);
+}
+
+void backlight_disable(void) {
+    if (!backlight_config.enable) return; // do nothing if backlight is already off
+
+    backlight_disable_noeeprom();
+    eeconfig_update_backlight(&backlight_config);
 }
 
 /** /brief Get the backlight status

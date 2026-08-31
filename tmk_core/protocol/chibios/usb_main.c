@@ -489,6 +489,12 @@ void send_digitizer(report_digitizer_t *report) {
 #endif
 }
 
+void send_plover_hid(report_plover_hid_t *report) {
+#ifdef PLOVER_HID_ENABLE
+    send_report(USB_ENDPOINT_IN_PLOVER_HID, report, sizeof(report_plover_hid_t));
+#endif
+}
+
 /* ---------------------------------------------------------
  *                   Console functions
  * ---------------------------------------------------------
@@ -578,8 +584,9 @@ __attribute__((weak)) void virtser_recv(uint8_t c) {
 
 void virtser_task(void) {
     uint8_t buffer[CDC_EPSIZE];
-    while (receive_report(USB_ENDPOINT_OUT_CDC_DATA, buffer, sizeof(buffer))) {
-        for (int i = 0; i < sizeof(buffer); i++) {
+    size_t  received;
+    while ((received = usb_endpoint_out_receive_bytes(&usb_endpoints_out[USB_ENDPOINT_OUT_CDC_DATA], buffer, sizeof(buffer), TIME_IMMEDIATE)) > 0) {
+        for (size_t i = 0; i < received; i++) {
             virtser_recv(buffer[i]);
         }
     }

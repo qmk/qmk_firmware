@@ -45,6 +45,10 @@ uint16_t get_last_keycode(void) {
     return last_record.keycode;
 }
 
+const keyrecord_t* get_last_record(void) {
+    return &last_record;
+}
+
 uint8_t get_last_mods(void) {
     return last_mods;
 }
