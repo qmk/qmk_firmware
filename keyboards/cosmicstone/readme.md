@@ -4,9 +4,9 @@
 
 Cosmicstone is my personal tailored split keyboard.
 It is powered by the powerful QMK firmware.
-Designed in Cosmos Keyboard Generator, inspired by Charybdis.
+Designed in [Cosmos Keyboard Generator](https://github.com/tomasz-lech/cosmos), inspired by [Charybdis](https://github.com/qmk/qmk_firmware/tree/master/keyboards/bastardkb/charybdis).
 
-It features a split ergonomic design, a thumb-cluster trackball, a rotary encoder and an OLED screen.
+It features a split ergonomic design, a thumb-cluster trackball, a rotary encoder, an OLED screen and hotswap sockets.
 
 Cosmicstone was born from the necessity of building a custom ergonomic split keeb, comfortable for my hand size, and my taste adapted to the Thinkpad Trackpoint.
 Trackball functions are inherited from the Charybdis source and integrated in the keymap.
