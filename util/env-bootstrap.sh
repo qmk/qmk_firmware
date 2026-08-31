@@ -43,6 +43,49 @@
     # corrupt captured output and break pattern matching throughout this script.
     unset GREP_OPTIONS GREP_COLOR GREP_COLORS
 
+    # Force the C locale so `tr`/`grep`/`sed`/`sort` behave the same on every
+    # system, and clear other variables which alter tool behavior.
+    export LC_ALL=C
+    unset CDPATH POSIXLY_CORRECT TAR_OPTIONS
+
+    # Drop out of any inherited Python venv; `deactivate` doesn't exist in this
+    # process, so strip its $PATH entries and marker variables by hand.
+    if [ -n "${VIRTUAL_ENV:-}" ]; then
+        clean_path=''
+        old_ifs="${IFS}"
+        IFS=':'
+        for path_entry in $PATH; do
+            case "$path_entry" in
+                "$VIRTUAL_ENV"/bin | "$VIRTUAL_ENV"/Scripts) ;;
+                *) clean_path="${clean_path:+${clean_path}:}${path_entry}" ;;
+            esac
+        done
+        IFS="${old_ifs}"
+        PATH="${clean_path}"
+        export PATH
+        unset VIRTUAL_ENV VIRTUAL_ENV_PROMPT clean_path old_ifs path_entry
+    fi
+
+    # Wipe all PYTHON* variables (keeping PYTHON_TARGET_VERSION, which this
+    # script uses) so the user's Python settings can't leak into the
+    # interpreters and builds managed by `uv`.
+    saved_python_target_version="${PYTHON_TARGET_VERSION:-}"
+    for env_var_name in $(env | LC_ALL=C sed -n 's/^\(PYTHON[A-Za-z0-9_]*\)=.*/\1/p'); do
+        unset "$env_var_name" 2>/dev/null || true
+    done
+    [ -z "$saved_python_target_version" ] || export PYTHON_TARGET_VERSION="$saved_python_target_version"
+    unset saved_python_target_version env_var_name
+    export PYTHONNOUSERSITE=1
+
+    # Clear conda/pip/uv overrides which would affect dependency resolution or
+    # builds; proxy, TLS, and index/mirror variables stay for corporate networks.
+    unset CONDA_PREFIX CONDA_DEFAULT_ENV
+    unset PIP_REQUIRE_VIRTUALENV PIP_TARGET PIP_PREFIX PIP_USER
+    unset SETUPTOOLS_USE_DISTUTILS
+    unset UV_NO_BUILD_ISOLATION UV_OFFLINE UV_NO_INDEX \
+          UV_CONSTRAINT UV_BUILD_CONSTRAINT UV_OVERRIDE \
+          UV_SYSTEM_PYTHON UV_NO_MANAGED_PYTHON
+
     BOOTSTRAP_TMPDIR="$(mktemp -d /tmp/qmk-bootstrap-failure.XXXXXX)"
     trap 'rm -rf "$BOOTSTRAP_TMPDIR" >/dev/null 2>&1 || true' EXIT
     FAILURE_FILE="${BOOTSTRAP_TMPDIR}/fail"
@@ -600,7 +643,7 @@ __EOT__
     setup_paths
 
     # Work out where we want to install the distribution and tools now that `uv` is installed
-    export QMK_DISTRIB_DIR="$(posix_ish_path "${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv_command run --quiet --python $PYTHON_TARGET_VERSION --with platformdirs -)}")"
+    export QMK_DISTRIB_DIR="$(posix_ish_path "${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv_command run --quiet --no-project --python $PYTHON_TARGET_VERSION --with platformdirs -)}")"
 
     # Clear out the distrib directory if necessary
     if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK_FLASHUTILS:-}" ]; then
