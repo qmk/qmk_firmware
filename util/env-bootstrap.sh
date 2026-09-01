@@ -655,6 +655,13 @@ __EOT__
     # Work out where we want to install the distribution and tools now that `uv` is installed
     export QMK_DISTRIB_DIR="$(posix_ish_path "${QMK_DISTRIB_DIR:-$(printf 'import platformdirs\nprint(platformdirs.user_data_dir("qmk"))' | uv_command run --quiet --no-project --python $PYTHON_TARGET_VERSION --with platformdirs -)}")"
 
+    # `export` masks any failure of the `uv` invocation above, so bail out here
+    # rather than continue with an empty directory.
+    if [ -z "$QMK_DISTRIB_DIR" ]; then
+        echo "Could not determine the QMK distribution directory." >&2
+        exit 1
+    fi
+
     # Clear out the distrib directory if necessary
     if [ -z "${SKIP_CLEAN:-}" ] || [ -z "${SKIP_QMK_TOOLCHAINS:-}" -a -z "${SKIP_QMK_FLASHUTILS:-}" ]; then
         if [ -d "$QMK_DISTRIB_DIR" ]; then
