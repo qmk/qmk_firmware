@@ -99,7 +99,7 @@ jobs:
                   zypper --non-interactive install sudo git shadow findutils tar  # findutils=xargs
                   ;;
                 *gentoo*)
-                  emaint sync -a || emerge --sync || emerge-webrsync
+                  emaint sync -a || emerge --sync --quiet || emerge-webrsync -q
                   emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
                   ;;
                 *archlinux*|*cachyos*|*manjaro*)
@@ -200,6 +200,13 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Install base dependencies
+        run: |
+          # Attempt to run the brew update up to 10 times to mitigate transient issues
+          for n in $(seq 1 10); do
+            brew update || { brew update-reset && brew update ; }
+          done
+
       - name: Checkout repository
         uses: actions/checkout@v7
         with:
