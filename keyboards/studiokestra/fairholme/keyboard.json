@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -23,8 +21,7 @@
         "vid": "0x7C10"
     },
     "indicators": {
-        "caps_lock": "B10",
-        "on_state": 1
+        "caps_lock": "B10"
     },
     "community_layouts": ["60_ansi", "60_ansi_split_bs_rshift", "60_ansi_tsangan", "60_ansi_tsangan_split_bs_rshift", "60_ansi_wkl", "60_ansi_wkl_split_bs_rshift", "60_hhkb", "60_iso", "60_iso_split_bs_rshift", "60_iso_tsangan", "60_iso_tsangan_split_bs_rshift", "60_iso_wkl", "60_iso_wkl_split_bs_rshift"],
     "layouts": {

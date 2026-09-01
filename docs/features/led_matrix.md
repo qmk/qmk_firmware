@@ -24,15 +24,63 @@ LED Matrix is an abstraction layer on top of an underlying LED driver API. The l
 |[IS31FL3746A](../drivers/is31fl3746a)|72      |
 |[SNLED27351](../drivers/snled27351)  |192     |
 
-To assign the LED Matrix driver, add the following to your `rules.mk`, for example:
+To assign the LED Matrix driver, add the following to your keyboard config, for example:
+
+:::::tabs
+
+==== `JSON`
+
+```json
+    "led_matrix": {
+      "driver": "is31fl3218"
+    }
+```
+
+==== `rules.mk`
 
 ```make
 LED_MATRIX_DRIVER = is31fl3218
 ```
 
+:::::
+
 ## Common Configuration {#common-configuration}
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
+
+:::::tabs
+
+==== `JSON`
+
+```json
+    "led_matrix": {
+        "layout": [
+            {"matrix": [0, 3], "x": 188, "y": 16, "flags": 1},
+            {"matrix": [1, 3], "x": 187, "y": 48, "flags": 4},
+            {"matrix": [2, 3], "x": 147, "y": 64, "flags": 4},
+            {"matrix": [2, 0], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [1, 0], "x": 37, "y": 48, "flags": 4},
+            {"matrix": [0, 0], "x": 38, "y": 16, "flags": 1}
+        ]
+    }
+```
+
+The first part, `matrix`, tells the system what key this LED represents using the key's electrical matrix row & col.  This part is optional, if the LED doesn't correspond to a switch (such as underglow leds).
+
+The second and third parts represents the LED's physical `x, y` position on the keyboard. The default expected range of values for `x` is `0-224`, and the default expected range of values for `y` is `0-64`.  This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position:
+
+```c
+x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
+y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
+```
+
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
+
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `led_matrix.center_point = [ 112,  32 ]` in their json with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `x, y` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
+
+The last value `flags` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
+
+==== `<keyboard>.c`
 
 ```c
 led_config_t g_led_config = { {
@@ -63,6 +111,8 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
 
+:::::
+
 ## Flags {#flags}
 
 |Define                      |Value |Description                                      |
@@ -88,6 +138,8 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`QK_LED_MATRIX_BRIGHTNESS_DOWN`|`LM_BRID`|Decrease the brightness level      |
 |`QK_LED_MATRIX_SPEED_UP`       |`LM_SPDU`|Increase the animation speed       |
 |`QK_LED_MATRIX_SPEED_DOWN`     |`LM_SPDD`|Decrease the animation speed       |
+|`QK_LED_MATRIX_FLAG_NEXT`      |`LM_FLGN`|Cycle through flags                |
+|`QK_LED_MATRIX_FLAG_PREVIOUS`  |`LM_FLGP`|Cycle through flags in reverse     |
 
 ## LED Matrix Effects {#led-matrix-effects}
 
@@ -117,12 +169,75 @@ enum led_matrix_effects {
     LED_MATRIX_SOLID_MULTISPLASH,        // Value pulses away from multiple key hits then fades out
     LED_MATRIX_WAVE_LEFT_RIGHT,           // Sine wave scrolling from left to right
     LED_MATRIX_WAVE_UP_DOWN,              // Sine wave scrolling from up to down
+    LED_MATRIX_TYPING_HEATMAP,            // How hot is your WPM!
     LED_MATRIX_EFFECT_MAX
 };
 ```
 
-You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `config.h`:
+:::::tabs
 
+==== `JSON`
+
+You can enable a single effect by setting it true in the `led_matrix.animations` section in your json:
+
+```json
+    "led_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "breathing": true,
+            "band": true,
+            "band_pinwheel": true,
+            "band_spiral": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_out_in": true,
+            "dual_beacon": true,  
+            "wave_left_right": true,
+            "wave_up_down": true,          
+        }
+    },
+```
+
+**Framebuffer effects**
+
+```json
+    "led_matrix": {
+        "animations": {
+            "typing_heatmap": true,
+        }
+    }
+```
+
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
+
+**Reactive effects**
+
+```json
+    "led_matrix": {
+        "animations": {
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+        }
+    }
+```
+
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
+
+==== `config.h`
+
+You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `config.h`:
 
 |Define                                                 |Description                                   |
 |-------------------------------------------------------|----------------------------------------------|
@@ -137,6 +252,14 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_LED_MATRIX_DUAL_BEACON`                |Enables `LED_MATRIX_DUAL_BEACON`              |
 |`#define ENABLE_LED_MATRIX_WAVE_LEFT_RIGHT`            |Enables `LED_MATRIX_WAVE_LEFT_RIGHT`          |
 |`#define ENABLE_LED_MATRIX_WAVE_UP_DOWN`               |Enables `LED_MATRIX_WAVE_UP_DOWN`             |
+
+|Framebuffer Defines                                   |Description                                    |
+|------------------------------------------------------|-----------------------------------------------|
+|`#define ENABLE_LED_MATRIX_TYPING_HEATMAP`            |Enables `LED_MATRIX_TYPING_HEATMAP`            |
+
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
 
 |Reactive Defines                                       |Description                                   |
 |-------------------------------------------------------|----------------------------------------------|
@@ -153,6 +276,44 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 ::: tip
 These modes introduce additional logic that can increase firmware size.
 :::
+
+:::::
+
+### LED Matrix Effect Typing Heatmap {#led-matrix-effect-typing-heatmap}
+
+This effect will scale the LED matrix brightness according to a heatmap of recently pressed keys. Whenever a key is pressed its "temperature" increases as well as that of its neighboring keys. The temperature of each key is then decreased automatically every 25 milliseconds by default.
+
+In order to change the delay of temperature decrease define `LED_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS`:
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 50
+```
+
+As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
+
+Limit the distance the effect spreads to surrounding keys.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_SPREAD 40
+```
+
+Limit how hot surrounding keys get from each press.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_AREA_LIMIT 16
+```
+
+Remove the spread effect entirely.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_SLIM
+```
+
+It's also possible to adjust the tempo of *heating up*. It's defined as the number of steps by which to increment the brightness. Decreasing this value increases the number of keystrokes needed to fully heat up the key.
+
+```c
+#define LED_MATRIX_TYPING_HEATMAP_INCREASE_STEP 32
+```
 
 ## Custom LED Matrix Effects {#custom-led-matrix-effects}
 
@@ -214,7 +375,78 @@ led_matrix_mode(LED_MATRIX_CUSTOM_my_cool_effect);
 For inspiration and examples, check out the built-in effects under `quantum/led_matrix/animations/`.
 
 
-## Additional `config.h` Options {#additional-configh-options}
+## Naming
+
+If you wish to be able to use the name of an effect in your code -- say for a display indicator -- then you can enable the function `led_matrix_get_mode_name` in the following manner:
+
+In your keymap's `config.h`:
+```c
+#define LED_MATRIX_MODE_NAME_ENABLE
+```
+
+In your `keymap.c`
+```c
+const char* effect_name = led_matrix_get_mode_name(led_matrix_get_mode());
+// do something with `effect_name`, like `oled_write_ln(effect_name, false);`
+```
+
+::: info
+`led_matrix_get_mode_name()` is not enabled by default as it increases the amount of flash memory used by the firmware based on the number of effects enabled.
+:::
+
+## Additional Configuration Options {#additional-configh-options}
+
+```c
+#define LED_MATRIX_MODE_NAME_ENABLE // enables led_matrix_get_mode_name()
+```
+
+:::::tabs
+
+==== `JSON`
+
+```json
+    "led_matrix": {
+        "default": {
+            // Sets the default enabled state, if none has been set
+            "on": true, 
+            // Sets the default mode, if none has been set
+            "animation": "solid", 
+            // Sets the default brightness value, if none has been set
+            "val": 127, 
+            // Sets the default speed, if none has been set
+            "speed": 127, 
+            // Sets the default flag, if none has been set
+            "flags": 255 
+        },
+        // Sets the flags which can be cycled through
+        "flag_steps": [ 
+            // LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_NONE
+            255, 5, 0  
+        ],
+        // limits max brightness of leds
+        "max_brightness": 255, 
+        // number of milliseconds to wait until led automatically turns off
+        "timeout": 0, 
+        // The value by which to increment the brightness per adjustment action
+        "val_steps": 16, 
+        // The value by which to increment the animation speed per adjustment action
+        "speed_steps": 16, 
+        // limits in milliseconds how frequently an animation will update the LEDs. 
+        // 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
+        "led_flush_limit": 16, 
+        // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+        "led_process_limit": 15, 
+        // reactive effects respond to keyreleases (instead of keypresses)
+        "react_on_keyup": true,  
+        // turn off effects when suspended
+        "sleep": true,  
+        // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
+        // If reactive effects are enabled, you also will want to enable split.transport.sync.matrix_state
+        "split_count": [X, Y],  
+    }
+```
+
+==== `config.h`
 
 ```c
 #define LED_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
@@ -227,10 +459,15 @@ For inspiration and examples, check out the built-in effects under `quantum/led_
 #define LED_MATRIX_DEFAULT_MODE LED_MATRIX_SOLID // Sets the default mode, if none has been set
 #define LED_MATRIX_DEFAULT_VAL LED_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define LED_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
+#define LED_MATRIX_VAL_STEP 8 // The value by which to increment the brightness per adjustment action
+#define LED_MATRIX_SPD_STEP 16 // The value by which to increment the animation speed per adjustment action
 #define LED_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
 #define LED_MATRIX_SPLIT { X, Y }   // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
                                     // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+#define LED_MATRIX_FLAG_STEPS { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_NONE } // Sets the flags which can be cycled through.
 ```
+
+:::::
 
 ## EEPROM storage {#eeprom-storage}
 
@@ -479,6 +716,62 @@ Get the current effect speed.
 #### Return Value {#api-led-matrix-get-speed-return}
 
 The current effect speed, from 0 to 255.
+
+---
+
+### `void led_matrix_set_flags(led_flags_t flags)` {#api-led-matrix-set-flags}
+
+Set the global effect flags.
+
+#### Arguments {#api-led-matrix-set-flags-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void led_matrix_set_flags_noeeprom(led_flags_t flags)` {#api-led-matrix-set-flags-noeeprom}
+
+Set the global effect flags. New state is not written to EEPROM.
+
+#### Arguments {#api-led-matrix-set-flags-noeeprom-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void led_matrix_flags_step(void)` {#api-led-matrix-flags-step}
+
+Move to the next flag combination.
+
+---
+
+### `void led_matrix_flags_step_noeeprom(void)` {#api-led-matrix-flags-step-noeeprom}
+
+Move to the next flag combination. New state is not written to EEPROM.
+
+---
+
+### `void led_matrix_flags_step_reverse(void)` {#api-led-matrix-flags-step-reverse}
+
+Move to the previous flag combination.
+
+---
+
+### `void led_matrix_flags_step_reverse_noeeprom(void)` {#api-led-matrix-flags-step-reverse-noeeprom}
+
+Move to the previous flag combination. New state is not written to EEPROM.
+
+---
+
+### `uint8_t led_matrix_get_flags(void)` {#api-led-matrix-get-flags}
+
+Get the current global effect flags.
+
+#### Return Value {#api-led-matrix-get-flags-return}
+
+The current effect [flags](#flags).
 
 ---
 

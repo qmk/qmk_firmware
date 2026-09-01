@@ -10,8 +10,7 @@
     },
     "development_board": "promicro",
     "rgblight": {
-        "sleep": true,
-        "max_brightness": 255
+        "sleep": true
     },
     "tapping": {
         "tap_keycode_delay": 10,

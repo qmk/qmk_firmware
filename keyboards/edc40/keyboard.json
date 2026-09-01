@@ -1,7 +1,6 @@
 {
     "keyboard_name": "edc40",
     "manufacturer": "OJ",
-    "url": "",
     "maintainer": "ojthetiny",
     "usb": {
         "vid": "0x4F4A",
@@ -11,7 +10,6 @@
     "features": {
         "bootmagic": true,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

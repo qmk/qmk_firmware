@@ -17,4 +17,3 @@
 #pragma once
 
 #define OLED_DISPLAY_128X64
-#define SPLIT_OLED_ENABLE

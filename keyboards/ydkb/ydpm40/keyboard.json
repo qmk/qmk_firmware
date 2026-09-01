@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false
@@ -17,7 +15,6 @@
         "rows": ["D4", "D5", "D6", "D7"]
     },
     "processor": "atmega328p",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0240",

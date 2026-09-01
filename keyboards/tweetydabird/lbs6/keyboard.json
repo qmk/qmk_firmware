@@ -6,8 +6,6 @@
     "development_board": "promicro",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -39,9 +37,6 @@
     },
     "rgblight": {
         "led_count": 8,
-        "hue_steps": 8,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
         "max_brightness": 200,
         "animations": {
             "alternating": true,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "910",
     "manufacturer": "Switchplate Peripherals",
-    "url": "",
     "maintainer": "MxBluE",
     "usb": {
         "vid": "0x54F3",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

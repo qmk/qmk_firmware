@@ -20,8 +20,7 @@
             "resync": true
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "matrix_pins": {
         "direct": [
             ["C6", "F7", "F6", "F5", "F4"],

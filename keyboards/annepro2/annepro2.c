@@ -48,6 +48,11 @@ ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
 static uint8_t led_enabled = 1;
 #endif
 
+void mcu_reset(void) {
+    __disable_irq();
+    NVIC_SystemReset();
+}
+
 void bootloader_jump(void) {
     // Send msg to shine to boot into IAP
     ap2_set_IAP();

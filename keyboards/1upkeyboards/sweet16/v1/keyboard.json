@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Sweet16",
     "manufacturer": "1up Keyboards",
-    "url": "",
     "maintainer": "skullydazed",
     "usb": {
         "vid": "0x6F75",
@@ -49,8 +48,7 @@
         "rows": ["F4", "F5", "F6", "F7"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT_ortho_4x4": {
             "layout": [

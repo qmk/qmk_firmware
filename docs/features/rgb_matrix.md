@@ -27,15 +27,63 @@ RGB Matrix is an abstraction layer on top of an underlying LED driver API. The l
 |[SNLED27351](../drivers/snled27351)  |64      |
 |[WS2812](../drivers/ws2812)          |?       |
 
-To assign the RGB Matrix driver, add the following to your `rules.mk`, for example:
+To assign the RGB Matrix driver, add the following to your keyboard config, for example:
+
+:::::tabs
+
+==== `JSON`
+
+```json
+    "rgb_matrix": {
+      "driver": "is31fl3218"
+    }
+```
+
+==== `rules.mk`
 
 ```make
 RGB_MATRIX_DRIVER = is31fl3218
 ```
 
+:::::
+
 ## Common Configuration {#common-configuration}
 
 From this point forward the configuration is the same for all the drivers. The `led_config_t` struct provides a key electrical matrix to led index lookup table, what the physical position of each LED is on the board, and what type of key or usage the LED if the LED represents. Here is a brief example:
+
+:::::tabs
+
+==== `JSON`
+
+```json
+    "rgb_matrix": {
+        "layout": [
+            {"matrix": [0, 3], "x": 188, "y": 16, "flags": 1},
+            {"matrix": [1, 3], "x": 187, "y": 48, "flags": 4},
+            {"matrix": [2, 3], "x": 147, "y": 64, "flags": 4},
+            {"matrix": [2, 0], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [1, 0], "x": 37, "y": 48, "flags": 4},
+            {"matrix": [0, 0], "x": 38, "y": 16, "flags": 1}
+        ]
+    }
+```
+
+The first part, `matrix`, tells the system what key this LED represents using the key's electrical matrix row & col.  This part is optional, if the LED doesn't correspond to a switch (such as underglow leds).
+
+The second and third parts represents the LED's physical `x, y` position on the keyboard. The default expected range of values for `x` is `0-224`, and the default expected range of values for `y` is `0-64`.  This default expected range is due to effects that calculate the center of the keyboard for their animations. The easiest way to calculate these positions is imagine your keyboard is a grid, and the top left of the keyboard represents `{ x, y }` coordinate `{ 0, 0 }` and the bottom right of your keyboard represents `{ 224, 64 }`. Using this as a basis, you can use the following formula to calculate the physical position:
+
+```c
+x = 224 / (NUMBER_OF_COLS - 1) * COL_POSITION
+y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
+```
+
+Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
+
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `rgb_matrix.center_point = [ 112,  32 ]` in their json with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `x, y` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
+
+The last value `flags` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
+
+==== `<keyboard>.c`
 
 ```c
 led_config_t g_led_config = { {
@@ -62,9 +110,11 @@ y =  64 / (NUMBER_OF_ROWS - 1) * ROW_POSITION
 
 Where NUMBER_OF_COLS, NUMBER_OF_ROWS, COL_POSITION, & ROW_POSITION are all based on the physical layout of your keyboard, not the electrical layout.
 
-As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `#define RGB_MATRIX_CENTER { 112, 32 }` in their config.h file with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `{ x, y }` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
+As mentioned earlier, the center of the keyboard by default is expected to be `{ 112, 32 }`, but this can be changed if you want to more accurately calculate the LED's physical `{ x, y }` positions. Keyboard designers can implement `rgb_matrix.center_point = [ 112, 32]` in their json (or `#define RGB_MATRIX_CENTER {112, 32}` in their config.h file) with the new center point of the keyboard, or where they want it to be allowing more possibilities for the `x, y` values. Do note that the maximum value for x or y is 255, and the recommended maximum is 224 as this gives animations runoff room before they reset.
 
 `// LED Index to Flag` is a bitmask, whether or not a certain LEDs is of a certain type. It is recommended that LEDs are set to only 1 type.
+
+:::::
 
 ## Flags {#flags}
 
@@ -96,6 +146,8 @@ As mentioned earlier, the center of the keyboard by default is expected to be `{
 |`QK_RGB_MATRIX_VALUE_DOWN`     |`RM_VALD`|Decrease the brightness level      |
 |`QK_RGB_MATRIX_SPEED_UP`       |`RM_SPDU`|Increase the animation speed       |
 |`QK_RGB_MATRIX_SPEED_DOWN`     |`RM_SPDD`|Decrease the animation speed       |
+|`QK_RGB_MATRIX_FLAG_NEXT`      |`RM_FLGN`|Cycle through flags                |
+|`QK_RGB_MATRIX_FLAG_PREVIOUS`  |`RM_FLGP`|Cycle through flags in reverse     |
 
 ## RGB Matrix Effects {#rgb-matrix-effects}
 
@@ -125,13 +177,13 @@ enum rgb_matrix_effects {
     RGB_MATRIX_CYCLE_SPIRAL,        // Full gradient spinning spiral around center of keyboard
     RGB_MATRIX_DUAL_BEACON,         // Full gradient spinning around center of keyboard
     RGB_MATRIX_RAINBOW_BEACON,      // Full tighter gradient spinning around center of keyboard
-    RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halfs of keyboard
+    RGB_MATRIX_RAINBOW_PINWHEELS,   // Full dual gradients spinning two halves of keyboard
     RGB_MATRIX_FLOWER_BLOOMING,     // Full tighter gradient of first half scrolling left to right and second half scrolling right to left
     RGB_MATRIX_RAINDROPS,           // Randomly changes a single key's hue
     RGB_MATRIX_JELLYBEAN_RAINDROPS, // Randomly changes a single key's hue and saturation
-    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight ammount at the same time, then shifts back
-    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight ammount in a wave to the right, then back to the left
-    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight ammount and then back down in a wave to the right
+    RGB_MATRIX_HUE_BREATHING,       // Hue shifts up a slight amount at the same time, then shifts back
+    RGB_MATRIX_HUE_PENDULUM,        // Hue shifts up a slight amount in a wave to the right, then back to the left
+    RGB_MATRIX_HUE_WAVE,            // Hue shifts up a slight amount and then back down in a wave to the right
     RGB_MATRIX_PIXEL_FRACTAL,       // Single hue fractal filled keys pulsing horizontally out to edges
     RGB_MATRIX_PIXEL_FLOW,          // Pulsing RGB flow along LED wiring with random hues
     RGB_MATRIX_PIXEL_RAIN,          // Randomly light keys with random hues
@@ -150,6 +202,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_SOLID_SPLASH,        // Hue & value pulse away from a single key hit then fades value out
     RGB_MATRIX_SOLID_MULTISPLASH,   // Hue & value pulse away from multiple key hits then fades value out
     RGB_MATRIX_STARLIGHT,           // LEDs turn on and off at random at varying brightness, maintaining user set color
+    RGB_MATRIX_STARLIGHT_SMOOTH,    // LEDs slowly increase and decrease in brightness randomly
     RGB_MATRIX_STARLIGHT_DUAL_HUE,  // LEDs turn on and off at random at varying brightness, modifies user set hue by +- 30
     RGB_MATRIX_STARLIGHT_DUAL_SAT,  // LEDs turn on and off at random at varying brightness, modifies user set saturation by +- 30
     RGB_MATRIX_RIVERFLOW,           // Modification to breathing animation, offset's animation depending on key location to simulate a river flowing
@@ -157,8 +210,113 @@ enum rgb_matrix_effects {
 };
 ```
 
-You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `config.h`:
+:::::tabs
 
+==== `JSON`
+
+You can enable a single effect by setting it true in the `rgb_matrix.animations` section in your json:
+
+```json
+    "rgb_matrix": {
+        "animations": {
+            "alphas_mods": true,
+            "gradient_up_down": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multispash": true,
+            "solid_splash": true,
+            "solid_multisplash": true,
+            "starlight": true,
+            "starlight_smooth": true,
+            "starlight_dual_hue": true,
+            "starlight_dual_sat": true,
+            "riverflow": true
+            
+        }
+    },
+```
+
+**Framebuffer effects**
+
+```json
+    "rgb_matrix": {
+        "animations": {
+            "typing_heatmap": true,
+            "digital_rain": true,
+        }
+    }
+```
+
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
+
+**Reactive effects**
+
+```json
+    "rgb_matrix": {
+        "animations": {
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multisplash": true,
+            "solid_splash": true,
+            "solid_multisplash": true
+        }
+    }
+```
+
+
+::: tip
+These modes introduce additional logic that can increase firmware size.
+:::
+
+
+==== `config.h`
+
+You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `config.h`:
 
 |Define                                                |Description                                   |
 |------------------------------------------------------|----------------------------------------------|
@@ -193,6 +351,7 @@ You can enable a single effect by defining `ENABLE_[EFFECT_NAME]` in your `confi
 |`#define ENABLE_RGB_MATRIX_PIXEL_FLOW`                |Enables `RGB_MATRIX_PIXEL_FLOW`               |
 |`#define ENABLE_RGB_MATRIX_PIXEL_RAIN`                |Enables `RGB_MATRIX_PIXEL_RAIN`               |
 |`#define ENABLE_RGB_MATRIX_STARLIGHT`                 |Enables `RGB_MATRIX_STARLIGHT`                |
+|`#define ENABLE_RGB_MATRIX_STARLIGHT_SMOOTH`          |Enables `RGB_MATRIX_STARLIGHT_SMOOTH`         |
 |`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_HUE`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_HUE`       |
 |`#define ENABLE_RGB_MATRIX_STARLIGHT_DUAL_SAT`        |Enables `RGB_MATRIX_STARLIGHT_DUAL_SAT`       |
 |`#define ENABLE_RGB_MATRIX_RIVERFLOW`                 |Enables `RGB_MATRIX_RIVERFLOW`                |
@@ -225,6 +384,7 @@ These modes introduce additional logic that can increase firmware size.
 These modes introduce additional logic that can increase firmware size.
 :::
 
+:::::
 
 ### RGB Matrix Effect Typing Heatmap {#rgb-matrix-effect-typing-heatmap}
 
@@ -238,7 +398,7 @@ In order to change the delay of temperature decrease define `RGB_MATRIX_TYPING_H
 
 As heatmap uses the physical position of the leds set in the g_led_config, you may need to tweak the following options to get the best effect for your keyboard. Note the size of this grid is `224x64`.
 
-Limit the distance the effect spreads to surrounding keys. 
+Limit the distance the effect spreads to surrounding keys.
 
 ```c
 #define RGB_MATRIX_TYPING_HEATMAP_SPREAD 40
@@ -363,7 +523,87 @@ These are shorthands to popular colors. The `RGB` ones can be passed to the `set
 These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/color.h). Feel free to add to this list!
 
 
-## Additional `config.h` Options {#additional-configh-options}
+## Naming
+
+If you wish to be able to use the name of an effect in your code -- say for a display indicator -- then you can enable the function `rgb_matrix_get_mode_name` in the following manner:
+
+In your keymap's `config.h`:
+```c
+#define RGB_MATRIX_MODE_NAME_ENABLE
+```
+
+In your `keymap.c`
+```c
+const char* effect_name = rgb_matrix_get_mode_name(rgb_matrix_get_mode());
+// do something with `effect_name`, like `oled_write_ln(effect_name, false);`
+```
+
+::: info
+`rgb_matrix_get_mode_name()` is not enabled by default as it increases the amount of flash memory used by the firmware based on the number of effects enabled.
+:::
+
+
+## Additional Configuration Options {#additional-configh-options}
+
+```c
+#define RGB_MATRIX_MODE_NAME_ENABLE // enables rgb_matrix_get_mode_name()
+```
+
+:::::tabs
+
+==== `JSON`
+
+```json
+    "rgb_matrix": {
+        "default": {
+            // Sets the default enabled state, if none has been set
+            "on": true, 
+            // Sets the default mode, if none has been set
+            "animation": "cycle_left_right", 
+            // Sets the default hue value, if none has been set
+            "hue": 0, 
+            // Sets the default saturation value, if none has been set
+            "sat": 255, 
+            // Sets the default brightness value, if none has been set
+            "val": 127, 
+            // Sets the default speed, if none has been set
+            "speed": 127, 
+            // Sets the default flag, if none has been set
+            "flags": 255 
+        },
+        // Sets the flags which can be cycled through
+        "flag_steps": [ 
+            // LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE
+            255, 5, 2, 0  
+        ],
+        // limits max brightness of leds
+        "max_brightness": 255, 
+        // number of milliseconds to wait until rgb automatically turns off
+        "timeout": 0, 
+        // The value by which to increment the hue per adjustment action
+        "hue_steps": 8, 
+        // The value by which to increment the saturation per adjustment action
+        "sat_steps": 16, 
+        // The value by which to increment the brightness per adjustment action
+        "val_steps": 16, 
+        // The value by which to increment the animation speed per adjustment action
+        "speed_steps": 16, 
+        // limits in milliseconds how frequently an animation will update the LEDs. 
+        // 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
+        "led_flush_limit": 16, 
+        // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
+        "led_process_limit": 15, 
+        // reactive effects respond to keyreleases (instead of keypresses)
+        "react_on_keyup": true,  
+        // turn off effects when suspended
+        "sleep": true,  
+        // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
+        // If reactive effects are enabled, you also will want to enable split.transport.sync.matrix_state
+        "split_count": [X, Y],  
+    }
+```
+
+==== `config.h`
 
 ```c
 #define RGB_MATRIX_KEYRELEASES // reactive effects respond to keyreleases (instead of keypresses)
@@ -378,11 +618,18 @@ These are defined in [`color.h`](https://github.com/qmk/qmk_firmware/blob/master
 #define RGB_MATRIX_DEFAULT_SAT 255 // Sets the default saturation value, if none has been set
 #define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS // Sets the default brightness value, if none has been set
 #define RGB_MATRIX_DEFAULT_SPD 127 // Sets the default animation speed, if none has been set
+#define RGB_MATRIX_HUE_STEP 8 // The value by which to increment the hue per adjustment action
+#define RGB_MATRIX_SAT_STEP 16 // The value by which to increment the saturation per adjustment action
+#define RGB_MATRIX_VAL_STEP 16 // The value by which to increment the brightness per adjustment action
+#define RGB_MATRIX_SPD_STEP 16 // The value by which to increment the animation speed per adjustment action
 #define RGB_MATRIX_DEFAULT_FLAGS LED_FLAG_ALL // Sets the default LED flags, if none has been set
-#define RGB_MATRIX_SPLIT { X, Y } 	// (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
-                              		// If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
+#define RGB_MATRIX_SPLIT { X, Y } // (Optional) For split keyboards, the number of LEDs connected on each half. X = left, Y = Right.
+                                  // If reactive effects are enabled, you also will want to enable SPLIT_TRANSPORT_MIRROR
 #define RGB_TRIGGER_ON_KEYDOWN      // Triggers RGB keypress events on key down. This makes RGB control feel more responsive. This may cause RGB to not function properly on some boards
+#define RGB_MATRIX_FLAG_STEPS { LED_FLAG_ALL, LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER, LED_FLAG_UNDERGLOW, LED_FLAG_NONE } // Sets the flags which can be cycled through.
 ```
+
+:::::
 
 ## EEPROM storage {#eeprom-storage}
 
@@ -480,7 +727,7 @@ This example sets the modifiers to be a specific color based on the layer state.
 bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
     hsv_t hsv = {0, 255, 255};
 
-    if (layer_state_is(layer_state, 2)) {
+    if (get_highest_layer(layer_state|default_layer_state) == 2) {
         hsv = (hsv_t){130, 255, 255};
     } else {
         hsv = (hsv_t){30, 255, 255};
@@ -822,6 +1069,62 @@ Get the current effect speed.
 #### Return Value {#api-rgb-matrix-get-speed-return}
 
 The current effect speed, from 0 to 255.
+
+---
+
+### `void rgb_matrix_set_flags(led_flags_t flags)` {#api-rgb-matrix-set-flags}
+
+Set the global effect flags.
+
+#### Arguments {#api-rgb-matrix-set-flags-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void rgb_matrix_set_flags_noeeprom(led_flags_t flags)` {#api-rgb-matrix-set-flags-noeeprom}
+
+Set the global effect flags. New state is not written to EEPROM.
+
+#### Arguments {#api-rgb-matrix-set-flags-noeeprom-arguments}
+
+ - `led_flags_t flags`  
+   The [flags](#flags) value to set.
+
+---
+
+### `void rgb_matrix_flags_step(void)` {#api-rgb-matrix-flags-step}
+
+Move to the next flag combination.
+
+---
+
+### `void rgb_matrix_flags_step_noeeprom(void)` {#api-rgb-matrix-flags-step-noeeprom}
+
+Move to the next flag combination. New state is not written to EEPROM.
+
+---
+
+### `void rgb_matrix_flags_step_reverse(void)` {#api-rgb-matrix-flags-step-reverse}
+
+Move to the previous flag combination.
+
+---
+
+### `void rgb_matrix_flags_step_reverse_noeeprom(void)` {#api-rgb-matrix-flags-step-reverse-noeeprom}
+
+Move to the previous flag combination. New state is not written to EEPROM.
+
+---
+
+### `uint8_t rgb_matrix_get_flags(void)` {#api-rgb-matrix-get-flags}
+
+Get the current global effect flags.
+
+#### Return Value {#api-rgb-matrix-get-flags-return}
+
+The current effect [flags](#flags).
 
 ---
 

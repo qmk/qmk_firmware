@@ -50,9 +50,9 @@ typedef struct {
     uint8_t click;
 } pimoroni_data_t;
 
-const pointing_device_driver_t pimoroni_trackball_pointing_device_driver;
+extern const pointing_device_driver_t pimoroni_trackball_pointing_device_driver;
 
-void           pimoroni_trackball_device_init(void);
+bool           pimoroni_trackball_device_init(void);
 void           pimoroni_trackball_set_rgbw(uint8_t red, uint8_t green, uint8_t blue, uint8_t white);
 int16_t        pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale);
 uint16_t       pimoroni_trackball_get_cpi(void);

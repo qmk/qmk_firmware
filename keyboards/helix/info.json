@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Yushakobo",
+    "maintainer": "MakotoKurauchi",
+    "build": {
+        "lto": true
+    },
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "oled": true,
+        "rgb_matrix": true
+    },
+    "rgb_matrix": {
+        "animations": {
+            "breathing": true,
+            "cycle_left_right": true,
+            "cycle_pinwheel": true,
+            "multisplash": true,
+            "solid_splash": true
+        },
+        "driver": "ws2812",
+        "max_brightness": 150,
+        "sleep": true
+    },
+    "split": {
+        "enabled": true,
+        "serial": {
+            "pin": "D2"
+        }
+    },
+    "usb": {
+        "vid": "0x3265"
+    },
+    "ws2812": {
+        "pin": "D3"
+    }
+}

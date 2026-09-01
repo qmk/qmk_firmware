@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Sol",
     "manufacturer": "RGBKB",
-    "url": "",
     "maintainer": "Legonut",
     "usb": {
         "vid": "0xFEED",

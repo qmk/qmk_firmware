@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Monoflex 60",
     "manufacturer": "SantiGo Customs",
-    "url": "",
     "maintainer": "key10iq",
     "usb": {
         "vid": "0xDEB4",
@@ -13,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

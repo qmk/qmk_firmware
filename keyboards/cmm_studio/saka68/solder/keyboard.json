@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Saka68 Solder",
     "manufacturer": "CMM.Studio",
-    "url": "",
     "maintainer": "CMMS-Freather",
     "usb": {
         "vid": "0x434D",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

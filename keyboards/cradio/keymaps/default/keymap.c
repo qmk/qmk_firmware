@@ -30,9 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______, _______,     KC_DEL,  MO(3)
     ),
     [3] = LAYOUT_split_3x5_2(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F10,      _______, KC_WH_U, KC_WH_D, _______, QK_BOOT,
-    _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,      KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, KC_INS,
-    _______, KC_F7,   KC_F8,   KC_F9,   KC_F12,      _______, KC_BTN1, KC_BTN2, _______, _______,
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F10,      _______, MS_WHLU, MS_WHLD, _______, QK_BOOT,
+    _______, KC_F4,   KC_F5,   KC_F6,   KC_F11,      MS_LEFT, MS_DOWN, MS_UP,   MS_RGHT, KC_INS,
+    _______, KC_F7,   KC_F8,   KC_F9,   KC_F12,      _______, MS_BTN1, MS_BTN2, _______, _______,
                                _______, _______,     _______, _______
     )
 };

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Louhi",
     "manufacturer": "Pohjola Works",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/pohjolaworks/louhi",
     "maintainer": "ErkHal",
     "usb": {
         "vid": "0x5057",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

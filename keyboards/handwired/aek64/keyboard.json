@@ -1,7 +1,6 @@
 {
   "keyboard_name": "AEK64",
   "manufacturer": "4sStylZ and others makers",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

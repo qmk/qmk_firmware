@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Cornelius",
     "manufacturer": "Yushakobo",
-    "url": "",
     "maintainer": "foostan",
     "usb": {
         "vid": "0x3265",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

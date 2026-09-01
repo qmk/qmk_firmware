@@ -6,7 +6,7 @@ Features within QMK may or may not be compatible with every microcontroller.
 
 ## Atmel AVR
 
-The following use [LUFA](https://www.fourwalledcubicle.com/LUFA.php) as the USB stack:
+The following use [LUFA](https://github.com/abcminiuser/lufa) as the USB stack:
 
 * [ATmega16U2](https://www.microchip.com/wwwproducts/en/ATmega16U2) / [ATmega32U2](https://www.microchip.com/wwwproducts/en/ATmega32U2)
 * [ATmega16U4](https://www.microchip.com/wwwproducts/en/ATmega16U4) / [ATmega32U4](https://www.microchip.com/wwwproducts/en/ATmega32U4)

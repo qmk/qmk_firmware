@@ -1,7 +1,6 @@
 {
     "keyboard_name": "frl",
     "manufacturer": "superuser",
-    "url": "",
     "maintainer": "superuser",
     "usb": {
         "vid": "0x5355",
@@ -13,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

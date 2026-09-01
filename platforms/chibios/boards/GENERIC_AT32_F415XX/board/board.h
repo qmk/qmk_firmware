@@ -1,7 +1,7 @@
 /*
     ChibiOS - Copyright (C) 2006..2018 Giovanni Di Sirio
-    ChibiOS - Copyright (C) 2023..2024 HorrorTroll
-    ChibiOS - Copyright (C) 2023..2024 Zhaqian
+    ChibiOS - Copyright (C) 2023..2025 HorrorTroll
+    ChibiOS - Copyright (C) 2023..2025 Zhaqian
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -48,6 +48,14 @@
  * MCU type, supported types are defined in ./os/hal/platforms/hal_lld.h.
  */
 #define AT32F415KB
+
+/*
+ * GPIO settings, allow unused GPIO for smaller chip packages.
+ */
+#if defined(AT32F415KB) || defined(AT32F415KC)
+#define AT32_HAS_GPIOC              TRUE
+#define AT32_HAS_GPIOF              TRUE
+#endif
 
 /*
  * IO pins assignments.
@@ -142,21 +150,21 @@
  *   6 - Open Drain output 2MHz.
  *   7 - Open Drain output 50MHz.
  *   8 - Digital input with Pull-Up or Pull-Down resistor depending on ODT.
- *   9 - Alternate Push Pull output 10MHz.
- *   A - Alternate Push Pull output 2MHz.
- *   B - Alternate Push Pull output 50MHz.
+ *   9 - Multiplexing Push Pull output 10MHz.
+ *   A - Multiplexing Push Pull output 2MHz.
+ *   B - Multiplexing Push Pull output 50MHz.
  *   C - Reserved.
- *   D - Alternate Open Drain output 10MHz.
- *   E - Alternate Open Drain output 2MHz.
- *   F - Alternate Open Drain output 50MHz.
+ *   D - Multiplexing Open Drain output 10MHz.
+ *   E - Multiplexing Open Drain output 2MHz.
+ *   F - Multiplexing Open Drain output 50MHz.
  * Please refer to the AT32 Reference Manual for details.
  */
 
 /*
  * Port A setup.
  */
-#define VAL_GPIOACFGLR          0x88888B88      /*  PA7...PA0 */
-#define VAL_GPIOACFGHR          0x888888B8      /* PA15...PA8 */
+#define VAL_GPIOACFGLR          0x88888888      /*  PA7...PA0 */
+#define VAL_GPIOACFGHR          0x88888888      /* PA15...PA8 */
 #define VAL_GPIOAODT            0xFFFFFFFF
 
 /*

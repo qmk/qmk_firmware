@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Fuji65",
     "manufacturer": "CMM.Studio",
-    "url": "",
     "maintainer": "CMMS-Freather",
     "usb": {
         "vid": "0x434D",
@@ -30,7 +29,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,

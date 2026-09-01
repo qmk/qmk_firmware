@@ -16,7 +16,6 @@
 
 #include "unicode.h"
 
-#include "eeprom.h"
 #include "eeconfig.h"
 #include "action.h"
 #include "action_util.h"
@@ -47,12 +46,6 @@
 #    define UNICODE_KEY_WINC KC_RIGHT_ALT
 #endif
 
-// Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
-// Example: #define UNICODE_SELECTED_MODES UNICODE_MODE_WINCOMPOSE, UNICODE_MODE_LINUX
-#ifndef UNICODE_SELECTED_MODES
-#    define UNICODE_SELECTED_MODES -1
-#endif
-
 // Whether input mode changes in cycle should be written to EEPROM
 #ifndef UNICODE_CYCLE_PERSIST
 #    define UNICODE_CYCLE_PERSIST true
@@ -67,7 +60,7 @@ unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
 led_t            unicode_saved_led_state;
 
-#if UNICODE_SELECTED_MODES != -1
+#ifdef UNICODE_SELECTED_MODES
 static uint8_t selected[]     = {UNICODE_SELECTED_MODES};
 static int8_t  selected_count = ARRAY_SIZE(selected);
 static int8_t  selected_index;
@@ -136,8 +129,8 @@ static void unicode_play_song(uint8_t mode) {
 #endif
 
 void unicode_input_mode_init(void) {
-    unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
-#if UNICODE_SELECTED_MODES != -1
+    eeconfig_read_unicode_mode(&unicode_config);
+#ifdef UNICODE_SELECTED_MODES
 #    if UNICODE_CYCLE_PERSIST
     // Find input_mode in selected modes
     int8_t i;
@@ -165,7 +158,7 @@ uint8_t get_unicode_input_mode(void) {
 }
 
 static void persist_unicode_input_mode(void) {
-    eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
+    eeconfig_update_unicode_mode(&unicode_config);
 }
 
 void set_unicode_input_mode(uint8_t mode) {
@@ -179,7 +172,7 @@ void set_unicode_input_mode(uint8_t mode) {
 }
 
 static void cycle_unicode_input_mode(int8_t offset) {
-#if UNICODE_SELECTED_MODES != -1
+#ifdef UNICODE_SELECTED_MODES
     selected_index = (selected_index + offset) % selected_count;
     if (selected_index < 0) {
         selected_index += selected_count;

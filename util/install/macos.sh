@@ -9,23 +9,24 @@ _qmk_install_prepare() {
         return 1
     fi
 
+    # Conflicts with arm-none-eabi toolchain from osx-cross
+    brew uninstall --ignore-dependencies --cask gcc-arm-embedded >/dev/null 2>&1
+    brew uninstall --ignore-dependencies homebrew/core/arm-none-eabi-gcc >/dev/null 2>&1
+    brew uninstall --ignore-dependencies homebrew/core/arm-none-eabi-binutils >/dev/null 2>&1
+    brew uninstall --ignore-dependencies osx-cross/arm/arm-gcc-bin@8 >/dev/null 2>&1
+
     brew update && brew upgrade --formulae
 }
 
 _qmk_install() {
     echo "Installing dependencies"
 
-    # All macOS dependencies are managed in the Homebrew package:
-    # https://github.com/qmk/homebrew-qmk
+    # All macOS & Python dependencies are managed in the Homebrew package:
+    #   https://github.com/qmk/homebrew-qmk
     brew install qmk/qmk/qmk
-
-    # Conflicts with new toolchain formulae
-    brew uninstall --ignore-dependencies arm-gcc-bin@8 >/dev/null 2>&1
 
     # Keg-only, so need to be manually linked
     brew link --force avr-gcc@8
     brew link --force arm-none-eabi-binutils
     brew link --force arm-none-eabi-gcc@8
-
-    python3 -m pip install -r $QMK_FIRMWARE_DIR/requirements.txt
 }
