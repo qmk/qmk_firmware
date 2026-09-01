@@ -328,6 +328,10 @@ __EOT__
     print_package_manager_deps_and_delay() {
         get_package_manager_deps | tr ' ' '\n' | sort | xargs -I'{}' echo "    - {}" >&2
         exit_if_execution_failed
+        if [ -n "${1:-}" ]; then
+            echo >&2
+            echo "$1" >&2
+        fi
         preinstall_delay || exit 1
     }
 
@@ -337,7 +341,19 @@ __EOT__
         macos)
             if [ -n "$(command -v brew 2>/dev/null || true)" ]; then
                 echo "It will also install the following system packages using 'brew':" >&2
-                print_package_manager_deps_and_delay
+                local intel_note=""
+                if [ "$(fn_arch)" = "X64" ]; then
+                    intel_note="NOTE: Homebrew no longer provides pre-built packages for Intel Macs, so some of the above may be built from source. This can take a long time."
+                fi
+                print_package_manager_deps_and_delay "$intel_note"
+
+                # Homebrew no longer builds Intel macOS bottles (tier 3); tap
+                # homebrew/core so missing bottles fall back to building from
+                # source instead of aborting the install.
+                if [ "$(fn_arch)" = "X64" ]; then
+                    export HOMEBREW_NO_INSTALL_FROM_API=1
+                    brew tap --force homebrew/core
+                fi
 
                 brew update
 
