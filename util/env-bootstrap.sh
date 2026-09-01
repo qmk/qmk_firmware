@@ -347,14 +347,6 @@ __EOT__
                 fi
                 print_package_manager_deps_and_delay "$intel_note"
 
-                # Homebrew no longer builds Intel macOS bottles (tier 3); tap
-                # homebrew/core so missing bottles fall back to building from
-                # source instead of aborting the install.
-                if [ "$(fn_arch)" = "X64" ]; then
-                    export HOMEBREW_NO_INSTALL_FROM_API=1
-                    brew tap --force homebrew/core
-                fi
-
                 brew update
 
                 local existing=""
@@ -367,12 +359,14 @@ __EOT__
                 fi
                 done
 
-                if [ -n "${existing:-}" ]; then
-                    brew upgrade $existing
-                fi
-                if [ -n "${new:-}" ]; then
-                    brew install $new
-                fi
+                # Homebrew no longer builds Intel macOS bottles (tier 3); when a
+                # bottle is missing, retry the formula as a source build.
+                for dep in ${existing:-}; do
+                    brew upgrade "$dep" || brew upgrade --build-from-source "$dep"
+                done
+                for dep in ${new:-}; do
+                    brew install "$dep" || brew install --build-from-source "$dep"
+                done
             else
                 echo "Please install 'brew' to continue. See https://brew.sh/ for more information." >&2
                 exit 1
