@@ -208,6 +208,7 @@ jobs:
           for n in $(seq 1 10); do
             brew update && exit 0
             brew update-reset || true
+            sleep 10
           done
           exit 1
 
