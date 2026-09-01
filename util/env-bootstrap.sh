@@ -218,6 +218,15 @@ __EOT__
         fi
     }
 
+    check_release_tag() {
+        # An empty tag means the GitHub API call failed, usually from rate limiting.
+        if [ -z "$2" ]; then
+            echo "Could not determine the latest $1 release." >&2
+            echo "If GitHub API rate limits are the cause, set GITHUB_TOKEN to raise them." >&2
+            exit 1
+        fi
+    }
+
     fn_os() {
         local os_name=$(echo ${1:-} | tr 'A-Z' 'a-z')
         if [ -z "$os_name" ]; then
@@ -490,6 +499,7 @@ __EOT__
     install_toolchains() {
         # Get the latest toolchain release from https://github.com/qmk/qmk_toolchains
         local latest_toolchains_release=$(github_api_call repos/qmk/qmk_toolchains/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        check_release_tag qmk_toolchains "$latest_toolchains_release"
         # Download the specific release asset with a matching keyword
         local toolchain_url=$(github_api_call repos/qmk/qmk_toolchains/releases/tags/$latest_toolchains_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep -E "qmk_toolchains-.*$(fn_os)$(fn_arch)")
         if [ -z "$toolchain_url" ]; then
@@ -517,6 +527,7 @@ __EOT__
 
         # Get the latest flashing tools release from https://github.com/qmk/qmk_flashutils
         local latest_flashutils_release=$(github_api_call repos/qmk/qmk_flashutils/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        check_release_tag qmk_flashutils "$latest_flashutils_release"
         # Download the specific release asset with a matching keyword
         local flashutils_url=$(github_api_call repos/qmk/qmk_flashutils/releases/tags/$latest_flashutils_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep -E "qmk_flashutils-.*$osarchvariant")
         if [ -z "$flashutils_url" ]; then
@@ -539,10 +550,7 @@ __EOT__
     install_linux_udev_rules() {
         # Get the latest qmk_udev release
         local latest_udev_release=$(github_api_call repos/qmk/qmk_udev/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
-        if [ -z "$latest_udev_release" ]; then
-            echo "Could not determine latest qmk_udev release." >&2
-            exit 1
-        fi
+        check_release_tag qmk_udev "$latest_udev_release"
         echo "Using qmk_udev release: $latest_udev_release" >&2
 
         # Download the udev rules file
@@ -594,6 +602,7 @@ __EOT__
     install_windows_drivers() {
         # Get the latest driver installer release from https://github.com/qmk/qmk_driver_installer
         local latest_driver_installer_release=$(github_api_call repos/qmk/qmk_driver_installer/releases/latest - | grep -oE '"tag_name": "[^"]+' | grep -oE '[^"]+$')
+        check_release_tag qmk_driver_installer "$latest_driver_installer_release"
         # Download the specific release asset
         local driver_installer_url=$(github_api_call repos/qmk/qmk_driver_installer/releases/tags/$latest_driver_installer_release - | grep -oE '"browser_download_url": "[^"]+"' | grep -oE 'https://[^"]+' | grep '\.exe')
         if [ -z "$driver_installer_url" ]; then
