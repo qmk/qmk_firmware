@@ -1,0 +1,6 @@
+{
+    "modules": [
+        "Bastardkb/argos",
+        "Bastardkb/bk_pointing_device"
+    ]
+}

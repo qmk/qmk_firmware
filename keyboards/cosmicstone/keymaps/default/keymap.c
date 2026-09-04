@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 #include "split_util.h"
-#include "keyboards/bastardkb/charybdis/charybdis.h"
+#include "bk_pointing_device.h"
 
 // Trackball custom keycodes
 enum custom_keycodes {
@@ -31,18 +31,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case DPI_UP:
             if (record->event.pressed) {    
-                charybdis_cycle_pointer_default_dpi(true);
+                bkpd_cycle_pointer_default_dpi(true);
             }
             return false;
         case DPI_DN:
             if (record->event.pressed) {
-                charybdis_cycle_pointer_default_dpi(false);
+                bkpd_cycle_pointer_default_dpi(false);
             }
             return false;
         case DPI_RST:
             if (record->event.pressed) {
-                charybdis_cycle_pointer_default_dpi(false);
-                charybdis_cycle_pointer_default_dpi(false);
+                bkpd_cycle_pointer_default_dpi(false);
+                bkpd_cycle_pointer_default_dpi(false);
             }
             return false;
 
@@ -181,11 +181,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
         case 3:
             if (clockwise) {
-                charybdis_cycle_pointer_default_dpi(true);
-                snprintf(encoder_status, sizeof(encoder_status), "DPI+\n%4d", charybdis_get_pointer_default_dpi());
+                bkpd_cycle_pointer_default_dpi(true);
+                snprintf(encoder_status, sizeof(encoder_status), "DPI+\n%4d", bkpd_get_pointer_default_dpi());
             } else {
-                charybdis_cycle_pointer_default_dpi(false);
-                snprintf(encoder_status, sizeof(encoder_status), "DPI-\n%4d", charybdis_get_pointer_default_dpi());
+                bkpd_cycle_pointer_default_dpi(false);
+                snprintf(encoder_status, sizeof(encoder_status), "DPI-\n%4d", bkpd_get_pointer_default_dpi());
             }
             break;
     }

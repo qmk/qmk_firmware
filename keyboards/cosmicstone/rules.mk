@@ -1,6 +1,3 @@
-# Charybdis Sources
-SRC += keyboards/bastardkb/charybdis/charybdis.c
-
 # Controller
 MCU = RP2040
 BOOTLOADER = rp2040
