@@ -1,0 +1,14 @@
+{
+    "module_name": "Argos",
+    "maintainer": "Bastard Keyboards",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "via": true,
+        "deferred_exec": true
+    },
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 131072
+        }
+    }
+}
