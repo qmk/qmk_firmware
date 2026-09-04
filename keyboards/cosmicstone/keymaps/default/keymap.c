@@ -1,5 +1,3 @@
-// Copyright 2025 Comicrocharly
-// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
 #include "split_util.h"
