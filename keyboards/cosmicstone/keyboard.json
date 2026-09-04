@@ -11,6 +11,9 @@
     "maintainer": "Comicrocharly",
     "processor": "RP2040",
     "bootloader": "rp2040",
+      "bootmagic": {
+        "enabled": false
+    },
     "diode_direction": "COL2ROW",
 
     "matrix_pins": {
@@ -40,7 +43,12 @@
         "layer_count": 5
     },
 
+      "mouse_key": {
+        "enabled": true
+    },
+
     "encoder": {
+        "enabled": true,
         "rotary": [
             {"pin_a": "GP10", "pin_b": "GP11"}
         ]
