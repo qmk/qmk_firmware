@@ -1,7 +1,6 @@
 # Controller
 MCU = RP2040
 BOOTLOADER = rp2040
-WAIT_FOR_USB = yes
 BOOTMAGIC_ENABLE = no
 NKRO_ENABLE = yes
 
