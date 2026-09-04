@@ -44,12 +44,12 @@ def userspace_add(cli):
             failed = True
 
         if failed:
-            from qmk.cli.new.keymap import new_keymap
-            cli.config.new_keymap.keyboard = cli.args.keyboard
-            cli.config.new_keymap.keymap = cli.args.keymap
-            cli.args.skip_converter = True
-            if new_keymap(cli) is not False:
-                userspace.add_target(keyboard=cli.args.keyboard, keymap=cli.args.keymap, build_env=build_env)
+            from qmk.cli.new.keymap import create_new_keymap
+
+            ret = create_new_keymap(cli.args.keyboard, cli.args.keymap, skip_converter=True)
+            if ret:
+                kb_name, user_name = ret
+                userspace.add_target(keyboard=kb_name, keymap=user_name, build_env=build_env)
         else:
             userspace.add_target(keyboard=cli.args.keyboard, keymap=cli.args.keymap, build_env=build_env)
 
