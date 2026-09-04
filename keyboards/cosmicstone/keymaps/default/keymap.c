@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_H
 #include "split_util.h"
-#include "bk_pointing_device.h"
 
 // Trackball custom keycodes
 enum custom_keycodes {
@@ -12,6 +11,30 @@ enum custom_keycodes {
     DPI_RST,
     TL_MEDIA,
 };
+
+// DPI presets, cycled with the core pointing device CPI API
+static const uint16_t dpi_presets[] = {400, 600, 800, 1200, 1600, 2400, 3200};
+#define DPI_PRESET_COUNT (sizeof(dpi_presets) / sizeof(dpi_presets[0]))
+#define DPI_DEFAULT_INDEX 2 // 800
+
+static uint8_t dpi_index = DPI_DEFAULT_INDEX;
+
+static void dpi_cycle(bool up) {
+    int8_t new_index = (int8_t)dpi_index + (up ? 1 : -1);
+    if (new_index < 0)
+        new_index = 0;
+    if (new_index >= (int8_t)DPI_PRESET_COUNT)
+        new_index = (int8_t)DPI_PRESET_COUNT - 1;
+    if (new_index != dpi_index) {
+        dpi_index = (uint8_t)new_index;
+        pointing_device_set_cpi(dpi_presets[dpi_index]);
+    }
+}
+
+static void dpi_reset(void) {
+    dpi_index = DPI_DEFAULT_INDEX;
+    pointing_device_set_cpi(dpi_presets[dpi_index]);
+}
 
 // TL_MEDIA: tap = toggle media layer, hold = RALT (AltGr)
 // Plain keycode (like the original): tap/hold keycodes inside combos are
@@ -30,19 +53,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    switch (keycode) {
 
         case DPI_UP:
-            if (record->event.pressed) {    
-                bkpd_cycle_pointer_default_dpi(true);
+            if (record->event.pressed) {
+                dpi_cycle(true);
             }
             return false;
         case DPI_DN:
             if (record->event.pressed) {
-                bkpd_cycle_pointer_default_dpi(false);
+                dpi_cycle(false);
             }
             return false;
         case DPI_RST:
             if (record->event.pressed) {
-                bkpd_cycle_pointer_default_dpi(false);
-                bkpd_cycle_pointer_default_dpi(false);
+                dpi_reset();
             }
             return false;
 
@@ -180,11 +202,11 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
         case 3:
             if (clockwise) {
-                bkpd_cycle_pointer_default_dpi(true);
-                snprintf(encoder_status, sizeof(encoder_status), "DPI+\n%4d", bkpd_get_pointer_default_dpi());
+                dpi_cycle(true);
+                snprintf(encoder_status, sizeof(encoder_status), "DPI+\n%4d", pointing_device_get_cpi());
             } else {
-                bkpd_cycle_pointer_default_dpi(false);
-                snprintf(encoder_status, sizeof(encoder_status), "DPI-\n%4d", bkpd_get_pointer_default_dpi());
+                dpi_cycle(false);
+                snprintf(encoder_status, sizeof(encoder_status), "DPI-\n%4d", pointing_device_get_cpi());
             }
             break;
     }
