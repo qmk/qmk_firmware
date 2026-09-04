@@ -340,6 +340,10 @@ There are a few different ways to set handedness for split keyboards (listed in 
 * `#define SPLIT_TRANSACTION_IDS_USER .....`
   * Allows for custom data sync with the slave when using the QMK-provided split transport. See [custom data sync between sides](features/split_keyboard#custom-data-sync) for more information.
 
+* `#define SYSTEM_CONTROL_USAGE_MINIMUM 0x0081`
+* `#define SYSTEM_CONTROL_USAGE_MAXIMUM 0x008F`
+  * Sets the usage range reported by the System Control collection that `EXTRAKEY_ENABLE` adds. The default range covers the System Control usages QMK can send and stops below the Generic Desktop D-pad usages (`0x90` and up). Raising the maximum into that range makes some hosts detect the keyboard as a gamepad, so only widen it if you need the extra usages and know your host handles them. The minimum must not be greater than the maximum.
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.

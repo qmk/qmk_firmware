@@ -354,7 +354,7 @@ bool azoteq_iqs5xx_init(void) {
 };
 
 report_mouse_t azoteq_iqs5xx_get_report(report_mouse_t mouse_report) {
-    report_mouse_t temp_report = {0};
+    report_mouse_t temp_report = {.buttons = mouse_report.buttons};
 
     azoteq_iqs5xx_base_data_t base_data       = {0};
     i2c_status_t              status          = azoteq_iqs5xx_get_base_data(&base_data);

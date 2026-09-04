@@ -28,8 +28,11 @@ void qp_lvgl_flush(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t *color
         qp_viewport(selected_display, area->x1, area->y1, area->x2, area->y2);
         qp_pixdata(selected_display, (void *)color_p, number_pixels);
         qp_flush(selected_display);
-        lv_disp_flush_ready(disp);
     }
+    // Must always be signalled, even when there is no selected display:
+    // skipping it leaves LVGL's flush permanently "in progress" and stalls
+    // all further rendering.
+    lv_disp_flush_ready(disp);
 }
 
 static uint32_t tick_task_callback(uint32_t trigger_time, void *cb_arg) {
