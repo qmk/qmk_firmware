@@ -1,0 +1,53 @@
+{
+    "manufacturer": "skyloong",
+    "maintainer": "NaturalZh",
+    "backlight": {
+        "breathing": true,
+        "breathing_period": 5,
+        "default": {
+            "breathing": false,
+            "brightness": 30
+        },
+        "driver": "pwm",
+        "levels": 20,
+        "on_state": 1,
+        "pin": "B8"
+    },
+    "debounce": 10,
+    "bootloader": "stm32duino",
+    "build": {
+        "debounce_type": "asym_eager_defer_pk"
+    },
+    "diode_direction": "ROW2COL",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "A15", "pin_b": "B3", "resolution": 2},
+            {"pin_a": "B4", "pin_b": "B5", "resolution": 2},
+            {"pin_a": "B6", "pin_b": "B7", "resolution": 2}
+        ]
+    },
+    "features": {
+        "backlight": true,
+        "bootmagic": true,
+        "command": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true
+    },
+    "indicators": {
+        "caps_lock": "C15",
+        "on_state": 0,
+        "scroll_lock": "C14"
+    },
+    "matrix_pins": {
+        "cols": ["A0", "A1", "A2", "A3", "A4", "A5", "B0", "B1", "B10", "B11", "B12", "A7", "A6", "B9", "A14", "A13"],
+        "rows": ["A10", "A9", "A8", "B15", "B14", "B13"]
+    },
+    "processor": "STM32F103",
+    "url": "https://github.com/JZ-Skyloong",
+    "usb": {
+        "max_power": 380,
+        "vid": "0x1EA7"
+    }
+}
