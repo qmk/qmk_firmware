@@ -546,6 +546,7 @@
                 "animations": {
                     "type": "object",
                     "propertyNames": {"$ref": "./definitions.jsonschema#/snake_case"},
+                    "not": { "required": [ "solid" ] },
                     "additionalProperties": {"type": "boolean"}
                 },
                 "default": {
@@ -633,6 +634,7 @@
                 "animations": {
                     "type": "object",
                     "propertyNames": {"$ref": "./definitions.jsonschema#/snake_case"},
+                    "not": { "required": [ "solid_color" ] },
                     "additionalProperties": {"type": "boolean"}
                 },
                 "default": {
