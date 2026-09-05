@@ -1,0 +1,130 @@
+{
+    "effects": {
+        "0x00": {
+            "key": "STATIC_LIGHT"
+        },
+        "0x01": {
+            "key": "BREATHING"
+        },
+        "0x02": {
+            "key": "BREATHING_2"
+        },
+        "0x03": {
+            "key": "BREATHING_3"
+        },
+        "0x04": {
+            "key": "BREATHING_4"
+        },
+        "0x05": {
+            "key": "RAINBOW_MOOD"
+        },
+        "0x06": {
+            "key": "RAINBOW_MOOD_2"
+        },
+        "0x07": {
+            "key": "RAINBOW_MOOD_3"
+        },
+        "0x08": {
+            "key": "RAINBOW_SWIRL"
+        },
+        "0x09": {
+            "key": "RAINBOW_SWIRL_2"
+        },
+        "0x0A": {
+            "key": "RAINBOW_SWIRL_3"
+        },
+        "0x0B": {
+            "key": "RAINBOW_SWIRL_4"
+        },
+        "0x0C": {
+            "key": "RAINBOW_SWIRL_5"
+        },
+        "0x0D": {
+            "key": "RAINBOW_SWIRL_6"
+        },
+        "0x0E": {
+            "key": "SNAKE"
+        },
+        "0x0F": {
+            "key": "SNAKE_2"
+        },
+        "0x10": {
+            "key": "SNAKE_3"
+        },
+        "0x11": {
+            "key": "SNAKE_4"
+        },
+        "0x12": {
+            "key": "SNAKE_5"
+        },
+        "0x13": {
+            "key": "SNAKE_6"
+        },
+        "0x14": {
+            "key": "KNIGHT"
+        },
+        "0x15": {
+            "key": "KNIGHT_2"
+        },
+        "0x16": {
+            "key": "KNIGHT_3"
+        },
+        "0x17": {
+            "key": "CHRISTMAS"
+        },
+        "0x18": {
+            "key": "STATIC_GRADIENT"
+        },
+        "0x19": {
+            "key": "STATIC_GRADIENT_2"
+        },
+        "0x1A": {
+            "key": "STATIC_GRADIENT_3"
+        },
+        "0x1B": {
+            "key": "STATIC_GRADIENT_4"
+        },
+        "0x1C": {
+            "key": "STATIC_GRADIENT_5"
+        },
+        "0x1D": {
+            "key": "STATIC_GRADIENT_6"
+        },
+        "0x1E": {
+            "key": "STATIC_GRADIENT_7"
+        },
+        "0x1F": {
+            "key": "STATIC_GRADIENT_8"
+        },
+        "0x20": {
+            "key": "STATIC_GRADIENT_9"
+        },
+        "0x21": {
+            "key": "STATIC_GRADIENT_10"
+        },
+        "0x22": {
+            "key": "RGB_TEST"
+        },
+        "0x23": {
+            "key": "ALTERNATING"
+        },
+        "0x24": {
+            "key": "TWINKLE"
+        },
+        "0x25": {
+            "key": "TWINKLE_2"
+        },
+        "0x26": {
+            "key": "TWINKLE_3"
+        },
+        "0x27": {
+            "key": "TWINKLE_4"
+        },
+        "0x28": {
+            "key": "TWINKLE_5"
+        },
+        "0x29": {
+            "key": "TWINKLE_6"
+        }
+    }
+}
