@@ -22,7 +22,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_tapping.h"
 #include "timer.h"
 #include "keycode_config.h"
+#include "wait.h"
 #include <string.h>
+
+#if defined(PROGRESSIVE_REPORT_DELAY) && !defined(PROGRESSIVE_KEYBOARD_REPORTS)
+#    error "PROGRESSIVE_REPORT_DELAY requires PROGRESSIVE_KEYBOARD_REPORTS"
+#endif
+
+#ifdef PROGRESSIVE_REPORT_DELAY
+#    define progressive_report_delay() wait_ms(PROGRESSIVE_REPORT_DELAY)
+#else
+#    define progressive_report_delay()
+#endif // PROGRESSIVE_REPORT_DELAY
 
 extern keymap_config_t keymap_config;
 
@@ -306,6 +317,47 @@ void send_6kro_report(void) {
 #else
     static report_keyboard_t last_report;
 
+#    ifdef PROGRESSIVE_KEYBOARD_REPORTS
+#        ifdef KEYBOARD_SHARED_EP
+    last_report.report_id = keyboard_report->report_id;
+#        endif // KEYBOARD_SHARED_EP
+
+    /* When the mods change, stage the transition so the host applies each modifier state to the
+       correct keys: release the keys that are no longer held, apply the new mods against the
+       surviving keys, then send the full report below. A change that leaves the mods untouched
+       goes out as a single report. */
+    if (keyboard_report->mods != last_report.mods) {
+        /* Release any keys that are no longer held before applying the new mods. A held key never
+           moves slots (see add_key_byte()), so a slot whose keycode changed also means the
+           previous occupant was released and the slot reused; it is cleared here too, so the old
+           key is never seen with the new mods. */
+        bool changed = false;
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; ++i) {
+            if (last_report.keys[i] != 0 && last_report.keys[i] != keyboard_report->keys[i]) {
+                last_report.keys[i] = 0;
+                changed             = true;
+            }
+        }
+        if (changed) {
+            /* host_keyboard_send() stamps report_id into the struct it is handed on a shared
+               endpoint; send sub-reports from a copy so last_report stays comparable with the
+               not-yet-stamped keyboard_report. */
+            report_keyboard_t sub_report = last_report;
+            host_keyboard_send(&sub_report);
+            progressive_report_delay();
+        }
+
+        /* Send the new mods alongside the keys that are still held. Only delay afterwards if the
+           final report below still has changes to send. */
+        last_report.mods             = keyboard_report->mods;
+        report_keyboard_t sub_report = last_report;
+        host_keyboard_send(&sub_report);
+        if (memcmp(keyboard_report, &last_report, sizeof(report_keyboard_t)) != 0) {
+            progressive_report_delay();
+        }
+    }
+#    endif     // PROGRESSIVE_KEYBOARD_REPORTS
+
     /* Only send the report if there are changes to propagate to the host. */
     if (memcmp(keyboard_report, &last_report, sizeof(report_keyboard_t)) != 0) {
         memcpy(&last_report, keyboard_report, sizeof(report_keyboard_t));
@@ -319,6 +371,39 @@ void send_nkro_report(void) {
     nkro_report->mods = get_mods_for_report();
 
     static report_nkro_t last_report;
+
+#    if defined(PROGRESSIVE_KEYBOARD_REPORTS) && !defined(PROTOCOL_VUSB)
+    last_report.report_id = nkro_report->report_id;
+
+    /* Stage the transition exactly as in send_6kro_report() above. */
+    if (nkro_report->mods != last_report.mods) {
+        /* Release any keys that are no longer held before applying the new mods. */
+        bool changed = false;
+        for (uint8_t i = 0; i < NKRO_REPORT_BITS; ++i) {
+            uint8_t orig = last_report.bits[i];
+            last_report.bits[i] &= nkro_report->bits[i];
+            if (last_report.bits[i] != orig) {
+                changed = true;
+            }
+        }
+        if (changed) {
+            /* host_nkro_send() stamps report_id into the struct it is handed; send sub-reports
+               from a copy so last_report stays comparable with the not-yet-stamped nkro_report. */
+            report_nkro_t sub_report = last_report;
+            host_nkro_send(&sub_report);
+            progressive_report_delay();
+        }
+
+        /* Send the new mods alongside the keys that are still held. Only delay afterwards if the
+           final report below still has changes to send. */
+        last_report.mods         = nkro_report->mods;
+        report_nkro_t sub_report = last_report;
+        host_nkro_send(&sub_report);
+        if (memcmp(nkro_report, &last_report, sizeof(report_nkro_t)) != 0) {
+            progressive_report_delay();
+        }
+    }
+#    endif // defined(PROGRESSIVE_KEYBOARD_REPORTS) && !defined(PROTOCOL_VUSB)
 
     /* Only send the report if there are changes to propagate to the host. */
     if (memcmp(nkro_report, &last_report, sizeof(report_nkro_t)) != 0) {
