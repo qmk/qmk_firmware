@@ -319,9 +319,18 @@ static void rgb_task_start(void) {
                              (last_input_activity_elapsed() > (uint32_t)RGB_MATRIX_TIMEOUT) ||
 #endif // RGB_MATRIX_TIMEOUT > 0
                              false;
+    bool off_state = suspend_backlight || !rgb_matrix_config.enable;
+
+    if (rgb_matrix_driver.set_power != NULL) {
+        rgb_matrix_driver.set_power(!off_state);
+        if (off_state) {
+            rgb_task_state = SYNCING;
+            return;
+        }
+    }
 
     // Set effect to be renedered
-    rgb_current_effect = suspend_backlight || !rgb_matrix_config.enable ? 0 : rgb_matrix_config.mode;
+    rgb_current_effect = off_state ? 0 : rgb_matrix_config.mode;
 
     // next task
     rgb_task_state = RENDERING;
@@ -524,16 +533,31 @@ void rgb_matrix_init(void) {
         eeconfig_update_rgb_matrix_default();
     }
     eeconfig_debug_rgb_matrix(); // display current eeprom values
+
+    if (rgb_matrix_driver.set_power != NULL) {
+        rgb_matrix_driver.set_power(rgb_matrix_config.enable);
+    }
 }
 
 void rgb_matrix_set_suspend_state(bool state) {
-#ifdef RGB_MATRIX_SLEEP
+    bool gate_available = (rgb_matrix_driver.set_power != NULL);
+
+#ifndef RGB_MATRIX_SLEEP
+    /* Gate opts in independently of RGB_MATRIX_SLEEP. */
+    if (!gate_available) {
+        return;
+    }
+#endif
+
     if (state && !suspend_state) { // only run if turning off, and only once
-        rgb_task_render(0);        // turn off all LEDs when suspending
-        rgb_task_flush(0);         // and actually flash led state to LEDs
+        if (gate_available) {
+            rgb_matrix_driver.set_power(false);
+        } else {
+            rgb_task_render(0);        // turn off all LEDs when suspending
+            rgb_task_flush(0);         // and actually flash led state to LEDs
+        }
     }
     suspend_state = state;
-#endif
 }
 
 bool rgb_matrix_get_suspend_state(void) {
