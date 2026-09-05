@@ -444,7 +444,7 @@ __EOT__
         # Workaround for UV installer not pushing UV_TOOL_BIN_DIR into the env when used with their installer
         if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
             if [ "${UV_NO_MODIFY_PATH:-}" != "1" ]; then
-                echo -e "#!/bin/sh\n# Workaround for UV installer not pushing UV_TOOL_BIN_DIR into the env when used with their installer\nexport PATH=\"${UV_TOOL_BIN_DIR}:\$PATH\"" > /etc/profile.d/qmk-uv-env.sh
+                echo -e "# Workaround for UV installer not pushing UV_TOOL_BIN_DIR into the env when used with their installer\nexport PATH=\"${UV_TOOL_BIN_DIR}:\$PATH\"" > /etc/profile.d/qmk-uv-env.sh
             fi
         fi
     }
