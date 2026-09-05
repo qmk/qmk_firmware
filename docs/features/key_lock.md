@@ -20,10 +20,10 @@ In addition to the keycodes, there are a few functions that you can use to inter
 
 |Function            |Description                                                            |
 |--------------------|-----------------------------------------------------------------------|
-|begin_key_lock()    |Begins the key lock sequence. Mimics pressing QK_LOCK                  |
-|cancel_key_lock()   |Cancels the key lock sequnec if called before a lockable key is pressed|
-|get_key_lock_begun()|Checks whether the key lock sequence has started                       |
-|get_key_lock_state()|Checks whether a specific key is locked                                |
+|key_lock_start()    |Begins the key lock sequence. Mimics pressing QK_LOCK                  |
+|key_lock_cancel()   |Cancels the key lock sequnec if called before a lockable key is pressed|
+|key_lock_active()   |Checks whether the key lock sequence has started                       |
+|key_lock_get_state()|Checks whether a specific key is locked                                |
 
 ## Caveats
 
@@ -37,7 +37,6 @@ Switching layers will not cancel the Key Lock. The Key Lock can be cancelled by 
 ## Examples
 
 Force certain modifiers, in this case `RCTL`, `RSFT`, and `RALT` to toggle on/off like Caps Lock when pressed.
-
         }
     }
     return true;   

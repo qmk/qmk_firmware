@@ -55,7 +55,7 @@ static inline uint16_t translate_keycode(uint16_t keycode) {
     }
 }
 
-void cancel_key_lock(void) {
+void key_lock_cancel(void) {
     watching = false;
     UNSET_KEY_STATE(0x0);
 }
