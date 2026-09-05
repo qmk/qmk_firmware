@@ -186,3 +186,37 @@ An unspecified API is disregarded if a Community Module does not provide a speci
 :::
 
 Each API has an equivalent `_<module>_kb()` and `_<module>_user()` hook, as per the normal QMK [`_quantum`, `_kb`, and `_user` functions](/custom_quantum_functions#a-word-on-core-vs-keyboards-vs-keymap).
+
+### Unit testing
+
+Community Modules may be unit tested using the [Google Test](https://github.com/google/googletest) framework. Unit tests for a module work similarly to [unit tests for QMK core](/unit_testing).
+
+The testing framework compiles the firmware and your module unit test into a local host executable. This allows you to verify module behavior natively, without needing to flash hardware or physically press keys. For example, the test harness can simulate a keypress and verify that expected keyboard reports are sent.
+
+How to test a module:
+
+1. Within the module folder, create a `tests` folder. Within that folder, create a subfolder for a test suite, e.g. `tests/basic`. You can create multiple test suites, e.g. `tests/foo_option` and `tests/bar_option`, which is especially useful for testing a module with different compile-time options.
+
+2. In the test suite folder, create the following files:
+
+   * `test_<name>.cpp`: The test itself, a C++ program.
+   * `config.h`: Config options for building the test suite.
+   * `test.mk`: Make rules and options for building the test suite.
+   * `test_keymap.c`: `keymap.c` definitions, such as combos. This file is required only if your test relies on keymap introspection.
+
+   See [qmk/hello_world/tests/](https://github.com/qmk/qmk_firmware/tree/master/modules/qmk/hello_world/tests/basic) for an example community module test. See also tests under the [tests/ directory](https://github.com/qmk/qmk_firmware/tree/master/tests) for further examples of QMK unit tests.
+
+3. Run the tests: To run a specific test suite, use the command form
+
+   ```sh
+   qmk test-c -t 'community_module:{user}/{module_name}:{suite}'
+   ```
+
+   Or to run *all* test suites for a module, use a `*` wildcard for the `{suite}` portion of the target:
+
+   ```sh
+   qmk test-c -t 'community_module:{user}/{module_name}:*'
+   ```
+
+   Example: `qmk test-c -t 'community_module:qmk/hello_world:*'`
+
