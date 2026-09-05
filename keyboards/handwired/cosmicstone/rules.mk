@@ -1,5 +1,4 @@
 # Controller
 
 POINTING_DEVICE_DRIVER = pmw3389
-OLED_DRIVER = ssd1306
 
