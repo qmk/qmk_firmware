@@ -8,7 +8,8 @@
         "rgblight": true,
         "bootmagic": true,
         "extrakey": true,
-        "mousekey": true
+        "mousekey": true,
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "GP29"
