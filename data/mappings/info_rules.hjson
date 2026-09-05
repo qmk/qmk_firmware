@@ -48,7 +48,7 @@
     "SPLIT_KEYBOARD": {"info_key": "split.enabled", "value_type": "bool"},
     "SPLIT_TRANSPORT": {"info_key": "split.transport.protocol", "to_c": false},
     "STENO_ENABLE": {"info_key": "stenography.enabled", "value_type": "bool"},
-    "STENO_PROTOCOL": {"info_key": "stenography.protocol"},
+    "STENO_PROTOCOLS": {"info_key": "stenography.protocols", "value_type": "array"},
     "USB_WAIT_FOR_ENUMERATION": {"info_key": "usb.wait_for_enumeration", "value_type": "bool"},
     "WEAR_LEVELING_DRIVER": {"info_key": "eeprom.wear_leveling.driver"},
     "WS2812_DRIVER": {"info_key": "ws2812.driver"},
