@@ -6,6 +6,7 @@ from pathlib import Path
 import jsonschema
 from dotty_dict import dotty
 from enum import IntFlag
+from typing import TypeVar
 
 from milc import cli
 
@@ -20,6 +21,7 @@ from qmk.util import maybe_exit, truthy
 
 TRUE_VALUES = ['true', '1', 'on', 'yes']
 FALSE_VALUES = ['false', '0', 'off', 'no']
+T = TypeVar("T")
 
 
 class LedFlags(IntFlag):
@@ -622,6 +624,57 @@ def _extract_matrix_info(info_data, config_c):
     return info_data
 
 
+def _extract_c_literal(info_data, config_c, name: str, default: T = '0') -> T | str:
+    """extract c literal from `config_c` for the macro `name`
+    returns `default` or something parseable by `int(.., base=0)`
+    """
+    literal = config_c.get(name, default)
+    if not isinstance(literal, str) or not literal[0].isdigit():
+        _log_error(info_data, f'{name} is set to {literal} which is not a number')
+        return literal
+    literal = literal.replace("'", "")  # strip c23 digit separator
+    if literal.startswith('0') and literal[1:].isdigit():  # c octal
+        literal = f"0o{literal[1:].upper()}"
+    return literal
+
+
+def _extract_extended_attr_layout(info_data, config_c) -> None | str | int:
+    """Get the layout extended attribute if there is a valid one
+    """
+    vendor = 'KEYBOARD_EXT_ATTR_VENDOR_LAYOUT'
+    standard = 'KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT'
+    vendor_layout = _extract_c_literal(info_data, config_c, vendor)
+    standard_layout = config_c.get(standard, None)
+
+    if int(vendor_layout, base=0) in range(1, 256):
+        if standard_layout and standard_layout != 'VENDOR':
+            _log_warning(info_data, f'{standard} and {vendor} specified in config.h vendor layout wins \nand `{standard} {standard_layout}` is ignored')
+        return int(vendor_layout, base=0)
+    elif vendor_layout != '0':
+        _log_error(info_data, f'{vendor} specified but {vendor_layout} is not >= 0 and <= 0xFF')
+    elif standard_layout == 'VENDOR':
+        _log_error(info_data, f'{standard} is set to VENDOR, but {vendor} is not > 0 and <= 0xFF')
+    elif standard_layout and standard_layout != 'UNKNOWN':
+        return standard_layout.lower()
+    return None
+
+
+def _extract_extended_attributes(info_data, config_c):
+    """Populate data about extended keyboard attributes (hutrr42 c)
+    """
+    layout = _extract_extended_attr_layout(info_data, config_c)
+    attributes = info_data.get('usb', {}).get('extended_attributes', {})
+    if layout and 'layout' in attributes:
+        _log_warning(info_data, 'extended attribute \'layout\' set in config.h and info.json, the config.h value wins')
+
+    if attributes or layout:
+        if 'usb' not in info_data:
+            info_data['usb'] = {}
+        attributes = {k: v.lower() for k, v in attributes.items() if v.lower() != 'unknown'}
+        attributes['layout'] = layout
+        info_data['usb']['extended_attributes'] = attributes
+
+
 def _config_to_json(key_type, config_value):
     """Convert config value using spec
     """
@@ -712,6 +765,7 @@ def _extract_config_h(info_data, config_c):
     _extract_split_right_pins(info_data, config_c)
     _extract_encoders(info_data, config_c)
     _extract_split_encoders(info_data, config_c)
+    _extract_extended_attributes(info_data, config_c)
 
     return info_data
 
