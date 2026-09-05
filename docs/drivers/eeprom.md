@@ -177,5 +177,6 @@ STM32F070 | `1024` bytes    | `2048` bytes
 STM32F072 | `1024` bytes    | `2048` bytes
 STM32F401 | `1024` bytes    | `16384` bytes
 STM32F411 | `1024` bytes    | `16384` bytes
+STM32F412 | `1024` bytes    | `16384` bytes
 
 Under normal circumstances configuration of this driver requires intimate knowledge of the MCU's flash structure -- reconfiguration is at your own risk and will require referring to the code.
