@@ -18,12 +18,12 @@ First, enable Key Lock by setting `KEY_LOCK_ENABLE = yes` in your `rules.mk`. Th
 
 In addition to the keycodes, there are a few functions that you can use to interact with Key Lock.
 
-|Function            |Description                                                            |
-|--------------------|-----------------------------------------------------------------------|
-|key_lock_start()    |Begins the key lock sequence. Mimics pressing QK_LOCK                  |
-|key_lock_cancel()   |Cancels the key lock sequnec if called before a lockable key is pressed|
-|key_lock_active()   |Checks whether the key lock sequence has started                       |
-|key_lock_get_state()|Checks whether a specific key is locked                                |
+|Function            |Description                                                             |
+|--------------------|------------------------------------------------------------------------|
+|key_lock_start()    |Begins the key lock sequence. Mimics pressing QK_LOCK                   |
+|key_lock_cancel()   |Cancels the key lock sequnece if called before a lockable key is pressed|
+|key_lock_active()   |Checks whether the key lock sequence has started                        |
+|key_lock_get_state()|Checks whether a specific key is locked                                 |
 
 ## Caveats
 
