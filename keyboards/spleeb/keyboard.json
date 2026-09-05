@@ -18,6 +18,10 @@
         "rows": ["GP5", "GP6", "GP7", "GP8", "GP9"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "secure": {
         "idle_timeout": 60000,
         "unlock_sequence": [

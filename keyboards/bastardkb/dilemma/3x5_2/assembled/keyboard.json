@@ -5,6 +5,11 @@
         "rows": ["GP4", "GP5", "GP28", "GP26"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP17",
+        "double_tap_reset_timeout": 1000
+    },
     "split": {
         "handedness": {
             "pin": "GP29"
