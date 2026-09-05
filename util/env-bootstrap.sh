@@ -440,6 +440,13 @@ __EOT__
     install_uv() {
         # Install `uv` (or update as necessary)
         download_url https://astral.sh/uv/install.sh - | TMPDIR="$(posix_ish_path "${TMPDIR:-}")" UV_INSTALL_DIR="$(windows_ish_path "${UV_INSTALL_DIR:-}")" sh
+
+        # Workaround for UV installer not pushing UV_TOOL_BIN_DIR into the env when used with their installer
+        if [ "$(uname -o 2>/dev/null || true)" = "Msys" ]; then
+            if [ "${UV_NO_MODIFY_PATH:-}" != "1" ]; then
+                echo -e "#!/bin/sh\n# Workaround for UV installer not pushing UV_TOOL_BIN_DIR into the env when used with their installer\nexport PATH=\"${UV_TOOL_BIN_DIR}:\$PATH\"" > /etc/profile.d/qmk-uv-env.sh
+            fi
+        fi
     }
 
     setup_paths() {
