@@ -14,6 +14,7 @@
       "bootmagic": {
         "enabled": false
     },
+
     "diode_direction": "COL2ROW",
 
     "matrix_pins": {
@@ -33,6 +34,7 @@
     },
 
     "features": {
+        "mousekey": true,
         "nkro": true,
         "pointing_device": true,
         "oled": true,
@@ -41,10 +43,6 @@
 
     "dynamic_keymap": {
         "layer_count": 5
-    },
-
-      "mouse_key": {
-        "enabled": true
     },
 
     "encoder": {
