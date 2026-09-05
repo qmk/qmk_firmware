@@ -1,0 +1,23 @@
+{
+    "keyboard_name": "Tractyl Manuform(5x6) Pi Pico (r)/ Pi Pico (l)",
+    "matrix_pins": {
+        "cols": ["GP15", "GP14", "GP21", "GP20", "GP19", "GP18"],
+        "rows": ["GP17", "GP16", "GP2", "GP3", "GP4", "GP5"]
+    },
+    "diode_direction": "COL2ROW",
+    "split": {
+        "enabled": true,
+        "soft_serial_pin": "GP0",
+        "matrix_pins": {
+            "right": {
+                "cols": ["GP7", "GP6", "GP5", "GP4", "GP3", "GP2"],
+                "rows": ["GP21", "GP20", "GP19", "GP18", "GP17", "GP16"]
+            }
+        }
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "build": {
+        "lto": true
+    }
+}
