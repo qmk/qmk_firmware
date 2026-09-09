@@ -1,0 +1,19 @@
+{
+    "keyboard_name": "Onekey STM32 Mini v2 STM32F103RC",
+    "processor": "STM32F103",
+    "bootloader": "stm32duino",
+    "matrix_pins": {
+        "cols": ["B0"],
+        "rows": ["B1"]
+    },
+    "backlight": {
+        "pin": "A0"
+    },
+    "ws2812": {
+        "pin": "A1"
+    },
+    "apa102": {
+        "data_pin": "A1",
+        "clock_pin": "A2"
+    }
+}
