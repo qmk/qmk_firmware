@@ -7,6 +7,7 @@
 #include "gpio.h"
 #include "split_util.h"
 #include "transactions.h"
+#include <math.h>
 
 // Configuration
 kb_config_t kb_config = {
@@ -62,22 +63,66 @@ __attribute__ ((weak)) const joystick_keymap_t right_joystick_keymap = {
 };
 
 // Button hold tracking
-static button_hold_t local_button_hold = {0, false, false};
-static button_hold_t remote_button_hold = {0, false, false};
+static button_hold_t local_button_hold = {0, false, false, 0};
+static button_hold_t remote_button_hold = {0, false, false, 0};
 
 // Initialization tracking
 static uint32_t init_timeout = 0;
 static bool init_completed = false;
 
+static void release_joystick_keys(uint8_t mode, joystick_state_t *state, button_hold_t *btn_hold, const joystick_keymap_t *keymap, int js_btn) {
+    if (mode == JOY_MODE_DIGITAL) {
+        if (state->up) unregister_code16(keymap->up);
+        if (state->down) unregister_code16(keymap->down);
+        if (state->left) unregister_code16(keymap->left);
+        if (state->right) unregister_code16(keymap->right);
+        if (state->btn) unregister_code16(keymap->btn);
+    } else if (mode == JOY_MODE_ANALOG) {
+        if (state->btn) unregister_joystick_button(js_btn);
+    } else if (mode == JOY_MODE_MOUSE) {
+        if (btn_hold->button_registered) {
+            if (btn_hold->motion_detected) {
+                unregister_code(MS_BTN1);
+            } else {
+                unregister_code(MS_BTN2);
+            }
+        }
+        report_mouse_t report = pointing_device_get_report();
+        report.x = 0;
+        report.y = 0;
+        pointing_device_set_report(report);
+    }
+
+    state->up = false;
+    state->down = false;
+    state->left = false;
+    state->right = false;
+    state->btn = false;
+
+    btn_hold->press_time = 0;
+    btn_hold->button_registered = false;
+    btn_hold->motion_detected = false;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
             case MD_JOYL:
+                if (is_keyboard_left()) {
+                    release_joystick_keys(kb_config.joystick_mode_left, &local_joystick_state, &local_button_hold, &left_joystick_keymap, JS_0);
+                } else {
+                    release_joystick_keys(kb_config.joystick_mode_left, &remote_joystick_state, &remote_button_hold, &left_joystick_keymap, JS_0);
+                }
                 kb_config.joystick_mode_left = (kb_config.joystick_mode_left + 1) % 3;
                 save_kb_config();
                 return false;
 
             case MD_JOYR:
+                if (is_keyboard_left()) {
+                    release_joystick_keys(kb_config.joystick_mode_right, &remote_joystick_state, &remote_button_hold, &right_joystick_keymap, JS_1);
+                } else {
+                    release_joystick_keys(kb_config.joystick_mode_right, &local_joystick_state, &local_button_hold, &right_joystick_keymap, JS_1);
+                }
                 kb_config.joystick_mode_right = (kb_config.joystick_mode_right + 1) % 3;
                 save_kb_config();
                 return false;
@@ -89,6 +134,29 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void save_kb_config(void) {
     eeconfig_update_kb(kb_config.raw);
     transaction_rpc_send(RPC_KB_CONFIG, sizeof(kb_config.raw), &kb_config.raw);
+}
+
+bool pointing_device_driver_init(void) {
+    return true;
+}
+
+static void joystick_axes_to_mouse_delta(int8_t sx, int8_t sy, mouse_xy_report_t *out_x, mouse_xy_report_t *out_y) {
+    float magnitude = sqrtf((float)sx * sx + (float)sy * sy);
+    if (magnitude <= JOY_MOUSE_DEADZONE) {
+        *out_x = 0;
+        *out_y = 0;
+        return;
+    }
+
+    float travel = magnitude - JOY_MOUSE_DEADZONE;
+    float range  = (float)INT8_MAX - JOY_MOUSE_DEADZONE;
+    float speed  = (travel * travel) / (range * range) * JOY_MOUSE_MAX_SPEED;
+    if (speed > JOY_MOUSE_MAX_SPEED) {
+        speed = JOY_MOUSE_MAX_SPEED;
+    }
+
+    *out_x = (mouse_xy_report_t)(speed * sx / magnitude);
+    *out_y = (mouse_xy_report_t)(speed * sy / magnitude);
 }
 
 static void handle_joystick(uint8_t mode, joystick_adc_t* adc, joystick_state_t* state, button_hold_t* btn_hold,
@@ -153,50 +221,14 @@ static void handle_joystick(uint8_t mode, joystick_adc_t* adc, joystick_state_t*
         }
 
     } else if (mode == JOY_MODE_MOUSE) { // MOUSE mode
-        // Map analog values to mouse movement keycodes
         int8_t sx = (int8_t)adc->x;
         int8_t sy = (int8_t)adc->y;
-        
-        // Detect motion while button is held
-        if (state->btn && !btn_hold->motion_detected) {
-            if (sx < -JOY_DIGITAL_ON || sx > JOY_DIGITAL_ON || 
-                sy < -JOY_DIGITAL_ON || sy > JOY_DIGITAL_ON) {
-                btn_hold->motion_detected = true;
-            }
-        }
-        
-        // Handle X-axis (LEFT/RIGHT)
-        if (sx < -JOY_DIGITAL_ON && !state->left) {
-            register_code(MS_LEFT);
-            state->left = true;
-        } else if (sx > -JOY_DIGITAL_OFF && state->left) {
-            unregister_code(MS_LEFT);
-            state->left = false;
-        }
-        
-        if (sx > JOY_DIGITAL_ON && !state->right) {
-            register_code(MS_RGHT);
-            state->right = true;
-        } else if (sx < JOY_DIGITAL_OFF && state->right) {
-            unregister_code(MS_RGHT);
-            state->right = false;
-        }
-        
-        // Handle Y-axis (UP/DOWN)
-        if (sy < -JOY_DIGITAL_ON && !state->up) {
-            register_code(MS_UP);
-            state->up = true;
-        } else if (sy > -JOY_DIGITAL_OFF && state->up) {
-            unregister_code(MS_UP);
-            state->up = false;
-        }
-        
-        if (sy > JOY_DIGITAL_ON && !state->down) {
-            register_code(MS_DOWN);
-            state->down = true;
-        } else if (sy < JOY_DIGITAL_OFF && state->down) {
-            unregister_code(MS_DOWN);
-            state->down = false;
+
+        if (timer_elapsed32(btn_hold->last_move_time) >= JOY_POLLING_INTERVAL) {
+            btn_hold->last_move_time = timer_read32();
+            report_mouse_t report = pointing_device_get_report();
+            joystick_axes_to_mouse_delta(sx, sy, &report.x, &report.y);
+            pointing_device_set_report(report);
         }
 
         // Button handling with hold detection and motion lockout
@@ -228,8 +260,8 @@ static void handle_joystick(uint8_t mode, joystick_adc_t* adc, joystick_state_t*
             // Button held - decide which button to register based on motion or timeout
             if (!btn_hold->button_registered) {
                 // Check for motion
-                if (sx < -JOY_DIGITAL_ON || sx > JOY_DIGITAL_ON || 
-                    sy < -JOY_DIGITAL_ON || sy > JOY_DIGITAL_ON) {
+                if (sx < -JOY_MOUSE_DEADZONE || sx > JOY_MOUSE_DEADZONE ||
+                    sy < -JOY_MOUSE_DEADZONE || sy > JOY_MOUSE_DEADZONE) {
                     // Motion detected - register left-click
                     btn_hold->motion_detected = true;
                     register_code(MS_BTN1);

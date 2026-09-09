@@ -10,6 +10,7 @@
         "joystick": true,
         "mousekey": true,
         "nkro": true,
+        "pointing_device": true,
         "rgb_matrix": true
     },
     "joystick": {

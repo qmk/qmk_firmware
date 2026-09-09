@@ -6,8 +6,6 @@
 #include "quantum.h"
 
 // Joystick configuration
-#define EEPROM_ADDR_JOY_LEFT       0
-#define EEPROM_ADDR_JOY_RIGHT      1
 #define LED_INDEX_JOY_MODE_LEFT    5
 #define LED_INDEX_JOY_MODE_RIGHT  49
 #define JOY_POLLING_INTERVAL      10
@@ -17,6 +15,9 @@
 #define JOY_CENTER               127
 #define JOY_DIGITAL_ON            50
 #define JOY_DIGITAL_OFF           40
+
+#define JOY_MOUSE_DEADZONE        25
+#define JOY_MOUSE_MAX_SPEED       25
 
 #define JOY_PIN_B C2
 #define JOY_PIN_X A2
@@ -59,6 +60,7 @@ typedef struct {
     uint32_t press_time;
     bool button_registered;
     bool motion_detected;
+    uint32_t last_move_time;
 } button_hold_t;
 
 // Joystick keymap
