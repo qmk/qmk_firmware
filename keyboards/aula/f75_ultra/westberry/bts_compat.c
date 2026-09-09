@@ -10,7 +10,7 @@ static bts_info_t *f75_bts_info = NULL;
 static bool f75_nkro = false;
 
 /*
- * Original lib_bts keyboard state:
+ * Wireless keyboard state:
  *
  * boot report:
  *   byte 0 = modifiers

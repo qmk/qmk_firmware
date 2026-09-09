@@ -47,7 +47,7 @@ void wb_bridge_system(uint8_t usage) {
 
 void wb_bridge_fn(bool pressed) {
     /*
-     * Original lib_bts.a sends 0x10 for pressed, 0x00 released.
+     * The wireless controller uses 0x10 for pressed, 0x00 for released.
      */
     uint8_t data = pressed ? 0x10 : 0x00;
     md_send_fn(&data);
