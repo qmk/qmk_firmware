@@ -1007,9 +1007,6 @@ static void close_rgb(void) {
                 if (led_inited) {
                     led_deconfig_all();
                 }
-#ifdef ENTRY_STOP_MODE
-                lp_system_sleep();
-#endif
                 open_rgb();
             }
         }

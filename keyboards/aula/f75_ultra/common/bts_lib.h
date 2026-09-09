@@ -92,7 +92,6 @@ void    bts_test_report_rate_task(void);
 char   *bts_get_version(void);
 uint8_t bts_is_busy(void);
 
-void lp_system_sleep(void);
 
 void bts_set_nkro(bool state);
 bool bts_get_nkro(void);
