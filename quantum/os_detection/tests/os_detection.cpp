@@ -71,6 +71,7 @@ macOS 12.5: [2, 24, 2, 28, FF]
 macOS 15.1.x: [ 2, 4E, 2, 1C, 2, 1A, FF, FF]
 macOS 15.x (another host): [ 2, 0E, 2, 1E, 2, 42, FF]
 macOS 15.x (periodic weirdness): [ 2, 42, 2, 1C, 2, 1A, FF, 2, 42, 2, 1C, 2, 1A, FF ]
+macOS 26.x: [02, 22, 02, 0E, 02, 42, FF, FF, 4, FF]
 iOS/iPadOS 15.6: [2, 24, 2, 28]
 Linux (including Android, Raspberry Pi and WebOS TV): [FF, FF, FF]
 Linux (another host): [FF, FF, FF, FF, FF, FF]
@@ -159,6 +160,12 @@ TEST_F(OsDetectionTest, TestChibiosMacSequoia2) {
 
 TEST_F(OsDetectionTest, TestChibiosMacSequoia3) {
     EXPECT_EQ(check_sequence({0x02, 0x0E, 0x02, 0x1E, 0x02, 0x42, 0xFF}), OS_MACOS);
+    os_detection_task();
+    assert_not_reported();
+}
+
+TEST_F(OsDetectionTest, TestChibiosMacosWithLate04Packet) {
+    EXPECT_EQ(check_sequence({0x02, 0x22, 0x02, 0x0E, 0x02, 0x42, 0xFF, 0xFF, 0x04, 0xFF}), OS_MACOS);
     os_detection_task();
     assert_not_reported();
 }
