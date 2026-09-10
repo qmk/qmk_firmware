@@ -66,6 +66,10 @@
         "device_version": "1.0.0",
         "vid": "0x4242"
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "ws2812": {
         "driver": "vendor"
     },

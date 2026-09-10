@@ -24,7 +24,7 @@ void enter_bootloader_mode_if_requested(void) {}
 
 #if defined(RP2040_BOOTLOADER_DOUBLE_TAP_RESET)
 #    if !defined(RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT)
-#        define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U
+#        define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200
 #    endif
 
 // Needs to be located in a RAM section that is never initialized on boot to
@@ -45,7 +45,7 @@ void __late_init(void) {
         magic_location = magic_token;
         // ChibiOS is not initialized at this point, so sleeping is only
         // possible via busy waiting.
-        wait_us(RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT * 1000U);
+        wait_us(UINT32_C(RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT) * 1000U);
         magic_location = 0;
         return;
     }

@@ -88,6 +88,10 @@
         ],
         "sleep": true
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0015",

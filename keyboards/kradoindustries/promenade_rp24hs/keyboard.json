@@ -40,6 +40,10 @@
         "led_count": 14,
         "sleep": true
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "url": "https://www.kradoindustries.com/",
     "usb": {
         "device_version": "1.0.0",
