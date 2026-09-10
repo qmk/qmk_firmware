@@ -84,7 +84,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 |-------------------------------|---------|-------------------------------------------------------------------------------------------|
 |`QK_DYNAMIC_TAPPING_TERM_PRINT`|`DT_PRNT`| Types the current tapping term, in milliseconds                                           |
 |`QK_DYNAMIC_TAPPING_TERM_UP`   |`DT_UP`  | Increases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
-|`QK_DYNAMIC_TAPPING_TERM_DOWN` |`DT_DOWN`| Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default) |
+|`QK_DYNAMIC_TAPPING_TERM_DOWN` |`DT_DOWN`| Decreases the current tapping term by `DYNAMIC_TAPPING_TERM_INCREMENT`ms (5ms by default), never below the increment |
 
 Set the tapping term as usual with `#define TAPPING_TERM <value>` in `config.h` and add `DYNAMIC_TAPPING_TERM_ENABLE = yes` in `rules.mk`. Then, place the above three keys somewhere in your keymap and flash the new firmware onto your board.
 
