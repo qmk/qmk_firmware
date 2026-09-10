@@ -1137,6 +1137,10 @@ def get_modules(keyboard, keymap_filename):
         if keymap_json:
             modules.extend(keymap_json.get('modules', []))
 
+    # TODO: remove backwards compatibility when via module is external
+    if os.environ.get('VIA_ENABLE', None) == 'yes':
+        modules.append('qmk/via')
+
     # remove duplicates while maintaining the current order
     ret = list(dict.fromkeys(modules))
 
