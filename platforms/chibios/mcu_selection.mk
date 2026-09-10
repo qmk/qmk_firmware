@@ -620,6 +620,40 @@ ifneq ($(findstring STM32G474, $(MCU)),)
   STM32_BOOTLOADER_ADDRESS ?= 0x1FFF0000
 endif
 
+ifneq ($(findstring STM32L151, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m3
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 7
+
+  ## chip/board settings
+  # - the next two should match the directories in
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_SERIES = STM32L1xx
+
+  # Linker script to use
+  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= STM32L151xC
+
+  # Startup code to use
+  #  - it should exist in <chibios>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= stm32l1xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_STM32_L151XC
+
+  USE_FPU ?= no
+
+  # Bootloader address for STM32 DFU
+  STM32_BOOTLOADER_ADDRESS ?= 0x1FF00000
+endif
+
 ifneq (,$(filter $(MCU),STM32L432 STM32L442))
   # Cortex version
   MCU = cortex-m4
