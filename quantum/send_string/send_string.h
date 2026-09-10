@@ -24,6 +24,7 @@
  */
 
 #include <stdint.h>
+#include <stdbool.h>
 
 #include "progmem.h"
 #include "send_string_keycodes.h"
@@ -81,6 +82,13 @@ void send_char(char ascii_code);
  * \param interval The amount of time, in milliseconds, to wait in between key presses. Note this can be set to 0 to ensure no delay, regardless of what TAP_CODE_DELAY is set to.
  */
 void send_char_with_delay(char ascii_code, uint8_t interval);
+
+/**
+ * \brief Check whether an ASCII character has a send-string keycode mapping.
+ *
+ * \param ascii_code The character to check.
+ */
+bool is_valid_send_char(char ascii_code);
 
 /**
  * \brief Type out an eight digit (unsigned 32-bit) hexadecimal value.
