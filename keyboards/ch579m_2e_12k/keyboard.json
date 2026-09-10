@@ -1,0 +1,44 @@
+{
+    "manufacturer": "WCH",
+    "keyboard_name": "ch579m_2e_12k",
+    "maintainer": "Ryan McLean",
+    "url": "https://github.com/ryanm101",
+    "usb": {
+        "vid": "0x1209",
+        "pid": "0x0001",
+        "device_version": "0.0.1"
+    },
+    "processor": "CH579M",
+    "bootloader": "ch-isp",
+    "matrix_pins": {
+        "rows": ["B0"],
+        "cols": ["B2","B19","B20","B21","B22","A1","A2","B15","A13","A14","A6","A12","A15","A3"]
+    },
+    "diode_direction": "COL2ROW",
+    "encoder": {
+        "rotary": [
+            {"pin_a": "B0",  "pin_b": "B1",  "resolution": 4},
+            {"pin_a": "A0",  "pin_b": "A5",  "resolution": 4}
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0, "label": "ENC1"  },
+                { "matrix": [0, 1], "x": 0, "y": 1, "label": "Key 1" },
+                { "matrix": [0, 3], "x": 1, "y": 1, "label": "Key 2" },
+                { "matrix": [0, 2], "x": 0, "y": 2, "label": "Key 3" },
+                { "matrix": [0, 4], "x": 0, "y": 3, "label": "Key 4" },
+                { "matrix": [0, 5], "x": 2, "y": 4, "label": "Key 5" },
+                { "matrix": [0, 6], "x": 2, "y": 3, "label": "Key 6" },
+                { "matrix": [0, 7], "x": 0, "y": 4, "label": "Key 7" },
+                { "matrix": [0, 8], "x": 1, "y": 3, "label": "Key 8" },
+                { "matrix": [0, 9], "x": 1, "y": 4, "label": "Key 9" },
+                { "matrix": [0,10], "x": 2, "y": 0, "label": "ENC2"  },
+                { "matrix": [0,11], "x": 1, "y": 2, "label": "Key 10" },
+                { "matrix": [0,12], "x": 2, "y": 1, "label": "Key 11" },
+                { "matrix": [0,13], "x": 2, "y": 2, "label": "Key 12" }
+            ]
+        }
+    }
+}
