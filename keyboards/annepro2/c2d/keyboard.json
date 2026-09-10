@@ -1,0 +1,11 @@
+{
+    "keyboard_name": "Anne Pro 2D C2D (QMK)",
+    "diode_direction": "COL2ROW",
+    "matrix_pins": {
+        "cols": ["C4", "C5", "C8", "C0", "A10", "B1", "A8", "C13", "C12", "A15", "A14", "A11", "D1", "D2"],
+        "rows": ["C3", "C14", "C15", "C1", "C2"]
+    },
+    "usb": {
+        "pid": "0x800A"
+    }
+}
