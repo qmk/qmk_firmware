@@ -11,6 +11,9 @@ const rgblight_driver_t rgblight_driver = {
     .set_color     = ws2812_set_color,
     .set_color_all = ws2812_set_color_all,
     .flush         = ws2812_flush,
+#if defined(WS2812_VCC_ENABLE_PINS)
+    .set_power     = ws2812_set_power,
+#endif
 };
 
 #elif defined(RGBLIGHT_APA102)

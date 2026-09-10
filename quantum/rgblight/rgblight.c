@@ -104,6 +104,12 @@ rgblight_config_t rgblight_config;
 rgblight_status_t rgblight_status         = {.timer_enabled = false};
 bool              is_rgblight_initialized = false;
 
+static inline void rgblight_set_power(bool on) {
+    if (rgblight_driver.set_power != NULL) {
+        rgblight_driver.set_power(on);
+    }
+}
+
 #ifdef RGBLIGHT_SLEEP
 static bool is_suspended;
 static bool pre_suspend_enabled;
@@ -225,6 +231,7 @@ void rgblight_init(void) {
     rgblight_timer_init(); // setup the timer
 
     rgblight_driver.init();
+    rgblight_set_power(rgblight_config.enable);
 
     if (rgblight_config.enable) {
         rgblight_mode_noeeprom(rgblight_config.mode);
@@ -371,12 +378,14 @@ void rgblight_enable(void) {
     // No need to update EEPROM here. rgblight_mode() will do that, actually
     // eeconfig_update_rgblight(&rgblight_config);
     dprintf("rgblight enable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
+    rgblight_set_power(true);
     rgblight_mode(rgblight_config.mode);
 }
 
 void rgblight_enable_noeeprom(void) {
     rgblight_config.enable = 1;
     dprintf("rgblight enable [NOEEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
+    rgblight_set_power(true);
     rgblight_mode_noeeprom(rgblight_config.mode);
 }
 
@@ -822,9 +831,15 @@ void rgblight_blink_layer_repeat_helper(void) {
 
 #endif
 
-#ifdef RGBLIGHT_SLEEP
-
 void rgblight_suspend(void) {
+#ifndef RGBLIGHT_SLEEP
+    /* Gate opts in independently of RGBLIGHT_SLEEP. */
+    if (rgblight_driver.set_power == NULL) {
+        return;
+    }
+    rgblight_set_power(false);
+    return;
+#else
     rgblight_timer_disable();
     if (!is_suspended) {
         is_suspended        = true;
@@ -838,9 +853,17 @@ void rgblight_suspend(void) {
 
         rgblight_disable_noeeprom();
     }
+#endif
 }
 
 void rgblight_wakeup(void) {
+#ifndef RGBLIGHT_SLEEP
+    if (rgblight_driver.set_power == NULL) {
+        return;
+    }
+    rgblight_set_power(rgblight_config.enable);
+    return;
+#else
     is_suspended = false;
 
     if (pre_suspend_enabled) {
@@ -854,12 +877,15 @@ void rgblight_wakeup(void) {
 #    endif
 
     rgblight_timer_enable();
-}
-
 #endif
+}
 
 void rgblight_set(void) {
     if (!rgblight_config.enable) {
+        if (rgblight_driver.set_power != NULL) {
+            rgblight_set_power(false);
+            return;
+        }
         for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
             rgblight_driver.set_color(rgblight_led_index(i), 0, 0, 0);
         }

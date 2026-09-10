@@ -151,6 +151,9 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .flush         = ws2812_flush,
     .set_color     = ws2812_set_color,
     .set_color_all = ws2812_set_color_all,
+#if defined(WS2812_VCC_ENABLE_PINS)
+    .set_power     = ws2812_set_power,
+#endif
 };
 
 #endif
