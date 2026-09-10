@@ -49,7 +49,7 @@ TX Bolt communicates the status of 24 keys over a simple protocol in variable-si
 To select TX Bolt, add the following lines to your `rules.mk`:
 ```make
 STENO_ENABLE = yes
-STENO_PROTOCOL = txbolt
+STENO_PROTOCOLS = txbolt
 ```
 
 Each byte of the packet represents a different group of steno keys. Determining the group of a certain byte of the packet is done by checking the first two bits, the remaining bits are set if the corresponding steno key was pressed for the stroke. The last set of keys (as indicated by leading `11`) needs to keep track of less keys than there are bits so one of the bits is constantly 0.
@@ -73,7 +73,7 @@ GeminiPR encodes 42 keys into a 6-byte packet. While TX Bolt contains everything
 To select GeminiPR, add the following lines to your `rules.mk`:
 ```make
 STENO_ENABLE = yes
-STENO_PROTOCOL = geminipr
+STENO_PROTOCOLS = geminipr
 ```
 
 All packets in the GeminiPR protocol consist of exactly six bytes, used as bit-arrays for different groups of keys. The beginning of a packet is indicated by setting the most significant bit (MSB) to 1 while setting the MSB of the remaining five bytes to 0.
@@ -115,10 +115,10 @@ More details can be found here: https://github.com/dnaq/plover-machine-hid
 
 If you wish to switch the serial protocol used to transfer the steno chords without having to recompile your keyboard firmware every time, you can press one of the [mode keycodes](#keycode-reference-mode) in order to switch protocols on the fly.
 
-To enable these special keycodes, add the following lines to your `rules.mk`:
+To enable these special keycodes, configure more than one protocol by adding the following lines to your `rules.mk`:
 ```make
 STENO_ENABLE = yes
-STENO_PROTOCOL = all
+STENO_PROTOCOLS = geminipr txbolt
 ```
 
 If you want to switch protocols programmatically, as part of a custom macro for example, don't use `tap_code(QK_STENO_*)`, as `tap_code` only supports [basic keycodes](../keycodes_basic). Instead, you should use `steno_set_mode(STENO_MODE_*)`, whose valid arguments are `STENO_MODE_BOLT` and `STENO_MODE_GEMINI`.
@@ -134,7 +134,7 @@ To configure the default, add one of the following lines to your `config.h`:
 
 Naturally, this option takes the most amount of firmware space as it needs to compile the code for all the available stenography protocols. In most cases, compiling a single stenography protocol is sufficient.
 
-The default value for `STENO_PROTOCOL` is `all`.
+The default value for `STENO_PROTOCOLS` is `geminipr txbolt`.
 
 ## Configuring QMK for Steno {#configuring-qmk-for-steno}
 

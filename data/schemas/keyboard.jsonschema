@@ -828,7 +828,13 @@
                 },
                 "protocol": {
                     "type": "string",
-                    "enum": ["all", "geminipr", "txbolt"]
+                    "$comment": "Deprecated: use stenography.protocols instead"
+                },
+                "protocols": {
+                    "type": "array",
+                    "items": {
+                        "enum": ["geminipr", "txbolt"]
+                    }
                 }
             }
         },
