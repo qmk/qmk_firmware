@@ -119,6 +119,16 @@ void send_byte(uint8_t number);
 void send_nibble(uint8_t number);
 
 /**
+ * \brief Type out a single hexadecimal digit.
+ *
+ * The format is `[0-9a-f]{1}`, eg. `0` through `f`.
+ *
+ * \param number The value to type, from 0 to 15.
+ * \param interval The amount of time, in milliseconds, to wait in between key presses. Note this can be set to 0 to ensure no delay, regardless of what TAP_CODE_DELAY is set to.
+ */
+void send_nibble_with_delay(uint8_t number, uint8_t interval);
+
+/**
  * \brief Type a pseudorandom character from the set `A-Z`, `a-z`, `0-9`, `+` and `/`.
  */
 void tap_random_base64(void);
