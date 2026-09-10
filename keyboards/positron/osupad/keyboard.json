@@ -1,0 +1,54 @@
+{
+  "manufacturer": "Positron Electronic",
+  "keyboard_name": "OSUpad",
+  "maintainer": "juarendra",
+  "url": "https://www.tokopedia.com/positronelectronic/osupad-macropad-mini-for-playing-osu-with-3-mechanical-switch-3-tactile-switch-and-underglow-1731022532695066320",
+  "development_board": "bluepill",
+  "matrix_pins": {
+    "direct": [
+      ["B0", "A7", "A6"],
+      ["B12", "B13", "B14"]
+    ]
+  },
+  "usb": {
+    "device_version": "1.0.0",
+    "pid": "0x7050",
+    "vid": "0x1209"
+  },
+  "features": {
+    "bootmagic": true,
+    "extrakey": true,
+    "mousekey": true,
+    "nkro": true,
+    "rgblight": true
+  },
+  "rgblight": {
+    "led_count": 8,
+    "animations": {
+      "alternating": true,
+      "breathing": true,
+      "christmas": true,
+      "knight": true,
+      "rainbow_mood": true,
+      "rainbow_swirl": true,
+      "rgb_test": true,
+      "snake": true,
+      "static_gradient": true
+    }
+  },
+  "ws2812": {
+    "pin": "A5"
+  },
+  "layouts": {
+    "LAYOUT": {
+      "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 0},
+        {"matrix": [0, 1], "x": 1, "y": 0},
+        {"matrix": [0, 2], "x": 2, "y": 0},
+        {"matrix": [1, 0], "x": 0, "y": 1},
+        {"matrix": [1, 1], "x": 1, "y": 1},
+        {"matrix": [1, 2], "x": 2, "y": 1}
+      ]
+    }
+  }
+}
