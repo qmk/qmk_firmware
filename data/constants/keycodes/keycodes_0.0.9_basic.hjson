@@ -1,0 +1,20 @@
+{
+    "keycodes": {
+        "0x00C3": {
+            "group": "media",
+            "key": "KC_IPAD_POWER",
+            "label": "Power (HID Consumer Range)",
+            "aliases": [
+                "KC_IPWR"
+            ]
+        },
+        "0x00C4": {
+            "group": "media",
+            "key": "KC_IPAD_HOME",
+            "label": "Menu (HID Consumer range)",
+            "aliases": [
+                "KC_IHOM"
+            ]
+        }
+    }
+}
