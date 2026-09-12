@@ -98,6 +98,26 @@
         "type": "object",
         "additionalProperties": {"type": "string"}
     },
+    "hutrr42_locale" : {
+        "type": "string",
+        "pattern": "^\\w+(-\\w+)+$"
+    },
+    "hutrr42_layout": {
+        "oneOf" : [
+            {
+                "type": "string",
+                "enum": [
+                    "ansi", "ANSI",
+                    "ks",   "KS",
+                    "iso",  "ISO",
+                    "abnt", "ABNT",
+                    "jis",  "JIS"
+                ]
+            },
+            {"$ref": "#/hex_number_2d"},
+            {"$ref": "#/unsigned_int_8"}
+        ]
+    },
     "layout_macro": {
         "oneOf": [
             {
