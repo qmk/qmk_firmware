@@ -670,8 +670,10 @@ def _extract_extended_attributes(info_data, config_c):
     if attributes or layout:
         if 'usb' not in info_data:
             info_data['usb'] = {}
-        attributes = {k: v.lower() for k, v in attributes.items() if v.lower() != 'unknown'}
-        attributes['layout'] = layout
+        lowercased = {k: v.lower() if isinstance(v, str) else v for k, v in attributes.items()}
+        attributes = {k: v for k, v in lowercased.items() if v != 'unknown'}
+        if layout:
+            attributes['layout'] = layout
         info_data['usb']['extended_attributes'] = attributes
 
 
