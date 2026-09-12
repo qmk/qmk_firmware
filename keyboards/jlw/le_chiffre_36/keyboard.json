@@ -3,9 +3,6 @@
     "keyboard_name": "le chiffre 36",
     "maintainer": "JLW",
     "bootloader": "stm32-dfu",
-    "bootmagic": {
-        "enabled": true
-    },
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
@@ -13,7 +10,7 @@
         ]
     },
     "features": {
-        "combos": true,
+        "bootmagic": true,
         "console": true,
         "encoder": true,
         "extrakey": true,
@@ -98,10 +95,6 @@
             {"matrix": [1, 2], "x": 115, "y": 0, "flags": 2}
         ],
         "sleep": true
-    },
-    "tapping": {
-        "hold_on_other_key_press_per_key": true,
-        "permissive_hold": true
     },
     "url": "https://www.jlw-kb.com/products/le-chiffre-36-key-pcb",
     "usb": {
