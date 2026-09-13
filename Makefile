@@ -297,9 +297,27 @@ define PARSE_ALL_KEYMAPS
     $$(eval $$(call PARSE_ALL_IN_LIST,PARSE_KEYMAP,$$(KEYMAPS)))
 endef
 
+# Helper macros to extract module and test names from a community module test path
+# e.g., modules/qmk/hello_world/tests/basic -> hello_world and basic
+_GET_TEST_NAME = $(notdir $1)
+GET_MODULE_LOGICAL_NAME = $(patsubst %/tests/$(notdir $1),%,$(patsubst ./modules/%,%,$(patsubst $(QMK_USERSPACE)/modules/%,%,$(patsubst modules/%,%,$1))))
+
+# Dynamic community module test target name generator (combines logical module name and test folder name)
+_COMMUNITY_MODULE_TARGET_NAME = community_module:$(call GET_MODULE_LOGICAL_NAME,$1):$(call _GET_TEST_NAME,$1)
+
+# Test name used for make targets and list-tests.
+# For core tests: path relative to tests/ (e.g. auto_shift/auto_shift_repeat).
+# For community modules: namespaced target name (e.g. community_module:qmk/hello_world:basic).
+GET_TEST_TARGET_NAME = $(if $(filter modules/% ./modules/% $(QMK_USERSPACE)/modules/%,$1),$(call _COMMUNITY_MODULE_TARGET_NAME,$1),$(patsubst ./tests/%,%,$(patsubst tests/%,%,$1)))
+
+# Internal test name (used for build_test.mk)
+# For core tests: just the directory name (e.g. auto_shift_repeat).
+# For community modules: same as target name to avoid collisions.
+GET_TEST_INTERNAL_NAME = $(if $(filter modules/% ./modules/% $(QMK_USERSPACE)/modules/%,$1),$(call _COMMUNITY_MODULE_TARGET_NAME,$1),$(notdir $1))
+
 define BUILD_TEST
     TEST_PATH := $1
-    TEST_NAME := $$(notdir $$(TEST_PATH))
+    TEST_NAME := $$(call GET_TEST_INTERNAL_NAME,$$(TEST_PATH))
     TEST_ID := $$(patsubst ./tests/%,%,$$(TEST_PATH))
     TEST_FULL_NAME := $$(subst /,_,$$(patsubst $$(ROOT_DIR)tests/%,%,$$(TEST_PATH)))
     MAKE_TARGET := $2
@@ -324,19 +342,20 @@ endef
 
 define LIST_TEST
     include $(BUILDDEFS_PATH)/testlist.mk
-    FOUND_TESTS := $$(patsubst ./tests/%,%,$$(TEST_LIST))
+    FOUND_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(call GET_TEST_TARGET_NAME,$$(TEST)))
     $$(info $$(FOUND_TESTS))
 endef
 
 define PARSE_TEST
     TESTS :=
-    TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
-    TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
+    # Extract optional :clean suffix as the build target.
+    TEST_TARGET := $$(if $$(filter %:clean,$$(RULE)),clean,)
+    TEST_NAME := $$(if $$(TEST_TARGET),$$(patsubst %:clean,%,$$(RULE)),$$(RULE))
     include $(BUILDDEFS_PATH)/testlist.mk
     ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
-        MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(patsubst ./tests/%,%,$$(TEST)x)), $$(TEST),))
+        MATCHED_TESTS := $$(foreach TEST,$$(TEST_LIST),$$(if $$(filter $$(TEST_NAME),$$(call GET_TEST_TARGET_NAME,$$(TEST))),$$(TEST),))
     endif
     $$(foreach TEST,$$(MATCHED_TESTS),$$(eval $$(call BUILD_TEST,$$(TEST),$$(TEST_TARGET))))
 endef
@@ -466,3 +485,4 @@ format-and-pytest:
 	RUNTIME=docker ./util/docker_cmd.sh qmk format-c --core-only -a
 	RUNTIME=docker ./util/docker_cmd.sh qmk format-python -a
 	RUNTIME=docker ./util/docker_cmd.sh qmk pytest
+

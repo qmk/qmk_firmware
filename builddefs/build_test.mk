@@ -3,6 +3,7 @@ ifneq ($(VERBOSE),true)
 endif
 
 .DEFAULT_GOAL := all
+QMK_BIN ?= qmk
 
 OPT = g
 
@@ -58,6 +59,17 @@ include tests/test_common/build.mk
 include $(TEST_PATH)/test.mk
 endif
 
+ifneq ($(strip $(COMMUNITY_MODULES)),)
+COMMUNITY_MODULES_OUTPUT := $(BUILD_DIR)/test_obj/$(TEST_OUTPUT)/community_modules
+$(shell mkdir -p $(COMMUNITY_MODULES_OUTPUT) 2>/dev/null)
+$(shell $(QMK_BIN) generate-test-community-modules --modules "$(COMMUNITY_MODULES)" --output-dir $(COMMUNITY_MODULES_OUTPUT) -q)
+
+-include $(COMMUNITY_MODULES_OUTPUT)/community_rules.mk
+VPATH += $(COMMUNITY_MODULES_OUTPUT)
+OPT_DEFS += -DCOMMUNITY_MODULES_ENABLE=TRUE
+OPT_DEFS += "-DQMK_KEYBOARD_H=\"quantum.h\""
+endif
+
 include $(BUILDDEFS_PATH)/common_features.mk
 include $(BUILDDEFS_PATH)/generic_features.mk
 include $(PLATFORM_PATH)/common.mk
@@ -94,3 +106,4 @@ include $(BUILDDEFS_PATH)/common_rules.mk
 
 $(shell mkdir -p $(BUILD_DIR)/test 2>/dev/null)
 $(shell mkdir -p $(TEST_OBJ) 2>/dev/null)
+
