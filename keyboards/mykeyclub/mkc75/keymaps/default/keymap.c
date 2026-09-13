@@ -13,7 +13,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * LAYOUT_all is the union of every switch position on the PCB, including
      * positions that are mutually exclusive on a single build: all three space
      * cells are KC_SPACE so the 6.25u, 7u and 3u-1u-3u bottom rows work, and
-     * the top-right switch sits next to the rotary encoder.
+     * the top-right slot holds EITHER a Home switch (matrix 0,13) OR the
+     * rotary encoder module in the same slot, never both. On an encoder
+     * build, knob rotation sends the encoder_map actions below and pressing
+     * the knob closes matrix 3,12 (KC_AUDIO_MUTE here). Both cells are listed
+     * so either build stays fully remappable.
      */
     [_BASE] = LAYOUT_all(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_HOME, KC_AUDIO_MUTE,
