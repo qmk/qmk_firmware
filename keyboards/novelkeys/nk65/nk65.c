@@ -84,7 +84,6 @@ const is31fl3733_led_t PROGMEM g_is31fl3733_leds[IS31FL3733_LED_COUNT] = {
     {1, SW5_CS2,   SW10_CS2,  SW6_CS2}, //LB6 - mid indi
     {1, SW11_CS2,  SW4_CS2,   SW12_CS2}, //LB6 - bot indi
 };
-#endif
 
 /* Indicator LEDS are part of the LED driver
  * Top LED is blue only. LED driver 2 RGB 7 Green channel
@@ -97,23 +96,24 @@ bool rgb_matrix_indicators_kb(void) {
     }
 
     if (host_keyboard_led_state().caps_lock) {
-        rgb_matrix_set_color(68, RGB_WHITE); //0, 0xFF, 0);
+        rgb_matrix_set_color(68, RGB_WHITE);
     } else {
         rgb_matrix_set_color(68, RGB_OFF);
     }
 
     layer_state_t state = layer_state|default_layer_state;
     if (state & (1UL << 1)) {
-        rgb_matrix_set_color(69, RGB_WHITE); // 0xFF, 0, 0xFF);
+        rgb_matrix_set_color(69, RGB_WHITE);
     } else {
         rgb_matrix_set_color(69, RGB_OFF);
     }
 
     if (state & (1UL << 2)) {
-        rgb_matrix_set_color(70, RGB_WHITE); //0, 0xFF, 0);
+        rgb_matrix_set_color(70, RGB_WHITE);
     } else {
         rgb_matrix_set_color(70, RGB_OFF);
     }
 
     return true;
 }
+#endif

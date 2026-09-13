@@ -83,32 +83,34 @@ jobs:
       - name: Install base dependencies
         run: |
           # Attempt to run the package installation up to 10 times to mitigate transient network issues
+          ok=''
           for n in $(seq 1 10); do
             {
               echo "Attempt #$n of 10 to install base dependencies:"
               case "${{ matrix.distribution }}" in
                 *ubuntu*|*debian*)
-                  apt-get update
-                  apt-get install -y sudo git passwd
+                  apt-get update &&
+                    apt-get install -y sudo git passwd
                   ;;
                 *fedora*|*rockylinux*|*almalinux*)
                   dnf install -y sudo git passwd findutils  # findutils=xargs
                   ;;
                 *suse*)
-                  zypper --non-interactive refresh
-                  zypper --non-interactive install sudo git shadow findutils tar  # findutils=xargs
+                  zypper --non-interactive refresh &&
+                    zypper --non-interactive install sudo git shadow findutils tar  # findutils=xargs
                   ;;
                 *gentoo*)
-                  emaint sync
-                  emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
+                  { emaint sync -a || emerge --sync --quiet || emerge-webrsync -q ; } &&
+                    emerge --noreplace --ask=n sudo dev-vcs/git shadow findutils  # findutils=xargs
                   ;;
                 *archlinux*|*cachyos*|*manjaro*)
-                  pacman -Syu --noconfirm
-                  pacman -S --noconfirm sudo git
+                  pacman -Syu --noconfirm &&
+                    pacman -S --noconfirm sudo git
                   ;;
               esac
-            } && break || sleep 10
+            } && { ok=1; break ; } || sleep 10
           done
+          [ -n "$ok" ] || exit 1
 
           # Fix PAM configuration for sudo in containers
           # Fix /etc/shadow permissions - common issue in container environments
@@ -196,10 +198,21 @@ jobs:
           - macos-15        # Apple Silicon ARM64
           - macos-15-intel  # Intel x64
           - macos-26        # Apple Silicon ARM64
+          - macos-26-intel  # Intel x64
 
     runs-on: ${{ matrix.os }}
 
     steps:
+      - name: Install base dependencies
+        run: |
+          # Attempt to run the brew update up to 10 times to mitigate transient issues
+          for n in $(seq 1 10); do
+            brew update && exit 0
+            brew update-reset || true
+            sleep 10
+          done
+          exit 1
+
       - name: Checkout repository
         uses: actions/checkout@v7
         with:

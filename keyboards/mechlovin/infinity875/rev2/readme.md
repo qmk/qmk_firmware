@@ -1,14 +1,12 @@
-# Infinity 87.5
+# Infinity 87.5 Rev 2
 
-![Infinity 87.5](https://i.imgur.com/qt4YBwSl.jpeg)
+![Infinity 87.5 Rev 2](https://i.imgur.com/9dDdLaz.jpeg)
 
-The Infinity 87.5 is in the popular A87 form factor with top-sided USB Type-C and supports BOTH the F12 and F13 footprints, so it is compatible with a number of TKL boards like Geonworks Frog/F1-8x, KFE-CE, and Singa Jaguar, among others.
+The Infinity 87.5 is in the popular A87 form factor with top-sided USB Type-C and supports BOTH the F12 and F13 footprints, so it is compatible with a number of TKL boards like Geonworks Frog/F1-8x, KFE-CE, and Singa Jaguar, among others. Revision 2 is powered by 
 
 * Keyboard Maintainer: [Mechlovin' Studio](https://github.com/mechlovin)
 * Hardware Supported: Most H87C compatible keyboards
-* Hardware Availability: [Mechlovin' Studio](https://mechlovin.studio), [GB](https://geekhack.org/index.php?topic=115251.0), [CBB Planet](https://cbbplanet.com/products/infinity-87-5-pcb)
-* Rev1: Atmega32u4 processor
-* Rev2: STM32F103
+* Hardware Availability: [Mechlovin' Studio](https://mechlovin.studio), [CBB Planet](https://cbbplanet.com/products/infinity-87-5-pcb)
 
 Make example for this keyboard (after setting up your build environment):
 
