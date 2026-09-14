@@ -3,5 +3,4 @@
 
 #pragma once
 
-#undef LED_CAPS_LOCK_PIN
 #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD

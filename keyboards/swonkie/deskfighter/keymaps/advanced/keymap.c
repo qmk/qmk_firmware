@@ -3,8 +3,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define CAPS_LED_PIN B9
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base layer
     LAYOUT(
@@ -35,7 +33,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-// Make the caps LED reflect the state of "caps word".
+// Turn the caps LED on if "caps word" or "caps lock" is enabled.
 void caps_word_set_user(bool active) {
-    gpio_write_pin(CAPS_LED_PIN, active);
+    bool state = active || host_keyboard_led_state().caps_lock;
+    gpio_write_pin(LED_CAPS_LOCK_PIN, state);
 }

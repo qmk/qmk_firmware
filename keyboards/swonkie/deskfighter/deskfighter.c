@@ -4,7 +4,6 @@
 #include "quantum.h"
 
 #define NUM_LED_PIN A3
-#define CAPS_LED_PIN B9
 
 void keyboard_pre_init_kb(void) {
     // Disable dead battery check to avoid pull-down on B6.
@@ -13,7 +12,6 @@ void keyboard_pre_init_kb(void) {
     PWR->CR3 |= PWR_CR3_UCPD_DBDIS;
 
     gpio_set_pin_output(NUM_LED_PIN);
-    gpio_set_pin_output(CAPS_LED_PIN);
 
     keyboard_pre_init_user();
 }
@@ -24,5 +22,5 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
     // right hand position, similar to some laptop keyboards.
     gpio_write_pin(NUM_LED_PIN, IS_LAYER_ON_STATE(state, 1));
 
-    return state;
+    return layer_state_set_user(state);
 }
