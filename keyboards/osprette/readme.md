@@ -1,6 +1,6 @@
 # The Osprette
 
-![The Osprette](https://raw.githubusercontent.com/smores56/osprette/main/images/osprette-front.jpg)
+![The Osprette](https://i.imgur.com/CvsrTNZ.jpeg)
 
 *A 34-key unibody columnar keyboard with pinky clusters, running on any Pro Micro compatible controller.*
 
