@@ -3,6 +3,11 @@
 #include "analog.h"
 #include "qmk_midi.h"
 
+enum layers {
+    _BASE,
+    _FN,
+};
+
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -13,14 +18,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //      1        2       3       RET
 //      0                        .
 
-  [0] = LAYOUT(
-    MO(1),   KC_PSLS,   KC_PAST,   KC_PMNS,
+  [_BASE] = LAYOUT(
+    MO(_FN), KC_PSLS,   KC_PAST,   KC_PMNS,
     KC_P7,   KC_P8,     KC_P9,     KC_PPLS,
     KC_P4,   KC_P5,     KC_P6,     KC_MUTE,
     KC_P1,   KC_P2,     KC_P3,     KC_PENT,
     KC_P0,                         KC_PDOT
   ),
-  [1] = LAYOUT(
+  [_FN] = LAYOUT(
     _______,   KC_PSLS,   KC_PAST,   KC_PMNS,
     KC_P7,     RM_VALU,   KC_P9,     KC_PPLS,
     RM_PREV,   KC_P5,     RM_NEXT,   KC_MUTE,
