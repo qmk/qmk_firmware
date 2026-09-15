@@ -70,6 +70,13 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, 1, 2, 3);
 }
 
+// Force la heatmap au boot : RGB_MATRIX_DEFAULT_MODE ne s'applique qu'à une
+// EEPROM vierge, donc un mode déjà enregistré (ex. cycle_all) ne serait
+// sinon jamais remplacé par un flash ultérieur.
+void keyboard_post_init_user(void) {
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
+}
+
 // Couleur RGB en fonction du layer actif (layer 0 = typing heatmap, cf. config.h)
 bool rgb_matrix_indicators_user(void) {
     switch (get_highest_layer(layer_state)) {
