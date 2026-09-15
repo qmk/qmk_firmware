@@ -19,19 +19,19 @@ When discussing this keymap, keys are referred to by these names instead of raw 
 - Row 1 (home row, has the F/J home-row shift mods): `A S D F G` / `H J K L ;`
 - Row 2: `Z X C V B` / `N M , . /`
 
-**Pinky keys** — the outer column of each half (left column 0, right column 5), 3 per side named by row:
+**Pinky keys** — the outer column of each half (left column 0, right column 5), 3 per side named by row. Each also has a 3-letter acronym (Pinky/Left-Right/Up-Middle-Down):
 | | Gauche (left) | Droite (right) |
 |---|---|---|
-| **Haut** (top) | `LALT_T(KC_TAB)` — Tab tap / Alt hold | `KC_ESC` |
-| **Milieu** (home row) | `KC_LCTL` | `KC_QUOT` — the `'` key |
-| **Bas** (bottom) | `KC_LSFT` | `KC_RSFT` |
+| **Haut** (top) | `PLU` = `LALT_T(KC_TAB)` — Tab tap / Alt hold | `PRU` = `KC_ESC` |
+| **Milieu** (home row) | `PLM` = `KC_LCTL` | `PRM` = `KC_QUOT` — the `'` key |
+| **Bas** (bottom) | `PLD` = `KC_LSFT` | `PRD` = `KC_RSFT` |
 
-**Thumb keys** — the 3-key mod cluster per side, named by distance from the keyboard's center gap:
+**Thumb keys** — the 3-key mod cluster per side, named by distance from the keyboard's center gap. Each also has a 3-letter acronym (Thumb/Left-Right/Inner-Middle-Outer):
 | | Gauche (left) | Droit (right) |
 |---|---|---|
-| **Extérieur** (outermost, away from center) | `OSM(MOD_HYPR)` | `KC_BSPC` |
-| **Milieu** | `MO(1)` | `LT(2, KC_SPC)` |
-| **Intérieur** (innermost, next to center) | `LGUI_T(KC_ENT)` | `KC_SPC` |
+| **Extérieur** (outermost, away from center) | `TLO` = `OSM(MOD_HYPR)` | `TRO` = `KC_BSPC` |
+| **Milieu** | `TLM` = `MO(1)` | `TRM` = `LT(2, KC_SPC)` |
+| **Intérieur** (innermost, next to center) | `TLI` = `LGUI_T(KC_ENT)` | `TRI` = `KC_SPC` |
 
 These names describe layer 0 (the base layer); the same position names apply on other layers even when the keycode there differs (e.g. "pinky droite haut" is `QK_BOOT` on layer 3, `KC_ESC` on layer 0).
 
