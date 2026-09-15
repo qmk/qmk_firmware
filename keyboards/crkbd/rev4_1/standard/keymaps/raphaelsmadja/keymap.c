@@ -98,10 +98,12 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, 1, 2, 3);
 }
 
-// Force la heatmap au boot : RGB_MATRIX_DEFAULT_MODE ne s'applique qu'à une
-// EEPROM vierge, donc un mode déjà enregistré (ex. cycle_all) ne serait
-// sinon jamais remplacé par un flash ultérieur.
+// Force la heatmap allumée au boot : RGB_MATRIX_DEFAULT_MODE ne s'applique
+// qu'à une EEPROM vierge, donc un mode ou un état enable/disable déjà
+// enregistré (ex. cycle_all, RGB éteint via RM_TOGG lors d'un test) ne
+// serait sinon jamais remplacé par un flash ultérieur.
 void keyboard_post_init_user(void) {
+    rgb_matrix_enable_noeeprom();
     rgb_matrix_mode_noeeprom(RGB_MATRIX_TYPING_HEATMAP);
 }
 
