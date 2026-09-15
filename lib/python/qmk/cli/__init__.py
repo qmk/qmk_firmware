@@ -28,7 +28,7 @@ def _get_default_distrib_path():
 
 
 # Ensure the QMK distribution is on the `$PATH` if present. This must be kept in sync with qmk/qmk_cli.
-QMK_DISTRIB_DIR = Path(os.environ.get('QMK_DISTRIB_DIR', _get_default_distrib_path()))
+QMK_DISTRIB_DIR = Path(os.environ['QMK_DISTRIB_DIR'] if 'QMK_DISTRIB_DIR' in os.environ else _get_default_distrib_path())
 if QMK_DISTRIB_DIR.exists():
     os.environ['PATH'] = str(QMK_DISTRIB_DIR / 'bin') + os.pathsep + os.environ['PATH']
 

@@ -1,3 +1,5 @@
+from typing import Sequence
+
 import platform
 from subprocess import DEVNULL
 
@@ -21,7 +23,7 @@ def check_subcommand_stdin(file_to_read, command, *args):
     return result
 
 
-def check_returncode(result, expected=[0]):
+def check_returncode(result, expected: Sequence[int] = [0]):
     """Print stdout if `result.returncode` does not match `expected`.
     """
     if result.returncode not in expected:
