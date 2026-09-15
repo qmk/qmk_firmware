@@ -7,12 +7,29 @@ enum {
     TD_PRU,
 };
 
+// TG(4) can't be passed to ACTION_TAP_DANCE_DOUBLE (it only supports basic
+// keycodes/mod-taps via register_code16), so the mouse-layer toggle is done
+// manually here instead.
+void td_pru_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count >= 2) {
+        layer_invert(4);
+    } else {
+        register_code16(KC_ESC);
+    }
+}
+
+void td_pru_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->count < 2) {
+        unregister_code16(KC_ESC);
+    }
+}
+
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for backspace, twice for opt+backspace
     [TD_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
     // Tap once for Escape, twice to toggle (lock) the mouse layer
-    [TD_PRU] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, TG(4)),
+    [TD_PRU] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_pru_finished, td_pru_reset),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
