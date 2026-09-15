@@ -3,7 +3,7 @@
     "keyboard_name": "DeskFighter",
     "maintainer": "Swonkie",
     "bootloader": "stm32-dfu",
-    "bootloader_instructions": "Press fn + esc. Alternatively, on the underside of the keyboard: hold down the 'Bootloader' button while plugging in the USB cable.",
+    "bootloader_instructions": "Hold down the 'Bootloader' button on the underside of the keyboard while plugging in the USB cable.",
     "diode_direction": "COL2ROW",
     "encoder": {
         "rotary": [
