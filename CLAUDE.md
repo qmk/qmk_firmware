@@ -29,15 +29,29 @@ When discussing this keymap, keys are referred to by these names instead of raw 
 **Thumb keys** — the 3-key mod cluster per side, named by distance from the keyboard's center gap. Each also has a 3-letter acronym (Thumb/Left-Right/Inner-Middle-Outer):
 | | Gauche (left) | Droit (right) |
 |---|---|---|
-| **Extérieur** (outermost, away from center) | `TLO` = `OSM(MOD_HYPR)` | `TRO` = `KC_BSPC` |
-| **Milieu** | `TLM` = `MO(1)` | `TRM` = `LT(2, KC_SPC)` |
+| **Extérieur** (outermost, away from center) | `TLO` = `KC_LGUI` | `TRO` = `OSM(MOD_HYPR)` |
+| **Milieu** | `TLM` = `LT(1, KC_ENT)` — Enter tap / layer 1 hold | `TRM` = `LT(2, KC_SPC)` |
 | **Intérieur** (innermost, next to center) | `TLI` = `LGUI_T(KC_ENT)` | `TRI` = `KC_SPC` |
+
+A combo also arms the Hyper one-shot as a second path: chording `TRM` + `TLO` together (i.e. `LT(2, KC_SPC)` + `KC_LGUI`) triggers the same `set_oneshot_mods(MOD_HYPR)` as tapping `TRO` alone.
 
 These names describe layer 0 (the base layer); the same position names apply on other layers even when the keycode there differs (e.g. "pinky droite haut" is `QK_BOOT` on layer 3, `KC_ESC` on layer 0).
 
 ## Build / compile
 
-The `qmk` CLI (Python) is not installed in this environment (`pip install -r requirements.txt` would provide it). Without it, the top-level `Makefile` still works directly:
+The `qmk` CLI (Python) and the `arm-none-eabi-gcc` toolchain are usually not preinstalled in a fresh environment; `make` shells out to `qmk` for a preflight check (`qmk hello`) and fails immediately without it. To set both up:
+
+```sh
+# qmk CLI: requirements.txt's own deps don't provide the `qmk` command itself
+# (that's the separate `qmk` PyPI package), and a modern setuptools breaks
+# building the `halo` dependency's wheel — pin setuptools first.
+pip install --break-system-packages "setuptools<72" qmk
+
+# ARM cross-compiler toolchain, needed to actually compile for the RP2040
+apt-get install -y gcc-arm-none-eabi
+```
+
+Once both are on `PATH`, the top-level `Makefile` works directly:
 
 ```sh
 # Build the firmware for this keymap
@@ -67,15 +81,16 @@ make test:tap_dance
 ## Keymap architecture (`keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja/`)
 
 - `keymap.c` defines a 5-layer `keymaps[]` array using the `LAYOUT()` macro (36 main keys + 6 thumb keys, split 18/18 + 3/3):
-  - Layer 0: base QWERTY layer with home-row mods (`LALT_T`, `LSFT_T`/`RSFT_T` on F/J, `LGUI_T` on Enter) and a Hyper one-shot mod (`OSM(MOD_HYPR)`).
-  - Layer 1: symbols/numbers (accessed via `MO(1)` on layer 0).
+  - Layer 0: base QWERTY layer with home-row mods (`LALT_T`, `LSFT_T`/`RSFT_T` on F/J, `LGUI_T` on Enter) and a Hyper one-shot mod on `TRO` (`OSM(MOD_HYPR)`), also reachable via the `TRM`+`TLO` combo (see Key naming convention above).
+  - Layer 1: symbols/numbers (accessed by holding `TLM`, `LT(1, KC_ENT)`, on layer 0; tapping it types Enter). `TRO` on this layer is `TD(TD_BSPC)` (backspace, the layer 0 backspace key was removed as redundant with this).
   - Layer 2: navigation/media/screenshot keys (accessed via `LT(2, KC_SPC)`, i.e. hold space).
   - Layer 3: reached automatically when layers 1+2 are both active (tri-layer) — bootloader entry (`QK_BOOT`), RGB matrix controls, and window-management arrow keys.
   - Layer 4: mouse keys layer, entered by double-tapping `PRU` on layer 0 (locked on via `layer_invert(4)`) and exited with a single tap of `PRU` (overridden to `TO(0)` on this layer, instead of falling through to the layer-0 tap-dance); `TRM`/`TRI` are left click (`MS_BTN1`) and `TRO` is right click (`MS_BTN2`) while on this layer.
   - Two tap-dances: `TD_BSPC` (tap = backspace, double-tap = Option+Backspace/word delete) and `TD_PRU` (tap = Escape, double-tap = toggle/lock layer 4 via `layer_invert(4)` — done manually since `TG()` can't be passed to the simple tap-dance macros).
+- A `COMBO_ENABLE` combo (`COMBO_HYPER` in `key_combos[]`) chords `TRM` (`LT(2, KC_SPC)`) + `TLO` (`KC_LGUI`) to arm the same Hyper one-shot as tapping `TRO`, via `process_combo_event()` calling `set_oneshot_mods(MOD_HYPR)` directly (not a plain keycode, since `TLO` itself is a mod-tap-free hold-only key here).
 - `layer_state_set_user()` wires up the tri-layer behavior (`update_tri_layer_state(state, 1, 2, 3)`), making layer 3 accessible by holding both layer-1 and layer-2 triggers together.
 - `get_hold_on_other_key_press()` customizes "hold on other key press" behavior for tap-hold keys: the space/layer-2 key (`LT(2, KC_SPC)`) resolves to hold immediately on another keypress, while the F/J home-row shift mods do not (favoring fast typing over eager modifier activation).
-- `rules.mk` enables `MOUSEKEY_ENABLE`, `RGB_MATRIX_ENABLE`, and `TAP_DANCE_ENABLE` for this keymap specifically.
+- `rules.mk` enables `MOUSEKEY_ENABLE`, `RGB_MATRIX_ENABLE`, `TAP_DANCE_ENABLE`, and `COMBO_ENABLE` for this keymap specifically.
 
 Keyboard-level config (matrix pins, RGB matrix LED positions, split/handedness config, available `LAYOUT_*` macros) lives one level up in `keyboards/crkbd/rev4_1/standard/keyboard.json` and `keyboards/crkbd/rev4_1/info.json` — only touch these if changing the physical hardware config (not needed for keymap/layer/behavior changes).
 
