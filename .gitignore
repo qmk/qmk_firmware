@@ -90,6 +90,7 @@ tags
 *.apng
 *.mng
 *.svg
+!keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja/keymap.svg
 *.webp
 *.webm
 *.avi
