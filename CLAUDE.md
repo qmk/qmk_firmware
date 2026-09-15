@@ -22,7 +22,7 @@ When discussing this keymap, keys are referred to by these names instead of raw 
 **Pinky keys** — the outer column of each half (left column 0, right column 5), 3 per side named by row. Each also has a 3-letter acronym (Pinky/Left-Right/Up-Middle-Down):
 | | Gauche (left) | Droite (right) |
 |---|---|---|
-| **Haut** (top) | `PLU` = `LALT_T(KC_TAB)` — Tab tap / Alt hold | `PRU` = `KC_ESC` |
+| **Haut** (top) | `PLU` = `LALT_T(KC_TAB)` — Tab tap / Alt hold | `PRU` = `TD(TD_PRU)` — Escape tap / toggle mouse layer (layer 4) on double-tap |
 | **Milieu** (home row) | `PLM` = `KC_LCTL` | `PRM` = `KC_QUOT` — the `'` key |
 | **Bas** (bottom) | `PLD` = `KC_LSFT` | `PRD` = `KC_RSFT` |
 
@@ -71,8 +71,8 @@ make test:tap_dance
   - Layer 1: symbols/numbers (accessed via `MO(1)` on layer 0).
   - Layer 2: navigation/media/screenshot keys (accessed via `LT(2, KC_SPC)`, i.e. hold space).
   - Layer 3: reached automatically when layers 1+2 are both active (tri-layer) — bootloader entry (`QK_BOOT`), RGB matrix controls, and window-management arrow keys.
-  - Layer 4: mouse keys layer, entered/exited with `TO(0)`.
-  - A `TD_BSPC` tap-dance: tap = backspace, double-tap = Option+Backspace (word delete).
+  - Layer 4: mouse keys layer, toggled on/off (locked) by double-tapping `PRU` (`TD_PRU`); `TRM`/`TRI` are left click (`MS_BTN1`) and `TRO` is right click (`MS_BTN2`) while on this layer.
+  - Two tap-dances: `TD_BSPC` (tap = backspace, double-tap = Option+Backspace/word delete) and `TD_PRU` (tap = Escape, double-tap = toggle/lock layer 4).
 - `layer_state_set_user()` wires up the tri-layer behavior (`update_tri_layer_state(state, 1, 2, 3)`), making layer 3 accessible by holding both layer-1 and layer-2 triggers together.
 - `get_hold_on_other_key_press()` customizes "hold on other key press" behavior for tap-hold keys: the space/layer-2 key (`LT(2, KC_SPC)`) resolves to hold immediately on another keypress, while the F/J home-row shift mods do not (favoring fast typing over eager modifier activation).
 - `rules.mk` enables `MOUSEKEY_ENABLE`, `RGB_MATRIX_ENABLE`, and `TAP_DANCE_ENABLE` for this keymap specifically.
