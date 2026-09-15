@@ -8,7 +8,8 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": true
+        "nkro": true,
+        "rgb_matrix": true,
     },
     "matrix_pins": {
         "cols": ["C2", "C2", "C2", "C2"],
