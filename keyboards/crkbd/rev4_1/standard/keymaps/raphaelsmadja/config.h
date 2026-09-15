@@ -6,6 +6,7 @@
 // ne s'applique qu'à une EEPROM vierge)
 #define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_TYPING_HEATMAP
 
-// Synchronise le layer actif vers la moitié droite (esclave) pour que
-// rgb_matrix_indicators_user() y applique aussi les couleurs par layer
-#define SPLIT_LAYER_STATE_ENABLE
+// SPLIT_LAYER_STATE_ENABLE (pour synchroniser le layer actif vers la moitié
+// droite) a rendu ce côté complètement inutilisable au flash — retiré en
+// attendant d'en comprendre la cause. En attendant, les couleurs par layer
+// dans rgb_matrix_indicators_user() ne s'appliquent qu'à la moitié gauche.
