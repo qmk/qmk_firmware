@@ -5,6 +5,7 @@
 enum {
     TD_BSPC,
     TD_PRU,
+    TD_PLU,
 };
 
 // TG(4) can't be passed to ACTION_TAP_DANCE_DOUBLE (it only supports basic
@@ -24,17 +25,44 @@ void td_pru_reset(tap_dance_state_t *state, void *user_data) {
     }
 }
 
+// Keeps the normal Tab tap / Alt hold behavior on a single press, but a tap
+// followed by a held second press jumps to the bootloader instead of
+// repeating Alt.
+void td_plu_finished(tap_dance_state_t *state, void *user_data) {
+    if (state->count >= 2) {
+        if (state->pressed) {
+            reset_keyboard();
+        }
+    } else if (state->pressed) {
+        register_code(KC_LALT);
+    } else {
+        register_code16(KC_TAB);
+    }
+}
+
+void td_plu_reset(tap_dance_state_t *state, void *user_data) {
+    if (state->count < 2) {
+        if (state->pressed) {
+            unregister_code(KC_LALT);
+        } else {
+            unregister_code16(KC_TAB);
+        }
+    }
+}
+
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for backspace, twice for opt+backspace
     [TD_BSPC] = ACTION_TAP_DANCE_DOUBLE(KC_BSPC, LALT(KC_BSPC)),
     // Tap once for Escape, twice to toggle (lock) the mouse layer
     [TD_PRU] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_pru_finished, td_pru_reset),
+    // Tap for Tab, hold for Alt, tap then hold for bootloader
+    [TD_PLU] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_plu_finished, td_plu_reset),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT(
-		LALT_T(KC_TAB), KC_Q, KC_W, KC_E, KC_R, KC_T,                         KC_Y, KC_U, KC_I, KC_O, KC_P, TD(TD_PRU),
+		TD(TD_PLU), KC_Q, KC_W, KC_E, KC_R, KC_T,                             KC_Y, KC_U, KC_I, KC_O, KC_P, TD(TD_PRU),
 		KC_LCTL, KC_A, KC_S, KC_D, LSFT_T(KC_F), KC_G,                        KC_H, RSFT_T(KC_J), KC_K, KC_L, KC_SCLN, KC_QUOT,
 		KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B,                                KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,
 		OSM(MOD_HYPR), MO(1), LGUI_T(KC_ENT),                                 KC_SPC, LT(2, KC_SPC), KC_BSPC
