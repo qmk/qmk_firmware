@@ -1,0 +1,66 @@
+name: Draw keymap
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - raph
+    paths:
+    - 'keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja/keymap.c'
+    - '.github/workflows/draw-keymap.yml'
+
+jobs:
+  draw:
+    name: "Render keymap diagram"
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run: |
+        git config --global --add safe.directory '*'
+
+    - name: Checkout
+      uses: actions/checkout@v6
+
+    - name: Install dependencies
+      run: |
+        pip3 install -r requirements-dev.txt
+        pip3 install keymap-drawer
+
+    - name: Render keymap SVG
+      working-directory: keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja
+      run: |
+        qmk c2json keymap.c | keymap parse -c 12 -q - > keymap.yaml
+        keymap draw -k crkbd/rev4_1/standard -l LAYOUT_split_3x6_3 keymap.yaml > keymap.svg
+        rm keymap.yaml
+
+    - name: Update README with keymap diagram
+      working-directory: keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja
+      run: |
+        python3 - <<'PY'
+        import re
+        import pathlib
+
+        readme = pathlib.Path("README.md")
+        text = readme.read_text()
+        block = "<!-- keymap:start -->\n![Keymap](./keymap.svg)\n<!-- keymap:end -->"
+        new_text = re.sub(r"<!-- keymap:start -->.*<!-- keymap:end -->", block, text, flags=re.S)
+        readme.write_text(new_text)
+        PY
+
+    - name: Commit updated diagram
+      run: |
+        git config user.name 'github-actions[bot]'
+        git config user.email 'github-actions[bot]@users.noreply.github.com'
+        git add keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja/keymap.svg
+        git add keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja/README.md
+        if git diff --cached --quiet; then
+          echo "Keymap diagram unchanged, nothing to commit"
+        else
+          git commit -m "Update keymap diagram [skip ci]"
+          git push origin HEAD:${{ github.ref_name }}
+        fi

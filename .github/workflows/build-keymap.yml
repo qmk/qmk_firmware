@@ -1,0 +1,34 @@
+name: Build keymap
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches:
+    - raph
+  push:
+    branches:
+    - raph
+
+jobs:
+  build:
+    name: "Compile crkbd/rev4_1/standard:raphaelsmadja"
+    runs-on: ubuntu-latest
+    container: ghcr.io/qmk/qmk_cli
+
+    steps:
+    - name: Disable safe.directory check
+      run: |
+        git config --global --add safe.directory '*'
+
+    - name: Checkout
+      uses: actions/checkout@v6
+      with:
+        submodules: recursive
+
+    - name: Install dependencies
+      run: pip3 install -r requirements-dev.txt
+
+    - name: Build firmware
+      run: make crkbd/rev4_1/standard:raphaelsmadja
