@@ -10,6 +10,31 @@ This is a fork of QMK Firmware (github.com/qmk/qmk_firmware). It is used to buil
 - `master` tracks the upstream/official QMK repo — don't develop directly on it, only use it as a merge/rebase base when syncing upstream changes.
 - Nearly all custom work lives under `keyboards/crkbd/rev4_1/standard/keymaps/raphaelsmadja/` (`keymap.c`, `rules.mk`). Treat this as the actual "project" directory; the rest of the tree is upstream QMK vendored code that should rarely need edits.
 
+## Key naming convention
+
+When discussing this keymap, keys are referred to by these names instead of raw matrix/column coordinates. Each half has 6 columns x 3 rows plus 3 thumb keys; the naming splits the 6 columns into a 5-wide "querty" block and a 1-wide "pinky" column per side, plus the 3-key "thumb" cluster.
+
+**Querty keys** — the standard QWERTY letters and punctuation (`;` `,` `.` `/`), i.e. left columns 1-5 and right columns 0-4 of each row:
+- Row 0: `Q W E R T` / `Y U I O P`
+- Row 1 (home row, has the F/J home-row shift mods): `A S D F G` / `H J K L ;`
+- Row 2: `Z X C V B` / `N M , . /`
+
+**Pinky keys** — the outer column of each half (left column 0, right column 5), 3 per side named by row:
+| | Gauche (left) | Droite (right) |
+|---|---|---|
+| **Haut** (top) | `LALT_T(KC_TAB)` — Tab tap / Alt hold | `KC_ESC` |
+| **Milieu** (home row) | `KC_LCTL` | `KC_QUOT` — the `'` key |
+| **Bas** (bottom) | `KC_LSFT` | `KC_RSFT` |
+
+**Thumb keys** — the 3-key mod cluster per side, named by distance from the keyboard's center gap:
+| | Gauche (left) | Droit (right) |
+|---|---|---|
+| **Extérieur** (outermost, away from center) | `OSM(MOD_HYPR)` | `KC_BSPC` |
+| **Milieu** | `MO(1)` | `LT(2, KC_SPC)` |
+| **Intérieur** (innermost, next to center) | `LGUI_T(KC_ENT)` | `KC_SPC` |
+
+These names describe layer 0 (the base layer); the same position names apply on other layers even when the keycode there differs (e.g. "pinky droite haut" is `QK_BOOT` on layer 3, `KC_ESC` on layer 0).
+
 ## Build / compile
 
 The `qmk` CLI (Python) is not installed in this environment (`pip install -r requirements.txt` would provide it). Without it, the top-level `Makefile` still works directly:
