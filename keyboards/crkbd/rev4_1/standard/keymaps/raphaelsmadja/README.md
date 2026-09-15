@@ -11,5 +11,5 @@ which runs automatically on every push to `raph` that touches `keymap.c`, and
 can also be run manually from the Actions tab.
 
 <!-- keymap:start -->
-*(run the "Draw keymap" workflow to generate `keymap.svg`)*
+![Keymap](./keymap.svg)
 <!-- keymap:end -->
