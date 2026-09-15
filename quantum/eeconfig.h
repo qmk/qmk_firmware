@@ -63,6 +63,8 @@ void eeconfig_init_user(void);
 void eeconfig_enable(void);
 void eeconfig_disable(void);
 
+void eeconfig_prepare_datablocks(void);
+
 typedef union debug_config_t debug_config_t;
 void                         eeconfig_read_debug(debug_config_t *debug_config) __attribute__((nonnull));
 void                         eeconfig_update_debug(const debug_config_t *debug_config) __attribute__((nonnull));

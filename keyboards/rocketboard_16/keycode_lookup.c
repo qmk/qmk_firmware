@@ -19,7 +19,6 @@
 #include "quantum_keycodes.h"
 #include "keymap_us.h"
 #include "print.h"
-#include "via.h"
 #include "util.h"
 
 #define num_keycodes ARRAY_SIZE(lookup_table)

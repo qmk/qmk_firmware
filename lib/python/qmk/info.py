@@ -121,7 +121,7 @@ def _validate_build_target(keyboard, info_data):
         _log_warning(info_data, 'Build marker "keyboard.json" not found.')
 
 
-def _validate_layouts(keyboard, info_data):  # noqa C901
+def _validate_layouts(keyboard, info_data):  # noqa: C901
     """Non schema checks
     """
     col_num = info_data.get('matrix_size', {}).get('cols', 0)

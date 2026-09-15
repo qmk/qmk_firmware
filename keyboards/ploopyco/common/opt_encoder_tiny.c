@@ -78,9 +78,9 @@ typedef enum {
     UP_BEGIN_MID,
     STATE_MASK    = 0xf, /* 0b1111 */
     EMIT_UP       = 0x10,
-    EMIT_UP_MID   = EMIT_UP & START_MID,
+    EMIT_UP_MID   = EMIT_UP | START_MID,
     EMIT_DOWN     = 0x80,
-    EMIT_DOWN_MID = EMIT_DOWN & START_MID,
+    EMIT_DOWN_MID = EMIT_DOWN | START_MID,
     EMIT_MASK     = 0xf0
 } encoder_state_t;
 

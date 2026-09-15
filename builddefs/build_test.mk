@@ -1,4 +1,4 @@
-ifndef VERBOSE
+ifneq ($(VERBOSE),true)
 .SILENT:
 endif
 

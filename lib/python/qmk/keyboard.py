@@ -140,15 +140,21 @@ def keyboard_aliases(keyboard):
 
     Includes the keyboard itself.
     """
-    aliases = json_load(Path('data/mappings/keyboard_aliases.hjson'))
+    aliases = keyboard_alias_definitions()
 
-    if keyboard in aliases:
-        keyboard = aliases[keyboard].get('target', keyboard)
+    def _resolve_recursive_aliases(kb):
+        ret = set()
+        for found in filter(lambda k: aliases[k].get('target', '') == kb, aliases.keys()):
+            ret.update(_resolve_recursive_aliases(found))
+            ret.add(found)
+        return ret
 
-    keyboards = set(filter(lambda k: aliases[k].get('target', '') == keyboard, aliases.keys()))
+    keyboard = keyboard_folder(keyboard)
+
+    keyboards = _resolve_recursive_aliases(keyboard)
     keyboards.add(keyboard)
-    keyboards = list(sorted(keyboards))
-    return keyboards
+
+    return list(sorted(keyboards))
 
 
 def keyboard_folder_or_all(keyboard):
@@ -224,8 +230,8 @@ def rules_mk(keyboard):
     keyboard = Path(keyboard)
     rules = parse_rules_mk_file(cur_dir / keyboard / 'rules.mk')
 
-    for i, dir in enumerate(keyboard.parts):
-        cur_dir = cur_dir / dir
+    for folder in keyboard.parts:
+        cur_dir = cur_dir / folder
         rules = parse_rules_mk_file(cur_dir / 'rules.mk', rules)
 
     return rules

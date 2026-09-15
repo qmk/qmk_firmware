@@ -32,7 +32,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Install dependencies
         run: pip3 install -r requirements-dev.txt
@@ -86,7 +86,7 @@ jobs:
           git config --global --add safe.directory '*'
 
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           submodules: recursive
 
@@ -105,7 +105,7 @@ jobs:
 
       - name: Restore Cache
         id: cache
-        uses: actions/cache/restore@v5
+        uses: actions/cache/restore@v6
         with:
           path: ${{ env.CCACHE_CONFIGPATH }}
           key: compile-${{ inputs.keymap }}-${{ matrix.target }}
@@ -136,7 +136,7 @@ jobs:
           fi
 
       - name: Save Cache
-        uses: actions/cache/save@v5
+        uses: actions/cache/save@v6
         with:
           path: ${{ env.CCACHE_CONFIGPATH }}
           key: compile-${{ inputs.keymap }}-${{ matrix.target }}
@@ -166,7 +166,7 @@ jobs:
 
     steps:
       - name: Checkout QMK Firmware
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Download firmwares
         uses: actions/download-artifact@v8
