@@ -19,3 +19,26 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [0] = { ENCODER_CCW_CW(KC_PGUP, KC_PGDN),           ENCODER_CCW_CW(KC_VOLD, KC_VOLU)  }
 };
 #endif
+
+#ifdef OLED_ENABLE
+#include "common/oled.h"
+
+bool oled_task_user(void) {
+
+    if (OLED_redraw){
+        oled_clear();
+        last_bongo_frame = 12; //force a redraw
+        draw_bongo_table();
+        OLED_redraw = false;
+    }
+    draw_bongocat();
+	
+    led_t led_state = host_keyboard_led_state();  // caps lock stuff, prints CAPS on new line if caps led is on
+    oled_set_cursor(0, 0);
+    oled_write_P(led_state.caps_lock ? PSTR("CAPS  ") : PSTR("      "), false);
+	oled_set_cursor(0, 1);
+    oled_write_P(led_state.scroll_lock ? PSTR("SCR   ") : PSTR("      "), false);
+    return false;
+}
+
+#endif
