@@ -15,12 +15,15 @@
         "rows": ["B4", "A15", "A3", "A8", "B14"]
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
-        "force_nkro": true,
         "pid": "0x00A2",
         "vid": "0x5350"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "community_layouts": ["65_ansi_blocker_tsangan", "65_ansi_blocker_tsangan_split_bs"],
     "layouts": {

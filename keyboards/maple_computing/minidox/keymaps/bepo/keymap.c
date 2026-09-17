@@ -52,8 +52,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_LOWER] = LAYOUT(
-  ALGR(BP_B), BP_EACU,    ALGR(BP_P), ALGR(BP_O),    BP_EGRV,        KC_PGUP,   KC_HOME, KC_UP,   KC_END,   KC_MS_WH_UP,
-  ALGR(BP_A), ALGR(BP_U), ALGR(BP_I), ALGR(BP_E),     BP_DLR,        KC_PGDN,   KC_LEFT, KC_DOWN, KC_RIGHT, KC_MS_WH_DOWN,
+  ALGR(BP_B), BP_EACU,    ALGR(BP_P), ALGR(BP_O),    BP_EGRV,        KC_PGUP,   KC_HOME, KC_UP,   KC_END,   MS_WHLU,
+  ALGR(BP_A), ALGR(BP_U), ALGR(BP_I), ALGR(BP_E),     BP_DLR,        KC_PGDN,   KC_LEFT, KC_DOWN, KC_RIGHT, MS_WHLD,
      BP_AGRV,    KC_LALT,    KC_LCTL,    KC_LSFT,    BP_CCED,        _______,   KC_LSFT, KC_LCTL, KC_LALT,  _______,
                              _______,    _______,    _______,        _______,   _______, _______
 ),

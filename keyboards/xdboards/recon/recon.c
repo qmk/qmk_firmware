@@ -101,13 +101,13 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
        // Page up/Page down
         if (clockwise) {
 #ifdef MOUSEKEY_ENABLE
-            tap_code(KC_WH_U);
+            tap_code(MS_WHLU);
 #else
             tap_code(KC_PGUP);
 #endif
         } else {
 #ifdef MOUSEKEY_ENABLE
-            tap_code(KC_WH_D);
+            tap_code(MS_WHLD);
 #else
             tap_code(KC_PGDN);
 #endif

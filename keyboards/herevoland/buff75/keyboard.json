@@ -3,7 +3,6 @@
     "processor": "STM32F103",
     "bootloader": "stm32duino",
     "manufacturer": "HereVoLand",
-    "url": "",
     "maintainer": "Here VoLand @Vem",
     "usb": {
         "vid": "0xB727",

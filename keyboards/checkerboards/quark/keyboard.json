@@ -1,7 +1,6 @@
 {
     "keyboard_name": "QUARK",
     "manufacturer": "Nasp",
-    "url": "",
     "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",

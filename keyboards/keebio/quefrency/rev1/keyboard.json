@@ -46,8 +46,7 @@
             "pin": "D0"
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": true,
@@ -63,8 +62,11 @@
     "build": {
         "lto": true
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_60"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

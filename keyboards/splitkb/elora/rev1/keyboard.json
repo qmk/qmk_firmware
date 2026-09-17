@@ -91,7 +91,8 @@
         },
         "transport": {
             "sync": {
-                "matrix_state": true
+                "matrix_state": true,
+                "oled": true
             },
             "watchdog": true,
             "watchdog_timeout": 3000

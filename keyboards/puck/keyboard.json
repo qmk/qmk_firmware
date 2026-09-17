@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Puck",
   "manufacturer": "OkKeebs LLC",
-  "url": "",
   "maintainer": "john-pettigrew",
   "usb": {
     "vid": "0xFEED",
@@ -10,8 +9,6 @@
   },
   "features": {
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": false

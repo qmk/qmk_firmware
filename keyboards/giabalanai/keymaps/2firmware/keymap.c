@@ -468,7 +468,7 @@ void keyboard_post_init_user(void) {
     user_config.raw = eeconfig_read_user();
 
     // When USB cable is connected to the left side keyboard, use QWERTY layout by default.
-    if (is_keyboard_master() && isLeftHand) {
+    if (is_keyboard_master() && is_keyboard_left()) {
         default_layer_set(1UL << _QWERTY);
     }
 

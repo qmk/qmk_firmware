@@ -12,8 +12,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,
@@ -23,9 +21,6 @@
     "rgblight": {
         "led_count": 1,
         "hue_steps": 10,
-        "saturation_steps": 17,
-        "brightness_steps": 17,
-        "max_brightness": 255,
         "animations": {
             "alternating": true,
             "breathing": true,

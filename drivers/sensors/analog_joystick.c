@@ -135,7 +135,7 @@ report_analog_joystick_t analog_joystick_read(void) {
     return report;
 }
 
-void analog_joystick_init(void) {
+bool analog_joystick_init(void) {
     gpio_set_pin_input_high(ANALOG_JOYSTICK_X_AXIS_PIN);
     gpio_set_pin_input_high(ANALOG_JOYSTICK_Y_AXIS_PIN);
 
@@ -152,6 +152,8 @@ void analog_joystick_init(void) {
     maxAxisValues[0] = xOrigin + 100;
     maxAxisValues[1] = yOrigin + 100;
 #endif
+
+    return true;
 }
 
 report_mouse_t analog_joystick_get_report(report_mouse_t mouse_report) {

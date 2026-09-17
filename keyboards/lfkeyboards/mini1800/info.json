@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mini1800",
     "manufacturer": "LFKeyboards",
-    "url": "",
     "maintainer": "lfkeyboards",
     "usb": {
         "vid": "0xFEED",

@@ -1,15 +1,3 @@
-# Note for new boards -- CTPC and CONVERT_TO_PROTON_C are deprecated terms
-# and should not be replicated for new boards. These will be removed from
-# documentation as well as existing keymaps in due course.
-ifneq ($(findstring yes, $(CTPC)$(CONVERT_TO_PROTON_C)),)
-$(call CATASTROPHIC_ERROR,The `CONVERT_TO_PROTON_C` and `CTPC` options are now deprecated. `CONVERT_TO=proton_c` should be used instead.)
-endif
-
-ifneq (,$(filter $(MCU),atmega32u4))
-    # TODO: opt in rather than assume everything uses a pro micro
-    PIN_COMPATIBLE ?= promicro
-endif
-
 # Remove whitespace from any rule.mk provided vars
 #   - env cannot be overwritten but cannot have whitespace anyway
 CONVERT_TO:=$(strip $(CONVERT_TO))

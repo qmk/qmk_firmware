@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ARC",
     "manufacturer": "Mechlovin Studio",
-    "url": "",
     "maintainer": "Shostudio",
     "usb": {
         "vid": "0x5050",

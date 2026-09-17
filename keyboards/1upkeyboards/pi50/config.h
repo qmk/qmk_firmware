@@ -8,3 +8,4 @@
 #define I2C_DRIVER I2CD1
 #define OLED_BRIGHTNESS 128
 #define OLED_FONT_H "keyboards/1upkeyboards/pi50/lib/glcdfont.c"
+#define RGB_MATRIX_MODE_NAME_ENABLE

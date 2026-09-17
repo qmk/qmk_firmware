@@ -51,7 +51,7 @@ Matrix Scanning runs many times per second. The exact rate varies but typically 
 
 Once we know the state of every switch on our keyboard we have to map that to a keycode. In QMK this is done by making use of C macros to allow us to separate the definition of the physical layout from the definition of keycodes.
 
-At the keyboard level we define a C macro (typically named `LAYOUT()`) which maps our keyboard's matrix to physical keys. Sometimes the matrix does not have a switch in every location, and we can use this macro to pre-populate those with KC_NO, making the keymap definition easier to work with. Here's an example `LAYOUT()` macro for a numpad:
+At the keyboard level, QMK will generate a macro (typically named `LAYOUT()`) from our configuration file `info.json`, which then maps our keyboard's matrix to physical keys. Sometimes the matrix does not have a switch in every location, and QMK will use this macro to pre-populate those with KC_NO, making the keymap definition easier to work with. Here's an example `LAYOUT()` macro for a numpad:
 
 ```c
 #define LAYOUT( \
@@ -71,7 +71,7 @@ At the keyboard level we define a C macro (typically named `LAYOUT()`) which map
 
 Notice how the second block of our `LAYOUT()` macro matches the Matrix Scanning array above? This macro is what will map the matrix scanning array to keycodes. However, if you look at a 17 key numpad you'll notice that it has 3 places where the matrix could have a switch but doesn't, due to larger keys. We have populated those spaces with `KC_NO` so that our keymap definition doesn't have to.
 
-You can also use this macro to handle unusual matrix layouts, for example the [Alice](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/keyboards/sneakbox/aliceclone/aliceclone.h#L24). Explaining that is outside the scope of this document.
+This macro can handle unusual matrix layouts, for example the [Alice](https://github.com/qmk/qmk_firmware/blob/325da02e57fe7374e77b82cb00360ba45167e25c/keyboards/sneakbox/aliceclone/aliceclone.h#L24). Explaining that is outside the scope of this document.
 
 ##### Keycode Assignment
 

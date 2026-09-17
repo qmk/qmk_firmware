@@ -180,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 
   [2] = LAYOUT(
-      A(KC_F4), SGUI(KC_S), KC_MYCM, LCA(KC_DEL), KC_CALC, TD(QUAD_LAYER_SWITCH)
+      A(KC_F4), LSG(KC_S), KC_MYCM, LCA(KC_DEL), KC_CALC, TD(QUAD_LAYER_SWITCH)
       ),
   
   [3] = LAYOUT(

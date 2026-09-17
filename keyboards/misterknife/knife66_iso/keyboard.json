@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Knife66 ISO",
     "manufacturer": "MisterKnife",
-    "url": "",
     "maintainer": "afewyards",
     "usb": {
         "vid": "0xAC11",
@@ -33,8 +32,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

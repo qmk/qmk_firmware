@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Emu Hotswap",
     "manufacturer": "Kineticlabs",
-    "url": "",
     "maintainer": "kb-elmo<mail@elmo.space>",
     "usb": {
         "vid": "0xE015",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

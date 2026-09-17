@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Knob Goblin",
     "manufacturer": "MrT1ddl3s",
-    "url": "",
     "maintainer": "MrT1ddl3s",
     "usb": {
         "vid": "0x4B47",
@@ -10,7 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "encoder": true,
         "extrakey": true,
@@ -32,8 +30,7 @@
     "bootmagic": {
         "matrix": [0, 1]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "debounce": 2,
     "layouts": {
         "LAYOUT_ortho": {

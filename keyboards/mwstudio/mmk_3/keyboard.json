@@ -31,7 +31,6 @@
         "hue_steps": 10,
         "led_count": 5
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x3001",

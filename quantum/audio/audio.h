@@ -18,6 +18,8 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+
+#include "compiler_support.h"
 #include "musical_notes.h"
 #include "song_list.h"
 #include "voices.h"
@@ -28,7 +30,7 @@
 #    include "audio_dac.h"
 #endif
 
-typedef union {
+typedef union audio_config_t {
     uint8_t raw;
     struct {
         bool    enable : 1;
@@ -38,7 +40,7 @@ typedef union {
     };
 } audio_config_t;
 
-_Static_assert(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
+STATIC_ASSERT(sizeof(audio_config_t) == sizeof(uint8_t), "Audio EECONFIG out of spec.");
 
 /*
  * a 'musical note' is represented by pitch and duration; a 'musical tone' adds intensity and timbre
@@ -67,7 +69,11 @@ void eeconfig_update_audio_current(void);
  * @post audio system (and hardware) initialized and ready to play tones
  */
 void audio_init(void);
-void audio_startup(void);
+
+/**
+ * \brief Handle various subsystem background tasks.
+ */
+void audio_task(void);
 
 /**
  * @brief en-/disable audio output, save this choice to the eeprom
@@ -211,6 +217,8 @@ uint16_t audio_duration_to_ms(uint16_t duration_bpm);
 uint16_t audio_ms_to_duration(uint16_t duration_ms);
 
 void audio_startup(void);
+
+void audio_shutdown(void);
 
 // hardware interface
 

@@ -1,9 +1,6 @@
 // Copyright 2022 Christopher Courtney, aka Drashna Jael're  (@drashna) <drashna@live.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 
-/*
- * scan matrix
- */
 #include "matrix.h"
 #include <string.h>
 #include "atomic_util.h"
@@ -12,13 +9,8 @@
 #include "util.h"
 #include "debounce.h"
 
-/* matrix state(1:on, 0:off) */
-extern matrix_row_t matrix[MATRIX_ROWS];     // debounced values
-extern matrix_row_t raw_matrix[MATRIX_ROWS]; // raw values
-
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
-#define MATRIX_ROW_SHIFTER ((matrix_row_t)1)
 
 static inline void gpio_atomic_set_pin_output_low(pin_t pin) {
     ATOMIC_BLOCK_FORCEON {

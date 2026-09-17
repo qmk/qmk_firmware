@@ -1,7 +1,6 @@
 {
     "keyboard_name": "LATTICE60",
     "manufacturer": "emdarcher",
-    "url": "",
     "maintainer": "emdarcher",
     "usb": {
         "vid": "0x16C0",

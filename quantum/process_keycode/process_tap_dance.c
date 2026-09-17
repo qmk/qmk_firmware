@@ -24,7 +24,45 @@
 #include "keymap_introspection.h"
 
 static uint16_t active_td;
+
+#ifndef TAP_DANCE_MAX_SIMULTANEOUS
+#    define TAP_DANCE_MAX_SIMULTANEOUS 3
+#endif
+
+static tap_dance_state_t tap_dance_states[TAP_DANCE_MAX_SIMULTANEOUS];
+
 static uint16_t last_tap_time;
+
+static tap_dance_state_t *tap_dance_get_or_allocate_state(uint8_t tap_dance_idx, bool allocate) {
+    uint8_t i;
+    if (tap_dance_idx >= tap_dance_count()) {
+        return NULL;
+    }
+    // Search for a state already used for this keycode
+    for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
+        if (tap_dance_states[i].in_use && tap_dance_states[i].index == tap_dance_idx) {
+            return &tap_dance_states[i];
+        }
+    }
+    // No existing state found; bail out if new state allocation is not allowed
+    if (!allocate) {
+        return NULL;
+    }
+    // Search for the first available state
+    for (i = 0; i < TAP_DANCE_MAX_SIMULTANEOUS; i++) {
+        if (!tap_dance_states[i].in_use) {
+            tap_dance_states[i].index  = tap_dance_idx;
+            tap_dance_states[i].in_use = true;
+            return &tap_dance_states[i];
+        }
+    }
+    // No states are available, tap dance won't happen
+    return NULL;
+}
+
+tap_dance_state_t *tap_dance_get_state(uint8_t tap_dance_idx) {
+    return tap_dance_get_or_allocate_state(tap_dance_idx, false);
+}
 
 void tap_dance_pair_on_each_tap(tap_dance_state_t *state, void *user_data) {
     tap_dance_pair_t *pair = (tap_dance_pair_t *)user_data;
@@ -86,58 +124,64 @@ static inline void _process_tap_dance_action_fn(tap_dance_state_t *state, void *
     }
 }
 
-static inline void process_tap_dance_action_on_each_tap(tap_dance_action_t *action) {
-    action->state.count++;
-    action->state.weak_mods = get_mods();
-    action->state.weak_mods |= get_weak_mods();
+static inline void process_tap_dance_action_on_each_tap(tap_dance_action_t *action, tap_dance_state_t *state) {
+    state->count++;
+    state->weak_mods = get_mods();
+    state->weak_mods |= get_weak_mods();
 #ifndef NO_ACTION_ONESHOT
-    action->state.oneshot_mods = get_oneshot_mods();
+    state->oneshot_mods = get_oneshot_mods();
 #endif
-    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_tap);
+    _process_tap_dance_action_fn(state, action->user_data, action->fn.on_each_tap);
 }
 
-static inline void process_tap_dance_action_on_each_release(tap_dance_action_t *action) {
-    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_each_release);
+static inline void process_tap_dance_action_on_each_release(tap_dance_action_t *action, tap_dance_state_t *state) {
+    _process_tap_dance_action_fn(state, action->user_data, action->fn.on_each_release);
 }
 
-static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action) {
-    _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_reset);
-    del_weak_mods(action->state.weak_mods);
+static inline void process_tap_dance_action_on_reset(tap_dance_action_t *action, tap_dance_state_t *state) {
+    _process_tap_dance_action_fn(state, action->user_data, action->fn.on_reset);
+    del_weak_mods(state->weak_mods);
 #ifndef NO_ACTION_ONESHOT
-    del_mods(action->state.oneshot_mods);
+    del_mods(state->oneshot_mods);
 #endif
     send_keyboard_report();
-    action->state = (const tap_dance_state_t){0};
+    // Clear the tap dance state and mark it as unused
+    memset(state, 0, sizeof(tap_dance_state_t));
 }
 
-static inline void process_tap_dance_action_on_dance_finished(tap_dance_action_t *action) {
-    if (!action->state.finished) {
-        action->state.finished = true;
-        add_weak_mods(action->state.weak_mods);
+static inline void process_tap_dance_action_on_dance_finished(tap_dance_action_t *action, tap_dance_state_t *state) {
+    if (!state->finished) {
+        state->finished = true;
+        add_weak_mods(state->weak_mods);
 #ifndef NO_ACTION_ONESHOT
-        add_mods(action->state.oneshot_mods);
+        add_mods(state->oneshot_mods);
 #endif
         send_keyboard_report();
-        _process_tap_dance_action_fn(&action->state, action->user_data, action->fn.on_dance_finished);
+        _process_tap_dance_action_fn(state, action->user_data, action->fn.on_dance_finished);
     }
     active_td = 0;
-    if (!action->state.pressed) {
+    if (!state->pressed) {
         // There will not be a key release event, so reset now.
-        process_tap_dance_action_on_reset(action);
+        process_tap_dance_action_on_reset(action, state);
     }
 }
 
 bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
     tap_dance_action_t *action;
+    tap_dance_state_t  *state;
 
     if (!record->event.pressed) return false;
 
     if (!active_td || keycode == active_td) return false;
 
-    action                             = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
-    action->state.interrupted          = true;
-    action->state.interrupting_keycode = keycode;
-    process_tap_dance_action_on_dance_finished(action);
+    action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
+    state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
+    if (state == NULL) {
+        return false;
+    }
+    state->interrupted          = true;
+    state->interrupting_keycode = keycode;
+    process_tap_dance_action_on_dance_finished(action, state);
 
     // Tap dance actions can leave some weak mods active (e.g., if the tap dance is mapped to a keycode with
     // modifiers), but these weak mods should not affect the keypress which interrupted the tap dance.
@@ -151,8 +195,9 @@ bool preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
-    int                 td_index;
+    uint8_t             td_index;
     tap_dance_action_t *action;
+    tap_dance_state_t  *state;
 
     switch (keycode) {
         case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
@@ -161,16 +206,19 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
                 return false;
             }
             action = tap_dance_get(td_index);
-
-            action->state.pressed = record->event.pressed;
+            state  = tap_dance_get_or_allocate_state(td_index, record->event.pressed);
+            if (state == NULL) {
+                return false;
+            }
+            state->pressed = record->event.pressed;
             if (record->event.pressed) {
                 last_tap_time = timer_read();
-                process_tap_dance_action_on_each_tap(action);
-                active_td = action->state.finished ? 0 : keycode;
+                process_tap_dance_action_on_each_tap(action, state);
+                active_td = state->finished ? 0 : keycode;
             } else {
-                process_tap_dance_action_on_each_release(action);
-                if (action->state.finished) {
-                    process_tap_dance_action_on_reset(action);
+                process_tap_dance_action_on_each_release(action, state);
+                if (state->finished) {
+                    process_tap_dance_action_on_reset(action, state);
                     if (active_td == keycode) {
                         active_td = 0;
                     }
@@ -185,16 +233,18 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
 
 void tap_dance_task(void) {
     tap_dance_action_t *action;
+    tap_dance_state_t  *state;
 
     if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
 
     action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
-    if (!action->state.interrupted) {
-        process_tap_dance_action_on_dance_finished(action);
+    state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
+    if (state != NULL && !state->interrupted) {
+        process_tap_dance_action_on_dance_finished(action, state);
     }
 }
 
 void reset_tap_dance(tap_dance_state_t *state) {
     active_td = 0;
-    process_tap_dance_action_on_reset((tap_dance_action_t *)state);
+    process_tap_dance_action_on_reset(tap_dance_get(state->index), state);
 }

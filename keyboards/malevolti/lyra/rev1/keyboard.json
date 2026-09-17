@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Lyra",
     "manufacturer": "Dom",
-    "url": "",
     "maintainer": "malevolti",
     "usb": {
         "vid": "0x4443",

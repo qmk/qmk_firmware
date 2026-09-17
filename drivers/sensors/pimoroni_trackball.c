@@ -82,9 +82,12 @@ i2c_status_t read_pimoroni_trackball(pimoroni_data_t *data) {
     return status;
 }
 
-__attribute__((weak)) void pimoroni_trackball_device_init(void) {
+__attribute__((weak)) bool pimoroni_trackball_device_init(void) {
     i2c_init();
-    pimoroni_trackball_set_rgbw(0x00, 0x00, 0x00, 0x00);
+    uint8_t      rgbw_data[4] = {0};
+    i2c_status_t status       = i2c_write_register(PIMORONI_TRACKBALL_ADDRESS << 1, PIMORONI_TRACKBALL_REG_LED_RED, rgbw_data, sizeof(rgbw_data), PIMORONI_TRACKBALL_TIMEOUT);
+
+    return (status == I2C_STATUS_SUCCESS);
 }
 
 int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_dir, uint8_t scale) {
@@ -101,12 +104,12 @@ int16_t pimoroni_trackball_get_offsets(uint8_t negative_dir, uint8_t positive_di
 }
 
 mouse_xy_report_t pimoroni_trackball_adapt_values(xy_clamp_range_t *offset) {
-    if (*offset > XY_REPORT_MAX) {
-        *offset -= XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MAX;
-    } else if (*offset < XY_REPORT_MIN) {
-        *offset += XY_REPORT_MAX;
-        return (mouse_xy_report_t)XY_REPORT_MIN;
+    if (*offset > MOUSE_REPORT_XY_MAX) {
+        *offset -= MOUSE_REPORT_XY_MAX;
+        return (mouse_xy_report_t)MOUSE_REPORT_XY_MAX;
+    } else if (*offset < MOUSE_REPORT_XY_MIN) {
+        *offset += MOUSE_REPORT_XY_MAX;
+        return (mouse_xy_report_t)MOUSE_REPORT_XY_MIN;
     } else {
         mouse_xy_report_t temp_return = *offset;
         *offset                       = 0;

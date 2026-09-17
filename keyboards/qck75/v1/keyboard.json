@@ -11,8 +11,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -25,7 +23,6 @@
         "rows": ["C3", "A0", "A1", "A2", "B10", "A15"]
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",

@@ -3,7 +3,7 @@
         "0x00CD": {
             "group": "mouse",
             "key": "QK_MOUSE_CURSOR_UP",
-            "label": "Mouse cursor up",
+            "label": "Mouse Up",
             "aliases": [
                 "!reset!",
                 "MS_UP"
@@ -12,7 +12,7 @@
         "0x00CE": {
             "group": "mouse",
             "key": "QK_MOUSE_CURSOR_DOWN",
-            "label": "Mouse cursor down",
+            "label": "Mouse Down",
             "aliases": [
                 "!reset!",
                 "MS_DOWN"
@@ -21,7 +21,7 @@
         "0x00CF": {
             "group": "mouse",
             "key": "QK_MOUSE_CURSOR_LEFT",
-            "label": "Mouse cursor left",
+            "label": "Mouse Left",
             "aliases": [
                 "!reset!",
                 "MS_LEFT"
@@ -30,7 +30,7 @@
         "0x00D0": {
             "group": "mouse",
             "key": "QK_MOUSE_CURSOR_RIGHT",
-            "label": "Mouse cursor right",
+            "label": "Mouse Right",
             "aliases": [
                 "!reset!",
                 "MS_RGHT"
@@ -39,7 +39,7 @@
         "0x00D1": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_1",
-            "label": "Mouse button 1",
+            "label": "Mouse Button 1",
             "aliases": [
                 "!reset!",
                 "MS_BTN1"
@@ -48,7 +48,7 @@
         "0x00D2": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_2",
-            "label": "Mouse button 2",
+            "label": "Mouse Button 2",
             "aliases": [
                 "!reset!",
                 "MS_BTN2"
@@ -57,7 +57,7 @@
         "0x00D3": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_3",
-            "label": "Mouse button 3",
+            "label": "Mouse Button 3",
             "aliases": [
                 "!reset!",
                 "MS_BTN3"
@@ -66,7 +66,7 @@
         "0x00D4": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_4",
-            "label": "Mouse button 4",
+            "label": "Mouse Button 4",
             "aliases": [
                 "!reset!",
                 "MS_BTN4"
@@ -75,7 +75,7 @@
         "0x00D5": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_5",
-            "label": "Mouse button 5",
+            "label": "Mouse Button 5",
             "aliases": [
                 "!reset!",
                 "MS_BTN5"
@@ -84,7 +84,7 @@
         "0x00D6": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_6",
-            "label": "Mouse button 6",
+            "label": "Mouse Button 6",
             "aliases": [
                 "!reset!",
                 "MS_BTN6"
@@ -93,7 +93,7 @@
         "0x00D7": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_7",
-            "label": "Mouse button 7",
+            "label": "Mouse Button 7",
             "aliases": [
                 "!reset!",
                 "MS_BTN7"
@@ -102,7 +102,7 @@
         "0x00D8": {
             "group": "mouse",
             "key": "QK_MOUSE_BUTTON_8",
-            "label": "Mouse button 8",
+            "label": "Mouse Button 8",
             "aliases": [
                 "!reset!",
                 "MS_BTN8"
@@ -111,7 +111,7 @@
         "0x00D9": {
             "group": "mouse",
             "key": "QK_MOUSE_WHEEL_UP",
-            "label": "Mouse wheel up",
+            "label": "Mouse Wheel Up",
             "aliases": [
                 "!reset!",
                 "MS_WHLU"
@@ -120,7 +120,7 @@
         "0x00DA": {
             "group": "mouse",
             "key": "QK_MOUSE_WHEEL_DOWN",
-            "label": "Mouse wheel down",
+            "label": "Mouse Wheel Down",
             "aliases": [
                 "!reset!",
                 "MS_WHLD"
@@ -129,7 +129,7 @@
         "0x00DB": {
             "group": "mouse",
             "key": "QK_MOUSE_WHEEL_LEFT",
-            "label": "Mouse wheel left",
+            "label": "Mouse Wheel Left",
             "aliases": [
                 "!reset!",
                 "MS_WHLL"
@@ -138,7 +138,7 @@
         "0x00DC": {
             "group": "mouse",
             "key": "QK_MOUSE_WHEEL_RIGHT",
-            "label": "Mouse wheel right",
+            "label": "Mouse Wheel Right",
             "aliases": [
                 "!reset!",
                 "MS_WHLR"
@@ -147,7 +147,7 @@
         "0x00DD": {
             "group": "mouse",
             "key": "QK_MOUSE_ACCELERATION_0",
-            "label": "Set mouse acceleration to 0",
+            "label": "Acceleration 0",
             "aliases": [
                 "!reset!",
                 "MS_ACL0"
@@ -156,7 +156,7 @@
         "0x00DE": {
             "group": "mouse",
             "key": "QK_MOUSE_ACCELERATION_1",
-            "label": "Set mouse acceleration to 1",
+            "label": "Acceleration 1",
             "aliases": [
                 "!reset!",
                 "MS_ACL1"
@@ -165,7 +165,7 @@
         "0x00DF": {
             "group": "mouse",
             "key": "QK_MOUSE_ACCELERATION_2",
-            "label": "Set mouse acceleration to 2",
+            "label": "Acceleration 2",
             "aliases": [
                 "!reset!",
                 "MS_ACL2"

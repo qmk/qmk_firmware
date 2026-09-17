@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Flatbread60",
     "manufacturer": "delikeeb",
-    "url": "",
     "maintainer": "noclew",
     "usb": {
         "vid": "0x9906",
@@ -31,8 +30,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -49,8 +46,7 @@
         "rows": ["F6", "B1", "B3", "B2", "B6"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT_ortho_5x12": {
             "layout": [

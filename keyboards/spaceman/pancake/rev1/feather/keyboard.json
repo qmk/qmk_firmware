@@ -1,4 +1,6 @@
 {
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
     "features": {
         "bluetooth": true,
         "bootmagic": true,

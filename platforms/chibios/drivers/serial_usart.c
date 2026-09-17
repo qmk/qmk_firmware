@@ -27,12 +27,12 @@ static QMKSerialConfig serial_config = {
 #    else
     .baud = (SERIAL_USART_SPEED),
 #    endif
-    .cr1   = (SERIAL_USART_CR1),
-    .cr2   = (SERIAL_USART_CR2),
+    .cr1 = (SERIAL_USART_CR1),
+    .cr2 = (SERIAL_USART_CR2),
 #    if !defined(SERIAL_USART_FULL_DUPLEX)
-    .cr3   = ((SERIAL_USART_CR3) | USART_CR3_HDSEL) /* activate half-duplex mode */
+    .cr3 = ((SERIAL_USART_CR3) | USART_CR3_HDSEL) /* activate half-duplex mode */
 #    else
-    .cr3  = (SERIAL_USART_CR3)
+    .cr3 = (SERIAL_USART_CR3)
 #    endif
 };
 #elif defined(MCU_RP) /* Raspberry Pi MCUs */

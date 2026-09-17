@@ -2,7 +2,7 @@
     "version": 1,
     "author": "qmk",
     "notes": "",
-    "keyboard": "ymdk/id75",
+    "keyboard": "ymdk/id75/f103",
     "keymap": "default",
     "layout": "LAYOUT_ortho_5x15",
     "layers": [

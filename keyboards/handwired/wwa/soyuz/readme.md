@@ -2,7 +2,7 @@
 
 ![soyuz](https://i.imgur.com/KwwORGSh.jpeg)
 
-21 Key and 3 MIDI Potentiometers Macro Keyboard
+21 Key, 3 Encoder
 
 * Keyboard Maintainer: [spacehangover](https://github.com/spacehangover)
 * Hardware Supported: RP2040 Handwired

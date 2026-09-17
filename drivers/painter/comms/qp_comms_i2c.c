@@ -10,7 +10,7 @@
 // Helpers
 
 static uint32_t qp_comms_i2c_send_raw(painter_device_t device, const void *data, uint32_t byte_count) {
-    painter_driver_t *     driver       = (painter_driver_t *)device;
+    painter_driver_t      *driver       = (painter_driver_t *)device;
     qp_comms_i2c_config_t *comms_config = (qp_comms_i2c_config_t *)driver->comms_config;
     i2c_status_t           res          = i2c_transmit(comms_config->chip_address << 1, data, byte_count, I2C_TIMEOUT);
     if (res < 0) {
@@ -35,7 +35,9 @@ uint32_t qp_comms_i2c_send_data(painter_device_t device, const void *data, uint3
     return qp_comms_i2c_send_raw(device, data, byte_count);
 }
 
-void qp_comms_i2c_stop(painter_device_t device) {}
+bool qp_comms_i2c_stop(painter_device_t device) {
+    return true;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Command+Data I2C support
@@ -43,9 +45,9 @@ void qp_comms_i2c_stop(painter_device_t device) {}
 static const uint8_t cmd_byte  = 0x00;
 static const uint8_t data_byte = 0x40;
 
-void qp_comms_i2c_cmddata_send_command(painter_device_t device, uint8_t cmd) {
+bool qp_comms_i2c_cmddata_send_command(painter_device_t device, uint8_t cmd) {
     uint8_t buf[2] = {cmd_byte, cmd};
-    qp_comms_i2c_send_raw(device, &buf, 2);
+    return qp_comms_i2c_send_raw(device, &buf, 2);
 }
 
 uint32_t qp_comms_i2c_cmddata_send_data(painter_device_t device, const void *data, uint32_t byte_count) {
@@ -58,7 +60,7 @@ uint32_t qp_comms_i2c_cmddata_send_data(painter_device_t device, const void *dat
     return byte_count;
 }
 
-void qp_comms_i2c_bulk_command_sequence(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
+bool qp_comms_i2c_bulk_command_sequence(painter_device_t device, const uint8_t *sequence, size_t sequence_len) {
     uint8_t buf[32];
     for (size_t i = 0; i < sequence_len;) {
         uint8_t command   = sequence[i];
@@ -67,12 +69,17 @@ void qp_comms_i2c_bulk_command_sequence(painter_device_t device, const uint8_t *
         buf[0]            = cmd_byte;
         buf[1]            = command;
         memcpy(&buf[2], &sequence[i + 3], num_bytes);
-        qp_comms_i2c_send_raw(device, buf, num_bytes + 2);
+        if (!qp_comms_i2c_send_raw(device, buf, num_bytes + 2)) {
+            return false;
+        }
+
         if (delay > 0) {
             wait_ms(delay);
         }
         i += (3 + num_bytes);
     }
+
+    return true;
 }
 
 const painter_comms_with_command_vtable_t i2c_comms_cmddata_vtable = {

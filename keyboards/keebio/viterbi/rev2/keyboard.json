@@ -18,6 +18,9 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "default": {
+            "brightness": 5
+        },
         "pin": "B6",
         "levels": 7
     },

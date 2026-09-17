@@ -1,7 +1,6 @@
 {
     "keyboard_name": "h660s",
     "manufacturer": "hineybush",
-    "url": "",
     "maintainer": "Josh Hinnebusch",
     "usb": {
         "vid": "0x04D8",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

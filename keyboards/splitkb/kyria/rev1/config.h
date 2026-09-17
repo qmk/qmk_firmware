@@ -18,4 +18,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 
 #define OLED_DISPLAY_128X64
-#define SPLIT_OLED_ENABLE

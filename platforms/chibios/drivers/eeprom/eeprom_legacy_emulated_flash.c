@@ -204,7 +204,9 @@ void print_eeprom(void) {
             }
             xprintf("%04x", i);
         }
-        if (i % 8 == 0) print(" ");
+        if (i % 8 == 0) {
+            print(" ");
+        }
 
         xprintf(" %02x", DataBuf[i]);
         if ((i + 1) % 16 == 0) {
@@ -577,7 +579,7 @@ void eeprom_driver_erase(void) {
 
 void eeprom_read_block(void *buf, const void *addr, size_t len) {
     const uint8_t *src  = (const uint8_t *)addr;
-    uint8_t *      dest = (uint8_t *)buf;
+    uint8_t       *dest = (uint8_t *)buf;
 
     /* Check word alignment */
     if (len && (uintptr_t)src % 2) {
@@ -606,7 +608,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 }
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
-    uint8_t *      dest = (uint8_t *)addr;
+    uint8_t       *dest = (uint8_t *)addr;
     const uint8_t *src  = (const uint8_t *)buf;
 
     /* Check word alignment */

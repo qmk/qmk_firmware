@@ -3,8 +3,6 @@
 
 #pragma once
 
-#define SPLIT_HAND_PIN GP23
-
 #define USB_VBUS_PIN GP18
 
 #define SERIAL_USART_FULL_DUPLEX

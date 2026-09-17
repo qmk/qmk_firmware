@@ -1,7 +1,6 @@
 {
     "keyboard_name": "GA15.0",
     "manufacturer": "Gvalchca",
-    "url": "",
     "maintainer": "Gvalchca",
     "usb": {
         "vid": "0x6776",
@@ -13,8 +12,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

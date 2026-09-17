@@ -84,13 +84,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_base(
   //,--------------------------------------------------------------------------------------------------------------------.
-      XXXXXXX, QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX, KC_WH_L, KC_WH_U, KC_HOME, KC_PGUP,          XXXXXXX,
+      XXXXXXX, QK_BOOT,  RGBRST, AG_NORM, AG_SWAP, XXXXXXX, XXXXXXX, MS_WHLL, MS_WHLU, KC_HOME, KC_PGUP,          XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+-----------------|
-      XXXXXXX, UG_TOGG, UG_HUEU, UG_SATU, UG_VALU, XXXXXXX, XXXXXXX, KC_WH_R, KC_WH_D,  KC_END, KC_PGDN,          XXXXXXX,
+      XXXXXXX, UG_TOGG, UG_HUEU, UG_SATU, UG_VALU, XXXXXXX, XXXXXXX, MS_WHLR, MS_WHLD,  KC_END, KC_PGDN,          XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------+--------|
-      _______, UG_NEXT, UG_HUED, UG_SATD, UG_VALD, XXXXXXX, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, KC_MS_U,
+      _______, UG_NEXT, UG_HUED, UG_SATD, UG_VALD, XXXXXXX, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, MS_UP,
   //|--------+--------+--------+--------+--------+--------|--------+--------+--------+--------+--------+--------+--------|
-      _______, _______, _______, _______,          XXXXXXX,          XXXXXXX, _______, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R,
+      _______, _______, _______, _______,          XXXXXXX,          XXXXXXX, _______, XXXXXXX, MS_LEFT, MS_DOWN, MS_RGHT,
   //`-------------------------------------------------------------------------------------------------------------------'
       _______
   // ExtraKey: This key is an extra key. REV1 is a split back space. REV2 is to the right of the arrow-up key.

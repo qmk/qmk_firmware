@@ -10,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -47,7 +45,11 @@
     },
     "url": "https://github.com/Keychron",
     "usb": {
-        "force_nkro": true,
         "vid": "0x3434"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     }
 }

@@ -11,8 +11,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -82,7 +80,6 @@
             {"matrix": [0, 10], "x": 194, "y": 13, "flags": 4},
             {"matrix": [0, 11], "x": 210, "y": 11, "flags": 4}
         ],
-        "led_flush_limit": 16,
         "led_process_limit": 21,
         "max_brightness": 170,
         "sat_steps": 24,

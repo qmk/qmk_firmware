@@ -24,7 +24,7 @@ case $(uname -a) in
         . "$QMK_FIRMWARE_UTIL_DIR/install/linux_shared.sh"
 
         case $(grep ID /etc/os-release) in
-            *arch*|*manjaro*)
+            *arch*|*manjaro*|*cachyos*)
                 . "$QMK_FIRMWARE_UTIL_DIR/install/arch.sh";;
             *debian*|*ubuntu*)
                 . "$QMK_FIRMWARE_UTIL_DIR/install/debian.sh";;

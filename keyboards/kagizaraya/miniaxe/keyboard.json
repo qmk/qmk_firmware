@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MiniAxe",
     "manufacturer": "ENDO Katsuhiro",
-    "url": "",
     "maintainer": "ka2hiro",
     "usb": {
         "vid": "0xFEED",
@@ -38,8 +37,6 @@
     "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

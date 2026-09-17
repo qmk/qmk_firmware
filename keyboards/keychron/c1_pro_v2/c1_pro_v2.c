@@ -28,54 +28,6 @@ bool dip_switch_update_kb(uint8_t index, bool active) {
 }
 #endif
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (!process_record_user(keycode, record)) {
-        return false;
-    }
-    switch (keycode) {
-#ifdef RGB_MATRIX_ENABLE
-        case QK_RGB_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    } break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            if (!rgb_matrix_is_enabled()) {
-                rgb_matrix_set_flags(LED_FLAG_ALL);
-                rgb_matrix_enable();
-            }
-            return false;
-#endif
-#ifdef LED_MATRIX_ENABLE
-        case QK_LED_MATRIX_TOGGLE:
-            if (record->event.pressed) {
-                switch (led_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        led_matrix_set_flags(LED_FLAG_NONE);
-                        led_matrix_set_value_all(0);
-                    } break;
-                    default: {
-                        led_matrix_set_flags(LED_FLAG_ALL);
-                    } break;
-                }
-            }
-            if (!led_matrix_is_enabled()) {
-                led_matrix_set_flags(LED_FLAG_ALL);
-                led_matrix_enable();
-            }
-            return false;
-#endif
-        default:
-            return true;
-    }
-}
-
 void keyboard_post_init_kb(void) {
     gpio_set_pin_output_push_pull(LED_MAC_OS_PIN);
     gpio_set_pin_output_push_pull(LED_WIN_OS_PIN);

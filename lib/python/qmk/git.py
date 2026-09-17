@@ -13,9 +13,6 @@ def git_get_version(repo_dir='.', check_dir='.'):
     """
     git_describe_cmd = ['git', 'describe', '--abbrev=6', '--dirty', '--always', '--tags']
 
-    if repo_dir != '.':
-        repo_dir = Path('lib') / repo_dir
-
     if check_dir != '.':
         check_dir = repo_dir / check_dir
 
@@ -27,7 +24,7 @@ def git_get_version(repo_dir='.', check_dir='.'):
 
         else:
             cli.log.warning(f'"{" ".join(git_describe_cmd)}" returned error code {git_describe.returncode}')
-            print(git_describe.stderr)
+            cli.log.warning(git_describe.stderr)
             return None
 
     return None
@@ -121,11 +118,24 @@ def git_check_repo():
     return dot_git_dir.is_dir()
 
 
+def git_check_safe(repo_dir='.'):
+    """Checks if a directory passes the git safe.directory checks
+    """
+    if repo_dir != '.':
+        git_cmd = ['git', '-C', repo_dir, 'status']
+    else:
+        git_cmd = ['git', 'status']
+
+    status = cli.run(git_cmd)
+    return '--add safe.directory' not in status.stderr
+
+
 def git_check_deviation(active_branch):
     """Return True if branch has custom commits
     """
     cli.run(['git', 'fetch', 'upstream', active_branch])
-    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
+    # As we only care about exit code, decode to bytes to avoid UnicodeDecodeError
+    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'], text=False)
     return bool(deviations.returncode)
 
 

@@ -11,9 +11,9 @@
                                                                "KC_P0"         , "KC_BSPC"       , "LT(7,KC_SPC)"  , "KC_P1"
         ],
         [
-            "RM_TOGG"     , "RM_NEXT"     , "RM_HUEU"        , "RM_SATU"       , "RM_VALU"       , "RM_SPDU"       , "KC_BTN1"     , "KC_WH_U"        , "KC_BTN2"       , "KC_TRNS",
-            "KC_TRNS"     , "KC_BTN2"     , "KC_NO"          , "KC_BTN1"       , "KC_TRNS"       , "KC_TRNS"       , "KC_MS_L"     , "KC_MS_D"        , "KC_MS_U"       , "KC_MS_R",
-            "KC_TRNS"     , "RM_PREV"     , "RM_HUED"        , "RM_SATD"       , "RM_VALD"       , "RM_SPDD"       , "KC_WH_L"     , "KC_WH_D"        , "KC_WH_R"       , "KC_TRNS",
+            "RM_TOGG"     , "RM_NEXT"     , "RM_HUEU"        , "RM_SATU"       , "RM_VALU"       , "RM_SPDU"       , "MS_BTN1"     , "MS_WHLU"        , "MS_BTN2"       , "KC_TRNS",
+            "KC_TRNS"     , "MS_BTN2"     , "KC_NO"          , "MS_BTN1"       , "KC_TRNS"       , "KC_TRNS"       , "MS_LEFT"     , "MS_DOWN"        , "MS_UP"         , "MS_RGHT",
+            "KC_TRNS"     , "RM_PREV"     , "RM_HUED"        , "RM_SATD"       , "RM_VALD"       , "RM_SPDD"       , "MS_WHLL"     , "MS_WHLD"        , "MS_WHLR"       , "KC_TRNS",
                                                                "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"       , "KC_TRNS"
         ],
         [
@@ -54,31 +54,16 @@
         ]
     ],
     "config": {
-        "features": {
-            "oled": true,
-            "rgb_matrix": true,
-            "rgblight": false
+        "mousekey": {
+            "interval": 16,
+            "time_to_max": 40,
+            "delay": 100,
+            "wheel_delay": 100
         },
-        "encoder": {
-            "enabled": true
-        },
-        "rgblight": {
-            "hue_steps": 8,
-            "saturation_steps": 8,
-            "brightness_steps": 8,
-            "sleep": true
+        "tapping": {
+            "term": 200,
+            "permissive_hold": true,
+            "force_hold": true
         }
-    },
-    "mouse_key": {
-        "enabled": true,
-        "interval": 16,
-        "time_to_max": 40,
-        "delay": 100,
-        "wheel_delay": 100
-    },
-    "tapping": {
-        "term": 200,
-        "permissive_hold": true,
-        "force_hold": true
     }
 }

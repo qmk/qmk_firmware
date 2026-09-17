@@ -27,8 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
 #define print_matrix_header()  print("\nr/c 01234567\n")
-#define ROW_SHIFTER ((uint8_t)1)
-
 
 static void matrix_make(uint8_t code);
 static void matrix_break(uint8_t code);

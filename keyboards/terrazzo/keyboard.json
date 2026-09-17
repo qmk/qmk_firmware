@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Terrazzo",
     "manufacturer": "MsMustard",
-    "url": "",
     "maintainer": "MsMustard",
     "usb": {
         "vid": "0x4D4D",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "led_matrix": true,

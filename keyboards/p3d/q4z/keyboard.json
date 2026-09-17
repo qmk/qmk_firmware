@@ -1,7 +1,6 @@
 {
     "keyboard_name": "q4z",
     "manufacturer": "drmmr",
-    "url": "",
     "maintainer": "rjboone",
     "usb": {
         "vid": "0x0001",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

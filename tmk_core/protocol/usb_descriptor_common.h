@@ -16,11 +16,27 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
 // Prefix string literal with L for descriptors
 #define USBCONCAT(a, b) a##b
 #define USBSTR(s) USBCONCAT(L, s)
 
 #define HID_VALUE_16(v) ((uint8_t)(v & 0xFF)), ((uint8_t)(v >> 8))
+
+/////////////////////
+// System Control usage range
+//
+// Keep this below the Generic Desktop D-pad usages (0x90 and up). If the range
+// reaches them, hosts like Steam see the D-pad and treat the keyboard as a gamepad.
+
+#ifndef SYSTEM_CONTROL_USAGE_MINIMUM
+#    define SYSTEM_CONTROL_USAGE_MINIMUM 0x0081 // System Power Down
+#endif
+#ifndef SYSTEM_CONTROL_USAGE_MAXIMUM
+#    define SYSTEM_CONTROL_USAGE_MAXIMUM 0x008F // System Warm Restart
+#endif
+STATIC_ASSERT(SYSTEM_CONTROL_USAGE_MINIMUM <= SYSTEM_CONTROL_USAGE_MAXIMUM, "SYSTEM_CONTROL_USAGE_MINIMUM must not be greater than SYSTEM_CONTROL_USAGE_MAXIMUM");
 
 /////////////////////
 // RAW Usage page and ID configuration
@@ -31,4 +47,24 @@
 
 #ifndef RAW_USAGE_ID
 #    define RAW_USAGE_ID 0x61
+#endif
+
+/////////////////////
+// Hires Scroll Defaults
+
+#ifdef POINTING_DEVICE_HIRES_SCROLL_ENABLE
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER
+#        if POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER > 127 || POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER < 1
+#            error "POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER must be between 1 and 127, inclusive!"
+#        endif
+#    else
+#        define POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER 120
+#    endif
+#    ifdef POINTING_DEVICE_HIRES_SCROLL_EXPONENT
+#        if POINTING_DEVICE_HIRES_SCROLL_EXPONENT > 127 || POINTING_DEVICE_HIRES_SCROLL_EXPONENT < 0
+#            error "POINTING_DEVICE_HIRES_SCROLL_EXPONENT must be between 0 and 127, inclusive!"
+#        endif
+#    else
+#        define POINTING_DEVICE_HIRES_SCROLL_EXPONENT 0
+#    endif
 #endif

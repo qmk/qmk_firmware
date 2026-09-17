@@ -73,26 +73,23 @@
 
 #define sizeof_member(type, member) sizeof(((type *)NULL)->member)
 
-#define trans_initiator2target_initializer_cb(member, cb) \
-    { sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb }
+#define trans_initiator2target_initializer_cb(member, cb) {sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), 0, 0, cb}
 #define trans_initiator2target_initializer(member) trans_initiator2target_initializer_cb(member, NULL)
 
-#define trans_target2initiator_initializer_cb(member, cb) \
-    { 0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb }
+#define trans_target2initiator_initializer_cb(member, cb) {0, 0, sizeof_member(split_shared_memory_t, member), offsetof(split_shared_memory_t, member), cb}
 #define trans_target2initiator_initializer(member) trans_target2initiator_initializer_cb(member, NULL)
 
-#define trans_initiator2target_cb(cb) \
-    { 0, 0, 0, 0, cb }
+#define trans_initiator2target_cb(cb) {0, 0, 0, 0, cb}
 
 #define transport_write(id, data, length) transport_execute_transaction(id, data, length, NULL, 0)
 #define transport_read(id, data, length) transport_execute_transaction(id, NULL, 0, data, length)
 #define transport_exec(id) transport_execute_transaction(id, NULL, 0, NULL, 0)
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_TRANSACTION_RPC)
 // Forward-declare the RPC callback handlers
 void slave_rpc_info_callback(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
 void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *initiator2target_buffer, uint8_t target2initiator_buffer_size, void *target2initiator_buffer);
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_RPC)
 
 ////////////////////////////////////////////////////
 // Helpers
@@ -946,12 +943,12 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_DETECTED_OS_REGISTRATIONS
 // clang-format on
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_TRANSACTION_RPC)
         [PUT_RPC_INFO]  = trans_initiator2target_initializer_cb(rpc_info, slave_rpc_info_callback),
     [PUT_RPC_REQ_DATA]  = trans_initiator2target_initializer(rpc_m2s_buffer),
     [EXECUTE_RPC]       = trans_initiator2target_initializer_cb(rpc_info.payload.transaction_id, slave_rpc_exec_callback),
     [GET_RPC_RESP_DATA] = trans_target2initiator_initializer(rpc_s2m_buffer),
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_RPC)
 };
 
 bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
@@ -999,7 +996,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_DETECTED_OS_SLAVE();
 }
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_TRANSACTION_RPC)
 
 void transaction_register_rpc(int8_t transaction_id, slave_callback_t callback) {
     // Prevent invoking RPC on QMK core sync data
@@ -1076,4 +1073,4 @@ void slave_rpc_exec_callback(uint8_t initiator2target_buffer_size, const void *i
     }
 }
 
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_RPC)

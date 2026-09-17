@@ -7,8 +7,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -26,6 +24,9 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "default": {
+            "brightness": 5
+        },    
         "pin": "B5",
         "levels": 7
     },

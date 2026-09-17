@@ -11,7 +11,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,
@@ -30,6 +29,9 @@
     },
     "diode_direction": "COL2ROW",
     "backlight": {
+        "default": {
+            "brightness": 5
+        }, 
         "pin": "B5",
         "levels": 7,
         "breathing": true

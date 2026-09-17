@@ -17,8 +17,7 @@
     },
     "indicators": {
         "caps_lock": "GP27",
-        "scroll_lock": "GP1",
-        "on_state": 1
+        "scroll_lock": "GP1"
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {

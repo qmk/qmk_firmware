@@ -32,11 +32,11 @@ Building locally has a much shorter turnaround time than waiting for GitHub Acti
 
 A basic skeleton External Userspace repository can be found [here](https://github.com/qmk/qmk_userspace). If you wish to keep your keymaps on GitHub (strongly recommended!), you can fork the repository and use it as a base:
 
-![Userspace Fork](https://i.imgur.com/hcegguh.png)
+![Userspace Fork](/hcegguh.png)
 
 Going ahead with your fork will copy it to your account, at which point you can clone it to your local machine and begin adding your keymaps:
 
-![Userspace Clone](https://i.imgur.com/CWYmsk8.png)
+![Userspace Clone](/CWYmsk8.png)
 
 ```sh
 cd $HOME
@@ -99,8 +99,8 @@ All firmware builds you've added to the External Userspace build targets will be
 
 GitHub Actions can be used to automatically build your keymaps whenever you push changes to your External Userspace repository. If you have set up your list of build targets, this is as simple as enabling workflows in the GitHub repository settings:
 
-![Repo Settings](https://i.imgur.com/EVkxOt1.png)
+![Repo Settings](/EVkxOt1.png)
 
 Any push will result in compilation of all configured builds, and once completed a new release containing the newly-minted firmware files will be created on GitHub, which you can subsequently download and flash to your keyboard:
 
-![Releases](https://i.imgur.com/zmwOL5P.png)
+![Releases](/zmwOL5P.png)

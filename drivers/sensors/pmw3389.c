@@ -29,4 +29,4 @@ void pmw33xx_set_cpi(uint8_t sensor, uint16_t cpi) {
 }
 
 // PID, Inverse PID
-const uint8_t pmw33xx_firmware_signature[2] PROGMEM = {0x42, 0xBD};
+const uint8_t pmw33xx_firmware_signature[2] PROGMEM = {0x47, 0xB8};

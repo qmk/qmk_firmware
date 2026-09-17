@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Freebird60",
     "manufacturer": "KnoblesseOblige",
-    "url": "",
     "maintainer": "KnoblesseOblige",
     "usb": {
         "vid": "0xADAD",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

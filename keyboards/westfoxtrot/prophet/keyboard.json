@@ -1,7 +1,6 @@
 {
     "keyboard_name": "prophet",
     "manufacturer": "westfoxtrot",
-    "url": "",
     "maintainer": "westfoxtrot",
     "usb": {
         "vid": "0xFF21",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

@@ -1,13 +1,10 @@
 {
   "keyboard_name": "LFK87",
   "manufacturer": "LFKeyboards",
-  "url": "",
   "maintainer": "qmk",
   "features": {
     "audio": true,
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": false,
     "nkro": true

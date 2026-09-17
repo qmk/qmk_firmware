@@ -14,7 +14,7 @@ from qmk.info import info_json
 from qmk.json_encoders import InfoJSONEncoder
 from qmk.json_schema import compile_schema_store
 from qmk.keyboard import keyboard_completer, keyboard_folder
-from qmk.path import is_keyboard, normpath
+from qmk.path import normpath
 
 
 def pruning_validator(validator_class):
@@ -45,7 +45,7 @@ def strip_info_json(kb_info_json):
     return validator(kb_info_json)
 
 
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
+@cli.argument('-kb', '--keyboard', required=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to show info for.')
 @cli.argument('-km', '--keymap', help='Show the layers for a JSON keymap too.')
 @cli.argument('-o', '--output', arg_only=True, completer=FilesCompleter, help='Write the output the specified file, overwriting if necessary.')
 @cli.argument('-ow', '--overwrite', arg_only=True, action='store_true', help='Overwrite the existing info.json. (Overrides the location of --output)')
@@ -55,18 +55,8 @@ def strip_info_json(kb_info_json):
 def generate_info_json(cli):
     """Generate an info.json file for a keyboard
     """
-    # Determine our keyboard(s)
-    if not cli.config.generate_info_json.keyboard:
-        cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['info'].print_help()
-        return False
-
-    if not is_keyboard(cli.config.generate_info_json.keyboard):
-        cli.log.error('Invalid keyboard: "%s"', cli.config.generate_info_json.keyboard)
-        return False
-
     if cli.args.overwrite:
-        output_path = (Path('keyboards') / cli.config.generate_info_json.keyboard / 'info.json').resolve()
+        output_path = (Path('keyboards') / cli.args.keyboard / 'info.json').resolve()
 
         if cli.args.output:
             cli.log.warning('Overwriting user supplied --output with %s', output_path)
@@ -74,7 +64,7 @@ def generate_info_json(cli):
         cli.args.output = output_path
 
     # Build the info.json file
-    kb_info_json = info_json(cli.config.generate_info_json.keyboard)
+    kb_info_json = info_json(cli.args.keyboard)
     strip_info_json(kb_info_json)
     info_json_text = json.dumps(kb_info_json, indent=4, cls=InfoJSONEncoder, sort_keys=True)
 

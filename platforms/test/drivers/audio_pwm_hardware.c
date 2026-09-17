@@ -16,5 +16,5 @@
 #include "audio.h"
 
 void audio_driver_initialize_impl(void) {}
-void audio_driver_start_impl() {}
-void audio_driver_stop_impl() {}
+void audio_driver_start_impl(void) {}
+void audio_driver_stop_impl(void) {}

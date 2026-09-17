@@ -38,15 +38,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
-#    define ROW_SHIFTER ((uint8_t)1)
 #elif (MATRIX_COLS <= 16)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
-#    define ROW_SHIFTER ((uint16_t)1)
 #elif (MATRIX_COLS <= 32)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
-#    define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
@@ -202,12 +199,12 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
         {
             // Pin LO, set col bit
-            current_matrix[row_index] |= (ROW_SHIFTER << current_col);
+            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         }
         else
         {
             // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state

@@ -2,7 +2,6 @@
   "keyboard_name": "QWERTYYdox",
   "manufacturer": "AYDENandDAD Youtube",
   "identifier": "0x1256",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xCEEB",

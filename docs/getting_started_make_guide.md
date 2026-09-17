@@ -1,8 +1,8 @@
 # More Detailed `make` Instructions
 
-The full syntax of the `make` command is `<keyboard_folder>:<keymap>:<target>`, where:
+The full syntax of the `make` command is `<keyboard>:<keymap>:<target>`, where:
 
-* `<keyboard_folder>` is the path of the keyboard, for example `planck`
+* `<keyboard>` is the path of the keyboard, for example `planck`
   * Use `all` to compile all keyboards
   * Specify the path to compile a revision, for example `planck/rev4` or `planck/rev3`
   * If the keyboard doesn't have any folders, it can be left out
@@ -91,7 +91,7 @@ Enables your LED to breath while your computer is sleeping. Timer1 is being used
 
 `NKRO_ENABLE`
 
-This allows the keyboard to tell the host OS that up to 248 keys are held down at once (default without NKRO is 6). NKRO is off by default, even if `NKRO_ENABLE` is set. NKRO can be forced by adding `#define FORCE_NKRO` to your config.h or by binding `MAGIC_TOGGLE_NKRO` to a key and then hitting the key.
+This allows the keyboard to tell the host OS that up to 248 keys are held down at once (default without NKRO is 6). NKRO is off by default, even if `NKRO_ENABLE` is set. NKRO can be toggled by binding `NK_TOGG` to a key and then hitting the key.
 
 `BACKLIGHT_ENABLE`
 
