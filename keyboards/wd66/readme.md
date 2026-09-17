@@ -20,18 +20,6 @@ Flashing example for this keyboard:
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Start with  [Complete Newbs Guide](https://docs.qmk.fm/#/newbs) if you are totally new to this
 
-## VIA
-
-A VIA build is provided. Compile and flash it with:
-
-    make wd66:via
-    make wd66:via:flash
-
-The VIA keyboard definition lives at `VIA/wd66.json` in the project repository. Import it via VIA's Design tab
-
-The WD66 uses USB VID `0x1215` / PID `0x1215`
-
-
 ## Bootloader
 
 Enter the bootloader in 3 ways:
