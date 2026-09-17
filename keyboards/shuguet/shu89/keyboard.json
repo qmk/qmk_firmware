@@ -15,6 +15,9 @@
         "mousekey": true,
         "nkro": true
     },
+    "bootmagic": {
+        "matrix": [0, 4]
+    },
     "matrix_pins": {
         "cols": ["GP19", "GP20", "GP18", "GP17", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10"],
         "rows": ["GP1",  "GP2",  "GP3",  "GP4", "GP5", "GP6"]
@@ -26,6 +29,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
+        "bootmagic": {
+            "matrix": [6, 0]
+        },
         "serial": {
             "driver": "vendor",
             "pin": "GP9"
@@ -37,6 +43,12 @@
             "right": {
                 "cols": ["GP19", "GP20", "GP18", "GP17", "GP15", "GP14", "GP13", "GP12", "GP11", "GP10"],
                 "rows": ["GP6",  "GP5",  "GP4",  "GP3", "GP2", "GP1"]
+            }
+        },
+        "transport": {
+            "sync": {
+                "indicators": true,
+                "layer_state": true
             }
         }
     },
@@ -155,9 +167,14 @@
     "rgb_matrix": {
         "driver": "ws2812",
         "split_count": [ 36, 53 ],
+        "max_brightness": 120,
+        "sleep": true,
         "default": {
+            "animation": "alphas_mods",
             "hue": 85,
-            "val": 128
+            "sat": 255,
+            "val": 128,
+            "speed": 69
         },
         "animations": {
             "alphas_mods": true,
@@ -217,8 +234,8 @@
             {"matrix": [0, 8], "x": 80, "y": 0, "flags": 4},
             {"matrix": [0, 9], "x": 104, "y": 0, "flags": 4},
 
-            {"matrix": [1, 4], "x": 0, "y": 13, "flags": 4},
-            {"matrix": [2, 4], "x": 20, "y": 13, "flags": 4},
+            {"matrix": [2, 4], "x": 0, "y": 13, "flags": 4},
+            {"matrix": [1, 4], "x": 20, "y": 13, "flags": 4},
             {"matrix": [1, 5], "x": 32, "y": 13, "flags": 4},
             {"matrix": [1, 6], "x": 48, "y": 13, "flags": 4},
             {"matrix": [1, 7], "x": 64, "y": 13, "flags": 4},
