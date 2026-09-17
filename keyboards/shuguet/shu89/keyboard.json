@@ -47,6 +47,7 @@
         },
         "transport": {
             "sync": {
+                "activity": true,
                 "indicators": true,
                 "layer_state": true
             }
@@ -169,6 +170,7 @@
         "split_count": [ 36, 53 ],
         "max_brightness": 120,
         "sleep": true,
+        "timeout": 300000,
         "default": {
             "animation": "alphas_mods",
             "hue": 85,
