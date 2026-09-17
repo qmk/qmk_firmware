@@ -172,8 +172,6 @@
         "default": {
             "animation": "alphas_mods",
             "hue": 85,
-            "sat": 255,
-            "val": 128,
             "speed": 69
         },
         "animations": {
