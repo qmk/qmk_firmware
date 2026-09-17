@@ -23,22 +23,18 @@ and the [make instructions](https://docs.qmk.fm/getting_started_make_guide) for
 more information. Brand new to QMK? Start with our
 [Complete Newbs Guide](https://docs.qmk.fm/newbs).
 
-## Flashing
+## Bootloader
 
-Each half contains its own RP2040 and must be flashed separately. Build the
-desired keymap once, enter the bootloader on one half, and copy the generated
-UF2 file to the RP2040 mass-storage device. Repeat the process for the other
-half using the same firmware.
+Each half contains its own RP2040 and must be flashed separately using the
+same firmware. Enter the bootloader in 3 ways:
 
-The bootloader can be entered in any of these ways:
-
-- **Bootmagic:** Hold the outer key of the top row while connecting that half
-  to USB.
-- **BOOT and RESET buttons:** Both buttons are accessible through the two small
-  holes on the underside of the keyboard. Hold **BOOT**, briefly press and
-  release **RESET**, then release **BOOT**.
-- **Keycode:** Use a key mapped to `QK_BOOT`, when available in the active
-  keymap.
+* **Bootmagic reset**: Hold the outer key of the top row while connecting
+  that half to USB.
+* **Physical reset button**: Both BOOT and RESET buttons are accessible
+  through the two small holes on the underside of the keyboard. Hold
+  **BOOT**, briefly press and release **RESET**, then release **BOOT**.
+* **Keycode in layout**: Press the key mapped to `QK_BOOT`, when available
+  in the active keymap.
 
 ## Split communication
 
