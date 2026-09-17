@@ -1,6 +1,6 @@
 # 3w6 Pro
 
-![3w6_pro](TODO_IMAGE_URL)
+![3w6_pro](https://raw.githubusercontent.com/Keebart/picture-cdn/main/3w6_pro/main.webp)
 
 The Keebart 3w6 Pro is a compact 36-key split keyboard with an integrated
 RP2040 microcontroller on each half. The halves communicate over full-duplex
@@ -18,10 +18,10 @@ Flashing example for this keyboard:
 
     make keebart/3w6_pro:default:flash
 
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
-and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for
+See the [build environment setup](https://docs.qmk.fm/newbs_getting_started)
+and the [make instructions](https://docs.qmk.fm/getting_started_make_guide) for
 more information. Brand new to QMK? Start with our
-[Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+[Complete Newbs Guide](https://docs.qmk.fm/newbs).
 
 ## Flashing
 
