@@ -18,8 +18,8 @@
     "url": "https://github.com/1215-tech/WD66",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x1215",
-        "vid": "0x1215"
+        "pid": "0x0066",
+        "vid": "0x4D4B"
     },
     "layout_aliases": {
         "LAYOUT_ansi": "LAYOUT_65_ansi_blocker"
