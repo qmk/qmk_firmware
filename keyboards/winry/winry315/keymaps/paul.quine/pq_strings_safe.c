@@ -13,3 +13,11 @@ const char* pq_custom_safe_string_3(void){
 const char* pq_custom_safe_string_4(void){
     return "yarn phpunit\n";
 }
+
+const char* pq_custom_safe_string_5(void){
+    return "/agent swap pq\n";
+}
+
+const char* pq_custom_safe_string_6(void){
+    return "/agent swap pq-plan\n";
+}
