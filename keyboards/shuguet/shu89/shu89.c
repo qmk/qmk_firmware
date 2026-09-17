@@ -36,10 +36,6 @@
 #    define SHU89_CAPS_LOCK_SAT 255
 #endif
 
-// Caps Lock's matrix position, needed to recolour it from host LED state.
-#define CAPS_ROW 4
-#define CAPS_COL 4
-
 #if SHU89_LAYER_INDICATOR
 // Mirrors the rule inside the alphas_mods effect, so keys lit by the
 // layer view keep exactly the colour they have on the base layer.
@@ -52,46 +48,62 @@ static rgb_t key_color(uint8_t index) {
 }
 #endif
 
+#if SHU89_CAPS_LOCK_INDICATOR
+// Locate Caps Lock by keycode rather than by a fixed position, so the
+// indicator follows a remapped or VIA-edited keymap.
+static uint8_t caps_lock_led(void) {
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+            const uint16_t keycode = keymap_key_to_keycode(0, (keypos_t){.row = row, .col = col});
+            if (keycode == KC_CAPS_LOCK || keycode == KC_LOCKING_CAPS_LOCK) {
+                return g_led_config.matrix_co[row][col];
+            }
+        }
+    }
+    return NO_LED;
+}
+#endif
+
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) {
         return false; // a keymap has taken over
     }
 
 #if SHU89_LAYER_INDICATOR
-    uint8_t layer = get_highest_layer(layer_state);
-
+    const uint8_t layer = get_highest_layer(layer_state);
     if (layer > 0) {
-        // A layer is held: show only the keys that do something on it.
+        // A layer is held: start from dark and light only what is bound.
         for (uint8_t i = led_min; i < led_max; i++) {
             rgb_matrix_set_color(i, 0, 0, 0);
         }
 
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
             for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-                uint8_t index = g_led_config.matrix_co[row][col];
+                const uint8_t index = g_led_config.matrix_co[row][col];
                 if (index == NO_LED || index < led_min || index >= led_max) {
                     continue; // no LED here, or it belongs to the other half
                 }
-                // Reads the dynamic keymap when VIA is enabled, so
-                // this follows whatever the layer actually contains.
-                uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){.row = row, .col = col});
+                // Reads the dynamic keymap when VIA is enabled, so this
+                // follows whatever the layer actually contains.
+                const uint16_t keycode = keymap_key_to_keycode(layer, (keypos_t){.row = row, .col = col});
                 if (keycode == KC_NO || keycode == KC_TRANSPARENT) {
                     continue; // nothing bound here on this layer
                 }
-                rgb_t rgb = key_color(index);
+                const rgb_t rgb = key_color(index);
                 rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
             }
         }
+
+        return true; // the layer view replaces the base lighting entirely
     }
 #endif
 
 #if SHU89_CAPS_LOCK_INDICATOR
-    // Caps Lock stays lit whenever it is active, on every layer.
     if (host_keyboard_led_state().caps_lock) {
-        uint8_t index = g_led_config.matrix_co[CAPS_ROW][CAPS_COL];
+        const uint8_t index = caps_lock_led();
         if (index != NO_LED && index >= led_min && index < led_max) {
-            hsv_t hsv = {SHU89_CAPS_LOCK_HUE, SHU89_CAPS_LOCK_SAT, rgb_matrix_get_val()};
-            rgb_t rgb = hsv_to_rgb(hsv);
+            const hsv_t hsv = {SHU89_CAPS_LOCK_HUE, SHU89_CAPS_LOCK_SAT, rgb_matrix_get_val()};
+            const rgb_t rgb = hsv_to_rgb(hsv);
             rgb_matrix_set_color(index, rgb.r, rgb.g, rgb.b);
         }
     }
