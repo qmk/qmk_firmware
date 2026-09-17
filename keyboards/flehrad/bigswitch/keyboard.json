@@ -1,0 +1,54 @@
+{
+    "manufacturer": "flehrad",
+    "keyboard_name": "BigSwitch PCB",
+    "maintainer": "qmk",
+    "debounce": 50,
+    "development_board": "promicro",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": false,
+        "console": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["B6"],
+        "rows": ["B5"]
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "default": {
+            "animation": "rainbow_swirl",
+            "val": 127
+        },
+        "led_count": 8
+    },
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0xB195",
+        "vid": "0x1209"
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0, "w": 4, "h": 4}
+            ]
+        }
+    }
+}

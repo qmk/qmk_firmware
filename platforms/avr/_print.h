@@ -25,9 +25,8 @@
 
 #include "avr/xprintf.h"
 
-// Create user & normal print defines
-#define print(s) xputs(PSTR(s))
-#define println(s) xputs(PSTR(s "\r\n"))
-#define uprint(s) xputs(PSTR(s))
-#define uprintln(s) xputs(PSTR(s "\r\n"))
-#define uprintf(fmt, ...) __xprintf(PSTR(fmt), ##__VA_ARGS__)
+// TODO: Remove xprintf due to conflicts/assumptions on direct library usage
+#undef xprintf
+
+// Export main print function
+#define print_printf(fmt, ...) __xprintf(PSTR(fmt), ##__VA_ARGS__)

@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * │End │ │CTL │GUI │ALT │FUNC│LOWR│    │    │RISE│Left│Down│ Up │Rght│
     * └────┘ └────┴────┴────┴────┴────┴─────────┴────┴────┴────┴────┴────┘
     */
-    [_QWERTY] = LAYOUT_ortho_all(
+    [_QWERTY] = LAYOUT_all(
         KC_MUTE,      KC_ESC,                                                                       KC_BSLS,   KC_MINUS,   KC_EQUAL,
         KC_HOME,      KC_TAB,    KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,      KC_O,      KC_P,       KC_BSPC,
         KC_PGUP,      KC_LCTL,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,      KC_L,      KC_SCLN,    KC_QUOT,
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * │STOP│ │    │    │    │    │    │    │    │    │    │    │    │    │
     * └────┘ └────┴────┴────┴────┴────┴─────────┴────┴────┴────┴────┴────┘
     */
-    [_LOWER] = LAYOUT_ortho_all(
+    [_LOWER] = LAYOUT_all(
         _______,      _______,                                                                                           KC_LBRC,   KC_RBRC,   KC_GRAVE,
         KC_MPLY,      _______,   KC_1,      KC_2,      KC_3,      KC_4,      KC_5,      KC_6,      KC_7,      KC_8,      KC_9,      KC_0,      _______,
         KC_MNXT,      _______,   KC_EXLM,   KC_AT,     KC_HASH,   KC_DLR,    KC_PERC,   KC_CIRC,   KC_AMPR,   KC_ASTR,   KC_LPRN,   KC_RPRN,   KC_DQT,
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * │    │ │    │    │    │    │    │    │    │    │    │    │    │    │
     * └────┘ └────┴────┴────┴────┴────┴─────────┴────┴────┴────┴────┴────┘
     */
-    [_RAISE] = LAYOUT_ortho_all(
+    [_RAISE] = LAYOUT_all(
         KC_PSCR,      _______,                                                                                           KC_LCBR,   KC_RCBR,   KC_TILD,
         _______,      _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
         _______,      KC_CAPS,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
@@ -147,8 +147,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * │    │ │    │    │    │    │    │    │    │    │    │    │    │    │
     * └────┘ └────┴────┴────┴────┴────┴─────────┴────┴────┴────┴────┴────┘
     */
-    [_FUNCTION] = LAYOUT_ortho_all(
-        TD(TD_RST),   RGB_TOG,                                                                                           KC_F11,    KC_F12,    KC_F13,
+    [_FUNCTION] = LAYOUT_all(
+        TD(TD_RST),   UG_TOGG,                                                                                           KC_F11,    KC_F12,    KC_F13,
         _______,      _______,   KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    _______,
         _______,      _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
         _______,      _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  * │    │ │    │    │    │    │    │    │    │    │    │    │    │    │
 //  * └────┘ └────┴────┴────┴────┴────┴─────────┴────┴────┴────┴────┴────┘
 //  */
-//  [<LAYER>] = LAYOUT_ortho_all(
+//  [<LAYER>] = LAYOUT_all(
 //      _______,      _______,                                                                                           _______,   _______,   _______,
 //      _______,      _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
 //      _______,      _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,   _______,
@@ -217,23 +217,23 @@ void keyboard_post_init_user(void) {
         rgblight_sethsv_noeeprom(50, 255, 100);
         rgblight_mode_noeeprom(RGBLIGHT_EFFECT_BREATHING + 2);
 // Init the second LED to a static color:
-        setrgb(225, 185, 0, (rgb_led_t *)&led[1]);
-    rgblight_set();
+        rgblight_setrgb_at(225, 185, 0, 1);
   #endif // RGBLIGHT_ENABLE
 }
 
 // RGB Indicator Customization: (cont.)
 layer_state_t layer_state_set_user(layer_state_t state){
     #ifdef RGBLIGHT_ENABLE
-        uint8_t led1r = 0; uint8_t led1g = 0; uint8_t led1b = 0;
-            if (layer_state_cmp(state, 1)) {
-                led1b = 255;
-            }
-            if (layer_state_cmp(state, 3)) {
-                led1r = 200;
-            }
-            setrgb(led1r, led1g, led1b, (rgb_led_t *)&led[1]);
-        rgblight_set();
+        uint8_t led1r = 0;
+        uint8_t led1g = 0;
+        uint8_t led1b = 0;
+        if (layer_state_cmp(state, 1)) {
+            led1b = 255;
+        }
+        if (layer_state_cmp(state, 3)) {
+            led1r = 200;
+        }
+        rgblight_setrgb_at(led1r, led1g, led1b, 1);
     #endif //RGBLIGHT_ENABLE
   return state;
 }

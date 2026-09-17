@@ -23,7 +23,7 @@
     #define RGB_MATRIX_KEYPRESSES               // reacts to keypresses
 //  #define RGB_MATRIX_KEYRELEASES              // reacts to keyreleases (instead of keypresses)
 //  #define RGB_DISABLE_AFTER_TIMEOUT 0         // number of ticks to wait until disabling effects
-    #define RGB_DISABLE_WHEN_USB_SUSPENDED      // turn off effects when suspended
+    #define RGB_MATRIX_SLEEP      // turn off effects when suspended
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 115   // limits maximum brightness of LEDs to 150 out of 255.

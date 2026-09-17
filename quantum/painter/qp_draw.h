@@ -92,4 +92,9 @@ typedef struct qp_internal_byte_output_state_t {
 
 bool qp_internal_byte_appender(uint8_t byteval, void* cb_arg);
 
+// Helper shared between image and font rendering, sends pixels to the display using:
+//     - qp_internal_decode_palette + qp_internal_pixel_appender (bpp <= 8)
+//     - qp_internal_send_bytes                                  (bpp > 8)
+bool qp_internal_appender(painter_device_t device, uint8_t bpp, uint32_t pixel_count, qp_internal_byte_input_callback input_callback, void* input_state);
+
 qp_internal_byte_input_callback qp_internal_prepare_input_state(qp_internal_byte_input_state_t* input_state, painter_compression_t compression);

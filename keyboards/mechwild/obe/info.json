@@ -8,6 +8,14 @@
         "pid": "0x1707",
         "device_version": "2.0.1"
     },
+    "features": {
+        "bootmagic": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
     "matrix_pins": {
         "cols": ["B10", "B1", "B0", "A7", "A6", "A5", "A4", "A3", "A2", "A1"],
         "rows": ["A8", "B15", "B14", "B13", "B12", "A15", "B3"]
@@ -19,7 +27,11 @@
         ]
     },
     "qmk": {
-        "tap_keycode_delay": 10
+        "tap_keycode_delay": 10,
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
     },
     "indicators": {
         "caps_lock": "B9",

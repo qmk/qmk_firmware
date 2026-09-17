@@ -33,8 +33,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef ERGODOX_LED_30
 // If using 30 LEDs, then define that many
-#    define RGBLED_NUM 30  // Number of LEDs
+#    define WS2812_LED_COUNT 30
+#    define RGBLIGHT_LED_COUNT 30  // Number of LEDs
 #else
 // If not, then only define 15
-#    define RGBLED_NUM 15  // Number of LEDs
+#    define WS2812_LED_COUNT 15
+#    define RGBLIGHT_LED_COUNT 15  // Number of LEDs
 #endif

@@ -68,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FN] =  LAYOUT(
     KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,   KC_F6, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
-    KC_PSCR, KC_NO,   KC_NO,   RGB_HUD,  RGB_HUI, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
-    KC_MPRV, KC_MPLY, KC_MNXT, RGB_SAD,  RGB_SAI, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
-    KC_VOLD, KC_MUTE, KC_VOLU, RGB_VAD,  RGB_VAI, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
-    KC_TRNS, KC_TRNS, RGB_TOG, RGB_RMOD, RGB_MOD,        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+    KC_PSCR, KC_NO,   KC_NO,   UG_HUED,  UG_HUEU, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
+    KC_MPRV, KC_MPLY, KC_MNXT, UG_SATD,  UG_SATU, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS,
+    KC_VOLD, KC_MUTE, KC_VOLU, UG_VALD,  UG_VALU, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_TRNS, KC_TRNS,
+    KC_TRNS, KC_TRNS, UG_TOGG, UG_PREV,  UG_NEXT,        KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 )
 };
 
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const rgblight_segment_t PROGMEM my_capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
     {0, 7, 0},
     {7, 24, HSV_RED},
-    {24, RGBLED_NUM, 0}
+    {24, RGBLIGHT_LED_COUNT, 0}
 );
 // Light all LEDs in green when keyboard layer 1 is active
 const rgblight_segment_t PROGMEM layer_lower[] = RGBLIGHT_LAYER_SEGMENTS(

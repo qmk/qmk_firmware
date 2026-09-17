@@ -1,0 +1,7 @@
+{
+    "ranges": {
+        "0x77C0/0x003F": {
+            "define": "QK_COMMUNITY_MODULE"
+        }
+    }
+}

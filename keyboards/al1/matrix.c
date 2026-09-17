@@ -48,7 +48,7 @@ static void select_col(uint8_t col) {
 
 static void init_pins(void) {
     for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        gpio_set_pin_input_high(row_pins[x]);
     }
 }
 
@@ -65,7 +65,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if (readPin(row_pins[row_index]) == 0) {
+        if (gpio_read_pin(row_pins[row_index]) == 0) {
             // Pin LO, set col bit
             current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {

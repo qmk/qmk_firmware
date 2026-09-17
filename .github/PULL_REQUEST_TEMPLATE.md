@@ -1,6 +1,5 @@
 <!--- Provide a general summary of your changes in the title above. -->
 
-<!--- This template is entirely optional and can be removed, but is here to help both you and us. -->
 <!--- Anything on lines wrapped in comments like these will not show up in the final text. -->
 
 ## Description
@@ -15,7 +14,7 @@
 - [ ] New feature
 - [ ] Enhancement/optimization
 - [ ] Keyboard (addition or update)
-- [ ] Keymap/layout/userspace (addition or update)
+- [ ] Keymap/layout (addition or update)
 - [ ] Documentation
 
 ## Issues Fixed or Closed by This PR

@@ -1,12 +1,12 @@
 #include "rev2.h"
 
 void led_init(void) {
-    setPinOutput(D1); // Pin to green, set as output
-    writePinHigh(D1); // Turn it off
-    setPinOutput(F4); // Pins to red and blue, set as output
-    setPinOutput(F5);
-    writePinHigh(F4); // Turn them off
-    writePinHigh(F5);
+    gpio_set_pin_output(UNI660_GREEN_LED_PIN);
+    gpio_write_pin_high(UNI660_GREEN_LED_PIN);
+    gpio_set_pin_output(UNI660_BLUE_LED_PIN);
+    gpio_write_pin_high(UNI660_BLUE_LED_PIN);
+    gpio_set_pin_output(UNI660_RED_LED_PIN);
+    gpio_write_pin_high(UNI660_RED_LED_PIN);
 }
 
 void matrix_init_kb(void) {

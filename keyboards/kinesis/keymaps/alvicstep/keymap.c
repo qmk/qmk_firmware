@@ -111,11 +111,11 @@ KC_GRV,KC_LGUI,KC_ESC,MO(_NUMPAD),                                      KC_LBRC,
 layer_state_t layer_state_set_user(layer_state_t state) {
   //set LEDs which are triggered by a layer change
   #ifdef LED_COMPOSE_PIN
-    writePin(LED_COMPOSE_PIN, !layer_state_cmp(state, _KEYPAD));
+    gpio_write_pin(LED_COMPOSE_PIN, !layer_state_cmp(state, _KEYPAD));
   #endif
 
   #ifdef LED_NUM_LOCK_PIN
-    writePin(LED_NUM_LOCK_PIN, !layer_state_cmp(state, _NUMPAD));
+    gpio_write_pin(LED_NUM_LOCK_PIN, !layer_state_cmp(state, _NUMPAD));
   #endif
 
   return state;
@@ -123,11 +123,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
 bool led_update_user(led_t led_state) {
   #ifdef LED_CAPS_LOCK_PIN
-    writePin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
+    gpio_write_pin(LED_CAPS_LOCK_PIN, !led_state.caps_lock);
   #endif
 
   #ifdef LED_SCROLL_LOCK_PIN
-    writePin(LED_SCROLL_LOCK_PIN, !led_state.scroll_lock);
+    gpio_write_pin(LED_SCROLL_LOCK_PIN, !led_state.scroll_lock);
   #endif
   
   //disable default processing of LEDs

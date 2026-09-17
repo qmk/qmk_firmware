@@ -26,8 +26,8 @@ extern "C" {
 }
 
 struct update {
-    int8_t index;
-    bool   clockwise;
+    uint8_t index;
+    bool    clockwise;
 };
 
 uint8_t updates_array_idx = 0;
@@ -41,7 +41,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 bool setAndRead(pin_t pin, bool val) {
     setPin(pin, val);
-    return encoder_read();
+    return encoder_task();
 }
 
 class EncoderTest : public ::testing::Test {};

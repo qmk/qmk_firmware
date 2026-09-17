@@ -1,0 +1,57 @@
+{
+    "keyboard_name": "LATE-9",
+    "manufacturer": "ivndbt",
+    "url": "https://github.com/ivndbt/late-9)",
+    "maintainer": "ivndbt",
+    "usb": {
+        "vid": "0x6961",
+        "pid": "0x3032",
+        "device_version": "0.1.0"
+    },
+    "tapping": {
+        "term": 400
+    },
+    "build": {
+        "debounce_type": "sym_eager_pk"
+    },
+    "matrix_pins": {
+        "cols": ["B5", "C6", "D4"],
+        "rows": ["B4", "E6", "D7", "B3", "B2", "B6"]
+    },
+    "diode_direction": "ROW2COL",
+    "features": {
+      "bootmagic": true,
+      "nkro": true,
+      "oled": true
+    },
+    "development_board": "promicro",
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+
+                {"matrix": [3, 0], "x": 0, "y": 3},
+                {"matrix": [3, 1], "x": 1, "y": 3},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+
+                {"matrix": [4, 0], "x": 0, "y": 4},
+                {"matrix": [4, 1], "x": 1, "y": 4},
+                {"matrix": [4, 2], "x": 2, "y": 4},
+
+                {"matrix": [5, 0], "x": 0, "y": 5},
+                {"matrix": [5, 1], "x": 1, "y": 5},
+                {"matrix": [5, 2], "x": 2, "y": 5}
+            ]
+        }
+    }
+}

@@ -13,10 +13,6 @@
 #define _FN1 2
 #define _FN2 3
 
-enum eco_keycodes {
-  QWERTY = SAFE_RANGE
-};
-
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
 #define TSKMGR LCTL(LSFT(KC_ESC))
@@ -78,20 +74,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        persistant_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-  }
-  return true;
-}

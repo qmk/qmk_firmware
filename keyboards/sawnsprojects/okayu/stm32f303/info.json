@@ -1,4 +1,0 @@
-{
-    "processor": "STM32F303",
-    "bootloader": "stm32-dfu"
-}

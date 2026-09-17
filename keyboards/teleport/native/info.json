@@ -7,20 +7,41 @@
     "processor": "STM32F411",
     "usb": {
         "vid": "0x7470",
-        "device_version": "1.0.0",
-        "force_nkro": true
+        "device_version": "1.0.0"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgb_matrix": {
-        "driver": "is31fl3733"
+        "animations": {
+            "alphas_mods": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_up_down": true,
+            "cycle_spiral": true,
+            "typing_heatmap": true,
+            "solid_reactive": true,
+            "solid_reactive_multiwide": true
+        },
+        "default": {
+            "speed": 40,
+            "val": 220
+        },
+        "driver": "is31fl3733",
+        "led_flush_limit": 32,
+        "sleep": true
+    },
+    "build": {
+        "lto": true
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "lto": true
+        "rgb_matrix": true
     },
     "diode_direction": "ROW2COL",
     "matrix_pins": {

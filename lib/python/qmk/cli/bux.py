@@ -2,14 +2,14 @@
 
 World domination secret weapon.
 """
+
 from milc import cli
 from milc.subcommand import config
 
 
 @cli.subcommand('QMK Bux miner.', hidden=True)
 def bux(cli):
-    """QMK bux
-    """
+    """QMK bux"""
     if not cli.config.user.bux:
         bux = 0
     else:
@@ -19,7 +19,7 @@ def bux(cli):
     config.set_config('user', 'bux', bux + 1)
     cli.save_config()
 
-    buck = """
+    buck = r"""
 @@BBBBBBBBBBBBBBBBBBBBK    `vP8#####BE2~   x###g_     `S###q  n##}  -j#Bl.   vBBBBBBBBBBBBBBBBBBBB@@
 @B   `:!:                 ^#@#]-   `!t@@&. 7@@B@#^   _Q@Q@@R  y@@l:P@#1'                   `!!_   B@
 @B  r@@@B                 g@@|      ` N@@u 7@@iv@@u *#@z"@@R  y@@&@@Q-                    l@@@D   B@
@@ -34,7 +34,7 @@ def bux(cli):
 @B        _y   ]#   ,c       vUWNWWPsfsssN9WyccnckAfUfWb0DR0&R5RRRddq2_  `@D`jr@2U@#c3@1@Qc-      B@
 @B         !7!    .r]`       }AE0RdRqNd9dNR9fUIzzosPqqAddNNdER9EE9dPy!    BQ!zy@iU@.Q@@y@8x-      B@
 @B           :****>.         '7adddDdR&gRNdRbd&dNNbbRdNdd5NdRRD0RSf}-     .k0&EW`xR .8Q=NRRx      B@
-@B        =**-rx*r}r~}"        ;n2jkzsf3N3zsKsP5dddRddddRddNNqPzy\\"            '~****"            B@
+@B        =**-rx*r}r~}"        ;n2jkzsf3N3zsKsP5dddRddddRddNNqPzy\"            '~****"            B@
 @B        :!!~!;=~r>:*_         `:^vxikylulKfHkyjzzozoIoklix|^!-`                                 B@
 @B                                    ```'-_""::::!:_-.``                                         B@
 @B   `-                                                                                       .`  B@
@@ -45,5 +45,5 @@ def bux(cli):
 @B   r@=               :@@-   _@@_R@fB#}@@ 2@@@#    8@@#@Q.*@B  `@@-  y@@N                    @H  B@
 @B   `.                 g@9=_~D@g R@}`&@@@ 2@&__`   8@u_Q@2!@@^-x@@` Y@QD@z                   .`  B@
 @@BBBBBBBBBBBBBBBBBBB_  `c8@@@81` S#] `N#B l####v   D###BA. vg@@#0~ i#&' 5#K   RBBBBBBBBBBBBBBBBBB@@
-""" # noqa: Do not care about the ASCII art
+"""
     print(f"{buck}\nYou've been blessed by the QMK gods!\nYou have {cli.config.user.bux} QMK bux.")

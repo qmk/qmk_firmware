@@ -16,10 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-
-#define LOCKING_SUPPORT_ENABLE
-#define LOCKING_RESYNC_ENABLE
-
 #define BACKLIGHT_PWM_DRIVER    PWMD3
 #define BACKLIGHT_PWM_CHANNEL   2
 #define BACKLIGHT_PAL_MODE      2
@@ -30,6 +26,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_INDICATOR_3   B0
 #define LED_INDICATOR_4   A5
 #define LED_INDICATOR_5  C15
-
-#define WEAR_LEVELING_LOGICAL_SIZE    2048
-#define WEAR_LEVELING_BACKING_SIZE    4096

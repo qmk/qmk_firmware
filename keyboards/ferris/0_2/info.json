@@ -2,10 +2,17 @@
     "manufacturer": "Cuddly Keyboards Ltd.",
     "usb": {
         "vid": "0xC2AB",
-        "device_version": "0.0.2"
+        "device_version": "0.0.2",
+        "no_startup_check": true
     },
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "unicode": true
+    },
     "community_layouts": ["split_3x5_2"],
     "layout_aliases": {
         "LAYOUT": "LAYOUT_split_3x5_2"

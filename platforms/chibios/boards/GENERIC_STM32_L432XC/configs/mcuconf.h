@@ -1,5 +1,5 @@
 /*
-    ChibiOS - Copyright (C) 2006..2020 Giovanni Di Sirio
+    ChibiOS - Copyright (C) 2006-2026 Giovanni Di Sirio.
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -43,7 +43,7 @@
 #define STM32_PLS                           STM32_PLS_LEV0
 #define STM32_HSI16_ENABLED                 TRUE
 #define STM32_HSI48_ENABLED                 TRUE
-#define STM32_LSI_ENABLED                   TRUE
+#define STM32_LSI_ENABLED                   FALSE
 #define STM32_HSE_ENABLED                   FALSE
 #define STM32_LSE_ENABLED                   FALSE
 #define STM32_MSIPLL_ENABLED                FALSE

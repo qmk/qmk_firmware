@@ -40,6 +40,10 @@
  */
 
 #include "max7219.h"
+#include "spi_master.h"
+#include "debug.h"
+#include "gpio.h"
+#include "wait.h"
 #include "font.h"
 
 // Datastructures
@@ -202,8 +206,8 @@ void max7219_init(void) {
     wait_ms(1500);
     dprintf("max7219_init()\n");
 
-    setPinOutput(MAX7219_LOAD);
-    writePinHigh(MAX7219_LOAD);
+    gpio_set_pin_output(MAX7219_LOAD);
+    gpio_write_pin_high(MAX7219_LOAD);
     spi_init();
 
     for (int i=0; i<MAX7219_CONTROLLERS; i++) {

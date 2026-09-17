@@ -21,3 +21,4 @@
 
 void perform_space_cadet(keyrecord_t *record, uint16_t sc_keycode, uint8_t holdMod, uint8_t tapMod, uint8_t keycode);
 bool process_space_cadet(uint16_t keycode, keyrecord_t *record);
+void reset_space_cadet(void);

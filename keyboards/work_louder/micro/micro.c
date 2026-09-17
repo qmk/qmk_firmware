@@ -3,29 +3,6 @@
 
 #include "micro.h"
 
-#if defined(RGB_MATRIX_ENABLE)
-// clang-format off
-led_config_t g_led_config = { {
-    { NO_LED, 10, 11, NO_LED },
-    {      9 , 8,  7, 6 },
-    {      2,  3,  4, 5 },
-    { NO_LED,  1,  0, NO_LED }
-  }, {
-                  { 122,  64 }, { 103,  64 },
-    {  84,  45 }, { 103,  45 }, { 133,  45 }, { 152,  45 },
-    { 152,  26 }, { 122,  26 }, { 103,  26 }, { 84,  26 },
-                  { 103,   7 }, { 122,   7 }
-  },
-  {
-       4, 4,
-    4, 4, 4, 4,
-    4, 4, 4, 4,
-       4, 4
-  }
-};
-// clang-format on
-#endif
-
 #if defined(ENCODER_ENABLE)
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!encoder_update_user(index, clockwise)) {
@@ -39,9 +16,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
         }
     } else if (index == 1) {
         if (clockwise) {
-            tap_code_delay(KC_WH_U, 10);
+            tap_code_delay(MS_WHLU, 10);
         } else {
-            tap_code_delay(KC_WH_D, 10);
+            tap_code_delay(MS_WHLD, 10);
         }
     }
     return true;
@@ -49,29 +26,29 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 void work_louder_micro_led_1_on(void) {
-    setPinOutput(WORK_LOUDER_LED_PIN_1);
-    writePin(WORK_LOUDER_LED_PIN_1, true);
+    gpio_set_pin_output(WORK_LOUDER_LED_PIN_1);
+    gpio_write_pin(WORK_LOUDER_LED_PIN_1, true);
 }
 void work_louder_micro_led_2_on(void) {
-    setPinOutput(WORK_LOUDER_LED_PIN_2);
-    writePin(WORK_LOUDER_LED_PIN_2, true);
+    gpio_set_pin_output(WORK_LOUDER_LED_PIN_2);
+    gpio_write_pin(WORK_LOUDER_LED_PIN_2, true);
 }
 void work_louder_micro_led_3_on(void) {
-    setPinOutput(WORK_LOUDER_LED_PIN_3);
-    writePin(WORK_LOUDER_LED_PIN_3, true);
+    gpio_set_pin_output(WORK_LOUDER_LED_PIN_3);
+    gpio_write_pin(WORK_LOUDER_LED_PIN_3, true);
 }
 
 void work_louder_micro_led_1_off(void) {
-    setPinInput(WORK_LOUDER_LED_PIN_1);
-    writePin(WORK_LOUDER_LED_PIN_1, false);
+    gpio_set_pin_input(WORK_LOUDER_LED_PIN_1);
+    gpio_write_pin(WORK_LOUDER_LED_PIN_1, false);
 }
 void work_louder_micro_led_2_off(void) {
-    setPinInput(WORK_LOUDER_LED_PIN_2);
-    writePin(WORK_LOUDER_LED_PIN_2, false);
+    gpio_set_pin_input(WORK_LOUDER_LED_PIN_2);
+    gpio_write_pin(WORK_LOUDER_LED_PIN_2, false);
 }
 void work_louder_micro_led_3_off(void) {
-    setPinInput(WORK_LOUDER_LED_PIN_3);
-    writePin(WORK_LOUDER_LED_PIN_3, false);
+    gpio_set_pin_input(WORK_LOUDER_LED_PIN_3);
+    gpio_write_pin(WORK_LOUDER_LED_PIN_3, false);
 }
 
 void work_louder_micro_led_all_on(void) {

@@ -1,11 +1,43 @@
 {
     "keyboard_name": "Polypad",
     "manufacturer": "di0ib",
-    "url": "",
     "maintainer": "QMK",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
     "usb": {
         "vid": "0x4025",
         "pid": "0x6060",
         "device_version": "0.0.1"
+    },
+    "layouts": {
+        "LAYOUT_ortho_4x3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+
+                {"matrix": [0, 3], "x": 0, "y": 1},
+                {"matrix": [0, 4], "x": 1, "y": 1},
+                {"matrix": [0, 5], "x": 2, "y": 1},
+
+                {"matrix": [0, 6], "x": 0, "y": 2},
+                {"matrix": [0, 7], "x": 1, "y": 2},
+                {"matrix": [0, 8], "x": 2, "y": 2},
+
+                {"matrix": [0, 9], "x": 0, "y": 3},
+                {"matrix": [0, 10], "x": 1, "y": 3},
+                {"matrix": [0, 11], "x": 2, "y": 3}
+            ]
+        }
     }
 }

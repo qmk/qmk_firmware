@@ -17,15 +17,15 @@
 #include "quantum.h"
 
 void led_init_ports(void) {
-  setPinOutput(B2);
-  setPinOutput(D0);
-  setPinOutput(D1);
-  setPinOutput(D2);
+  gpio_set_pin_output(B2);
+  gpio_set_pin_output(D0);
+  gpio_set_pin_output(D1);
+  gpio_set_pin_output(D2);
 
 }
 bool led_update_kb(led_t led_state) {
     if(led_update_user(led_state)) {
-        writePin(B2, led_state.caps_lock);
+        gpio_write_pin(B2, led_state.caps_lock);
     }
 
     return true;
@@ -34,10 +34,10 @@ bool led_update_kb(led_t led_state) {
 __attribute__((weak))
 layer_state_t layer_state_set_user(layer_state_t state) {
   // if on layer 1, turn on D2 LED, otherwise off.
-  writePin(D2, get_highest_layer(state) == 1);
+  gpio_write_pin(D2, get_highest_layer(state) == 1);
   // if on layer 2, turn on D1 LED, otherwise off.
-  writePin(D1, get_highest_layer(state) == 2);
+  gpio_write_pin(D1, get_highest_layer(state) == 2);
   // if on layer 3, turn on D0 LED, otherwise off.
-  writePin(D0, get_highest_layer(state) == 3);
+  gpio_write_pin(D0, get_highest_layer(state) == 3);
   return state;
 }

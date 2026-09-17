@@ -1,0 +1,19 @@
+/* Override <kbd> as vitepress doesn't put them with borders */
+kbd {
+    border: 1px solid var(--vp-c-text-1);
+    border-radius: 5px;
+    margin: 0.2em;
+    padding: 0.2em;
+}
+
+:root {
+    --vp-nav-logo-height: 32px;
+
+    --vp-layout-max-width: calc(98% + 64px);
+
+    --vp-sidebar-width: 300px;
+}
+
+.VPDoc.has-aside .content-container {
+    max-width: unset !important;
+}

@@ -1,0 +1,18 @@
+{
+    "processor": "at90usb1286",
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": false,
+        "mousekey": false,
+        "extrakey": true,
+        "nkro": true,
+        "audio": true,
+        "watchdog": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    }
+}

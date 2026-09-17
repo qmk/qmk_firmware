@@ -1,6 +1,6 @@
 #include "quantum.h"
 
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -16,26 +16,3 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
     {0, C1_7,   C2_7,   C3_7}, //A7
     {0, C1_8,   C2_8,   C3_8}, //A8
 };
-
-led_config_t g_led_config = { 
-{
-    {  0,  1,  2,  3},
-    {  4,  5,  6,  7}
-}, 
-{
-    { 0,   0 }, { 75,   0 }, { 151,   0 }, { 224,   0 }, { 0,   64 }, { 75,   64 }, { 151,   64 }, { 224,  64 }
-}, 
-{
-    4, 4, 4, 4, 4, 4, 4, 4
-} 
-};
-
-void suspend_power_down_kb(void) {
-    rgb_matrix_set_suspend_state(true);
-    suspend_power_down_user();
-}
-
-void suspend_wakeup_init_kb(void) {
-    rgb_matrix_set_suspend_state(false);
-    suspend_wakeup_init_user();
-}

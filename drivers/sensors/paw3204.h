@@ -18,6 +18,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "pointing_device.h"
 
 #ifndef PAW3204_SCLK_PIN
 #    ifdef POINTING_DEVICE_SCLK_PIN
@@ -40,6 +41,8 @@ typedef struct {
     bool    isMotion;
 } report_paw3204_t;
 
+extern const pointing_device_driver_t paw3204_pointing_device_driver;
+
 /**
  * @brief Initializes the sensor so it is in a working state and ready to
  * be polled for data.
@@ -47,7 +50,7 @@ typedef struct {
  * @return true Initialization was a success
  * @return false Initialization failed, do not proceed operation
  */
-void paw3204_init(void);
+bool paw3204_init(void);
 
 /**
  * @brief Reads and clears the current delta, and motion register values on the
@@ -74,3 +77,5 @@ void paw3204_set_cpi(uint16_t cpi);
  * @return uint16_t Current CPI value of the sensor
  */
 uint16_t paw3204_get_cpi(void);
+
+report_mouse_t paw3204_get_report(report_mouse_t mouse_report);

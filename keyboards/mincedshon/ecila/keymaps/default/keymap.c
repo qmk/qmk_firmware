@@ -34,9 +34,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT(
       KC_TRNS,    KC_TRNS,   KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,         KC_F10,     KC_F11,     KC_F12,     KC_TRNS,
-      KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,       KC_TRNS,    KC_VOLD,    KC_VOLU,    RGB_TOG,
-      KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_MOD,    RGB_RMOD,      RGB_VAD,    RGB_VAI,                KC_TRNS,
-      QK_BOOT,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    RGB_HUD,    RGB_HUI,       RGB_SPD,    RGB_SPI,    KC_TRNS,    KC_TRNS,
+      KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,       KC_TRNS,    KC_VOLD,    KC_VOLU,    UG_TOGG,
+      KC_TRNS,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    UG_NEXT,    UG_PREV,       UG_VALD,    UG_VALU,                KC_TRNS,
+      QK_BOOT,    KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    UG_HUED,    UG_HUEU,       UG_SPDD,    UG_SPDU,    KC_TRNS,    KC_TRNS,
                   KC_TRNS,               KC_TRNS,                KC_TRNS,    KC_TRNS,                KC_TRNS,                KC_TRNS,                   KC_TRNS,    KC_TRNS,    KC_TRNS
 
     )

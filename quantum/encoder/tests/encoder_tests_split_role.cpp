@@ -40,6 +40,10 @@ bool is_keyboard_master(void) {
     return isMaster;
 }
 
+bool is_keyboard_left(void) {
+    return isLeftHand;
+}
+
 bool encoder_update_kb(uint8_t index, bool clockwise) {
     if (!isMaster) {
         ADD_FAILURE() << "We shouldn't get here.";
@@ -50,7 +54,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
 bool setAndRead(pin_t pin, bool val) {
     setPin(pin, val);
-    return encoder_read();
+    return encoder_task();
 }
 
 class EncoderSplitTestRole : public ::testing::Test {
@@ -87,9 +91,6 @@ TEST_F(EncoderSplitTestRole, TestPrimaryRight) {
     setAndRead(6, true);
     setAndRead(7, true);
 
-    uint8_t slave_state[32] = {0};
-    encoder_state_raw(slave_state);
-
     EXPECT_EQ(num_updates, 1); // one update received
 }
 
@@ -115,9 +116,6 @@ TEST_F(EncoderSplitTestRole, TestNotPrimaryRight) {
     setAndRead(7, false);
     setAndRead(6, true);
     setAndRead(7, true);
-
-    uint8_t slave_state[32] = {0};
-    encoder_state_raw(slave_state);
 
     EXPECT_EQ(num_updates, 0); // zero updates received
 }

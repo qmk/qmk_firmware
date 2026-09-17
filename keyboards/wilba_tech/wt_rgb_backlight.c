@@ -40,18 +40,14 @@
 #error wt_rgb_backlight.c compiled without setting configuration symbol
 #endif
 
-#ifndef MAX
-    #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
-#endif
-
-#ifndef MIN
-    #define MIN(a,b) ((a) < (b)? (a): (b))
-#endif
-
-#include "quantum.h"
 #include "wt_rgb_backlight.h"
 #include "wt_rgb_backlight_api.h"
 #include "wt_rgb_backlight_keycodes.h"
+
+#include <stdlib.h>
+#include "quantum.h"
+#include "host.h"
+#include "util.h"
 
 #if !defined(RGB_BACKLIGHT_HS60) && !defined(RGB_BACKLIGHT_NK65) && !defined(RGB_BACKLIGHT_NK87) && !defined(RGB_BACKLIGHT_NEBULA68) && !defined(RGB_BACKLIGHT_NEBULA12) && !defined (RGB_BACKLIGHT_KW_MEGA)
 #include <avr/interrupt.h>
@@ -64,19 +60,12 @@
 
 #if defined(RGB_BACKLIGHT_DAWN60)
 #include "ws2812.h"
-rgb_led_t g_ws2812_leds[WS2812_LED_TOTAL];
 #endif
 
 #include "progmem.h"
 #include "quantum/color.h"
-#include "eeprom.h"
-
-#include "via.h" // uses EEPROM address, lighting value IDs
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
-
-#if VIA_EEPROM_CUSTOM_CONFIG_SIZE == 0
-#error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
-#endif
+#include "eeconfig.h"
+#include "compiler_support.h"
 
 #if defined(RGB_BACKLIGHT_M6_B)
 #include "drivers/led/issi/is31fl3218.h"
@@ -142,6 +131,8 @@ backlight_config g_config = {
     .custom_color = { { 0, 255 }, { 43, 255 }, { 85, 255 }, { 128, 255 }, { 171, 255 }, { 213, 255 }, { 0, 255 }, { 43, 255 }, { 85, 255 }, { 128, 255 } }
 #endif
 };
+
+STATIC_ASSERT(sizeof(backlight_config) == EECONFIG_KB_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 bool g_suspend_state = false;
 
@@ -980,34 +971,34 @@ void backlight_update_pwm_buffers(void)
 #if defined(RGB_BACKLIGHT_M6_B)
     is31fl3218_update_pwm_buffers();
 #elif defined(RGB_BACKLIGHT_PORTICO75)
-	is31fl3741_update_pwm_buffers( IS31FL3741_I2C_ADDRESS_1, 0 );
-    is31fl3741_update_led_control_registers( IS31FL3741_I2C_ADDRESS_1, 0 );
+	is31fl3741_update_pwm_buffers( 0 );
+    is31fl3741_update_led_control_registers( 0 );
 #elif defined(RGB_BACKLIGHT_M10_C)
-    is31fl3731_update_pwm_buffers( IS31FL3731_I2C_ADDRESS_1, 0 );
-    is31fl3731_update_led_control_registers( IS31FL3731_I2C_ADDRESS_1, 0 );
+    is31fl3731_update_pwm_buffers( 0 );
+    is31fl3731_update_led_control_registers( 0 );
 #elif defined(RGB_BACKLIGHT_HS60)
-    is31fl3733_update_pwm_buffers( IS31FL3733_I2C_ADDRESS_1, 0 );
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_1, 0 );
+    is31fl3733_update_pwm_buffers( 0 );
+    is31fl3733_update_led_control_registers(  0 );
 #elif defined(RGB_BACKLIGHT_NK65) || defined(RGB_BACKLIGHT_NEBULA68) || defined(RGB_BACKLIGHT_NK87) || defined(RGB_BACKLIGHT_KW_MEGA)
-    is31fl3733_update_pwm_buffers( IS31FL3733_I2C_ADDRESS_1, 0 );
-    is31fl3733_update_pwm_buffers( IS31FL3733_I2C_ADDRESS_2, 1 );
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_1, 0 );
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_2, 1 );
+    is31fl3733_update_pwm_buffers( 0 );
+    is31fl3733_update_pwm_buffers( 1 );
+    is31fl3733_update_led_control_registers( 0 );
+    is31fl3733_update_led_control_registers( 1 );
 #elif defined(RGB_BACKLIGHT_NEBULA12)
-    is31fl3731_update_pwm_buffers( IS31FL3731_I2C_ADDRESS_1, 0 );
-    is31fl3731_update_led_control_registers( IS31FL3731_I2C_ADDRESS_1, 0 );
+    is31fl3731_update_pwm_buffers( 0 );
+    is31fl3731_update_led_control_registers( 0 );
 #elif defined(RGB_BACKLIGHT_U80_A)
     static uint8_t driver = 0;
     switch ( driver )
     {
         case 0:
-            is31fl3731_update_pwm_buffers( IS31FL3731_I2C_ADDRESS_1, 0 );
+            is31fl3731_update_pwm_buffers( 0 );
             break;
         case 1:
-            is31fl3731_update_pwm_buffers( IS31FL3731_I2C_ADDRESS_2, 1 );
+            is31fl3731_update_pwm_buffers( 1 );
             break;
         case 2:
-            is31fl3731_update_pwm_buffers( IS31FL3731_I2C_ADDRESS_3, 2 );
+            is31fl3731_update_pwm_buffers( 2 );
             break;
     }
     if ( ++driver > 2 )
@@ -1015,10 +1006,13 @@ void backlight_update_pwm_buffers(void)
         driver = 0;
     }
 #else
-    is31fl3731_update_pwm_buffers( IS31FL3731_I2C_ADDRESS_1, 0 );
-    is31fl3731_update_pwm_buffers( IS31FL3731_I2C_ADDRESS_2, 1 );
-    is31fl3731_update_led_control_registers( IS31FL3731_I2C_ADDRESS_1, 0 );
-    is31fl3731_update_led_control_registers( IS31FL3731_I2C_ADDRESS_2, 1 );
+#if defined(RGB_BACKLIGHT_DAWN60)
+    ws2812_flush();
+#endif
+    is31fl3731_update_pwm_buffers( 0 );
+    is31fl3731_update_pwm_buffers( 1 );
+    is31fl3731_update_led_control_registers( 0 );
+    is31fl3731_update_led_control_registers( 1 );
 #endif
 }
 
@@ -1041,10 +1035,7 @@ void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
     if( index < IS31FL3731_LED_COUNT ) {
         is31fl3731_set_color( index, red, green, blue );
     } else {
-        g_ws2812_leds[index - IS31FL3731_LED_COUNT].r = red;
-        g_ws2812_leds[index - IS31FL3731_LED_COUNT].g = green;
-        g_ws2812_leds[index - IS31FL3731_LED_COUNT].b = blue;
-        ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);
+        ws2812_set_color( index - IS31FL3731_LED_COUNT, red, green, blue );
     }
 #else
     is31fl3731_set_color( index, red, green, blue );
@@ -1079,12 +1070,7 @@ void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
     }
 #elif defined(RGB_BACKLIGHT_DAWN60)
     is31fl3731_set_color_all( red, green, blue );
-    for (uint8_t i = 0; i < WS2812_LED_TOTAL; i++) {
-        g_ws2812_leds[i].r = red;
-        g_ws2812_leds[i].g = green;
-        g_ws2812_leds[i].b = blue;
-    }
-    ws2812_setleds(g_ws2812_leds, WS2812_LED_TOTAL);
+    ws2812_set_color_all( red, green, blue );
 #else
     is31fl3731_set_color_all( red, green, blue );
 #endif
@@ -1268,16 +1254,16 @@ void backlight_effect_all_off(void)
 // Solid color
 void backlight_effect_solid_color(void)
 {
-    HSV hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
-    RGB rgb = hsv_to_rgb( hsv );
+    hsv_t hsv = { .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness };
+    rgb_t rgb = hsv_to_rgb( hsv );
     backlight_set_color_all( rgb.r, rgb.g, rgb.b );
 }
 
 // alphas = color1, mods = color2
 void backlight_effect_alphas_mods(void)
 {
-    RGB rgb1 = hsv_to_rgb( (HSV){ .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness } );
-    RGB rgb2 = hsv_to_rgb( (HSV){ .h = g_config.color_2.h, .s = g_config.color_2.s, .v = g_config.brightness } );
+    rgb_t rgb1 = hsv_to_rgb( (hsv_t){ .h = g_config.color_1.h, .s = g_config.color_1.s, .v = g_config.brightness } );
+    rgb_t rgb2 = hsv_to_rgb( (hsv_t){ .h = g_config.color_2.h, .s = g_config.color_2.s, .v = g_config.brightness } );
     bool is_alpha = false;
     for ( int row = 0; row < MATRIX_ROWS; row++ )
     {
@@ -1329,7 +1315,7 @@ void backlight_effect_alphas_mods(void)
         }
     }
 #if defined(RGB_BACKLIGHT_DAWN60)
-    for (int i = 0; i < WS2812_LED_TOTAL; i++) {
+    for (int i = 0; i < WS2812_LED_COUNT; i++) {
         if ((RGB_UNDERGLOW_ALPHA_TOP_START <= i && i <= RGB_UNDERGLOW_ALPHA_TOP_END) ||
             (RGB_UNDERGLOW_ALPHA_BOT_START <= i && i <= RGB_UNDERGLOW_ALPHA_BOT_END)) {
             backlight_set_color(i + IS31FL3731_LED_COUNT, rgb1.r, rgb1.g, rgb1.b);
@@ -1362,8 +1348,8 @@ void backlight_effect_gradient_up_down(void)
     int16_t s2 = g_config.color_2.s;
     int16_t deltaS = ( s2 - s1 ) / 4;
 
-    HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    hsv_t hsv = { .h = 0, .s = 255, .v = g_config.brightness };
+    rgb_t rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1400,8 +1386,8 @@ void backlight_effect_raindrops(bool initialize)
     int16_t s2 = g_config.color_2.s;
     int16_t deltaS = ( s2 - s1 ) / 4;
 
-    HSV hsv;
-    RGB rgb;
+    hsv_t hsv;
+    rgb_t rgb;
 
     // Change one LED every tick
     uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % BACKLIGHT_LED_COUNT : 255;
@@ -1441,8 +1427,8 @@ void backlight_effect_cycle_all(void)
 #endif
         offset2 = (offset2<=63) ? (63-offset2) : 0;
 
-        HSV hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
-        RGB rgb = hsv_to_rgb( hsv );
+        hsv_t hsv = { .h = offset+offset2, .s = 255, .v = g_config.brightness };
+        rgb_t rgb = hsv_to_rgb( hsv );
         backlight_set_color( i, rgb.r, rgb.g, rgb.b );
     }
 }
@@ -1450,8 +1436,8 @@ void backlight_effect_cycle_all(void)
 void backlight_effect_cycle_left_right(void)
 {
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
-    HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    hsv_t hsv = { .h = 0, .s = 255, .v = g_config.brightness };
+    rgb_t rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1477,8 +1463,8 @@ void backlight_effect_cycle_left_right(void)
 void backlight_effect_cycle_up_down(void)
 {
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
-    HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    hsv_t hsv = { .h = 0, .s = 255, .v = g_config.brightness };
+    rgb_t rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1503,8 +1489,8 @@ void backlight_effect_cycle_up_down(void)
 
 void backlight_effect_jellybean_raindrops( bool initialize )
 {
-    HSV hsv;
-    RGB rgb;
+    hsv_t hsv;
+    rgb_t rgb;
 
     // Change one LED every tick
     uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % BACKLIGHT_LED_COUNT : 255;
@@ -1529,8 +1515,8 @@ void backlight_effect_jellybean_raindrops( bool initialize )
 void backlight_effect_cycle_radial1(void)
 {
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
-    HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
-    RGB rgb;
+    hsv_t hsv = { .h = 0, .s = 255, .v = g_config.brightness };
+    rgb_t rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1547,8 +1533,8 @@ void backlight_effect_cycle_radial2(void)
 {
     uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
 
-    HSV hsv = { .h = 0, .s = g_config.color_1.s, .v = g_config.brightness };
-    RGB rgb;
+    hsv_t hsv = { .h = 0, .s = g_config.color_1.s, .v = g_config.brightness };
+    rgb_t rgb;
     Point point;
     for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
     {
@@ -1569,10 +1555,10 @@ void backlight_effect_cycle_radial2(void)
 #if defined(RGB_BACKLIGHT_M6_B) || defined(RGB_BACKLIGHT_M10_C)
 void backlight_effect_custom_colors(void)
 {
-    RGB rgb;
+    rgb_t rgb;
     for ( uint8_t i = 0; i < RGB_BACKLIGHT_CUSTOM_COLORS_COUNT; i++ )
     {
-        HSV hsv = { .h = g_config.custom_color[i].h, .s = g_config.custom_color[i].s, .v = g_config.brightness };
+        hsv_t hsv = { .h = g_config.custom_color[i].h, .s = g_config.custom_color[i].s, .v = g_config.brightness };
         rgb = hsv_to_rgb( hsv );
         uint8_t led;
         map_row_column_to_led( 0, i, &led );
@@ -1590,8 +1576,8 @@ void backlight_effect_custom_colors(void)
 
 void backlight_effect_indicators_set_colors( uint8_t index, HS color )
 {
-    HSV hsv = { .h = color.h, .s = color.s, .v = g_config.brightness };
-    RGB rgb = hsv_to_rgb( hsv );
+    hsv_t hsv = { .h = color.h, .s = color.s, .v = g_config.brightness };
+    rgb_t rgb = hsv_to_rgb( hsv );
     if ( index == 254 )
     {
         backlight_set_color_all( rgb.r, rgb.g, rgb.b );
@@ -2105,14 +2091,16 @@ void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
     backlight_config_save();
 }
 
-void backlight_config_load(void)
-{
-    eeprom_read_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+void eeconfig_init_kb_datablock(void) {
+    backlight_config_save();
 }
 
-void backlight_config_save(void)
-{
-    eeprom_update_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+void backlight_config_load(void) {
+    eeconfig_read_kb_datablock( &g_config, 0, sizeof(backlight_config) );
+}
+
+void backlight_config_save(void) {
+    eeconfig_update_kb_datablock( &g_config, 0, sizeof(backlight_config) );
 }
 
 void backlight_init_drivers(void)
@@ -2134,7 +2122,7 @@ void backlight_init_drivers(void)
     // This actually updates the LED drivers
     is31fl3218_update_led_control_registers();
 #elif defined(RGB_BACKLIGHT_HS60)
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( 0 );
 
     for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
@@ -2153,10 +2141,10 @@ void backlight_init_drivers(void)
         is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_1, 0 );
+    is31fl3733_update_led_control_registers( 0 );
 #elif defined(RGB_BACKLIGHT_NK65)
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_NONE );
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_2, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( 0 );
+    is31fl3733_init( 1 );
 
     for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
@@ -2167,11 +2155,11 @@ void backlight_init_drivers(void)
     }
     is31fl3733_set_led_control_register( 7+64-1, 0, 1, 0 ); //Enable LB7 green enable for indicators
     // This actually updates the LED drivers
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_1, 0 );
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_2, 1 );
+    is31fl3733_update_led_control_registers( 0 );
+    is31fl3733_update_led_control_registers( 1 );
 #elif defined(RGB_BACKLIGHT_NK87)
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_NONE );
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_2, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( 0 );
+    is31fl3733_init( 1 );
 
     for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
@@ -2197,11 +2185,11 @@ void backlight_init_drivers(void)
     }
     is31fl3733_set_led_control_register( 48+64-1, 0, 0, 1 ); //Enable LB48 blue enable for indicators
     // This actually updates the LED drivers
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_1, 0 );
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_2, 1 );
+    is31fl3733_update_led_control_registers( 0 );
+    is31fl3733_update_led_control_registers( 1 );
 #elif defined(RGB_BACKLIGHT_NEBULA68)
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_NONE );
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_2, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( 0 );
+    is31fl3733_init( 1 );
 
     for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
@@ -2211,20 +2199,20 @@ void backlight_init_drivers(void)
         is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_1, 0 );
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_2, 1 );
+    is31fl3733_update_led_control_registers( 0 );
+    is31fl3733_update_led_control_registers( 1 );
 #elif defined(RGB_BACKLIGHT_PORTICO75)
-    is31fl3741_init( IS31FL3741_I2C_ADDRESS_1 );
+    is31fl3741_init( 0 );
 	bool enabled = true;
     for ( int index = 0; index < IS31FL3741_LED_COUNT; index++ )
     {
         is31fl3741_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    is31fl3741_update_led_control_registers( IS31FL3741_I2C_ADDRESS_1, 0 );
+    is31fl3741_update_led_control_registers( 0 );
 #elif defined(RGB_BACKLIGHT_KW_MEGA)
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_1, IS31FL3733_SYNC_NONE );
-    is31fl3733_init( IS31FL3733_I2C_ADDRESS_2, IS31FL3733_SYNC_NONE );
+    is31fl3733_init( 0 );
+    is31fl3733_init( 1 );
 
     for ( int index = 0; index < IS31FL3733_LED_COUNT; index++ )
     {
@@ -2234,18 +2222,21 @@ void backlight_init_drivers(void)
         is31fl3733_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_1, 0 );
-    is31fl3733_update_led_control_registers( IS31FL3733_I2C_ADDRESS_2, 1 );
+    is31fl3733_update_led_control_registers( 0 );
+    is31fl3733_update_led_control_registers( 1 );
 #else
+#if defined(RGB_BACKLIGHT_DAWN60)
+    ws2812_init();
+#endif
     // Init the #1 driver
-    is31fl3731_init( IS31FL3731_I2C_ADDRESS_1 );
+    is31fl3731_init( 0 );
     // Init the #2 driver (if used)
 #if !defined(RGB_BACKLIGHT_NEBULA12) && !defined(RGB_BACKLIGHT_M10_C)
-    is31fl3731_init( IS31FL3731_I2C_ADDRESS_2 );
+    is31fl3731_init( 1 );
 #endif
     // Init the #3 driver (if used)
 #if defined(RGB_BACKLIGHT_U80_A)
-    is31fl3731_init( IS31FL3731_I2C_ADDRESS_3 );
+    is31fl3731_init( 2 );
 #endif
 
     // Experimental feature, not in configuration yet
@@ -2378,12 +2369,12 @@ void backlight_init_drivers(void)
     }
     // This actually updates the LED drivers
     // TODO: refactor this to use DRIVER_COUNT
-    is31fl3731_update_led_control_registers( IS31FL3731_I2C_ADDRESS_1, 0 );
+    is31fl3731_update_led_control_registers(  0 );
 #if !defined(RGB_BACKLIGHT_NEBULA12) && !defined(RGB_BACKLIGHT_M10_C)
-    is31fl3731_update_led_control_registers( IS31FL3731_I2C_ADDRESS_2, 1 );
+    is31fl3731_update_led_control_registers( 1 );
 #endif
 #if defined(RGB_BACKLIGHT_U80_A)
-    is31fl3731_update_led_control_registers( IS31FL3731_I2C_ADDRESS_3, 2 );
+    is31fl3731_update_led_control_registers( 2 );
 #endif
 #endif
 
@@ -2630,15 +2621,12 @@ void backlight_debug_led( bool state )
 {
     if (state)
     {
-        // Output high.
-        DDRE |= (1<<6);
-        PORTE |= (1<<6);
+        gpio_set_pin_output(E6);
+        gpio_write_pin_high(E6);
     }
     else
     {
-        // Output low.
-        DDRE &= ~(1<<6);
-        PORTE &= ~(1<<6);
+        gpio_set_pin_input(E6);
     }
 }
 #endif // defined(RGB_DEBUGGING_ONLY)

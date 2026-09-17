@@ -1,0 +1,108 @@
+{
+    "manufacturer": "takashicompany",
+    "keyboard_name": "GOAT51",
+    "maintainer": "takashicompany",
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "encoder": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["D4", "C6", "D7", "E6", "B4", "B5", "D2"],
+        "rows": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6"]
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "D1", "pin_b": "D0"}
+         ]
+    },
+    "url": "https://github.com/takashicompany/goat51",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0029",
+        "vid": "0x7463"
+    },
+    "rgblight": {
+        "led_count": 11,
+        "hue_steps": 10,
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "rgb_test": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        }
+    },
+    "ws2812": {
+        "pin": "D3"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0.5},
+                {"matrix": [0, 1], "x": 1, "y": 0.5},
+                {"matrix": [0, 2], "x": 2, "y": 0.25},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [4, 1], "x": 10, "y": 0},
+                {"matrix": [4, 2], "x": 11, "y": 0},
+                {"matrix": [4, 3], "x": 12, "y": 0},
+                {"matrix": [4, 4], "x": 13, "y": 0.25},
+                {"matrix": [4, 5], "x": 14, "y": 0.5},
+                {"matrix": [4, 6], "x": 15, "y": 0.5},
+                {"matrix": [1, 0], "x": 0, "y": 1.5},
+                {"matrix": [1, 1], "x": 1, "y": 1.5},
+                {"matrix": [1, 2], "x": 2, "y": 1.25},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+                {"matrix": [1, 6], "x": 7.5, "y": 0.5},
+                {"matrix": [5, 1], "x": 10, "y": 1},
+                {"matrix": [5, 2], "x": 11, "y": 1},
+                {"matrix": [5, 3], "x": 12, "y": 1},
+                {"matrix": [5, 4], "x": 13, "y": 1.25},
+                {"matrix": [5, 5], "x": 14, "y": 1.5},
+                {"matrix": [5, 6], "x": 15, "y": 1.5},
+                {"matrix": [2, 0], "x": 0, "y": 2.5},
+                {"matrix": [2, 1], "x": 1, "y": 2.5},
+                {"matrix": [2, 2], "x": 2, "y": 2.25},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [2, 5], "x": 5, "y": 2},
+                {"matrix": [6, 1], "x": 10, "y": 2},
+                {"matrix": [6, 2], "x": 11, "y": 2},
+                {"matrix": [6, 3], "x": 12, "y": 2},
+                {"matrix": [6, 4], "x": 13, "y": 2.25},
+                {"matrix": [6, 5], "x": 14, "y": 2.5},
+                {"matrix": [6, 6], "x": 15, "y": 2.5},
+                {"matrix": [3, 0], "x": 0, "y": 3.5},
+                {"matrix": [3, 1], "x": 1, "y": 3.5},
+                {"matrix": [3, 2], "x": 2, "y": 3.25},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+                {"matrix": [3, 5], "x": 5, "y": 3},
+                {"matrix": [3, 6], "x": 6, "y": 3},
+                {"matrix": [7, 0], "x": 9, "y": 3},
+                {"matrix": [7, 1], "x": 10, "y": 3},
+                {"matrix": [7, 2], "x": 11, "y": 3},
+                {"matrix": [7, 3], "x": 12, "y": 3},
+                {"matrix": [7, 4], "x": 13, "y": 3.25},
+                {"matrix": [7, 5], "x": 14, "y": 3.5},
+                {"matrix": [7, 6], "x": 15, "y": 3.5},
+                {"matrix": [0, 6], "x": 7, "y": 1.5},
+                {"matrix": [4, 0], "x": 8, "y": 1.5}
+            ]
+        }
+    }
+}

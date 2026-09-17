@@ -1,7 +1,0 @@
-MOUSEKEY_ENABLE    = no
-MIDI_ENABLE        = no
-BOOTMAGIC_ENABLE   = yes
-LTO_ENABLE         = yes
-CONSOLE_ENABLE     = yes
-GRAVE_ESC_ENABLE   = no
-ENCODER_MAP_ENABLE = yes

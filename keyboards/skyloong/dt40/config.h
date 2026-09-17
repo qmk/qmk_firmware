@@ -15,13 +15,7 @@
  */
 #pragma once
 
-#define RGB_MATRIX_LED_COUNT 44   //The number of LEDs connected
-#define RGB_MATRIX_KEYPRESSES  //Reacts to keypress
-#define RGB_DISABLE_WHEN_USB_SUSPENDED   //turn off effects when suspended
-
-#define RGB_MATRIX_DEFAULT_VAL 150  //Sets the default mode, if none has been set
 #define RGB_TRIGGER_ON_KEYDOWN  //Triggers RGB keypress events on key down
-#define RGB_MATRIX_FRAMEBUFFER_EFFECTS // enable framebuffer effects
 #define RGB_MATRIX_TYPING_HEATMAP_DECREASE_DELAY_MS 1
 
 //Set WS2812 driver
@@ -30,7 +24,5 @@
 #define WS2812_PWM_DRIVER PWMD3
 #define WS2812_PWM_CHANNEL 1
 #define WS2812_PWM_PAL_MODE 2
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM3
-#define WS2812_DMA_CHANNEL 3
-
-
+#define WS2812_PWM_DMA_STREAM STM32_DMA1_STREAM3
+#define WS2812_PWM_DMA_CHANNEL 3

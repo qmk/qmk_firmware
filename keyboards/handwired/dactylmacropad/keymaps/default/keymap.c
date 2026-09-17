@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_BASE] = LAYOUT
 		(pvt, LCTL(KC_V), KC_UP, LCTL(KC_C),
 		LSFT_T(KC_ESC), KC_LEFT, KC_DOWN, KC_RGHT,
-		TO(1),   KC_LCTL,   ALT_TAB,  KC_APP, KC_BTN3),
+		TO(1),   KC_LCTL,   ALT_TAB,  KC_APP, MS_BTN3),
 	/*
 		 * ┌────┬────┬────┬────┐
 		 * │mte │ BI │ up │pgu │
@@ -71,9 +71,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
               }
           } else {
               if (clockwise) {
-                  tap_code(KC_WH_D);
+                  tap_code(MS_WHLD);
               } else {
-                  tap_code(KC_WH_U);
+                  tap_code(MS_WHLU);
               }
           }
           return false;
@@ -87,8 +87,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             // creates pivot table in excel
             SEND_STRING(SS_LALT("nvt"));
-        } else {
-            // when keycode QMKBEST is released
         }
         break;
     case snap:

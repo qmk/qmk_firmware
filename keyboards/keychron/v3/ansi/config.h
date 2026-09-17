@@ -25,13 +25,8 @@
 /* If PH3 used with a stronger pull resistor then the following definition needs be included */
 // #define MATRIX_UNSELECT_DRIVE_HIGH
 
-/* RGB Matrix Configuration */
-#define DRIVER_1_LED_TOTAL 48
-#define DRIVER_2_LED_TOTAL 39
-#define RGB_MATRIX_LED_COUNT (DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL)
-
 #define SNLED27351_CURRENT_TUNE \
     { 0x95, 0x95, 0x55, 0x95, 0x95, 0x55, 0x95, 0x95, 0x55, 0x95, 0x95, 0x55 }
 
-/* Enable CapsLcok LED */
+/* Enable CapsLock LED */
 #define CAPS_LOCK_LED_INDEX 50

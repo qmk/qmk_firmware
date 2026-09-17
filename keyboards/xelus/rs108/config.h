@@ -15,12 +15,6 @@
  */
 #pragma once
 
-// Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
-#define LOCKING_SUPPORT_ENABLE
-
-// Locking resynchronize hack
-#define LOCKING_RESYNC_ENABLE
-
 // I2C config
 #define I2C1_SCL_PIN        B8
 #define I2C1_SDA_PIN        B9
@@ -34,6 +28,3 @@
 
 // Hardware Defines
 #define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
-
-// HSE CLK
-#define STM32_HSECLK 16000000

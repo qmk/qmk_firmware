@@ -82,8 +82,8 @@ Change pinouts, Pro Micro does not have the "F0" pin.
 
 Set encoder to just top or bottom position.
 ```
-#define ENCODERS_PAD_A { C6 }
-#define ENCODERS_PAD_B { D4 }
+#define ENCODER_A_PINS { C6 }
+#define ENCODER_B_PINS { D4 }
 ```
 
 ## Encoder Setup

@@ -1,0 +1,14 @@
+{
+    "config": {
+        "features": {
+            "backlight": true,
+            "tap_dance": true
+        },
+        "tapping": {
+            "term": 500
+        },
+        "backlight": {
+            "breathing": true
+        }
+    }
+}

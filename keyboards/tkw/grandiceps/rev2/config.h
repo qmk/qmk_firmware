@@ -15,5 +15,4 @@
  */
 #pragma once
 
-#define SPLIT_HAND_PIN B3
 #define EEPROM_I2C_24LC64

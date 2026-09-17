@@ -1,0 +1,18 @@
+{
+    "processor": "atmega32u4",
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true,
+        "encoder": true
+    },
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    }
+}

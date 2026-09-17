@@ -1,0 +1,16 @@
+{
+    "development_board": "blackpill_f411",
+    "features": {
+        "bootmagic": true,
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true,
+        "rgblight": true,
+        "encoder": true,
+        "dip_switch": true,
+        "steno": true,
+        "oled": true,
+        "pointing_device": true,
+        "dynamic_tapping_term": true
+    }
+}

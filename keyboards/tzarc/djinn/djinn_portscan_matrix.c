@@ -1,7 +1,5 @@
 // Copyright 2018-2022 Nick Brassel (@tzarc)
 // SPDX-License-Identifier: GPL-2.0-or-later
-#include "quantum.h"
-#include <hal_pal.h>
 #include "djinn.h"
 
 #define GPIOB_BITMASK (1 << 13 | 1 << 14 | 1 << 15) // B13, B14, B15
@@ -18,7 +16,7 @@ void matrix_wait_for_pin(pin_t pin, uint8_t target_state) {
     rtcnt_t start = chSysGetRealtimeCounterX();
     rtcnt_t end   = start + 5000;
     while (chSysIsCounterWithinX(chSysGetRealtimeCounterX(), start, end)) {
-        if (readPin(pin) == target_state) {
+        if (gpio_read_pin(pin) == target_state) {
             break;
         }
     }
@@ -34,13 +32,20 @@ void matrix_wait_for_port(stm32_gpio_t *port, uint32_t target_bitmask) {
     }
 }
 
+static void dummy_vt_callback(virtual_timer_t *vtp, void *p) {}
+
 void matrix_init_custom(void) {
     for (int i = 0; i < MATRIX_ROWS; ++i) {
-        setPinInputHigh(row_pins[i]);
+        gpio_set_pin_input_high(row_pins[i]);
     }
     for (int i = 0; i < MATRIX_COLS; ++i) {
-        setPinInputHigh(col_pins[i]);
+        gpio_set_pin_input_high(col_pins[i]);
     }
+
+    // Start a virtual timer so we'll still get periodic wakeups, now that USB SOF doesn't wake up the main loop
+    static virtual_timer_t vt;
+    chVTObjectInit(&vt);
+    chVTSetContinuous(&vt, TIME_MS2I(10), dummy_vt_callback, NULL);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -51,8 +56,8 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         pin_t curr_col_pin = col_pins[current_col];
 
         // Setup the output column pin
-        setPinOutput(curr_col_pin);
-        writePinLow(curr_col_pin);
+        gpio_set_pin_output(curr_col_pin);
+        gpio_write_pin_low(curr_col_pin);
         matrix_wait_for_pin(curr_col_pin, 0);
 
         // Read the row ports
@@ -60,7 +65,7 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         uint32_t gpio_c = palReadPort(GPIOC);
 
         // Unselect the row pin
-        setPinInputHigh(curr_col_pin);
+        gpio_set_pin_input_high(curr_col_pin);
 
         // Construct the packed bitmask for the pins
         uint32_t readback = ~(((gpio_b & GPIOB_BITMASK) >> GPIOB_OFFSET) | (((gpio_c & GPIOC_BITMASK) >> GPIOC_OFFSET) << GPIOB_COUNT));
@@ -93,11 +98,11 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
 void matrix_wait_for_interrupt(void) {
     // Set up row/col pins and attach callback
     for (int i = 0; i < ARRAY_SIZE(col_pins); ++i) {
-        setPinOutput(col_pins[i]);
-        writePinLow(col_pins[i]);
+        gpio_set_pin_output(col_pins[i]);
+        gpio_write_pin_low(col_pins[i]);
     }
     for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
-        setPinInputHigh(row_pins[i]);
+        gpio_set_pin_input_high(row_pins[i]);
         palEnableLineEvent(row_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
     }
 
@@ -107,11 +112,11 @@ void matrix_wait_for_interrupt(void) {
     // Now that the interrupt has woken us up, reset all the row/col pins back to defaults
     for (int i = 0; i < ARRAY_SIZE(row_pins); ++i) {
         palDisableLineEvent(row_pins[i]);
-        writePinHigh(row_pins[i]);
-        setPinInputHigh(row_pins[i]);
+        gpio_write_pin_high(row_pins[i]);
+        gpio_set_pin_input_high(row_pins[i]);
     }
     for (int i = 0; i < ARRAY_SIZE(col_pins); ++i) {
-        writePinHigh(col_pins[i]);
-        setPinInputHigh(col_pins[i]);
+        gpio_write_pin_high(col_pins[i]);
+        gpio_set_pin_input_high(col_pins[i]);
     }
 }

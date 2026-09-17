@@ -2,10 +2,6 @@
  * matrix.c
  */
 
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include "quantum.h"
 #include "matrix.h"
 #include "tca6424.h"
 #include "m20add.h"

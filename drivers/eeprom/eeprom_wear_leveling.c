@@ -10,6 +10,12 @@ void eeprom_driver_init(void) {
     wear_leveling_init();
 }
 
+void eeprom_driver_format(bool erase) {
+    /* wear leveling requires the write log data structures to be erased before use. */
+    (void)erase;
+    eeprom_driver_erase();
+}
+
 void eeprom_driver_erase(void) {
     wear_leveling_erase();
 }

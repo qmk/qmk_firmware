@@ -29,12 +29,13 @@ enum layer_names {
 };
 
 enum custom_keycodes {
-    QWERTY = SAFE_RANGE,
-    COLEMAK,
-    DVORAK,
-    PLOVER,
+    PLOVER = SAFE_RANGE,
     EXT_PLV
 };
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 #define ST_BOLT QK_STENO_BOLT
 #define ST_GEM QK_STENO_GEMINI
@@ -195,21 +196,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case QWERTY:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_QWERTY);
-            }
-            return false;
-        case COLEMAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_COLEMAK);
-            }
-            return false;
-        case DVORAK:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_DVORAK);
-            }
-            return false;
         case PLOVER:
             if (!record->event.pressed) {
                 layer_on(_PLOVER);

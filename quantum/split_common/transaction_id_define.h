@@ -16,6 +16,12 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
+#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#    define SPLIT_TRANSACTION_RPC
+#endif
+
 enum serial_transaction_id {
 #ifdef USE_I2C
     I2C_EXECUTE_CALLBACK,
@@ -31,6 +37,7 @@ enum serial_transaction_id {
 #ifdef ENCODER_ENABLE
     GET_ENCODERS_CHECKSUM,
     GET_ENCODERS_DATA,
+    CMD_ENCODER_DRAIN,
 #endif // ENCODER_ENABLE
 
 #ifndef DISABLE_SYNC_TIMER
@@ -96,12 +103,12 @@ enum serial_transaction_id {
     PUT_ACTIVITY,
 #endif // SPLIT_ACTIVITY_ENABLE
 
-#if defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#if defined(SPLIT_TRANSACTION_RPC)
     PUT_RPC_INFO,
     PUT_RPC_REQ_DATA,
     EXECUTE_RPC,
     GET_RPC_RESP_DATA,
-#endif // defined(SPLIT_TRANSACTION_IDS_KB) || defined(SPLIT_TRANSACTION_IDS_USER)
+#endif // defined(SPLIT_TRANSACTION_RPC)
 
 // keyboard-specific
 #ifdef SPLIT_TRANSACTION_IDS_KB
@@ -113,6 +120,11 @@ enum serial_transaction_id {
     SPLIT_TRANSACTION_IDS_USER,
 #endif // SPLIT_TRANSACTION_IDS_USER
 
+// community module specific
+#ifdef COMMUNITY_MODULES_ENABLE
+#    include "split_transaction_id_community_modules.inc"
+#endif // COMMUNITY_MODULES_ENABLE
+
 #if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
     PUT_DETECTED_OS,
 #endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
@@ -121,4 +133,4 @@ enum serial_transaction_id {
 };
 
 // Ensure we only use 5 bits for transaction
-_Static_assert(NUM_TOTAL_TRANSACTIONS <= (1 << 5), "Max number of usable transactions exceeded");
+STATIC_ASSERT(NUM_TOTAL_TRANSACTIONS <= (1 << 5), "Max number of usable transactions exceeded");

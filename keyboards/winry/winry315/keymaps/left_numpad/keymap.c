@@ -25,11 +25,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* RGB configuration */
     [_RGB] = LAYOUT_left(
-        RGB_M_R,    KC_TRNS, RGB_SPD, RGB_SPI,
-                    RGB_TOG, RGB_HUD, RGB_HUI,
-        RGB_M_B,    RGB_M_P, RGB_SAD, RGB_SAI,
-                    KC_NO,   RGB_VAD, RGB_VAI,
-        RGB_M_P,    KC_NUM,  RGB_RMOD,RGB_MOD
+        RGB_M_R,    KC_TRNS, RM_SPDD, RM_SPDU,
+                    RM_TOGG, RM_HUED, RM_HUEU,
+        RGB_M_B,    RGB_M_P, RM_SATD, RM_SATU,
+                    KC_NO,   RM_VALD, RM_VALU,
+        RGB_M_P,    KC_NUM,  RM_PREV, RM_NEXT
     ),
 };
 // clang-format on

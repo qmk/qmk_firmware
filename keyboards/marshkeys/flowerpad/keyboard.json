@@ -1,0 +1,37 @@
+{
+    "manufacturer": "marshkeys.com",
+    "keyboard_name": "Flowerpad",
+    "maintainer": "Ethirallan",
+    "bootmagic": {
+        "matrix": [0, 1]
+    },
+    "development_board": "promicro",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "cols": ["F7", "F6", "F5"],
+        "rows": ["C6", "D4", "D0"]
+    },
+    "url": "marshkeys.com",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x466C",
+        "vid": "0x4D61"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 1], "x": 0, "y": 1},
+                {"matrix": [1, 0], "x": 1, "y": 0},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 1, "y": 2},
+                {"matrix": [2, 0], "x": 2, "y": 0},
+                {"matrix": [2, 2], "x": 2, "y": 2}
+            ]
+        }
+    }
+}

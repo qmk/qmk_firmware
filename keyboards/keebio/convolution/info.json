@@ -6,13 +6,10 @@
         "vid": "0xCB10"
     },
     "features": {
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": false,
-        "nkro": false,
-        "unicode": false,
-        "backlight": false
+        "nkro": false
     },
     "layout_aliases": {"LAYOUT": "LAYOUT_all"}
 }

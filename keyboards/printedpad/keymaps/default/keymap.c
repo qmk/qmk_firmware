@@ -43,3 +43,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_Y,   KC_Z,   KC_ENT
     )
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case LT(0, KC_NO):
+            if (record->event.pressed) {
+                // on tap
+                if (record->tap.count) {
+                    if (get_highest_layer(layer_state) >= 3) {
+                        layer_clear(); 
+                    } else { 
+                        layer_move(get_highest_layer(layer_state) + 1);
+                    }
+                }
+#ifdef OLED_ENABLE
+                // on hold
+                else {
+                    void oled_display_mode_step(void);
+                    oled_display_mode_step();
+                }
+#endif
+            }
+            return false;
+    }
+    return true;
+}

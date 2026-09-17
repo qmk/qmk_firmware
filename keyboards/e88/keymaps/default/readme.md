@@ -1,1 +1,0 @@
-Default e88 firmware.

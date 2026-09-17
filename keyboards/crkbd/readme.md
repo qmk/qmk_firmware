@@ -1,28 +1,33 @@
 # Corne Keyboard (CRKBD)
 
-Also known (incorrectly) as the `HeliDox`. 
-
 ![Crkbd](https://user-images.githubusercontent.com/736191/40575636-6fba63a4-6123-11e8-9ca0-3f990f1f9f4c.jpg)
 
 ![Crkbd](https://user-images.githubusercontent.com/736191/40887871-0eead5dc-678a-11e8-9518-e3ad9e5d2bac.png)
 
 A split keyboard with 3x6 vertically staggered keys and 3 thumb keys.
+Also, it has the option that use extension keys and rotary encoders.
 
 Keyboard Maintainer: [foostan](https://github.com/foostan/) [@foostan](https://twitter.com/foostan)  
-Hardware Supported: Crkbd PCB, Pro Micro  
+Hardware Supported: Corne PCB
 Hardware Availability: [PCB & Case Data](https://github.com/foostan/crkbd)
 
-Make example for this keyboard (after setting up your build environment):
+Flash example for this keyboard of v1 - v3:
 
 ```sh
-make crkbd:default
+qmk flash -kb crkbd/rev1 -km default
+```
+
+Flash example for this keyboard of v4:
+
+```sh
+qmk flash -kb crkbd/rev4 -km default
 ```
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-The Corne PCBs have a reset button next to the TRRS jack to enter in to the bootloader.
+The Corne PCBs have a reset and boot buttons next to the TRRS jack to enter in to the bootloader.
 
 Additionally, if you hold down the "Q" or "P" buttons when plugging in that half of the keyboard (per the default QWERTY layout), this will jump to the bootloader and reset the EEPROM (persistent storage).  This would normally be the very top corner-most position, but due to the breakaway column, it's left at Q and P for compatibility. 
 
@@ -43,7 +48,7 @@ And in your `config.h` file, add the following:
 #ifdef RGB_MATRIX_ENABLE
 #   define RGB_MATRIX_KEYPRESSES // reacts to keypresses
 // #   define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (instead of keypresses)
-#   define RGB_DISABLE_WHEN_USB_SUSPENDED // turn off effects when suspended
+#   define RGB_MATRIX_SLEEP // turn off effects when suspended
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 // #   define RGB_MATRIX_LED_PROCESS_LIMIT (RGB_MATRIX_LED_COUNT + 4) / 5 // limits the number of LEDs to process in an animation per task run (increases keyboard responsiveness)
 // #   define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)

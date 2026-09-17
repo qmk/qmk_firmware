@@ -52,15 +52,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
-#    define ROW_SHIFTER ((uint8_t)1)
 #elif (MATRIX_COLS <= 16)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
-#    define ROW_SHIFTER ((uint16_t)1)
 #elif (MATRIX_COLS <= 32)
 #    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
 #    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
-#    define ROW_SHIFTER  ((uint32_t)1)
 #endif
 
 #ifdef MATRIX_MASKED
@@ -277,7 +274,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
 
         // Populate the matrix row with the state of the col pin
-        current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
+        current_matrix[current_row] |=  pin_state ? 0 : (MATRIX_ROW_SHIFTER << col_index);
     }
 
     // Unselect row
@@ -339,12 +336,12 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
         {
             // Pin LO, set col bit
-            current_matrix[row_index] |= (ROW_SHIFTER << current_col);
+            current_matrix[row_index] |= (MATRIX_ROW_SHIFTER << current_col);
         }
         else
         {
             // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
+            current_matrix[row_index] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine if the matrix changed state
@@ -387,37 +384,13 @@ static void unselect_cols(void)
 
 // Complete rows from other modules over i2c
 i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset) {
-    i2c_status_t status = i2c_start(address, 5);
-    if (status < 0) {
-        goto error;
+    uint8_t data[MATRIX_ROWS + 1];
+    i2c_status_t status = i2c_read_register(address, 0x01, data, (MATRIX_ROWS + 1), 5);
+
+    for (uint8_t i = 0; i < (MATRIX_ROWS) && status >= 0; i++) { //assemble slave matrix in main matrix
+        matrix[i] &= mask;  //mask bits to keep
+        matrix[i] |= ((uint32_t)data[i+1] << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
     }
 
-    status = i2c_write(0x01, 50);
-    if (status < 0) {
-        goto error;
-    }
-
-    status = i2c_start(address | I2C_READ, 50);
-
-    status = i2c_read_ack(50);
-    if (status != 0x55) { //synchronization byte
-        goto error;
-    }
-
-    for (uint8_t i = 0; i < MATRIX_ROWS-1 && status >= 0; i++) { //assemble slave matrix in main matrix
-        matrix[i] &= mask; //mask bits to keep
-        status = i2c_read_ack(50);
-            matrix[i] |= ((uint32_t)status << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
-        }
-    //last read request must be followed by a NACK
-    if (status >= 0) {
-        matrix[MATRIX_ROWS - 1] &= mask; //mask bits to keep
-        status = i2c_read_nack(50);
-        matrix[MATRIX_ROWS - 1] |= ((uint32_t)status << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
-    }
-
-error:
-    i2c_stop();
-
-    return (status < 0) ? status : I2C_STATUS_SUCCESS;
+    return status;
 }

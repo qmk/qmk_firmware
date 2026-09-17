@@ -12,9 +12,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // 1: Function Layer
   [1] = LAYOUT_all(
-      QK_BOOT,   KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_NO,    KC_NO,
-      KC_NO,   RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD,  BL_TOGG,BL_ON,  BL_UP,  KC_INS, KC_NO,   KC_PSCR, KC_SCRL,  KC_PAUS,          KC_DEL,
-      KC_NO,   RGB_HUD, RGB_SAD, RGB_VAD, RGB_RMOD, BL_STEP,BL_OFF, BL_DOWN,KC_NO,  KC_NO,   KC_HOME, KC_PGUP,  KC_NO,            KC_ENT,
+      QK_BOOT, KC_F1,   KC_F2,   KC_F3,   KC_F4,    KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_NO,    KC_NO,
+      KC_NO,   UG_HUEU, UG_SATU, UG_VALU, UG_NEXT,  BL_TOGG,BL_ON,  BL_UP,  KC_INS, KC_NO,   KC_PSCR, KC_SCRL,  KC_PAUS,          KC_DEL,
+      KC_NO,   UG_HUED, UG_SATD, UG_VALD, UG_PREV,  BL_STEP,BL_OFF, BL_DOWN,KC_NO,  KC_NO,   KC_HOME, KC_PGUP,  KC_NO,            KC_ENT,
       KC_LSFT, KC_NO,   KC_NO,   KC_APP,  BL_STEP,  KC_NO,  KC_NO,  KC_VOLD,KC_VOLU,KC_MUTE, KC_END,  KC_RSFT,  KC_NO  , KC_PGUP,  KC_INS,
       KC_LCTL, KC_LGUI, KC_LALT,                    KC_BSPC,KC_SPC, KC_DEL,                  KC_RGUI, MO(1),    KC_HOME, KC_PGDN,  KC_END),
 

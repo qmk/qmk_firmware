@@ -23,11 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_MODE_RAINBOW_SWIRL + 5)
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // Elongate has six indicator LEDs. These def's are the indicator pin defs. The LEDs are distributed in two clusters: one next to the numpad and another between spacebars; LEDs are numbered top-to-bottom.
 
 #define LED1_PIN A2

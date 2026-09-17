@@ -12,8 +12,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [1] = LAYOUT_ortho_4x4(
         QK_BOOT, KC_PAST, KC_PSLS, _______,
-        RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD,
-        RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD,
+        RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED,
+        RM_SATU, RM_SATD, RM_VALU, RM_VALD,
         _______, _______, _______, _______
   )
 };

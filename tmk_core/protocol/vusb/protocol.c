@@ -22,22 +22,10 @@
 #include "keyboard.h"
 #include "host.h"
 #include "timer.h"
-#include "print.h"
+#include "debug.h"
 #include "suspend.h"
 #include "wait.h"
 #include "sendchar.h"
-
-#ifdef SLEEP_LED_ENABLE
-#    include "sleep_led.h"
-#endif
-
-#ifdef CONSOLE_ENABLE
-void console_task(void);
-#endif
-
-#ifdef RAW_ENABLE
-void raw_hid_task(void);
-#endif
 
 /* This is from main.c of USBaspLoader */
 static void initForUsbConnectivity(void) {
@@ -53,7 +41,7 @@ static void initForUsbConnectivity(void) {
     usbDeviceConnect();
 }
 
-static void vusb_send_remote_wakeup(void) {
+static inline void vusb_send_remote_wakeup(void) {
     cli();
 
     uint8_t ddr_orig = USBDDR;
@@ -71,27 +59,6 @@ static void vusb_send_remote_wakeup(void) {
 }
 
 bool vusb_suspended = false;
-
-static void vusb_suspend(void) {
-    vusb_suspended = true;
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_enable();
-#endif
-
-    suspend_power_down();
-}
-
-#if USB_COUNT_SOF
-static void vusb_wakeup(void) {
-    vusb_suspended = false;
-    suspend_wakeup_init();
-
-#    ifdef SLEEP_LED_ENABLE
-    sleep_led_disable();
-#    endif
-}
-#endif
 
 /** \brief Setup USB
  *
@@ -125,49 +92,60 @@ void protocol_post_init(void) {
     wait_ms(50);
 }
 
-void protocol_task(void) {
+static inline bool should_do_suspend(void) {
 #if USB_COUNT_SOF
     if (usbSofCount != 0) {
-        usbSofCount = 0;
-        sof_timer   = timer_read();
-        if (vusb_suspended) {
-            vusb_wakeup();
-        }
+        usbSofCount    = 0;
+        sof_timer      = timer_read();
+        vusb_suspended = false;
     } else {
         // Suspend when no SOF in 3ms-10ms(7.1.7.4 Suspending of USB1.1)
         if (!vusb_suspended && timer_elapsed(sof_timer) > 5) {
-            vusb_suspend();
+            vusb_suspended = true;
         }
     }
 #endif
-    if (vusb_suspended) {
-        vusb_suspend();
-        if (suspend_wakeup_condition()) {
-            vusb_send_remote_wakeup();
+    return vusb_suspended;
+}
+
+void protocol_pre_task(void) {
+#if !defined(NO_USB_STARTUP_CHECK)
+    if (should_do_suspend()) {
+        dprintln("suspending keyboard");
+        while (should_do_suspend()) {
+            suspend_power_down();
+            if (suspend_wakeup_condition()) {
+                vusb_send_remote_wakeup();
+
+#    if USB_SUSPEND_WAKEUP_DELAY > 0
+                // Some hubs, kvm switches, and monitors do
+                // weird things, with USB device state bouncing
+                // around wildly on wakeup, yielding race
+                // conditions that can corrupt the keyboard state.
+                //
+                // Pause for a while to let things settle...
+                wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+                // ...and then update the wakeup matrix again as the waking key
+                // might have been released during the delay
+                update_matrix_state_after_wakeup();
+#    endif
+            }
         }
-    } else {
-        usbPoll();
-
-        // TODO: configuration process is inconsistent. it sometime fails.
-        // To prevent failing to configure NOT scan keyboard during configuration
-        if (usbConfiguration && usbInterruptIsReady()) {
-            keyboard_task();
-        }
-
-#ifdef RAW_ENABLE
-        usbPoll();
-
-        if (usbConfiguration && usbInterruptIsReady4()) {
-            raw_hid_task();
-        }
-#endif
-
-#ifdef CONSOLE_ENABLE
-        usbPoll();
-
-        if (usbConfiguration && usbInterruptIsReady3()) {
-            console_task();
-        }
-#endif
+        suspend_wakeup_init();
     }
+#endif
+}
+
+void protocol_keyboard_task(void) {
+    usbPoll();
+
+    // TODO: configuration process is inconsistent. it sometime fails.
+    // To prevent failing to configure NOT scan keyboard during configuration
+    if (usbConfiguration && usbInterruptIsReady()) {
+        keyboard_task();
+    }
+}
+
+void protocol_post_task(void) {
+    // do nothing
 }

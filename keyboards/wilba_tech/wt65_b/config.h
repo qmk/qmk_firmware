@@ -16,11 +16,6 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -58,9 +53,7 @@
 // the default effect speed (0-3)
 #define MONO_BACKLIGHT_EFFECT_SPEED 0
 
-// Backlight config starts after VIA's EEPROM usage,
-// dynamic keymaps start after this.
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 7
+#define EECONFIG_KB_DATA_SIZE 7
 
 #define IS31FL3736_I2C_ADDRESS_1 IS31FL3736_I2C_ADDRESS_GND_GND
 #define IS31FL3736_LED_COUNT 96

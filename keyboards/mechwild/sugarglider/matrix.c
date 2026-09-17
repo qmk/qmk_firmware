@@ -38,7 +38,7 @@ static matrix_row_t read_cols(void) {
     }
 
     uint8_t ret = 0xFF;                                                         // sets all to 1
-    mcp23018_errors += !mcp23018_readPins(I2C_ADDR, mcp23018_PORTB, &ret);      // will update with values 0 = pulled down by connection, 1 = pulled up by pullup resistors
+    mcp23018_errors += !mcp23018_read_pins(I2C_ADDR, mcp23018_PORTB, &ret);      // will update with values 0 = pulled down by connection, 1 = pulled up by pullup resistors
 
     return (~ret) & 0b00111111; // Clears out the two row bits in the B buffer.
 }
@@ -50,7 +50,7 @@ static void select_row(uint8_t row) {
         //wait_us(100);
         return;
     }
-    
+
     if (row > 1) {
         mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTB, ALL_INPUT);
         mcp23018_errors += !mcp23018_set_config(I2C_ADDR, mcp23018_PORTA, ~(row_pos[row]));
@@ -87,8 +87,10 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool changed = false;
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
         changed |= read_cols_on_row(current_matrix, current_row);
+
 #ifdef ENCODER_ENABLE
-        encoder_read();
+        // Need to frequently read the encoder pins while scanning because the I/O expander takes a long time in comparison.
+        encoder_driver_task();
 #endif
     }
     return changed;

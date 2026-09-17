@@ -1,4 +1,4 @@
-# Arm/ChibiOS Early Initialization :id=chibios-early-init
+# Arm/ChibiOS Early Initialization {#chibios-early-init}
 
 This page describes a part of QMK that is a somewhat advanced concept, and is only relevant to keyboard designers.
 
@@ -6,7 +6,7 @@ QMK uses ChibiOS as the underlying layer to support a multitude of Arm-based dev
 
 Older QMK revisions required duplication of these board definitions inside your keyboard's directory in order to override such early initialization points; this is now abstracted into the following APIs, and allows usage of the board definitions supplied with ChibiOS itself. Check `<qmk_firmware>/lib/chibios/os/hal/boards` for the list of official definitions. If your keyboard needs extra initialization at a very early stage, consider providing keyboard-level overrides of the following APIs instead of duplicating the board definitions:
 
-## `early_hardware_init_pre()` :id=early-hardware-init-pre
+## `early_hardware_init_pre()` {#early-hardware-init-pre}
 
 The function `early_hardware_init_pre` is the earliest possible code that can be executed by a keyboard firmware. This is intended as a replacement for the ChibiOS board definition's `__early_init` function, and is the equivalent of executing at the start of the function.
 
@@ -32,7 +32,7 @@ void early_hardware_init_pre(void) {
 }
 ```
 
-## `early_hardware_init_post()` :id=early-hardware-init-post
+## `early_hardware_init_post()` {#early-hardware-init-post}
 
 The function `early_hardware_init_post` is the next earliest possible code that can be executed by a keyboard firmware. This is executed after RAM has been cleared, and clocks and GPIOs are configured. This is intended as a replacement for the ChibiOS board definition's `__early_init` function, and is the equivalent of executing at the end of the function.
 
@@ -48,7 +48,7 @@ void early_hardware_init_post(void) {
 }
 ```
 
-## `board_init()` :id=board-init
+## `board_init()` {#board-init}
 
 The function `board_init` is executed directly after the ChibiOS initialization routines have completed. At this stage, all normal low-level functionality should be available for use (including timers and delays), with the restriction that USB is not yet connected. This is intended as a replacement for the ChibiOS board definition's `boardInit` function.
 

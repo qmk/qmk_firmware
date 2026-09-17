@@ -19,6 +19,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MK_3_SPEED
 #define TERMINAL_HELP
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE

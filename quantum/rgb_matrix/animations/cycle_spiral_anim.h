@@ -2,7 +2,7 @@
 RGB_MATRIX_EFFECT(CYCLE_SPIRAL)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static HSV CYCLE_SPIRAL_math(HSV hsv, int16_t dx, int16_t dy, uint8_t dist, uint8_t time) {
+static hsv_t CYCLE_SPIRAL_math(hsv_t hsv, int16_t dx, int16_t dy, uint8_t dist, uint8_t time) {
     hsv.h = dist - time - atan2_8(dy, dx);
     return hsv;
 }

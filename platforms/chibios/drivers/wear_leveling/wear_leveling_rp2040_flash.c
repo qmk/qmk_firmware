@@ -6,15 +6,18 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#include <stdbool.h>
+
 #include "pico/bootrom.h"
 #include "hardware/flash.h"
 #include "hardware/sync.h"
 #include "hardware/structs/ssi.h"
 #include "hardware/structs/ioqspi.h"
 
-#include <stdbool.h>
+#include "compiler_support.h"
 #include "timer.h"
 #include "wear_leveling.h"
+#include "wear_leveling_rp2040_flash_config.h"
 #include "wear_leveling_internal.h"
 
 #ifndef WEAR_LEVELING_RP2040_FLASH_BULK_COUNT
@@ -177,7 +180,7 @@ bool backing_store_erase(void) {
 #endif
 
     // Ensure the backing size can be cleanly subtracted from the flash size without alignment issues.
-    _Static_assert((WEAR_LEVELING_BACKING_SIZE) % (FLASH_SECTOR_SIZE) == 0, "Backing size must be a multiple of FLASH_SECTOR_SIZE");
+    STATIC_ASSERT((WEAR_LEVELING_BACKING_SIZE) % (FLASH_SECTOR_SIZE) == 0, "Backing size must be a multiple of FLASH_SECTOR_SIZE");
 
     interrupts = save_and_disable_interrupts();
     flash_range_erase((WEAR_LEVELING_RP2040_FLASH_BASE), (WEAR_LEVELING_BACKING_SIZE));

@@ -1,1 +1,0 @@
-# Swedish Preonic layout. Still figuring out what to do with numbers/symbols compared to a Planck-layout.

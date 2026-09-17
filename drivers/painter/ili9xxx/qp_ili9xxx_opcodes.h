@@ -70,6 +70,7 @@
 #define ILI9XXX_SET_LIGHT_CTL_8 0xBF        // Set backlight ctl 8
 #define ILI9XXX_SET_POWER_CTL_1 0xC0        // Set power ctl 1
 #define ILI9XXX_SET_POWER_CTL_2 0xC1        // Set power ctl 2
+#define ILI9XXX_SET_POWER_CTL_3 0xC2        // Set power ctl 3
 #define ILI9XXX_SET_VCOM_CTL_1 0xC5         // Set VCOM ctl 1
 #define ILI9XXX_SET_VCOM_CTL_2 0xC7         // Set VCOM ctl 2
 #define ILI9XXX_POWER_CTL_A 0xCB            // Set power control A

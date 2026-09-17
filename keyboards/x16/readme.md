@@ -3,7 +3,6 @@
 A 16 key macropad, with USB C
 
 * Keyboard Maintainer: QMK Community
-* Hardware Supported: The PCBs, controllers supported
 * Hardware Availability: The x16 was discontinued by [x16](https://yinxianwei.github.io/x16/)
 
 Make example for this keyboard (after setting up your build environment):

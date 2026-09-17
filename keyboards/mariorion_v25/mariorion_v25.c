@@ -23,50 +23,50 @@ void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
 
-	setPinOutput(INDICATOR_0);
-	setPinOutput(INDICATOR_1);
-	setPinOutput(INDICATOR_2);
+	gpio_set_pin_output(INDICATOR_0);
+	gpio_set_pin_output(INDICATOR_1);
+	gpio_set_pin_output(INDICATOR_2);
 	matrix_init_user();
 }
 
 layer_state_t layer_state_set_kb(layer_state_t state) {
 	switch (get_highest_layer(state)) {
 		case 1:
-			writePinHigh(INDICATOR_0);
-			writePinLow(INDICATOR_1);
-			writePinLow(INDICATOR_2);
+			gpio_write_pin_high(INDICATOR_0);
+			gpio_write_pin_low(INDICATOR_1);
+			gpio_write_pin_low(INDICATOR_2);
 			break;
 		case 2:
-			writePinLow(INDICATOR_0);
-			writePinHigh(INDICATOR_1);
-			writePinLow(INDICATOR_2);
+			gpio_write_pin_low(INDICATOR_0);
+			gpio_write_pin_high(INDICATOR_1);
+			gpio_write_pin_low(INDICATOR_2);
 			break;
 		case 3:
-			writePinLow(INDICATOR_0);
-			writePinLow(INDICATOR_1);
-			writePinHigh(INDICATOR_2);
+			gpio_write_pin_low(INDICATOR_0);
+			gpio_write_pin_low(INDICATOR_1);
+			gpio_write_pin_high(INDICATOR_2);
 			break;
 		default:
-			writePinHigh(INDICATOR_0);
-			writePinHigh(INDICATOR_1);
-			writePinHigh(INDICATOR_2);
+			gpio_write_pin_high(INDICATOR_0);
+			gpio_write_pin_high(INDICATOR_1);
+			gpio_write_pin_high(INDICATOR_2);
 			break;
 	}
 	return layer_state_set_user(state);
 }
 
 void suspend_power_down_kb(void) {
-	writePinLow(INDICATOR_0);
-	writePinLow(INDICATOR_1);
-	writePinLow(INDICATOR_2);
+	gpio_write_pin_low(INDICATOR_0);
+	gpio_write_pin_low(INDICATOR_1);
+	gpio_write_pin_low(INDICATOR_2);
 
 	suspend_power_down_user();
 }
 
 void suspend_wakeup_init_kb(void) {
-	writePinHigh(INDICATOR_0);
-	writePinHigh(INDICATOR_1);
-	writePinHigh(INDICATOR_2);
+	gpio_write_pin_high(INDICATOR_0);
+	gpio_write_pin_high(INDICATOR_1);
+	gpio_write_pin_high(INDICATOR_2);
 
 	suspend_wakeup_init_user();
 }

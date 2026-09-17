@@ -24,8 +24,8 @@ enum dilemma_keymap_layers {
     LAYER_NUM,
 };
 
-#define NAV MO(LAYER_NAV)
-#define SYM MO(LAYER_SYM)
+#define NAV QK_TRI_LAYER_LOWER
+#define SYM QK_TRI_LAYER_UPPER
 
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -33,11 +33,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
           KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,       KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN,
+          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_H,    KC_J,    KC_K,    KC_L, KC_QUOT,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
           KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,       KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
-                            KC_A,     NAV, CW_TOGG,     KC_SPC,     SYM,    KC_A
+                         KC_LCTL,     NAV, KC_LGUI,     KC_SPC,     SYM,    KC_A
   //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
@@ -45,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ╭─────────────────────────────────────────────╮ ╭─────────────────────────────────────────────╮
         KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, KC_VOLU,    XXXXXXX, KC_HOME,   KC_UP,  KC_END,  KC_DEL,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       KC_LSFT, KC_LCTL, KC_LALT, KC_RGUI, KC_VOLD,    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
+       KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, KC_VOLD,    XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       QK_BOOT, EE_CLR,  KC_MPRV, KC_MNXT, KC_MPLY,    XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,  KC_ENT,
+       QK_BOOT, EE_CLR, KC_MPRV, KC_MNXT, KC_MPLY,    XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,  KC_ENT,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
-                            KC_A, _______, KC_LSFT,     KC_SPC, _______,    KC_A
+                         XXXXXXX, _______, KC_LSFT,     KC_SPC, _______, KC_ESC
   //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
@@ -59,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
        KC_MINS, KC_ASTR,  KC_EQL, KC_UNDS,  KC_DLR,    KC_HASH, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT,
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
-       KC_PLUS, KC_PIPE,   KC_AT, KC_SLSH, KC_PERC,    _______, KC_BSLS, KC_AMPR, KC_QUES, KC_EXLM,
+       KC_PLUS, KC_PIPE,   KC_AT, KC_SLSH, KC_PERC,    KC_SCLN, KC_BSLS, KC_AMPR, KC_QUES, KC_EXLM,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
-                            KC_A, _______, KC_LSFT,     KC_SPC, _______,    KC_A
+                          KC_ESC, _______, KC_LSFT,     KC_SPC, _______, XXXXXXX
   //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 
@@ -73,12 +73,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ├─────────────────────────────────────────────┤ ├─────────────────────────────────────────────┤
          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,      KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10,
   // ╰─────────────────────────────────────────────┤ ├─────────────────────────────────────────────╯
-                            KC_A, _______, KC_LSFT,     KC_SPC, _______,    KC_A
+                         XXXXXXX, _______, KC_LSFT,     KC_SPC, _______, XXXXXXX
   //                   ╰───────────────────────────╯ ╰──────────────────────────╯
   ),
 };
 // clang-format on
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    return update_tri_layer_state(state, LAYER_NAV, LAYER_SYM, LAYER_NUM);
-}

@@ -17,11 +17,3 @@
 #pragma once
 
 #define RGBLIGHT_DEFAULT_MODE (RGBLIGHT_EFFECT_RAINBOW_MOOD + 6) 
-#define RGBLIGHT_DEFAULT_SPD 15
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-#define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 2

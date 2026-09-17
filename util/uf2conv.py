@@ -30,7 +30,7 @@ def is_hex(buf):
         w = buf[0:30].decode("utf-8")
     except UnicodeDecodeError:
         return False
-    if w[0] == ':' and re.match(b"^[:0-9a-fA-F\r\n]+$", buf):
+    if w[0] == ':' and re.match(rb"^[:0-9a-fA-F\r\n]+$", buf):
         return True
     return False
 
@@ -142,9 +142,9 @@ def convert_to_uf2(file_content):
     return b"".join(outp)
 
 class Block:
-    def __init__(self, addr):
+    def __init__(self, addr, default_data=0xFF):
         self.addr = addr
-        self.bytes = bytearray(256)
+        self.bytes = bytearray([default_data] * 256)
 
     def encode(self, blockno, numblocks):
         global familyid
@@ -210,24 +210,26 @@ def to_str(b):
 def get_drives():
     drives = []
     if sys.platform == "win32":
-        r = subprocess.check_output(["wmic", "PATH", "Win32_LogicalDisk",
-                                     "get", "DeviceID,", "VolumeName,",
-                                     "FileSystem,", "DriveType"])
-        for line in to_str(r).split('\n'):
-            words = re.split('\s+', line)
-            if len(words) >= 3 and words[1] == "2" and words[2] == "FAT":
-                drives.append(words[0])
+        r = subprocess.check_output([
+            "powershell",
+            "-Command",
+            '(Get-WmiObject Win32_LogicalDisk -Filter "FileSystem=\'FAT\'").DeviceID'
+            ])
+        drives = [drive.strip() for drive in to_str(r).splitlines()]
     else:
-        searchpaths = ["/media"]
+        searchpaths = ["/mnt", "/media"]
         if sys.platform == "darwin":
             searchpaths = ["/Volumes"]
         elif sys.platform == "linux":
-            searchpaths += ["/media/" + os.environ["USER"], '/run/media/' + os.environ["USER"]]
+            searchpaths += ["/media/" + os.environ["USER"], "/run/media/" + os.environ["USER"]]
+            if "SUDO_USER" in os.environ.keys():
+                searchpaths += ["/media/" + os.environ["SUDO_USER"]]
+                searchpaths += ["/run/media/" + os.environ["SUDO_USER"]]
 
         for rootpath in searchpaths:
             if os.path.isdir(rootpath):
                 for d in os.listdir(rootpath):
-                    if os.path.isdir(rootpath):
+                    if os.path.isdir(os.path.join(rootpath, d)):
                         drives.append(os.path.join(rootpath, d))
 
 
@@ -243,7 +245,7 @@ def get_drives():
 def board_id(path):
     with open(path + INFO_FILE, mode='r') as file:
         file_content = file.read()
-    return re.search("Board-ID: ([^\r\n]*)", file_content).group(1)
+    return re.search(r"Board-ID: ([^\r\n]*)", file_content).group(1)
 
 
 def list_drives():

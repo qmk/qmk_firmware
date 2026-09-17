@@ -17,7 +17,7 @@
 #include "quantum.h"
 
 void board_init(void) {
-    writePinLow(A8);
+    gpio_write_pin_low(A8);
 }
 
 void bootloader_jump(void) {
@@ -29,4 +29,6 @@ void keyboard_post_init_kb(void) {
     rgblight_enable_noeeprom();
     rgblight_sethsv_noeeprom(5, 255, 255);
     rgblight_mode_noeeprom(37);
+
+    keyboard_post_init_user();
 }

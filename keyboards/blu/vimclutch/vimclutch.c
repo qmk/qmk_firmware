@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void keyboard_pre_init_kb(void)
 {
-	setPinOutput(F4);
-	setPinOutput(F5);
+	gpio_set_pin_output(F4);
+	gpio_set_pin_output(F5);
 
 	keyboard_pre_init_user();
 };

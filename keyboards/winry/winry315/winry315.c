@@ -3,13 +3,11 @@
 
 #include "winry315.h"
 
-#include "via.h"
-
 #if !defined(WINRY315_DEFAULT_ORIENTATION)
 #    define WINRY315_DEFAULT_ORIENTATION WINRY315_ORIENTATION_TOP
 #endif
 
-#if !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+#if defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
 #    ifndef MEDIA_KEY_DELAY
 #        define MEDIA_KEY_DELAY 10
 #    endif
@@ -41,7 +39,7 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
     }
     return true;
 }
-#endif // !defined(VIA_ENABLE) && defined(ENCODER_ENABLE)
+#endif // defined(ENCODER_ENABLE) && !defined(ENCODER_MAP_ENABLE)
 
 #if defined(RGB_MATRIX_ENABLE)
 
@@ -200,9 +198,3 @@ void winry315_set_orientation(uint8_t orientation) {
     }
 #endif // defined(RGB_MATRIX_ENABLE)
 }
-
-#if defined(VIA_ENABLE)
-void via_set_layout_options_kb(uint32_t value) {
-    winry315_set_orientation(value & 0x03);
-}
-#endif // defined(VIA_ENABLE)

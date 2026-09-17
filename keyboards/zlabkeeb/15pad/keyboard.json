@@ -1,0 +1,77 @@
+{
+    "keyboard_name": "ZLABKEEB 15PAD",
+    "manufacturer": "zlabkeeb",
+    "maintainer": "zlabkeeb",
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "encoder": true,
+        "mousekey": true,
+        "rgblight": true
+    },
+    "build": {
+        "lto": true
+    },
+    "url": "https://github.com/zlabkeeb",
+    "usb": {
+        "vid": "0x4154",
+        "pid": "0x4454",
+        "device_version": "1.0.0"
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "led_count": 13,
+        "max_brightness": 180,
+        "saturation_steps": 8,
+        "sleep": true
+    },
+    "ws2812": {
+        "pin": "GP15",
+        "driver": "vendor"
+    },
+    "encoder": {
+        "rotary": [
+            {"pin_a": "GP1", "pin_b": "GP2"},
+            {"pin_a": "GP3", "pin_b": "GP4"},
+            {"pin_a": "GP5", "pin_b": "GP6"}
+        ]
+    },
+    "matrix_pins": {
+        "cols": ["GP11", "GP12", "GP13", "GP14"],
+        "rows": ["GP7", "GP8", "GP9", "GP10"]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"x": 0, "y": 0, "matrix": [0, 0], "encoder": 0},
+                {"x": 1, "y": 0, "matrix": [0, 1], "encoder": 1},
+                {"x": 3, "y": 0, "matrix": [0, 3], "encoder": 2},
+                {"x": 0, "y": 1, "matrix": [1, 0]},
+                {"x": 1, "y": 1, "matrix": [1, 1]},
+                {"x": 2, "y": 1, "matrix": [1, 2]},
+                {"x": 3, "y": 1, "matrix": [1, 3]},
+                {"x": 0, "y": 2, "matrix": [2, 0]},
+                {"x": 1, "y": 2, "matrix": [2, 1]},
+                {"x": 2, "y": 2, "matrix": [2, 2]},
+                {"x": 3, "y": 2, "matrix": [2, 3]},
+                {"x": 0, "y": 3, "matrix": [3, 0]},
+                {"x": 1, "y": 3, "matrix": [3, 1]},
+                {"x": 2, "y": 3, "matrix": [3, 2]},
+                {"x": 3, "y": 3, "matrix": [3, 3]}
+            ]
+        }
+    }
+}

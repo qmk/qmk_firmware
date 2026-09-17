@@ -15,11 +15,6 @@
  */
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 // IS31FL3731 driver
 #define IS31FL3731_I2C_ADDRESS_1 IS31FL3731_I2C_ADDRESS_GND
 #define IS31FL3731_I2C_ADDRESS_2 IS31FL3731_I2C_ADDRESS_SDA
@@ -74,6 +69,4 @@
 #define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 #define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 255 }
 
-// Backlight config starts after VIA's EEPROM usage,
-// dynamic keymaps start after this.
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 31
+#define EECONFIG_KB_DATA_SIZE 31

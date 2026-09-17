@@ -1,0 +1,15 @@
+{
+    "keyboard": "handwired/footy",
+    "keymap": "handy",
+    "layout": "LAYOUT",
+    "layers": [
+       [
+        "KC_NO", "MT(MOD_RCTL | MOD_RGUI, KC_NO)", "KC_NO"
+       ]
+    ],
+    "config": {
+        "tapping": {
+            "term": 50
+        }
+    }
+}

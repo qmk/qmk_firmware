@@ -6,7 +6,7 @@ The Dactyl uses the [Teensy Loader](https://www.pjrc.com/teensy/loader.html).
 
 Linux users need to modify udev rules as described on the [Teensy
 Linux page].  Some distributions provide a binary, maybe called
-`teensy-loader-cli`.
+`teensy_loader_cli`.
 
 [Teensy Linux page]: https://www.pjrc.com/teensy/loader_linux.html
 
@@ -26,7 +26,7 @@ To flash the firmware:
 
   - Click the button in the Teensy app to download the firmware.
 
-To flash with ´teensy-loader-cli´:
+To flash with ´teensy_loader_cli´:
 
   - Build the firmware as above
 

@@ -40,8 +40,8 @@ void matrix_init_kb(void) {
 }
 
 void led_init_ports(void) {
-    setPinOutput(E6);
-    setPinOutput(F0);
+    gpio_set_pin_output(E6);
+    gpio_set_pin_output(F0);
 }
 
 void led_update_ports(led_t led_state) {

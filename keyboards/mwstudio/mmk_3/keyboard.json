@@ -1,0 +1,52 @@
+{
+    "manufacturer": "MWStudio",
+    "keyboard_name": "MMK_3",
+    "maintainer": "TW59420",
+    "bootloader": "stm32duino",
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["A3", "A4", "A5"],
+        "rows": ["A6"]
+    },
+    "processor": "STM32F103",
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "hue_steps": 10,
+        "led_count": 5
+    },
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x3001",
+        "vid": "0x7BA1"
+    },
+    "ws2812": {
+        "driver": "pwm"
+        "pin": "B8",
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                { "matrix": [0, 0], "x": 0, "y": 0 },
+                { "matrix": [0, 1], "x": 1, "y": 0 },
+                { "matrix": [0, 2], "x": 2, "y": 0 }
+            ]
+        }
+    }
+}

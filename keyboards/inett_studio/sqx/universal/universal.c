@@ -17,10 +17,10 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "universal.h"
+#include "quantum.h"
 
 #ifdef RGB_MATRIX_ENABLE
-const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
+const is31fl3731_led_t PROGMEM g_is31fl3731_leds[IS31FL3731_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *   driver
  *   |  R location
@@ -114,48 +114,6 @@ const is31fl3731_led_t PROGMEM g_is31fl3731_leds[RGB_MATRIX_LED_COUNT] = {
     {1, C9_16,  C7_15,  C6_15},
 };
 
-led_config_t g_led_config = {
-    {
-        {  0,  1,      2,      3,      4,      5,   6,  36,     37,     38,      39,   40,   41, 42},
-        {  8,  9,     10,     11,     12,     13,   7,  45,     46,     47,      48,   49,   50, 51},
-        {  26,27,     18,     14,     15,     16,  17,  54,     55,     56,      57,   58,   59, 53},
-        {  29,30,     31,     19,     20,     21,  22,  23,     62,     63,      64,   65,   66, 61},
-        {  35,34,     33, NO_LED, NO_LED, NO_LED,  24,  44, NO_LED, NO_LED,      68,   69,   70, 71},
-    },
-    {
-        { 32, 32},{ 48, 48},{ 64, 48},{ 80, 48},{ 96, 48},{112, 48},{ 96, 64},{ 96, 64},
-        {  0, 32},{ 16, 32},
-        {  0, 48},{  0, 48},{ 16, 48},{ 32, 48},{ 64, 64},{ 32, 64},{ 16, 64},{  0, 64},
-        {  0,  0},{ 16,  0},{ 32,  0},{ 48,  0},{ 64,  0},{ 80,  0},{ 96,  0},{ 96, 16},
-        { 0,  16},{ 16, 16},
-        { 32, 16},{ 48, 16},{ 64, 16},{ 80, 16},{ 48, 32},{ 64, 32},{ 80, 32},{ 96, 32},
-
-        {128,  0},{144,  0},{160,  0},{176,  0},{192,  0},{208,  0},{216,  0},{224,  0},
-        {112,  0},{128, 16},
-        {144, 16},{160, 16},{176, 16},{192, 16},{208, 16},{224, 16},{224, 32},{216, 32},
-        {128, 32},{144, 32},{160, 32},{176, 32},{192, 32},{208, 32},{208, 48},{224, 48},
-        {128, 48},{144, 48},
-        {160, 48},{176, 48},{192, 48},{142, 64},{160, 64},{176, 64},{208, 64},{224, 64}
-    },
-    {
-        4, 4, 4, 4, 4, 4, 4, 4,
-        1, 4,
-        4, 4, 1, 1, 1, 4, 4, 4,
-
-        1, 4, 4, 4, 4, 4, 4, 4,
-        1, 4,
-        4, 4, 4, 4, 4, 4, 4, 4,
-
-        4, 4, 4, 4, 4, 4, 1, 1,
-        4, 4,
-        4, 4, 4, 4, 4, 1, 1, 1,
-
-        4, 4, 4, 4, 4, 4, 4, 1,
-        1, 4,
-        4, 4, 4, 4, 1, 1, 1, 1,
-    }
-};
-
 bool rgb_matrix_indicators_kb(void) {
     if (!rgb_matrix_indicators_user()) {
         return false;
@@ -167,39 +125,3 @@ bool rgb_matrix_indicators_kb(void) {
 }
 
 #endif  //RGB_MATRIX_ENABLE
-
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch(keycode) {
-#if defined(RGB_MATRIX_DISABLE_KEYCODES)
-        case RGB_MATRIX_TOGGLE: // toggle rgb matrix
-            rgb_matrix_toggle();
-            return false;
-        case RGB_MATRIX_STEP:
-            rgb_matrix_step();
-            return false;
-        case RGB_MATRIX_INC_HUE:
-            rgb_matrix_increase_hue();
-            return false;
-        case RGB_MATRIX_DEC_HUE:
-            rgb_matrix_decrease_hue();
-            return false;
-        case RGB_MATRIX_INC_SAT:
-            rgb_matrix_increase_sat();
-            return false;
-        case RGB_MATRIX_DEC_SAT:
-            rgb_matrix_decrease_sat();
-            return false;
-        case RGB_MATRIX_INC_VAL:
-            rgb_matrix_increase_val();
-            return false;
-        case RGB_MATRIX_DEC_VAL:
-            rgb_matrix_decrease_val();
-            return false;
-#endif
-        default:
-            break;
-        }
-    }
-    return true;
-}

@@ -1,0 +1,16 @@
+{
+    "processor": "atmega32u4",
+    "bootloader": "caterina",
+    "qmk": {
+        "locking": {
+            "enabled": true,
+            "resync": true
+        }
+    },
+    "bluetooth": {
+        "driver": "bluefruit_le"
+    },
+    "features": {
+        "bluetooth": true
+    }
+}

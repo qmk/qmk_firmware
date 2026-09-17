@@ -30,7 +30,25 @@
 #include "sendchar.h"
 #include "progmem.h"
 
+/**
+ * @brief Configure the destination for routing all log data to.
+ */
 void print_set_sendchar(sendchar_func_t func);
+
+/**
+ * @def print_printf(fmt, ...)
+ * @brief Low-level logging entrypoint - should not be called directly
+ */
+#ifndef NO_PRINT
+#    if __has_include_next("_print.h")
+#        include_next "_print.h" // Include the platforms print.h - must export print_printf
+#    else
+#        include "printf.h" // Fall back to lib/printf/printf.h
+#        define print_printf printf
+#    endif
+#else
+#    define print_printf(fmt, ...) // Remove ALL print defines
+#endif
 
 /**
  * @brief This macro suppress format warnings for the function that is passed
@@ -48,43 +66,14 @@ void print_set_sendchar(sendchar_func_t func);
         _Pragma("GCC diagnostic pop");                             \
     } while (0)
 
-#ifndef NO_PRINT
-#    if __has_include_next("_print.h")
-#        include_next "_print.h" /* Include the platforms print.h */
-#    else
-// Fall back to lib/printf
-#        include "printf.h" // lib/printf/printf.h
-
-// Create user & normal print defines
-#        define print(s) printf(s)
-#        define println(s) printf(s "\r\n")
-#        define xprintf printf
-#        define uprint(s) printf(s)
-#        define uprintln(s) printf(s "\r\n")
-#        define uprintf printf
-
-#    endif /* __has_include_next("_print.h") */
-#else      /* NO_PRINT */
-#    undef xprintf
-// Remove print defines
-#    define print(s)
-#    define println(s)
-#    define xprintf(fmt, ...)
-#    define uprintf(fmt, ...)
-#    define uprint(s)
-#    define uprintln(s)
-
-#endif /* NO_PRINT */
-
 #ifdef USER_PRINT
-// Remove normal print defines
-#    undef print
-#    undef println
-#    undef xprintf
-#    define print(s)
-#    define println(s)
-#    define xprintf(fmt, ...)
+#    define xprintf(fmt, ...) // Remove normal print defines
+#else
+#    define xprintf print_printf
 #endif
+
+#define print(s) xprintf(s)
+#define println(s) xprintf(s "\r\n")
 
 #define print_dec(i) xprintf("%u", i)
 #define print_decs(i) xprintf("%d", i)
@@ -120,6 +109,11 @@ void print_set_sendchar(sendchar_func_t func);
 // print (and store their wasteful strings).
 //
 // !!! DO NOT USE USER PRINT CALLS IN THE BODY OF QMK/TMK !!!
+
+#define uprintf print_printf
+
+#define uprint(s) uprintf(s)
+#define uprintln(s) uprintf(s "\r\n")
 
 /* decimal */
 #define uprint_dec(i) uprintf("%u", i)

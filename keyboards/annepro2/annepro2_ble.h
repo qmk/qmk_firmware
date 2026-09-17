@@ -17,7 +17,6 @@
 #pragma once
 
 #include "annepro2.h"
-#include "quantum.h"
 
 void annepro2_ble_bootload(void);
 void annepro2_ble_startup(void);

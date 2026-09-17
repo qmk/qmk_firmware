@@ -1,1 +1,0 @@
-KEY_LOCK_ENABLE = yes

@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |Space |      | LGui |  | RGui |      |      |
  *                               `--------------------'  `--------------------'
  */
-[BASE] = LAYOUT_dactyl(  // layer 0 : default
+[BASE] = LAYOUT(  // layer 0 : default
         // left hand
     KC_ESC,     KC_1,     KC_2,     KC_3,     KC_4,      KC_5,
     KC_TAB,  KC_QUOT,  KC_COMM,   KC_DOT,     KC_P,      KC_Y,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               `--------------------'  `--------------------'
  */
 // SYMBOLS
-[CONT] = LAYOUT_dactyl(
+[CONT] = LAYOUT(
        // left hand
        KC_TRNS,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,
        KC_TRNS,  KC_TRNS,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_TRNS,
@@ -116,7 +116,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 // QWERTY
-[QWER] = LAYOUT_dactyl(
+[QWER] = LAYOUT(
        KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
        KC_TRNS,     KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,
        KC_TRNS,     KC_A,     KC_S,     KC_D,     KC_F,     KC_G,
@@ -149,12 +149,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {};

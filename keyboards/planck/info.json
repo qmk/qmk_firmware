@@ -1,4 +1,10 @@
 {
   "url": "https://olkb.com/planck",
-  "maintainer": "jackhumbert"
+  "maintainer": "jackhumbert",
+  "qmk": {
+    "locking": {
+      "enabled": true,
+      "resync": true
+    }
+  }
 }

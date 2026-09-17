@@ -8,8 +8,7 @@ A split 34 keys column staggered keyboard named and decorated after the rustlang
 * Hardware Supported:
 	* Ferris 0.1 (With atmega32u4 chip. Comes in 4 variants: base, low, high and compact)
 	* Ferris 0.2 (With stm32f072 chip. Comes in 4 variants: bling, mini, high and compact)
-	* Ferris sweep (With pro-micro. Comes in a couple of PCB edge cuts shapes, but with identical pinout)
-* Hardware Availability: [Cuddly Keyboards](https://cuddlykeyboards.com)
+	* Ferris sweep (With pro-micro. Comes in a couple of PCB edge cut shapes, but with an identical pinout)
 
 Make examples for this keyboard (after setting up your build environment):
 

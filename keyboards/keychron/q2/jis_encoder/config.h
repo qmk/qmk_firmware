@@ -16,9 +16,6 @@
 
 #pragma once
 
-/* RGB Matrix Configuration */
-#define RGB_MATRIX_LED_COUNT 71
-
 #define SNLED27351_CURRENT_TUNE { 0xC0, 0xC0, 0x5D, 0xC0, 0xC0, 0x5D, 0xC0, 0xC0, 0x5D, 0xC0, 0xC0, 0x5D }
 
 /* Enable caps-lock LED */

@@ -22,6 +22,11 @@ def _generate_layouts(keyboard, kb_info_json):
     row_num = kb_info_json['matrix_size']['rows']
 
     lines = []
+    lines.append('')
+    lines.append('// Layout content')
+    lines.append('')
+    lines.append('#define XXX KC_NO')
+
     for layout_name, layout_data in kb_info_json['layouts'].items():
         if layout_data['c_macro']:
             continue
@@ -31,20 +36,13 @@ def _generate_layouts(keyboard, kb_info_json):
             continue
 
         layout_keys = []
-        layout_matrix = [['KC_NO'] * col_num for _ in range(row_num)]
+        layout_matrix = [['XXX'] * col_num for _ in range(row_num)]
 
-        for index, key_data in enumerate(layout_data['layout']):
+        for key_data in layout_data['layout']:
             row, col = key_data['matrix']
             identifier = f'k{ROW_LETTERS[row]}{COL_LETTERS[col]}'
-
             if row >= row_num or col >= col_num:
-                key_name = key_data.get('label', identifier)
-                if row >= row_num:
-                    cli.log.error(f'{keyboard}/{layout_name}: Matrix row for key {index} ({key_name}) is {row} but must be less than {row_num}')
-
-                if col >= col_num:
-                    cli.log.error(f'{keyboard}/{layout_name}: Matrix column for key {index} ({key_name}) is {col} but must be less than {col_num}')
-
+                cli.log.error(f'Skipping layouts due to {layout_name} containing invalid matrix values')
                 return []
 
             layout_matrix[row][col] = identifier
@@ -53,7 +51,7 @@ def _generate_layouts(keyboard, kb_info_json):
         lines.append('')
         lines.append(f'#define {layout_name}({", ".join(layout_keys)}) {{ \\')
 
-        rows = ', \\\n'.join(['\t {' + ', '.join(row) + '}' for row in layout_matrix])
+        rows = ', \\\n'.join(['    { ' + ', '.join(row) + ' }' for row in layout_matrix])
         rows += ' \\'
         lines.append(rows)
         lines.append('}')
@@ -74,6 +72,9 @@ def _generate_keycodes(kb_info_json):
         return []
 
     lines = []
+    lines.append('')
+    lines.append('// Keycode content')
+    lines.append('')
     lines.append('enum keyboard_keycodes {')
 
     for index, item in enumerate(kb_info_json.get('keycodes')):
@@ -110,17 +111,14 @@ def generate_keyboard_h(cli):
     valid_config = dd_layouts or keyboard_h
 
     # Build the layouts.h file.
-    keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '#include "quantum.h"']
+    keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once', '', '#include "quantum.h"']
 
-    keyboard_h_lines.append('')
-    keyboard_h_lines.append('// Layout content')
     if dd_layouts:
         keyboard_h_lines.extend(dd_layouts)
+
     if keyboard_h:
         keyboard_h_lines.append(f'#include "{Path(keyboard_h).name}"')
 
-    keyboard_h_lines.append('')
-    keyboard_h_lines.append('// Keycode content')
     if dd_keycodes:
         keyboard_h_lines.extend(dd_keycodes)
 

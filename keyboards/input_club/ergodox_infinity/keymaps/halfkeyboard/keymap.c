@@ -48,21 +48,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [QWERTY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_BTN2,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   MS_BTN2,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_EQL,
         KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,  		  KC_X,   KC_C,   KC_V,   KC_B,   KC_MINUS,
         KC_LCTL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
-                                              KC_LGUI,  KC_BTN1,
+                                              KC_LGUI,  MS_BTN1,
                                                               MU_ON,
                                          KC_SPACE,KC_DEL,KC_END,
         // right hand
-             KC_BTN2,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
+             MS_BTN2,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
              KC_RBRC,    KC_Y,   KC_U,  KC_I,   KC_O,   KC_P,             KC_SLASH,
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
              KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
                                   MO(SHORTCUTS), KC_UP,KC_DOWN,KC_RALT,           KC_RCTL,
-             KC_BTN1,        KC_RGUI,
+             MS_BTN1,        KC_RGUI,
              MU_OFF,
              KC_PGDN,KC_TAB, LT(HALFQWERTY, KC_ENT)
     ),
@@ -233,8 +233,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_DOWN, KC_KP_4, KC_KP_5,  KC_KP_6,  KC_KP_MINUS, KC_KP_ENTER,
        KC_NO,KC_AMPR,KC_KP_1, KC_KP_2,  KC_KP_3,   KC_KP_PLUS, KC_NO,
                          KC_TRNS,KC_DOT,  KC_0,    KC_KP_EQUAL,  KC_NO,
-       BL_OFF, KC_TRNS,
-       BL_ON,
+       LM_OFF, KC_TRNS,
+       LM_ON,
        KC_NO, KC_NO, LT(HALFSYMB, KC_ENT)
 ),
 /* Keymap 6: Mirrored Symbol Layer
@@ -347,7 +347,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [SHORTCUTS] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        RGB_MODE_KNIGHT,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
+        RGB_M_K,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
         KC_TAB,   LCTL(KC_Q),   LCTL(KC_W),LCTL(KC_E),LCTL(KC_R),LCTL(KC_T),   KC_NO,
         KC_BSPC,  LCTL(KC_A),   LCTL(KC_S),LCTL(KC_D),LCTL(KC_F),LCTL(KC_G),
         KC_LSFT,  LCTL(KC_Z),  	LCTL(KC_X),LCTL(KC_C),LCTL(KC_V),LCTL(KC_B),   KC_MINUS,

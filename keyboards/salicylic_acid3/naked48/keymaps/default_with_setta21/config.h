@@ -16,19 +16,13 @@
 
 #pragma once
 
-/* Select hand configuration */
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
 #define QUICK_TAP_TERM 0
 #define TAPPING_TERM 180
 
-#ifdef RGBLED_NUM
-  #undef RGBLED_NUM
+#ifdef RGBLIGHT_LED_COUNT
+  #undef RGBLIGHT_LED_COUNT
 #endif
 
-#define RGBLED_NUM 69    // Number of LEDs
+#define RGBLIGHT_LED_COUNT 69    // Number of LEDs
 #define RGBLIGHT_SPLIT
 #define RGBLED_SPLIT { 48, 21 }

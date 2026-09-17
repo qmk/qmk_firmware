@@ -16,14 +16,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* Select hand configuration */
-//#define EE_HANDS
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define OLED_FONT_H "keyboards/basekeys/slice/slice_font.c"

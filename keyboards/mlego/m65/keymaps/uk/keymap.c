@@ -185,10 +185,10 @@ MS - mouse directions
 */
  [_LWR] = LAYOUT_ortho_5x13(
      KC_GRV ,  KC_MUTE,  KC_VOLU,  KC_VOLD,  KC_MPRV,  KC_MPLY,  KC_MNXT,  G(KC_P),  KC_SLEP,    KC_WAKE,    KC_PSCR,      KC_DEL,      UK_EQL,
-     KC_BTN3,UP(lq,lQ),UP(lw,lW),UP(le,lE),UP(lr,lR),UP(lt,lT),UP(ly,lY),UP(lu,lU),UP(li,lI),  UP(lo,lO),  UP(lp,lP),     _______,     _______,
-     KC_BTN2,UP(la,lA),UP(ls,lS),UP(ld,lD),UP(lf,lF),UP(lg,lG),UP(lh,lH),UP(lj,lJ),UP(lk,lK),  UP(ll,lL),UP(ll1,lL1), UP(lk1,lK1),     _______,
-     _______,  KC_BTN1,UP(lz,lZ),UP(lx,lX),UP(lc,lC),UP(lv,lV),UP(lb,lB),UP(ln,lN),UP(lm,lM),UP(lc1,lC1),UP(lp1,lP1),     KC_MS_U, UP(lq1,lQ1),
-     _______,  KC_BTN4,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    KC_MS_L,     KC_MS_D,    KC_MS_R),
+     MS_BTN3,UP(lq,lQ),UP(lw,lW),UP(le,lE),UP(lr,lR),UP(lt,lT),UP(ly,lY),UP(lu,lU),UP(li,lI),  UP(lo,lO),  UP(lp,lP),     _______,     _______,
+     MS_BTN2,UP(la,lA),UP(ls,lS),UP(ld,lD),UP(lf,lF),UP(lg,lG),UP(lh,lH),UP(lj,lJ),UP(lk,lK),  UP(ll,lL),UP(ll1,lL1), UP(lk1,lK1),     _______,
+     _______,  MS_BTN1,UP(lz,lZ),UP(lx,lX),UP(lc,lC),UP(lv,lV),UP(lb,lB),UP(ln,lN),UP(lm,lM),UP(lc1,lC1),UP(lp1,lP1),     MS_UP,   UP(lq1,lQ1),
+     _______,  MS_BTN4,  _______,  _______,  _______,  _______,  _______,  _______,  _______,    _______,    MS_LEFT,     MS_DOWN,    MS_RGHT),
 
 /*
 lower layer
@@ -221,8 +221,8 @@ raise layer shifted
       KC_ESC ,    KC_F1  ,   KC_F2  , KC_F3  ,  KC_F4  ,  KC_F5  , KC_F6  , KC_F7  ,  KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12  ,
       _______,UP(ra1,rA1),   _______, _______,  _______,UP(rt,rT), _______, _______,UP(ri,rI), _______, _______, _______, _______ ,
       KC_CAPS,  UP(ra,rA), UP(rs,rS), _______,  _______,  _______, _______, _______,  _______, _______, _______, _______, _______ ,
-      _______,    KC_F20 ,   _______, _______,UP(rc,rC),  _______, _______, _______,  _______, _______, _______, KC_WH_U, _______ ,
-      _______,    _______,   _______, _______,  _______,  _______, _______, _______,  _______, _______, KC_WH_L, KC_WH_D, KC_WH_R),
+      _______,    KC_F20 ,   _______, _______,UP(rc,rC),  _______, _______, _______,  _______, _______, _______, MS_WHLU, _______ ,
+      _______,    _______,   _______, _______,  _______,  _______, _______, _______,  _______, _______, MS_WHLL, MS_WHLD, MS_WHLR),
 /*
 adj layer
  * ┌───┬────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬────┬────┐
@@ -238,11 +238,11 @@ adj layer
  * └───┴────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴────┴────┘
 */
   [_ADJ] = LAYOUT_ortho_5x13(
-      RGB_MOD, RGB_RMOD, A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_T , RGB_M_SW,
-      RGB_HUI, RGB_HUD , RGB_M_P , _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
-      RGB_SAI, RGB_SAD , RGB_M_B , _______, UC_NEXT, _______, _______, _______, _______, _______, _______, _______ , RGB_M_K ,
-      RGB_VAI, RGB_VAD , RGB_M_R , _______, UC_PREV, UC_LINX,  UC_WIN, UC_WINC,  UC_MAC, UC_EMAC, _______, _______ , RGB_M_X ,
-      RGB_TOG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
+      UG_NEXT, UG_PREV , A(KC_F2), _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_T , RGB_M_SW,
+      UG_HUEU, UG_HUED , RGB_M_P , _______, QK_BOOT, _______, _______, _______, _______, _______, _______, _______ , RGB_M_SN,
+      UG_SATU, UG_SATD , RGB_M_B , _______, UC_NEXT, _______, _______, _______, _______, _______, _______, _______ , RGB_M_K ,
+      UG_VALU, UG_VALD , RGB_M_R , _______, UC_PREV, UC_LINX,  UC_WIN, UC_WINC,  UC_MAC, UC_EMAC, _______, _______ , RGB_M_X ,
+      UG_TOGG, _______ , _______ , _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_TW, RGB_M_G),
 };
 // clang-format on
 
@@ -250,9 +250,9 @@ adj layer
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_QW]  = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
 #if defined(RGBLIGHT_ENABLE)
-    [_LWR] = {ENCODER_CCW_CW(RGB_HUD, RGB_HUI)},
-    [_RSE] = {ENCODER_CCW_CW(RGB_VAD, RGB_VAI)},
-    [_ADJ] = {ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
+    [_LWR] = {ENCODER_CCW_CW(UG_HUED, UG_HUEU)},
+    [_RSE] = {ENCODER_CCW_CW(UG_VALD, UG_VALU)},
+    [_ADJ] = {ENCODER_CCW_CW(UG_PREV, UG_NEXT)},
 #else
     [_LWR] = {ENCODER_CCW_CW(KC_MNXT, KC_MPRV)},
     [_RSE] = {ENCODER_CCW_CW(KC_MFFD, KC_MRWD)},

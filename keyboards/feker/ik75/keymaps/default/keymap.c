@@ -92,47 +92,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
     /*  Row:    0        1        2        3        4        5        6        7        8        9        10       11       12       13       14       15     */
     [_FN] = LAYOUT(
-                QK_BOOT, KC_MYCM, KC_WHOM, KC_CALC, KC_SLCT, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, KC_MAIL, _______,          RGB_TOG,
-                NK_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SPD, RGB_SPI, _______,          RGB_MOD,
-                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______, _______, _______,          RGB_HUI,
-                _______, _______, KC_SCRL, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, RGB_SAI,
-                _______,          _______, _______, _______, _______, _______, KC_NUM,  _______, _______, _______, _______,          _______, RGB_VAI, RGB_SAD,
-                _______, GUI_TOG, _______,                            _______,                   _______, _______,          _______, _______, RGB_VAD, _______
+                QK_BOOT, KC_MYCM, KC_WHOM, KC_CALC, KC_SLCT, KC_MPRV, KC_MNXT, KC_MPLY, KC_MSTP, KC_MUTE, KC_VOLD, KC_VOLU, KC_MAIL, _______,          RM_TOGG,
+                NK_TOGG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RM_SPDD, RM_SPDU, _______,          RM_NEXT,
+                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, _______, _______, _______,          RM_HUEU,
+                _______, _______, KC_SCRL, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, RM_SATU,
+                _______,          _______, _______, _______, _______, _______, KC_NUM,  _______, _______, _______, _______,          _______, RM_VALU, RM_SATD,
+                _______, GU_TOGG, _______,                            _______,                   _______, _______,          _______, _______, RM_VALD, _______
             ),
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case RGB_TOG:
-            if (record->event.pressed) {
-                switch (rgb_matrix_get_flags()) {
-                    case LED_FLAG_ALL: {
-                        rgb_matrix_set_flags(LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    case (LED_FLAG_KEYLIGHT | LED_FLAG_MODIFIER | LED_FLAG_INDICATOR): {
-                        rgb_matrix_set_flags(LED_FLAG_UNDERGLOW);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    case (LED_FLAG_UNDERGLOW): {
-                        rgb_matrix_set_flags(LED_FLAG_NONE);
-                        rgb_matrix_set_color_all(0, 0, 0);
-                    }
-                    break;
-                    default: {
-                        rgb_matrix_set_flags(LED_FLAG_ALL);
-                        rgb_matrix_enable_noeeprom();
-                    }
-                    break;
-                }
-            }
-            return false;
-	}
-
-    return true;
-}
 
 bool rgb_matrix_indicators_user(void) {
     rgb_matrix_set_color(46, 0, 0, 0);

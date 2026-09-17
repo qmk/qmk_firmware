@@ -16,16 +16,5 @@
 
 #pragma once
 
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
 #define RGBLIGHT_LAYERS
 #define RGBLIGHT_LAYERS_OVERRIDE_RGB_OFF
-
-#ifdef RGB_MATRIX_ENABLE
-#define RGB_MATRIX_LED_COUNT 102
-#define RGB_MATRIX_KEYPRESSES
-#endif

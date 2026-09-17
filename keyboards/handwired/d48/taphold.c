@@ -1,4 +1,7 @@
 #include "taphold.h"
+#include "action_layer.h"
+#include "keyboard.h"
+#include "timer.h"
 
 bool taphold_process(uint16_t keycode, keyrecord_t *record) {
     for (int i = 0; i < taphold_config_size; i++) {
