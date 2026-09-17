@@ -3,6 +3,9 @@
     "keyboard_name": "3w6 Pro",
     "maintainer": "Keebart",
     "bootloader": "rp2040",
+    "bootmagic": {
+        "enabled": true
+    },
     "build": {
         "lto": true
     },
@@ -22,9 +25,6 @@
             ["GP18", "GP25", "GP28", "GP1", "GP6"],
             ["GP14", "GP13", "GP12", null, null]
         ]
-    },
-    "bootmagic": {
-        "enabled": true
     },
     "processor": "RP2040",
     "rgb_matrix": {
@@ -141,12 +141,12 @@
         "split_count": [18, 18]
     },
     "split": {
+        "bootmagic": {
+            "matrix": [4, 4]
+        },
         "enabled": true,
         "handedness": {
             "pin": "GP21"
-        },
-        "bootmagic": {
-            "matrix": [ 4, 4 ]
         },
         "matrix_pins": {
             "right": {

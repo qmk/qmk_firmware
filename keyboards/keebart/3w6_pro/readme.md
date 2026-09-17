@@ -1,29 +1,27 @@
 # 3w6 Pro
 
+![3w6_pro](TODO_IMAGE_URL)
+
 The Keebart 3w6 Pro is a compact 36-key split keyboard with an integrated
 RP2040 microcontroller on each half. The halves communicate over full-duplex
 serial, and either half can act as the USB master.
 
-- Maintainer: [Keebart](https://github.com/Keebart)
-- Processor: RP2040
-- Layout: Split 3x5+3
-- Split transport: Full-duplex serial
-- Lighting: 36-key RGB Matrix
-- Hardware availability: [Keebart Shop](https://keebart.com/products/3w6)
+- Keyboard Maintainer: [Keebart](https://github.com/Keebart)
+- Hardware Supported: RP2040
+- Hardware Availability: [Keebart Shop](https://keebart.com/products/3w6)
 
-## Building
+Make example for this keyboard (after setting up your build environment):
 
-Precompiled firmware files can be downloaded from the
-[3w6 Pro product page](https://keebart.com/products/3w6).
+    make keebart/3w6_pro:default
 
-Set up a [QMK build environment](https://docs.qmk.fm/newbs_getting_started)
-and run the following command from the QMK firmware directory:
+Flashing example for this keyboard:
 
-```sh
-qmk compile -kb keebart/3w6_pro -km default
-```
+    make keebart/3w6_pro:default:flash
 
-The resulting UF2 file is written to the QMK firmware directory.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
+and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for
+more information. Brand new to QMK? Start with our
+[Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Flashing
 
