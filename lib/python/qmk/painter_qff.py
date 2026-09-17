@@ -243,12 +243,12 @@ class QFFFont:
                 if glyph_width > ((1 << QFFGlyphInfo.GLYPH_WIDTH_BITS) - 1):
                     self.logger.error("A glyph is too wide for QFF's encoding")
                     maybe_exit(1)
-                glyph_pixel_widths.append(width)
+                glyph_pixel_widths.append(glyph_width)
 
                 last_offset = x
 
         final_width = width - last_offset
-        if final_width > QFFGlyphInfo.GLYPH_WIDTH_MASK:
+        if final_width > ((1 << QFFGlyphInfo.GLYPH_WIDTH_BITS) - 1):
             self.logger.error("A glyph is too wide for QFF's encoding")
             maybe_exit(1)
         glyph_pixel_widths.append(final_width)
