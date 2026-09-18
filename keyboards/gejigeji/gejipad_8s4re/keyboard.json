@@ -2,7 +2,7 @@
     "manufacturer": "gejigeji",
     "keyboard_name": "Gejipad 8S4RE",
     "maintainer": "gejigeji-com",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "encoder": {
         "rotary": [
             {"pin_a": "D1", "pin_b": "D0"},
