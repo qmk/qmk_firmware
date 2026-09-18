@@ -2,7 +2,7 @@
     "manufacturer": "gejigeji",
     "keyboard_name": "Gejipad 8S4RE",
     "maintainer": "gejigeji-com",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "encoder": {
         "rotary": [
             {"pin_a": "D1", "pin_b": "D0"},
@@ -16,15 +16,11 @@
             ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"]
         ]
     },
-    "processor": "atmega32u4",
     "url": "https://github.com/gejigeji-com/gejipad_8s4re",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",
         "vid": "0xFEAE"
-    },
-    "layout_aliases": {
-        "LAYOUT_default": "LAYOUT"
     },
     "layouts": {
         "LAYOUT": {
