@@ -215,8 +215,12 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
             pq_rgb(LED_ALL, ARRAYSIZE(LED_ALL), PQ_BLACK);
             pq_rgb(LED_LAYER_1_WHITE, ARRAYSIZE(LED_LAYER_1_WHITE), PQ_WHITE);
             pq_rgb(LED_LAYER_1_RED, ARRAYSIZE(LED_LAYER_1_RED), PQ_RED);
-            pq_rgb(LED_LAYER_1_BLUE, ARRAYSIZE(LED_LAYER_1_BLUE), PQ_BLUE);
-            pq_rgb(LED_LAYER_1_YELLOW, ARRAYSIZE(LED_LAYER_1_YELLOW), PQ_YELLOW);
+            if (sizeof(LED_LAYER_1_BLUE) > 0) {
+                pq_rgb(LED_LAYER_1_BLUE, ARRAYSIZE(LED_LAYER_1_BLUE), PQ_BLUE);
+            }
+            if (sizeof(LED_LAYER_1_YELLOW) > 0) {
+                pq_rgb(LED_LAYER_1_YELLOW, ARRAYSIZE(LED_LAYER_1_YELLOW), PQ_YELLOW);
+            }
             break;
     }
 
