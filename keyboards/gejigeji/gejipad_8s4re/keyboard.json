@@ -22,9 +22,6 @@
         "pid": "0x0001",
         "vid": "0xFEAE"
     },
-    "layout_aliases": {
-        "LAYOUT_default": "LAYOUT"
-    },
     "layouts": {
         "LAYOUT": {
             "layout": [
