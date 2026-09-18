@@ -16,7 +16,6 @@
             ["B6", "B2", "B3", "B1", "F7", "F6", "F5", "F4"]
         ]
     },
-    "processor": "atmega32u4",
     "url": "https://github.com/gejigeji-com/gejipad_8s4re",
     "usb": {
         "device_version": "1.0.0",
