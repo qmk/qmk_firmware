@@ -9,22 +9,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-#ifdef ENCODER_ENABLE
-bool encoder_update_user(uint8_t index, bool clockwise) {
-    switch (index) {
-        case 0: // encoder 1
-            clockwise ? tap_code(KC_VOLU) : tap_code(KC_VOLD);
-            break;
-        case 1: // encoder 2
-            clockwise ? tap_code(KC_MNXT) : tap_code(KC_MPRV);
-            break;
-        case 2: // encoder 3
-            clockwise ? tap_code(KC_RIGHT) : tap_code(KC_LEFT);
-            break;
-        case 3: // encoder 4
-            clockwise ? tap_code(KC_UP) : tap_code(KC_DOWN);
-            break;
-    }
-    return true;
-}
+#if defined(ENCODER_MAP_ENABLE)
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = {
+        ENCODER_CCW_CW(KC_VOLD, KC_VOLU),
+        ENCODER_CCW_CW(KC_MPRV, KC_MNXT),
+        ENCODER_CCW_CW(KC_LEFT, KC_RIGHT),
+        ENCODER_CCW_CW(KC_DOWN, KC_UP)
+    },
+};
 #endif
