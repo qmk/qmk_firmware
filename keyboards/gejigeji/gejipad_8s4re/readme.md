@@ -6,7 +6,7 @@ A custom controller with 8 switches and 4 rotary encoders based on the ATmega32U
 
 * Keyboard Maintainer: [gejigeji-com](https://github.com/gejigeji-com)
 * Hardware Supported: Gejipad 8S4RE PCB (ATmega32U4 / Pro Micro)
-* Hardware Availability: Custom PCB, [gejigeji-com/gejipad_8s4re](https://github.com/gejigeji-com/gejipad_8s4re)
+* Hardware Availability: Open source (KiCad design files available at [gejigeji-com/gejipad_8s4re](https://github.com/gejigeji-com/gejipad_8s4re))
 
 Make example for this keyboard (after setting up your build environment):
 
