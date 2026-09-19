@@ -63,7 +63,7 @@ def _flash_binary(filename, mcu):
 @cli.argument('-m', '--mcu', help='The MCU name. Required for HalfKay, HID, USBAspLoader and ISP flashing.')
 @cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='The keyboard to build a firmware for. Ignored when a configurator export is supplied.')
 @cli.argument('-km', '--keymap', completer=keymap_completer, help='The keymap to build a firmware for. Ignored when a configurator export is supplied.')
-@cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the make command to be run.")
+@cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="don't actually build or flash, just show what would be run.")
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
@@ -82,6 +82,9 @@ def flash(cli):
     If bootloader is omitted the make system will use the configured bootloader for that keyboard.
     """
     if cli.args.filename and isinstance(cli.args.filename, Path) and cli.args.filename.suffix in ['.bin', '.hex', '.uf2']:
+        if cli.args.dry_run:
+            cli.log.info('dry run: would flash binary firmware %s', cli.args.filename)
+            return True
         return _flash_binary(cli.args.filename, cli.args.mcu)
 
     if cli.args.bootloaders:

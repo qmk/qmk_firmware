@@ -1,7 +1,9 @@
 from typing import Sequence
 
 import platform
+from pathlib import Path
 from subprocess import DEVNULL
+from tempfile import TemporaryDirectory
 
 from milc import cli
 
@@ -56,6 +58,16 @@ def test_compile_json():
 def test_flash():
     result = check_subcommand('flash', '-kb', 'handwired/pytest/basic', '-km', 'default', '-n')
     check_returncode(result)
+
+
+def test_flash_binary_dry_run():
+    with TemporaryDirectory() as tmp_dir:
+        firmware = Path(tmp_dir) / 'dummy.hex'
+        firmware.write_text(':00000001FF\n')
+        result = check_subcommand('flash', '-n', str(firmware))
+    check_returncode(result)
+    assert 'dry run' in result.stdout
+    assert 'Flashing binary firmware' not in result.stdout
 
 
 def test_flash_bootloaders():
