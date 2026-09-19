@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+_qmk_install_prepare() {
+    # sync the package databases and upgrade first, installing on top of a stale system is a partial upgrade
+    sudo pacman -Syu --noconfirm
+}
+
 _qmk_install() {
     echo "Installing dependencies"
 
