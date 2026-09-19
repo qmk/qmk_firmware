@@ -86,6 +86,9 @@ CFLAGS += $(CSTANDARD)
 # This fixes lots of keyboards linking errors but SHOULDN'T BE A FINAL SOLUTION
 # Fixing of multiple variable definitions must be made.
 CFLAGS += -fcommon
+# some distributions build gcc to define _FORTIFY_SOURCE whenever optimisation is on. the fortified libc
+# prototypes clash with the printf aliases in lib/printf and there is no libc to fortify on bare metal.
+CFLAGS += -U_FORTIFY_SOURCE
 
 #---------------- C++ Compiler Options ----------------
 
