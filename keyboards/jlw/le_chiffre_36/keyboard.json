@@ -99,8 +99,8 @@
     "url": "https://www.jlw-kb.com/products/le-chiffre-36-key-pcb",
     "usb": {
         "device_version": "0.0.1",
-        "pid": "0x0069",
-        "vid": "0x0420"
+        "pid": "0xA461",
+        "vid": "0x1209",
     },
     "ws2812": {
         "pin": "A15"
