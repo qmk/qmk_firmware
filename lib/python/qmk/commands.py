@@ -56,6 +56,14 @@ def parse_configurator_json(configurator_file):
         cli.log.error(f'Invalid JSON keymap: {configurator_file} : {e.message}')
         maybe_exit(1)
 
+    # an empty layer expands to a layout macro with no arguments, which fails deep inside
+    # the compiler. blank layers take flash for nothing, so say so here instead.
+    for layer_num, layer in enumerate(user_keymap.get('layers') or []):
+        if not layer:
+            cli.log.error(f'Invalid JSON keymap: {configurator_file} : layer {layer_num} is empty. blank layers are not supported, remove it or add keys to it')
+            maybe_exit(1)
+            break
+
     keyboard = user_keymap.get('keyboard', None)
     aliases = keyboard_alias_definitions()
 

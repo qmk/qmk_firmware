@@ -1,7 +1,9 @@
 from typing import Sequence
 
 import platform
+from pathlib import Path
 from subprocess import DEVNULL
+from tempfile import TemporaryDirectory
 
 from milc import cli
 
@@ -206,6 +208,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 """
+
+
+def test_json2c_empty_layer():
+    with TemporaryDirectory() as tmp_dir:
+        keymap = Path(tmp_dir) / 'empty_layer.json'
+        keymap.write_text('{"keyboard": "handwired/pytest/basic", "keymap": "test", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"], []], "version": 1}')
+        result = check_subcommand('json2c', str(keymap))
+    check_returncode(result, [1])
+    assert 'layer 1 is empty' in result.stdout
 
 
 def test_json2c_no_json():
