@@ -17,8 +17,8 @@ else
         EEPROM_DRIVER := transient
     endif
 
-    NVM_DRIVER_UPPER := $(shell echo $(NVM_DRIVER) | tr '[:lower:]' '[:upper:]')
-    NVM_DRIVER_LOWER := $(shell echo $(NVM_DRIVER) | tr '[:upper:]' '[:lower:]')
+    NVM_DRIVER_UPPER := $(shell echo $(NVM_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]')
+    NVM_DRIVER_LOWER := $(shell echo $(NVM_DRIVER) | LC_ALL=C tr '[:upper:]' '[:lower:]')
 
     OPT_DEFS += -DNVM_DRIVER_$(NVM_DRIVER_UPPER) -DNVM_DRIVER="$(NVM_DRIVER)"
 

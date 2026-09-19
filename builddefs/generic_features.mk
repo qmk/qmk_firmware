@@ -72,6 +72,6 @@ endef
 
 $(foreach F,$(GENERIC_FEATURES),\
     $(if $(filter yes, $(strip $($(F)_ENABLE))),\
-        $(eval $(call HANDLE_GENERIC_FEATURE,$(F),$(shell echo $(F) | tr '[:upper:]' '[:lower:]'))) \
+        $(eval $(call HANDLE_GENERIC_FEATURE,$(F),$(shell echo $(F) | LC_ALL=C tr '[:upper:]' '[:lower:]'))) \
     ) \
 )

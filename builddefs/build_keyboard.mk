@@ -18,7 +18,7 @@ include $(BUILDDEFS_PATH)/message.mk
 define add_qmk_prefix_defs
     ifdef $1
         # Need to cater for 'STM32L4xx+'
-        OPT_DEFS += -DQMK_$(2)="$($1)" -DQMK_$(2)_$(shell echo $($1) | sed -e 's@+@Plus@g' -e 's@[^a-zA-Z0-9]@_@g' | tr '[:lower:]' '[:upper:]')
+        OPT_DEFS += -DQMK_$(2)="$($1)" -DQMK_$(2)_$(shell echo $($1) | sed -e 's@+@Plus@g' -e 's@[^a-zA-Z0-9]@_@g' | LC_ALL=C tr '[:lower:]' '[:upper:]')
     endif
 endef
 
@@ -246,7 +246,7 @@ include $(wildcard $(PLATFORM_PATH)/*/mcu_selection.mk)
 ifeq ($(PLATFORM_KEY),)
     $(call CATASTROPHIC_ERROR,Platform not defined)
 endif
-PLATFORM=$(shell echo $(PLATFORM_KEY) | tr '[:lower:]' '[:upper:]')
+PLATFORM=$(shell echo $(PLATFORM_KEY) | LC_ALL=C tr '[:lower:]' '[:upper:]')
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
@@ -504,7 +504,7 @@ include $(PLATFORM_PATH)/$(PLATFORM_KEY)/platform.mk
 -include $(PLATFORM_PATH)/$(PLATFORM_KEY)/flash.mk
 
 ifneq ($(strip $(PROTOCOL)),)
-PROTOCOL_KEY = $(strip $(shell echo $(PROTOCOL) | tr '[:upper:]' '[:lower:]'))
+PROTOCOL_KEY = $(strip $(shell echo $(PROTOCOL) | LC_ALL=C tr '[:upper:]' '[:lower:]'))
 else
 PROTOCOL_KEY = $(PLATFORM_KEY)
 endif

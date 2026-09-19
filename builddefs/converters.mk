@@ -21,13 +21,13 @@ ifneq ($(CONVERT_TO),)
     PLATFORM_KEY = $(shell echo $(CONVERTER) | cut -d "/" -f2)
 
     # Configure any defaults
-    OPT_DEFS += -DCONVERT_TO_$(shell echo $(CONVERT_TO) | tr '[:lower:]' '[:upper:]')
+    OPT_DEFS += -DCONVERT_TO_$(shell echo $(CONVERT_TO) | LC_ALL=C tr '[:lower:]' '[:upper:]')
     OPT_DEFS += -DCONVERTER_TARGET=\"$(CONVERT_TO)\"
     OPT_DEFS += -DCONVERTER_ENABLED
     VPATH += $(CONVERTER)
 
     # Configure for "alias" - worst case it produces an idential define
-    OPT_DEFS += -DCONVERT_TO_$(shell echo $(ACTIVE_CONVERTER) | tr '[:lower:]' '[:upper:]')
+    OPT_DEFS += -DCONVERT_TO_$(shell echo $(ACTIVE_CONVERTER) | LC_ALL=C tr '[:lower:]' '[:upper:]')
 
     # Finally run any converter specific logic
     include $(CONVERTER)/converter.mk

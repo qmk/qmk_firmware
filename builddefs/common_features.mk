@@ -145,7 +145,7 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
         SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_auto_mouse.c
         ifneq ($(strip $(POINTING_DEVICE_DRIVER)), custom)
             SRC += drivers/sensors/$(strip $(POINTING_DEVICE_DRIVER)).c
-            OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | tr '[:lower:]' '[:upper:]'))
+            OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(shell echo $(POINTING_DEVICE_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
         endif
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_$(strip $(POINTING_DEVICE_DRIVER))
         OPT_DEFS += -DPOINTING_DEVICE_DRIVER_NAME=$(strip $(POINTING_DEVICE_DRIVER))
@@ -273,7 +273,7 @@ ifneq ($(strip $(WEAR_LEVELING_DRIVER)),none)
   else
     FNV_ENABLE := yes
     OPT_DEFS += -DWEAR_LEVELING_ENABLE
-    OPT_DEFS += -DWEAR_LEVELING_$(strip $(shell echo $(WEAR_LEVELING_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DWEAR_LEVELING_$(strip $(shell echo $(WEAR_LEVELING_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/wear_leveling
     COMMON_VPATH += $(DRIVER_PATH)/wear_leveling
     COMMON_VPATH += $(QUANTUM_DIR)/wear_leveling
@@ -299,7 +299,7 @@ ifneq ($(strip $(FLASH_DRIVER)), none)
     ifeq ($(filter $(FLASH_DRIVER),$(VALID_FLASH_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid FLASH_DRIVER,FLASH_DRIVER="$(FLASH_DRIVER)" is not a valid flash driver)
     else
-        OPT_DEFS += -DFLASH_ENABLE -DFLASH_DRIVER -DFLASH_DRIVER_$(strip $(shell echo $(FLASH_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        OPT_DEFS += -DFLASH_ENABLE -DFLASH_DRIVER -DFLASH_DRIVER_$(strip $(shell echo $(FLASH_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 		COMMON_VPATH += $(DRIVER_PATH)/flash
         ifeq ($(strip $(FLASH_DRIVER)),spi)
             SRC += flash_spi.c
@@ -320,7 +320,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
         COMMON_VPATH += $(QUANTUM_DIR)/rgblight
         POST_CONFIG_H += $(QUANTUM_DIR)/rgblight/rgblight_post_config.h
         OPT_DEFS += -DRGBLIGHT_ENABLE
-        OPT_DEFS += -DRGBLIGHT_$(strip $(shell echo $(RGBLIGHT_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        OPT_DEFS += -DRGBLIGHT_$(strip $(shell echo $(RGBLIGHT_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
         SRC += $(QUANTUM_DIR)/process_keycode/process_underglow.c
         SRC += $(QUANTUM_DIR)/color.c
         SRC += $(QUANTUM_DIR)/rgblight/rgblight.c
@@ -357,7 +357,7 @@ ifeq ($(strip $(LED_MATRIX_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid LED_MATRIX_DRIVER,LED_MATRIX_DRIVER="$(LED_MATRIX_DRIVER)" is not a valid matrix type)
     endif
     OPT_DEFS += -DLED_MATRIX_ENABLE
-    OPT_DEFS += -DLED_MATRIX_$(strip $(shell echo $(LED_MATRIX_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DLED_MATRIX_$(strip $(shell echo $(LED_MATRIX_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/led_matrix/animations
@@ -472,7 +472,7 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid RGB_MATRIX_DRIVER,RGB_MATRIX_DRIVER="$(RGB_MATRIX_DRIVER)" is not a valid matrix type)
     endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
-    OPT_DEFS += -DRGB_MATRIX_$(strip $(shell echo $(RGB_MATRIX_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DRGB_MATRIX_$(strip $(shell echo $(RGB_MATRIX_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix
     COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix/animations
@@ -620,7 +620,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/backlight/backlight.c
     SRC += $(QUANTUM_DIR)/process_keycode/process_backlight.c
     OPT_DEFS += -DBACKLIGHT_ENABLE
-    OPT_DEFS += -DBACKLIGHT_$(strip $(shell echo $(BACKLIGHT_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DBACKLIGHT_$(strip $(shell echo $(BACKLIGHT_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 
     ifneq ($(strip $(BACKLIGHT_DRIVER)), custom)
         SRC += $(QUANTUM_DIR)/backlight/backlight_driver_common.c
@@ -717,7 +717,7 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
             endif
         endif
 
-        OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        OPT_DEFS += -DSERIAL_DRIVER_$(strip $(shell echo $(SERIAL_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
         ifeq ($(strip $(SERIAL_DRIVER)), bitbang)
             QUANTUM_LIB_SRC += serial.c
         else
@@ -748,7 +748,7 @@ ifeq ($(strip $(HAPTIC_ENABLE)),yes)
     ifeq ($(filter $(HAPTIC_DRIVER),$(VALID_HAPTIC_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid HAPTIC_DRIVER,HAPTIC_DRIVER="$(HAPTIC_DRIVER)" is not a valid Haptic driver)
     else
-        OPT_DEFS += -DHAPTIC_$(strip $(shell echo $(HAPTIC_DRIVER) | tr '[:lower:]' '[:upper:]'))
+        OPT_DEFS += -DHAPTIC_$(strip $(shell echo $(HAPTIC_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
         COMMON_VPATH += $(DRIVER_PATH)/haptic
 
         ifeq ($(strip $(HAPTIC_DRIVER)), drv2605l)
@@ -780,13 +780,13 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
             $(call CATASTROPHIC_ERROR,Invalid OLED_TRANSPORT,OLED_TRANSPORT="$(OLED_TRANSPORT)" is not a valid OLED transport)
         else
             OPT_DEFS += -DOLED_ENABLE
-            OPT_DEFS += -DOLED_$(strip $(shell echo $(OLED_DRIVER) | tr '[:lower:]' '[:upper:]'))
+            OPT_DEFS += -DOLED_$(strip $(shell echo $(OLED_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
             COMMON_VPATH += $(DRIVER_PATH)/oled
             ifneq ($(strip $(OLED_DRIVER)), custom)
                 SRC += oled_driver.c
             endif
 
-            OPT_DEFS += -DOLED_TRANSPORT_$(strip $(shell echo $(OLED_TRANSPORT) | tr '[:lower:]' '[:upper:]'))
+            OPT_DEFS += -DOLED_TRANSPORT_$(strip $(shell echo $(OLED_TRANSPORT) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
             ifeq ($(strip $(OLED_TRANSPORT)), i2c)
                 I2C_DRIVER_REQUIRED = yes
             endif
@@ -848,7 +848,7 @@ ifeq ($(strip $(PS2_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid PS2_DRIVER,PS2_DRIVER="$(PS2_DRIVER)" is not a valid PS/2 driver)
     endif
 
-    OPT_DEFS += -DPS2_DRIVER_$(strip $(shell echo $(PS2_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DPS2_DRIVER_$(strip $(shell echo $(PS2_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(DRIVER_PATH)/ps2
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/ps2
@@ -869,7 +869,7 @@ ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid JOYSTICK_DRIVER,JOYSTICK_DRIVER="$(JOYSTICK_DRIVER)" is not a valid joystick driver)
     endif
     OPT_DEFS += -DJOYSTICK_ENABLE
-    OPT_DEFS += -DJOYSTICK_$(strip $(shell echo $(JOYSTICK_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DJOYSTICK_$(strip $(shell echo $(JOYSTICK_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
     SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
     SRC += $(QUANTUM_DIR)/joystick.c
 
@@ -909,7 +909,7 @@ ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
         $(call CATASTROPHIC_ERROR,Invalid BLUETOOTH_DRIVER,BLUETOOTH_DRIVER="$(BLUETOOTH_DRIVER)" is not a valid Bluetooth driver type)
     endif
     OPT_DEFS += -DBLUETOOTH_ENABLE
-    OPT_DEFS += -DBLUETOOTH_$(strip $(shell echo $(BLUETOOTH_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DBLUETOOTH_$(strip $(shell echo $(BLUETOOTH_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
     NO_USB_STARTUP_CHECK := yes
     CONNECTION_ENABLE := yes
     COMMON_VPATH += $(DRIVER_PATH)/bluetooth
@@ -937,7 +937,7 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     endif
     SRC += $(QUANTUM_DIR)/encoder.c
     OPT_DEFS += -DENCODER_ENABLE
-    OPT_DEFS += -DENCODER_DRIVER_$(strip $(shell echo $(ENCODER_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DENCODER_DRIVER_$(strip $(shell echo $(ENCODER_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/encoder
     COMMON_VPATH += $(DRIVER_PATH)/encoder
@@ -969,7 +969,7 @@ ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
         $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
     endif
 
-    OPT_DEFS += -DBATTERY_DRIVER_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DBATTERY_DRIVER_$(strip $(shell echo $(BATTERY_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(DRIVER_PATH)/battery
 
@@ -991,7 +991,7 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
         $(call CATASTROPHIC_ERROR,Invalid WS2812_DRIVER,WS2812_DRIVER="$(WS2812_DRIVER)" is not a valid WS2812 driver)
     endif
 
-    OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DWS2812_$(strip $(shell echo $(WS2812_DRIVER) | LC_ALL=C tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(DRIVER_PATH)/led
 
