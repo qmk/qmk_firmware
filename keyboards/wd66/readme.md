@@ -2,9 +2,6 @@
 
 ![wd66](https://i.imgur.com/FjCnWen.jpg)
 
-## Default Layout
-![layout](https://i.imgur.com/BwjDlrh.png)
-
 * Keyboard Maintainer: [11customs](https://github.com/11Customs)
 * Hardware & Firmware by [1215](https://github.com/1215-tech)
 * Hardware Supported: wd66_rev1
