@@ -248,6 +248,18 @@ def test_info_keymap_render():
         assert '│A │' in result.stdout
 
 
+def test_info_keymap_render_c():
+    # a keymap written in c is rendered too, parsed without the preprocessor
+    result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-km', 'default_c')
+    check_returncode(result)
+    assert 'Keyboard Name: pytest' in result.stdout
+
+    if is_windows:
+        assert '|B |' in result.stdout
+    else:
+        assert '│B │' in result.stdout
+
+
 def test_info_matrix_render():
     result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-m')
     check_returncode(result)

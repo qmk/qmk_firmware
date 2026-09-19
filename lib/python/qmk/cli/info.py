@@ -12,7 +12,7 @@ from qmk.constants import COL_LETTERS, ROW_LETTERS
 from qmk.decorators import automagic_keyboard, automagic_keymap
 from qmk.keyboard import keyboard_completer, keyboard_folder, render_layouts, render_layout, rules_mk
 from qmk.info import info_json, keymap_json
-from qmk.keymap import locate_keymap
+from qmk.keymap import c2json, locate_keymap
 from qmk.path import is_keyboard
 
 UNICODE_SUPPORT = sys.stdout.encoding.lower().startswith('utf')
@@ -48,24 +48,38 @@ def show_keymap(kb_info_json, title_caps=True):
     """Render the keymap in ascii art.
     """
     keymap_path = locate_keymap(cli.config.info.keyboard, cli.config.info.keymap)
+    keymap_data = None
 
     if keymap_path and keymap_path.suffix == '.json':
         keymap_data = json.load(keymap_path.open(encoding='utf-8'))
-
-        # cater for layout-less keymap.json
-        if 'layout' not in keymap_data:
+    elif keymap_path and keymap_path.suffix == '.c':
+        # a keymap written in c is parsed without the preprocessor, which covers plain
+        # keymaps but not ones that build their layers with macros
+        # the parser raises plain python errors on a keymap it cannot follow
+        try:
+            keymap_data = c2json(cli.config.info.keyboard, cli.config.info.keymap, keymap_path, use_cpp=False)
+        except (KeyError, IndexError, AttributeError, ValueError) as e:
+            cli.log.warning('could not parse %s, the keymap is not rendered: %s', keymap_path, e)
             return
 
-        layout_name = keymap_data['layout']
-        layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
+    # cater for missing or layout-less keymaps
+    if not keymap_data or 'layout' not in keymap_data:
+        return
 
-        for layer_num, layer in enumerate(keymap_data['layers']):
-            if title_caps:
-                cli.echo('{fg_cyan}Keymap %s Layer %s{fg_reset}:', cli.config.info.keymap, layer_num)
-            else:
-                cli.echo('{fg_cyan}keymap.%s.layer.%s{fg_reset}:', cli.config.info.keymap, layer_num)
+    layout_name = keymap_data['layout']
+    layout_name = kb_info_json.get('layout_aliases', {}).get(layout_name, layout_name)  # Resolve alias names
 
-            print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
+    if layout_name not in kb_info_json.get('layouts', {}):
+        cli.log.warning('layout %s from %s is not a layout of this keyboard, the keymap is not rendered', layout_name, keymap_path)
+        return
+
+    for layer_num, layer in enumerate(keymap_data['layers']):
+        if title_caps:
+            cli.echo('{fg_cyan}Keymap %s Layer %s{fg_reset}:', cli.config.info.keymap, layer_num)
+        else:
+            cli.echo('{fg_cyan}keymap.%s.layer.%s{fg_reset}:', cli.config.info.keymap, layer_num)
+
+        print(render_layout(kb_info_json['layouts'][layout_name]['layout'], cli.config.info.ascii, layer))
 
 
 def show_layouts(kb_info_json, title_caps=True):

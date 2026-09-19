@@ -337,6 +337,8 @@ Show a JSON keymap for a keyboard:
 qmk info -kb clueboard/california -km default
 ```
 
+keymaps written in c are rendered too. they are parsed without the c preprocessor, so a keymap that builds its layers with macros may not render, and a warning says so.
+
 ## `qmk json2c`
 
 Creates a keymap.c from a QMK Configurator export.
