@@ -1009,7 +1009,9 @@ def unknown_processor_rules(info_data, rules):
 def merge_info_jsons(keyboard, info_data):
     """Return a merged copy of all the info.json files for a keyboard.
     """
-    config_files = find_info_json(keyboard)
+    # least specific first, so a keyboard folder wins over its parent folders.
+    # within one folder keyboard.json is applied after info.json.
+    config_files = sorted(find_info_json(keyboard), key=lambda path: (len(path.parts), path.name != 'info.json'))
 
     for info_file in config_files:
         # Load and validate the JSON data

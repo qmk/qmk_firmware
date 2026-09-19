@@ -1,4 +1,7 @@
 {
+    "usb": {
+        "pid": "0x6466"
+    },
     "layouts": {
         "LAYOUT_custom": {
             "layout": [

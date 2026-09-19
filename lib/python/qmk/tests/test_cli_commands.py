@@ -1,5 +1,6 @@
 from typing import Sequence
 
+import json
 import platform
 from subprocess import DEVNULL
 
@@ -263,6 +264,16 @@ def test_info_matrix_render():
     assert 'Matrix for "LAYOUT_ortho_1x1"' in result.stdout
 
 
+def test_info_child_overrides_parent():
+    # basic/keyboard.json sets a pid, the parent info.json sets another one. the keyboard folder must win.
+    result = check_subcommand('info', '-kb', 'handwired/pytest/basic', '-f', 'json')
+    check_returncode(result)
+    info = json.loads(result.stdout)
+    assert info['usb']['pid'] == '0x6466'
+    assert info['usb']['vid'] == '0xFEED'
+    assert info['keyboard_name'] == 'pytest'
+
+
 def test_c2json():
     result = check_subcommand("c2json", "-kb", "handwired/pytest/basic", "-km", "default", "keyboards/handwired/pytest/basic/keymaps/default/keymap.c")
     check_returncode(result)
@@ -300,7 +311,8 @@ def test_generate_config_h():
     assert '#    define DIODE_DIRECTION COL2ROW' in result.stdout
     assert '#    define MANUFACTURER "none"' in result.stdout
     assert '#    define PRODUCT "pytest"' in result.stdout
-    assert '#    define PRODUCT_ID 0x6465' in result.stdout
+    # basic/keyboard.json overrides the pid set in the parent info.json
+    assert '#    define PRODUCT_ID 0x6466' in result.stdout
     assert '#    define VENDOR_ID 0xFEED' in result.stdout
     assert '#    define MATRIX_COLS 1' in result.stdout
     assert '#    define MATRIX_COL_PINS { F4 }' in result.stdout
