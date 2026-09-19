@@ -269,6 +269,13 @@ def test_c2json():
     assert result.stdout.strip() == '{"keyboard": "handwired/pytest/basic", "keymap": "default", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_A"]]}'
 
 
+def test_c2json_keyboard_folder_include():
+    # the keymap includes a header from the keyboard folder, which the preprocessor must find
+    result = check_subcommand("c2json", "-kb", "handwired/pytest/basic", "-km", "include_c", "keyboards/handwired/pytest/basic/keymaps/include_c/keymap.c")
+    check_returncode(result)
+    assert result.stdout.strip() == '{"keyboard": "handwired/pytest/basic", "keymap": "include_c", "layout": "LAYOUT_ortho_1x1", "layers": [["KC_C"]]}'
+
+
 def test_c2json_stdin():
     result = check_subcommand_stdin("keyboards/handwired/pytest/basic/keymaps/default/keymap.c", "c2json", "-kb", "handwired/pytest/basic", "-km", "default", "-")
     check_returncode(result)

@@ -457,17 +457,19 @@ def list_keymaps(keyboard, c=True, json=True, additional_files=None, fullpath=Fa
     return sorted(names)
 
 
-def _c_preprocess(path, stdin=DEVNULL):
+def _c_preprocess(path, stdin=DEVNULL, include_dirs=()):
     """ Run a file through the C pre-processor
 
     Args:
         path: path of the keymap.c file (set None to use stdin)
         stdin: stdin pipe (e.g. sys.stdin)
+        include_dirs: directories to search for included headers
 
     Returns:
         the stdout of the pre-processor
     """
-    cmd = ['cpp', str(path)] if path else ['cpp']
+    includes = [f'-I{d}' for d in include_dirs]
+    cmd = ['cpp', *includes] + ([str(path)] if path else [])
     pre_processed_keymap = cli.run(cmd, stdin=stdin)
     if 'fatal error' in pre_processed_keymap.stderr:
         for line in pre_processed_keymap.stderr.split('\n'):
@@ -596,7 +598,7 @@ def _get_layers(keymap):  # noqa: C901 until someone has a good idea how to simp
     return layers
 
 
-def parse_keymap_c(keymap_file, use_cpp=True):
+def parse_keymap_c(keymap_file, use_cpp=True, include_dirs=()):
     """ Parse a keymap.c file.
 
     Currently only cares about the keymaps array.
@@ -606,23 +608,44 @@ def parse_keymap_c(keymap_file, use_cpp=True):
 
         use_cpp: if True, pre-process the file with the C pre-processor
 
+        include_dirs: directories the pre-processor searches for included headers
+
     Returns:
         a dictionary containing the parsed keymap
     """
     if not isinstance(keymap_file, (Path, str)) or keymap_file == '-':
         if use_cpp:
-            keymap_file = _c_preprocess(None, sys.stdin)
+            keymap_file = _c_preprocess(None, sys.stdin, include_dirs)
         else:
             keymap_file = sys.stdin.read()
     else:
         if use_cpp:
-            keymap_file = _c_preprocess(keymap_file)
+            keymap_file = _c_preprocess(keymap_file, include_dirs=include_dirs)
         else:
             keymap_file = keymap_file.read_text(encoding='utf-8')
 
     keymap = dict()
     keymap['layers'] = _get_layers(keymap_file)
     return keymap
+
+
+def _include_dirs(keyboard, keymap):
+    """ The directories a keymap can include headers from, mirroring the build.
+
+    the keyboard folder and its parents, the userspace copy of the keyboard folder,
+    and users/<keymap> in the firmware tree and in the external userspace.
+    """
+    dirs = []
+    folder = Path('keyboards') / keyboard_folder(keyboard)
+    while folder != Path('keyboards'):
+        dirs.append(QMK_FIRMWARE / folder)
+        if HAS_QMK_USERSPACE:
+            dirs.append(Path(QMK_USERSPACE) / folder)
+        folder = folder.parent
+    dirs.append(QMK_FIRMWARE / 'users' / keymap)
+    if HAS_QMK_USERSPACE:
+        dirs.append(Path(QMK_USERSPACE) / 'users' / keymap)
+    return [d for d in dirs if d.is_dir()]
 
 
 def c2json(keyboard, keymap, keymap_file, use_cpp=True):
@@ -642,7 +665,7 @@ def c2json(keyboard, keymap, keymap_file, use_cpp=True):
     Returns:
         a dictionary in keymap.json format
     """
-    keymap_json = parse_keymap_c(keymap_file, use_cpp)
+    keymap_json = parse_keymap_c(keymap_file, use_cpp, _include_dirs(keyboard, keymap))
 
     dirty_layers = keymap_json.pop('layers', None)
     keymap_json['layers'] = list()
