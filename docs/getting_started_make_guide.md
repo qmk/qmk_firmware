@@ -26,7 +26,7 @@ The following targets are for developers:
 * `dump_vars` dumps the makefile variable.
 * `objs-size` displays the size of individual object files.
 * `show_build_options` shows the options set in 'rules.mk'.
-* `check-md5` displays the md5 checksum of the generated binary file.
+* `check-md5` displays the md5 checksum of the generated binary file. the firmware is built with `SKIP_VERSION=yes` so that the checksum does not depend on the build date.
 
 You can also add extra options at the end of the make command line, after the target
 

@@ -169,8 +169,8 @@ static void print_version(void) {
         "VID: " STR(VENDOR_ID) "(" STR(MANUFACTURER) ") "
         "PID: " STR(PRODUCT_ID) "(" STR(PRODUCT) ") "
         "VER: " STR(DEVICE_VER) "\n"
-        "BUILD:  (" __DATE__ ")\n"
 #ifndef SKIP_VERSION
+        "BUILD:  (" __DATE__ ")\n"
 #    ifdef PROTOCOL_CHIBIOS
         "CHIBIOS: " STR(CHIBIOS_VERSION)
             ", CONTRIB: " STR(CHIBIOS_CONTRIB_VERSION) "\n"

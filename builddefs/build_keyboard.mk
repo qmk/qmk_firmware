@@ -49,6 +49,11 @@ endif
 #     this an empty or blank macro!
 INTERMEDIATE_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
+# a checksum is only comparable between builds when the build date is left out
+ifneq ($(filter check-md5,$(MAKECMDGOALS)),)
+    SKIP_VERSION := yes
+endif
+
 ifdef SKIP_VERSION
     OPT_DEFS += -DSKIP_VERSION
 endif
