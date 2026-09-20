@@ -21,7 +21,7 @@ Since there is no pinout availble for the pin we're gonna use to control the str
 ## Software
 To enable your RGB strip in QMK, you have to add change/add the following lines
 
-**rules.&#8203;mk**
+**rules.mk**
 ```
 [...]
 RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
@@ -32,7 +32,7 @@ RGBLIGHT_ENABLE = yes        # Enable keyboard RGB underglow
 ```
 [...]
 #define WS2812_DI_PIN F7
-#define RGBLED_NUM 15        // Change this number to the amount of LEDs on the strip you soldered
+#define RGBLIGHT_LED_COUNT 15        // Change this number to the amount of LEDs on the strip you soldered
 [...]
 ```
 To control the RGB color, animation, etc. you need to add the appropriate keycodes to your keymap. Either see [my keymap](./keymap.c) or the [official QMK documentation](https://docs.qmk.fm/#/feature_rgblight?id=keycodes) for references.
