@@ -114,7 +114,7 @@
             {"matrix": [5, 4], "x": 224, "y": 26, "flags": 4},
             {"matrix": [4, 4], "x": 224, "y": 10, "flags": 4}
         ],
-        "led_count": 36,
+        "sleep": true,
         "max_brightness": 75,
         "split_count": [18, 18]
     },
