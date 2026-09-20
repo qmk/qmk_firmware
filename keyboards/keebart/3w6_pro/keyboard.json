@@ -3,9 +3,6 @@
     "keyboard_name": "3w6 Pro",
     "maintainer": "Keebart",
     "bootloader": "rp2040",
-    "bootmagic": {
-        "enabled": true
-    },
     "build": {
         "lto": true
     },
