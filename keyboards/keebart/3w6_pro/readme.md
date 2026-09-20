@@ -35,24 +35,3 @@ same firmware. Enter the bootloader in 3 ways:
   **BOOT**, briefly press and release **RESET**, then release **BOOT**.
 * **Keycode in layout**: Press the key mapped to `QK_BOOT`, when available
   in the active keymap.
-
-## Split communication
-
-The keyboard uses separate UART lines for transmit and receive:
-
-- TX: `GP8`
-- RX: `GP9`
-- Hand detection: `GP21`
-
-The connection between halves must cross the serial signals: TX on one half
-connects to RX on the other half.
-
-## RGB Matrix
-
-The keyboard supports one per-key RGB LED for each of its 36 keys, divided
-equally between the halves. RGB data uses `GP10`. The default effect is a
-solid blue color (`#0284c7`) with a maximum brightness of 75.
-
-Lighting settings are stored independently in each half's EEPROM. When using
-either half as the USB master, configure or reset the lighting state on that
-half as required.
