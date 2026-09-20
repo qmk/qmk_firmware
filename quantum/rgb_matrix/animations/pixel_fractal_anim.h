@@ -6,12 +6,8 @@
 RGB_MATRIX_EFFECT(PIXEL_FRACTAL)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static bool PIXEL_FRACTAL(effect_params_t* params) {
-#        if MATRIX_COLS < 2
-#            define MID_COL 1
-#        else
-#            define MID_COL (MATRIX_COLS / 2)
-#        endif
+static bool PIXEL_FRACTAL(effect_params_t *params) {
+#        define MID_COL ((MATRIX_COLS + 1) / 2)
     static bool     led[MATRIX_ROWS][MID_COL];
     static uint32_t wait_timer = 0;
 
@@ -33,7 +29,7 @@ static bool PIXEL_FRACTAL(effect_params_t* params) {
                 if (l_idx >= led_min && l_idx < led_max && HAS_ANY_FLAGS(g_led_config.flags[l_idx], params->flags)) {
                     rgb_matrix_set_color(l_idx, index_rgb.r, index_rgb.g, index_rgb.b);
                 }
-                if (r_idx >= led_min && r_idx < led_max && HAS_ANY_FLAGS(g_led_config.flags[r_idx], params->flags)) {
+                if (r_idx >= led_min && r_idx < led_max && HAS_ANY_FLAGS(g_led_config.flags[r_idx], params->flags) && r_idx != l_idx) {
                     rgb_matrix_set_color(r_idx, index_rgb.r, index_rgb.g, index_rgb.b);
                 }
             }
