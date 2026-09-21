@@ -77,18 +77,31 @@ bool TYPING_HEATMAP(effect_params_t* params) {
     uint8_t count = 0;
     for (uint8_t row = 0; row < MATRIX_ROWS && count < RGB_MATRIX_LED_PROCESS_LIMIT; row++) {
         for (uint8_t col = 0; col < MATRIX_COLS && RGB_MATRIX_LED_PROCESS_LIMIT; col++) {
-            if (g_led_config.matrix_co[row][col] >= led_min && g_led_config.matrix_co[row][col] < led_max) {
-                count++;
-                uint8_t val = g_rgb_frame_buffer[row][col];
-                if (!HAS_ANY_FLAGS(g_led_config.flags[g_led_config.matrix_co[row][col]], params->flags)) continue;
+            uint8_t val = g_rgb_frame_buffer[row][col];
 
-                hsv_t hsv = {170 - qsub8(val, 85), rgb_matrix_config.hsv.s, scale8((qadd8(170, val) - 170) * 3, rgb_matrix_config.hsv.v)};
-                rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
-                rgb_matrix_set_color(g_led_config.matrix_co[row][col], rgb.r, rgb.g, rgb.b);
+            bool processed = false;
 
-                if (decrease_heatmap_values) {
-                    g_rgb_frame_buffer[row][col] = qsub8(val, 1);
+            uint8_t led[LED_HITS_TO_REMEMBER];
+            uint8_t led_count = rgb_matrix_map_row_column_to_led(row, col, led);
+            for (uint8_t index = 0; index < led_count; index++) {
+                uint8_t led_index = led[index];
+
+                if (led_index >= led_min && led_index < led_max) {
+                    count++;
+                    if (!HAS_ANY_FLAGS(g_led_config.flags[led_index], params->flags)) {
+                        continue;
+                    }
+
+                    hsv_t hsv = {170 - qsub8(val, 85), rgb_matrix_config.hsv.s, scale8((qadd8(170, val) - 170) * 3, rgb_matrix_config.hsv.v)};
+                    rgb_t rgb = rgb_matrix_hsv_to_rgb(hsv);
+
+                    rgb_matrix_set_color(led_index, rgb.r, rgb.g, rgb.b);
+                    processed = true;
                 }
+            }
+
+            if (processed && decrease_heatmap_values) {
+                g_rgb_frame_buffer[row][col] = qsub8(val, 1);
             }
         }
     }

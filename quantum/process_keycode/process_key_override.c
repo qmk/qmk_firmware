@@ -441,6 +441,10 @@ bool process_key_override(const uint16_t keycode, const keyrecord_t *const recor
 
 #ifdef KEY_OVERRIDE_INCLUDE_WEAK_MODS
     effective_mods |= get_weak_mods();
+#elif defined(REPEAT_KEY_ENABLE)
+    if (get_repeat_key_count()) {
+        effective_mods |= get_weak_mods();
+    }
 #endif
 
 #ifndef NO_ACTION_ONESHOT

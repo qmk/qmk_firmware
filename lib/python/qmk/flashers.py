@@ -9,7 +9,6 @@ import usb.core
 from qmk.constants import BOOTLOADER_VIDS_PIDS
 from milc import cli
 
-# yapf: disable
 _PID_TO_MCU = {
     '2fef': 'atmega16u2',
     '2ff0': 'atmega32u2',
@@ -17,7 +16,7 @@ _PID_TO_MCU = {
     '2ff4': 'atmega32u4',
     '2ff9': 'at90usb64',
     '2ffa': 'at90usb162',
-    '2ffb': 'at90usb128'
+    '2ffb': 'at90usb128',
 }
 
 AVRDUDE_MCU = {
@@ -25,7 +24,6 @@ AVRDUDE_MCU = {
     'atmega328p': 'm328p',
     'atmega328': 'm328',
 }
-# yapf: enable
 
 
 class DelayedKeyboardInterrupt:
