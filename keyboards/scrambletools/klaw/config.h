@@ -2,12 +2,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #pragma once
 
-// Newer avr-libc no longer includes avr/io.h from util/delay.h, which
-// quantum/send_string relies on for the timer registers
-#ifdef __AVR__
-#    include <avr/io.h>
-#endif
-
 // Piezo buzzer, only used when AUDIO_ENABLE is set in a keymap
 #ifdef AUDIO_ENABLE
 #    define AUDIO_PIN B5
