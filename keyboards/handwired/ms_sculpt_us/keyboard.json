@@ -1,6 +1,6 @@
 {
     "manufacturer": "Microsoftplus",
-    "keyboard_name": "wired sculpt by Chad Austin",
+    "keyboard_name": "wired sculpt",
     "maintainer": "qmk",
     "bootloader": "halfkay",
     "diode_direction": "ROW2COL",
