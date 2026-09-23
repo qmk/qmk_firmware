@@ -16,9 +16,11 @@
 
 #include QMK_KEYBOARD_H
 
-#define _BASE 0
-#define _FKEYS 1
-#define _MOUSE 2
+enum layers {
+    _BASE,
+    _FKEYS,
+    _MOUSE
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT(  // Play on Right side
