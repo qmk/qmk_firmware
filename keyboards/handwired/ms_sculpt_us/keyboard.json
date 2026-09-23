@@ -7,10 +7,11 @@
     "dip_switch": {
         "pins": ["F4"]
     },
-    "features" {
+    "features": {
         "bootmagic": true,
         "mousekey": true,
-        "extrakey": true
+        "extrakey": true,
+        "nkro": true
     },
     "matrix_pins": {
         "cols": ["A5", "A6", "A7", "C7", "C6", "C5", "C4", "C3", "C2", "C1", "C0", "E1", "E0", "D7", "D6", "D5", "D4", "D3"],
