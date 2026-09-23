@@ -8,11 +8,11 @@ MS Sculpt Keyboard ISO-layout wired to AT90USB1286
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb handwired/ms_sculpt_us -km default
+    make handwired/ms_sculpt_us:default
 
 Flashing example for this keyboard:
 
-    qmk flash -kb handwired/ms_sculpt_us -km default
+    make handwired/ms_sculpt_us:default:flash
 
 ## Bootloader
 
