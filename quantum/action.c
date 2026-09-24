@@ -388,7 +388,8 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 
 #ifndef NO_ACTION_ONESHOT
-    bool do_release_oneshot = false;
+    // Only actually consumed below when STRICT_LAYER_RELEASE is defined; see the comment there for why.
+    __attribute__((unused)) bool do_release_oneshot = false;
     // notice we only clear the one shot layer if the pressed key is not a modifier.
     if (is_oneshot_layer_active() && event.pressed &&
         (action.kind.id == ACT_USAGE || !(IS_MODIFIER_KEYCODE(action.key.code)
@@ -902,9 +903,18 @@ void process_action(keyrecord_t *record, action_t action) {
 #    endif
 #endif
 
-#ifndef NO_ACTION_ONESHOT
+#if !defined(NO_ACTION_ONESHOT) && defined(STRICT_LAYER_RELEASE)
     /* Because we switch layers after a oneshot event, we need to release the
      * key before we leave the layer or no key up event will be generated.
+     *
+     * This is only necessary when STRICT_LAYER_RELEASE is enabled, i.e. when
+     * store_or_get_action() (quantum/action_layer.c) is NOT using the source
+     * layers cache to resolve the release action from the layer that was
+     * active at press time. When the cache is in use (the default), the
+     * later physical release of this key is already correctly resolved
+     * against the (now inactive) one-shot layer, so replaying a release
+     * here would just report a duplicate, premature release event for a
+     * key that is still physically held down.
      */
     if (do_release_oneshot && !(get_oneshot_layer_state() & ONESHOT_PRESSED)) {
         record->event.pressed = false;
