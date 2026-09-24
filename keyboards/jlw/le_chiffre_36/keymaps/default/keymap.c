@@ -52,22 +52,20 @@ bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
-// Encoder Map
 #ifdef ENCODER_MAP_ENABLE
-    const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-        [0] =   { ENCODER_CCW_CW(S(KC_F2), KC_F2) },
-        [1] =   { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
-        [2] =   { ENCODER_CCW_CW(_______, _______) },
-        [3] =   { ENCODER_CCW_CW(_______, _______) }
-    };
+const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+    [0] = { ENCODER_CCW_CW(S(KC_F2), KC_F2) },
+    [1] = { ENCODER_CCW_CW(KC_VOLU, KC_VOLD) },
+    [2] = { ENCODER_CCW_CW(_______, _______) },
+    [3] = { ENCODER_CCW_CW(_______, _______) }
+};
 #endif
 
-// Combos disabled for Vial
 #ifdef COMBO_ENABLE
-    const uint16_t PROGMEM combo_esc[] = {KC_Q, KC_W,    COMBO_END};
-    const uint16_t PROGMEM combo_del[] = {KC_Y, KC_QUOT, COMBO_END};
-    combo_t key_combos[] = {
-        COMBO(combo_esc, KC_ESC),
-        COMBO(combo_del, KC_DEL),
-    };
+const uint16_t PROGMEM combo_esc[] = {KC_Q, KC_W,    COMBO_END};
+const uint16_t PROGMEM combo_del[] = {KC_Y, KC_QUOT, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(combo_esc, KC_ESC),
+    COMBO(combo_del, KC_DEL),
+};
 #endif
