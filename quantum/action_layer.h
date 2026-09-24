@@ -163,6 +163,14 @@ layer_state_t update_tri_layer_state(layer_state_t state, uint8_t layer1, uint8_
 
 void    update_source_layers_cache(keypos_t key, uint8_t layer);
 uint8_t read_source_layers_cache(keypos_t key);
+
+/* Default bodies for the cache functions above. The cache functions
+ * are weak, so callers can strong-override them to add cache buffers
+ * for additional keypos types (e.g. community modules adding new
+ * KEYLOC_* sentinels); the overrides delegate the existing
+ * matrix/encoder cases by calling these. */
+void    update_source_layers_cache_default(keypos_t key, uint8_t layer);
+uint8_t read_source_layers_cache_default(keypos_t key);
 #endif
 action_t store_or_get_action(bool pressed, keypos_t key);
 
