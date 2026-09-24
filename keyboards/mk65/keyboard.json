@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MK-65",
     "manufacturer": "mangooo",
-    "url": "",
     "maintainer": "DeskDaily",
     "usb": {
         "vid": "0x5004",
@@ -27,17 +26,13 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": true,
         "rgblight": true
     },
     "rgblight": {
         "led_count": 7,
-        "hue_steps": 8,
         "saturation_steps": 8,
         "brightness_steps": 8,
-        "max_brightness": 255,
         "sleep": true,
         "animations": {
             "alternating": true,

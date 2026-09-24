@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Southpaw Fullsize",
     "manufacturer": "Switchplate Peripherals",
-    "url": "",
     "maintainer": "ai03",
     "usb": {
         "vid": "0xA103",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": true,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -30,6 +28,12 @@
     "diode_direction": "COL2ROW",
     "backlight": {
         "pin": "B7"
+    },
+    "indicators": {
+        "caps_lock": "D4",
+        "num_lock": "D3",
+        "scroll_lock": "D5",
+        "on_state": 0
     },
     "processor": "at90usb1286",
     "bootloader": "atmel-dfu",

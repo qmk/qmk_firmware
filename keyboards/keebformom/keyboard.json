@@ -1,6 +1,5 @@
 {
     "keyboard_name": "Keeb For Mom",
-    "url": "",
     "maintainer": "qmk",
     "manufacturer": "nendezkombet/sandipratama",
     "usb": {
@@ -29,8 +28,7 @@
         "rows": ["F5", "F6", "F7", "B1"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": false,

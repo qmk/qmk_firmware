@@ -19,7 +19,6 @@
         "rows": ["C13", "C14", "A6", "A7", "A5"]
     },
     "processor": "STM32F411",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x810E",

@@ -26,15 +26,15 @@ enum layer_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_LAY0] = LAYOUT(
-            TO(1),      RGB_MOD,        RGB_TOG,        RGB_HUI,        RGB_VAD,        RGB_VAI,    
+            TO(1),      RM_NEXT,        RM_TOGG,        RM_HUEU,        RM_VALD,        RM_VALU,    
                 KC_MPLY,                                    KC_UP,                                      KC_UP,
     KC_MNXT,    KC_TRNS,    KC_MPRV,        A(KC_LEFT),     KC_TRNS,    A(KC_RIGHT),        KC_RIGHT,   KC_TRNS,    KC_LEFT,
                 KC_MPLY,                                    KC_DOWN,                                    KC_DOWN),
     [_LAY1] = LAYOUT(
             TO(2),      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,    
-                KC_WH_U,                                    S(KC_RBRC),                                 C(KC_L),
-    C(KC_WH_D), KC_TRNS,    C(KC_WH_U),     KC_DOT,         KC_TRNS,    KC_COMM,            C(KC_B),    KC_TRNS,    C(KC_U),
-                KC_WH_D,                                    S(KC_LBRC),                                 C(KC_M)),
+                MS_WHLU,                                    S(KC_RBRC),                                 C(KC_L),
+    C(MS_WHLD), KC_TRNS,    C(MS_WHLU),     KC_DOT,         KC_TRNS,    KC_COMM,            C(KC_B),    KC_TRNS,    C(KC_U),
+                MS_WHLD,                                    S(KC_LBRC),                                 C(KC_M)),
     [_LAY2] = LAYOUT(
             TO(0),      KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS,    
                 KC_B,                                       KC_UP,                                      S(KC_I),

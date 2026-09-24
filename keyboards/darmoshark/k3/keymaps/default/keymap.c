@@ -15,11 +15,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [1] = LAYOUT_numpad_6x4(
-        EE_CLR,   _______,  RGB_MOD,  _______,
-        KC_CALC,  _______,  _______,  RGB_VAD,
-        _______,  RGB_SPI,  _______,
-        _______,  _______,  _______,  RGB_VAI,
-        _______,  RGB_SPD,  _______,
-        _______,            RGB_TOG,  _______
+        EE_CLR,   _______,  RM_NEXT,  _______,
+        KC_CALC,  _______,  _______,  RM_VALD,
+        _______,  RM_SPDU,  _______,
+        _______,  _______,  _______,  RM_VALU,
+        _______,  RM_SPDD,  _______,
+        _______,            RM_TOGG,  _______
     )
 };

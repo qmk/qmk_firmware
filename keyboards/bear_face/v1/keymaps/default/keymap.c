@@ -1,19 +1,5 @@
-/*
-Copyright 2020 chemicalwill <https://github.com/chemicalwill>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+/* Copyright 2024 will-hedges */
+/* SPDX-License-Identifier: GPL-2.0-or-later */
 
 #include QMK_KEYBOARD_H
 
@@ -26,15 +12,12 @@ enum layers {
 
 #define FN1_CAPS LT(_FN1, KC_CAPS)
 
-//custom keycode enums
-enum custom_keycodes {
-    BASE_QWER = SAFE_RANGE,
-    BASE_COLE,
-    BASE_DVOR
-};
+#define BASE_QWER PDF(_QWER)
+#define BASE_COLE PDF(_COLE)
+#define BASE_DVOR PDF(_DVOR)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_QWER] = LAYOUT_83_ansi(
+    [_QWER] = LAYOUT(
         KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_DEL,
         KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
         KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
@@ -43,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FN1), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_COLE] = LAYOUT_83_ansi(
+    [_COLE] = LAYOUT(
         KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_DEL,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_MINS, KC_EQL,  KC_BSPC, KC_HOME,
         KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_LBRC, KC_RBRC, KC_BSLS, KC_PGUP,
@@ -52,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FN1), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_DVOR] = LAYOUT_83_ansi(
+    [_DVOR] = LAYOUT(
         KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_DEL,
         KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_LBRC, KC_RBRC, KC_BSPC, KC_HOME,
         KC_TAB,   KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,     KC_SLSH, KC_EQL,  KC_BSLS, KC_PGUP,
@@ -61,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,  KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MO(_FN1), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
-    [_FN1] = LAYOUT_83_ansi(
+    [_FN1] = LAYOUT(
         _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, KC_PSCR, KC_SCRL, KC_PAUS, _______, _______, KC_INS,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_CALC, BASE_QWER,
         _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, QK_BOOT, _______, _______, _______, _______, BASE_COLE,
@@ -71,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
-    [_BLANK] = LAYOUT_83_ansi(
+    [_BLANK] = LAYOUT(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
@@ -80,38 +63,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______,                   _______,                            _______, _______, _______, _______, _______, _______
     ),
 */
-};
-
-//macros to allow the user to set whatever default layer they want, even after reboot
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case BASE_QWER:
-            if (record->event.pressed) {
-            // when keycode BASE_QWER is pressed
-                set_single_persistent_default_layer(_QWER);
-            } else {
-            // when keycode BASE_QWER is released
-            }
-            break;
-
-        case BASE_COLE:
-            if (record->event.pressed) {
-            // when keycode BASE_COLE is pressed
-                set_single_persistent_default_layer(_COLE);
-            } else {
-            // when keycode BASE_COLE is released
-            }
-            break;
-
-        case BASE_DVOR:
-            if (record->event.pressed) {
-            // when keycode BASE_DVOR is pressed
-                set_single_persistent_default_layer(_DVOR);
-            } else {
-            // when keycode BASE_DVOR is released
-            }
-            break;
-    }
-    return true;
 };

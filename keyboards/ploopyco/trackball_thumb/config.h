@@ -29,9 +29,6 @@
 // If board has a debug LED, you can enable it by defining this
 // #define DEBUG_LED_PIN F7
 
-/* PMW3360 Settings */
-#define POINTING_DEVICE_CS_PIN B0
-
 #define ENCODER_BUTTON_COL 1
 #define ENCODER_BUTTON_ROW 0
 
@@ -41,6 +38,3 @@
 #define ENCODER_HIGH_THRES_B 90
 /* Custom encoder needs to specify just how many encoders we have */
 #define NUM_ENCODERS 1
-
-#define ENCODERS_PAD_A { F4 }
-#define ENCODERS_PAD_B { F0 }

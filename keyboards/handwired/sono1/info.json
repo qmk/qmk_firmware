@@ -1,11 +1,9 @@
 {
     "keyboard_name": "Sono1",
     "manufacturer": "ASKeyboard",
-    "url": "",
     "maintainer": "DmNosachev",
     "features": {
         "bootmagic": true,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": true,

@@ -10,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -29,12 +27,17 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0",
+        "handedness": {
+            "pin": "D1"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F5", "F4", "B5", "B4", "E6", "D7", "C6", "D4", "D2", "D3"],
                 "rows": ["F6", "F7", "B1", "B3", "B2", "B6"]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
     "processor": "atmega32u4",

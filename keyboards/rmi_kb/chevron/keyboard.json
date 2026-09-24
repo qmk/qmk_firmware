@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Chevron",
     "manufacturer": "RMI-KB",
-    "url": "",
     "maintainer": "ramonimbao",
     "usb": {
         "vid": "0xB16B",

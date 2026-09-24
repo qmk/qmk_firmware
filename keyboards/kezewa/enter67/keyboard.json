@@ -19,7 +19,6 @@
         "rows": ["A1", "A2", "A3", "A4", "A5"]
     },
     "processor": "STM32F072",
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0xAA66",

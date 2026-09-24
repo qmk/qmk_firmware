@@ -1,6 +1,7 @@
-#include QMK_KEYBOARD_H
+// Copyright 2024 Danny Nguyen (@nooges)
+// SPDX-License-Identifier: GPL-2.0-or-later
 
-extern keymap_config_t keymap_config;
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -8,10 +9,6 @@ extern keymap_config_t keymap_config;
 // entirely and just use numbers.
 #define _BASE 0
 #define _FN1 1
-
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_65(
@@ -24,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_FN1] = LAYOUT_65(
     QK_GESC, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_BSPC, _______,
-    RGB_TOG, RGB_MOD, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    UG_TOGG, UG_NEXT, _______, KC_UP,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     KC_TILD, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______

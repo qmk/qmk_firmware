@@ -8,7 +8,9 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "ws2812": {
         "pin": "D3"

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "the boulevard",
     "manufacturer": "eye oh designs",
-    "url": "",
     "maintainer": "eye oh designs",
     "usb": {
         "vid": "0xFEED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

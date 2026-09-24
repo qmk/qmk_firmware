@@ -6,8 +6,6 @@
     "tags": ["70%", "encoder", "underglow", "backlight"],
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -61,7 +59,6 @@
     "backlight": {
         "driver": "pwm",
         "breathing": true,
-        "breathing_period": 6,
         "levels": 17,
         "pin": "A6"
     },

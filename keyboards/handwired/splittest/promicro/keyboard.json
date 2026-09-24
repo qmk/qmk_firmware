@@ -5,7 +5,12 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D1"
+        "handedness": {
+            "pin": "F6"
+        },
+        "serial": {
+            "pin": "D1"
+        }
     },
     "ws2812": {
         "pin": "D3"

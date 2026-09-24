@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ISO Macro",
     "manufacturer": "Merge",
-    "url": "",
     "maintainer": "duoshock",
     "usb": {
         "vid": "0x4D65",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

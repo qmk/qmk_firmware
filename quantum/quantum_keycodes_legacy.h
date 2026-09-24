@@ -3,16 +3,17 @@
 // clang-format off
 
 // Deprecated Quantum keycodes
-#define RGB_TOG QK_UNDERGLOW_TOGGLE
-#define RGB_MOD QK_UNDERGLOW_MODE_NEXT
-#define RGB_MODE_FORWARD QK_UNDERGLOW_MODE_NEXT
-#define RGB_RMOD QK_UNDERGLOW_MODE_PREVIOUS
-#define RGB_MODE_REVERSE QK_UNDERGLOW_MODE_PREVIOUS
-#define RGB_HUI QK_UNDERGLOW_HUE_UP
-#define RGB_HUD QK_UNDERGLOW_HUE_DOWN
-#define RGB_SAI QK_UNDERGLOW_SATURATION_UP
-#define RGB_SAD QK_UNDERGLOW_SATURATION_DOWN
-#define RGB_VAI QK_UNDERGLOW_VALUE_UP
-#define RGB_VAD QK_UNDERGLOW_VALUE_DOWN
-#define RGB_SPI QK_UNDERGLOW_SPEED_UP
-#define RGB_SPD QK_UNDERGLOW_SPEED_DOWN
+#define QK_OUTPUT_AUTO OU_AUTO
+
+#define C_S_T(kc) LCS_T(kc)
+#define ALL_T(kc) HYPR_T(kc)
+
+#define SGUI(kc) LSG(kc)
+#define SCMD(kc) LSG(kc)
+#define SWIN(kc) LSG(kc)
+#define SGUI_T(kc) LSG_T(kc)
+#define SCMD_T(kc) LSG_T(kc)
+#define SWIN_T(kc) LSG_T(kc)
+
+#define SAGR(kc) RSA(kc)
+#define SAGR_T(kc) RSA_T(kc)

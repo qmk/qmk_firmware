@@ -43,8 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern keymap_config_t keymap_config;
 
-#include <inttypes.h>
-
 /* converts key to action */
 action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important
@@ -156,7 +154,7 @@ action_t action_for_keycode(uint16_t keycode) {
         case QK_LAYER_MOD ... QK_LAYER_MOD_MAX:
             mod          = mod_config(QK_LAYER_MOD_GET_MODS(keycode));
             action_layer = QK_LAYER_MOD_GET_LAYER(keycode);
-            action.code  = ACTION_LAYER_MODS(action_layer, (mod & 0x10) ? mod << 4 : mod);
+            action.code  = ACTION_LAYER_MODS(action_layer, (mod & 0x10) ? (mod & 0xF) << 4 : mod);
             break;
 #endif // NO_ACTION_LAYER
         case QK_MOD_TAP ... QK_MOD_TAP_MAX:

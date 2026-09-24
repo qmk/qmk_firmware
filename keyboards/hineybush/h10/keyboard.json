@@ -1,7 +1,6 @@
 {
     "keyboard_name": "h10",
     "manufacturer": "hineybush",
-    "url": "",
     "maintainer": "hineybush",
     "usb": {
         "vid": "0x04D8",
@@ -31,6 +30,10 @@
     "backlight": {
         "pin": "B7",
         "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "F7",
+        "on_state": 0
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

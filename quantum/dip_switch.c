@@ -21,6 +21,7 @@
 #include "dip_switch.h"
 
 #ifdef SPLIT_KEYBOARD
+#    include "keyboard.h"
 #    include "split_common/split_util.h"
 #endif
 
@@ -64,6 +65,7 @@ __attribute__((weak)) bool dip_switch_update_mask_kb(uint32_t state) {
 #ifdef DIP_SWITCH_MAP_ENABLE
 #    include "keymap_introspection.h"
 #    include "action.h"
+#    include "wait.h"
 
 #    ifndef DIP_SWITCH_MAP_KEY_DELAY
 #        define DIP_SWITCH_MAP_KEY_DELAY TAP_CODE_DELAY
@@ -86,7 +88,7 @@ static void dip_switch_exec_mapping(uint8_t index, bool on) {
 void dip_switch_init(void) {
 #ifdef DIP_SWITCH_PINS
 #    if defined(SPLIT_KEYBOARD) && defined(DIP_SWITCH_PINS_RIGHT)
-    if (!isLeftHand) {
+    if (!is_keyboard_left()) {
         const pin_t dip_switch_pad_right[] = DIP_SWITCH_PINS_RIGHT;
         for (uint8_t i = 0; i < NUM_DIP_SWITCHES; i++) {
             dip_switch_pad[i] = dip_switch_pad_right[i];

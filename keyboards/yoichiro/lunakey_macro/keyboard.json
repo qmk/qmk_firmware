@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Lunakey Macro",
     "manufacturer": "yoichiro",
-    "url": "",
     "maintainer": "Yoichiro Tanaka",
     "usb": {
         "vid": "0x5954",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": false,
         "mousekey": false,
         "nkro": false

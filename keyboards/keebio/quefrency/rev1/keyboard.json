@@ -33,16 +33,20 @@
     },
     "diode_direction": "COL2ROW",
     "split": {
-        "soft_serial_pin": "D0",
+        "handedness": {
+            "pin": "D2"
+        },
         "matrix_pins": {
             "right": {
                 "cols": ["F5", "F6", "F7", "B1", "B3", "B2", "B6", "C6"],
                 "rows": ["F4", "D4", "D7", "E6", "B4", "B5"]
             }
+        },
+        "serial": {
+            "pin": "D0"
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": false,
         "mousekey": true,
@@ -58,8 +62,11 @@
     "build": {
         "lto": true
     },
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_60"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_60": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

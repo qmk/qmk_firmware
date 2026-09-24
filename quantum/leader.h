@@ -22,6 +22,15 @@ void leader_start_user(void);
 void leader_end_user(void);
 
 /**
+ * \brief User callback, invoked when a keycode is added to the leader sequence.
+ *
+ * \param keycode The keycode added to the leader sequence.
+ *
+ * \return `true` to finish the key sequence, `false` to continue.
+ */
+bool leader_add_user(uint16_t keycode);
+
+/**
  * Begin the leader sequence, resetting the buffer and timer.
  */
 void leader_start(void);

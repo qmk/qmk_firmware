@@ -5,6 +5,7 @@ This project includes a Docker workflow that will allow you to build a new firmw
 ## Requirements
 
 The main prerequisite is a working `docker` or `podman` install.
+
 * [Docker CE](https://docs.docker.com/install/#supported-platforms)
 * [Podman](https://podman.io/getting-started/installation)
 
@@ -18,6 +19,7 @@ cd qmk_firmware
 ```
 
 Run the following command to build a keymap:
+
 ```
 util/docker_build.sh <keyboard>:<keymap>
 # For example: util/docker_build.sh planck/rev6:default
@@ -32,6 +34,8 @@ util/docker_build.sh keyboard:keymap:target
 # For example: util/docker_build.sh planck/rev6:default:flash
 ```
 
+Note that mass storage bootloaders are not supported by the `flash` target. In this case you will have to manually copy the firmware file to the keyboard.
+
 You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
 
 ```
@@ -45,6 +49,13 @@ By default docker or podman are automatically detected and docker is preferred o
 ```
 RUNTIME="podman" util/docker_build.sh keyboard:keymap:target
 ```
+
+If flashing is not required, it's possible to run the container as unprivileged (on Linux), and without docker-machine (on Windows/macOS):
+
+```
+SKIP_FLASHING_SUPPORT=1 util/docker_build.sh keyboard:keymap:target
+```
+
 
 ## FAQ
 

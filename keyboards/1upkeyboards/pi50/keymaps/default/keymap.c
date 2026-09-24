@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-----------------------------------------------------------------------------------'
     */
     [_ONE] =  LAYOUT_ortho_5x12 (
-                                                                                                           RGB_TOG,
+                                                                                                           RM_TOGG,
         KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
         KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
@@ -128,7 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-    [_ONE]   =  { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD) },
+    [_ONE]   =  { ENCODER_CCW_CW(RM_PREV,  RM_NEXT) },
     [_TWO]   =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
     [_THREE] =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) },
     [_FOUR]  =  { ENCODER_CCW_CW(KC_VOLD,  KC_VOLU) }

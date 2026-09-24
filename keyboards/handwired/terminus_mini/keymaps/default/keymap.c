@@ -33,10 +33,7 @@ enum terminus_mini_layers {
 };
 
 enum terminus_mini_keycodes {
-  COLEMAK = SAFE_RANGE,
-  QWERTY,
-  DVORAK,
-  LOWER,
+  LOWER = SAFE_RANGE,
   RAISE,
   FUNCTION,
   MOUSE,
@@ -47,6 +44,10 @@ enum terminus_mini_keycodes {
 
 #define SPC_LW LT(_LOWER, KC_SPC)
 #define ENT_RS LT(_RAISE, KC_ENT)
+
+#define QWERTY PDF(_QWERTY)
+#define COLEMAK PDF(_COLEMAK)
+#define DVORAK PDF(_DVORAK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Colemak -
@@ -174,10 +175,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_MOUSE] = LAYOUT(
-  KC_ESC,  KC_WH_U, KC_WH_L, KC_MS_U, KC_WH_R, XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN4, KC_BTN5, XXXXXXX, XXXXXXX,
-  KC_BSPC, KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, XXXXXXX, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_ESC,  MS_WHLU, MS_WHLL, MS_UP,   MS_WHLR, XXXXXXX, XXXXXXX, MS_BTN3, MS_BTN4, MS_BTN5, XXXXXXX, XXXXXXX,
+  KC_BSPC, MS_WHLD, MS_LEFT, MS_DOWN, MS_RGHT, XXXXXXX, XXXXXXX, MS_BTN1, MS_BTN2, XXXXXXX, XXXXXXX, XXXXXXX,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, SC_RSPC,
-  _______, XXXXXXX, XXXXXXX, XXXXXXX,     KC_ACL2,          KC_ACL0,      XXXXXXX, MO(6),   XXXXXXX, KC_RCTL
+  _______, XXXXXXX, XXXXXXX, XXXXXXX,     MS_ACL2,          MS_ACL0,      XXXXXXX, MO(6),   XXXXXXX, KC_RCTL
   ),
 
 /* Adjust (Lower + Raise)
@@ -204,24 +205,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Cases to switch default layer to QWERTY, COLEMAK or DVORAK and to access ADJUST layer
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);

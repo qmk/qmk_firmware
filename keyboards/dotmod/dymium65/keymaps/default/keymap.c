@@ -39,10 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_FN] = LAYOUT(
     KC_GRAVE,      KC_F1,       KC_F2,       KC_F3, KC_F4, KC_F5, KC_F6,     KC_F7, KC_F8, KC_F9,        KC_F10,       KC_F11,          KC_F12,           KC_BACKSPACE,   KC_TRNS,
-    RGB_TOG,       KC_Q,        KC_W,        KC_E,  KC_R,  KC_T,  KC_Y,      KC_U,  KC_I,  KC_O,         KC_P,         RGB_HUI,         RGB_HUD,          KC_BACKSLASH,   KC_TRNS,
-    KC_CAPS_LOCK,  KC_A,        KC_S,        KC_D,  KC_F,  KC_G,  KC_H,      KC_J,  KC_K,  KC_L,         RGB_SAD,      RGB_SAI,                           KC_ENTER,       KC_TRNS,
-    KC_LEFT_SHIFT,              KC_Z,        KC_X,  KC_C,  KC_V,  KC_B,      KC_N,  KC_M,  KC_COMMA,     MO(_LN),      KC_SLASH,                          KC_RIGHT_SHIFT, RGB_VAI,
-    KC_LEFT_CTRL,  KC_LEFT_GUI, KC_LEFT_ALT,                      KC_SPACE,                RGB_MOD,      _______,                       KC_RIGHT_CTRL,    RGB_SPD,        RGB_VAD,        RGB_SPI
+    RM_TOGG,       KC_Q,        KC_W,        KC_E,  KC_R,  KC_T,  KC_Y,      KC_U,  KC_I,  KC_O,         KC_P,         RM_HUEU,         RM_HUED,          KC_BACKSLASH,   KC_TRNS,
+    KC_CAPS_LOCK,  KC_A,        KC_S,        KC_D,  KC_F,  KC_G,  KC_H,      KC_J,  KC_K,  KC_L,         RM_SATD,      RM_SATU,                           KC_ENTER,       KC_TRNS,
+    KC_LEFT_SHIFT,              KC_Z,        KC_X,  KC_C,  KC_V,  KC_B,      KC_N,  KC_M,  KC_COMMA,     MO(_LN),      KC_SLASH,                          KC_RIGHT_SHIFT, RM_VALU,
+    KC_LEFT_CTRL,  KC_LEFT_GUI, KC_LEFT_ALT,                      KC_SPACE,                RM_NEXT,      _______,                       KC_RIGHT_CTRL,    RM_SPDD,        RM_VALD,        RM_SPDU
     ),
     [_LN] = LAYOUT(
     KC_ESC,        KC_1,        KC_2,        KC_3,  KC_4,  KC_5,  KC_6,      KC_7,  KC_8,  KC_9,         KC_0,         KC_MINUS,        KC_EQUAL,         KC_BACKSPACE,   KC_TRNS,
@@ -64,8 +64,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP) },
-    [_FN] =     { ENCODER_CCW_CW(RGB_VAD, RGB_VAI) },
-    [_LN] =     { ENCODER_CCW_CW(RGB_SAD, RGB_SAI) },
-    [_MT] =     { ENCODER_CCW_CW(RGB_SPD, RGB_SPI) },
+    [_FN] =     { ENCODER_CCW_CW(RM_VALD, RM_VALU) },
+    [_LN] =     { ENCODER_CCW_CW(RM_SATD, RM_SATU) },
+    [_MT] =     { ENCODER_CCW_CW(RM_SPDD, RM_SPDU) },
 };
 #endif

@@ -20,7 +20,10 @@
     },
     "split": {
         "enabled": true,
-        "soft_serial_pin": "GP0",
+        "serial": {
+            "driver": "vendor",
+            "pin": "GP0"
+        },
         "transport": {
             "sync": {
                 "layer_state": true
@@ -115,9 +118,9 @@
             {"matrix": [6, 1], "x": 208, "y": 42, "flags": 4},
             {"matrix": [5, 1], "x": 208, "y": 24, "flags": 4},
             {"matrix": [4, 1], "x": 208, "y": 7, "flags": 4},
-            {"matrix": [4, 0], "x": 0, "y": 7, "flags": 1},
-            {"matrix": [5, 0], "x": 0, "y": 24, "flags": 1},
-            {"matrix": [6, 0], "x": 0, "y": 41, "flags": 1}
+            {"matrix": [4, 0], "x": 223, "y": 7, "flags": 1},
+            {"matrix": [5, 0], "x": 223, "y": 24, "flags": 1},
+            {"matrix": [6, 0], "x": 223, "y": 41, "flags": 1}
         ],
         "sleep": true
     },

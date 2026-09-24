@@ -6,8 +6,6 @@
     "diode_direction": "ROW2COL",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -22,7 +20,6 @@
         "rows": ["F7", "D6", "D4", "F1", "D5", "F0", "D3", "D2"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0xD5DF",

@@ -24,15 +24,11 @@ enum planck_layers {
 
 };
 
-
-enum planck_keycodes {
-  L1 = SAFE_RANGE,
-  L2,
-  L3
-
-};
-
+#define L1 PDF(_1)
+#define L2 PDF(_2)
+#define L3 PDF(_3)
 #define LOWER MO(_4)
+
 #define IND_1          D4
 #define IND_2          C6
 #define IND_3          D7
@@ -64,27 +60,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     gpio_write_pin(IND_2, layer_state_cmp(state, 2));
     gpio_write_pin(IND_3, layer_state_cmp(state, 3));
     return state;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case L1:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_1);
-            }
-            return false;
-        case L2:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_2);
-            }
-            return false;
-        case L3:
-            if (record->event.pressed) {
-                set_single_persistent_default_layer(_3);
-            }
-            return false;
-    }
-    return true;
 }
 
 void matrix_init_user(void) {

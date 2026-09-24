@@ -7,8 +7,6 @@
     "processor": "atmega32u4",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -24,8 +22,12 @@
     "usb": {
         "vid": "0x534E",
         "pid": "0x3031",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "encoder": {
         "rotary": [

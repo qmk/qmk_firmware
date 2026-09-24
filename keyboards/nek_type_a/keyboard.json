@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NEK Type A",
     "manufacturer": "miker",
-    "url": "",
     "maintainer": "ecopoesis",
     "usb": {
         "vid": "0xFEED",

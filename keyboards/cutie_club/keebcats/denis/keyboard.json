@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Keebcats Denis 80",
     "manufacturer": "Cutie Club",
-    "url": "",
     "maintainer": "Cutie Club",
     "usb": {
         "vid": "0xFB9C",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -32,7 +29,19 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "community_layouts": ["60_iso_tsangan", "60_iso_split_bs_rshift", "60_iso", "60_tsangan_hhkb", "60_hhkb", "60_ansi_tsangan", "60_ansi_split_bs_rshift", "60_ansi"],
+    "community_layouts": [
+        "60_ansi",
+        "60_ansi_split_bs_rshift",
+        "60_ansi_tsangan",
+        "60_ansi_tsangan_split_bs_rshift",
+        "60_hhkb",
+        "60_iso",
+        "60_iso_split_bs_rshift",
+        "60_iso_tsangan"
+    ],
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -596,7 +605,7 @@
                 {"matrix": [4, 12], "x": 12.5, "y": 4}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

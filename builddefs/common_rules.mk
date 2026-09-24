@@ -43,35 +43,41 @@ ifneq ($(USE_CCACHE),no)
     CC_PREFIX ?= ccache
 endif
 
+#---------------- Debug Options ----------------
+
+DEBUG_ENABLE ?= no
+ifeq ($(strip $(DEBUG_ENABLE)),yes)
+	CFLAGS 	 += -ggdb3
+	CXXFLAGS += -ggdb3
+	ASFLAGS  += -ggdb3
+endif
+
+# Create a map file to see what was compiled and where, unless disabled
+# (e.g. test builds, which use the host linker — Apple's ld does not accept
+# -Map=/--cref).
+ifneq ($(strip $(CREATE_MAP)), no)
+LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
+
 #---------------- C Compiler Options ----------------
 
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    ifeq ($(PLATFORM),ARM_ATSAM)
-        $(info Enabling LTO on arm_atsam-targeting boards is known to have a high likelihood of failure.)
-        $(info If unsure, set LTO_ENABLE = no.)
-    endif
-    CDEFS += -flto
+    CDEFS += -flto=auto
     CDEFS += -DLTO_ENABLE
 endif
 
-DEBUG_ENABLE ?= yes
-ifeq ($(strip $(SKIP_DEBUG_INFO)),yes)
-  DEBUG_ENABLE=no
-endif
-
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CFLAGS += -g$(DEBUG)
-endif
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fdiagnostics-color
-endif
+    CFLAGS+= -fdiagnostics-color=always
+else
+    CFLAGS+= -fdiagnostics-color=never
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
+CFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CFLAGS += -Werror
 endif
@@ -83,16 +89,14 @@ CFLAGS += -fcommon
 
 #---------------- C++ Compiler Options ----------------
 
-ifeq ($(strip $(DEBUG_ENABLE)),yes)
-  CXXFLAGS += -g$(DEBUG)
-endif
 CXXFLAGS += $(CXXDEFS)
 CXXFLAGS += -O$(OPT)
 # to suppress "warning: only initialized variables can be placed into program memory area"
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
-
+CXXFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CXXFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
@@ -106,14 +110,10 @@ endif
 
 #---------------- Linker Options ----------------
 
-CREATE_MAP ?= yes
-ifeq ($(CREATE_MAP),yes)
-	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
-endif
 ifeq ($(VERBOSE_LD_CMD),yes)
 	LDFLAGS += -v
 endif
-#LDFLAGS += -Wl,--relax
+
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += -lm
@@ -126,15 +126,11 @@ ADHLNS_ENABLE ?= no
 ifeq ($(ADHLNS_ENABLE),yes)
   # Avoid "Options to '-Xassembler' do not match" - only specify assembler options at LTO link time
   ifeq ($(strip $(LTO_ENABLE)), yes)
-    LDFLAGS += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
+    LDFLAGS  += -Wa,-adhlns=$(BUILD_DIR)/$(TARGET).lst
   else
-    CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
+    CFLAGS   += -Wa,-adhlns=$(@:%.o=%.lst)
     CXXFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
-    ifeq ($(strip $(DEBUG_ENABLE)),yes)
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
-    else
-      ASFLAGS = -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
-    endif
+	ASFLAGS  += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
   endif
 endif
 
@@ -179,7 +175,7 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 # For a ChibiOS build, ensure that the board files have the hook overrides injected
 define BOARDSRC_INJECT_HOOKS
-$(INTERMEDIATE_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+$(INTERMEDIATE_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): FILE_SPECIFIC_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
 endef
 $(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
 
@@ -300,10 +296,10 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
     ifneq ($$(VERBOSE_C_INCLUDE),)
 	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
     endif
-	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
     ifneq ($$(DUMP_C_MACROS),)
-	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
+	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$<)
 	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
     endif
 
@@ -311,13 +307,13 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 $1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.

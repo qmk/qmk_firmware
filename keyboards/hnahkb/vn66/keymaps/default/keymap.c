@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, BL_STEP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, RGB_TOG, RGB_MOD, RGB_HUI, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, UG_TOGG, UG_NEXT, UG_HUEU, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______
   )
 };
@@ -43,13 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (clockwise == 0) {
 #ifdef MOUSEKEY_ENABLE
-        tap_code(KC_MS_WH_DOWN);
+        tap_code(MS_WHLD);
 #else
         tap_code(KC_VOLD);
 #endif
     } else {
 #ifdef MOUSEKEY_ENABLE
-        tap_code(KC_MS_WH_UP);
+        tap_code(MS_WHLU);
 #else
         tap_code(KC_VOLU);
 #endif

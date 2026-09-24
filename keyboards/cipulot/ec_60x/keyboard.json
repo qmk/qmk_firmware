@@ -40,7 +40,7 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "led_count": 22
+        "led_count": 19
     },
     "usb": {
         "device_version": "0.0.1",

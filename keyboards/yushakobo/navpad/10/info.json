@@ -37,6 +37,5 @@
             "rgb_test": true
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina"
+    "development_board": "promicro"
 }

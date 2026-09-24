@@ -3,6 +3,8 @@
 void keyboard_pre_init_kb(void) {
     gpio_set_pin_output(C4);
     gpio_set_pin_output(C5);
+
+    keyboard_pre_init_user();
 }
 
 inline void _idb_60_caps_led_on(void) {

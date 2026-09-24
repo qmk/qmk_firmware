@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Kikkou",
     "manufacturer": "Mechwerkes",
-    "url": "",
     "maintainer": "Mechwerkes",
     "usb": {
         "vid": "0x6D65",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

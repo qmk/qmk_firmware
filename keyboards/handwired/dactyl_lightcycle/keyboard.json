@@ -10,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "mousekey": true,
         "extrakey": true,
         "nkro": false
@@ -26,7 +24,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D0"
+        "serial": {
+            "pin": "D0"
+        }
     },
     "development_board": "promicro",
     "community_layouts": ["split_3x6_3", "split_3x5_3"],

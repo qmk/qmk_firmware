@@ -1,7 +1,6 @@
 {
     "keyboard_name": "OSA v2",
     "manufacturer": "The Key Company",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x544B",
@@ -49,6 +48,11 @@
         "driver": "timer",
         "pin": "D6",
         "breathing": true
+    },
+    "indicators": {
+        "caps_lock": "C6",
+        "num_lock": "C7",
+        "scroll_lock": "B6"
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

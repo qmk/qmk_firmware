@@ -20,7 +20,6 @@
 #include "timer.h"
 
 #define MATRIX_ROWS_PER_SIDE (MATRIX_ROWS / 2)
-#define ROW_SHIFTER ((matrix_row_t)1)
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
 
@@ -100,10 +99,10 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
         if (col_state & (1 << current_row)) {
             // key closed; set state bit in matrix
-            current_matrix[current_row] |= (ROW_SHIFTER << current_col);
+            current_matrix[current_row] |= (MATRIX_ROW_SHIFTER << current_col);
         } else {
             // key open; clear state bit in matrix
-            current_matrix[current_row] &= ~(ROW_SHIFTER << current_col);
+            current_matrix[current_row] &= ~(MATRIX_ROW_SHIFTER << current_col);
         }
 
         // Determine whether the matrix changed state

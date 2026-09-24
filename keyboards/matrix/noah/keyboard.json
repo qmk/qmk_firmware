@@ -1,7 +1,6 @@
 {
   "keyboard_name": "NOAH",
   "manufacturer": "Matrix",
-  "url": "",
   "maintainer": "astro",
   "usb": {
     "vid": "0x4D58",
@@ -10,7 +9,7 @@
     "no_startup_check": true
   },
   "rgblight": {
-    "driver": "custom",
+    "driver": "ws2812",
     "led_count": 7,
     "animations": {
       "breathing": true,

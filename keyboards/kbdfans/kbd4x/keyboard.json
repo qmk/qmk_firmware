@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KBD4x",
     "manufacturer": "KBDfans",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

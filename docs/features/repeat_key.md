@@ -5,7 +5,7 @@ Key after tapping the <kbd>Z</kbd> key types another "`z`." This is useful for
 typing doubled letters, like the `z` in "`dazzle`": a double tap on <kbd>Z</kbd>
 can instead be a roll from <kbd>Z</kbd> to <kbd>Repeat</kbd>, which is
 potentially faster and more comfortable. The Repeat Key is also useful for
-hotkeys, like repeating Ctrl + Shift + Right Arrow to select by word. 
+hotkeys, like repeating Ctrl + Shift + Right Arrow to select by word.
 
 Repeat Key remembers mods that were active with the last key press. These mods
 are combined with any additional mods while pressing the Repeat Key. If the last
@@ -49,10 +49,10 @@ reduce firmware size, Alternate Repeat may be disabled by adding in config.h:
 
 The following alternate keys are defined by default. See
 `get_alt_repeat_key_keycode_user()` below for how to change or add to these
-definitions. Where it makes sense, these definitions also include combinations 
+definitions. Where it makes sense, these definitions also include combinations
 with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 
-**Navigation** 
+**Navigation**
 
 |Keycodes                           |Description                        |
 |-----------------------------------|-----------------------------------|
@@ -60,12 +60,12 @@ with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 |`KC_UP` &harr; `KC_DOWN`           | Up &harr; Down Arrow              |
 |`KC_HOME` &harr; `KC_END`          | Home &harr; End                   |
 |`KC_PGUP` &harr; `KC_PGDN`         | Page Up &harr; Page Down          |
-|`KC_MS_L` &harr; `KC_MS_R`         | Mouse Cursor Left &harr; Right    |
-|`KC_MS_U` &harr; `KC_MS_D`         | Mouse Cursor Up &harr; Down       |
-|`KC_WH_L` &harr; `KC_WH_R`         | Mouse Wheel Left &harr; Right     |
-|`KC_WH_U` &harr; `KC_WH_D`         | Mouse Wheel Up &harr; Down        |
+|`MS_LEFT` &harr; `MS_RGHT`         | Mouse Cursor Left &harr; Right    |
+|`MS_UP`   &harr; `MS_DOWN`         | Mouse Cursor Up &harr; Down       |
+|`MS_WHLL` &harr; `MS_WHLR`         | Mouse Wheel Left &harr; Right     |
+|`MS_WHLU` &harr; `MS_WHLD`         | Mouse Wheel Up &harr; Down        |
 
-**Misc** 
+**Misc**
 
 |Keycodes                           |Description                        |
 |-----------------------------------|-----------------------------------|
@@ -73,7 +73,7 @@ with mods, like Ctrl + Left &harr; Ctrl + Right Arrow.
 |`KC_LBRC` &harr; `KC_RBRC`         | `[` &harr; `]`                    |
 |`KC_LCBR` &harr; `KC_RCBR`         | `{` &harr; `}`                    |
 
-**Media** 
+**Media**
 
 |Keycodes                           |Description                        |
 |-----------------------------------|-----------------------------------|
@@ -176,9 +176,9 @@ macro](../feature_macros). This way macros can be used without having to
 dedicate keys to them. The following defines a couple shortcuts.
 
 * Typing <kbd>K</kbd>, <kbd>Alt Repeat</kbd> produces "`keyboard`," with the
-  initial "`k`" typed as usual and the "`eybord`" produced by the macro. 
+  initial "`k`" typed as usual and the "`eybord`" produced by the macro.
 * Typing <kbd>.</kbd>, <kbd>Alt Repeat</kbd> produces "`../`," handy for "up
-  directory" on the shell. Similary, <kbd>.</kbd> types the initial "`.`" and 
+  directory" on the shell. Similarly, <kbd>.</kbd> types the initial "`.`" and
   "`./`" is produced by the macro.
 
 ```c
@@ -290,7 +290,7 @@ By default, pressing the Repeat Key will simply behave as if the last key
 were pressed again. This also works with macro keys with custom handlers,
 invoking the macro again. In case fine-tuning is needed for sensible repetition,
 you can handle how a key is repeated with `get_repeat_key_count()` within
-`process_record_user()`. 
+`process_record_user()`.
 
 The `get_repeat_key_count()` function returns a signed count of times the key
 has been repeated or alternate repeated. When a key is pressed as usual,
@@ -306,16 +306,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
             if (get_repeat_key_count() > 0) {
                 // MY_MACRO is being repeated!
                 if (record->event.pressed) {
-                    SEND_STRING("repeat!");    
+                    SEND_STRING("repeat!");
                 }
-            } else {                          
+            } else {
                 // MY_MACRO is being used normally.
-                if (record->event.pressed) {  
+                if (record->event.pressed) {
                     SEND_STRING("macro");
                 }
             }
             return false;
-     
+
         // Other macros...
     }
     return true;
@@ -347,19 +347,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
         case MY_MACRO:
             if (get_repeat_key_count() > 0) {        // Repeating.
                 if (record->event.pressed) {
-                    SEND_STRING("repeat!");    
+                    SEND_STRING("repeat!");
                 }
             } else if (get_repeat_key_count() < 0) { // Alternate repeating.
                 if (record->event.pressed) {
                     SEND_STRING("alt repeat!");
                 }
             } else {                                 // Used normally.
-                if (record->event.pressed) {  
+                if (record->event.pressed) {
                     SEND_STRING("macro");
                 }
             }
             return false;
-     
+
         // Other macros...
     }
     return true;
@@ -377,7 +377,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 | `set_last_mods(mods)`          | Set the mods to apply when repeating.                                  |
 | `get_repeat_key_count()`       | Signed count of times the key has been repeated or alternate repeated. |
 | `get_alt_repeat_key_keycode()` | Keycode to be used for alternate repeating.                            |
- 
+
 
 ## Additional "Alternate" keys
 
@@ -437,7 +437,7 @@ static void process_altrep3(uint16_t keycode, uint8_t mods) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-        case ALTREP2: 
+        case ALTREP2:
             if (record->event.pressed) {
                 process_altrep2(get_last_keycode(), get_last_mods());
             }

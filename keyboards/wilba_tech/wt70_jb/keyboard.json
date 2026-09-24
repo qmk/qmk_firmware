@@ -8,6 +8,9 @@
         "pid": "0x001F",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F1"
+    },
     "rgblight": {
         "saturation_steps": 8,
         "brightness_steps": 8,
@@ -30,8 +33,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

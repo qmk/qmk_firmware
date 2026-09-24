@@ -36,6 +36,7 @@
 #include "wait.h"
 #include "i2c_master.h"
 #include "eeprom.h"
+#include "eeprom_driver.h"
 #include "eeprom_i2c.h"
 
 // #define DEBUG_EEPROM_OUTPUT
@@ -60,6 +61,13 @@ void eeprom_driver_init(void) {
     gpio_write_pin(EXTERNAL_EEPROM_WP_PIN, 1);
     gpio_set_pin_input_high(EXTERNAL_EEPROM_WP_PIN);
 #endif
+}
+
+void eeprom_driver_format(bool erase) {
+    /* i2c eeproms do not need to be formatted before use */
+    if (erase) {
+        eeprom_driver_erase();
+    }
 }
 
 void eeprom_driver_erase(void) {
@@ -96,7 +104,7 @@ void eeprom_read_block(void *buf, const void *addr, size_t len) {
 
 void eeprom_write_block(const void *buf, void *addr, size_t len) {
     uint8_t   complete_packet[EXTERNAL_EEPROM_ADDRESS_SIZE + EXTERNAL_EEPROM_PAGE_SIZE];
-    uint8_t * read_buf    = (uint8_t *)buf;
+    uint8_t  *read_buf    = (uint8_t *)buf;
     uintptr_t target_addr = (uintptr_t)addr;
 
 #if defined(EXTERNAL_EEPROM_WP_PIN)

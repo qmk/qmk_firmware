@@ -16,8 +16,6 @@
     "features": {
         "rgb_matrix": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -30,9 +28,13 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "E6",
+        "serial": {
+            "pin": "E6"
+        },
         "transport": {
-            "sync_matrix_state": true
+            "sync": {
+                "matrix_state": true
+            }
         },
         "usb_detect":{
             "enabled": true

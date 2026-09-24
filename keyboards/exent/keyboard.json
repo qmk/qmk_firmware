@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Exent",
     "manufacturer": "Quadcube",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5143",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

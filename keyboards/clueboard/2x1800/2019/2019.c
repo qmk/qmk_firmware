@@ -18,9 +18,6 @@
 void matrix_init_kb(void) {
     // Set our LED pins as output
     gpio_set_pin_output(D6);
-    gpio_set_pin_output(B4);
-    gpio_set_pin_output(B5);
-    gpio_set_pin_output(B6);
 
     // Set our Tilt Sensor pins as input
     gpio_set_pin_input_high(SHAKE_PIN_A);
@@ -44,12 +41,12 @@ void check_encoder_buttons(void) {
             dprintf("Turning drawing mode off.\n");
             drawing_mode = false;
             gpio_write_pin_low(D6);
-	    unregister_code(KC_BTN1);
+	    unregister_code(MS_BTN1);
 	} else {
             dprintf("Turning drawing mode on.\n");
             drawing_mode = true;
             gpio_write_pin_high(D6);
-	    register_code(KC_BTN1);
+	    register_code(MS_BTN1);
 	}
     }
 }
@@ -61,7 +58,7 @@ uint8_t detected_shakes = 0;
 static uint16_t shake_timer;
 #endif
 
-void matrix_scan_kb(void) {
+void housekeeping_task_kb(void) {
 #ifdef SHAKE_ENABLE
     // Read the current state of the tilt sensor. It is physically
     // impossible for both pins to register a low state at the same time.
@@ -84,8 +81,6 @@ void matrix_scan_kb(void) {
         detected_shakes = 0;
     }
 #endif
-
-    matrix_scan_user();
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -93,37 +88,37 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     if (keycode == ENC_BTN1) {
         if (record->event.pressed) {
             btn1_pressed = true;
-	    register_code(KC_BTN1);
+	    register_code(MS_BTN1);
 	} else {
             btn1_pressed = false;
-	    unregister_code(KC_BTN1);
+	    unregister_code(MS_BTN1);
 	}
     }
     if (keycode == ENC_BTN2) {
         if (record->event.pressed) {
             btn2_pressed = true;
-	    register_code(KC_BTN2);
+	    register_code(MS_BTN2);
 	} else {
             btn2_pressed = false;
-	    unregister_code(KC_BTN2);
+	    unregister_code(MS_BTN2);
 	}
     }
     if (keycode == ENC_BTN3) {
         if (record->event.pressed) {
             btn3_pressed = true;
-	    register_code(KC_BTN3);
+	    register_code(MS_BTN3);
 	} else {
             btn3_pressed = false;
-	    unregister_code(KC_BTN3);
+	    unregister_code(MS_BTN3);
 	}
     }
     if (keycode == ENC_BTN4) {
         if (record->event.pressed) {
             btn4_pressed = true;
-	    register_code(KC_BTN4);
+	    register_code(MS_BTN4);
 	} else {
             btn4_pressed = false;
-	    unregister_code(KC_BTN4);
+	    unregister_code(MS_BTN4);
 	}
     }
 
@@ -133,34 +128,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
-bool led_update_kb(led_t led_state) {
-    bool res = led_update_user(led_state);
-    if(res) {
-        gpio_write_pin(B4, !led_state.num_lock);
-        gpio_write_pin(B5, !led_state.caps_lock);
-        gpio_write_pin(B6, !led_state.scroll_lock);
-    }
-
-    return res;
-}
-
-__attribute__((weak)) bool encoder_update_keymap(uint8_t index, bool clockwise) { return true; }
-__attribute__((weak)) bool encoder_update_user(uint8_t index, bool clockwise) { return encoder_update_keymap(index, clockwise); }
-
 bool encoder_update_kb(uint8_t index, bool clockwise) {
-    if (!encoder_update_user(index, clockwise)) {
+    if (encoder_update_user(index, clockwise)) {
         // Encoder 1, outside left
         if (index == 0 && clockwise) {
-            tap_code(KC_MS_U);  // turned right
+            tap_code(MS_UP);  // turned right
         } else if (index == 0) {
-            tap_code(KC_MS_D);  // turned left
+            tap_code(MS_DOWN);  // turned left
         }
 
         // Encoder 2, inside left
         else if (index == 1 && clockwise) {
-            tap_code(KC_WH_D);  // turned right
+            tap_code(MS_WHLD);  // turned right
         } else if (index == 1) {
-            tap_code(KC_WH_U);  // turned left
+            tap_code(MS_WHLU);  // turned left
         }
 
         // Encoder 3, inside right
@@ -172,9 +153,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
 
         // Encoder 4, outside right
         else if (index == 3 && clockwise) {
-            tap_code(KC_MS_R);   // turned right
+            tap_code(MS_RGHT);   // turned right
         } else if (index == 3) {
-            tap_code(KC_MS_L);   // turned left
+            tap_code(MS_LEFT);   // turned left
         }
     }
     return true;

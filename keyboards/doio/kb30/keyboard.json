@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KB30-01",
     "manufacturer": "DOIO",
-    "url": "",
     "maintainer": "DOIO2022",
     "usb": {
         "vid": "0xD010",
@@ -46,12 +45,53 @@
         },
         "driver": "ws2812",
         "max_brightness": 200,
-        "sleep": true
+        "sleep": true,
+        "layout": [
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 37, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 75, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [0, 4], "x": 149, "y": 0, "flags": 4},
+            {"matrix": [0, 5], "x": 187, "y": 0, "flags": 4},
+            {"matrix": [0, 6], "x": 224, "y": 0, "flags": 4},
+
+            {"matrix": [1, 0], "x": 0, "y": 16, "flags": 4},
+            {"matrix": [1, 1], "x": 37, "y": 16, "flags": 4},
+            {"matrix": [1, 2], "x": 75, "y": 16, "flags": 4},
+            {"matrix": [1, 3], "x": 112, "y": 16, "flags": 4},
+            {"matrix": [1, 4], "x": 149, "y": 16, "flags": 4},
+            {"matrix": [1, 5], "x": 187, "y": 16, "flags": 4},
+            {"matrix": [1, 6], "x": 224, "y": 16, "flags": 4},
+
+            {"matrix": [2, 0], "x": 0, "y": 32, "flags": 4},
+            {"matrix": [2, 1], "x": 37, "y": 32, "flags": 4},
+            {"matrix": [2, 2], "x": 75, "y": 32, "flags": 4},
+            {"matrix": [2, 3], "x": 112, "y": 32, "flags": 4},
+            {"matrix": [2, 4], "x": 149, "y": 32, "flags": 4},
+            {"matrix": [2, 5], "x": 187, "y": 32, "flags": 4},
+
+            {"matrix": [3, 0], "x": 0, "y": 48, "flags": 4},
+            {"matrix": [3, 1], "x": 37, "y": 48, "flags": 4},
+            {"matrix": [3, 2], "x": 75, "y": 48, "flags": 4},
+            {"matrix": [3, 3], "x": 112, "y": 48, "flags": 4},
+            {"matrix": [3, 5], "x": 187, "y": 48, "flags": 4},
+
+            {"matrix": [4, 0], "x": 18, "y": 64, "flags": 4},
+            {"matrix": [4, 1], "x": 75, "y": 64, "flags": 4},
+            {"matrix": [4, 2], "x": 149, "y": 64, "flags": 4},
+            {"matrix": [4, 3], "x": 187, "y": 64, "flags": 4},
+            {"matrix": [4, 4], "x": 224, "y": 64, "flags": 4},
+
+            {"x": 224, "y": 56, "flags": 2},
+            {"x": 112, "y": 56, "flags": 2},
+            {"x": 0, "y": 56, "flags": 2},
+            {"x": 0, "y": 8, "flags": 2},
+            {"x": 112, "y": 8, "flags": 2},
+            {"x": 224, "y": 8, "flags": 2}
+        ]
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

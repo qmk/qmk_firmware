@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Handwired F401",
     "manufacturer": "Riblee",
-    "url": "",
     "maintainer": "riblee",
     "usb": {
         "vid": "0xFEED",

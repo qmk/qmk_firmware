@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Ortho 5x13",
     "manufacturer": "Hexwire",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xBB80",

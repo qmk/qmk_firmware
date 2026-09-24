@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Latin60RGB",
   "manufacturer": "latincompass",
-  "url": "",
   "maintainer": "latincompass",
   "usb": {
     "vid": "0x6C63",
@@ -110,8 +109,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,

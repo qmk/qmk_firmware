@@ -155,6 +155,10 @@ ifdef WB32_BOOTLOADER_ADDRESS
     OPT_DEFS += -DWB32_BOOTLOADER_ADDRESS=$(WB32_BOOTLOADER_ADDRESS)
 endif
 
+ifdef AT32_BOOTLOADER_ADDRESS
+    OPT_DEFS += -DAT32_BOOTLOADER_ADDRESS=$(AT32_BOOTLOADER_ADDRESS)
+endif
+
 # Work out if we need to set up the include for the bootloader definitions
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
     OPT_DEFS += -include $(KEYBOARD_PATH_5)/bootloader_defs.h
@@ -275,7 +279,7 @@ PLATFORM_SRC = \
         $(PLATFORMSRC) \
         $(BOARDSRC) \
         $(STREAMSSRC) \
-        $(CHIBIOS)/os/various/syscalls.c \
+        $(CHIBIOS)/os/various/newlib_bindings/syscalls.c \
         $(PLATFORM_COMMON_DIR)/syscall-fallbacks.c \
         $(PLATFORM_COMMON_DIR)/wait.c \
         $(PLATFORM_COMMON_DIR)/synchronization_util.c \

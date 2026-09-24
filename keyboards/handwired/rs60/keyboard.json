@@ -1,7 +1,6 @@
 {
     "keyboard_name": "rs60",
     "manufacturer": "rs",
-    "url": "",
     "maintainer": "rs",
     "usb": {
         "vid": "0xFEED",
@@ -10,7 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
         "console": true,
         "extrakey": false,
         "mousekey": false,

@@ -16,8 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "matrix.h"
 
-#define ROW_SHIFTER ((uint16_t)1)
-
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
@@ -62,10 +60,10 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
             // Check col pin pin_state
             if (gpio_read_pin(col_pins[col_index]) == 0) {
                 // Pin LO, set col bit
-                current_matrix[current_row] |= (ROW_SHIFTER << col_index);
+                current_matrix[current_row] |= (MATRIX_ROW_SHIFTER << col_index);
             } else {
                 // Pin HI, clear col bit
-                current_matrix[current_row] &= ~(ROW_SHIFTER << col_index);
+                current_matrix[current_row] &= ~(MATRIX_ROW_SHIFTER << col_index);
             }
         }
     }
@@ -79,8 +77,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 void matrix_init_custom(void) {
     // initialize key pins
     init_pins();
-
-    matrix_init_kb();
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
@@ -91,6 +87,5 @@ bool matrix_scan_custom(matrix_row_t current_matrix[]) {
         changed |= read_cols_on_row(current_matrix, current_row);
     }
 
-    matrix_scan_kb();
     return changed;
 }

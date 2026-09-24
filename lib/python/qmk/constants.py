@@ -22,7 +22,7 @@ QMK_FIRMWARE_UPSTREAM = 'qmk/qmk_firmware'
 MAX_KEYBOARD_SUBFOLDERS = 5
 
 # Supported processor types
-CHIBIOS_PROCESSORS = 'cortex-m0', 'cortex-m0plus', 'cortex-m3', 'cortex-m4', 'MKL26Z64', 'MK20DX128', 'MK20DX256', 'MK64FX512', 'MK66FX1M0', 'RP2040', 'STM32F042', 'STM32F072', 'STM32F103', 'STM32F303', 'STM32F401', 'STM32F405', 'STM32F407', 'STM32F411', 'STM32F446', 'STM32G431', 'STM32G474', 'STM32H723', 'STM32H733', 'STM32L412', 'STM32L422', 'STM32L432', 'STM32L433', 'STM32L442', 'STM32L443', 'GD32VF103', 'WB32F3G71', 'WB32FQ95'
+CHIBIOS_PROCESSORS = 'cortex-m0', 'cortex-m0plus', 'cortex-m3', 'cortex-m4', 'MKL26Z64', 'MK20DX128', 'MK20DX256', 'MK64FX512', 'MK66FX1M0', 'RP2040', 'STM32F042', 'STM32F072', 'STM32F103', 'STM32F303', 'STM32F401', 'STM32F405', 'STM32F407', 'STM32F411', 'STM32F446', 'STM32G0B1', 'STM32G431', 'STM32G474', 'STM32H723', 'STM32H733', 'STM32L412', 'STM32L422', 'STM32L432', 'STM32L433', 'STM32L442', 'STM32L443', 'GD32VF103', 'WB32F3G71', 'WB32FQ95', 'AT32F415'
 LUFA_PROCESSORS = 'at90usb162', 'atmega16u2', 'atmega32u2', 'atmega16u4', 'atmega32u4', 'at90usb646', 'at90usb647', 'at90usb1286', 'at90usb1287', None
 VUSB_PROCESSORS = 'atmega32a', 'atmega328p', 'atmega328', 'attiny85'
 
@@ -42,6 +42,7 @@ MCU2BOOTLOADER = {
     "STM32F407": "stm32-dfu",
     "STM32F411": "stm32-dfu",
     "STM32F446": "stm32-dfu",
+    "STM32G0B1": "stm32-dfu",
     "STM32G431": "stm32-dfu",
     "STM32G474": "stm32-dfu",
     "STM32H723": "stm32-dfu",
@@ -55,6 +56,7 @@ MCU2BOOTLOADER = {
     "GD32VF103": "gd32v-dfu",
     "WB32F3G71": "wb32-dfu",
     "WB32FQ95": "wb32-dfu",
+    "AT32F415": "at32-dfu",
     "atmega16u2": "atmel-dfu",
     "atmega32u2": "atmel-dfu",
     "atmega16u4": "atmel-dfu",
@@ -93,6 +95,7 @@ BOOTLOADER_VIDS_PIDS = {
     'apm32-dfu': {("314b", "0106")},
     'gd32v-dfu': {("28e9", "0189")},
     'wb32-dfu': {("342d", "dfa0")},
+    'at32-dfu': {("2e3c", "df11")},
     'bootloadhid': {("16c0", "05df")},
     'usbasploader': {("16c0", "05dc")},
     'usbtinyisp': {("1782", "0c9f")},
@@ -320,3 +323,5 @@ LICENSE_TEXTS = [
         you may not use this file except in compliance with the License.
         """]),
 ]
+
+JOYSTICK_AXES = ['x', 'y', 'z', 'rx', 'ry', 'rz']

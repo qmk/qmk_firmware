@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KBD75 rev1",
     "manufacturer": "KBDfans",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B42",

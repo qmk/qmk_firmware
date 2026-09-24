@@ -18,7 +18,7 @@
 
 void led_init_ports(void) {
     // Initialize indicator LEDs to output
-    if (isLeftHand) {
+    if (is_keyboard_left()) {
         gpio_set_pin_output(C6);
         gpio_set_pin_output(B6);
         gpio_set_pin_output(B5);
@@ -36,7 +36,7 @@ void led_init_ports(void) {
 //
 // (LEFT) 0 1 2   |   3 4 5 (RIGHT)
 void led_toggle(uint8_t id, bool on) {
-    if (isLeftHand) {
+    if (is_keyboard_left()) {
         switch (id) {
             case 0:
                 // Left hand C6

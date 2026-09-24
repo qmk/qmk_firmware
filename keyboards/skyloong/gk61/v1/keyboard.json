@@ -9,8 +9,6 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "command": false,
-        "console": false,
         "rgb_matrix": true
     },
     "processor": "STM32F103",
@@ -121,8 +119,12 @@
         "vid": "0x1EA7",
         "device_version": "1.0.0",
         "pid": "0x6061",
-        "max_power": 380,
-        "force_nkro": true
+        "max_power": 380
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "community_layouts": ["60_ansi"],
     "layouts": {

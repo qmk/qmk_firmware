@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Infinity CE",
     "manufacturer": "Team.Mechlovin",
-    "url": "",
     "maintainer": "Team Mechlovin'",
     "usb": {
         "vid": "0x4D4C",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

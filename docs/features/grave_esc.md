@@ -8,7 +8,7 @@ Replace the `KC_GRV` key in your keymap (usually to the left of the `1` key) wit
 
 ## What Your OS Sees
 
-If Mary presses `QK_GESC` on her keyboard, the OS will see an KC_ESC character. Now if Mary holds Shift down and presses `QK_GESC` it will output `~`, or a shifted backtick. Now if she holds GUI/CMD/WIN, it will output a simple <code>&#96;</code> character.
+If Mary presses `QK_GESC` on her keyboard, the OS will see an `KC_ESC` character. Now if Mary holds Shift down and presses `QK_GESC` it will output `~`, or a shifted backtick. Now if she holds GUI/CMD/WIN, it will output a simple <code>&#96;</code> character.
 
 ## Keycodes
 

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "B.face",
   "manufacturer": "YMDK",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x594D",
@@ -12,7 +11,6 @@
     "backlight": true,
     "bootmagic": false,
     "command": true,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false,

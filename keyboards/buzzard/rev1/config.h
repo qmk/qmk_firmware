@@ -3,10 +3,6 @@
 
 #pragma once
 
-#ifdef OLED_ENABLE
-#define OLED_DISPLAY_128X32
-#endif
-
 #ifdef PS2_DRIVER_INTERRUPT
 #define PS2_CLOCK_PIN   E6
 #define PS2_DATA_PIN    D7

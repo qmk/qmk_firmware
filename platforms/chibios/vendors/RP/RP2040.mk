@@ -78,7 +78,7 @@ PICOSDKINTRINSICSSRC =  $(PICOSDKROOT)/src/rp2_common/pico_divider/divider.S \
                         $(PICOSDKROOT)/src/rp2_common/pico_int64_ops/pico_int64_ops_aeabi.S
 
 PICOSDKINTRINSICSINC =  $(PICOSDKROOT)/src/common/pico_base/include \
-                        $(PICOSDKROOT)/src/rp2_common/pico_platfrom/include \
+                        $(PICOSDKROOT)/src/rp2_common/pico_platform/include \
                         $(PICOSDKROOT)/src/rp2_common/hardware_divider/include
 
 # integer division intrinsics utilizing the RP2040 hardware divider

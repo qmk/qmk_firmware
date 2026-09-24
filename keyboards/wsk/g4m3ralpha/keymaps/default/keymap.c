@@ -39,14 +39,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_FNCHAR] = LAYOUT(
-        RGB_TOG, RGB_VAD, RGB_VAI, RGB_MOD, RGB_SPD,
+        UG_TOGG, UG_VALD, UG_VALU, UG_NEXT, UG_SPDD,
         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
         KC_GRV,  KC_NO,   KC_MINS, KC_EQL,  KC_BSLS, KC_LBRC, KC_RBRC, KC_SCLN, KC_QUOT, KC_BSPC,
         KC_LCTL, KC_LALT, MO(_FKEYS), KC_TRNS,       LSFT_T(KC_SPC),   KC_COMM, KC_DOT,  KC_SLSH
     ),
 
     [_FKEYS] = LAYOUT(
-        RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_SPI,
+        UG_HUEU, UG_HUED, UG_SATU, UG_SATD, UG_SPDU,
         KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
         KC_F11,  KC_F12,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_DEL,
         KC_LCTL, KC_LALT, KC_TRNS, KC_TRNS,          LSFT_T(KC_SPC),   KC_RGUI, KC_RALT, KC_RCTL

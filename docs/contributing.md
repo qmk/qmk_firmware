@@ -11,7 +11,7 @@ Third-party contributions help us grow and improve QMK. We want to make the pull
 
 ## I Don't Want to Read This Whole Thing! I Just Have a Question!
 
-If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/Uq7gcHh).
+If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/qmk).
 
 Please keep these things in mind:
 
@@ -19,17 +19,17 @@ Please keep these things in mind:
 * Everyone involved with QMK is donating their time and energy. We don't get paid to work on or answer questions about QMK.
 * Try to ask your question so it's as easy to answer as possible. If you're not sure how to do that these are some good guides:
   * https://opensource.com/life/16/10/how-ask-technical-questions
-  * http://www.catb.org/esr/faqs/smart-questions.html
+  * <http://www.catb.org/esr/faqs/smart-questions.html> ([mirror](https://github.com/selfteaching/How-To-Ask-Questions-The-Smart-Way))
 
 # Project Overview
 
-QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR ([LUFA](https://www.fourwalledcubicle.com/LUFA.php)) and ARM ([ChibiOS](https://www.chibios.org)). If you are already well versed in Arduino programming you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.
+QMK is largely written in C, with specific features and parts written in C++. It targets embedded processors found in keyboards, particularly AVR ([LUFA](https://github.com/abcminiuser/lufa)) and ARM ([ChibiOS](https://www.chibios.org)). If you are already well versed in Arduino programming you'll find a lot of the concepts and limitations familiar. Prior experience with Arduino is not required to successfully contribute to QMK.
 
 <!-- FIXME: We should include a list of resources for learning C here. -->
 
 # Where Can I Go for Help?
 
-If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/Uq7gcHh).
+If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/qmk).
 
 # How Do I Make a Contribution?
 
@@ -106,10 +106,10 @@ enum my_keycodes {
 Before opening a pull request, you can preview your changes if you have set up the development environment by running this command from the `qmk_firmware/` folder:
 
 ```
-qmk docs
+qmk docs -b
 ```
 
-and navigating to `http://localhost:5173/`.
+Which should automatically open your browser; otherwise, navigate to `http://localhost:8936/`.
 
 ## Keyboards
 
@@ -128,7 +128,7 @@ We also ask that you follow these guidelines:
 
 Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understanding QMK](understanding_qmk), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
 
-* [Chat on Discord](https://discord.gg/Uq7gcHh)
+* [Chat on Discord](https://discord.gg/qmk)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
 Feature and Bug Fix PRs affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.

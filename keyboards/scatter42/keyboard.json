@@ -10,8 +10,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -29,7 +27,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

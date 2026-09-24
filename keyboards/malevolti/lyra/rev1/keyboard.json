@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Lyra",
     "manufacturer": "Dom",
-    "url": "",
     "maintainer": "malevolti",
     "usb": {
         "vid": "0x4443",
@@ -15,7 +14,9 @@
     "diode_direction": "COL2ROW",
     "split": {
         "enabled": true,
-        "soft_serial_pin": "D2"
+        "serial": {
+            "pin": "D2"
+        }
     },
     "tapping": {
         "term": 100

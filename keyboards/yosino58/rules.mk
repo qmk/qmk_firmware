@@ -1,1 +1,0 @@
-DEFAULT_FOLDER = yosino58/rev1

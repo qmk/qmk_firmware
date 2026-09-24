@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Unikorn60",
     "manufacturer": "Singa x TGR",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5354",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false
@@ -48,6 +46,9 @@
     },
     "processor": "atmega32a",
     "bootloader": "bootloadhid",
+    "layout_aliases": {
+        "LAYOUT_60_tsangan_hhkb": "LAYOUT_60_ansi_tsangan_split_bs_rshift"
+    },
     "layouts": {
         "LAYOUT_all": {
             "layout": [
@@ -193,7 +194,7 @@
                 {"matrix": [4, 13], "x": 13.75, "y": 4, "w": 1.25}
             ]
         },
-        "LAYOUT_60_tsangan_hhkb": {
+        "LAYOUT_60_ansi_tsangan_split_bs_rshift": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

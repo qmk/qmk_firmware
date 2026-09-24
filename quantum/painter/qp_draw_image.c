@@ -318,9 +318,9 @@ static deferred_token qp_render_animation_state(animation_state_t *state, uint16
 }
 
 static uint32_t animation_callback(uint32_t trigger_time, void *cb_arg) {
-    animation_state_t *state = (animation_state_t *)cb_arg;
-    uint16_t           delay_ms;
-    bool               ret = qp_render_animation_state(state, &delay_ms);
+    animation_state_t *state    = (animation_state_t *)cb_arg;
+    uint16_t           delay_ms = 0;
+    bool               ret      = qp_render_animation_state(state, &delay_ms);
     if (!ret) {
         // Setting the device to NULL clears the animation slot
         state->device = NULL;

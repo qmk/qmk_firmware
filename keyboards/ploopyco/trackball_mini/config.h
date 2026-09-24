@@ -38,5 +38,5 @@
 /* Custom encoder needs to specify just how many encoders we have */
 #define NUM_ENCODERS 1
 
-#define ENCODERS_PAD_A { F0 }
-#define ENCODERS_PAD_B { F4 }
+#define ENCODER_A_PINS { F0 }
+#define ENCODER_B_PINS { F4 }

@@ -86,7 +86,7 @@ void solenoid_fire(uint8_t index) {
  *
  */
 void solenoid_fire_handler(void) {
-#ifndef SOLENOID_RANDOM_FIRE
+#ifdef SOLENOID_RANDOM_FIRE
     if (NUMBER_OF_SOLENOIDS > 1) {
         uint8_t i = rand() % NUMBER_OF_SOLENOIDS;
         if (!solenoid_on[i]) {
@@ -158,7 +158,7 @@ void solenoid_setup(void) {
 #endif
         gpio_write_pin(solenoid_pads[i], !solenoid_active_state[i]);
         gpio_set_pin_output(solenoid_pads[i]);
-        if ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state == USB_DEVICE_STATE_CONFIGURED)) {
+        if ((!HAPTIC_OFF_IN_LOW_POWER) || (usb_device_state_get_configure_state() == USB_DEVICE_STATE_CONFIGURED)) {
             solenoid_fire(i);
         }
     }

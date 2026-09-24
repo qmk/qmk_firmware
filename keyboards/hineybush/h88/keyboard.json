@@ -1,7 +1,6 @@
 {
     "keyboard_name": "h88",
     "manufacturer": "hineybush",
-    "url": "",
     "maintainer": "hineybush",
     "usb": {
         "vid": "0x04D8",
@@ -14,8 +13,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -35,7 +32,15 @@
     "backlight": {
         "pin": "B7"
     },
+    "indicators": {
+        "caps_lock": "D5",
+        "scroll_lock": "E6",
+        "on_state": 0
+    },
     "rgblight": {
+        "default": {
+            "val": 128
+        },
         "saturation_steps": 8,
         "brightness_steps": 8,
         "led_count": 24,

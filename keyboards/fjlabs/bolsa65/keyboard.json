@@ -8,6 +8,9 @@
         "pid": "0x0001",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "F7"
+    },
     "matrix_pins": {
         "cols": ["C7", "B1", "B2", "B3", "B7", "D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4", "B5"],
         "rows": ["F1", "F0", "F6", "F5", "F4"]

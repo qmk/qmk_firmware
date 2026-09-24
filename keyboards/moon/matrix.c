@@ -1,26 +1,8 @@
-/*
-Copyright 2012-2019 Jun Wako, Jack Humbert, Yiancar, Mathias Andersson <wraul@dbox.se>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-#include "wait.h"
-#include "print.h"
-#include "debug.h"
-#include "util.h"
+// Copyright 2019 Mathias Andersson <wraul@dbox.se>
+// SPDX-License-Identifier: GPL-2.0-or-later
 #include "matrix.h"
-#include "debounce.h"
 #include "pca9555.h"
+#include "wait.h"
 
 /*
  *       IC1 (PCA9555)                  IC2 (PCA9555)
@@ -70,56 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PORT1_COLS_MASK 0b00111111
 #define COLS_MASK 0b0000011111111111
 
-#if (MATRIX_COLS <= 8)
-#  define print_matrix_header() print("\nr/c 01234567\n")
-#  define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
-#  define ROW_SHIFTER ((uint8_t)1)
-#elif (MATRIX_COLS <= 16)
-#  define print_matrix_header() print("\nr/c 0123456789ABCDEF\n")
-#  define print_matrix_row(row) print_bin_reverse16(matrix_get_row(row))
-#  define ROW_SHIFTER ((uint16_t)1)
-#elif (MATRIX_COLS <= 32)
-#  define print_matrix_header() print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
-#  define print_matrix_row(row) print_bin_reverse32(matrix_get_row(row))
-#  define ROW_SHIFTER ((uint32_t)1)
-#endif
-
-/* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];  // raw values
-static matrix_row_t matrix[MATRIX_ROWS];      // debounced values
-
-__attribute__((weak)) void matrix_init_kb(void) { matrix_init_user(); }
-
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
-
-__attribute__((weak)) void matrix_init_user(void) {}
-
-__attribute__((weak)) void matrix_scan_user(void) {}
-
-inline uint8_t matrix_rows(void) { return MATRIX_ROWS; }
-
-inline uint8_t matrix_cols(void) { return MATRIX_COLS; }
-
-inline bool matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
-
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
-
-void matrix_print(void) {
-  print_matrix_header();
-
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    print_hex8(row);
-    print(": ");
-    print_matrix_row(row);
-    print("\n");
-  }
-}
-
-static void init_i2c(void) {
-  pca9555_init(IC1);
-  pca9555_init(IC2);
-}
-
 static void init_pins(void) {
   // init cols - IC2 port0 & IC2 port1 input
   pca9555_set_config(IC2, PCA9555_PORT0, ALL_INPUT);
@@ -158,45 +90,28 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
   // Clear data in matrix row
   current_matrix[current_row] = 0;
 
-  // Select row and wait for row selecton to stabilize
+  // Select row and wait for row selection to stabilize
   select_row(current_row);
   wait_us(30);
 
-  current_matrix[current_row] |= read_cols();
+  current_matrix[current_row] = read_cols();
 
   // No need to unselect as `select_row` sets all the pins.
 
   return (last_row_value != current_matrix[current_row]);
 }
 
-void matrix_init(void) {
-  // initialize i2c
-  init_i2c();
+void matrix_init_custom(void) {
+  pca9555_init(IC1);
+  pca9555_init(IC2);
 
-  // initialize key pins
   init_pins();
-
-  // initialize matrix state: all keys off
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    raw_matrix[i] = 0;
-    matrix[i]     = 0;
-  }
-
-  debounce_init(MATRIX_ROWS);
-
-  matrix_init_kb();
 }
 
-uint8_t matrix_scan(void) {
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
   bool changed = false;
-
   for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-    changed |= read_cols_on_row(raw_matrix, current_row);
+    changed |= read_cols_on_row(current_matrix, current_row);
   }
-
-  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
-  matrix_scan_kb();
-
-  return (uint8_t)changed;
+  return changed;
 }

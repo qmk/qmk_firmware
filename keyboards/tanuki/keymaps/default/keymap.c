@@ -39,8 +39,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_UL] = LAYOUT(
     KC_GRV,   KC_LBRC,  KC_RBRC,  KC_LCBR,  KC_RCBR,  KC_PIPE,  KC_BSLS,  KC_PLUS,  KC_UNDS,  KC_MINS,  KC_EQL,  KC_DEL,
     KC_TRNS,  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN, KC_TRNS,
-    KC_TRNS,  CUSTRGB,  RGB_TOG,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  RGB_SAD,  RGB_VAD,  KC_TRNS,  KC_TRNS,
-    KC_TRNS,  RGB_MOD,  RGB_HUI,  KC_TRNS,  KC_TRNS,            RGB_SAI,  RGB_VAI),
+    KC_TRNS,  CUSTRGB,  UG_TOGG,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  UG_SATD,  UG_VALD,  KC_TRNS,  KC_TRNS,
+    KC_TRNS,  UG_NEXT,  UG_HUEU,  KC_TRNS,  KC_TRNS,            UG_SATU,  UG_VALU),
 
 [_GL] = LAYOUT(
     KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_UP,    KC_TRNS,  KC_TRNS,
@@ -96,12 +96,12 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-        case RGB_MOD:
-        case RGB_SAD:
-        case RGB_SAI:
-        case RGB_HUI:
-        case RGB_VAD:
-        case RGB_VAI:
+        case QK_UNDERGLOW_MODE_NEXT:
+        case QK_UNDERGLOW_SATURATION_DOWN:
+        case QK_UNDERGLOW_SATURATION_UP:
+        case QK_UNDERGLOW_HUE_UP:
+        case QK_UNDERGLOW_VALUE_DOWN:
+        case QK_UNDERGLOW_VALUE_UP:
             if(user_config.layer_rgb && record->event.pressed) {
                 return false; // if layer RGB is on, ignore attempts to change RGB settings
             }

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Diverge3",
   "manufacturer": "UniKeyboard",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -12,7 +11,6 @@
     "backlight": true,
     "bootmagic": false,
     "command": true,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false
@@ -35,10 +33,12 @@
   },
   "split": {
     "enabled": true,
-    "soft_serial_pin": "D0"
+    "serial": {
+      "pin": "D0",
+      "speed": 3
+    }
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "layouts": {
     "LAYOUT": {
       "layout": [

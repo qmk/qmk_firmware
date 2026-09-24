@@ -1,0 +1,72 @@
+{
+    "manufacturer": "Grigory Avdyushin",
+    "keyboard_name": "franky36",
+    "maintainer": "Grigory Avdyushin",
+    "bootloader": "rp2040",
+    "caps_word": {
+        "both_shifts_turns_on": true
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "caps_word": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "oled": true
+    },
+    "matrix_pins": {
+        "cols": ["GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP26", "GP27", "GP28"],
+        "rows": ["GP5", "GP4", "GP3", "GP2"]
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/avdyushin/franky36",
+    "usb": {
+        "device_version": "0.2.0",
+        "pid": "0x3336",
+        "vid": "0x1209"
+    },
+    "community_layouts": ["split_3x5_3"],
+    "layouts": {
+        "LAYOUT_split_3x5_3": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [0, 5], "x": 5, "y": 0},
+                {"matrix": [0, 6], "x": 6, "y": 0},
+                {"matrix": [0, 7], "x": 7, "y": 0},
+                {"matrix": [0, 8], "x": 8, "y": 0},
+                {"matrix": [0, 9], "x": 9, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1},
+                {"matrix": [1, 3], "x": 3, "y": 1},
+                {"matrix": [1, 4], "x": 4, "y": 1},
+                {"matrix": [1, 5], "x": 5, "y": 1},
+                {"matrix": [1, 6], "x": 6, "y": 1},
+                {"matrix": [1, 7], "x": 7, "y": 1},
+                {"matrix": [1, 8], "x": 8, "y": 1},
+                {"matrix": [1, 9], "x": 9, "y": 1},
+                {"matrix": [2, 0], "x": 0, "y": 2},
+                {"matrix": [2, 1], "x": 1, "y": 2},
+                {"matrix": [2, 2], "x": 2, "y": 2},
+                {"matrix": [2, 3], "x": 3, "y": 2},
+                {"matrix": [2, 4], "x": 4, "y": 2},
+                {"matrix": [2, 5], "x": 5, "y": 2},
+                {"matrix": [2, 6], "x": 6, "y": 2},
+                {"matrix": [2, 7], "x": 7, "y": 2},
+                {"matrix": [2, 8], "x": 8, "y": 2},
+                {"matrix": [2, 9], "x": 9, "y": 2},
+                {"matrix": [3, 2], "x": 2, "y": 3},
+                {"matrix": [3, 3], "x": 3, "y": 3},
+                {"matrix": [3, 4], "x": 4, "y": 3},
+                {"matrix": [3, 5], "x": 5, "y": 3},
+                {"matrix": [3, 6], "x": 6, "y": 3},
+                {"matrix": [3, 7], "x": 7, "y": 3}
+            ]
+        }
+    }
+}

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Rartlice",
     "manufacturer": "Alabahuy",
-    "url": "",
     "maintainer": "Alabahuy",
     "usb": {
         "vid": "0x414C",

@@ -14,8 +14,7 @@
         "wpm": true
     },
     "indicators": {
-        "caps_lock": "GP25",
-        "on_state": 1
+        "caps_lock": "GP25"
     },
     "matrix_pins": {
         "cols": ["GP2", "GP3", "GP6", "GP7", "GP10", "GP11"],
@@ -130,6 +129,9 @@
                 "rows": ["GP11", "GP13", "GP12", "GP14"]
             }
         },
+        "serial": {
+            "driver": "vendor"
+        },
         "transport": {
             "sync": {
                 "indicators": true,
@@ -140,7 +142,6 @@
             }
         }
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0xBFC2",

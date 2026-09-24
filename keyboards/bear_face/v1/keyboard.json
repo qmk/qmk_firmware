@@ -1,9 +1,13 @@
 {
+    "keyboard_name": "bear_face v1",
     "usb": {
         "device_version": "1.0.0"
     },
+    "backlight": {
+        "on_state": 0
+    },
     "layouts": {
-        "LAYOUT_83_ansi": {
+        "LAYOUT": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0, "w": 1.5},
                 {"matrix": [0, 1], "x": 1.5, "y": 0},

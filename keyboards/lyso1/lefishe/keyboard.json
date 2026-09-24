@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Le_Fishe",
     "manufacturer": "Lyso1",
-    "url": "",
     "maintainer": "Lyso1",
     "usb": {
         "vid": "0x7856",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

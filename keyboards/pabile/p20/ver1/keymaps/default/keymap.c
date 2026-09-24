@@ -15,18 +15,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_RPRN, KC_NO,   KC_PSLS, KC_NO),
     [2] = LAYOUT_ortho_5x4(
         KC_NUM,  KC_NO,   KC_NO,   KC_NO,
-        KC_BTN1, KC_MS_U, KC_BTN2, KC_NO,
-        KC_MS_L, KC_MS_D, KC_MS_R, KC_TAB,
-        KC_WH_U, KC_NO,   KC_WH_D, KC_NO,
+        MS_BTN1, MS_UP,   MS_BTN2, KC_NO,
+        MS_LEFT, MS_DOWN, MS_RGHT, KC_TAB,
+        MS_WHLU, KC_NO,   MS_WHLD, KC_NO,
         KC_NO,   KC_NO,   KC_DEL,  KC_ESC)
 };
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
-      tap_code(KC_WH_U); /*mouse wheel up*/
+      tap_code(MS_WHLU); /*mouse wheel up*/
     } else {
-      tap_code(KC_WH_D); /*mouse wheel down */
+      tap_code(MS_WHLD); /*mouse wheel down */
     }
   } else if (index == 1) { /* Second encoder */
     if (clockwise) {

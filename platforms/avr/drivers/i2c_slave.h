@@ -22,6 +22,8 @@
 
 #pragma once
 
+#include "compiler_support.h"
+
 #ifndef I2C_SLAVE_REG_COUNT
 
 #    if defined(USE_I2C) && defined(SPLIT_COMMON_TRANSACTIONS)
@@ -33,7 +35,7 @@
 
 #endif // I2C_SLAVE_REG_COUNT
 
-_Static_assert(I2C_SLAVE_REG_COUNT < 256, "I2C target registers must be single byte");
+STATIC_ASSERT(I2C_SLAVE_REG_COUNT < 256, "I2C target registers must be single byte");
 
 extern volatile uint8_t i2c_slave_reg[I2C_SLAVE_REG_COUNT];
 

@@ -21,3 +21,6 @@
 
 /* Enable caps-lock LED */
 #define CAPS_LOCK_LED_INDEX 52
+
+/* Enable num-lock LED */
+#define NUM_LOCK_LED_INDEX 31

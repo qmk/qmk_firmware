@@ -47,11 +47,13 @@ typedef struct {
     uint16_t mode_0_actuation_threshold;                                        // threshold for key press in mode 0
     uint16_t mode_0_release_threshold;                                          // threshold for key release in mode 0
     uint16_t mode_1_initial_deadzone_offset;                                    // threshold for key press in mode 1 (initial deadzone)
+    uint8_t  mode_1_actuation_offset;                                           // offset for key press in mode 1 (1-255)
+    uint8_t  mode_1_release_offset;                                             // offset for key release in mode 1 (1-255)
     uint16_t rescaled_mode_0_actuation_threshold[MATRIX_ROWS][MATRIX_COLS];     // threshold for key press in mode 0 rescaled to actual scale
     uint16_t rescaled_mode_0_release_threshold[MATRIX_ROWS][MATRIX_COLS];       // threshold for key release in mode 0 rescaled to actual scale
     uint16_t rescaled_mode_1_initial_deadzone_offset[MATRIX_ROWS][MATRIX_COLS]; // threshold for key press in mode 1 (initial deadzone) rescaled to actual scale
-    uint8_t  mode_1_actuation_offset;                                           // offset for key press in mode 1 (1-255)
-    uint8_t  mode_1_release_offset;                                             // offset for key release in mode 1 (1-255)
+    uint8_t  rescaled_mode_1_actuation_offset[MATRIX_ROWS][MATRIX_COLS];        // offset for key press in mode 1 rescaled to actual scale
+    uint8_t  rescaled_mode_1_release_offset[MATRIX_ROWS][MATRIX_COLS];          // offset for key release in mode 1 rescaled to actual scale
     uint16_t extremum[MATRIX_ROWS][MATRIX_COLS];                                // extremum values for mode 1
     uint16_t noise_floor[MATRIX_ROWS][MATRIX_COLS];                             // noise floor detected during startup
     bool     bottoming_calibration;                                             // calibration mode for bottoming out values (true: calibration mode, false: normal mode)
@@ -81,3 +83,7 @@ bool     ec_update_key(matrix_row_t* current_row, uint8_t row, uint8_t col, uint
 void     ec_print_matrix(void);
 
 uint16_t rescale(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uint16_t out_max);
+
+#ifdef UNUSED_POSITIONS_LIST
+bool is_unused_position(uint8_t row, uint8_t col);
+#endif

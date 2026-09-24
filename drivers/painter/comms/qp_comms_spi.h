@@ -22,7 +22,7 @@ typedef struct qp_comms_spi_config_t {
 bool     qp_comms_spi_init(painter_device_t device);
 bool     qp_comms_spi_start(painter_device_t device);
 uint32_t qp_comms_spi_send_data(painter_device_t device, const void* data, uint32_t byte_count);
-void     qp_comms_spi_stop(painter_device_t device);
+bool     qp_comms_spi_stop(painter_device_t device);
 
 extern const painter_comms_vtable_t spi_comms_vtable;
 
@@ -39,9 +39,9 @@ typedef struct qp_comms_spi_dc_reset_config_t {
 } qp_comms_spi_dc_reset_config_t;
 
 bool     qp_comms_spi_dc_reset_init(painter_device_t device);
-void     qp_comms_spi_dc_reset_send_command(painter_device_t device, uint8_t cmd);
+bool     qp_comms_spi_dc_reset_send_command(painter_device_t device, uint8_t cmd);
 uint32_t qp_comms_spi_dc_reset_send_data(painter_device_t device, const void* data, uint32_t byte_count);
-void     qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const uint8_t* sequence, size_t sequence_len);
+bool     qp_comms_spi_dc_reset_bulk_command_sequence(painter_device_t device, const uint8_t* sequence, size_t sequence_len);
 
 extern const painter_comms_with_command_vtable_t spi_comms_with_dc_vtable;
 

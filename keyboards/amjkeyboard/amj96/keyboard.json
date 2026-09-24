@@ -1,7 +1,6 @@
 {
     "keyboard_name": "AMJ96",
     "manufacturer": "Han Chen",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x00D8",

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "BOCC",
     "manufacturer": "DZTECH",
-    "url": "",
     "maintainer": "DZTECH",
     "usb": {
         "vid": "0x445A",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -32,6 +29,10 @@
     "backlight": {
         "pin": "B7",
         "levels": 5
+    },
+    "indicators": {
+        "caps_lock": "E6",
+        "on_state": 0
     },
     "rgblight": {
         "saturation_steps": 8,

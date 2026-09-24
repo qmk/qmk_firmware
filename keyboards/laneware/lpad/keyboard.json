@@ -1,7 +1,6 @@
 {
     "keyboard_name": "L-PAD",
     "manufacturer": "Laneware Peripherals",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4C50",
@@ -12,8 +11,6 @@
     "bootloader": "atmel-dfu",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

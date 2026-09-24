@@ -1,0 +1,19 @@
+{
+    "manufacturer": "strobo5",
+    "keyboard_name": "converter/thinkpad_t6x/rpi_pico",
+    "maintainer": "strobo5",
+    "matrix_pins": {
+        "cols": ["GP7", "GP9", "GP11", "GP13", "GP17", "GP16", "GP14", "GP12", "GP15", "GP8", "GP10", "GP6", "GP4", "GP2", "GP5", "GP3"],
+        "rows": ["GP20", "GP26", "GP22", "GP21", "GP18", "GP19", "GP27", "GP28"]
+    },
+    "ps2": {
+        "clock_pin": "GP1",
+        "data_pin": "GP0"
+    },
+    "url": "https://github.com/strobo5/T61_PiPico_Scanner",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x0000",
+        "vid": "0xFEED"
+    }
+}

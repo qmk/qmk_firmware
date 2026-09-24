@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Octopad",
     "manufacturer": "Neil Brian Ramirez",
-    "url": "",
     "maintainer": "Neil Brian Ramirez",
     "usb": {
         "vid": "0xD812",
@@ -14,8 +13,6 @@
     "features": {
         "audio": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

@@ -56,18 +56,14 @@ static void handle_backlight_caps_lock(led_t led_state) {
 #endif
 
 static uint32_t last_led_modification_time = 0;
-uint32_t        last_led_activity_time(void) {
+
+uint32_t last_led_activity_time(void) {
     return last_led_modification_time;
 }
+
 uint32_t last_led_activity_elapsed(void) {
     return timer_elapsed32(last_led_modification_time);
 }
-
-/** \brief Lock LED set callback - keymap/user level
- *
- * \deprecated Use led_update_user() instead.
- */
-__attribute__((weak)) void led_set_user(uint8_t usb_led) {}
 
 /** \brief Lock LED update callback - keymap/user level
  *
@@ -146,7 +142,6 @@ __attribute__((weak)) void led_set(uint8_t usb_led) {
     handle_backlight_caps_lock((led_t)usb_led);
 #endif
 
-    led_set_user(usb_led);
     led_update_kb((led_t)usb_led);
 }
 

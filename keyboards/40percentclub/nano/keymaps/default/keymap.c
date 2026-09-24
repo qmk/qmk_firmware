@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_FN] = LAYOUT(
-     KC_F,    _______, RGB_HUI, _______,
-     RGB_TOG, RGB_MOD, RGB_HUD, _______
+     KC_F,    _______, UG_HUEU, _______,
+     UG_TOGG, UG_NEXT, UG_HUED, _______
   )
 };

@@ -2,11 +2,8 @@
 
 ![Mint60](https://i.imgur.com/suOE8HN.jpg)
 
-A short description of the keyboard/project
-
 Keyboard Maintainer: [Eucalyn](https://github.com/eucalyn)  [@eucalyn_](https://twitter.com/eucalyn_)  
 Hardware Supported: The Mint60 PCBs, ProMicro supported  
-Hardware Availability: links to where you can find this hardware
 
 Make example for this keyboard (after setting up your build environment):
 

@@ -1,6 +1,5 @@
 {
     "manufacturer": "4pplet",
-    "url": "",
     "maintainer": "4pplet",
     "usb": {
         "vid": "0x4444"

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Volcano660",
     "manufacturer": "DZTech",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0x445A",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
@@ -31,6 +28,12 @@
     "backlight": {
         "pin": "B7",
         "levels": 5
+    },
+    "indicators": {
+        "caps_lock": "D2",
+        "num_lock": "D0",
+        "scroll_lock": "D1",
+        "on_state": 0
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",

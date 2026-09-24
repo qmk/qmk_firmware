@@ -1,7 +1,6 @@
 {
    "keyboard_name": "Rubi",
    "manufacturer": "gregorio",
-   "url": "https://github.com/ohchiko/qmk_firmware/tree/master/keyboards/rubi",
    "maintainer": "gregorio",
    "usb": {
       "vid": "0x4752",
@@ -22,6 +21,9 @@
             "resync": true
         }
     },
+   "indicators": {
+      "caps_lock": "C6"
+   },
    "build": {
       "lto": true
    },

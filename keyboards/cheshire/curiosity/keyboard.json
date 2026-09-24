@@ -7,6 +7,12 @@
         "pid": "0x0FAD",
         "device_version": "0.0.1"
     },
+    "indicators": {
+        "caps_lock": "A9",
+        "num_lock": "A8",
+        "scroll_lock": "A10",
+        "on_state": 0
+    },
     "rgblight": {
         "led_count": 14,
         "animations": {
@@ -27,8 +33,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

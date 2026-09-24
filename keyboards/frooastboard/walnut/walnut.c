@@ -61,26 +61,4 @@ const is31fl3737_led_t PROGMEM g_is31fl3737_leds[IS31FL3737_LED_COUNT] = {
     {0, SW2_CS11,    SW1_CS11,    SW3_CS11},
     {0, SW2_CS12,    SW1_CS12,    SW3_CS12}
 };
-
-led_config_t g_led_config = {
-    {
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED },
-        { NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED,   NO_LED }
-    }, {
-        {0, 62},   {0, 50},   {0, 38},   {0, 26},   {0, 14},   {0, 2},
-        {0, 2},    {12, 2},   {24, 2},   {36, 2},   {48, 2},   {60, 2},   {72, 2},   {84, 2},   {96, 2},   {108, 2},  {120, 2},  {132, 2},  {144, 2},  {156, 2},  {168, 2},  {180, 2},  {192, 2},  {204, 2},
-        {204, 2},  {204, 14}, {204, 26}, {204, 38}, {204, 50}, {204, 62},
-        {204, 62}, {192, 62}, {180, 62}, {168, 62}, {156, 62}, {144, 62}, {132, 62}, {120, 62}, {108, 62}, {96, 62},  {84, 62},  {72, 62},  {60, 62},  {48, 62},  {36, 62},  {24, 62},  {12, 62},  {0, 62}
-    }, {
-        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2
-    }
-};
-
 #endif // defined(RGB_MATRIX_ENABLE)

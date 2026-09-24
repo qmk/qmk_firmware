@@ -85,7 +85,7 @@ bool led_matrix_indicators_kb(void) {
     if (layer_state_is(4)) {
         led_matrix_set_value(113, 0xFF);
     } else {
-        led_matrix_set_value(114, 0x00);
+        led_matrix_set_value(113, 0x00);
     }
 
     return true;

@@ -46,7 +46,7 @@ class KLE2xy(list):
         if 'name' in properties:
             self.name = properties['name']
 
-    def parse_layout(self, layout):  # noqa  FIXME(skullydazed): flake8 says this has a complexity of 25, it should be refactored.
+    def parse_layout(self, layout):  # noqa: C901 flake8 says this has a complexity of 25, it should be refactored.
         # Wrap this in a dictionary so hjson will parse KLE raw data
         layout = '{"layout": [' + layout + ']}'
         layout = hjson.loads(layout)['layout']
@@ -60,7 +60,7 @@ class KLE2xy(list):
             self.attrs(layout[0])
             layout = layout[1:]
 
-        for row_num, row in enumerate(layout):
+        for _row_num, row in enumerate(layout):
             self.append([])
 
             # Process the current row

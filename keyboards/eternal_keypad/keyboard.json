@@ -10,12 +10,15 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,
         "rgblight": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "qmk": {
         "locking": {

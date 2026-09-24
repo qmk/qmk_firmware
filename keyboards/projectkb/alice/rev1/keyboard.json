@@ -15,6 +15,11 @@
             "resync": true
         }
     },
+    "indicators": {
+        "caps_lock": "A1",
+        "num_lock": "A0",
+        "scroll_lock": "A2"
+    },
     "rgblight": {
         "led_count": 14,
         "animations": {

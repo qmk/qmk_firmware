@@ -16,9 +16,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 
-/* Select hand configuration */
-//#define EE_HANDS
-#define MASTER_LEFT
-//#define MASTER_RIGHT
-
 #define OLED_FONT_H "keyboards/basekeys/slice/slice_font.c"
