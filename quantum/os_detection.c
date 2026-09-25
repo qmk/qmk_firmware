@@ -147,7 +147,7 @@ void process_wlength(const uint16_t w_length) {
     // now try to make a guess
     os_variant_t guessed = OS_UNSURE;
     if (setups_data.count >= 3) {
-        if (setups_data.cnt_ff >= 2 && setups_data.cnt_04 >= 1) {
+        if (setups_data.cnt_ff >= 2 && setups_data.cnt_04 >= 1 && setups_data.cnt_02 < 2) {
             guessed = OS_WINDOWS;
         } else if (setups_data.count == setups_data.cnt_ff) {
             // Linux has 3 packets with 0xFF.
