@@ -30,6 +30,7 @@ typedef struct PACKED {
     uint32_t haptic;
     uint8_t  rgblight_ext;
     uint8_t  connection;
+    uint8_t  autocorrect;
 } eeprom_core_t;
 
 /* EEPROM parameter address */
@@ -50,6 +51,7 @@ typedef struct PACKED {
 #define EECONFIG_HAPTIC (uint32_t *)(offsetof(eeprom_core_t, haptic))
 #define EECONFIG_RGBLIGHT_EXTENDED (uint8_t *)(offsetof(eeprom_core_t, rgblight_ext))
 #define EECONFIG_CONNECTION (uint8_t *)(offsetof(eeprom_core_t, connection))
+#define EECONFIG_AUTOCORRECT (uint8_t *)(offsetof(eeprom_core_t, autocorrect))
 
 // Size of EEPROM being used for core data storage
 #define EECONFIG_BASE_SIZE ((uint8_t)sizeof(eeprom_core_t))
