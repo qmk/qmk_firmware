@@ -23,7 +23,8 @@
     },
     "features": {
         "extrakey": true,
-        "nkro": true
+        "nkro": true,
+        "steno": true
     },
     "qmk": {
         "locking": {
@@ -46,10 +47,6 @@
             "matrix": [5, 5]
         }
     },
-    "stenography": {
-        "enabled": true,
-        "protocol": "all"
-    }
     "development_board": "promicro",
     "community_layouts": ["ortho_5x12"],
     "layouts": {
