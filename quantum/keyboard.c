@@ -102,9 +102,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef ST7565_ENABLE
 #    include "st7565.h"
 #endif
-#ifdef VIA_ENABLE
-#    include "via.h"
-#endif
 #ifdef DIP_SWITCH_ENABLE
 #    include "dip_switch.h"
 #endif
@@ -463,9 +460,6 @@ void quantum_init(void) {
 void keyboard_init(void) {
     timer_init();
     sync_timer_init();
-#ifdef VIA_ENABLE
-    via_init();
-#endif
 #ifdef SPLIT_KEYBOARD
     split_pre_init();
 #endif
