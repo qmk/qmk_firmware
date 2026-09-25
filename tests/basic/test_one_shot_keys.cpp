@@ -311,6 +311,51 @@ TEST_F(OneShot, OSLWithAdditionalKeypress) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(OneShot, HeldOSLReleasesLayerWhileModifierRemainsHeld) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key       = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  modifier_base = KeymapKey{0, 1, 0, KC_TRNS};
+    KeymapKey  modifier_key  = KeymapKey{1, 1, 0, KC_LCTL};
+    KeymapKey  base_key      = KeymapKey{0, 1, 1, KC_A};
+    KeymapKey  layer_key     = KeymapKey{1, 1, 1, KC_4};
+
+    set_keymap({osl_key, modifier_base, modifier_key, base_key, layer_key});
+
+    /* Hold OSL and then hold a modifier from its layer. */
+    EXPECT_NO_REPORT(driver);
+    osl_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    modifier_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Releasing OSL should restore the base layer like MO would. */
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL));
+    osl_key.release();
+    run_one_scan_loop();
+    EXPECT_FALSE(layer_state_is(1));
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL, KC_A));
+    base_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LEFT_CTRL));
+    base_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    modifier_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(OneShot, OSLWithOsmAndAdditionalKeypress) {
     TestDriver driver;
     InSequence s;
