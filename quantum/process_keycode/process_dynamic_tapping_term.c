@@ -46,7 +46,9 @@ bool process_dynamic_tapping_term(uint16_t keycode, keyrecord_t *record) {
                 return false;
 
             case QK_DYNAMIC_TAPPING_TERM_DOWN:
-                g_tapping_term -= DYNAMIC_TAPPING_TERM_INCREMENT;
+                if (g_tapping_term > DYNAMIC_TAPPING_TERM_INCREMENT) {
+                    g_tapping_term -= DYNAMIC_TAPPING_TERM_INCREMENT;
+                }
                 return false;
         }
     }
