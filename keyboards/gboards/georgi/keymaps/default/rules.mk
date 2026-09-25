@@ -1,5 +1,4 @@
 NO_REPEAT				 = no
-VERBOSE					 = yes
 KEYBOARD_SHARED_EP       = yes
 STENO_LAYERS			 = no
 
