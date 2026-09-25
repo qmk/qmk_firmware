@@ -147,7 +147,14 @@ uint8_t rgblight_led_index(uint8_t index) {
 }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, int index) {
-    rgblight_driver.set_color(rgblight_led_index(index), r, g, b);
+    uint8_t led_index = rgblight_led_index(index);
+    // On split keyboards each half only drives the LEDs in its clipping range. The index of an
+    // LED on the other half wraps around in rgblight_led_index() and must not reach the driver,
+    // which does not bounds-check it.
+    if (led_index >= rgblight_ranges.clipping_num_leds) {
+        return;
+    }
+    rgblight_driver.set_color(led_index, r, g, b);
 }
 
 void sethsv_raw(uint8_t hue, uint8_t sat, uint8_t val, int index) {
@@ -628,7 +635,7 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
     }
 
     for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
-        rgblight_driver.set_color(rgblight_led_index(i), r, g, b);
+        setrgb(r, g, b, i);
     }
     rgblight_set();
 }
@@ -638,7 +645,7 @@ void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index) {
         return;
     }
 
-    rgblight_driver.set_color(rgblight_led_index(index), r, g, b);
+    setrgb(r, g, b, index);
     rgblight_set();
 }
 
@@ -669,7 +676,7 @@ void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8
     }
 
     for (uint8_t i = start; i < end; i++) {
-        rgblight_driver.set_color(rgblight_led_index(i), r, g, b);
+        setrgb(r, g, b, i);
     }
     rgblight_set();
 }
@@ -861,7 +868,7 @@ void rgblight_wakeup(void) {
 void rgblight_set(void) {
     if (!rgblight_config.enable) {
         for (uint8_t i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
-            rgblight_driver.set_color(rgblight_led_index(i), 0, 0, 0);
+            setrgb(0, 0, 0, i);
         }
     }
 
@@ -1198,7 +1205,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
 #    endif
 
     for (i = 0; i < rgblight_ranges.effect_num_leds; i++) {
-        rgblight_driver.set_color(rgblight_led_index(i + rgblight_ranges.effect_start_pos), 0, 0, 0);
+        setrgb(0, 0, 0, i + rgblight_ranges.effect_start_pos);
 
         for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
             k = pos + j * increment;
@@ -1254,7 +1261,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
 #    endif
     // Set all the LEDs to 0
     for (i = rgblight_ranges.effect_start_pos; i < rgblight_ranges.effect_end_pos; i++) {
-        rgblight_driver.set_color(rgblight_led_index(i), 0, 0, 0);
+        setrgb(0, 0, 0, i);
     }
     // Determine which LEDs should be lit up
     for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
@@ -1263,7 +1270,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
         if (i >= low_bound && i <= high_bound) {
             sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, cur);
         } else {
-            rgblight_driver.set_color(rgblight_led_index(cur), 0, 0, 0);
+            setrgb(0, 0, 0, cur);
         }
     }
     rgblight_set();
