@@ -339,7 +339,7 @@ LED_MATRIX_EFFECT(my_cool_effect2)
 // e.g: A simple effect, self-contained within a single method
 static bool my_cool_effect(effect_params_t* params) {
   LED_MATRIX_USE_LIMITS(led_min, led_max);
-  for (uint8_t i = led_min; i < led_max; i++) {
+  for (led_index_t i = led_min; i < led_max; i++) {
     led_matrix_set_value(i, 0xFF);
   }
   return led_matrix_check_finished_leds(led_max);
@@ -353,7 +353,7 @@ static void my_cool_effect2_complex_init(effect_params_t* params) {
 }
 static bool my_cool_effect2_complex_run(effect_params_t* params) {
   LED_MATRIX_USE_LIMITS(led_min, led_max);
-  for (uint8_t i = led_min; i < led_max; i++) {
+  for (led_index_t i = led_min; i < led_max; i++) {
     led_matrix_set_value(i, some_global_state++);
   }
   return led_matrix_check_finished_leds(led_max);
@@ -491,7 +491,7 @@ bool led_matrix_indicators_kb(void) {
 In addition, there are the advanced indicator functions.  These are aimed at those with heavily customized displays, where rendering every LED per cycle is expensive.  This includes a special macro to help make this easier to use: `LED_MATRIX_INDICATOR_SET_VALUE(i, v)`.
 
 ```c
-void led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
+void led_matrix_indicators_advanced_user(led_index_t led_min, led_index_t led_max) {
     LED_MATRIX_INDICATOR_SET_VALUE(index, value);
     return false;
 }
@@ -545,7 +545,7 @@ Get the current enabled state of LED Matrix.
 
 ---
 
-### `void led_matrix_set_value(uint8_t index, uint8_t v)` {#led-matrix-set-value}
+### `void led_matrix_set_value(led_index_t index, uint8_t v)` {#led-matrix-set-value}
 
 Set the brightness of a single LED.
 
@@ -553,7 +553,7 @@ This function can only be run from within an effect or indicator callback, other
 
 #### Arguments {#api-led-matrix-set-value-arguments}
 
- - `uint8_t index`  
+ - `led_index_t index`  
    The LED index, from 0 to `LED_MATRIX_LED_COUNT - 1`.
  - `uint8_t v`  
    The brightness value to set.
@@ -811,15 +811,15 @@ Keymap-level callback, invoked after current animation frame is rendered but bef
 
 ---
 
-### `bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max)` {#api-led-matrix-indicators-advanced-kb}
+### `bool led_matrix_indicators_advanced_kb(led_index_t led_min, led_index_t led_max)` {#api-led-matrix-indicators-advanced-kb}
 
 Keyboard-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
 
 ### Arguments {#api-led-matrix-indicators-advanced-kb-arguments}
 
- - `uint8_t led_min`  
+ - `led_index_t led_min`  
    The index of the first LED in this batch.
- - `uint8_t led_max`  
+ - `led_index_t led_max`  
    The index of the last LED in this batch.
 
 #### Return Value {#api-led-matrix-indicators-advanced-kb-return}
@@ -828,15 +828,15 @@ Currently unused.
 
 ---
 
-### `bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max)` {#api-led-matrix-indicators-advanced-user}
+### `bool led_matrix_indicators_advanced_user(led_index_t led_min, led_index_t led_max)` {#api-led-matrix-indicators-advanced-user}
 
 Keymap-level callback, invoked after current animation frame is rendered but before it is flushed to the LEDs.
 
 ### Arguments {#api-led-matrix-indicators-advanced-user-arguments}
 
- - `uint8_t led_min`  
+ - `led_index_t led_min`  
    The index of the first LED in this batch.
- - `uint8_t led_max`  
+ - `led_index_t led_max`  
    The index of the last LED in this batch.
 
 #### Return Value {#api-led-matrix-indicators-advanced-user-return}
