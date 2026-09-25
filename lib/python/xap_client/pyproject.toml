@@ -1,0 +1,11 @@
+[project]
+name = "xap_client"
+description = "XAP Client"
+version = "0.0.0"
+dependencies = [
+    "hid ~= 1.0.5",
+]
+
+[tool.setuptools]
+packages = ['xap_client']
+package-dir = { 'xap_client' = '.' }

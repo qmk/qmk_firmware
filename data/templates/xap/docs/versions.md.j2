@@ -1,0 +1,6 @@
+{{ constants.GPL2_HEADER_XML_LIKE }}
+{{ constants.GENERATED_HEADER_XML_LIKE }}
+
+{%- for ver in versions | reverse -%}
+* [XAP Version {{ ver }}](xap_{{ ver }}.md)
+{% endfor %}
