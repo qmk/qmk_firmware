@@ -44,4 +44,5 @@ enum AP2KeyCodes {
     KC_AP_RGB_VAD,
     KC_AP_RGB_TOG,
     KC_AP_RGB_MOD,
+    KC_AP2_IAP,
 };
