@@ -74,17 +74,17 @@ bool TYPING_HEATMAP(effect_params_t* params) {
     }
 
     // Render heatmap & decrease
-    uint8_t count = 0;
+    led_index_t count = 0;
     for (uint8_t row = 0; row < MATRIX_ROWS && count < RGB_MATRIX_LED_PROCESS_LIMIT; row++) {
-        for (uint8_t col = 0; col < MATRIX_COLS && RGB_MATRIX_LED_PROCESS_LIMIT; col++) {
+        for (uint8_t col = 0; col < MATRIX_COLS && count < RGB_MATRIX_LED_PROCESS_LIMIT; col++) {
             uint8_t val = g_rgb_frame_buffer[row][col];
 
             bool processed = false;
 
-            uint8_t led[LED_HITS_TO_REMEMBER];
-            uint8_t led_count = rgb_matrix_map_row_column_to_led(row, col, led);
-            for (uint8_t index = 0; index < led_count; index++) {
-                uint8_t led_index = led[index];
+            led_index_t led[LED_HITS_TO_REMEMBER];
+            led_index_t led_count = rgb_matrix_map_row_column_to_led(row, col, led);
+            for (led_index_t index = 0; index < led_count; index++) {
+                led_index_t led_index = led[index];
 
                 if (led_index >= led_min && led_index < led_max) {
                     count++;

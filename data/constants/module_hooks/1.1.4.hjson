@@ -1,0 +1,16 @@
+{
+    rgb_matrix_indicators_advanced: {
+        ret_type: bool
+        args: led_index_t led_min, led_index_t led_max
+        call_params: led_min, led_max
+        guard: defined(RGB_MATRIX_ENABLE)
+        header: rgb_matrix.h
+    }
+    led_matrix_indicators_advanced: {
+        ret_type: bool
+        args: led_index_t led_min, led_index_t led_max
+        call_params: led_min, led_max
+        guard: defined(LED_MATRIX_ENABLE)
+        header: led_matrix.h
+    }
+}

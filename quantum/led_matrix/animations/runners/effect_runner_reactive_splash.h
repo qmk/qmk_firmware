@@ -8,7 +8,7 @@ bool effect_runner_reactive_splash(uint8_t start, effect_params_t* params, react
     LED_MATRIX_USE_LIMITS(led_min, led_max);
 
     uint8_t count = g_last_hit_tracker.count;
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (led_index_t i = led_min; i < led_max; i++) {
         LED_MATRIX_TEST_LED_FLAGS();
         uint8_t val = 0;
         for (uint8_t j = start; j < count; j++) {
