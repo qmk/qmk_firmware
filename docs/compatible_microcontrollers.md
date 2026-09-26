@@ -40,6 +40,7 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [STM32F407](https://www.st.com/en/microcontrollers-microprocessors/stm32f407-417.html)
  * [STM32F411](https://www.st.com/en/microcontrollers-microprocessors/stm32f411.html)
    * WeAct Blackpill
+ * [STM32F412](https://www.st.com/en/microcontrollers-microprocessors/stm32f412.html)
  * [STM32F446](https://www.st.com/en/microcontrollers-microprocessors/stm32f446.html)
  * [STM32G431](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x1.html)
  * [STM32G474](https://www.st.com/en/microcontrollers-microprocessors/stm32g4x4.html)
