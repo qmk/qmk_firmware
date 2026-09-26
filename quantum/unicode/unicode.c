@@ -56,6 +56,11 @@
 #    define UNICODE_TYPE_DELAY 10
 #endif
 
+// Delay between `register_code` and `unregister_code` for Unicode "keystrokes"
+#ifndef UNICODE_TAP_DELAY
+#    define UNICODE_TAP_DELAY TAP_CODE_DELAY
+#endif
+
 unicode_config_t unicode_config;
 uint8_t          unicode_saved_mods;
 led_t            unicode_saved_led_state;
@@ -209,7 +214,7 @@ __attribute__((weak)) void unicode_input_start(void) {
     // UNICODE_KEY_LNX (which is usually Ctrl-Shift-U) might not work
     // correctly in the shifted case.
     if (unicode_config.input_mode == UNICODE_MODE_LINUX && unicode_saved_led_state.caps_lock) {
-        tap_code(KC_CAPS_LOCK);
+        tap_code(KC_CAPS_LOCK); // Note: uses TAP_HOLD_CAPS_DELAY
     }
 
     unicode_saved_mods = get_mods(); // Save current mods
@@ -221,26 +226,26 @@ __attribute__((weak)) void unicode_input_start(void) {
             register_code(UNICODE_KEY_MAC);
             break;
         case UNICODE_MODE_LINUX:
-            tap_code16(UNICODE_KEY_LNX);
+            tap_code16_delay(UNICODE_KEY_LNX, UNICODE_TAP_DELAY);
             break;
         case UNICODE_MODE_WINDOWS:
             // For increased reliability, use numpad keys for inputting digits
             if (!unicode_saved_led_state.num_lock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code_delay(KC_NUM_LOCK, UNICODE_TAP_DELAY);
             }
             register_code(KC_LEFT_ALT);
             wait_ms(UNICODE_TYPE_DELAY);
-            tap_code(KC_KP_PLUS);
+            tap_code_delay(KC_KP_PLUS, UNICODE_TAP_DELAY);
             break;
         case UNICODE_MODE_WINCOMPOSE:
-            tap_code(UNICODE_KEY_WINC);
-            tap_code(KC_U);
+            tap_code_delay(UNICODE_KEY_WINC, UNICODE_TAP_DELAY);
+            tap_code_delay(KC_U, UNICODE_TAP_DELAY);
             break;
         case UNICODE_MODE_EMACS:
             // The usual way to type unicode in emacs is C-x-8 <RET> then the unicode number in hex
-            tap_code16(LCTL(KC_X));
-            tap_code16(KC_8);
-            tap_code16(KC_ENTER);
+            tap_code16_delay(LCTL(KC_X), UNICODE_TAP_DELAY);
+            tap_code16_delay(KC_8, UNICODE_TAP_DELAY);
+            tap_code16_delay(KC_ENTER, UNICODE_TAP_DELAY);
             break;
     }
 
@@ -253,22 +258,22 @@ __attribute__((weak)) void unicode_input_finish(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UNICODE_MODE_LINUX:
-            tap_code(KC_SPACE);
+            tap_code_delay(KC_SPACE, UNICODE_TAP_DELAY);
             if (unicode_saved_led_state.caps_lock) {
-                tap_code(KC_CAPS_LOCK);
+                tap_code(KC_CAPS_LOCK); // Note: uses TAP_HOLD_CAPS_DELAY
             }
             break;
         case UNICODE_MODE_WINDOWS:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code_delay(KC_NUM_LOCK, UNICODE_TAP_DELAY);
             }
             break;
         case UNICODE_MODE_WINCOMPOSE:
-            tap_code(KC_ENTER);
+            tap_code_delay(KC_ENTER, UNICODE_TAP_DELAY);
             break;
         case UNICODE_MODE_EMACS:
-            tap_code16(KC_ENTER);
+            tap_code16_delay(KC_ENTER, UNICODE_TAP_DELAY);
             break;
     }
 
@@ -281,22 +286,22 @@ __attribute__((weak)) void unicode_input_cancel(void) {
             unregister_code(UNICODE_KEY_MAC);
             break;
         case UNICODE_MODE_LINUX:
-            tap_code(KC_ESCAPE);
+            tap_code_delay(KC_ESCAPE, UNICODE_TAP_DELAY);
             if (unicode_saved_led_state.caps_lock) {
-                tap_code(KC_CAPS_LOCK);
+                tap_code(KC_CAPS_LOCK); // Note: uses TAP_HOLD_CAPS_DELAY
             }
             break;
         case UNICODE_MODE_WINCOMPOSE:
-            tap_code(KC_ESCAPE);
+            tap_code_delay(KC_ESCAPE, UNICODE_TAP_DELAY);
             break;
         case UNICODE_MODE_WINDOWS:
             unregister_code(KC_LEFT_ALT);
             if (!unicode_saved_led_state.num_lock) {
-                tap_code(KC_NUM_LOCK);
+                tap_code_delay(KC_NUM_LOCK, UNICODE_TAP_DELAY);
             }
             break;
         case UNICODE_MODE_EMACS:
-            tap_code16(LCTL(KC_G)); // C-g cancels
+            tap_code16_delay(LCTL(KC_G), UNICODE_TAP_DELAY); // C-g cancels
             break;
     }
 
@@ -310,10 +315,10 @@ static void send_nibble_wrapper(uint8_t digit) {
         uint8_t kc = digit < 10
                    ? KC_KP_1 + (10 + digit - 1) % 10
                    : KC_A + (digit - 10);
-        tap_code(kc);
+        tap_code_delay(kc, UNICODE_TAP_DELAY);
         return;
     }
-    send_nibble(digit);
+    send_nibble_with_delay(digit, UNICODE_TAP_DELAY);
 }
 
 // clang-format on

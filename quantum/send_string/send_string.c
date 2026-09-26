@@ -271,12 +271,16 @@ void send_byte(uint8_t number) {
 }
 
 void send_nibble(uint8_t number) {
+    send_nibble_with_delay(number, TAP_CODE_DELAY);
+}
+
+void send_nibble_with_delay(uint8_t number, uint8_t interval) {
     switch (number & 0xF) {
         case 0 ... 9:
-            send_char(number + '0');
+            send_char_with_delay(number + '0', interval);
             break;
         case 10 ... 15:
-            send_char(number - 10 + 'a');
+            send_char_with_delay(number - 10 + 'a', interval);
             break;
     }
 }
