@@ -5,9 +5,9 @@
 RGB_MATRIX_EFFECT(PIXEL_RAIN)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static bool PIXEL_RAIN(effect_params_t* params) {
-    static led_index_t  index = 0;
-    static uint32_t timer = 0;
+static bool PIXEL_RAIN(effect_params_t *params) {
+    static led_index_t index = 0;
+    static uint32_t    timer = 0;
 
     if (params->iter == 0 && params->init) {
         index = random_led_max((led_index_t)RGB_MATRIX_LED_COUNT);
