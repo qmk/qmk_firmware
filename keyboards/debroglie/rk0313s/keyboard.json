@@ -1,0 +1,95 @@
+{
+    "keyboard_name": "RK0313S",
+    "manufacturer": "DEBROGLIE",
+    "maintainer": "Zeranoe",
+    "url": "https://github.com/Zeranoe",
+    "processor": "STM32F072",
+    "bootloader": "stm32-dfu",
+    "diode_direction": "COL2ROW",
+    "usb": {
+        "vid": "0x5241",
+        "pid": "0x0052",
+        "device_version": "1.0.0"
+    },
+    "ws2812": {
+        "pin": "B11"
+    },
+    "features": {
+        "rgb_matrix": true,
+        "bootmagic": true,
+        "nkro": true
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "default": {
+            "animation": "cycle_all",
+            "val": 128
+        },
+        "animations": {
+            "alphas_mods": true,
+            "gradient_left_right": true,
+            "breathing": true,
+            "band_sat": true,
+            "band_val": true,
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "rainbow_moving_chevron": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "pixel_rain": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "typing_heatmap": true,
+            "digital_rain": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_reactive_wide": true,
+            "solid_reactive_multiwide": true,
+            "solid_reactive_cross": true,
+            "solid_reactive_multicross": true,
+            "solid_reactive_nexus": true,
+            "solid_reactive_multinexus": true,
+            "splash": true,
+            "multispash": true,
+            "solid_splash": true,
+            "solid_multisplash": true,
+            "starlight": true,
+            "starlight_smooth": true,
+            "starlight_dual_hue": true,
+            "starlight_dual_sat": true,
+            "riverflow": true
+        },
+        "layout": [
+            {"matrix": [2, 0], "x": 224, "y": 0, "flags": 4},
+            {"matrix": [1, 0], "x": 112, "y": 0, "flags": 4},
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4}
+        ]
+    },
+    "matrix_pins": {
+        "cols": ["B15"],
+        "rows": ["A8", "A9", "B14"]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [1, 0], "x": 1, "y": 0},
+                {"matrix": [2, 0], "x": 2, "y": 0}
+            ]
+        }
+    }
+}
