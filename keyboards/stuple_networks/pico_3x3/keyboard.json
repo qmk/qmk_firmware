@@ -10,7 +10,7 @@
   },
   "features": {
     "extrakey": true,
-    "via": true
+    "bootmagic": true
   },
   "matrix_pins": {
     "rows": ["GP6", "GP7", "GP8"],
