@@ -47,7 +47,7 @@ QMK_BIN := qmk
 export override QMK_USERSPACE := $(shell \
     $(QMK_BIN) env | sort | grep -q QMK_USERSPACE \
         && $(QMK_BIN) env QMK_USERSPACE \
-        || $(QMK_BIN) config -ro user.overlay_dir | cut -d= -f2 | sed -e 's@^None$$@@g')
+        || $(QMK_BIN) config -ro user.overlay_dir | cut -d= -f2 | sed -e 's@ [(].*[)]$$@@g' | sed -e 's@^None$$@@g')
 
 # avoid 'Entering|Leaving directory' messages
 MAKEFLAGS += --no-print-directory
