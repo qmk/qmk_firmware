@@ -15,7 +15,7 @@
     "device_version": "0.0.1"
   }
   "diode_direction": "COL2ROW",
-
+  "community_layouts": ["ortho_3x3"],
   "layouts": {
     "LAYOUT_ortho_3x3": {
       "layout": [
