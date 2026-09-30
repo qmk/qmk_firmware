@@ -4,7 +4,6 @@
   "maintainer": "Mitsuba100",
   "bootloader": "rp2040",
   "processor": "RP2040",
-  "development_status": "development",
   "build": {
     "lto": true
   },
