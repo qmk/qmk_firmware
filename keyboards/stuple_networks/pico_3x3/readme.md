@@ -8,7 +8,7 @@ A custom 3x3 macropad using the Raspberry Pi Pico (RP2040).
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb pico_3x3 -km default
+    qmk compile -kb stuple_networks/pico_3x3 -km default
 
 Flashing example for this keyboard:
 
