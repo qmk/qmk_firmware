@@ -4,6 +4,7 @@ A drop-in replacement PCB for the Drop Alt 65% keyboard, powered by an STM32F072
 
 * Keyboard Maintainer: [Automata02](https://github.com/Automata02/)
 * Hardware Supported: RALT65 PCB
+* Hardware Availability: Custom private project (Not publicly available yet)
 
 Make example for this keyboard (after setting up your build environment):
 
