@@ -4,6 +4,6 @@ BOOTLOADER = rp2040
 
 # Features
 
-
+EXTRAKEY_ENABLE = yes
 LTO_ENABLE = yes
 
