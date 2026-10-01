@@ -8,9 +8,9 @@
 #define LED_CENTER_TOP 1
 #define LED_CENTER_BOTTOM 0
 
-#define LAYER_R layer_colors[layer][0] *  RGB_INDICATOR_BRIGHTNESS / 255
-#define LAYER_G layer_colors[layer][1] *  RGB_INDICATOR_BRIGHTNESS / 255
-#define LAYER_B layer_colors[layer][2] *  RGB_INDICATOR_BRIGHTNESS / 255
+#define LAYER_R layer_colors[layer].r *  RGB_INDICATOR_BRIGHTNESS / 255
+#define LAYER_G layer_colors[layer].g *  RGB_INDICATOR_BRIGHTNESS / 255
+#define LAYER_B layer_colors[layer].b *  RGB_INDICATOR_BRIGHTNESS / 255
 
 #define MODS_ACTIVE(mods) \
     ((get_mods()|get_oneshot_mods()) & MOD_MASK_##mods ? RGB_INDICATOR_BRIGHTNESS:0)
