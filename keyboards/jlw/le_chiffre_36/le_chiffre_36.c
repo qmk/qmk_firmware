@@ -3,14 +3,16 @@
 
 #include QMK_KEYBOARD_H
 
+#ifdef RGB_MATRIX_ENABLE
+
 // RGB settings for indicator lights
 // Layer and Mods indicator
 #define LED_CENTER_TOP 1
 #define LED_CENTER_BOTTOM 0
 
-#define LAYER_R layer_colors[layer].r *  RGB_INDICATOR_BRIGHTNESS / 255
-#define LAYER_G layer_colors[layer].g *  RGB_INDICATOR_BRIGHTNESS / 255
-#define LAYER_B layer_colors[layer].b *  RGB_INDICATOR_BRIGHTNESS / 255
+#define LAYER_R layer_colors[layer].r * RGB_INDICATOR_BRIGHTNESS / 255
+#define LAYER_G layer_colors[layer].g * RGB_INDICATOR_BRIGHTNESS / 255
+#define LAYER_B layer_colors[layer].b * RGB_INDICATOR_BRIGHTNESS / 255
 
 #define MODS_ACTIVE(mods) \
     ((get_mods()|get_oneshot_mods()) & MOD_MASK_##mods ? RGB_INDICATOR_BRIGHTNESS:0)
@@ -19,7 +21,7 @@
 #define MODS_G MODS_ACTIVE(GUI) + SHIFT_ACTIVE
 #define MODS_B MODS_ACTIVE(ALT) + SHIFT_ACTIVE
 
-const uint8_t PROGMEM layer_colors[][3] = {
+static const rgb_t layer_colors[] = {
     {RGB_OFF},
     {RGB_RED},
     {RGB_GREEN},
@@ -30,9 +32,10 @@ const uint8_t PROGMEM layer_colors[][3] = {
     {RGB_TEAL}
 };
 
-void set_rgb_matrix_indicators(uint8_t led_min, uint8_t led_max) {
+static void set_rgb_matrix_indicators(uint8_t led_min, uint8_t led_max) {
 #if defined(RGB_LAYER_INDICATOR_ENABLE)
     uint8_t layer = get_highest_layer(layer_state|default_layer_state);
+    layer = layer < ARRAY_SIZE(layer_colors) ? layer : 0;
     RGB_MATRIX_INDICATOR_SET_COLOR(LED_CENTER_TOP, LAYER_R, LAYER_G, LAYER_B);
     dprintf("layer RGB: (%u, %u, %u)\n", LAYER_R, LAYER_G, LAYER_B);
 #else
@@ -55,3 +58,5 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     set_rgb_matrix_indicators(led_min, led_max);
     return true;
 }
+
+#endif

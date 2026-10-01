@@ -6,12 +6,11 @@
     "diode_direction": "ROW2COL",
     "encoder": {
         "rotary": [
-            {"pin_a": "B4", "pin_b": "B5", "resolution": 4}
+            {"pin_a": "B4", "pin_b": "B5"}
         ]
     },
     "features": {
         "bootmagic": true,
-        "console": true,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,
@@ -100,7 +99,7 @@
     "usb": {
         "device_version": "0.0.1",
         "pid": "0xA461",
-        "vid": "0x1209",
+        "vid": "0x1209"
     },
     "ws2812": {
         "pin": "A15"
