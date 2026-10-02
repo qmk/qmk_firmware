@@ -55,7 +55,7 @@ static inline uint16_t translate_keycode(uint16_t keycode) {
     }
 }
 
-void cancel_key_lock(void) {
+void key_lock_cancel(void) {
     watching = false;
     // Clear the full 256-bit state, otherwise every actually-locked key will still be latched.
     key_state[0] = 0;
@@ -139,4 +139,22 @@ bool process_key_lock(uint16_t *keycode, keyrecord_t *record) {
         // Stop processing if it's a standard key and we're masking up.
         return !(IS_STANDARD_KEYCODE(translated_keycode) && KEY_STATE(translated_keycode));
     }
+}
+
+bool key_lock_get_state(uint16_t keycode) {
+    uint16_t translated_keycode = translate_keycode(keycode);
+    return KEY_STATE(translated_keycode);
+}
+
+bool key_lock_active(void) {
+    return watching;
+}
+
+void key_lock_start(void) {
+    uint16_t    translated_keycode = QK_LOCK;
+    keyrecord_t record;
+    record.event.pressed = true;
+    process_key_lock(&translated_keycode, &record);
+    record.event.pressed = false;
+    process_key_lock(&translated_keycode, &record);
 }

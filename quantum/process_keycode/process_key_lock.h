@@ -20,5 +20,11 @@
 #include <stdbool.h>
 #include "action.h"
 
-void cancel_key_lock(void);
+// DEPRECATED
+#define cancel_key_lock key_lock_cancel
+
 bool process_key_lock(uint16_t *keycode, keyrecord_t *record);
+bool key_lock_get_state(uint16_t keycode);
+bool key_lock_active(void);
+void key_lock_start(void);
+void key_lock_cancel(void);
