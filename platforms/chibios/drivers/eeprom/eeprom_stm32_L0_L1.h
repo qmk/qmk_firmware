@@ -23,7 +23,7 @@
 #    ifdef DYNAMIC_KEYMAP_ENABLE
 #        define STM32_ONBOARD_EEPROM_SIZE 1024
 #    else
-#        include "eeconfig.h"
+#        include "nvm_eeprom_eeconfig_internal.h"
 #        define STM32_ONBOARD_EEPROM_SIZE (((EECONFIG_SIZE + 3) / 4) * 4) // based off eeconfig's current usage, aligned to 4-byte sizes, to deal with LTO and EEPROM page sizing
 #    endif
 #endif
