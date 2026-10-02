@@ -1,0 +1,11 @@
+{{ constants.GPL2_HEADER_XML_LIKE }}
+{{ constants.GENERATED_HEADER_XML_LIKE }}
+{%- for item in xap.documentation.order %}
+{% if not item[0:1] == '!' %}
+{{ xap.documentation.get(item) }}
+
+{% else %}
+{% include item[1:] %}
+
+{% endif %}
+{% endfor %}
