@@ -18,12 +18,6 @@
 
 #include "compiler_support.h"
 
-// DEPRECATED DEFINES - DO NOT USE
-#if defined(RGBLED_NUM)
-#    define RGBLIGHT_LED_COUNT RGBLED_NUM
-#endif
-// ========
-
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
 
  old mode number (before 0.6.117) to new mode name table
