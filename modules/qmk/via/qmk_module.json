@@ -1,0 +1,11 @@
+{
+    "module_name": "VIA",
+    "maintainer": "QMK Maintainers",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "bootmagic": true,
+        "tri_layer": true,
+        "dynamic_keymap": true,
+        "raw": true
+    }
+}
