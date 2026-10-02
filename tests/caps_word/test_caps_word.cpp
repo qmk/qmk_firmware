@@ -158,7 +158,7 @@ TEST_F(CapsWord, IdleTimeout) {
     tap_key(key_a);
     VERIFY_AND_CLEAR(driver);
 
-    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_NO_REPORT(driver);
     idle_for(CAPS_WORD_IDLE_TIMEOUT);
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
@@ -201,6 +201,30 @@ TEST_F(CapsWord, ShiftsLettersButNotDigits) {
     // Turn on Caps Word and tap "A, 4, A, 4".
     caps_word_on();
     tap_keys(key_a, key_4, key_a, key_4);
+
+    VERIFY_AND_CLEAR(driver);
+}
+
+TEST_F(CapsWord, ClearsWeakShiftOnKeyRelease) {
+    TestDriver driver;
+    KeymapKey  key_a(0, 0, 0, KC_A);
+    set_keymap({key_a});
+
+    {
+        InSequence s;
+        EXPECT_REPORT(driver, (KC_LSFT));
+        EXPECT_REPORT(driver, (KC_LSFT, KC_A));
+        EXPECT_EMPTY_REPORT(driver);
+    }
+
+    caps_word_on();
+    key_a.press();
+    run_one_scan_loop();
+    EXPECT_EQ(get_weak_mods(), MOD_BIT(KC_LSFT));
+
+    key_a.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_weak_mods(), 0);
 
     VERIFY_AND_CLEAR(driver);
 }
