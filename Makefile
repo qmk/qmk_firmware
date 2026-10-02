@@ -485,4 +485,3 @@ format-and-pytest:
 	RUNTIME=docker ./util/docker_cmd.sh qmk format-c --core-only -a
 	RUNTIME=docker ./util/docker_cmd.sh qmk format-python -a
 	RUNTIME=docker ./util/docker_cmd.sh qmk pytest
-

@@ -1,5 +1,4 @@
-"""Used by the make system to generate files for community modules unit tests.
-"""
+"""Used by the make system to generate files for community modules unit tests."""
 from pathlib import Path
 from milc import cli
 

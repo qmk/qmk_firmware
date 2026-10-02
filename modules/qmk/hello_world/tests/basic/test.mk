@@ -18,4 +18,3 @@ COMMUNITY_MODULES = qmk/hello_world
 INTROSPECTION_KEYMAP_C = $(TEST_PATH)/test_keymap.c
 
 # You can also customize make rules here if needed.
-

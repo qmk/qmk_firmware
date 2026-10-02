@@ -408,8 +408,7 @@ def generate_community_modules_h(cli):
 
 
 def generate_community_modules_h_lines(modules):
-    """Creates the content for community_modules.h as a list of lines.
-    """
+    """Creates the content for community_modules.h as a list of lines."""
     api_list, api_version, ver_major, ver_minor, ver_patch = module_api_list()
 
     lines = [
@@ -471,8 +470,7 @@ def generate_community_modules_c(cli):
 
 
 def generate_community_modules_c_lines(modules):
-    """Creates the content for community_modules.c as a list of lines.
-    """
+    """Creates the content for community_modules.c as a list of lines."""
     api_list, _, _, _, _ = module_api_list()
 
     lines = [

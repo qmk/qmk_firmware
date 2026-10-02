@@ -106,4 +106,3 @@ include $(BUILDDEFS_PATH)/common_rules.mk
 
 $(shell mkdir -p $(BUILD_DIR)/test 2>/dev/null)
 $(shell mkdir -p $(TEST_OBJ) 2>/dev/null)
-

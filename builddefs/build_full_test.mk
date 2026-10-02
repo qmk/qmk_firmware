@@ -35,4 +35,3 @@ $(TEST_OUTPUT)_DEFS := $(OPT_DEFS) "-DKEYMAP_C=\"keymap.c\""
 $(TEST_OUTPUT)_CONFIG := $(TEST_PATH)/config.h
 
 VPATH += $(TOP_DIR)/tests/test_common
-

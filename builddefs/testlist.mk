@@ -23,4 +23,3 @@ endef
 
 
 $(eval $(call VALIDATE_TEST_LIST,$(firstword $(FULL_TESTS)),$(wordlist 2,9999,$(FULL_TESTS))))
-
