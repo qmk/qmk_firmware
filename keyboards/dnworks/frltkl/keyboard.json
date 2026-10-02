@@ -13,7 +13,7 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "nkro": true    
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "GP27"
@@ -22,6 +22,10 @@
     "matrix_pins": {
         "rows": ["GP4","GP3","GP2","GP1","GP29","GP28","GP19","GP20","GP10","GP11"],
         "cols": ["GP26","GP25","GP24","GP23","GP22","GP21","GP6","GP5","GP0"]
+    },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
     },
     "layout_aliases": {
         "LAYOUT": "LAYOUT_all"

@@ -5,6 +5,10 @@
         "rows": ["GP8", "GP6", "GP19", "GP20", "GP18"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "ws2812": {
         "driver": "vendor",
         "pin": "GP2"

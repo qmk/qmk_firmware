@@ -15,6 +15,10 @@
         "rows": ["GP17", "GP27", "GP11", "GP12"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "url": "https://cannonkeys.com",
     "usb": {
         "device_version": "0.0.1",
