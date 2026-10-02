@@ -1,4 +1,5 @@
-/* SPDX-License-Identifier: GPL-2.0-or-later */
+// Copyright 2023 jlw
+// SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
 #define HAL_USE_PWM TRUE
