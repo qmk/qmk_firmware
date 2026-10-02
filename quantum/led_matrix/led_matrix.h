@@ -129,7 +129,7 @@ led_index_t led_matrix_map_row_column_to_led(uint8_t row, uint8_t column, led_in
 
 int led_matrix_led_index(int index);
 
-void led_matrix_set_value(led_index_t index, uint8_t value);
+void led_matrix_set_value(int index, uint8_t value);
 void led_matrix_set_value_all(uint8_t value);
 
 void led_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed);

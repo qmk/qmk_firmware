@@ -172,7 +172,7 @@ __attribute__((weak)) int led_matrix_led_index(int index) {
     return index;
 }
 
-void led_matrix_set_value(led_index_t index, uint8_t value) {
+void led_matrix_set_value(int index, uint8_t value) {
 #ifdef USE_CIE1931_CURVE
     value = pgm_read_byte(&CIE1931_CURVE[value]);
 #endif
