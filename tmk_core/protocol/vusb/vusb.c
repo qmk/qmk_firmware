@@ -706,6 +706,46 @@ const PROGMEM uchar shared_hid_report[] = {
 #endif
 
 #ifdef DIGITIZER_ENABLE
+#    ifdef DIGITIZER_ABSOLUTE_POINTER
+    // Digitizer report descriptor, absolute pointer variant (keep in sync with usb_descriptor.c)
+    0x05, 0x01,                // Usage Page (Generic Desktop)
+    0x09, 0x02,                // Usage (Mouse)
+    0xA1, 0x01,                // Collection (Application)
+    0x85, REPORT_ID_DIGITIZER, //   Report ID
+    0x09, 0x01,                //   Usage (Pointer)
+    0xA1, 0x00,                //   Collection (Physical)
+    // Reset unit and physical range items inherited from preceding reports
+    0x65, 0x00, //     Unit (None)
+    0x55, 0x00, //     Unit Exponent (0)
+    0x35, 0x00, //     Physical Minimum (0)
+    0x45, 0x00, //     Physical Maximum (0)
+    // In Range bit, unused in this mode (1 bit padding)
+    0x95, 0x01, //     Report Count (1)
+    0x75, 0x01, //     Report Size (1)
+    0x81, 0x03, //     Input (Constant)
+    // Tip Switch & Barrel Switch as Buttons 1 & 2 (2 bits)
+    0x05, 0x09, //     Usage Page (Button)
+    0x19, 0x01, //     Usage Minimum (1)
+    0x29, 0x02, //     Usage Maximum (2)
+    0x15, 0x00, //     Logical Minimum
+    0x25, 0x01, //     Logical Maximum
+    0x95, 0x02, //     Report Count (2)
+    0x81, 0x02, //     Input (Data, Variable, Absolute)
+    // Padding (5 bits)
+    0x95, 0x05, //     Report Count (5)
+    0x81, 0x03, //     Input (Constant)
+
+    // X/Y Position (4 bytes)
+    0x05, 0x01,       //     Usage Page (Generic Desktop)
+    0x09, 0x30,       //     Usage (X)
+    0x09, 0x31,       //     Usage (Y)
+    0x26, 0xFF, 0x7F, //     Logical Maximum (32767)
+    0x95, 0x02,       //     Report Count (2)
+    0x75, 0x10,       //     Report Size (16)
+    0x81, 0x02,       //     Input (Data, Variable, Absolute)
+    0xC0,             //   End Collection
+    0xC0,             // End Collection
+#    else
     // Digitizer report descriptor
     0x05, 0x0D,                // Usage Page (Digitizers)
     0x09, 0x01,                // Usage (Digitizer)
@@ -738,6 +778,7 @@ const PROGMEM uchar shared_hid_report[] = {
     0x81, 0x02,       //     Input (Data, Variable, Absolute)
     0xC0,             //   End Collection
     0xC0,             // End Collection
+#    endif
 #endif
 
 #ifdef PROGRAMMABLE_BUTTON_ENABLE
