@@ -1,0 +1,12 @@
+{
+    "keycodes": {
+        "0x00C3": {
+            "group": "media",
+            "key": "KC_DICTATION",
+            "label": "Dictation",
+            "aliases": [
+                "KC_DICT"
+            ]
+        }
+    }
+}
