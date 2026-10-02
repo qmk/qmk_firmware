@@ -87,7 +87,7 @@ def _gen_led_duplicate_config(info_data, config_type):
         return []
 
     lines = []
-    lines.append(f'uint8_t {config_type}_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i) {{')
+    lines.append(f'led_index_t {config_type}_map_row_column_to_led_kb(uint8_t row, uint8_t column, led_index_t *led_i) {{')
 
     for matrix, indexes in led_map.items():
         if len(indexes) > 1:

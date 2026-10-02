@@ -23,6 +23,16 @@
 #include "color.h"
 #include "util.h"
 
+#if RGB_MATRIX_LED_COUNT >= 256
+typedef uint16_t led_index_t;
+#    define random_led_max random16_max
+#    define NO_LED UINT16_MAX
+#else
+typedef uint8_t led_index_t;
+#    define random_led_max random8_max
+#    define NO_LED UINT8_MAX
+#endif
+
 #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
 #    define RGB_MATRIX_KEYREACTIVE_ENABLED
 #endif
@@ -34,11 +44,11 @@
 
 #ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 typedef struct PACKED {
-    uint8_t  count;
-    uint8_t  x[LED_HITS_TO_REMEMBER];
-    uint8_t  y[LED_HITS_TO_REMEMBER];
-    uint8_t  index[LED_HITS_TO_REMEMBER];
-    uint16_t tick[LED_HITS_TO_REMEMBER];
+    uint8_t     count;
+    uint8_t     x[LED_HITS_TO_REMEMBER];
+    uint8_t     y[LED_HITS_TO_REMEMBER];
+    led_index_t index[LED_HITS_TO_REMEMBER];
+    uint16_t    tick[LED_HITS_TO_REMEMBER];
 } last_hit_t;
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
@@ -67,10 +77,8 @@ typedef struct PACKED {
 #define LED_FLAG_KEYLIGHT 0x04
 #define LED_FLAG_INDICATOR 0x08
 
-#define NO_LED 255
-
 typedef struct PACKED {
-    uint8_t     matrix_co[MATRIX_ROWS][MATRIX_COLS];
+    led_index_t matrix_co[MATRIX_ROWS][MATRIX_COLS];
     led_point_t point[RGB_MATRIX_LED_COUNT];
     uint8_t     flags[RGB_MATRIX_LED_COUNT];
 } led_config_t;
