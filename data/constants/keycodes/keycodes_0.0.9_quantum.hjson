@@ -1,0 +1,11 @@
+{
+    "keycodes": {
+       "0x7C7C": {
+            "group": "quantum",
+            "key": "QK_AUTOCORRECT_DICT_CYCLE",
+            "aliases": [
+                "AC_DICT"
+            ]
+        }
+    }
+}

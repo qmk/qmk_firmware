@@ -7,7 +7,7 @@
 #include "action_layer.h" // layer_state_t
 
 #ifndef EECONFIG_MAGIC_NUMBER
-#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE3 // When changing, decrement this value to avoid future re-init issues
+#    define EECONFIG_MAGIC_NUMBER (uint16_t)0xFEE2 // When changing, decrement this value to avoid future re-init issues
 #endif
 #define EECONFIG_MAGIC_NUMBER_OFF (uint16_t)0xFFFF
 
@@ -92,6 +92,12 @@ typedef union connection_config_t connection_config_t;
 void                              nvm_eeconfig_read_connection(connection_config_t *config);
 void                              nvm_eeconfig_update_connection(const connection_config_t *config);
 #endif // CONNECTION_ENABLE
+
+#ifdef AUTOCORRECT_ENABLE
+typedef union autocorrect_config_t autocorrect_config_t;
+void                               nvm_eeconfig_read_autocorrect(autocorrect_config_t *autocorrect_config);
+void                               nvm_eeconfig_update_autocorrect(const autocorrect_config_t *autocorrect_config);
+#endif // AUTOCORRECT_ENABLE
 
 bool nvm_eeconfig_read_handedness(void);
 void nvm_eeconfig_update_handedness(bool val);

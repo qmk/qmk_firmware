@@ -89,6 +89,10 @@
 #    include "process_layer_lock.h"
 #endif
 
+#ifdef AUTOCORRECT_ENABLE
+#    include "process_autocorrect.h"
+#endif
+
 #ifndef NO_ACTION_ONESHOT
 #    include "process_oneshot.h"
 #endif
