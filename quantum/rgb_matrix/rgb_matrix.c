@@ -221,7 +221,7 @@ void rgb_matrix_handle_key_event(uint8_t row, uint8_t col, bool pressed) {
     }
 
     for (led_index_t i = 0; i < led_count; i++) {
-        led_index_t index            = last_hit_buffer.count;
+        uint8_t index                = last_hit_buffer.count;
         last_hit_buffer.x[index]     = g_led_config.point[led[i]].x;
         last_hit_buffer.y[index]     = g_led_config.point[led[i]].y;
         last_hit_buffer.index[index] = led[i];
