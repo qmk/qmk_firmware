@@ -1,0 +1,7 @@
+{
+    "bootloader": "uf2boot",
+    "processor": "STM32F103",
+    "ws2812": {
+        "pin": "B9"
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "bootloader": "tinyuf2",
+    "processor": "STM32F401",
+    "ws2812": {
+        "pin": "A7"
+    }
+}
