@@ -1,0 +1,8 @@
+{
+    "board": "STM32_F103_STM32DUINO",
+    "bootloader": "uf2boot",
+    "processor": "STM32F103",
+    "ws2812": {
+        "pin": "B9"
+    }
+}
