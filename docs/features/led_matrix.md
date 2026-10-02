@@ -545,7 +545,7 @@ Get the current enabled state of LED Matrix.
 
 ---
 
-### `void led_matrix_set_value(led_index_t index, uint8_t v)` {#led-matrix-set-value}
+### `void led_matrix_set_value(int index, uint8_t v)` {#led-matrix-set-value}
 
 Set the brightness of a single LED.
 
@@ -553,7 +553,7 @@ This function can only be run from within an effect or indicator callback, other
 
 #### Arguments {#api-led-matrix-set-value-arguments}
 
- - `led_index_t index`  
+ - `int index`  
    The LED index, from 0 to `LED_MATRIX_LED_COUNT - 1`.
  - `uint8_t v`  
    The brightness value to set.

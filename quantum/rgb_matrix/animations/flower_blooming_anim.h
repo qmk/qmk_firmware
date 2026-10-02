@@ -18,7 +18,7 @@
 RGB_MATRIX_EFFECT(FLOWER_BLOOMING)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-typedef hsv_t (*flower_blooming_f)(hsv_t hsv, uint8_t i, uint8_t time);
+typedef hsv_t (*flower_blooming_f)(hsv_t hsv, led_index_t i, uint8_t time);
 
 bool effect_runner_bloom(effect_params_t* params, flower_blooming_f effect_func) {
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
@@ -37,7 +37,7 @@ bool effect_runner_bloom(effect_params_t* params, flower_blooming_f effect_func)
     return rgb_matrix_check_finished_leds(led_max);
 }
 
-static hsv_t FLOWER_BLOOMING_math(hsv_t hsv, uint8_t i, uint8_t time) {
+static hsv_t FLOWER_BLOOMING_math(hsv_t hsv, led_index_t i, uint8_t time) {
     if (g_led_config.point[i].y > k_rgb_matrix_center.y)
         hsv.h = g_led_config.point[i].x * 3 - g_led_config.point[i].y * 3 + time;
     else

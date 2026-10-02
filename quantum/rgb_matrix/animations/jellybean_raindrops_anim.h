@@ -2,7 +2,7 @@
 RGB_MATRIX_EFFECT(JELLYBEAN_RAINDROPS)
 #    ifdef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static void jellybean_raindrops_set_color(uint8_t i, effect_params_t* params) {
+static void jellybean_raindrops_set_color(led_index_t i, effect_params_t* params) {
     if (!HAS_ANY_FLAGS(g_led_config.flags[i], params->flags)) return;
 
     hsv_t hsv = {random8(), random8_min_max(127, 255), rgb_matrix_config.hsv.v};

@@ -1,6 +1,6 @@
 #pragma once
 
-typedef uint8_t (*sin_cos_i_f)(uint8_t val, int8_t sin, int8_t cos, uint8_t i, uint8_t time);
+typedef uint8_t (*sin_cos_i_f)(uint8_t val, int8_t sin, int8_t cos, led_index_t i, uint8_t time);
 
 bool effect_runner_sin_cos_i(effect_params_t* params, sin_cos_i_f effect_func) {
     LED_MATRIX_USE_LIMITS(led_min, led_max);

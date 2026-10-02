@@ -1,6 +1,6 @@
 #pragma once
 
-typedef uint8_t (*i_f)(uint8_t val, uint8_t i, uint8_t time);
+typedef uint8_t (*i_f)(uint8_t val, led_index_t i, uint8_t time);
 
 bool effect_runner_i(effect_params_t* params, i_f effect_func) {
     LED_MATRIX_USE_LIMITS(led_min, led_max);

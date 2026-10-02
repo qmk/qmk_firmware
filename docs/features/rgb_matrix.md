@@ -822,7 +822,7 @@ Get the current enabled state of RGB Matrix.
 
 ---
 
-### `void rgb_matrix_set_color(led_index_t index, uint8_t r, uint8_t g, uint8_t b)` {#api-rgb-matrix-set-color}
+### `void rgb_matrix_set_color(int index, uint8_t r, uint8_t g, uint8_t b)` {#api-rgb-matrix-set-color}
 
 Set the color of a single LED.
 
@@ -830,7 +830,7 @@ This function can only be run from within an effect or indicator callback, other
 
 #### Arguments {#api-rgb-matrix-set-color-arguments}
 
- - `led_index_t index`  
+ - `int index`  
    The LED index, from 0 to `RGB_MATRIX_LED_COUNT - 1`.
  - `uint8_t r`  
    The red value to set.

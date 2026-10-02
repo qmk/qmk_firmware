@@ -7,7 +7,7 @@ RGB_MATRIX_EFFECT(STARLIGHT_SMOOTH)
 
 static uint8_t phase_offsets[RGB_MATRIX_LED_COUNT];
 
-hsv_t STARLIGHT_SMOOTH_math(hsv_t hsv, uint8_t i, uint8_t time) {
+hsv_t STARLIGHT_SMOOTH_math(hsv_t hsv, led_index_t i, uint8_t time) {
     if (phase_offsets[i] == 0) {
         phase_offsets[i] = random8();
     }
