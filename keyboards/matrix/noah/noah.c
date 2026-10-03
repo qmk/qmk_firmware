@@ -1,6 +1,5 @@
-/**
- * noah.c
- */
+// Copyright 2019 astro <yuleiz@gmail.com>
+// SPDX-License-Identifier: GPL-2.0-or-later
 
 #include "quantum.h"
 
