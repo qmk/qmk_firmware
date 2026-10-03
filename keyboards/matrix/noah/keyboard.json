@@ -8,6 +8,11 @@
     "device_version": "0.0.1",
     "no_startup_check": true
   },
+  "diode_direction": "COL2ROW",
+  "matrix_pins": {
+    "rows": ["B0", "A1", "C14", "C13", "A0"],
+    "cols": ["C15", "B10", "B7", "B6", "B5", "B4", "A15", "A10", "A9", "A8", "B15", "B14", "B13", "B12", "B2"]
+  },
   "rgblight": {
     "driver": "ws2812",
     "led_count": 7,
@@ -25,7 +30,8 @@
     }
   },
   "ws2812": {
-    "pin": "B1"
+    "pin": "B1",
+    "driver": "pwm"
   },
   "rgb_matrix": {
     "animations": {
