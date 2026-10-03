@@ -15,24 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
 
-#pragma once
-
-#define UNUSABLE_PINS \
-    { GP1, GP3, GP4, GP6, GP8, GP10, GP14, GP16, GP18, GP20, GP22, GP24, GP25, GP26, GP27, GP28, GP29 }
-
-// #define ROTATIONAL_TRANSFORM_ANGLE 0
-#define POINTING_DEVICE_INVERT_Y
-
-/* PMW3360 Settings */
-#define PMW33XX_LIFTOFF_DISTANCE 0x00
-#define PMW33XX_CS_PIN GP5
-#define SPI_SCK_PIN GP2
-#define SPI_MISO_PIN GP0
-#define SPI_MOSI_PIN GP7
-
-#define POINTING_DEVICE_HIRES_SCROLL_ENABLE 0
-#define POINTING_DEVICE_HIRES_SCROLL_MULTIPLIER 15
-
-#define PLOOPY_DRAGSCROLL_DIVISOR_H 4
-#define PLOOPY_DRAGSCROLL_DIVISOR_V 4
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [0] = LAYOUT( MS_BTN4, MS_BTN5, TOGGLE_DRAG_SCROLL, MS_BTN2, MS_BTN1, MS_BTN3 )
+};
