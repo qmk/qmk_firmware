@@ -11,4 +11,4 @@ ARMV = 6
 EEPROM_DRIVER = wear_leveling
 WEAR_LEVELING_DRIVER = custom
 
-SRC += mbi5042.c fmc.c
+SRC += mbi5042.c fmc.c dip.c
