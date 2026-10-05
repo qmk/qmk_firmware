@@ -143,8 +143,8 @@ bool led_matrix_indicators_kb(void);
 bool led_matrix_indicators_user(void);
 
 void led_matrix_indicators_advanced(effect_params_t *params);
-bool led_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
-bool led_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
+bool led_matrix_indicators_advanced_kb(led_index_t led_min, led_index_t led_max);
+bool led_matrix_indicators_advanced_user(led_index_t led_min, led_index_t led_max);
 
 void led_matrix_init(void);
 
