@@ -7,9 +7,9 @@
 
 // Pin data registers: PDIO(port, pin), port A=0 .. F=5
 #define PDIO(port, pin) (*(volatile uint32_t *)(GPIO_PIN_DATA_BASE + (port) * 0x40 + (pin) * 4))
-#define DCLK PDIO(2, 0) // PC0
-#define LE PDIO(2, 2)   // PC2
-#define SDI PDIO(2, 3)  // PC3
+#define DCLK PDIO(2, 0)    // PC0
+#define LE PDIO(2, 2)      // PC2
+#define SDI PDIO(2, 3)     // PC3
 #define LED_PWR PDIO(2, 7) // PC7, active low
 
 // LED rows, active high: PC6 PC5 PD7 PD15 PD14 PD13 PD12 PF2
@@ -27,7 +27,7 @@ typedef union {
     uint32_t w[8 * 16 * 3 / 2];
 } frame_t;
 static frame_t fb, back;
-static uint8_t  cur_row;
+static uint8_t cur_row;
 
 static inline void shift16(uint16_t w) {
     for (int i = 15; i >= 0; i--) {
@@ -69,14 +69,14 @@ OSAL_IRQ_HANDLER(Vector64) { // TMR1
     DCLK = 0;
     DCLK = 1;
     DCLK = 0;
-    LE = 1;
+    LE   = 1;
     for (int i = 0; i < 3; i++) {
         DCLK = 1;
         DCLK = 0;
     }
-    LE               = 0;
-    *led_row[next]   = 1;
-    cur_row          = next;
+    LE             = 0;
+    *led_row[next] = 1;
+    cur_row        = next;
 
     OSAL_IRQ_EPILOGUE();
 }
@@ -105,13 +105,13 @@ static void mbi_init(void) {
     UNLOCKREG();
     // PC0/2/3/4 = GPIO, PC1 = PWM0_CH1 (GCLK)
     SYS->GPC_MFPL = (SYS->GPC_MFPL & ~0x000FFFFFul) | SYS_GPC_MFPL_PC1MFP_PWM0_CH1;
-    CLK->CLKSEL1 = (CLK->CLKSEL1 & ~(CLK_CLKSEL1_PWM0SEL_Msk | CLK_CLKSEL1_TMR1SEL_Msk)) | CLK_CLKSEL1_PWM0SEL_Msk | (7ul << CLK_CLKSEL1_TMR1SEL_Pos); // PWM0 <- PCLK0, TMR1 <- HIRC
+    CLK->CLKSEL1  = (CLK->CLKSEL1 & ~(CLK_CLKSEL1_PWM0SEL_Msk | CLK_CLKSEL1_TMR1SEL_Msk)) | CLK_CLKSEL1_PWM0SEL_Msk | (7ul << CLK_CLKSEL1_TMR1SEL_Pos); // PWM0 <- PCLK0, TMR1 <- HIRC
     CLK->APBCLK0 |= CLK_APBCLK0_PWM0CKEN_Msk | CLK_APBCLK0_TMR1CKEN_Msk;
     LOCKREG();
 
     // GCLK: PWM0 CH1, PCLK 48 MHz / 24 = 2 MHz (stock register values)
     PWM0->CTL1      = 0;
-    PWM0->CLKPSC0_1  = 0;
+    PWM0->CLKPSC0_1 = 0;
     PWM0->PERIOD[1] = 0x17;
     PWM0->CMPDAT[1] = 1;
     PWM0->WGCTL0    = 0x8;
@@ -133,15 +133,16 @@ static inline uint16_t pwm(uint8_t v) {
 }
 
 static void mbi_set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
-    uint8_t hw = led_hw[index];
-    uint16_t *px = back.px[hw >> 4][hw & 15];
+    uint8_t   hw     = led_hw[index];
+    uint16_t *px     = back.px[hw >> 4][hw & 15];
     px[DUCKY_CHIP_R] = pwm(r);
     px[DUCKY_CHIP_G] = pwm(g);
     px[DUCKY_CHIP_B] = pwm(b);
 }
 
 static void mbi_set_color_all(uint8_t r, uint8_t g, uint8_t b) {
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) mbi_set_color(i, r, g, b);
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++)
+        mbi_set_color(i, r, g, b);
 }
 
 // Publish a finished frame. RGB Matrix LEDs occupy rows 0-6 and row 7 ch 0-3 only (see led_map.h), one
@@ -153,7 +154,8 @@ static void mbi_flush(void) {
     __DSB();
     __ISB();
     volatile uint32_t *dst = fb.w; // volatile: GCC would turn the loop into newlib memcpy, which copies bytes
-    for (uint32_t i = 0; i < FLUSH_WORDS; i++) dst[i] = back.w[i];
+    for (uint32_t i = 0; i < FLUSH_WORDS; i++)
+        dst[i] = back.w[i];
     __DMB();
     NVIC_EnableIRQ(TMR1_IRQn);
 }
@@ -170,7 +172,7 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 static bool asleep; // host suspended: indicators dark too (RGB matrix sleeps via RGB_MATRIX_SLEEP)
 
 static void indicator(uint8_t ch, bool on) {
-    uint16_t v = on && !asleep ? DUCKY_PWM_MAX : 0;
+    uint16_t v      = on && !asleep ? DUCKY_PWM_MAX : 0;
     fb.px[7][ch][0] = fb.px[7][ch][1] = fb.px[7][ch][2] = v;
 }
 
@@ -186,7 +188,8 @@ bool led_update_kb(led_t s) {
 
 void suspend_power_down_kb(void) {
     asleep = true;
-    for (uint8_t ch = 4; ch < 8; ch++) indicator(ch, false);
+    for (uint8_t ch = 4; ch < 8; ch++)
+        indicator(ch, false);
     suspend_power_down_user();
 }
 
