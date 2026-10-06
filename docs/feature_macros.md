@@ -1,4 +1,4 @@
-# Macros
+free fire panel# Macros
 
 Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code.
 
