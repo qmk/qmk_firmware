@@ -8,7 +8,7 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ducky/one3_rgb:default
+    make ducky/one3/rgb:default
 
 Flashing example for this keyboard, with the board in its bootloader (USB `0416:3f00`) and
 [nu-isp-cli](https://crates.io/crates/nu-isp-cli) installed:
