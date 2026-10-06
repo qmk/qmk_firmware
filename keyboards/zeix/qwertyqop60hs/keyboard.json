@@ -16,9 +16,13 @@
         "nkro": true
     },
     "diode_direction": "COL2ROW",
-    "matrix_pins": {    
+    "matrix_pins": {
         "rows": ["GP6","GP5","GP4","GP0","GP12"],
         "cols": ["GP28","GP27","GP26","GP25","GP24","GP23","GP22","GP3","GP2","GP1","GP8","GP9","GP10","GP11","GP7"]
+    },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
     },
     "community_layouts": [
         "60_ansi",
@@ -448,6 +452,6 @@
                 { "matrix": [4, 11], "w": 1.5, "x": 11, "y": 4 },
                 { "matrix": [4, 12], "x": 12.5, "y": 4 }
             ]
-        }       
+        }
     }
 }

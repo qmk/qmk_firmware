@@ -34,6 +34,10 @@
     "qmk": {
         "tap_keycode_delay": 10
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "split": {
         "bootmagic": {
             "matrix": [5, 5]

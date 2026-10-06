@@ -21,6 +21,10 @@
     "diode_direction": "COL2ROW",
     "processor": "RP2040",
     "bootloader": "rp2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "features": {
         "bootmagic": true,
         "extrakey": true,
