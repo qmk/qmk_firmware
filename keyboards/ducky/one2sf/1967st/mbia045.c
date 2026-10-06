@@ -309,6 +309,13 @@ void MBIA045_update_pwm_buffers(void) {
         MBIA045_LE = PAL_LOW;
     }
 
+    /* Disable current row before the global latch. The latch moves the new row's
+     * data onto the driver outputs at once, so a row still enabled here would
+     * briefly show the next row's colours: a faint copy of every lit key appears in
+     * the same column one row up in scan order (row 0's keys on row 4).
+     */
+    MBIA045_disable_rows();
+
     /* Send Global Latch */
     for (int i = 0; i < 16; i++) {
         /* Cycle DCLK */
