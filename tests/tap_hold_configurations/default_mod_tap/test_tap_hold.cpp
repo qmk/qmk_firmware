@@ -224,3 +224,62 @@ TEST_F(DefaultTapHold, tap_and_hold_mod_tap_hold_key) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(DefaultTapHold, weak_mods_cleared_with_layer_tap) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_hold_key = KeymapKey(0, 1, 0, LT(1, KC_P));
+    auto       base_key_1         = KeymapKey(0, 2, 0, KC_A);
+    auto       base_key_2         = KeymapKey(0, 3, 0, KC_B);
+    auto       shifted_key        = KeymapKey(1, 2, 0, KC_EXLM);
+    auto       regular_key        = KeymapKey(1, 3, 0, KC_EQL);
+    auto       unmodified_code    = ((action_t){.code = shifted_key.report_code}).key.code;
+
+    set_keymap({layer_tap_hold_key, base_key_1, base_key_2, shifted_key, regular_key});
+
+    /* Press layer-tap-hold key */
+    EXPECT_NO_REPORT(driver);
+    layer_tap_hold_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press shifted key */
+    EXPECT_NO_REPORT(driver);
+    shifted_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key */
+    EXPECT_NO_REPORT(driver);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release shifted key */
+    EXPECT_NO_REPORT(driver);
+    shifted_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key */
+    EXPECT_NO_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Wait out tapping term */
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT, unmodified_code));
+    EXPECT_REPORT(driver, (unmodified_code, regular_key.report_code));
+    EXPECT_REPORT(driver, (regular_key.report_code));
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(TAPPING_TERM);
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release layer-tap-hold key */
+    EXPECT_NO_REPORT(driver);
+    layer_tap_hold_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
