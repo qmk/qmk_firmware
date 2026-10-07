@@ -16,14 +16,8 @@
 
 #pragma once
 
-#include "action.h"
-
-// Changing the layout options size after release will invalidate EEPROM,
-// but this is something that should be set correctly on initial implementation.
-// 1 byte is enough for most uses (i.e. 8 binary states, or 6 binary + 1 ternary/quaternary )
-#ifndef VIA_EEPROM_LAYOUT_OPTIONS_SIZE
-#    define VIA_EEPROM_LAYOUT_OPTIONS_SIZE 1
-#endif
+#include <stdint.h>
+#include <stdbool.h>
 
 // Allow override of the layout options default value.
 // This requires advanced knowledge of how VIA stores layout options
@@ -31,10 +25,6 @@
 // state to true by default.
 #ifndef VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT
 #    define VIA_EEPROM_LAYOUT_OPTIONS_DEFAULT 0x00000000
-#endif
-
-#ifndef VIA_EEPROM_CUSTOM_CONFIG_SIZE
-#    define VIA_EEPROM_CUSTOM_CONFIG_SIZE 0
 #endif
 
 // This is changed only when the command IDs change,
@@ -150,9 +140,6 @@ uint32_t via_update_custom_config(const void *buf, uint32_t offset, uint32_t len
 // device becomes the active device being configured, on startup or switching
 // between devices.
 void via_set_device_indication(uint8_t value);
-
-// Called by QMK core to process VIA-specific keycodes.
-bool process_record_via(uint16_t keycode, keyrecord_t *record);
 
 // These are made external so that keyboard level custom value handlers can use them.
 #if defined(BACKLIGHT_ENABLE)

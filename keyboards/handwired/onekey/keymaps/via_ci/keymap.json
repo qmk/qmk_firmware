@@ -1,7 +1,10 @@
 {
+    "modules": [
+        "qmk/via"
+    ],
     "config": {
-        "features": {
-            "via": true
+        "usb": {
+            "vid": "0xEEEE"
         }
     }
 }
