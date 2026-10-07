@@ -7,6 +7,11 @@
         "lto": true
     },
     "diode_direction": "COL2ROW",
+    "eeprom": {
+        "wear_leveling": {
+            "backing_size": 4096
+        }
+    },
     "encoder": {
         "rotary": [
             {"pin_a": "C8", "pin_b": "C7", "resolution": 2}
