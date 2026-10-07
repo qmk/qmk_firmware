@@ -13,12 +13,9 @@
         ]
     },
     "features": {
-        "audio": false,
-        "backlight": false,
         "bootmagic": true,
         "encoder": true,
         "extrakey": true,
-        "mousekey": false,
         "nkro": true
     },
     "matrix_pins": {
