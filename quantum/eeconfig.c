@@ -96,6 +96,7 @@ void eeconfig_init_quantum(void) {
         .oneshot_enable           = true, // Enable oneshot by default
         .swap_escape_capslock     = false,
         .autocorrect_enable       = true, // Enable autocorrect by default
+        .os_detection_disabled    = false,
     };
     eeconfig_update_keymap(&keymap_config);
 

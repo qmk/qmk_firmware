@@ -1269,6 +1269,14 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
     const void*   Address         = NULL;
     uint16_t      Size            = NO_DESCRIPTOR;
 
+#if defined(OS_DETECTION_ENABLE) && defined(OS_DETECTION_KEYBOARD_RESET)
+    // String requests already notify via process_wlength; all other descriptor
+    // assembly must also postpone a forced keyboard reset.
+    if (DescriptorType != DTYPE_String) {
+        os_detection_notify_usb_descriptor_request();
+    }
+#endif
+
     switch (DescriptorType) {
         case DTYPE_Device:
             Address = &DeviceDescriptor;

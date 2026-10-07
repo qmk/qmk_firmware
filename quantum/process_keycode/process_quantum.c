@@ -34,6 +34,15 @@ static void send_make_command(void) {
 #endif
 
 bool process_quantum(uint16_t keycode, keyrecord_t *record) {
+#ifdef OS_DETECTION_ENABLE
+    if (keycode == QK_OS_DETECTION_TOGGLE) {
+        if (!record->event.pressed && os_detection_toggle()) {
+            soft_reset_keyboard();
+        }
+        return false;
+    }
+#endif
+
     if (record->event.pressed) {
         switch (keycode) {
 #ifndef NO_RESET
