@@ -19,6 +19,14 @@
 extern "C" {
 #include "os_detection.h"
 #include "timer.h"
+#include "keycode_config.h"
+#include "nvm_eeconfig.h"
+
+keymap_config_t keymap_config = {};
+
+void eeconfig_update_keymap(const keymap_config_t *config) {
+    nvm_eeconfig_update_keymap(config);
+}
 
 void advance_time(uint32_t ms);
 }
@@ -29,6 +37,7 @@ static os_variant_t reported_os;
 class OsDetectionTest : public ::testing::Test {
    protected:
     void SetUp() override {
+        keymap_config.raw = 0;
         erase_wlength_data();
         reported_count = 0;
         reported_os    = OS_UNSURE;

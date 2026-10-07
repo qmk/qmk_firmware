@@ -1134,6 +1134,12 @@ const PROGMEM usbConfigurationDescriptor_t usbConfigurationDescriptor = {
 USB_PUBLIC usbMsgLen_t usbFunctionDescriptor(struct usbRequest *rq) {
     usbMsgLen_t len = 0;
 
+#if defined(OS_DETECTION_ENABLE) && defined(OS_DETECTION_KEYBOARD_RESET)
+    if (rq->wValue.bytes[1] != USBDESCR_STRING) {
+        os_detection_notify_usb_descriptor_request();
+    }
+#endif
+
     switch (rq->wValue.bytes[1]) {
         case USBDESCR_DEVICE:
             usbMsgPtr = (usbMsgPtr_t)&usbDeviceDescriptor;

@@ -42,6 +42,7 @@ typedef union keymap_config_t {
         bool oneshot_enable : 1;
         bool swap_escape_capslock : 1;
         bool autocorrect_enable : 1;
+        bool os_detection_disabled : 1;
     };
 } keymap_config_t;
 
