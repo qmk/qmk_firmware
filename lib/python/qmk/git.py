@@ -107,15 +107,29 @@ def git_is_dirty():
     return unstaged.returncode != 0 or staged.returncode != 0
 
 
-def git_check_repo():
-    """Checks that the .git directory exists inside QMK_HOME.
-
-    This is a decent enough indicator that the qmk_firmware directory is a
-    proper Git repository, rather than a .zip download from GitHub.
+def git_check_repo(path: Path = QMK_FIRMWARE):
+    """Checks that QMK_HOME is a Git repository, worktree, or submodule.
     """
-    dot_git_dir = QMK_FIRMWARE / '.git'
+    dot_git = path / '.git'
 
-    return dot_git_dir.is_dir()
+    if dot_git.is_dir():
+        return True
+
+    if not dot_git.is_file():
+        return False
+
+    # In Git worktrees and submodules, `.git` is not a directory, but instead a
+    # file pointing to a subdirectory of the parent repo's `.git/worktrees` or
+    # `.git/submodules` directories.
+    #
+    # See <https://git-scm.com/docs/gitrepository-layout>.
+
+    contents = dot_git.read_text()
+
+    if not contents.startswith("gitdir: "):
+        return False
+
+    return (path / contents[len("gitdir: "):].strip()).is_dir()
 
 
 def git_check_safe(repo_dir='.'):
