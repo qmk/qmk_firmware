@@ -1,0 +1,12 @@
+{
+    "config": {
+        "usb": {
+            "shared_endpoint": {
+                "keyboard": true
+            }
+        },
+        "features": {
+            "virtser": true
+        }
+    }
+}

@@ -18,6 +18,10 @@
 #include "eeprom.h"
 #include "version.h" // for QMK_BUILDDATE used in EEPROM magic
 
+#ifdef VIA_ENABLE
+#    include "via.h"
+#endif
+
 /* Artificial delay added to get media keys to work in the encoder*/
 #define MEDIA_KEY_DELAY 10
 
@@ -54,22 +58,16 @@ void board_init(void) {
 }
 
 uint32_t read_custom_config(void *data, uint32_t offset, uint32_t length) {
-#ifdef VIA_ENABLE
-    return via_read_custom_config(data, offset, length);
-#else
     return eeconfig_read_kb_datablock(data, offset, length);
-#endif
 }
 
 uint32_t write_custom_config(const void *data, uint32_t offset, uint32_t length) {
-#ifdef VIA_ENABLE
-    return via_update_custom_config(data, offset, length);
-#else
     return eeconfig_update_kb_datablock(data, offset, length);
-#endif
 }
 
 void keyboard_post_init_kb(void) {
+    custom_config_load();
+
       /*
         This is a workaround to some really weird behavior
         Without this code, the OLED will turn on, but not when you initially plug the keyboard in.
@@ -305,14 +303,8 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
   return true;
 }
 
-void custom_config_reset(void){
-  for(int i = 0; i < VIA_EEPROM_CUSTOM_CONFIG_SIZE; ++i) {
-    uint8_t dummy = 0;
-    write_custom_config(&dummy, i, 1);
-  }
-
-  uint8_t encoder_modes = 0x1F;
-  write_custom_config(&encoder_modes, EEPROM_ENABLED_ENCODER_MODES_OFFSET, 1);
+void custom_config_reset(void) {
+  eeconfig_init_kb_datablock();
 }
 
 void custom_config_load(void){
@@ -322,39 +314,19 @@ void custom_config_load(void){
 #endif
 }
 
-// Called from via_init() if VIA_ENABLE
-// Called from matrix_init_kb() if not VIA_ENABLE
-void satisfaction_core_init(void)
-{
-  // This checks both an EEPROM reset (from bootmagic lite, keycodes)
-  // and also firmware build date (from via_eeprom_is_valid())
-  if (eeconfig_is_enabled()) {
-    custom_config_load();
-  } else	{
-#ifdef DYNAMIC_KEYMAP_ENABLE
-    // Reset the custom stuff
-    custom_config_reset();
-#endif
-    // DO NOT set EEPROM valid here, let caller do this
-  }
+void eeconfig_init_kb_datablock(void) {
+  uint8_t default_data[EECONFIG_KB_DATA_SIZE] = { 0 };
+
+  default_data[EEPROM_ENABLED_ENCODER_MODES_OFFSET] = 0x1F;
+
+  eeconfig_update_kb_datablock(default_data, 0, sizeof(default_data));
 }
 
-void matrix_init_kb(void)
-{
-#ifndef VIA_ENABLE
-  satisfaction_core_init();
-#endif // VIA_ENABLE
-
+void matrix_init_kb(void) {
   rtcGetTime(&RTCD1, &last_timespec);
   matrix_init_user();
   oled_request_wakeup();
 }
-
-#ifdef VIA_ENABLE
-void via_init_kb(void) {
-    satisfaction_core_init();
-}
-#endif // VIA_ENABLE
 
 void housekeeping_task_kb(void) {
   rtcGetTime(&RTCD1, &last_timespec);
