@@ -23,6 +23,9 @@ static size_t changed_eeprom_bytes(uint8_t fill) {
     return changed;
 }
 
+// Magic, capture count and capture reason.
+static const size_t header_bytes = sizeof(uint16_t) + 2;
+
 class OsDetectionDebugTest : public ::testing::Test {
    protected:
     void SetUp() override {
@@ -48,7 +51,7 @@ TEST_F(OsDetectionDebugTest, StoredCaptureRoundTripsWithinBlock) {
     EXPECT_EQ(nvm_os_detection_read_setup(0), 0xFF);
     EXPECT_EQ(nvm_os_detection_read_setup(1), 0x4);
     EXPECT_EQ(nvm_os_detection_read_setup(2), 0x2);
-    EXPECT_LE(changed_eeprom_bytes(0xA5), sizeof(uint16_t) + 1 + 3 * sizeof(uint16_t));
+    EXPECT_LE(changed_eeprom_bytes(0xA5), header_bytes + 3 * sizeof(uint16_t));
 }
 
 TEST_F(OsDetectionDebugTest, OversizedCaptureIsClampedToBlock) {
@@ -56,11 +59,11 @@ TEST_F(OsDetectionDebugTest, OversizedCaptureIsClampedToBlock) {
     for (uint16_t i = 0; i < OS_DETECTION_STORED_SETUPS + 10; ++i) {
         setups[i] = i;
     }
-    nvm_os_detection_update_setups(setups, OS_DETECTION_STORED_SETUPS + 10);
+    nvm_os_detection_update_setups(setups, OS_DETECTION_STORED_SETUPS + 10, 0);
 
     ASSERT_EQ(nvm_os_detection_read_setup_count(), OS_DETECTION_STORED_SETUPS);
     EXPECT_EQ(nvm_os_detection_read_setup(OS_DETECTION_STORED_SETUPS - 1), OS_DETECTION_STORED_SETUPS - 1);
-    EXPECT_LE(changed_eeprom_bytes(0xA5), sizeof(uint16_t) + 1 + OS_DETECTION_STORED_SETUPS * sizeof(uint16_t));
+    EXPECT_LE(changed_eeprom_bytes(0xA5), header_bytes + OS_DETECTION_STORED_SETUPS * sizeof(uint16_t));
 }
 
 TEST_F(OsDetectionDebugTest, EraseClearsCapture) {

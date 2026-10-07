@@ -1,1 +1,1 @@
-TEST_LIST += os_detection os_detection_debug
+TEST_LIST += os_detection os_detection_debug os_detection_reset os_detection_reset_override os_detection_reset_guard os_detection_split

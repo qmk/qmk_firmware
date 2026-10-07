@@ -14,6 +14,9 @@
 // Dummy struct only used to calculate offsets within the eeprom_core_t entry
 typedef struct PACKED {
     uint16_t magic;
+    uint8_t  disabled;
+    uint8_t  boot_loop_count;
+    uint32_t last_reboot_uptime;
 } eeprom_os_detection_t;
 
 #if defined(OS_DETECTION_ENABLE) && defined(OS_DETECTION_DEBUG_ENABLE)
@@ -21,6 +24,7 @@ typedef struct PACKED {
 typedef struct PACKED {
     uint16_t magic;
     uint8_t  setup_count;
+    uint8_t  setup_reason;
     uint16_t setups[OS_DETECTION_STORED_SETUPS];
 } eeprom_os_detection_debug_t;
 
