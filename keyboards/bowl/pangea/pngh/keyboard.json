@@ -20,9 +20,6 @@
         "nkro": true,
         "rgblight": true
     },
-    "build": {
-        "lto": true
-    },
     "eeprom": {
         "wear_leveling": {
             "backing_size": 4096
