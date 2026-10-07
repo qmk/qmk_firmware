@@ -149,7 +149,7 @@ def git_check_deviation(active_branch):
     """
     cli.run(['git', 'fetch', 'upstream', active_branch])
     # As we only care about exit code, decode to bytes to avoid UnicodeDecodeError
-    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'], text=False)
+    deviations = cli.run(['git', '--no-pager', 'log', '--exit-code', f'upstream/{active_branch}...{active_branch}'], text=False)
     return bool(deviations.returncode)
 
 
