@@ -364,6 +364,10 @@ void keyboard_setup(void) {
 #ifdef EEPROM_DRIVER
     eeprom_driver_init();
 #endif
+#ifdef OS_DETECTION_ENABLE
+    // Load the persisted detection setting before the USB protocol starts.
+    os_detection_init();
+#endif
     matrix_setup();
     keyboard_pre_init_quantum();
 }

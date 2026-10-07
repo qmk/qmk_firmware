@@ -20,6 +20,10 @@
 #include <stdbool.h>
 #include "usb_device_state.h"
 
+#ifndef OS_DETECTION_SKIP_RESET_KEY
+#    define OS_DETECTION_SKIP_RESET_KEY QK_OS_DETECTION_SKIP_RESET
+#endif
+
 typedef enum {
     OS_UNSURE,
     OS_LINUX,
@@ -32,8 +36,15 @@ void         process_wlength(const uint16_t w_length);
 os_variant_t detected_host_os(void);
 void         erase_wlength_data(void);
 void         os_detection_notify_usb_device_state_change(struct usb_device_state usb_device_state);
+#ifdef OS_DETECTION_KEYBOARD_RESET
+void os_detection_notify_usb_descriptor_request(void);
+#endif
+
+// Call after EEPROM initialization to reset volatile state and load the reboot guard.
+void os_detection_init(void);
 
 void os_detection_task(void);
+bool os_detection_toggle(void);
 
 bool process_detected_host_os_kb(os_variant_t os);
 bool process_detected_host_os_user(os_variant_t os);
@@ -45,4 +56,23 @@ void slave_update_detected_host_os(os_variant_t os);
 #ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void);
 void store_setups_in_eeprom(void);
+void clear_stored_setups(void);
+#endif
+
+#ifdef OS_DETECTION_BOOT_LOOP_GUARD
+#    ifndef OS_DETECTION_KEYBOARD_RESET
+#        error OS Detection boot-loop guard requires OS_DETECTION_KEYBOARD_RESET
+#    endif
+#    ifndef OS_DETECTION_BOOT_LOOP_GUARD_FAST_MS
+#        define OS_DETECTION_BOOT_LOOP_GUARD_FAST_MS 1000
+#    endif
+#    ifndef OS_DETECTION_BOOT_LOOP_GUARD_MAX_REBOOTS
+#        define OS_DETECTION_BOOT_LOOP_GUARD_MAX_REBOOTS 3
+#    endif
+#    if OS_DETECTION_BOOT_LOOP_GUARD_MAX_REBOOTS < 1 || OS_DETECTION_BOOT_LOOP_GUARD_MAX_REBOOTS > 255
+#        error OS Detection boot-loop guard reboot limit must be between 1 and 255
+#    endif
+#    ifndef OS_DETECTION_BOOT_LOOP_GUARD_REARM_MS
+#        define OS_DETECTION_BOOT_LOOP_GUARD_REARM_MS 5000
+#    endif
 #endif

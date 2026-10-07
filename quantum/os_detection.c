@@ -18,15 +18,38 @@
 
 #include <string.h>
 #include "timer.h"
+#include "nvm_os_detection.h"
+#ifdef SPLIT_KEYBOARD
+#    include "keyboard.h"
+#endif
 #ifdef OS_DETECTION_KEYBOARD_RESET
 #    include "quantum.h"
 #endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
-#    include "nvm_os_detection.h"
 #    include "print.h"
 
-static uint16_t usb_setups[OS_DETECTION_STORED_SETUPS];
+enum {
+    OS_DETECTION_DEBUG_REASON_MANUAL,
+    OS_DETECTION_DEBUG_REASON_USB_REINIT,
+};
+
+static uint16_t         usb_setups[OS_DETECTION_STORED_SETUPS];
+static volatile uint8_t usb_setup_count;
+#    if defined(OS_DETECTION_DEBUG_AUTO_STORE) && defined(OS_DETECTION_KEYBOARD_RESET)
+static bool stored_setups_valid(void);
+static void store_setups(uint8_t reason);
+#    endif
+#endif
+
+#ifdef OS_DETECTION_BOOT_LOOP_GUARD
+static uint8_t           boot_loop_count;
+static uint32_t          last_reboot_uptime;
+static volatile uint32_t guard_configured_since;
+
+static void store_boot_loop_guard(void) {
+    nvm_os_detection_update_boot_loop_guard(boot_loop_count, last_reboot_uptime);
+}
 #endif
 
 #ifndef OS_DETECTION_DEBOUNCE
@@ -57,20 +80,22 @@ struct setups_data_t setups_data = {
 static volatile os_variant_t detected_os = OS_UNSURE;
 static volatile os_variant_t reported_os = OS_UNSURE;
 
+static bool os_detection_disabled = false;
+
 // we need to be able to report OS_UNSURE if that is the stable result of the guesses
 static volatile bool first_report = true;
 
 // to react on USB state changes
 static volatile struct usb_device_state current_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
-static volatile struct usb_device_state maxprev_usb_device_state = {.configure_state = USB_DEVICE_STATE_NO_INIT};
 
 // to reset the keyboard on USB state change
 #ifdef OS_DETECTION_KEYBOARD_RESET
 #    ifndef OS_DETECTION_RESET_DEBOUNCE
 #        define OS_DETECTION_RESET_DEBOUNCE OS_DETECTION_DEBOUNCE
 #    endif
-static volatile fast_timer_t configured_since = 0;
-static volatile bool         reset_pending    = false;
+// Armed by a stable configured REPORT session, even without an OS fingerprint.
+static volatile bool reset_eligible = false;
+static volatile bool reset_pending  = false;
 #endif
 
 // the OS detection might be unstable for a while, "debounce" it
@@ -79,18 +104,99 @@ static volatile fast_timer_t last_time  = 0;
 
 bool process_detected_host_os_modules(os_variant_t os);
 
-void os_detection_task(void) {
 #ifdef OS_DETECTION_KEYBOARD_RESET
-    // resetting the keyboard on the USB device state change callback results in instability, so delegate that to this task
-    if (reset_pending) {
-        soft_reset_keyboard();
-    }
-    // reset the keyboard if it is stuck in the init state for longer than debounce duration, which can happen with some KVMs
-    if (current_usb_device_state.configure_state <= USB_DEVICE_STATE_INIT && maxprev_usb_device_state.configure_state >= USB_DEVICE_STATE_CONFIGURED) {
-        if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
-            soft_reset_keyboard();
+static bool os_detection_skip_reset_held(void) {
+    layer_state_t held_layers = 0;
+#    ifndef NO_ACTION_LAYER
+    // Account for a held MO(Fn) even when key events cannot yet be processed.
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+            if (!matrix_is_on(row, col)) {
+                continue;
+            }
+            keypos_t key     = {.row = row, .col = col};
+            uint16_t keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+            if (keycode >= QK_MOMENTARY && keycode <= QK_MOMENTARY_MAX && QK_MOMENTARY_GET_LAYER(keycode) < MAX_LAYER) {
+                held_layers |= (layer_state_t)1 << QK_MOMENTARY_GET_LAYER(keycode);
+            }
         }
+    }
+#    endif
+    for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
+        for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
+            if (!matrix_is_on(row, col)) {
+                continue;
+            }
+            keypos_t key   = {.row = row, .col = col};
+            uint8_t  layer = layer_switch_get_layer(key);
+            // Existing active/default layers take precedence over lower held layers.
+            for (int8_t i = MAX_LAYER - 1; i > layer; --i) {
+                if ((held_layers & ((layer_state_t)1 << i)) && action_for_key(i, key).code != ACTION_TRANSPARENT) {
+                    layer = i;
+                    break;
+                }
+            }
+            uint16_t keycode = keymap_key_to_keycode(layer, key);
+            if (keycode == OS_DETECTION_SKIP_RESET_KEY || keycode == QK_OS_DETECTION_TOGGLE) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+#endif
+
+void os_detection_task(void) {
+    if (os_detection_disabled) {
         return;
+    }
+#ifdef OS_DETECTION_BOOT_LOOP_GUARD
+    if (boot_loop_count > 0 && current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED && timer_elapsed32(guard_configured_since) >= OS_DETECTION_BOOT_LOOP_GUARD_REARM_MS) {
+        boot_loop_count = 0;
+        store_boot_loop_guard();
+    }
+#endif
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    // Re-enumerate only from task context, after descriptor/state activity settles.
+    if (reset_eligible && reset_pending) {
+        if (os_detection_skip_reset_held()) {
+            reset_pending  = false;
+            reset_eligible = false;
+            // Keep the OS-report debounce; forget reset history so release cannot trigger a stale reset.
+        } else if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_RESET_DEBOUNCE) {
+#    ifdef OS_DETECTION_BOOT_LOOP_GUARD
+            if (boot_loop_count >= OS_DETECTION_BOOT_LOOP_GUARD_MAX_REBOOTS) {
+                reset_pending  = false;
+                reset_eligible = false;
+                return;
+            }
+#    endif
+#    if defined(OS_DETECTION_DEBUG_ENABLE) && defined(OS_DETECTION_DEBUG_AUTO_STORE)
+            if (!stored_setups_valid()) {
+                store_setups(OS_DETECTION_DEBUG_REASON_USB_REINIT);
+            }
+#    endif
+            // USB callbacks can cancel or postpone the reset while EEPROM is being written.
+            if (!reset_eligible || timer_elapsed_fast(last_time) < OS_DETECTION_RESET_DEBOUNCE) {
+                return;
+            }
+#    ifdef OS_DETECTION_BOOT_LOOP_GUARD
+            last_reboot_uptime = timer_read32();
+            boot_loop_count    = last_reboot_uptime < OS_DETECTION_BOOT_LOOP_GUARD_FAST_MS ? boot_loop_count + 1 : 0;
+            store_boot_loop_guard();
+#    endif
+            reset_pending  = false;
+            reset_eligible = false;
+            soft_reset_keyboard();
+            return;
+        }
+    }
+    // Do not let OS reporting consume the quiet-period timer while a reset is queued.
+    if (reset_pending) {
+        return;
+    }
+    if (current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED && current_usb_device_state.protocol == USB_PROTOCOL_REPORT && debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
+        reset_eligible = true;
     }
 #endif
 #ifdef OS_DETECTION_SINGLE_REPORT
@@ -101,6 +207,14 @@ void os_detection_task(void) {
     if (current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED) {
         // debouncing goes for both the detected OS as well as the USB state
         if (debouncing && timer_elapsed_fast(last_time) >= OS_DETECTION_DEBOUNCE) {
+#ifdef OS_DETECTION_KEYBOARD_RESET
+            if (os_detection_skip_reset_held()) {
+                reset_pending  = false;
+                reset_eligible = false;
+                // Keep the fingerprint ready to report after the temporary bypass is released.
+                return;
+            }
+#endif
             debouncing = false;
             last_time  = 0;
             if (detected_os != reported_os || first_report) {
@@ -127,8 +241,14 @@ __attribute__((weak)) bool process_detected_host_os_user(os_variant_t detected_o
 
 // Some collected sequences of wLength can be found in tests.
 void process_wlength(const uint16_t w_length) {
+    if (os_detection_disabled) {
+        return;
+    }
 #ifdef OS_DETECTION_DEBUG_ENABLE
-    usb_setups[setups_data.count] = w_length;
+    if (usb_setup_count < OS_DETECTION_STORED_SETUPS) {
+        usb_setups[usb_setup_count] = w_length;
+        usb_setup_count++;
+    }
 #endif
     setups_data.count++;
     setups_data.last_wlength = w_length;
@@ -173,41 +293,83 @@ void process_wlength(const uint16_t w_length) {
 }
 
 os_variant_t detected_host_os(void) {
-    return detected_os;
+#ifdef SPLIT_KEYBOARD
+    if (!is_keyboard_master()) {
+        return detected_os;
+    }
+#endif
+    return os_detection_disabled ? OS_UNSURE : detected_os;
 }
 
 void erase_wlength_data(void) {
+#ifdef OS_DETECTION_BOOT_LOOP_GUARD
+    guard_configured_since = 0;
+#endif
     memset(&setups_data, 0, sizeof(setups_data));
+#ifdef OS_DETECTION_DEBUG_ENABLE
+    memset(usb_setups, 0, sizeof(usb_setups));
+    usb_setup_count = 0;
+#endif
+#ifdef OS_DETECTION_KEYBOARD_RESET
+    reset_eligible = false;
+    reset_pending  = false;
+#endif
     detected_os                              = OS_UNSURE;
     reported_os                              = OS_UNSURE;
     current_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
-    maxprev_usb_device_state.configure_state = USB_DEVICE_STATE_NO_INIT;
     debouncing                               = false;
     last_time                                = 0;
     first_report                             = true;
 }
 
+void os_detection_init(void) {
+    erase_wlength_data();
+#ifdef OS_DETECTION_BOOT_LOOP_GUARD
+    nvm_os_detection_read_boot_loop_guard(&boot_loop_count, &last_reboot_uptime);
+#endif
+    os_detection_disabled = nvm_os_detection_read_disabled();
+}
+
+bool os_detection_toggle(void) {
+    os_detection_disabled = !os_detection_disabled;
+    nvm_os_detection_update_disabled(os_detection_disabled);
+    erase_wlength_data();
+    return !os_detection_disabled;
+}
+
 void os_detection_notify_usb_device_state_change(struct usb_device_state usb_device_state) {
-    // treat this like any other source of instability
-    if (maxprev_usb_device_state.configure_state < current_usb_device_state.configure_state) {
-        maxprev_usb_device_state.configure_state = current_usb_device_state.configure_state;
+    if (os_detection_disabled) {
+        return;
     }
+#ifdef OS_DETECTION_BOOT_LOOP_GUARD
+    if (usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED && current_usb_device_state.configure_state != USB_DEVICE_STATE_CONFIGURED) {
+        guard_configured_since = timer_read32();
+    }
+#endif
+    // treat this like any other source of instability
     current_usb_device_state = usb_device_state;
     last_time                = timer_read_fast();
     debouncing               = true;
 
 #ifdef OS_DETECTION_KEYBOARD_RESET
-    if (configured_since == 0 && current_usb_device_state.configure_state == USB_DEVICE_STATE_CONFIGURED) {
-        configured_since = timer_read_fast();
-    } else if (current_usb_device_state.configure_state == USB_DEVICE_STATE_INIT) {
-        // reset the keyboard only if it's been stable for at least debounce duration, to avoid issues with some KVMs
-        if (configured_since > 0 && timer_elapsed_fast(configured_since) >= OS_DETECTION_RESET_DEBOUNCE) {
-            reset_pending = true;
-        }
-        configured_since = 0;
+    if (current_usb_device_state.protocol == USB_PROTOCOL_BOOT) {
+        reset_eligible = false;
+        reset_pending  = false;
+    } else if (current_usb_device_state.configure_state == USB_DEVICE_STATE_INIT && reset_eligible) {
+        // Eligibility comes from the previous stable host, not the new enumeration's REPORT default.
+        reset_pending = true;
     }
 #endif
 }
+
+#ifdef OS_DETECTION_KEYBOARD_RESET
+void os_detection_notify_usb_descriptor_request(void) {
+    if (!os_detection_disabled) {
+        last_time  = timer_read_fast();
+        debouncing = true;
+    }
+}
+#endif
 
 #if defined(SPLIT_KEYBOARD) && defined(SPLIT_DETECTED_OS_ENABLE)
 void slave_update_detected_host_os(os_variant_t os) {
@@ -218,17 +380,40 @@ void slave_update_detected_host_os(os_variant_t os) {
 #endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
+#    if defined(CONSOLE_ENABLE) || (defined(OS_DETECTION_DEBUG_AUTO_STORE) && defined(OS_DETECTION_KEYBOARD_RESET))
+static bool stored_setups_valid(void) {
+    return nvm_os_detection_read_setup_count() > 0 && nvm_os_detection_read_setup_reason() <= OS_DETECTION_DEBUG_REASON_USB_REINIT;
+}
+#    endif
+
 void print_stored_setups(void) {
 #    ifdef CONSOLE_ENABLE
-    uint8_t cnt = nvm_os_detection_read_setup_count();
+#        ifdef OS_DETECTION_BOOT_LOOP_GUARD
+    xprintf("OS detection reboot guard: %u/%u rapid resets, last request uptime: %lu ms\n", boot_loop_count, OS_DETECTION_BOOT_LOOP_GUARD_MAX_REBOOTS, (unsigned long)last_reboot_uptime);
+#        endif
+    if (!stored_setups_valid()) {
+        xprintf("No valid stored OS detection setups\n");
+        return;
+    }
+    uint8_t cnt    = nvm_os_detection_read_setup_count();
+    uint8_t reason = nvm_os_detection_read_setup_reason();
+    xprintf("OS detection snapshot: %u packets, reason: %s\n", cnt, reason == OS_DETECTION_DEBUG_REASON_USB_REINIT ? "USB reinit" : "manual");
     for (uint8_t i = 0; i < cnt; ++i) {
-        xprintf("i: %d, wLength: 0x%02X\n", i, nvm_os_detection_read_setup(i));
+        xprintf("i: %u, wLength: 0x%04X\n", i, nvm_os_detection_read_setup(i));
     }
 #    endif
 }
 
+static void store_setups(uint8_t reason) {
+    nvm_os_detection_update_setups(usb_setups, usb_setup_count, reason);
+}
+
 void store_setups_in_eeprom(void) {
-    nvm_os_detection_update_setups(usb_setups, setups_data.count);
+    store_setups(OS_DETECTION_DEBUG_REASON_MANUAL);
+}
+
+void clear_stored_setups(void) {
+    nvm_os_detection_update_setups(NULL, 0, OS_DETECTION_DEBUG_REASON_MANUAL);
 }
 
 #endif // OS_DETECTION_DEBUG_ENABLE
