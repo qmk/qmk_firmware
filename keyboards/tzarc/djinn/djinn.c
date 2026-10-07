@@ -209,9 +209,9 @@ void housekeeping_task_kb(void) {
     // Match the backlight to the LCD state
     if (is_keyboard_master() && is_backlight_enabled() != peripherals_on) {
         if (peripherals_on)
-            backlight_enable();
+            backlight_enable_noeeprom();
         else
-            backlight_disable();
+            backlight_disable_noeeprom();
     }
 
     // Draw the UI

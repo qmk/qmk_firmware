@@ -98,26 +98,34 @@ endif
 
 VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
 STENO_PROTOCOL ?= all
+
 ifeq ($(strip $(STENO_ENABLE)), yes)
     ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
-    else
-        OPT_DEFS += -DSTENO_ENABLE
+    endif
+
+    ifeq ($(strip $(PLOVER_HID_ENABLE)), yes)
+        $(call WARNING_MESSAGE, PLOVER_HID_ENABLE is mutually exclusive with STENO_ENABLE and will be disabled)
+        override PLOVER_HID_ENABLE = no
+    endif
+
+    ifeq ($(strip $(STENO_PROTOCOL)), all)
+        override STENO_PROTOCOL := $(filter-out all,$(VALID_STENO_PROTOCOL_TYPES))
+        OPT_DEFS += -DSTENO_ENABLE_ALL
+    endif
+
+    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(sort $(STENO_PROTOCOL)))
+
+    # for each supported protocol -> add deps
+    ifneq ($(filter $(STENO_PROTOCOL),geminipr),)
+        OPT_DEFS += -DSTENO_ENABLE_GEMINI
+        SRC += $(QUANTUM_DIR)/steno/steno_gemini.c
         VIRTSER_ENABLE ?= yes
-
-        ifeq ($(strip $(STENO_PROTOCOL)), geminipr)
-            OPT_DEFS += -DSTENO_ENABLE_GEMINI
-        endif
-        ifeq ($(strip $(STENO_PROTOCOL)), txbolt)
-            OPT_DEFS += -DSTENO_ENABLE_BOLT
-        endif
-        ifeq ($(strip $(STENO_PROTOCOL)), all)
-            OPT_DEFS += -DSTENO_ENABLE_ALL
-            OPT_DEFS += -DSTENO_ENABLE_GEMINI
-            OPT_DEFS += -DSTENO_ENABLE_BOLT
-        endif
-
-        SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    endif
+    ifneq ($(filter $(STENO_PROTOCOL),txbolt),)
+        OPT_DEFS += -DSTENO_ENABLE_BOLT
+        SRC += $(QUANTUM_DIR)/steno/steno_bolt.c
+        VIRTSER_ENABLE ?= yes
     endif
 endif
 

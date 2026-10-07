@@ -217,6 +217,9 @@
     "SPLIT_ST7565_ENABLE": {"info_key": "split.transport.sync.st7565", "value_type": "flag"},
     "SPLIT_WPM_ENABLE": {"info_key": "split.transport.sync.wpm", "value_type": "flag"},
 
+    // Stenography
+    "STENO_COMBINEDMAP": {"info_key": "stenography.combined_map", "value_type": "flag"},
+
     // Tapping
     "CHORDAL_HOLD": {"info_key": "tapping.chordal_hold", "value_type": "flag"},
     "FLOW_TAP_TERM": {"info_key": "tapping.flow_tap_term", "value_type": "int"},

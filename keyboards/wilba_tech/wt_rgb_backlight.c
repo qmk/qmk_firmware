@@ -64,16 +64,8 @@
 
 #include "progmem.h"
 #include "quantum/color.h"
-#include "eeprom.h"
-
-#include "nvm_eeprom_eeconfig_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
-#include "nvm_eeprom_via_internal.h" // expose EEPROM addresses, no appetite to move legacy/deprecated code to nvm
-#include "via.h" // uses EEPROM address, lighting value IDs
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR (VIA_EEPROM_CUSTOM_CONFIG_ADDR)
-
-#if VIA_EEPROM_CUSTOM_CONFIG_SIZE == 0
-#error VIA_EEPROM_CUSTOM_CONFIG_SIZE was not defined to store backlight_config struct
-#endif
+#include "eeconfig.h"
+#include "compiler_support.h"
 
 #if defined(RGB_BACKLIGHT_M6_B)
 #include "drivers/led/issi/is31fl3218.h"
@@ -139,6 +131,8 @@ backlight_config g_config = {
     .custom_color = { { 0, 255 }, { 43, 255 }, { 85, 255 }, { 128, 255 }, { 171, 255 }, { 213, 255 }, { 0, 255 }, { 43, 255 }, { 85, 255 }, { 128, 255 } }
 #endif
 };
+
+STATIC_ASSERT(sizeof(backlight_config) == EECONFIG_KB_DATA_SIZE, "Mismatch in keyboard EECONFIG stored data");
 
 bool g_suspend_state = false;
 
@@ -2097,14 +2091,16 @@ void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
     backlight_config_save();
 }
 
-void backlight_config_load(void)
-{
-    eeprom_read_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+void eeconfig_init_kb_datablock(void) {
+    backlight_config_save();
 }
 
-void backlight_config_save(void)
-{
-    eeprom_update_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+void backlight_config_load(void) {
+    eeconfig_read_kb_datablock( &g_config, 0, sizeof(backlight_config) );
+}
+
+void backlight_config_save(void) {
+    eeconfig_update_kb_datablock( &g_config, 0, sizeof(backlight_config) );
 }
 
 void backlight_init_drivers(void)

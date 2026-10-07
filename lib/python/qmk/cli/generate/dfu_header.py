@@ -5,32 +5,22 @@ from milc import cli
 
 from qmk.decorators import automagic_keyboard
 from qmk.info import info_json
-from qmk.path import is_keyboard, normpath
-from qmk.keyboard import keyboard_completer
+from qmk.path import normpath
+from qmk.keyboard import keyboard_completer, keyboard_folder
 from qmk.commands import dump_lines
 from qmk.constants import GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE
 
 
 @cli.argument('-o', '--output', arg_only=True, type=normpath, help='File to write to')
 @cli.argument('-q', '--quiet', arg_only=True, action='store_true', help="Quiet mode, only output error messages")
-@cli.argument('-kb', '--keyboard', completer=keyboard_completer, help='Keyboard to generate LUFA Keyboard.h for.')
+@cli.argument('-kb', '--keyboard', required=True, arg_only=True, type=keyboard_folder, completer=keyboard_completer, help='Keyboard to generate LUFA Keyboard.h for.')
 @cli.subcommand('Used by the make system to generate LUFA Keyboard.h from info.json', hidden=True)
 @automagic_keyboard
 def generate_dfu_header(cli):
     """Generates the Keyboard.h file.
     """
-    # Determine our keyboard(s)
-    if not cli.config.generate_dfu_header.keyboard:
-        cli.log.error('Missing parameter: --keyboard')
-        cli.subcommands['info'].print_help()
-        return False
-
-    if not is_keyboard(cli.config.generate_dfu_header.keyboard):
-        cli.log.error('Invalid keyboard: "%s"', cli.config.generate_dfu_header.keyboard)
-        return False
-
     # Build the Keyboard.h file.
-    kb_info_json = dotty(info_json(cli.config.generate_dfu_header.keyboard))
+    kb_info_json = dotty(info_json(cli.args.keyboard))
 
     keyboard_h_lines = [GPL2_HEADER_C_LIKE, GENERATED_HEADER_C_LIKE, '#pragma once']
     keyboard_h_lines.append(f'#define MANUFACTURER "{kb_info_json["manufacturer"]}"')

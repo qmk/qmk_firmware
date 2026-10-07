@@ -187,9 +187,9 @@ include $(COMMUNITY_RULES_MK)
 
 ifneq ($(COMMUNITY_MODULES),)
 
-$(INTERMEDIATE_OUTPUT)/src/community_config.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
+$(INTERMEDIATE_OUTPUT)/src/community_post_config.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
 	@$(SILENT) || printf "$(MSG_GENERATING) $@" | $(AWK_CMD)
-	$(eval CMD=$(QMK_BIN) generate-community-config-h -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_config.h $(KEYMAP_JSON))
+	$(eval CMD=$(QMK_BIN) generate-community-post-config-h -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/community_post_config.h $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
 $(INTERMEDIATE_OUTPUT)/src/community_modules.h: $(KEYMAP_JSON) $(DD_CONFIG_FILES)
@@ -227,10 +227,10 @@ $(INTERMEDIATE_OUTPUT)/src/split_transaction_id_community_modules.inc: $(KEYMAP_
 	$(eval CMD=$(QMK_BIN) generate-split-transaction-id-community-modules-inc -kb $(KEYBOARD) --quiet --output $(INTERMEDIATE_OUTPUT)/src/split_transaction_id_community_modules.inc $(KEYMAP_JSON))
 	@$(BUILD_CMD)
 
-COMMUNITY_CONFIG_H = $(INTERMEDIATE_OUTPUT)/src/community_config.h
+COMMUNITY_POST_CONFIG_H = $(INTERMEDIATE_OUTPUT)/src/community_post_config.h
 SRC += $(INTERMEDIATE_OUTPUT)/src/community_modules.c
 
-generated-files: $(INTERMEDIATE_OUTPUT)/src/community_config.h $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h $(INTERMEDIATE_OUTPUT)/src/led_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/split_transaction_id_community_modules.inc
+generated-files: $(INTERMEDIATE_OUTPUT)/src/community_post_config.h $(INTERMEDIATE_OUTPUT)/src/community_modules.h $(INTERMEDIATE_OUTPUT)/src/community_modules.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.c $(INTERMEDIATE_OUTPUT)/src/community_modules_introspection.h $(INTERMEDIATE_OUTPUT)/src/led_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/rgb_matrix_community_modules.inc $(INTERMEDIATE_OUTPUT)/src/split_transaction_id_community_modules.inc
 
 endif
 
@@ -331,10 +331,6 @@ define config_h_community_module_appender
 endef
 $(foreach module,$(COMMUNITY_MODULE_PATHS),$(eval $(call config_h_community_module_appender,$(module))))
 
-ifneq ($(COMMUNITY_CONFIG_H),)
-    CONFIG_H += $(COMMUNITY_CONFIG_H)
-endif
-
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_5)/config.h
 endif
@@ -374,6 +370,10 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_4)/post_config.h)","")
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/post_config.h)","")
     POST_CONFIG_H += $(KEYBOARD_PATH_5)/post_config.h
+endif
+
+ifneq ($(COMMUNITY_POST_CONFIG_H),)
+    POST_CONFIG_H += $(COMMUNITY_POST_CONFIG_H)
 endif
 
 CONFIG_H += $(INTERMEDIATE_OUTPUT)/src/info_config.h

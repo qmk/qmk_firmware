@@ -134,7 +134,8 @@ def git_check_deviation(active_branch):
     """Return True if branch has custom commits
     """
     cli.run(['git', 'fetch', 'upstream', active_branch])
-    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'])
+    # As we only care about exit code, decode to bytes to avoid UnicodeDecodeError
+    deviations = cli.run(['git', '--no-pager', 'log', f'upstream/{active_branch}...{active_branch}'], text=False)
     return bool(deviations.returncode)
 
 
