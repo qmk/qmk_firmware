@@ -104,6 +104,7 @@
             "driver": "vendor"
         }
     },
+    "url": "https://github.com/kata0510/Lily58",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x5800",
