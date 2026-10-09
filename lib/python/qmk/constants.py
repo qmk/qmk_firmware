@@ -71,11 +71,6 @@ MCU2BOOTLOADER = {
     "atmega328": "usbasploader",
 }
 
-# Map of legacy keycodes that can be automatically updated
-LEGACY_KEYCODES = {  # Comment here is to force multiline formatting
-    'RESET': 'QK_BOOT'
-}
-
 # Map VID:PID values to bootloaders
 BOOTLOADER_VIDS_PIDS = {
     'atmel-dfu': {
