@@ -260,13 +260,13 @@ path.combo {
 </g>
 <g transform="translate(221, 221) rotate(15.0)" class="key keypos-30">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
-<text x="0" y="0" class="key tap">ENT</text>
+<text x="0" y="0" class="key tap">BSPC</text>
 <text x="0" y="24" class="key hold"><tspan style="font-size: 88%">MOD_RSFT</tspan></text>
 </g>
 <g transform="translate(279, 245) rotate(30.0)" class="key keypos-31">
 <rect rx="6" ry="6" x="-26" y="-26" width="52" height="52" class="key"/>
 <text x="0" y="0" class="key tap">
-<tspan x="0" dy="-1.2em">LT(</tspan><tspan x="0" dy="1.2em">NUMBERS</tspan><tspan x="0" dy="1.2em">,BSPC)</tspan>
+<tspan x="0" dy="-1.2em">LT(</tspan><tspan x="0" dy="1.2em">NUMBERS</tspan><tspan x="0" dy="1.2em">,ENT)</tspan>
 </text>
 </g>
 <g transform="translate(393, 245) rotate(-30.0)" class="key keypos-32">

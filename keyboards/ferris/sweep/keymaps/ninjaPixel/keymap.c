@@ -78,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Base layer — standard Colemak (not Colemak-DH), MacOS-oriented.
     // note: the style `key1_T(key2)` is a mod tap. Tap for key2 and hold for key1
     [_COLEMAK] = LAYOUT(
-        KC_Q,         KC_W,        KC_F,         KC_P,                 KC_B,                    KC_J,               KC_L,                   KC_U,         KC_Y,        KC_BSLS,
-        HYPR_T(KC_A), MEH_T(KC_R), LCTL_T(KC_S), LGUI_T(KC_T),         LALT_T(KC_G),            RALT_T(KC_M),       RGUI_T(KC_N),           RCTL_T(KC_E), MEH_T(KC_I), HYPR_T(KC_O),
-        KC_Z,         KC_X,        KC_C,         KC_D,                 KC_V,                    KC_K,               KC_H,                   KC_COMM,      KC_DOT,      MT(MOD_RSFT, KC_SLSH),
-                                                 MT(MOD_RSFT, KC_ENT), LT(_NUMBERS, KC_BSPC),   OSL(_LAYER_PICKER), LT(_SECONDARY, KC_SPC)
+        KC_Q,         KC_W,        KC_F,         KC_P,                  KC_B,                    KC_J,               KC_L,                   KC_U,         KC_Y,        KC_BSLS,
+        HYPR_T(KC_A), MEH_T(KC_R), LCTL_T(KC_S), LGUI_T(KC_T),          LALT_T(KC_G),            RALT_T(KC_M),       RGUI_T(KC_N),           RCTL_T(KC_E), MEH_T(KC_I), HYPR_T(KC_O),
+        KC_Z,         KC_X,        KC_C,         KC_D,                  KC_V,                    KC_K,               KC_H,                   KC_COMM,      KC_DOT,      MT(MOD_RSFT, KC_SLSH),
+                                                 MT(MOD_RSFT, KC_BSPC), LT(_NUMBERS, KC_ENT),   OSL(_LAYER_PICKER), LT(_SECONDARY, KC_SPC)
     ),
 
 

@@ -7,7 +7,7 @@ This fork of QMK is for the local development of the following keyboards:
 The 2 sofle boards share a keymap. See the `users/ninjaPixel` directory for more information.
 
 The sofle layout is mainly complete and the next stages of this project are to port the keymaps to the other boards.
-The Ferris Sweep port has begun: a single-layer Colemak proof-of-concept lives at `keyboards/ferris/sweep/keymaps/ninjaPixel/`, with a fuller multi-layer layout (and likely a move into `users/ninjaPixel/`, as the sofle boards do) still to come.
+The Ferris Sweep port lives at `keyboards/ferris/sweep/keymaps/ninjaPixel/` and is now a multi-layer layout (`_COLEMAK`, `_LAYER_PICKER`, `_NUMBERS`, `_FN_KEYS`, `_SECONDARY`), using tap dances, mod-taps, and a one-shot layer picker. A possible future step is moving it into `users/ninjaPixel/`, as the sofle boards do.
 The base layout is for MacOS, using the Colemak layout. The layout is designed to also work with Windows, and there are additional layers to deal with the 
 Windows operating system; these layers are mainly transparent keys (which fall through to the lower Mac layer) but some keys declare Windows-centric shortcuts / keys etc.
 
