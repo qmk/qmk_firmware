@@ -1,0 +1,7 @@
+{
+    "keyboard_name": "pytest_override",
+    "manufacturer": "test_override",
+    "usb": {
+        "pid": "0x0000"
+    }
+}
