@@ -1,3 +1,6 @@
+// Jane Bernhardt (https://github.com/germ)
+// SPDX-License-Identifier: GPL-2.0+
+
 #pragma once
 
 #include "quantum.h"

@@ -8,7 +8,6 @@
 
 #include <hal.h>
 
-#include "via.h" // only for EEPROM address
 #include "satisfaction_keycodes.h"
 
 #define EEPROM_ENABLED_ENCODER_MODES_OFFSET 0

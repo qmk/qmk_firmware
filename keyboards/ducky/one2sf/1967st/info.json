@@ -1,0 +1,23 @@
+{
+    "manufacturer": "Ducky",
+    "maintainer": "f7urry",
+    "bootloader": "custom",
+    "usb": {
+        "vid": "0x445B"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["B10", "B9", "C13", "C12", "C11", "C10", "C9", "C8", "A15", "A14", "A13", "D0", "D1", "D2", "B15"],
+        "rows": ["D11", "B4", "B5", "B6", "B7"]
+    },
+    "diode_direction": "COL2ROW",
+    "features": {
+        "mousekey": true,
+        "extrakey": true,
+        "nkro": true
+    }
+}

@@ -66,7 +66,7 @@ Once both plugins are installed, restart Eclipse as prompted.
   * Select the _AVR-GCC Toolchain_;
   * Keep the rest as-is and click <kbd>Finish</kbd>
 
-  ![Importing QMK in Eclipse](https://i.imgur.com/oHYR1yW.png)
+  ![Importing QMK in Eclipse](/oHYR1yW.png)
 
 3. The project will now be loaded and indexed. Its files can be browsed easily through the _Project Explorer_ on the left.
 

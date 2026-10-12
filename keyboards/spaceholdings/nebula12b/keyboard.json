@@ -57,6 +57,24 @@
             "solid_multisplash": true
         },
         "driver": "ws2812",
+        "layout": [
+            {"x": 224, "y": 0, "flags": 2},
+            {"matrix": [0, 2], "x": 224, "y": 9, "flags": 4},
+            {"matrix": [1, 2], "x": 224, "y": 27, "flags": 4},
+            {"matrix": [1, 1], "x": 112, "y": 27, "flags": 4},
+            {"matrix": [1, 0], "x": 0, "y": 27, "flags": 4},
+            {"matrix": [2, 0], "x": 0, "y": 46, "flags": 4},
+            {"matrix": [2, 1], "x": 112, "y": 46, "flags": 4},
+            {"matrix": [2, 2], "x": 224, "y": 46, "flags": 4},
+            {"x": 224, "y": 55, "flags": 2},
+            {"matrix": [3, 2], "x": 224, "y": 64, "flags": 4},
+            {"matrix": [3, 1], "x": 112, "y": 64, "flags": 4},
+            {"matrix": [3, 0], "x": 0, "y": 64, "flags": 4},
+            {"x": 0, "y": 55, "flags": 2},
+            {"matrix": [0, 0], "x": 0, "y": 9, "flags": 4},
+            {"x": 0, "y": 0, "flags": 2},
+            {"matrix": [0, 1], "x": 112, "y": 9, "flags": 4}
+        ],
         "sleep": true
     },
     "build": {

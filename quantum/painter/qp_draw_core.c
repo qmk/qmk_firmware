@@ -52,7 +52,7 @@ bool qp_internal_setpixel_impl(painter_device_t device, uint16_t x, uint16_t y) 
 void qp_internal_fill_pixdata(painter_device_t device, uint32_t num_pixels, uint8_t hue, uint8_t sat, uint8_t val) {
     painter_driver_t *driver            = (painter_driver_t *)device;
     uint32_t          pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
-    num_pixels                          = QP_MIN(pixels_in_pixdata, num_pixels);
+    num_pixels                          = MIN(pixels_in_pixdata, num_pixels);
 
     // Convert the color to native pixel format
     qp_pixel_t color = {.hsv888 = {.h = hue, .s = sat, .v = val}};
@@ -232,17 +232,17 @@ bool qp_internal_fillrect_helper_impl(painter_device_t device, uint16_t left, ui
     uint32_t          pixels_in_pixdata = qp_internal_num_pixels_in_buffer(device);
     painter_driver_t *driver            = (painter_driver_t *)device;
 
-    uint16_t l = QP_MIN(left, right);
-    uint16_t r = QP_MAX(left, right);
-    uint16_t t = QP_MIN(top, bottom);
-    uint16_t b = QP_MAX(top, bottom);
+    uint16_t l = MIN(left, right);
+    uint16_t r = MAX(left, right);
+    uint16_t t = MIN(top, bottom);
+    uint16_t b = MAX(top, bottom);
     uint16_t w = r - l + 1;
     uint16_t h = b - t + 1;
 
     uint32_t remaining = w * h;
     driver->driver_vtable->viewport(device, l, t, r, b);
     while (remaining > 0) {
-        uint32_t transmit = QP_MIN(remaining, pixels_in_pixdata);
+        uint32_t transmit = MIN(remaining, pixels_in_pixdata);
         if (!driver->driver_vtable->pixdata(device, qp_internal_global_pixdata_buffer, transmit)) {
             return false;
         }
@@ -260,10 +260,10 @@ bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t righ
     }
 
     // Cater for cases where people have submitted the coordinates backwards
-    uint16_t l = QP_MIN(left, right);
-    uint16_t r = QP_MAX(left, right);
-    uint16_t t = QP_MIN(top, bottom);
-    uint16_t b = QP_MAX(top, bottom);
+    uint16_t l = MIN(left, right);
+    uint16_t r = MAX(left, right);
+    uint16_t t = MIN(top, bottom);
+    uint16_t b = MAX(top, bottom);
     uint16_t w = r - l + 1;
     uint16_t h = b - t + 1;
 
@@ -281,7 +281,7 @@ bool qp_rect(painter_device_t device, uint16_t left, uint16_t top, uint16_t righ
         ret = qp_internal_fillrect_helper_impl(device, l, t, r, b);
     } else {
         // Fill up the pixdata buffer with the required number of native pixels
-        qp_internal_fill_pixdata(device, QP_MAX(w, h), hue, sat, val);
+        qp_internal_fill_pixdata(device, MAX(w, h), hue, sat, val);
 
         // Draw 4x filled single-width rects to create an outline
         if (!qp_internal_fillrect_helper_impl(device, l, t, r, t) || !qp_internal_fillrect_helper_impl(device, l, b, r, b) || !qp_internal_fillrect_helper_impl(device, l, t + 1, l, b - 1) || !qp_internal_fillrect_helper_impl(device, r, t + 1, r, b - 1)) {

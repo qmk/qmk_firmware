@@ -28,9 +28,9 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
           break;
         case 1: /* Layer 2: Scroll */
           if (clockwise) {
-              tap_code(KC_WH_U);
+              tap_code(MS_WHLU);
           } else {
-              tap_code(KC_WH_D);
+              tap_code(MS_WHLD);
           }
           break;
         case 2: /* Layer 3: Change Track */

@@ -104,9 +104,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 	    case 3:
                 // layer 3 - pan right (CW) and left (CCW)
                 if (clockwise) {
-                    tap_code(KC_WH_R);
+                    tap_code(MS_WHLR);
                 } else {
-                    tap_code(KC_WH_L);
+                    tap_code(MS_WHLL);
                 }
                 break;
         }
@@ -134,18 +134,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
             case 2:
                 // layer 2 - wheel up (CW) and down (CCW)
                 if (clockwise) {
-                    tap_code(KC_WH_U);
+                    tap_code(MS_WHLU);
                 } else {
-                    tap_code(KC_WH_D);
+                    tap_code(MS_WHLD);
                 }
                 break;
 
             case 3:
                 // layer 3 - wheel up (CW) and down (CCW)
                 if (clockwise) {
-                    tap_code(KC_WH_U);
+                    tap_code(MS_WHLU);
                 } else {
-                    tap_code(KC_WH_D);
+                    tap_code(MS_WHLD);
                 }
                 break;
         }

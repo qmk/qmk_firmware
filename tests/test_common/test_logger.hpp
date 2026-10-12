@@ -21,7 +21,7 @@
 
 class TestLogger : public std::ostream {
    public:
-    TestLogger() : std::ostream(&m_log){};
+    TestLogger() : std::ostream(&m_log) {};
     TestLogger& info();
     TestLogger& trace();
     TestLogger& error();

@@ -6,9 +6,13 @@
         "vid": "0x5845",
         "pid": "0x5208",
         "device_version": "0.0.2",
-        "force_nkro": true,
         "shared_endpoint": {
             "keyboard": true
+        }
+    },
+    "host": {
+        "default": {
+            "nkro": true
         }
     },
     "features": {

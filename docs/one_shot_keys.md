@@ -15,11 +15,49 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
 ```
 
-* `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](mod_tap), not the `KC_*` codes.
-* `OSL(layer)` - momentary switch to *layer*.
-* `OS_ON` - Turns on One Shot keys.
-* `OS_OFF` - Turns off One Shot keys. OSM act as regular mod keys, OSL act like `MO`.
-* `OS_TOGG` - Toggles the one shot key status.
+## Keycodes {#keycodes}
+
+|Key                 |Aliases  |Description                                                          |
+|--------------------|---------|---------------------------------------------------------------------|
+|`QK_ONE_SHOT_TOGGLE`|`OS_TOGG`|Toggles One Shot keys status                                         |
+|`QK_ONE_SHOT_ON`    |`OS_ON`  |Turns One Shot keys on                                               |
+|`QK_ONE_SHOT_OFF`   |`OS_OFF` |Turns One Shot keys off                                              |
+|`OSL(layer)`        |         |Switch to `layer` for one keypress                                   |
+|`OSM(mod)`          |         |Hold `mod` for one keypress                                          |
+|`OS_LCTL`           |         |Hold Left Control for one keypress                                   |
+|`OS_LSFT`           |         |Hold Left Shift for one keypress                                     |
+|`OS_LALT`           |         |Hold Left Alt for one keypress                                       |
+|`OS_LGUI`           |         |Hold Left GUI for one keypress                                       |
+|`OS_LCS`            |         |Hold Left Control and Left Shift for one keypress                    |
+|`OS_LCA`            |         |Hold Left Control and left Alt for one keypress                      |
+|`OS_LCG`            |         |Hold Left Control and Left GUI for one keypress                      |
+|`OS_LSA`            |         |Hold Left Shift and Left Alt for one keypress                        |
+|`OS_LSG`            |         |Hold Left Shift and Left GUI for one keypress                        |
+|`OS_LAG`            |         |Hold Left Alt and Left GUI for one keypress                          |
+|`OS_LCSG`           |         |Hold Left Control, Left Shift and Left GUI for one keypress          |
+|`OS_LCAG`           |         |Hold Left Control, Left Alt and Left GUI for one keypress            |
+|`OS_LSAG`           |         |Hold Left Shift, Left Alt and Left GUI for one keypress              |
+|`OS_RCTL`           |         |Hold Right Control for one keypress                                  |
+|`OS_RSFT`           |         |Hold Right Shift for one keypress                                    |
+|`OS_RALT`           |         |Hold Right Alt for one keypress                                      |
+|`OS_RGUI`           |         |Hold Right GUI for one keypress                                      |
+|`OS_RCS`            |         |Hold Right Control and Right Shift for one keypress                  |
+|`OS_RCA`            |         |Hold Right Control and Right Alt for one keypress                    |
+|`OS_RCG`            |         |Hold Right Control and Right GUI for one keypress                    |
+|`OS_RSA`            |         |Hold Right Shift and Right Alt for one keypress                      |
+|`OS_RSG`            |         |Hold Right Shift and Right GUI for one keypress                      |
+|`OS_RAG`            |         |Hold Right Alt and Right GUI for one keypress                        |
+|`OS_RCSG`           |         |Hold Right Control, Right Shift and Right GUI for one keypress       |
+|`OS_RCAG`           |         |Hold Right Control, Right Alt and Right GUI for one keypress         |
+|`OS_RSAG`           |         |Hold Right Shift, Right Alt and Right GUI for one keypress           |
+|`OS_MEH`            |         |Hold Left Control, Left Shift and Left Alt for one keypress          |
+|`OS_HYPR`           |         |Hold Left Control, Left Shift, Left Alt and Left GUI for one keypress|
+
+When One Shot keys are turned off, `OSM()` and `OSL()` will behave like normal modifier keys and `MO()`, respectively.
+
+::: info
+The `mod` parameter to the `OSM()` keycode must use the `MOD_*` prefix, rather than `KC_*`, eg. `OSM(MOD_LCTL | MOD_LSFT)`.
+:::
 
 Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  
 

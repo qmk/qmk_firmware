@@ -1,3 +1,6 @@
+// Copyright 2025 Keebio (@keebio)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -7,10 +10,6 @@
 #define _BASE 0
 #define _FN1 1
 #define _FN2 2
-
-enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-};
 
 #define KC_FN1 MO(_FN1)
 #define KC_FN2 MO(_FN2)

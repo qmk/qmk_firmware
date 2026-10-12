@@ -40,6 +40,7 @@
 #include "report.h"
 #include "usb_descriptor.h"
 #include "usb_descriptor_common.h"
+#include "compiler_support.h"
 
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
@@ -153,13 +154,13 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_USAGE(8, 0x30),         // X
             HID_RI_USAGE(8, 0x31),         // Y
 #    ifndef MOUSE_EXTENDED_REPORT
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
+            HID_RI_LOGICAL_MINIMUM(8, MOUSE_REPORT_XY_MIN),
+            HID_RI_LOGICAL_MAXIMUM(8, MOUSE_REPORT_XY_MAX),
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x08),
 #    else
-            HID_RI_LOGICAL_MINIMUM(16, -32767),
-            HID_RI_LOGICAL_MAXIMUM(16,  32767),
+            HID_RI_LOGICAL_MINIMUM(16, MOUSE_REPORT_XY_MIN),
+            HID_RI_LOGICAL_MAXIMUM(16, MOUSE_REPORT_XY_MAX),
             HID_RI_REPORT_COUNT(8, 0x02),
             HID_RI_REPORT_SIZE(8, 0x10),
 #    endif
@@ -186,13 +187,13 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             // Vertical wheel (1 or 2 bytes)
             HID_RI_USAGE(8, 0x38),     // Wheel
 #    ifndef WHEEL_EXTENDED_REPORT
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
+            HID_RI_LOGICAL_MINIMUM(8, MOUSE_REPORT_HV_MIN),
+            HID_RI_LOGICAL_MAXIMUM(8, MOUSE_REPORT_HV_MAX),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x08),
 #    else
-            HID_RI_LOGICAL_MINIMUM(16, -32767),
-            HID_RI_LOGICAL_MAXIMUM(16,  32767),
+            HID_RI_LOGICAL_MINIMUM(16, MOUSE_REPORT_HV_MIN),
+            HID_RI_LOGICAL_MAXIMUM(16, MOUSE_REPORT_HV_MAX),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x10),
 #    endif
@@ -202,13 +203,13 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_USAGE_PAGE(8, 0x0C),// Consumer
             HID_RI_USAGE(16, 0x0238),  // AC Pan
 #    ifndef WHEEL_EXTENDED_REPORT
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
+            HID_RI_LOGICAL_MINIMUM(8, MOUSE_REPORT_HV_MIN),
+            HID_RI_LOGICAL_MAXIMUM(8, MOUSE_REPORT_HV_MAX),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x08),
 #    else
-            HID_RI_LOGICAL_MINIMUM(16, -32767),
-            HID_RI_LOGICAL_MAXIMUM(16,  32767),
+            HID_RI_LOGICAL_MINIMUM(16, MOUSE_REPORT_HV_MIN),
+            HID_RI_LOGICAL_MAXIMUM(16, MOUSE_REPORT_HV_MAX),
             HID_RI_REPORT_COUNT(8, 0x01),
             HID_RI_REPORT_SIZE(8, 0x10),
 #    endif
@@ -332,6 +333,11 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_USAGE(8, 0x44),         // Barrel Switch
             HID_RI_LOGICAL_MINIMUM(8, 0x00),
             HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_PHYSICAL_MINIMUM(8, 0),
+            // Semi-random value (actual claimed physical size is not important)
+            HID_RI_PHYSICAL_MAXIMUM(8, 0xCB),
+            HID_RI_UNIT(8, 0x13),          // Inch, English Linear
+            HID_RI_UNIT_EXPONENT(8, 0x0E), // -2
             HID_RI_REPORT_COUNT(8, 0x03),
             HID_RI_REPORT_SIZE(8, 0x01),
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
@@ -365,10 +371,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_USAGE(8, 0x80),                // System Control
     HID_RI_COLLECTION(8, 0x01),           // Application
         HID_RI_REPORT_ID(8, REPORT_ID_SYSTEM),
-        HID_RI_USAGE_MINIMUM(8, 0x01),    // Pointer
-        HID_RI_USAGE_MAXIMUM(16, 0x00B7), // System Display LCD Autoscale
-        HID_RI_LOGICAL_MINIMUM(8, 0x01),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00B7),
+        HID_RI_USAGE_MINIMUM(16, SYSTEM_CONTROL_USAGE_MINIMUM),
+        HID_RI_USAGE_MAXIMUM(16, SYSTEM_CONTROL_USAGE_MAXIMUM),
+        HID_RI_LOGICAL_MINIMUM(16, SYSTEM_CONTROL_USAGE_MINIMUM),
+        HID_RI_LOGICAL_MAXIMUM(16, SYSTEM_CONTROL_USAGE_MAXIMUM),
         HID_RI_REPORT_COUNT(8, 1),
         HID_RI_REPORT_SIZE(8, 16),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
@@ -471,6 +477,28 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] = {
         HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
     HID_RI_END_COLLECTION(0),
 };
+#endif
+
+#ifdef PLOVER_HID_ENABLE
+const USB_Descriptor_HIDReport_Datatype_t PROGMEM PloverReport[] = {
+    HID_RI_USAGE_PAGE(16, 0xFF50),     //
+    HID_RI_USAGE(16, 0x4C56),          // Vendor Defined (0xff P L V)
+    HID_RI_COLLECTION(8, 0x01),        // Application
+        HID_RI_REPORT_ID(8, REPORT_ID_PLOVER_HID),
+        HID_RI_LOGICAL_MINIMUM(8, 0),
+        HID_RI_LOGICAL_MAXIMUM(8, 1),
+        HID_RI_REPORT_SIZE(8, 1),
+        HID_RI_REPORT_COUNT(8, 0x40),
+        HID_RI_USAGE_PAGE(8, 0x0A),    // Usage Page: Ordinal
+        HID_RI_USAGE_MINIMUM(8, 0),
+        HID_RI_USAGE_MAXIMUM(8, 0x3F),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    HID_RI_END_COLLECTION(0),
+};
+
+// The Plover HID report is sent with sizeof(report_plover_hid_t), but the endpoint and descriptor
+// are sized with PLOVER_HID_EPSIZE; they must match or reports get truncated/padded.
+STATIC_ASSERT(sizeof(report_plover_hid_t) == PLOVER_HID_EPSIZE, "report_plover_hid_t size must match PLOVER_HID_EPSIZE");
 #endif
 
 #ifdef CONSOLE_ENABLE
@@ -634,6 +662,46 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
         .EndpointAddress        = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM),
         .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
         .EndpointSize           = RAW_EPSIZE,
+        .PollingIntervalMS      = 0x01
+    },
+#endif
+
+#ifdef PLOVER_HID_ENABLE
+    /*
+     * Plover HID
+     */
+    .Plover_Interface = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Interface_t),
+            .Type               = DTYPE_Interface
+        },
+        .InterfaceNumber        = PLOVER_HID_INTERFACE,
+        .AlternateSetting       = 0x00,
+        .TotalEndpoints         = 1,
+        .Class                  = HID_CSCP_HIDClass,
+        .SubClass               = HID_CSCP_NonBootSubclass,
+        .Protocol               = HID_CSCP_NonBootProtocol,
+        .InterfaceStrIndex      = NO_DESCRIPTOR
+    },
+    .Plover_HID = {
+        .Header = {
+            .Size               = sizeof(USB_HID_Descriptor_HID_t),
+            .Type               = HID_DTYPE_HID
+        },
+        .HIDSpec                = VERSION_BCD(1, 1, 1),
+        .CountryCode            = 0x00,
+        .TotalReportDescriptors = 1,
+        .HIDReportType          = HID_DTYPE_Report,
+        .HIDReportLength        = sizeof(PloverReport)
+    },
+    .Plover_INEndpoint = {
+        .Header = {
+            .Size               = sizeof(USB_Descriptor_Endpoint_t),
+            .Type               = DTYPE_Endpoint
+        },
+        .EndpointAddress        = (ENDPOINT_DIR_IN | PLOVER_HID_IN_EPNUM),
+        .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+        .EndpointSize           = PLOVER_HID_EPSIZE,
         .PollingIntervalMS      = 0x01
     },
 #endif
@@ -1280,6 +1348,14 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                     break;
 #endif
 
+#ifdef PLOVER_HID_ENABLE
+                case PLOVER_HID_INTERFACE:
+                    Address = &ConfigurationDescriptor.Plover_HID;
+                    Size    = sizeof(USB_HID_Descriptor_HID_t);
+
+                    break;
+#endif
+
 #ifdef CONSOLE_ENABLE
                 case CONSOLE_INTERFACE:
                     Address = &ConfigurationDescriptor.Console_HID;
@@ -1333,6 +1409,14 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
                 case RAW_INTERFACE:
                     Address = &RawReport;
                     Size    = sizeof(RawReport);
+
+                    break;
+#endif
+
+#ifdef PLOVER_HID_ENABLE
+                case PLOVER_HID_INTERFACE:
+                    Address = &PloverReport;
+                    Size    = sizeof(PloverReport);
 
                     break;
 #endif

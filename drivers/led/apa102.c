@@ -145,8 +145,6 @@ void apa102_flush(void) {
 void apa102_set_brightness(uint8_t brightness) {
     if (brightness > APA102_MAX_BRIGHTNESS) {
         apa102_led_brightness = APA102_MAX_BRIGHTNESS;
-    } else if (brightness < 0) {
-        apa102_led_brightness = 0;
     } else {
         apa102_led_brightness = brightness;
     }

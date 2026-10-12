@@ -53,7 +53,7 @@ void qp_surface_update_dirty(surface_dirty_data_t *dirty, uint16_t x, uint16_t y
 // Driver vtable
 
 bool qp_surface_init(painter_device_t device, painter_rotation_t rotation) {
-    painter_driver_t *        driver  = (painter_driver_t *)device;
+    painter_driver_t         *driver  = (painter_driver_t *)device;
     surface_painter_device_t *surface = (surface_painter_device_t *)driver;
     memset(surface->buffer, 0, SURFACE_REQUIRED_BUFFER_BYTE_SIZE(driver->panel_width, driver->panel_height, driver->native_bits_per_pixel));
 
@@ -78,7 +78,7 @@ bool qp_surface_clear(painter_device_t device) {
 }
 
 bool qp_surface_flush(painter_device_t device) {
-    painter_driver_t *        driver  = (painter_driver_t *)device;
+    painter_driver_t         *driver  = (painter_driver_t *)device;
     surface_painter_device_t *surface = (surface_painter_device_t *)driver;
     surface->dirty.l = surface->dirty.t = UINT16_MAX;
     surface->dirty.r = surface->dirty.b = 0;
@@ -87,7 +87,7 @@ bool qp_surface_flush(painter_device_t device) {
 }
 
 bool qp_surface_viewport(painter_device_t device, uint16_t left, uint16_t top, uint16_t right, uint16_t bottom) {
-    painter_driver_t *        driver  = (painter_driver_t *)device;
+    painter_driver_t         *driver  = (painter_driver_t *)device;
     surface_painter_device_t *surface = (surface_painter_device_t *)driver;
 
     // Set the viewport locations
@@ -106,9 +106,9 @@ bool qp_surface_viewport(painter_device_t device, uint16_t left, uint16_t top, u
 // Drawing routine to copy out the dirty region and send it to another device
 
 bool qp_surface_draw(painter_device_t surface, painter_device_t target, uint16_t x, uint16_t y, bool entire_surface) {
-    painter_driver_t *        surface_driver = (painter_driver_t *)surface;
+    painter_driver_t         *surface_driver = (painter_driver_t *)surface;
     surface_painter_device_t *surface_handle = (surface_painter_device_t *)surface_driver;
-    painter_driver_t *        target_driver  = (painter_driver_t *)target;
+    painter_driver_t         *target_driver  = (painter_driver_t *)target;
 
     // If we're not dirty... we're done.
     if (!surface_handle->dirty.is_dirty) {

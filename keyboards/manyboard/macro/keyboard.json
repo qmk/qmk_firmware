@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MB_Macro",
     "manufacturer": "Manyboard",
-    "url": "https://github.com/WillEhman/qmk_firmware/tree/dev_create_mb_macro",
     "maintainer": "William Ehman",
     "usb": {
         "vid": "0x4D42",

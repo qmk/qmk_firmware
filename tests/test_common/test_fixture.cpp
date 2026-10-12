@@ -65,7 +65,7 @@ TestFixture::TestFixture() {
 
 TestFixture::~TestFixture() {
     test_logger.info() << "test fixture clean-up start." << std::endl;
-    TestDriver driver;
+    ::testing::NiceMock<TestDriver> driver;
 
     /* Reset keyboard state. */
     clear_all_keys();

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Quark Plus",
     "manufacturer": "Nasp",
-    "url": "https://www.github.com/qmk/qmk_firmware/tree/master/keyboards/checkerboards/quark_plus",
     "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",

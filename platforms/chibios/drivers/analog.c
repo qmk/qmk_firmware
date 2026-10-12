@@ -145,7 +145,7 @@ static ADCConversionGroup adcConversionGroup = {
     .smpr  = ADC_SAMPLING_RATE,
 #elif defined(USE_ADCV2)
 #    if !defined(STM32F1XX) && !defined(GD32VF103) && !defined(WB32F3G71xx) && !defined(WB32FQ95xx) && !defined(AT32F415)
-    .cr2  = ADC_CR2_SWSTART, // F103 seem very unhappy with, F401 seems very unhappy without...
+    .cr2 = ADC_CR2_SWSTART, // F103 seem very unhappy with, F401 seems very unhappy without...
 #    endif
 #    if defined(AT32F415)
     .spt2 = ADC_SPT2_CSPT_AN0(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN1(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN2(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN3(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN4(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN5(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN6(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN7(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN8(ADC_SAMPLING_RATE) | ADC_SPT2_CSPT_AN9(ADC_SAMPLING_RATE),

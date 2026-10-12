@@ -11,6 +11,9 @@
         "on_state": 1
     },
     "debounce": 5,
+    "dynamic_keymap": {
+        "layer_count": 4
+    },
     "features": {
         "command": false,
         "console": false
@@ -23,7 +26,8 @@
             "animation": "solid",
             "on": true,
             "val": 255,
-            "speed": 128
+            "speed": 128,
+            "flags": 255
         },
         "led_flush_limit": 16,
         "max_brightness": 255,
@@ -53,7 +57,8 @@
             "hue": 0,
             "sat": 255,
             "val": 255,
-            "speed": 128
+            "speed": 128,
+            "flags": 255
         },
         "hue_steps": 8,
         "led_flush_limit": 16,

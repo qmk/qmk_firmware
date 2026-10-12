@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern "C" {
 #endif
 
+void host_init(void);
+void host_task(void);
+
 /* host driver */
 void           host_set_driver(host_driver_t *driver);
 host_driver_t *host_get_driver(void);
@@ -41,6 +44,7 @@ void    host_mouse_send(report_mouse_t *report);
 void    host_system_send(uint16_t usage);
 void    host_consumer_send(uint16_t usage);
 void    host_programmable_button_send(uint32_t data);
+void    host_plover_hid_send(report_plover_hid_t *report);
 void    host_raw_hid_send(uint8_t *data, uint8_t length);
 
 uint16_t host_last_system_usage(void);

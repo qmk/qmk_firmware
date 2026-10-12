@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0x13BA",
         "pid": "0x0017",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "processor": "at90usb1286",
     "bootloader": "halfkay",

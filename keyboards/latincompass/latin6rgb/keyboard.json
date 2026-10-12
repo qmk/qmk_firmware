@@ -39,6 +39,14 @@
       "solid_reactive": true
     },
     "driver": "is31fl3731",
+    "layout": [
+        {"matrix": [0, 0], "x": 0, "y": 32, "flags": 4},
+        {"matrix": [0, 1], "x": 0, "y": 64, "flags": 4},
+        {"matrix": [0, 2], "x": 112, "y": 64, "flags": 4},
+        {"matrix": [1, 0], "x": 224, "y": 0, "flags": 1},
+        {"matrix": [1, 1], "x": 112, "y": 32, "flags": 1},
+        {"matrix": [1, 2], "x": 224, "y": 32, "flags": 4}
+    ],
     "sleep": true
   },
   "matrix_pins": {

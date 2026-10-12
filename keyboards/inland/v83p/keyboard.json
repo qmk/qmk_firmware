@@ -8,8 +8,12 @@
         "vid": "0xFFFE",
         "pid": "0x001B",
         "device_version": "1.0.3",
-        "force_nkro": true,
         "suspend_wakeup_delay": 1000
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "diode_direction": "ROW2COL",
     "eeprom": {

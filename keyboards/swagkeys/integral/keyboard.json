@@ -20,7 +20,6 @@
         "rows": ["B9", "C13", "B12", "B11", "B10"]
     },
     "processor": "STM32F103",
-    "url": "NONE",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x4F21",

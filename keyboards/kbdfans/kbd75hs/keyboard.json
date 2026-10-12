@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0x4B42",
         "pid": "0x6062",
-        "device_version": "0.0.3",
-        "force_nkro": true
+        "device_version": "0.0.3"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,

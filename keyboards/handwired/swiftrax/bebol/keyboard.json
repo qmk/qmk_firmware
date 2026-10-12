@@ -251,7 +251,7 @@
                 {"label": "Alt", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
                 {"label": "Space", "matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
                 {"label": "Alt", "matrix": [4, 10], "x": 10, "y": 4, "w": 1.5},
-                {"label": "Ctrl", "matrix": [4, 12], "x": 12, "y": 4, "w": 1.5},
+                {"label": "Ctrl", "matrix": [4, 12], "x": 11.5, "y": 4, "w": 1.5},
                 {"label": "\u2190", "matrix": [4, 13], "x": 13, "y": 4},
                 {"label": "\u2193", "matrix": [4, 14], "x": 14, "y": 4},
                 {"label": "\u2192", "matrix": [4, 15], "x": 15, "y": 4}
@@ -327,7 +327,7 @@
                 {"label": "Alt", "matrix": [4, 2], "x": 2.5, "y": 4, "w": 1.25},
                 {"label": "Space", "matrix": [4, 6], "x": 3.75, "y": 4, "w": 6.25},
                 {"label": "Alt", "matrix": [4, 10], "x": 10, "y": 4, "w": 1.5},
-                {"label": "Ctrl", "matrix": [4, 12], "x": 12, "y": 4, "w": 1.5},
+                {"label": "Ctrl", "matrix": [4, 12], "x": 11.5, "y": 4, "w": 1.5},
                 {"label": "\u2190", "matrix": [4, 13], "x": 13, "y": 4},
                 {"label": "\u2193", "matrix": [4, 14], "x": 14, "y": 4},
                 {"label": "\u2192", "matrix": [4, 15], "x": 15, "y": 4}

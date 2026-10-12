@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Periboard 512",
     "manufacturer": "Sife",
-    "url": "https://github.com/Sife-ops/qmk_firmware/tree/periboard_512/keyboards/converter/periboard_512",
     "maintainer": "Sife-ops",
     "usb": {
         "vid": "0xFEED",

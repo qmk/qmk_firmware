@@ -129,6 +129,11 @@
         },
         "serial": {
             "pin": "D2"
+        },
+        "transport": {
+            "sync": {
+                "oled": true
+            }
         }
     },
     "usb": {

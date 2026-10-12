@@ -44,9 +44,6 @@
 #include "led.h"
 #include "sendchar.h"
 #include "debug.h"
-#ifdef SLEEP_LED_ENABLE
-#    include "sleep_led.h"
-#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -278,10 +275,6 @@ void EVENT_USB_Device_Reset(void) {
 void EVENT_USB_Device_Suspend(void) {
     print("[S]");
     usb_device_state_set_suspend(USB_Device_ConfigurationNumber != 0, USB_Device_ConfigurationNumber);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_enable();
-#endif
 }
 
 /** \brief Event USB Device Connect
@@ -295,12 +288,6 @@ void EVENT_USB_Device_WakeUp(void) {
 #endif
 
     usb_device_state_set_resume(USB_DeviceState == DEVICE_STATE_Configured, USB_Device_ConfigurationNumber);
-
-#ifdef SLEEP_LED_ENABLE
-    sleep_led_disable();
-    // NOTE: converters may not accept this
-    led_set(host_keyboard_leds());
-#endif
 }
 
 #ifdef CONSOLE_ENABLE
@@ -358,6 +345,11 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     /* Setup raw HID endpoints */
     ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
     ConfigSuccess &= Endpoint_ConfigureEndpoint((RAW_OUT_EPNUM | ENDPOINT_DIR_OUT), EP_TYPE_INTERRUPT, RAW_EPSIZE, 1);
+#endif
+
+#ifdef PLOVER_HID_ENABLE
+    /* Setup plover HID endpoints */
+    ConfigSuccess &= Endpoint_ConfigureEndpoint((PLOVER_HID_IN_EPNUM | ENDPOINT_DIR_IN), EP_TYPE_INTERRUPT, PLOVER_HID_EPSIZE, 1);
 #endif
 
 #ifdef CONSOLE_ENABLE
@@ -581,6 +573,12 @@ void send_programmable_button(report_programmable_button_t *report) {
 void send_digitizer(report_digitizer_t *report) {
 #ifdef DIGITIZER_ENABLE
     send_report(DIGITIZER_IN_EPNUM, report, sizeof(report_digitizer_t));
+#endif
+}
+
+void send_plover_hid(report_plover_hid_t *report) {
+#ifdef PLOVER_HID_ENABLE
+    send_report(PLOVER_HID_IN_EPNUM, report, sizeof(report_plover_hid_t));
 #endif
 }
 
@@ -839,6 +837,9 @@ void protocol_pre_task(void) {
                 //
                 // Pause for a while to let things settle...
                 wait_ms(USB_SUSPEND_WAKEUP_DELAY);
+                // ...and then update the wakeup matrix again as the waking key
+                // might have been released during the delay
+                update_matrix_state_after_wakeup();
 #    endif
             }
         }

@@ -33,7 +33,7 @@ qmk new-keymap
 If you did not configure your environment, or you have multiple keyboards, you can specify a keyboard name:
 
 ```sh
-qmk new-keymap -kb <keyboard_name>
+qmk new-keymap -kb <keyboard>
 ```
 
 Look at the output from that command, you should see something like this:

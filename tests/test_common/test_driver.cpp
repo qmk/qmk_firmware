@@ -15,6 +15,7 @@
  */
 
 #include "test_driver.hpp"
+#include <iomanip>
 
 TestDriver* TestDriver::m_this = nullptr;
 

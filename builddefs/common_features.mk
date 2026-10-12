@@ -29,6 +29,8 @@ QUANTUM_SRC += \
     $(QUANTUM_DIR)/logging/debug.c \
     $(QUANTUM_DIR)/logging/sendchar.c \
     $(QUANTUM_DIR)/process_keycode/process_default_layer.c \
+    $(QUANTUM_DIR)/process_keycode/process_oneshot.c \
+    $(QUANTUM_DIR)/process_keycode/process_quantum.c \
 
 include $(QUANTUM_DIR)/nvm/rules.mk
 
@@ -96,26 +98,34 @@ endif
 
 VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
 STENO_PROTOCOL ?= all
+
 ifeq ($(strip $(STENO_ENABLE)), yes)
     ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
-    else
-        OPT_DEFS += -DSTENO_ENABLE
+    endif
+
+    ifeq ($(strip $(PLOVER_HID_ENABLE)), yes)
+        $(call WARNING_MESSAGE, PLOVER_HID_ENABLE is mutually exclusive with STENO_ENABLE and will be disabled)
+        override PLOVER_HID_ENABLE = no
+    endif
+
+    ifeq ($(strip $(STENO_PROTOCOL)), all)
+        override STENO_PROTOCOL := $(filter-out all,$(VALID_STENO_PROTOCOL_TYPES))
+        OPT_DEFS += -DSTENO_ENABLE_ALL
+    endif
+
+    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(sort $(STENO_PROTOCOL)))
+
+    # for each supported protocol -> add deps
+    ifneq ($(filter $(STENO_PROTOCOL),geminipr),)
+        OPT_DEFS += -DSTENO_ENABLE_GEMINI
+        SRC += $(QUANTUM_DIR)/steno/steno_gemini.c
         VIRTSER_ENABLE ?= yes
-
-        ifeq ($(strip $(STENO_PROTOCOL)), geminipr)
-            OPT_DEFS += -DSTENO_ENABLE_GEMINI
-        endif
-        ifeq ($(strip $(STENO_PROTOCOL)), txbolt)
-            OPT_DEFS += -DSTENO_ENABLE_BOLT
-        endif
-        ifeq ($(strip $(STENO_PROTOCOL)), all)
-            OPT_DEFS += -DSTENO_ENABLE_ALL
-            OPT_DEFS += -DSTENO_ENABLE_GEMINI
-            OPT_DEFS += -DSTENO_ENABLE_BOLT
-        endif
-
-        SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    endif
+    ifneq ($(filter $(STENO_PROTOCOL),txbolt),)
+        OPT_DEFS += -DSTENO_ENABLE_BOLT
+        SRC += $(QUANTUM_DIR)/steno/steno_bolt.c
+        VIRTSER_ENABLE ?= yes
     endif
 endif
 
@@ -123,7 +133,7 @@ ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     MOUSE_ENABLE := yes
 endif
 
-VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 pmw3320 pmw3360 pmw3389 pimoroni_trackball custom
+VALID_POINTING_DEVICE_DRIVER_TYPES := adns5050 adns9800 analog_joystick azoteq_iqs5xx cirque_pinnacle_i2c cirque_pinnacle_spi paw3204 paw3222 pmw3320 pmw3325 pmw3360 pmw3389 pimoroni_trackball custom
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
     ifeq ($(filter $(POINTING_DEVICE_DRIVER),$(VALID_POINTING_DEVICE_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid POINTING_DEVICE_DRIVER,POINTING_DEVICE_DRIVER="$(POINTING_DEVICE_DRIVER)" is not a valid pointing device type)
@@ -155,6 +165,10 @@ ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
             SRC += drivers/sensors/cirque_pinnacle.c
             SRC += drivers/sensors/cirque_pinnacle_gestures.c
             SRC += $(QUANTUM_DIR)/pointing_device/pointing_device_gestures.c
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), paw3222)
+            SPI_DRIVER_REQUIRED = yes
+        else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pmw3325)
+            SPI_DRIVER_REQUIRED = yes
         else ifeq ($(strip $(POINTING_DEVICE_DRIVER)), pimoroni_trackball)
             I2C_DRIVER_REQUIRED = yes
         else ifneq ($(filter $(strip $(POINTING_DEVICE_DRIVER)),pmw3360 pmw3389),)
@@ -633,6 +647,9 @@ ifeq ($(strip $(VIA_ENABLE)), yes)
     RAW_ENABLE := yes
     BOOTMAGIC_ENABLE := yes
     TRI_LAYER_ENABLE := yes
+    ifeq ($(strip $(VIA_INSECURE)), yes)
+        OPT_DEFS += -DVIA_INSECURE
+    endif
 endif
 
 ifeq ($(strip $(RAW_ENABLE)), yes)
@@ -940,21 +957,25 @@ ifeq ($(strip $(DIP_SWITCH_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(BATTERY_ENABLE)), yes)
+    BATTERY_DRIVER_REQUIRED := yes
+endif
+
 VALID_BATTERY_DRIVER_TYPES := adc custom vendor
 
-BATTERY_DRIVER ?= adc
+BATTERY_DRIVER ?= none
 ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
     ifeq ($(filter $(BATTERY_DRIVER),$(VALID_BATTERY_DRIVER_TYPES)),)
         $(call CATASTROPHIC_ERROR,Invalid BATTERY_DRIVER,BATTERY_DRIVER="$(BATTERY_DRIVER)" is not a valid battery driver)
     endif
 
-    OPT_DEFS += -DBATTERY_DRIVER
-    OPT_DEFS += -DBATTERY_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
+    OPT_DEFS += -DBATTERY_DRIVER_$(strip $(shell echo $(BATTERY_DRIVER) | tr '[:lower:]' '[:upper:]'))
 
     COMMON_VPATH += $(DRIVER_PATH)/battery
 
-    SRC += battery.c
-    SRC += battery_$(strip $(BATTERY_DRIVER)).c
+    ifneq ($(strip $(BATTERY_DRIVER)), custom)
+        SRC += battery_$(strip $(BATTERY_DRIVER)).c
+    endif
 
     # add extra deps
     ifeq ($(strip $(BATTERY_DRIVER)), adc)

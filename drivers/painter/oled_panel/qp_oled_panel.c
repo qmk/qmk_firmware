@@ -12,7 +12,7 @@
 
 // Power control
 bool qp_oled_panel_power(painter_device_t device, bool power_on) {
-    painter_driver_t *                  driver = (painter_driver_t *)device;
+    painter_driver_t                   *driver = (painter_driver_t *)device;
     oled_panel_painter_driver_vtable_t *vtable = (oled_panel_painter_driver_vtable_t *)driver->driver_vtable;
     qp_comms_command(device, power_on ? vtable->opcodes.display_on : vtable->opcodes.display_off);
     return true;
@@ -59,7 +59,7 @@ bool qp_oled_panel_passthru_append_pixdata(painter_device_t device, uint8_t *tar
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void qp_oled_panel_page_column_flush_rot0(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver = (painter_driver_t *)device;
+    painter_driver_t                   *driver = (painter_driver_t *)device;
     oled_panel_painter_driver_vtable_t *vtable = (oled_panel_painter_driver_vtable_t *)driver->driver_vtable;
 
     // TODO: account for offset_x/y in base driver
@@ -92,7 +92,7 @@ void qp_oled_panel_page_column_flush_rot0(painter_device_t device, surface_dirty
 }
 
 void qp_oled_panel_page_column_flush_rot90(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver = (painter_driver_t *)device;
+    painter_driver_t                   *driver = (painter_driver_t *)device;
     oled_panel_painter_driver_vtable_t *vtable = (oled_panel_painter_driver_vtable_t *)driver->driver_vtable;
 
     // TODO: account for offset_x/y in base driver
@@ -126,7 +126,7 @@ void qp_oled_panel_page_column_flush_rot90(painter_device_t device, surface_dirt
 }
 
 void qp_oled_panel_page_column_flush_rot180(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver = (painter_driver_t *)device;
+    painter_driver_t                   *driver = (painter_driver_t *)device;
     oled_panel_painter_driver_vtable_t *vtable = (oled_panel_painter_driver_vtable_t *)driver->driver_vtable;
 
     // TODO: account for offset_x/y in base driver
@@ -161,7 +161,7 @@ void qp_oled_panel_page_column_flush_rot180(painter_device_t device, surface_dir
 }
 
 void qp_oled_panel_page_column_flush_rot270(painter_device_t device, surface_dirty_data_t *dirty, const uint8_t *framebuffer) {
-    painter_driver_t *                  driver = (painter_driver_t *)device;
+    painter_driver_t                   *driver = (painter_driver_t *)device;
     oled_panel_painter_driver_vtable_t *vtable = (oled_panel_painter_driver_vtable_t *)driver->driver_vtable;
 
     // TODO: account for offset_x/y in base driver

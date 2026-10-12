@@ -16,36 +16,6 @@
 
 #include "quantum.h"
 
-#ifdef RGB_MATRIX_ENABLE
-led_config_t g_led_config = {{// Key Matrix to LED Index
-                              {NO_LED, 0, 1, 2, 3},
-                              {NO_LED, 7, 6, 5, 4},
-                              {NO_LED, 8, 9, 10, 11},
-                              {NO_LED, 15, 14, 13, 12}},
-                             {// LED Index to Physical Position
-                              {0, 0},
-                              {75, 0},
-                              {149, 0},
-                              {224, 0},
-
-                              {224, 21},
-                              {149, 21},
-                              {75, 21},
-                              {0, 21},
-
-                              {0, 43},
-                              {75, 43},
-                              {149, 43},
-                              {224, 43},
-
-                              {224, 64},
-                              {149, 64},
-                              {75, 64},
-                              {0, 64}},
-                             {// LED Index to Flag
-                              4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4}};
-#endif
-
 void keyboard_pre_init_kb(void) {
     // Set LED IO as outputs
     gpio_set_pin_output(LED_00);

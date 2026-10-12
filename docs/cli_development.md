@@ -12,11 +12,11 @@ If you intend to maintain keyboards and/or contribute to QMK, you can enable the
 
 `qmk config user.developer=True`
 
-This will allow you to see all available subcommands.  
-**Note:** You will have to install additional requirements:  
-```
-python3 -m pip install -r requirements-dev.txt
-```
+This will allow you to see all available subcommands.
+
+::: tip
+If you installed QMK using the bootstrapper (`curl -fsSL https://install.qmk.fm | sh`), the development requirements are already installed.
+:::
 
 # Subcommands
 

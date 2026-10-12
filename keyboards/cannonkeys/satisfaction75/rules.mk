@@ -5,5 +5,3 @@ VPATH += keyboards/cannonkeys/lib/satisfaction75
 SRC += satisfaction_encoder.c \
       satisfaction_oled.c \
       satisfaction_core.c 
-
-DEFAULT_FOLDER = cannonkeys/satisfaction75/rev1

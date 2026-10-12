@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "keyboard.h"
 #include "keycode.h"
+#include "action.h"
 #include "host.h"
 #include "util.h"
 #include "debug.h"
@@ -78,9 +79,48 @@ host_driver_t *host_get_driver(void) {
     return driver;
 }
 
+#ifdef CONNECTION_ENABLE
+static connection_host_t active_host = CONNECTION_HOST_NONE;
+
+__attribute__((weak)) void host_disconnect_active_driver_user(connection_host_t host) {}
+__attribute__((weak)) void host_disconnect_active_driver_kb(connection_host_t host) {}
+
+__attribute__((weak)) void host_connect_active_driver_user(connection_host_t host) {}
+__attribute__((weak)) void host_connect_active_driver_kb(connection_host_t host) {}
+
+// TODO: Additionally have host_driver_t handle swap
+static void host_update_active_driver(connection_host_t current, connection_host_t next) {
+    host_disconnect_active_driver_user(current);
+    host_disconnect_active_driver_kb(current);
+
+    if (current != CONNECTION_HOST_NONE) {
+        clear_keyboard();
+    }
+
+    host_connect_active_driver_user(next);
+    host_connect_active_driver_kb(next);
+}
+
+#endif
+
+void host_init(void) {
+    // currently do nothing
+}
+
+void host_task(void) {
+#ifdef CONNECTION_ENABLE
+    connection_host_t next_host = connection_get_host();
+    if (next_host != active_host) {
+        host_update_active_driver(active_host, next_host);
+
+        active_host = next_host;
+    }
+#endif
+}
+
 static host_driver_t *host_get_active_driver(void) {
 #ifdef CONNECTION_ENABLE
-    switch (connection_get_host()) {
+    switch (active_host) {
 #    ifdef BLUETOOTH_ENABLE
         case CONNECTION_HOST_BLUETOOTH:
             return &bt_driver;
@@ -96,7 +136,7 @@ static host_driver_t *host_get_active_driver(void) {
 
 bool host_can_send_nkro(void) {
 #ifdef CONNECTION_ENABLE
-    switch (connection_get_host()) {
+    switch (active_host) {
 #    ifdef BLUETOOTH_ENABLE
         case CONNECTION_HOST_BLUETOOTH:
             return bluetooth_can_send_nkro();
@@ -301,6 +341,14 @@ void host_programmable_button_send(uint32_t data) {
 #endif
 
 __attribute__((weak)) void send_programmable_button(report_programmable_button_t *report) {}
+
+#ifdef PLOVER_HID_ENABLE
+void host_plover_hid_send(report_plover_hid_t *report) {
+    send_plover_hid(report);
+}
+#endif
+
+__attribute__((weak)) void send_plover_hid(report_plover_hid_t *report) {}
 
 #ifdef RAW_ENABLE
 void host_raw_hid_send(uint8_t *data, uint8_t length) {

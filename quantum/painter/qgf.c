@@ -26,7 +26,7 @@ bool qgf_validate_block_header(qgf_block_header_v1_t *desc, uint8_t expected_typ
 
 bool qgf_parse_format(qp_image_format_t format, uint8_t *bpp, bool *has_palette, bool *is_panel_native) {
     // clang-format off
-    static const struct QP_PACKED {
+    static const struct PACKED {
         uint8_t bpp;
         bool    has_palette;
         bool is_panel_native;

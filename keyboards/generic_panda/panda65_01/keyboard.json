@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Panda65_01",
     "manufacturer": "generic_panda",
-    "url": "https://github.com/JesseLeung97/qmk_firmware/tree/master/keyboards/generic_panda/panda65_01",
     "maintainer": "generic_panda",
     "usb": {
         "vid": "0x6770",

@@ -4,8 +4,12 @@
     "usb": {
         "vid": "0x0416",
         "pid": "0x0123",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "matrix_pins": {
         "cols": ["B10", "B9", "C13", "C12", "C11", "C10", "C9", "C8", "A15", "A14", "A13", "D0", "D1", "D2", "B8"],

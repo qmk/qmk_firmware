@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "action_util.h"
 #include "eeconfig.h"
-#include "sleep_led.h"
 #include "led.h"
 #include "command.h"
 #include "quantum.h"
@@ -37,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef BACKLIGHT_ENABLE
 #    include "backlight.h"
+#endif
+
+#ifdef SLEEP_LED_ENABLE
+#    include "sleep_led.h"
 #endif
 
 #if defined(MOUSEKEY_ENABLE)
@@ -626,7 +629,7 @@ static void mousekey_console_help(void) {
 bool mousekey_console(uint8_t code) {
     static uint8_t  param = 0;
     static uint8_t *pp    = NULL;
-    static char *   desc  = NULL;
+    static char    *desc  = NULL;
 
 #    if defined(NO_PRINT) || defined(USER_PRINT) /* -Wunused-parameter */
     (void)desc;

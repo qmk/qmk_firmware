@@ -38,7 +38,7 @@ extern "C" {
 /* tapping count and state */
 typedef struct {
     bool    interrupted : 1;
-    bool    reserved2 : 1;
+    bool    speculated : 1;
     bool    reserved1 : 1;
     bool    reserved0 : 1;
     uint8_t count : 4;

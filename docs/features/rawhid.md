@@ -28,9 +28,13 @@ To send data to the keyboard, you must first find a library for communicating wi
 * **Node.js:** [node-hid](https://github.com/node-hid/node-hid)
 * **C/C++:** [hidapi](https://github.com/libusb/hidapi)
 * **Java:** [purejavahidapi](https://github.com/nyholku/purejavahidapi) and [hid4java](https://github.com/gary-rowe/hid4java)
-* **Python:** [pyhidapi](https://pypi.org/project/hid/) and [pywinusb](https://pypi.org/project/pywinusb)
+* **Python:** [hid](https://pypi.org/project/hid/) and [pywinusb](https://pypi.org/project/pywinusb)
 
 Please refer to these libraries' own documentation for instructions on usage. Remember to close the device once you are finished with it!
+
+::: tip
+The `hid` package is installed with `pip install hid` and imported as `import hid`. Avoid installing the unrelated `pyhidapi` package from PyPI, which is a different, unmaintained project despite the similar name.
+:::
 
 Next, you will need to know the USB Vendor and Product IDs of the device. These can easily be found by looking at your keyboard's `info.json`, under the `usb` object (alternatively, you can also use Device Manager on Windows, System Information on macOS, or `lsusb` on Linux). For example, the Vendor ID for the Planck Rev 6 is `0x03A8`, and the Product ID is `0xA4F9`.
 
@@ -72,7 +76,7 @@ void raw_hid_receive(uint8_t *data, uint8_t length) {
 }
 ```
 
-On the host side (here we are using Python and the `pyhidapi` library), the HID device is opened by enumerating the interfaces on the USB device, then filtering on the usage page and usage ID. Then, a report containing a single ASCII "A" (hex `0x41`) is constructed and sent.
+On the host side (here we are using Python and the `hid` package), the HID device is opened by enumerating the interfaces on the USB device, then filtering on the usage page and usage ID. Then, a report containing a single ASCII "A" (hex `0x41`) is constructed and sent.
 
 For demonstration purposes, the manufacturer and product strings of the device, along with the request and response, are also printed.
 

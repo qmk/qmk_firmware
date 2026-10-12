@@ -5,8 +5,12 @@
     "usb": {
         "vid": "0x5255",
         "pid": "0xE212",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "rgblight": {
         "hue_steps": 10,
@@ -39,8 +43,7 @@
             {"pin_a": "F4", "pin_b": "F5"}
         ]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

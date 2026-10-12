@@ -165,6 +165,6 @@ bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void reset_space_cadet() {
+void reset_space_cadet(void) {
     sc_last = 0;
 }

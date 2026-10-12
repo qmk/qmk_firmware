@@ -68,7 +68,9 @@ static uint8_t mcp23018_reset_loop;
 
 __attribute__((weak)) void matrix_init_user(void) {}
 __attribute__((weak)) void matrix_scan_user(void) {}
-__attribute__((weak)) void matrix_scan_kb(void) { matrix_scan_user(); }
+__attribute__((weak)) void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
 
 void matrix_init(void) {
     // initialize row and col
@@ -82,7 +84,7 @@ void matrix_init(void) {
         raw_matrix[i] = 0;
     }
 
-    debounce_init(MATRIX_ROWS);
+    debounce_init();
     matrix_init_kb();
 }
 void matrix_power_up(void) {
@@ -108,7 +110,7 @@ static inline bool store_raw_matrix_row(uint8_t index) {
     return false;
 }
 uint8_t matrix_scan(void) {
-    if (mcp23018_status) {  // if there was an error
+    if (mcp23018_status) { // if there was an error
         if (++mcp23018_reset_loop == 0) {
             // if (++mcp23018_reset_loop >= 1300) {
             // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
@@ -140,7 +142,7 @@ uint8_t matrix_scan(void) {
         unselect_rows();
     }
 
-    debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+    debounce(raw_matrix, matrix, changed);
     matrix_scan_kb();
 
 #ifdef DEBUG_MATRIX
@@ -152,8 +154,12 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
-inline bool         matrix_is_on(uint8_t row, uint8_t col) { return (matrix[row] & ((matrix_row_t)1 << col)); }
-inline matrix_row_t matrix_get_row(uint8_t row) { return matrix[row]; }
+inline bool matrix_is_on(uint8_t row, uint8_t col) {
+    return (matrix[row] & ((matrix_row_t)1 << col));
+}
+inline matrix_row_t matrix_get_row(uint8_t row) {
+    return matrix[row];
+}
 
 void matrix_print(void) {
     print("\nr/c 0123456789ABCDEF\n");
@@ -168,16 +174,16 @@ void matrix_print(void) {
 // Remember this means ROWS
 static void init_cols(void) {
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-      gpio_set_pin_input_high(col_pins[col]);
+        gpio_set_pin_input_high(col_pins[col]);
     }
 }
 
 static matrix_row_t read_cols(uint8_t row) {
     if (row < 5) {
-        if (mcp23018_status) {  // if there was an error
+        if (mcp23018_status) { // if there was an error
             return 0;
         } else {
-            uint8_t data = 0;
+            uint8_t data    = 0;
             mcp23018_status = i2c_receive(I2C_ADDR, &data, 1, I2C_TIMEOUT);
 #ifdef DEBUG_MATRIX
             if (~data != 0x00) xprintf("I2C: %d\n", ~data);
@@ -195,20 +201,19 @@ static void unselect_rows(void) {
     // the other row bits high, and it's not changing to a different direction
 
     for (uint8_t row = 0; row < MATRIX_ROWS_PER_SIDE; row++) {
-      gpio_set_pin_input(row_pins[row]);
-      gpio_write_pin_low(row_pins[row]);
+        gpio_set_pin_input(row_pins[row]);
+        gpio_write_pin_low(row_pins[row]);
     }
 }
 
 static void select_row(uint8_t row) {
     if (row < 5) {
         // select on mcp23018
-        if (mcp23018_status) {  // do nothing on error
-        } else {                // set active row low  : 0 // set other rows hi-Z : 1
+        if (mcp23018_status) { // do nothing on error
+        } else {               // set active row low  : 0 // set other rows hi-Z : 1
             uint8_t data;
-            data = 0xFF & ~(1 << (row + 1));
+            data            = 0xFF & ~(1 << (row + 1));
             mcp23018_status = i2c_write_register(I2C_ADDR, GPIOA, &data, 1, I2C_TIMEOUT);
-
         }
     } else {
         gpio_set_pin_output(row_pins[row - MATRIX_ROWS_PER_SIDE]);

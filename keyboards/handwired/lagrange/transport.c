@@ -158,7 +158,7 @@ void transport_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) 
 
     /* Update the layer and LED state if necessary. */
 
-    if (!isLeftHand) {
+    if (!is_keyboard_left()) {
         if (context.led_state.raw != new_context.led_state.raw) {
             context.led_state.raw = new_context.led_state.raw;
             led_update_kb(context.led_state);

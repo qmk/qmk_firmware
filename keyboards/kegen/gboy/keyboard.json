@@ -1,7 +1,6 @@
 {
     "keyboard_name": "G-Boy",
     "manufacturer": "Kegen",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kegen/gboy",
     "maintainer": "mattchan",
     "usb": {
         "vid": "0x4B65",

@@ -6,8 +6,12 @@
         "vid": "0xFFFE",
         "pid": "0x0002",
         "device_version": "0.0.1",
-        "force_nkro": true,
         "suspend_wakeup_delay": 1000
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "processor": "WB32FQ95",
     "bootloader": "wb32-dfu",

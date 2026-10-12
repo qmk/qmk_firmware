@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_MUS] = LAYOUT(
         KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        KC_LALT, KC_BTN3, KC_BTN2, KC_BTN1, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        KC_LALT, MS_BTN3, MS_BTN2, MS_BTN1, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                                             XXXXXXX,                      XXXXXXX,
                                    XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX
@@ -218,9 +218,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     else if (index == 3  ) {
         // Page up/Page down
         if (clockwise) {
-          tap_code(KC_WH_U);
+          tap_code(MS_WHLU);
         } else {
-          tap_code(KC_WH_D);
+          tap_code(MS_WHLD);
         }
     }
     return true;

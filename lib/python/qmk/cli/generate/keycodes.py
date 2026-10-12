@@ -58,7 +58,7 @@ def _generate_defines(lines, keycodes):
 
     lines.append('')
     lines.append('// Alias')
-    for key, value in keycodes["keycodes"].items():
+    for value in keycodes["keycodes"].values():
         temp = value.get("key")
         for alias in value.get("aliases", []):
             lines.append(f'    {alias.ljust(10)} = {temp},')
@@ -92,15 +92,15 @@ def _generate_helpers(lines, keycodes):
     for group, codes in temp.items():
         lo = keycodes["keycodes"][f'0x{codes[0]:04X}']['key']
         hi = keycodes["keycodes"][f'0x{codes[1]:04X}']['key']
-        lines.append(f'#define IS_{ _translate_group(group).upper() }_KEYCODE(code) ((code) >= {lo} && (code) <= {hi})')
+        lines.append(f'#define IS_{_translate_group(group).upper()}_KEYCODE(code) ((code) >= {lo} && (code) <= {hi})')
 
     lines.append('')
     lines.append('// Switch statement Helpers')
     for group, codes in temp.items():
         lo = keycodes["keycodes"][f'0x{codes[0]:04X}']['key']
         hi = keycodes["keycodes"][f'0x{codes[1]:04X}']['key']
-        name = f'{ _translate_group(group).upper() }_KEYCODE_RANGE'
-        lines.append(f'#define { name.ljust(35) } {lo} ... {hi}')
+        name = f'{_translate_group(group).upper()}_KEYCODE_RANGE'
+        lines.append(f'#define {name.ljust(35)} {lo} ... {hi}')
 
 
 def _generate_aliases(lines, keycodes):
@@ -120,7 +120,7 @@ def _generate_aliases(lines, keycodes):
             lines.append(f'#define {define} {val}')
 
     lines.append('')
-    for key, value in keycodes["aliases"].items():
+    for value in keycodes["aliases"].values():
         for alias in value.get("aliases", []):
             lines.append(f'#define {alias} {value.get("key")}')
 

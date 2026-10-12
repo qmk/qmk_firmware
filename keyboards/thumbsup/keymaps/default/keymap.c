@@ -98,9 +98,9 @@ without separate thumbcluster.
  *               `-------------------------------------------------------'
  */
 [_CURSORRGHT] = LAYOUT(
-  _______, KC_BRK,           KC_WH_D,      KC_MS_U,      KC_WH_U,      KC_DEL,              KC_PGUP,  KC_HOME, KC_UP,   KC_END,  KC_GRV,  KC_DEL,
-  KC_ENT,  LCTL(KC_A),       KC_MS_L,      KC_MS_D,      KC_MS_R,      XXXXXXX,             KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______,
-  _______, LCTL(KC_Z),       LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX,             KC_INS,   KC_BTN1, KC_BTN3, KC_BTN2, XXXXXXX, _______,
+  _______, KC_BRK,           MS_WHLD,      MS_UP,        MS_WHLU,      KC_DEL,              KC_PGUP,  KC_HOME, KC_UP,   KC_END,  KC_GRV,  KC_DEL,
+  KC_ENT,  LCTL(KC_A),       MS_LEFT,      MS_DOWN,      MS_RGHT,      XXXXXXX,             KC_PGDN,  KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, _______,
+  _______, LCTL(KC_Z),       LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX,             KC_INS,   MS_BTN1, MS_BTN3, MS_BTN2, XXXXXXX, _______,
 	   _______,	     _______,      _______,      _______,      _______,             _______,  _______, _______, _______, _______
 ),
 
@@ -118,9 +118,9 @@ without separate thumbcluster.
  *               `-------------------------------------------------------'
  */
 [_CURSORLEFT] = LAYOUT(
-  _______, KC_BRK,          KC_HOME, KC_UP,   KC_END,  KC_PGUP,       KC_DEL,  KC_WH_U,      KC_MS_U,      KC_WH_D,      KC_GRV,  KC_DEL,
-  KC_ENT,  LCTL(KC_A),      KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,       XXXXXXX, KC_MS_L,      KC_MS_D,      KC_MS_R,      XXXXXXX, _______,
-  _______, XXXXXXX,         KC_BTN2, KC_BTN3, KC_BTN1, KC_INS,        XXXXXXX, LCTL(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX, _______,
+  _______, KC_BRK,          KC_HOME, KC_UP,   KC_END,  KC_PGUP,       KC_DEL,  MS_WHLU,      MS_UP,        MS_WHLD,      KC_GRV,  KC_DEL,
+  KC_ENT,  LCTL(KC_A),      KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,       XXXXXXX, MS_LEFT,      MS_DOWN,      MS_RGHT,      XXXXXXX, _______,
+  _______, XXXXXXX,         MS_BTN2, MS_BTN3, MS_BTN1, KC_INS,        XXXXXXX, LCTL(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), XXXXXXX, _______,
 	   _______,	    _______, _______, _______, _______,       _______, _______, _______, _______, _______
 ),
 
