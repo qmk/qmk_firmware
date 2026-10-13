@@ -100,6 +100,7 @@
                 "WB32F3G71",
                 "WB32FQ95",
                 "AT32F415",
+                "LPC11U35",
                 "atmega16u2",
                 "atmega32u2",
                 "atmega16u4",
