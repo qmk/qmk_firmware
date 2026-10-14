@@ -73,6 +73,13 @@ void eeprom_driver_init(void) {
     chVTObjectInit(&flush_timer);
 }
 
+// Real EEPROM needs no formatting. Only erase when asked to.
+void eeprom_driver_format(bool erase) {
+    if (erase) {
+        eeprom_driver_erase();
+    }
+}
+
 void eeprom_driver_erase(void) {
     uint8_t blank[EEPROM_PAGE_SIZE];
     memset(blank, 0xFF, sizeof(blank));
