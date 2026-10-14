@@ -59,7 +59,7 @@ typedef struct {
     uint8_t  mods;
 } speculative_key_t;
 #        define SPECULATIVE_KEYS_SIZE 8
-static speculative_key_t speculative_keys[SPECULATIVE_KEYS_SIZE] = {};
+static speculative_key_t speculative_keys[SPECULATIVE_KEYS_SIZE] = {0};
 static uint8_t           num_speculative_keys                    = 0;
 static uint8_t           prev_speculative_mods                   = 0;
 static uint8_t           speculative_mods                        = 0;
@@ -71,7 +71,7 @@ static void speculative_key_press(keyrecord_t *record);
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 #        define REGISTERED_TAPS_SIZE 8
 // Array of tap-hold keys that have been settled as tapped but not yet released.
-static keypos_t registered_taps[REGISTERED_TAPS_SIZE] = {};
+static keypos_t registered_taps[REGISTERED_TAPS_SIZE] = {0};
 static uint8_t  num_registered_taps                   = 0;
 
 /** Adds `key` to the registered_taps array. */
@@ -129,8 +129,8 @@ static bool     flow_tap_expired      = true;
 static bool flow_tap_key_if_within_term(keyrecord_t *record, uint16_t prev_time);
 #    endif // defined(FLOW_TAP_TERM)
 
-static keyrecord_t tapping_key                         = {};
-static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
+static keyrecord_t tapping_key                         = {0};
+static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {0};
 static uint8_t     waiting_buffer_head                 = 0;
 static uint8_t     waiting_buffer_tail                 = 0;
 
