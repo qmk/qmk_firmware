@@ -22,6 +22,7 @@
 // a row keep USB from enumerating. Sequential writes are therefore collected and sent
 // a page at a time, at the latest FLUSH_DELAY after the last one. Reads see the
 // collected bytes, so read-before-write updates do not force a write per byte.
+// Call eeprom_lpc11uxx_flush() before a reset to write out anything still pending.
 #define FLUSH_DELAY TIME_MS2I(10)
 
 typedef void (*iap_entry_t)(uint32_t[], uint32_t[]);
@@ -146,5 +147,14 @@ void eeprom_write_block(const void *buf, void *addr, size_t len) {
         len -= chunk;
     }
 
-    chVTSet(&flush_timer, FLUSH_DELAY, flush_timer_cb, NULL);
+    syssts_t sts = chSysGetStatusAndLockX();
+    chVTSetI(&flush_timer, FLUSH_DELAY, flush_timer_cb, NULL);
+    chSysRestoreStatusX(sts);
+}
+
+void eeprom_lpc11uxx_flush(void) {
+    syssts_t sts = chSysGetStatusAndLockX();
+    chVTResetI(&flush_timer);
+    flush_pending();
+    chSysRestoreStatusX(sts);
 }
