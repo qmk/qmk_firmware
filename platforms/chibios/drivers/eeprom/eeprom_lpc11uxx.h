@@ -14,3 +14,6 @@
 #if LPC11UXX_EEPROM_SIZE > (4096 - 64)
 #    error LPC11UXX_EEPROM_SIZE is larger than the usable on-chip EEPROM
 #endif
+
+// Writes out any bytes still waiting to be written. Call before a reset.
+void eeprom_lpc11uxx_flush(void);
