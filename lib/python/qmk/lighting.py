@@ -8,10 +8,13 @@ def list_lighting_versions(feature):
     """Return available versions - sorted newest first
     """
     ret = []
-    for file in Path('data/constants/lighting/').glob(f'{feature}_[0-9].[0-9].[0-9].hjson'):
-        ret.append(file.stem.split('_')[-1])
+    for file in Path('data/constants/lighting/').glob(f'{feature}_*.hjson'):
+        version = file.stem[len(feature) + 1:]
+        parts = version.split('.')
+        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
+            ret.append(version)
 
-    ret.sort(reverse=True)
+    ret.sort(key=lambda version: tuple(map(int, version.split('.'))), reverse=True)
     return ret
 
 

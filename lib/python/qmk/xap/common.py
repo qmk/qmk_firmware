@@ -78,7 +78,16 @@ def get_xap_definition_files():
     """Get the sorted list of XAP definition files, from <QMK>/data/xap.
     """
     xap_defs = qmk.constants.QMK_FIRMWARE / "data" / "xap"
-    return list(sorted(xap_defs.glob('**/xap_*.hjson')))
+    versions = []
+    for file in xap_defs.glob('**/xap_*.hjson'):
+        version = file.stem[len('xap_'):]
+        parts = version.split('.')
+        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
+            versions.append(version)
+
+    versions.sort(key=lambda version: tuple(map(int, version.split('.'))))
+
+    return list(map(lambda version: xap_defs / f'xap_{version}.hjson', versions))
 
 
 def update_xap_definitions(original, new):
