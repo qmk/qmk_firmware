@@ -9,10 +9,13 @@ EXTRAS_PATH = KEYCODES_PATH / 'extras'
 
 def _find_versions(path, prefix):
     ret = []
-    for file in path.glob(f'{prefix}_[0-9].[0-9].[0-9].hjson'):
-        ret.append(file.stem.split('_')[-1])
+    for file in path.glob(f'{prefix}_*.hjson'):
+        version = file.stem[len(prefix) + 1:]
+        parts = version.split('.')
+        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
+            ret.append(version)
 
-    ret.sort(reverse=True)
+    ret.sort(key=lambda version: tuple(map(int, version.split('.'))), reverse=True)
     return ret
 
 
@@ -112,7 +115,10 @@ def list_languages():
     """Return available languages
     """
     ret = set()
-    for file in EXTRAS_PATH.glob('keycodes_*_[0-9].[0-9].[0-9].hjson'):
-        ret.add(file.stem.split('_')[1])
+    for file in EXTRAS_PATH.glob('keycodes_*.hjson'):
+        name, _, version = file.stem.rpartition('_')
+        parts = version.split('.')
+        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
+            ret.add(name[len('keycodes_'):])
 
     return ret
