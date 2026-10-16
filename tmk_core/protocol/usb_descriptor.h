@@ -44,6 +44,7 @@
 #pragma once
 
 #include <LUFA/Drivers/USB/USB.h>
+#include "extended_attributes.h"
 
 #ifdef PROTOCOL_CHIBIOS
 #    include <hal.h>
@@ -51,6 +52,14 @@
 #        define USB_ENDPOINTS_ARE_REORDERABLE
 #    endif
 #endif
+
+enum string_descriptor_index {
+    LANGID_STRING_DESCR_INDEX = 0,
+    MANUFACTURER_STRING_DESCR_INDEX,
+    PRODUCT_STRING_DESCR_INDEX,
+    SERIAL_NUMBER_STRING_DESCR_INDEX,
+    PRIMARY_LOCALE_STRING_DESCR_INDEX,
+};
 
 /*
  * USB descriptor structure
@@ -310,4 +319,4 @@ enum usb_endpoints {
 #define JOYSTICK_EPSIZE 8
 #define DIGITIZER_EPSIZE 8
 
-uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void** const DescriptorAddress);
+uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const uint16_t wLength, const void **const DescriptorAddress);
