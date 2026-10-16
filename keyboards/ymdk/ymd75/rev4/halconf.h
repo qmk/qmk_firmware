@@ -1,4 +1,4 @@
-// Copyright 2023 zvecr<git@zvecr.com>
+// Copyright 2026 zvecr<git@zvecr.com>
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
