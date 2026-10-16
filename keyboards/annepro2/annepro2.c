@@ -43,6 +43,8 @@ static const SerialConfig ble_uart_config = {
 static uint8_t led_mcu_wakeup[11] = {0x7b, 0x10, 0x43, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x02};
 
 ble_capslock_t ble_capslock = {._dummy = {0}, .caps_lock = false};
+static uint8_t ble_rx_buffer[sizeof(ble_capslock)];
+static uint8_t ble_rx_offset;
 
 #ifdef RGB_MATRIX_ENABLE
 static uint8_t led_enabled = 1;
@@ -115,10 +117,20 @@ void keyboard_post_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-    // if there's stuff on the ble serial buffer
-    // read it into the capslock struct
+    annepro2_ble_task();
+
+    /*
+     * BLE RX framing is not decoded yet.  Drain one byte at a time so a short
+     * UART read cannot block matrix scanning for the old 10 ms timeout.
+     */
     while (!sdGetWouldBlock(&SD1)) {
-        sdReadTimeout(&SD1, (uint8_t *)&ble_capslock, sizeof(ble_capslock_t), 10);
+        ble_rx_buffer[ble_rx_offset++] = (uint8_t)sdGet(&SD1);
+        if (ble_rx_offset == sizeof(ble_capslock)) {
+            ble_rx_offset = 0;
+            for (uint8_t i = 0; i < sizeof(ble_capslock); i++) {
+                ((uint8_t *)&ble_capslock)[i] = ble_rx_buffer[i];
+            }
+        }
     }
 
     /* While there's data from LED keyboard sent - read it. */
@@ -283,7 +295,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 }
                 return true;
             #endif
-
+            case KC_AP2_IAP:
+                bootloader_jump();
+                return true;
             default:
                 break;
         }
