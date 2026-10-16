@@ -6,11 +6,30 @@ import json
 from qmk.git import git_get_username
 from qmk.json_schema import validate
 from qmk.path import keyboard, keymaps
-from qmk.constants import MCU2BOOTLOADER, LEGACY_KEYCODES
+from qmk.constants import MCU2BOOTLOADER
 from qmk.json_encoders import InfoJSONEncoder, KeymapJSONEncoder
 from qmk.json_schema import deep_update, json_load
 
 TEMPLATE = Path('data/templates/keyboard/')
+
+# Map of keycodes that can be automatically updated
+KBFIRMWARE_KEYCODES = {
+    'RESET': 'QK_BOOT',
+    'KC_SLCK': 'KC_SCRL',
+    'KC_NLCK': 'KC_NUM',
+    'BL_DEC': 'BL_DOWN',
+    'BL_INC': 'BL_UP',
+    'RGB_TOG': 'UG_TOGG',
+    'RGB_MOD': 'UG_NEXT',
+    'RGB_HUI': 'UG_HUEU',
+    'RGB_HUD': 'UG_HUED',
+    'RGB_SAI': 'UG_SATU',
+    'RGB_SAD': 'UG_SATD',
+    'RGB_VAI': 'UG_VALU',
+    'RGB_VAD': 'UG_VALD',
+    'M()': 'KC_TRNS',
+    'ALTG()': 'RCA_T()',
+}
 
 
 def replace_placeholders(src, dest, tokens):
@@ -35,6 +54,43 @@ def _gen_dummy_keymap(name, info_data):
     }
 
     return keymap_data
+
+
+def _convert_kbfirmware_field(field):
+    if isinstance(field, dict):
+        keycode = field['id']
+        return KBFIRMWARE_KEYCODES.get(keycode, keycode)
+    return str(field)
+
+
+def _convert_kbfirmware_mod_mask(mask):
+    # bitfield:
+    #  5  4  3  2  1  0
+    # 32 16  8  4  2  1
+    # [M][H][G][A][S][C]
+
+    if mask == 0:
+        return '0'
+
+    if mask == 0xf:
+        mask = 0x10
+    elif mask == 0x7:
+        mask = 0x20
+
+    mods = []
+    if mask & 1:
+        mods.append('MOD_LCTL')
+    if mask & 2:
+        mods.append('MOD_LSFT')
+    if mask & 4:
+        mods.append('MOD_LALT')
+    if mask & 8:
+        mods.append('MOD_LGUI')
+    if mask & 16:
+        mods.append('MOD_HYPR')
+    if mask & 32:
+        mods.append('MOD_MEH')
+    return ' | '.join(mods)
 
 
 def _extract_kbfirmware_layout(kbf_data):
@@ -65,11 +121,15 @@ def _extract_kbfirmware_keymap(kbf_data):
         layer = []
         for key in kbf_data['keyboard.keys']:
             keycode = key['keycodes'][i]['id']
-            keycode = LEGACY_KEYCODES.get(keycode, keycode)
+            keycode = KBFIRMWARE_KEYCODES.get(keycode, keycode)
+
             if '()' in keycode:
                 fields = key['keycodes'][i]['fields']
-                keycode = f'{keycode.split(")")[0]}{",".join(map(str, fields))})'
+                if keycode in ['MT()', 'OSM()']:
+                    fields[0] = _convert_kbfirmware_mod_mask(fields[0])
+                keycode = f'{keycode.split(")")[0]}{",".join(map(_convert_kbfirmware_field, fields))})'
             layer.append(keycode)
+
         if set(layer) == {'KC_TRNS'}:
             break
         keymap_data['layers'].append(layer)
@@ -192,10 +252,12 @@ def import_kbfirmware(kbfirmware_data):
         }
         info_data['rgblight.led_count'] = kbf_data['keyboard.settings.rgbNum']
         info_data['ws2812.pin'] = kbf_data['keyboard.pins.rgb']
+        info_data['features.rgblight'] = True
 
     if kbf_data['keyboard.pins.led']:
         info_data['backlight.levels'] = kbf_data['keyboard.settings.backlightLevels']
         info_data['backlight.pin'] = kbf_data['keyboard.pins.led']
+        info_data['features.backlight'] = True
 
     # delegate as if it were a regular keyboard import
     return import_keyboard(info_data.to_dict(), keymap_data)
