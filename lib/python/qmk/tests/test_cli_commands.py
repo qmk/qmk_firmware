@@ -330,7 +330,7 @@ def test_format_json_keyboard():
 def test_format_json_keymap():
     result = check_subcommand('format-json', '--format', 'keymap', 'lib/python/qmk/tests/minimal_keymap.json')
     check_returncode(result)
-    assert result.stdout == '{\n    "version": 1,\n    "keyboard": "handwired/pytest/basic",\n    "keymap": "test",\n    "layout": "LAYOUT_ortho_1x1",\n    "layers": [\n                [\n                        "KC_A"\n                ]\n    ]\n}\n'
+    assert result.stdout == '{\n    "version": 1,\n    "keyboard": "handwired/pytest/basic",\n    "keymap": "test",\n    "layout": "LAYOUT_ortho_1x1",\n    "layers": [\n        ["KC_A"]\n    ]\n}\n'
 
 
 def test_format_json_keyboard_auto():
