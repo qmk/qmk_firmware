@@ -805,7 +805,8 @@ There are a few ways to control the auto mouse feature with both `config.h` opti
 | `AUTO_MOUSE_TIME`                   | (Optional) Time layer remains active after activation                 | _ideally_ (250-1000) |     _ms_    |                   `650 ms` |
 | `AUTO_MOUSE_DELAY`                  | (Optional) Lockout time after non-mouse key is pressed                | _ideally_ (100-1000) |     _ms_    | `TAPPING_TERM` or `200 ms` |
 | `AUTO_MOUSE_DEBOUNCE`               | (Optional) Time delay from last activation to next update             | _ideally_ (10 - 100) |     _ms_    |                    `25 ms` |
-| `AUTO_MOUSE_THRESHOLD`              | (Optional) Amount of mouse movement required to switch layers         | 0 -                  |   _units_   |                 `10 units` |
+| `AUTO_MOUSE_THRESHOLD`              | (Optional) Amount of mouse movement required to switch layers         | 0 - 127              |   _units_   |                 `10 units` |
+| `AUTO_MOUSE_SCROLL_THRESHOLD`       | (Optional) Amount of mouse wheel movement required to switch layers   | 0 - 127              |   _units_   |                 `10 units` |
 
 ### Adding mouse keys
 
@@ -820,8 +821,8 @@ While all default mouse keys and layer keys(for current mouse layer) are treated
 ##### To use the callback function to add mouse keys:
 
 The following code will cause the enter key and all of the arrow keys to be treated as mouse keys (hold target layer while they are pressed and reset active layer timer).
-```c
 
+```c
 // in <keyboard>.c:
 bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
     switch(keycode) {
@@ -830,9 +831,21 @@ bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
         case KC_RIGHT ... KC_UP:
             return true;
         default:
-            return false;
+            return is_mouse_record_user(keycode, record);
     }
-    return  is_mouse_record_user(keycode, record);
+}
+```
+
+##### Skip activation Mousekeys on non-mouse layer:
+
+This will prevent activation of the mouse layer when hitting mousekeys on a non-automouse layer.
+
+```c
+bool is_mouse_record_kb(uint16_t keycode, keyrecord_t* record) {
+    if (IS_MOUSE_KEYCODE(keycode)) {
+        return layer_state_is(AUTO_MOUSE_TARGET_LAYER);
+    }
+    return is_mouse_record_user(keycode, record);
 }
 ```
 
