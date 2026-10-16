@@ -96,12 +96,19 @@ ifeq ($(strip $(MIDI_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_midi.c
 endif
 
-VALID_STENO_PROTOCOL_TYPES := geminipr txbolt all
-STENO_PROTOCOL ?= all
+VALID_STENO_PROTOCOL_TYPES := geminipr txbolt
+STENO_PROTOCOLS ?= geminipr txbolt
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
-    ifeq ($(filter $(STENO_PROTOCOL),$(VALID_STENO_PROTOCOL_TYPES)),)
-        $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOL,STENO_PROTOCOL="$(STENO_PROTOCOL)" is not a valid stenography protocol)
+    # backwards compatibility for deprecated STENO_PROTOCOL
+    ifdef STENO_PROTOCOL
+        $(call WARNING_MESSAGE, STENO_PROTOCOL is deprecated and should be migrated to STENO_PROTOCOLS)
+        ifeq ($(strip $(STENO_PROTOCOL)), all)
+            override STENO_PROTOCOLS := geminipr txbolt
+            OPT_DEFS += -DSTENO_ENABLE_ALL
+        else
+            override STENO_PROTOCOLS := $(STENO_PROTOCOL)
+        endif
     endif
 
     ifeq ($(strip $(PLOVER_HID_ENABLE)), yes)
@@ -109,20 +116,21 @@ ifeq ($(strip $(STENO_ENABLE)), yes)
         override PLOVER_HID_ENABLE = no
     endif
 
-    ifeq ($(strip $(STENO_PROTOCOL)), all)
-        override STENO_PROTOCOL := $(filter-out all,$(VALID_STENO_PROTOCOL_TYPES))
-        OPT_DEFS += -DSTENO_ENABLE_ALL
+    ifeq ($(strip $(STENO_PROTOCOLS)),)
+        $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOLS,STENO_PROTOCOLS='' at least one stenography protocol must be specified)
+    else ifneq ($(filter-out $(VALID_STENO_PROTOCOL_TYPES), $(STENO_PROTOCOLS)),)
+        $(call CATASTROPHIC_ERROR,Invalid STENO_PROTOCOLS,STENO_PROTOCOLS='$(STENO_PROTOCOLS)' contains invalid stenography protocols)
     endif
 
-    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(sort $(STENO_PROTOCOL)))
+    OPT_DEFS += -DNUM_STENO_PROTOCOLS=$(words $(sort $(STENO_PROTOCOLS)))
 
     # for each supported protocol -> add deps
-    ifneq ($(filter $(STENO_PROTOCOL),geminipr),)
+    ifneq ($(filter $(STENO_PROTOCOLS),geminipr),)
         OPT_DEFS += -DSTENO_ENABLE_GEMINI
         SRC += $(QUANTUM_DIR)/steno/steno_gemini.c
         VIRTSER_ENABLE ?= yes
     endif
-    ifneq ($(filter $(STENO_PROTOCOL),txbolt),)
+    ifneq ($(filter $(STENO_PROTOCOLS),txbolt),)
         OPT_DEFS += -DSTENO_ENABLE_BOLT
         SRC += $(QUANTUM_DIR)/steno/steno_bolt.c
         VIRTSER_ENABLE ?= yes
