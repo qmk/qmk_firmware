@@ -1,10 +1,15 @@
-# Anne Pro 2 rev. C15 and C18 QMK firmware
+# Anne Pro 2 rev. C15, C18, and C2D QMK firmware
 
-An ANSI-layout 60% keyboard featuring Bluetooth support and per-key RGB lighting.
+An ANSI-layout 60% keyboard family featuring Bluetooth support.
 
 * Keyboard Maintainer: [bwisn](https://github.com/bwisn)
-* Hardware Supported: Anne Pro 2, [C15](c15/) and [C18](c18/) versions
+* Hardware Supported: Anne Pro 2 [C15](c15/) and [C18](c18/), and Anne Pro 2D [C2D](c2d/)
 * Hardware Availability: [annepro.net](https://www.annepro.net/), [Hexcore](https://www.hexcore.xyz/annepro2)
+
+C15 and C18 use a separate LED controller and retain the existing QMK RGB
+Matrix driver. C2D drives its RGB LEDs directly from the keyboard MCU; that
+driver is not implemented yet, so the C2D target currently provides matrix,
+USB, and BLE 2.13 support only.
 
 ## How to compile
 
@@ -15,6 +20,10 @@ After setting up your build environment, you can compile the Anne Pro 2 C18 defa
 If you want to compile the Anne Pro 2 C15 default keymap use:
 
     make annepro2/c15:default
+
+For the Anne Pro 2D C2D default keymap use:
+
+    make annepro2/c2d:default
 
 ## Installing
 
