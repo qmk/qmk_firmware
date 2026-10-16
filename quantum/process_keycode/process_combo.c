@@ -578,9 +578,23 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
 #else
-    uint8_t highest_layer = get_highest_layer(layer_state | default_layer_state);
-    uint8_t ref_layer     = combo_ref_from_layer(highest_layer);
-    if (ref_layer != highest_layer) {
+    uint8_t layer     = get_highest_layer(layer_state | default_layer_state);
+    uint8_t ref_layer = combo_ref_from_layer(layer);
+#    if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
+    /* A release arrives with the keycode of the layer the key was pressed
+     * on (see get_event_keycode). If the layers have changed since that
+     * press, take the reference layer from there too, or the release won't
+     * match. Only needed when either layer references another layer. */
+    if (IS_KEYEVENT(record->event) && !record->event.pressed) {
+        uint8_t source_layer = read_source_layers_cache(record->event.key);
+        uint8_t source_ref   = combo_ref_from_layer(source_layer);
+        if ((ref_layer != layer || source_ref != source_layer) && source_layer != layer_switch_get_layer(record->event.key)) {
+            layer     = source_layer;
+            ref_layer = source_ref;
+        }
+    }
+#    endif
+    if (ref_layer != layer) {
         keycode = keymap_key_to_keycode(ref_layer, record->event.key);
     }
 #endif
