@@ -188,7 +188,7 @@ cli.log.info('Reading from %s and writing to %s', cli.args.filename, cli.args.ou
 
 # Testing, and Linting, and Formatting (oh my!)
 
-We use nose2, flake8, and yapf to test, lint, and format code. You can use the `pytest` and `format-python` subcommands to run these tests:
+We use nose2, ruff, and yapf to test, lint, and format code. You can use the `pytest` and `format-python` subcommands to run these tests:
 
 ### Testing and Linting
 
@@ -224,4 +224,4 @@ We use [nose2](https://nose2.readthedocs.io/en/latest/getting_started.html) to r
 
 ## Linting Details
 
-We use flake8 to lint our code. Your code should pass flake8 before you open a PR. This will be checked when you run `qmk pytest` and by CI when you submit a PR.
+We use ruff to lint our code. Your code should pass `ruff check` before you open a PR. This will be checked when you run `qmk pytest` and by CI when you submit a PR.
