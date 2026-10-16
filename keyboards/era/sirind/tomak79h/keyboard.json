@@ -172,6 +172,10 @@
         "sleep": true,
         "split_count": [41, 55]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "split": {
         "bootmagic": {
             "matrix": [6, 0]
