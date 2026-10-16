@@ -4,7 +4,7 @@ RGB_MATRIX_EFFECT(RIVERFLOW)
 
 // inspired by @PleasureTek's Massdrop Alt LED animation
 
-hsv_t RIVERFLOW_math(hsv_t hsv, uint8_t i, uint8_t time) {
+hsv_t RIVERFLOW_math(hsv_t hsv, led_index_t i, uint8_t time) {
     time  = scale16by8(g_rgb_timer + (i * 315), rgb_matrix_config.speed / 8);
     hsv.v = scale8(abs8(sin8(time) - 128) * 2, hsv.v);
     return hsv;
