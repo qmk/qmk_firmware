@@ -128,6 +128,12 @@ ifeq ($(strip $(BOOTLOADER)), at32-dfu)
     DFU_ARGS ?= -d 2E3C:DF11 -a 0 -s 0x08000000:leave
     DFU_SUFFIX_ARGS ?= -v 2E3C -p DF11
 endif
+ifeq ($(strip $(BOOTLOADER)), ch-isp)
+    # WCH CH579M ISP bootloader (wchisp / ch579flash)
+    OPT_DEFS   += -DBOOTLOADER_CH_ISP
+    BOOTLOADER_TYPE = ch_isp
+    FIRMWARE_FORMAT = bin
+endif
 
 ifeq ($(strip $(BOOTLOADER_TYPE)),)
     ifneq ($(strip $(BOOTLOADER)),)
