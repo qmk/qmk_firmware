@@ -7,6 +7,7 @@
 #include "snowfox_led.h"
 #include "snowfox_power.h"
 #include "eeprom_lpc11uxx.h"
+#include "usb_main.h"
 #ifdef DYNAMIC_KEYMAP_ENABLE
 #    include "dynamic_keymap.h"
 #endif
@@ -241,7 +242,19 @@ static bool process_ble_slot_key(uint16_t keycode, keyrecord_t *record) {
     return false;
 }
 
+// QMK leaves out its USB suspend loop when Bluetooth is enabled, and that loop is
+// where a key press wakes a sleeping computer, so do it here.
+static void usb_wake_host(void) {
+    if (USB_DRIVER.state == USB_SUSPENDED && (USB_DRIVER.status & 2U)) { // remote wakeup enabled
+        usbWakeupHost(&USB_DRIVER);
+    }
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        usb_wake_host();
+    }
+
     if (!process_record_user(keycode, record)) {
         return false;
     }
