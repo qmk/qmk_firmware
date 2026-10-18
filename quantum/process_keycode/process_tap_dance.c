@@ -235,7 +235,7 @@ void tap_dance_task(void) {
     tap_dance_action_t *action;
     tap_dance_state_t  *state;
 
-    if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){})) return;
+    if (!active_td || timer_elapsed(last_tap_time) <= GET_TAPPING_TERM(active_td, &(keyrecord_t){0})) return;
 
     action = tap_dance_get(QK_TAP_DANCE_GET_INDEX(active_td));
     state  = tap_dance_get_state(QK_TAP_DANCE_GET_INDEX(active_td));
