@@ -8,16 +8,16 @@ This is the official firmware for a family of 34-key unibody boards designed by 
 the first of which was [the Osprette](https://github.com/smores56/osprette). This firmware works for the following boards:
 
 * [The Osprette](https://github.com/smores56/osprette)
-* [The Osprette V2](https://github.com/smores56/osprette-v2)
-* [The Osprette V3](https://github.com/smores56/osprette-v3)
-* [The Osprette MX](https://github.com/smores56/osprette-mx)
-* [The Osprangle](https://github.com/smores56/osprangle)
+* [The Osprette V2](https://github.com/smores56/osprette/tree/main/v2)
+* [The Osprette V3](https://github.com/smores56/osprette/tree/main/v3)
+* [The Osprette MX](https://github.com/smores56/osprette/tree/main/mx)
+* [The Osprangle](https://github.com/smores56/osprette/tree/main/osprangle)
 
 The Osprangle is the fourth revision of the Osprette and shares its matrix, so every board above is built with the `osprette` target.
 
 * Keyboard Maintainer: [Sam Mohr](https://github.com/smores56)
 * Hardware Supported: The Osprette, Osprette V2, Osprette V3, Osprette MX and Osprangle (Pro Micro compatible controller)
-* Hardware Availability: [smores56/osprette](https://github.com/smores56/osprette), [smores56/osprette-v2](https://github.com/smores56/osprette-v2), [smores56/osprette-v3](https://github.com/smores56/osprette-v3), [smores56/osprette-mx](https://github.com/smores56/osprette-mx), [smores56/osprangle](https://github.com/smores56/osprangle)
+* Hardware Availability: [smores56/osprette](https://github.com/smores56/osprette), [smores56/osprette-v2](https://github.com/smores56/osprette/tree/main/v2), [smores56/osprette-v3](https://github.com/smores56/osprette/tree/main/v3), [smores56/osprette-mx](https://github.com/smores56/osprette/tree/main/mx), [smores56/osprangle](https://github.com/smores56/osprette/tree/main/osprangle)
 
 Make example for this keyboard (after setting up your build environment):
 
