@@ -30,7 +30,7 @@ typedef struct {
 
 #define UCIS_TABLE(...) { \
     __VA_ARGS__,          \
-    { NULL, {} }          \
+    { NULL, {0} }         \
 }
 
 #define UCIS_SYM(name, ...) {    \
