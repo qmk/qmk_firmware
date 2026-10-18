@@ -1,5 +1,7 @@
 # The Clog
 
+![The Clog](https://raw.githubusercontent.com/smores56/clog/main/v1/images/clog-1.jpg)
+
 This is the official firmware for a family of boards designed by [smores56](https://github.com/smores56),
 the first of which was [the Clog](https://github.com/smores56/clog). This firmware works for the following boards:
 
@@ -7,6 +9,10 @@ the first of which was [the Clog](https://github.com/smores56/clog). This firmwa
 - [The Clog V3](https://github.com/smores56/clog/tree/main/v3)
 - [The Steel Toe](https://github.com/smores56/clog/tree/main/steel-toe)
 - [The Sephirette](https://github.com/smores56/clog/tree/main/sephirette)
+
+* Keyboard Maintainer: [Sam Mohr](https://github.com/smores56)
+* Hardware Supported: The Clog, Clog V3, Steel Toe, and Sephirette PCBs (Pro Micro)
+* Hardware Availability: [smores56/clog](https://github.com/smores56/clog)
 
 Make example for this keyboard (after setting up your build environment):
 
