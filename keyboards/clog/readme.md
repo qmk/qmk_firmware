@@ -4,9 +4,9 @@ This is the official firmware for a family of boards designed by [smores56](http
 the first of which was [the Clog](https://github.com/smores56/clog). This firmware works for the following boards:
 
 - [The Clog](https://github.com/smores56/clog)
-- [The Clog V3](https://github.com/smores56/clog-v3)
-- [The Steel Toe](https://github.com/smores56/steel-toe)
-- [The Sephirette](https://github.com/smores56/sephirette)
+- [The Clog V3](https://github.com/smores56/clog/tree/main/v3)
+- [The Steel Toe](https://github.com/smores56/clog/tree/main/steel-toe)
+- [The Sephirette](https://github.com/smores56/clog/tree/main/sephirette)
 
 Make example for this keyboard (after setting up your build environment):
 
