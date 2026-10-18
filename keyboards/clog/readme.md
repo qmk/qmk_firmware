@@ -1,6 +1,6 @@
 # The Clog
 
-![The Clog](https://raw.githubusercontent.com/smores56/clog/main/v1/images/clog-1.jpg)
+![The Clog](https://i.imgur.com/gOTnKseh.jpg)
 
 This is the official firmware for a family of boards designed by [smores56](https://github.com/smores56),
 the first of which was [the Clog](https://github.com/smores56/clog). This firmware works for the following boards:
