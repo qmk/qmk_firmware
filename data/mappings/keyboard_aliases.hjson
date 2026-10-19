@@ -2388,5 +2388,8 @@
     },
     "mechlovin/infinity875": {
         "target": "mechlovin/infinity875/rev1"
+    },
+    "ymdk/ymd75/rev4/iso": {
+        "target": "ymdk/ymd75/rev4/f103/iso"
     }
 }
