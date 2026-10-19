@@ -57,6 +57,10 @@ You can also use any ARM chip with USB that [ChibiOS](https://www.chibios.org) s
  * [WB32F3G71xx](http://www.westberrytech.com)
  * [WB32FQ95xx](http://www.westberrytech.com)
 
+### NXP (LPC)
+
+ * [LPC11U35](https://www.nxp.com/products/LPC11U3x)
+
 ### Artery (AT32)
 
  * [AT32F415](https://www.arterychip.com/en/product/AT32F415.jsp)
