@@ -22,4 +22,4 @@ Enter the bootloader in 3 ways:
 
 * Hold the Reset switch mounted after the USB cable is connected
 * Hold the Num Lock key while connecting the USB cable (also erases persistent settings)
-* Hold Num Lock and press `0`, then press Tab will reset the board to bootloader mode
+* Hold Num Lock and press `0` will reset the board to bootloader mode
