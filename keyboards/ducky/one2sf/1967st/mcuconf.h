@@ -46,6 +46,11 @@
 #define NUC123_SERIAL_USE_UART0 FALSE
 #define NUC123_SERIAL_CLKSRC NUC123_SERIAL_CLKSRC_HSI
 
+/*
+ * EFL driver settings.
+ */
+#define NUC123_EFL_ACCESS_APROM TRUE
+
 #define NUC123_MCUCONF
 
 #endif /* _MCUCONF_H_ */
