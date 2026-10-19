@@ -1,0 +1,20 @@
+{
+    "keycodes": {
+        "0x7C7C": {
+            "group": "quantum",
+            "key": "QK_OS_DETECTION_SKIP_RESET",
+            "label": "OS Detection Skip Reset",
+            "aliases": [
+                "QK_OS_SKIP"
+            ]
+        },
+        "0x7C7D": {
+            "group": "quantum",
+            "key": "QK_OS_DETECTION_TOGGLE",
+            "label": "OS Detection Toggle",
+            "aliases": [
+                "QK_OS_TOG"
+            ]
+        }
+    }
+}
