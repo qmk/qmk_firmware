@@ -49,6 +49,10 @@
         ],
         "max_brightness": 150
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "url": "https://cobanstationery.com",
     "usb": {
         "device_version": "1.2.0",

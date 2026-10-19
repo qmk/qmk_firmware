@@ -8,9 +8,6 @@
 #define SERIAL_USART_TX_PIN GP0
 #define SERIAL_USART_RX_PIN GP1
 
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500U
-
 /* any side can be master by default, enable split sync to support it */
 #define EE_HANDS
 #define SPLIT_POINTING_ENABLE
