@@ -15,6 +15,7 @@
 */
 
 #include "annepro2_ble.h"
+#include "ap2_led.h"
 #include "ch.h"
 #include "hal.h"
 #include "host.h"
@@ -32,6 +33,10 @@ static void ap2_ble_swtich_ble_driver(void);
 /* -------------------- Static Local Variables ------------------------------ */
 static host_driver_t ap2_ble_driver = {
     ap2_ble_leds, ap2_ble_keyboard, NULL, ap2_ble_mouse, ap2_ble_extra
+};
+
+static const SerialConfig ble_uart_config = {
+    .speed = 115200,
 };
 
 static uint8_t ble_mcu_wakeup[11] = {0x7b, 0x12, 0x53, 0x00, 0x03, 0x00, 0x01, 0x7d, 0x02, 0x01, 0x02};
@@ -59,11 +64,58 @@ static uint8_t ble_mcu_unpair[10] = {
 static uint8_t ble_mcu_bootload[11] = {0x7b, 0x10, 0x51, 0x10, 0x03, 0x00, 0x00, 0x7d, 0x02, 0x01, 0x01};
 
 static host_driver_t *last_host_driver = NULL;
+ble_capslock_t        ble_capslock     = {._dummy = {0}, .caps_lock = false};
 #ifdef NKRO_ENABLE
 static bool lastNkroStatus = false;
 #endif  // NKRO_ENABLE
 
 /* -------------------- Public Function Implementation ---------------------- */
+
+void annepro2_ble_init(void) {
+    sdStart(&SD1, &ble_uart_config);
+    annepro2_ble_startup();
+    wait_ms(100);
+    while (!sdGetWouldBlock(&SD1)) {
+        sdGet(&SD1);
+    }
+}
+
+void annepro2_ble_task(void) {
+    while (!sdGetWouldBlock(&SD1)) {
+        sdReadTimeout(&SD1, (uint8_t *)&ble_capslock, sizeof(ble_capslock_t), 10);
+    }
+}
+
+bool annepro2_ble_process_record(uint16_t keycode, keyrecord_t *record) {
+    if (!record->event.pressed) {
+        return true;
+    }
+
+    const ap2_led_t blue = {
+        .p.blue  = 0xff,
+        .p.red   = 0x00,
+        .p.green = 0x00,
+        .p.alpha = 0xff,
+    };
+
+    switch (keycode) {
+        case KC_AP2_BT1:
+        case KC_AP2_BT2:
+        case KC_AP2_BT3:
+        case KC_AP2_BT4:
+            annepro2_ble_broadcast(keycode - KC_AP2_BT1);
+            ap2_led_blink(record->event.key.row, record->event.key.col, blue, 8, 50);
+            return false;
+        case KC_AP2_USB:
+            annepro2_ble_disconnect();
+            return false;
+        case KC_AP2_BT_UNPAIR:
+            annepro2_ble_unpair();
+            return false;
+        default:
+            return true;
+    }
+}
 
 void annepro2_ble_bootload(void) { sdWrite(&SD1, ble_mcu_bootload, sizeof(ble_mcu_bootload)); }
 
@@ -94,6 +146,14 @@ void annepro2_ble_connect(uint8_t port) {
     ap2_ble_swtich_ble_driver();
 }
 
+void annepro2_ble_slot_press(uint8_t port) {
+    annepro2_ble_broadcast(port);
+}
+
+void annepro2_ble_slot_release(uint8_t port) {
+    (void)port;
+}
+
 void annepro2_ble_disconnect(void) {
     /* Skip if the driver is already enabled */
     if (host_get_driver() != &ap2_ble_driver) {
@@ -110,6 +170,10 @@ void annepro2_ble_disconnect(void) {
 void annepro2_ble_unpair(void) {
     // sdPut(&SD1, 0x0);
     sdWrite(&SD1, ble_mcu_unpair, sizeof(ble_mcu_unpair));
+}
+
+void annepro2_ble_rx_byte(uint8_t byte) {
+    (void)byte;
 }
 
 /* ------------------- Static Function Implementation ----------------------- */
