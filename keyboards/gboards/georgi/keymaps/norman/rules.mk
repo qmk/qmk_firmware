@@ -1,5 +1,4 @@
 NO_REPEAT				 = yes
-VERBOSE					 = yes
 KEYBOARD_SHARED_EP       = yes
 MOUSEKEY_ENABLE			 = yes
 
