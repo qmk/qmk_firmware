@@ -15,8 +15,8 @@
 #endif
 
 /* matrix state(1:on, 0:off) */
-matrix_row_t raw_matrix[MATRIX_ROWS];
-matrix_row_t matrix[MATRIX_ROWS];
+matrix_row_t raw_matrix[MATRIX_ROWS];      // raw values
+matrix_row_t matrix[MATRIX_ROWS];          // debounced values
 
 #ifdef SPLIT_KEYBOARD
 // row offsets for each hand
@@ -171,7 +171,7 @@ __attribute__((weak)) uint8_t matrix_scan(void) {
     matrix_scan_kb();
 #endif
 
-    return changed;
+    return (uint8_t)changed;
 }
 
 __attribute__((weak)) bool peek_matrix(uint8_t row_index, uint8_t col_index, bool raw) {
