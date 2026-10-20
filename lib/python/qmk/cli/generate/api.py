@@ -23,15 +23,18 @@ def _list_constants(output_folder):
     """Produce a map of available constants
     """
     ret = {}
-    for file in (output_folder / 'constants').glob('**/*_[0-9].[0-9].[0-9].json'):
-        name, version = file.stem.rsplit('_', 1)
+    for file in (output_folder / 'constants').glob('**/*.json'):
+        name, _, version = file.stem.rpartition('_')
+        parts = version.split('.')
+        if not name or len(parts) != 3 or not all(part.isascii() and part.isdigit() for part in parts):
+            continue
         if name not in ret:
             ret[name] = []
         ret[name].append(version)
 
     # Ensure content is sorted
     for name in ret:
-        ret[name] = sorted(ret[name])
+        ret[name] = sorted(ret[name], key=lambda version: tuple(map(int, version.split('.'))))
 
     return ret
 
