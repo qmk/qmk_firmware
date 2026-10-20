@@ -197,6 +197,12 @@ endif
 # Pull in user level rules.mk
 -include $(USER_PATH)/rules.mk
 
+# TODO: remove backwards compatibility when via module is external
+ifeq ($(strip $(VIA_ENABLE)), yes)
+export VIA_ENABLE
+export VIA_INSECURE
+endif
+
 # Community modules
 COMMUNITY_RULES_MK = $(shell $(QMK_BIN) generate-community-modules-rules-mk -kb $(KEYBOARD) --quiet --escape --output $(INTERMEDIATE_OUTPUT)/src/community_rules.mk $(KEYMAP_JSON))
 include $(COMMUNITY_RULES_MK)
