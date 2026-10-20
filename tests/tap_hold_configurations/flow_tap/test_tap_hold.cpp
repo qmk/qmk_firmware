@@ -871,4 +871,3 @@ TEST_F(FlowTapTest, flow_tap_at_matrix_0_0_release) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
-
