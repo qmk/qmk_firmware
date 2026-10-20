@@ -181,6 +181,22 @@ generated-files: $(INTERMEDIATE_OUTPUT)/src/config.h $(INTERMEDIATE_OUTPUT)/src/
 
 endif
 
+# Userspace setup and definitions
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
+
+# If the equivalent users directory exists in userspace, use that in preference to anything currently in the main repo
+ifneq ($(QMK_USERSPACE),)
+    ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
+        USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
+    endif
+endif
+
+# Pull in user level rules.mk
+-include $(USER_PATH)/rules.mk
+
 # Community modules
 COMMUNITY_RULES_MK = $(shell $(QMK_BIN) generate-community-modules-rules-mk -kb $(KEYBOARD) --quiet --escape --output $(INTERMEDIATE_OUTPUT)/src/community_rules.mk $(KEYMAP_JSON))
 include $(COMMUNITY_RULES_MK)
@@ -407,26 +423,12 @@ $(INTERMEDIATE_OUTPUT)/src/info_deps.d:
 
 .INTERMEDIATE : generated-files
 
-# Userspace setup and definitions
-ifeq ("$(USER_NAME)","")
-    USER_NAME := $(KEYMAP)
-endif
-USER_PATH := users/$(USER_NAME)
-
 # If we have userspace, then add it to the lookup VPATH
 ifneq ($(wildcard $(QMK_USERSPACE)),)
     VPATH += $(QMK_USERSPACE)
 endif
 
-# If the equivalent users directory exists in userspace, use that in preference to anything currently in the main repo
-ifneq ($(QMK_USERSPACE),)
-	ifneq ($(wildcard $(QMK_USERSPACE)/$(USER_PATH)),)
-    	USER_PATH := $(QMK_USERSPACE)/$(USER_PATH)
-	endif
-endif
-
-# Pull in user level rules.mk
--include $(USER_PATH)/rules.mk
+# Pull in user level config
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
