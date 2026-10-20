@@ -174,13 +174,33 @@ led_t host_keyboard_led_state(void) {
 }
 
 /* send report */
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+void host_keyboard_nkro_send(report_keyboard_nkro_t *report) {
+    host_driver_t *driver = host_get_active_driver();
+    if (!driver || !driver->send_keyboard_nkro) return;
+
+    (*driver->send_keyboard_nkro)(report);
+
+    if (debug_keyboard) {
+        dprintf("keyboard_nkro_report: %02X | ", report->mods);
+        for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+            dprintf("%02X ", report->keys[i]);
+        }
+        dprint("| ");
+        for (uint8_t i = 0; i < NKRO_REPORT_BITS; i++) {
+            dprintf("%02X ", report->bits[i]);
+        }
+        dprint("\n");
+    }
+}
+#else
 void host_keyboard_send(report_keyboard_t *report) {
     host_driver_t *driver = host_get_active_driver();
     if (!driver || !driver->send_keyboard) return;
 
-#ifdef KEYBOARD_SHARED_EP
+#    ifdef KEYBOARD_SHARED_EP
     report->report_id = REPORT_ID_KEYBOARD;
-#endif
+#    endif
     (*driver->send_keyboard)(report);
 
     if (debug_keyboard) {
@@ -207,6 +227,7 @@ void host_nkro_send(report_nkro_t *report) {
         dprint("\n");
     }
 }
+#endif
 
 void host_mouse_send(report_mouse_t *report) {
     host_driver_t *driver = host_get_active_driver();

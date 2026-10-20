@@ -69,11 +69,19 @@
 #    define USB_WAIT_FOR_ENUMERATION
 #endif
 
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+static report_keyboard_nkro_t keyboard_report_sent;
+#else
 static report_keyboard_t keyboard_report_sent;
+#endif
 
 /* Host driver */
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+static void send_keyboard_nkro(report_keyboard_nkro_t *report);
+#else
 static void send_keyboard(report_keyboard_t *report);
 static void send_nkro(report_nkro_t *report);
+#endif
 static void send_mouse(report_mouse_t *report);
 static void send_extra(report_extra_t *report);
 #ifdef RAW_ENABLE
@@ -82,10 +90,14 @@ static void send_raw_hid(uint8_t *data, uint8_t length);
 
 host_driver_t lufa_driver = {
     .keyboard_leds = usb_device_state_get_leds,
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+    .send_keyboard_nkro = send_keyboard_nkro,
+#else
     .send_keyboard = send_keyboard,
     .send_nkro     = send_nkro,
-    .send_mouse    = send_mouse,
-    .send_extra    = send_extra,
+#endif
+    .send_mouse = send_mouse,
+    .send_extra = send_extra,
 #ifdef RAW_ENABLE
     .send_raw_hid = send_raw_hid,
 #endif
@@ -415,7 +427,11 @@ void EVENT_USB_Device_ControlRequest(void) {
                     case KEYBOARD_INTERFACE:
                         // TODO: test/check
                         ReportData = (uint8_t *)&keyboard_report_sent;
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+                        ReportSize = usb_device_state_get_protocol() == USB_PROTOCOL_BOOT ? offsetof(report_keyboard_nkro_t, bits) : sizeof(keyboard_report_sent);
+#else
                         ReportSize = sizeof(keyboard_report_sent);
+#endif
                         break;
                 }
 
@@ -517,6 +533,13 @@ void EVENT_USB_Device_ControlRequest(void) {
  *
  * FIXME: Needs doc
  */
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+static void send_keyboard_nkro(report_keyboard_nkro_t *report) {
+    send_report(KEYBOARD_IN_EPNUM, report, usb_device_state_get_protocol() == USB_PROTOCOL_BOOT ? offsetof(report_keyboard_nkro_t, bits) : sizeof(report_keyboard_nkro_t));
+
+    keyboard_report_sent = *report;
+}
+#else
 static void send_keyboard(report_keyboard_t *report) {
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
     if (usb_device_state_get_protocol() == USB_PROTOCOL_BOOT) {
@@ -533,10 +556,11 @@ static void send_keyboard(report_keyboard_t *report) {
  * FIXME: Needs doc
  */
 static void send_nkro(report_nkro_t *report) {
-#ifdef NKRO_ENABLE
+#    ifdef NKRO_ENABLE
     send_report(SHARED_IN_EPNUM, report, sizeof(report_nkro_t));
-#endif
+#    endif
 }
+#endif
 
 /** \brief Send Mouse
  *

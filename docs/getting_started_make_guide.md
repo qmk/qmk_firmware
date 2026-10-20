@@ -93,6 +93,10 @@ Enables your LED to breath while your computer is sleeping. Timer1 is being used
 
 This allows the keyboard to tell the host OS that up to 248 keys are held down at once (default without NKRO is 6). NKRO is off by default, even if `NKRO_ENABLE` is set. NKRO can be toggled by binding `NK_TOGG` to a key and then hitting the key.
 
+`NKRO_BOOT_COMPAT_ENABLE`
+
+Folds the NKRO bitfield into the boot keyboard report so hosts that ignore the HID report descriptor (some BIOS/UEFI firmware, KVM switches, BMC consoles) still see a 6KRO keyboard while everything else gets NKRO. It enables `NKRO_ENABLE` and makes `NK_TOGG` a no-op. V-USB boards are not supported. See [NKRO boot compatibility](config_options#nkro-boot-compatibility).
+
 `BACKLIGHT_ENABLE`
 
 This enables the in-switch LED backlighting. You can specify the backlight pin by putting this in your `config.h`:
