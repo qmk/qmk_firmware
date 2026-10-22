@@ -253,6 +253,7 @@
                 "custom",
                 "gd32v-dfu",
                 "halfkay",
+                "hyisp",
                 "kiibohd",
                 "lufa-dfu",
                 "lufa-ms",

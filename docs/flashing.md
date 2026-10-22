@@ -130,6 +130,32 @@ Flashing sequence:
 3. Flash a .hex file
 4. Reset the device into application mode (may be done automatically)
 
+## HYISP
+
+HYISP is a bootloader developed by HengYu Tech that presents itself as a HID device, and comes pre-flashed on Metadot Das Keyboard 4 (all variants). It is closed-source, but it's available for download and can also be read from an existing keyboard.
+
+To make sure your keyboard uses the HYISP bootloader, maek sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = hyisp
+```
+
+Compatible flashers:
+* [hyisp-util](https://github.com/giannello/hyisp-util)
+  ```
+  hyisp-util flash --convert --yes <filename>
+  ```
+
+Flashing sequence:
+1. Enter the bootloader using any of the following methods:
+    * If the keyboard is running a fully-stock firmware (bootloader + application), `hyisp-util` will automatically reboot to bootloader
+    * If available in your layout, press the `QK_BOOT` keycode
+    * Press `Esc` + `1` + `a` simultaneously while plugging in the keyboard
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
+
 ## USBasploader
 
 USBasploader is a bootloader originally by [Objective Development](https://www.obdev.at/products/vusb/usbasploader.html). It emulates a USBasp ISP programmer and is used in some non-USB AVR chips such as the ATmega328P, which run V-USB.

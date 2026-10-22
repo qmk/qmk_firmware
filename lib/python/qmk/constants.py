@@ -88,6 +88,10 @@ BOOTLOADER_VIDS_PIDS = {
         ("03eb", "2ffb")  # AT90USB128
     },
     'kiibohd': {("1c11", "b007")},
+    'hyisp': {
+        ("24f0", "0000"),  # Metadot Das Keyboard 4 Professional/Ultimate
+        ("24f0", "0001")  # Metadot Das Keyboard 4 for Mac
+    },
     'stm32-dfu': {
         ("1eaf", "0003"),  # STM32duino
         ("0483", "df11")  # STM32 DFU

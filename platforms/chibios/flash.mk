@@ -93,10 +93,19 @@ endef
 teensy: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
 	$(call EXEC_TEENSY)
 
+HYISP_UTIL ?= hyisp-util
+
+define EXEC_HYISP_UTIL
+	$(HYISP_UTIL) flash --convert --yes $(BUILD_DIR)/$(TARGET).bin
+endef
+
+
 flash: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(SILENT) || printf "Flashing for bootloader: $(BLUE)$(BOOTLOADER)$(NO_COLOR)\n"
 ifneq ($(strip $(PROGRAM_CMD)),)
 	$(UNSYNC_OUTPUT_CMD) && $(PROGRAM_CMD)
+else ifeq ($(strip $(BOOTLOADER)),hyisp)
+	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_HYISP_UTIL)
 else ifeq ($(strip $(BOOTLOADER)),kiibohd)
 	$(UNSYNC_OUTPUT_CMD) && $(call EXEC_DFU_UTIL)
 else ifeq ($(strip $(BOOTLOADER)),tinyuf2)

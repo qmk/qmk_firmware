@@ -22,6 +22,7 @@
 # Current options for ARM:
 #     halfkay      PJRC Teensy
 #     kiibohd      Input:Club Kiibohd bootloader (only used on their boards)
+#     hyisp        Heng Yu bootloader (used on Metadot boards)
 #     stm32duino   STM32Duino (STM32F103x8)
 #     stm32-dfu    STM32 USB DFU in ROM
 #     apm32-dfu    APM32 USB DFU in ROM
@@ -91,6 +92,10 @@ ifeq ($(strip $(BOOTLOADER)), kiibohd)
     # Options to pass to dfu-util when flashing
     DFU_ARGS = -d 1C11:B007
     DFU_SUFFIX_ARGS = -v 1C11 -p B007
+endif
+ifeq ($(strip $(BOOTLOADER)), hyisp)
+    OPT_DEFS += -DBOOTLOADER_HYISP
+    BOOTLOADER_TYPE = hyisp
 endif
 ifeq ($(strip $(BOOTLOADER)), stm32duino)
     OPT_DEFS += -DBOOTLOADER_STM32DUINO
