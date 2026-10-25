@@ -29,7 +29,7 @@ Vérification commune à chaque tâche : `qmk compile -kb crkbd/rev4_1/standard 
 
 ## 5. ADJUST et LED
 
-- [ ] 5.1 Scénario « Touches de fonction » : F1–F12 sur la rangée du haut d'ADJUST (tdd: false, firmware sans banc de test)
+- [x] 5.1 Scénario « Touches de fonction » : F1–F12 sur la rangée du haut d'ADJUST (tdd: false, firmware sans banc de test)
 - [ ] 5.2 Scénario « Passage en mode flash » : `QK_BOOT` aux deux coins bas et réglages `RM_*` à gauche (tdd: false, firmware sans banc de test)
 - [ ] 5.3 Scénario « LED sur RAISE » : `config/led.c` réduit aux 4 couches (BASE éteinte, une couleur pour chacune des autres) (tdd: false, firmware sans banc de test)
 
