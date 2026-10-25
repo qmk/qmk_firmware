@@ -24,7 +24,7 @@ Vérification commune à chaque tâche : `qmk compile -kb crkbd/rev4_1/standard 
 
 ## 4. RAISE
 
-- [ ] 4.1 Scénario « Déplacer et cliquer » : souris main gauche et clics aux pouces, `MOUSEKEY_ENABLE = yes` (tdd: false, firmware sans banc de test)
+- [x] 4.1 Scénario « Déplacer et cliquer » : souris main gauche et clics aux pouces, `MOUSEKEY_ENABLE = yes` (tdd: false, firmware sans banc de test)
 - [ ] 4.2 Scénario « Flèches vim » : navigation et média main droite (tdd: false, firmware sans banc de test)
 
 ## 5. ADJUST et LED
