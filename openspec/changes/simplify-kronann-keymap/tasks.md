@@ -4,7 +4,7 @@ Vérification commune à chaque tâche : `qmk compile -kb crkbd/rev4_1/standard 
 
 ## 1. Socle
 
-- [ ] 1.1 Remplacer les 8 couches par `_BASE, _LOWER, _RAISE, _ADJUST` dans `layers.h`, avec `TRI_LAYER_ENABLE` et `TL_LOWR` / `TL_UPPR` (LOWER, RAISE et ADJUST encore vides). Supprimer `config/custom.c`, `french-unicode.h`, l'unicode, les combos et les options devenues inutiles de `config.h` / `rules.mk` ; vérifier que la compilation passe (tdd: false, nettoyage préalable sans scénario propre)
+- [x] 1.1 Remplacer les 8 couches par `_BASE, _LOWER, _RAISE, _ADJUST` dans `layers.h`, avec `TRI_LAYER_ENABLE` et `TL_LOWR` / `TL_UPPR` (LOWER, RAISE et ADJUST encore vides). Supprimer `config/custom.c`, `french-unicode.h`, l'unicode, les combos et les options devenues inutiles de `config.h` / `rules.mk` ; vérifier que la compilation passe (tdd: false, nettoyage préalable sans scénario propre)
 
 ## 2. Base QWERTY
 

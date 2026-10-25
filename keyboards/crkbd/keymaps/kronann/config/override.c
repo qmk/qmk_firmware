@@ -14,9 +14,6 @@ const key_override_t mute_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_AUDIO_
 
 
 // _NUMBERS override
-const key_override_t one_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_1, UC(EURO));
-const key_override_t two_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_2, UC(FR_LDAQ));
-const key_override_t three_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_3, UC(FR_RDAQ));
 const key_override_t four_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_4, KC_DLR);
 const key_override_t five_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_5, KC_PERC);
 const key_override_t six_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_6, KC_CIRC);
@@ -32,11 +29,8 @@ const key_override_t *key_overrides[] = {
     &dot_key_override,
     &comma_key_override,
     &delete_key_override,
-    &one_key_override,
     &backspace_key_override,
     &mute_key_override,
-    &two_key_override,
-    &three_key_override,
     &four_key_override,
     &five_key_override,
     &six_key_override,
