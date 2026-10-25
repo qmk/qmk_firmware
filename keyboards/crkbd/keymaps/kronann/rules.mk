@@ -1,7 +1,5 @@
 SRC += config/led.c
 
-INTROSPECTION_KEYMAP_C = override_keymap.c
-
 TRI_LAYER_ENABLE = yes
 
 RGB_MATRIX_ENABLE = yes
