@@ -10,7 +10,7 @@ Vérification commune à chaque tâche : `qmk compile -kb crkbd/rev4_1/standard 
 
 - [x] 2.1 Scénario « Lettres QWERTY » : écrire les trois rangées de BASE (design.md, Maquettes, BASE) ; maquette `mockups/kronann-remap.html` (tdd: false, firmware sans banc de test)
 - [x] 2.2 Scénario « Pas de tap-hold sur la base » : vérifier qu'aucun `*_T()`/`LT()` ne subsiste sur BASE et retirer le réglage de tap-hold restant (tdd: false, firmware sans banc de test)
-- [ ] 2.3 Scénario « Ctrl identique sur macOS et Linux » : Ctrl et Shift en `KC_LCTL`/`KC_LSFT`, Alt pouce en `KC_LALT`, sans `OS_DETECTION` ni `CG_TOGG` (tdd: false, firmware sans banc de test)
+- [x] 2.3 Scénario « Ctrl identique sur macOS et Linux » : Ctrl et Shift en `KC_LCTL`/`KC_LSFT`, Alt pouce en `KC_LALT`, sans `OS_DETECTION` ni `CG_TOGG` (tdd: false, firmware sans banc de test)
 - [ ] 2.4 Scénario « Hyper envoie Super gauche » : pouces BASE `KC_LGUI TL_LOWR KC_SPC` / `KC_ENT TL_UPPR KC_LALT` (tdd: false, firmware sans banc de test)
 - [ ] 2.5 Scénario « Flèches intérieures » : ← → à gauche, ↑ ↓ à droite (tdd: false, firmware sans banc de test)
 - [ ] 2.6 Scénario « Shift + Bksp = Suppr » : une seule surcharge dans `keymap.c`, suppression de `config/override.c`, `override_keymap.c` et `INTROSPECTION_KEYMAP_C` (tdd: false, firmware sans banc de test)
