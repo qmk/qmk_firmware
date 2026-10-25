@@ -120,3 +120,8 @@ compile_commands.json
 via*.json
 /keyboards/**/keymaps/via/*
 /keyboards/**/keymaps/vial/*
+.claude/worktrees/
+.claude/qa-local*.patch
+.claude/qa-reports/
+.harness/
+.playwright-cli/

@@ -1,0 +1,24 @@
+{
+  "commands": {
+    "install": "",
+    "test": "qmk compile -kb crkbd/rev4_1/standard -km kronann",
+    "lint": "",
+    "typecheck": "qmk compile -kb crkbd/rev4_1/standard -km kronann",
+    "format": "",
+    "lintFiles": ""
+  },
+  "models": {
+    "strong": "opus",
+    "fast": "sonnet"
+  },
+  "onEdit": [],
+  "clickup": {
+    "statuses": {
+      "started": "in progress",
+      "review": "review",
+      "accepted": "acceptance nee"
+    }
+  },
+  "repos": {},
+  "localOnly": "krn"
+}

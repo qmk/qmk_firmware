@@ -1,0 +1,25 @@
+schema: spec-driven
+
+context: |
+  Langue : les artefacts (proposal, design, specs, tasks) sont rédigés en français.
+  Les titres structurels et les mots-clés (SHALL, MUST, WHEN, THEN) restent en anglais.
+  Conventions, commandes du projet et principes de code : voir AGENTS.md.
+
+rules:
+  proposal:
+    - "Si la demande vient d'une tâche ClickUp, citer son URL dans une section « Source »."
+  specs:
+    - "Chaque requirement a au moins un scénario WHEN/THEN vérifiable par un test automatisé."
+  design:
+    - "Si le changement touche une base, une section « Base de données » a trois rubriques. Schéma : la migration à jouer (mécanisme et nom) ou « aucun changement ». Scripts : les seeds dans l'ordre (chemin, repo, base cible). Variables : chaque placeholder des scripts, son sens et sa valeur pour la recette locale."
+  tasks:
+    - "Une tâche = un scénario = un commit. La tâche nomme le scénario qu'elle implémente."
+    - "Pas de tâche séparée « écrire les tests » : le test fait partie de la tâche (TDD)."
+    - "Pas de tâche de recette manuelle : la recette locale se fait avec /qa-local, à partir des scénarios."
+    - "Une tâche sans comportement testable (config, docs, prototype) finit par « (tdd: false, <raison>) »."
+
+operations:
+  apply:
+    guidance:
+      - "TDD strict : test rouge montré, code minimal, vert, puis commit Conventional Commits `feat(<changement>): ...` avec la case cochée dans tasks.md."
+      - "Lancer seulement le test ciblé à chaque pas, typecheck et suite complète avant le commit."

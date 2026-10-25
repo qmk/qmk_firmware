@@ -1,0 +1,94 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git fetch *)",
+      "Bash(git ls-remote *)",
+      "Bash(git switch *)",
+      "Bash(git worktree *)",
+      "Bash(gh pr *)",
+      "Bash(gh label *)",
+      "Bash(gh repo view *)",
+      "Bash(harness publish *)",
+      "Bash(playwright-cli *)",
+      "Bash(kubectl get deploy *)",
+      "Bash(kubectl get pods *)",
+      "Bash(kubectl rollout status *)",
+      "Bash(npx -y @fission-ai/openspec@1.14.2 *)"
+    ],
+    "deny": [
+      "Edit(.env)",
+      "Edit(.env.*)",
+      "Edit(package-lock.json)",
+      "Edit(pnpm-lock.yaml)",
+      "Edit(yarn.lock)",
+      "Edit(bun.lock)",
+      "Edit(bun.lockb)",
+      "Edit(Cargo.lock)",
+      "Edit(poetry.lock)",
+      "Edit(uv.lock)",
+      "Edit(Gemfile.lock)",
+      "Edit(composer.lock)",
+      "Edit(go.sum)",
+      "Edit(packages.lock.json)",
+      "Edit(/.claude/hooks/harness/**)",
+      "Edit(/.claude/settings.json)"
+    ],
+    "additionalDirectories": []
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/harness/guard-bash.ts\""
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/harness/guard-secrets.ts\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/harness/on-edit.ts\"",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "^code-implementer$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/harness/gate.ts\"",
+            "timeout": 600
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "OPENSPEC_TELEMETRY": "0"
+  }
+}
