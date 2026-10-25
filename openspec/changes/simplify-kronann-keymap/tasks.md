@@ -35,4 +35,4 @@ Vérification commune à chaque tâche : `qmk compile -kb crkbd/rev4_1/standard 
 
 ## 6. Documentation
 
-- [ ] 6.1 Créer `keyboards/crkbd/keymaps/kronann/readme.md` : schéma texte des 4 couches, compilation et flash, configuration OS à prévoir (règle Karabiner limitée au Corne, deux lignes skhd) ; vérifier que la commande documentée compile (tdd: false, documentation)
+- [x] 6.1 Créer `keyboards/crkbd/keymaps/kronann/readme.md` : schéma texte des 4 couches, compilation et flash, configuration OS à prévoir (règle Karabiner limitée au Corne, deux lignes skhd) ; vérifier que la commande documentée compile (tdd: false, documentation)
