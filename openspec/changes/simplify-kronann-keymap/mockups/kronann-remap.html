@@ -1,0 +1,171 @@
+<title>Corne kronann v2</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one column of layer plates, each a split Corne drawn as two 7x4 key grids */
+:root {
+  --bg: #eef0f3; --plate: #e1e5eb; --cap: #fbfcfd; --fg: #1d2330; --muted: #6a7384; --line: #c8ced8;
+  --mod: #4b5fc1; --layer: #0f8a7e; --nav: #b8720c; --mouse: #c2416b; --sys: #c23b2a; --ime: #7a4fc4; --sym: #1d2330;
+  --held: #0f8a7e;
+  --f-display: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --u: 46px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #161a21; --plate: #1f252f; --cap: #2a313d; --fg: #e6e9ef; --muted: #8d96a7; --line: #3a4250;
+  --mod: #8b9cf0; --layer: #4fc7b9; --nav: #e9a94a; --mouse: #ee7fa3; --sys: #f07a68; --ime: #b394f0; --sym: #e6e9ef; --held: #4fc7b9;
+  color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #161a21; --plate: #1f252f; --cap: #2a313d; --fg: #e6e9ef; --muted: #8d96a7; --line: #3a4250;
+  --mod: #8b9cf0; --layer: #4fc7b9; --nav: #e9a94a; --mouse: #ee7fa3; --sys: #f07a68; --ime: #b394f0; --sym: #e6e9ef; --held: #4fc7b9;
+  color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--f-display); font-size: 15px; line-height: 1.55; }
+.wrap { max-width: 980px; margin: 0 auto; padding-block: 32px 64px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 28px; }
+h1 { font-size: 30px; margin: 0; text-wrap: balance; letter-spacing: .01em; }
+h2 { font-size: 19px; margin: 0; text-wrap: balance; }
+p { margin: 0; max-width: 68ch; }
+.lede { color: var(--muted); }
+header { display: grid; gap: 10px; }
+.bar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; }
+.toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; font-family: var(--f-mono); font-size: 13px; }
+.toggle button { background: transparent; color: var(--fg); border: 0; padding: 7px 14px; cursor: pointer; font: inherit; }
+.toggle button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.toggle button:focus-visible { outline: 2px solid var(--mod); outline-offset: -2px; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12.5px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 12px; height: 12px; border-radius: 3px; border-bottom: 3px solid currentColor; background: var(--cap); }
+section.layer { display: grid; gap: 12px; }
+.lh { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.lh .how { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.scroll { overflow-x: auto; }
+.board { display: flex; gap: calc(var(--u) * .9); justify-content: center; background: var(--plate); border-radius: 14px; padding: 18px; width: max-content; min-width: 100%; box-sizing: border-box; }
+.half { display: grid; grid-template-columns: repeat(7, var(--u)); grid-template-rows: repeat(3, var(--u)) calc(var(--u) * 1.1); gap: 5px; }
+.k { background: var(--cap); border: 1px solid var(--line); border-bottom: 3px solid var(--c, var(--line)); border-radius: 7px; display: grid; place-content: center; text-align: center; font-family: var(--f-mono); font-size: 13px; font-weight: 600; color: var(--c, var(--sym)); line-height: 1.1; padding: 2px; overflow: hidden; }
+.k small { display: block; font-size: 9.5px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+.k.t { opacity: .35; font-weight: 400; color: var(--muted); border-bottom-color: var(--line); }
+.k.e { opacity: .25; }
+.k.held { background: var(--held); color: var(--bg); border-color: var(--held); }
+.k.held small { color: var(--bg); opacity: .8; }
+.k.thumb { margin-top: calc(var(--u) * .1); }
+.k.jp { font-family: var(--f-display); font-size: 14px; }
+.mod { --c: var(--mod); } .layerk { --c: var(--layer); } .nav { --c: var(--nav); } .mouse { --c: var(--mouse); } .sys { --c: var(--sys); } .ime { --c: var(--ime); }
+.notes { display: grid; gap: 12px; }
+.notes ol { margin: 0; padding-left: 22px; display: grid; gap: 10px; max-width: 72ch; }
+.notes li b { font-weight: 700; }
+.principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.principles div { border-top: 2px solid var(--line); padding-top: 8px; font-size: 14px; }
+.principles strong { display: block; font-size: 14.5px; }
+code { font-family: var(--f-mono); font-size: .9em; }
+@media (max-width: 520px) { :root { --u: 40px; } h1 { font-size: 25px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Corne kronann v2</h1>
+    <p class="lede">Proposition de remap du crkbd rev4.1, pour discussion. QWERTY classique, OS réglé en US/ABC avec IME japonais, 4 couches au lieu de 8, mêmes gestes sur macOS et Linux.</p>
+  </header>
+
+  <div class="principles">
+    <div><strong>Une seule base</strong>QWERTY, sans tap-hold sur les lettres ni sur Espace : elle sert aussi pour jouer.</div>
+    <div><strong>Pouces</strong>Hyper sous le pouce gauche, couches au centre, Espace et Entrée côte à côte.</div>
+    <div><strong>Mac ↔ Linux</strong>Le clavier envoie les mêmes codes partout. Sur Mac, Karabiner fait le reste : Ctrl devient ⌘ hors de kitty, Super devient Hyper.</div>
+    <div><strong>Souris</strong>Sur RAISE : main gauche pour bouger, main droite pour les flèches. Les mains restent en place.</div>
+  </div>
+
+  <div class="bar">
+    <div class="legend" aria-label="Légende">
+      <span class="mod"><i></i>modificateur</span>
+      <span class="layerk"><i></i>couche</span>
+      <span class="nav"><i></i>navigation / média</span>
+      <span class="mouse"><i></i>souris</span>
+      <span class="ime"><i></i>IME japonais</span>
+      <span class="sys"><i></i>système</span>
+    </div>
+    <div class="toggle" role="group" aria-label="Système affiché">
+      <button id="os-linux" aria-pressed="true">Linux</button>
+      <button id="os-mac" aria-pressed="false">macOS</button>
+    </div>
+  </div>
+
+  <div id="layers"></div>
+
+  <section class="notes">
+    <h2>Décisions</h2>
+    <ol>
+      <li><b>Hyper = Super gauche (<code>KC_LGUI</code>).</b> Sous Linux, c'est ton <code>SUPER</code> Hyprland ; taper Super seul ouvre le lanceur. Sur Mac, ta règle Karabiner « ⌘ gauche → Hyper » le transforme en Ctrl+Alt+⌘ pour skhd, et Raycast s'ouvre si tu le tapes seul. Il n'y a rien à changer côté OS.</li>
+      <li><b>Ctrl reste Ctrl.</b> Sur Mac, une nouvelle règle Karabiner, limitée au Corne, transforme Ctrl+C V X Z A S F T W N Q R L P en ⌘ hors de kitty et UTM. Dans kitty, Ctrl+C interrompt et Ctrl+Shift+C copie, comme sous Linux.</li>
+      <li><b>Workspace ←/→ sur LOWER</b> : ces touches envoient Super+PgUp / Super+PgDn. C'est déjà le cas dans Hyprland ; sur Mac, il faudra ajouter <code>ctrl + alt + cmd - pageup : yabai -m space --focus prev</code> (et <code>next</code>) dans skhd.</li>
+      <li><b>ABC ⇄ japonais</b> : LOWER + Espace envoie Ctrl+Espace, le raccourci par défaut de macOS et de fcitx5.</li>
+      <li><b>Couche GAME supprimée.</b> La base n'a plus aucun tap-hold et sert donc aussi pour jouer.</li>
+      <li><b>Échap en bas à droite, F1–F12 sur ADJUST, Shift + Bksp = Suppr.</b> Toutes les autres surcharges Shift et la saisie unicode disparaissent : les accents passent par l'OS (⌥e e sur Mac, Compose sur Linux).</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+// Key spec: "X" plain, "" empty, "_" transparent, or [label, class, sub]; class "os:…" keys relabel per OS.
+const T = "_", E = "";
+const OS = {
+  ctrl:  { linux: ["Ctrl", "mod"], mac: ["Ctrl", "mod", "⌘ hors kitty"] },
+  alt:   { linux: ["Alt", "mod"], mac: ["⌥", "mod", "Option"] },
+  hyper: { linux: ["Super", "mod", "Hyprland"], mac: ["Hyper", "mod", "⌃⌥⌘ · Raycast"] },
+};
+const hyper = "os:hyper", lower = ["LOWER", "layerk"], raise = ["RAISE", "layerk"];
+const shift = ["⇧", "mod"];
+const layers = [
+  { name: "BASE", how: "par défaut", L: [["Tab","Q","W","E","R","T"], ["os:ctrl","A","S","D","F","G"], [shift,"Z","X","C","V","B"]],
+    Lx: [["←","nav"], ["→","nav"]], R: [["Y","U","I","O","P",["Bksp","","⇧ = Suppr"]], ["H","J","K","L",";","'"], ["N","M",",",".","/","Esc"]],
+    Rx: [["↑","nav"], ["↓","nav"]], Lt: [hyper, lower, "Espace"], Rt: ["Entrée", raise, "os:alt"] },
+  { name: "LOWER", how: "maintenir le pouce gauche central", L: [["`","1","2","3","4","5"], ["os:ctrl","!","@","#","$","%"], [shift,"_","+","{","}","|"]],
+    Lx: [T, T], R: [["6","7","8","9","0",["Suppr","nav"]], ["^","&","*","(",")","~"], ["-","=","[","]","\\",T]],
+    Rx: [["WS ←","nav","Super+PgUp"], ["WS →","nav","Super+PgDn"]], Lt: [T, ["LOWER","held"], ["ABC⇄あ","ime jp","Ctrl+Espace"]], Rt: [T, ["RAISE","layerk","→ ADJUST"], T] },
+  { name: "RAISE", how: "maintenir le pouce droit central", L: [[T,E,E,["↑","mouse","souris"],E,E], ["os:ctrl",["Mol ↑","mouse"],["←","mouse","souris"],["↓","mouse","souris"],["→","mouse","souris"],["Lent","mouse","précis"]], [shift,["Mol ↓","mouse"],["Clic M","mouse"],["Clic D","mouse"],["Clic G","mouse"],E]],
+    Lx: [T, T], R: [[["Début","nav"],["PgDn","nav"],["PgUp","nav"],["Fin","nav"],["Impr","nav"],T], [["←","nav"],["↓","nav"],["↑","nav"],["→","nav"],E,E], [["Muet","nav"],["Vol−","nav"],["Vol+","nav"],["Lum−","nav"],["Lum+","nav"],T]],
+    Rx: [T, T], Lt: [["Clic D","mouse"], ["LOWER","layerk","→ ADJUST"], ["Clic G","mouse"]], Rt: [T, ["RAISE","held"], T] },
+  { name: "ADJUST", how: "LOWER + RAISE ensemble", L: [["F1","F2","F3","F4","F5","F6"], [["RGB","sys","on/off"],["Teinte+","sys"],["Sat+","sys"],["Lum+","sys"],["Effet+","sys"],E], [["Boot","sys","flash"],["Teinte−","sys"],["Sat−","sys"],["Lum−","sys"],["Effet−","sys"],E]],
+    Lx: [E, E], R: [["F7","F8","F9","F10","F11","F12"], [E,E,E,E,E,E], [E,E,E,E,E,["Boot","sys","flash"]]],
+    Rx: [E, E], Lt: [E, ["LOWER","held"], E], Rt: [E, ["RAISE","held"], E] },
+];
+
+let os = "linux";
+function keyEl(spec, extra) {
+  const el = document.createElement("div");
+  el.className = "k " + (extra || "");
+  if (typeof spec === "string" && spec.startsWith("os:")) spec = OS[spec.slice(3)][os];
+  if (spec === T) { el.classList.add("t"); el.textContent = "▽"; el.title = "transparent : touche de la couche du dessous"; return el; }
+  if (spec === E) { el.classList.add("e"); return el; }
+  const [label, cls, sub] = Array.isArray(spec) ? spec : [spec];
+  if (cls) el.className += " " + cls;
+  el.append(label);
+  if (sub) { const s = document.createElement("small"); s.textContent = sub; el.append(s); }
+  return el;
+}
+function place(el, col, row) { el.style.gridColumn = col; el.style.gridRow = row; return el; }
+function half(rows, extra, thumbs, side) {
+  const g = document.createElement("div"); g.className = "half";
+  rows.forEach((r, ri) => r.forEach((k, ci) => g.append(place(keyEl(k), side === "L" ? ci + 1 : ci + 2, ri + 1))));
+  extra.forEach((k, ri) => g.append(place(keyEl(k), side === "L" ? 7 : 1, ri + 1)));
+  thumbs.forEach((k, i) => g.append(place(keyEl(k, "thumb"), side === "L" ? i + 5 : i + 1, 4)));
+  return g;
+}
+function render() {
+  const root = document.getElementById("layers"); root.replaceChildren();
+  root.style.display = "grid"; root.style.gap = "28px";
+  for (const l of layers) {
+    const s = document.createElement("section"); s.className = "layer";
+    s.innerHTML = `<div class="lh"><h2>${l.name}</h2><span class="how">${l.how}</span></div>`;
+    const sc = document.createElement("div"); sc.className = "scroll";
+    const b = document.createElement("div"); b.className = "board";
+    b.append(half(l.L, l.Lx, l.Lt, "L"), half(l.R, l.Rx, l.Rt, "R"));
+    sc.append(b); s.append(sc); root.append(s);
+  }
+}
+for (const id of ["linux", "mac"]) document.getElementById("os-" + id).addEventListener("click", () => {
+  os = id;
+  document.getElementById("os-linux").setAttribute("aria-pressed", id === "linux");
+  document.getElementById("os-mac").setAttribute("aria-pressed", id === "mac");
+  render();
+});
+render();
+</script>
