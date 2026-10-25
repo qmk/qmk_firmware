@@ -18,7 +18,7 @@ Vérification commune à chaque tâche : `qmk compile -kb crkbd/rev4_1/standard 
 
 ## 3. LOWER
 
-- [ ] 3.1 Scénario « Chiffres sur LOWER » : chiffres et symboles de LOWER (design.md, Maquettes, LOWER) (tdd: false, firmware sans banc de test)
+- [x] 3.1 Scénario « Chiffres sur LOWER » : chiffres et symboles de LOWER (design.md, Maquettes, LOWER) (tdd: false, firmware sans banc de test)
 - [ ] 3.2 Scénario « Workspace suivant » : `LGUI(KC_PGUP)` / `LGUI(KC_PGDN)` sur les touches intérieures droites (tdd: false, firmware sans banc de test)
 - [ ] 3.3 Scénario « Bascule ABC / japonais » : `LCTL(KC_SPC)` sur Espace dans LOWER (tdd: false, firmware sans banc de test)
 
