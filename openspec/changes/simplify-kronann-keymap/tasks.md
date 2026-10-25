@@ -14,7 +14,7 @@ Vérification commune à chaque tâche : `qmk compile -kb crkbd/rev4_1/standard 
 - [x] 2.4 Scénario « Hyper envoie Super gauche » : pouces BASE `KC_LGUI TL_LOWR KC_SPC` / `KC_ENT TL_UPPR KC_LALT` (tdd: false, firmware sans banc de test)
 - [x] 2.5 Scénario « Flèches intérieures » : ← → à gauche, ↑ ↓ à droite (tdd: false, firmware sans banc de test)
 - [x] 2.6 Scénario « Shift + Bksp = Suppr » : une seule surcharge dans `keymap.c`, suppression de `config/override.c`, `override_keymap.c` et `INTROSPECTION_KEYMAP_C` (tdd: false, firmware sans banc de test)
-- [ ] 2.7 Scénario « Shift sur la ponctuation » : vérifier qu'aucune autre surcharge ne subsiste (`,` `.` `-` `[` `]` chiffres) (tdd: false, firmware sans banc de test)
+- [x] 2.7 Scénario « Shift sur la ponctuation » : vérifier qu'aucune autre surcharge ne subsiste (`,` `.` `-` `[` `]` chiffres) (tdd: false, firmware sans banc de test)
 
 ## 3. LOWER
 
