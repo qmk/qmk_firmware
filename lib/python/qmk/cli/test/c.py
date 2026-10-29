@@ -22,14 +22,15 @@ def test_c(cli):
     if cli.args.list:
         return print("\n".join(available_tests))
 
-    # expand any wildcards
+    # Expand any wildcards and apply test filter(s) if given.
     filtered_tests = set()
     for test in cli.args.test:
         regex = re.compile(fnmatch.translate(test))
         filtered_tests |= set(filter(regex.match, available_tests))
 
-    for invalid in filtered_tests - set(available_tests):
-        cli.log.warning(f'Invalid test provided: {invalid}')
+    if cli.args.test and not filtered_tests:
+        cli.log.error('No matching tests found for the provided filter(s).')
+        return 1
 
     # convert test names to build targets
     targets = list(map(lambda x: f'test:{x}', filtered_tests or ['all']))

@@ -28,7 +28,7 @@ $(TEST_OUTPUT)_SRC := \
 	tests/test_common/test_fixture.cpp \
 	tests/test_common/test_keymap_key.cpp \
 	tests/test_common/test_logger.cpp \
-	$(patsubst $(ROOTDIR)/%,%,$(wildcard $(TEST_PATH)/*.cpp))
+	$(notdir $(wildcard $(TEST_PATH)/*.cpp))
 
 $(TEST_OUTPUT)_DEFS := $(OPT_DEFS) "-DKEYMAP_C=\"keymap.c\""
 
