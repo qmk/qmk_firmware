@@ -110,7 +110,7 @@ static bool pre_suspend_enabled;
 #endif
 
 #ifdef RGBLIGHT_USE_TIMER
-animation_status_t animation_status = {};
+animation_status_t animation_status = {0};
 #endif
 
 #ifdef RGBLIGHT_LAYERS
