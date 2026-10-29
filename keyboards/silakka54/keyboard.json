@@ -24,6 +24,10 @@
         "rows": ["GP2", "GP3", "GP4", "GP5","GP6"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP17"
+    },
     "url": "https://github.com/Squalius-cephalus/silakka54",
     "usb": {
         "device_version": "1.0.0",

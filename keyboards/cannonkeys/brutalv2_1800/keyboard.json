@@ -26,6 +26,10 @@
         "num_lock": "GP2",
         "on_state": 0
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "build": {
         "debounce_type": "asym_eager_defer_pk"
     },

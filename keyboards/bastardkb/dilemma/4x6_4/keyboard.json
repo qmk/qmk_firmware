@@ -12,6 +12,11 @@
         "rows": ["GP15", "GP4", "GP5", "GP27", "GP26"]
     },
     "diode_direction": "ROW2COL",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP17",
+        "double_tap_reset_timeout": 500
+    },
     "split": {
         "enabled": true,
         "serial": {
