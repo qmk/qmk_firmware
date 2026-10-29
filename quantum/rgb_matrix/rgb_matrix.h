@@ -91,16 +91,16 @@
 #endif
 
 struct rgb_matrix_limits_t {
-    uint8_t led_min_index;
-    uint8_t led_max_index;
+    led_index_t led_min_index;
+    led_index_t led_max_index;
 };
 
 struct rgb_matrix_limits_t rgb_matrix_get_limits(uint8_t iter);
 
 #define RGB_MATRIX_USE_LIMITS_ITER(min, max, iter)                   \
     struct rgb_matrix_limits_t limits = rgb_matrix_get_limits(iter); \
-    uint8_t                    min    = limits.led_min_index;        \
-    uint8_t                    max    = limits.led_max_index;        \
+    led_index_t                min    = limits.led_min_index;        \
+    led_index_t                max    = limits.led_max_index;        \
     (void)min;                                                       \
     (void)max;
 
@@ -148,8 +148,8 @@ enum rgb_matrix_effects {
 void eeconfig_update_rgb_matrix_default(void);
 void eeconfig_force_flush_rgb_matrix(void);
 
-uint8_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, uint8_t *led_i);
-uint8_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, uint8_t *led_i);
+led_index_t rgb_matrix_map_row_column_to_led_kb(uint8_t row, uint8_t column, led_index_t *led_i);
+led_index_t rgb_matrix_map_row_column_to_led(uint8_t row, uint8_t column, led_index_t *led_i);
 
 /**
  * @brief Convert an index to the addressing used by underlying driver
@@ -175,8 +175,8 @@ bool rgb_matrix_indicators_kb(void);
 bool rgb_matrix_indicators_user(void);
 
 void rgb_matrix_indicators_advanced(effect_params_t *params);
-bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max);
-bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max);
+bool rgb_matrix_indicators_advanced_kb(led_index_t led_min, led_index_t led_max);
+bool rgb_matrix_indicators_advanced_user(led_index_t led_min, led_index_t led_max);
 
 void rgb_matrix_init(void);
 
@@ -280,10 +280,10 @@ const char *rgb_matrix_get_mode_name(uint8_t mode);
 #    define rgblight_decrease_speed_noeeprom rgb_matrix_decrease_speed_noeeprom
 #endif
 
-static inline bool rgb_matrix_check_finished_leds(uint8_t led_idx) {
+static inline bool rgb_matrix_check_finished_leds(led_index_t led_idx) {
 #if defined(RGB_MATRIX_SPLIT)
     if (is_keyboard_left()) {
-        uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
+        led_index_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
         return led_idx < k_rgb_matrix_split[0];
     } else
         return led_idx < RGB_MATRIX_LED_COUNT;

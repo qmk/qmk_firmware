@@ -23,9 +23,9 @@ static bool PIXEL_FRACTAL(effect_params_t *params) {
         for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
             // Light columns outward from center, mirroring each side
             for (uint8_t col = 0; col < MID_COL; ++col) {
-                rgb_t   index_rgb = led[row][col] ? rgb : (rgb_t){0, 0, 0};
-                uint8_t l_idx     = g_led_config.matrix_co[row][col];
-                uint8_t r_idx     = g_led_config.matrix_co[row][MATRIX_COLS - 1 - col];
+                rgb_t       index_rgb = led[row][col] ? rgb : (rgb_t){0, 0, 0};
+                led_index_t l_idx     = g_led_config.matrix_co[row][col];
+                led_index_t r_idx     = g_led_config.matrix_co[row][MATRIX_COLS - 1 - col];
                 if (l_idx >= led_min && l_idx < led_max && HAS_ANY_FLAGS(g_led_config.flags[l_idx], params->flags)) {
                     rgb_matrix_set_color(l_idx, index_rgb.r, index_rgb.g, index_rgb.b);
                 }
