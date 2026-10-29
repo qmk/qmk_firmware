@@ -262,3 +262,40 @@ TEST_F(ChordalHoldDefault, tap_regular_key_while_layer_tap_key_is_held) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+// Test that a tap-hold key placed at matrix position (0, 0) correctly releases
+// when settled as a tap by Chordal Hold.
+TEST_F(ChordalHoldDefault, tap_at_matrix_0_0_release) {
+    TestDriver driver;
+    InSequence s;
+    // Mod-tap key and regular key both on the left hand.
+    auto mod_tap_key = KeymapKey(0, 0, 0, SFT_T(KC_P));
+    auto regular_key = KeymapKey(0, 1, 0, KC_A);
+
+    set_keymap({mod_tap_key, regular_key});
+
+    // Press mod-tap key.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key.press();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press regular key (same hand non-chord settles mod-tap key as tap).
+    EXPECT_REPORT(driver, (KC_P));
+    EXPECT_REPORT(driver, (KC_P, KC_A));
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release regular key.
+    EXPECT_REPORT(driver, (KC_P));
+    regular_key.release();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release mod-tap key.
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}

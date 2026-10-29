@@ -1112,3 +1112,32 @@ TEST_F(SpeculativeHoldFlowTapTest, lt_mt_different_layer_slow_nested_press) {
     // All mods are released.
     EXPECT_EQ(get_mods() | get_speculative_mods(), 0);
 }
+
+// Test that a tap-hold key placed at matrix position (0, 0) correctly releases
+// when settled as a tap by Flow Tap with Speculative Hold enabled.
+TEST_F(SpeculativeHoldFlowTapTest, flow_tap_at_matrix_0_0_release) {
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key = KeymapKey(0, 1, 0, KC_A);
+    auto       mod_tap_key = KeymapKey(0, 0, 0, SFT_T(KC_B));
+
+    set_keymap({regular_key, mod_tap_key});
+
+    // Tap regular key.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(regular_key, FLOW_TAP_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Tap mod-tap key within FLOW_TAP_TERM of the previous key.
+    EXPECT_REPORT(driver, (KC_B));
+    mod_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(10);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
