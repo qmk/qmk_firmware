@@ -19,8 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include "keycode.h"
 #include "util.h"
+#include "compiler_support.h"
 
 #ifdef JOYSTICK_ENABLE
 #    include "joystick.h"
@@ -187,6 +189,20 @@ typedef struct {
     uint8_t mods;
     uint8_t bits[NKRO_REPORT_BITS];
 } PACKED report_nkro_t;
+
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+/* Combined boot keyboard report + NKRO bitfield. The leading bytes match a
+ * boot keyboard report so hosts that ignore the report descriptor still see 6KRO; the
+ * descriptor declares the key array as constant padding. See https://www.devever.net/~hl/usbnkro */
+typedef struct {
+    uint8_t mods;
+    uint8_t reserved;
+    uint8_t keys[KEYBOARD_REPORT_KEYS];
+    uint8_t bits[NKRO_REPORT_BITS];
+} PACKED report_keyboard_nkro_t;
+
+STATIC_ASSERT(offsetof(report_keyboard_nkro_t, bits) == 8, "report_keyboard_nkro_t boot view must be 8 bytes");
+#endif
 
 typedef struct {
     uint8_t  report_id;
