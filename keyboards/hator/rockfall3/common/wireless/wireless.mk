@@ -1,5 +1,9 @@
 WIRELESS_ENABLE ?= yes
+<<<<<<< Updated upstream
 WIRELESS_DIR = $(TOP_DIR)/keyboards/hator/rockfall3/common/wireless
+=======
+WIRELESS_DIR = $(TOP_DIR)/$(KEYBOARD_PATH_2)/common/wireless
+>>>>>>> Stashed changes
 
 ifeq ($(strip $(WIRELESS_ENABLE)), yes)
     OPT_DEFS += -DWIRELESS_ENABLE -DNO_USB_STARTUP_CHECK

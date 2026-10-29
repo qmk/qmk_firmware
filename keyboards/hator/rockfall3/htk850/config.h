@@ -17,21 +17,35 @@
 #pragma once
 
 #ifdef WIRELESS_ENABLE
+<<<<<<< Updated upstream
 #    define LPWR_TIMEOUT RGB_MATRIX_TIMEOUT
 #    define WLS_KEYBOARD_REPORT_KEYS 5
 #    undef LPWR_TIMEOUT
 #    define LPWR_TIMEOUT 600000 // 10min
 
+=======
+#    define WLS_KEYBOARD_REPORT_KEYS 5
+#    define LPWR_TIMEOUT 600000 // 10 min
+#    define WLS_RGB_TIMEOUT 300000 // 5 min, backlight off in BT / 2.4G
+>>>>>>> Stashed changes
 #endif
 
 #define USB_POWER_EN_PIN A14
 #define LED_POWER_EN_PIN A15
 
+<<<<<<< Updated upstream
 #  define BT_CABLE_PIN B8 // 
 #  define BT_CHARGE_PIN B9 // 
 
 #  define BT_MODE_SW_PIN C10 // 
 #  define RF_MODE_SW_PIN D2 // 
+=======
+#  define BT_CABLE_PIN B8
+#  define BT_CHARGE_PIN B9
+
+#  define BT_MODE_SW_PIN C10
+#  define RF_MODE_SW_PIN D2
+>>>>>>> Stashed changes
 
 /* UART */
 #define UART_TX_PIN A9
@@ -54,5 +68,8 @@
 #define I2C1_OPMODE OPMODE_I2C
 #define I2C1_CLOCK_SPEED 400000 /* 400000 */
 
+<<<<<<< Updated upstream
 #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
 #define RGB_MATRIX_KEYPRESSES
+=======
+>>>>>>> Stashed changes

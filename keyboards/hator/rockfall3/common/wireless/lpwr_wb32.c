@@ -85,14 +85,23 @@ void lpwr_exti_init(void) {
 #if DIODE_DIRECTION == ROW2COL
     for (uint8_t i = 0; i < ARRAY_SIZE(col_pins); i++) {
         if (col_pins[i] != NO_PIN) {
+<<<<<<< Updated upstream
             setPinOutputOpenDrain(col_pins[i]);
             writePinLow(col_pins[i]);
+=======
+            gpio_set_pin_output_open_drain(col_pins[i]);
+            gpio_write_pin_low(col_pins[i]);
+>>>>>>> Stashed changes
         }
     }
 
     for (uint8_t i = 0; i < ARRAY_SIZE(row_pins); i++) {
         if (row_pins[i] != NO_PIN) {
+<<<<<<< Updated upstream
             setPinInputHigh(row_pins[i]);
+=======
+            gpio_set_pin_input_high(row_pins[i]);
+>>>>>>> Stashed changes
             waitInputPinDelay();
             palEnableLineEvent(row_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
         }
@@ -100,14 +109,23 @@ void lpwr_exti_init(void) {
 #elif DIODE_DIRECTION == COL2ROW
     for (uint8_t i = 0; i < ARRAY_SIZE(row_pins); i++) {
         if (row_pins[i] != NO_PIN) {
+<<<<<<< Updated upstream
             setPinOutputOpenDrain(row_pins[i]);
             writePinLow(row_pins[i]);
+=======
+            gpio_set_pin_output_open_drain(row_pins[i]);
+            gpio_write_pin_low(row_pins[i]);
+>>>>>>> Stashed changes
         }
     }
 
     for (uint8_t i = 0; i < ARRAY_SIZE(col_pins); i++) {
         if (col_pins[i] != NO_PIN) {
+<<<<<<< Updated upstream
             setPinInputHigh(col_pins[i]);
+=======
+            gpio_set_pin_input_high(col_pins[i]);
+>>>>>>> Stashed changes
             waitInputPinDelay();
             palEnableLineEvent(col_pins[i], PAL_EVENT_MODE_BOTH_EDGES);
         }
@@ -115,7 +133,11 @@ void lpwr_exti_init(void) {
 #endif
 
 #ifndef LPWR_UART_WAKEUP_DISABLE
+<<<<<<< Updated upstream
     setPinInput(UART_RX_PIN);
+=======
+    gpio_set_pin_input(UART_RX_PIN);
+>>>>>>> Stashed changes
     waitInputPinDelay();
     palEnableLineEvent(UART_RX_PIN, PAL_EVENT_MODE_BOTH_EDGES);
 #endif
@@ -185,8 +207,13 @@ void wb32_stop_mode(void) {
     EXTI->PR = 0x7FFFF;
     for (uint8_t i = 0; i < 8; i++) {
         for (uint8_t j = 0; j < 32; j++) {
+<<<<<<< Updated upstream
             if (NVIC->ISPR[i] & (0x01UL < j)) {
                 NVIC->ICPR[i] = (0x01UL < j);
+=======
+            if (NVIC->ISPR[i] & (0x01UL << j)) {
+                NVIC->ICPR[i] = (0x01UL << j);
+>>>>>>> Stashed changes
             }
         }
     }
