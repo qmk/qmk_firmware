@@ -806,6 +806,118 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, roll_layer_tap_key_with_regular_key) {
     VERIFY_AND_CLEAR(driver);
 }
 
+// When a held mod-tap key is released while another mod-tap key is undecided,
+// its release is retained in `waiting_buffer`. If an opposite-hand mod-tap
+// press then settles the undecided key as held under HOLD_ON_OTHER_KEY_PRESS,
+// the retained release at the head of `waiting_buffer` must be processed as a
+// release rather than promoted as the next `tapping_key` and dropped:
+//   1. LSFT_T(KC_F) down (L), 201 ms -> held Left Shift
+//   2. RCTL_T(KC_K) down (R), 10 ms  -> undecided tapping_key
+//   3. LSFT_T(KC_F) up (L), 10 ms    -> retained in waiting_buffer
+//   4. LALT_T(KC_S) down (L)         -> settles RCTL_T(KC_K) as held Right Ctrl,
+//                                       releases Left Shift, and promotes LALT_T(KC_S)
+//   5. 10 ms, LALT_T(KC_S) up        -> taps 's' with Right Ctrl held
+//   6. RCTL_T(KC_K) up               -> releases Right Ctrl
+TEST_F(ChordalHoldHoldOnOtherKeyPress, retained_mt_hold_release) {
+    TestDriver driver;
+    InSequence s;
+    auto       mt_f = KeymapKey(0, 3, 0, LSFT_T(KC_F)); // Left hand.
+    auto       mt_s = KeymapKey(0, 2, 0, LALT_T(KC_S)); // Left hand.
+    auto       mt_k = KeymapKey(0, 7, 0, RCTL_T(KC_K)); // Right hand.
+    set_keymap({mt_f, mt_s, mt_k});
+
+    EXPECT_REPORT(driver, (KC_LSFT));
+    mt_f.press(); // Hold LSFT_T(KC_F) past the tapping term.
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    mt_k.press();
+    idle_for(10);
+    // Since mt_k is unsettled, this LSFT_T(KC_F) release is retained.
+    mt_f.release();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press LALT_T(KC_S) (L). Now, RCTL_T(KC_K) settles as held. LSFT_T(KC_F)'s
+    // retained release unregisters Left Shift on the same scan.
+    EXPECT_REPORT(driver, (KC_LSFT, KC_RCTL));
+    EXPECT_REPORT(driver, (KC_RCTL));
+    mt_s.press();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), MOD_BIT_RCTRL);
+    VERIFY_AND_CLEAR(driver);
+
+    // Release LALT_T(KC_S) within its tapping term -> sends Ctrl+S.
+    idle_for(10);
+    EXPECT_REPORT(driver, (KC_RCTL, KC_S));
+    EXPECT_REPORT(driver, (KC_RCTL));
+    mt_s.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    mt_k.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0);
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Similar to the previous test, but with a retained layer-tap release:
+//   1. LT(1, KC_D) down (L), 201 ms -> Layer 1 active
+//   2. RCTL_T(KC_K) down (R), 10 ms -> undecided tapping_key
+//   3. LT(1, KC_D) up (L), 10 ms    -> retained in waiting_buffer
+//   4. KC_F down (L), KC_F up       -> settles RCTL_T(KC_K) as Right Ctrl,
+//                                      turns Layer 1 off, and taps 'f' on Layer 0
+//   5. RCTL_T(KC_K) up              -> releases Right Ctrl
+TEST_F(ChordalHoldHoldOnOtherKeyPress, retained_lt_hold_release) {
+    TestDriver driver;
+    InSequence s;
+    auto       lt_d    = KeymapKey(0, 2, 0, LT(1, KC_D));  // Left hand.
+    auto       key_f_0 = KeymapKey(0, 3, 0, KC_F);         // Left hand, Layer 0.
+    auto       key_f_1 = KeymapKey(1, 3, 0, KC_X);         // Left hand, Layer 1.
+    auto       mt_k    = KeymapKey(0, 7, 0, RCTL_T(KC_K)); // Right hand.
+    auto       trns_d  = KeymapKey(1, 2, 0, KC_TRNS);
+    auto       trns_k  = KeymapKey(1, 7, 0, KC_TRNS);
+    set_keymap({lt_d, key_f_0, key_f_1, mt_k, trns_d, trns_k});
+
+    EXPECT_NO_REPORT(driver);
+    lt_d.press(); // Hold LT(1, KC_D) past the tapping term.
+    idle_for(TAPPING_TERM + 1);
+    EXPECT_EQ(layer_state, 1 << 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press RCTL_T(KC_K) (R), then release LT(1, KC_D) (retained).
+    EXPECT_NO_REPORT(driver);
+    mt_k.press();
+    idle_for(10);
+    lt_d.release();
+    idle_for(10);
+    EXPECT_EQ(layer_state, 1 << 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press and release KC_F (L). RCTL_T(KC_K) settles as Right Ctrl, and
+    // LT(1, KC_D) release turns Layer 1 off, and KC_F is decoded on Layer 0.
+    EXPECT_REPORT(driver, (KC_RCTL));
+    EXPECT_REPORT(driver, (KC_RCTL, KC_F));
+    key_f_0.press();
+    run_one_scan_loop();
+    EXPECT_EQ(layer_state, 0);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_RCTL));
+    key_f_0.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    mt_k.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0);
+    EXPECT_EQ(layer_state, 0);
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(ChordalHoldHoldOnOtherKeyPress, two_mod_tap_keys_stuttered_press) {
     TestDriver driver;
     InSequence s;
