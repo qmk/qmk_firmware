@@ -1,5 +1,5 @@
-"""This script automates the copying of the default keymap into your own keymap.
-"""
+"""This script automates the copying of the default keymap into your own keymap."""
+
 import re
 import json
 import shutil
@@ -21,8 +21,7 @@ from qmk.info import info_json
 
 
 def _list_available_converters(kb_name):
-    """Search for converters that can be applied to a given keyboard
-    """
+    """Search for converters that can be applied to a given keyboard"""
     if not is_keyboard(kb_name):
         return None
 
@@ -35,8 +34,7 @@ def _list_available_converters(kb_name):
 
 
 def _set_converter(file, converter):
-    """add/overwrite any existing converter specified in keymap.json
-    """
+    """add/overwrite any existing converter specified in keymap.json"""
     json_data = json_load(file) if file.exists() else {}
 
     json_data['converter'] = converter
@@ -46,8 +44,7 @@ def _set_converter(file, converter):
 
 
 def validate_keymap_name(name):
-    """Returns True if the given keymap name contains only a-z, 0-9 and underscore characters.
-    """
+    """Returns True if the given keymap name contains only a-z, 0-9 and underscore characters."""
     regex = re.compile(r'^[a-zA-Z0-9][a-zA-Z0-9_]+$')
     return bool(regex.match(name))
 
@@ -92,28 +89,20 @@ Use converter? """
     return None if choices.index(answer) == 0 else answer
 
 
-@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
-@cli.argument('-km', '--keymap', help='Specify the name for the new keymap directory')
-@cli.argument('--converter', help='Specify the name of a converter to configure')
-@cli.argument('--skip-converter', arg_only=True, action='store_true', help='Skip converter')
-@cli.subcommand('Creates a new keymap for the keyboard of your choosing')
-@automagic_keyboard
-@automagic_keymap
-def new_keymap(cli):
-    """Creates a new keymap for the keyboard of your choosing.
-    """
+def create_new_keymap(kb_name=None, user_name=None, converter=None, skip_converter=True):
+    """Creates a new keymap for the keyboard of your choosing."""
     cli.log.info('{style_bright}Generating a new keymap{style_normal}')
     cli.echo('')
 
     # ask for user input if keyboard or keymap was not provided in the command line
-    kb_name = cli.config.new_keymap.keyboard if cli.config.new_keymap.keyboard else prompt_keyboard()
-    user_name = cli.config.new_keymap.keymap if cli.config.new_keymap.keymap else prompt_user()
-    converter = cli.config.new_keymap.converter if cli.args.skip_converter or cli.config.new_keymap.converter else prompt_converter(kb_name)
+    kb_name = kb_name if kb_name else prompt_keyboard()
+    user_name = user_name if user_name else prompt_user()
+    converter = converter if skip_converter or converter else prompt_converter(kb_name)
 
     # check directories
     if not is_keyboard(kb_name):
         cli.log.error(f'Keyboard {{fg_cyan}}{kb_name}{{fg_reset}} does not exist! Please choose a valid name.')
-        return False
+        return None
 
     # validate before any keymap ops
     try:
@@ -121,21 +110,21 @@ def new_keymap(cli):
         keymap_path_new = keymaps_dirs[0] / user_name
     except NoSuchKeyboardError:
         cli.log.error(f'Keymap folder for {{fg_cyan}}{kb_name}{{fg_reset}} does not exist!')
-        return False
+        return None
 
     keymap_path_default = keymap(kb_name, 'default')
 
     if not keymap_path_default:
         cli.log.error(f'Default keymap for {{fg_cyan}}{kb_name}{{fg_reset}} does not exist!')
-        return False
+        return None
 
     if not validate_keymap_name(user_name):
         cli.log.error(f'Keymap name {{fg_cyan}}{user_name}{{fg_reset}} must contain only {{fg_cyan}}a-z{{fg_reset}}, {{fg_cyan}}0-9{{fg_reset}} and {{fg_cyan}}_{{fg_reset}}! Please choose a different name.')
-        return False
+        return None
 
     if keymap_path_new.exists():
         cli.log.error(f'Keymap {{fg_cyan}}{user_name}{{fg_reset}} already exists! Please choose a different name.')
-        return False
+        return None
 
     # create user directory with default keymap files
     shutil.copytree(keymap_path_default, keymap_path_new, symlinks=True)
@@ -146,6 +135,24 @@ def new_keymap(cli):
     # end message to user
     cli.log.info(f'{{fg_green}}Created a new keymap called {{fg_cyan}}{user_name}{{fg_green}} in: {{fg_cyan}}{keymap_path_new}{{fg_reset}}.')
     cli.log.info(f"Compile a firmware with your new keymap by typing: {{fg_yellow}}qmk compile -kb {kb_name} -km {user_name}{{fg_reset}}.")
+
+    return (kb_name, user_name)
+
+
+@cli.argument('-kb', '--keyboard', type=keyboard_folder, completer=keyboard_completer, help='Specify keyboard name. Example: 1upkeyboards/1up60hse')
+@cli.argument('-km', '--keymap', help='Specify the name for the new keymap directory')
+@cli.argument('--converter', help='Specify the name of a converter to configure')
+@cli.argument('--skip-converter', arg_only=True, action='store_true', help='Skip converter')
+@cli.subcommand('Creates a new keymap for the keyboard of your choosing')
+@automagic_keyboard
+@automagic_keymap
+def new_keymap(cli):
+    """Creates a new keymap for the keyboard of your choosing."""
+    ret = create_new_keymap(cli.args.keyboard, cli.args.keymap, cli.args.converter, cli.args.skip_converter)
+    if not ret:
+        return False
+
+    kb_name, user_name = ret
 
     # Add to userspace compile if we have userspace available
     if HAS_QMK_USERSPACE:
