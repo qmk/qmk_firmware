@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Nozbe Reunion Pad",
     "manufacturer": "Leon Omelan",
-    "url": "",
     "maintainer": "Leon Omelan",
     "usb": {
         "vid": "0xFEED",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

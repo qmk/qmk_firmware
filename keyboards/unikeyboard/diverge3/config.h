@@ -17,10 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#ifndef SELECT_SOFT_SERIAL_SPEED
-#define SELECT_SOFT_SERIAL_SPEED 3
-#endif
-
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is useful for the Windows task manager shortcut (ctrl+shift+esc).
  */

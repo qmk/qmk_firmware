@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Kallos",
     "manufacturer": "Cipulot",
-    "url": "",
     "maintainer": "Cipulot",
     "usb": {
         "vid": "0x6369",
@@ -31,8 +30,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

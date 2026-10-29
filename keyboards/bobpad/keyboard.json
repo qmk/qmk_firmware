@@ -1,7 +1,6 @@
 {
     "keyboard_name": "bobPad",
     "manufacturer": "Desiboards",
-    "url": "",
     "maintainer": "Ananya Kirti",
     "usb": {
         "vid": "0x416B",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

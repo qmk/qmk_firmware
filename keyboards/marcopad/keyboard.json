@@ -34,8 +34,7 @@
             "animation": "splash",
             "hue": 132,
             "sat": 102,
-            "speed": 80,
-            "val": 255
+            "speed": 80
         },
         "driver": "ws2812",
         "layout": [

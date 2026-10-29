@@ -1,7 +1,6 @@
 {
     "keyboard_name": "K-Numpad17",
     "manufacturer": "Handwired",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

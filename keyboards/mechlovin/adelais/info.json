@@ -1,6 +1,5 @@
 {
     "manufacturer": "Team.Mechlovin",
-    "url": "",
     "maintainer": "mechlovin",
     "usb": {
         "vid": "0x4D4C",

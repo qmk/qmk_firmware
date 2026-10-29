@@ -1,7 +1,6 @@
 {
   "keyboard_name": "JNAO",
   "manufacturer": "Maple Computing",
-  "url": "",
   "maintainer": "That-Canadian",
   "usb": {
     "vid": "0x1337",

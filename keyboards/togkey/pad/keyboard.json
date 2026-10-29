@@ -1,0 +1,52 @@
+{
+    "manufacturer": "TogKey",
+    "keyboard_name": "Pad",
+    "maintainer": "togkey86",
+    "development_board": "promicro_rp2040",
+    "diode_direction": "COL2ROW",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "cols": ["GP2", "GP3", "GP4"],
+        "rows": ["GP5", "GP6"]
+    },
+    "rgblight": {
+        "animations": {
+            "alternating": true,
+            "breathing": true,
+            "christmas": true,
+            "knight": true,
+            "rainbow_mood": true,
+            "rainbow_swirl": true,
+            "snake": true,
+            "static_gradient": true,
+            "twinkle": true
+        },
+        "hue_steps": 10,
+        "led_count": 5
+    },
+    "url": "https://togkey.com/products/togkey-pad",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x8686",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP7"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0.5, "y": 0},
+                {"matrix": [0, 1], "x": 1.5, "y": 0},
+                {"matrix": [1, 0], "x": 0, "y": 1},
+                {"matrix": [1, 1], "x": 1, "y": 1},
+                {"matrix": [1, 2], "x": 2, "y": 1}
+            ]
+        }
+    }
+}

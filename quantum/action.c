@@ -281,6 +281,14 @@ void process_record(keyrecord_t *record) {
     if (IS_NOEVENT(record->event)) {
         return;
     }
+#ifdef SPECULATIVE_HOLD
+    if (record->event.pressed) {
+        speculative_key_settled(record);
+    }
+#endif // SPECULATIVE_HOLD
+#if defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
+    flow_tap_update_last_event(record);
+#endif // defined(FLOW_TAP_TERM) || defined(SPECULATIVE_HOLD_FLOW_TERM)
 
     if (!process_record_quantum(record)) {
 #ifndef NO_ACTION_ONESHOT
@@ -871,7 +879,9 @@ void process_action(keyrecord_t *record, action_t action) {
                     wait_ms(TAP_CODE_DELAY);
                     tap_code(action.layer_tap.code);
                     wait_ms(TAP_CODE_DELAY);
-                    unregister_mods(retro_tap_curr_mods);
+                    // Only unregister the mods that were active at the time of
+                    // the tap and are not independently held by other keys.
+                    unregister_mods(retro_tap_curr_mods & ~curr_mods);
 #        endif
                 }
                 retro_tap_primed = false;
@@ -1181,6 +1191,23 @@ bool is_tap_action(action_t action) {
             return false;
     }
     return false;
+}
+
+uint16_t get_tap_keycode(uint16_t keycode) {
+    switch (keycode) {
+        case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+            return QK_MOD_TAP_GET_TAP_KEYCODE(keycode);
+        case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
+            return QK_LAYER_TAP_GET_TAP_KEYCODE(keycode);
+        case QK_SWAP_HANDS ... QK_SWAP_HANDS_MAX:
+            // IS_SWAP_HANDS_KEYCODE() tests for the special action keycodes
+            // like SH_TOGG, SH_TT, ..., which overlap the SH_T(kc) range.
+            if (!IS_SWAP_HANDS_KEYCODE(keycode)) {
+                return QK_SWAP_HANDS_GET_TAP_KEYCODE(keycode);
+            }
+            break;
+    }
+    return keycode;
 }
 
 /** \brief Debug print (FIXME: Needs better description)

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Sabre",
     "manufacturer": "ToastyStoemp",
-    "url": "",
     "maintainer": "ToastyStoemp",
     "usb": {
         "vid": "0x5453",

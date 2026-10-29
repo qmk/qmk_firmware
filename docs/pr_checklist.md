@@ -127,7 +127,8 @@ https://github.com/qmk/qmk_firmware/pulls?q=is%3Apr+is%3Aclosed+label%3Akeyboard
     - empty `xxxx_xxxx_kb()`, `xxxx_xxxx_user()`, or other weak-defined default implemented functions removed
     - commented-out functions removed too
     - `matrix_init_board()` etc. migrated to `keyboard_pre_init_kb()`, see: [keyboard_pre_init*](custom_quantum_functions#keyboard_pre_init_-function-documentation)
-    - prefer `CUSTOM_MATRIX = lite` if custom matrix used, allows for standard debounce, see [custom matrix 'lite'](custom_matrix#lite)
+    - when configuring custom matrix, the 'lite' variant (`CUSTOM_MATRIX = lite`) must be used where possible, as this allows for standard debounce. See [custom matrix 'lite'](custom_matrix#lite)
+        - justification for full custom matrix (`CUSTOM_MATRIX = yes`) must be provided when used
     - prefer LED indicator [Configuration Options](features/led_indicators#configuration-options) to custom `led_update_*()` implementations where possible
     - hardware that's enabled at the keyboard level and requires configuration such as OLED displays or encoders should have basic functionality implemented here
 - `<keyboard>.h`

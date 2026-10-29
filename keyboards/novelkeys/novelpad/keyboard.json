@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NovelPad",
     "manufacturer": "NovelKeys.xyz",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",
@@ -11,7 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
         "console": true,
         "extrakey": true,
         "mousekey": false,

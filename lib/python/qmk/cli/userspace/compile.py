@@ -20,6 +20,7 @@ def _extra_arg_setter(target, extra_args):
 @cli.argument('-j', '--parallel', type=int, default=1, help="Set the number of parallel make jobs; 0 means unlimited.")
 @cli.argument('-c', '--clean', arg_only=True, action='store_true', help="Remove object files before compiling.")
 @cli.argument('-n', '--dry-run', arg_only=True, action='store_true', help="Don't actually build, just show the commands to be run.")
+@cli.argument('-p', '--print-failures', arg_only=True, action='store_true', help="Print failed builds.")
 @cli.argument('-e', '--env', arg_only=True, action='append', default=[], help="Set a variable to be passed to make. May be passed multiple times.")
 @cli.subcommand('Compiles the build targets specified in userspace `qmk.json`.')
 def userspace_compile(cli):
@@ -42,4 +43,4 @@ def userspace_compile(cli):
     if len(keyboard_keymap_targets) > 0:
         build_targets.extend(search_keymap_targets(keyboard_keymap_targets))
 
-    return mass_compile_targets(list(set(build_targets)), cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, **build_environment(cli.args.env))
+    return mass_compile_targets(list(set(build_targets)), cli.args.clean, cli.args.dry_run, cli.config.userspace_compile.no_temp, cli.config.userspace_compile.parallel, cli.args.print_failures, **build_environment(cli.args.env))

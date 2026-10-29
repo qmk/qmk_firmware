@@ -9,8 +9,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true
@@ -23,7 +21,6 @@
         "rows": ["B7", "D5", "D3", "D2", "D1", "D0"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",

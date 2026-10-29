@@ -1,7 +1,6 @@
 {
     "keyboard_name": "JJ4x4",
     "manufacturer": "KPrepublic",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4B50",
@@ -12,8 +11,6 @@
     "features": {
         "backlight": true,
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

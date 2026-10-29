@@ -1,7 +1,6 @@
 {
     "keyboard_name": "capsule65",
     "manufacturer": "eason",
-    "url": "",
     "maintainer": "EasonQian1",
     "usb": {
         "vid": "0xF21E",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

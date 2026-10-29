@@ -5,13 +5,14 @@
     "type": "object",
     "required": ["module_name", "maintainer"],
     "properties": {
-        "module_name": {"$ref": "qmk.definitions.v1#/text_identifier"},
-        "maintainer": {"$ref": "qmk.definitions.v1#/text_identifier"},
+        "module_name": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "maintainer": {"$ref": "./definitions.jsonschema#/text_identifier"},
+        "license": {"type": "string"},
         "url": {
             "type": "string",
             "format": "uri"
         },
-        "keycodes": {"$ref": "qmk.definitions.v1#/keycode_decl_array"},
-        "features": {"$ref": "qmk.keyboard.v1#/definitions/features_config"}
+        "keycodes": {"$ref": "./definitions.jsonschema#/keycode_decl_array"},
+        "features": {"$ref": "./keyboard.jsonschema#/definitions/features_config"}
     }
 }

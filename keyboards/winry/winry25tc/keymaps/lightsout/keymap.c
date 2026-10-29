@@ -82,9 +82,9 @@ void refresh_leds(void) {
             uint8_t tile  = tiles[x][y];
             uint8_t index = (y * 5) + x;
             if (tile) {
-                setrgb(RGB_RED, &led[remap[index]]);
+                rgblight_setrgb_at(RGB_RED, remap[index]);
             } else {
-                setrgb(RGB_WHITE, &led[remap[index]]);
+                rgblight_setrgb_at(RGB_WHITE, remap[index]);
             }
         }
     }

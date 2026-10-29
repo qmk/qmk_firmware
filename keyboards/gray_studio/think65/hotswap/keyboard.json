@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Think6.5\u00b0 Hotswap",
     "manufacturer": "Graystudio",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4753",

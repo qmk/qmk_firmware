@@ -1,7 +1,6 @@
 {
     "keyboard_name": "p01_ultra",
     "manufacturer": "wavtype",
-    "url": "",
     "maintainer": "wavtype",
     "usb": {
         "vid": "0x03A7",
@@ -30,8 +29,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Eighty",
     "manufacturer": "Mode",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x00DE",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

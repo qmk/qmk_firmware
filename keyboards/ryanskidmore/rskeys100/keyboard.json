@@ -4,8 +4,12 @@
     "usb": {
         "vid": "0x7273",
         "pid": "0x0064",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,
@@ -158,7 +162,6 @@
     },
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
-    "url": "",
     "maintainer": "ryanskidmore",
     "community_layouts": ["fullsize_iso"],
     "layouts": {

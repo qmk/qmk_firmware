@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Chimera Ergo",
   "manufacturer": "Unknown",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",

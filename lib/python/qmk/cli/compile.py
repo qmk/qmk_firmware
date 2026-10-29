@@ -41,6 +41,7 @@ def compile(cli):
         cli.args.filter = []
         cli.config.mass_compile.keymap = cli.config.compile.keymap
         cli.config.mass_compile.parallel = cli.config.compile.parallel
+        cli.args.print_failures = False
         cli.args.no_temp = False
         return mass_compile(cli)
 
@@ -51,6 +52,7 @@ def compile(cli):
         cli.args.filter = []
         cli.config.mass_compile.keymap = None
         cli.config.mass_compile.parallel = cli.config.compile.parallel
+        cli.args.print_failures = False
         cli.args.no_temp = False
         return mass_compile(cli)
 

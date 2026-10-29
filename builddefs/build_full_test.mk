@@ -25,8 +25,6 @@ $(TEST_OUTPUT)_SRC := \
 	tests/test_common/test_driver.cpp \
 	tests/test_common/keyboard_report_util.cpp \
 	tests/test_common/mouse_report_util.cpp \
-	tests/test_common/keycode_util.cpp \
-	tests/test_common/keycode_table.cpp \
 	tests/test_common/test_fixture.cpp \
 	tests/test_common/test_keymap_key.cpp \
 	tests/test_common/test_logger.cpp \

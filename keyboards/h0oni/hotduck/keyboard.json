@@ -1,7 +1,6 @@
 {
     "keyboard_name": "hotDuck",
     "manufacturer": "h0oni",
-    "url": "",
     "maintainer": "h0oni",
     "usb": {
         "vid": "0x4D53",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

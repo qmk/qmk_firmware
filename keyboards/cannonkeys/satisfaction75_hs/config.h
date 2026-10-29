@@ -32,13 +32,11 @@
 // OLED timeout reimplemented in the keyboard-specific code
 #define CUSTOM_OLED_TIMEOUT 60000
 
-// Custom config starts after VIA's EEPROM usage,
-// dynamic keymaps start after this.
 // Custom config Usage:
 // 1 for enabled encoder modes (1 byte)
 // 1 for OLED default mode (1 byte)
 // 6 for 3x custom encoder settings, left, right, and press (18 bytes)
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 20
+#define EECONFIG_KB_DATA_SIZE 20
 
 // VIA lighting is handled by the keyboard-level code
 #define VIA_CUSTOM_LIGHTING_ENABLE

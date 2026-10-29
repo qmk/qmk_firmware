@@ -1,18 +1,19 @@
 {
     "keyboard_name": "Dharma",
     "manufacturer": "Xelus",
-    "url": "",
     "maintainer": "Xelus22",
     "usb": {
         "vid": "0x5845",
         "pid": "0xDAAA",
-        "device_version": "0.0.1",
-        "force_nkro": true
+        "device_version": "0.0.1"
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

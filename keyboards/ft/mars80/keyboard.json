@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Mars 8.0",
     "manufacturer": "FT",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x20A0",
@@ -12,7 +11,6 @@
         "backlight": true,
         "bootmagic": false,
         "command": true,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

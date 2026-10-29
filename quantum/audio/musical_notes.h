@@ -21,12 +21,10 @@
 // in beats-per-minute
 #endif
 
-#define SONG(notes...) \
-    { notes }
+#define SONG(notes...) {notes}
 
 // Note Types
-#define MUSICAL_NOTE(note, duration) \
-    { (NOTE##note), duration }
+#define MUSICAL_NOTE(note, duration) {(NOTE##note), duration}
 
 #define BREVE_NOTE(note) MUSICAL_NOTE(note, 128)
 #define WHOLE_NOTE(note) MUSICAL_NOTE(note, 64)

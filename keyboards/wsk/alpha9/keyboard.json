@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Alpha9",
   "manufacturer": "Worldspawn00",
-  "url": "",
   "maintainer": "Worldspawn00",
   "usb": {
     "vid": "0x5753",
@@ -10,8 +9,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true,
@@ -52,8 +49,7 @@
   "ws2812": {
     "pin": "F4"
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "layouts": {
     "LAYOUT": {
       "layout": [

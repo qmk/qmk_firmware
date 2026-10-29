@@ -64,10 +64,8 @@
 
 // configure on input_pin of the joystick_axes array entry to NO_PIN
 // to prevent it from being read from the ADC. This allows outputting forged axis value.
-#define JOYSTICK_AXIS_VIRTUAL \
-    { NO_PIN, 0, JOYSTICK_MAX_VALUE / 2, JOYSTICK_MAX_VALUE }
-#define JOYSTICK_AXIS_IN(INPUT_PIN, LOW, REST, HIGH) \
-    { INPUT_PIN, LOW, REST, HIGH }
+#define JOYSTICK_AXIS_VIRTUAL {NO_PIN, 0, JOYSTICK_MAX_VALUE / 2, JOYSTICK_MAX_VALUE}
+#define JOYSTICK_AXIS_IN(INPUT_PIN, LOW, REST, HIGH) {INPUT_PIN, LOW, REST, HIGH}
 
 typedef struct {
     pin_t input_pin;

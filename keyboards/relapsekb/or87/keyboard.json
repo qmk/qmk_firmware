@@ -15,7 +15,6 @@
         "cols": ["F7", "C7", "C6", "B6", "B5", "B4", "D7", "D0", "B7"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "vid": "0x722D",

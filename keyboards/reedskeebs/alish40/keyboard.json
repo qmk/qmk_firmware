@@ -34,10 +34,8 @@
             "static_gradient": true,
             "twinkle": true
         },
-        "brightness_steps": 17,
         "hue_steps": 10,
-        "led_count": 10,
-        "saturation_steps": 17
+        "led_count": 10
     },
     "ws2812": {
         "pin": "F5"

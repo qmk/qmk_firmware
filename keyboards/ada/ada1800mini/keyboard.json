@@ -1,7 +1,6 @@
 {
     "keyboard_name": "ada1800mini",
     "manufacturer": "Ada",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xADA0",

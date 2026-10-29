@@ -1,7 +1,6 @@
 {
     "keyboard_name": "IBM Model M 101/102",
     "manufacturer": "wangfuco",
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/ibm/model_m/teensy2",
     "maintainer": "wangfuco",
     "usb": {
         "vid": "0xFEED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false

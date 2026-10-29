@@ -1,13 +1,16 @@
 {
   "keyboard_name": "SixKeyBoard",
   "manufacturer": "TechKeys",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x746B",
     "pid": "0x736B",
-    "device_version": "0.0.1",
-    "force_nkro": true
+    "device_version": "0.0.1"
+  },
+  "host": {
+    "default": {
+      "nkro": true
+    }
   },
   "features": {
     "bootmagic": false,

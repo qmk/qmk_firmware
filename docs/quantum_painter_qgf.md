@@ -32,7 +32,7 @@ typedef struct __attribute__((packed)) qgf_block_header_v1_t {
     uint8_t neg_type_id;  // Negated type ID, used for detecting parsing errors
     uint24_t length;      // 24-bit blob length, allowing for block sizes of a maximum of 16MB
 } qgf_block_header_v1_t;
-// _Static_assert(sizeof(qgf_block_header_v1_t) == 5, "qgf_block_header_v1_t must be 5 bytes in v1 of QGF");
+// STATIC_ASSERT(sizeof(qgf_block_header_v1_t) == 5, "qgf_block_header_v1_t must be 5 bytes in v1 of QGF");
 ```
 The _length_ describes the number of octets in the data following the block header -- a block header may specify a _length_ of `0` if no blob is specified.
 
@@ -56,7 +56,7 @@ typedef struct __attribute__((packed)) qgf_graphics_descriptor_v1_t {
     uint16_t              image_height;         // in pixels
     uint16_t              frame_count;          // minimum of 1
 } qgf_graphics_descriptor_v1_t;
-// _Static_assert(sizeof(qgf_graphics_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 18), "qgf_graphics_descriptor_v1_t must be 23 bytes in v1 of QGF");
+// STATIC_ASSERT(sizeof(qgf_graphics_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 18), "qgf_graphics_descriptor_v1_t must be 23 bytes in v1 of QGF");
 ```
 
 ## Frame offset block {#qgf-frame-offset-descriptor}
@@ -95,7 +95,7 @@ typedef struct __attribute__((packed)) qgf_frame_v1_t {
     uint8_t               transparency_index;  // palette index used for transparent pixels (not yet implemented)
     uint16_t              delay;               // frame delay time for animations (in units of milliseconds)
 } qgf_frame_v1_t;
-// _Static_assert(sizeof(qgf_frame_v1_t) == (sizeof(qgf_block_header_v1_t) + 6), "qgf_frame_v1_t must be 11 bytes in v1 of QGF");
+// STATIC_ASSERT(sizeof(qgf_frame_v1_t) == (sizeof(qgf_block_header_v1_t) + 6), "qgf_frame_v1_t must be 11 bytes in v1 of QGF");
 ```
 
 If this frame is grayscale, the _frame descriptor block_ (or _frame delta block_ if flags denote a delta frame) is immediately followed by this frame's corresponding _frame data block_.
@@ -160,7 +160,7 @@ typedef struct __attribute__((packed)) qgf_delta_v1_t {
     uint16_t right;                // The right pixel location to to draw the delta image
     uint16_t bottom;               // The bottom pixel location to to draw the delta image
 } qgf_delta_v1_t;
-// _Static_assert(sizeof(qgf_delta_v1_t) == 13, "qgf_delta_v1_t must be 13 bytes in v1 of QGF");
+// STATIC_ASSERT(sizeof(qgf_delta_v1_t) == 13, "qgf_delta_v1_t must be 13 bytes in v1 of QGF");
 ```
 
 ## Frame data block {#qgf-frame-data-descriptor}

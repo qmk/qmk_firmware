@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Program Yoink! Ortho",
     "manufacturer": "melonbred",
-    "url": "",
     "maintainer": "melonbred",
     "usb": {
         "vid": "0x7079",

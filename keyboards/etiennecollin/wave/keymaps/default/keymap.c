@@ -115,10 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // --------+-------+-------+-------+-------|                    |-------+-------+-------+-------+-------|
   //                 |       |       |  ___  |                    | left  | right |  mid  |
   //                 --------+-------+--------                    --------+-------+--------
-    XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            KC_ACL0,            KC_ACL1,            KC_ACL2,            XXXXXXX,
-    KC_LGUI,            KC_LALT,            KC_LCTL,            KC_LSFT,            XXXXXXX,            XXXXXXX,            KC_MS_L,            KC_MS_D,            KC_MS_U,            KC_MS_R,
-    XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            KC_WH_L,            KC_WH_D,            KC_WH_U,            KC_WH_R,
-                                            XXXXXXX,            XXXXXXX,            _______,            KC_BTN1,            KC_BTN2,            KC_BTN3
+    XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            MS_ACL0,            MS_ACL1,            MS_ACL2,            XXXXXXX,
+    KC_LGUI,            KC_LALT,            KC_LCTL,            KC_LSFT,            XXXXXXX,            XXXXXXX,            MS_LEFT,            MS_DOWN,            MS_UP,              MS_RGHT,
+    XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            XXXXXXX,            MS_WHLL,            MS_WHLD,            MS_WHLU,            MS_WHLR,
+                                            XXXXXXX,            XXXXXXX,            _______,            MS_BTN1,            MS_BTN2,            MS_BTN3
   ),
   [SYM] = LAYOUT_split_3x5_3(
   // -----------------------------------------                    -----------------------------------------

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "rb18",
     "manufacturer": "ryanbaekr",
-    "url": "",
     "maintainer": "ryanbaekr",
     "usb": {
         "vid": "0x7262",
@@ -28,8 +27,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,

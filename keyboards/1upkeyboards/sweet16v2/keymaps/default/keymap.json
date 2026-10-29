@@ -1,0 +1,28 @@
+{
+    "keyboard": "1upkeyboards/sweet16v2",
+    "keymap": "default",
+    "coonfig": {
+        "features": {
+            "encoder_map": true
+        }
+    },
+    "layout": "LAYOUT_ortho_4x4",
+    "layers": [
+        [
+            "KC_P7", "KC_P8", "KC_P8",   "KC_PMNS",
+            "KC_P4", "KC_P5", "KC_P6",   "KC_PPLS",
+            "KC_P1", "KC_P2", "KC_P3",   "KC_PSLS",
+            "MO(1)", "KC_P0", "KC_PDOT", "KC_PENT"
+        ],
+        [
+            "RM_TOGG", "RM_HUEU", "RM_SATU", "RM_VALU",
+            "RM_NEXT", "RM_HUED", "RM_SATD", "RM_VALD",
+            "RM_SPDD", "RM_SPDU", "_______", "_______",
+            "_______", "_______", "_______", "QK_BOOT"
+        ]
+    ],
+    "encoders": [
+        [{"ccw": "KC_VOLD", "cw": "KC_VOLU"}, {"ccw": "RM_VALD", "cw": "RM_VALU"}],
+        [{"ccw": "_______", "cw": "_______"}, {"ccw": "_______", "cw": "_______"}]
+    ]
+}

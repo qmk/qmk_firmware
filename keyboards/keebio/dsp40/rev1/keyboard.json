@@ -26,6 +26,9 @@
         }
     },
     "backlight": {
+        "default": {
+            "brightness": 5
+        }, 
         "pin": "A6",
         "levels": 7
     },

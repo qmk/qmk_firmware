@@ -1,7 +1,6 @@
 {
     "keyboard_name": "POKER-87C Hotswap",
     "manufacturer": "mfkiiyd",
-    "url": "",
     "maintainer": "mfkiiyd",
     "usb": {
         "vid": "0x6D66",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

@@ -19,8 +19,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -161,7 +159,6 @@
         ],
         "sleep": true
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.4",
         "pid": "0x5319",

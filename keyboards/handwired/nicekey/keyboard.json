@@ -1,7 +1,6 @@
 {
     "keyboard_name": "nicekey",
     "manufacturer": "Lukas",
-    "url": "",
     "maintainer": "spydon",
     "usb": {
         "vid": "0xFEED",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

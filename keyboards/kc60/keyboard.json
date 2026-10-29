@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KC60",
     "manufacturer": "NPKC",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x530A",

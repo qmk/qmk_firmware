@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 // clang-format on
 
-void pointing_device_init_kb(void) {
+void pointing_device_init_user(void) {
     pointing_device_set_cpi(1600);
 }
 

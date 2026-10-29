@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Felix",
   "manufacturer": "UniKeyboard",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -11,8 +10,6 @@
   "features": {
     "backlight": true,
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": true
@@ -32,8 +29,7 @@
     "pin": "C6",
     "levels": 5
   },
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "community_layouts": ["ortho_5x4"],
   "layout_aliases": {
     "LAYOUT": "LAYOUT_ortho_5x4"

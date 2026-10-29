@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Rect44",
     "manufacturer": "koshinoya",
-    "url": "",
     "maintainer": "koshinoya",
     "usb": {
         "vid": "0xFEED",
@@ -28,8 +27,6 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -40,8 +37,7 @@
         "rows": ["D3", "D2", "F5", "F4"]
     },
     "diode_direction": "COL2ROW",
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT_all": {
             "layout": [

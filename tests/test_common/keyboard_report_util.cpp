@@ -18,6 +18,11 @@
 #include <cstdint>
 #include <vector>
 #include <algorithm>
+#include <iomanip>
+
+extern "C" {
+#include "keycode_string.h"
+}
 
 using namespace testing;
 
@@ -72,7 +77,7 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
 
     os << "(";
     for (auto key = keys.cbegin(); key != keys.cend();) {
-        os << KEYCODE_ID_TABLE.at(*key);
+        os << get_keycode_string(*key);
         key++;
         if (key != keys.cend()) {
             os << ", ";
@@ -82,7 +87,7 @@ std::ostream& operator<<(std::ostream& os, const report_keyboard_t& report) {
     os << ") [";
 
     for (auto mod = mods.cbegin(); mod != mods.cend();) {
-        os << KEYCODE_ID_TABLE.at(*mod);
+        os << get_keycode_string(*mod);
         mod++;
         if (mod != mods.cend()) {
             os << ", ";

@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Space Oddity",
   "manufacturer": "James Taylor",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -10,8 +9,6 @@
   },
   "features": {
     "bootmagic": true,
-    "command": false,
-    "console": false,
     "dynamic_macro": true,
     "extrakey": true,
     "mousekey": true,

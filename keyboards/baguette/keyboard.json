@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Baguette",
   "manufacturer": "Yiancar",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -11,8 +10,6 @@
   "features": {
     "backlight": true,
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "extrakey": true,
     "mousekey": true,
     "nkro": false

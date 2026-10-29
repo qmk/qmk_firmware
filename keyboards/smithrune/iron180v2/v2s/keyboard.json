@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Iron180 Sv2",
     "manufacturer": "SmithRune",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x8384",
@@ -15,8 +14,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

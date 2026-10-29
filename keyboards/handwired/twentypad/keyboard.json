@@ -1,0 +1,54 @@
+{
+    "manufacturer": "Harry Cutts",
+    "keyboard_name": "TwentyPad",
+    "maintainer": "HarryCutts",
+    "bootloader": "atmel-dfu",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["B7", "D5", "B5", "F6"],
+            ["B3", "D3", "B4", "F7"],
+            ["B2", "D2", "D7", "C7"],
+            ["B1", "D1", "D6", "C6"],
+            ["B0", "D0", "D4", "B6"]
+        ]
+    },
+    "processor": "atmega32u4",
+    "url": "https://github.com/HarryCutts/twentypad/",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x209D",
+        "vid": "0xFEED"
+    },
+    "community_layouts": ["ortho_5x4"],
+    "layouts": {
+        "LAYOUT_ortho_5x4": {
+            "layout": [
+                {"label": "B7", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "D5", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "B5", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "F6", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "B3", "matrix": [1, 0], "x": 0, "y": 1},
+                {"label": "D3", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "B4", "matrix": [1, 2], "x": 2, "y": 1},
+                {"label": "F7", "matrix": [1, 3], "x": 3, "y": 1},
+                {"label": "B2", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "D2", "matrix": [2, 1], "x": 1, "y": 2},
+                {"label": "D7", "matrix": [2, 2], "x": 2, "y": 2},
+                {"label": "C7", "matrix": [2, 3], "x": 3, "y": 2},
+                {"label": "B1", "matrix": [3, 0], "x": 0, "y": 3},
+                {"label": "D1", "matrix": [3, 1], "x": 1, "y": 3},
+                {"label": "D6", "matrix": [3, 2], "x": 2, "y": 3},
+                {"label": "C6", "matrix": [3, 3], "x": 3, "y": 3},
+                {"label": "B0", "matrix": [4, 0], "x": 0, "y": 4},
+                {"label": "D0", "matrix": [4, 1], "x": 1, "y": 4},
+                {"label": "D4", "matrix": [4, 2], "x": 2, "y": 4},
+                {"label": "B6", "matrix": [4, 3], "x": 3, "y": 4}
+            ]
+        }
+    }
+}

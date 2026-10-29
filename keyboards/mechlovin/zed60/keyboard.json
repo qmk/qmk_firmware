@@ -38,7 +38,6 @@
         "saturation_steps": 8,
         "sleep": true
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x0602",

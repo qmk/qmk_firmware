@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Magnum Ergo 1",
     "manufacturer": "Gondolindrim X Dark",
-    "url": "",
     "maintainer": "Gondolindrim",
     "usb": {
         "vid": "0x4744", 
@@ -19,8 +18,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

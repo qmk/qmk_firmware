@@ -1,7 +1,6 @@
 {
     "keyboard_name": "h60",
     "manufacturer": "hineybush",
-    "url": "",
     "maintainer": "hineybush",
     "usb": {
         "vid": "0x04D8",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": false,

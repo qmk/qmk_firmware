@@ -46,7 +46,7 @@ When [handedness](split_keyboard#setting-handedness) is predetermined via option
     }
 ```
 
-If you pick the top right key for the right half, it is `R05` on the top layout. Within the key matrix below, `R05` is located on row 4 columnn 4. To use that key as the right half's Bootmagic trigger, add these entries to your `config.h` file:
+If you pick the top right key for the right half, it is `R05` on the top layout. Within the key matrix below, `R05` is located on row 4 column 4. To use that key as the right half's Bootmagic trigger, add these entries to your `config.h` file:
 
 ```c
 #define BOOTMAGIC_ROW_RIGHT 4

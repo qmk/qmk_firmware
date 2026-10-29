@@ -14,21 +14,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include <stdint.h>
+#include "connection.h"
 
-enum outputs {
-    OUTPUT_AUTO,
+// DEPRECATED - DO NOT USE
 
-    OUTPUT_NONE,
-    OUTPUT_USB,
-    OUTPUT_BLUETOOTH
-};
+#define OUTPUT_AUTO CONNECTION_HOST_AUTO
+#define OUTPUT_NONE CONNECTION_HOST_NONE
+#define OUTPUT_USB CONNECTION_HOST_USB
+#define OUTPUT_BLUETOOTH CONNECTION_HOST_BLUETOOTH
 
-#ifndef OUTPUT_DEFAULT
-#    define OUTPUT_DEFAULT OUTPUT_AUTO
-#endif
+#define set_output connection_set_host_noeeprom
+#define where_to_send connection_get_host
+#define auto_detect_output connection_auto_detect_host
 
-void    set_output(uint8_t output);
-void    set_output_user(uint8_t output);
-uint8_t auto_detect_output(void);
-uint8_t where_to_send(void);
+void set_output_user(uint8_t output);

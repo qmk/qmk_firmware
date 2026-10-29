@@ -1,7 +1,6 @@
 {
     "keyboard_name": "quick7",
     "manufacturer": "yushakobo",
-    "url": "",
     "maintainer": "yushakobo",
     "usb": {
         "vid": "0x3265",
@@ -29,8 +28,7 @@
     "ws2812": {
         "pin": "D3"
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "features": {
         "bootmagic": true,
         "command": true,

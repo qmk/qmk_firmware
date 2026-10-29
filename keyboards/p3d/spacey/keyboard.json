@@ -1,7 +1,6 @@
 {
     "keyboard_name": "spacey",
     "manufacturer": "vanilla",
-    "url": "",
     "maintainer": "vanilla",
     "usb": {
         "vid": "0x5641",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": true,

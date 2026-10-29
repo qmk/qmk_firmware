@@ -2,9 +2,7 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
-#ifdef __cplusplus
-#    define _Static_assert static_assert
-#endif
+#include "compiler_support.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -62,9 +60,9 @@ typedef uint64_t backing_store_int_t;
 #endif // WEAR_LEVELING_ASSERTS
 
 // Compile-time validation of configurable options
-_Static_assert(WEAR_LEVELING_BACKING_SIZE >= (WEAR_LEVELING_LOGICAL_SIZE * 2), "Total backing size must be at least twice the size of the logical size");
-_Static_assert(WEAR_LEVELING_LOGICAL_SIZE % BACKING_STORE_WRITE_SIZE == 0, "Logical size must be a multiple of write size");
-_Static_assert(WEAR_LEVELING_BACKING_SIZE % WEAR_LEVELING_LOGICAL_SIZE == 0, "Backing size must be a multiple of logical size");
+STATIC_ASSERT(WEAR_LEVELING_BACKING_SIZE >= (WEAR_LEVELING_LOGICAL_SIZE * 2), "Total backing size must be at least twice the size of the logical size");
+STATIC_ASSERT(WEAR_LEVELING_LOGICAL_SIZE % BACKING_STORE_WRITE_SIZE == 0, "Logical size must be a multiple of write size");
+STATIC_ASSERT(WEAR_LEVELING_BACKING_SIZE % WEAR_LEVELING_LOGICAL_SIZE == 0, "Backing size must be a multiple of logical size");
 
 // Backing Store API, to be implemented elsewhere by flash driver etc.
 bool backing_store_init(void);
@@ -86,7 +84,7 @@ typedef union write_log_entry_t {
     uint8_t  raw8[8];
 } write_log_entry_t;
 
-_Static_assert(sizeof(write_log_entry_t) == 8, "Wear leveling write log entry size was not 8");
+STATIC_ASSERT(sizeof(write_log_entry_t) == 8, "Wear leveling write log entry size was not 8");
 
 /**
  * Log entry type discriminator.
@@ -104,7 +102,7 @@ enum {
     LOG_ENTRY_TYPES
 };
 
-_Static_assert(LOG_ENTRY_TYPES <= (1 << 2), "Too many log entry types to fit into 2 bits of storage");
+STATIC_ASSERT(LOG_ENTRY_TYPES <= (1 << 2), "Too many log entry types to fit into 2 bits of storage");
 
 #define BITMASK_FOR_BITCOUNT(n) ((1 << (n)) - 1)
 

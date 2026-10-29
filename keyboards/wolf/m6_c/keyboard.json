@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false,
@@ -82,7 +80,6 @@
         ],
         "sleep": true
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0060",

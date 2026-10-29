@@ -95,9 +95,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = LAYOUT_ortho_4x12(
-  _______, QK_BOOT, _______, _______, KC_WH_U, _______, _______, KC_MS_U, _______, _______,                   UP(SE_ARNG_LOW, SE_ARNG_HIGH), KC_DEL,
-  _______, _______, _______, _______, KC_WH_D, _______, KC_MS_L, KC_MS_D, KC_MS_R, UP(SE_ODIA_LOW, SE_ODIA_HIGH), UP(SE_ADIA_LOW, SE_ADIA_HIGH), _______,
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, KC_BTN1, _______, KC_BTN2, _______,                   _______,                   _______,
+  _______, QK_BOOT, _______, _______, MS_WHLU, _______, _______, MS_UP,   _______, _______,                   UP(SE_ARNG_LOW, SE_ARNG_HIGH), KC_DEL,
+  _______, _______, _______, _______, MS_WHLD, _______, MS_LEFT, MS_DOWN, MS_RGHT, UP(SE_ODIA_LOW, SE_ODIA_HIGH), UP(SE_ADIA_LOW, SE_ADIA_HIGH), _______,
+  _______, MS_ACL0, MS_ACL1, MS_ACL2, _______, _______, MS_BTN1, _______, MS_BTN2, _______,                   _______,                   _______,
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   _______,                   _______
 )
 };

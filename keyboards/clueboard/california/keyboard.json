@@ -1,6 +1,5 @@
 {
     "keyboard_name": "Clueboard California",
-    "url": "",
     "maintainer": "skullydazed",
     "processor": "STM32F303",
     "board": "QMK_PROTON_C",

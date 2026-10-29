@@ -1,7 +1,6 @@
 {
     "keyboard_name": "FAVE-104",
     "manufacturer": "Lx3",
-    "url": "",
     "maintainer": "keydler",
     "usb": {
         "vid": "0x4C58",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true

@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true
     },
@@ -25,7 +23,6 @@
             "resync": true
         }
     },
-    "url": "",
     "usb": {
         "device_version": "0.0.1",
         "pid": "0x4D1B",

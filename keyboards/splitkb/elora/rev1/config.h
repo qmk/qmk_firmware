@@ -55,6 +55,4 @@
 // including some code in rev1.c but makes 
 // it so the timeout's are not synced
 // between halves.
-#undef SPLIT_OLED_ENABLE
 #define OLED_TIMEOUT 0
-

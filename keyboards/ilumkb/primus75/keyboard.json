@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Primus75",
     "manufacturer": "moyi4681",
-    "url": "",
     "maintainer": "moyi4681",
     "usb": {
         "vid": "0x445A",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true

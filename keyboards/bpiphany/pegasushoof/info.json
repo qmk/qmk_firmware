@@ -1,6 +1,5 @@
 {
   "manufacturer": "Filco",
-  "url": "",
   "maintainer": "qmk",
   "features": {
     "bootmagic": true,

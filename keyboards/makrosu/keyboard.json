@@ -1,7 +1,6 @@
 {
     "keyboard_name": "MakrOSU",
     "manufacturer": "Valdydesu_",
-    "url": "",
     "maintainer": "Valdydesu_",
     "usb": {
         "vid": "0xAB69",
@@ -10,8 +9,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "encoder": true,
         "extrakey": true,
         "mousekey": false,
@@ -37,8 +34,7 @@
     "bootmagic": {
         "matrix": [0, 5]
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "layouts": {
         "LAYOUT": {
             "layout": [

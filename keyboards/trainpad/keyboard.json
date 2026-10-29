@@ -1,7 +1,6 @@
 {
     "keyboard_name": "TrainPad",
 	"manufacturer": "Ananya Kirti",
-	"url": "",
 	"maintainer": "AnanyaKirti",
     "usb": {
         "vid": "0x416B",
@@ -12,8 +11,6 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "console": false,
-        "command": false,
         "nkro": false
     },
     "processor": "atmega32u2",

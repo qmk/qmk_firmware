@@ -17,6 +17,7 @@
 #include <string.h>
 #include <debug.h>
 
+#include "compiler_support.h"
 #include "transactions.h"
 #include "transport.h"
 #include "transaction_id_define.h"
@@ -36,7 +37,7 @@
 #    include "i2c_slave.h"
 
 // Ensure the I2C buffer has enough space
-_Static_assert(sizeof(split_shared_memory_t) <= I2C_SLAVE_REG_COUNT, "split_shared_memory_t too large for I2C_SLAVE_REG_COUNT");
+STATIC_ASSERT(sizeof(split_shared_memory_t) <= I2C_SLAVE_REG_COUNT, "split_shared_memory_t too large for I2C_SLAVE_REG_COUNT");
 
 split_shared_memory_t *const split_shmem = (split_shared_memory_t *)i2c_slave_reg;
 

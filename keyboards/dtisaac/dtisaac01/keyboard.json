@@ -1,7 +1,6 @@
 {
     "keyboard_name": "dtisaac01",
     "manufacturer": "DTIsaac",
-    "url": "",
     "maintainer": "DTIsaac",
     "usb": {
         "vid": "0x4454",
@@ -11,8 +10,6 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": false

@@ -1,7 +1,6 @@
 {
     "keyboard_name": "KNIGHT",
     "manufacturer": "X-BOWS",
-    "url": "",
     "maintainer": "xbows-qmk",
     "usb": {
         "vid": "0x5842",
@@ -35,8 +34,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

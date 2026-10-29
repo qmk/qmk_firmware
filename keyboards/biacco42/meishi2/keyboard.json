@@ -1,7 +1,6 @@
 {
   "keyboard_name": "meishi2",
   "manufacturer": "Biacco42",
-  "url": "",
   "maintainer": "biacco42",
   "usb": {
     "vid": "0xBC42",
@@ -27,8 +26,7 @@
     "rows": ["D7", "E6"]
   },
   "diode_direction": "COL2ROW",
-  "processor": "atmega32u4",
-  "bootloader": "caterina",
+  "development_board": "promicro",
   "layouts": {
     "LAYOUT": {
       "layout": [

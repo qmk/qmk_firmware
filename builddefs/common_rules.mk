@@ -50,15 +50,19 @@ ifeq ($(strip $(DEBUG_ENABLE)),yes)
 	CFLAGS 	 += -ggdb3
 	CXXFLAGS += -ggdb3
 	ASFLAGS  += -ggdb3
-# Create a map file when debugging
-	LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
 
+# Create a map file to see what was compiled and where, unless disabled
+# (e.g. test builds, which use the host linker — Apple's ld does not accept
+# -Map=/--cref).
+ifneq ($(strip $(CREATE_MAP)), no)
+LDFLAGS  += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
+endif
 
 #---------------- C Compiler Options ----------------
 
 ifeq ($(strip $(LTO_ENABLE)), yes)
-    CDEFS += -flto
+    CDEFS += -flto=auto
     CDEFS += -DLTO_ENABLE
 endif
 
@@ -66,12 +70,14 @@ CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
 ifeq ($(COLOR),true)
-ifeq ("$(shell echo "int main(){}" | $(CC) -fdiagnostics-color -x c - -o /dev/null 2>&1)", "")
-	CFLAGS+= -fdiagnostics-color
-endif
+    CFLAGS+= -fdiagnostics-color=always
+else
+    CFLAGS+= -fdiagnostics-color=never
 endif
 CFLAGS += -Wall
 CFLAGS += -Wstrict-prototypes
+CFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CFLAGS += -Werror
 endif
@@ -89,7 +95,8 @@ CXXFLAGS += -O$(OPT)
 CXXFLAGS += -w
 CXXFLAGS += -Wall
 CXXFLAGS += -Wundef
-
+CXXFLAGS += $(call cc-option,-Wunused-but-set-variable=1,-Wunused-but-set-variable)
+CXXFLAGS += $(call cc-option,-Wunused-but-set-parameter=1,-Wunused-but-set-parameter)
 ifneq ($(strip $(ALLOW_WARNINGS)), yes)
     CXXFLAGS += -Werror
 endif
@@ -168,7 +175,7 @@ MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 # For a ChibiOS build, ensure that the board files have the hook overrides injected
 define BOARDSRC_INJECT_HOOKS
-$(INTERMEDIATE_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): INIT_HOOK_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
+$(INTERMEDIATE_OUTPUT)/$(patsubst %.c,%.o,$(patsubst ./%,%,$1)): FILE_SPECIFIC_CFLAGS += -include $(TOP_DIR)/tmk_core/protocol/chibios/init_hooks.h
 endef
 $(foreach LOBJ, $(BOARDSRC), $(eval $(call BOARDSRC_INJECT_HOOKS,$(LOBJ))))
 
@@ -289,10 +296,10 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
     ifneq ($$(VERBOSE_C_INCLUDE),)
 	$$(if $$(filter $$(notdir $$(VERBOSE_C_INCLUDE)),$$(notdir $$<)),$$(eval CC_EXEC += -H))
     endif
-	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD := $$(CC_EXEC) -c $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
     ifneq ($$(DUMP_C_MACROS),)
-	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$<)
+	$$(eval CMD := $$(CC) -E -dM $$($1_CFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$<)
 	@$$(if $$(filter $$(notdir $$(DUMP_C_MACROS)),$$(notdir $$<)),$$(BUILD_CMD))
     endif
 
@@ -300,13 +307,13 @@ $1/%.o : %.c $1/%.d $1/cflags.txt $1/compiler.txt | $(BEGIN)
 $1/%.o : %.cpp $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 $1/%.o : %.cc $1/%.d $1/cxxflags.txt $1/compiler.txt | $(BEGIN)
 	@mkdir -p $$(@D)
 	@$$(SILENT) || printf "$$(MSG_COMPILING_CXX) $$<" | $$(AWK_CMD)
-	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(INIT_HOOK_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
+	$$(eval CMD=$$(CC) -c $$($1_CXXFLAGS) $$(FILE_SPECIFIC_CFLAGS) $$(GENDEPFLAGS) $$< -o $$@ && $$(MOVE_DEP))
 	@$$(BUILD_CMD)
 
 # Assemble: create object files from assembler source files.

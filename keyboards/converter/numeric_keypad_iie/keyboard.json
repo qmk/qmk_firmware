@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Numeric Keypad IIe",
     "manufacturer": "Apple Inc.",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0xFEED",

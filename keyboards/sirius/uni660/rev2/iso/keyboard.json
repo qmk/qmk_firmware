@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Uni660 V2 ISO",
     "manufacturer": "SiRius",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x5352",

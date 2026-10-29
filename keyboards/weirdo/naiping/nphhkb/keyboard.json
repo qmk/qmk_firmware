@@ -1,7 +1,6 @@
 {
     "keyboard_name": "NPhhkb",
     "manufacturer": "Weirdo",
-    "url": "",
     "maintainer": "weirdo-f",
     "usb": {
         "vid": "0x7764",
@@ -16,8 +15,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": false,
         "nkro": true,

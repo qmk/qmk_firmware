@@ -1,7 +1,6 @@
 {
     "keyboard_name": "Axon40",
     "manufacturer": "Nasp",
-    "url": "",
     "maintainer": "nasp",
     "usb": {
         "vid": "0x7070",
@@ -30,8 +29,6 @@
     },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,

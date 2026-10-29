@@ -104,6 +104,12 @@ typedef struct usbConfigurationDescriptor {
     usbEndpointDescriptor_t  rawOUTEndpoint;
 #endif
 
+#if defined(PLOVER_HID_ENABLE)
+    usbInterfaceDescriptor_t ploverInterface;
+    usbHIDDescriptor_t       ploverHID;
+    usbEndpointDescriptor_t  ploverINEndpoint;
+#endif
+
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
     usbInterfaceDescriptor_t sharedInterface;
     usbHIDDescriptor_t       sharedHID;

@@ -86,7 +86,7 @@ void solenoid_fire(uint8_t index) {
  *
  */
 void solenoid_fire_handler(void) {
-#ifndef SOLENOID_RANDOM_FIRE
+#ifdef SOLENOID_RANDOM_FIRE
     if (NUMBER_OF_SOLENOIDS > 1) {
         uint8_t i = rand() % NUMBER_OF_SOLENOIDS;
         if (!solenoid_on[i]) {

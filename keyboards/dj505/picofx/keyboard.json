@@ -1,0 +1,96 @@
+{
+    "manufacturer": "dj505",
+    "keyboard_name": "PicoFX",
+    "maintainer": "jjc1138",
+    "bootloader": "rp2040",
+    "bootloader_instructions": "Hold down the BOOTSEL button on the microcontroller when connecting the USB cable",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "rgb_matrix": true
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP19", null, "GP6", "GP27", null, "GP0"],
+            [null, "GP10", null, null, "GP2", null],
+            ["GP21", null, "GP8", "GP17", null, "GP4"],
+            ["GP14", "GP15", null, null, null, null]
+        ]
+    },
+    "processor": "RP2040",
+    "rgb_matrix": {
+        "animations": {
+            "band_pinwheel_sat": true,
+            "band_pinwheel_val": true,
+            "band_sat": true,
+            "band_spiral_sat": true,
+            "band_spiral_val": true,
+            "band_val": true,
+            "breathing": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_out_in": true,
+            "cycle_out_in_dual": true,
+            "cycle_pinwheel": true,
+            "cycle_spiral": true,
+            "cycle_up_down": true,
+            "digital_rain": true,
+            "dual_beacon": true,
+            "gradient_left_right": true,
+            "gradient_up_down": true,
+            "hue_breathing": true,
+            "hue_pendulum": true,
+            "hue_wave": true,
+            "jellybean_raindrops": true,
+            "multisplash": true,
+            "pixel_flow": true,
+            "pixel_fractal": true,
+            "pixel_rain": true,
+            "rainbow_beacon": true,
+            "rainbow_moving_chevron": true,
+            "rainbow_pinwheels": true,
+            "raindrops": true,
+            "solid_multisplash": true,
+            "solid_splash": true,
+            "splash": true
+        },
+        "driver": "ws2812",
+        "layout": [
+            {"x": 0, "y": 64, "flags": 2},
+            {"x": 0, "y": 0, "flags": 2},
+            {"x": 112, "y": 0, "flags": 2},
+            {"x": 112, "y": 64, "flags": 2},
+            {"x": 224, "y": 64, "flags": 2},
+            {"x": 224, "y": 0, "flags": 2}
+        ],
+        "sleep": true
+    },
+    "url": "https://github.com/dj505/PicoFX",
+    "usb": {
+        "device_version": "1.0.0",
+        "pid": "0x4658",
+        "vid": "0xFEED"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP22"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "P1 UL", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "P1 UR", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "P2 UL", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "P2 UR", "matrix": [0, 5], "x": 5, "y": 0},
+                {"label": "P1 CN", "matrix": [1, 1], "x": 1, "y": 1},
+                {"label": "P2 CN", "matrix": [1, 4], "x": 4, "y": 1},
+                {"label": "P1 DL", "matrix": [2, 0], "x": 0, "y": 2},
+                {"label": "P1 DR", "matrix": [2, 2], "x": 2, "y": 2},
+                {"label": "P2 DL", "matrix": [2, 3], "x": 3, "y": 2},
+                {"label": "P2 DR", "matrix": [2, 5], "x": 5, "y": 2},
+                {"label": "Service", "matrix": [3, 0], "x": 6.5, "y": 0.5},
+                {"label": "Test", "matrix": [3, 1], "x": 6.5, "y": 1.5}
+            ]
+        }
+    }
+}

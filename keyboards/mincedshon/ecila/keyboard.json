@@ -32,8 +32,6 @@
     "bootloader": "atmel-dfu",
     "features": {
       "bootmagic": true,
-      "command": false,
-      "console": false,
       "extrakey": true,
       "mousekey": true,
       "nkro": true,
@@ -45,7 +43,6 @@
       "rows": ["E6", "B3", "B5", "B4", "D7"]
     },
     "processor": "atmega32u4",
-    "url": "",
     "layouts": {
         "LAYOUT": {
             "layout": [

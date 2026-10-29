@@ -6,8 +6,6 @@
     "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
@@ -37,7 +35,6 @@
         "cols": ["F5", "F6", "B4", "E6", "D7", "C6", "D4", "D0"],
         "rows": ["D1", "F4", "F7", "B5", "B1", "B3", "B6", "B2"]
     },
-    "url": "",
     "usb": {
         "vid": "0x4680",
         "pid": "0x1357",

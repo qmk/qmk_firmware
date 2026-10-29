@@ -1,7 +1,6 @@
 {
     "keyboard_name": "k8split",
     "manufacturer": "Ckat",
-    "url": "",
     "maintainer": "Ckath",
     "usb": {
         "vid": "0xC81D",
@@ -10,11 +9,14 @@
     },
     "features": {
         "bootmagic": false,
-        "command": false,
-        "console": false,
         "extrakey": true,
         "mousekey": true,
         "nkro": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
     },
     "matrix_pins": {
         "cols": ["C7", "C6", "B6", "B5", "B4", "D7", "D6", "D4"],

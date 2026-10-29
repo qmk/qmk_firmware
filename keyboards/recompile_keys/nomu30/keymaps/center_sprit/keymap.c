@@ -93,9 +93,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-------------------------------------------------------------------------------------------------------------.
          QK_BOOT, RGBRST,  AG_NORM,  AG_SWAP,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       _______,  UG_TOGG,  UG_HUEU,  UG_SATU,  UG_VALU,  XXXXXXX,  KC_MS_L,  KC_MS_D,  KC_MS_U,  KC_MS_R,  XXXXXXX,
+       _______,  UG_TOGG,  UG_HUEU,  UG_SATU,  UG_VALU,  XXXXXXX,  MS_LEFT,  MS_DOWN,  MS_UP,    MS_RGHT,  XXXXXXX,
   //|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-       UG_NEXT,  UG_HUED,  UG_SATD,  UG_VALD,  XXXXXXX,  _______,  KC_BTN1,  KC_BTN2,  XXXXXXX
+       UG_NEXT,  UG_HUED,  UG_SATD,  UG_VALD,  XXXXXXX,  _______,  MS_BTN1,  MS_BTN2,  XXXXXXX
   //`---------+---------+---------+---------+---------+---------+---------+---------+---------'
   )
 };

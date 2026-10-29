@@ -171,7 +171,7 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data) {
             FLASH->CR |= FLASH_CR_PSIZE_0;
 #endif
             FLASH->CR |= FLASH_CR_PG;
-            *(__IO uint16_t*)Address = Data;
+            *(__IO uint16_t *)Address = Data;
             /* Wait for last operation to be completed */
             status = FLASH_WaitForLastOperation(ProgramTimeout);
             if (status != FLASH_TIMEOUT) {

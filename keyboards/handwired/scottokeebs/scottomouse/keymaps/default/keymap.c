@@ -19,6 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
-        KC_MS_BTN1, KC_MS_BTN2, KC_MS_LEFT, KC_MS_UP,  KC_MS_DOWN, KC_MS_RIGHT
+        MS_BTN1, MS_BTN2, MS_LEFT, MS_UP,   MS_DOWN, MS_RGHT
     )
 };

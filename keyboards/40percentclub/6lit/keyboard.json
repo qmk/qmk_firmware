@@ -1,7 +1,6 @@
 {
     "keyboard_name": "The 6lit Macropad",
     "manufacturer": "di0ib",
-    "url": "",
     "maintainer": "qmk",
     "usb": {
         "vid": "0x4025",
@@ -32,8 +31,7 @@
             "pin": "D0"
         }
     },
-    "processor": "atmega32u4",
-    "bootloader": "caterina",
+    "development_board": "promicro",
     "community_layouts": ["ortho_2x3", "ortho_2x6"],
     "layout_aliases": {
         "LAYOUT_macro": "LAYOUT_ortho_2x3",

@@ -124,7 +124,6 @@
             {"matrix": [3, 0], "x": 129, "y": 13, "flags": 4}
         ]
     },
-    "url": "",
     "usb": {
         "device_version": "1.0.0",
         "pid": "0x0001",

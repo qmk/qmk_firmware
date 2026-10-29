@@ -44,7 +44,7 @@ typedef struct __attribute__((packed)) qff_font_descriptor_v1_t {
     uint8_t               compression_scheme;   // compression scheme, see below.
     uint8_t               transparency_index;   // palette index used for transparent pixels (not yet implemented)
 } qff_font_descriptor_v1_t;
-// _Static_assert(sizeof(qff_font_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 20), "qff_font_descriptor_v1_t must be 25 bytes in v1 of QFF");
+// STATIC_ASSERT(sizeof(qff_font_descriptor_v1_t) == (sizeof(qgf_block_header_v1_t) + 20), "qff_font_descriptor_v1_t must be 25 bytes in v1 of QFF");
 ```
 
 The values for `format`, `flags`, `compression_scheme`, and `transparency_index` match [QGF's frame descriptor block](quantum_painter_qgf#qgf-frame-descriptor), with the exception that the `delta` flag is ignored by QFF.
@@ -66,7 +66,7 @@ typedef struct __attribute__((packed)) qff_ascii_glyph_table_v1_t {
     qgf_block_header_v1_t header;  // = { .type_id = 0x01, .neg_type_id = (~0x01), .length = 285 }
     uint24_t glyph[95];            // 95 glyphs, 0x20..0x7E, see bits/masks above for values
 } qff_ascii_glyph_table_v1_t;
-// _Static_assert(sizeof(qff_ascii_glyph_table_v1_t) == (sizeof(qgf_block_header_v1_t) + 285), "qff_ascii_glyph_table_v1_t must be 290 bytes in v1 of QFF");
+// STATIC_ASSERT(sizeof(qff_ascii_glyph_table_v1_t) == (sizeof(qgf_block_header_v1_t) + 285), "qff_ascii_glyph_table_v1_t must be 290 bytes in v1 of QFF");
 ```
 
 ## Unicode glyph table {#qff-unicode-table}

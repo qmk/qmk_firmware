@@ -156,21 +156,22 @@ TEST_F(CapsWord, IdleTimeout) {
     // Turn on Caps Word and tap "A".
     caps_word_on();
     tap_key(key_a);
-
     VERIFY_AND_CLEAR(driver);
 
+    EXPECT_EMPTY_REPORT(driver);
     idle_for(CAPS_WORD_IDLE_TIMEOUT);
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
 
     // Caps Word should be off and mods should be clear.
     EXPECT_EQ(is_caps_word_on(), false);
     EXPECT_EQ(get_mods() | get_weak_mods(), 0);
 
-    EXPECT_EMPTY_REPORT(driver).Times(AnyNumber());
     // Expect unshifted "A".
     EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
     tap_key(key_a);
-
+    run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -244,6 +245,7 @@ TEST_F(CapsWord, ShiftsAltGrSymbols) {
     // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
+                KeyboardReport(KC_LSFT),
                 KeyboardReport(KC_RALT),
                 KeyboardReport(KC_LSFT, KC_RALT))))
         .Times(AnyNumber());
@@ -259,6 +261,9 @@ TEST_F(CapsWord, ShiftsAltGrSymbols) {
     tap_key(key_a);
     run_one_scan_loop();
     key_altgr.release();
+    run_one_scan_loop();
+
+    idle_for(CAPS_WORD_IDLE_TIMEOUT);
 
     VERIFY_AND_CLEAR(driver);
 }
@@ -274,6 +279,7 @@ TEST_F(CapsWord, ShiftsModTapAltGrSymbols) {
     // clang-format off
     EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
                 KeyboardReport(),
+                KeyboardReport(KC_LSFT),
                 KeyboardReport(KC_RALT),
                 KeyboardReport(KC_LSFT, KC_RALT))))
         .Times(AnyNumber());
@@ -289,8 +295,11 @@ TEST_F(CapsWord, ShiftsModTapAltGrSymbols) {
     tap_key(key_a);
     run_one_scan_loop();
     key_altgr_t.release();
-
+    run_one_scan_loop();
     EXPECT_TRUE(is_caps_word_on());
+
+    idle_for(CAPS_WORD_IDLE_TIMEOUT);
+
     VERIFY_AND_CLEAR(driver);
 }
 
@@ -535,7 +544,11 @@ TEST_P(CapsWordDoubleTapShift, Activation) {
     // machine at this point. This due to imperfect test isolation which can't
     // reset the caps word double shift timer on test case setup.
     idle_for(CAPS_WORD_IDLE_TIMEOUT);
+
+    EXPECT_REPORT(driver, (KC_ESC));
+    EXPECT_EMPTY_REPORT(driver);
     tap_key(esc);
+    VERIFY_AND_CLEAR(driver);
 }
 
 // Double tap doesn't count if another key is pressed between the taps.
@@ -589,6 +602,7 @@ TEST_P(CapsWordDoubleTapShift, SlowTaps) {
 
     EXPECT_EQ(is_caps_word_on(), false); // Caps Word is still off.
     clear_oneshot_mods();
+    send_keyboard_report();
 
     VERIFY_AND_CLEAR(driver);
 }
@@ -626,7 +640,7 @@ TEST_F(CapsWord, IgnoresOSLHold) {
     run_one_scan_loop();
     tap_key(key_b);
     key_osl.release();
-    run_one_scan_loop();
+    idle_for(CAPS_WORD_IDLE_TIMEOUT + 1);
 
     VERIFY_AND_CLEAR(driver);
 }
@@ -645,15 +659,39 @@ TEST_F(CapsWord, IgnoresOSLTap) {
                 KeyboardReport(),
                 KeyboardReport(KC_LSFT))))
         .Times(AnyNumber());
+    // clang-format on
 
     EXPECT_REPORT(driver, (KC_LSFT, KC_B));
     caps_word_on();
 
     tap_key(key_osl);
     tap_key(key_b);
-    run_one_scan_loop();
+    idle_for(CAPS_WORD_IDLE_TIMEOUT);
 
     VERIFY_AND_CLEAR(driver);
 }
-// clang-format on
+
+TEST_F(CapsWord, IgnoresLayerLockKey) {
+    TestDriver driver;
+    KeymapKey  key_llock(0, 1, 0, QK_LAYER_LOCK);
+    KeymapKey  key_b(0, 0, 0, KC_B);
+    set_keymap({key_llock, key_b});
+
+    // Allow any number of reports with no keys or only modifiers.
+    // clang-format off
+    EXPECT_CALL(driver, send_keyboard_mock(AnyOf(
+                KeyboardReport(),
+                KeyboardReport(KC_LSFT))))
+        .Times(AnyNumber());
+    // clang-format on
+
+    EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+    caps_word_on();
+
+    tap_key(key_llock);
+    tap_key(key_b);
+    idle_for(CAPS_WORD_IDLE_TIMEOUT);
+
+    VERIFY_AND_CLEAR(driver);
+}
 } // namespace

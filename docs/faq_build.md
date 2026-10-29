@@ -19,13 +19,10 @@ Note that running `make` with `sudo` is generally ***not*** a good idea, and you
 
 ### Linux `udev` Rules {#linux-udev-rules}
 
-On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or place [this file](https://github.com/qmk/qmk_firmware/tree/master/util/udev/50-qmk.rules) into `/etc/udev/rules.d/`.
-
-Once added, run the following:
+On Linux, you'll need proper privileges to communicate with the bootloader device. You can either use `sudo` when flashing firmware (not recommended), or install the udev rules from the [qmk_udev](https://github.com/qmk/qmk_udev) repository by running:
 
 ```
-sudo udevadm control --reload-rules
-sudo udevadm trigger
+util/install_udev.sh
 ```
 
 **Note:** With older versions of ModemManager (< 1.12), filtering only works when not in strict mode. The following commands can update that setting:
@@ -44,7 +41,7 @@ Pro Micro (Atmega32u4), make sure to include `CONFIG_USB_ACM=y`. Other devices m
 
 Issues encountered when flashing keyboards on Windows are most often due to having the wrong drivers installed for the bootloader, or none at all.
 
-Re-running the QMK installation script (`./util/qmk_install.sh` from the `qmk_firmware` directory in MSYS2 or WSL) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
+Re-running the QMK installation script (`curl -fsSL https://install.qmk.fm | sh`) or reinstalling the QMK Toolbox may fix the issue. Alternatively, you can download and run the [`qmk_driver_installer`](https://github.com/qmk/qmk_driver_installer) package manually.
 
 If that doesn't work, then you may need to download and run Zadig. See [Bootloader Driver Installation with Zadig](driver_installation_zadig) for more detailed information.
 

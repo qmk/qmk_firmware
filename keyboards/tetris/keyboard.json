@@ -1,7 +1,6 @@
 {
   "keyboard_name": "Tetris",
   "manufacturer": "Fengz",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0xFEED",
@@ -35,8 +34,6 @@
   "features": {
     "audio": true,
     "bootmagic": false,
-    "command": false,
-    "console": false,
     "encoder": true,
     "extrakey": true,
     "mousekey": true,

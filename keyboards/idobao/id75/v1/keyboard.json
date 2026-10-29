@@ -1,7 +1,6 @@
 {
   "keyboard_name": "ID75",
   "manufacturer": "IDOBAO",
-  "url": "",
   "maintainer": "qmk",
   "usb": {
     "vid": "0x6964",
@@ -14,7 +13,6 @@
   "features": {
     "backlight": true,
     "bootmagic": true,
-    "command": false,
     "console": true,
     "extrakey": true,
     "mousekey": true,
