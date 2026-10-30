@@ -241,13 +241,20 @@ static void led_task_timers(void) {
 
     // Update double buffer last hit timers
 #ifdef LED_MATRIX_KEYREACTIVE_ENABLED
-    uint8_t count = last_hit_buffer.count;
+    uint8_t count         = last_hit_buffer.count;
+    uint8_t expired_count = 0;
     for (uint8_t i = 0; i < count; ++i) {
         if (UINT16_MAX - deltaTime < last_hit_buffer.tick[i]) {
-            last_hit_buffer.count--;
-            continue;
+            expired_count++;
         }
         last_hit_buffer.tick[i] += deltaTime;
+    }
+    if (expired_count > 0) {
+        memmove(&last_hit_buffer.x[0], &last_hit_buffer.x[expired_count], count - expired_count);
+        memmove(&last_hit_buffer.y[0], &last_hit_buffer.y[expired_count], count - expired_count);
+        memmove(&last_hit_buffer.tick[0], &last_hit_buffer.tick[expired_count], (count - expired_count) * 2); // 16 bit
+        memmove(&last_hit_buffer.index[0], &last_hit_buffer.index[expired_count], count - expired_count);
+        last_hit_buffer.count = count - expired_count;
     }
 #endif // LED_MATRIX_KEYREACTIVE_ENABLED
 }
