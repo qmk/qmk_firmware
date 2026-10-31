@@ -9,6 +9,7 @@ from milc import cli
 import qmk.path
 from qmk.datetime import current_datetime
 from qmk.info import info_json
+from qmk.util import is_valid_bcd_string
 from qmk.json_schema import json_load
 from qmk.keymap import list_keymaps
 from qmk.keyboard import find_readme, list_keyboards, keyboard_alias_definitions
@@ -25,8 +26,7 @@ def _list_constants(output_folder):
     ret = {}
     for file in (output_folder / 'constants').glob('**/*.json'):
         name, _, version = file.stem.rpartition('_')
-        parts = version.split('.')
-        if not name or len(parts) != 3 or not all(part.isascii() and part.isdigit() for part in parts):
+        if not name or not is_valid_bcd_string(version):
             continue
         if name not in ret:
             ret[name] = []
