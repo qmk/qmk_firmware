@@ -4,7 +4,6 @@
 #----------------------------------------------------------------------------
 
 #Debug options
-VERBOSE                = no
 DEBUG_MATRIX_SCAN_RATE = no
 DEBUG_MATRIX           = no
 CONSOLE_ENABLE         = no
