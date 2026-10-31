@@ -32,6 +32,12 @@ void init_usb_driver(USBDriver *usbp);
 /* Restart the USB driver and bus */
 void restart_usb_driver(USBDriver *usbp);
 
+/* Change the USB interfaces a host sees (see docs/custom_quantum_functions.md) */
+bool usb_get_descriptor_kb(uint16_t wValue, uint16_t wIndex, const void **address, uint16_t *size);
+bool usb_get_descriptor_user(uint16_t wValue, uint16_t wIndex, const void **address, uint16_t *size);
+bool usb_interface_from_host_kb(uint8_t *interface);
+bool usb_interface_from_host_user(uint8_t *interface);
+
 bool send_report(usb_endpoint_in_lut_t endpoint, void *report, size_t size);
 
 /* ---------------
