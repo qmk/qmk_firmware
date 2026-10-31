@@ -245,9 +245,9 @@ TEST_F(ChordalHoldDefault, three_mod_taps_same_hand_streak_roll) {
 TEST_F(ChordalHoldDefault, queued_opposite_hand_mod_tap_tap_flushed_by_same_hand_mod_tap_releases_and_cleans_up) {
     TestDriver driver;
     InSequence s;
-    auto mt_a = KeymapKey(0, 1, 0, LGUI_T(KC_A)); // Left hand.
-    auto mt_d = KeymapKey(0, 3, 0, LCTL_T(KC_D)); // Left hand.
-    auto mt_k = KeymapKey(0, 7, 0, RCTL_T(KC_K)); // Right hand.
+    auto       mt_a = KeymapKey(0, 1, 0, LGUI_T(KC_A)); // Left hand.
+    auto       mt_d = KeymapKey(0, 3, 0, LCTL_T(KC_D)); // Left hand.
+    auto       mt_k = KeymapKey(0, 7, 0, RCTL_T(KC_K)); // Right hand.
     set_keymap({mt_a, mt_d, mt_k});
 
     EXPECT_NO_REPORT(driver);
@@ -295,10 +295,10 @@ TEST_F(ChordalHoldDefault, queued_opposite_hand_mod_tap_tap_flushed_by_same_hand
 TEST_F(ChordalHoldDefault, queued_opposite_hand_layer_tap_tap_flushed_by_same_hand_mod_tap_releases_and_cleans_up) {
     TestDriver driver;
     InSequence s;
-    auto mt_a   = KeymapKey(0, 1, 0, LGUI_T(KC_A)); // Left hand.
-    auto mt_d   = KeymapKey(0, 3, 0, LCTL_T(KC_D)); // Left hand.
-    auto lt_k   = KeymapKey(0, 7, 0, LT(1, KC_K));  // Right hand.
-    auto trns_k = KeymapKey(1, 7, 0, KC_TRNS);
+    auto       mt_a   = KeymapKey(0, 1, 0, LGUI_T(KC_A)); // Left hand.
+    auto       mt_d   = KeymapKey(0, 3, 0, LCTL_T(KC_D)); // Left hand.
+    auto       lt_k   = KeymapKey(0, 7, 0, LT(1, KC_K));  // Right hand.
+    auto       trns_k = KeymapKey(1, 7, 0, KC_TRNS);
     set_keymap({mt_a, mt_d, lt_k, trns_k});
 
     EXPECT_NO_REPORT(driver);
