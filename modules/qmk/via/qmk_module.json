@@ -1,0 +1,8 @@
+{
+    "module_name": "VIA",
+    "maintainer": "QMK Maintainers",
+    "license": "GPL-2.0-or-later",
+    "features": {
+        "tri_layer": true
+    }
+}
