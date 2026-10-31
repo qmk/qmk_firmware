@@ -250,29 +250,34 @@ typedef struct {
     uint16_t y;
 } PACKED report_digitizer_t;
 
-#if JOYSTICK_AXIS_RESOLUTION > 8
+#if defined(JOYSTICK_ENABLE) || defined(JOYSTICK_SHARED_EP)
+#    if JOYSTICK_AXIS_RESOLUTION > 8
 typedef int16_t joystick_axis_t;
-#else
+#    else
 typedef int8_t joystick_axis_t;
-#endif
+#    endif
 
 typedef struct {
-#ifdef JOYSTICK_SHARED_EP
+#    ifdef JOYSTICK_SHARED_EP
     uint8_t report_id;
-#endif
-#if JOYSTICK_AXIS_COUNT > 0
+#    endif
+#    if JOYSTICK_AXIS_COUNT > 0
     joystick_axis_t axes[JOYSTICK_AXIS_COUNT];
-#endif
+#    endif
 
-#ifdef JOYSTICK_HAS_HAT
+#    ifdef JOYSTICK_HAS_HAT
     int8_t  hat : 4;
     uint8_t reserved : 4;
-#endif
+#    endif
 
-#if JOYSTICK_BUTTON_COUNT > 0
+#    if JOYSTICK_BUTTON_COUNT > 0
     uint8_t buttons[(JOYSTICK_BUTTON_COUNT - 1) / 8 + 1];
-#endif
+#    endif
 } PACKED report_joystick_t;
+#else
+// Use an incomplete type for the send_joystick() declarations
+typedef struct report_joystick_t report_joystick_t;
+#endif
 
 /* keycode to system usage */
 static inline uint16_t KEYCODE2SYSTEM(uint8_t key) {
