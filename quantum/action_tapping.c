@@ -80,6 +80,10 @@ static void registered_taps_add(keypos_t key);
 static int8_t registered_tap_find(keypos_t key);
 /** Removes index `i` from the registered_taps array. */
 static void registered_taps_del_index(uint8_t i);
+/** If `record` is the release of a key that was previously settled as tapped,
+ * set tap.count = 1, remove it from the registered_taps array, and return true.
+ */
+static bool registered_taps_match_release(keyrecord_t *record);
 /** Logs the registered_taps array for debugging. */
 static void debug_registered_taps(void);
 
@@ -256,17 +260,7 @@ bool process_tapping(keyrecord_t *keyp) {
     const keyevent_t event = keyp->event;
 
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
-    if (!event.pressed) {
-        const int8_t i = registered_tap_find(event.key);
-        if (i != -1) {
-            // If a tap-hold key was previously settled as tapped, set its
-            // tap.count correspondingly on release.
-            keyp->tap.count = 1;
-            registered_taps_del_index(i);
-            ac_dprintf("Found tap release for [%d]\n", i);
-            debug_registered_taps();
-        }
-    }
+    registered_taps_match_release(keyp);
 #    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
 
     // state machine is in the "reset" state, no tapping key is to be
@@ -922,6 +916,22 @@ static void registered_taps_del_index(uint8_t i) {
     }
 }
 
+static bool registered_taps_match_release(keyrecord_t *record) {
+    if (!record->event.pressed) {
+        const int8_t i = registered_tap_find(record->event.key);
+        if (i != -1) {
+            // Key was previously settled as tapped, set its tap.count
+            // correspondingly on release.
+            record->tap.count = 1;
+            registered_taps_del_index(i);
+            ac_dprintf("Found tap release for [%d]\n", i);
+            debug_registered_taps();
+            return true;
+        }
+    }
+    return false;
+}
+
 static void debug_registered_taps(void) {
     ac_dprintf("registered_taps = { ");
     for (int8_t i = 0; i < num_registered_taps; ++i) {
@@ -980,6 +990,7 @@ static void waiting_buffer_chordal_hold_taps_until(keypos_t key) {
             record->tap.count = 1;
             registered_taps_add(record->event.key);
         }
+        registered_taps_match_release(record);
         process_record(record);
         waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
 
