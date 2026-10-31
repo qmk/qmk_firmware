@@ -99,6 +99,7 @@
                 "GD32VF103",
                 "WB32F3G71",
                 "WB32FQ95",
+                "CH579M",
                 "AT32F415",
                 "atmega16u2",
                 "atmega32u2",
@@ -266,7 +267,8 @@
                 "uf2boot",
                 "unknown",
                 "usbasploader",
-                "wb32-dfu"
+                "wb32-dfu",
+                "ch-isp"
             ]
         },
         "bootloader_instructions": {
