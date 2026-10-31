@@ -848,3 +848,45 @@ TEST_F(ChordalHoldHoldOnOtherKeyPress, two_mod_tap_keys_stuttered_press) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(ChordalHoldHoldOnOtherKeyPress, retained_mod_tap_release_not_stuck_by_hold_on_other_key_press) {
+    TestDriver driver;
+    InSequence s;
+
+    auto mod_tap_key1 = KeymapKey(0, 1, 0, LSFT_T(KC_F));
+    auto mod_tap_key2 = KeymapKey(0, MATRIX_COLS - 2, 0, RCTL_T(KC_K));
+    auto mod_tap_key3 = KeymapKey(0, 2, 0, LALT_T(KC_S));
+
+    set_keymap({mod_tap_key1, mod_tap_key2, mod_tap_key3});
+
+    // Hold the left-hand mod-tap key past the tapping term.
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+    mod_tap_key1.press();
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press the right-hand mod-tap key, then release the left-hand one.
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key2.press();
+    run_one_scan_loop();
+    mod_tap_key1.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Tap another left-hand mod-tap key, which settles the right-hand key as held.
+    EXPECT_REPORT(driver, (KC_RIGHT_CONTROL));
+    EXPECT_REPORT(driver, (KC_RIGHT_CONTROL, KC_S));
+    EXPECT_REPORT(driver, (KC_RIGHT_CONTROL));
+    mod_tap_key3.press();
+    run_one_scan_loop();
+    mod_tap_key3.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release the right-hand key. No modifiers should remain active.
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key2.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+    EXPECT_EQ(get_mods(), 0);
+}

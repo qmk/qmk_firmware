@@ -256,7 +256,7 @@ bool process_tapping(keyrecord_t *keyp) {
     const keyevent_t event = keyp->event;
 
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
-    if (!event.pressed) {
+    if (IS_EVENT(event) && !event.pressed) {
         const int8_t i = registered_tap_find(event.key);
         if (i != -1) {
             // If a tap-hold key was previously settled as tapped, set its
@@ -482,7 +482,9 @@ bool process_tapping(keyrecord_t *keyp) {
                                 process_record(&tapping_key);
 
 #    if defined(CHORDAL_HOLD)
-                                if (waiting_buffer_tail != waiting_buffer_head && is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
+                                // Only a pending press can take over as tapping_key. A retained release
+                                // must stay queued so that it is processed rather than dropped.
+                                if (waiting_buffer_tail != waiting_buffer_head && waiting_buffer[waiting_buffer_tail].event.pressed && is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
                                     tapping_key = waiting_buffer[waiting_buffer_tail];
                                     // Pop tail from the queue.
                                     waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
