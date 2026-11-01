@@ -27,6 +27,9 @@ Enter the bootloader in any of these ways:
 * **Bootmagic reset**: hold Esc (top left) while plugging in the keyboard
 * **Keycode in layout**: Hyper + R (`QK_BOOT`), or Circle + X
 * **Physical reset**: double-tap the RP2040 reset
+* **Hardware recovery**: set the `PROG` DIP switch to `ON`, then press the
+  adjacent `RESET` button. Return `PROG` to `OFF` before rebooting into the
+  firmware.
 
 ## Backlight
 
