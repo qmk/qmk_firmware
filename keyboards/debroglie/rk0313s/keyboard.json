@@ -2,7 +2,6 @@
     "keyboard_name": "RK0313S",
     "manufacturer": "DEBROGLIE",
     "maintainer": "Zeranoe",
-    "url": "https://github.com/Zeranoe",
     "processor": "STM32F072",
     "bootloader": "stm32-dfu",
     "diode_direction": "COL2ROW",
