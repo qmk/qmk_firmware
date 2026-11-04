@@ -842,3 +842,46 @@ TEST_F(FlowTapTest, roll_release_132) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+// Test that the release of a layer-tap key settled as tapped by Flow Tap is not
+// retained while another tap-hold key is unsettled.
+TEST_F(FlowTapTest, layer_tap_settled_as_tap_released_while_other_tap_hold_unsettled) {
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key   = KeymapKey(0, 0, 0, KC_A);
+    auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_B));
+    auto       thumb_key     = KeymapKey(0, 2, 0, LT(2, KC_ENT));
+
+    set_keymap({regular_key, layer_tap_key, thumb_key});
+
+    // Tap regular key.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(regular_key);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press layer-tap key quickly after the regular key, settling it as tapped.
+    EXPECT_REPORT(driver, (KC_B));
+    layer_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press thumb key. KC_ENT is not a Flow Tap key, so it is left unsettled.
+    EXPECT_NO_REPORT(driver);
+    thumb_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap key. KC_B should be released immediately.
+    EXPECT_EMPTY_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release thumb key.
+    EXPECT_REPORT(driver, (KC_ENT));
+    EXPECT_EMPTY_REPORT(driver);
+    thumb_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}

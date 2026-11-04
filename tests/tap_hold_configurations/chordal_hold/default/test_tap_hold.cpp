@@ -262,3 +262,47 @@ TEST_F(ChordalHoldDefault, tap_regular_key_while_layer_tap_key_is_held) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+// Test that the release of a layer-tap key settled as tapped by Chordal Hold
+// is not retained while another tap-hold key is unsettled.
+TEST_F(ChordalHoldDefault, layer_tap_settled_as_tap_released_while_other_tap_hold_unsettled) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_A));
+    auto       regular_key   = KeymapKey(0, 2, 0, KC_B);
+    auto       thumb_key     = KeymapKey(0, 0, 2, LT(2, KC_C));
+
+    set_keymap({layer_tap_key, regular_key, thumb_key});
+
+    // Press layer-tap key and a same-hand regular key, settling the layer-tap
+    // key as tapped.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_B));
+    layer_tap_key.press();
+    run_one_scan_loop();
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press thumb key, which is left unsettled.
+    EXPECT_NO_REPORT(driver);
+    thumb_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap key. KC_A should be released immediately.
+    EXPECT_REPORT(driver, (KC_B));
+    layer_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release other keys.
+    EXPECT_EMPTY_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_C));
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    thumb_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
