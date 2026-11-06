@@ -12,7 +12,7 @@ LED_MATRIX_EFFECT(SOLID_REACTIVE_MULTIWIDE)
 #        ifdef LED_MATRIX_CUSTOM_EFFECT_IMPLS
 
 static uint8_t SOLID_REACTIVE_WIDE_math(uint8_t val, int16_t dx, int16_t dy, uint8_t dist, uint16_t tick) {
-    uint16_t effect = tick + dist * 5;
+    uint16_t effect = tick > 255 ? 255 : tick + dist * 5;
     if (effect > 255) effect = 255;
     return qadd8(val, 255 - effect);
 }
