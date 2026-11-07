@@ -438,8 +438,9 @@ bool process_tapping(keyrecord_t *keyp) {
                         case ACT_LAYER_TAP_EXT:
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
                             // Already settled as tapped by Chordal Hold or
-                            // Flow Tap, so its layer was never turned on.
-                            if (is_settled_tap_release) break;
+                            // Flow Tap, so its layer was never turned on. A
+                            // modifier tapping keycode is still retained.
+                            if (is_settled_tap_release && !IS_MODIFIER_KEYCODE(action.layer_tap.code)) break;
 #    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
                             switch (action.layer_tap.code) {
                                 case 0 ...(OP_TAP_TOGGLE - 1):
