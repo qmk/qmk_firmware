@@ -1,6 +1,6 @@
 {
     "manufacturer": "Thomas Haukland",
-    "keyboard_name": "cheapino",
+    "keyboard_name": "Cheapino v2",
     "maintainer": "tompi",
     "bootloader": "rp2040",
     "bootmagic": {

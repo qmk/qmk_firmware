@@ -1,6 +1,6 @@
-# Cheapino
+# Cheapino v2
 
-![Cheapino](https://raw.githubusercontent.com/tompi/cheapino/master/doc/gallery/27.png)
+![Cheapino v2](https://raw.githubusercontent.com/tompi/cheapino/master/doc/gallery/27.png)
 
 A budget-friendly 36-key split keyboard with a rotary encoder, designed as an accessible entry point for building and programming your own keyboard. Both halves share one RP2040 controller, connected over an RJ45 cable.
 
@@ -10,11 +10,11 @@ A budget-friendly 36-key split keyboard with a rotary encoder, designed as an ac
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cheapino:default
+    make cheapino/v2:default
 
 Flashing example for this keyboard:
 
-    make cheapino:default:flash
+    make cheapino/v2:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
