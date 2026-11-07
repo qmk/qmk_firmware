@@ -1,20 +1,22 @@
-# Cheapino v2
+# Cheapino
 
-![Cheapino v2](https://raw.githubusercontent.com/tompi/cheapino/master/doc/gallery/27.png)
+![Cheapino](https://raw.githubusercontent.com/tompi/cheapino/master/doc/gallery/27.png)
 
 A budget-friendly 36-key split keyboard with a rotary encoder, designed as an accessible entry point for building and programming your own keyboard. Both halves share one RP2040 controller, connected over an RJ45 cable.
 
 * Keyboard Maintainer: [Thomas Haukland](https://github.com/tompi)
-* Hardware Supported: Cheapino v2 PCB with an RP2040-Zero controller
+* Hardware Supported: Cheapino v1 and v2 PCBs with an RP2040-Zero controller
 * Hardware Availability: Open source, design files and build guide at [tompi/cheapino](https://github.com/tompi/cheapino)
 
-Make example for this keyboard (after setting up your build environment):
+Make example for this keyboard (after setting up your build environment), using `v1` or `v2` to match your PCB:
 
     make cheapino/v2:default
 
 Flashing example for this keyboard:
 
     make cheapino/v2:default:flash
+
+The revision is printed on the PCB. The firmwares aren't interchangeable, because the two revisions are wired differently.
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

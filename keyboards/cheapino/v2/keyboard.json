@@ -1,48 +1,14 @@
 {
-    "manufacturer": "Thomas Haukland",
     "keyboard_name": "Cheapino v2",
-    "maintainer": "tompi",
-    "bootloader": "rp2040",
     "bootmagic": {
         "matrix": [4, 10]
     },
-    "diode_direction": "ROW2COL",
-    "encoder": {
-        "driver": "custom"
-    },
-    "features": {
-        "bootmagic": true,
-        "deferred_exec": true,
-        "encoder": true,
-        "extrakey": true,
-        "mousekey": true,
-        "nkro": false,
-        "rgblight": true
-    },
     "matrix_pins": {
         "cols": ["GP6", "GP6", "GP5", "GP5", "GP4", "GP4", "GP14", "GP14", "GP15", "GP15", "GP26", "GP26"],
-        "custom": true,
-        "custom_lite": true,
         "rows": ["GP3", "GP1", "GP2", "GP0", "GP27", "GP28", "GP29", "GP8"]
     },
-    "processor": "RP2040",
-    "rgblight": {
-        "default": {
-            "hue": 128,
-            "sat": 128,
-            "val": 64
-        },
-        "led_count": 1
-    },
-    "url": "https://github.com/tompi/cheapino",
     "usb": {
-        "device_version": "1.0.0",
-        "pid": "0x10B8",
-        "vid": "0xFEE3"
-    },
-    "ws2812": {
-        "driver": "vendor",
-        "pin": "GP16"
+        "pid": "0x10B8"
     },
     "community_layouts": ["split_3x5_3"],
     "layouts": {
