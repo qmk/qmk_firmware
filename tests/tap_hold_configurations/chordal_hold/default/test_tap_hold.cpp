@@ -306,3 +306,52 @@ TEST_F(ChordalHoldDefault, layer_tap_settled_as_tap_released_while_other_tap_hol
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+// Test that the release of a layer-tap key with a modifier tapping keycode,
+// settled as tapped by Chordal Hold, is retained while another tap-hold key is
+// unsettled, so that the modifier applies to that key's tap.
+TEST_F(ChordalHoldDefault, layer_tap_mod_settled_as_tap_retained_while_other_tap_hold_unsettled) {
+    TestDriver driver;
+    InSequence s;
+    auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_LSFT));
+    auto       regular_key   = KeymapKey(0, 2, 0, KC_B);
+    auto       thumb_key     = KeymapKey(0, 0, 2, LT(2, KC_C));
+
+    set_keymap({layer_tap_key, regular_key, thumb_key});
+
+    // Press layer-tap key and a same-hand regular key, settling the layer-tap
+    // key as tapped.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_B));
+    layer_tap_key.press();
+    run_one_scan_loop();
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press thumb key, which is left unsettled.
+    EXPECT_NO_REPORT(driver);
+    thumb_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap key. KC_LSFT should be retained.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release regular key, which is not retained.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release thumb key. KC_C should be tapped with KC_LSFT held.
+    EXPECT_REPORT(driver, (KC_LSFT, KC_C));
+    EXPECT_REPORT(driver, (KC_C));
+    EXPECT_EMPTY_REPORT(driver);
+    thumb_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
