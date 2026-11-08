@@ -16,7 +16,7 @@
             "KC_TRNS", "RM_VALD", "RM_VALU", "KC_TRNS", "KC_TRNS"            , "KC_TRNS", "KC_TRNS",    "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "RM_TOGG"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS",
-            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_VOLU",
+            "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS"            , "KC_TRNS",               "KC_TRNS"            , "KC_MUTE", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_VOLU",
             "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MPLY",                          "KC_MPLY", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_TRNS", "KC_MPRV", "KC_VOLD", "KC_MNXT"
         ]
     ]
