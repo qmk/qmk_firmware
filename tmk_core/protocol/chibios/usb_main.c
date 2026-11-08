@@ -550,8 +550,10 @@ bool recv_midi_packet(MIDI_EventPacket_t *const event) {
 static cdc_linecoding_t linecoding = {{0x00, 0x96, 0x00, 0x00}, LC_STOP_1, LC_PARITY_NONE, 8};
 
 static void set_line_coding_transfer_cb(USBDriver *usbp) {
-    size_t received = usbGetReceiveTransactionSizeX(usbp, 0);
-    memcpy(&linecoding, control_out_buf, MIN(received, sizeof(linecoding)));
+    if (usbGetReceiveTransactionSizeX(usbp, 0) != sizeof(linecoding)) {
+        return;
+    }
+    memcpy(&linecoding, control_out_buf, sizeof(linecoding));
 }
 
 bool virtser_usb_request_cb(USBDriver *usbp) {
