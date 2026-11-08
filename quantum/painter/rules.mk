@@ -288,3 +288,11 @@ endif
 ifeq ($(strip $(QUANTUM_PAINTER_LVGL_INTEGRATION)), yes)
     include $(QUANTUM_DIR)/painter/lvgl/rules.mk
 endif
+
+# add every keyboard-, keymap-, or user- level fonts and images
+QP_DIRS := $(KEYBOARD_PATHS) $(KEYMAP_PATH) $(USER_PATH)
+QP_FONTS := $(foreach dir,$(QP_DIRS),$(wildcard $(dir)/painter/fonts/*.qff.c))
+QP_IMGS := $(foreach dir,$(QP_DIRS),$(wildcard $(dir)/painter/images/*.qgf.c))
+SRC += $(QP_FONTS) $(QP_IMGS)
+
+# TODO: generate a header file (with CLI) which includes all the headers found
