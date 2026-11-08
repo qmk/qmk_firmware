@@ -57,6 +57,9 @@
 #ifndef ENCODER_BUTTON_COL
 #    define ENCODER_BUTTON_COL 0
 #endif
+#ifndef PLOOPY_DRAGSCROLL_HOLD_THRESHOLD_MS
+#    define PLOOPY_DRAGSCROLL_HOLD_THRESHOLD_MS 200
+#endif
 
 keyboard_config_t keyboard_config;
 uint16_t          dpi_array[] = PLOOPY_DPI_OPTIONS;
@@ -67,6 +70,10 @@ bool  is_scroll_clicked    = false;
 bool  is_drag_scroll       = false;
 float scroll_accumulated_h = 0;
 float scroll_accumulated_v = 0;
+
+#ifdef PLOOPY_DRAGSCROLL_HYBRID
+static uint16_t drag_scroll_hybrid_timer = 0;
+#endif
 
 #ifdef ENCODER_ENABLE
 uint16_t lastScroll        = 0; // Previous confirmed wheel event
@@ -191,6 +198,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t* record) {
     if (keycode == DRAG_SCROLL) {
 #ifdef PLOOPY_DRAGSCROLL_MOMENTARY
         is_drag_scroll = record->event.pressed;
+#elif defined(PLOOPY_DRAGSCROLL_HYBRID)
+        if (record->event.pressed) {
+            drag_scroll_hybrid_timer = timer_read();
+            toggle_drag_scroll();
+        } else if (timer_elapsed(drag_scroll_hybrid_timer) > PLOOPY_DRAGSCROLL_HOLD_THRESHOLD_MS) {
+            toggle_drag_scroll();
+        }
 #else
         if (record->event.pressed) {
             toggle_drag_scroll();
