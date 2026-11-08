@@ -170,7 +170,7 @@ uint8_t host_keyboard_leds(void) {
 }
 
 led_t host_keyboard_led_state(void) {
-    return (led_t)host_keyboard_leds();
+    return (led_t){.raw = host_keyboard_leds()};
 }
 
 /* send report */
