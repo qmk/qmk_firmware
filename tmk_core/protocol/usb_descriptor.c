@@ -90,6 +90,21 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
         HID_RI_REPORT_COUNT(8, 0x01),
         HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_INPUT(8, HID_IOF_CONSTANT),
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+        // Boot keycodes (6 bytes), declared constant; see report_keyboard_nkro_t
+        HID_RI_REPORT_COUNT(8, 0x06),
+        HID_RI_REPORT_SIZE(8, 0x08),
+        HID_RI_INPUT(8, HID_IOF_CONSTANT),
+        // NKRO bitfield
+        HID_RI_USAGE_PAGE(8, 0x07),    // Keyboard/Keypad
+        HID_RI_USAGE_MINIMUM(8, 0x00),
+        HID_RI_USAGE_MAXIMUM(8, NKRO_REPORT_BITS * 8 - 1),
+        HID_RI_LOGICAL_MINIMUM(8, 0x00),
+        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+        HID_RI_REPORT_COUNT(8, NKRO_REPORT_BITS * 8),
+        HID_RI_REPORT_SIZE(8, 0x01),
+        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+#else
         // Keycodes (6 bytes)
         HID_RI_USAGE_PAGE(8, 0x07),    // Keyboard/Keypad
         HID_RI_USAGE_MINIMUM(8, 0x00),
@@ -99,6 +114,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
         HID_RI_REPORT_COUNT(8, 0x06),
         HID_RI_REPORT_SIZE(8, 0x08),
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
+#endif
 
         // Status LEDs (5 bits)
         HID_RI_USAGE_PAGE(8, 0x08),    // LED
@@ -116,6 +132,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
     HID_RI_END_COLLECTION(0),
 #ifndef KEYBOARD_SHARED_EP
 };
+#endif
+
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+STATIC_ASSERT(sizeof(report_keyboard_nkro_t) <= KEYBOARD_EPSIZE, "report_keyboard_nkro_t must fit within KEYBOARD_EPSIZE");
 #endif
 
 #ifdef MOUSE_ENABLE
@@ -413,7 +433,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_END_COLLECTION(0),
 #endif
 
-#ifdef NKRO_ENABLE
+#if defined(NKRO_ENABLE) && !defined(NKRO_BOOT_COMPAT_ENABLE)
     HID_RI_USAGE_PAGE(8, 0x01),        // Generic Desktop
     HID_RI_USAGE(8, 0x06),             // Keyboard
     HID_RI_COLLECTION(8, 0x01),        // Application

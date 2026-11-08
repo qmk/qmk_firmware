@@ -33,15 +33,23 @@ class TestDriver {
         m_leds = leds;
     }
 
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+    MOCK_METHOD1(send_keyboard_nkro_mock, void(report_keyboard_nkro_t&));
+#else
     MOCK_METHOD1(send_keyboard_mock, void(report_keyboard_t&));
     MOCK_METHOD1(send_nkro_mock, void(report_nkro_t&));
+#endif
     MOCK_METHOD1(send_mouse_mock, void(report_mouse_t&));
     MOCK_METHOD1(send_extra_mock, void(report_extra_t&));
 
    private:
-    static uint8_t     keyboard_leds(void);
-    static void        send_keyboard(report_keyboard_t* report);
-    static void        send_nkro(report_nkro_t* report);
+    static uint8_t keyboard_leds(void);
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+    static void send_keyboard_nkro(report_keyboard_nkro_t* report);
+#else
+    static void send_keyboard(report_keyboard_t* report);
+    static void send_nkro(report_nkro_t* report);
+#endif
     static void        send_mouse(report_mouse_t* report);
     static void        send_extra(report_extra_t* report);
     host_driver_t      m_driver;
@@ -66,7 +74,11 @@ class TestDriver {
  *
  *   EXPECT_REPORT(driver, (KC_LSFT, KC_A)).Times(1);
  */
-#define EXPECT_REPORT(driver, report) EXPECT_CALL((driver), send_keyboard_mock(KeyboardReport report))
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+#    define EXPECT_REPORT(driver, report) EXPECT_CALL((driver), send_keyboard_nkro_mock(KeyboardNkroReport report))
+#else
+#    define EXPECT_REPORT(driver, report) EXPECT_CALL((driver), send_keyboard_mock(KeyboardReport report))
+#endif
 
 /**
  * @brief Sets gmock expectation that a mouse report of `report` will be sent.
@@ -124,7 +136,11 @@ class TestDriver {
  *
  *   EXPECT_ANY_REPORT(driver).Times(1);
  */
-#define EXPECT_ANY_REPORT(driver) EXPECT_CALL((driver), send_keyboard_mock(_))
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+#    define EXPECT_ANY_REPORT(driver) EXPECT_CALL((driver), send_keyboard_nkro_mock(_))
+#else
+#    define EXPECT_ANY_REPORT(driver) EXPECT_CALL((driver), send_keyboard_mock(_))
+#endif
 
 /**
  * @brief Sets gmock expectation that a mouse report will be sent, without matching its content.

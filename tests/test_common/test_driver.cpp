@@ -32,7 +32,11 @@ uint8_t hex_digit_to_keycode(uint8_t digit) {
 }
 } // namespace
 
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard_nkro, &TestDriver::send_mouse, &TestDriver::send_extra} {
+#else
 TestDriver::TestDriver() : m_driver{&TestDriver::keyboard_leds, &TestDriver::send_keyboard, &TestDriver::send_nkro, &TestDriver::send_mouse, &TestDriver::send_extra} {
+#endif
     host_set_driver(&m_driver);
     m_this = this;
 }
@@ -45,6 +49,12 @@ uint8_t TestDriver::keyboard_leds(void) {
     return m_this->m_leds;
 }
 
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+void TestDriver::send_keyboard_nkro(report_keyboard_nkro_t* report) {
+    test_logger.trace() << *report;
+    m_this->send_keyboard_nkro_mock(*report);
+}
+#else
 void TestDriver::send_keyboard(report_keyboard_t* report) {
     test_logger.trace() << *report;
     m_this->send_keyboard_mock(*report);
@@ -53,6 +63,7 @@ void TestDriver::send_keyboard(report_keyboard_t* report) {
 void TestDriver::send_nkro(report_nkro_t* report) {
     m_this->send_nkro_mock(*report);
 }
+#endif
 
 void TestDriver::send_mouse(report_mouse_t* report) {
     test_logger.trace() << std::setw(10) << std::left << "send_mouse: (X:" << (int)report->x << ", Y:" << (int)report->y << ", H:" << (int)report->h << ", V:" << (int)report->v << ", B:" << (int)report->buttons << ")" << std::endl;

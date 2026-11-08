@@ -6,6 +6,23 @@ SRC +=	\
 
 SHARED_EP_ENABLE = no
 MOUSE_SHARED_EP ?= yes
+
+ifeq ($(strip $(NKRO_BOOT_COMPAT_ENABLE)), yes)
+    override NKRO_ENABLE = yes
+    # The combined report must sit on the keyboard's own interface.
+    ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
+        $(call WARNING_MESSAGE, KEYBOARD_SHARED_EP is ignored with NKRO_BOOT_COMPAT_ENABLE and will be disabled)
+    endif
+    override KEYBOARD_SHARED_EP = no
+    # V-USB's 8-byte interrupt endpoint cannot carry the combined report in one packet.
+    ifeq ($(strip $(PROTOCOL)), VUSB)
+        $(call CATASTROPHIC_ERROR,Invalid NKRO_BOOT_COMPAT_ENABLE,NKRO_BOOT_COMPAT_ENABLE is not supported on V-USB)
+    endif
+    ifeq ($(strip $(BLUETOOTH_ENABLE)), yes)
+        $(call CATASTROPHIC_ERROR,Invalid NKRO_BOOT_COMPAT_ENABLE,NKRO_BOOT_COMPAT_ENABLE is not compatible with BLUETOOTH_ENABLE)
+    endif
+endif
+
 ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
     OPT_DEFS += -DKEYBOARD_SHARED_EP
     SHARED_EP_ENABLE = yes
@@ -43,7 +60,10 @@ endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
     OPT_DEFS += -DNKRO_ENABLE
-    SHARED_EP_ENABLE = yes
+    # Boot-compatibility folds NKRO into the keyboard report, so it needs no shared endpoint.
+    ifneq ($(strip $(NKRO_BOOT_COMPAT_ENABLE)), yes)
+        SHARED_EP_ENABLE = yes
+    endif
 endif
 
 ifeq ($(strip $(NO_SUSPEND_POWER_DOWN)), yes)
