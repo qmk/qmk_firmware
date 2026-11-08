@@ -1,4 +1,4 @@
- /* Copyright 2017 F_YUUCHI
+/* Copyright 2017 F_YUUCHI
   * Copyright 2020 Drashna Jaelre <@drashna>
   * Copyright 2020 Ben Roesner (keycapsss.com)
   *
