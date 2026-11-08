@@ -50,10 +50,14 @@ void eeprom_write_dword(uint32_t *addr, uint32_t value) {
 }
 
 void eeprom_update_block(const void *buf, void *addr, size_t len) {
-    uint8_t read_buf[len];
-    eeprom_read_block(read_buf, addr, len);
-    if (memcmp(buf, read_buf, len) != 0) {
-        eeprom_write_block(buf, addr, len);
+    uint8_t read_buf[16];
+    for (size_t offset = 0; offset < len; offset += sizeof(read_buf)) {
+        size_t chunk = len - offset < sizeof(read_buf) ? len - offset : sizeof(read_buf);
+        eeprom_read_block(read_buf, (const uint8_t *)addr + offset, chunk);
+        if (memcmp((const uint8_t *)buf + offset, read_buf, chunk) != 0) {
+            eeprom_write_block(buf, addr, len);
+            return;
+        }
     }
 }
 
