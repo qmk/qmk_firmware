@@ -495,10 +495,6 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM PloverReport[] = {
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
     HID_RI_END_COLLECTION(0),
 };
-
-// The Plover HID report is sent with sizeof(report_plover_hid_t), but the endpoint and descriptor
-// are sized with PLOVER_HID_EPSIZE; they must match or reports get truncated/padded.
-STATIC_ASSERT(sizeof(report_plover_hid_t) == PLOVER_HID_EPSIZE, "report_plover_hid_t size must match PLOVER_HID_EPSIZE");
 #endif
 
 #ifdef CONSOLE_ENABLE
@@ -515,6 +511,72 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
         HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
     HID_RI_END_COLLECTION(0),
 };
+#endif
+
+// Report-to-endpoint routing mirrors tmk_core/protocol/chibios/usb_endpoints.c.
+#define STATIC_EPSIZE_ASSERT(report, epsize) STATIC_ASSERT(sizeof(report) <= (epsize) && (epsize) <= 64, #report " must fit within " #epsize " (max 64 bytes)")
+
+#ifdef KEYBOARD_SHARED_EP
+STATIC_EPSIZE_ASSERT(report_keyboard_t, SHARED_EPSIZE);
+#else
+STATIC_EPSIZE_ASSERT(report_keyboard_t, KEYBOARD_EPSIZE);
+#endif
+
+#ifdef NKRO_ENABLE
+STATIC_EPSIZE_ASSERT(report_nkro_t, SHARED_EPSIZE);
+#endif
+
+#ifdef MOUSE_ENABLE
+#    ifdef MOUSE_SHARED_EP
+STATIC_EPSIZE_ASSERT(report_mouse_t, SHARED_EPSIZE);
+#    else
+STATIC_EPSIZE_ASSERT(report_mouse_t, MOUSE_EPSIZE);
+#    endif
+#endif
+
+#ifdef EXTRAKEY_ENABLE
+STATIC_EPSIZE_ASSERT(report_extra_t, SHARED_EPSIZE);
+#endif
+
+#ifdef PROGRAMMABLE_BUTTON_ENABLE
+STATIC_EPSIZE_ASSERT(report_programmable_button_t, SHARED_EPSIZE);
+#endif
+
+#ifdef JOYSTICK_ENABLE
+#    ifdef JOYSTICK_SHARED_EP
+STATIC_EPSIZE_ASSERT(report_joystick_t, SHARED_EPSIZE);
+#    else
+STATIC_EPSIZE_ASSERT(report_joystick_t, JOYSTICK_EPSIZE);
+#    endif
+#endif
+
+#ifdef DIGITIZER_ENABLE
+#    ifdef DIGITIZER_SHARED_EP
+STATIC_EPSIZE_ASSERT(report_digitizer_t, SHARED_EPSIZE);
+#    else
+STATIC_EPSIZE_ASSERT(report_digitizer_t, DIGITIZER_EPSIZE);
+#    endif
+#endif
+
+#ifdef PLOVER_HID_ENABLE
+STATIC_EPSIZE_ASSERT(report_plover_hid_t, PLOVER_HID_EPSIZE);
+#endif
+
+#ifdef RAW_ENABLE
+STATIC_ASSERT(RAW_EPSIZE <= 64, "RAW_EPSIZE must be <= 64 bytes");
+#endif
+
+#ifdef CONSOLE_ENABLE
+STATIC_ASSERT(CONSOLE_EPSIZE <= 64, "CONSOLE_EPSIZE must be <= 64 bytes");
+#endif
+
+#ifdef MIDI_ENABLE
+STATIC_ASSERT(MIDI_STREAM_EPSIZE <= 64, "MIDI_STREAM_EPSIZE must be <= 64 bytes");
+#endif
+
+#ifdef VIRTSER_ENABLE
+STATIC_ASSERT(CDC_EPSIZE <= 64, "CDC_EPSIZE must be <= 64 bytes");
+STATIC_ASSERT(CDC_NOTIFICATION_EPSIZE <= 64, "CDC_NOTIFICATION_EPSIZE must be <= 64 bytes");
 #endif
 
 /*
