@@ -227,7 +227,8 @@ TEST_F(EepromStm32Test, TestWriteWord) {
     /* Check values */
     /* Direct compacted-area */
     EXPECT_EQ(*(uint16_t*)&FlashBuf[EEPROM_BASE], (uint16_t)~0xdead);
-    EXPECT_EQ(*(uint16_t*)&FlashBuf[EEPROM_BASE + 3], (uint16_t)~0xbeef);
+    EXPECT_EQ(FlashBuf[EEPROM_BASE + 3], (uint8_t)~0xef);
+    EXPECT_EQ(FlashBuf[EEPROM_BASE + 4], (uint8_t)~0xbe);
     EXPECT_EQ(*(uint16_t*)&FlashBuf[EEPROM_BASE + 200], (uint16_t)~0xabcd);
     EXPECT_EQ(FlashBuf[EEPROM_BASE + 203], (uint8_t)~0x76);
     EXPECT_EQ(FlashBuf[EEPROM_BASE + 204], (uint8_t)~0x98);
