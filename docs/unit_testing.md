@@ -52,6 +52,14 @@ make test:all DEBUG=1
 
 Alternatively, add `CONSOLE_ENABLE=yes` to the tests `rules.mk`.
 
+The tests can also be built and run under AddressSanitizer and UndefinedBehaviorSanitizer, which abort on the first out-of-bounds access, use-after-free, or undefined operation:
+
+```
+make test:all SANITIZE=yes
+```
+
+The emulated EEPROM used by the tests aborts in the same way on any access outside its configured size.
+
 ## Full Integration Tests
 
 It's not yet possible to do a full integration test, where you would compile the whole firmware and define a keymap that you are going to test. However there are plans for doing that, because writing tests that way would probably be easier, at least for people that are not used to unit testing.
