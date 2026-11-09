@@ -14,18 +14,28 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <stdio.h>
+#include <stdlib.h>
 #include "eeprom.h"
 
 static uint8_t buffer[TOTAL_EEPROM_BYTE_COUNT];
 
-uint8_t eeprom_read_byte(const uint8_t *addr) {
+// Abort on any access outside the emulated EEPROM rather than silently reading or corrupting whatever follows the backing array.
+static uintptr_t checked_offset(const void *addr) {
     uintptr_t offset = (uintptr_t)addr;
-    return buffer[offset];
+    if (offset >= TOTAL_EEPROM_BYTE_COUNT) {
+        fprintf(stderr, "eeprom: address %#zx is outside the emulated EEPROM (%zu bytes)\n", (size_t)offset, (size_t)TOTAL_EEPROM_BYTE_COUNT);
+        abort();
+    }
+    return offset;
+}
+
+uint8_t eeprom_read_byte(const uint8_t *addr) {
+    return buffer[checked_offset(addr)];
 }
 
 void eeprom_write_byte(uint8_t *addr, uint8_t value) {
-    uintptr_t offset = (uintptr_t)addr;
-    buffer[offset]   = value;
+    buffer[checked_offset(addr)] = value;
 }
 
 uint16_t eeprom_read_word(const uint16_t *addr) {
