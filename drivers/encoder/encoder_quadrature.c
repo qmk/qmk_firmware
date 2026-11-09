@@ -9,6 +9,7 @@
 #include "action.h"
 #include "keycodes.h"
 #include "wait.h"
+#include "util.h"
 
 #ifdef SPLIT_KEYBOARD
 #    include "split_util.h"
@@ -123,7 +124,7 @@ void encoder_driver_init(void) {
     memset(encoder_pulses, 0, sizeof(encoder_pulses));
     const pin_t encoders_pad_a_left[] = ENCODER_A_PINS;
     const pin_t encoders_pad_b_left[] = ENCODER_B_PINS;
-    for (uint8_t i = 0; i < thisCount; i++) {
+    for (uint8_t i = 0; i < thisCount && i < ARRAY_SIZE(encoders_pad_a_left); i++) {
         encoders_pad_a[i] = encoders_pad_a_left[i];
         encoders_pad_b[i] = encoders_pad_b_left[i];
     }
