@@ -34,5 +34,4 @@ Enter the bootloader in any of these ways:
 ## Backlight
 
 Four static effects are available: solid colour, Alphas/Mods and the two
-linear gradients. Lighting adjustments repeat while held and are saved
-three seconds after the last adjustment.
+linear gradients. Hold Circle to show the lighting controls on the OLED.

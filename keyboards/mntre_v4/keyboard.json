@@ -3,6 +3,7 @@
     "keyboard_name": "MNT Reform Keyboard 4.0",
     "maintainer": "JohnnyLeone",
     "bootloader": "rp2040",
+    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
@@ -11,11 +12,8 @@
         "rgb_matrix": true
     },
     "matrix_pins": {
-        "custom_lite": true
-    },
-    "matrix_size": {
-        "cols": 14,
-        "rows": 6
+        "cols": ["GP6", "GP7", "GP8", "GP9", "GP10", "GP11", "GP12", "GP13", "GP14", "GP15", "GP16", "GP17", "GP3", "GP2"],
+        "rows": ["GP23", "GP22", "GP21", "GP20", "GP19", "GP18"]
     },
     "processor": "RP2040",
     "rgb_matrix": {
@@ -29,7 +27,7 @@
             "hue": 224,
             "val": 112
         },
-        "driver": "custom",
+        "driver": "ws2812",
         "layout": [
             {"matrix": [0, 0], "x": 8, "y": 5, "flags": 1},
             {"matrix": [0, 1], "x": 23, "y": 5, "flags": 4},
@@ -181,7 +179,8 @@
                 {"matrix": [3, 9], "x": 9.75, "y": 3},
                 {"matrix": [3, 10], "x": 10.75, "y": 3},
                 {"matrix": [3, 11], "x": 11.75, "y": 3},
-                {"matrix": [3, 12], "x": 12.75, "y": 3, "w": 1.75},
+                {"matrix": [3, 12], "x": 12.75, "y": 3},
+                {"matrix": [3, 13], "x": 13.75, "y": 3, "w": 0.75},
                 {"matrix": [4, 0], "x": 0, "y": 4, "w": 1.25},
                 {"matrix": [4, 1], "x": 1.25, "y": 4},
                 {"matrix": [4, 2], "x": 2.25, "y": 4},
@@ -200,7 +199,8 @@
                 {"matrix": [5, 1], "x": 1.25, "y": 5, "w": 1.5},
                 {"matrix": [5, 2], "x": 2.75, "y": 5, "w": 1.5},
                 {"matrix": [5, 3], "x": 4.25, "y": 5, "w": 1.5},
-                {"matrix": [5, 4], "x": 5.75, "y": 5, "w": 2},
+                {"matrix": [5, 4], "x": 5.75, "y": 5},
+                {"matrix": [5, 5], "x": 6.75, "y": 5},
                 {"matrix": [5, 6], "x": 7.75, "y": 5, "w": 1.5},
                 {"matrix": [5, 7], "x": 9.25, "y": 5},
                 {"matrix": [5, 8], "x": 10.25, "y": 5},

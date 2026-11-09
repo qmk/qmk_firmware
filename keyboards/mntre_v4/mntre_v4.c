@@ -1,134 +1,144 @@
 // Copyright 2026 Andreas Hirschauer
-// SPDX-License-Identifier: GPL-2.0-or-later
+// Copyright 2021-2024 MNT Research GmbH (mntre.com)
+// SPDX-License-Identifier: GPL-3.0-or-later
 
 #include QMK_KEYBOARD_H
 
-// Repeat held lighting controls and batch RP2040 flash writes until idle.
-#define LIGHT_REPEAT_DELAY_MS 300
-#define LIGHT_REPEAT_INTERVAL_MS 40
-#define LIGHT_SAVE_DELAY_MS 3000
+#ifdef OLED_ENABLE
+#    include <stdio.h>
 
-static uint16_t light_repeat_keycode;
-static uint32_t light_repeat_at;
-static bool     light_save_pending;
-static uint32_t light_save_at;
+#    define SPLASH_DURATION_MS 1500
+#    define RGB_PAGE_DURATION_MS 2000
 
-static bool light_repeatable(uint16_t keycode) {
-    switch (keycode) {
-        case RM_VALU:
-        case RM_VALD:
-        case RM_HUEU:
-        case RM_HUED:
-        case RM_SATU:
-        case RM_SATD:
-        case RM_SPDU:
-        case RM_SPDD:
-            return true;
-        default:
-            return false;
+// MNT Reform logo, three 72-pixel-wide pages.
+// Taken from reform2-keyboard4-fw/src/font.c (GPL-3.0-or-later).
+// clang-format off
+static const char PROGMEM mnt_logo[3][72] = {
+    {
+        0xFF, 0xFE, 0xFC, 0xF8, 0xF0, 0xE0, 0xC0, 0x80, 0x00, 0xFF, 0xFE, 0xFC,
+        0xF8, 0xF0, 0xE0, 0xC0, 0x80, 0x00, 0xFF, 0xFE, 0xFC, 0xF8, 0xF0, 0xE0,
+        0xC0, 0x80, 0x00, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0, 0xF0,
+        0xF0, 0xF0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    },
+    {
+        0x3F, 0x3F, 0x3F, 0x3F, 0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0xFF, 0xFF, 0xFF,
+        0xFF, 0x07, 0x0F, 0x1F, 0x3F, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0x07, 0x0F,
+        0x1F, 0x3F, 0x7F, 0xFF, 0xFF, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0xF0, 0xF0,
+        0x30, 0xB0, 0xB0, 0x70, 0xF0, 0x30, 0xB0, 0xB0, 0xB0, 0xF0, 0x70, 0xB0,
+        0xB0, 0xB0, 0xF0, 0x70, 0xB0, 0xB0, 0xB0, 0x70, 0xF0, 0x30, 0xB0, 0xB0,
+        0x70, 0xF0, 0x30, 0x70, 0xF0, 0xF0, 0xF0, 0x70, 0x30, 0xF0, 0xF0, 0x00,
+    },
+    {
+        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03,
+        0x07, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x07, 0x00, 0x00,
+        0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x07, 0x00, 0x00, 0x00, 0x7F, 0x7F,
+        0x60, 0x7D, 0x7D, 0x62, 0x7F, 0x60, 0x6D, 0x6D, 0x6D, 0x7F, 0x60, 0x7D,
+        0x7D, 0x7F, 0x7F, 0x70, 0x6F, 0x6F, 0x6F, 0x70, 0x7F, 0x60, 0x7D, 0x7D,
+        0x62, 0x7F, 0x60, 0x7F, 0x7E, 0x7D, 0x7E, 0x7F, 0x60, 0x7F, 0x7F, 0x00,
+    },
+};
+// clang-format on
+
+typedef enum {
+    PAGE_NONE,
+    PAGE_SPLASH,
+    PAGE_RGB,
+    PAGE_CIRCLE,
+} oled_page_t;
+
+static oled_page_t timed_page = PAGE_NONE;
+static uint32_t    timed_page_until;
+static oled_page_t shown_page = PAGE_NONE;
+
+static void show_timed_page(oled_page_t page, uint32_t duration_ms) {
+    timed_page       = page;
+    timed_page_until = timer_read32() + duration_ms;
+}
+
+static void render_splash(void) {
+    for (uint8_t line = 0; line < ARRAY_SIZE(mnt_logo); line++) {
+        oled_set_cursor(4, line + 1);
+        oled_write_raw_P(mnt_logo[line], sizeof(mnt_logo[line]));
     }
 }
 
-static void light_step(uint16_t keycode) {
-    const bool shifted = get_mods() & MOD_MASK_SHIFT;
-    switch (keycode) {
-        case RM_ON:
-            rgb_matrix_enable_noeeprom();
-            break;
-        case RM_OFF:
-            rgb_matrix_disable_noeeprom();
-            break;
-        case RM_TOGG:
-            rgb_matrix_toggle_noeeprom();
-            break;
-        case RM_NEXT:
-            shifted ? rgb_matrix_step_reverse_noeeprom() : rgb_matrix_step_noeeprom();
-            break;
-        case RM_PREV:
-            shifted ? rgb_matrix_step_noeeprom() : rgb_matrix_step_reverse_noeeprom();
-            break;
-        case RM_FLGN:
-            rgb_matrix_flags_step_noeeprom();
-            break;
-        case RM_FLGP:
-            rgb_matrix_flags_step_reverse_noeeprom();
-            break;
-        case RM_VALU:
-            rgb_matrix_increase_val_noeeprom();
-            break;
-        case RM_VALD:
-            rgb_matrix_decrease_val_noeeprom();
-            break;
-        case RM_HUEU:
-            rgb_matrix_increase_hue_noeeprom();
-            break;
-        case RM_HUED:
-            rgb_matrix_decrease_hue_noeeprom();
-            break;
-        case RM_SATU:
-            rgb_matrix_increase_sat_noeeprom();
-            break;
-        case RM_SATD:
-            rgb_matrix_decrease_sat_noeeprom();
-            break;
-        case RM_SPDU:
-            rgb_matrix_increase_speed_noeeprom();
-            break;
-        case RM_SPDD:
-            rgb_matrix_decrease_speed_noeeprom();
-            break;
-        default:
-            return;
+static void render_rgb_values(void) {
+    if (!rgb_matrix_is_enabled()) {
+        oled_write_ln_P(PSTR("Backlight off"), false);
+        return;
     }
-    light_save_pending = true;
-    light_save_at      = timer_read32() + LIGHT_SAVE_DELAY_MS;
+    char buf[22];
+    snprintf(buf, sizeof(buf), "H%3u S%3u V%3u  #%2u", rgb_matrix_get_hue(), rgb_matrix_get_sat(), rgb_matrix_get_val(), rgb_matrix_get_mode());
+    oled_write_ln(buf, false);
 }
 
-static void process_light_keycode(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        light_step(keycode);
-        light_repeat_keycode = light_repeatable(keycode) ? keycode : KC_NO;
-        light_repeat_at      = timer_read32() + LIGHT_REPEAT_DELAY_MS;
-    } else if (keycode == light_repeat_keycode) {
-        light_repeat_keycode = KC_NO;
+static void render_rgb(void) {
+    // Stay below a full 21-character row so oled_write_ln does not wrap.
+    char name[21] = "";
+    if (rgb_matrix_is_enabled()) {
+        strlcpy(name, rgb_matrix_get_mode_name(rgb_matrix_get_mode()), sizeof(name));
+        for (char *c = name; *c; c++) {
+            if (*c == '_') *c = ' ';
+        }
     }
+    oled_write_ln_P(PSTR("Backlight"), false);
+    oled_write_ln(name, false);
+    render_rgb_values();
 }
 
-// Store pending lighting changes before a reset or bootloader jump.
-static void light_save_now(void) {
-    if (light_save_pending) {
-        light_save_pending = false;
-        eeconfig_force_flush_rgb_matrix();
-    }
+static void render_circle(void) {
+    oled_write_ln_P(PSTR("F1-6 Bright/Hue/Sat"), false);
+    oled_write_ln_P(PSTR("F7/8 Mode  F9 On/Off"), false);
+    oled_write_ln_P(PSTR("Hyper+R / X Boot"), false);
+    render_rgb_values();
 }
 
-static void light_task(void) {
-    const uint32_t now = timer_read32();
-    if (light_repeat_keycode != KC_NO && timer_expired32(now, light_repeat_at)) {
-        light_step(light_repeat_keycode);
-        light_repeat_at = now + LIGHT_REPEAT_INTERVAL_MS;
-    }
-    if (light_save_pending && timer_expired32(now, light_save_at)) {
-        light_save_now();
-    }
+oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
+    show_timed_page(PAGE_SPLASH, SPLASH_DURATION_MS);
+    return oled_init_user(rotation);
 }
 
-bool shutdown_kb(bool jump_to_bootloader) {
-    if (!shutdown_user(jump_to_bootloader)) {
+bool oled_task_kb(void) {
+    if (!oled_task_user()) {
         return false;
     }
-    light_save_now();
-    return true;
-}
 
-void keyboard_post_init_kb(void) {
-    reform4_oled_show(R4_OLED_SPLASH, 1500);
-    keyboard_post_init_user();
-}
+    if (timed_page != PAGE_NONE && timer_expired32(timer_read32(), timed_page_until)) {
+        timed_page = PAGE_NONE;
+    }
 
-void housekeeping_task_kb(void) {
-    light_task();
-    housekeeping_task_user();
+    oled_page_t page = timed_page;
+    if (page == PAGE_NONE && layer_state_is(R4_LAYER_CIRCLE)) {
+        page = PAGE_CIRCLE;
+    }
+
+    if (page != shown_page) {
+        shown_page = page;
+        oled_clear();
+        if (page == PAGE_NONE) {
+            // Push the blank frame first, otherwise the next render switches the display back on.
+            oled_render_dirty(true);
+            oled_off();
+            return false;
+        }
+    }
+
+    switch (page) {
+        case PAGE_SPLASH:
+            render_splash();
+            break;
+        case PAGE_RGB:
+            render_rgb();
+            break;
+        case PAGE_CIRCLE:
+            render_circle();
+            break;
+        default:
+            break;
+    }
+    return false;
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
@@ -136,14 +146,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    switch (keycode) {
-        case RGB_MATRIX_KEYCODE_RANGE:
-            process_light_keycode(keycode, record);
-            if (record->event.pressed && !layer_state_is(R4_LAYER_CIRCLE)) {
-                reform4_oled_show(R4_OLED_RGB, 2000);
-            }
-            return false;
+    // The Circle layer already shows the lighting values.
+    if (record->event.pressed && IS_RGB_MATRIX_KEYCODE(keycode) && !layer_state_is(R4_LAYER_CIRCLE)) {
+        show_timed_page(PAGE_RGB, RGB_PAGE_DURATION_MS);
     }
-
     return true;
 }
+#endif
