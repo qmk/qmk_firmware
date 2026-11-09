@@ -126,7 +126,7 @@ TEST_F(FlowTapTest, hotkey_taps) {
 
     set_keymap({ctrl_key, shft_key, alt_key, gui_key, regular_key, mod_tap_key});
 
-    for (KeymapKey* mod_key : {&ctrl_key, &alt_key, &gui_key}) {
+    for (KeymapKey *mod_key : {&ctrl_key, &alt_key, &gui_key}) {
         // Hold mod key.
         EXPECT_REPORT(driver, (mod_key->code));
         mod_key->press();
