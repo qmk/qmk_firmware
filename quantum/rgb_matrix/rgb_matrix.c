@@ -629,7 +629,7 @@ void rgb_matrix_step_reverse(void) {
     rgb_matrix_step_reverse_helper(true);
 }
 
-void rgb_matrix_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
+void rgb_matrix_sethsv_eeprom_helper(uint8_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
     if (!rgb_matrix_config.enable) {
         return;
     }
@@ -639,10 +639,10 @@ void rgb_matrix_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, boo
     eeconfig_flag_rgb_matrix(write_to_eeprom);
     dprintf("rgb matrix set hsv [%s]: %u,%u,%u\n", (write_to_eeprom) ? "EEPROM" : "NOEEPROM", rgb_matrix_config.hsv.h, rgb_matrix_config.hsv.s, rgb_matrix_config.hsv.v);
 }
-void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {
+void rgb_matrix_sethsv_noeeprom(uint8_t hue, uint8_t sat, uint8_t val) {
     rgb_matrix_sethsv_eeprom_helper(hue, sat, val, false);
 }
-void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
+void rgb_matrix_sethsv(uint8_t hue, uint8_t sat, uint8_t val) {
     rgb_matrix_sethsv_eeprom_helper(hue, sat, val, true);
 }
 
