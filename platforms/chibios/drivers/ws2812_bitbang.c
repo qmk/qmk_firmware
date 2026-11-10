@@ -43,16 +43,29 @@
 #define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
 #define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
 
-#define wait_ns(x)                                  \
-    do {                                            \
-        for (int i = 0; i < NS_TO_CYCLES(x); i++) { \
-            __asm__ volatile("nop\n\t"              \
-                             "nop\n\t"              \
-                             "nop\n\t"              \
-                             "nop\n\t"              \
-                             "nop\n\t"              \
-                             "nop\n\t");            \
-        }                                           \
+// NS_TO_CYCLES(n) rounded up, as the former C loop counted it
+#define NS_TO_PASSES(n) ((int)NS_TO_CYCLES(n) + ((int)NS_TO_CYCLES(n) < NS_TO_CYCLES(n)))
+#define NOPS "nop\n\tnop\n\tnop\n\tnop\n\tnop\n\tnop\n\t"
+#if defined(__riscv)
+#    define COUNT_DOWN "addi %0, %0, -1\n\tbnez %0, 1b"
+#    define COUNTER "+r"
+#elif defined(__thumb2__)
+#    define COUNT_DOWN "subs %0, %0, #1\n\tbne 1b"
+#    define COUNTER "+l"
+#else // Thumb-1: divided syntax, and the cmp GCC emits
+#    define COUNT_DOWN "sub %0, #1\n\tcmp %0, #0\n\tbne 1b"
+#    define COUNTER "+l"
+#endif
+
+// In assembly so the timing does not depend on the compiler: up to two passes unrolled as GCC 14 did, more in a loop
+#define wait_ns(x)                                                                              \
+    do {                                                                                        \
+        if (NS_TO_PASSES(x) <= 2) {                                                             \
+            __asm__ volatile(".rept %c0\n\t" NOPS ".endr" : : "i"(NS_TO_PASSES(x)) : "memory"); \
+        } else {                                                                                \
+            uint32_t passes = NS_TO_PASSES(x);                                                  \
+            __asm__ volatile("1:\n\t" NOPS COUNT_DOWN : COUNTER(passes) : : "cc", "memory");    \
+        }                                                                                       \
     } while (0)
 
 void sendByte(uint8_t byte) {
