@@ -154,12 +154,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    include "sequencer.h"
 #endif
 
+// Activity synced from the master can be stamped slightly ahead of the slave's clock, since the slave
+// applies timer syncs from its main loop; read that as just now instead of wrapping to nearly UINT32_MAX
+static uint32_t activity_elapsed(uint32_t timestamp) {
+    uint32_t elapsed = sync_timer_elapsed32(timestamp);
+    return elapsed > UINT32_MAX - 1000 ? 0 : elapsed;
+}
+
 static uint32_t last_input_modification_time = 0;
 uint32_t        last_input_activity_time(void) {
     return last_input_modification_time;
 }
 uint32_t last_input_activity_elapsed(void) {
-    return sync_timer_elapsed32(last_input_modification_time);
+    return activity_elapsed(last_input_modification_time);
 }
 
 static uint32_t last_matrix_modification_time = 0;
@@ -167,7 +174,7 @@ uint32_t        last_matrix_activity_time(void) {
     return last_matrix_modification_time;
 }
 uint32_t last_matrix_activity_elapsed(void) {
-    return sync_timer_elapsed32(last_matrix_modification_time);
+    return activity_elapsed(last_matrix_modification_time);
 }
 void last_matrix_activity_trigger(void) {
     last_matrix_modification_time = last_input_modification_time = sync_timer_read32();
@@ -178,7 +185,7 @@ uint32_t        last_encoder_activity_time(void) {
     return last_encoder_modification_time;
 }
 uint32_t last_encoder_activity_elapsed(void) {
-    return sync_timer_elapsed32(last_encoder_modification_time);
+    return activity_elapsed(last_encoder_modification_time);
 }
 void last_encoder_activity_trigger(void) {
     last_encoder_modification_time = last_input_modification_time = sync_timer_read32();
@@ -189,7 +196,7 @@ uint32_t        last_pointing_device_activity_time(void) {
     return last_pointing_device_modification_time;
 }
 uint32_t last_pointing_device_activity_elapsed(void) {
-    return sync_timer_elapsed32(last_pointing_device_modification_time);
+    return activity_elapsed(last_pointing_device_modification_time);
 }
 void last_pointing_device_activity_trigger(void) {
     last_pointing_device_modification_time = last_input_modification_time = sync_timer_read32();
