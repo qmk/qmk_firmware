@@ -41,3 +41,15 @@
 #define EXTERNAL_FLASH_SECTOR_SIZE 4096
 #define EXTERNAL_FLASH_BLOCK_SIZE 4096
 #define EXTERNAL_FLASH_SIZE (256 * 1024) // 2M-bit flash size
+
+/* Give wait_us() a hardware timer to poll.
+ *
+ * Without this it falls back to chThdSleepMicroseconds(), because this is a
+ * Cortex-M0 and has no DWT cycle counter for chSysPolledDelayX(). With
+ * CH_CFG_ST_FREQUENCY at 1000 that rounds every delay up to a whole 1ms
+ * tick, and matrix_output_unselect_delay() asks for 30us once per row: the
+ * matrix scanned at exactly 200Hz, one millisecond per row.
+ *
+ * At 200Hz a 5ms DEBOUNCE is a single sample, which is why keys chattered.
+ */
+#define WAIT_US_TIMER GPTD_BFTM0
