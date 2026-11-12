@@ -319,12 +319,54 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM DigitizerReport[] = {
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #        define SHARED_REPORT_STARTED
 #    endif
+#    ifdef DIGITIZER_ABSOLUTE_POINTER
+    // Absolute pointer variant; report layout is identical to the stylus variant below
+    HID_RI_USAGE_PAGE(8, 0x01),            // Generic Desktop
+    HID_RI_USAGE(8, 0x02),                 // Mouse
+    HID_RI_COLLECTION(8, 0x01),            // Application
+#        ifdef DIGITIZER_SHARED_EP
+        HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),
+#        endif
+        HID_RI_USAGE(8, 0x01),             // Pointer
+        HID_RI_COLLECTION(8, 0x00),        // Physical
+            // Reset unit and physical range items inherited from preceding shared-EP reports
+            HID_RI_UNIT(8, 0x00),
+            HID_RI_UNIT_EXPONENT(8, 0x00),
+            HID_RI_PHYSICAL_MINIMUM(8, 0x00),
+            HID_RI_PHYSICAL_MAXIMUM(8, 0x00),
+            // In Range bit, unused in this mode (1 bit padding)
+            HID_RI_REPORT_COUNT(8, 0x01),
+            HID_RI_REPORT_SIZE(8, 0x01),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+            // Tip Switch & Barrel Switch as Buttons 1 & 2 (2 bits)
+            HID_RI_USAGE_PAGE(8, 0x09),    // Button
+            HID_RI_USAGE_MINIMUM(8, 0x01),
+            HID_RI_USAGE_MAXIMUM(8, 0x02),
+            HID_RI_LOGICAL_MINIMUM(8, 0x00),
+            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+            // Padding (5 bits)
+            HID_RI_REPORT_COUNT(8, 0x05),
+            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+
+            // X/Y Position (4 bytes)
+            HID_RI_USAGE_PAGE(8, 0x01),    // Generic Desktop
+            HID_RI_USAGE(8, 0x30),         // X
+            HID_RI_USAGE(8, 0x31),         // Y
+            HID_RI_LOGICAL_MAXIMUM(16, 0x7FFF),
+            HID_RI_REPORT_COUNT(8, 0x02),
+            HID_RI_REPORT_SIZE(8, 0x10),
+            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+        HID_RI_END_COLLECTION(0),
+    HID_RI_END_COLLECTION(0),
+#    else
     HID_RI_USAGE_PAGE(8, 0x0D),            // Digitizers
     HID_RI_USAGE(8, 0x01),                 // Digitizer
     HID_RI_COLLECTION(8, 0x01),            // Application
-#    ifdef DIGITIZER_SHARED_EP
+#        ifdef DIGITIZER_SHARED_EP
         HID_RI_REPORT_ID(8, REPORT_ID_DIGITIZER),
-#    endif
+#        endif
         HID_RI_USAGE(8, 0x20),             // Stylus
         HID_RI_COLLECTION(8, 0x00),        // Physical
             // In Range, Tip Switch & Barrel Switch (3 bits)
@@ -357,6 +399,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
             HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
         HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
+#    endif
 #    ifndef DIGITIZER_SHARED_EP
 };
 #    endif
