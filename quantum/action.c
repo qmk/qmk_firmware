@@ -812,7 +812,7 @@ void process_action(keyrecord_t *record, action_t action) {
                         } else {
                             wait_ms(TAP_CODE_DELAY);
                             unregister_code(action.swap.code);
-                            *record = (keyrecord_t){}; // hack: reset tap mode
+                            *record = (keyrecord_t){0}; // hack: reset tap mode
                         }
                     } else {
                         if (swap_held && !event.pressed) {

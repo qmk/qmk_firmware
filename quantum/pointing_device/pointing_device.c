@@ -43,7 +43,7 @@
 #    include "transactions.h"
 #    include "keyboard.h"
 
-report_mouse_t shared_mouse_report = {};
+report_mouse_t shared_mouse_report = {0};
 uint16_t       shared_cpi          = 0;
 
 /**
@@ -80,7 +80,7 @@ uint16_t pointing_device_get_shared_cpi(void) {
 
 #endif // defined(SPLIT_POINTING_ENABLE)
 
-static report_mouse_t           local_mouse_report         = {};
+static report_mouse_t           local_mouse_report         = {0};
 static bool                     pointing_device_force_send = false;
 static pointing_device_status_t pointing_device_status     = POINTING_DEVICE_STATUS_UNKNOWN;
 
@@ -237,7 +237,7 @@ void pointing_device_set_status(pointing_device_status_t status) {
  *
  */
 __attribute__((weak)) bool pointing_device_send(void) {
-    static report_mouse_t old_report         = {};
+    static report_mouse_t old_report         = {0};
     bool                  should_send_report = has_mouse_report_changed(&local_mouse_report, &old_report);
 
     if (should_send_report) {
