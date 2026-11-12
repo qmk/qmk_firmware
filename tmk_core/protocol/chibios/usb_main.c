@@ -231,18 +231,18 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
  * Other Device    Required    Optional    Optional    Optional    Optional    Optional
  */
 
-static uint8_t _Alignas(4) set_report_buf[2];
+static uint8_t _Alignas(4) control_out_buf[FIXED_CONTROL_ENDPOINT_SIZE]; // Some low level drivers copy a whole control packet regardless of the requested transfer size. Shared by all EP0 OUT handlers; ChibiOS runs one control transfer at a time.
 
 static void set_led_transfer_cb(USBDriver *usbp) {
     usb_control_request_t *setup = (usb_control_request_t *)usbp->setup;
 
     if (setup->wLength == 2) {
-        uint8_t report_id = set_report_buf[0];
+        uint8_t report_id = control_out_buf[0];
         if ((report_id == REPORT_ID_KEYBOARD) || (report_id == REPORT_ID_NKRO)) {
-            usb_device_state_set_leds(set_report_buf[1]);
+            usb_device_state_set_leds(control_out_buf[1]);
         }
     } else {
-        usb_device_state_set_leds(set_report_buf[0]);
+        usb_device_state_set_leds(control_out_buf[0]);
     }
 }
 
@@ -277,7 +277,7 @@ static bool usb_requests_hook_cb(USBDriver *usbp) {
 #if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
                             case SHARED_INTERFACE:
 #endif
-                                usbSetupTransfer(usbp, set_report_buf, sizeof(set_report_buf), set_led_transfer_cb);
+                                usbSetupTransfer(usbp, control_out_buf, 2, set_led_transfer_cb);
                                 return true;
                         }
                         break;
@@ -549,6 +549,13 @@ bool recv_midi_packet(MIDI_EventPacket_t *const event) {
  */
 static cdc_linecoding_t linecoding = {{0x00, 0x96, 0x00, 0x00}, LC_STOP_1, LC_PARITY_NONE, 8};
 
+static void set_line_coding_transfer_cb(USBDriver *usbp) {
+    if (usbGetReceiveTransactionSizeX(usbp, 0) != sizeof(linecoding)) {
+        return;
+    }
+    memcpy(&linecoding, control_out_buf, sizeof(linecoding));
+}
+
 bool virtser_usb_request_cb(USBDriver *usbp) {
     if ((usbp->setup[0] & USB_RTYPE_TYPE_MASK) == USB_RTYPE_TYPE_CLASS) { /* bmRequestType */
         if (usbp->setup[4] == CCI_INTERFACE) {                            /* wIndex (LSB) */
@@ -557,7 +564,7 @@ bool virtser_usb_request_cb(USBDriver *usbp) {
                     usbSetupTransfer(usbp, (uint8_t *)&linecoding, sizeof(linecoding), NULL);
                     return true;
                 case CDC_SET_LINE_CODING:
-                    usbSetupTransfer(usbp, (uint8_t *)&linecoding, sizeof(linecoding), NULL);
+                    usbSetupTransfer(usbp, control_out_buf, sizeof(linecoding), set_line_coding_transfer_cb);
                     return true;
                 case CDC_SET_CONTROL_LINE_STATE:
                     /* Nothing to do, there are no control lines.*/
