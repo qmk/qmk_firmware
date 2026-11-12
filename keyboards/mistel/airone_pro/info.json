@@ -1,0 +1,59 @@
+{
+    "manufacturer": "hfd",
+    "keyboard_name": "AIRONE PRO",
+    "maintainer": "jonylee@hfd",
+    "processor": "WB32FQ95",
+    "bootloader": "wb32-dfu",
+    "url": "https://github.com/jonylee1986",
+    "usb": {
+        "vid": "0xFFFE",
+        "suspend_wakeup_delay": 1000
+    },
+    "diode_direction": "ROW2COL",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": true,
+        "rgb_matrix": true
+    },
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "matrix_pins": {
+        "cols": ["C1","C2","C3","A0","A1","A2","A3","A4","A5","A6","A7","C4","C5","B0","B1","B2"],
+        "rows": ["C6", "C7", "C8", "C9", "A8"]
+    },
+    "eeprom": {
+        "driver": "wear_leveling",
+        "wear_leveling": {
+            "driver": "spi_flash",
+            "backing_size": 8192
+        }
+    },
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "rgb_matrix": {
+        "driver": "snled27351",
+        "max_brightness": 180,
+        "react_on_keyup": true,
+        "sleep": true,
+        "animations": {
+            "breathing": true,
+            "cycle_left_right": true,
+            "cycle_out_in_dual": true,
+            "rainbow_moving_chevron": true,
+            "dual_beacon": true,
+            "rainbow_beacon": true,
+            "raindrops": true,
+            "solid_reactive": true
+        },
+        "default": {
+            "hue": 170,
+            "animation": "breathing"
+        }
+    }
+}
