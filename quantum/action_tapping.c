@@ -482,7 +482,7 @@ bool process_tapping(keyrecord_t *keyp) {
                                 process_record(&tapping_key);
 
 #    if defined(CHORDAL_HOLD)
-                                if (waiting_buffer_tail != waiting_buffer_head && is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
+                                if (waiting_buffer_tail != waiting_buffer_head && waiting_buffer[waiting_buffer_tail].event.pressed && is_tap_record(&waiting_buffer[waiting_buffer_tail])) {
                                     tapping_key = waiting_buffer[waiting_buffer_tail];
                                     // Pop tail from the queue.
                                     waiting_buffer_tail = (waiting_buffer_tail + 1) % WAITING_BUFFER_SIZE;
