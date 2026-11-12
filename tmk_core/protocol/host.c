@@ -62,6 +62,32 @@ host_driver_t bt_driver = {
 };
 #endif
 
+#ifdef WIRELESS_2P4GHZ_ENABLE
+#    include "wireless_2p4ghz.h"
+
+static void wireless_2p4ghz_send_extra(report_extra_t *report) {
+    switch (report->report_id) {
+        case REPORT_ID_SYSTEM:
+            wireless_2p4ghz_send_system(report->usage);
+            return;
+        case REPORT_ID_CONSUMER:
+            wireless_2p4ghz_send_consumer(report->usage);
+            return;
+    }
+}
+
+host_driver_t wireless_2p4ghz_driver = {
+    .keyboard_leds = wireless_2p4ghz_keyboard_leds,
+    .send_keyboard = wireless_2p4ghz_send_keyboard,
+    .send_nkro     = wireless_2p4ghz_send_nkro,
+    .send_mouse    = wireless_2p4ghz_send_mouse,
+    .send_extra    = wireless_2p4ghz_send_extra,
+#    ifdef RAW_ENABLE
+    .send_raw_hid = wireless_2p4ghz_send_raw_hid,
+#    endif
+};
+#endif
+
 #ifdef NKRO_ENABLE
 #    include "keycode_config.h"
 extern keymap_config_t keymap_config;
@@ -125,6 +151,10 @@ static host_driver_t *host_get_active_driver(void) {
         case CONNECTION_HOST_BLUETOOTH:
             return &bt_driver;
 #    endif
+#    ifdef WIRELESS_2P4GHZ_ENABLE
+        case CONNECTION_HOST_2P4GHZ:
+            return &wireless_2p4ghz_driver;
+#    endif
         case CONNECTION_HOST_NONE:
             return NULL;
         default:
@@ -140,6 +170,10 @@ bool host_can_send_nkro(void) {
 #    ifdef BLUETOOTH_ENABLE
         case CONNECTION_HOST_BLUETOOTH:
             return bluetooth_can_send_nkro();
+#    endif
+#    ifdef WIRELESS_2P4GHZ_ENABLE
+        case CONNECTION_HOST_2P4GHZ:
+            return wireless_2p4ghz_can_send_nkro();
 #    endif
         case CONNECTION_HOST_NONE:
             return false;
