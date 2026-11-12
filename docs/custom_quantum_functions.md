@@ -421,6 +421,38 @@ If registrations fail, then you can increase this value in your keyboard or keym
 #define MAX_DEFERRED_EXECUTORS 16
 ```
 
+# USB Descriptor Code {#usb-descriptor-code}
+
+On ARM (ChibiOS), two callbacks let a keyboard or keymap change the USB interfaces the host sees, for example to leave an interface out until it's needed:
+
+* `bool usb_get_descriptor_kb(uint16_t wValue, uint16_t wIndex, const void **address, uint16_t *size)` and its `_user` counterpart run for every `GET_DESCRIPTOR` request, after QMK has looked up the descriptor. They may point `*address` and `*size` at a different descriptor. `wValue` holds the descriptor type in its high byte and the index in its low byte; `wIndex` is the interface number for HID descriptors.
+* `bool usb_interface_from_host_kb(uint8_t *interface)` and its `_user` counterpart run for every request addressed to an interface, before QMK handles it. They may change `*interface` from the number the host uses to the one QMK uses.
+
+Both default to changing nothing. As with other callbacks, the `_kb` version calls the `_user` one, and returning `false` from `_user` tells the `_kb` version not to make further changes.
+
+### Example: hide an interface
+
+This sends the configuration descriptor without interface 1, so the interfaces after it appear one number lower to the host, and maps the host's numbers back:
+
+```c
+bool usb_get_descriptor_user(uint16_t wValue, uint16_t wIndex, const void **address, uint16_t *size) {
+    if ((wValue >> 8) == DTYPE_Configuration) {
+        *size    = remove_interface(*address, *size, 1, my_buffer); // your own copy without interface 1
+        *address = my_buffer;
+    }
+    return true;
+}
+
+bool usb_interface_from_host_user(uint8_t *interface) {
+    if (*interface >= 1) {
+        (*interface)++;
+    }
+    return true;
+}
+```
+
+Requests then reach QMK's handlers with QMK's own interface numbers, so everything else keeps working unchanged.
+
 # Advanced topics {#advanced-topics}
 
 This page used to encompass a large set of features. We have moved many sections that used to be part of this page to their own pages. Everything below this point is simply a redirect so that people following old links on the web find what they're looking for.
