@@ -91,6 +91,11 @@
             {"matrix": [4, 2], "x": 224, "y": 64, "flags": 4}
         ]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_led": "GP13",
+        "double_tap_reset_timeout": 500
+    },
     "bootmagic": {
         "matrix": [1, 2]
     },

@@ -64,6 +64,10 @@
         ],
         "split_count": [18, 18]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 150
+    },
     "split": {
         "enabled": true,
         "serial": {

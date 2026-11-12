@@ -22,6 +22,10 @@
         "cols": ["GP2", "GP3", "GP29", "GP27", "GP6", "GP5"],
         "rows": ["GP0", "GP1", "GP7", "GP16", "GP28"]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "split": {
         "enabled": true,
         "handedness": {
