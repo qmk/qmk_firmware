@@ -116,7 +116,7 @@ CONSOLE_ENABLE = yes
 
 And also include `"os_detection.h"` in your `keymap.c`.
 
-Then you can define custom keycodes to store data about USB setup packets in EEPROM (persistent memory) and to print it later on host where you can run `qmk console`:
+Then you can define custom keycodes to store data about USB setup packets in EEPROM (persistent memory) and to print it later on host where you can run `qmk console`. The data is kept in a dedicated OS detection EEPROM block, so debug mode can be used together with VIA and dynamic keymaps:
 
 ```c
 enum custom_keycodes {
@@ -147,7 +147,7 @@ Add both `STORE_SETUPS` and `PRINT_SETUPS` to your keyboard's keymap. Connect th
 Open an issue on GitHub and paste the console output into the issue. Also tell us which OS (including the version, if possible) was not detected correctly and whether any intermediate devices, such as a USB hub, were used between the keyboard and the target device.
 
 ::: tip
-If `STORE_SETUPS` has not been used previously, `PRINT_SETUPS` will report whatever values are already present in the controller's EEPROM. These may appear as random numbers.
+If no capture has been stored yet, `PRINT_SETUPS` prints nothing. Captures stored by firmware without the dedicated OS detection EEPROM block are discarded and must be captured again.
 :::
 
 ## Credits

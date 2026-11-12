@@ -23,14 +23,10 @@
 #endif
 
 #ifdef OS_DETECTION_DEBUG_ENABLE
-#    include "nvm_eeprom_eeconfig_internal.h"
-#    include "eeprom.h"
+#    include "nvm_os_detection.h"
 #    include "print.h"
 
-#    define STORED_USB_SETUPS 50
-#    define EEPROM_USER_OFFSET (uint8_t*)EECONFIG_SIZE
-
-static uint16_t usb_setups[STORED_USB_SETUPS];
+static uint16_t usb_setups[OS_DETECTION_STORED_SETUPS];
 #endif
 
 #ifndef OS_DETECTION_DEBOUNCE
@@ -224,20 +220,15 @@ void slave_update_detected_host_os(os_variant_t os) {
 #ifdef OS_DETECTION_DEBUG_ENABLE
 void print_stored_setups(void) {
 #    ifdef CONSOLE_ENABLE
-    uint8_t cnt = eeprom_read_byte(EEPROM_USER_OFFSET);
-    for (uint16_t i = 0; i < cnt; ++i) {
-        uint16_t* addr = (uint16_t*)EEPROM_USER_OFFSET + i * sizeof(uint16_t) + sizeof(uint8_t);
-        xprintf("i: %d, wLength: 0x%02X\n", i, eeprom_read_word(addr));
+    uint8_t cnt = nvm_os_detection_read_setup_count();
+    for (uint8_t i = 0; i < cnt; ++i) {
+        xprintf("i: %d, wLength: 0x%02X\n", i, nvm_os_detection_read_setup(i));
     }
 #    endif
 }
 
 void store_setups_in_eeprom(void) {
-    eeprom_update_byte(EEPROM_USER_OFFSET, setups_data.count);
-    for (uint16_t i = 0; i < setups_data.count; ++i) {
-        uint16_t* addr = (uint16_t*)EEPROM_USER_OFFSET + i * sizeof(uint16_t) + sizeof(uint8_t);
-        eeprom_update_word(addr, usb_setups[i]);
-    }
+    nvm_os_detection_update_setups(usb_setups, setups_data.count);
 }
 
 #endif // OS_DETECTION_DEBUG_ENABLE
