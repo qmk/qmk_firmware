@@ -48,6 +48,8 @@ void                  usb_device_state_set_resume(bool is_configured, uint8_t co
 void                  usb_device_state_set_reset(void);
 void                  usb_device_state_init(void);
 usb_configure_state_t usb_device_state_get_configure_state(void);
+bool                  usb_device_state_is_suspended(void);
+void                  usb_device_state_remote_wakeup_sent(void);
 void                  usb_device_state_set_protocol(usb_hid_protocol_t protocol);
 usb_hid_protocol_t    usb_device_state_get_protocol(void);
 void                  usb_device_state_set_leds(uint8_t leds);

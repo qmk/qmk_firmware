@@ -28,6 +28,7 @@
 #include "action.h"
 #include "action_util.h"
 #include "usb_device_state.h"
+#include "matrix.h"
 #include "mousekey.h"
 #include "led.h"
 #include "sendchar.h"
@@ -207,4 +208,21 @@ void protocol_post_task(void) {
     virtser_task();
 #endif
     usb_idle_task();
+
+    // RP2040 suspend workaround
+    // When the keyboard is in suspend state, poll for a keypress and force
+    // usbWakeupHost to be called so that a wake event is sent to the host
+    // computer. Runs after protocol_keyboard_task(), so matrix[] holds this
+    // iteration's scan.
+    if (usb_device_state_is_suspended() && (USB_DRIVER.status & USB_GETSTATUS_REMOTE_WAKEUP_ENABLED)) {
+        // Simply check the whole matrix and send a wake event over USB
+        // if any key is pressed.
+        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+            if (matrix_get_row(row) != 0) {
+                usbWakeupHost(&USB_DRIVER);
+                usb_device_state_remote_wakeup_sent();
+                break;
+            }
+        }
+    }
 }
