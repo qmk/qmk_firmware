@@ -137,7 +137,7 @@ __attribute__((weak)) void led_init_ports(void) {
 
 /** \brief Entrypoint for protocol to LED binding
  */
-__attribute__((weak)) void led_set(uint8_t usb_led) {
+void led_set(uint8_t usb_led) {
 #ifdef BACKLIGHT_CAPS_LOCK
     handle_backlight_caps_lock((led_t)usb_led);
 #endif
