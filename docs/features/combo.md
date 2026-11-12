@@ -390,7 +390,7 @@ is not set, all other layers will reference themselves.
 #define COMBO_REF_DEFAULT _MY_COMBO_LAYER
 
 uint8_t combo_ref_from_layer(uint8_t layer){
-    switch (get_highest_layer(layer_state)){
+    switch (layer){
         case _DVORAK: return _QWERTY;
         case _NAV: return _NAV;
         default: return _MY_COMBO_LAYER;
@@ -406,7 +406,10 @@ COMBO_REF_LAYER(_DVORAK, _QWERTY)
 COMBO_REF_LAYER(_NAV, _NAV)
 DEFAULT_REF_LAYER(_MY_COMBO_LAYER).
 ```
-    
+
+::: warning
+Transparent keys (`KC_TRNS`) on any layer are not fully compatible with `combo_ref_from_layer` combos on the same key. Layer changes while such keys are held can cause a combo to fail to release.
+:::
 
 ## User callbacks
 
