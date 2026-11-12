@@ -1,0 +1,104 @@
+// Copyright 2026 QMK
+// Spdx-License-Identifer: GPL-2.0-or-later OR APACHE-2.0
+#pragma once
+
+#include <stdint.h>
+#include "util.h"
+
+#ifndef CONCAT
+#    define CONCAT(a, b) a##b
+#endif
+
+/* Constants defined in hutrr42 revision c */
+enum extended_attribute_physical_layout {
+    KEYBOARD_PHYSICAL_LAYOUT_UNKNOWN = 0,
+    KEYBOARD_PHYSICAL_LAYOUT_ANSI    = 1,
+    KEYBOARD_PHYSICAL_LAYOUT_KS      = 2,
+    KEYBOARD_PHYSICAL_LAYOUT_ISO     = 3,
+    KEYBOARD_PHYSICAL_LAYOUT_ABNT    = 4,
+    KEYBOARD_PHYSICAL_LAYOUT_JIS     = 5,
+    KEYBOARD_PHYSICAL_LAYOUT_VENDOR  = 6,
+};
+enum extended_attribute_key_type {
+    KEYBOARD_KEY_TYPE_UNKNOWN = 0,
+    KEYBOARD_KEY_TYPE_FULL    = 1,
+    KEYBOARD_KEY_TYPE_LOW     = 2,
+    KEYBOARD_KEY_TYPE_ZERO    = 3,
+};
+enum extended_attribute_form_factor {
+    KEYBOARD_FORM_FACTOR_UNKNOWN   = 0,
+    KEYBOARD_FORM_FACTOR_FULL_SIZE = 1,
+    KEYBOARD_FORM_FACTOR_COMPACT   = 2,
+};
+
+#if defined(KEYBOARD_EXT_ATTR_VENDOR_LAYOUT)
+#    if defined(KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT)
+#        error "specified both vendor and standard layout"
+#    endif
+#    define KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT VENDOR
+#    define KEYBOARD_VENDOR_LAYOUT KEYBOARD_EXT_ATTR_VENDOR_LAYOUT
+#else
+#    define KEYBOARD_VENDOR_LAYOUT 0
+#endif /* defined(KEYBOARD_EXT_ATTR_VENDOR_LAYOUT) */
+
+#if !defined(KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT)
+#    define KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT UNKNOWN
+#endif
+
+#if !defined(KEYBOARD_EXT_ATTR_KEY_TYPE)
+#    define KEYBOARD_EXT_ATTR_KEY_TYPE UNKNOWN
+#endif
+
+#if !defined(KEYBOARD_EXT_ATTR_FORM_FACTOR)
+#    define KEYBOARD_EXT_ATTR_FORM_FACTOR UNKNOWN
+#endif
+
+#ifdef KEYBOARD_EXT_ATTR_IETF_LANGUAGE_TAG
+#    define KEYBOARD_PRIMARY_LOCALE KEYBOARD_EXT_ATTR_IETF_LANGUAGE_TAG
+#    define KEYBOARD_EXT_ATTR_LOCALE(locale_index) locale_index
+#else
+#    define KEYBOARD_EXT_ATTR_LOCALE(locale_index) 0
+#endif
+
+/*
+ * TODO: implement consumer remote control report for keyboard input assists.
+ */
+#ifndef KEYBOARD_IMPLEMENTED_INPUT_ASSIST_CONTROLS
+#    define KEYBOARD_IMPLEMENTED_INPUT_ASSIST_CONTROLS 0
+#endif
+
+#define KEYBOARD_PHYSICAL_LAYOUT_(layout) CONCAT(KEYBOARD_PHYSICAL_LAYOUT_, layout)
+#define KEYBOARD_PHYSICAL_LAYOUT KEYBOARD_PHYSICAL_LAYOUT_(KEYBOARD_EXT_ATTR_PHYSICAL_LAYOUT)
+#define KEYBOARD_KEY_TYPE_(keytype) CONCAT(KEYBOARD_KEY_TYPE_, keytype)
+#define KEYBOARD_KEY_TYPE KEYBOARD_KEY_TYPE_(KEYBOARD_EXT_ATTR_KEY_TYPE)
+#define KEYBOARD_FORM_FACTOR_(form_factor) CONCAT(KEYBOARD_FORM_FACTOR_, form_factor)
+#define KEYBOARD_FORM_FACTOR KEYBOARD_FORM_FACTOR_(KEYBOARD_EXT_ATTR_FORM_FACTOR)
+
+/* contents of the extended attribute feature report */
+typedef struct PACKED keyboard_extended_attributes {
+#ifdef KEYBOARD_SHARED_EP
+    uint8_t report_id;
+#endif
+    uint8_t form_factor;
+    uint8_t key_type;
+    uint8_t physical_layout;
+    uint8_t vendor_physical_layout;
+    uint8_t ietf_language_tag_index;
+    uint8_t implemented_assist_controls;
+} keyboard_extended_attributes_t;
+
+#ifdef KEYBOARD_SHARED_EP
+#    define KEYBOARD_EXT_ATTR_REPORT_ID_INIT(id) .report_id = id,
+#else
+#    define KEYBOARD_EXT_ATTR_REPORT_ID_INIT(id)
+#endif
+
+#define KEYBOARD_EXT_ATTR_INIT_(id_init, locale_index, ...) {id_init.form_factor = KEYBOARD_FORM_FACTOR, .key_type = KEYBOARD_KEY_TYPE, .physical_layout = KEYBOARD_PHYSICAL_LAYOUT, .vendor_physical_layout = KEYBOARD_VENDOR_LAYOUT, .ietf_language_tag_index = locale_index, .implemented_assist_controls = KEYBOARD_IMPLEMENTED_INPUT_ASSIST_CONTROLS, __VA_ARGS__}
+/**
+ * \brief initialize keyboard_extended_attributes_t
+ * \param locale_index - String Descriptor index for the Keyboard Locale String (IETF BCP 47 Language Tag)
+ *      representing the (primary) locale of the printed keycap legend set.
+ * \param - overrides in unbraced .field = value list form.
+ * \returns - initializer_list for a keyboard_extended_attributes_t or struct keyboard_extended_attributes
+ */
+#define KEYBOARD_EXT_ATTR_INIT(locale_index, ...) KEYBOARD_EXT_ATTR_INIT_(KEYBOARD_EXT_ATTR_REPORT_ID_INIT(REPORT_ID_KEYBOARD), KEYBOARD_EXT_ATTR_LOCALE(locale_index), __VA_ARGS__)
