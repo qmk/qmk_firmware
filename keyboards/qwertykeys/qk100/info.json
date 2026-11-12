@@ -20,7 +20,7 @@
         "lto": true
     },
     "processor": "STM32F103",
-    "bootloader": "stm32duino",
+    "board": "STM32_F103_STM32DUINO",
     "ws2812": {
         "pin": "B3"
     },
