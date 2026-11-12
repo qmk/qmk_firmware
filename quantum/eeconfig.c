@@ -43,6 +43,10 @@
 #    include "community_modules.h"
 #endif
 
+#ifdef OS_DETECTION_ENABLE
+#    include "nvm_os_detection.h"
+#endif
+
 #ifdef VIA_ENABLE
 bool via_eeprom_is_valid(void);
 void via_eeprom_set_valid(bool valid);
@@ -156,6 +160,10 @@ void eeconfig_init_quantum(void) {
 #ifdef COMMUNITY_MODULES_ENABLE
     eeconfig_init_modules_datablock();
 #endif // COMMUNITY_MODULES_ENABLE
+
+#ifdef OS_DETECTION_ENABLE
+    nvm_os_detection_erase();
+#endif // OS_DETECTION_ENABLE
 
 #if defined(VIA_ENABLE)
     // Invalidate VIA eeprom config, and then reset.

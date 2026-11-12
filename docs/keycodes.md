@@ -230,6 +230,8 @@ See also: [Quantum Keycodes](quantum_keycodes#qmk-keycodes)
 |`QK_CLEAR_EEPROM`|`EE_CLR` |Reinitializes the keyboard's EEPROM (persistent memory)                                                                                          |
 |`QK_MAKE`        |         |Sends `qmk compile -kb (keyboard) -km (keymap)`, or `qmk flash` if shift is held. Puts keyboard into bootloader mode if shift & control are held |
 |`QK_REBOOT`      |`QK_RBT` |Resets the keyboard. Does not load the bootloader                                                                                                |
+|`QK_OS_DETECTION_SKIP_RESET`|`QK_OS_SKIP`|While held, defers [OS-detection](features/os_detection) callbacks and suppresses automatic resets. Requires `OS_DETECTION_KEYBOARD_RESET`.|
+|`QK_OS_DETECTION_TOGGLE`|`QK_OS_TOG`|On release, toggles [OS detection](features/os_detection#runtime-toggle) persistently in EEPROM. Disabling does not reboot; enabling restarts for fresh detection. Requires `OS_DETECTION_ENABLE`.|
 
 ## Audio Keys {#audio-keys}
 
