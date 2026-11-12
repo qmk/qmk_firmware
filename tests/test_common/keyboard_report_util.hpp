@@ -41,3 +41,26 @@ template <typename... Ts>
 inline testing::Matcher<report_keyboard_t&> KeyboardReport(Ts... keys) {
     return testing::MakeMatcher(new KeyboardReportMatcher({static_cast<uint8_t>(keys)...}));
 }
+
+bool          operator==(const report_nkro_t& lhs, const report_nkro_t& rhs);
+std::ostream& operator<<(std::ostream& stream, const report_nkro_t& value);
+
+class NkroReportMatcher : public testing::MatcherInterface<report_nkro_t&> {
+   public:
+    NkroReportMatcher(const std::vector<uint8_t>& keys);
+    virtual bool MatchAndExplain(report_nkro_t& report, testing::MatchResultListener* listener) const override;
+    virtual void DescribeTo(::std::ostream* os) const override;
+    virtual void DescribeNegationTo(::std::ostream* os) const override;
+
+   private:
+    report_nkro_t m_report;
+};
+
+inline testing::Matcher<report_nkro_t&> NkroReport(const std::vector<uint8_t>& keys) {
+    return testing::MakeMatcher(new NkroReportMatcher(keys));
+}
+
+template <typename... Ts>
+inline testing::Matcher<report_nkro_t&> NkroReport(Ts... keys) {
+    return testing::MakeMatcher(new NkroReportMatcher({static_cast<uint8_t>(keys)...}));
+}
