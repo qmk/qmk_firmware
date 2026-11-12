@@ -119,13 +119,12 @@ TEST_F(OneShot, OSLWithAdditionalKeypress) {
 
     // Press regular key.
     EXPECT_REPORT(driver, (regular_key1.report_code));
-    EXPECT_EMPTY_REPORT(driver);
     regular_key1.press();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 
     // Release regular key.
-    EXPECT_NO_REPORT(driver);
+    EXPECT_EMPTY_REPORT(driver);
     regular_key1.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
