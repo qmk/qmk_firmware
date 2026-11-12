@@ -64,6 +64,9 @@
 #ifdef WPM_ENABLE
 #    include "wpm.h"
 #endif
+#ifdef CAPS_WORD_ENABLE
+#    include "caps_word.h"
+#endif
 
 #define SYNC_TIMER_OFFSET 2
 
@@ -912,6 +915,37 @@ static void detected_os_handlers_slave(matrix_row_t master_matrix[], matrix_row_
 #endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
 ////////////////////////////////////////////////////
+// Caps Word
+
+#if defined(CAPS_WORD_ENABLE) && defined(SPLIT_CAPS_WORD_ENABLE)
+
+static bool caps_word_handlers_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    static uint32_t last_update      = 0;
+    bool            caps_word_active = is_caps_word_on();
+    return send_if_condition(PUT_CAPS_WORD, &last_update, (caps_word_active != split_shmem->caps_word_active), &caps_word_active, sizeof(caps_word_active));
+}
+
+static void caps_word_handlers_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[]) {
+    // copied out so caps_word_set_user() runs without the shared memory locked
+    split_shared_memory_lock();
+    bool caps_word_active = split_shmem->caps_word_active;
+    split_shared_memory_unlock();
+    slave_update_caps_word_state(caps_word_active);
+}
+
+#    define TRANSACTIONS_CAPS_WORD_MASTER() TRANSACTION_HANDLER_MASTER(caps_word)
+#    define TRANSACTIONS_CAPS_WORD_SLAVE() TRANSACTION_HANDLER_SLAVE(caps_word)
+#    define TRANSACTIONS_CAPS_WORD_REGISTRATIONS [PUT_CAPS_WORD] = trans_initiator2target_initializer(caps_word_active),
+
+#else // defined(CAPS_WORD_ENABLE) && defined(SPLIT_CAPS_WORD_ENABLE)
+
+#    define TRANSACTIONS_CAPS_WORD_MASTER()
+#    define TRANSACTIONS_CAPS_WORD_SLAVE()
+#    define TRANSACTIONS_CAPS_WORD_REGISTRATIONS
+
+#endif // defined(CAPS_WORD_ENABLE) && defined(SPLIT_CAPS_WORD_ENABLE)
+
+////////////////////////////////////////////////////
 
 split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     // Set defaults
@@ -941,6 +975,7 @@ split_transaction_desc_t split_transaction_table[NUM_TOTAL_TRANSACTIONS] = {
     TRANSACTIONS_HAPTIC_REGISTRATIONS
     TRANSACTIONS_ACTIVITY_REGISTRATIONS
     TRANSACTIONS_DETECTED_OS_REGISTRATIONS
+    TRANSACTIONS_CAPS_WORD_REGISTRATIONS
 // clang-format on
 
 #if defined(SPLIT_TRANSACTION_RPC)
@@ -971,6 +1006,7 @@ bool transactions_master(matrix_row_t master_matrix[], matrix_row_t slave_matrix
     TRANSACTIONS_HAPTIC_MASTER();
     TRANSACTIONS_ACTIVITY_MASTER();
     TRANSACTIONS_DETECTED_OS_MASTER();
+    TRANSACTIONS_CAPS_WORD_MASTER();
     return true;
 }
 
@@ -994,6 +1030,7 @@ void transactions_slave(matrix_row_t master_matrix[], matrix_row_t slave_matrix[
     TRANSACTIONS_HAPTIC_SLAVE();
     TRANSACTIONS_ACTIVITY_SLAVE();
     TRANSACTIONS_DETECTED_OS_SLAVE();
+    TRANSACTIONS_CAPS_WORD_SLAVE();
 }
 
 #if defined(SPLIT_TRANSACTION_RPC)

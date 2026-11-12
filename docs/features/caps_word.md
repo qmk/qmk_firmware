@@ -173,6 +173,10 @@ bool caps_word_press_user(uint16_t keycode) {
 
 ### Representing Caps Word state {#representing-caps-word-state}
 
+::: tip
+On a split keyboard, Caps Word state lives on the half connected to USB. Add `#define SPLIT_CAPS_WORD_ENABLE` to your `config.h` to mirror it to the other half, so `is_caps_word_on()` and `caps_word_set_user()` work there too.
+:::
+
 Define `caps_word_set_user(bool active)` to get callbacks when Caps Word turns
 on or off. This is useful to represent the current Caps Word state, e.g. by
 setting an LED or playing a sound. In your keymap, define

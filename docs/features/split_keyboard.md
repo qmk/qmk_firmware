@@ -283,6 +283,12 @@ This enables syncing of the Host LED status (caps lock, num lock, etc) between b
 This enables transmitting modifier state (normal, weak, oneshot and oneshot locked) to the non primary side of the split keyboard. The purpose of this feature is to support cosmetic use of modifier state (e.g. displaying status on an OLED screen).
 
 ```c
+#define SPLIT_CAPS_WORD_ENABLE
+```
+
+This enables transmitting the [Caps Word](caps_word) state to the slave side of the split keyboard, where `is_caps_word_on()` and `caps_word_set_user()` then follow it. The purpose of this feature is to support cosmetic use of Caps Word state (e.g. displaying status on an OLED screen).
+
+```c
 #define SPLIT_WPM_ENABLE
 ```
 

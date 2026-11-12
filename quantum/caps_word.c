@@ -32,6 +32,12 @@ static bool caps_word_active = false;
 static uint16_t idle_timer = 0;
 
 void caps_word_task(void) {
+#    if defined(SPLIT_KEYBOARD) && defined(SPLIT_CAPS_WORD_ENABLE)
+    // The slave only mirrors the master's state, which times out on the master.
+    if (!is_keyboard_master()) {
+        return;
+    }
+#    endif
     if (caps_word_active && timer_expired(timer_read(), idle_timer)) {
         caps_word_off();
     }
@@ -82,5 +88,14 @@ void caps_word_toggle(void) {
 bool is_caps_word_on(void) {
     return caps_word_active;
 }
+
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_CAPS_WORD_ENABLE)
+void slave_update_caps_word_state(bool active) {
+    if (caps_word_active != active) {
+        caps_word_active = active;
+        caps_word_set_user(active);
+    }
+}
+#endif
 
 __attribute__((weak)) void caps_word_set_user(bool active) {}

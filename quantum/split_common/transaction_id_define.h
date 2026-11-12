@@ -129,6 +129,10 @@ enum serial_transaction_id {
     PUT_DETECTED_OS,
 #endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
 
+#if defined(CAPS_WORD_ENABLE) && defined(SPLIT_CAPS_WORD_ENABLE)
+    PUT_CAPS_WORD,
+#endif // defined(CAPS_WORD_ENABLE) && defined(SPLIT_CAPS_WORD_ENABLE)
+
     NUM_TOTAL_TRANSACTIONS
 };
 
