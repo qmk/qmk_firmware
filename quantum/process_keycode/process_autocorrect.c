@@ -5,6 +5,7 @@
 // Original source: https://getreuer.info/posts/keyboards/autocorrection
 
 #include "process_autocorrect.h"
+#include "autocorrect.h"
 #include <string.h>
 #include "keycodes.h"
 #include "quantum_keycodes.h"
@@ -19,46 +20,69 @@
 #    include "autocorrect_data_default.h"
 #endif
 
-static uint8_t typo_buffer[AUTOCORRECT_MAX_LENGTH] = {KC_SPC};
-static uint8_t typo_buffer_size                    = 1;
+#ifndef AUTOCORRECT_NUM_OF_DICTS
+#    pragma message "Autocorrect is using the legacy dictionary format. Please update to the new format."
+#    define AUTOCORRECT_NUM_OF_DICTS 1
 
-/**
- * @brief function for querying the enabled state of autocorrect
- *
- * @return true if enabled
- * @return false if disabled
- */
-bool autocorrect_is_enabled(void) {
-    return keymap_config.autocorrect_enable;
+static const uint32_t autocorrect_offsets[AUTOCORRECT_NUM_OF_DICTS] PROGMEM     = {0};
+static const uint16_t autocorrect_min_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {AUTOCORRECT_MIN_LENGTH};
+static const uint16_t autocorrect_max_lengths[AUTOCORRECT_NUM_OF_DICTS] PROGMEM = {AUTOCORRECT_MAX_LENGTH};
+static const uint32_t autocorrect_sizes[AUTOCORRECT_NUM_OF_DICTS] PROGMEM       = {DICTIONARY_SIZE};
+static const uint8_t  autocorrect_node_size[AUTOCORRECT_NUM_OF_DICTS] PROGMEM   = {2};
+
+#    define TYPO_BUFFER_SIZE AUTOCORRECT_MAX_LENGTH
+#endif
+
+#if DICTIONARY_SIZE > UINT16_MAX
+#    define AUTOCORRECT_PGM_READ_BYTE(offset) pgm_read_byte_far((uint32_t)current_dict_data + (offset))
+#else
+#    define AUTOCORRECT_PGM_READ_BYTE(offset) pgm_read_byte(current_dict_data + (offset))
+#endif
+
+extern autocorrect_config_t autocorrect_config;
+
+static const uint8_t *current_dict_data;
+static uint16_t       current_dict_min_length;
+static uint16_t       current_dict_max_length;
+static uint32_t       current_dict_size;
+static uint8_t        current_dict_node_size;
+
+static uint8_t typo_buffer[TYPO_BUFFER_SIZE] = {KC_SPC};
+uint8_t        typo_buffer_size;
+
+const uint8_t number_dicts = AUTOCORRECT_NUM_OF_DICTS;
+
+static inline uint32_t autocorrect_read_state(uint32_t state) {
+    uint32_t new_state = 0;
+
+    for (uint8_t i = 0; i < current_dict_node_size; ++i) {
+        new_state |= (uint32_t)AUTOCORRECT_PGM_READ_BYTE(state + 1 + i) << (8 * i);
+    }
+
+    return new_state;
 }
 
 /**
- * @brief Enables autocorrect and saves state to eeprom
+ * @brief Configure variables according to the selected dictionary
  *
  */
-void autocorrect_enable(void) {
-    keymap_config.autocorrect_enable = true;
-    eeconfig_update_keymap(&keymap_config);
-}
+void autocorrect_init_dict(void) {
+    typo_buffer[0]   = KC_SPC;
+    typo_buffer_size = 1;
 
-/**
- * @brief Disables autocorrect and saves state to eeprom
- *
- */
-void autocorrect_disable(void) {
-    keymap_config.autocorrect_enable = false;
-    typo_buffer_size                 = 0;
-    eeconfig_update_keymap(&keymap_config);
-}
+    // make sure we dont access arbitrary addresses if eeprom has invalid state
+    if (autocorrect_config.current_dict >= number_dicts) {
+        autocorrect_config.current_dict = 0;
+    }
 
-/**
- * @brief Toggles autocorrect's status and save state to eeprom
- *
- */
-void autocorrect_toggle(void) {
-    keymap_config.autocorrect_enable = !keymap_config.autocorrect_enable;
-    typo_buffer_size                 = 0;
-    eeconfig_update_keymap(&keymap_config);
+    uint8_t  dict_index = autocorrect_config.current_dict;
+    uint32_t offset     = pgm_read_dword(&autocorrect_offsets[dict_index]);
+
+    current_dict_data       = &(autocorrect_data[offset]);
+    current_dict_min_length = pgm_read_word(&autocorrect_min_lengths[dict_index]);
+    current_dict_max_length = pgm_read_word(&autocorrect_max_lengths[dict_index]);
+    current_dict_size       = pgm_read_dword(&autocorrect_sizes[dict_index]);
+    current_dict_node_size  = pgm_read_byte(&autocorrect_node_size[dict_index]);
 }
 
 /**
@@ -176,20 +200,6 @@ bool process_autocorrect_default_handler(uint16_t *keycode, keyrecord_t *record,
 }
 
 /**
- * @brief handling for when autocorrection has been triggered
- *
- * @param backspaces number of characters to remove
- * @param str pointer to PROGMEM string to replace mistyped seletion with
- * @param typo the wrong string that triggered a correction
- * @param correct what it would become after the changes
- * @return true apply correction
- * @return false user handled replacement
- */
-__attribute__((weak)) bool apply_autocorrect(uint8_t backspaces, const char *str, char *typo, char *correct) {
-    return true;
-}
-
-/**
  * @brief Process handler for autocorrect feature
  *
  * @param keycode Keycode registered by matrix press, per keymap
@@ -203,13 +213,15 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     mods |= get_oneshot_mods();
 #endif
 
-    if ((keycode >= QK_AUTOCORRECT_ON && keycode <= QK_AUTOCORRECT_TOGGLE) && record->event.pressed) {
+    if ((keycode >= QK_AUTOCORRECT_ON && keycode <= QK_AUTOCORRECT_DICT_CYCLE) && record->event.pressed) {
         if (keycode == QK_AUTOCORRECT_ON) {
             autocorrect_enable();
         } else if (keycode == QK_AUTOCORRECT_OFF) {
             autocorrect_disable();
         } else if (keycode == QK_AUTOCORRECT_TOGGLE) {
             autocorrect_toggle();
+        } else if (keycode == QK_AUTOCORRECT_DICT_CYCLE) {
+            autocorrect_dict_cycle(!(mods & MOD_MASK_SHIFT));
         } else {
             return true;
         }
@@ -217,7 +229,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    if (!keymap_config.autocorrect_enable) {
+    if (!autocorrect_config.enabled) {
         typo_buffer_size = 0;
         return true;
     }
@@ -267,56 +279,57 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
     }
 
     // Rotate oldest character if buffer is full.
-    if (typo_buffer_size >= AUTOCORRECT_MAX_LENGTH) {
-        memmove(typo_buffer, typo_buffer + 1, AUTOCORRECT_MAX_LENGTH - 1);
-        typo_buffer_size = AUTOCORRECT_MAX_LENGTH - 1;
+    if (typo_buffer_size >= current_dict_max_length) {
+        memmove(typo_buffer, typo_buffer + 1, current_dict_max_length - 1);
+        typo_buffer_size = current_dict_max_length - 1;
     }
 
     // Append `keycode` to buffer.
     typo_buffer[typo_buffer_size++] = keycode;
     // Return if buffer is smaller than the shortest word.
-    if (typo_buffer_size < AUTOCORRECT_MIN_LENGTH) {
+    if (typo_buffer_size < current_dict_min_length) {
         return true;
     }
 
-    // Check for typo in buffer using a trie stored in `autocorrect_data`.
-    uint16_t state = 0;
-    uint8_t  code  = pgm_read_byte(autocorrect_data + state);
+    // Check for typo in buffer using a trie stored in `current_dict_data`.
+    uint32_t state = 0;
+    uint8_t  code  = AUTOCORRECT_PGM_READ_BYTE(state);
     for (int8_t i = typo_buffer_size - 1; i >= 0; --i) {
         uint8_t const key_i = typo_buffer[i];
 
         if (code & 64) { // Check for match in node with multiple children.
             code &= 63;
-            for (; code != key_i; code = pgm_read_byte(autocorrect_data + (state += 3))) {
+            for (; code != key_i; code = AUTOCORRECT_PGM_READ_BYTE(state += (current_dict_node_size + 1))) {
                 if (!code) return true;
             }
             // Follow link to child node.
-            state = (pgm_read_byte(autocorrect_data + state + 1) | pgm_read_byte(autocorrect_data + state + 2) << 8);
+
             // Check for match in node with single child.
+            state = autocorrect_read_state(state);
         } else if (code != key_i) {
             return true;
-        } else if (!(code = pgm_read_byte(autocorrect_data + (++state)))) {
+        } else if (!(code = AUTOCORRECT_PGM_READ_BYTE(++state))) {
             ++state;
         }
 
         // Stop if `state` becomes an invalid index. This should not normally
         // happen, it is a safeguard in case of a bug, data corruption, etc.
-        if (state >= DICTIONARY_SIZE) {
+        if (state >= current_dict_size) {
             return true;
         }
 
-        code = pgm_read_byte(autocorrect_data + state);
+        code = AUTOCORRECT_PGM_READ_BYTE(state);
 
         if (code & 128) { // A typo was found! Apply autocorrect.
             const uint8_t backspaces = (code & 63) + !record->event.pressed;
-            const char   *changes    = (const char *)(autocorrect_data + state + 1);
+            const char   *changes    = (const char *)(current_dict_data + state + 1);
 
             /* Gather info about the typo'd word
              *
              * Since buffer may contain several words, delimited by spaces, we
              * iterate from the end to find the start and length of the typo
              */
-            char typo[AUTOCORRECT_MAX_LENGTH + 1] = {0}; // extra char for null terminator
+            char typo[TYPO_BUFFER_SIZE + 1] = {0}; // extra char for null terminator
 
             uint8_t typo_len   = 0;
             uint8_t typo_start = 0;
@@ -349,7 +362,7 @@ bool process_autocorrect(uint16_t keycode, keyrecord_t *record) {
              *
              * B) When correcting 'typo' -- Need extra offset for terminator
              */
-            char correct[AUTOCORRECT_MAX_LENGTH + 10] = {0}; // let's hope this is big enough
+            char correct[TYPO_BUFFER_SIZE + 10] = {0}; // let's hope this is big enough
 
             uint8_t offset = space_last ? backspaces : backspaces + 1;
             strcpy(correct, typo);
