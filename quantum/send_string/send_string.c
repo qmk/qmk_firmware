@@ -213,6 +213,10 @@ void send_char(char ascii_code) {
     send_char_with_delay(ascii_code, TAP_CODE_DELAY);
 }
 
+bool is_valid_send_char(char ascii_code) {
+    return pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]) != KC_NO;
+}
+
 void send_char_with_delay(char ascii_code, uint8_t interval) {
 #if defined(AUDIO_ENABLE) && defined(SENDSTRING_BELL)
     if (ascii_code == '\a') { // BEL
