@@ -353,6 +353,16 @@ def _extract_matrix_rules(info_data, rules):
     return info_data
 
 
+def _extract_steno_rules(info_data, rules):
+    # Migrate
+    stenography = info_data.get('stenography', {})
+    if 'protocol' in stenography:
+        protocol = stenography.pop('protocol')
+        stenography['protocols'] = ['geminipr', 'txbolt'] if protocol == 'all' else [protocol]
+
+    return info_data
+
+
 def _pin_name(pin):
     """Returns the proper representation for a pin.
     """
@@ -786,6 +796,7 @@ def _extract_rules_mk(info_data, rules):
     # Merge in config values that can't be easily mapped
     _extract_features(info_data, rules)
     _extract_matrix_rules(info_data, rules)
+    _extract_steno_rules(info_data, rules)
 
     return info_data
 
