@@ -45,6 +45,9 @@
 #ifndef AUTO_MOUSE_THRESHOLD
 #    define AUTO_MOUSE_THRESHOLD 10
 #endif
+#ifndef AUTO_MOUSE_SCROLL_THRESHOLD
+#    define AUTO_MOUSE_SCROLL_THRESHOLD AUTO_MOUSE_THRESHOLD
+#endif
 
 /* data structure */
 typedef struct {
