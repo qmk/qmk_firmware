@@ -60,6 +60,7 @@
         }
     },
     "ws2812": {
+        "external_pullup": true,
         "driver": "pwm",
         "pin": "C6"
     }

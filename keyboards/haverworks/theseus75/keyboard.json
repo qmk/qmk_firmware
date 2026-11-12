@@ -159,6 +159,7 @@
         "vid": "0x6877"
     },
     "ws2812": {
+        "external_pullup": true,
         "driver": "pwm",
         "pin": "B7"
     },

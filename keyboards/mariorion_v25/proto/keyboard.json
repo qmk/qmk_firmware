@@ -33,6 +33,7 @@
         "on_state": 0
     },
     "ws2812": {
+        "external_pullup": true,
         "driver": "pwm",
         "pin": "B9"
     },
