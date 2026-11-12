@@ -256,7 +256,7 @@ bool process_tapping(keyrecord_t *keyp) {
     const keyevent_t event = keyp->event;
 
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
-    if (!event.pressed) {
+    if (IS_EVENT(event) && !event.pressed) {
         const int8_t i = registered_tap_find(event.key);
         if (i != -1) {
             // If a tap-hold key was previously settled as tapped, set its
