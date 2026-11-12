@@ -21,6 +21,7 @@
         "led_count": 1
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A8"
     },
     "matrix_pins": {

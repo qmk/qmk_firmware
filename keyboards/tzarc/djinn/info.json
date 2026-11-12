@@ -39,6 +39,7 @@
     "levels": 4
   },
   "ws2812": {
+    "external_pullup": true,
     "pin": "B2",
     "driver": "pwm"
   },

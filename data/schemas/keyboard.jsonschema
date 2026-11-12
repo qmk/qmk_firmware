@@ -1088,6 +1088,7 @@
                     "type": "string",
                     "enum": ["bitbang", "custom", "i2c", "pwm", "spi", "vendor"]
                 },
+                "external_pullup": {"type": "boolean"},
                 "pin": {"$ref": "./definitions.jsonschema#/mcu_pin"},
                 "rgbw": {"type": "boolean"},
                 "i2c_address": {"$ref": "./definitions.jsonschema#/hex_number_2d"},

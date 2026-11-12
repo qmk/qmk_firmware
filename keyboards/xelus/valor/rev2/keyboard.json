@@ -18,6 +18,7 @@
         "rgb_matrix": true
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A9",
         "driver": "pwm"
     },

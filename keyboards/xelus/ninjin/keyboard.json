@@ -8,6 +8,7 @@
         "device_version": "0.0.1"
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A10",
         "driver": "pwm"
     },
