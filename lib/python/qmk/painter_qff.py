@@ -12,6 +12,7 @@ from PIL._binary import o8, o16le as o16, o32le as o32
 from qmk.painter_qgf import QGFBlockHeader, QGFFramePaletteDescriptorV1
 from milc.attrdict import AttrDict
 import qmk.painter
+from qmk.util import maybe_exit
 
 
 def o24(i):
@@ -22,6 +23,11 @@ def o24(i):
 
 
 class QFFGlyphInfo(AttrDict):
+    GLYPH_WIDTH_BITS = 6
+    GLYPH_WIDTH_MASK = (1 << GLYPH_WIDTH_BITS) - 1
+    GLYPH_OFFSET_BITS = 18
+    GLYPH_OFFSET_MASK = ((1 << GLYPH_OFFSET_BITS) - 1) << GLYPH_WIDTH_BITS
+
     def __init__(self, *args, **kwargs):
         super().__init__()
 
@@ -35,7 +41,7 @@ class QFFGlyphInfo(AttrDict):
         if include_code_point is True:
             fp.write(o24(ord(self.code_point)))
 
-        value = ((self.data_offset << 6) & 0xFFFFC0) | (self.w & 0x3F)
+        value = ((self.data_offset << self.GLYPH_WIDTH_BITS) & self.GLYPH_OFFSET_MASK) | (self.w & self.GLYPH_WIDTH_MASK)
         fp.write(o24(value))
 
 
@@ -228,10 +234,24 @@ class QFFFont:
         last_offset = 0
         for x in range(1, width):
             if pixels[x, 0] == glyph_split_color:
+                if x > ((1 << QFFGlyphInfo.GLYPH_OFFSET_BITS) - 1):
+                    self.logger.error("A glyph has too big of an offset for QFF's encoding")
+                    maybe_exit(1)
                 glyph_pixel_offsets.append(x)
-                glyph_pixel_widths.append(x - last_offset)
+
+                glyph_width = x - last_offset
+                if glyph_width > ((1 << QFFGlyphInfo.GLYPH_WIDTH_BITS) - 1):
+                    self.logger.error("A glyph is too wide for QFF's encoding")
+                    maybe_exit(1)
+                glyph_pixel_widths.append(glyph_width)
+
                 last_offset = x
-        glyph_pixel_widths.append(width - last_offset)
+
+        final_width = width - last_offset
+        if final_width > ((1 << QFFGlyphInfo.GLYPH_WIDTH_BITS) - 1):
+            self.logger.error("A glyph is too wide for QFF's encoding")
+            maybe_exit(1)
+        glyph_pixel_widths.append(final_width)
 
         # Make sure the number of glyphs we're attempting to generate matches the input image
         if len(glyph_pixel_offsets) != len(glyphs):
