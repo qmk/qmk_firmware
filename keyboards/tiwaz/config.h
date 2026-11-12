@@ -1,0 +1,15 @@
+// Copyright 2026 Timo Strube (@tstrube)
+// SPDX-License-Identifier: GPL-3.0-or-later
+
+#pragma once
+
+#define SPLIT_TRANSACTION_IDS_KB RPC_JOYSTICK_AXES, RPC_KB_CONFIG
+
+#define WS2812_PWM_DRIVER PWMD1
+#define WS2812_PWM_CHANNEL 2
+#define WS2812_PWM_PAL_MODE 1
+#define WS2812_PWM_DMA_STREAM STM32_DMA2_STREAM5
+#define WS2812_PWM_DMA_CHANNEL 6
+
+#define SERIAL_USART_DRIVER SD6
+#define SERIAL_USART_TX_PAL_MODE 8
