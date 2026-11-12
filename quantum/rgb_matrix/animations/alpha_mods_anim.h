@@ -11,7 +11,7 @@ bool ALPHAS_MODS(effect_params_t* params) {
     hsv.h += rgb_matrix_config.speed;
     rgb_t rgb2 = rgb_matrix_hsv_to_rgb(hsv);
 
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (led_index_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
         if (HAS_FLAGS(g_led_config.flags[i], LED_FLAG_MODIFIER)) {
             rgb_matrix_set_color(i, rgb2.r, rgb2.g, rgb2.b);

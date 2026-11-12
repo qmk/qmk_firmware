@@ -7,7 +7,7 @@ bool GRADIENT_UP_DOWN(effect_params_t* params) {
 
     hsv_t   hsv   = rgb_matrix_config.hsv;
     uint8_t scale = scale8(64, rgb_matrix_config.speed);
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (led_index_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
         // The y range will be 0..64, map this to 0..4
         // Relies on hue being 8-bit and wrapping

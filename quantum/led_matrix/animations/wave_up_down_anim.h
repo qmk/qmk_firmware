@@ -2,7 +2,7 @@
 LED_MATRIX_EFFECT(WAVE_UP_DOWN)
 #    ifdef LED_MATRIX_CUSTOM_EFFECT_IMPLS
 
-static uint8_t WAVE_UP_DOWN_math(uint8_t val, uint8_t i, uint8_t time) {
+static uint8_t WAVE_UP_DOWN_math(uint8_t val, led_index_t i, uint8_t time) {
     return scale8(sin8(g_led_config.point[i].y - time), val);
 }
 
