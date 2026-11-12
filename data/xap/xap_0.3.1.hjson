@@ -1,0 +1,21 @@
+{
+    version: 0.3.1
+    routes: {
+        0x01: {
+            routes: {
+                0x10: {
+                    type: command
+                    name: Keycodes version query
+                    define: KEYCODES_VERSION_QUERY
+                    description:
+                        '''
+                        Query the version of the keycodes known by the firmware.
+                        '''
+                    return_type: u32
+                    return_purpose: bcd-version
+                    return_constant: QMK_KEYCODES_VERSION_BCD
+                }
+            }
+        }
+    }
+}

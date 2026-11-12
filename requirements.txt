@@ -3,8 +3,10 @@
 argcomplete
 colorama
 dotty-dict
+fnvhash
 hid
 hjson
+Jinja2
 jsonschema>=4
 milc>=1.9.0
 pygments

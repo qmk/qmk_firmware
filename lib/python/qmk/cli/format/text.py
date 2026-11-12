@@ -1,11 +1,11 @@
 """Ensure text files have the proper line endings.
 """
-from itertools import islice
 from subprocess import DEVNULL
 
 from milc import cli
 
 from qmk.path import normpath, is_relative_to
+from qmk.commands import get_chunks
 
 IGNORE_SUFFIXES = [
     'hex',
@@ -21,13 +21,6 @@ IGNORE_DIRS = [
 ]
 
 
-def _get_chunks(it, size):
-    """Break down a collection into smaller parts
-    """
-    it = iter(it)
-    return iter(lambda: tuple(islice(it, size)), ())
-
-
 def _check_dos2unix():
     """Check for a 'valid' dos2unix executable
     """
@@ -38,7 +31,7 @@ def _check_dos2unix():
 def dos2unix_run(files):
     """Spawn multiple dos2unix subprocess avoiding too long commands on formatting everything
     """
-    for chunk in _get_chunks([normpath(file).as_posix() for file in files], 10):
+    for chunk in get_chunks([normpath(file).as_posix() for file in files], 10):
         dos2unix = cli.run(['dos2unix', '--add-eol', *chunk])
 
         if dos2unix.returncode:
