@@ -24,6 +24,11 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitize: ['no', 'yes']
+
     container: ghcr.io/qmk/qmk_cli
 
     steps:
@@ -35,4 +40,4 @@ jobs:
       run: pip3 install -r requirements-dev.txt
 
     - name: Run tests
-      run: qmk test-c -j $(nproc)
+      run: qmk test-c -j $(nproc) -e SANITIZE=${{ matrix.sanitize }}

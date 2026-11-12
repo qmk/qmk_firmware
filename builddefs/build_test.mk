@@ -36,6 +36,15 @@ $(GTEST_OUTPUT)_INC := $(GTEST_INC) $(GTEST_INTERNAL_INC)
 LDFLAGS += -lstdc++ -lpthread -shared-libgcc
 CREATE_MAP := no
 
+# Build and run the tests under AddressSanitizer and UndefinedBehaviorSanitizer with `make test:all SANITIZE=yes`.
+SANITIZE ?= no
+ifeq ($(strip $(SANITIZE)),yes)
+SANITIZE_FLAGS := -fsanitize=address,undefined -fno-sanitize-recover=all -fno-omit-frame-pointer
+CFLAGS += $(SANITIZE_FLAGS)
+CXXFLAGS += $(SANITIZE_FLAGS)
+LDFLAGS += $(SANITIZE_FLAGS)
+endif
+
 VPATH += \
 	$(LIB_PATH)/googletest \
 	$(LIB_PATH)/googlemock \

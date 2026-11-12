@@ -70,10 +70,16 @@ void sequencer_set_track_notes(const uint16_t track_notes[SEQUENCER_TRACKS]) {
 }
 
 bool is_sequencer_track_active(uint8_t track) {
+    if (track >= SEQUENCER_TRACKS) {
+        return false;
+    }
     return (sequencer_internal_state.active_tracks >> track) & true;
 }
 
 void sequencer_set_track_activation(uint8_t track, bool value) {
+    if (track >= SEQUENCER_TRACKS) {
+        return;
+    }
     if (value) {
         sequencer_internal_state.active_tracks |= (1 << track);
     } else {
@@ -87,6 +93,9 @@ void sequencer_toggle_track_activation(uint8_t track) {
 }
 
 void sequencer_toggle_single_active_track(uint8_t track) {
+    if (track >= SEQUENCER_TRACKS) {
+        return;
+    }
     if (is_sequencer_track_active(track)) {
         sequencer_internal_state.active_tracks = 0;
     } else {
