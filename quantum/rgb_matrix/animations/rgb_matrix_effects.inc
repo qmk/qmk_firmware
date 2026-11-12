@@ -44,3 +44,4 @@
 #include "starlight_dual_sat_anim.h"
 #include "starlight_dual_hue_anim.h"
 #include "riverflow_anim.h"
+#include "responsive_hold_anim.h"
