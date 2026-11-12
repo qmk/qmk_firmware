@@ -48,7 +48,7 @@ action_t action_for_key(uint8_t layer, keypos_t key) {
     // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
     return action_for_keycode(keycode);
-};
+}
 
 action_t action_for_keycode(uint16_t keycode) {
     // keycode remapping
