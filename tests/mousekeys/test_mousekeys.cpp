@@ -63,6 +63,27 @@ TEST_F(Mousekey, PressAndHoldButtonOneCorrectlyReported) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(Mousekey, HostLastMouseButtonsTracksLatestReport) {
+    TestDriver driver;
+    KeymapKey  mouse_key = KeymapKey{0, 0, 0, QK_MOUSE_BUTTON_1};
+
+    set_keymap({mouse_key});
+
+    EXPECT_EQ(host_last_mouse_buttons(), 0);
+
+    EXPECT_MOUSE_REPORT(driver, (0, 0, 0, 0, 1));
+    mouse_key.press();
+    run_one_scan_loop();
+    EXPECT_EQ(host_last_mouse_buttons(), 1);
+
+    EXPECT_MOUSE_REPORT(driver, (0, 0, 0, 0, 0));
+    mouse_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(host_last_mouse_buttons(), 0);
+
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_P(MousekeyParametrized, PressAndReleaseIsCorrectlyReported) {
     TestDriver           driver;
     KeymapKey            mouse_key    = GetParam().first;
