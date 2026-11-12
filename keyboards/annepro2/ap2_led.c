@@ -56,7 +56,14 @@ void ap2_set_IAP(void) { proto_tx(CMD_LED_IAP, NULL, 0, 3); }
 
 void ap2_led_disable(void) { proto_tx(CMD_LED_OFF, NULL, 0, 3); }
 
-void ap2_led_enable(void) { proto_tx(CMD_LED_ON, NULL, 0, 3); }
+void ap2_led_enable(void) {
+    proto_tx(CMD_LED_ON, NULL, 0, 3);
+#ifdef RGB_MATRIX_ENABLE
+    /* Only changed rows are sent, so make sure the LED MCU gets every colour
+     * again after it was off. */
+    ap2_rgb_resend_all();
+#endif
+}
 
 void ap2_led_set_profile(uint8_t prof) { proto_tx(CMD_LED_SET_PROFILE, &prof, sizeof(prof), 3); }
 
@@ -109,6 +116,13 @@ void ap2_led_colors_set_all(void) {
 
 /* Set all keys to a given color */
 void ap2_led_colors_set_mono(const ap2_led_t color) { proto_tx(CMD_LED_COLOR_SET_MONO, (uint8_t *)&color, sizeof(color), 1); }
+
+uint16_t ap2_led_tx_space(void) {
+    osalSysLock();
+    const uint16_t space = oqGetEmptyI(&PROTOCOL_SD.oqueue);
+    osalSysUnlock();
+    return space;
+}
 
 void ap2_led_set_manual_control(uint8_t manual) {
     uint8_t payload[] = {manual};

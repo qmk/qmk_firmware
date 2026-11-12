@@ -121,6 +121,11 @@ void matrix_scan_kb(void) {
         sdReadTimeout(&SD1, (uint8_t *)&ble_capslock, sizeof(ble_capslock_t), 10);
     }
 
+#ifdef RGB_MATRIX_ENABLE
+    /* Send any RGB row that did not fit in the LED UART at the last flush. */
+    ap2_rgb_flush_pending();
+#endif
+
     /* While there's data from LED keyboard sent - read it. */
     while (!sdGetWouldBlock(&SD0)) {
         uint8_t byte = sdGet(&SD0);
