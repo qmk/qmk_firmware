@@ -534,6 +534,56 @@ TEST_F(OneShot, OSLChainingTwoOSLsAndAdditionalKeypress) {
     VERIFY_AND_CLEAR(driver);
 }
 
+TEST_F(OneShot, OSLChainingTwoOSLsRolled) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl1_key    = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  l0_key      = KeymapKey{0, 1, 0, KC_NO};
+    KeymapKey  l1_trns     = KeymapKey{1, 0, 0, KC_TRNS};
+    KeymapKey  osl2_key    = KeymapKey{1, 1, 0, OSL(2)};
+    KeymapKey  l2_trns     = KeymapKey{2, 0, 0, KC_TRNS};
+    KeymapKey  regular_key = KeymapKey{2, 1, 1, KC_A};
+    KeymapKey  l2_trn2     = KeymapKey{2, 1, 0, KC_TRNS};
+    set_keymap({
+        osl1_key, l0_key, osl2_key,   // Layer 0.
+        l1_trns,                      // Layer 1.
+        regular_key, l2_trns, l2_trn2 // Layer 2.
+    });
+
+    // Press OSL(1), press OSL(2) on layer 1, then release OSL(1), and then
+    // OSL(2), all within the tapping term.
+    EXPECT_NO_REPORT(driver);
+    osl1_key.press();
+    idle_for(50);
+    osl2_key.press();
+    idle_for(10);
+    osl1_key.release();
+    idle_for(50);
+    osl2_key.release();
+
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Only the second one-shot layer is active.
+    EXPECT_EQ(layer_state, (layer_state_t)1 << 2);
+    EXPECT_TRUE(is_oneshot_layer_active());
+    EXPECT_EQ(get_oneshot_layer(), 2);
+
+    // Tap regular key on layer 2. It is typed and one-shot layer ends.
+    EXPECT_REPORT(driver, (KC_A)).Times(1);
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(layer_state, 0);
+    EXPECT_FALSE(is_oneshot_layer_active());
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(OneShot, OSLWithShortLT) {
     TestDriver driver;
     InSequence s;
@@ -685,5 +735,41 @@ TEST_F(OneShot, OSLWithLongModTapKeyAndRegularKey) {
     EXPECT_NO_REPORT(driver);
     regular_key.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Holding an OSL key past the tapping term activates its layer like MO(1). The
+// key pressed on the layer is typed without a synthesized release, and the
+// layer turns off when the one-shot layer key is released.
+TEST_F(OneShot, OSLHeldPastTappingTermActsAsMomentaryLayer) {
+    TestDriver driver;
+    InSequence s;
+    KeymapKey  osl_key     = KeymapKey{0, 0, 0, OSL(1)};
+    KeymapKey  regular_key = KeymapKey{1, 1, 0, KC_A};
+    set_keymap({osl_key, regular_key});
+
+    EXPECT_NO_REPORT(driver);
+    osl_key.press();
+    idle_for(TAPPING_TERM + 1);
+    EXPECT_EQ(layer_state, (layer_state_t)1 << 1); // Layer 1 is on.
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
+    regular_key.press();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    regular_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(layer_state, (layer_state_t)1 << 1); // Layer 1 is still on.
+    VERIFY_AND_CLEAR(driver);
+
+    // Release OSL key: layer 1 turns off.
+    EXPECT_NO_REPORT(driver);
+    osl_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(layer_state, 0); // Layer 1 turned off.
+    EXPECT_FALSE(is_oneshot_layer_active());
     VERIFY_AND_CLEAR(driver);
 }
