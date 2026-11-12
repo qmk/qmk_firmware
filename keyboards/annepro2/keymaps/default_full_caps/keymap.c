@@ -1,4 +1,4 @@
- /* Copyright 2021 OpenAnnePro community
+/* Copyright 2021 OpenAnnePro community
   *
   * This program is free software: you can redistribute it and/or modify
   * it under the terms of the GNU General Public License as published by
@@ -83,7 +83,7 @@ enum anne_pro_layers {
   /*
   * Layer FN2
   * ,-----------------------------------------------------------------------------------------.
-  * |  ~  | BT1 | BT2 | BT3 | BT4 |  F5 |  F6 |  F7 |  F8 |LEDTG|LEDI+|LEDPV|LEDNX|    Bksp   |
+  * |  ~  | BT1 | BT2 | BT3 | BT4 |  F5 |  F6 |  F7 |LEDOF|LEDON| F10 | F11 | F12 |    Bksp   |
   * |-----------------------------------------------------------------------------------------+
   * | Tab    |  q  | UP  |  e  |  r  |  t  |  y  |  u  |  i  |  o  | PS | HOME | END |   \    |
   * |-----------------------------------------------------------------------------------------+
@@ -97,49 +97,23 @@ enum anne_pro_layers {
   */
  [FN2] = LAYOUT_60_ansi( /* FN2 */
     _______, KC_AP2_BT1, KC_AP2_BT2, KC_AP2_BT3, KC_AP2_BT4, _______, _______, _______, _______, KC_AP_RGB_MOD, KC_AP_RGB_TOG, KC_AP_RGB_VAD, KC_AP_RGB_VAI, _______,
-    _______, _______,    KC_UP,      _______,    _______,    _______, _______, _______, _______, _______, KC_PSCR, KC_HOME, KC_END,  _______,
-    _______, KC_LEFT,    KC_DOWN,    KC_RGHT,    _______,    _______, _______, _______, _______, _______, KC_PGUP, KC_PGDN, _______,
-    _______,             _______,    _______,    _______,    _______, _______, _______, _______, _______, KC_INS,  KC_DEL,  _______,
-    _______, _______,    _______,                                     _______,                   _______, _______, _______, _______
+    _______, _______,    KC_UP,      _______,    _______,    _______, _______, _______, _______,       _______,      KC_PSCR, KC_HOME, KC_END,  _______,
+    _______, KC_LEFT,    KC_DOWN,    KC_RGHT,    _______,    _______, _______, _______, _______,       _______,      KC_PGUP, KC_PGDN, _______,
+    _______,             _______,    _______,    _______,    _______, _______, _______, _______,       _______,      KC_INS,  KC_DEL,  _______,
+    _______, _______,    _______,                                     _______,                         _______,      _______, _______, _______
  ),
 };
 // clang-format on
 
-void keyboard_post_init_user(void) {
-    ap2_led_enable();
-    ap2_led_set_profile(7);
-}
-
-layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
-        case FN1:
-            // Set the leds to green
-            ap2_led_set_foreground_color(0x00, 0xFF, 0x00);
-            break;
-        case FN2:
-            // Set the leds to blue
-            ap2_led_set_foreground_color(0x00, 0x00, 0xFF);
-            break;
-        default:
-            // Reset back to the current profile
-            ap2_led_reset_foreground_color();
-            break;
-    }
-    return state;
-}
-
 // The function to handle the caps lock logic
-// It's called after the capslock changes state or after entering layers 1 and 2.
 bool led_update_user(led_t leds) {
     if (leds.caps_lock) {
-        // Set the caps-lock to red
+        // Set the leds to red
         const ap2_led_t color = {.p.red = 0xff, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0xff};
-        ap2_led_sticky_set_key(2, 0, color);
-        /* NOTE: Instead of colouring the capslock only, you can change the whole
-           keyboard with ap2_led_mask_set_mono */
+        ap2_led_mask_set_mono(color);
     } else {
-        // Reset the capslock if there is no layer active
-        ap2_led_unset_sticky_key(2, 0);
+        const ap2_led_t color = {.p.red = 0x00, .p.green = 0x00, .p.blue = 0x00, .p.alpha = 0x00};
+        ap2_led_mask_set_mono(color);
     }
 
     return true;
