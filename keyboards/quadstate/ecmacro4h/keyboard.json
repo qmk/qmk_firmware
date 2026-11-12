@@ -1,0 +1,34 @@
+{
+    "manufacturer": "QuadState",
+    "keyboard_name": "ECmacro",
+    "maintainer": "QuadState",
+    "bootloader": "rp2040",
+    "features": {
+        "extrakey": true
+    },
+    "matrix_pins": {
+        "custom_lite": true
+    },
+    "matrix_size": {
+        "cols": 4,
+        "rows": 1
+    },
+    "processor": "RP2040",
+    "url": "https://github.com/QuadState/ECmacro",
+    "usb": {
+        "device_version": "1.0.0",
+        "max_power": 100,
+        "pid": "0xEC02",
+        "vid": "0x1209"
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"label": "SW1", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "SW2", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "SW3", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "SW4", "matrix": [0, 3], "x": 3, "y": 0}
+            ]
+        }
+    }
+}
