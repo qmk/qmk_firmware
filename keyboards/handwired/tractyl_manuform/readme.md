@@ -4,7 +4,7 @@ the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curv
 ![Imgur](https://i.imgur.com/kDNVTI4l.jpeg)
 
 * Keyboard Maintainer: [drashna](https://github.com/drashna)
-* Hardware Supported: Teensy 2.0++, WeAct BlackPill F411
+* Hardware Supported: Teensy 2.0++, WeAct BlackPill F411, RPi 2040, WeAct F303, EliteC, Arduino Micro
 
 Make example for this keyboard (after setting up your build environment):
 
