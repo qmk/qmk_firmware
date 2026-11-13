@@ -11,7 +11,6 @@ OLED_ENABLE = yes
 LOCAL_GLCDFONT = yes
 
 #Debug options
-VERBOSE 		 = yes
 DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_BALLER 		 = no
 DEBUG_MATRIX		 = yes
