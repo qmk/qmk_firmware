@@ -4,6 +4,7 @@ import contextlib
 import multiprocessing
 import sys
 import re
+from pathlib import Path
 
 from milc import cli
 
@@ -101,8 +102,39 @@ def parallel_map(*args, **kwargs):
         return list(map_fn(*args, **kwargs))
 
 
-def triplet_to_bcd(ver: str):
-    m = TRIPLET_PATTERN.match(ver)
-    if not m:
-        return '0x00000000'
-    return f'0x{int(m.group(1)):02d}{int(m.group(2)):02d}{int(m.group(3)):04d}'
+def is_valid_bcd_string(ver: str) -> bool:
+    if ver:
+        parts = ver.split('.')
+        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
+            major, minor, patch = map(int, parts)
+            # Ensure that version is valid u32 bcd
+            if major <= 99 and minor <= 99 and patch <= 9999:
+                return True
+    return False
+
+
+def triplet_to_bcd(ver: str) -> str:
+    if ver:
+        m = TRIPLET_PATTERN.match(ver)
+        if m and is_valid_bcd_string(m.expand(r'\1.\2.\3')):
+            return f'0x{int(m.group(1)):02d}{int(m.group(2)):02d}{int(m.group(3)):04d}'
+    return '0x00000000'
+
+
+def _search_file_versions(parent: Path, ext: str = 'hjson', prefix: str = '', reverse: bool = False) -> dict[str, Path]:
+    versions = {}
+    found = parent.glob(f'{prefix}*.{ext}')
+    for file in found:
+        version = file.stem[len(prefix):] if prefix else file.stem
+        if is_valid_bcd_string(version):
+            versions[version] = file
+
+    return dict(sorted(versions.items(), key=lambda item: tuple(map(int, item[0].split('.'))), reverse=reverse))
+
+
+def list_file_versions(parent: Path, ext: str = 'hjson', prefix: str = '', reverse: bool = False) -> list[str]:
+    return list(_search_file_versions(parent, ext=ext, prefix=prefix, reverse=reverse).keys())
+
+
+def list_version_files(parent: Path, ext: str = 'hjson', prefix: str = '', reverse: bool = False) -> list[Path]:
+    return list(_search_file_versions(parent, ext=ext, prefix=prefix, reverse=reverse).values())
