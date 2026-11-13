@@ -1,6 +1,6 @@
 # Cheapino
 
-![Cheapino](https://raw.githubusercontent.com/tompi/cheapino/master/doc/gallery/27.png)
+![Cheapino](https://imgur.com/OhU5RCc.png)
 
 A budget-friendly 36-key split keyboard with a rotary encoder, designed as an accessible entry point for building and programming your own keyboard. Both halves share one RP2040 controller, connected over an RJ45 cable.
 
