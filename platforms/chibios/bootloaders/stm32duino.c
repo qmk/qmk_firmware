@@ -26,3 +26,6 @@ __attribute__((weak)) void mcu_reset(void) {
     BKP->DR10 = RTC_BOOTLOADER_JUST_UPLOADED;
     NVIC_SystemReset();
 }
+
+/* not needed by default, no two-stage reset */
+__attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}
