@@ -4,7 +4,7 @@
 
 * Keyboard Maintainer: [Maelkk](https://github.com/Aeonstrife)
 * Hardware Supported: Hexology Gwydd65 Solder PCB, Hexology Gwydd65 Hotswap PCB, RP2040
-* Hardware Availability: [Hexology.design Gwydd65 Keyboard](https://www.hexology.design/products/gwydd65-keyboard-kit)
+* Hardware Availability: [Hexology.design Gwydd65 Keyboard](https://www.hexology.design/products/gwydd65-keyboard-kit-in-stock-extra)
 
 Make example for this keyboard (after setting up your build environment):
 

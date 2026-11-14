@@ -1,7 +1,8 @@
 {
     "manufacturer": "Hexology",
     "keyboard_name": "Gwydd65",
-    "maintainer": "Maelkk",
+    "url": "https://www.hexology.design",
+    "maintainer": "Aeonstrife",
     "board": "GENERIC_RP_RP2040",
     "bootloader": "rp2040",
     "diode_direction": "COL2ROW",
