@@ -11,6 +11,7 @@
         "led_count": 8
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A10"
     },
     "processor": "STM32L422",

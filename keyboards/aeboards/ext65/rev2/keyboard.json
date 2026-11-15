@@ -42,6 +42,7 @@
         }
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "B15",
         "driver": "spi"
     },

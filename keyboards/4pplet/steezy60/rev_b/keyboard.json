@@ -49,6 +49,7 @@
         }
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A8"
     },
     "layout_aliases": {
