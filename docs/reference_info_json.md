@@ -920,6 +920,9 @@ Configures the [WS2812](drivers/ws2812) driver.
     * `driver` <Badge type="info">String</Badge>
         * The driver to use. Must be one of `bitbang`, `custom`, `i2c`, `pwm`, `spi`, `vendor`.
         * Default: `"bitbang"`
+    * `external_pullup` <Badge type="info">Boolean</Badge>
+        * Use the `DI` pin in open drain configurations.
+        * Default: `false`
     * `pin` <Badge type="info">Pin</Badge> <Badge>Required</Badge>
         * The GPIO pin connected to `DI` on the first LED in the chain (`bitbang`, `pwm`, `spi` and `vendor` drivers only).
     * `i2c_address` <Badge type="info">String</Badge>

@@ -33,6 +33,7 @@
         "sleep": true
     },
     "ws2812": {
+        "external_pullup": true,
         "driver": "pwm",
         "pin": "B9"
     },

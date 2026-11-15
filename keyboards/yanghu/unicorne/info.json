@@ -37,6 +37,7 @@
     }
   },
   "ws2812": {
+    "external_pullup": true,
     "pin": "B1",
     "driver": "pwm"
   },

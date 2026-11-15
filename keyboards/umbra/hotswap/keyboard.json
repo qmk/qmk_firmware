@@ -44,6 +44,7 @@
         "vid": "0x7786"
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A8"
     },
     "community_layouts": ["60_ansi_tsangan_split_bs_rshift", "60_hhkb"],

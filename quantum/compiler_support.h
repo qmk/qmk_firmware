@@ -1,5 +1,6 @@
 // Copyright 2025 QMK Contributors
 // SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
 
 /**
  * @brief Perfom an assertion at compile time.

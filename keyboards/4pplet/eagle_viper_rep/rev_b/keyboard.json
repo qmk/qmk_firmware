@@ -59,6 +59,7 @@
         }
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A8"
     },
     "processor": "STM32F072",

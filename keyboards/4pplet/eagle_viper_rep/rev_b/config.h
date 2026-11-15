@@ -20,9 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_PWM_CHANNEL   1
 #define BACKLIGHT_PAL_MODE      1
 
-/* Underglow */
-#define WS2812_EXTERNAL_PULLUP
-
 /* Indicator leds */
 #define LAYER_1             B14
 #define LAYER_2             B15

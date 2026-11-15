@@ -22,6 +22,7 @@
         }
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A10",
         "driver": "pwm"
     },

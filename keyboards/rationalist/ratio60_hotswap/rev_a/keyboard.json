@@ -43,6 +43,7 @@
         "vid": "0x4446"
     },
     "ws2812": {
+        "external_pullup": true,
         "pin": "A8"
     },
     "community_layouts": [
