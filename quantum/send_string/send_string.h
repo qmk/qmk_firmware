@@ -22,6 +22,7 @@
  * \brief These functions allow you to create macros by typing out sequences of keystrokes.
  * \{
  */
+#pragma once
 
 #include <stdint.h>
 

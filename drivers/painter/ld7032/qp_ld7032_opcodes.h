@@ -1,5 +1,6 @@
 // Copyright 2023 Dasky (@daskygit)
 // SPDX-License-Identifier: GPL-2.0-or-later
+#pragma once
 
 typedef enum {
     LD7032_SOFTRES          = 0x01,
