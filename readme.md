@@ -8,6 +8,22 @@
 
 This is a keyboard firmware based on the [tmk\_keyboard firmware](https://github.com/tmk/tmk_keyboard) with some useful features for Atmel AVR and ARM controllers, and more specifically, the [OLKB product line](https://olkb.com), the [ErgoDox EZ](https://ergodox-ez.com) keyboard, and the Clueboard product line.
 
+## Ruben's Keyboards Configurations commands
+
+Planck:
+```
+```
+
+Lily58:
+```
+qmk compile -kb lily58 -km rubangarmon
+```
+
+tokyokeyboard/tokyo60:
+```
+qmk compile -kb tokyokeyboard/tokyo60 -km rubangarmon
+```
+
 ## Documentation
 
 * [See the official documentation on docs.qmk.fm](https://docs.qmk.fm)
