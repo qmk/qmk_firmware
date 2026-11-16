@@ -2,6 +2,10 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 #pragma once
 
+#ifndef EARLY_INIT_PERFORM_BOOTLOADER_JUMP
+#    define EARLY_INIT_PERFORM_BOOTLOADER_JUMP TRUE
+#endif
+
 // Value to place in RTC backup register 10 for persistent bootloader mode
 #define RTC_BOOTLOADER_FLAG 0x424C
 

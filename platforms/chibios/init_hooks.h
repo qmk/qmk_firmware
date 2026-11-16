@@ -1,3 +1,6 @@
+// Copyright 2020 QMK
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #pragma once
 
 // Override the initialisation functions inside the ChibiOS board.c files
