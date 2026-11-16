@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#ifdef OLED_ENABLE
+
 #include "oled.h"
 
 extern matrix_row_t matrix[MATRIX_ROWS];
@@ -289,3 +291,5 @@ void draw_bongocat(void) {
 
     }
 }
+
+#endif
