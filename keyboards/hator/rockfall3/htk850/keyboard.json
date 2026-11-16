@@ -4,12 +4,6 @@
 	"url": "https://hator.com/",
     "maintainer": "koosikus",
     "bootloader": "wb32-dfu",
-<<<<<<< Updated upstream
-    "bootmagic": {
-        "matrix": [0, 0]
-    },
-=======
->>>>>>> Stashed changes
     "diode_direction": "ROW2COL",
     "eeprom": {
         "driver": "wear_leveling",
@@ -51,12 +45,9 @@
         },
         {
             "key": "KC_2G4"
-<<<<<<< Updated upstream
-=======
         },
         {
             "key": "KC_BATQ"
->>>>>>> Stashed changes
         }
     ],
     "matrix_pins": {
@@ -180,25 +171,12 @@
             { "flags": 1, "matrix": [5,15], "x": 206, "y": 62},
             { "flags": 1, "matrix": [5,16], "x": 218, "y": 62},
 
-<<<<<<< Updated upstream
-            { "flags": 1},
-            { "flags": 1}
-=======
             { "flags": 1, "x": 224, "y": 0},
             { "flags": 1, "x": 224, "y": 2}
->>>>>>> Stashed changes
         ],
         "max_brightness": 180,
         "sleep": false,
         "speed_steps": 64,
-<<<<<<< Updated upstream
-        "timeout": 60000,
-        "val_steps": 45
-    },
-    "usb": {
-        "device_version": "1.1.1",
-        "force_nkro": true,
-=======
         "val_steps": 45
     },
     "host": {
@@ -208,7 +186,6 @@
     },
     "usb": {
         "device_version": "1.1.1",
->>>>>>> Stashed changes
         "pid": "0x0300",
         "suspend_wakeup_delay": 1000,
         "vid": "0x379A"
@@ -216,14 +193,9 @@
     "dynamic_keymap": {
         "layer_count": 6
     },
-<<<<<<< Updated upstream
-    "layouts": {
-        "LAYOUT_ansi": {
-=======
     "community_layouts": ["tkl_ansi", "tkl_iso"],
     "layouts": {
         "LAYOUT_all": {
->>>>>>> Stashed changes
             "layout": [
                 { "matrix": [0,0], "x": 0, "y": 0 },
                 { "matrix": [0,1], "x": 2, "y": 0 },
@@ -254,11 +226,7 @@
                 { "matrix": [1,10], "x": 10, "y": 1.25 },
                 { "matrix": [1,11], "x": 11, "y": 1.25 },
                 { "matrix": [1,12], "x": 12, "y": 1.25 },
-<<<<<<< Updated upstream
-                { "matrix": [1,13], "x": 14, "y": 1.25 },
-=======
                 { "matrix": [1,13], "w": 2, "x": 13, "y": 1.25 },
->>>>>>> Stashed changes
                 { "matrix": [1,14], "x": 15.25, "y": 1.25 },
                 { "matrix": [1,15], "x": 16.25, "y": 1.25 },
                 { "matrix": [1,16], "x": 17.25, "y": 1.25 },
@@ -288,21 +256,12 @@
                 { "matrix": [3,6], "x": 6.75, "y": 3.25 },
                 { "matrix": [3,7], "x": 7.75, "y": 3.25 },
                 { "matrix": [3,8], "x": 8.75, "y": 3.25 },
-<<<<<<< Updated upstream
-                { "matrix": [3,9],  "x": 9.75, "y": 3.25 },
-                { "matrix": [3,10], "x": 10.75, "y": 3.25 },
-                { "matrix": [3,11], "x": 11.75, "y": 3.25 },
-                { "matrix": [3,12], "x": 12.75, "y": 3.25 },
-                { "matrix": [3,13], "w": 2.25, "x": 12.75, "y": 3.25 },
-                { "matrix": [4,0], "w": 2.25, "x": 0, "y": 4.25 },
-=======
                 { "matrix": [3,9], "x": 9.75, "y": 3.25 },
                 { "matrix": [3,10], "x": 10.75, "y": 3.25 },
                 { "matrix": [3,11], "x": 11.75, "y": 3.25 },
                 { "matrix": [3,12], "x": 12.75, "y": 3.25 },
                 { "matrix": [3,13], "w": 1.25, "x": 13.75, "y": 3.25 },
                 { "matrix": [4,0], "w": 1.25, "x": 0, "y": 4.25 },
->>>>>>> Stashed changes
                 { "matrix": [5,3], "x": 1.25, "y": 4.25 },
                 { "matrix": [4,1], "x": 2.25, "y": 4.25 },
                 { "matrix": [4,2], "x": 3.25, "y": 4.25 },
@@ -312,9 +271,6 @@
                 { "matrix": [4,6], "x": 7.25, "y": 4.25 },
                 { "matrix": [4,7], "x": 8.25, "y": 4.25 },
                 { "matrix": [4,8], "x": 9.25, "y": 4.25 },
-<<<<<<< Updated upstream
-                { "matrix": [4,9],  "x": 10.25, "y": 4.25 },
-=======
                 { "matrix": [4,9], "x": 10.25, "y": 4.25 },
                 { "matrix": [4,10], "x": 11.25, "y": 4.25 },
                 { "matrix": [4,13], "w": 2.75, "x": 12.25, "y": 4.25 },
@@ -499,7 +455,6 @@
                 { "matrix": [4,7], "x": 8.25, "y": 4.25 },
                 { "matrix": [4,8], "x": 9.25, "y": 4.25 },
                 { "matrix": [4,9], "x": 10.25, "y": 4.25 },
->>>>>>> Stashed changes
                 { "matrix": [4,10], "x": 11.25, "y": 4.25 },
                 { "matrix": [4,13], "w": 2.75, "x": 12.25, "y": 4.25 },
                 { "matrix": [4,15], "x": 16.25, "y": 4.25 },

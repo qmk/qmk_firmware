@@ -168,26 +168,6 @@ void eeconfig_confinfo_init(void) {
         eeconfig_confinfo_default();
     }
 }
-<<<<<<< Updated upstream
-static void bt_scan_mode(void) {
-#ifdef BT_MODE_SW_PIN
-    if (readPin(RF_MODE_SW_PIN) && !readPin(BT_MODE_SW_PIN)) {
-        if ((wireless_get_current_devs() == DEVS_USB) || (wireless_get_current_devs() == DEVS_2G4)) {
-            wireless_devs_change(wireless_get_current_devs(), confinfo.BTdevs, false);
-        }
-    }
-    if (readPin(BT_MODE_SW_PIN) && !readPin(RF_MODE_SW_PIN)) {
-        if (wireless_get_current_devs() != DEVS_2G4) {
-            wireless_devs_change(wireless_get_current_devs(), DEVS_2G4, false); // 2_CA4G mode
-
-        }
-    }
-    if (readPin(BT_MODE_SW_PIN) && readPin(RF_MODE_SW_PIN)) {
-        if (wireless_get_current_devs() != DEVS_USB) wireless_devs_change(wireless_get_current_devs(), DEVS_USB, false); // usb mode
-    }
-#endif
-}
-=======
 #ifdef WIRELESS_ENABLE
 #    ifndef MODE_SW_DEBOUNCE
 #        define MODE_SW_DEBOUNCE 300 // ms the USB / BT / 2.4G switch must stay stable
@@ -247,7 +227,6 @@ static void bt_scan_mode(void) {
 #    endif
 }
 #endif
->>>>>>> Stashed changes
 
 void keyboard_post_init_kb(void) {
 
@@ -261,17 +240,6 @@ void keyboard_post_init_kb(void) {
     gpio_set_pin_output(LED_POWER_EN_PIN);
     gpio_write_pin_high(LED_POWER_EN_PIN);
 #endif
-<<<<<<< Updated upstream
-#ifdef LED_SCROLL_LOCK_PIN_G
-    gpio_set_pin_output(LED_SCROLL_LOCK_PIN_G);
-    gpio_set_pin_output(LED_SCROLL_LOCK_PIN_B);
-    gpio_set_pin_output(LED_SCROLL_LOCK_PIN_R);
-    gpio_write_pin_high(LED_SCROLL_LOCK_PIN_G);
-    gpio_write_pin_high(LED_SCROLL_LOCK_PIN_B);
-    gpio_write_pin_high(LED_SCROLL_LOCK_PIN_R);
-#endif
-=======
->>>>>>> Stashed changes
 
 #ifdef USB_POWER_EN_PIN
     gpio_write_pin_low(USB_POWER_EN_PIN);
@@ -330,14 +298,6 @@ void suspend_wakeup_init_kb(void) {
     suspend_wakeup_init_user();
 }
 void matrix_scan_kb(void) {
-<<<<<<< Updated upstream
-#ifdef LED_SCROLL_LOCK_PIN_G
-    gpio_write_pin(LED_SCROLL_LOCK_PIN_G, !host_keyboard_led_state().scroll_lock);
-    gpio_write_pin(LED_SCROLL_LOCK_PIN_B, !host_keyboard_led_state().scroll_lock);
-    gpio_write_pin(LED_SCROLL_LOCK_PIN_R, !host_keyboard_led_state().scroll_lock);
-#endif
-=======
->>>>>>> Stashed changes
     bt_scan_mode();
     matrix_scan_user();
 }
@@ -384,11 +344,6 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
     static uint16_t keycode_shadow                     = 0x00;
     static deferred_token wls_process_long_press_token = INVALID_DEFERRED_TOKEN;
 
-<<<<<<< Updated upstream
-    keycode_shadow = keycode;
-
-=======
->>>>>>> Stashed changes
 #    ifndef WLS_KEYCODE_PAIR_TIME
 #        define WLS_KEYCODE_PAIR_TIME 3000
 #    endif
@@ -398,10 +353,7 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {                                                                                       \
                 wireless_devs_change(wireless_get_current_devs(), wls_dev, false);                                             \
                 if (wls_process_long_press_token == INVALID_DEFERRED_TOKEN) {                                                  \
-<<<<<<< Updated upstream
-=======
                     keycode_shadow               = keycode;                                                                    \
->>>>>>> Stashed changes
                     wls_process_long_press_token = defer_exec(WLS_KEYCODE_PAIR_TIME, wls_process_long_press, &keycode_shadow); \
                 }                                                                                                              \
             } else {                                                                                                           \
@@ -444,8 +396,6 @@ bool process_record_wls(uint16_t keycode, keyrecord_t *record) {
 }
 #endif
 
-<<<<<<< Updated upstream
-=======
 // Battery check (KC_BATQ, Fn + left Alt): keys 1..0 show the charge, 10 % per key
 #ifndef BATQ_SHOW_TIME
 #    define BATQ_SHOW_TIME 3000 // ms the level stays visible after the key is released
@@ -471,15 +421,12 @@ static uint32_t ee_clr_hold_cb(uint32_t trigger_time, void *cb_arg) {
     return 0;
 }
 
->>>>>>> Stashed changes
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
     if (process_record_user(keycode, record) != true) {
         return false;
     }
 
-<<<<<<< Updated upstream
-=======
     // EE_CLR acts only after a long press, so a stray Fn+Esc does not wipe the settings
     if (keycode == EE_CLR) {
         if (record->event.pressed) {
@@ -499,7 +446,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
->>>>>>> Stashed changes
 #ifdef WIRELESS_ENABLE
     if (process_record_wls(keycode, record) != true) {
         return false;
@@ -507,8 +453,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 #endif
 
     switch (keycode) {
-<<<<<<< Updated upstream
-=======
         case KC_BATQ: {
             if (record->event.pressed) {
                 batq_held = true;
@@ -520,7 +464,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 batq_released = timer_read32();
             }
         } break;
->>>>>>> Stashed changes
         default:
             return true;
     }
@@ -641,8 +584,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
         return false;
     }
 
-<<<<<<< Updated upstream
-=======
     // EE_CLR armed: everything red, release the key to reset
     if (ee_clr_armed) {
         rgb_matrix_set_color_all(100, 0, 0);
@@ -660,7 +601,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     }
 #    endif
 
->>>>>>> Stashed changes
 #    ifdef WIRELESS_ENABLE
     rgb_matrix_wls_indicator();
 #    endif
@@ -668,30 +608,18 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     // Charging access
     static uint16_t charging_time;
     static uint16_t full_time;
-<<<<<<< Updated upstream
-    if (readPin(BT_CABLE_PIN)) {
-        if (!readPin(BT_CHARGE_PIN)) {
-=======
     if (gpio_read_pin(BT_CABLE_PIN)) {
         if (!gpio_read_pin(BT_CHARGE_PIN)) {
->>>>>>> Stashed changes
             // Charging
             if (timer_elapsed(charging_time) >= 500) {
                 rgb_matrix_set_color(90, 100, 0, 0);
             } else {
                 rgb_matrix_set_color(90, 0, 0, 0);
             }
-<<<<<<< Updated upstream
-            full_time = timer_read32();
-        } else {
-            // full
-            charging_time = timer_read32();
-=======
             full_time = timer_read();
         } else {
             // full
             charging_time = timer_read();
->>>>>>> Stashed changes
             if (timer_elapsed(full_time) >= 500) {
                 rgb_matrix_set_color(90, 0, 100, 0);
             } else {
@@ -706,11 +634,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
             static uint16_t Low_power_time;
             if (timer_elapsed(Low_power_time) >= 300) {
                 Low_power_bink = !Low_power_bink;
-<<<<<<< Updated upstream
-                Low_power_time = timer_read32();
-=======
                 Low_power_time = timer_read();
->>>>>>> Stashed changes
             }
             if (Low_power_bink) {
                 rgb_matrix_set_color(90, 100, 0, 0);
@@ -734,12 +658,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (keymap_config.no_gui) {
         rgb_matrix_set_color(79, 100, 0, 0);
     }
-<<<<<<< Updated upstream
-    return true;
-}
-
-
-=======
 
     // battery check: 1 key per 10 %, green > 50 %, yellow 21..50 %, red <= 20 %
     if (batq_held || (batq_released && timer_elapsed32(batq_released) < BATQ_SHOW_TIME)) {
@@ -771,7 +689,6 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 #endif // RGB_MATRIX_ENABLE
 
 #ifdef WIRELESS_ENABLE
->>>>>>> Stashed changes
 void md_devs_change(uint8_t devs, bool reset) {
 
     switch (devs) {
@@ -811,11 +728,7 @@ void md_devs_change(uint8_t devs, bool reset) {
     }
 }
 
-<<<<<<< Updated upstream
-#endif
-=======
 
->>>>>>> Stashed changes
 void wireless_send_nkro(report_nkro_t *report) {
     static report_keyboard_t temp_report_keyboard = {0};
     uint8_t wls_report_nkro[MD_SND_CMD_NKRO_LEN]  = {0};
@@ -901,7 +814,4 @@ void wireless_send_nkro(report_nkro_t *report) {
     wireless_driver.send_keyboard(&temp_report_keyboard);
     md_send_nkro(wls_report_nkro);
 }
-<<<<<<< Updated upstream
-=======
 #endif // WIRELESS_ENABLE
->>>>>>> Stashed changes
