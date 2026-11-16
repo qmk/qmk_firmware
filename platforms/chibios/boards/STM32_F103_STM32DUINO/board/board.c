@@ -34,16 +34,12 @@ const PALConfig pal_default_config =
 };
 #endif
 
-__attribute__((weak)) void enter_bootloader_mode_if_requested(void) {}
-
 /*
  * Early initialization code.
  * This initialization must be performed just after stack setup and before
  * any other initialization.
  */
 void __early_init(void) {
-  enter_bootloader_mode_if_requested();
-
   stm32_clock_init();
 }
 
@@ -51,8 +47,8 @@ void __early_init(void) {
  * Board-specific initialization code.
  */
 void boardInit(void) {
-   //JTAG-DP Disabled and SW-DP Enabled
-   AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
-   //Set backup register DR10 to enter bootloader on reset
-   BKP->DR10 = RTC_BOOTLOADER_FLAG;
+  //JTAG-DP Disabled and SW-DP Enabled
+  AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
+  //Set backup register DR10 to enter bootloader on reset
+  BKP->DR10 = RTC_BOOTLOADER_FLAG;
 }
