@@ -4,51 +4,21 @@
 #endif
 
 #include "../adaptive_keys.h"
-#include "../skip_repeat.h"
-
-enum combo_events {
-  CE_RL,
-  CE_OI
-};
 
 const uint16_t PROGMEM punc_layer_combo[] = {KC_SPC, KC_E, COMBO_END};
-const uint16_t PROGMEM rl_combo[] = {KC_R, KC_L, COMBO_END};
-const uint16_t PROGMEM oi_combo[] = {KC_O, KC_I, COMBO_END};
 
 combo_t key_combos[] = {
-  [CE_RL] = COMBO_ACTION(rl_combo),
-  [CE_OI] = COMBO_ACTION(oi_combo),
   COMBO(punc_layer_combo, OSL(5))
 };
-
-void process_combo_event(uint16_t combo_index, bool pressed) {
-  switch(combo_index) {
-    case CE_RL:
-      if (pressed) {
-        tap_code16(KC_R);
-        tap_code16(KC_L);
-      }
-      break;
-    case CE_OI:
-      if (pressed) {
-        tap_code16(KC_O);
-        tap_code16(KC_I);
-      }
-      break;
-  }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_adaptive_swap(keycode, record)) { return false; }
     if (!process_adaptive_magic(keycode, record)) { return false; }
-    if (!process_skip_repeat(keycode, record)) { return false; }
     return true;
 }
 
 bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* remembered_mods) {
     if (!remember_last_key_adaptive(keycode, record, remembered_mods)) { return false; }
-    if (!remember_last_key_skip_repeat(keycode, record, remembered_mods)) { return false; }
-
     return true;
 }
 #include QMK_KEYBOARD_H
@@ -64,7 +34,7 @@ bool remember_last_key_user(uint16_t keycode, keyrecord_t* record, uint8_t* reme
  */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT_all(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, DF(0), DF(1), KC_ESC, KC_B, KC_P, KC_M, KC_F, KC_Z, KC_TAB, KC_J, KC_O, KC_U, KC_K, KC_COMM, KC_COLN, LCTL(KC_BSPC), OS_LSFT, LSFT_T(KC_N), LGUI_T(KC_T), LCTL_T(KC_S), LALT_T(KC_D), KC_W, KC_QUOT, RALT_T(KC_R), RCTL_T(KC_I), RGUI_T(KC_A), RSFT_T(KC_H), KC_DOT, OS_RSFT, CW_TOGG, KC_Q, KC_V, KC_C, KC_G, KC_ENT, KC_Y, KC_L, KC_QUES, KC_SLSH, KC_X, KC_BSPC, KC_LCTL, KC_LALT, OSL(5), LT(6,KC_SPC), KC_ADAPTIVE_MAGIC, KC_ADAPTIVE_MAGIC, LT(5,KC_E), OSL(5), KC_RALT, KC_RCTL, KC_RGUI),
+    [0] = LAYOUT_all(KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, DF(0), DF(1), KC_ESC, KC_B, KC_P, KC_M, KC_F, KC_Z, KC_TAB, KC_J, KC_O, KC_U, KC_K, KC_COMM, KC_COLN, LCTL(KC_BSPC), OS_LSFT, LSFT_T(KC_N), LGUI_T(KC_T), LCTL_T(KC_S), LALT_T(KC_D), KC_W, KC_QUOT, RALT_T(KC_R), RCTL_T(KC_I), RGUI_T(KC_A), RSFT_T(KC_H), KC_DOT, OS_RSFT, CW_TOGG, KC_Q, KC_V, KC_C, KC_G, KC_ENT, KC_Y, KC_L, KC_QUES, KC_SLSH, KC_X, KC_BSPC, KC_LCTL, KC_LALT, OSL(5), LT(5,KC_SPC), KC_ADAPTIVE_MAGIC, KC_ADAPTIVE_MAGIC, LT(6,KC_E), OSL(5), KC_RALT, KC_RCTL, KC_RGUI),
     [1] = LAYOUT_all(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DF(2), KC_TRNS, KC_B, KC_P, KC_M, KC_F, KC_Z, KC_TRNS, KC_J, KC_O, KC_U, KC_K, KC_COMM, KC_COLN, KC_TRNS, KC_TRNS, KC_N, KC_T, KC_S, KC_D, KC_W, KC_QUOT, KC_R, KC_I, KC_A, KC_H, KC_DOT, KC_TRNS, KC_TRNS, KC_Q, KC_V, KC_C, KC_G, KC_TRNS, KC_Y, KC_L, KC_QUES, KC_SLSH, KC_X, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_SPC, KC_TRNS, KC_TRNS, KC_E, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [2] = LAYOUT_all(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DF(3), KC_TRNS, KC_V, KC_L, KC_S, KC_M, KC_X, KC_TRNS, KC_QUOT, KC_O, KC_U, KC_K, KC_SLSH, KC_COLN, KC_TRNS, KC_TRNS, KC_T, KC_R, KC_N, KC_D, KC_B, KC_W, KC_G, KC_A, KC_I, KC_E, KC_QUES, KC_TRNS, KC_TRNS, KC_Z, KC_J, KC_H, KC_F, KC_TRNS, KC_P, KC_C, KC_DOT, KC_COMM, KC_Q, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_Y, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
     [3] = LAYOUT_all(KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, DF(4), KC_TRNS, KC_B, KC_F, KC_M, KC_P, KC_Z, KC_MINS, KC_X, KC_O, KC_U, KC_K, KC_DOT, KC_COLN, KC_TRNS, KC_TRNS, KC_N, KC_S, KC_T, KC_D, KC_C, KC_J, KC_R, KC_A, KC_I, KC_H, KC_QUOT, KC_TRNS, KC_TRNS, KC_Q, KC_V, KC_W, KC_G, KC_TRNS, KC_Y, KC_L, KC_SLSH, KC_QUES, KC_COMM, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_E, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),

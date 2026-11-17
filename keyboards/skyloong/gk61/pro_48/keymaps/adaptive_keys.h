@@ -1,1 +1,0 @@
-/home/user/.repository/qmk_adaptive_keys/adaptive_keys.h
