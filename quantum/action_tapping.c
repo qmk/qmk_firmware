@@ -652,10 +652,6 @@ bool process_tapping(keyrecord_t *keyp) {
     }
 }
 
-/** \brief Waiting buffer enq
- *
- * FIXME: Needs docs
- */
 /** \brief Waiting buffer has release
  *
  * Returns true if a release of `key` is still waiting in the buffer.
@@ -669,6 +665,10 @@ bool waiting_buffer_has_release(keypos_t key) {
     return false;
 }
 
+/** \brief Waiting buffer enq
+ *
+ * FIXME: Needs docs
+ */
 bool waiting_buffer_enq(keyrecord_t record) {
     if (IS_NOEVENT(record.event)) {
         return true;
