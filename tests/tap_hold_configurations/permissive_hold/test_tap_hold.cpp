@@ -129,3 +129,73 @@ TEST_F(PermissiveHold, tap_regular_key_while_layer_tap_key_is_held) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(PermissiveHold, repress_while_release_is_waiting_keeps_layer_of_first_press) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_key_1  = KeymapKey(0, 1, 0, RCTL_T(KC_E));
+    auto       regular_key    = KeymapKey(0, 2, 0, KC_C);
+    auto       layer_tap_key  = KeymapKey(0, 3, 0, LT(1, KC_F));
+    auto       mod_tap_key_2  = KeymapKey(0, 4, 0, LSFT_T(KC_B));
+    auto       other_key      = KeymapKey(0, 5, 0, KC_G);
+    auto       regular_key_l1 = KeymapKey(1, 2, 0, KC_5);
+    auto       other_key_l1   = KeymapKey(1, 5, 0, KC_7);
+
+    set_keymap({mod_tap_key_1, regular_key, layer_tap_key, mod_tap_key_2, other_key, regular_key_l1, other_key_l1, KeymapKey(1, 1, 0, KC_TRNS), KeymapKey(1, 3, 0, KC_TRNS), KeymapKey(1, 4, 0, KC_TRNS)});
+
+    /* Press mod-tap key 1, regular key, layer-tap key, mod-tap key 2 and other key */
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key_1.press();
+    run_one_scan_loop();
+    regular_key.press();
+    run_one_scan_loop();
+    layer_tap_key.press();
+    run_one_scan_loop();
+    mod_tap_key_2.press();
+    run_one_scan_loop();
+    other_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key: mod-tap key 1 is held (permissive hold), regular key is pressed on layer 0 */
+    EXPECT_REPORT(driver, (KC_RCTL));
+    EXPECT_REPORT(driver, (KC_RCTL, KC_C));
+    regular_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release other key: layer-tap key is held (layer 1 on); the release of the regular key still waits behind mod-tap key 2 */
+    EXPECT_NO_REPORT(driver);
+    other_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Press regular key again, now on layer 1 */
+    EXPECT_NO_REPORT(driver);
+    regular_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release mod-tap key 2 (tap): the waiting release of the regular key must release KC_C */
+    EXPECT_REPORT(driver, (KC_RCTL, KC_C, KC_B));
+    EXPECT_REPORT(driver, (KC_RCTL, KC_C, KC_B, KC_7));
+    EXPECT_REPORT(driver, (KC_RCTL, KC_B, KC_7));
+    EXPECT_REPORT(driver, (KC_RCTL, KC_B));
+    EXPECT_REPORT(driver, (KC_RCTL, KC_B, KC_5));
+    EXPECT_REPORT(driver, (KC_RCTL, KC_5));
+    mod_tap_key_2.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    /* Release regular key, mod-tap key 1 and layer-tap key */
+    EXPECT_REPORT(driver, (KC_RCTL));
+    regular_key.release();
+    run_one_scan_loop();
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key_1.release();
+    run_one_scan_loop();
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
