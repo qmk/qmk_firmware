@@ -18,7 +18,7 @@
         "caps_lock": "GP24"
     },
     "matrix_pins": {
-        "cols": ["GP23", "GP22", "GP21", "GP20", "GP28", "GP0", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1"],    
+        "cols": ["GP23", "GP22", "GP21", "GP20", "GP28", "GP0", "GP8", "GP7", "GP6", "GP5", "GP4", "GP3", "GP2", "GP1"],
         "rows": ["GP27", "GP26", "GP25", "GP29", "GP18"]
     },
     "processor": "RP2040",
@@ -38,6 +38,10 @@
         "led_count": 22,
         "max_brightness": 240,
         "sleep": true
+    },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
     },
     "usb": {
         "vid": "0xDE17",

@@ -13,7 +13,7 @@
         "bootmagic": true,
         "mousekey": true,
         "extrakey": true,
-        "nkro": true    
+        "nkro": true
     },
     "indicators": {
         "caps_lock": "GP27",
@@ -23,6 +23,10 @@
     "matrix_pins": {
         "rows": ["GP2", "GP3", "GP4", "GP29", "GP12", "GP13"],
         "cols": ["GP28", "GP26", "GP25", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP6", "GP5", "GP0"]
+    },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
     },
     "community_layouts": ["tkl_ansi_tsangan", "tkl_iso_tsangan"],
     "layouts": {
@@ -472,7 +476,7 @@
                 { "matrix": [5, 12], "w": 1.5, "x": 13.5, "y": 5.5 },
                 { "matrix": [5, 14], "x": 15.25, "y": 5.5 },
                 { "matrix": [5, 15], "x": 16.25, "y": 5.5 },
-                { "matrix": [5, 16], "x": 17.25, "y": 5.5 }            
+                { "matrix": [5, 16], "x": 17.25, "y": 5.5 }
             ]
         }
     }

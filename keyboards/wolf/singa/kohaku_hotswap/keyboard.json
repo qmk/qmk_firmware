@@ -14,6 +14,10 @@
         "rows": ["GP10", "GP11", "GP17", "GP27", "GP28"]
     },
     "processor": "RP2040",
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "url": "https://singakbd.com",
     "usb": {
         "device_version": "1.0.0",
