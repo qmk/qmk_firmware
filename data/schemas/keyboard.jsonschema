@@ -954,6 +954,7 @@
                             "additionalProperties": false,
                             "properties": {
                                 "activity": {"type": "boolean"},
+                                "caps_word": {"type": "boolean"},
                                 "detected_os": {"type": "boolean"},
                                 "haptic": {"type": "boolean"},
                                 "layer_state": {"type": "boolean"},

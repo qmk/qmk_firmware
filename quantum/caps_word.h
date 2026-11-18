@@ -40,6 +40,11 @@ void caps_word_toggle(void);
 /** @brief Gets whether currently active. */
 bool is_caps_word_on(void);
 
+#if defined(SPLIT_KEYBOARD) && defined(SPLIT_CAPS_WORD_ENABLE)
+/** @brief Mirrors the master's Caps Word state on the slave. */
+void slave_update_caps_word_state(bool active);
+#endif
+
 /**
  * @brief Caps Word set callback.
  *
