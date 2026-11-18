@@ -2,7 +2,7 @@
 
 Digitizers allow the mouse cursor to be placed at absolute coordinates, unlike the [Pointing Device](pointing_device) feature which applies relative displacements.
 
-This feature implements a stylus device with a tip switch and barrel switch (generally equivalent to the primary and secondary mouse buttons respectively). Tip pressure is not currently implemented.
+By default, this feature implements a stylus device with a tip switch and barrel switch (generally equivalent to the primary and secondary mouse buttons respectively). Tip pressure is not currently implemented.
 
 ## Usage {#usage}
 
@@ -11,6 +11,16 @@ Add the following to your `rules.mk`:
 ```make
 DIGITIZER_ENABLE = yes
 ```
+
+## Absolute Pointer Mode {#absolute-pointer-mode}
+
+Some environments treat a stylus digitizer as a touch-like input and hide the on-screen cursor while it is in use -- KDE Plasma on Wayland is one example. If the cursor should remain visible, the digitizer can instead be presented to the host as a mouse with absolute coordinates, in the same style as the pointing devices exposed by virtual machine hypervisors. Add the following to your `config.h`:
+
+```c
+#define DIGITIZER_ABSOLUTE_POINTER
+```
+
+This changes only the HID report descriptor; the report layout and the API below are unchanged. In this mode the "in range" indicator is declared as padding and is ignored by the host, and the tip and barrel switches are reported as mouse buttons 1 and 2 respectively.
 
 ## Positioning {#positioning}
 
@@ -29,7 +39,7 @@ digitizer_in_range_on();
 digitizer_set_position(0.5, 0.5);
 ```
 
-The "in range" indicator is required to be on for the change in coordinates to be taken. It can then be turned off again to signal the end of the digitizer interaction, but it is not strictly required.
+In the default stylus mode, the "in range" indicator is required to be on for the change in coordinates to be taken. It can then be turned off again to signal the end of the digitizer interaction, but it is not strictly required. In [Absolute Pointer Mode](#absolute-pointer-mode), the indicator is ignored by the host and the call can be omitted.
 
 You can also modify the digitizer state directly, if you need to change multiple fields in a single report:
 
