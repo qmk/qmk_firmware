@@ -1,0 +1,39 @@
+{
+  "keyboard_name": "Pico 3x3 Macropad",
+  "manufacturer": "Stuple Networks",
+  "maintainer": "Mitsuba100",
+  "bootloader": "rp2040",
+  "processor": "RP2040",
+  "features": {
+    "extrakey": true,
+    "bootmagic": true
+  },
+  "matrix_pins": {
+    "rows": ["GP6", "GP7", "GP8"],
+    "cols": ["GP2", "GP3", "GP4"]
+  },
+  "usb": {
+    "vid": "0x1209",
+    "pid": "0x3739",
+    "device_version": "0.0.1"
+  },
+  "diode_direction": "COL2ROW",
+  "community_layouts": ["ortho_3x3"],
+  "layouts": {
+    "LAYOUT_ortho_3x3": {
+      "layout": [
+        { "matrix": [0, 0], "x": 0, "y": 0 },
+        { "matrix": [0, 1], "x": 1, "y": 0 },
+        { "matrix": [0, 2], "x": 2, "y": 0 },
+
+        { "matrix": [1, 0], "x": 0, "y": 1 },
+        { "matrix": [1, 1], "x": 1, "y": 1 },
+        { "matrix": [1, 2], "x": 2, "y": 1 },
+
+        { "matrix": [2, 0], "x": 0, "y": 2 },
+        { "matrix": [2, 1], "x": 1, "y": 2 },
+        { "matrix": [2, 2], "x": 2, "y": 2 }
+      ]
+    }
+  }
+}
