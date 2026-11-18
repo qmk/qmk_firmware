@@ -69,6 +69,25 @@ class TestDriver {
 #define EXPECT_REPORT(driver, report) EXPECT_CALL((driver), send_keyboard_mock(KeyboardReport report))
 
 /**
+ * @brief Sets gmock expectation that an NKRO report of `report` keys will be sent.
+ * For this macro to parse correctly, the `report` arg must be surrounded by
+ * parentheses ( ). For instance,
+ *
+ *   // Expect that an NKRO report of "KC_LSFT + KC_A" is sent to the host.
+ *   EXPECT_NKRO_REPORT(driver, (KC_LSFT, KC_A));
+ *
+ * is shorthand for
+ *
+ *   EXPECT_CALL(driver, send_nkro_mock(NkroReport(KC_LSFT, KC_A)));
+ *
+ * It is possible to use .Times() and other gmock APIs with EXPECT_NKRO_REPORT, for instance,
+ * allow only a single report to be sent:
+ *
+ *   EXPECT_NKRO_REPORT(driver, (KC_LSFT, KC_A)).Times(1);
+ */
+#define EXPECT_NKRO_REPORT(driver, report) EXPECT_CALL((driver), send_nkro_mock(NkroReport report))
+
+/**
  * @brief Sets gmock expectation that a mouse report of `report` will be sent.
  * For this macro to parse correctly, the `report` arg must be surrounded by
  * parentheses ( ). For instance,
@@ -109,6 +128,15 @@ class TestDriver {
 #define EXPECT_EMPTY_REPORT(driver) EXPECT_REPORT(driver, ())
 
 /**
+ * @brief Sets gmock expectation that an empty NKRO report will be sent.
+ * It is possible to use .Times() and other gmock APIs with EXPECT_EMPTY_NKRO_REPORT, for instance,
+ * allow any number of empty reports with:
+ *
+ *   EXPECT_EMPTY_NKRO_REPORT(driver).Times(AnyNumber());
+ */
+#define EXPECT_EMPTY_NKRO_REPORT(driver) EXPECT_NKRO_REPORT(driver, ())
+
+/**
  * @brief Sets gmock expectation that a empty keyboard report will be sent.
  * It is possible to use .Times() and other gmock APIS with EXPECT_EMPTY_MOUSE_REPORT, for instance,
  * allow any number of empty reports with:
@@ -125,6 +153,15 @@ class TestDriver {
  *   EXPECT_ANY_REPORT(driver).Times(1);
  */
 #define EXPECT_ANY_REPORT(driver) EXPECT_CALL((driver), send_keyboard_mock(_))
+
+/**
+ * @brief Sets gmock expectation that an NKRO report will be sent, without matching its content.
+ * It is possible to use .Times() and other gmock APIs with EXPECT_ANY_NKRO_REPORT, for instance,
+ * allow a single arbitrary report with:
+ *
+ *   EXPECT_ANY_NKRO_REPORT(driver).Times(1);
+ */
+#define EXPECT_ANY_NKRO_REPORT(driver) EXPECT_CALL((driver), send_nkro_mock(_))
 
 /**
  * @brief Sets gmock expectation that a mouse report will be sent, without matching its content.
