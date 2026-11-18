@@ -153,6 +153,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef SEQUENCER_ENABLE
 #    include "sequencer.h"
 #endif
+#ifdef AUTOCORRECT_ENABLE
+#    include "autocorrect.h"
+#endif
 
 // Activity synced from the master can be stamped slightly ahead of the slave's clock, since the slave
 // applies timer syncs from its main loop; read that as just now instead of wrapping to nearly UINT32_MAX
@@ -549,6 +552,9 @@ void keyboard_init(void) {
 #endif
 #ifdef HAPTIC_ENABLE
     haptic_init();
+#endif
+#ifdef AUTOCORRECT_ENABLE
+    autocorrect_init();
 #endif
 
 #if defined(DEBUG_MATRIX_SCAN_RATE) && defined(CONSOLE_ENABLE)

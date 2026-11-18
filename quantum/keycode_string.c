@@ -134,6 +134,12 @@ static const uint16_t common_names[] PROGMEM = {
 #ifdef LAYER_LOCK_ENABLE
     QK_LLCK, KEYCODE_NAME7('Q', 'K', '_', 'L', 'L', 'C', 'K'),
 #endif // LAYER_LOCK_ENABLE
+#ifdef AUTOCORRECT_ENABLE
+    AC_ON  , KEYCODE_NAME7('A', 'C', '_', 'O', 'N',  0 ,  0 ),
+    AC_OFF , KEYCODE_NAME7('A', 'C', '_', 'O', 'F', 'F',  0 ),
+    AC_TOGG, KEYCODE_NAME7('A', 'C', '_', 'T', 'O', 'G', 'G'),
+    AC_DICT, KEYCODE_NAME7('A', 'C', '_', 'D', 'I', 'C', 'T'),
+#endif // AUTOCORRECT_ENABLE
     EE_CLR , KEYCODE_NAME7('E', 'E', '_', 'C', 'L', 'R',  0 ),
     QK_BOOT, KEYCODE_NAME7('Q', 'K', '_', 'B', 'O', 'O', 'T'),
     DB_TOGG, KEYCODE_NAME7('D', 'B', '_', 'T', 'O', 'G', 'G'),
