@@ -21,8 +21,28 @@
 /* To compile the ChibiOS syscall stubs with picolibc
  * the _reent struct has to be defined. */
 #if defined(USE_PICOLIBC)
+#    include <stdint.h>
+#    if __has_include(<picotls.h>)
+#        include <picotls.h>
+#    endif
 struct _reent;
 struct timeval;
+#    if defined(__arm__) && defined(__THREAD_LOCAL_STORAGE)
+/* ChibiOS links with -nostartfiles and does not invoke picocrt's TLS setup.
+ * Point `__tls` at the TLS block reserved by `platforms/chibios/picolibc.ld`
+ * and initialize it before `main()`. */
+extern char __tls_space[];
+extern char __tls_space_size[];
+extern char __arm32_tls_tp[];
+
+__attribute__((used)) void *__tls = __arm32_tls_tp;
+
+__attribute__((constructor, used)) static void init_picolibc_tls(void) {
+    if ((uintptr_t)__tls_space_size != 0) {
+        _init_tls(__tls_space);
+    }
+}
+#    endif
 #endif
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"

@@ -90,8 +90,13 @@ def _check_arm_gcc_installation():
 
         temp_in.write_text('#include <newlib.h>\nint main() { return __NEWLIB__ * __NEWLIB_MINOR__ * __NEWLIB_PATCHLEVEL__; }', encoding='utf-8')
 
-        args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_out), str(temp_in)]
+        base_args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork']
+        tail_args = ['-x', 'c', '-o', str(temp_out), str(temp_in)]
+        args = [*base_args, '--specs=nosys.specs', '--specs=nano.specs', *tail_args]
         result = cli.run(args, stdout=None, stderr=None)
+        if result.returncode != 0:  # On failure, try with picolibc.specs.
+            args = [*base_args, '--specs=picolibc.specs', *tail_args]
+            result = cli.run(args, stdout=None, stderr=None)
         if result.returncode == 0:
             cli.log.info('Successfully compiled using arm-none-eabi-gcc')
         else:
