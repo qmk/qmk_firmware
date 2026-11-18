@@ -18,6 +18,7 @@
 #pragma once
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "report.h"
 
 /**
@@ -89,3 +90,32 @@ void bluetooth_send_system(uint16_t usage);
  * \param length The length of the buffer. Always 32.
  */
 void bluetooth_send_raw_hid(uint8_t *data, uint8_t length);
+
+/**
+ * \brief Maximum number of Bluetooth profiles supported by the active driver.
+ *
+ * Single-host drivers return 1. Profile-aware drivers return the count of stored bond slots.
+ *
+ * \return Profile count (>=1).
+ */
+uint8_t bluetooth_get_max_profile(void);
+
+/**
+ * \brief Activate a Bluetooth profile.
+ *
+ * \param profile Zero-based profile index.
+ * \return `true` on success, `false` if `profile` is out of range.
+ */
+bool bluetooth_set_profile(uint8_t profile);
+
+/**
+ * \brief Currently active Bluetooth profile.
+ *
+ * \return Zero-based profile index.
+ */
+uint8_t bluetooth_get_profile(void);
+
+/**
+ * \brief Drop the bond stored at the active Bluetooth profile.
+ */
+void bluetooth_unpair(void);

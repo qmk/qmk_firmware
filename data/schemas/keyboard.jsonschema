@@ -217,7 +217,17 @@
             "properties": {
                 "driver": {
                     "type": "string",
-                    "enum": ["bluefruit_le", "custom", "rn42"]
+                    "enum": ["bluefruit_le", "custom", "fr800x", "rn42"]
+                }
+            }
+        },
+        "wireless_2p4ghz": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "driver": {
+                    "type": "string",
+                    "enum": ["custom", "fr800x"]
                 }
             }
         },
