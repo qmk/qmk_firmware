@@ -163,11 +163,17 @@ void action_tapping_process(keyrecord_t record) {
         }
     } else {
         if (!waiting_buffer_enq(record)) {
-            // clear all in case of overflow.
-            ac_dprintf("OVERFLOW: CLEAR ALL STATES\n");
-            clear_keyboard();
-            waiting_buffer_clear();
+            // settle the tapping key in case of overflow.
+            ac_dprintf("OVERFLOW: SETTLE TAPPING KEY\n");
+            process_record(&tapping_key);
             tapping_key = (keyrecord_t){0};
+            if (!waiting_buffer_enq(record)) {
+                // If it still overflows (should not happen if buffer is processed),
+                // then we have no choice but to clear.
+                ac_dprintf("OVERFLOW: STILL FULL, CLEARING\n");
+                clear_keyboard();
+                waiting_buffer_clear();
+            }
         }
     }
 
