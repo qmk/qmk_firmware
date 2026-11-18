@@ -577,10 +577,38 @@ bool process_combo(uint16_t keycode, keyrecord_t *record) {
 #ifdef COMBO_ONLY_FROM_LAYER
     /* Only check keycodes from one layer. */
     keycode = keymap_key_to_keycode(COMBO_ONLY_FROM_LAYER, record->event.key);
-#else
-    uint8_t highest_layer = get_highest_layer(layer_state | default_layer_state);
-    uint8_t ref_layer     = combo_ref_from_layer(highest_layer);
-    if (ref_layer != highest_layer) {
+#else /* if the pressed layer uses combo_ref_from_layer, replace keycode with reference keycode */
+    /* for key presses, the pressed layer is simply the highest layer */
+    uint8_t pressed_layer = get_highest_layer(layer_state | default_layer_state);
+    uint8_t ref_layer     = combo_ref_from_layer(pressed_layer);
+    /* if source_layers_cache exists */
+#    if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
+    /* for key releases, the pressed layer can only be approximated,
+     * choosing from:
+     *  (a) get_highest_layer, which gives the *current* highest layer, not
+     *      the highest layer when the key was pressed (perfect, as long as
+     *      no layer switch has happened)
+     *  (b) source_layers_cache, which gives the highest *non-transparent*
+     *      press-time layer, not the strict highest press-time layer (a
+     *      reasonable approximation after a layer switch)
+     *
+     *  the approximation means transparencies on combo keys aren't
+     *  fully compatible with combo_ref_from_layer */
+    if (IS_KEYEVENT(record->event) && !record->event.pressed) {
+        uint8_t source_layer = read_source_layers_cache(record->event.key);
+        uint8_t source_ref   = combo_ref_from_layer(source_layer);
+        bool    ref_used     = ref_layer != pressed_layer || source_ref != source_layer; // optimization only; allows LTO to remove block if no ref layer used
+        /* if a layer switch is detected (the key no longer resolves to
+         * its cached source layer), use the cached source layer as the
+         * pressed layer; otherwise keep the current highest layer */
+        if (ref_used && source_layer != layer_switch_get_layer(record->event.key)) {
+            pressed_layer = source_layer;
+            ref_layer     = source_ref;
+        }
+    }
+#    endif
+    /* if the pressed layer combo-refs to another layer, swap in the referenced keycode */
+    if (ref_layer != pressed_layer) {
         keycode = keymap_key_to_keycode(ref_layer, record->event.key);
     }
 #endif
