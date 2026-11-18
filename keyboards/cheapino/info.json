@@ -1,0 +1,40 @@
+{
+    "manufacturer": "Thomas Haukland",
+    "maintainer": "tompi",
+    "bootloader": "rp2040",
+    "diode_direction": "ROW2COL",
+    "encoder": {
+        "driver": "custom"
+    },
+    "features": {
+        "bootmagic": true,
+        "deferred_exec": true,
+        "encoder": true,
+        "extrakey": true,
+        "mousekey": true,
+        "nkro": false,
+        "rgblight": true
+    },
+    "matrix_pins": {
+        "custom": true,
+        "custom_lite": true
+    },
+    "processor": "RP2040",
+    "rgblight": {
+        "default": {
+            "hue": 128,
+            "sat": 128,
+            "val": 64
+        },
+        "led_count": 1
+    },
+    "url": "https://github.com/tompi/cheapino",
+    "usb": {
+        "device_version": "1.0.0",
+        "vid": "0xFEE3"
+    },
+    "ws2812": {
+        "driver": "vendor",
+        "pin": "GP16"
+    }
+}
