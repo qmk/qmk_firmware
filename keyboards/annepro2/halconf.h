@@ -23,6 +23,11 @@
 
 #define HAL_USE_SERIAL TRUE
 
+/* ChibiOS defaults to 16 bytes, which cannot hold one 62-byte RGB row: every
+ * flush blocked the matrix scan in sdWrite(). rgb_driver.c static-asserts that
+ * a row plus AP2_LED_TX_RESERVE fits here. */
+#define SERIAL_BUFFERS_SIZE 80
+
 #define SERIAL_USB_BUFFERS_SIZE 256
 
 #define HAL_USE_SPI TRUE
