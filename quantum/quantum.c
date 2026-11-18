@@ -273,11 +273,26 @@ uint16_t get_event_keycode(keyevent_t event, bool update_layer_cache) {
         return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
+static uint16_t get_pre_process_keycode(keyrecord_t *record) {
+#if !defined(NO_ACTION_TAPPING) && !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
+    // A key is pressed again while the release of its earlier press still waits
+    // in the tapping buffer: look up the keycode on the current layers, but keep
+    // the layer cache, which the waiting release still needs.
+    if (record->event.pressed && waiting_buffer_has_release(record->event.key)) {
+        disable_action_cache = true;
+        uint16_t keycode     = get_record_keycode(record, false);
+        disable_action_cache = false;
+        return keycode;
+    }
+#endif
+    return get_record_keycode(record, true);
+}
+
 /* Get keycode, and then process pre tapping functionality */
 bool pre_process_record_quantum(keyrecord_t *record) {
-    return pre_process_record_modules(get_record_keycode(record, true), record) && pre_process_record_kb(get_record_keycode(record, true), record) &&
+    return pre_process_record_modules(get_pre_process_keycode(record), record) && pre_process_record_kb(get_pre_process_keycode(record), record) &&
 #ifdef COMBO_ENABLE
-           process_combo(get_record_keycode(record, true), record) &&
+           process_combo(get_pre_process_keycode(record), record) &&
 #endif
            true;
 }
