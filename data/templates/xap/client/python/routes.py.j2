@@ -1,0 +1,22 @@
+{{ constants.GPL2_HEADER_SH_LIKE }}
+{{ constants.GENERATED_HEADER_SH_LIKE }}
+class XAPRouteError(Exception):
+    pass
+
+
+class XAPRoutes():
+{% for id, route in xap.routes | dictsort %}
+{% if route.routes %}
+    # {{route.define}}
+{% for subid, subroute in route.routes | dictsort %}
+    {{route.define}}_{{subroute.define}} = b'\x{{ '%02d' % id|int(base=16) }}\x{{ '%02d' % subid|int(base=16) }}'
+{% if subroute.routes %}
+{% for subsubid, subsubroute in subroute.routes | dictsort %}
+    {{route.define}}_{{subroute.define}}_{{subsubroute.define}} = b'\x{{ '%02d' % id|int(base=16) }}\x{{ '%02d' % subid|int(base=16) }}\x{{ '%02d' % subsubid|int(base=16) }}'
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+# noqa: W391

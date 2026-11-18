@@ -1,0 +1,82 @@
+{
+    "groups": {
+        "reactive": {
+            "define": "LED_MATRIX_KEYREACTIVE_ENABLED"
+        }
+    },
+    "effects": {
+        "0x00": {
+            "key": "SOLID"
+        },
+        "0x01": {
+            "key": "ALPHAS_MODS"
+        },
+        "0x02": {
+            "key": "BREATHING"
+        },
+        "0x03": {
+            "key": "BAND"
+        },
+        "0x04": {
+            "key": "BAND_PINWHEEL"
+        },
+        "0x05": {
+            "key": "BAND_SPIRAL"
+        },
+        "0x06": {
+            "key": "CYCLE_LEFT_RIGHT"
+        },
+        "0x07": {
+            "key": "CYCLE_UP_DOWN"
+        },
+        "0x08": {
+            "key": "CYCLE_OUT_IN"
+        },
+        "0x09": {
+            "key": "DUAL_BEACON"
+        },
+        "0x0A": {
+            "key": "WAVE_LEFT_RIGHT"
+        },
+        "0x0B": {
+            "key": "WAVE_UP_DOWN"
+        },
+
+        "0x0C": {
+            "key": "SOLID_REACTIVE_SIMPLE",
+            "group": "reactive"
+        },
+        "0x0D": {
+            "key": "SOLID_REACTIVE_WIDE",
+            "group": "reactive"
+        },
+        "0x0E": {
+            "key": "SOLID_REACTIVE_MULTIWIDE",
+            "group": "reactive"
+        },
+        "0x0F": {
+            "key": "SOLID_REACTIVE_CROSS",
+            "group": "reactive"
+        },
+        "0x10": {
+            "key": "SOLID_REACTIVE_MULTICROSS",
+            "group": "reactive"
+        },
+        "0x11": {
+            "key": "SOLID_REACTIVE_NEXUS",
+            "group": "reactive"
+        },
+        "0x12": {
+            "key": "SOLID_REACTIVE_MULTINEXUS",
+            "group": "reactive"
+        },
+        "0x13": {
+            "key": "SOLID_SPLASH",
+            "group": "reactive"
+        },
+        "0x14": {
+            "key": "SOLID_MULTISPLASH",
+            "group": "reactive"
+        }
+    }
+}

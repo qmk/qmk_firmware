@@ -43,6 +43,14 @@
 #    define RAW_OUT_CAPACITY USB_DEFAULT_BUFFER_CAPACITY
 #endif
 
+#if !defined(XAP_IN_CAPACITY)
+#    define XAP_IN_CAPACITY USB_DEFAULT_BUFFER_CAPACITY
+#endif
+
+#if !defined(XAP_OUT_CAPACITY)
+#    define XAP_OUT_CAPACITY USB_DEFAULT_BUFFER_CAPACITY
+#endif
+
 #if !defined(PLOVER_HID_IN_CAPACITY)
 #    define PLOVER_HID_IN_CAPACITY USB_DEFAULT_BUFFER_CAPACITY
 #endif
@@ -94,6 +102,10 @@ typedef enum {
     USB_ENDPOINT_IN_RAW,
 #endif
 
+#if defined(XAP_ENABLE)
+    USB_ENDPOINT_IN_XAP,
+#endif
+
 #if defined(PLOVER_HID_ENABLE)
     USB_ENDPOINT_IN_PLOVER_HID,
 #endif
@@ -135,7 +147,9 @@ typedef enum {
 #if defined(RAW_ENABLE)
     USB_ENDPOINT_OUT_RAW,
 #endif
-
+#if defined(XAP_ENABLE)
+    USB_ENDPOINT_OUT_XAP,
+#endif
 #if defined(MIDI_ENABLE)
     USB_ENDPOINT_OUT_MIDI,
 #endif
