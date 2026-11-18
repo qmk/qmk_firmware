@@ -256,12 +256,14 @@ bool process_tapping(keyrecord_t *keyp) {
     const keyevent_t event = keyp->event;
 
 #    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
+    bool is_settled_tap_release = false;
     if (!event.pressed) {
         const int8_t i = registered_tap_find(event.key);
         if (i != -1) {
             // If a tap-hold key was previously settled as tapped, set its
             // tap.count correspondingly on release.
-            keyp->tap.count = 1;
+            keyp->tap.count        = 1;
+            is_settled_tap_release = true;
             registered_taps_del_index(i);
             ac_dprintf("Found tap release for [%d]\n", i);
             debug_registered_taps();
@@ -434,6 +436,12 @@ bool process_tapping(keyrecord_t *keyp) {
                             break;
                         case ACT_LAYER_TAP:
                         case ACT_LAYER_TAP_EXT:
+#    if defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
+                            // Already settled as tapped by Chordal Hold or
+                            // Flow Tap, so its layer was never turned on. A
+                            // modifier tapping keycode is still retained.
+                            if (is_settled_tap_release && !IS_MODIFIER_KEYCODE(action.layer_tap.code)) break;
+#    endif // defined(CHORDAL_HOLD) || defined(FLOW_TAP_TERM)
                             switch (action.layer_tap.code) {
                                 case 0 ...(OP_TAP_TOGGLE - 1):
                                 case OP_ON_OFF:

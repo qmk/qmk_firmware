@@ -23,6 +23,15 @@ using testing::_;
 using testing::AnyNumber;
 using testing::InSequence;
 
+// Same as the default, but also enables Flow Tap for LT(1, KC_LSFT), whose
+// modifier tapping keycode is otherwise not a Flow Tap key.
+extern "C" uint16_t get_flow_tap_term(uint16_t keycode, keyrecord_t *record, uint16_t prev_keycode) {
+    if ((is_flow_tap_key(keycode) || keycode == LT(1, KC_LSFT)) && is_flow_tap_key(prev_keycode)) {
+        return FLOW_TAP_TERM;
+    }
+    return 0;
+}
+
 class FlowTapTest : public TestFixture {};
 
 // Test an input of quick distinct taps. All should be settled as tapped.
@@ -117,7 +126,7 @@ TEST_F(FlowTapTest, hotkey_taps) {
 
     set_keymap({ctrl_key, shft_key, alt_key, gui_key, regular_key, mod_tap_key});
 
-    for (KeymapKey* mod_key : {&ctrl_key, &alt_key, &gui_key}) {
+    for (KeymapKey *mod_key : {&ctrl_key, &alt_key, &gui_key}) {
         // Hold mod key.
         EXPECT_REPORT(driver, (mod_key->code));
         mod_key->press();
@@ -839,6 +848,94 @@ TEST_F(FlowTapTest, roll_release_132) {
     mod_tap_key3.release();
     run_one_scan_loop();
     mod_tap_key2.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Test that the release of a layer-tap key settled as tapped by Flow Tap is not
+// retained while another tap-hold key is unsettled.
+TEST_F(FlowTapTest, layer_tap_settled_as_tap_released_while_other_tap_hold_unsettled) {
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key   = KeymapKey(0, 0, 0, KC_A);
+    auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_B));
+    auto       thumb_key     = KeymapKey(0, 2, 0, LT(2, KC_ENT));
+
+    set_keymap({regular_key, layer_tap_key, thumb_key});
+
+    // Tap regular key.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(regular_key);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press layer-tap key quickly after the regular key, settling it as tapped.
+    EXPECT_REPORT(driver, (KC_B));
+    layer_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press thumb key. KC_ENT is not a Flow Tap key, so it is left unsettled.
+    EXPECT_NO_REPORT(driver);
+    thumb_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap key. KC_B should be released immediately.
+    EXPECT_EMPTY_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release thumb key.
+    EXPECT_REPORT(driver, (KC_ENT));
+    EXPECT_EMPTY_REPORT(driver);
+    thumb_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Test that the release of a layer-tap key with a modifier tapping keycode,
+// settled as tapped by Flow Tap, is retained while another tap-hold key is
+// unsettled, so that the modifier applies to that key's tap.
+TEST_F(FlowTapTest, layer_tap_mod_settled_as_tap_retained_while_other_tap_hold_unsettled) {
+    TestDriver driver;
+    InSequence s;
+    auto       regular_key   = KeymapKey(0, 0, 0, KC_A);
+    auto       layer_tap_key = KeymapKey(0, 1, 0, LT(1, KC_LSFT));
+    auto       thumb_key     = KeymapKey(0, 2, 0, LT(2, KC_ENT));
+
+    set_keymap({regular_key, layer_tap_key, thumb_key});
+
+    // Tap regular key.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    tap_key(regular_key);
+    VERIFY_AND_CLEAR(driver);
+
+    // Press layer-tap key quickly after the regular key, settling it as tapped.
+    EXPECT_REPORT(driver, (KC_LSFT));
+    layer_tap_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Press thumb key. KC_ENT is not a Flow Tap key, so it is left unsettled.
+    EXPECT_NO_REPORT(driver);
+    thumb_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release layer-tap key. KC_LSFT should be retained.
+    EXPECT_NO_REPORT(driver);
+    layer_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    // Release thumb key. KC_ENT should be tapped with KC_LSFT held.
+    EXPECT_REPORT(driver, (KC_LSFT, KC_ENT));
+    EXPECT_REPORT(driver, (KC_ENT));
+    EXPECT_EMPTY_REPORT(driver);
+    thumb_key.release();
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
