@@ -128,6 +128,9 @@ If you define these options you will enable the associated feature, which may in
   * Cache keycode for pressed keys, to be used on key release, across entire physical keyboard layout.
 * `#define KEYCODE_CACHE_LIMIT 10`
   * Allows for changing the limit of the number of keycodes able to be cached. Keys pressed beyond the limit will behave as if the keycode cache were disabled. Default when unspecified is 10.
+* `#define EXTENDED_ATTRIBUTES_ENABLE` (or extended_attributes.enable = true in info.json)
+  * enables reporting of [hutrr42c](https://www.usb.org/sites/default/files/hutrr42c_0.pdf) extended keyboard attributes
+  * Increases size minimally, but to date no OS makes use of it.
 
 ## Behaviors That Can Be Configured
 
