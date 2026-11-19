@@ -12,12 +12,14 @@
     "bootloader": "rp2040",
     "features": {
         "bootmagic": true,
-        //"command": true,
-        "console": true,
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
         "rgb_matrix": true
+    },
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [0, 0]
     },
     "diode_direction": "COL2ROW",
     "matrix_pins": {
@@ -45,6 +47,9 @@
             "sync": {
                 "matrix_state": true
             }
+        },
+        "bootmagic": {
+            "matrix": [5, 0]
         },
         "encoder": {
             "right": {
@@ -95,8 +100,8 @@
                 {"label": "L23", "matrix": [2, 3], "x":  3, "y": 2.25},
                 {"label": "L24", "matrix": [2, 4], "x":  4, "y": 2.50},
                 {"label": "L25", "matrix": [2, 5], "x":  5, "y": 2.75},
-                {"label": "L26", "matrix": [4, 6], "x":  6, "y": 2.75},
-                {"label": "R26", "matrix": [9, 6], "x":  7, "y": 2.75},
+                {"label": "L26", "matrix": [4, 6], "x":  6, "y": 2.75, "encoder": 0},
+                {"label": "R26", "matrix": [9, 6], "x":  7, "y": 2.75, "encoder": 1},
                 {"label": "R25", "matrix": [7, 5], "x":  6, "y": 2.75},
                 {"label": "R24", "matrix": [7, 4], "x":  7, "y": 2.50},
                 {"label": "R23", "matrix": [7, 3], "x":  8, "y": 2.25},
