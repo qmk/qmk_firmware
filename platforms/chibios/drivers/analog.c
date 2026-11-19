@@ -22,7 +22,7 @@
 #    error "You need to set HAL_USE_ADC to TRUE in your halconf.h to use the ADC."
 #endif
 
-#if !RP_ADC_USE_ADC1 && !STM32_ADC_USE_ADC1 && !STM32_ADC_USE_ADC2 && !STM32_ADC_USE_ADC3 && !STM32_ADC_USE_ADC4 && !WB32_ADC_USE_ADC1 && !AT32_ADC_USE_ADC1
+#if !RP_ADC_USE_ADC1 && !STM32_ADC_USE_ADC1 && !STM32_ADC_USE_ADC2 && !STM32_ADC_USE_ADC3 && !STM32_ADC_USE_ADC4 && !SK32_ADC_USE_ADC1 && !WB32_ADC_USE_ADC1 && !AT32_ADC_USE_ADC1
 #    error "You need to set one of the 'xxx_ADC_USE_ADCx' settings to TRUE in your mcuconf.h to use the ADC."
 #endif
 
@@ -43,7 +43,9 @@
 #endif
 
 // Otherwise assume V3
-#if defined(STM32F0XX) || defined(STM32L0XX) || defined(STM32G0XX)
+#if defined(STM32F0XX) || defined(STM32L0XX) || defined(STM32G0XX) || defined(SK32F077)
+// The SK32F0xx ADC LLD uses the register set (CFGR1/SMPR/CHSELR/DR) of the
+// STM32F0 class, so it is served by the ADCV1 conversion group layout.
 #    define USE_ADCV1
 #elif defined(STM32F1XX) || defined(STM32F2XX) || defined(STM32F4XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
 #    define USE_ADCV2
@@ -82,7 +84,7 @@
 
 /* User configurable ADC options */
 #ifndef ADC_COUNT
-#    if defined(RP2040) || defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX) || defined(STM32G0XX) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
+#    if defined(RP2040) || defined(STM32F0XX) || defined(STM32F1XX) || defined(STM32F4XX) || defined(STM32G0XX) || defined(SK32F077) || defined(GD32VF103) || defined(WB32F3G71xx) || defined(WB32FQ95xx) || defined(AT32F415)
 #        define ADC_COUNT 1
 #    elif defined(STM32F3XX) || defined(STM32G4XX)
 #        define ADC_COUNT 4
@@ -182,6 +184,20 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
         case C3:  return TO_MUX( 13, 0 );
         case C4:  return TO_MUX( 14, 0 );
         case C5:  return TO_MUX( 15, 0 );
+#elif defined(SK32F077)
+        // The SK32F0xx ADC1 exposes the same external channel set as the
+        // STM32F072 it is register-compatible with: IN0..IN7 on PA0..PA7
+        // and IN8..IN9 on PB0..PB1 (plus internal IN16 = TS, IN17 = VREFINT).
+        case A0:  return TO_MUX( 0,  0 );
+        case A1:  return TO_MUX( 1,  0 );
+        case A2:  return TO_MUX( 2,  0 );
+        case A3:  return TO_MUX( 3,  0 );
+        case A4:  return TO_MUX( 4,  0 );
+        case A5:  return TO_MUX( 5,  0 );
+        case A6:  return TO_MUX( 6,  0 );
+        case A7:  return TO_MUX( 7,  0 );
+        case B0:  return TO_MUX( 8,  0 );
+        case B1:  return TO_MUX( 9,  0 );
 #elif defined(STM32F3XX)
         case A0:  return TO_MUX( ADC_CHANNEL_IN1,  0 );
         case A1:  return TO_MUX( ADC_CHANNEL_IN2,  0 );
@@ -366,9 +382,9 @@ __attribute__((weak)) adc_mux pinToMux(pin_t pin) {
 }
 // clang-format on
 
-static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
+static inline ADCDriver *intToADCDriver(uint8_t adcInt) {
     switch (adcInt) {
-#if RP_ADC_USE_ADC1 || STM32_ADC_USE_ADC1 || WB32_ADC_USE_ADC1 || AT32_ADC_USE_ADC1
+#if RP_ADC_USE_ADC1 || STM32_ADC_USE_ADC1 || SK32_ADC_USE_ADC1 || WB32_ADC_USE_ADC1 || AT32_ADC_USE_ADC1
         case 0:
             return &ADCD1;
 #endif
@@ -389,7 +405,7 @@ static inline ADCDriver* intToADCDriver(uint8_t adcInt) {
     return NULL;
 }
 
-static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver* adcDriver) {
+static inline void manageAdcInitializationDriver(uint8_t adc, ADCDriver *adcDriver) {
     if (!adcInitialized[adc]) {
         adcStart(adcDriver, &adcCfg);
         adcInitialized[adc] = true;
@@ -430,7 +446,7 @@ int16_t adc_read(adc_mux mux) {
         ;
 #endif
 
-    ADCDriver* targetDriver = intToADCDriver(mux.adc);
+    ADCDriver *targetDriver = intToADCDriver(mux.adc);
     if (!targetDriver) {
         return 0;
     }

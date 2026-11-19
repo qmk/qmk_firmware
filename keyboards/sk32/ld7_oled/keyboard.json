@@ -1,0 +1,40 @@
+{
+    "manufacturer": "NUTWANG",
+    "keyboard_name": "ld7_oled",
+    "maintainer": "NUTWANG",
+    "bootloader": "sk32duino",
+    "host": {
+        "default": {
+            "nkro": true
+        }
+    },
+    "matrix_pins": {
+        "direct": [
+            ["B12", "B11", "B10", "B2", "B1", "B0", "C5"]
+        ]
+    },
+    "matrix_size": {
+        "cols": 7,
+        "rows": 1
+    },
+    "processor": "SK32F077",
+    "url": "https://oshwhub.com/morempty",
+    "usb": {
+        "device_version": "0.0.1",
+        "pid": "0x0464",
+        "vid": "0x0194"
+    },
+    "layouts": {
+        "LAYOUT_ld7": {
+            "layout": [
+                {"label": "Z (KEY1)", "matrix": [0, 0], "x": 0, "y": 0},
+                {"label": "X (KEY2)", "matrix": [0, 1], "x": 1, "y": 0},
+                {"label": "C (KEY3)", "matrix": [0, 2], "x": 2, "y": 0},
+                {"label": "V (KEY4)", "matrix": [0, 3], "x": 3, "y": 0},
+                {"label": "A (KEY5)", "matrix": [0, 4], "x": 4, "y": 0},
+                {"label": "Ctrl (KEY6)", "matrix": [0, 5], "x": 5, "y": 0},
+                {"label": "Enter (KEY7)", "matrix": [0, 6], "x": 6, "y": 0}
+            ]
+        }
+    }
+}

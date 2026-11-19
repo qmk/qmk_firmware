@@ -925,6 +925,18 @@ void oled_task(void) {
         return;
     }
 
+#if defined(OLED_TASK_EXTERNAL_LOOP)
+    /* A keyboard (e.g. sk32/ld7_oled) that runs the whole draw+render from a
+     * dedicated thread defines this so the main loop never touches oled_buffer
+     * (thread-safety: the drawing oled_task_user and the I2C oled_render are
+     * then the only accessors and run in the same thread, so a block can never
+     * be torn between an old and a new frame).  The thread is expected to call
+     * oled_set_cursor + oled_task_kb + oled_render_dirty itself.
+     * (No OLED_TIMEOUT / OLED_SCROLL_TIMEOUT considered: a board that offloads
+     * the task normally leaves both at 0.) */
+    return;
+#endif
+
 #if OLED_UPDATE_INTERVAL > 0
     if (timer_elapsed(oled_update_timeout) >= OLED_UPDATE_INTERVAL) {
         oled_update_timeout = timer_read();
@@ -943,8 +955,13 @@ void oled_task(void) {
     }
 #endif
 
-    // Smart render system, no need to check for dirty
+    // Smart render system, no need to check for dirty.
+    // A keyboard (e.g. sk32/ld7_oled) may define OLED_TASK_NO_RENDER to run the
+    // (blocking I2C) render from a dedicated thread instead of the main loop,
+    // so that the main keyboard loop is never stalled by the display bus.
+#if !defined(OLED_TASK_NO_RENDER)
     oled_render();
+#endif
 
     // Display timeout check
 #if OLED_TIMEOUT > 0

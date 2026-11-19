@@ -29,6 +29,7 @@
 #     at32-dfu     AT32 USB DFU in ROM
 #     tinyuf2      TinyUF2
 #     rp2040       Raspberry Pi RP2040
+#     sk32duino    Custom 3Think SK32 DFU bootloader (SK32F077, flashed via SWD/dfu-util)
 # Current options for RISC-V:
 #     gd32v-dfu    GD32V USB DFU in ROM
 #
@@ -98,6 +99,17 @@ ifeq ($(strip $(BOOTLOADER)), stm32duino)
     BOOTLOADER_TYPE = stm32duino
 
     # Options to pass to dfu-util when flashing
+    DFU_ARGS = -d 1EAF:0003 -a 2 -R
+    DFU_SUFFIX_ARGS = -v 1EAF -p 0003
+endif
+ifeq ($(strip $(BOOTLOADER)), sk32duino)
+    OPT_DEFS += -DBOOTLOADER_SK32DUINO
+    BOOTLOADER_TYPE = sk32duino
+
+    # Options to pass to dfu-util when flashing.
+    # The sk32duino bootloader speaks the STM32duino/LeafLabs DFU flavour
+    # (VID:PID 1EAF:0003, download target alternate setting 2 = the QMK
+    # application at 0x08004000).
     DFU_ARGS = -d 1EAF:0003 -a 2 -R
     DFU_SUFFIX_ARGS = -v 1EAF -p 0003
 endif
