@@ -139,10 +139,10 @@ __attribute__((weak)) void led_init_ports(void) {
  */
 __attribute__((weak)) void led_set(uint8_t usb_led) {
 #ifdef BACKLIGHT_CAPS_LOCK
-    handle_backlight_caps_lock((led_t)usb_led);
+    handle_backlight_caps_lock((led_t){.raw = usb_led});
 #endif
 
-    led_update_kb((led_t)usb_led);
+    led_update_kb((led_t){.raw = usb_led});
 }
 
 /** \brief Trigger behaviour on transition to suspend
