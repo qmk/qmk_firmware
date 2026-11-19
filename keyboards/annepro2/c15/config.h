@@ -19,6 +19,8 @@
 
 #include "pin_defs.h"
 
+#define ANNEPRO2_LED_MCU_ENABLE
+
 #define LINE_UART_TX B0  // Master TX, LED RX
 #define LINE_UART_RX B1  // Master RX, LED TX
 
