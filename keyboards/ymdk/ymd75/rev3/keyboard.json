@@ -10,12 +10,13 @@
     "features": {
         "backlight": true,
         "bootmagic": true,
-        "command": true,
         "extrakey": true,
-        "key_lock": true,
-        "mousekey": false,
-        "nkro": false,
+        "mousekey": true,
+        "nkro": true,
         "rgblight": true
+    },
+    "bootmagic": {
+        "matrix": [5, 0]
     },
     "matrix_pins": {
         "cols": ["D0", "D1", "D2", "D3", "D5", "D4", "D6", "D7", "B4"],
@@ -24,13 +25,20 @@
     "diode_direction": "ROW2COL",
     "backlight": {
         "pin": "B6",
-        "levels": 12
+        "levels": 12,
+        "breathing": true
     },
     "ws2812": {
         "pin": "E2"
     },
     "rgblight": {
         "led_count": 16,
+        "max_brightness": 160,
+        "sleep": true,
+        "layers": {
+            "enabled": true,
+            "override_rgb": true
+        },
         "animations": {
             "alternating": true,
             "breathing": true,
