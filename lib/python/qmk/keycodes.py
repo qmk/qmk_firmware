@@ -1,22 +1,11 @@
 from pathlib import Path
 
 from qmk.json_schema import merge_ordered_dicts, deep_update, json_load, validate
+from qmk.util import is_valid_bcd_string, list_file_versions
 
 CONSTANTS_PATH = Path('data/constants/')
 KEYCODES_PATH = CONSTANTS_PATH / 'keycodes'
 EXTRAS_PATH = KEYCODES_PATH / 'extras'
-
-
-def _find_versions(path, prefix):
-    ret = []
-    for file in path.glob(f'{prefix}_*.hjson'):
-        version = file.stem[len(prefix) + 1:]
-        parts = version.split('.')
-        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
-            ret.append(version)
-
-    ret.sort(key=lambda version: tuple(map(int, version.split('.'))), reverse=True)
-    return ret
 
 
 def _potential_search_versions(version, lang=None):
@@ -108,7 +97,7 @@ def list_versions(lang=None):
     path = _search_path(lang)
     prefix = _search_prefix(lang)
 
-    return _find_versions(path, prefix)
+    return list_file_versions(path, prefix=f'{prefix}_', reverse=True)
 
 
 def list_languages():
@@ -116,9 +105,8 @@ def list_languages():
     """
     ret = set()
     for file in EXTRAS_PATH.glob('keycodes_*.hjson'):
-        name, _, version = file.stem.rpartition('_')
-        parts = version.split('.')
-        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
+        name, version = file.stem.rsplit('_', 1)
+        if is_valid_bcd_string(version):
             ret.add(name[len('keycodes_'):])
 
     return ret
