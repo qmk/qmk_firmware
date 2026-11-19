@@ -23,6 +23,19 @@
 #if defined(USE_PICOLIBC)
 struct _reent;
 struct timeval;
+
+#    if defined(__arm__) && defined(__THREAD_LOCAL_STORAGE)
+#        include <picotls.h>
+
+/* ChibiOS startup does not set up thread-local storage; initialize the
+ * TLS block from picolibc.ld before other constructors run. */
+extern char __tls_space[];
+
+__attribute__((constructor(101))) static void picolibc_tls_init(void) {
+    _init_tls(__tls_space);
+    _set_tls(__tls_space);
+}
+#    endif
 #endif
 
 #pragma GCC diagnostic ignored "-Wmissing-prototypes"
