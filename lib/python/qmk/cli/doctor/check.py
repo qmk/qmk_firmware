@@ -88,14 +88,16 @@ def _check_arm_gcc_installation():
         temp_in = Path(temp_dir) / 'test.c'
         temp_out = Path(temp_dir) / 'test.elf'
 
-        temp_in.write_text('#include <newlib.h>\nint main() { return __NEWLIB__ * __NEWLIB_MINOR__ * __NEWLIB_PATCHLEVEL__; }', encoding='utf-8')
+        temp_in.write_text('#include <stdlib.h>\nint main(void) { return EXIT_SUCCESS; }', encoding='utf-8')
 
-        args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', '--specs=nosys.specs', '--specs=nano.specs', '-x', 'c', '-o', str(temp_out), str(temp_in)]
-        result = cli.run(args, stdout=None, stderr=None)
-        if result.returncode == 0:
-            cli.log.info('Successfully compiled using arm-none-eabi-gcc')
+        for libc, specs in (('newlib', ['--specs=nosys.specs', '--specs=nano.specs']), ('picolibc', ['--specs=picolibc.specs'])):
+            args = ['arm-none-eabi-gcc', '-mcpu=cortex-m0', '-mthumb', '-mno-thumb-interwork', *specs, '-x', 'c', '-o', str(temp_out), str(temp_in)]
+            result = cli.run(args, stdout=None, stderr=None)
+            if result.returncode == 0:
+                cli.log.info('Successfully compiled using arm-none-eabi-gcc with %s', libc)
+                break
         else:
-            cli.log.error(f'Failed to compile a simple program with arm-none-eabi-gcc, return code {result.returncode}')
+            cli.log.error(f'Failed to compile a simple program with arm-none-eabi-gcc using newlib or picolibc, return code {result.returncode}')
             cli.log.error(f'Command: {" ".join(args)}')
             return CheckStatus.ERROR
 
