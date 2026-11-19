@@ -413,6 +413,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+* `NKRO_BOOT_COMPAT_ENABLE`
+  * Folds the NKRO bitfield into the boot keyboard report so hosts that ignore the HID report descriptor still get a working 6KRO keyboard. See [NKRO boot compatibility](#nkro-boot-compatibility).
 * `AUDIO_ENABLE`
   * Enable the audio subsystem.
 * `KEY_OVERRIDE_ENABLE`
@@ -461,6 +463,7 @@ The following features can require separate endpoints:
 
 In order to improve utilisation of the endpoints, the HID features can be combined to use a single endpoint.
 By default, `MOUSEKEY`, `EXTRAKEY`, and `NKRO` are combined into a single endpoint.
+With `NKRO_BOOT_COMPAT_ENABLE`, NKRO moves into the keyboard's own report and no longer uses the shared endpoint.
 
 The base keyboard functionality can also be combined into the endpoint,
 by setting `KEYBOARD_SHARED_EP = yes`.
@@ -470,3 +473,23 @@ as they do not implement Boot Keyboard protocol switching.
 
 Combining the mouse also breaks Boot Mouse compatibility.
 The mouse can be uncombined by setting `MOUSE_SHARED_EP = no` if this functionality is required.
+
+## NKRO boot compatibility
+
+Some hosts (certain BIOS/UEFI firmware, KVM switches, IPMI/BMC remote consoles) do not parse the HID report descriptor and assume the fixed boot keyboard report format, yet never request Boot Protocol. With standard NKRO these hosts see no usable keyboard while NKRO mode is active, so the usual workaround is to turn NKRO off.
+
+Setting `NKRO_BOOT_COMPAT_ENABLE = yes` replaces the separate boot keyboard and NKRO reports with a single combined report on the keyboard's own interface. Its first 8 bytes match the boot keyboard report (modifiers, reserved byte, 6-key array), but the descriptor declares the key array as constant padding, and the NKRO bitfield follows:
+
+* Descriptor-aware hosts skip the padding and use the modifiers plus the full NKRO bitfield.
+* Descriptor-ignoring hosts read the 8-byte boot view and get a working 6KRO keyboard.
+
+The technique is described at <https://www.devever.net/~hl/usbnkro>.
+
+Notes:
+
+* It enables `NKRO_ENABLE` automatically.
+* The runtime NKRO toggle (e.g. `NK_TOGG`) has no effect: the keyboard always sends the combined report, and a host sees six keys or all of them depending on whether it parses the report descriptor.
+* The keyboard needs its own interface, so `KEYBOARD_SHARED_EP` is ignored. Mouse, media keys and other HID devices still share their endpoint.
+* It is not compatible with `BLUETOOTH_ENABLE`.
+* It needs a full-speed USB controller. V-USB boards (ATmega32A, ATmega328P and similar) stop the build with an error.
+* On AVR the keyboard endpoint grows from an 8-byte to a 64-byte bank. ATmega32U4 and AT90USB646/1286 parts have room to spare. ATmega16U2/32U2 and AT90USB162 parts have 176 bytes of endpoint memory in total, which is too little for this option together with `MIDI_ENABLE`.
