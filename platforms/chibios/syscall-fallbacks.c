@@ -21,6 +21,10 @@
 /* To compile the ChibiOS syscall stubs with picolibc
  * the _reent struct has to be defined. */
 #if defined(USE_PICOLIBC)
+#    include <stdint.h>
+#    if __has_include(<picotls.h>)
+#        include <picotls.h>
+#    endif
 struct _reent;
 struct timeval;
 
