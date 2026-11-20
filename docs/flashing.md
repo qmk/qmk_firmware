@@ -299,6 +299,34 @@ Flashing sequence:
 3. Flash a .bin file
 4. Reset the device into application mode (may be done automatically)
 
+## SK32duino DFU
+
+This bootloader is used for keyboards built around the 3Think SK32F077, and uses the same DFU flavour as STM32duino (VID:PID `1EAF:0003`). It occupies the first 16 kB of flash and exposes the QMK application as DFU alternate setting 2. The source code and prebuilt binaries can be found [here](https://github.com/dadato/sk32duino), and it must be flashed once over SWD (DAPLink/OpenOCD) before the first DFU update.
+
+To ensure compatibility with the SK32duino bootloader, make sure this block is present in your `rules.mk`:
+
+```make
+# Bootloader selection
+BOOTLOADER = sk32duino
+```
+
+Compatible flashers:
+
+* [dfu-util](https://dfu-util.sourceforge.net/) / `:dfu-util` target in QMK (recommended command line)
+  ```
+  dfu-util -a 2 -d 1EAF:0003 -D <filename>
+  ```
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `QK_BOOT` keycode
+    * If a reset circuit is present, tap the `RESET` button on the PCB
+    * Otherwise, reset the board while holding the bootmagic key defined by the keyboard
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+4. Reset the device into application mode (may be done automatically)
+
 ## Kiibohd DFU
 
 Keyboards produced by Input Club use NXP Kinetis microcontrollers rather than STM32, and come with their own [custom bootloader](https://github.com/kiibohd/controller/tree/master/Bootloader), however the process and protocol is largely the same.

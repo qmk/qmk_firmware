@@ -89,7 +89,9 @@
 
 // STM32 compatibility
 #if defined(MCU_STM32)
-#    if defined(STM32_CORE_CK)
+#    if defined(SK32F0xx_MCUCONF) || defined(SK32F077)
+#        define CPU_CLOCK SK32_SYSCLK
+#    elif defined(STM32_CORE_CK)
 #        define CPU_CLOCK STM32_CORE_CK
 #    else
 #        define CPU_CLOCK STM32_SYSCLK
@@ -115,6 +117,38 @@
 #        define USE_USARTV3
 #    endif
 
+#endif
+
+// SK32 compatibility (STM32F072-register-compatible family served by the
+// native SK32 HAL, see chibios-contrib/os/hal/ports/SK32).
+#if defined(SK32F077)
+// The SK32 I2C low level driver exposes the legacy {op_mode, clock_speed,
+// duty_cycle} I2Cv1-style configuration, so the generic i2c_master driver
+// must build the I2CConfig initializer with the USE_I2CV1 layout.
+#    define USE_I2CV1
+#    ifndef I2C1_CLOCK_SPEED
+#        define I2C1_CLOCK_SPEED 100000
+#    endif
+// I2C1 = PB6 (SCL) / PB7 (SDA), alternate function 13.
+#    ifndef I2C1_SCL_PAL_MODE
+#        define I2C1_SCL_PAL_MODE 13
+#    endif
+#    ifndef I2C1_SDA_PAL_MODE
+#        define I2C1_SDA_PAL_MODE 13
+#    endif
+// PAL_OUTPUT_TYPE_OPENDRAIN is provided by the STM32 compatibility block above
+// as PAL_STM32_OTYPE_OPENDRAIN, which does not exist on the native SK32 PAL.
+// Since this SK32 branch is processed after the STM32 one, override it here.
+#    undef PAL_OUTPUT_TYPE_OPENDRAIN
+#    define PAL_OUTPUT_TYPE_OPENDRAIN PAL_SK32_OTYPE_OPENDRAIN
+// The STM32 compatibility block above maps these to PAL_STM32_*, which do
+// not exist on the native SK32 PAL.  Redefine them here so the generic
+// ChibiOS drivers (e.g. serial_usart.c full-duplex pin setup, SPI flags) can
+// compile for the SK32.
+#    undef PAL_OUTPUT_TYPE_PUSHPULL
+#    define PAL_OUTPUT_TYPE_PUSHPULL PAL_SK32_OTYPE_PUSHPULL
+#    undef PAL_OUTPUT_SPEED_HIGHEST
+#    define PAL_OUTPUT_SPEED_HIGHEST PAL_SK32_OSPEED_HIGHEST
 #endif
 
 // GD32 compatibility

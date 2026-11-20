@@ -255,6 +255,62 @@ ifneq ($(findstring STM32F072, $(MCU)),)
   STM32_BOOTLOADER_ADDRESS ?= 0x1FFFC800
 endif
 
+ifneq ($(findstring SK32F077, $(MCU)),)
+  # Cortex version
+  MCU = cortex-m0
+
+  # ARM version, CORTEX-M0/M1 are 6, CORTEX-M3/M4/M7 are 7
+  ARMV = 6
+
+  ## chip/board settings
+  # SK32F077 (3Think): Cortex-M0+ chip, register-compatible with the
+  # STM32F072 except for the USB IP (Mentor-MUSB-class "musbfsfc"
+  # controller). The HAL port lives in chibios-contrib under
+  # os/hal/ports/SK32/SK32F0xx (selected via MCU_PORT_NAME).
+  # - the next two should match the directories in
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_PORT_NAME)/$(MCU_SERIES)
+  #   OR
+  #   <chibios[-contrib]>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
+  MCU_FAMILY = STM32
+  MCU_PORT_NAME = SK32
+  MCU_SERIES = SK32F0xx
+
+  # Linker script to use (128 KB: SK32F077xB; 64 KB: SK32F077x8).  Same memory
+  # map as STM32F072xB, size suffix matches the SK32F077 part number (8 = 64 KB,
+  # B = 128 KB).  The default here is the 128 KB image; keyboards that want a
+  # single 64-KB-capable binary set MCU_LDSCRIPT in their own rules.mk.
+  # - it should exist either in <chibios>/os/common/startup/ARMCMx/compilers/GCC/ld/
+  #   or <keyboard_dir>/ld/
+  MCU_LDSCRIPT ?= SK32F077xB
+
+  # Startup code to use (SK32-specific startup; pulls in the SK32F0xx
+  #  cmparams and the vendor CMSIS device headers)
+  #  - it should exist in <chibios-contrib>/os/common/startup/ARMCMx/compilers/GCC/mk/
+  MCU_STARTUP ?= SK32F0xx
+
+  # Board: it should exist either in <chibios>/os/hal/boards/,
+  # <keyboard_dir>/boards/, or drivers/boards/
+  BOARD ?= GENERIC_SK32_F077
+
+  USE_FPU ?= no
+
+  # UF2 settings
+  UF2_FAMILY ?= STM32F0
+
+  # sk32duino is a custom DFU bootloader (https://github.com/dadato/sk32duino)
+  # flashed via SWD/dfu-util; it is not a ROM bootloader, so no
+  # STM32_BOOTLOADER_ADDRESS is defined here.
+
+  # SK32F077 family device definition, required by the SK32 CMSIS headers and
+  # by the hard device checks in the SK32 HAL low level drivers (hal_lld.h).
+  # The macro is family-wide (not capacity-specific): all SK32 parts are
+  # SK32F077X; the 64 vs 128 KB capacity is chosen by the linker script
+  # (MCU_LDSCRIPT) and confirmed at runtime via the F_SIZE register.
+  # SK32 uses its native SysTick-based ST LLD which only supports periodic
+  # mode, so force CH_CFG_ST_TIMEDELTA to zero for this series.
+  CFLAGS += -DSK32F077 -DCH_CFG_ST_TIMEDELTA=0
+endif
+
 ifneq ($(findstring STM32F103, $(MCU)),)
   # Cortex version
   MCU = cortex-m3
