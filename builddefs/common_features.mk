@@ -233,8 +233,10 @@ ifneq ($(strip $(EEPROM_DRIVER)),none)
           COMMON_VPATH += $(PLATFORM_PATH)/$(PLATFORM_KEY)/$(DRIVER_DIR)/flash
           COMMON_VPATH += $(DRIVER_PATH)/flash
           SRC += eeprom_driver.c eeprom_legacy_emulated_flash.c legacy_flash_ops.c
-        else ifneq ($(filter $(MCU_SERIES),STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G0xx STM32G4xx WB32F3G71xx WB32FQ95xx AT32F415 GD32VF103),)
-          # Wear-leveling EEPROM implementation, backed by MCU flash
+        else ifneq ($(filter $(MCU_SERIES),SK32F0xx STM32F1xx STM32F3xx STM32F4xx STM32L4xx STM32G0xx STM32G4xx WB32F3G71xx WB32FQ95xx AT32F415 GD32VF103),)
+          # Wear-leveling EEPROM implementation, backed by MCU flash.
+          # The SK32F0xx series uses the native EFL (embedded flash) driver in
+          # chibios-contrib together with the generic wear_leveling_efl.c.
           OPT_DEFS += -DEEPROM_DRIVER -DEEPROM_WEAR_LEVELING
           SRC += eeprom_driver.c eeprom_wear_leveling.c
           WEAR_LEVELING_DRIVER ?= embedded_flash
@@ -983,7 +985,7 @@ ifeq ($(strip $(BATTERY_DRIVER_REQUIRED)), yes)
     endif
 endif
 
-VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm spi vendor
+VALID_WS2812_DRIVER_TYPES := bitbang custom i2c pwm sled spi vendor
 
 WS2812_DRIVER ?= bitbang
 ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
@@ -1000,6 +1002,12 @@ ifeq ($(strip $(WS2812_DRIVER_REQUIRED)), yes)
     ifeq ($(strip $(PLATFORM)), CHIBIOS)
         ifeq ($(strip $(WS2812_DRIVER)), pwm)
             OPT_DEFS += -DSTM32_DMA_REQUIRED=TRUE
+        endif
+        ifeq ($(strip $(WS2812_DRIVER)), sled)
+            # SK32 serial LED (SLED) driver: enables the native SK32F0xx
+            # SLED low level driver and, through the platform header
+            # (hal_lld.h), the SK32 DMA helper code as well.
+            OPT_DEFS += -DHAL_USE_SLED=TRUE
         endif
     endif
 

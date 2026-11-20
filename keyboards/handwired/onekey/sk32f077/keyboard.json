@@ -1,0 +1,9 @@
+{
+    "keyboard_name": "Onekey SK32F077",
+    "processor": "SK32F077",
+    "bootloader": "sk32duino",
+    "matrix_pins": {
+        "cols": ["B12"],
+        "rows": ["B2"]
+    }
+}
