@@ -1,6 +1,6 @@
 # MNT Reform USB Keyboard 4.0 (Standalone)
 
-![MNT Reform Keyboard 4.0](https://files.mastodon.social/media_attachments/files/113/079/007/252/761/194/original/249b63274b9d0914.jpg)
+![MNT Reform Keyboard 4.0](https://i.imgur.com/yseZsQB.jpeg)
 
 Standalone USB firmware for the RP2040-based MNT Reform Keyboard 4.0:
 80 keys, per-key RGB Matrix backlight and an OLED status display.
