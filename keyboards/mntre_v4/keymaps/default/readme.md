@@ -6,7 +6,8 @@ lighting layer; Circle + X also enters the bootloader.
 
 Circle + F1/F2 controls brightness, F3/F4 hue, F5/F6 saturation, F7/F8
 the effect, F9 the lighting toggle, and F10/F11 the effect speed (the
-gradient span or modifier hue shift for the default effects).
+gradient span or modifier hue shift for the default effects). The OLED
+shows the active layer and backlight settings while holding Hyper or Circle.
 
 Both Enter contacts and both centre Space contacts on the PCB are mapped,
 so the keymap works whichever switch footprint is populated.

@@ -3,6 +3,12 @@
 
 #include QMK_KEYBOARD_H
 
+enum reform4_layers {
+    R4_LAYER_BASE,
+    R4_LAYER_HYPER,
+    R4_LAYER_CIRCLE,
+};
+
 // The PCB has two Enter contacts and two centre Space contacts; both of each pair are mapped.
 // clang-format off
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

@@ -1,9 +1,9 @@
 # MNT Reform USB Keyboard 4.0 (Standalone)
 
-![MNT Reform Keyboard 4.0](https://shop.mntre.com/spree/products/500/large/kb4-black-overview.jpg?1725443064)
+![MNT Reform Keyboard 4.0](https://files.mastodon.social/media_attachments/files/113/079/007/252/761/194/original/249b63274b9d0914.jpg)
 
 Standalone USB firmware for the RP2040-based MNT Reform Keyboard 4.0:
-80 keys, per-key RGB Matrix backlight and an OLED lighting legend.
+80 keys, per-key RGB Matrix backlight and an OLED status display.
 
 * Keyboard Maintainer: [Andreas Hirschauer](https://github.com/JohnnyLeone)
 * Hardware Supported: MNT Reform Keyboard 4.0 RP2040 PCB, standalone USB use
@@ -30,8 +30,3 @@ Enter the bootloader in any of these ways:
 * **Hardware recovery**: set the `PROG` DIP switch to `ON`, then press the
   adjacent `RESET` button. Return `PROG` to `OFF` before rebooting into the
   firmware.
-
-## Backlight
-
-Four static effects are available: solid colour, Alphas/Mods and the two
-linear gradients. Hold Circle to show the lighting controls on the OLED.

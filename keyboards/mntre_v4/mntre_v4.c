@@ -45,7 +45,7 @@ typedef enum {
     PAGE_NONE,
     PAGE_SPLASH,
     PAGE_RGB,
-    PAGE_CIRCLE,
+    PAGE_LAYER,
 } oled_page_t;
 
 static oled_page_t timed_page = PAGE_NONE;
@@ -88,11 +88,11 @@ static void render_rgb(void) {
     render_rgb_values();
 }
 
-static void render_circle(void) {
-    oled_write_ln_P(PSTR("F1-6 Bright/Hue/Sat"), false);
-    oled_write_ln_P(PSTR("F7/8 Mode  F9 On/Off"), false);
-    oled_write_ln_P(PSTR("Hyper+R / X Boot"), false);
-    render_rgb_values();
+static void render_layer(uint8_t layer) {
+    char name[sizeof("Layer 255")];
+    snprintf(name, sizeof(name), "Layer %u", layer);
+    oled_write_ln(name, false);
+    render_rgb();
 }
 
 oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
@@ -109,9 +109,10 @@ bool oled_task_kb(void) {
         timed_page = PAGE_NONE;
     }
 
-    oled_page_t page = timed_page;
-    if (page == PAGE_NONE && layer_state_is(R4_LAYER_CIRCLE)) {
-        page = PAGE_CIRCLE;
+    oled_page_t page  = timed_page;
+    uint8_t     layer = get_highest_layer(layer_state | default_layer_state);
+    if (page == PAGE_NONE && !layer_state_cmp(default_layer_state, layer)) {
+        page = PAGE_LAYER;
     }
 
     if (page != shown_page) {
@@ -132,8 +133,8 @@ bool oled_task_kb(void) {
         case PAGE_RGB:
             render_rgb();
             break;
-        case PAGE_CIRCLE:
-            render_circle();
+        case PAGE_LAYER:
+            render_layer(layer);
             break;
         default:
             break;
@@ -146,8 +147,9 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
 
-    // The Circle layer already shows the lighting values.
-    if (record->event.pressed && IS_RGB_MATRIX_KEYCODE(keycode) && !layer_state_is(R4_LAYER_CIRCLE)) {
+    // Non-default layers already show the lighting values.
+    uint8_t layer = get_highest_layer(layer_state | default_layer_state);
+    if (record->event.pressed && IS_RGB_MATRIX_KEYCODE(keycode) && layer_state_cmp(default_layer_state, layer)) {
         show_timed_page(PAGE_RGB, RGB_PAGE_DURATION_MS);
     }
     return true;
