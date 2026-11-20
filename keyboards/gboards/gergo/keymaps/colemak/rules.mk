@@ -9,7 +9,6 @@ SCROLLSTEP = 1 			# Lines to scroll with ball
 MOUSEKEY_ENABLE = yes  		# Mouse keys, needed for baller
 
 #Debug options
-VERBOSE 		 = no
 DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_BALLER 		 = no
 DEBUG_MATRIX		 = no
