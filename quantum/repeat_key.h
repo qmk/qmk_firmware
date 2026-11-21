@@ -26,7 +26,7 @@ void     set_last_keycode(uint16_t keycode); /**< Sets the last key. */
 void     set_last_mods(uint8_t mods);        /**< Sets the last mods. */
 
 /** @brief Gets the record for the last key. */
-keyrecord_t* get_last_record(void);
+const keyrecord_t* get_last_record(void);
 
 /** @brief Sets keycode and record info for the last key. */
 void set_last_record(uint16_t keycode, keyrecord_t* record);

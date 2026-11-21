@@ -16,13 +16,13 @@
 #include "ec_switch_matrix.h"
 #include "action.h"
 #include "print.h"
-#include "via.h"
 
 #ifdef SPLIT_KEYBOARD
 #    include "transactions.h"
 #endif
 
 #ifdef VIA_ENABLE
+#    include "via.h"
 
 void ec_rescale_values(uint8_t item);
 void ec_save_threshold_data(uint8_t option);

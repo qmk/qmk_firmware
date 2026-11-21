@@ -4,6 +4,7 @@ A customizable 17  keyboard, support both HOTSWAP and SOLDER.
 
 * Keyboard Maintainer: [gezhaoyou](https://github.com/gezhaoyou)
 * Hardware Supported: [gezhaoyou](https://github.com/gezhaoyou)
+
 Make example for this keyboard (after setting up your build environment):
 
     make magic_force/mf17:default

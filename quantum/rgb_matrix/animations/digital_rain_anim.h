@@ -37,18 +37,22 @@ bool DIGITAL_RAIN(effect_params_t* params) {
                     g_rgb_frame_buffer[row][col]--;
                 }
             }
+
             // set the pixel colour
             uint8_t led[LED_HITS_TO_REMEMBER];
             uint8_t led_count = rgb_matrix_map_row_column_to_led(row, col, led);
 
-            // TODO: multiple leds are supported mapped to the same row/column
             if (led_count > 0) {
                 if (g_rgb_frame_buffer[row][col] > pure_green_intensity) {
                     const uint8_t boost = (uint8_t)((uint16_t)max_brightness_boost * (g_rgb_frame_buffer[row][col] - pure_green_intensity) / (max_intensity - pure_green_intensity));
-                    rgb_matrix_set_color(led[0], boost, max_intensity, boost);
+                    for (uint8_t index = 0; index < led_count; index++) {
+                        rgb_matrix_set_color(led[index], boost, max_intensity, boost);
+                    }
                 } else {
                     const uint8_t green = (uint8_t)((uint16_t)max_intensity * g_rgb_frame_buffer[row][col] / pure_green_intensity);
-                    rgb_matrix_set_color(led[0], 0, green, 0);
+                    for (uint8_t index = 0; index < led_count; index++) {
+                        rgb_matrix_set_color(led[index], 0, green, 0);
+                    }
                 }
             }
         }

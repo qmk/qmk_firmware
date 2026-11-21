@@ -1741,7 +1741,10 @@
         "target": "ducky/one2mini/1861st"
     },
     "ducky/one2sf": {
-        "target": "ducky/one2sf/1967st"
+        "target": "ducky/one2sf/1967st/ansi"
+    },
+    "ducky/one2sf/1967st": {
+        "target": "ducky/one2sf/1967st/ansi"
     },
     "dumbpad": {
         "target": "dumbpad/v0x"

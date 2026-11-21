@@ -374,6 +374,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #if defined(LED_MATRIX_ENABLE)
             process_led_matrix(keycode, record) &&
 #endif
+#ifdef PLOVER_HID_ENABLE
+            process_plover_hid(keycode, record) &&
+#endif
 #ifdef STENO_ENABLE
             process_steno(keycode, record) &&
 #endif

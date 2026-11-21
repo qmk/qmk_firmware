@@ -476,7 +476,7 @@ def _c_preprocess(path, stdin=DEVNULL):
     return pre_processed_keymap.stdout
 
 
-def _get_layers(keymap):  # noqa C901 : until someone has a good idea how to simplify/split up this code
+def _get_layers(keymap):  # noqa: C901 until someone has a good idea how to simplify/split up this code
     """ Find the layers in a keymap.c file.
 
     Args:

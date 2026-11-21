@@ -20,6 +20,4 @@
 // NOTE: M6-A doesn't use RGB backlight, but we keep this
 // consistent with M6-B which does.
 
-// Backlight config starts after VIA's EEPROM usage,
-// dynamic keymaps start after this.
-#define VIA_EEPROM_CUSTOM_CONFIG_SIZE 43
+#define EECONFIG_KB_DATA_SIZE 43

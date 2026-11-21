@@ -1,0 +1,10 @@
+{
+    "config": {
+        "features": {
+            "console": true
+        }
+    },
+    "modules": [
+        "qmk/nvm_test"
+    ]
+}

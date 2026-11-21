@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include "keycodes.h"
+
 enum my_keycodes {
   ENC_PRESS = QK_KB_0,
   CLOCK_SET,

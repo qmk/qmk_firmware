@@ -123,7 +123,7 @@ def _render_image_metadata(metadata):
                 continue
 
             # Unpack rect's coords
-            l, t, r, b = v["delta_rect"]
+            l, t, r, b = v["delta_rect"]  # noqa: E741
 
             delta_px = (r - l) * (b - t)
             px = size["width"] * size["height"]
@@ -143,7 +143,7 @@ def command_args_str(cli, command_name):
 
     args = {}
     max_length = 0
-    for arg_name, was_passed in cli.args_passed[command_name].items():
+    for arg_name in cli.args_passed[command_name].keys():
         max_length = max(max_length, len(arg_name))
 
         val = getattr(cli.args, arg_name.replace("-", "_"))

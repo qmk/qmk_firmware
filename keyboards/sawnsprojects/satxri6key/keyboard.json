@@ -92,7 +92,7 @@
         "bootmagic": true,
         "extrakey": true,
         "mousekey": true,
-        "nkro": false
+        "rgblight": true
     },
     "matrix_pins": {
         "cols": ["F1", "F4", "F5"],
@@ -101,8 +101,12 @@
     "diode_direction": "COL2ROW",
     "processor": "atmega32u4",
     "bootloader": "atmel-dfu",
+    "community_layouts": ["ortho_2x3"],
+    "layout_aliases": {
+        "LAYOUT": "LAYOUT_ortho_2x3"
+    },
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_ortho_2x3": {
             "layout": [
                 {"matrix": [0, 0], "x": 0, "y": 0},
                 {"matrix": [0, 1], "x": 1, "y": 0},

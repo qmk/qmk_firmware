@@ -21,8 +21,16 @@
 #    endif
 #endif
 
-#if PS2_DATA_PIN + 1 != PS2_CLOCK_PIN
-#    error PS/2 clock pin must be data pin + 1!
+#if PS2_DATA_PIN + 1 == PS2_CLOCK_PIN
+#    define PS2_FIRST_PIN PS2_DATA_PIN
+#    define PS2_DATA_PINDIR_BIT 1
+#    define PS2_CLOCK_PINDIR_BIT 2
+#elif PS2_DATA_PIN - 1 == PS2_CLOCK_PIN
+#    define PS2_FIRST_PIN PS2_CLOCK_PIN
+#    define PS2_DATA_PINDIR_BIT 2
+#    define PS2_CLOCK_PINDIR_BIT 1
+#else
+#    error PS/2 clock and data pin must be consecutive!
 #endif
 
 static inline void pio_serve_interrupt(void);
@@ -50,29 +58,29 @@ OSAL_IRQ_HANDLER(RP_PIO0_IRQ_0_HANDLER) {
 
 // clang-format off
 static const uint16_t ps2_program_instructions[] = {
-            //     .wrap_target
-    0x00c7, //  0: jmp    pin, 7
-    0xe02a, //  1: set    x, 10
-    0x2021, //  2: wait   0 pin, 1
-    0x4001, //  3: in     pins, 1
-    0x20a1, //  4: wait   1 pin, 1
-    0x0042, //  5: jmp    x--, 2
-    0x0000, //  6: jmp    0
-    0x00e9, //  7: jmp    !osre, 9
-    0x0000, //  8: jmp    0
-    0xff81, //  9: set    pindirs, 1             [31]
-    0xe280, // 10: set    pindirs, 0             [2]
-    0xe082, // 11: set    pindirs, 2
-    0x2021, // 12: wait   0 pin, 1
-    0xe029, // 13: set    x, 9
-    0x6081, // 14: out    pindirs, 1
-    0x20a1, // 15: wait   1 pin, 1
-    0x2021, // 16: wait   0 pin, 1
-    0x004e, // 17: jmp    x--, 14
-    0xe083, // 18: set    pindirs, 3
-    0x2021, // 19: wait   0 pin, 1
-    0x20a1, // 20: wait   1 pin, 1
-            //     .wrap
+                                        //     .wrap_target
+    0x00c7,                             //  0: jmp    pin, 7
+    0xe02a,                             //  1: set    x, 10
+    0x2000 | PS2_CLOCK_PIN,             //  2: wait   0 gpio, CLK
+    0x4001,                             //  3: in     pins, 1
+    0x2080 | PS2_CLOCK_PIN,             //  4: wait   1 gpio, CLK
+    0x0042,                             //  5: jmp    x--, 2
+    0x0000,                             //  6: jmp    0
+    0x00e9,                             //  7: jmp    !osre, 9
+    0x0000,                             //  8: jmp    0
+    0xff80 | PS2_DATA_PINDIR_BIT,       //  9: set    pindirs, DATA         [31]
+    0xe280,                             // 10: set    pindirs, 0             [2]
+    0xe080 | PS2_CLOCK_PINDIR_BIT,      // 11: set    pindirs, CLK
+    0x2000 | PS2_CLOCK_PIN,             // 12: wait   0 gpio, CLK
+    0xe029,                             // 13: set    x, 9
+    0x6081,                             // 14: out    pindirs, 1
+    0x2080 | PS2_CLOCK_PIN,             // 15: wait   1 gpio, CLK
+    0x2000 | PS2_CLOCK_PIN,             // 16: wait   0 gpio, CLK
+    0x004e,                             // 17: jmp    x--, 14
+    0xe083,                             // 18: set    pindirs, 3
+    0x2000 | PS2_CLOCK_PIN,             // 19: wait   0 gpio, CLK
+    0x2080 | PS2_CLOCK_PIN,             // 20: wait   1 gpio, CLK
+                                        //     .wrap
 };
 // clang-format on
 
@@ -133,9 +141,9 @@ void ps2_host_init(void) {
     sm_config_set_wrap(&c, offset + PS2_WRAP_TARGET, offset + PS2_WRAP);
 
     // Set pindirs to input (output enable is inverted below)
-    pio_sm_set_consecutive_pindirs(pio, state_machine, PS2_DATA_PIN, 2, true);
+    pio_sm_set_consecutive_pindirs(pio, state_machine, PS2_FIRST_PIN, 2, true);
     sm_config_set_clkdiv(&c, (float)clock_get_hz(clk_sys) / (200.0f * KHZ));
-    sm_config_set_set_pins(&c, PS2_DATA_PIN, 2);
+    sm_config_set_set_pins(&c, PS2_FIRST_PIN, 2);
     sm_config_set_out_pins(&c, PS2_DATA_PIN, 1);
     sm_config_set_out_shift(&c, true, true, 10);
     sm_config_set_in_shift(&c, true, true, 11);

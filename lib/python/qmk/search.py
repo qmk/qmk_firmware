@@ -7,7 +7,7 @@ import fnmatch
 import json
 import logging
 import re
-from typing import Callable, Dict, List, Optional, Tuple, Union
+from typing import Callable, Dict, List, Optional, Tuple, Union, Sequence
 from dotty_dict import dotty, Dotty
 from milc import cli
 
@@ -226,7 +226,7 @@ def _construct_build_target(e: KeyboardKeymapDesc):
     return e.to_build_target()
 
 
-def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[str] = []) -> List[KeyboardKeymapDesc]:
+def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: Sequence[str] = []) -> List[KeyboardKeymapDesc]:
     """Filter a list of KeyboardKeymapDesc based on the supplied filters.
 
     Optionally includes the values of the queried info.json keys.
@@ -306,7 +306,7 @@ def _filter_keymap_targets(target_list: List[KeyboardKeymapDesc], filters: List[
     return targets
 
 
-def search_keymap_targets(targets: List[Union[Tuple[str, str], Tuple[str, str, Dict[str, str]]]] = [('all', 'default')], filters: List[str] = []) -> List[BuildTarget]:
+def search_keymap_targets(targets: List[Union[Tuple[str, str], Tuple[str, str, Dict[str, str]]]], filters: Sequence[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
     def _make_desc(e):
@@ -321,7 +321,7 @@ def search_keymap_targets(targets: List[Union[Tuple[str, str], Tuple[str, str, D
     return sorted(targets)
 
 
-def search_make_targets(targets: List[Union[str, Tuple[str, Dict[str, str]]]], filters: List[str] = []) -> List[BuildTarget]:
+def search_make_targets(targets: List[Union[str, Tuple[str, Dict[str, str]]]], filters: Sequence[str] = []) -> List[BuildTarget]:
     """Search for build targets matching the supplied criteria.
     """
     targets = _filter_keymap_targets(expand_make_targets(targets), filters)
