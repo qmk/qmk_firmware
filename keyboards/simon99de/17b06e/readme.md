@@ -1,6 +1,6 @@
 # 17b06e
 
-![17b06e](https://i.imgur.com/EsxcYYh.jpeg)
+![17b06e](https://i.imgur.com/oe1VmNI.jpeg)
 
 # 17B06E-Macropad
 Simple 4x4 (+1) numpad with 6 rotary encoders. Powered by QMK via Waveshare RP2040-Plus. 
@@ -11,7 +11,7 @@ The top button is used to switch profiles, giving you 16 x 4 (or more/less) butt
 
 * Keyboard Maintainer: [FabiClawZ](https://github.com/FFS2309)
 * Hardware Supported: Pi Pico compatible RP2040 MCU
-* Hardware Availability: [Hardware File](https://github.com/Simon99de/17B06E-Macropad)
+* Hardware Availability: [Hardware File](https://codeberg.org/Simon99de/17B06E-Macropad)
 
 Make example for this macropad (after setting up your build environment):
 
