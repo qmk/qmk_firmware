@@ -6,7 +6,6 @@
     "build": {
         "lto": true
     },
-    "diode_direction": "COL2ROW",
     "features": {
         "bootmagic": true,
         "extrakey": true,
