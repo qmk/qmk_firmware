@@ -72,8 +72,7 @@
         "default": {
             "animation": "solid_color",
             "hue": 142,
-            "sat": 252,
-            "val": 75
+            "sat": 252
         },
         "driver": "ws2812",
         "layout": [
@@ -144,8 +143,7 @@
                 "indicators": true,
                 "layer_state": true,
                 "matrix_state": true
-            },
-            "watchdog": true
+            }
         }
     },
     "url": "https://keebart.com",
@@ -194,8 +192,8 @@
                 {"matrix": [6, 4], "x": 13, "y": 2.6},
                 {"matrix": [3, 0], "x": 2.9, "y": 3.4},
                 {"matrix": [3, 1], "x": 3.9, "y": 3.4},
-                {"matrix": [3, 2], "x": 4.851057, "y": 3.209017, "h": 1.5},
-                {"matrix": [7, 0], "x": 8.148943, "y": 3.209017, "h": 1.5},
+                {"matrix": [3, 2], "x": 4.85, "y": 3.2, "h": 1.5},
+                {"matrix": [7, 0], "x": 8.15, "y": 3.2, "h": 1.5},
                 {"matrix": [7, 1], "x": 9.1, "y": 3.4},
                 {"matrix": [7, 2], "x": 10.1, "y": 3.4}
             ]

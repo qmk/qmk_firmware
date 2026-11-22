@@ -1,6 +1,6 @@
 # 3w6 Pro
 
-![3w6_pro](https://raw.githubusercontent.com/Keebart/picture-cdn/main/3w6_pro/main.webp)
+![3w6_pro](https://i.imgur.com/PiWrRAp.png)
 
 The Keebart 3w6 Pro is a compact 36-key split keyboard with an integrated
 RP2040 microcontroller on each half. The halves communicate over full-duplex
