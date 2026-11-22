@@ -4,7 +4,7 @@ A drop-in replacement PCB for the Drop Alt 65% keyboard, powered by an STM32F072
 
 * Keyboard Maintainer: [Automata02](https://github.com/Automata02/)
 * Hardware Supported: RALT65 PCB
-* Hardware Availability: Custom private project (Not publicly available yet)
+* Hardware Availability: [Mechmarket direct sale)](https://www.reddit.com/r/mechmarket/comments/1y2mg9k/eulvh_ralt65_drop_alt_replacement_dropin_hotswap/)
 
 Make example for this keyboard (after setting up your build environment):
 
