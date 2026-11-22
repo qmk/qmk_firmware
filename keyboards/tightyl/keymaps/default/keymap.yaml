@@ -1,0 +1,181 @@
+layout: {qmk_keyboard: tightyl, layout_name: LAYOUT}
+layers:
+  L0: ['`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '=', LALT, Q, W, E, R, T, Y, U, I, O, P, '-', LSFT, A, S, D, F, G, H, J, K, L, ;, '''', LCTL, Z, X,
+    C, V, B, N, M, ',', ., /, \, ESC, LGUI, '[', ']', L2, SPC, TAB, ENT, BSPC, L1]
+  L1:
+  - F12
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - {t: ▽, type: trans}
+  - VOLU
+  - PGUP
+  - HOME
+  - INS
+  - (
+  - )
+  - P7
+  - P8
+  - P9
+  - PMNS
+  - PSLS
+  - {t: ▽, type: trans}
+  - VOLD
+  - PGDN
+  - END
+  - DEL
+  - '['
+  - ']'
+  - P4
+  - P5
+  - P6
+  - PPLS
+  - PAST
+  - {t: ▽, type: trans}
+  - MUTE
+  - PAUS
+  - SCRL
+  - PSCR
+  - <
+  - '>'
+  - P1
+  - P2
+  - P3
+  - PENT
+  - '='
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - P0
+  - PDOT
+  - L3
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  L2:
+  - F12
+  - F1
+  - F2
+  - F3
+  - F4
+  - F5
+  - F6
+  - F7
+  - F8
+  - F9
+  - F10
+  - F11
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - UP
+  - {t: ▽, type: trans}
+  - (
+  - )
+  - MS WHLL
+  - MS UP
+  - MS WHLR
+  - MS WHLU
+  - MS BTN6
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - LEFT
+  - DOWN
+  - RGHT
+  - '['
+  - ']'
+  - MS LEFT
+  - MS DOWN
+  - MS RGHT
+  - MS WHLD
+  - MS BTN7
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - <
+  - '>'
+  - MS BTN1
+  - MS BTN3
+  - MS BTN2
+  - {t: ▽, type: trans}
+  - MS BTN8
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - MS BTN4
+  - MS BTN5
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - DEL
+  - L3
+  L3:
+  - '`'
+  - '1'
+  - '2'
+  - '3'
+  - '4'
+  - '5'
+  - '6'
+  - '7'
+  - '8'
+  - '9'
+  - '0'
+  - '='
+  - {t: ▽, type: trans}
+  - BRIU
+  - MPRV
+  - MPLY
+  - MNXT
+  - (
+  - )
+  - F7
+  - F8
+  - F9
+  - F10
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - BRID
+  - WBAK
+  - WREF
+  - WFWD
+  - '['
+  - ']'
+  - F4
+  - F5
+  - F6
+  - F11
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - SCRL
+  - NUM
+  - CAPS
+  - <
+  - '>'
+  - F1
+  - F2
+  - F3
+  - F12
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {t: ▽, type: trans}
+  - {type: held}
