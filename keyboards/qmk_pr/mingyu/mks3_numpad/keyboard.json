@@ -1,0 +1,97 @@
+{
+    "keyboard_name": "MKS3 9-Key Numpad",
+    "manufacturer": "Mingyu",
+    "maintainer": "kswlq",
+    "url": "https://github.com/kswlq/mks3_numpad",
+    "usb": {
+        "vid": "0x4D47",
+        "pid": "0x4D33",
+        "device_version": "1.0.0"
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "features": {
+        "bootmagic": true,
+        "extrakey": true,
+        "mousekey": false,
+        "nkro": true,
+        "rgb_matrix": true,
+        "console": false,
+        "command": false
+    },
+    "matrix_pins": {
+        "direct": [
+            ["GP10", "GP13", "GP27", "GP28", "GP29"],
+            ["GP8", "GP12", "GP15", "GP11", null]
+        ]
+    },
+    "ws2812": {
+        "pin": "GP14"
+    },
+    "rgb_matrix": {
+        "driver": "ws2812",
+        "sleep": true,
+        "max_brightness": 95,
+        "hue_steps": 10,
+        "sat_steps": 17,
+        "val_steps": 16,
+        "speed_steps": 10,
+        "default": {
+            "on": true,
+            "animation": "rainbow_moving_chevron",
+            "hue": 0,
+            "sat": 255,
+            "val": 95,
+            "speed": 128
+        },
+        "animations": {
+            "solid_color": true,
+            "cycle_all": true,
+            "cycle_left_right": true,
+            "cycle_up_down": true,
+            "cycle_pinwheel": true,
+            "rainbow_moving_chevron": true,
+            "rainbow_pinwheels": true,
+            "rainbow_beacon": true,
+            "dual_beacon": true,
+            "breathing": true,
+            "band_val": true,
+            "raindrops": true,
+            "jellybean_raindrops": true,
+            "pixel_flow": true,
+            "pixel_rain": true,
+            "riverflow": true,
+            "starlight": true,
+            "starlight_smooth": true,
+            "solid_reactive_simple": true,
+            "solid_reactive": true,
+            "solid_splash": true
+        },
+        "layout": [
+            {"matrix": [0, 4], "x": 8, "y": 0, "flags": 4},
+            {"matrix": [0, 3], "x": 6, "y": 0, "flags": 4},
+            {"matrix": [0, 2], "x": 4, "y": 0, "flags": 4},
+            {"matrix": [0, 1], "x": 2, "y": 0, "flags": 4},
+            {"matrix": [0, 0], "x": 0, "y": 0, "flags": 4},
+            {"matrix": [1, 3], "x": 7, "y": 2, "flags": 4},
+            {"matrix": [1, 2], "x": 5, "y": 2, "flags": 4},
+            {"matrix": [1, 1], "x": 3, "y": 2, "flags": 4},
+            {"matrix": [1, 0], "x": 1, "y": 2, "flags": 4}
+        ]
+    },
+    "layouts": {
+        "LAYOUT": {
+            "layout": [
+                {"matrix": [0, 0], "x": 0, "y": 0},
+                {"matrix": [0, 1], "x": 1, "y": 0},
+                {"matrix": [0, 2], "x": 2, "y": 0},
+                {"matrix": [0, 3], "x": 3, "y": 0},
+                {"matrix": [0, 4], "x": 4, "y": 0},
+                {"matrix": [1, 0], "x": 0.5, "y": 1},
+                {"matrix": [1, 1], "x": 1.5, "y": 1},
+                {"matrix": [1, 2], "x": 2.5, "y": 1},
+                {"matrix": [1, 3], "x": 3.5, "y": 1}
+            ]
+        }
+    }
+}
