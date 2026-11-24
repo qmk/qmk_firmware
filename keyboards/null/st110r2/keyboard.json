@@ -25,8 +25,8 @@
     "url": "https://null-src.com/posts/nkbm-st110r2/post.php",
     "usb": {
         "device_version": "1.0.0",
-        "pid": "0x0000",
-        "vid": "0xFEED"
+        "pid": "0x5354",
+        "vid": "0x1209"
     },
     "community_layouts": ["fullsize_ansi", "fullsize_iso", "fullsize_jis"],
     "layouts": {
