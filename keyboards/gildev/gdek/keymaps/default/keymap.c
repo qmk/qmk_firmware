@@ -50,7 +50,3 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     { ENCODER_CCW_CW(QK_RGB_MATRIX_VALUE_DOWN, QK_RGB_MATRIX_VALUE_UP), ENCODER_CCW_CW(QK_RGB_MATRIX_HUE_DOWN, QK_RGB_MATRIX_HUE_UP) },
 };
 #endif
-
-void bootmagic_reset_eeprom(void) {
-  // Don't reset EEPROM when jumping to the bootloader
-}
