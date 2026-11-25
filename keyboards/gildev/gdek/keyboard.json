@@ -15,7 +15,8 @@
         "extrakey": true,
         "mousekey": true,
         "nkro": true,
-        "rgb_matrix": true
+        "rgb_matrix": true,
+        "encoder_map": true
     },
     "bootmagic": {
         "enabled": true,
