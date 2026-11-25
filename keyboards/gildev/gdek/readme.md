@@ -1,27 +1,27 @@
 # GDEK
 
-![GDEK](https://i.imgur.com/2x5v0rX.png)
+![GDEK](https://i.imgur.com/7DprpLD.jpeg)
 
-*A complete split ergo, great for beginners!*
+![GDEK Default Layout](https://i.imgur.com/aqDqtBy.png)
+
+*A simple but complete split ergo, great for beginners!*
 
 * Keyboard Maintainer: [GilDev](https://github.com/GilDev)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* PCB sources: https://github.com/GilDev/gdek
+* More information and documentation: https://gildev.dev/gdek
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gdek:default
+    qmk compile -kb gildev/gdek -km default
 
 Flashing example for this keyboard:
 
-    make gdek:default:flash
-
-See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+    qmk flash -kb gildev/gdek -km default
 
 ## Bootloader
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
-* **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
-* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
+* **Bootmagic reset**: Hold down the key at the top left for the left half or top right for the right half and plug in the keyboard in the same half.
+* **Physical reset button**: Short the B pads on the back of the PCB and briefly short the R pads or replug the keyboard. Alternatively, quickly short the R pads twice while the keyboard is plugged in.
+* **Keycode in layout**: Hold the key mapped to `QK_REBOOT` on the plugged in half.
