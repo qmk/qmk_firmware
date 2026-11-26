@@ -2,6 +2,7 @@ TEST_LIST = $(sort $(patsubst %/test.mk,%, $(shell find $(ROOT_DIR)tests -type f
 FULL_TESTS := $(notdir $(TEST_LIST))
 
 include $(QUANTUM_PATH)/battery/tests/testlist.mk
+include $(QUANTUM_PATH)/connection/tests/testlist.mk
 include $(QUANTUM_PATH)/debounce/tests/testlist.mk
 include $(QUANTUM_PATH)/encoder/tests/testlist.mk
 include $(QUANTUM_PATH)/os_detection/tests/testlist.mk
