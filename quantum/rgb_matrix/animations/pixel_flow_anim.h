@@ -21,21 +21,21 @@ static bool PIXEL_FLOW(effect_params_t* params) {
     if (params->init) {
         // Clear LEDs and fill the state array
         rgb_matrix_set_color_all(0, 0, 0);
-        for (uint8_t j = 0; j < RGB_MATRIX_LED_COUNT; ++j) {
+        for (led_index_t j = 0; j < RGB_MATRIX_LED_COUNT; ++j) {
             led[j] = (random8() & 2) ? (rgb_t){0, 0, 0} : rgb_matrix_hsv_to_rgb((hsv_t){random8(), random8_min_max(127, 255), rgb_matrix_config.hsv.v});
         }
     }
 
     RGB_MATRIX_USE_LIMITS(led_min, led_max);
     // Light LEDs based on state array
-    for (uint8_t i = led_min; i < led_max; ++i) {
+    for (led_index_t i = led_min; i < led_max; ++i) {
         RGB_MATRIX_TEST_LED_FLAGS();
         rgb_matrix_set_color(i, led[i].r, led[i].g, led[i].b);
     }
 
     if (!rgb_matrix_check_finished_leds(led_max)) {
         // Shift LED state forward
-        for (uint8_t j = 0; j < led_max - 1; ++j) {
+        for (led_index_t j = 0; j < led_max - 1; ++j) {
             led[j] = led[j + 1];
         }
         // Fill last LED

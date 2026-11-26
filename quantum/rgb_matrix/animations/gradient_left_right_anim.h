@@ -7,7 +7,7 @@ bool GRADIENT_LEFT_RIGHT(effect_params_t* params) {
 
     hsv_t   hsv   = rgb_matrix_config.hsv;
     uint8_t scale = scale8(64, rgb_matrix_config.speed);
-    for (uint8_t i = led_min; i < led_max; i++) {
+    for (led_index_t i = led_min; i < led_max; i++) {
         RGB_MATRIX_TEST_LED_FLAGS();
         // The x range will be 0..224, map this to 0..7
         // Relies on hue being 8-bit and wrapping
