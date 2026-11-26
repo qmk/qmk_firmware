@@ -189,7 +189,15 @@ bool usb_shared_idle_timer_elapsed(usb_fs_report_t **reports, uint8_t report_id)
 }
 
 void usb_idle_task(void) {
-    if (!run_idle_task) {
+    /* The flag is taken and cleared in one step: a SET_IDLE request handled
+     * while the reports are scanned sets it again, and is not lost when the
+     * result of the scan is stored. */
+    osalSysLock();
+    bool run      = run_idle_task;
+    run_idle_task = false;
+    osalSysUnlock();
+
+    if (!run) {
         return;
     }
 
@@ -233,7 +241,11 @@ void usb_idle_task(void) {
         }
     }
 
-    run_idle_task = non_zero_idle_rate_found;
+    if (non_zero_idle_rate_found) {
+        osalSysLock();
+        run_idle_task = true;
+        osalSysUnlock();
+    }
 }
 
 bool usb_get_idle_cb(USBDriver *driver) {
