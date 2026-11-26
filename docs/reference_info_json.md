@@ -816,6 +816,9 @@ Configures the [Split Keyboard](features/split_keyboard) feature.
             * `activity` <Badge type="info">Boolean</Badge>
                 * Mirror the activity timestamps to the secondary half.
                 * Default: `false`
+            * `caps_word` <Badge type="info">Boolean</Badge>
+                * Mirror the [Caps Word](features/caps_word) state to the secondary half.
+                * Default: `false`
             * `detected_os` <Badge type="info">Boolean</Badge>
                 * Mirror the [detected OS](features/os_detection) to the secondary half.
                 * Default: `false`

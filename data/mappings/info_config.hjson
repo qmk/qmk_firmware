@@ -207,6 +207,7 @@
     "SPLIT_WATCHDOG_ENABLE": {"info_key": "split.transport.watchdog", "value_type": "flag"},
     "SPLIT_WATCHDOG_TIMEOUT": {"info_key": "split.transport.watchdog_timeout", "value_type": "int"},
     "SPLIT_ACTIVITY_ENABLE": {"info_key": "split.transport.sync.activity", "value_type": "flag"},
+    "SPLIT_CAPS_WORD_ENABLE": {"info_key": "split.transport.sync.caps_word", "value_type": "flag"},
     "SPLIT_DETECTED_OS_ENABLE": {"info_key": "split.transport.sync.detected_os", "value_type": "flag"},
     "SPLIT_HAPTIC_ENABLE": {"info_key": "split.transport.sync.haptic", "value_type": "flag"},
     "SPLIT_LAYER_STATE_ENABLE": {"info_key": "split.transport.sync.layer_state", "value_type": "flag"},

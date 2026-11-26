@@ -232,6 +232,10 @@ typedef struct _split_shared_memory_t {
 #if defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
     os_variant_t detected_os;
 #endif // defined(OS_DETECTION_ENABLE) && defined(SPLIT_DETECTED_OS_ENABLE)
+
+#if defined(CAPS_WORD_ENABLE) && defined(SPLIT_CAPS_WORD_ENABLE)
+    bool caps_word_active;
+#endif // defined(CAPS_WORD_ENABLE) && defined(SPLIT_CAPS_WORD_ENABLE)
 } split_shared_memory_t;
 
 extern split_shared_memory_t *const split_shmem;
