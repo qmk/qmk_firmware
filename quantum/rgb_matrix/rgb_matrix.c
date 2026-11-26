@@ -97,7 +97,7 @@ static last_hit_t last_hit_buffer;
 const uint8_t k_rgb_matrix_split[2] = RGB_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(rgb_matrix, rgb_matrix_config);
+EECONFIG_DEBOUNCE_HELPER(rgb_matrix, rgb_matrix_config)
 
 void eeconfig_force_flush_rgb_matrix(void) {
     eeconfig_flush_rgb_matrix(true);

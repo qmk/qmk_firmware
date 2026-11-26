@@ -95,7 +95,7 @@ static last_hit_t last_hit_buffer;
 const uint8_t k_led_matrix_split[2] = LED_MATRIX_SPLIT;
 #endif
 
-EECONFIG_DEBOUNCE_HELPER(led_matrix, led_matrix_eeconfig);
+EECONFIG_DEBOUNCE_HELPER(led_matrix, led_matrix_eeconfig)
 
 void eeconfig_force_flush_led_matrix(void) {
     eeconfig_flush_led_matrix(true);
