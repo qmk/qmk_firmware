@@ -16,6 +16,10 @@
         "cols": ["GP20", "GP19", "GP29", "GP0"],
         "rows": ["GP28", "GP18", "GP17", "GP16"]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 1000
+    },
     "ws2812": {
       "pin": "GP15",
       "driver": "vendor"

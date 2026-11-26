@@ -46,6 +46,10 @@
         "pid": "0x8889",
         "vid": "0x4C27"
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "ws2812": {
         "driver": "vendor",
         "pin": "GP20"

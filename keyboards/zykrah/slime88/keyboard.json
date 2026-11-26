@@ -23,6 +23,10 @@
         "rows": ["GP2", "GP29", "GP28", "GP27", "GP11", "GP12"],
         "cols": ["GP26", "GP25", "GP24", "GP23", "GP22", "GP21", "GP20", "GP19", "GP18", "GP17", "GP16", "GP15", "GP14", "GP13", "GP0", "GP1", "GP3"]
     },
+    "rp2040_bootloader": {
+        "double_tap_reset": true,
+        "double_tap_reset_timeout": 500
+    },
     "url": "https://github.com/zykrah/slime88",
     "layouts": {
         "LAYOUT": {
