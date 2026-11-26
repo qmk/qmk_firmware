@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "usb_driver.h"
+#include "report.h"
 #include "util.h"
 
 /*===========================================================================*/
@@ -143,12 +144,33 @@ void usb_endpoint_out_stop(usb_endpoint_out_t *endpoint) {
     osalSysUnlock();
 }
 
-void usb_endpoint_in_suspend_cb(usb_endpoint_in_t *endpoint) {
+void usb_endpoint_in_reset_cb(usb_endpoint_in_t *endpoint) {
     bqSuspendI(&endpoint->obqueue);
     obqResetI(&endpoint->obqueue);
 
     if (endpoint->report_storage != NULL) {
         endpoint->report_storage->reset_report(endpoint->report_storage->reports);
+    }
+}
+
+void usb_endpoint_in_suspend_cb(usb_endpoint_in_t *endpoint) {
+    usb_report_storage_t *report_storage = endpoint->report_storage;
+    uint8_t               idle_rates[REPORT_ID_COUNT + 1];
+
+    /* A suspended device keeps its state: the idle rates that the host has
+     * set are still expected to be in force after a resume. */
+    if (report_storage != NULL) {
+        for (uint8_t report_id = 0; report_id <= REPORT_ID_COUNT; report_id++) {
+            idle_rates[report_id] = report_storage->get_idle(report_storage->reports, report_id);
+        }
+    }
+
+    usb_endpoint_in_reset_cb(endpoint);
+
+    if (report_storage != NULL) {
+        for (uint8_t report_id = 0; report_id <= REPORT_ID_COUNT; report_id++) {
+            report_storage->set_idle(report_storage->reports, report_id, idle_rates[report_id]);
+        }
     }
 }
 
