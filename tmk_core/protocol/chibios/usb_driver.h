@@ -167,6 +167,7 @@ typedef struct {
     usb_endpoint_config_t config;
     usbreqhandler_t       usb_requests_cb;
     bool                  timed_out;
+    bool                  transfer_discarded;
     usb_report_storage_t *report_storage;
 } usb_endpoint_in_t;
 
