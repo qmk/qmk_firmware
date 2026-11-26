@@ -106,6 +106,7 @@
 #define AT32_ADC_USE_ADC1                   FALSE
 #define AT32_ADC_ADC1_DMA_PRIORITY          2
 #define AT32_ADC_ADC1_IRQ_PRIORITY          6
+#define AT32_ADC_ADC1_DMA_IRQ_PRIORITY      6
 
 /*
  * CAN driver system settings.

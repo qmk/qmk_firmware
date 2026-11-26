@@ -100,6 +100,8 @@ static const I2CConfig i2cconfig = {
 #elif defined(WB32F3G71xx) || defined(WB32FQ95xx)
     I2C1_OPMODE,
     I2C1_CLOCK_SPEED,
+#elif defined(AT32F402_405)
+    AT32_CLKCTRL_DIV(I2C1_TIMINGR_PRESC) | AT32_CLKCTRL_SCLD(I2C1_TIMINGR_SCLDEL) | AT32_CLKCTRL_SDAD(I2C1_TIMINGR_SDADEL) | AT32_CLKCTRL_SCLH(I2C1_TIMINGR_SCLH) | AT32_CLKCTRL_SCLL(I2C1_TIMINGR_SCLL), 0, 0
 #else
     // This configures the I2C clock to 400khz assuming a 72Mhz clock
     // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
