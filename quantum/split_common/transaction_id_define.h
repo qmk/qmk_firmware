@@ -91,6 +91,11 @@ enum serial_transaction_id {
     PUT_POINTING_CPI,
 #endif // defined(POINTING_DEVICE_ENABLE) && defined(SPLIT_POINTING_ENABLE)
 
+#if defined(DIGITIZER_ENABLE) && defined(SPLIT_DIGITIZER_ENABLE)
+    GET_DIGITIZER_CHECKSUM,
+    GET_DIGITIZER_DATA,
+#endif // defined(DIGITIZER_ENABLE) && defined(SPLIT_DIGITIZER_ENABLE)
+
 #if defined(SPLIT_WATCHDOG_ENABLE)
     PUT_WATCHDOG,
 #endif // defined(SPLIT_WATCHDOG_ENABLE)
