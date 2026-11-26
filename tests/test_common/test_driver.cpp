@@ -51,6 +51,7 @@ void TestDriver::send_keyboard(report_keyboard_t* report) {
 }
 
 void TestDriver::send_nkro(report_nkro_t* report) {
+    test_logger.trace() << *report;
     m_this->send_nkro_mock(*report);
 }
 
