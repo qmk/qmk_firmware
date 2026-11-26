@@ -27,8 +27,7 @@
         }
     },
     "stenography": {
-        "enabled": true,
-        "protocol": "geminipr"
+        "protocols": ["geminipr"]
     },
     "layouts": {
         "LAYOUT": {
