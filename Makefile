@@ -333,7 +333,10 @@ define PARSE_TEST
     TEST_NAME := $$(firstword $$(subst :, ,$$(RULE)))
     TEST_TARGET := $$(subst $$(TEST_NAME),,$$(subst $$(TEST_NAME):,,$$(RULE)))
     include $(BUILDDEFS_PATH)/testlist.mk
-    ifeq ($$(TEST_NAME),all)
+    ifeq ($$(TEST_NAME),)
+        # The same if all was specified
+        MATCHED_TESTS := $$(TEST_LIST)
+    else ifeq ($$(TEST_NAME),all)
         MATCHED_TESTS := $$(TEST_LIST)
     else
         MATCHED_TESTS := $$(foreach TEST, $$(TEST_LIST),$$(if $$(findstring x$$(TEST_NAME)x, x$$(patsubst ./tests/%,%,$$(TEST)x)), $$(TEST),))
