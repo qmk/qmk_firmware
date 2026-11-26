@@ -84,3 +84,27 @@ TEST_F(Unicode, sends_unicode_string) {
 
     VERIFY_AND_CLEAR(driver);
 }
+
+TEST_F(Unicode, sends_unicode_string_ascii_with_keycodes) {
+    TestDriver driver;
+
+    set_unicode_input_mode(UNICODE_MODE_LINUX);
+
+    {
+        testing::InSequence s;
+
+        EXPECT_REPORT(driver, (KC_A));
+        EXPECT_EMPTY_REPORT(driver);
+        EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+        EXPECT_REPORT(driver, (KC_A, KC_LEFT_SHIFT));
+        EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+        EXPECT_EMPTY_REPORT(driver);
+        EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+        EXPECT_REPORT(driver, (KC_1, KC_LEFT_SHIFT));
+        EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
+        EXPECT_EMPTY_REPORT(driver);
+    }
+    send_unicode_string("aA!");
+
+    VERIFY_AND_CLEAR(driver);
+}
