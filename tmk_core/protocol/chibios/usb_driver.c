@@ -74,6 +74,20 @@ static void obnotify(io_buffers_queue_t *bqp) {
     }
 }
 
+/**
+ * @brief   Empties the output buffers queue of an endpoint.
+ * @details A transfer that has already been started is not cancelled by
+ *          this, its completion callback is still to come: it is recorded,
+ *          so that the callback does not release a buffer queued after the
+ *          reset in place of the one it has transmitted.
+ *
+ * @param[in] endpoint  the endpoint.
+ */
+static void usb_endpoint_in_reset_queue_i(usb_endpoint_in_t *endpoint) {
+    endpoint->transfer_discarded = usbGetTransmitStatusI(endpoint->config.usbp, endpoint->config.ep);
+    obqResetI(&endpoint->obqueue);
+}
+
 /*===========================================================================*/
 /* Driver exported functions.                                                */
 /*===========================================================================*/
@@ -103,6 +117,7 @@ void usb_endpoint_in_start(usb_endpoint_in_t *endpoint) {
     osalDbgAssert((usbGetDriverStateI(endpoint->config.usbp) == USB_STOP) || (usbGetDriverStateI(endpoint->config.usbp) == USB_READY), "invalid state");
     endpoint->config.usbp->in_params[endpoint->config.ep - 1U] = endpoint;
     endpoint->timed_out                                        = false;
+    endpoint->transfer_discarded                               = false;
     osalSysUnlock();
 }
 
@@ -123,7 +138,7 @@ void usb_endpoint_in_stop(usb_endpoint_in_t *endpoint) {
     endpoint->config.usbp->in_params[endpoint->config.ep - 1U] = NULL;
 
     bqSuspendI(&endpoint->obqueue);
-    obqResetI(&endpoint->obqueue);
+    usb_endpoint_in_reset_queue_i(endpoint);
     if (endpoint->report_storage != NULL) {
         endpoint->report_storage->reset_report(endpoint->report_storage->reports);
     }
@@ -145,7 +160,7 @@ void usb_endpoint_out_stop(usb_endpoint_out_t *endpoint) {
 
 void usb_endpoint_in_suspend_cb(usb_endpoint_in_t *endpoint) {
     bqSuspendI(&endpoint->obqueue);
-    obqResetI(&endpoint->obqueue);
+    usb_endpoint_in_reset_queue_i(endpoint);
 
     if (endpoint->report_storage != NULL) {
         endpoint->report_storage->reset_report(endpoint->report_storage->reports);
@@ -167,7 +182,7 @@ void usb_endpoint_out_wakeup_cb(usb_endpoint_out_t *endpoint) {
 
 void usb_endpoint_in_configure_cb(usb_endpoint_in_t *endpoint) {
     usbInitEndpointI(endpoint->config.usbp, endpoint->config.ep, &endpoint->ep_config);
-    obqResetI(&endpoint->obqueue);
+    usb_endpoint_in_reset_queue_i(endpoint);
     bqResumeX(&endpoint->obqueue);
 }
 
@@ -197,8 +212,13 @@ void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep) {
     /* Sending succeded, so we can reset the timed out state. */
     endpoint->timed_out = false;
 
-    /* Freeing the buffer just transmitted, if it was not a zero size packet.*/
-    if (!obqIsEmptyI(&endpoint->obqueue) && usbp->epc[ep]->in_state->txsize > 0U) {
+    if (endpoint->transfer_discarded) {
+        /* The queue has been emptied while this transfer was in progress:
+         * its buffer is gone, and what is at the head of the queue now has
+         * not been transmitted yet. */
+        endpoint->transfer_discarded = false;
+    } else if (!obqIsEmptyI(&endpoint->obqueue) && usbp->epc[ep]->in_state->txsize > 0U) {
+        /* Freeing the buffer just transmitted, if it was not a zero size packet.*/
         /* Store the last send report in the endpoint to be retrieved by a
          * GET_REPORT request or IDLE report handling. */
         if (endpoint->report_storage != NULL) {
@@ -276,7 +296,7 @@ bool usb_endpoint_in_send(usb_endpoint_in_t *endpoint, const uint8_t *data, size
             osalSysLock();
             endpoint->timed_out |= sent == 0;
             bqSuspendI(&endpoint->obqueue);
-            obqResetI(&endpoint->obqueue);
+            usb_endpoint_in_reset_queue_i(endpoint);
             bqResumeX(&endpoint->obqueue);
             osalOsRescheduleS();
             osalSysUnlock();
