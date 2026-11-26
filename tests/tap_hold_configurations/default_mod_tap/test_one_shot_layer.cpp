@@ -90,14 +90,13 @@ TEST_F(OneShotLayerModTap, tap_regular_key_while_mod_tap_key_is_held_tapping_ter
 
     /* Press regular key */
     EXPECT_REPORT(driver, (KC_LEFT_SHIFT, KC_1));
-    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     regular_key1.press();
     run_one_scan_loop();
     expect_layer_state(0);
     testing::Mock::VerifyAndClearExpectations(&driver);
 
     /* Release regular key */
-    EXPECT_NO_REPORT(driver);
+    EXPECT_REPORT(driver, (KC_LEFT_SHIFT));
     regular_key1.release();
     run_one_scan_loop();
     testing::Mock::VerifyAndClearExpectations(&driver);
@@ -191,8 +190,8 @@ TEST_F(OneShotLayerModTap, tap_regular_key_while_mod_tap_key_is_held) {
 
     /* Release mod-tap-hold key */
     EXPECT_REPORT(driver, (KC_A));
-    EXPECT_EMPTY_REPORT(driver);
-    EXPECT_REPORT(driver, (KC_0));
+    EXPECT_REPORT(driver, (KC_A, KC_0));
+    EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
@@ -238,8 +237,8 @@ TEST_F(OneShotLayerModTap, tap_a_mod_tap_key_while_another_mod_tap_key_is_held) 
 
     /* Release first mod-tap-hold key */
     EXPECT_REPORT(driver, (KC_A));
-    EXPECT_EMPTY_REPORT(driver);
-    EXPECT_REPORT(driver, (KC_0));
+    EXPECT_REPORT(driver, (KC_A, KC_0));
+    EXPECT_REPORT(driver, (KC_A));
     EXPECT_EMPTY_REPORT(driver);
     first_mod_tap_hold_key.release();
     run_one_scan_loop();
