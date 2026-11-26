@@ -23,6 +23,15 @@
 #include "util.h"
 #include <string.h>
 
+#ifdef NKRO_ENABLE
+#    ifdef NKRO_BOOT_COMPAT_ENABLE
+// Boot-compatibility always maintains the bitfield.
+#        define USING_NKRO_REPORT() true
+#    else
+#        define USING_NKRO_REPORT() (host_can_send_nkro() && keymap_config.nkro)
+#    endif
+#endif
+
 /** \brief has_anykey
  *
  * FIXME: Needs doc
@@ -32,7 +41,7 @@ uint8_t has_anykey(void) {
     uint8_t* p   = keyboard_report->keys;
     uint8_t  lp  = sizeof(keyboard_report->keys);
 #ifdef NKRO_ENABLE
-    if (host_can_send_nkro() && keymap_config.nkro) {
+    if (USING_NKRO_REPORT()) {
         p  = nkro_report->bits;
         lp = sizeof(nkro_report->bits);
     }
@@ -49,7 +58,7 @@ uint8_t has_anykey(void) {
  */
 uint8_t get_first_key(void) {
 #ifdef NKRO_ENABLE
-    if (host_can_send_nkro() && keymap_config.nkro) {
+    if (USING_NKRO_REPORT()) {
         uint8_t i = 0;
         for (; i < NKRO_REPORT_BITS && !nkro_report->bits[i]; i++)
             ;
@@ -69,7 +78,7 @@ bool is_key_pressed(uint8_t key) {
         return false;
     }
 #ifdef NKRO_ENABLE
-    if (host_can_send_nkro() && keymap_config.nkro) {
+    if (USING_NKRO_REPORT()) {
         if ((key >> 3) < NKRO_REPORT_BITS) {
             return nkro_report->bits[key >> 3] & 1 << (key & 7);
         } else {
@@ -150,13 +159,19 @@ void del_key_bit(report_nkro_t* nkro_report, uint8_t code) {
  * FIXME: Needs doc
  */
 void add_key_to_report(uint8_t key) {
-#ifdef NKRO_ENABLE
-    if (host_can_send_nkro() && keymap_config.nkro) {
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+    // A seventh key lands only in the bitfield; releasing one of the six leaves its slot empty.
+    add_key_byte(keyboard_report, key);
+    add_key_bit(nkro_report, key);
+#else
+#    ifdef NKRO_ENABLE
+    if (USING_NKRO_REPORT()) {
         add_key_bit(nkro_report, key);
         return;
     }
-#endif
+#    endif
     add_key_byte(keyboard_report, key);
+#endif
 }
 
 /** \brief del key from report
@@ -164,13 +179,18 @@ void add_key_to_report(uint8_t key) {
  * FIXME: Needs doc
  */
 void del_key_from_report(uint8_t key) {
-#ifdef NKRO_ENABLE
-    if (host_can_send_nkro() && keymap_config.nkro) {
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+    del_key_byte(keyboard_report, key);
+    del_key_bit(nkro_report, key);
+#else
+#    ifdef NKRO_ENABLE
+    if (USING_NKRO_REPORT()) {
         del_key_bit(nkro_report, key);
         return;
     }
-#endif
+#    endif
     del_key_byte(keyboard_report, key);
+#endif
 }
 
 /** \brief clear key from report
@@ -179,13 +199,18 @@ void del_key_from_report(uint8_t key) {
  */
 void clear_keys_from_report(void) {
     // not clear mods
-#ifdef NKRO_ENABLE
-    if (host_can_send_nkro() && keymap_config.nkro) {
+#ifdef NKRO_BOOT_COMPAT_ENABLE
+    memset(keyboard_report->keys, 0, sizeof(keyboard_report->keys));
+    memset(nkro_report->bits, 0, sizeof(nkro_report->bits));
+#else
+#    ifdef NKRO_ENABLE
+    if (USING_NKRO_REPORT()) {
         memset(nkro_report->bits, 0, sizeof(nkro_report->bits));
         return;
     }
-#endif
+#    endif
     memset(keyboard_report->keys, 0, sizeof(keyboard_report->keys));
+#endif
 }
 
 #ifdef MOUSE_ENABLE

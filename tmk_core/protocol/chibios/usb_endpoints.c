@@ -34,7 +34,7 @@ usb_endpoint_in_t usb_endpoints_in[USB_ENDPOINT_IN_COUNT] = {
 #if defined(PROGRAMMABLE_BUTTON_ENABLE)
         QMK_USB_REPORT_STROAGE_ENTRY(REPORT_ID_PROGRAMMABLE_BUTTON, sizeof(report_programmable_button_t)),
 #endif
-#if defined(NKRO_ENABLE)
+#if defined(NKRO_ENABLE) && !defined(NKRO_BOOT_COMPAT_ENABLE)
         QMK_USB_REPORT_STROAGE_ENTRY(REPORT_ID_NKRO, sizeof(report_nkro_t)),
 #endif
 #if defined(JOYSTICK_SHARED_EP)
@@ -49,7 +49,11 @@ usb_endpoint_in_t usb_endpoints_in[USB_ENDPOINT_IN_COUNT] = {
 // clang-format on
 
 #if !defined(KEYBOARD_SHARED_EP)
+#    if defined(NKRO_BOOT_COMPAT_ENABLE)
+    [USB_ENDPOINT_IN_KEYBOARD] = QMK_USB_ENDPOINT_IN(USB_EP_MODE_TYPE_INTR, KEYBOARD_EPSIZE, KEYBOARD_IN_EPNUM, KEYBOARD_IN_CAPACITY, NULL, QMK_USB_REPORT_STORAGE_DEFAULT(sizeof(report_keyboard_nkro_t))),
+#    else
     [USB_ENDPOINT_IN_KEYBOARD] = QMK_USB_ENDPOINT_IN(USB_EP_MODE_TYPE_INTR, KEYBOARD_EPSIZE, KEYBOARD_IN_EPNUM, KEYBOARD_IN_CAPACITY, NULL, QMK_USB_REPORT_STORAGE_DEFAULT(sizeof(report_keyboard_t))),
+#    endif
 #endif
 
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
