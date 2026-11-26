@@ -193,7 +193,11 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             usb_event_queue_enqueue(event);
             chSysLockFromISR();
             for (int i = 0; i < USB_ENDPOINT_IN_COUNT; i++) {
-                usb_endpoint_in_suspend_cb(&usb_endpoints_in[i]);
+                if (event == USB_EVENT_SUSPEND) {
+                    usb_endpoint_in_suspend_cb(&usb_endpoints_in[i]);
+                } else {
+                    usb_endpoint_in_reset_cb(&usb_endpoints_in[i]);
+                }
             }
             for (int i = 0; i < USB_ENDPOINT_OUT_COUNT; i++) {
                 usb_endpoint_out_suspend_cb(&usb_endpoints_out[i]);

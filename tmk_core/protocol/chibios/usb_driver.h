@@ -191,6 +191,7 @@ void usb_endpoint_in_flush(usb_endpoint_in_t *endpoint, bool padded);
 bool usb_endpoint_in_is_inactive(usb_endpoint_in_t *endpoint);
 
 void usb_endpoint_in_suspend_cb(usb_endpoint_in_t *endpoint);
+void usb_endpoint_in_reset_cb(usb_endpoint_in_t *endpoint);
 void usb_endpoint_in_wakeup_cb(usb_endpoint_in_t *endpoint);
 void usb_endpoint_in_configure_cb(usb_endpoint_in_t *endpoint);
 void usb_endpoint_in_tx_complete_cb(USBDriver *usbp, usbep_t ep);
