@@ -18,7 +18,7 @@ typedef struct {
 
 typedef struct {
     usb_fs_report_t **reports;
-    const void (*get_report)(usb_fs_report_t **, uint8_t, usb_fs_report_t *);
+    const bool (*get_report)(usb_fs_report_t **, uint8_t, usb_fs_report_t *);
     const void (*set_report)(usb_fs_report_t **, const uint8_t *, size_t);
     const void (*reset_report)(usb_fs_report_t **);
     const void (*set_idle)(usb_fs_report_t **, uint8_t, uint8_t);
@@ -53,8 +53,8 @@ typedef struct {
 void usb_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length);
 void usb_shared_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t length);
 
-void usb_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report);
-void usb_shared_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report);
+bool usb_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report);
+bool usb_shared_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report);
 
 void usb_reset_report(usb_fs_report_t **reports);
 void usb_shared_reset_report(usb_fs_report_t **reports);

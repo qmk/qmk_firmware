@@ -25,14 +25,16 @@ void usb_set_report(usb_fs_report_t **reports, const uint8_t *data, size_t lengt
     memcpy(&(*reports)->data, data, length);
 }
 
-void usb_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report) {
+bool usb_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report) {
     (void)report_id;
     if (*reports == NULL) {
-        return;
+        return false;
     }
 
     report->length = (*reports)->length;
     memcpy(&report->data, &(*reports)->data, report->length);
+
+    return true;
 }
 
 void usb_reset_report(usb_fs_report_t **reports) {
@@ -57,13 +59,15 @@ void usb_shared_set_report(usb_fs_report_t **reports, const uint8_t *data, size_
     memcpy(&reports[report_id]->data, data, length);
 }
 
-void usb_shared_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report) {
+bool usb_shared_get_report(usb_fs_report_t **reports, uint8_t report_id, usb_fs_report_t *report) {
     if (report_id > REPORT_ID_COUNT || reports[report_id] == NULL) {
-        return;
+        return false;
     }
 
     report->length = reports[report_id]->length;
     memcpy(&report->data, &reports[report_id]->data, report->length);
+
+    return true;
 }
 
 void usb_shared_reset_report(usb_fs_report_t **reports) {
@@ -72,6 +76,8 @@ void usb_shared_reset_report(usb_fs_report_t **reports) {
             continue;
         }
         memset(&reports[i]->data, 0, reports[i]->length);
+        /* The reports of the shared endpoint start with their report ID. */
+        reports[i]->data[0]     = i;
         reports[i]->idle_rate   = 0;
         reports[i]->last_report = 0;
     }
@@ -100,7 +106,9 @@ bool usb_get_report_cb(USBDriver *driver) {
         return false;
     }
 
-    report_storage->get_report(report_storage->reports, report_id, &report);
+    if (!report_storage->get_report(report_storage->reports, report_id, &report)) {
+        return false;
+    }
 
     usbSetupTransfer(driver, (uint8_t *)report.data, report.length, NULL);
 
