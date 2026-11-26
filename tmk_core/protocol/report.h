@@ -82,6 +82,7 @@ enum consumer_usages {
     TRANSPORT_RANDOM_PLAY  = 0x0B9,
     TRANSPORT_STOP_EJECT   = 0x0CC,
     TRANSPORT_PLAY_PAUSE   = 0x0CD,
+    VOICE_COMMAND          = 0x0CF, // triggers Dictation on macOS Sonoma and later
     // 15.9.1 Audio Controls - Volume
     AUDIO_MUTE     = 0x0E2,
     AUDIO_VOL_UP   = 0x0E9,
@@ -345,6 +346,8 @@ static inline uint16_t KEYCODE2CONSUMER(uint8_t key) {
             return AC_DESKTOP_SHOW_ALL_WINDOWS;
         case KC_LAUNCHPAD:
             return AC_SOFT_KEY_LEFT;
+        case KC_DICTATION:
+            return VOICE_COMMAND;
         default:
             return 0;
     }
