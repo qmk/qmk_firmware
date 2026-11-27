@@ -236,6 +236,111 @@ TEST_F(ChordalHoldDefault, three_mod_taps_same_hand_streak_roll) {
     VERIFY_AND_CLEAR(driver);
 }
 
+// Test the following input sequence:
+// 1. Press LGUI_T(KC_A).
+// 2. Tap RCTL_T(KC_K) (rhs).
+// 3. Tap LCTL_T(KC_D).
+// 4. Release LGUI_T(KC_A).
+// 5. Press RCTL_T(KC_K), hold it past the tapping term, then release it.
+TEST_F(ChordalHoldDefault, queued_opposite_hand_mod_tap_tap_flushed_by_same_hand_mod_tap_releases_and_cleans_up) {
+    TestDriver driver;
+    InSequence s;
+    auto       mt_a = KeymapKey(0, 1, 0, LGUI_T(KC_A)); // Left hand.
+    auto       mt_d = KeymapKey(0, 3, 0, LCTL_T(KC_D)); // Left hand.
+    auto       mt_k = KeymapKey(0, 7, 0, RCTL_T(KC_K)); // Right hand.
+    set_keymap({mt_a, mt_d, mt_k});
+
+    EXPECT_NO_REPORT(driver);
+    mt_a.press();
+    idle_for(10);
+    mt_k.press();
+    idle_for(10);
+    mt_k.release();
+    idle_for(10);
+    mt_d.press();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_K));
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_D));
+    EXPECT_REPORT(driver, (KC_A));
+    mt_d.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    idle_for(10);
+    EXPECT_EMPTY_REPORT(driver);
+    mt_a.release();
+    idle_for(TAPPING_TERM);
+    EXPECT_EQ(get_mods(), 0);
+    VERIFY_AND_CLEAR(driver);
+
+    // Holding and releasing RCTL_T(KC_K) cleanly presses and releases. This
+    // tests for a stale entry in registered_taps.
+    EXPECT_REPORT(driver, (KC_RCTL));
+    mt_k.press();
+    idle_for(TAPPING_TERM + 1);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    mt_k.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0);
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Same scenario as above with an opposite-hand Layer-Tap key LT(1, KC_K).
+TEST_F(ChordalHoldDefault, queued_opposite_hand_layer_tap_tap_flushed_by_same_hand_mod_tap_releases_and_cleans_up) {
+    TestDriver driver;
+    InSequence s;
+    auto       mt_a   = KeymapKey(0, 1, 0, LGUI_T(KC_A)); // Left hand.
+    auto       mt_d   = KeymapKey(0, 3, 0, LCTL_T(KC_D)); // Left hand.
+    auto       lt_k   = KeymapKey(0, 7, 0, LT(1, KC_K));  // Right hand.
+    auto       trns_k = KeymapKey(1, 7, 0, KC_TRNS);
+    set_keymap({mt_a, mt_d, lt_k, trns_k});
+
+    EXPECT_NO_REPORT(driver);
+    mt_a.press();
+    idle_for(10);
+    lt_k.press();
+    idle_for(10);
+    lt_k.release();
+    idle_for(10);
+    mt_d.press();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_K));
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_D));
+    EXPECT_REPORT(driver, (KC_A));
+    mt_d.release();
+    run_one_scan_loop();
+    EXPECT_EQ(layer_state, 0);
+    VERIFY_AND_CLEAR(driver);
+
+    idle_for(10);
+    EXPECT_EMPTY_REPORT(driver);
+    mt_a.release();
+    idle_for(TAPPING_TERM);
+    EXPECT_EQ(layer_state, 0);
+    VERIFY_AND_CLEAR(driver);
+
+    // Holding and releasing LT(1, KC_K) cleanly turns layer 1 on and off. This
+    // tests for a stale entry in registered_taps.
+    EXPECT_NO_REPORT(driver);
+    lt_k.press();
+    idle_for(TAPPING_TERM + 1);
+    EXPECT_EQ(layer_state, 1 << 1);
+    lt_k.release();
+    run_one_scan_loop();
+    EXPECT_EQ(layer_state, 0); // Back on the base layer.
+    VERIFY_AND_CLEAR(driver);
+}
+
 TEST_F(ChordalHoldDefault, tap_regular_key_while_layer_tap_key_is_held) {
     TestDriver driver;
     InSequence s;
