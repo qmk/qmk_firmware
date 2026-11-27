@@ -129,3 +129,35 @@ TEST_F(PermissiveHold, tap_regular_key_while_layer_tap_key_is_held) {
     run_one_scan_loop();
     VERIFY_AND_CLEAR(driver);
 }
+
+// A roll "MT down, K down, MT up, K up" under Permissive Hold should settle the
+// mod-tap as tapped; Permissive Hold does not apply.
+TEST_F(PermissiveHold, roll_mt_with_regular_key_is_tapped) {
+    TestDriver driver;
+    InSequence s;
+    auto       mod_tap_key = KeymapKey(0, 0, 1, LCTL_T(KC_A));
+    auto       regular_key = KeymapKey(0, 6, 1, KC_J);
+    set_keymap({mod_tap_key, regular_key});
+
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key.press();
+    idle_for(10);
+    regular_key.press();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    // Releasing the mod-tap key first settles it as tapped.
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_REPORT(driver, (KC_A, KC_J));
+    EXPECT_REPORT(driver, (KC_J));
+    mod_tap_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(10);
+    regular_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0);
+    VERIFY_AND_CLEAR(driver);
+}
