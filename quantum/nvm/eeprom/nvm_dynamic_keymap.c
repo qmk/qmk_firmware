@@ -7,7 +7,6 @@
 #include "dynamic_keymap.h"
 #include "nvm_dynamic_keymap.h"
 #include "nvm_eeprom_eeconfig_internal.h"
-#include "nvm_eeprom_via_internal.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -15,12 +14,7 @@
 #    include "encoder.h"
 #endif
 
-#ifdef VIA_ENABLE
-#    include "via.h"
-#    define DYNAMIC_KEYMAP_EEPROM_START (VIA_EEPROM_CONFIG_END)
-#else
-#    define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
-#endif
+#define DYNAMIC_KEYMAP_EEPROM_START (EECONFIG_SIZE)
 
 #ifndef DYNAMIC_KEYMAP_EEPROM_MAX_ADDR
 #    define DYNAMIC_KEYMAP_EEPROM_MAX_ADDR (TOTAL_EEPROM_BYTE_COUNT - 1)
