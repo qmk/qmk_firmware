@@ -21,3 +21,5 @@
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 200U // Timeout window in ms in which the double tap can occur.
 
 #define USB_VBUS_PIN GP0
+
+#define ENCODER_DEFAULT_POS 0x3
