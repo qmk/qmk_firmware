@@ -68,3 +68,12 @@
 #define HT32_SPI_USE_SPI1 TRUE
 #define HT32_SPI1_IRQ_PRIORITY 9
 
+
+/*
+ * GPT driver setting
+ *
+ * BFTM0 is not used as a timer; it only backs wait_us(). See WAIT_US_TIMER.
+ */
+
+#define HT32_GPT_USE_BFTM0 TRUE
+#define HT32_GPT_BFTM0_IRQ_PRIORITY 7

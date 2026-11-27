@@ -27,4 +27,7 @@
 
 #define HAL_USE_SPI TRUE
 
+/* Needed by WAIT_US_TIMER, see c18/config.h. */
+#define HAL_USE_GPT TRUE
+
 #include_next <halconf.h>
