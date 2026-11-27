@@ -32,19 +32,43 @@
 #    define IS31FL3731_I2C_PERSISTENCE 0
 #endif
 
+#if defined(RGB_MATRIX_SPLIT)
 const uint8_t i2c_addresses[IS31FL3731_DRIVER_COUNT] = {
-    IS31FL3731_I2C_ADDRESS_1,
-#ifdef IS31FL3731_I2C_ADDRESS_2
-    IS31FL3731_I2C_ADDRESS_2,
-#    ifdef IS31FL3731_I2C_ADDRESS_3
-    IS31FL3731_I2C_ADDRESS_3,
-#        ifdef IS31FL3731_I2C_ADDRESS_4
-    IS31FL3731_I2C_ADDRESS_4,
+    IS31FL3731_I2C_ADDRESS_LEFT_1,
+#    ifdef IS31FL3731_I2C_ADDRESS_LEFT_2
+    IS31FL3731_I2C_ADDRESS_LEFT_2,
+#        ifdef IS31FL3731_I2C_ADDRESS_LEFT_3
+    IS31FL3731_I2C_ADDRESS_LEFT_3,
+#            ifdef IS31FL3731_I2C_ADDRESS_LEFT_4
+    IS31FL3731_I2C_ADDRESS_LEFT_4,
+#            endif
 #        endif
 #    endif
-#endif
+    IS31FL3731_I2C_ADDRESS_RIGHT_1,
+#    ifdef IS31FL3731_I2C_ADDRESS_RIGHT_2
+    IS31FL3731_I2C_ADDRESS_RIGHT_2,
+#        ifdef IS31FL3731_I2C_ADDRESS_RIGHT_3
+    IS31FL3731_I2C_ADDRESS_RIGHT_3,
+#            ifdef IS31FL3731_I2C_ADDRESS_RIGHT_4
+    IS31FL3731_I2C_ADDRESS_RIGHT_4,
+#            endif
+#        endif
+#    endif
 };
-
+#else
+const uint8_t i2c_addresses[IS31FL3731_DRIVER_COUNT] = {
+    IS31FL3731_I2C_ADDRESS_1,
+#    ifdef IS31FL3731_I2C_ADDRESS_2
+    IS31FL3731_I2C_ADDRESS_2,
+#        ifdef IS31FL3731_I2C_ADDRESS_3
+    IS31FL3731_I2C_ADDRESS_3,
+#            ifdef IS31FL3731_I2C_ADDRESS_4
+    IS31FL3731_I2C_ADDRESS_4,
+#            endif
+#        endif
+#    endif
+};
+#endif
 // These buffers match the IS31FL3731 PWM registers 0x24-0xB3.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
@@ -65,6 +89,9 @@ is31fl3731_driver_t driver_buffers[IS31FL3731_DRIVER_COUNT] = {{
 }};
 
 void is31fl3731_write_register(uint8_t index, uint8_t reg, uint8_t data) {
+#if defined(RGB_MATRIX_SPLIT)
+    if (!is_keyboard_left()) index +=IS31FL3731_DRIVER_COUNT_LEFT;
+#endif
 #if IS31FL3731_I2C_PERSISTENCE > 0
     for (uint8_t i = 0; i < IS31FL3731_I2C_PERSISTENCE; i++) {
         if (i2c_write_register(i2c_addresses[index] << 1, reg, &data, 1, IS31FL3731_I2C_TIMEOUT) == I2C_STATUS_SUCCESS) break;
@@ -81,7 +108,9 @@ void is31fl3731_select_page(uint8_t index, uint8_t page) {
 void is31fl3731_write_pwm_buffer(uint8_t index) {
     // Assumes page 0 is already selected.
     // Transmit PWM registers in 9 transfers of 16 bytes.
-
+#if defined(RGB_MATRIX_SPLIT)
+    if (!is_keyboard_left()) index +=IS31FL3731_DRIVER_COUNT_LEFT;
+#endif
     // Iterate over the pwm_buffer contents at 16 byte intervals.
     for (uint8_t i = 0; i < IS31FL3731_PWM_REGISTER_COUNT; i += 16) {
 #if IS31FL3731_I2C_PERSISTENCE > 0
@@ -103,6 +132,9 @@ void is31fl3731_init_drivers(void) {
 #endif
 
     for (uint8_t i = 0; i < IS31FL3731_DRIVER_COUNT; i++) {
+#if defined(RGB_MATRIX_SPLIT)
+        if (!is_keyboard_left()) i +=IS31FL3731_DRIVER_COUNT_LEFT;
+#endif
         is31fl3731_init(i);
     }
 
@@ -111,6 +143,9 @@ void is31fl3731_init_drivers(void) {
     }
 
     for (uint8_t i = 0; i < IS31FL3731_DRIVER_COUNT; i++) {
+#if defined(RGB_MATRIX_SPLIT)
+        if (!is_keyboard_left()) i +=IS31FL3731_DRIVER_COUNT_LEFT;
+#endif
         is31fl3731_update_led_control_registers(i);
     }
 }
@@ -169,10 +204,16 @@ void is31fl3731_init(uint8_t index) {
 
 void is31fl3731_set_color(int index, uint8_t red, uint8_t green, uint8_t blue) {
     is31fl3731_led_t led;
-
-    if (index >= 0 && index < IS31FL3731_LED_COUNT) {
+        if (index >= 0 && index < IS31FL3731_LED_COUNT) {
+#if defined(RGB_MATRIX_SPLIT)
+        if (!is_keyboard_left()) {
+            memcpy_P(&led, (&g_is31fl3731_leds_right[index - IS31FL3731_DRIVER_COUNT_LEFT]), sizeof(led));
+        } else {
+            memcpy_P(&led, (&g_is31fl3731_leds_left[index]), sizeof(led));
+        }
+#else
         memcpy_P(&led, (&g_is31fl3731_leds[index]), sizeof(led));
-
+#endif
         if (driver_buffers[led.driver].pwm_buffer[led.r] == red && driver_buffers[led.driver].pwm_buffer[led.g] == green && driver_buffers[led.driver].pwm_buffer[led.b] == blue) {
             return;
         }
@@ -192,8 +233,15 @@ void is31fl3731_set_color_all(uint8_t red, uint8_t green, uint8_t blue) {
 
 void is31fl3731_set_led_control_register(uint8_t index, bool red, bool green, bool blue) {
     is31fl3731_led_t led;
+#if defined(RGB_MATRIX_SPLIT)
+    if (!is_keyboard_left()) {
+        memcpy_P(&led, (&g_is31fl3731_leds_right[index - IS31FL3731_DRIVER_COUNT_LEFT]), sizeof(led));
+    } else {
+        memcpy_P(&led, (&g_is31fl3731_leds_left[index]), sizeof(led));
+    }
+#else
     memcpy_P(&led, (&g_is31fl3731_leds[index]), sizeof(led));
-
+#endif
     uint8_t control_register_r = led.r / 8;
     uint8_t control_register_g = led.g / 8;
     uint8_t control_register_b = led.b / 8;
@@ -240,6 +288,9 @@ void is31fl3731_update_led_control_registers(uint8_t index) {
 
 void is31fl3731_flush(void) {
     for (uint8_t i = 0; i < IS31FL3731_DRIVER_COUNT; i++) {
+#if defined(RGB_MATRIX_SPLIT)
+        if (!is_keyboard_left()) i +=IS31FL3731_DRIVER_COUNT_LEFT;
+#endif
         is31fl3731_update_pwm_buffers(i);
     }
 }
