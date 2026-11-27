@@ -6,7 +6,7 @@ from functools import lru_cache
 from milc.attrdict import AttrDict
 
 from qmk.json_schema import json_load, validate, merge_ordered_dicts
-from qmk.util import truthy
+from qmk.util import truthy, list_version_files
 from qmk.constants import QMK_FIRMWARE, QMK_USERSPACE, HAS_QMK_USERSPACE
 from qmk.path import under_qmk_firmware, under_qmk_userspace
 
@@ -22,23 +22,9 @@ class ModuleAPI(AttrDict):
             self[key] = value
 
 
-def _list_module_files():
-    versions = []
-    module_definition_files = HOOKS_PATH.glob('*.hjson')
-    for file in module_definition_files:
-        version = file.stem
-        parts = version.split('.')
-        if len(parts) == 3 and all(part.isascii() and part.isdigit() for part in parts):
-            versions.append(version)
-
-    versions.sort(key=lambda version: tuple(map(int, version.split('.'))))
-
-    return list(map(lambda version: HOOKS_PATH / f'{version}.hjson', versions))
-
-
 @lru_cache(maxsize=1)
 def module_api_list():
-    module_definition_files = _list_module_files()
+    module_definition_files = list_version_files(HOOKS_PATH)
     module_definition_jsons = [json_load(f) for f in module_definition_files]
     module_definitions = merge_ordered_dicts(module_definition_jsons)
     latest_module_version = module_definition_files[-1].stem
