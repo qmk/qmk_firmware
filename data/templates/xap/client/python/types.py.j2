@@ -1,0 +1,68 @@
+{{ constants.GPL2_HEADER_SH_LIKE }}
+{{ constants.GENERATED_HEADER_SH_LIKE }}
+from collections import namedtuple
+from enum import IntFlag, IntEnum
+from struct import Struct
+
+
+{% macro gen_struct(name, members, fmt) -%}
+class {{ name }}(namedtuple('{{ name }}', '{{ members }}')):
+    fmt = Struct('{{ fmt }}')
+
+    def __new__(cls, *args):
+        return super().__new__(cls, *args)
+
+    @classmethod
+    def from_bytes(cls, data):
+        return cls._make(cls.fmt.unpack(data))
+
+    def to_bytes(self):
+        return self.fmt.pack(*list(self))
+
+
+{% endmacro -%}
+
+{% set type_definitions = [
+  {'name':'XAPRequest', 'members': 'token length data', 'fmt':'<HB61s'},
+  {'name':'XAPResponse', 'members': 'token flags length data', 'fmt':'<HBB60s'},
+  {'name':'XAPBroadcast', 'members': 'token event length data', 'fmt':'<HBB60s'},
+  {'name':'XAPConfigBacklight', 'members': 'enable mode val', 'fmt':'<BBB'},
+  {'name':'XAPConfigRgblight', 'members': 'enable mode hue sat val speed', 'fmt':'<BBBBBB'},
+  {'name':'XAPConfigRgbMatrix', 'members': 'enable mode hue sat val speed flags', 'fmt':'<BBBBBBB'}
+] %}
+{% for item in type_definitions -%}{{ gen_struct(item.name, item.members, item.fmt) }}{% endfor -%}
+
+# Spec structs
+{% for item in xap.routes.values() recursive %}
+    {%- if item.routes -%}
+        {{ loop(item.routes.values()) }}
+    {%- endif -%}
+    {%- if item.request_struct_members %}
+# TODO: gen inbound object for {{ item.define | to_snake }}
+    {% endif -%}
+    {%- if item.return_struct_members %}
+# TODO: gen outbound object for {{ item.define | to_snake }}
+    {% endif %}
+{%- endfor %}
+
+
+class XAPSecureStatus(IntEnum):
+    LOCKED = 0x00
+    UNLOCKING = 0x01
+    UNLOCKED = 0x02
+
+
+class XAPEventType(IntEnum):
+{% for id, message in xap.broadcast_messages.messages | dictsort %}
+    {{ message.define }} = {{ id }}
+{% endfor %}
+
+
+class XAPFlags(IntFlag):
+{% for bitnum, bitinfo in xap.response_flags.bits | dictsort %}
+{% if bitinfo.define != "-" %}
+    {{ bitinfo.define }} = 1 << {{ bitnum }}
+{% endif %}
+{% endfor %}
+
+# noqa: W391

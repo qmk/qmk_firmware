@@ -1,0 +1,19 @@
+{{ constants.GPL2_HEADER_SH_LIKE }}
+{{ constants.GENERATED_HEADER_SH_LIKE }}
+from enum import IntEnum
+
+
+# version: 0.0.1
+class RgblightModes(IntEnum):
+{% for id, effect in specs.rgblight.effects | dictsort %}
+    {{ effect.key }} = {{ id }}
+{% endfor %}
+
+
+# version: 0.0.1
+class RgbMatrixModes(IntEnum):
+{% for id, effect in specs.rgb_matrix.effects | dictsort %}
+    {{ effect.key }} = {{ id }}
+{% endfor %}
+
+# noqa: W391

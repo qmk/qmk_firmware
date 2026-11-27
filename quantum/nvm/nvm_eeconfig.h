@@ -96,6 +96,9 @@ void                              nvm_eeconfig_update_connection(const connectio
 bool nvm_eeconfig_read_handedness(void);
 void nvm_eeconfig_update_handedness(bool val);
 
+uint32_t nvm_eeconfig_read_keymap_hash(void);
+void     nvm_eeconfig_update_keymap_hash(uint32_t val);
+
 #if (EECONFIG_KB_DATA_SIZE) > 0
 bool     nvm_eeconfig_is_kb_datablock_valid(void);
 uint32_t nvm_eeconfig_read_kb_datablock(void *data, uint32_t offset, uint32_t length);
