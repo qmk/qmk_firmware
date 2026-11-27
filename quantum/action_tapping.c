@@ -646,6 +646,19 @@ bool process_tapping(keyrecord_t *keyp) {
     }
 }
 
+/** \brief Waiting buffer has release
+ *
+ * Returns true if a release of `key` is still waiting in the buffer.
+ */
+bool waiting_buffer_has_release(keypos_t key) {
+    for (uint8_t i = waiting_buffer_tail; i != waiting_buffer_head; i = (i + 1) % WAITING_BUFFER_SIZE) {
+        if (!waiting_buffer[i].event.pressed && KEYEQ(key, waiting_buffer[i].event.key)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /** \brief Waiting buffer enq
  *
  * FIXME: Needs docs
