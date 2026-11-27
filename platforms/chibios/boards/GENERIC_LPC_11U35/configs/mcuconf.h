@@ -1,0 +1,27 @@
+// Copyright 2026 Michael Loukeris (@milouk)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
+#pragma once
+
+#include "nvic.h"
+
+#define LPC11U35_MCUCONF
+
+/* 12 MHz crystal, PLL to 48 MHz. USB needs both. */
+#define LPC_USE_SYSOSC TRUE
+#define LPC_SYSOSC_FREQUENCY 12000000UL
+#define LPC_SYSPLLCLKSEL SYSCON_SYSPLLCLKSEL_SYSOSC
+#define LPC_MAINCLKSEL SYSCON_MAINCLKSEL_PLLOUT
+#define LPC_SYSPLL_MULT 4
+#define LPC_SYSPLL_PDIV 4
+#define LPC_SYS_DIV 1
+
+#define LPC_USB_USE_USB1 TRUE
+#define LPC_USB_USB1_IRQ_PRIORITY 3
+
+#define LPC_SPI_USE_SPI1 FALSE
+#define LPC_SPI_SPI1_IRQ_PRIORITY 2
+
+#define LPC_UART_USE_UART1 FALSE
+#define LPC_UART_UART1_IRQ_PRIORITY 1
+#define LPC_SERIAL_USE_UART1 FALSE
