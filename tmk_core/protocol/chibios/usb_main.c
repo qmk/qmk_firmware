@@ -156,7 +156,6 @@ void usb_event_queue_task(void) {
                 break;
             case USB_EVENT_RESET:
                 usb_device_state_set_reset();
-                usb_device_state_set_protocol(USB_PROTOCOL_REPORT);
                 break;
             default:
                 // Nothing to do, we don't handle it.
@@ -185,11 +184,15 @@ static void usb_event_cb(USBDriver *usbp, usbevent_t event) {
             }
             usb_event_queue_enqueue(USB_EVENT_CONFIGURED);
             return;
+        case USB_EVENT_RESET:
+            /* The protocol goes back to its default here and not when the
+             * queued event is processed: a SET_PROTOCOL request that the
+             * host sends in the meantime would be undone by it. */
+            usb_device_state_set_protocol(USB_PROTOCOL_REPORT);
+            /* Falls into.*/
         case USB_EVENT_SUSPEND:
             /* Falls into.*/
         case USB_EVENT_UNCONFIGURED:
-            /* Falls into.*/
-        case USB_EVENT_RESET:
             usb_event_queue_enqueue(event);
             chSysLockFromISR();
             for (int i = 0; i < USB_ENDPOINT_IN_COUNT; i++) {
