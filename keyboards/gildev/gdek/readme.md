@@ -12,11 +12,11 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb gildev/gdek -km default
+    make gildev/gdek:default
 
 Flashing example for this keyboard:
 
-    qmk flash -kb gildev/gdek -km default
+    make gildev/gdek:default:flash
 
 ## Bootloader
 
