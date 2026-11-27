@@ -22,6 +22,7 @@
 #include "test_keymap_key.hpp"
 
 using testing::_;
+using testing::AtMost;
 using testing::InSequence;
 
 class DefaultTapHold : public TestFixture {};
@@ -222,5 +223,78 @@ TEST_F(DefaultTapHold, tap_and_hold_mod_tap_hold_key) {
     EXPECT_EMPTY_REPORT(driver);
     mod_tap_hold_key.release();
     run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Release of a modifier-only key is retained while a mod-tap is unsettled. In
+// "KC_MEH down, LCTL_T(KC_A) down, KC_MEH up, LCTL_T(KC_A) up", nothing is sent
+// when KC_MEH is released; the tap of LCTL_T(KC_A) is typed with Meh still held
+// (Ctrl+Shift+Alt+A).
+TEST_F(DefaultTapHold, modifier_release_is_retained_while_mt_is_unsettled) {
+    TestDriver driver;
+    InSequence s;
+    auto       meh_key     = KeymapKey(0, 4, 3, KC_MEH);
+    auto       mod_tap_key = KeymapKey(0, 0, 1, LCTL_T(KC_A));
+    set_keymap({meh_key, mod_tap_key});
+
+    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT, KC_LALT));
+    meh_key.press();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), MOD_BIT_LCTRL | MOD_BIT_LSHIFT | MOD_BIT_LALT);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key.press();
+    idle_for(10);
+    meh_key.release();
+    idle_for(10);
+    // Meh is retained even though KC_MEH was released.
+    EXPECT_EQ(get_mods(), MOD_BIT_LCTRL | MOD_BIT_LSHIFT | MOD_BIT_LALT);
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_LCTL, KC_LSFT, KC_LALT, KC_A));
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0);
+    VERIFY_AND_CLEAR(driver);
+}
+
+// Release of a (non-modifier) key is forwarded while a mod-tap is unsettled. In
+// "S(KC_1) down, LCTL_T(KC_A) down, S(KC_1) up, LCTL_T(KC_A) up", the "!" is
+// released as soon as its key is, so it cannot auto-repeat on the host, and the
+// mod-tap key is tapped afterwards.
+TEST_F(DefaultTapHold, key_release_is_forwarded_while_mt_is_unsettled) {
+    TestDriver driver;
+    InSequence s;
+    auto       shifted_key = KeymapKey(0, 1, 0, S(KC_1));
+    auto       mod_tap_key = KeymapKey(0, 0, 1, LCTL_T(KC_A));
+    set_keymap({shifted_key, mod_tap_key});
+
+    EXPECT_REPORT(driver, (KC_LSFT));
+    EXPECT_REPORT(driver, (KC_LSFT, KC_1));
+    shifted_key.press();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_NO_REPORT(driver);
+    mod_tap_key.press();
+    idle_for(10);
+    VERIFY_AND_CLEAR(driver);
+
+    // shifted_key release is sent immediately.
+    EXPECT_REPORT(driver, (KC_LSFT)).Times(AtMost(1));
+    EXPECT_EMPTY_REPORT(driver);
+    shifted_key.release();
+    run_one_scan_loop();
+    VERIFY_AND_CLEAR(driver);
+
+    EXPECT_REPORT(driver, (KC_A));
+    EXPECT_EMPTY_REPORT(driver);
+    idle_for(10);
+    mod_tap_key.release();
+    run_one_scan_loop();
+    EXPECT_EQ(get_mods(), 0);
     VERIFY_AND_CLEAR(driver);
 }
