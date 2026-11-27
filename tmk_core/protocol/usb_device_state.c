@@ -26,6 +26,9 @@
 
 static struct usb_device_state usb_device_state = {.idle_rate = 0, .leds = 0, .protocol = USB_PROTOCOL_REPORT, .configure_state = USB_DEVICE_STATE_NO_INIT};
 
+// Holds the current suspend state of the keyboard's USB connection.
+static bool usb_suspended = false;
+
 __attribute__((weak)) void notify_usb_device_state_change_kb(struct usb_device_state usb_device_state) {
     notify_usb_device_state_change_user(usb_device_state);
 }
@@ -33,6 +36,12 @@ __attribute__((weak)) void notify_usb_device_state_change_kb(struct usb_device_s
 __attribute__((weak)) void notify_usb_device_state_change_user(struct usb_device_state usb_device_state) {}
 
 static void notify_usb_device_state_change(struct usb_device_state usb_device_state) {
+    // Update current USB connection status depending on what is currently
+    // detected, this is needed to know in which state the keyboard's USB
+    // connection is.
+    usb_suspended = 
+	    (usb_device_state.configure_state == USB_DEVICE_STATE_SUSPEND);
+
 #if defined(HAPTIC_ENABLE) && HAPTIC_OFF_IN_LOW_POWER
     haptic_notify_usb_device_state_change();
 #endif
@@ -71,6 +80,14 @@ void usb_device_state_init(void) {
 
 inline usb_configure_state_t usb_device_state_get_configure_state(void) {
     return usb_device_state.configure_state;
+}
+
+bool usb_device_state_is_suspended(void) {
+    return usb_suspended;
+}
+
+void usb_device_state_remote_wakeup_sent(void) {
+    usb_suspended = false;
 }
 
 void usb_device_state_set_protocol(usb_hid_protocol_t protocol) {
