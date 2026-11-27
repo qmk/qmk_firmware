@@ -11,10 +11,15 @@ _qmk_install_prepare() {
 _qmk_install() {
     echo "Installing dependencies"
 
+    local arm_libc=libnewlib-arm-none-eabi
+    if ! sudo apt-get install --simulate --quiet --yes gcc-arm-none-eabi libnewlib-arm-none-eabi > /dev/null 2>&1; then
+        arm_libc=picolibc-arm-none-eabi
+    fi
+
     sudo apt-get --quiet --yes install \
         build-essential clang-format diffutils gcc git unzip wget zip \
         python3-pip binutils-avr gcc-avr avr-libc binutils-arm-none-eabi \
-        gcc-arm-none-eabi libnewlib-arm-none-eabi avrdude dfu-programmer \
+        gcc-arm-none-eabi "$arm_libc" avrdude dfu-programmer \
         dfu-util teensy-loader-cli libhidapi-hidraw0 libusb-dev
 
     # RISC-V toolchains with picolibc support are only available for distributions based on Debian 11+.

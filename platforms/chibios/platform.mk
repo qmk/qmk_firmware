@@ -422,9 +422,15 @@ else
     # ARM toolchain specific configuration
     TOOLCHAIN ?= arm-none-eabi-
 
-    # Toolchain specific Linker flags
-    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning \
-                        --specs=nano.specs
+    # Toolchain specific flags
+    TOOLCHAIN_LDFLAGS = -Wl,--no-wchar-size-warning
+    ifeq ($(shell $(TOOLCHAIN)gcc --specs=nano.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
+        TOOLCHAIN_LDFLAGS += --specs=nano.specs
+    else ifeq ($(shell $(TOOLCHAIN)gcc --specs=picolibc.specs -E - 2>/dev/null >/dev/null </dev/null ; echo $$?),0)
+        TOOLCHAIN_CFLAGS = --specs=picolibc.specs
+        TOOLCHAIN_LDFLAGS += -T $(PLATFORM_COMMON_DIR)/picolibc.ld
+        OPT_DEFS += -DUSE_PICOLIBC
+    endif
 
     # MCU architecture flags
     MCUFLAGS = -mcpu=$(MCU) \
