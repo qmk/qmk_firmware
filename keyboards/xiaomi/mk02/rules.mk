@@ -1,6 +1,0 @@
-# custom bootloader
-BOARD = ST_STM32F072B_DISCOVERY
-MCU_LDSCRIPT = STM32F072_0x2000_bootloader
-
-DFU_ARGS = -d 0483:df11 -a 0 -s 0x08002000:leave
-DFU_SUFFIX_ARGS = -v 0483 -p DF11

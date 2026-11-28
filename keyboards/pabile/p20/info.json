@@ -1,9 +1,0 @@
-{
-    "manufacturer": "Pabile",
-    "maintainer": "pabile",
-    "usb": {
-        "vid": "0x6666",
-        "pid": "0x6667"
-    },
-    "community_layouts": ["ortho_5x4", "numpad_5x4"]
-}

@@ -1,1 +1,0 @@
-AUDIO_SUPPORTED = no

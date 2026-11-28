@@ -1,9 +1,0 @@
-{
-    "keyboard_name": "DZ65RGB",
-    "manufacturer": "DZTECH",
-    "maintainer": "dztech",
-    "usb": {
-        "vid": "0x445A"
-    },
-    "community_layouts": ["65_ansi"]
-}

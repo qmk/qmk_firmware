@@ -1,8 +1,0 @@
-{
-    "manufacturer": "Bastard Keyboards",
-    "maintainer": "Quentin Lebastard",
-    "url": "https://bastardkb.com",
-    "usb": {
-        "vid": "0xA8F8"
-    }
-}

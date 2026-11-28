@@ -1,9 +1,0 @@
-{
-    "manufacturer": "Team.Mechlovin",
-    "maintainer": "mechlovin",
-    "usb": {
-        "vid": "0x4D4C",
-        "device_version": "0.0.1"
-    },
-    "community_layouts": ["alice", "alice_split_bs"]
-}
