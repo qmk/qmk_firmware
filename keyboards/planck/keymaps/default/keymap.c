@@ -252,7 +252,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
       if (clockwise) {
         muse_tempo+=1;
       } else {
-        muse_tempo-=1;
+        muse_tempo = muse_tempo > 1 ? muse_tempo - 1 : 1;
       }
     }
   } else {
