@@ -2,7 +2,7 @@
 
 ![Planck EZ](https://raw.githubusercontent.com/noroadsleft/qmk_images/master/keyboards/planck/ez/neat-planck-banner.png)
 
-A variant of the Planck featuring a 2u spacebar and per-key RGB backlighting.
+A variant of the Planck featuring a 2u spacebar.
 
 Keyboard Maintainer: [Jack Humbert](https://github.com/jackhumbert), [Drashna Jael're](https://github.com/drashna)
 Hardware Supported: Planck EZ  
@@ -14,11 +14,10 @@ Make example for the base variant (after setting up your build environment):
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
-## Planck EZ Configuration (from Oryx)
+## Planck EZ Configuration
 
-To enable the features from Oryx (ZSA's Configurator), either compile the the `oryx` keymap, or add `#define ORYX_CONFIGURATOR` to your `config.h` file.  
-
-This enables the front Indicator LEDs, and the `TOGGLE_LAYER_COLOR`, and `LED_LEVEL` keycodes.  The `TOGGLE_LAYER_COLOR` keycode toggles the customized LED map configured on Oryx. The `LED_LEVEL` cycles through the brightness levels for the front "teeth" LEDs.
+This checkout provides the `base` variant and a fork-specific `custom` keymap.
+The former Oryx and Glow variants are not included in this checkout.
 
 ### Indicator LEDs
 
