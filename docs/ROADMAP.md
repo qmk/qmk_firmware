@@ -5,6 +5,9 @@
 | Project ID | Outcome | Status | Dependencies | Next approval |
 | --- | --- | --- | --- | --- |
 | `qmk-docs` | Add checkout-specific instructions and document custom keymaps/build commands | Complete | None | None |
+| `qmk-validation` | Automate fixture and keymap regression checks | Proposed | Existing QMK CLI/Python test environment | Select CI and test scope |
+| `planck-ez-docs` | Document supported Planck EZ variants and keymap features accurately | Proposed | Existing base/custom variant sources | Validate documented variants with a build |
+| `tempo-safety` | Add bounds and regression coverage for Muse tempo controls | Proposed | Default Planck keymap tests | Add encoder and scan-loop coverage |
 
 ## Repository documentation setup
 
