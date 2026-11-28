@@ -10,17 +10,11 @@ A customizable 65% Alice layout keyboard.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make keychron/q8/ansi:default
     make keychron/q8/ansi_encoder:default
-    make keychron/q8/iso:default
-    make keychron/q8/iso_encoder:default
 
 Flashing example for this keyboard:
 
-    make keychron/q8/ansi:default:flash
     make keychron/q8/ansi_encoder:default:flash
-    make keychron/q8/iso:default:flash
-    make keychron/q8/iso_encoder:default:flash
 
 **Reset Key**: Hold down the key located at *K00*, commonly programmed as *Esc* while plugging in the keyboard.
 

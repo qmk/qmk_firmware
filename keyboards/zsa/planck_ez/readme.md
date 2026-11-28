@@ -8,14 +8,10 @@ Keyboard Maintainer: [Jack Humbert](https://github.com/jackhumbert), [Drashna Ja
 Hardware Supported: Planck EZ  
 Hardware Availability: [ZSA](https://www.zsa.io/planck/) (discontinued)
 
-Make example for this keyboard (after setting up your build environment):
+Make example for the base variant (after setting up your build environment):
 
     make zsa/planck_ez/base:default
 
-For the per key RGB version of this keyboard, you want to use the "glow" subdirectory. For example: 
-
-    make zsa/planck_ez/glow:default
-    
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Planck EZ Configuration (from Oryx)

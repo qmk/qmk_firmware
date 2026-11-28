@@ -20,6 +20,7 @@
 */
 
 #include QMK_KEYBOARD_H
+#include "NickGetka.h"
 
 enum planck_layers {
   _BASE,
@@ -173,26 +174,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-// Shift overrides match QMK keycodes, not output characters. For example,
-// Shift + KC_SLSH does not trigger the override for the dedicated KC_QUES key.
-// Symbols below assume a US host layout; other held modifiers still apply.
-  const key_override_t dot_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DOT, KC_COMM);                                    // Shift + . -> ,
-  const key_override_t comma_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_COMM, KC_EXLM);                                 // Shift + , -> !
-  const key_override_t ques_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_QUES, KC_SLASH);                                // Shift + ? -> /
-const key_override_t angle_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_ANGLE_BRACKET, KC_RIGHT_ANGLE_BRACKET);    // Shift + < -> >
-const key_override_t curly_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_CURLY_BRACE, KC_RIGHT_CURLY_BRACE);       // Shift + { -> }
-const key_override_t paren_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_PAREN, KC_RIGHT_PAREN);                    // Shift + ( -> )
-const key_override_t bracket_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_BRACKET, KC_RIGHT_BRACKET);             // Shift + [ -> ]
-
-// This globally defines all key overrides to be used
-const key_override_t *key_overrides[] = {
-    &dot_key_override,
-    &comma_key_override,
-    &angle_key_override,
-    &curly_key_override,
-    &paren_key_override,
-    &bracket_key_override,
-    &ques_key_override,
-    NULL // Null terminate the array of overrides!
-};

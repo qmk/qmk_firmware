@@ -2,7 +2,7 @@
 
 ![ErgoDox EZ](http://www.coolthings.com/wp-content/uploads/2017/05/ergodox-ez-2.jpg)
 
-The ErgoDox EZ is a mass produced version of the original ErgoDox keyboard, with optional support for RGB Light (Shine) or RGB Matrix (Glow).
+The ErgoDox EZ is a mass produced version of the original ErgoDox keyboard. This checkout supports the base variant.
 
 * Keyboard Maintainer: [ZSA Technology Labs Inc](https://github.com/zsa), Firmware maintained by [drashna](https://github.com/drashna)
 * Hardware Supported: Original ErgoDox, ErgoDox EZ
@@ -10,12 +10,7 @@ The ErgoDox EZ is a mass produced version of the original ErgoDox keyboard, with
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ergodox_ez:default:flash
-    
-For the ErgoDox EZ Shine, and Glow, use one of the following: 
-
-    make ergodox_ez/shine:default:flash
-    make ergodox_ez/glow:default:flash
+    make ergodox_ez/base:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 

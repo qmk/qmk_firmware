@@ -8,7 +8,7 @@
     /* This list of aliases is for testing purposes -- ensures "linked list" recursive traversal works correctly. */
     "_test_a": { "target": "_test_b" },
     "_test_b": { "target": "_test_c" },
-    "_test_c": { "target": "planck/rev6" },
+    "_test_c": { "target": "planck/rev6_drop" },
 
     /* The main list of aliases for moved keyboards within QMK. */
     "2_milk": {
@@ -625,9 +625,6 @@
     },
     "planck/ez/base": {
         "target": "zsa/planck_ez/base"
-    },
-    "planck/ez/glow": {
-        "target": "zsa/planck_ez/glow"
     },
     "ploopyco/trackball": {
         "target": "ploopyco/trackball/rev1_005"

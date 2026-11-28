@@ -18,14 +18,50 @@ You can request changes by making a fork and opening a [pull request](https://gi
 
 ## Supported Keyboards
 
-* [Planck](/keyboards/planck/)
-* [Preonic](/keyboards/preonic/)
-* [ErgoDox EZ](/keyboards/ergodox_ez/)
-* [Clueboard](/keyboards/clueboard/)
-* [Cluepad](/keyboards/clueboard/17/)
-* [Atreus](/keyboards/atreus/)
+* [Planck rev6 Drop](/keyboards/planck/rev6_drop/)
+* [Planck EZ base](/keyboards/zsa/planck_ez/base/)
+* [ErgoDox EZ base](/keyboards/ergodox_ez/base/)
+* [Keychron Q8 ANSI encoder](/keyboards/keychron/q8/ansi_encoder/)
 
-The project also includes community support for [lots of other keyboards](/keyboards/).
+## NickGetka Custom Keymaps
+
+This fork includes personal keymaps for the following keyboards:
+
+* Planck rev6 Drop (`planck/rev6_drop`): [keymap and layout notes](/keyboards/planck/keymaps/NickGetka/)
+* Planck EZ (`zsa/planck_ez/base`): [keymap and layout notes](/keyboards/zsa/planck_ez/keymaps/NickGetka/)
+* ErgoDox EZ (`ergodox_ez/base`): `keyboards/ergodox_ez/keymaps/NickGetka/`
+* Keychron Q8 ANSI encoder (`keychron/q8/ansi_encoder`): `keyboards/keychron/q8/ansi_encoder/keymaps/NickGetka/`
+
+The Planck and Planck EZ keymaps use LOWER and RAISE layers, with ADJUST active
+when both are held. They provide symbol, number, navigation, media, and
+brightness keys, plus shift-sensitive symbol overrides. The Planck EZ also
+uses its front indicators for layer status and enables startup audio; the
+Planck rev6 Drop uses layer indicators independent of underglow.
+
+The ErgoDox EZ keymap uses the same four-layer arrangement and symbol
+overrides. The Keychron Q8 keymap provides Mac and Windows base layers,
+transparent function layers, and a volume encoder. The fork also
+removes upstream keyboard definitions that are not used in this firmware
+checkout.
+
+### Build the custom keymaps
+
+Run these commands from the repository root with the [QMK CLI and build
+environment installed](https://docs.qmk.fm/#/newbs_getting_started). Each
+command compiles one target:
+
+```sh
+qmk compile -kb planck/rev6_drop -km NickGetka
+qmk compile -kb zsa/planck_ez/base -km NickGetka
+qmk compile -kb ergodox_ez/base -km NickGetka
+qmk compile -kb keychron/q8/ansi_encoder -km NickGetka
+```
+
+To compile and flash a keyboard, use `qmk flash -kb <keyboard> -km NickGetka`
+with the appropriate target from the list above and the keyboard in its
+bootloader mode. See the [QMK flashing guide](/docs/flashing.md) for
+bootloader-specific instructions. Keymap source and options are under each
+target's `keymaps/NickGetka/` directory.
 
 ## Maintainers
 
