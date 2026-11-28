@@ -26,14 +26,7 @@ enum planck_layers {
 };
 
 
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  PAREN,
-  BRACK,
-  ANGLE,
-  SQUAR,
-  DOT,
-};
+#include "overrides.h"
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -44,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |0000000000000000000
+ * | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -65,15 +58,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |PgDown| Left | Down |Right |      |      |  *   | =/+  | (/)  | {/}  |  |   |   `  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |  @   |  %   |  #   | </>  | ./,  |  &   |      |
+ * |      |      |      |      |      |  !   |  %   |  #   | </>  | ,/.  |  &   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |ALeft | Spot |Finder|ARight|
  * `-------------------------------------------------------- ---------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_PGUP,   KC_HOME, KC_UP,   KC_END , _______, _______, S(KC_6), KC_MINS, SQUAR,     S(KC_4),     S(KC_1),        KC_DEL,
-    KC_PGDOWN, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, S(KC_8), KC_EQL,  PAREN,     BRACK,       S(KC_BSLS),     KC_GRAVE,
-    _______,   _______, _______, _______, _______, S(KC_1), S(KC_5), S(KC_3), ANGLE,     DOT,         S(KC_7),        _______,
+    KC_PGUP,   KC_HOME, KC_UP,   KC_END , _______, _______, S(KC_6), KC_MINS, KC_LBRC,   S(KC_4),     S(KC_1),        KC_DEL,
+    KC_PGDN,   KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, S(KC_8), KC_EQL,  KC_LPRN,   KC_LCBR,     S(KC_BSLS),     KC_GRAVE,
+    _______,   _______, _______, _______, _______, S(KC_1), S(KC_5), S(KC_3), KC_LABK,   KC_COMM,     S(KC_7),        _______,
     _______,   _______, _______, _______, _______, _______, _______, _______, G(KC_TAB), G(KC_SPACE), G(A(KC_SPACE)), SGUI(KC_TAB)
 ),
 
@@ -83,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |SFind | Find | Cut  | Copy |Paste |      |      |   4  |   5  |   6  |  0   |  *   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |   7  |   8  |   9  |  +   | ./,  |
+ * |      |      |      |      |      |      |      |   7  |   8  |   9  |  +   | ,/.  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |DLeft | DUp  |DDown |DRight|
  * `-----------------------------------------------------------------------------------'
@@ -91,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_planck_grid(
     _______, _______, _______, _______, _______, _______, _______,  KC_1,    KC_2,          KC_3,        KC_PMNS,        KC_DEL,
     C(KC_P), C(KC_F), C(KC_X), C(KC_C), C(KC_P), _______, _______,  KC_4,    KC_5,          KC_6,        KC_0,           KC_PAST,
-    _______, _______, _______, _______, _______, _______, _______,  KC_7,    KC_8,          KC_9,        KC_PPLS,        DOT,
+    _______, _______, _______, _______, _______, _______, _______,  KC_7,    KC_8,          KC_9,        KC_PPLS,        KC_COMM,
     _______, _______, _______, _______, _______, _______, _______,  _______, LCTL(KC_LEFT), LCTL(KC_UP), LCTL(KC_DOWN),  LCTL(KC_RIGHT)
 ),
 /* Adjust (Lower + Raise)
@@ -116,83 +109,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case PAREN:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_LSFT);
-          register_code(KC_0);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_9);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case BRACK:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_LSFT);
-          register_code(KC_RBRACKET);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_LBRACKET);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case ANGLE:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_LSFT);
-          register_code(KC_DOT);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_COMMA);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case SQUAR:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_RBRC);
-        } else {
-          register_code(KC_RBRC);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case DOT:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_DOT);
-        } else {
-          register_code(KC_COMMA);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-  }
-  return true;
 }

@@ -25,14 +25,6 @@ enum planck_layers {
   _ADJUST
 };
 
-enum planck_keycodes {
-  PAREN,
-  BRACK,
-  ANGLE,
-  SQUARE,
-  DOT,
-};
-
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
@@ -115,76 +107,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case PAREN:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_LSFT);
-          register_code(KC_0);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_9);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case BRACK:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_LSFT);
-          register_code(KC_RBRACKET);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_LBRACKET);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case ANGLE:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_LSFT);
-          register_code(KC_DOT);
-        } else {
-          register_code(KC_LSFT);
-          register_code(KC_COMMA);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case SQUARE:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_RBRACKET);
-        } else {
-          register_code(KC_LBRACKET);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-    case DOT:
-      if (record->event.pressed) {
-        if (keyboard_report->mods & MOD_BIT(KC_LSFT) || keyboard_report->mods & MOD_BIT(KC_RSFT)){
-          clear_mods();
-          register_code(KC_DOT);
-        } else {
-          register_code(KC_COMMA);
-        }
-        clear_keyboard();
-      }
-      return false;
-      break;
-  }
-  return true;
 }

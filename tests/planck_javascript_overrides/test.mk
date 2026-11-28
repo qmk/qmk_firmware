@@ -1,0 +1,2 @@
+KEY_OVERRIDE_ENABLE = yes
+INTROSPECTION_KEYMAP_C = test_keymap.c

@@ -44,6 +44,10 @@ transparent function layers, and a volume encoder. The fork also
 removes upstream keyboard definitions that are not used in this firmware
 checkout.
 
+The Planck rev6 Drop also has the migrated `legacy_default`, `javascript`, and
+`writing` keymaps under `keyboards/planck/keymaps/`. Build them by replacing
+`custom` in the Planck command below with the desired keymap name.
+
 ### Build the custom keymaps
 
 Run these commands from the repository root with the [QMK CLI and build
