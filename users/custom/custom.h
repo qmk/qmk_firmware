@@ -13,14 +13,14 @@ const key_override_t curly_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_
 const key_override_t paren_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_PAREN, KC_RIGHT_PAREN);
 const key_override_t bracket_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_LEFT_BRACKET, KC_RIGHT_BRACKET);
 
-#ifdef NICKGETKA_SLASH_OVERRIDE
+#ifdef CUSTOM_SLASH_OVERRIDE
 const key_override_t slash_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_SLASH, KC_BACKSLASH);
 #endif
 
 const key_override_t *key_overrides[] = {
     &dot_key_override,
     &comma_key_override,
-#ifdef NICKGETKA_SLASH_OVERRIDE
+#ifdef CUSTOM_SLASH_OVERRIDE
     &slash_key_override,
 #endif
     &angle_key_override,

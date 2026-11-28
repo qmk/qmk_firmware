@@ -11,7 +11,7 @@
 
 - QMK is a C-based keyboard firmware project with keyboard definitions under
   `keyboards/`; keymaps are selected with the QMK CLI.
-- This fork contains NickGetka keymaps for:
+- This fork contains custom keymaps for:
   - Planck rev6 Drop: `planck/rev6_drop`
   - Planck EZ: `zsa/planck_ez/base`
   - ErgoDox EZ: `ergodox_ez/base`
@@ -22,7 +22,7 @@
   symbol overrides, and keyboard-specific indicator/audio behavior.
 - The Q8 keymap provides Mac and Windows base layers, transparent function
   layers, and a volume encoder.
-- Shared NickGetka userspace rules enable key overrides for all four keymaps;
+- Shared custom userspace rules enable key overrides for all four keymaps;
   the Q8 keymap also enables the encoder map.
 
 ## Environment baseline

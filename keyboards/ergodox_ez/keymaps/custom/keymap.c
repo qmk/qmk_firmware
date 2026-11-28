@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
 
 #include QMK_KEYBOARD_H
-#include "NickGetka.h"
+#include "custom.h"
 
-enum nickgetka_layers {
+enum custom_layers {
     _BASE,
     _LOWER,
     _RAISE,

@@ -1,4 +1,4 @@
-# NickGetka Planck Layout
+# Custom Planck Layout
 
 ## Quick reference
 

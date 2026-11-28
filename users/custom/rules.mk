@@ -1,0 +1,5 @@
+KEY_OVERRIDE_ENABLE = yes
+
+ifeq ($(strip $(CUSTOM_SLASH_OVERRIDE)),yes)
+    OPT_DEFS += -DCUSTOM_SLASH_OVERRIDE
+endif

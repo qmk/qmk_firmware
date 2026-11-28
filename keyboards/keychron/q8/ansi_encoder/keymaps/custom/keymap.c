@@ -15,7 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "NickGetka.h"
+#include "custom.h"
 
 // clang-format off
 

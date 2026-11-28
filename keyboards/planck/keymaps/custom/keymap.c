@@ -15,12 +15,12 @@
  */
 
 /*
-* qmk compile -kb planck/ez/base -km NickGetka
-* qmk flash -kb planck/ez/base -km NickGetka
+* qmk compile -kb planck/rev6_drop -km custom
+* qmk flash -kb planck/rev6_drop -km custom
 */
 
 #include QMK_KEYBOARD_H
-#include "NickGetka.h"
+#include "custom.h"
 
 enum planck_layers {
   _BASE,
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,  KC_Q,       KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_LCTL, KC_A,       KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,       KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    KC_ESC,  C(KC_LALT), KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
+    KC_ESC,  LCS_T(KC_NO), KC_LALT, KC_LGUI, LOWER, KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT
 ),
 
 
@@ -146,8 +146,6 @@ const rgblight_segment_t *const PROGMEM indicator_layers[] = RGBLIGHT_LAYERS_LIS
 
 layer_state_t layer_state_set_user(layer_state_t state) {
   state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-  planck_ez_left_led_level(layer_state_cmp(state, _LOWER) ? 255 : 0);
-  planck_ez_right_led_level(layer_state_cmp(state, _RAISE) ? 255 : 0);
 #if defined(KEYBOARD_planck_rev6_drop) && defined(RGBLIGHT_ENABLE)
   rgblight_set_layer_state(0, layer_state_cmp(state, _LOWER));
   rgblight_set_layer_state(1, layer_state_cmp(state, _RAISE));
@@ -156,11 +154,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 void keyboard_post_init_user(void) {
-#ifdef AUDIO_ENABLE
-  if (!audio_is_on()) {
-    audio_toggle();
-  }
-#endif
 #ifdef RGBLIGHT_ENABLE
 #    ifdef KEYBOARD_planck_rev6_drop
   rgblight_layers = indicator_layers;

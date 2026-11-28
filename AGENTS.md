@@ -3,7 +3,7 @@
 ## Purpose
 
 This repository is a QMK Firmware fork. Its local customizations include
-NickGetka keymaps for the Planck rev6 Drop, Planck EZ, ErgoDox EZ, and Keychron
+custom keymaps for the Planck rev6 Drop, Planck EZ, ErgoDox EZ, and Keychron
 Q8 ANSI encoder. The root [README](./readme.md) documents those keymaps and
 their build commands.
 
@@ -33,10 +33,10 @@ Install the QMK CLI and platform build dependencies using the official
 repository root, compile the local keymaps with:
 
 ```sh
-qmk compile -kb planck/rev6_drop -km NickGetka
-qmk compile -kb zsa/planck_ez/base -km NickGetka
-qmk compile -kb ergodox_ez/base -km NickGetka
-qmk compile -kb keychron/q8/ansi_encoder -km NickGetka
+qmk compile -kb planck/rev6_drop -km custom
+qmk compile -kb zsa/planck_ez/base -km custom
+qmk compile -kb ergodox_ez/base -km custom
+qmk compile -kb keychron/q8/ansi_encoder -km custom
 ```
 
 ## Project documentation

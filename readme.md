@@ -23,14 +23,14 @@ You can request changes by making a fork and opening a [pull request](https://gi
 * [ErgoDox EZ base](/keyboards/ergodox_ez/base/)
 * [Keychron Q8 ANSI encoder](/keyboards/keychron/q8/ansi_encoder/)
 
-## NickGetka Custom Keymaps
+## Custom Keymaps
 
 This fork includes personal keymaps for the following keyboards:
 
-* Planck rev6 Drop (`planck/rev6_drop`): [keymap and layout notes](/keyboards/planck/keymaps/NickGetka/)
-* Planck EZ (`zsa/planck_ez/base`): [keymap and layout notes](/keyboards/zsa/planck_ez/keymaps/NickGetka/)
-* ErgoDox EZ (`ergodox_ez/base`): `keyboards/ergodox_ez/keymaps/NickGetka/`
-* Keychron Q8 ANSI encoder (`keychron/q8/ansi_encoder`): `keyboards/keychron/q8/ansi_encoder/keymaps/NickGetka/`
+* Planck rev6 Drop (`planck/rev6_drop`): [keymap and layout notes](/keyboards/planck/keymaps/custom/)
+* Planck EZ (`zsa/planck_ez/base`): [keymap and layout notes](/keyboards/zsa/planck_ez/keymaps/custom/)
+* ErgoDox EZ (`ergodox_ez/base`): `keyboards/ergodox_ez/keymaps/custom/`
+* Keychron Q8 ANSI encoder (`keychron/q8/ansi_encoder`): `keyboards/keychron/q8/ansi_encoder/keymaps/custom/`
 
 The Planck and Planck EZ keymaps use LOWER and RAISE layers, with ADJUST active
 when both are held. They provide symbol, number, navigation, media, and
@@ -51,17 +51,17 @@ environment installed](https://docs.qmk.fm/#/newbs_getting_started). Each
 command compiles one target:
 
 ```sh
-qmk compile -kb planck/rev6_drop -km NickGetka
-qmk compile -kb zsa/planck_ez/base -km NickGetka
-qmk compile -kb ergodox_ez/base -km NickGetka
-qmk compile -kb keychron/q8/ansi_encoder -km NickGetka
+qmk compile -kb planck/rev6_drop -km custom
+qmk compile -kb zsa/planck_ez/base -km custom
+qmk compile -kb ergodox_ez/base -km custom
+qmk compile -kb keychron/q8/ansi_encoder -km custom
 ```
 
-To compile and flash a keyboard, use `qmk flash -kb <keyboard> -km NickGetka`
+To compile and flash a keyboard, use `qmk flash -kb <keyboard> -km custom`
 with the appropriate target from the list above and the keyboard in its
 bootloader mode. See the [QMK flashing guide](/docs/flashing.md) for
 bootloader-specific instructions. Keymap source and options are under each
-target's `keymaps/NickGetka/` directory.
+target's `keymaps/custom/` directory.
 
 ## Maintainers
 
